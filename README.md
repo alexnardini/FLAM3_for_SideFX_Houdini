@@ -2,7 +2,7 @@
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/F_01_logo_gh.jpg)
 ## The Fractal Flame Algorithm for SideFX Houdini
 
-[![FLAM3 for Houdini](https://github.com/alexnardini/FLAM3/blob/main/img/F_vimeo_img_preview.jpg)](https://vimeo.com/506501855 "FLAM3 for Houdini - Click to Watch!")
+[![FLAM3 for Houdini](https://github.com/alexnardini/FLAM3/blob/main/img/F_vimeo_img.jpg)](https://vimeo.com/506501855 "FLAM3 for Houdini - Click to Watch!")
 `Whatch "F", a little video reel of Flames created during the development of FLAM3 for SideFX Houdini.`
 
 ## Based on the original "The Fractal Flame Algorithm: FLAM3".
