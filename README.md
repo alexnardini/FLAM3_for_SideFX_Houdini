@@ -19,7 +19,7 @@ Higly inspired by Apophysis and its workflow design,
 it is a one to one match with it if used within the same limits.
 Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same result.
-Downolad Apophysis 7x here: [Apophysis 7x](https://sourceforge.net/projects/apophysis7x/)
+Downolad Apophysis 7x here: [Apophysis 7x download](https://sourceforge.net/projects/apophysis7x/)
 
 ## Future additions
 
