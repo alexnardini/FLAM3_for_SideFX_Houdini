@@ -13,7 +13,7 @@ Some nice addition to this would be:
 
 - Xaos
 
-- Ability to load and save ".flame" file format.
+- Ability to load and save ".flame" file format. (stripping out whats allowed)
 
 - Ability to Dublicate iterators ( probably easy to add with a python call back script)
 
