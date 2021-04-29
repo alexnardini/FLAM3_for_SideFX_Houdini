@@ -33,7 +33,8 @@ Some nice addition to this would be:
 - *Ability to dublicate iterators ( probably easy to add with a python call back script)*
 
 - *All python addition to improve and make the workflow more enjoable.*
-  *Ability to copy paste parameters from one iterator to the other and simlar things nice to have.*
+  
+- *Ability to copy paste parameters from one iterator to the other and simlar things nice to have.*
   
 - *Adding the Triangle handles to drive the affine coefficient would be nice, too.*
   
