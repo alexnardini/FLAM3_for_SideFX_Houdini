@@ -26,21 +26,21 @@ Downolad Apophysis 7x here: [Apophysis 7x download](https://sourceforge.net/proj
 
 Some nice addition to this would be:
 
-- *Xaos*
+- **Xaos**
 
-- *Ability to load and save ".flame" file format. (stripping out whats allowed)*
+- **Ability to load and save ".flame" file format. (stripping out whats allowed)**
 
-- *Ability to dublicate iterators ( probably easy to add with a python call back script)*
+- **Ability to dublicate iterators ( probably easy to add with a python call back script)**
 
-- *All python addition to improve and make the workflow more enjoable.*
+- **All python addition to improve and make the workflow more enjoable.**
   
-- *Ability to copy paste parameters from one iterator to the other and simlar things nice to have.*
+- **Ability to copy paste parameters from one iterator to the other and simlar things nice to have.**
   
-- *Adding the Triangle handles to drive the affine coefficient would be nice, too.*
+- **Adding the Triangle handles to drive the affine coefficient would be nice, too.**
   
-- *Color ramps presets.*
+- **Color ramps presets.**
 
-- *More variations even tho using CVEX performace wil need to be safe guarded.*
+- **More variations even tho using CVEX performace wil need to be safe guarded.**
 
 With time I may get to those, other wise help your self.
 Everything has been compiled in favor of execution speed and to make it feel a compact tool.
