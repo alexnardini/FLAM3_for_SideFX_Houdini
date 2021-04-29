@@ -9,6 +9,9 @@
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 
+Part of the work is done inside the HDA witin the Houdini environment
+like attribute binding, parameters creations and their visibility conditions.
+
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 `FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on.`
 
