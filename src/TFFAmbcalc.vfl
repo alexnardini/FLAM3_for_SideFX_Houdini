@@ -1,0 +1,56 @@
+/*  
+ /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D/pseudo3D.
+ /  Author:     Alessandro Nardini
+ /  date:       October 2020, Last revised December 2020
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm" paper.
+ /  Authors:    Scott Draves, Erik Reckase
+ /  Weblink:    https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Name:       FLAME motion blur    "VEX"
+ /
+ /  Comment:    Motion blur calculation.
+*/
+
+#ifndef VOP_OP
+#define VOP_OP
+#endif
+#ifndef VOP_CVEX
+#define VOP_CVEX
+#endif
+
+#pragma opname  "TFFAmbcalc"
+#pragma oplabel "TFFAmbcalc"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+void
+_TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
+{   
+    int     samples, FPS, iter;
+    float   t, t_f, shutter_speed, t_offset, 
+            remap_iter_to_time, Tstep_mult, Tstep_mult_compensate;
+    FPS           = chi('../fps');
+    samples       = chi('../mbsamples');
+    shutter_speed = chf('../shutter');
+    
+    t = _bound_Time;
+    t_f = 1/(float)FPS;
+    t_offset = t_f * shutter_speed;
+    iter = detail(1, "iteration") + 1;
+    remap_iter_to_time = fit(iter, 1, samples, t-t_offset, t+t_offset);
+    Tstep_mult = 1-abs(fit(iter, 1, samples, -0.9, 0.9));
+    Tstep_mult_compensate = detail(2, "Tstep_mult_compensate");
+    
+    _bound_Tstep = remap_iter_to_time;
+    _bound_Tstep_mult = Tstep_mult * Tstep_mult_compensate;
+}
+
+cvex
+TFFAmbcalc( export float Time = 0;
+	        export float Tstep = 0;
+	        export float Tstep_mult = 0)
+{
+    _TFFAmbcalc(Time, Tstep, Tstep_mult);
+}

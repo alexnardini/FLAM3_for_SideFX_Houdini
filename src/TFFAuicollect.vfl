@@ -1,0 +1,241 @@
+/*  
+ /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D/pseudo3D.
+ /  Author:     Alessandro Nardini
+ /  date:       October 2020, Last revised April 2021
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm" paper.
+ /  Authors:    Scott Draves, Erik Reckase
+ /  Weblink:    https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Name:       Viewport VARS Display   "VEX"
+ /
+ /  Comment:    display FLAME infos as a viewport's TAG.
+*/
+
+#ifndef VOP_OP
+#define VOP_OP
+#endif
+#ifndef VOP_CVEX
+#define VOP_CVEX
+#endif
+
+#pragma opname  "TFFAuicollect"
+#pragma oplabel "TFFAuicollect"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+struct genomeSYS{
+    int FF, iter_f, sm, smtype, domb;
+
+    void genomeSYSBuild(){
+        FF            = chi("../dofinalflame");
+        iter_f        = chi("../flamefunc");
+        sm            = chi("../symmetry");
+        smtype        = chi("../rotational");
+        domb          = chi("../domb");
+    }
+}
+
+void
+_TFFAuicollect(string _bound_VARTYPE[]){
+
+    int iter_var_num = 5;
+    string type[];
+    string stype[] = {  "linear", 
+                        "sinusoidal",
+                        "spherical",
+                        "swirl",
+                        "horseshoe",
+                        "polar",
+                        "handkerchief",
+                        "heart",
+                        "disc",
+                        "spiral",
+                        "hiperbolic",
+                        "diamond",
+                        "ex",
+                        "julia",
+                        "bent",
+                        "waves",
+                        "fisheye",
+                        "popcorn",
+                        "exponential",
+                        "power",
+                        "cosine",
+                        "rings",
+                        "fan",
+                        "bubble",
+                        "cylinder",
+                        "eyefish",
+                        "blur",
+                        "curl",
+                        "ngon",
+                        "pdj",
+                        "blob",
+                        "juliaN",
+                        "juliaScope",
+                        "gaussian",
+                        "fan2",
+                        "rings2",
+                        "rectangles",
+                        "radialblur",
+                        "pie",
+                        "arch",
+                        "tangent",
+                        "square",
+                        "rays",
+                        "blade",
+                        "secant2",
+                        "twintrian",
+                        "cross",
+                        "disc2",
+                        "supershape",
+                        "flower",
+                        "conic",
+                        "parabola",
+                        "bent2",
+                        "bipolar",
+                        "boarders",
+                        "butterfly",
+                        "cell",
+                        "cpow",
+                        "edisc",
+                        "elliptic",
+                        "noise",
+                        "escher",
+                        "foci",
+                        "lazysusan",
+                        "loonie",
+                        "pre blur",
+                        "modulus",
+                        "oscope",
+                        "polar2",
+                        "popcorn2",
+                        "scry",
+                        "separation",
+                        "split",
+                        "splits",
+                        "stripes",
+                        "wedge",
+                        "wedge julia",
+                        "wedge sph",
+                        "whorl",
+                        "waves2",
+                        "cothe exp",
+                        "cothe log",
+                        "cothe sin",
+                        "cothe cos",
+                        "cothe tan",
+                        "cothe sec",
+                        "cothe csc",
+                        "cothe cot",
+                        "cothe sinh",
+                        "cothe cosh",
+                        "cothe tanh",
+                        "cothe sech",
+                        "cothe csch",
+                        "cothe coth",
+                        "auger",
+                        "flux",
+                        "mobius",
+                        "curve",
+                        "perspective",
+                        "bwraps",
+                        "hemisphere",
+                        "polynomial" };
+
+    genomeSYS SYS; SYS->genomeSYSBuild();
+    int iter_fnum, idx, v1, v2, v3, v4, fv1, fv2, fv3;
+    float pbw, w1, w2, w3, w4, fw1, fw2, fw3;
+
+    if(SYS.domb) append(type, "(MB)");
+    if(SYS.sm){
+        if(!SYS.smtype) append(type, "(SM3)");
+        else append(type, "(SM5)");
+    }
+
+    for(int i=0; i<SYS.iter_f; i++){
+
+        string _IDX = itoa(i+1);
+        string VAR, W, PB, V1, V2, V3, V4;
+
+        if(!chi(concat("../vactive_", _IDX))) VAR = " :::::::::: ";
+        else{
+            w1 = chf(concat("../v1weight_", _IDX));
+            if(w1!=0)
+                V1 = stype[atoi(chs(concat("../v1type_", _IDX)))]+":";
+            else V1 = ":";
+
+            w2 = chf(concat("../v2weight_", _IDX));
+            if(w2!=0)
+                V2 = stype[atoi(chs(concat("../v2type_", _IDX)))]+":";
+            else V2 = ":";
+
+            w3 = chf(concat("../v3weight_", _IDX));
+            if(w3!=0)
+                V3 = stype[atoi(chs(concat("../v3type_", _IDX)))]+":";
+            else V3 = ":";
+
+            w4 = chf(concat("../v4weight_", _IDX));
+            if(w4!=0)
+                V4 = stype[atoi(chs(concat("../v4type_", _IDX)))]+":";
+            else V4 = ":";
+            pbw = chf(concat("../preblurweight_" , _IDX));
+            if(pbw>0){
+                if(w1+w2+w3+w4 != 0) PB = "*";
+            }
+
+            if(w1+w2+w3+w4 != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX)));
+            else W = "";
+
+            // Reformat iterator weight string floats
+            string out[] = {};
+            string SPLIT[] = split(W, ".");
+            if(len(SPLIT)>1){
+                int count = 1;
+                foreach(string s; SPLIT){
+                    append(out, s[:(6/count)]);
+                    count++;
+                }
+            }
+            else out = SPLIT;
+            W = join(out, ".");
+    
+            VAR = concat(PB, V1, V2, V3, V4, W);
+        }
+        append(type, VAR);
+    }
+
+    if(SYS.FF){
+
+        string VAR, FV1, FV2, FV3;
+
+        fw1 = chf("../ffv1weight");
+        if(fw1!=0)
+            FV1 = stype[atoi(chs("../ffv1type"))]+":";
+        else FV1 = ":";
+
+        fw2 = chf("../ffv2weight");
+        if(fw2!=0)
+            FV2 = stype[atoi(chs("../ffv2type"))]+":";
+        else FV2 = ":";
+
+        fw3 = chf("../ffv3weight");
+        if(fw3!=0)
+            FV3 = stype[atoi(chs("../ffv3type"))];
+        else FV3 = ":";
+            
+        VAR = concat(FV1, FV2, FV3);
+
+        append(type, toupper(VAR));
+        }
+
+    _bound_VARTYPE = type;
+}
+
+cvex
+TFFAuicollect( export string VARTYPE[] = {} )
+{
+    _TFFAuicollect(VARTYPE);
+}
