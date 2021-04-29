@@ -11,6 +11,7 @@ for the most minimalistic version in favor of performace.
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on, witch is the actual render.
 
+Higly inspired by Apophysis, it is a ONE to ONE match with it if used within the same limits.
 
 ## Future additions
 
@@ -33,9 +34,6 @@ Some nice addition to this would be:
 
 Everything has been compiled, moslty in favor of execution speed
 and to make it feel more of a compact tool.
-
-To compile the .vfl files, open a Houdini shell and go to the vfl files location
-and use the Houdini vcc compiler provided. Type `vcc -h` to get help.
 
 So, with time I may get to those, other wise help your self.
 Hope you enjoy, I had a blast and still having a blast using it!
