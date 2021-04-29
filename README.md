@@ -9,6 +9,7 @@ The code went up and down during the past months and finally settled
 for the most minimalistic version in favor of performace.
 
 FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on, witch is the actual render.
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 
 Some nice addition to this would be:
 
@@ -35,4 +36,6 @@ and use the Houdini vcc compiler provided. Type `vcc -h` to get help.
 
 So, with time I may get to those, other wise help your self.
 Hope you enjoy, I had a blast and still having a blast using it!
+
+
 
