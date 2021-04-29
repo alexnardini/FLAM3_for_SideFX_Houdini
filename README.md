@@ -21,3 +21,9 @@ Some nice addition to this would be:
   Ability to copy paste parameters from one iterator to the other and simlar things nice to have.
 
 - More variations even tho using CVEX performace wil need to be safe guarded.
+
+Everything has been compiled, moslty in favor of execution speed
+and to make it feel more of compact tool.
+
+To compile the vfl files, open a Houdini shell and go to the vfl files location
+and use the Houdini vcc compiler. type `vcc -h` to get help.
