@@ -1,4 +1,4 @@
-# FLAM3
+# FLAM3 for SideFX Houdini
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_01.jpg)
 
 
