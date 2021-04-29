@@ -26,7 +26,7 @@ Downolad Apophysis 7x here: [Apophysis 7x download](https://sourceforge.net/proj
 
 Some nice addition to this would be:
 
-- *Xaos
+- *Xaos*
 
 - Ability to load and save ".flame" file format. (stripping out whats allowed)
 
