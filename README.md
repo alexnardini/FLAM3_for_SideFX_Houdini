@@ -41,10 +41,9 @@ Some nice addition to this would be:
 
 - More variations even tho using CVEX performace wil need to be safe guarded.
 
-Everything has been compiled in favor of execution speed
-and to make it feel a compact tool.
-
 With time I may get to those, other wise help your self.
+Everything has been compiled in favor of execution speed and to make it feel a compact tool.
+
 Hope you enjoy, I had a blast and still having a blast using it!
 
 For more images that illustrate the development progress:
