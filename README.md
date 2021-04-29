@@ -1,7 +1,7 @@
 # FLAM3 for SideFX Houdini
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_01.jpg)
 
-`The above image consit of 500M points and rendered with Houdini internal Mantra renderer.`
+`The above image consit of 400M points and rendered with Houdini internal Mantra renderer.`
 
 
 ## The Fractal Flame Algorithm for SideFX Houdini
