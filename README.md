@@ -11,7 +11,7 @@ The code went up and down during the past months and finally settled
 for the most minimalistic version in favor of performance.
 
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
-`FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on, witch is the actual render.`
+`FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on.`
 
 Higly inspired by Apophysis and its workflow design,
 it is a ONE to ONE match with it if used within the same limits.
