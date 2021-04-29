@@ -33,4 +33,5 @@ and use the Houdini vcc compiler provided. Type `vcc -h` to get help.
 
 So with time I may get to those, other wise help your self, hope you enjoy!
 
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_01.jpg)
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_00.jpg)
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/LostBubble.jpg)
