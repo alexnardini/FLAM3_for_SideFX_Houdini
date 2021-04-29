@@ -31,7 +31,6 @@ and to make it feel more of a compact tool.
 To compile the vfl files, open a Houdini shell and go to the vfl files location
 and use the Houdini vcc compiler provided. Type `vcc -h` to get help.
 
-So with time I may get to those, other wise help your self, hope you enjoy!
+So, with time I may get to those, other wise help your self.
+hope you enjoy, I had a blast and having a blast using it!
 
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_00.jpg)
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/LostBubble.jpg)
