@@ -11,6 +11,9 @@ for the most minimalistic version in favor of performace.
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on, witch is the actual render.
 
+
+## Future additions
+
 Some nice addition to this would be:
 
 - Xaos
