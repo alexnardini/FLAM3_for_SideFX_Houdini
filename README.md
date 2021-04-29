@@ -43,6 +43,7 @@ and to make it feel a compact tool.
 With time I may get to those, other wise help your self.
 Hope you enjoy, I had a blast and still having a blast using it!
 
+For more images that illustrate the development progress:
 [FLAM3 for Houdini web page](https://alexnardini.net/flame-home/)
 
 
