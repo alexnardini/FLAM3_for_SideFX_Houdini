@@ -2,14 +2,22 @@
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_01.jpg)
 
 
+## The Fractal Flame Algorithm for SideFX Houdini
 
-[![FLAM3 for Houdini](https://github.com/alexnardini/FLAM3/blob/main/img/Fhome.jpg)](https://alexnardini.net/flame-home/ "FLAM3 for Houdini - Web site")
-[![FLAM3 for Houdini](https://alexnardini.net/flame-home/ "FLAM3 for Houdini - Web site")
+An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 
+The code went up and down during the past months and finally settled
+for the most minimalistic version in favor of performace.
 
-## Based on the original "The Fractal Flame Algorithm: FLAM3".
+Some nice addition to this would be:
 
-One variation per iterator is the default limit. However, there are currently 100+ variations to choose from ( each one with their own 3D version ), and as optional: pre blur variations ( pb ), post variations ( pv ), final flame transform ( FF ) and variation’s iterators ( VI ); not to mention motion blur, too.
+- Xaos
 
-#### Implementation notes:
-Since we work on 3D points and not screen pixels, some changes have been made to the way we are dealing with variation’s weights. While we can simply skip to hit a pixel if rejected, we can not ignore a point as it is a real entity in the Houdini 3D world. One of the main differences introduced is to always weight the points back to their most basic function. For the same reason, Xaos is not implemented yet.
+- Ability to load and save ".flame" file format.
+
+- Ability to Dublicate iterators ( probably easy to add with a python call back script)
+
+- All python addition to improve and make the workflow more enjoable.
+  Ability to copy paste parameters from one iterator to the other and simlar things nice to have.
+
+- More variations even tho using CVEX performace wil need to be safe guarded.
