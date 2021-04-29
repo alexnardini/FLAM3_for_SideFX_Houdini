@@ -13,7 +13,8 @@ for the most minimalistic version in favor of performace.
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 `FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on, witch is the actual render.`
 
-Higly inspired by Apophysis, it is a ONE to ONE match with it if used within the same limits.
+Higly inspired by Apophysis and its workflow design,
+it is a ONE to ONE match with it if used within the same limits.
 
 ## Future additions
 
@@ -37,7 +38,7 @@ Some nice addition to this would be:
 Everything has been compiled, moslty in favor of execution speed
 and to make it feel more of a compact tool.
 
-So, with time I may get to those, other wise help your self.
+With time I may get to those, other wise help your self.
 Hope you enjoy, I had a blast and still having a blast using it!
 
 
