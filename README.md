@@ -16,7 +16,7 @@ like attribute binding, parameters creations and their visibility conditions.
 `FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on.`
 
 Higly inspired by Apophysis and its workflow design,
-it is a ONE to ONE match with it if used within the same limits.
+it is a one to one match with it if used within the same limits.
 
 ## Future additions
 
