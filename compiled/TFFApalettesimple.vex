@@ -1,0 +1,186 @@
+;_name	TFFApalettesimple
+; ModuleID = 'TFFApalettesimple'
+
+@0 = private constant [15 x i8] c"../palettehsv_\00"
+@1 = private constant [10 x i8] c"../usermp\00"
+@2 = private constant [15 x i8] c"../palettemode\00"
+@3 = private constant [17 x i8] c"../blendwithvcol\00"
+@4 = private constant [13 x i8] c"../usepscale\00"
+@5 = private constant [13 x i8] c"../pscaleviz\00"
+@6 = private constant [8 x i8] c"../domb\00"
+@7 = private constant [9 x i8] c"../vizmb\00"
+@8 = private constant [10 x i8] c"../vblend\00"
+@9 = private constant [11 x i8] c"../palette\00"
+@iter_n = external global double
+@Cd = external global <3 x double>
+@mb_modulate = external global double
+@10 = private constant [7 x i8] c"iter_n\00"
+@11 = private constant [3 x i8] c"Cd\00"
+@12 = private constant [12 x i8] c"mb_modulate\00"
+
+define private void @"_TFFApalettesimple@FVF"(double* %_bound_iter_n, <3 x double>* %_bound_Cd, double* %_bound_mb_modulate) nounwind alwaysinline {
+__llvm_entry:
+  %return = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([15 x i8]* @0, i64 0, i64 0))
+  %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([10 x i8]* @1, i64 0, i64 0))
+  %return2 = call i64 @"chi@IS"(i8* getelementptr inbounds ([15 x i8]* @2, i64 0, i64 0))
+  %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([17 x i8]* @3, i64 0, i64 0))
+  %return4 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @4, i64 0, i64 0))
+  %return5 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @5, i64 0, i64 0))
+  %return6 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8]* @6, i64 0, i64 0))
+  %return7 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8]* @7, i64 0, i64 0))
+  %output = add i64 %return4, %return5
+  %return10 = call i64 @"lt@III"(i64 %output, i64 2)
+  %0 = icmp ne i64 %return10, 0
+  br i1 %0, label %true, label %end
+
+true:                                             ; preds = %__llvm_entry
+  %1 = icmp ne i64 %return1, 0
+  br i1 %1, label %true12, label %end
+
+end:                                              ; preds = %true12, %end78, %true, %__llvm_entry
+  ret void
+
+true12:                                           ; preds = %true
+  %return15 = call i64 @"not@II"(i64 %return2)
+  %2 = icmp ne i64 %return15, 0
+  br i1 %2, label %true16, label %end
+
+true16:                                           ; preds = %true12
+  %return18 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8]* @8, i64 0, i64 0))
+  %_bound_iter_n19 = load double* %_bound_iter_n
+  %return20 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([11 x i8]* @9, i64 0, i64 0), double %_bound_iter_n19)
+  %return22 = call double @"getcomp@FVI"(<3 x double> %return, i64 0)
+  %return23 = fcmp one double %return22, 0.000000e+00
+  %return24 = zext i1 %return23 to i64
+  %return26 = call double @"getcomp@FVI"(<3 x double> %return, i64 1)
+  %return27 = fcmp one double %return26, 1.000000e+00
+  %return28 = zext i1 %return27 to i64
+  %return29 = call i64 @"or@III"(i64 %return24, i64 %return28)
+  %return31 = call double @"getcomp@FVI"(<3 x double> %return, i64 2)
+  %return32 = fcmp one double %return31, 1.000000e+00
+  %return33 = zext i1 %return32 to i64
+  %return34 = call i64 @"or@III"(i64 %return29, i64 %return33)
+  %3 = icmp ne i64 %return34, 0
+  br i1 %3, label %true35, label %end36
+
+true35:                                           ; preds = %true16
+  %return38 = call <3 x double> @"rgbtohsv@VV"(<3 x double> %return20)
+  %return40 = call double @"getcomp@FVI"(<3 x double> %return38, i64 0)
+  %output43 = fadd double %return40, %return22
+  %return44 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return38, double %output43, i64 0)
+  %output46 = extractvalue { double, <3 x double> } %return44, 1
+  %return48 = call double @"getcomp@FVI"(<3 x double> %output46, i64 1)
+  %output51 = fmul double %return48, %return26
+  %return53 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output46, double %output51, i64 1)
+  %output55 = extractvalue { double, <3 x double> } %return53, 1
+  %return57 = call double @"getcomp@FVI"(<3 x double> %output55, i64 2)
+  %output60 = fmul double %return57, %return31
+  %return62 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output55, double %output60, i64 2)
+  %output64 = extractvalue { double, <3 x double> } %return62, 1
+  %return66 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output64)
+  br label %end36
+
+end36:                                            ; preds = %true35, %true16
+  %color.0 = phi <3 x double> [ %return66, %true35 ], [ %return20, %true16 ]
+  %4 = icmp ne i64 %return3, 0
+  br i1 %4, label %true68, label %end69
+
+true68:                                           ; preds = %end36
+  %_bound_Cd71 = load <3 x double>* %_bound_Cd
+  %return73 = call <3 x double> @"lerp@VVVF"(<3 x double> %color.0, <3 x double> %_bound_Cd71, double %return18)
+  br label %end69
+
+end69:                                            ; preds = %true68, %end36
+  %color.1 = phi <3 x double> [ %return73, %true68 ], [ %color.0, %end36 ]
+  %return76 = call i64 @"and@III"(i64 %return6, i64 %return7)
+  %5 = icmp ne i64 %return76, 0
+  br i1 %5, label %true77, label %end78
+
+true77:                                           ; preds = %end69
+  %_bound_mb_modulate80 = load double* %_bound_mb_modulate
+  %cast = call <3 x double> @"set@VF"(double %_bound_mb_modulate80)
+  %output81 = call <3 x double> @"mul@VV"(<3 x double> %color.1, <3 x double> %cast)
+  br label %end78
+
+end78:                                            ; preds = %true77, %end69
+  %color.2 = phi <3 x double> [ %output81, %true77 ], [ %color.1, %end69 ]
+  store <3 x double> %color.2, <3 x double>* %_bound_Cd
+  br label %end
+}
+
+declare <3 x double> @"chv@VS"(i8*) nounwind readnone
+
+declare i64 @"chi@IS"(i8*) nounwind readnone
+
+declare i64 @"lt@III"(i64, i64) nounwind readnone
+
+declare i64 @"not@II"(i64) nounwind readnone
+
+declare double @"chf@FS"(i8*) nounwind readnone
+
+declare <3 x double> @"chramp@VSF"(i8*, double) nounwind readnone
+
+declare double @"getcomp@FVI"(<3 x double>, i64) nounwind readnone
+
+declare i64 @"or@III"(i64, i64) nounwind readnone
+
+declare <3 x double> @"rgbtohsv@VV"(<3 x double>) nounwind readnone
+
+define private { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %rw11, double %rw22, i64 %rw33) alwaysinline {
+__llvm_entry:
+  %rw16 = call <3 x double> @"setcomp@VFI"(<3 x double> %rw11, double %rw22, i64 %rw33)
+  %mrv = insertvalue { double, <3 x double> } undef, double %rw22, 0
+  %mrv9 = insertvalue { double, <3 x double> } %mrv, <3 x double> %rw16, 1
+  ret { double, <3 x double> } %mrv9
+}
+
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) nounwind readnone
+
+declare <3 x double> @"hsvtorgb@VV"(<3 x double>) nounwind readnone
+
+declare <3 x double> @"lerp@VVVF"(<3 x double>, <3 x double>, double) nounwind
+
+declare i64 @"and@III"(i64, i64) nounwind readnone
+
+declare <3 x double> @"set@VF"(double) nounwind readnone
+
+declare <3 x double> @"mul@VV"(<3 x double>, <3 x double>) nounwind readnone
+
+define void @TFFApalettesimple(double %iter_n, <3 x double> %Cd, double %mb_modulate) nounwind {
+__llvm_entry:
+  %"<Cd>" = alloca <3 x double>
+  %0 = alloca double
+  %1 = alloca double
+  store <3 x double> %Cd, <3 x double>* %"<Cd>"
+  store double %iter_n, double* %0
+  store double %mb_modulate, double* %1
+  call void @"_TFFApalettesimple@FVF"(double* %0, <3 x double>* %"<Cd>", double* %1)
+  %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8]* @10, i64 0, i64 0), double %iter_n) nounwind readonly
+  %evalue3 = load <3 x double>* %"<Cd>"
+  %gvalue4 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([3 x i8]* @11, i64 0, i64 0), <3 x double> %evalue3) nounwind readonly
+  %gvalue6 = call double @"_export@FSF"(i8* getelementptr inbounds ([12 x i8]* @12, i64 0, i64 0), double %mb_modulate) nounwind readonly
+  store double %gvalue, double* @iter_n
+  store <3 x double> %gvalue4, <3 x double>* @Cd
+  store double %gvalue6, double* @mb_modulate
+  ret void
+}
+
+declare double @"_export@FSF"(i8*, double)
+
+declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFApalettesimple(double 0.000000e+00, <3 x double> <double 1.000000e+00, double 1.000000e+00, double 1.000000e+00>, double 0.000000e+00)
+  ret void
+}
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = metadata !{metadata !"cvex"}
+!1 = metadata !{metadata !"18.5.499"}
+!2 = metadata !{metadata !"64"}
+
+;_code_end

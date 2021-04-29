@@ -1,0 +1,77 @@
+;_name	TFFAcompensate
+; ModuleID = 'TFFAcompensate'
+
+@0 = private constant [13 x i8] c"../mbsamples\00"
+@Tstep_mult_compensate = external global double
+@1 = private constant [22 x i8] c"Tstep_mult_compensate\00"
+
+define private void @"_TFFAcompensate@F"(double* %_bound_Tstep_mult_compensate) nounwind alwaysinline {
+__llvm_entry:
+  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @0, i64 0, i64 0))
+  br label %cond
+
+cond:                                             ; preds = %body, %__llvm_entry
+  %i.0 = phi i64 [ 1, %__llvm_entry ], [ %output14, %body ]
+  %Tstep_accum.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output11, %body ]
+  %return3 = call i64 @"le@III"(i64 %i.0, i64 %return)
+  %0 = icmp ne i64 %return3, 0
+  br i1 %0, label %body, label %end
+
+body:                                             ; preds = %cond
+  %cast = sitofp i64 %i.0 to double
+  %cast7 = sitofp i64 %return to double
+  %return8 = call double @"neg@FF"(double 8.000000e-01)
+  %return9 = call double @"fit@FFFFFF"(double %cast, double 1.000000e+00, double %cast7, double %return8, double 8.000000e-01)
+  %return10 = call double @"abs@FF"(double %return9)
+  %output = fsub double 1.000000e+00, %return10
+  %output11 = fadd double %Tstep_accum.0, %output
+  %output14 = add i64 %i.0, 1
+  br label %cond
+
+end:                                              ; preds = %cond
+  %cast16 = sitofp i64 %return to double
+  %output18 = call double @"div@FF"(double %cast16, double %Tstep_accum.0)
+  store double %output18, double* %_bound_Tstep_mult_compensate
+  ret void
+}
+
+declare i64 @"chi@IS"(i8*) nounwind readnone
+
+declare i64 @"le@III"(i64, i64) nounwind readnone
+
+declare double @"neg@FF"(double) nounwind readnone
+
+declare double @"fit@FFFFFF"(double, double, double, double, double) nounwind
+
+declare double @"abs@FF"(double) nounwind
+
+declare double @"div@FF"(double, double) nounwind readnone
+
+define void @TFFAcompensate(double %Tstep_mult_compensate) nounwind {
+__llvm_entry:
+  %"<Tstep_mult_compensate>" = alloca double
+  store double %Tstep_mult_compensate, double* %"<Tstep_mult_compensate>"
+  call void @"_TFFAcompensate@F"(double* %"<Tstep_mult_compensate>")
+  %evalue = load double* %"<Tstep_mult_compensate>"
+  %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([22 x i8]* @1, i64 0, i64 0), double %evalue) nounwind readonly
+  store double %gvalue, double* @Tstep_mult_compensate
+  ret void
+}
+
+declare double @"_export@FSF"(i8*, double)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFAcompensate(double 0.000000e+00)
+  ret void
+}
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = metadata !{metadata !"cvex"}
+!1 = metadata !{metadata !"18.5.499"}
+!2 = metadata !{metadata !"64"}
+
+;_code_end
