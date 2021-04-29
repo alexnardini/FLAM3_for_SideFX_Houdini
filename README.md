@@ -4,10 +4,7 @@
 
 
 [![FLAM3 for Houdini](https://github.com/alexnardini/FLAM3/blob/main/img/Fhome.jpg)](https://alexnardini.net/flame-home/ "FLAM3 for Houdini - Web site")
-#### FLAM3 for Houdini web site
-`FLAM3 for Houdini web site`
-
-[![FLAM3 for Houdini](https://github.com/alexnardini/FLAM3/blob/main/img/F_vimeo_img.jpg)](https://vimeo.com/506501855 "FLAM3 for Houdini - Click to Watch!")
+[![FLAM3 for Houdini](https://alexnardini.net/flame-home/ "FLAM3 for Houdini - Web site")
 
 
 ## Based on the original "The Fractal Flame Algorithm: FLAM3".
