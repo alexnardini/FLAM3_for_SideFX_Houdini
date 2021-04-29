@@ -12,7 +12,7 @@ The code went up and down and finally settled for the most minimalistic version 
 Part of the work is done inside the HDA witin the Houdini environment
 like attribute binding, parameters creations and their visibility conditions.
 
-`Can you imagine the possibilities when using Houdini procedural paradigm to control all aspects of your Flame ?`
+`Can you imagine the possibilities using Houdini procedural paradigm to control all apsect pfyour Flame?`
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 `FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on.`
 
