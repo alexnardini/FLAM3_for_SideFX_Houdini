@@ -14,7 +14,7 @@ like attribute binding, parameters creations and their visibility conditions.
 
 `Can you imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame?`
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
-`FLAM3 for Houdini generate a point cloud of the fractal Flame being worked on.`
+`FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 Higly inspired by Apophysis and its workflow design,
 it is a one to one match with it if used within the same limits.
