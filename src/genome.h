@@ -20,7 +20,7 @@ struct genomeSYS{
     int TMG, DELINVALIDPT, POSTF, FF, USEPSCALE, USEPSCALEVIZ, USEPALETTE, PALETTEMODE, BLENDWITHVCOL, iter_f, symmetry, sym_mode, sym_global, iter, domb, vizmb;
     float mb_modulate;
 
-    void genomeSYSBuild(const int VACTIVE[]){
+    void genomeSYSBuild(){
         TMG           = chi("../dotmglobal");
         FF            = chi("../dofinalflame");
         if(FF){
