@@ -50,7 +50,7 @@ Hope you enjoy, I had a blast and still having a blast using it.
 For more images that illustrate the development progress:
 [FLAM3 for Houdini web page](https://alexnardini.net/flame-home/)
 
-Watch a video created with some very early version of the tool:
+Watch a video created with an early version of the tool:
 [F :: the video](https://vimeo.com/506501855)
 
 
