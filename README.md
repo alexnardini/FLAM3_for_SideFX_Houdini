@@ -13,7 +13,7 @@ many, fast, ready to use functions like **creating and sampling a cdf** and a ve
 **random number generator**.
 
 Part of the work is done inside the HDA witin the Houdini environment
-like attribute binding, parameters creations and their visibility conditions.
+like attribute binding, UI building and binding, parameters creations and their visibility conditions.
 
 `Imagine the possibilities of Houdini procedural paradigm to control all aspect of your Flame?`
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
