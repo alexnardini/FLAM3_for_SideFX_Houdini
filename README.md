@@ -53,5 +53,9 @@ For more images that illustrate the development progress:
 Watch a video created with an early version of the tool:
 [F :: the video](https://vimeo.com/506501855)
 
+Watch the making of here:
+[F :: making of](https://vimeo.com/511517064)
+
+
 
 
