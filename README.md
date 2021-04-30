@@ -15,7 +15,7 @@ many, fast, ready to use functions like **creating and sampling a cdf** and a ve
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions and much more.
 
-`Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame?`
+`Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
