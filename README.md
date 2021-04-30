@@ -33,7 +33,7 @@ Some nice addition to this would be:
 
 - **Ability to load and save ".flame" file format. (stripping out whats allowed)**
 
-- **Ability to dublicate iterators ( probably easy to add with a python call back script)**
+- **Ability to dublicate iterators.**
 
 - **All python addition to improve and make the workflow more enjoable.**
   
