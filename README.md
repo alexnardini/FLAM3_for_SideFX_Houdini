@@ -12,7 +12,7 @@ The language allowed me to take many shortcuts. He is dealing with execution thr
 many, fast, ready to use functions like **creating and sampling a cdf** and a very robust and super fast
 **random number generator**.
 
-Part of the work is done inside the HDA witin the Houdini environment
+Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions and much more.
 
 `Imagine the possibilities of Houdini procedural paradigm to control all aspect of your Flame?`
