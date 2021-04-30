@@ -35,7 +35,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     vector __mem, col_ac, rmp_ac, _col_ac, col_bg, rmp_bg, _col_bg;
     col_bg = rmp_bg = _col_bg = fnum_n_bg = pscale_bg = 0;
     // Build genomes
-    genomeSYS SYS; SYS->genomeSYSBuild(_bound_VACTIVE);
+    genomeSYS SYS; SYS->genomeSYSBuild();
     genome GEM; GEM->genomeBuild(_bound_VACTIVE, SYS);
     genomeParametrics v1GMP, v2GMP, v3GMP, v4GMP;
     v1GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.v1type);
