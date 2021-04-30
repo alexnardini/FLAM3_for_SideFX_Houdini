@@ -145,9 +145,8 @@ _TFFAuicollect(string _bound_VARTYPE[]){
                         "hemisphere",
                         "polynomial" };
 
-    genomeSYS SYS; SYS->genomeSYSBuild();
-    int iter_fnum, idx, v1, v2, v3, v4, fv1, fv2, fv3;
     float pbw, w1, w2, w3, w4, fw1, fw2, fw3;
+    genomeSYS SYS; SYS->genomeSYSBuild();
 
     if(SYS.domb) append(type, "(MB)");
     if(SYS.sm){
