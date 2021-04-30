@@ -34,9 +34,9 @@ Some nice addition to this would be:
 
 - **All python addition to improve and make the workflow more enjoable.**
   
-- **Ability to copy paste parameters from one iterator to the other and simlar things nice to have.**
+- **Copy paste parameters groups from one iterator to the other.**
   
-- **Adding the Triangle handles to drive the affine coefficient would be nice, too.**
+- **Adding Triangle's handle to drive the affine coefficient would be nice, too.**
   
 - **Color ramps presets.**
 
