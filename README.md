@@ -19,7 +19,7 @@ like attribute binding, UI building, parameters creations, their visibility cond
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
-**Higly inspired by Apophysis software** and its workflow design,
+**Higly inspired by Apophysis software and its workflow design**,
 it is a one to one match with it if used within the same limits.
 Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same result.
