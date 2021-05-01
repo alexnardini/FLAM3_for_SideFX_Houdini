@@ -1,11 +1,10 @@
-# FLAM3 for SideFX Houdini
+# The Fractal Flame Algorithm
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Stripes_01.jpg)
 
 `The above image consit of 400M points and rendered with Houdini internal Mantra renderer.`
 
 
-## The Fractal Flame Algorithm for SideFX Houdini
-
+## FLAM3 for SideFX Houdini
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, and offered me
