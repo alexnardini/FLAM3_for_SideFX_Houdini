@@ -7,7 +7,7 @@
 ## FLAM3 for SideFX Houdini
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
-The language allowed me to take many shortcuts. He is dealing with execution threading, and offered me
+The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
 many, fast, ready to use functions like **creating and sampling a cdf** and a very robust and super fast
 **random number generator**.
 
