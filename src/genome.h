@@ -58,14 +58,14 @@ struct genome{
         for(int i=0; i<SYS.iter_f; i++){
             if(!VACTIVE[i]) continue;
             int _IDX=(i+1); string IDX=itoa(_IDX);
+            // Collect active variation IDs
+            append(sIDX, IDX); int res=len(sIDX);
             // Iterator's weights
             append(IW, chf(concat("../iw_", IDX)));
             // Color and pscale
             append(vcol, chv(concat("../col_", IDX)));
             append(cvar_override, chi(concat("../cvaroverride_", IDX)));
             if(SYS.USEPSCALE) append(vpscale, chf(concat("../pscale_" , IDX)));
-            // Collect active variation IDs
-            append(sIDX, IDX); int res=len(sIDX);
             // PRE BLUR
             append(PBWEIGHT, chf(concat("../preblurweight_" , IDX)));
 
@@ -122,7 +122,6 @@ struct genome{
             // Pivot
             //gpv = chv("../fpv");
         }
-        // Collect FINAL FLAME TRANSFORM affine coefficients
         if(SYS.FF){
             ffv1weight   = chf("../ffv1weight");
             if(ffv1weight!=0)
@@ -133,6 +132,7 @@ struct genome{
             ffv3weight   = chf("../ffv3weight");
             if(ffv3weight!=0)
                 ffv3type     = chi("../ffv3type");
+            // Collect FINAL FLAME TRANSFORM affine coefficients
             // X
             fa = chf("../_fa_2");
             fb = chf("../_fb_2");
