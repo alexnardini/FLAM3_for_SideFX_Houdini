@@ -58,7 +58,7 @@ struct genome{
         for(int i=0; i<SYS.iter_f; i++){
             if(!VACTIVE[i]) continue;
             int _IDX=(i+1); string IDX=itoa(_IDX);
-            // Collect active variation IDs .
+            // Collect active variation IDs
             append(sIDX, IDX); int res=len(sIDX);
             // Iterator's weights
             append(IW, chf(concat("../iw_", IDX)));
