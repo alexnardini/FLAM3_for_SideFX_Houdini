@@ -30,7 +30,7 @@
 void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_pscale; vector _bound_Cd; vector _bound_P)
 {
 
-    int idx, VIidx;
+    int idx;
     float pscale_bg, pscale_ac, fnum_n, fnum_n_bg, fnum_n_ac;
     vector __mem, col_ac, rmp_ac, _col_ac, col_bg, rmp_bg, _col_bg;
     col_bg = rmp_bg = _col_bg = fnum_n_bg = pscale_bg = 0;
