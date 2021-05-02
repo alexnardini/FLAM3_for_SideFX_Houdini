@@ -30,17 +30,17 @@ Some nice addition to this would be:
 
 - **Xaos**
 
-- **Ability to load and save ".flame" file format. (stripping out whats allowed)**
+- **Load and save ".flame" file format. (stripping out whats allowed)**
 
-- **Ability to dublicate iterators.**
+- **Dublicate iterators.**
 
-- **All python addition to improve and make the workflow more enjoable.**
+- **Python additions to make the workflow more enjoable.**
   
-- **Copy paste parameters groups from one iterator to the other.**
+- **Copy/Paste parameter's groups from one iterator to the other.**
   
-- **Adding Triangle's handle to drive the affine coefficient would be nice, too.**
+- **Triangle's handle would be nice, too.**
   
-- **Color ramps presets.**
+- **Color Ramps presets.**
 
 - **More variations even tho using CVEX performace wil need to be safe guarded.**
 
