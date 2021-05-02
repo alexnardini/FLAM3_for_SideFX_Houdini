@@ -49,9 +49,9 @@ Everything has been compiled in favor of execution speed and to make it feel a c
 
 Hope you enjoy, I had a blast and still having a blast using it.
 
+## Extra links
 **For more images that illustrate the development progress:**
 [FLAM3 for Houdini web page](https://alexnardini.net/flame-home/)
-
 
 **Watch a video created with an early version of the tool:**
 [F :: the video](https://vimeo.com/506501855)
