@@ -8,7 +8,7 @@
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
-many, fast, ready to use functions like **creating and sampling a cdf** and a very robust and super fast
+fast, ready to use functions like **creating and sampling a cdf** and a very robust and super fast
 **random number generator**.
 
 Part of the work is done inside the HDA within the Houdini environment
@@ -22,7 +22,7 @@ like attribute binding, UI building, parameters creations, their visibility cond
 it is a one to one match with it.
 Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same result.
-Downolad Apophysis 7x here: [Apophysis 7x download](https://sourceforge.net/projects/apophysis7x/)
+**Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
 ## Future additions ?
 
@@ -49,15 +49,20 @@ Everything has been compiled in favor of execution speed and to make it feel a c
 
 Hope you enjoy, I had a blast and still having a blast using it.
 
-**For more images that illustrate the development progress:**
-[FLAM3 for Houdini web page](https://alexnardini.net/flame-home/)
+## Extra links
+For more images that illustrate the development progress:
+[**FLAM3 for Houdini web page**](https://alexnardini.net/flame-home/)
 
+Watch a video created with an early version of the tool:
+[**F :: the video**](https://vimeo.com/506501855)
 
-**Watch a video created with an early version of the tool:**
-[F :: the video](https://vimeo.com/506501855)
+Watch the making of here:
+[**F :: making of**](https://vimeo.com/511517064)
 
-**Watch the making of here:**
-[F :: making of](https://vimeo.com/511517064)
+## References
+References A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
+
+References B: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
 
 
 
