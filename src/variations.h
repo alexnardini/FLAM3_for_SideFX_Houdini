@@ -25,7 +25,8 @@
 
 float sgn(float n) { return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
-//float rndsgn(){ float n = nrandom("twister")+nrandom("twister") - 1.0; return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
+// Dnt need this yet
+// float rndsgn(){ float n = nrandom("twister")+nrandom("twister") - 1.0; return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
 void sincos(float a, sa, ca){ sa=sin(a); ca=cos(a); }
 
@@ -39,6 +40,10 @@ float precalc(string type; vector pos){
     return 0;
 }
 
+// Incorporated all precalc functions inside their own variation's function.
+// Reasons are to generate a smaller file size on compile and faster first node instance creation time.
+//
+/*
 void perspective_precalc(float angle, dist, vsin, vfcos){
     float ang = angle * M_PI / 2.0;
     vsin = sin(ang);
@@ -79,6 +84,7 @@ void bwraps_precalc(float g2, r2, rfactor, cellsize, space, gain){
     r2 = radius*radius;
     rfactor = radius/max_bubble;
 }
+*/
 
 vector biunitcube(){
     return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1), 0); }
@@ -260,7 +266,10 @@ void VAR_BENT(vector pos, _inp; float weight){
 // 15
 void VAR_WAVES(vector pos, _inp; float weight, d, e, f, h){
     float dx2, dy2, dz2, nx, ny, nz;
-    waves_precalc(dx2, dy2, dz2, f, h);
+    // precalc
+    dx2 = 1.0/(f*f + EPS);
+    dy2 = 1.0/(h*h + EPS);
+
     nx = _inp[0] + d * sin(_inp[1] * dx2);
     ny = _inp[1] + e * sin(_inp[0] * dy2);
     pos[0] = weight * nx;
@@ -579,7 +588,14 @@ void VAR_CROSS(vector pos, _inp; float weight){
 // 47 ( parametric )
 void VAR_DISC2(vector pos, _inp; float weight, rot, twist){
     float rr, tt, sinr, cosr, disc2_sinadd, disc2_cosadd, disc2_timespi;
-    disc2_precalc(rot, twist, disc2_sinadd, disc2_cosadd, disc2_timespi);
+    // precalc
+    float k;
+    disc2_timespi = rot * M_PI;
+    sincos(twist, disc2_sinadd, disc2_cosadd);
+    disc2_cosadd -= 1;
+    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); disc2_cosadd*=k; disc2_sinadd*=k; }
+    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); disc2_cosadd*=k; disc2_sinadd*=k; }
+
     tt = disc2_timespi * (_inp[0] + _inp[1]);
     sincos(tt, sinr, cosr);
     rr = weight * precalc("ATAN", _inp) / M_PI;
@@ -589,7 +605,10 @@ void VAR_DISC2(vector pos, _inp; float weight, rot, twist){
 // 48 ( parametric )
 void VAR_SUPERSHAPE(vector pos, _inp; float weight, ss_rnd, ss_m, ss_holes; vector ss_n){
     float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1;
-    supershape_precalc(ss_m, ss_n[0], ss_pm_4, ss_pneg1_n1);
+    // precalc
+    ss_pm_4 = ss_m / 4.0;
+    ss_pneg1_n1 = -1.0 / ss_n[0];
+
     theta = ss_pm_4 * precalc("ATANYX", _inp) + M_PI_4;
     sincos(theta, st, ct);
     tt1 = abs(ct);  tt1 = pow(tt1, ss_n[1]);
@@ -944,7 +963,11 @@ void VAR_WEDGE(vector pos, _inp; float weight, swirl, angle, hole, count){
 // 76 ( parametric )
 void VAR_WEDGEJULIA(vector pos, _inp; float weight, power, angle, dist, count){
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
-    wedgejulia_precalc(wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, power, angle, dist, count);
+    // precalc
+    wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
+    wedgeJulia_rN = abs(power);
+    wedgeJulia_cn = dist / power / 2.0;
+
     rr = weight * pow(precalc("SUMSQ", _inp), wedgeJulia_cn);
     t_rnd = (int)((wedgeJulia_rN)*nrandom("twister"));
     aa = (precalc("ATANYX", _inp) + 2 * M_PI * t_rnd) / power;
@@ -1155,7 +1178,11 @@ void VAR_CURVE(vector pos, _inp; float weight; vector2 l, a){
 // 98 ( parametric )
 void VAR_PERSPECTIVE(vector pos, _inp; float weight, angle, dist){
     float tt, vsin, vfcos;
-    perspective_precalc(angle, dist, vsin, vfcos);
+    // precalc
+    float ang = angle * M_PI / 2.0;
+    vsin = sin(ang);
+    vfcos = dist * cos(ang);
+
     tt = 1.0 / (dist - _inp[1] * vsin);
     pos[0] = weight * dist * _inp[0] * tt;
     pos[1] = weight * vfcos * _inp[1] * tt;
@@ -1163,7 +1190,15 @@ void VAR_PERSPECTIVE(vector pos, _inp; float weight, angle, dist){
 // 99 ( parametric )
 void VAR_BWRAPS(vector pos, _inp; float weight, cellsize, space, gain, innertwist, outertwist){
     float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
-    bwraps_precalc(g2, r2, rfactor, cellsize, space, gain);
+    // precalc
+    float radius = 0.5 * (cellsize / (1.0 + space*space ));
+    g2 = sqrt(gain) / cellsize + 1e-6;
+    max_bubble = g2 * radius;
+    if(max_bubble>2.0) max_bubble=1.0;
+    else max_bubble *= 1.0/( (max_bubble*max_bubble)/4.0+1.0);
+    r2 = radius*radius;
+    rfactor = radius/max_bubble;
+
     Vx = _inp[0];
     Vy = _inp[1];
     if(cellsize == 0.0){

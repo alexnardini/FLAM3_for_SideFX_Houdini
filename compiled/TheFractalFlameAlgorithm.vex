@@ -2259,157 +2259,6 @@ declare double @"sqrt@FF"(double) nounwind readnone
 
 declare double @"atan2@FFF"(double, double) nounwind readnone
 
-define private void @"perspective_precalc@FFFF"(double* %angle, double* %dist, double* %vsin, double* %vfcos) nounwind alwaysinline {
-__llvm_entry:
-  %angle1 = load double* %angle
-  %output = fmul double %angle1, 0x400921FB4D12D84A
-  %output2 = call double @"div@FF"(double %output, double 2.000000e+00)
-  %return = call double @"sin@FF"(double %output2)
-  store double %return, double* %vsin
-  %dist4 = load double* %dist
-  %return6 = call double @"cos@FF"(double %output2)
-  %output7 = fmul double %dist4, %return6
-  store double %output7, double* %vfcos
-  ret void
-}
-
-define private void @"waves_precalc@FFFFF"(double* %dx2, double* %dy2, double* %dz2, double* %F, double* %H) nounwind alwaysinline {
-__llvm_entry:
-  %F1 = load double* %F
-  %output = fmul double %F1, %F1
-  %output3 = fadd double %output, 1.000000e-10
-  %output4 = call double @"div@FF"(double 1.000000e+00, double %output3)
-  store double %output4, double* %dx2
-  %H5 = load double* %H
-  %output7 = fmul double %H5, %H5
-  %output8 = fadd double %output7, 1.000000e-10
-  %output9 = call double @"div@FF"(double 1.000000e+00, double %output8)
-  store double %output9, double* %dy2
-  ret void
-}
-
-define private void @"disc2_precalc@FFFFF"(double* %rot, double* %twist, double* %sinadd, double* %cosadd, double* %timespi) nounwind alwaysinline {
-__llvm_entry:
-  %0 = alloca double
-  %rot1 = load double* %rot
-  %output = fmul double %rot1, 0x400921FB4D12D84A
-  store double %output, double* %timespi
-  %twist2 = load double* %twist
-  store double %twist2, double* %0
-  call void @"sincos@FFF"(double* %0, double* %sinadd, double* %cosadd)
-  %cosadd3 = load double* %cosadd
-  %output4 = fsub double %cosadd3, 1.000000e+00
-  store double %output4, double* %cosadd
-  %twist5 = load double* %twist
-  %return = fcmp ogt double %twist5, 0x401921FB4D12D84A
-  br i1 %return, label %true, label %end
-
-true:                                             ; preds = %__llvm_entry
-  %output8 = fadd double 1.000000e+00, %twist5
-  %output9 = fsub double %output8, 0x401921FB4D12D84A
-  %output12 = fmul double %output4, %output9
-  store double %output12, double* %cosadd
-  %sinadd13 = load double* %sinadd
-  %output15 = fmul double %sinadd13, %output9
-  store double %output15, double* %sinadd
-  br label %end
-
-end:                                              ; preds = %true, %__llvm_entry
-  %twist16 = load double* %twist
-  %return17 = call i64 @"neg@II"(i64 2)
-  %cast = sitofp i64 %return17 to double
-  %output18 = fmul double %cast, 0x400921FB4D12D84A
-  %return19 = fcmp olt double %twist16, %output18
-  br i1 %return19, label %true21, label %end22
-
-true21:                                           ; preds = %end
-  %output24 = fadd double 1.000000e+00, %twist16
-  %output25 = fadd double %output24, 0x401921FB4D12D84A
-  %cosadd26 = load double* %cosadd
-  %output28 = fmul double %cosadd26, %output25
-  store double %output28, double* %cosadd
-  %sinadd29 = load double* %sinadd
-  %output31 = fmul double %sinadd29, %output25
-  store double %output31, double* %sinadd
-  br label %end22
-
-end22:                                            ; preds = %true21, %end
-  ret void
-}
-
-define private void @"supershape_precalc@FFFF"(double* %ss_m, double* %ss_n1, double* %ss_pm_4, double* %ss_pneg_n1) nounwind alwaysinline {
-__llvm_entry:
-  %ss_m1 = load double* %ss_m
-  %output = call double @"div@FF"(double %ss_m1, double 4.000000e+00)
-  store double %output, double* %ss_pm_4
-  %return = call double @"neg@FF"(double 1.000000e+00)
-  %ss_n12 = load double* %ss_n1
-  %output3 = call double @"div@FF"(double %return, double %ss_n12)
-  store double %output3, double* %ss_pneg_n1
-  ret void
-}
-
-declare double @"neg@FF"(double) nounwind readnone
-
-define private void @"wedgejulia_precalc@FFFFFFF"(double* %wedgeJulia_cf, double* %wedgeJulia_rN, double* %wedgeJulia_cn, double* %power, double* %angle, double* %dist, double* %count) nounwind alwaysinline {
-__llvm_entry:
-  %angle1 = load double* %angle
-  %count2 = load double* %count
-  %output = fmul double %angle1, %count2
-  %output3 = fmul double %output, 0x3FD45F306DC9C883
-  %output4 = fmul double %output3, 5.000000e-01
-  %output5 = fsub double 1.000000e+00, %output4
-  store double %output5, double* %wedgeJulia_cf
-  %power6 = load double* %power
-  %return = call double @"abs@FF"(double %power6)
-  store double %return, double* %wedgeJulia_rN
-  %dist7 = load double* %dist
-  %power8 = load double* %power
-  %output9 = call double @"div@FF"(double %dist7, double %power8)
-  %output10 = call double @"div@FF"(double %output9, double 2.000000e+00)
-  store double %output10, double* %wedgeJulia_cn
-  ret void
-}
-
-declare double @"abs@FF"(double) nounwind
-
-define private void @"bwraps_precalc@FFFFFF"(double* %g2, double* %r2, double* %rfactor, double* %cellsize, double* %space, double* %gain) nounwind alwaysinline {
-__llvm_entry:
-  %cellsize1 = load double* %cellsize
-  %space2 = load double* %space
-  %output = fmul double %space2, %space2
-  %output4 = fadd double 1.000000e+00, %output
-  %output5 = call double @"div@FF"(double %cellsize1, double %output4)
-  %output6 = fmul double 5.000000e-01, %output5
-  %gain7 = load double* %gain
-  %return = call double @"sqrt@FF"(double %gain7)
-  %output9 = call double @"div@FF"(double %return, double %cellsize1)
-  %output10 = fadd double %output9, 1.000000e-06
-  store double %output10, double* %g2
-  %output13 = fmul double %output10, %output6
-  %return15 = fcmp ogt double %output13, 2.000000e+00
-  br i1 %return15, label %true, label %false
-
-true:                                             ; preds = %__llvm_entry
-  br label %end
-
-false:                                            ; preds = %__llvm_entry
-  %output20 = fmul double %output13, %output13
-  %output21 = call double @"div@FF"(double %output20, double 4.000000e+00)
-  %output22 = fadd double %output21, 1.000000e+00
-  %output23 = call double @"div@FF"(double 1.000000e+00, double %output22)
-  %output24 = fmul double %output13, %output23
-  br label %end
-
-end:                                              ; preds = %false, %true
-  %max_bubble.0 = phi double [ 1.000000e+00, %true ], [ %output24, %false ]
-  %output27 = fmul double %output6, %output6
-  store double %output27, double* %r2
-  %output30 = call double @"div@FF"(double %output6, double %max_bubble.0)
-  store double %output30, double* %rfactor
-  ret void
-}
-
 define private <3 x double> @"biunitcube@V"() nounwind alwaysinline {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @123, i64 0, i64 0))
@@ -2966,6 +2815,8 @@ __llvm_entry:
   ret void
 }
 
+declare double @"neg@FF"(double) nounwind readnone
+
 define private void @"VAR_DISC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight) nounwind alwaysinline {
 __llvm_entry:
   %sr = alloca double
@@ -3240,44 +3091,38 @@ end12:                                            ; preds = %true11, %end
 
 define private void @"VAR_WAVES@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight, double* %d, double* %e, double* %f, double* %h) nounwind alwaysinline {
 __llvm_entry:
-  %dy2 = alloca double
-  %0 = alloca double
-  %1 = alloca double
-  %2 = alloca double
-  %dx2 = alloca double
-  store double 0.000000e+00, double* %dx2, !vex-initializer-store !3
-  store double 0.000000e+00, double* %dy2, !vex-initializer-store !3
   %f1 = load double* %f
-  store double %f1, double* %1
-  %h2 = load double* %h
-  store double %h2, double* %2
-  call void @"waves_precalc@FFFFF"(double* %dx2, double* %dy2, double* %0, double* %1, double* %2)
-  %_inp3 = load <3 x double>* %_inp
-  %return = call double @"getcomp@FVI"(<3 x double> %_inp3, i64 0)
-  %d4 = load double* %d
-  %return6 = call double @"getcomp@FVI"(<3 x double> %_inp3, i64 1)
-  %dx27 = load double* %dx2
-  %output = fmul double %return6, %dx27
-  %return8 = call double @"sin@FF"(double %output)
-  %output9 = fmul double %d4, %return8
-  %output10 = fadd double %return, %output9
-  %e13 = load double* %e
-  %dy216 = load double* %dy2
-  %output17 = fmul double %return, %dy216
-  %return18 = call double @"sin@FF"(double %output17)
-  %output19 = fmul double %e13, %return18
-  %output20 = fadd double %return6, %output19
-  %weight21 = load double* %weight
-  %output23 = fmul double %weight21, %output10
+  %output = fmul double %f1, %f1
+  %output3 = fadd double %output, 1.000000e-10
+  %output4 = call double @"div@FF"(double 1.000000e+00, double %output3)
+  %h5 = load double* %h
+  %output7 = fmul double %h5, %h5
+  %output8 = fadd double %output7, 1.000000e-10
+  %output9 = call double @"div@FF"(double 1.000000e+00, double %output8)
+  %_inp10 = load <3 x double>* %_inp
+  %return = call double @"getcomp@FVI"(<3 x double> %_inp10, i64 0)
+  %d11 = load double* %d
+  %return13 = call double @"getcomp@FVI"(<3 x double> %_inp10, i64 1)
+  %output15 = fmul double %return13, %output4
+  %return16 = call double @"sin@FF"(double %output15)
+  %output17 = fmul double %d11, %return16
+  %output18 = fadd double %return, %output17
+  %e21 = load double* %e
+  %output25 = fmul double %return, %output9
+  %return26 = call double @"sin@FF"(double %output25)
+  %output27 = fmul double %e21, %return26
+  %output28 = fadd double %return13, %output27
+  %weight29 = load double* %weight
+  %output31 = fmul double %weight29, %output18
   %tmp = load <3 x double>* %pos
-  %return24 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output23, i64 0)
-  %output26 = extractvalue { double, <3 x double> } %return24, 1
-  store <3 x double> %output26, <3 x double>* %pos
-  %weight27 = load double* %weight
-  %output29 = fmul double %weight27, %output20
-  %return31 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output26, double %output29, i64 1)
-  %output33 = extractvalue { double, <3 x double> } %return31, 1
-  store <3 x double> %output33, <3 x double>* %pos
+  %return32 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output31, i64 0)
+  %output34 = extractvalue { double, <3 x double> } %return32, 1
+  store <3 x double> %output34, <3 x double>* %pos
+  %weight35 = load double* %weight
+  %output37 = fmul double %weight35, %output28
+  %return39 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output34, double %output37, i64 1)
+  %output41 = extractvalue { double, <3 x double> } %return39, 1
+  store <3 x double> %output41, <3 x double>* %pos
   ret void
 }
 
@@ -4693,52 +4538,85 @@ __llvm_entry:
   %cosr = alloca double
   %disc2_sinadd = alloca double
   %disc2_cosadd = alloca double
-  %disc2_timespi = alloca double
   %0 = alloca double
   %1 = alloca double
-  %2 = alloca double
-  %3 = alloca i8*
-  %4 = alloca <3 x double>
+  %2 = alloca i8*
+  %3 = alloca <3 x double>
   store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
   store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
   store double 0.000000e+00, double* %disc2_sinadd, !vex-initializer-store !3
   store double 0.000000e+00, double* %disc2_cosadd, !vex-initializer-store !3
-  store double 0.000000e+00, double* %disc2_timespi, !vex-initializer-store !3
   %rot1 = load double* %rot
-  store double %rot1, double* %0
+  %output = fmul double %rot1, 0x400921FB4D12D84A
   %twist2 = load double* %twist
-  store double %twist2, double* %1
-  call void @"disc2_precalc@FFFFF"(double* %0, double* %1, double* %disc2_sinadd, double* %disc2_cosadd, double* %disc2_timespi)
-  %disc2_timespi3 = load double* %disc2_timespi
-  %_inp4 = load <3 x double>* %_inp
-  %return = call double @"getcomp@FVI"(<3 x double> %_inp4, i64 0)
-  %return6 = call double @"getcomp@FVI"(<3 x double> %_inp4, i64 1)
-  %output = fadd double %return, %return6
-  %output7 = fmul double %disc2_timespi3, %output
-  store double %output7, double* %2
-  call void @"sincos@FFF"(double* %2, double* %sinr, double* %cosr)
-  %weight9 = load double* %weight
-  store i8* getelementptr inbounds ([5 x i8]* @121, i64 0, i64 0), i8** %3
-  %_inp10 = load <3 x double>* %_inp
-  store <3 x double> %_inp10, <3 x double>* %4
-  %precalc = call double @"precalc@FSV"(i8** %3, <3 x double>* %4)
-  %output11 = fmul double %weight9, %precalc
-  %output12 = call double @"div@FF"(double %output11, double 0x400921FB4D12D84A)
-  %sinr13 = load double* %sinr
-  %disc2_cosadd14 = load double* %disc2_cosadd
-  %output15 = fadd double %sinr13, %disc2_cosadd14
-  %output17 = fmul double %output15, %output12
+  store double %twist2, double* %0
+  call void @"sincos@FFF"(double* %0, double* %disc2_sinadd, double* %disc2_cosadd)
+  %disc2_cosadd3 = load double* %disc2_cosadd
+  %output4 = fsub double %disc2_cosadd3, 1.000000e+00
+  store double %output4, double* %disc2_cosadd
+  %twist5 = load double* %twist
+  %return = fcmp ogt double %twist5, 0x401921FB4D12D84A
+  br i1 %return, label %true, label %end
+
+true:                                             ; preds = %__llvm_entry
+  %output8 = fadd double 1.000000e+00, %twist5
+  %output9 = fsub double %output8, 0x401921FB4D12D84A
+  %output12 = fmul double %output4, %output9
+  store double %output12, double* %disc2_cosadd
+  %disc2_sinadd13 = load double* %disc2_sinadd
+  %output15 = fmul double %disc2_sinadd13, %output9
+  store double %output15, double* %disc2_sinadd
+  br label %end
+
+end:                                              ; preds = %true, %__llvm_entry
+  %twist16 = load double* %twist
+  %return17 = call i64 @"neg@II"(i64 2)
+  %cast = sitofp i64 %return17 to double
+  %output18 = fmul double %cast, 0x400921FB4D12D84A
+  %return19 = fcmp olt double %twist16, %output18
+  br i1 %return19, label %true21, label %end22
+
+true21:                                           ; preds = %end
+  %output24 = fadd double 1.000000e+00, %twist16
+  %output25 = fadd double %output24, 0x401921FB4D12D84A
+  %disc2_cosadd26 = load double* %disc2_cosadd
+  %output28 = fmul double %disc2_cosadd26, %output25
+  store double %output28, double* %disc2_cosadd
+  %disc2_sinadd29 = load double* %disc2_sinadd
+  %output31 = fmul double %disc2_sinadd29, %output25
+  store double %output31, double* %disc2_sinadd
+  br label %end22
+
+end22:                                            ; preds = %true21, %end
+  %_inp33 = load <3 x double>* %_inp
+  %return34 = call double @"getcomp@FVI"(<3 x double> %_inp33, i64 0)
+  %return36 = call double @"getcomp@FVI"(<3 x double> %_inp33, i64 1)
+  %output37 = fadd double %return34, %return36
+  %output38 = fmul double %output, %output37
+  store double %output38, double* %1
+  call void @"sincos@FFF"(double* %1, double* %sinr, double* %cosr)
+  %weight40 = load double* %weight
+  store i8* getelementptr inbounds ([5 x i8]* @121, i64 0, i64 0), i8** %2
+  %_inp41 = load <3 x double>* %_inp
+  store <3 x double> %_inp41, <3 x double>* %3
+  %precalc = call double @"precalc@FSV"(i8** %2, <3 x double>* %3)
+  %output42 = fmul double %weight40, %precalc
+  %output43 = call double @"div@FF"(double %output42, double 0x400921FB4D12D84A)
+  %sinr44 = load double* %sinr
+  %disc2_cosadd45 = load double* %disc2_cosadd
+  %output46 = fadd double %sinr44, %disc2_cosadd45
+  %output48 = fmul double %output46, %output43
   %tmp = load <3 x double>* %pos
-  %return18 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output17, i64 0)
-  %output20 = extractvalue { double, <3 x double> } %return18, 1
-  store <3 x double> %output20, <3 x double>* %pos
-  %cosr21 = load double* %cosr
-  %disc2_sinadd22 = load double* %disc2_sinadd
-  %output23 = fadd double %cosr21, %disc2_sinadd22
-  %output25 = fmul double %output23, %output12
-  %return27 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output20, double %output25, i64 1)
-  %output29 = extractvalue { double, <3 x double> } %return27, 1
-  store <3 x double> %output29, <3 x double>* %pos
+  %return49 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output48, i64 0)
+  %output51 = extractvalue { double, <3 x double> } %return49, 1
+  store <3 x double> %output51, <3 x double>* %pos
+  %cosr52 = load double* %cosr
+  %disc2_sinadd53 = load double* %disc2_sinadd
+  %output54 = fadd double %cosr52, %disc2_sinadd53
+  %output56 = fmul double %output54, %output43
+  %return58 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output51, double %output56, i64 1)
+  %output60 = extractvalue { double, <3 x double> } %return58, 1
+  store <3 x double> %output60, <3 x double>* %pos
   ret void
 }
 
@@ -4746,79 +4624,73 @@ define private void @"VAR_SUPERSHAPE@VVFFFFV"(<3 x double>* %pos, <3 x double>* 
 __llvm_entry:
   %st = alloca double
   %ct = alloca double
-  %ss_pm_4 = alloca double
-  %ss_pneg1_n1 = alloca double
-  %0 = alloca double
-  %1 = alloca double
-  %2 = alloca i8*
-  %3 = alloca <3 x double>
-  %4 = alloca double
-  %5 = alloca i8*
-  %6 = alloca <3 x double>
+  %0 = alloca i8*
+  %1 = alloca <3 x double>
+  %2 = alloca double
+  %3 = alloca i8*
+  %4 = alloca <3 x double>
   store double 0.000000e+00, double* %st, !vex-initializer-store !3
   store double 0.000000e+00, double* %ct, !vex-initializer-store !3
-  store double 0.000000e+00, double* %ss_pm_4, !vex-initializer-store !3
-  store double 0.000000e+00, double* %ss_pneg1_n1, !vex-initializer-store !3
   %ss_m1 = load double* %ss_m
-  store double %ss_m1, double* %0
+  %output = call double @"div@FF"(double %ss_m1, double 4.000000e+00)
+  %return = call double @"neg@FF"(double 1.000000e+00)
   %ss_n2 = load <3 x double>* %ss_n
-  %return = call double @"getcomp@FVI"(<3 x double> %ss_n2, i64 0)
-  store double %return, double* %1
-  call void @"supershape_precalc@FFFF"(double* %0, double* %1, double* %ss_pm_4, double* %ss_pneg1_n1)
-  %ss_pm_43 = load double* %ss_pm_4
-  store i8* getelementptr inbounds ([7 x i8]* @122, i64 0, i64 0), i8** %2
-  %_inp4 = load <3 x double>* %_inp
-  store <3 x double> %_inp4, <3 x double>* %3
-  %precalc = call double @"precalc@FSV"(i8** %2, <3 x double>* %3)
-  %output = fmul double %ss_pm_43, %precalc
-  %output5 = fadd double %output, 7.853981e-01
-  store double %output5, double* %4
-  call void @"sincos@FFF"(double* %4, double* %st, double* %ct)
-  %ct7 = load double* %ct
-  %return8 = call double @"abs@FF"(double %ct7)
-  %ss_n10 = load <3 x double>* %ss_n
-  %return11 = call double @"getcomp@FVI"(<3 x double> %ss_n10, i64 1)
-  %return12 = call double @"pow@FFF"(double %return8, double %return11)
-  %st13 = load double* %st
-  %return14 = call double @"abs@FF"(double %st13)
-  %ss_n16 = load <3 x double>* %ss_n
-  %return17 = call double @"getcomp@FVI"(<3 x double> %ss_n16, i64 2)
-  %return18 = call double @"pow@FFF"(double %return14, double %return17)
-  store i8* getelementptr inbounds ([5 x i8]* @120, i64 0, i64 0), i8** %5
-  %_inp19 = load <3 x double>* %_inp
-  store <3 x double> %_inp19, <3 x double>* %6
-  %precalc20 = call double @"precalc@FSV"(i8** %5, <3 x double>* %6)
-  %weight21 = load double* %weight
-  %ss_rnd22 = load double* %ss_rnd
-  %return23 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @123, i64 0, i64 0))
-  %output24 = fmul double %ss_rnd22, %return23
+  %return3 = call double @"getcomp@FVI"(<3 x double> %ss_n2, i64 0)
+  %output4 = call double @"div@FF"(double %return, double %return3)
+  store i8* getelementptr inbounds ([7 x i8]* @122, i64 0, i64 0), i8** %0
+  %_inp6 = load <3 x double>* %_inp
+  store <3 x double> %_inp6, <3 x double>* %1
+  %precalc = call double @"precalc@FSV"(i8** %0, <3 x double>* %1)
+  %output7 = fmul double %output, %precalc
+  %output8 = fadd double %output7, 7.853981e-01
+  store double %output8, double* %2
+  call void @"sincos@FFF"(double* %2, double* %st, double* %ct)
+  %ct10 = load double* %ct
+  %return11 = call double @"abs@FF"(double %ct10)
+  %ss_n13 = load <3 x double>* %ss_n
+  %return14 = call double @"getcomp@FVI"(<3 x double> %ss_n13, i64 1)
+  %return15 = call double @"pow@FFF"(double %return11, double %return14)
+  %st16 = load double* %st
+  %return17 = call double @"abs@FF"(double %st16)
+  %ss_n19 = load <3 x double>* %ss_n
+  %return20 = call double @"getcomp@FVI"(<3 x double> %ss_n19, i64 2)
+  %return21 = call double @"pow@FFF"(double %return17, double %return20)
+  store i8* getelementptr inbounds ([5 x i8]* @120, i64 0, i64 0), i8** %3
+  %_inp22 = load <3 x double>* %_inp
+  store <3 x double> %_inp22, <3 x double>* %4
+  %precalc23 = call double @"precalc@FSV"(i8** %3, <3 x double>* %4)
+  %weight24 = load double* %weight
   %ss_rnd25 = load double* %ss_rnd
-  %output26 = fsub double 1.000000e+00, %ss_rnd25
-  %output28 = fmul double %output26, %precalc20
-  %output29 = fadd double %output24, %output28
-  %ss_holes30 = load double* %ss_holes
-  %output31 = fsub double %output29, %ss_holes30
-  %output32 = fmul double %weight21, %output31
-  %output35 = fadd double %return12, %return18
-  %ss_pneg1_n136 = load double* %ss_pneg1_n1
-  %return37 = call double @"pow@FFF"(double %output35, double %ss_pneg1_n136)
-  %output38 = fmul double %output32, %return37
-  %output40 = call double @"div@FF"(double %output38, double %precalc20)
-  %_inp42 = load <3 x double>* %_inp
-  %return43 = call double @"getcomp@FVI"(<3 x double> %_inp42, i64 0)
-  %output44 = fmul double %output40, %return43
+  %return26 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @123, i64 0, i64 0))
+  %output27 = fmul double %ss_rnd25, %return26
+  %ss_rnd28 = load double* %ss_rnd
+  %output29 = fsub double 1.000000e+00, %ss_rnd28
+  %output31 = fmul double %output29, %precalc23
+  %output32 = fadd double %output27, %output31
+  %ss_holes33 = load double* %ss_holes
+  %output34 = fsub double %output32, %ss_holes33
+  %output35 = fmul double %weight24, %output34
+  %output38 = fadd double %return15, %return21
+  %return40 = call double @"pow@FFF"(double %output38, double %output4)
+  %output41 = fmul double %output35, %return40
+  %output43 = call double @"div@FF"(double %output41, double %precalc23)
+  %_inp45 = load <3 x double>* %_inp
+  %return46 = call double @"getcomp@FVI"(<3 x double> %_inp45, i64 0)
+  %output47 = fmul double %output43, %return46
   %tmp = load <3 x double>* %pos
-  %return45 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output44, i64 0)
-  %output47 = extractvalue { double, <3 x double> } %return45, 1
-  store <3 x double> %output47, <3 x double>* %pos
-  %_inp49 = load <3 x double>* %_inp
-  %return50 = call double @"getcomp@FVI"(<3 x double> %_inp49, i64 1)
-  %output51 = fmul double %output40, %return50
-  %return53 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output47, double %output51, i64 1)
-  %output55 = extractvalue { double, <3 x double> } %return53, 1
-  store <3 x double> %output55, <3 x double>* %pos
+  %return48 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output47, i64 0)
+  %output50 = extractvalue { double, <3 x double> } %return48, 1
+  store <3 x double> %output50, <3 x double>* %pos
+  %_inp52 = load <3 x double>* %_inp
+  %return53 = call double @"getcomp@FVI"(<3 x double> %_inp52, i64 1)
+  %output54 = fmul double %output43, %return53
+  %return56 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output50, double %output54, i64 1)
+  %output58 = extractvalue { double, <3 x double> } %return56, 1
+  store <3 x double> %output58, <3 x double>* %pos
   ret void
 }
+
+declare double @"abs@FF"(double) nounwind
 
 define private void @"VAR_FLOWER@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight, double* %petals, double* %holes) nounwind alwaysinline {
 __llvm_entry:
@@ -6375,79 +6247,69 @@ __llvm_entry:
 
 define private void @"VAR_WEDGEJULIA@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight, double* %power, double* %angle, double* %dist, double* %count) nounwind alwaysinline {
 __llvm_entry:
-  %wedgeJulia_rN = alloca double
-  %wedgeJulia_cn = alloca double
   %sa = alloca double
   %ca = alloca double
-  %0 = alloca double
-  %1 = alloca double
-  %2 = alloca double
-  %3 = alloca double
-  %4 = alloca i8*
-  %5 = alloca <3 x double>
-  %6 = alloca i8*
-  %7 = alloca <3 x double>
-  %8 = alloca double
-  %wedgeJulia_cf = alloca double
-  store double 0.000000e+00, double* %wedgeJulia_cf, !vex-initializer-store !3
-  store double 0.000000e+00, double* %wedgeJulia_rN, !vex-initializer-store !3
-  store double 0.000000e+00, double* %wedgeJulia_cn, !vex-initializer-store !3
+  %0 = alloca i8*
+  %1 = alloca <3 x double>
+  %2 = alloca i8*
+  %3 = alloca <3 x double>
+  %4 = alloca double
   store double 0.000000e+00, double* %sa, !vex-initializer-store !3
   store double 0.000000e+00, double* %ca, !vex-initializer-store !3
-  %power1 = load double* %power
-  store double %power1, double* %0
-  %angle2 = load double* %angle
-  store double %angle2, double* %1
-  %dist3 = load double* %dist
-  store double %dist3, double* %2
-  %count4 = load double* %count
-  store double %count4, double* %3
-  call void @"wedgejulia_precalc@FFFFFFF"(double* %wedgeJulia_cf, double* %wedgeJulia_rN, double* %wedgeJulia_cn, double* %0, double* %1, double* %2, double* %3)
-  %weight5 = load double* %weight
-  store i8* getelementptr inbounds ([6 x i8]* @119, i64 0, i64 0), i8** %4
-  %_inp6 = load <3 x double>* %_inp
-  store <3 x double> %_inp6, <3 x double>* %5
-  %precalc = call double @"precalc@FSV"(i8** %4, <3 x double>* %5)
-  %wedgeJulia_cn7 = load double* %wedgeJulia_cn
-  %return = call double @"pow@FFF"(double %precalc, double %wedgeJulia_cn7)
-  %output = fmul double %weight5, %return
-  %wedgeJulia_rN8 = load double* %wedgeJulia_rN
-  %return9 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @123, i64 0, i64 0))
-  %output10 = fmul double %wedgeJulia_rN8, %return9
-  %cast = fptosi double %output10 to i64
-  %cast11 = sitofp i64 %cast to double
-  store i8* getelementptr inbounds ([7 x i8]* @122, i64 0, i64 0), i8** %6
+  %angle1 = load double* %angle
+  %count2 = load double* %count
+  %output = fmul double %angle1, %count2
+  %output3 = fmul double %output, 0x3FD45F306DC9C883
+  %output4 = fmul double %output3, 5.000000e-01
+  %output5 = fsub double 1.000000e+00, %output4
+  %power6 = load double* %power
+  %return = call double @"abs@FF"(double %power6)
+  %dist7 = load double* %dist
+  %power8 = load double* %power
+  %output9 = call double @"div@FF"(double %dist7, double %power8)
+  %output10 = call double @"div@FF"(double %output9, double 2.000000e+00)
+  %weight11 = load double* %weight
+  store i8* getelementptr inbounds ([6 x i8]* @119, i64 0, i64 0), i8** %0
   %_inp12 = load <3 x double>* %_inp
-  store <3 x double> %_inp12, <3 x double>* %7
-  %precalc13 = call double @"precalc@FSV"(i8** %6, <3 x double>* %7)
-  %output15 = fmul double 0x401921FB4D12D84A, %cast11
-  %output16 = fadd double %precalc13, %output15
-  %power17 = load double* %power
-  %output18 = call double @"div@FF"(double %output16, double %power17)
-  %count19 = load double* %count
-  %output21 = fmul double %count19, %output18
-  %output22 = fadd double %output21, 0x400921FB4D12D84A
-  %output23 = fmul double %output22, 0x3FD45F306DC9C883
-  %output24 = fmul double %output23, 5.000000e-01
-  %return25 = call double @"floor@FF"(double %output24)
-  %wedgeJulia_cf27 = load double* %wedgeJulia_cf
-  %output28 = fmul double %output18, %wedgeJulia_cf27
-  %angle30 = load double* %angle
-  %output31 = fmul double %return25, %angle30
-  %output32 = fadd double %output28, %output31
-  store double %output32, double* %8
-  call void @"sincos@FFF"(double* %8, double* %sa, double* %ca)
-  %ca35 = load double* %ca
-  %output36 = fmul double %output, %ca35
+  store <3 x double> %_inp12, <3 x double>* %1
+  %precalc = call double @"precalc@FSV"(i8** %0, <3 x double>* %1)
+  %return14 = call double @"pow@FFF"(double %precalc, double %output10)
+  %output15 = fmul double %weight11, %return14
+  %return17 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @123, i64 0, i64 0))
+  %output18 = fmul double %return, %return17
+  %cast = fptosi double %output18 to i64
+  %cast19 = sitofp i64 %cast to double
+  store i8* getelementptr inbounds ([7 x i8]* @122, i64 0, i64 0), i8** %2
+  %_inp20 = load <3 x double>* %_inp
+  store <3 x double> %_inp20, <3 x double>* %3
+  %precalc21 = call double @"precalc@FSV"(i8** %2, <3 x double>* %3)
+  %output23 = fmul double 0x401921FB4D12D84A, %cast19
+  %output24 = fadd double %precalc21, %output23
+  %power25 = load double* %power
+  %output26 = call double @"div@FF"(double %output24, double %power25)
+  %count27 = load double* %count
+  %output29 = fmul double %count27, %output26
+  %output30 = fadd double %output29, 0x400921FB4D12D84A
+  %output31 = fmul double %output30, 0x3FD45F306DC9C883
+  %output32 = fmul double %output31, 5.000000e-01
+  %return33 = call double @"floor@FF"(double %output32)
+  %output36 = fmul double %output26, %output5
+  %angle38 = load double* %angle
+  %output39 = fmul double %return33, %angle38
+  %output40 = fadd double %output36, %output39
+  store double %output40, double* %4
+  call void @"sincos@FFF"(double* %4, double* %sa, double* %ca)
+  %ca43 = load double* %ca
+  %output44 = fmul double %output15, %ca43
   %tmp = load <3 x double>* %pos
-  %return37 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output36, i64 0)
-  %output39 = extractvalue { double, <3 x double> } %return37, 1
-  store <3 x double> %output39, <3 x double>* %pos
-  %sa41 = load double* %sa
-  %output42 = fmul double %output, %sa41
-  %return44 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output39, double %output42, i64 1)
-  %output46 = extractvalue { double, <3 x double> } %return44, 1
-  store <3 x double> %output46, <3 x double>* %pos
+  %return45 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output44, i64 0)
+  %output47 = extractvalue { double, <3 x double> } %return45, 1
+  store <3 x double> %output47, <3 x double>* %pos
+  %sa49 = load double* %sa
+  %output50 = fmul double %output15, %sa49
+  %return52 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output47, double %output50, i64 1)
+  %output54 = extractvalue { double, <3 x double> } %return52, 1
+  store <3 x double> %output54, <3 x double>* %pos
   ret void
 }
 
@@ -7324,172 +7186,175 @@ end16:                                            ; preds = %true15, %end
 
 define private void @"VAR_PERSPECTIVE@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight, double* %angle, double* %dist) nounwind alwaysinline {
 __llvm_entry:
-  %vsin = alloca double
-  %vfcos = alloca double
-  %0 = alloca double
-  %1 = alloca double
-  store double 0.000000e+00, double* %vsin, !vex-initializer-store !3
-  store double 0.000000e+00, double* %vfcos, !vex-initializer-store !3
   %angle1 = load double* %angle
-  store double %angle1, double* %0
-  %dist2 = load double* %dist
-  store double %dist2, double* %1
-  call void @"perspective_precalc@FFFF"(double* %0, double* %1, double* %vsin, double* %vfcos)
-  %dist3 = load double* %dist
-  %_inp4 = load <3 x double>* %_inp
-  %return = call double @"getcomp@FVI"(<3 x double> %_inp4, i64 1)
-  %vsin5 = load double* %vsin
-  %output = fmul double %return, %vsin5
-  %output6 = fsub double %dist3, %output
-  %output7 = call double @"div@FF"(double 1.000000e+00, double %output6)
-  %weight8 = load double* %weight
-  %output10 = fmul double %weight8, %dist3
-  %return12 = call double @"getcomp@FVI"(<3 x double> %_inp4, i64 0)
-  %output13 = fmul double %output10, %return12
-  %output15 = fmul double %output13, %output7
+  %output = fmul double %angle1, 0x400921FB4D12D84A
+  %output2 = call double @"div@FF"(double %output, double 2.000000e+00)
+  %return = call double @"sin@FF"(double %output2)
+  %dist4 = load double* %dist
+  %return6 = call double @"cos@FF"(double %output2)
+  %output7 = fmul double %dist4, %return6
+  %_inp9 = load <3 x double>* %_inp
+  %return10 = call double @"getcomp@FVI"(<3 x double> %_inp9, i64 1)
+  %output12 = fmul double %return10, %return
+  %output13 = fsub double %dist4, %output12
+  %output14 = call double @"div@FF"(double 1.000000e+00, double %output13)
+  %weight15 = load double* %weight
+  %output17 = fmul double %weight15, %dist4
+  %return19 = call double @"getcomp@FVI"(<3 x double> %_inp9, i64 0)
+  %output20 = fmul double %output17, %return19
+  %output22 = fmul double %output20, %output14
   %tmp = load <3 x double>* %pos
-  %return16 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output15, i64 0)
-  %output18 = extractvalue { double, <3 x double> } %return16, 1
-  store <3 x double> %output18, <3 x double>* %pos
-  %weight19 = load double* %weight
-  %vfcos20 = load double* %vfcos
-  %output21 = fmul double %weight19, %vfcos20
-  %_inp22 = load <3 x double>* %_inp
-  %return23 = call double @"getcomp@FVI"(<3 x double> %_inp22, i64 1)
-  %output24 = fmul double %output21, %return23
-  %output26 = fmul double %output24, %output7
-  %return28 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output18, double %output26, i64 1)
-  %output30 = extractvalue { double, <3 x double> } %return28, 1
-  store <3 x double> %output30, <3 x double>* %pos
+  %return23 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output22, i64 0)
+  %output25 = extractvalue { double, <3 x double> } %return23, 1
+  store <3 x double> %output25, <3 x double>* %pos
+  %weight26 = load double* %weight
+  %output28 = fmul double %weight26, %output7
+  %_inp29 = load <3 x double>* %_inp
+  %return30 = call double @"getcomp@FVI"(<3 x double> %_inp29, i64 1)
+  %output31 = fmul double %output28, %return30
+  %output33 = fmul double %output31, %output14
+  %return35 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output25, double %output33, i64 1)
+  %output37 = extractvalue { double, <3 x double> } %return35, 1
+  store <3 x double> %output37, <3 x double>* %pos
   ret void
 }
 
 define private void @"VAR_BWRAPS@VVFFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight, double* %cellsize, double* %space, double* %gain, double* %innertwist, double* %outertwist) nounwind alwaysinline {
 __llvm_entry:
-  %r2 = alloca double
-  %rfactor = alloca double
   %ss = alloca double
   %cc = alloca double
   %0 = alloca double
-  %1 = alloca double
-  %2 = alloca double
-  %3 = alloca double
-  %g2 = alloca double
-  store double 0.000000e+00, double* %g2, !vex-initializer-store !3
-  store double 0.000000e+00, double* %r2, !vex-initializer-store !3
-  store double 0.000000e+00, double* %rfactor, !vex-initializer-store !3
   store double 0.000000e+00, double* %ss, !vex-initializer-store !3
   store double 0.000000e+00, double* %cc, !vex-initializer-store !3
   %cellsize1 = load double* %cellsize
-  store double %cellsize1, double* %0
   %space2 = load double* %space
-  store double %space2, double* %1
-  %gain3 = load double* %gain
-  store double %gain3, double* %2
-  call void @"bwraps_precalc@FFFFFF"(double* %g2, double* %r2, double* %rfactor, double* %0, double* %1, double* %2)
-  %_inp4 = load <3 x double>* %_inp
-  %return = call double @"getcomp@FVI"(<3 x double> %_inp4, i64 0)
-  %return6 = call double @"getcomp@FVI"(<3 x double> %_inp4, i64 1)
-  %cellsize7 = load double* %cellsize
-  %return8 = fcmp oeq double %cellsize7, 0.000000e+00
-  br i1 %return8, label %true, label %false
+  %output = fmul double %space2, %space2
+  %output4 = fadd double 1.000000e+00, %output
+  %output5 = call double @"div@FF"(double %cellsize1, double %output4)
+  %output6 = fmul double 5.000000e-01, %output5
+  %gain7 = load double* %gain
+  %return = call double @"sqrt@FF"(double %gain7)
+  %output9 = call double @"div@FF"(double %return, double %cellsize1)
+  %output10 = fadd double %output9, 1.000000e-06
+  %output13 = fmul double %output10, %output6
+  %return15 = fcmp ogt double %output13, 2.000000e+00
+  br i1 %return15, label %true, label %false
 
 true:                                             ; preds = %__llvm_entry
-  %weight10 = load double* %weight
-  %output = fmul double %weight10, %return
-  %tmp = load <3 x double>* %pos
-  %return12 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output, i64 0)
-  %output14 = extractvalue { double, <3 x double> } %return12, 1
-  store <3 x double> %output14, <3 x double>* %pos
-  %weight15 = load double* %weight
-  %output17 = fmul double %weight15, %return6
-  %return19 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output14, double %output17, i64 1)
-  %output21 = extractvalue { double, <3 x double> } %return19, 1
-  store <3 x double> %output21, <3 x double>* %pos
   br label %end
 
 false:                                            ; preds = %__llvm_entry
-  %output24 = call double @"div@FF"(double %return, double %cellsize7)
-  %return25 = call double @"floor@FF"(double %output24)
-  %output26 = fadd double %return25, 5.000000e-01
-  %output28 = fmul double %output26, %cellsize7
-  %output31 = call double @"div@FF"(double %return6, double %cellsize7)
-  %return32 = call double @"floor@FF"(double %output31)
-  %output33 = fadd double %return32, 5.000000e-01
-  %output35 = fmul double %output33, %cellsize7
-  %output38 = fsub double %return, %output28
-  %output41 = fsub double %return6, %output35
-  %output44 = fmul double %output38, %output38
-  %output47 = fmul double %output41, %output41
-  %output48 = fadd double %output44, %output47
-  %r249 = load double* %r2
-  %return50 = fcmp ogt double %output48, %r249
-  br i1 %return50, label %true52, label %false53
+  %output20 = fmul double %output13, %output13
+  %output21 = call double @"div@FF"(double %output20, double 4.000000e+00)
+  %output22 = fadd double %output21, 1.000000e+00
+  %output23 = call double @"div@FF"(double 1.000000e+00, double %output22)
+  %output24 = fmul double %output13, %output23
+  br label %end
 
-end:                                              ; preds = %true52, %false53, %true
+end:                                              ; preds = %false, %true
+  %max_bubble.0 = phi double [ 1.000000e+00, %true ], [ %output24, %false ]
+  %output27 = fmul double %output6, %output6
+  %output30 = call double @"div@FF"(double %output6, double %max_bubble.0)
+  %_inp31 = load <3 x double>* %_inp
+  %return32 = call double @"getcomp@FVI"(<3 x double> %_inp31, i64 0)
+  %return34 = call double @"getcomp@FVI"(<3 x double> %_inp31, i64 1)
+  %cellsize35 = load double* %cellsize
+  %return36 = fcmp oeq double %cellsize35, 0.000000e+00
+  br i1 %return36, label %true38, label %false39
+
+true38:                                           ; preds = %end
+  %weight41 = load double* %weight
+  %output43 = fmul double %weight41, %return32
+  %tmp = load <3 x double>* %pos
+  %return44 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output43, i64 0)
+  %output46 = extractvalue { double, <3 x double> } %return44, 1
+  store <3 x double> %output46, <3 x double>* %pos
+  %weight47 = load double* %weight
+  %output49 = fmul double %weight47, %return34
+  %return51 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output46, double %output49, i64 1)
+  %output53 = extractvalue { double, <3 x double> } %return51, 1
+  store <3 x double> %output53, <3 x double>* %pos
+  br label %end40
+
+false39:                                          ; preds = %end
+  %output56 = call double @"div@FF"(double %return32, double %cellsize35)
+  %return57 = call double @"floor@FF"(double %output56)
+  %output58 = fadd double %return57, 5.000000e-01
+  %output60 = fmul double %output58, %cellsize35
+  %output63 = call double @"div@FF"(double %return34, double %cellsize35)
+  %return64 = call double @"floor@FF"(double %output63)
+  %output65 = fadd double %return64, 5.000000e-01
+  %output67 = fmul double %output65, %cellsize35
+  %output70 = fsub double %return32, %output60
+  %output73 = fsub double %return34, %output67
+  %output76 = fmul double %output70, %output70
+  %output79 = fmul double %output73, %output73
+  %output80 = fadd double %output76, %output79
+  %return82 = fcmp ogt double %output80, %output27
+  br i1 %return82, label %true84, label %false85
+
+end40:                                            ; preds = %true84, %false85, %true38
   ret void
 
-true52:                                           ; preds = %false
-  %weight55 = load double* %weight
-  %output57 = fmul double %weight55, %return
-  %tmp58 = load <3 x double>* %pos
-  %return59 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp58, double %output57, i64 0)
-  %output61 = extractvalue { double, <3 x double> } %return59, 1
-  store <3 x double> %output61, <3 x double>* %pos
-  %weight62 = load double* %weight
-  %output64 = fmul double %weight62, %return6
-  %return66 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output61, double %output64, i64 1)
-  %output68 = extractvalue { double, <3 x double> } %return66, 1
-  store <3 x double> %output68, <3 x double>* %pos
-  br label %end
+true84:                                           ; preds = %false39
+  %weight87 = load double* %weight
+  %output89 = fmul double %weight87, %return32
+  %tmp90 = load <3 x double>* %pos
+  %return91 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp90, double %output89, i64 0)
+  %output93 = extractvalue { double, <3 x double> } %return91, 1
+  store <3 x double> %output93, <3 x double>* %pos
+  %weight94 = load double* %weight
+  %output96 = fmul double %weight94, %return34
+  %return98 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output93, double %output96, i64 1)
+  %output100 = extractvalue { double, <3 x double> } %return98, 1
+  store <3 x double> %output100, <3 x double>* %pos
+  br label %end40
 
-false53:                                          ; preds = %false
-  %g270 = load double* %g2
-  %output71 = fmul double %output38, %g270
-  %output74 = fmul double %output41, %g270
-  %rfactor75 = load double* %rfactor
-  %output78 = fmul double %output71, %output71
-  %output81 = fmul double %output74, %output74
-  %output82 = fadd double %output78, %output81
-  %output83 = call double @"div@FF"(double %output82, double 4.000000e+00)
-  %output84 = fadd double %output83, 1.000000e+00
-  %output85 = call double @"div@FF"(double %rfactor75, double %output84)
-  %output88 = fmul double %output71, %output85
-  %output91 = fmul double %output74, %output85
-  %output94 = fmul double %output88, %output88
-  %output97 = fmul double %output91, %output91
-  %output98 = fadd double %output94, %output97
-  %output100 = call double @"div@FF"(double %output98, double %r249)
-  %innertwist101 = load double* %innertwist
-  %output103 = fsub double 1.000000e+00, %output100
-  %output104 = fmul double %innertwist101, %output103
-  %outertwist105 = load double* %outertwist
-  %output107 = fmul double %outertwist105, %output100
-  %output108 = fadd double %output104, %output107
-  store double %output108, double* %3
-  call void @"sincos@FFF"(double* %3, double* %ss, double* %cc)
-  %cc111 = load double* %cc
-  %output113 = fmul double %cc111, %output88
-  %output114 = fadd double %output28, %output113
-  %ss115 = load double* %ss
-  %output117 = fmul double %ss115, %output91
-  %output118 = fadd double %output114, %output117
-  %output122 = fmul double %ss115, %output88
-  %output123 = fsub double %output35, %output122
-  %output126 = fmul double %cc111, %output91
-  %output127 = fadd double %output123, %output126
-  %weight128 = load double* %weight
-  %output130 = fmul double %weight128, %output118
-  %tmp131 = load <3 x double>* %pos
-  %return132 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp131, double %output130, i64 0)
-  %output134 = extractvalue { double, <3 x double> } %return132, 1
-  store <3 x double> %output134, <3 x double>* %pos
-  %weight135 = load double* %weight
-  %output137 = fmul double %weight135, %output127
-  %return139 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output134, double %output137, i64 1)
-  %output141 = extractvalue { double, <3 x double> } %return139, 1
-  store <3 x double> %output141, <3 x double>* %pos
-  br label %end
+false85:                                          ; preds = %false39
+  %output103 = fmul double %output70, %output10
+  %output106 = fmul double %output73, %output10
+  %output110 = fmul double %output103, %output103
+  %output113 = fmul double %output106, %output106
+  %output114 = fadd double %output110, %output113
+  %output115 = call double @"div@FF"(double %output114, double 4.000000e+00)
+  %output116 = fadd double %output115, 1.000000e+00
+  %output117 = call double @"div@FF"(double %output30, double %output116)
+  %output120 = fmul double %output103, %output117
+  %output123 = fmul double %output106, %output117
+  %output126 = fmul double %output120, %output120
+  %output129 = fmul double %output123, %output123
+  %output130 = fadd double %output126, %output129
+  %output132 = call double @"div@FF"(double %output130, double %output27)
+  %innertwist133 = load double* %innertwist
+  %output135 = fsub double 1.000000e+00, %output132
+  %output136 = fmul double %innertwist133, %output135
+  %outertwist137 = load double* %outertwist
+  %output139 = fmul double %outertwist137, %output132
+  %output140 = fadd double %output136, %output139
+  store double %output140, double* %0
+  call void @"sincos@FFF"(double* %0, double* %ss, double* %cc)
+  %cc143 = load double* %cc
+  %output145 = fmul double %cc143, %output120
+  %output146 = fadd double %output60, %output145
+  %ss147 = load double* %ss
+  %output149 = fmul double %ss147, %output123
+  %output150 = fadd double %output146, %output149
+  %output154 = fmul double %ss147, %output120
+  %output155 = fsub double %output67, %output154
+  %output158 = fmul double %cc143, %output123
+  %output159 = fadd double %output155, %output158
+  %weight160 = load double* %weight
+  %output162 = fmul double %weight160, %output150
+  %tmp163 = load <3 x double>* %pos
+  %return164 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp163, double %output162, i64 0)
+  %output166 = extractvalue { double, <3 x double> } %return164, 1
+  store <3 x double> %output166, <3 x double>* %pos
+  %weight167 = load double* %weight
+  %output169 = fmul double %weight167, %output159
+  %return171 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output166, double %output169, i64 1)
+  %output173 = extractvalue { double, <3 x double> } %return171, 1
+  store <3 x double> %output173, <3 x double>* %pos
+  br label %end40
 }
 
 define private void @"VAR_HEMISPHERE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %weight) nounwind alwaysinline {

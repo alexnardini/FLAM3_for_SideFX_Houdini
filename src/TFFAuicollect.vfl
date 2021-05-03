@@ -26,10 +26,11 @@
 #pragma opmaxinputs 1
 
 struct genomeSYS{
-    int FF, iter_f, sm, smtype, domb;
+    int FF, TMG, iter_f, sm, smtype, domb;
 
     void genomeSYSBuild(){
         FF            = chi("../dofinalflame");
+        TMG           = chi("../dotmglobal");
         iter_f        = chi("../flamefunc");
         sm            = chi("../symmetry");
         smtype        = chi("../rotational");
@@ -148,11 +149,12 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     float pbw, w1, w2, w3, w4, fw1, fw2, fw3;
     genomeSYS SYS; SYS->genomeSYSBuild();
 
-    if(SYS.domb) append(type, "(MB)");
+    if(SYS.domb) append(type, "MB");
     if(SYS.sm){
-        if(!SYS.smtype) append(type, "(SM3)");
-        else append(type, "(SM5)");
+        if(!SYS.smtype) append(type, "SM3");
+        else append(type, "SM5");
     }
+    if(SYS.TMG) append(type, "TM");
 
     for(int i=0; i<SYS.iter_f; i++){
 
