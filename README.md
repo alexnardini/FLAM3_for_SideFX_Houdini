@@ -60,9 +60,9 @@ Watch the making of here:
 [**F :: making of**](https://vimeo.com/511517064)
 
 ## References
-References A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
+Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
-References B: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
+Reference B: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
 
 
 
