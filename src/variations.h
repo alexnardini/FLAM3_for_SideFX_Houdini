@@ -25,7 +25,7 @@
 
 float sgn(float n) { return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
-// float rndsgn(){ float n = nrandom("twister")+nrandom("twister") - 1.0; return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
+//float rndsgn(){ float n = nrandom("twister")+nrandom("twister") - 1.0; return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
 void sincos(float a, sa, ca){ sa=sin(a); ca=cos(a); }
 
@@ -134,9 +134,9 @@ void affine(vector outp, pos; float a, b, d, e, f, h){
 }
 
 void affinePOST(vector pos; float a, b, d, e, f, h){
-    pos += set( a*pos[0] + b*pos[1] + d,
-                e*pos[0] + f*pos[1] + h,
-                0 );
+    pos = set( a*pos[0] + b*pos[1] + d,
+               e*pos[0] + f*pos[1] + h,
+               0 );
 }
 // VARIATIONS
 //

@@ -2696,26 +2696,25 @@ declare <3 x double> @"add@VV"(<3 x double>, <3 x double>) nounwind readnone
 
 define private void @"affinePOST@VFFFFFF"(<3 x double>* %pos, double* %a, double* %b, double* %d, double* %e, double* %f, double* %h) nounwind alwaysinline {
 __llvm_entry:
-  %pos1 = load <3 x double>* %pos
-  %a2 = load double* %a
-  %return = call double @"getcomp@FVI"(<3 x double> %pos1, i64 0)
-  %output = fmul double %a2, %return
-  %b4 = load double* %b
-  %return6 = call double @"getcomp@FVI"(<3 x double> %pos1, i64 1)
-  %output7 = fmul double %b4, %return6
-  %output8 = fadd double %output, %output7
-  %d9 = load double* %d
-  %output10 = fadd double %output8, %d9
-  %e11 = load double* %e
-  %output14 = fmul double %e11, %return
-  %f15 = load double* %f
-  %output18 = fmul double %f15, %return6
-  %output19 = fadd double %output14, %output18
-  %h20 = load double* %h
-  %output21 = fadd double %output19, %h20
-  %return22 = call <3 x double> @"set@VFFF"(double %output10, double %output21, double 0.000000e+00)
-  %output23 = call <3 x double> @"add@VV"(<3 x double> %pos1, <3 x double> %return22)
-  store <3 x double> %output23, <3 x double>* %pos
+  %a1 = load double* %a
+  %pos2 = load <3 x double>* %pos
+  %return = call double @"getcomp@FVI"(<3 x double> %pos2, i64 0)
+  %output = fmul double %a1, %return
+  %b3 = load double* %b
+  %return5 = call double @"getcomp@FVI"(<3 x double> %pos2, i64 1)
+  %output6 = fmul double %b3, %return5
+  %output7 = fadd double %output, %output6
+  %d8 = load double* %d
+  %output9 = fadd double %output7, %d8
+  %e10 = load double* %e
+  %output13 = fmul double %e10, %return
+  %f14 = load double* %f
+  %output17 = fmul double %f14, %return5
+  %output18 = fadd double %output13, %output17
+  %h19 = load double* %h
+  %output20 = fadd double %output18, %h19
+  %return21 = call <3 x double> @"set@VFFF"(double %output9, double %output20, double 0.000000e+00)
+  store <3 x double> %return21, <3 x double>* %pos
   ret void
 }
 
