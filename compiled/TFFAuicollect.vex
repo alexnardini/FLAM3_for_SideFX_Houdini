@@ -253,8 +253,8 @@ end16:                                            ; preds = %true15, %end6
   br label %cond
 
 cond:                                             ; preds = %end32, %end16
-  %i.0 = phi i64 [ 0, %end16 ], [ %output24, %end32 ]
   %type.3 = phi i8** [ %type.2, %end16 ], [ %output175, %end32 ]
+  %i.0 = phi i64 [ 0, %end16 ], [ %output24, %end32 ]
   %SYS20 = load %genomeSYS* %SYS
   %iter_f = extractvalue %genomeSYS %SYS20, 2
   %return21 = call i64 @"lt@III"(i64 %i.0, i64 %iter_f)

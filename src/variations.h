@@ -25,9 +25,6 @@
 
 float sgn(float n) { return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
-// Dnt need this yet
-// float rndsgn(){ float n = nrandom("twister")+nrandom("twister") - 1.0; return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
-
 void sincos(float a, sa, ca){ sa=sin(a); ca=cos(a); }
 
 float fmod(float a, b){ return (a-floor(a/b)*b); }
@@ -39,52 +36,6 @@ float precalc(string type; vector pos){
     else if(type=="ATANYX")  return atan2(pos[1], pos[0]);
     return 0;
 }
-
-// Incorporated all precalc functions inside their own variation's function.
-// Reasons are to generate a smaller file size on compile and faster first node instance creation time.
-//
-/*
-void perspective_precalc(float angle, dist, vsin, vfcos){
-    float ang = angle * M_PI / 2.0;
-    vsin = sin(ang);
-    vfcos = dist * cos(ang);
-}
-
-void waves_precalc(float dx2, dy2, dz2, F, H){
-    dx2 = 1.0/(F*F + EPS);
-    dy2 = 1.0/(H*H + EPS);
-}
-
-void disc2_precalc(float rot, twist, sinadd, cosadd, timespi){
-    float k;
-    timespi = rot * M_PI;
-    sincos(twist, sinadd, cosadd);
-    cosadd -= 1;
-    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); cosadd*=k; sinadd*=k; }
-    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); cosadd*=k; sinadd*=k; }
-}
-
-void supershape_precalc(float ss_m, ss_n1, ss_pm_4, ss_pneg_n1){
-    ss_pm_4 = ss_m / 4.0;
-    ss_pneg_n1 = -1.0 / ss_n1;
-}
-
-void wedgejulia_precalc(float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, power, angle, dist, count){
-    wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
-    wedgeJulia_rN = abs(power);
-    wedgeJulia_cn = dist / power / 2.0;
-}
-
-void bwraps_precalc(float g2, r2, rfactor, cellsize, space, gain){
-    float radius = 0.5 * (cellsize / (1.0 + space*space ));
-    g2 = sqrt(gain) / cellsize + 1e-6;
-    float max_bubble = g2 * radius;
-    if(max_bubble>2.0) max_bubble=1.0;
-    else max_bubble *= 1.0/( (max_bubble*max_bubble)/4.0+1.0);
-    r2 = radius*radius;
-    rfactor = radius/max_bubble;
-}
-*/
 
 vector biunitcube(){
     return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1), 0); }
@@ -133,15 +84,15 @@ void precalc_utils(int type; vector pos, precalc){
     }
 }
 
-void affine(vector outp, pos; float a, b, d, e, f, h){
-    outp +=  set( a*pos[0] + b*pos[1] + d,
-                  e*pos[0] + f*pos[1] + h,
-                 0 );
+void affine(vector outp, pos; vector2 x, y, o){
+    outp +=  set( x[0]*pos[0] + y[0]*pos[1] + o[0],
+                  x[1]*pos[0] + y[1]*pos[1] + o[1],
+                  0 );
 }
 
-void affinePOST(vector pos; float a, b, d, e, f, h){
-    pos = set( a*pos[0] + b*pos[1] + d,
-               e*pos[0] + f*pos[1] + h,
+void affinePOST(vector pos; vector2 x, y, o){
+    pos = set( x[0]*pos[0] + y[0]*pos[1] + o[0],
+               x[1]*pos[0] + y[1]*pos[1] + o[1],
                0 );
 }
 // VARIATIONS

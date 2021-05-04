@@ -46,12 +46,11 @@ struct genomeSYS{
 }
 
 struct genome{
-    int    ffv1type, ffv2type, ffv3type, v1type[], v2type[], v3type[], v4type[], cvar_override[], POSTL[];
-    float  IW[], a[], b[], d[], e[], f[], h[], vpscale[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], ap[], bp[], dp[], ep[], fp[], hp[],
-           grt, ffv1weight, ffv2weight, ffv3weight, fa, fb, fd, fe, ff, fh, fa2, fb2, fd2, fe2, ff2, fh2;
-    vector2 gtr, gsc;
-    vector vcol[];
-    string sIDX[];
+    int     v1type[], v2type[], v3type[], v4type[], cvar_override[], POSTL[], ffv1type, ffv2type, ffv3type;
+    float   IW[], vpscale[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], ffv1weight, ffv2weight, ffv3weight, grt;
+    vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
+    vector  vcol[];
+    string  sIDX[];
 
     void genomeBuild(const int VACTIVE[]; const genomeSYS SYS){
         
@@ -87,28 +86,17 @@ struct genome{
             else resize(v4type, res);
 
             // Collect affine coefficients
-            // X
-            append(a, chf(concat("../a_", IDX)));
-            append(b, chf(concat("../b_", IDX)));
-            append(d, chf(concat("../d_", IDX)));
-            // Y
-            append(e, chf(concat("../e_", IDX)));
-            append(f, chf(concat("../f_", IDX)));
-            append(h, chf(concat("../h_", IDX)));
-
+            append(x, chu(concat("../x_", IDX)));
+            append(y, chu(concat("../y_", IDX)));
+            append(o, chu(concat("../o_", IDX)));
+            // POST
             append(POSTL, chi(concat("../dopost_", IDX)));
             if(POSTL[-1]){
-                // Collect POST affine coefficients
-                // X
-                append(ap, chf(concat("../a_", IDX, "_2")));
-                append(bp, chf(concat("../b_", IDX, "_2")));
-                append(dp, chf(concat("../d_", IDX, "_2")));
-                // Y
-                append(ep, chf(concat("../e_", IDX, "_2")));
-                append(fp, chf(concat("../f_", IDX, "_2")));
-                append(hp, chf(concat("../h_", IDX, "_2")));
+                append(px, chu(concat("../px_", IDX)));
+                append(py, chu(concat("../py_", IDX)));
+                append(po, chu(concat("../po_", IDX)));
                 }
-            else{ resize(ap, res); resize(bp, res); resize(dp, res); resize(ep, res); resize(fp, res); resize(hp, res); }
+            else{ resize(px, res); resize(py, res); resize(po, res); }
             
         }
         // Collect GLOBAL TM
@@ -133,24 +121,14 @@ struct genome{
             if(ffv3weight!=0)
                 ffv3type     = chi("../ffv3type");
             // Collect FINAL FLAME TRANSFORM affine coefficients
-            // X
-            fa = chf("../_fa_2");
-            fb = chf("../_fb_2");
-            fd = chf("../_fd_2");
-            // Y
-            fe = chf("../_fe_2");
-            ff = chf("../_ff_2");
-            fh = chf("../_fh_2");
-            // Collect FINAL FLAME POST TRANSFORM affine coefficients
+            fx = chu("../_fx_2");
+            fy = chu("../_fy_2");
+            fo = chu("../_fo_2");
+            // POST
             if(SYS.POSTF){
-                // X
-                fa2 = chf("../_fpa_2");
-                fb2 = chf("../_fpb_2");
-                fd2 = chf("../_fpd_2");
-                // Y
-                fe2 = chf("../_fpe_2");
-                ff2 = chf("../_fpf_2");
-                fh2 = chf("../_fph_2");
+                pfx = chu("../_pfx_2");
+                pfy = chu("../_pfy_2");
+                pfo = chu("../_pfo_2");
             }
         }
     }
@@ -164,8 +142,8 @@ struct genomeParametrics{
 
     void genomeParametricsBuild(string MODE; const string sIDX[]; const int GEMTYPE[]){
 
-        int iter_f = len(GEMTYPE);
-        if(iter_f){
+        if(max(GEMTYPE)>26){
+            int iter_f = len(GEMTYPE);
             int TYPES_1[], TYPES_2[], TYPE;
             string PRX, IDX;
             TYPES_1 = {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57, 61};
@@ -183,7 +161,8 @@ struct genomeParametrics{
             // iterate
             for(int i=0; i<iter_f; i++){
                 IDX=sIDX[i]; TYPE=GEMTYPE[i];
-                if(find(TYPES_1, TYPE)>=0){
+                if(TYPE<27) continue;
+                else if(find(TYPES_1, TYPE)>=0){
                     if(TYPE<38){
                         // 27 CURL
                         if(TYPE==27){ curl_c[i] = chu(concat(PRX, "curlc_", IDX)); continue; }

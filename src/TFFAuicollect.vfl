@@ -41,7 +41,6 @@ struct genomeSYS{
 void
 _TFFAuicollect(string _bound_VARTYPE[]){
 
-    int iter_var_num = 5;
     string type[];
     string stype[] = {  "linear", 
                         "sinusoidal",

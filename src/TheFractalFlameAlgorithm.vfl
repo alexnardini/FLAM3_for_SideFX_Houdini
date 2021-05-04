@@ -50,11 +50,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         idx = sample_cdf(cdf, nrandom('twister'));
         vector __tmp = 0;
         if(GEM.PBWEIGHT[idx]>0) VAR_PREBLUR(__mem, GEM.PBWEIGHT[idx]);
-        if(GEM.v1weight[idx]!=0) __tmp += FLAME(v1GMP, "LOCAL", __mem, idx, GEM.v1type[idx], GEM.a[idx], GEM.b[idx], GEM.d[idx], GEM.e[idx], GEM.f[idx], GEM.h[idx], GEM.v1weight[idx]);
-        if(GEM.v2weight[idx]!=0) __tmp += FLAME(v2GMP, "LOCAL", __mem, idx, GEM.v2type[idx], GEM.a[idx], GEM.b[idx], GEM.d[idx], GEM.e[idx], GEM.f[idx], GEM.h[idx], GEM.v2weight[idx]);
-        if(GEM.v3weight[idx]!=0) __tmp += FLAME(v3GMP, "LOCAL", __mem, idx, GEM.v3type[idx], GEM.a[idx], GEM.b[idx], GEM.d[idx], GEM.e[idx], GEM.f[idx], GEM.h[idx], GEM.v3weight[idx]);
-        if(GEM.v4weight[idx]!=0) __tmp += FLAME(v4GMP, "LOCAL", __mem, idx, GEM.v4type[idx], GEM.a[idx], GEM.b[idx], GEM.d[idx], GEM.e[idx], GEM.f[idx], GEM.h[idx], GEM.v4weight[idx]);
-        if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.ap[idx], GEM.bp[idx], GEM.dp[idx], GEM.ep[idx], GEM.fp[idx], GEM.hp[idx]);
+        if(GEM.v1weight[idx]!=0) __tmp += FLAME(v1GMP, "LOCAL", __mem, idx, GEM.v1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1weight[idx]);
+        if(GEM.v2weight[idx]!=0) __tmp += FLAME(v2GMP, "LOCAL", __mem, idx, GEM.v2type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2weight[idx]);
+        if(GEM.v3weight[idx]!=0) __tmp += FLAME(v3GMP, "LOCAL", __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3weight[idx]);
+        if(GEM.v4weight[idx]!=0) __tmp += FLAME(v4GMP, "LOCAL", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4weight[idx]);
+        if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         // @Cd && @pscale
         if(!checkNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem)){
@@ -122,10 +122,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     }
     if(SYS.FF){
         vector __tmp = 0;
-        if(GEM.ffv1weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv1type, GEM.fa, GEM.fb, GEM.fd, GEM.fe, GEM.ff, GEM.fh, GEM.ffv1weight);
-        if(GEM.ffv2weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv2type, GEM.fa, GEM.fb, GEM.fd, GEM.fe, GEM.ff, GEM.fh, GEM.ffv2weight);
-        if(GEM.ffv3weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv3type, GEM.fa, GEM.fb, GEM.fd, GEM.fe, GEM.ff, GEM.fh, GEM.ffv3weight);
-        if(SYS.POSTF) affinePOST(__tmp, GEM.fa2, GEM.fb2, GEM.fd2, GEM.fe2, GEM.ff2, GEM.fh2);
+        if(GEM.ffv1weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv1weight);
+        if(GEM.ffv2weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv2type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2weight);
+        if(GEM.ffv3weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv3type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3weight);
+        if(SYS.POSTF) affinePOST(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
         __mem = __tmp;
         removeNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem);
         }
@@ -155,11 +155,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
 }
 
 cvex
-TheFractalFlameAlgorithm( export int    ptnum   = 0;
+TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  int    VACTIVE[] = {};
-	                      export float  pscale  = 0;
-	                      export vector Cd      = 1;
-	                      export vector P       = 0)
+	                      export float  pscale    = 0;
+	                      export vector Cd        = 1;
+	                      export vector P         = 0)
 {
     _TheFractalFlameAlgorithm(ptnum, VACTIVE, pscale, Cd, P);
 }

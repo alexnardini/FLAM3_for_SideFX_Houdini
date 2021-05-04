@@ -19,10 +19,10 @@
 #include <genome.h>
 #include <variations.h>
 
-vector FLAME(genomeParametrics GMP; string ftype; vector pos; int idx, type; float a, b, d, e, f, h, weight){
+vector FLAME(genomeParametrics GMP; string ftype; vector pos; int idx, type; vector2 x, y, o; float weight){
 
     vector outp, _inp, precalc; _inp=0;
-    affine(_inp, pos, a, b, d, e, f, h);
+    affine(_inp, pos, x, y, o);
     precalc_utils(type, _inp, precalc);
     // FLAME VARIATIONS
     //
@@ -88,7 +88,7 @@ vector FLAME(genomeParametrics GMP; string ftype; vector pos; int idx, type; flo
                 return outp; }
             // *15 Waves ( dependent )
             else if(type==15){
-                VAR_WAVES(outp, _inp, weight, d, e, f, h);
+                VAR_WAVES(outp, _inp, weight, o[0], x[1], y[1], o[1]);
                 return outp; }
             // 16 Fisheye
             else if(type==16){
@@ -96,7 +96,7 @@ vector FLAME(genomeParametrics GMP; string ftype; vector pos; int idx, type; flo
                 return outp; }
             // *17 Popcorn ( dependent )
             else if(type==17){
-                VAR_POPCORN(outp, _inp, weight, d, h);
+                VAR_POPCORN(outp, _inp, weight, o[0], o[1]);
                 return outp; }
         }
         else{
@@ -114,11 +114,11 @@ vector FLAME(genomeParametrics GMP; string ftype; vector pos; int idx, type; flo
                 return outp; }
             // *21 RINGS ( dependent )
             else if(type==21){
-                VAR_RINGS(outp, _inp, precalc, weight, d);
+                VAR_RINGS(outp, _inp, precalc, weight, o[0]);
                 return outp; }
             // *22 FAN ( dependent )
             else if(type==22){
-                VAR_FAN(outp, _inp, weight, d);
+                VAR_FAN(outp, _inp, weight, o[0]);
                 return outp; }
             // 23 BUBBLE
             else if(type==23){
