@@ -8,8 +8,7 @@
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
-fast, ready to use functions like **creating and sampling a cdf** and a very robust and super fast
-**random number generator**.
+fast, ready to use functions like **creating and sampling a cdf** and a very robust and **random number generator**.
 
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions and much more.
