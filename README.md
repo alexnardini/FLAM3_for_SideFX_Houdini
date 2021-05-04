@@ -64,6 +64,9 @@ Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://gith
 
 Reference B: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
 
+Reference C: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
+
+
 
 
 
