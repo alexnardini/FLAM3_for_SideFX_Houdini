@@ -45,7 +45,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     // Start the chaos game
     float cdf[] = create_cdf(GEM.IW);
     int iter_f = len(GEM.v1type);
-    __mem = biunitcube();
+    __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
         idx = sample_cdf(cdf, nrandom('twister'));
         vector __tmp = 0;

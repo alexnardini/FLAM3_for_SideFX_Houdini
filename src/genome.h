@@ -30,12 +30,12 @@ struct genomeSYS{
         USEPALETTE    = chi("../usermp");
         PALETTEMODE   = chi("../palettemode");
         BLENDWITHVCOL = chi("../blendwithvcol");
-        iter_f        = chi("../flamefunc");
         DELINVALIDPT  = chi("../delinvalidpt");
         symmetry      = chi("../symmetry");
         if(symmetry){
             sym_mode      = chi("../rotational");
             sym_global    = chi("../sym_global"); }
+        iter_f        = chi("../flamefunc");
         iter          = chi("../iter");
         domb          = chi("../domb");
         mb_modulate   = 1.0;
