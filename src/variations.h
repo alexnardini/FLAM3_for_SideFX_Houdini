@@ -37,7 +37,7 @@ float precalc(string type; vector pos){
     return 0;
 }
 
-vector biunit() return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1), 0);
+vector biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1), 0); }
 
 int checkNAN_vector(int ACTIVE, ptn; vector vec){
     if(ACTIVE){
