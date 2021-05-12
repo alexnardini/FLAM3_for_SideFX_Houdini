@@ -13,11 +13,11 @@
 @5 = private constant [10 x i8] c"../usermp\00"
 @6 = private constant [15 x i8] c"../palettemode\00"
 @7 = private constant [17 x i8] c"../blendwithvcol\00"
-@8 = private constant [13 x i8] c"../flamefunc\00"
-@9 = private constant [16 x i8] c"../delinvalidpt\00"
-@10 = private constant [12 x i8] c"../symmetry\00"
-@11 = private constant [14 x i8] c"../rotational\00"
-@12 = private constant [14 x i8] c"../sym_global\00"
+@8 = private constant [16 x i8] c"../delinvalidpt\00"
+@9 = private constant [12 x i8] c"../symmetry\00"
+@10 = private constant [14 x i8] c"../rotational\00"
+@11 = private constant [14 x i8] c"../sym_global\00"
+@12 = private constant [13 x i8] c"../flamefunc\00"
 @13 = private constant [8 x i8] c"../iter\00"
 @14 = private constant [8 x i8] c"../domb\00"
 @15 = private constant [9 x i8] c"../vizmb\00"
@@ -223,41 +223,41 @@ end:                                              ; preds = %true, %__llvm_entry
   %return14 = call i64 @"chi@IS"(i8* getelementptr inbounds ([17 x i8]* @7, i64 0, i64 0))
   %tmp15 = load %genomeSYS* %this
   %8 = insertvalue %genomeSYS %tmp15, i64 %return14, 8
-  %return16 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @8, i64 0, i64 0))
-  %9 = insertvalue %genomeSYS %8, i64 %return16, 9
-  %return18 = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8]* @9, i64 0, i64 0))
-  %10 = insertvalue %genomeSYS %9, i64 %return18, 1
-  %return20 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8]* @10, i64 0, i64 0))
-  %11 = insertvalue %genomeSYS %10, i64 %return20, 10
-  store %genomeSYS %11, %genomeSYS* %this
-  %this22 = load %genomeSYS* %this
-  %symmetry = extractvalue %genomeSYS %this22, 10
-  %12 = icmp ne i64 %symmetry, 0
-  br i1 %12, label %true23, label %end24
+  %return16 = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8]* @8, i64 0, i64 0))
+  %9 = insertvalue %genomeSYS %8, i64 %return16, 1
+  %return18 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8]* @9, i64 0, i64 0))
+  %10 = insertvalue %genomeSYS %9, i64 %return18, 10
+  store %genomeSYS %10, %genomeSYS* %this
+  %symmetry = extractvalue %genomeSYS %10, 10
+  %11 = icmp ne i64 %symmetry, 0
+  br i1 %11, label %true21, label %end22
 
-true23:                                           ; preds = %end
+true21:                                           ; preds = %end
+  %return23 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8]* @10, i64 0, i64 0))
+  %12 = insertvalue %genomeSYS %10, i64 %return23, 11
   %return25 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8]* @11, i64 0, i64 0))
-  %13 = insertvalue %genomeSYS %this22, i64 %return25, 11
-  %return27 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8]* @12, i64 0, i64 0))
-  %14 = insertvalue %genomeSYS %13, i64 %return27, 12
-  store %genomeSYS %14, %genomeSYS* %this
-  br label %end24
+  %13 = insertvalue %genomeSYS %12, i64 %return25, 12
+  store %genomeSYS %13, %genomeSYS* %this
+  br label %end22
 
-end24:                                            ; preds = %true23, %end
+end22:                                            ; preds = %true21, %end
+  %return27 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @12, i64 0, i64 0))
+  %tmp28 = load %genomeSYS* %this
+  %14 = insertvalue %genomeSYS %tmp28, i64 %return27, 9
   %return29 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8]* @13, i64 0, i64 0))
-  %tmp30 = load %genomeSYS* %this
-  %15 = insertvalue %genomeSYS %tmp30, i64 %return29, 13
+  %15 = insertvalue %genomeSYS %14, i64 %return29, 13
   %return31 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8]* @14, i64 0, i64 0))
   %16 = insertvalue %genomeSYS %15, i64 %return31, 14
   %17 = insertvalue %genomeSYS %16, double 1.000000e+00, 16
   store %genomeSYS %17, %genomeSYS* %this
-  %domb = extractvalue %genomeSYS %17, 14
+  %this34 = load %genomeSYS* %this
+  %domb = extractvalue %genomeSYS %this34, 14
   %18 = icmp ne i64 %domb, 0
   br i1 %18, label %true35, label %end36
 
-true35:                                           ; preds = %end24
+true35:                                           ; preds = %end22
   %return37 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8]* @15, i64 0, i64 0))
-  %19 = insertvalue %genomeSYS %17, i64 %return37, 15
+  %19 = insertvalue %genomeSYS %this34, i64 %return37, 15
   store %genomeSYS %19, %genomeSYS* %this
   %return39 = call double @"detail@FISI"(i64 1, i8* getelementptr inbounds ([11 x i8]* @16, i64 0, i64 0), i64 0)
   %tmp40 = load %genomeSYS* %this
@@ -265,7 +265,7 @@ true35:                                           ; preds = %end24
   store %genomeSYS %20, %genomeSYS* %this
   br label %end36
 
-end36:                                            ; preds = %true35, %end24
+end36:                                            ; preds = %true35, %end22
   ret void
 }
 
@@ -2149,7 +2149,7 @@ declare double @"sqrt@FF"(double) nounwind readnone
 
 declare double @"atan2@FFF"(double, double) nounwind readnone
 
-define private <3 x double> @"biunitcube@V"() nounwind alwaysinline {
+define private <3 x double> @"biunit@V"() nounwind alwaysinline {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @116, i64 0, i64 0))
   %return1 = call i64 @"neg@II"(i64 1)
@@ -2167,7 +2167,7 @@ declare double @"fit01@FFFF"(double, double, double) nounwind
 
 declare <3 x double> @"set@VFFF"(double, double, double) nounwind readnone
 
-define private i64 @"checkNAN_vector@IIIV"(i64* %ACTIVE, i64* %ptn, <3 x double>* %vec) nounwind alwaysinline {
+define private i64 @"checkNAN_vector@IIV"(i64* %ACTIVE, <3 x double>* %vec) nounwind alwaysinline {
 __llvm_entry:
   %ACTIVE1 = load i64* %ACTIVE
   %0 = icmp ne i64 %ACTIVE1, 0
@@ -2209,16 +2209,15 @@ declare double @"length@FV"(<3 x double>) nounwind
 
 define private void @"removeNAN_vector@IIV"(i64* %ACTIVE, i64* %ptn, <3 x double>* %vec) nounwind alwaysinline {
 __llvm_entry:
-  %0 = alloca i64
-  %1 = alloca <3 x double>
-  %2 = alloca i64
+  %0 = alloca <3 x double>
+  %1 = alloca i64
   %ACTIVE1 = load i64* %ACTIVE
-  store i64 %ACTIVE1, i64* %2
+  store i64 %ACTIVE1, i64* %1
   %vec2 = load <3 x double>* %vec
-  store <3 x double> %vec2, <3 x double>* %1
-  %checkNAN_vector = call i64 @"checkNAN_vector@IIIV"(i64* %2, i64* %0, <3 x double>* %1)
-  %3 = icmp ne i64 %checkNAN_vector, 0
-  br i1 %3, label %true, label %end
+  store <3 x double> %vec2, <3 x double>* %0
+  %checkNAN_vector = call i64 @"checkNAN_vector@IIV"(i64* %1, <3 x double>* %0)
+  %2 = icmp ne i64 %checkNAN_vector, 0
+  br i1 %2, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
   %ptn3 = load i64* %ptn
@@ -2231,7 +2230,7 @@ end:                                              ; preds = %true, %__llvm_entry
 
 declare i64 @"removepoint@III"(i64, i64) nounwind
 
-define private i64 @"checkNAN_float@IIIF"(i64* %ACTIVE, i64* %ptn, double* %flt) nounwind alwaysinline {
+define private i64 @"checkNAN_float@IIF"(i64* %ACTIVE, double* %flt) nounwind alwaysinline {
 __llvm_entry:
   %ACTIVE1 = load i64* %ACTIVE
   %0 = icmp ne i64 %ACTIVE1, 0
@@ -10163,54 +10162,50 @@ __llvm_entry:
   %52 = alloca <2 x double>
   %53 = alloca <2 x double>
   %54 = alloca i64
-  %55 = alloca i64
-  %56 = alloca <3 x double>
+  %55 = alloca <3 x double>
   %__tmp408 = alloca <3 x double>
-  %57 = alloca i64
+  %56 = alloca i64
+  %57 = alloca <3 x double>
   %58 = alloca i64
-  %59 = alloca <3 x double>
-  %60 = alloca i64
-  %61 = alloca i64
-  %62 = alloca double
-  %63 = alloca %genomeParametrics
-  %64 = alloca i8*
-  %65 = alloca <3 x double>
-  %66 = alloca i64
-  %67 = alloca i64
-  %68 = alloca <2 x double>
-  %69 = alloca <2 x double>
-  %70 = alloca <2 x double>
-  %71 = alloca double
-  %72 = alloca %genomeParametrics
-  %73 = alloca i8*
-  %74 = alloca <3 x double>
-  %75 = alloca i64
-  %76 = alloca i64
-  %77 = alloca <2 x double>
-  %78 = alloca <2 x double>
-  %79 = alloca <2 x double>
-  %80 = alloca double
-  %81 = alloca %genomeParametrics
-  %82 = alloca i8*
-  %83 = alloca <3 x double>
-  %84 = alloca i64
-  %85 = alloca i64
-  %86 = alloca <2 x double>
+  %59 = alloca double
+  %60 = alloca %genomeParametrics
+  %61 = alloca i8*
+  %62 = alloca <3 x double>
+  %63 = alloca i64
+  %64 = alloca i64
+  %65 = alloca <2 x double>
+  %66 = alloca <2 x double>
+  %67 = alloca <2 x double>
+  %68 = alloca double
+  %69 = alloca %genomeParametrics
+  %70 = alloca i8*
+  %71 = alloca <3 x double>
+  %72 = alloca i64
+  %73 = alloca i64
+  %74 = alloca <2 x double>
+  %75 = alloca <2 x double>
+  %76 = alloca <2 x double>
+  %77 = alloca double
+  %78 = alloca %genomeParametrics
+  %79 = alloca i8*
+  %80 = alloca <3 x double>
+  %81 = alloca i64
+  %82 = alloca i64
+  %83 = alloca <2 x double>
+  %84 = alloca <2 x double>
+  %85 = alloca <2 x double>
+  %86 = alloca double
   %87 = alloca <2 x double>
   %88 = alloca <2 x double>
-  %89 = alloca double
-  %90 = alloca <2 x double>
-  %91 = alloca <2 x double>
-  %92 = alloca <2 x double>
-  %93 = alloca i64
+  %89 = alloca <2 x double>
+  %90 = alloca i64
+  %91 = alloca i64
+  %92 = alloca <3 x double>
+  %93 = alloca <3 x double>
   %94 = alloca i64
-  %95 = alloca <3 x double>
-  %96 = alloca <3 x double>
-  %97 = alloca i64
-  %98 = alloca i64
-  %99 = alloca i64
-  %100 = alloca i64
-  %101 = alloca double
+  %95 = alloca i64
+  %96 = alloca i64
+  %97 = alloca double
   store <3 x double> zeroinitializer, <3 x double>* %__mem, !vex-initializer-store !3
   %cast = call <3 x double> @"set@VF"(double 0.000000e+00)
   %SYS1 = call %genomeSYS @"genomeSYS@Z9genomeSYSM17N3TMGIN12DELINVALIDPTIN5POSTFIN2FFIN9USEPSCALEIN12USEPSCALEVIZIN10USEPALETTEIN11PALETTEMODEIN13BLENDWITHVCOLIN6iter_fIN8symmetryIN8sym_modeIN10sym_globalIN4iterIN4dombIN5vizmbIN11mb_modulateF"()
@@ -10264,8 +10259,8 @@ __llvm_entry:
   %return = call double* @"create_cdf@[F[F"(double* %IW)
   %v1type22 = extractvalue %genome %GEM20, 0
   %return23 = call i64 @"len@I[I"(i64* %v1type22)
-  %biunitcube = call <3 x double> @"biunitcube@V"()
-  store <3 x double> %biunitcube, <3 x double>* %__mem
+  %biunit = call <3 x double> @"biunit@V"()
+  store <3 x double> %biunit, <3 x double>* %__mem
   br label %cond
 
 cond:                                             ; preds = %end391, %__llvm_entry
@@ -10281,8 +10276,8 @@ cond:                                             ; preds = %end391, %__llvm_ent
   %SYS25 = load %genomeSYS* %SYS
   %iter = extractvalue %genomeSYS %SYS25, 13
   %return26 = call i64 @"lt@III"(i64 %i.0, i64 %iter)
-  %102 = icmp ne i64 %return26, 0
-  br i1 %102, label %body, label %end
+  %98 = icmp ne i64 %return26, 0
+  br i1 %98, label %body, label %end
 
 body:                                             ; preds = %cond
   %return29 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @116, i64 0, i64 0))
@@ -10298,8 +10293,8 @@ body:                                             ; preds = %cond
 end:                                              ; preds = %false, %cond
   %SYS405 = load %genomeSYS* %SYS
   %FF = extractvalue %genomeSYS %SYS405, 3
-  %103 = icmp ne i64 %FF, 0
-  br i1 %103, label %true406, label %end407
+  %99 = icmp ne i64 %FF, 0
+  br i1 %99, label %true406, label %end407
 
 true:                                             ; preds = %body
   store double %return34, double* %14
@@ -10470,8 +10465,8 @@ end142:                                           ; preds = %true141, %end109
   %GEM169 = load %genome* %GEM
   %POSTL = extractvalue %genome %GEM169, 5
   %return171 = call i64 @"getcomp@I[II"(i64* %POSTL, i64 %return30)
-  %104 = icmp ne i64 %return171, 0
-  br i1 %104, label %true172, label %end173
+  %100 = icmp ne i64 %return171, 0
+  br i1 %100, label %true172, label %end173
 
 true172:                                          ; preds = %end142
   %px = extractvalue %genome %GEM169, 25
@@ -10491,8 +10486,8 @@ true172:                                          ; preds = %end142
 end173:                                           ; preds = %true172, %end142
   %SYS183 = load %genomeSYS* %SYS
   %TMG = extractvalue %genomeSYS %SYS183, 0
-  %105 = icmp ne i64 %TMG, 0
-  br i1 %105, label %true184, label %end185
+  %101 = icmp ne i64 %TMG, 0
+  br i1 %101, label %true184, label %end185
 
 true184:                                          ; preds = %end173
   %__tmp186 = load <3 x double>* %__tmp
@@ -10513,11 +10508,11 @@ end185:                                           ; preds = %true184, %end173
   %DELINVALIDPT = extractvalue %genomeSYS %SYS196, 1
   store i64 %DELINVALIDPT, i64* %54
   %__mem197 = load <3 x double>* %__mem
-  store <3 x double> %__mem197, <3 x double>* %56
-  %checkNAN_vector = call i64 @"checkNAN_vector@IIIV"(i64* %54, i64* %55, <3 x double>* %56)
+  store <3 x double> %__mem197, <3 x double>* %55
+  %checkNAN_vector = call i64 @"checkNAN_vector@IIV"(i64* %54, <3 x double>* %55)
   %return198 = call i64 @"not@II"(i64 %checkNAN_vector)
-  %106 = icmp ne i64 %return198, 0
-  br i1 %106, label %true199, label %false
+  %102 = icmp ne i64 %return198, 0
+  br i1 %102, label %true199, label %false
 
 true199:                                          ; preds = %end185
   %SYS201 = load %genomeSYS* %SYS
@@ -10525,8 +10520,8 @@ true199:                                          ; preds = %end185
   %USEPSCALEVIZ = extractvalue %genomeSYS %SYS201, 5
   %output203 = add i64 %USEPSCALE, %USEPSCALEVIZ
   %return204 = call i64 @"lt@III"(i64 %output203, i64 2)
-  %107 = icmp ne i64 %return204, 0
-  br i1 %107, label %true205, label %end206
+  %103 = icmp ne i64 %return204, 0
+  br i1 %103, label %true205, label %end206
 
 false:                                            ; preds = %end185
   %_bound_ptnum399 = load i64* %_bound_ptnum
@@ -10535,8 +10530,8 @@ false:                                            ; preds = %end185
 
 true205:                                          ; preds = %true199
   %USEPALETTE = extractvalue %genomeSYS %SYS201, 6
-  %108 = icmp ne i64 %USEPALETTE, 0
-  br i1 %108, label %true208, label %false209
+  %104 = icmp ne i64 %USEPALETTE, 0
+  br i1 %104, label %true208, label %false209
 
 end206:                                           ; preds = %true303, %false304, %end344, %false225, %true224, %false209, %true199
   %_col_bg.1 = phi <3 x double> [ %_col_bg.0, %true224 ], [ %output313, %true303 ], [ %_col_bg.0, %false304 ], [ %_col_bg.0, %end344 ], [ %_col_bg.0, %false225 ], [ %_col_bg.0, %false209 ], [ %_col_bg.0, %true199 ]
@@ -10547,8 +10542,8 @@ end206:                                           ; preds = %true303, %false304,
   %fnum_n_bg.1 = phi double [ %output220, %true224 ], [ %output220, %true303 ], [ %output220, %false304 ], [ %output220, %end344 ], [ %output220, %false225 ], [ %fnum_n_bg.0, %false209 ], [ %fnum_n_bg.0, %true199 ]
   %SYS388 = load %genomeSYS* %SYS
   %USEPSCALE389 = extractvalue %genomeSYS %SYS388, 4
-  %109 = icmp ne i64 %USEPSCALE389, 0
-  br i1 %109, label %true390, label %end391
+  %105 = icmp ne i64 %USEPSCALE389, 0
+  br i1 %105, label %true390, label %end391
 
 true208:                                          ; preds = %true205
   %cast212 = sitofp i64 %return30 to double
@@ -10559,8 +10554,8 @@ true208:                                          ; preds = %true205
   %output220 = fmul double 5.000000e-01, %output219
   %PALETTEMODE = extractvalue %genomeSYS %SYS201, 7
   %return223 = call i64 @"not@II"(i64 %PALETTEMODE)
-  %110 = icmp ne i64 %return223, 0
-  br i1 %110, label %true224, label %false225
+  %106 = icmp ne i64 %return223, 0
+  br i1 %106, label %true224, label %false225
 
 false209:                                         ; preds = %true205
   %GEM380 = load %genome* %GEM
@@ -10581,23 +10576,23 @@ true224:                                          ; preds = %true208
   br label %end206
 
 false225:                                         ; preds = %true208
-  %111 = icmp ne i64 %PALETTEMODE, 0
-  br i1 %111, label %true237, label %end206
+  %107 = icmp ne i64 %PALETTEMODE, 0
+  br i1 %107, label %true237, label %end206
 
 true237:                                          ; preds = %false225
   %BLENDWITHVCOL = extractvalue %genomeSYS %SYS201, 8
-  %112 = icmp ne i64 %BLENDWITHVCOL, 0
+  %108 = icmp ne i64 %BLENDWITHVCOL, 0
   %GEM243 = load %genome* %GEM
   %cvar_override = extractvalue %genome %GEM243, 4
   %return245 = call i64 @"getcomp@I[II"(i64* %cvar_override, i64 %return30)
-  %113 = icmp ne i64 %return245, 0
-  br i1 %112, label %true240, label %false241
+  %109 = icmp ne i64 %return245, 0
+  br i1 %108, label %true240, label %false241
 
 true240:                                          ; preds = %true237
-  br i1 %113, label %true246, label %false247
+  br i1 %109, label %true246, label %false247
 
 false241:                                         ; preds = %true237
-  br i1 %113, label %true324, label %false325
+  br i1 %109, label %true324, label %false325
 
 true246:                                          ; preds = %true240
   %vcol250 = extractvalue %genome %GEM243, 34
@@ -10617,8 +10612,8 @@ end248:                                           ; preds = %false247, %true246
   %cvar_override261 = extractvalue %genome %GEM260, 4
   %return263 = call i64 @"getcomp@I[II"(i64* %cvar_override261, i64 %return30)
   %return264 = call i64 @"not@II"(i64 %return263)
-  %114 = icmp ne i64 %return264, 0
-  br i1 %114, label %true265, label %end266
+  %110 = icmp ne i64 %return264, 0
+  br i1 %110, label %true265, label %end266
 
 true265:                                          ; preds = %end248
   %return267 = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([15 x i8]* @170, i64 0, i64 0))
@@ -10677,8 +10672,8 @@ end326:                                           ; preds = %false325, %true324
   %cvar_override339 = extractvalue %genome %GEM338, 4
   %return341 = call i64 @"getcomp@I[II"(i64* %cvar_override339, i64 %return30)
   %return342 = call i64 @"not@II"(i64 %return341)
-  %115 = icmp ne i64 %return342, 0
-  br i1 %115, label %true343, label %end344
+  %111 = icmp ne i64 %return342, 0
+  br i1 %111, label %true343, label %end344
 
 true343:                                          ; preds = %end326
   %return346 = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([15 x i8]* @170, i64 0, i64 0))
@@ -10732,43 +10727,43 @@ true406:                                          ; preds = %end
 end407:                                           ; preds = %end466, %end
   %SYS475 = load %genomeSYS* %SYS
   %DELINVALIDPT476 = extractvalue %genomeSYS %SYS475, 1
-  store i64 %DELINVALIDPT476, i64* %57
-  store <3 x double> %col_ac.0, <3 x double>* %59
-  %checkNAN_vector478 = call i64 @"checkNAN_vector@IIIV"(i64* %57, i64* %58, <3 x double>* %59)
+  store i64 %DELINVALIDPT476, i64* %56
+  store <3 x double> %col_ac.0, <3 x double>* %57
+  %checkNAN_vector478 = call i64 @"checkNAN_vector@IIV"(i64* %56, <3 x double>* %57)
   %return479 = call i64 @"not@II"(i64 %checkNAN_vector478)
   %SYS480 = load %genomeSYS* %SYS
   %DELINVALIDPT481 = extractvalue %genomeSYS %SYS480, 1
-  store i64 %DELINVALIDPT481, i64* %60
-  store double %pscale_ac.0, double* %62
-  %checkNAN_float = call i64 @"checkNAN_float@IIIF"(i64* %60, i64* %61, double* %62)
+  store i64 %DELINVALIDPT481, i64* %58
+  store double %pscale_ac.0, double* %59
+  %checkNAN_float = call i64 @"checkNAN_float@IIF"(i64* %58, double* %59)
   %return483 = call i64 @"not@II"(i64 %checkNAN_float)
   %return484 = call i64 @"and@III"(i64 %return479, i64 %return483)
-  %116 = icmp ne i64 %return484, 0
-  br i1 %116, label %true485, label %false486
+  %112 = icmp ne i64 %return484, 0
+  br i1 %112, label %true485, label %false486
 
 true413:                                          ; preds = %true406
   %v1GMP416 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP416, %genomeParametrics* %63
-  store i8* getelementptr inbounds ([6 x i8]* @172, i64 0, i64 0), i8** %64
+  store %genomeParametrics %v1GMP416, %genomeParametrics* %60
+  store i8* getelementptr inbounds ([6 x i8]* @172, i64 0, i64 0), i8** %61
   %__mem417 = load <3 x double>* %__mem
-  store <3 x double> %__mem417, <3 x double>* %65
-  store i64 0, i64* %66
+  store <3 x double> %__mem417, <3 x double>* %62
+  store i64 0, i64* %63
   %GEM418 = load %genome* %GEM
   %ffv1type = extractvalue %genome %GEM418, 6
-  store i64 %ffv1type, i64* %67
+  store i64 %ffv1type, i64* %64
   %GEM419 = load %genome* %GEM
   %fx = extractvalue %genome %GEM419, 28
-  store <2 x double> %fx, <2 x double>* %68
+  store <2 x double> %fx, <2 x double>* %65
   %GEM420 = load %genome* %GEM
   %fy = extractvalue %genome %GEM420, 29
-  store <2 x double> %fy, <2 x double>* %69
+  store <2 x double> %fy, <2 x double>* %66
   %GEM421 = load %genome* %GEM
   %fo = extractvalue %genome %GEM421, 30
-  store <2 x double> %fo, <2 x double>* %70
+  store <2 x double> %fo, <2 x double>* %67
   %GEM422 = load %genome* %GEM
   %ffv1weight423 = extractvalue %genome %GEM422, 16
-  store double %ffv1weight423, double* %71
-  %FLAME424 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %63, i8** %64, <3 x double>* %65, i64* %66, i64* %67, <2 x double>* %68, <2 x double>* %69, <2 x double>* %70, double* %71)
+  store double %ffv1weight423, double* %68
+  %FLAME424 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %60, i8** %61, <3 x double>* %62, i64* %63, i64* %64, <2 x double>* %65, <2 x double>* %66, <2 x double>* %67, double* %68)
   %output425 = call <3 x double> @"add@VV"(<3 x double> %cast409, <3 x double> %FLAME424)
   store <3 x double> %output425, <3 x double>* %__tmp408
   br label %end414
@@ -10782,27 +10777,27 @@ end414:                                           ; preds = %true413, %true406
 true429:                                          ; preds = %end414
   %__tmp431 = load <3 x double>* %__tmp408
   %v1GMP432 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP432, %genomeParametrics* %72
-  store i8* getelementptr inbounds ([6 x i8]* @172, i64 0, i64 0), i8** %73
+  store %genomeParametrics %v1GMP432, %genomeParametrics* %69
+  store i8* getelementptr inbounds ([6 x i8]* @172, i64 0, i64 0), i8** %70
   %__mem433 = load <3 x double>* %__mem
-  store <3 x double> %__mem433, <3 x double>* %74
-  store i64 0, i64* %75
+  store <3 x double> %__mem433, <3 x double>* %71
+  store i64 0, i64* %72
   %GEM434 = load %genome* %GEM
   %ffv2type = extractvalue %genome %GEM434, 7
-  store i64 %ffv2type, i64* %76
+  store i64 %ffv2type, i64* %73
   %GEM435 = load %genome* %GEM
   %fx436 = extractvalue %genome %GEM435, 28
-  store <2 x double> %fx436, <2 x double>* %77
+  store <2 x double> %fx436, <2 x double>* %74
   %GEM437 = load %genome* %GEM
   %fy438 = extractvalue %genome %GEM437, 29
-  store <2 x double> %fy438, <2 x double>* %78
+  store <2 x double> %fy438, <2 x double>* %75
   %GEM439 = load %genome* %GEM
   %fo440 = extractvalue %genome %GEM439, 30
-  store <2 x double> %fo440, <2 x double>* %79
+  store <2 x double> %fo440, <2 x double>* %76
   %GEM441 = load %genome* %GEM
   %ffv2weight442 = extractvalue %genome %GEM441, 17
-  store double %ffv2weight442, double* %80
-  %FLAME443 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %72, i8** %73, <3 x double>* %74, i64* %75, i64* %76, <2 x double>* %77, <2 x double>* %78, <2 x double>* %79, double* %80)
+  store double %ffv2weight442, double* %77
+  %FLAME443 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %69, i8** %70, <3 x double>* %71, i64* %72, i64* %73, <2 x double>* %74, <2 x double>* %75, <2 x double>* %76, double* %77)
   %output444 = call <3 x double> @"add@VV"(<3 x double> %__tmp431, <3 x double> %FLAME443)
   store <3 x double> %output444, <3 x double>* %__tmp408
   br label %end430
@@ -10816,27 +10811,27 @@ end430:                                           ; preds = %true429, %end414
 true448:                                          ; preds = %end430
   %__tmp450 = load <3 x double>* %__tmp408
   %v1GMP451 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP451, %genomeParametrics* %81
-  store i8* getelementptr inbounds ([6 x i8]* @172, i64 0, i64 0), i8** %82
+  store %genomeParametrics %v1GMP451, %genomeParametrics* %78
+  store i8* getelementptr inbounds ([6 x i8]* @172, i64 0, i64 0), i8** %79
   %__mem452 = load <3 x double>* %__mem
-  store <3 x double> %__mem452, <3 x double>* %83
-  store i64 0, i64* %84
+  store <3 x double> %__mem452, <3 x double>* %80
+  store i64 0, i64* %81
   %GEM453 = load %genome* %GEM
   %ffv3type = extractvalue %genome %GEM453, 8
-  store i64 %ffv3type, i64* %85
+  store i64 %ffv3type, i64* %82
   %GEM454 = load %genome* %GEM
   %fx455 = extractvalue %genome %GEM454, 28
-  store <2 x double> %fx455, <2 x double>* %86
+  store <2 x double> %fx455, <2 x double>* %83
   %GEM456 = load %genome* %GEM
   %fy457 = extractvalue %genome %GEM456, 29
-  store <2 x double> %fy457, <2 x double>* %87
+  store <2 x double> %fy457, <2 x double>* %84
   %GEM458 = load %genome* %GEM
   %fo459 = extractvalue %genome %GEM458, 30
-  store <2 x double> %fo459, <2 x double>* %88
+  store <2 x double> %fo459, <2 x double>* %85
   %GEM460 = load %genome* %GEM
   %ffv3weight461 = extractvalue %genome %GEM460, 18
-  store double %ffv3weight461, double* %89
-  %FLAME462 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %81, i8** %82, <3 x double>* %83, i64* %84, i64* %85, <2 x double>* %86, <2 x double>* %87, <2 x double>* %88, double* %89)
+  store double %ffv3weight461, double* %86
+  %FLAME462 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %78, i8** %79, <3 x double>* %80, i64* %81, i64* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, double* %86)
   %output463 = call <3 x double> @"add@VV"(<3 x double> %__tmp450, <3 x double> %FLAME462)
   store <3 x double> %output463, <3 x double>* %__tmp408
   br label %end449
@@ -10844,20 +10839,20 @@ true448:                                          ; preds = %end430
 end449:                                           ; preds = %true448, %end430
   %SYS464 = load %genomeSYS* %SYS
   %POSTF = extractvalue %genomeSYS %SYS464, 2
-  %117 = icmp ne i64 %POSTF, 0
-  br i1 %117, label %true465, label %end466
+  %113 = icmp ne i64 %POSTF, 0
+  br i1 %113, label %true465, label %end466
 
 true465:                                          ; preds = %end449
   %GEM467 = load %genome* %GEM
   %pfx = extractvalue %genome %GEM467, 31
-  store <2 x double> %pfx, <2 x double>* %90
+  store <2 x double> %pfx, <2 x double>* %87
   %GEM468 = load %genome* %GEM
   %pfy = extractvalue %genome %GEM468, 32
-  store <2 x double> %pfy, <2 x double>* %91
+  store <2 x double> %pfy, <2 x double>* %88
   %GEM469 = load %genome* %GEM
   %pfo = extractvalue %genome %GEM469, 33
-  store <2 x double> %pfo, <2 x double>* %92
-  call void @"affinePOST@VUUU"(<3 x double>* %__tmp408, <2 x double>* %90, <2 x double>* %91, <2 x double>* %92)
+  store <2 x double> %pfo, <2 x double>* %89
+  call void @"affinePOST@VUUU"(<3 x double>* %__tmp408, <2 x double>* %87, <2 x double>* %88, <2 x double>* %89)
   br label %end466
 
 end466:                                           ; preds = %true465, %end449
@@ -10865,19 +10860,19 @@ end466:                                           ; preds = %true465, %end449
   store <3 x double> %__tmp470, <3 x double>* %__mem
   %SYS471 = load %genomeSYS* %SYS
   %DELINVALIDPT472 = extractvalue %genomeSYS %SYS471, 1
-  store i64 %DELINVALIDPT472, i64* %93
+  store i64 %DELINVALIDPT472, i64* %90
   %_bound_ptnum473 = load i64* %_bound_ptnum
-  store i64 %_bound_ptnum473, i64* %94
+  store i64 %_bound_ptnum473, i64* %91
   %__mem474 = load <3 x double>* %__mem
-  store <3 x double> %__mem474, <3 x double>* %95
-  call void @"removeNAN_vector@IIV"(i64* %93, i64* %94, <3 x double>* %95)
+  store <3 x double> %__mem474, <3 x double>* %92
+  call void @"removeNAN_vector@IIV"(i64* %90, i64* %91, <3 x double>* %92)
   br label %end407
 
 true485:                                          ; preds = %end407
   %SYS488 = load %genomeSYS* %SYS
   %symmetry = extractvalue %genomeSYS %SYS488, 10
-  %118 = icmp ne i64 %symmetry, 0
-  br i1 %118, label %true489, label %end490
+  %114 = icmp ne i64 %symmetry, 0
+  br i1 %114, label %true489, label %end490
 
 false486:                                         ; preds = %end407
   %_bound_ptnum559 = load i64* %_bound_ptnum
@@ -10889,22 +10884,22 @@ end487:                                           ; preds = %false486, %end513
 
 true489:                                          ; preds = %true485
   %return491 = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([13 x i8]* @173, i64 0, i64 0))
-  store <3 x double> %return491, <3 x double>* %96
+  store <3 x double> %return491, <3 x double>* %93
   %SYS492 = load %genomeSYS* %SYS
   %sym_mode = extractvalue %genomeSYS %SYS492, 11
-  store i64 %sym_mode, i64* %97
+  store i64 %sym_mode, i64* %94
   %SYS493 = load %genomeSYS* %SYS
   %sym_global = extractvalue %genomeSYS %SYS493, 12
-  store i64 %sym_global, i64* %98
-  call void @"VAR_SYMMETRY@VVII"(<3 x double>* %__mem, <3 x double>* %96, i64* %97, i64* %98)
+  store i64 %sym_global, i64* %95
+  call void @"VAR_SYMMETRY@VVII"(<3 x double>* %__mem, <3 x double>* %93, i64* %94, i64* %95)
   br label %end490
 
 end490:                                           ; preds = %true489, %true485
   %SYS494 = load %genomeSYS* %SYS
   %USEPSCALE495 = extractvalue %genomeSYS %SYS494, 4
   %return496 = call i64 @"not@II"(i64 %USEPSCALE495)
-  %119 = icmp ne i64 %return496, 0
-  br i1 %119, label %true497, label %end498
+  %115 = icmp ne i64 %return496, 0
+  br i1 %115, label %true497, label %end498
 
 true497:                                          ; preds = %end490
   br label %end498
@@ -10913,8 +10908,8 @@ end498:                                           ; preds = %true497, %end490
   %pscale_ac.2 = phi double [ 1.000000e+00, %true497 ], [ %pscale_ac.0, %end490 ]
   %SYS499 = load %genomeSYS* %SYS
   %domb = extractvalue %genomeSYS %SYS499, 14
-  %120 = icmp ne i64 %domb, 0
-  br i1 %120, label %true500, label %end501
+  %116 = icmp ne i64 %domb, 0
+  br i1 %116, label %true500, label %end501
 
 true500:                                          ; preds = %end498
   %mb_modulate = extractvalue %genomeSYS %SYS499, 16
@@ -10928,8 +10923,8 @@ end501:                                           ; preds = %true500, %end498
   %USEPSCALE507 = extractvalue %genomeSYS %SYS506, 4
   %USEPSCALEVIZ509 = extractvalue %genomeSYS %SYS506, 5
   %return510 = call i64 @"and@III"(i64 %USEPSCALE507, i64 %USEPSCALEVIZ509)
-  %121 = icmp ne i64 %return510, 0
-  br i1 %121, label %true511, label %false512
+  %117 = icmp ne i64 %return510, 0
+  br i1 %117, label %true511, label %false512
 
 true511:                                          ; preds = %end501
   %cast515 = call <3 x double> @"set@VF"(double %pscale_ac.3)
@@ -10938,8 +10933,8 @@ true511:                                          ; preds = %end501
 
 false512:                                         ; preds = %end501
   %USEPALETTE517 = extractvalue %genomeSYS %SYS506, 6
-  %122 = icmp ne i64 %USEPALETTE517, 0
-  br i1 %122, label %true518, label %end519
+  %118 = icmp ne i64 %USEPALETTE517, 0
+  br i1 %118, label %true518, label %end519
 
 end513:                                           ; preds = %end551, %true511
   %__mem558 = load <3 x double>* %__mem
@@ -10949,33 +10944,33 @@ end513:                                           ; preds = %end551, %true511
 true518:                                          ; preds = %false512
   %PALETTEMODE521 = extractvalue %genomeSYS %SYS506, 7
   %return522 = call i64 @"eq@III"(i64 %PALETTEMODE521, i64 0)
-  %123 = icmp ne i64 %return522, 0
-  br i1 %123, label %true523, label %end519
+  %119 = icmp ne i64 %return522, 0
+  br i1 %119, label %true523, label %end519
 
 end519:                                           ; preds = %true530, %true538, %false531, %true518, %false512
   %SYS546 = load %genomeSYS* %SYS
   %domb547 = extractvalue %genomeSYS %SYS546, 14
   %vizmb = extractvalue %genomeSYS %SYS546, 15
   %return549 = call i64 @"and@III"(i64 %domb547, i64 %vizmb)
-  %124 = icmp ne i64 %return549, 0
-  br i1 %124, label %true550, label %end551
+  %120 = icmp ne i64 %return549, 0
+  br i1 %120, label %true550, label %end551
 
 true523:                                          ; preds = %true518
   %DELINVALIDPT526 = extractvalue %genomeSYS %SYS506, 1
-  store i64 %DELINVALIDPT526, i64* %99
-  store double %fnum_n_ac.0, double* %101
-  %checkNAN_float528 = call i64 @"checkNAN_float@IIIF"(i64* %99, i64* %100, double* %101)
+  store i64 %DELINVALIDPT526, i64* %96
+  store double %fnum_n_ac.0, double* %97
+  %checkNAN_float528 = call i64 @"checkNAN_float@IIF"(i64* %96, double* %97)
   %return529 = call i64 @"not@II"(i64 %checkNAN_float528)
-  %125 = icmp ne i64 %return529, 0
+  %121 = icmp ne i64 %return529, 0
   %_bound_ptnum533 = load i64* %_bound_ptnum
-  br i1 %125, label %true530, label %false531
+  br i1 %121, label %true530, label %false531
 
 true530:                                          ; preds = %true523
   %return535 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([7 x i8]* @174, i64 0, i64 0), i64 %_bound_ptnum533, double %fnum_n_ac.0, i8* getelementptr inbounds ([4 x i8]* @175, i64 0, i64 0))
   %SYS536 = load %genomeSYS* %SYS
   %domb537 = extractvalue %genomeSYS %SYS536, 14
-  %126 = icmp ne i64 %domb537, 0
-  br i1 %126, label %true538, label %end519
+  %122 = icmp ne i64 %domb537, 0
+  br i1 %122, label %true538, label %end519
 
 false531:                                         ; preds = %true523
   %return545 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum533)

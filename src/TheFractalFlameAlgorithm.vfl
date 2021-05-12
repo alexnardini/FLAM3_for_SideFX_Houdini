@@ -57,7 +57,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         // @Cd && @pscale
-        if(!checkNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem)){
+        if(!checkNAN_vector(SYS.DELINVALIDPT, __mem)){
             if((SYS.USEPSCALE + SYS.USEPSCALEVIZ)<2){
                 vector  fcol, frmp;
                 if(SYS.USEPALETTE){
@@ -130,7 +130,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         removeNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem);
         }
     // If the remaining attribs are valid
-    if(!checkNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, col_ac) && !checkNAN_float(SYS.DELINVALIDPT, _bound_ptnum, pscale_ac)){
+    if(!checkNAN_vector(SYS.DELINVALIDPT, col_ac) && !checkNAN_float(SYS.DELINVALIDPT, pscale_ac)){
         if(SYS.symmetry) VAR_SYMMETRY(__mem, chv("../symgpivot"), SYS.sym_mode, SYS.sym_global);
         if(!SYS.USEPSCALE) pscale_ac=1;
         if(SYS.domb) pscale_ac*=SYS.mb_modulate;
@@ -139,7 +139,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         else{
             if(SYS.USEPALETTE){
                 if(SYS.PALETTEMODE==0){
-                    if(!checkNAN_float(SYS.DELINVALIDPT, _bound_ptnum, fnum_n_ac)){
+                    if(!checkNAN_float(SYS.DELINVALIDPT, fnum_n_ac)){
                         setpointattrib(0, "iter_n", _bound_ptnum, fnum_n_ac, "set");
                         if(SYS.domb) setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set");
                     }

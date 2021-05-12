@@ -39,17 +39,17 @@ float precalc(string type; vector pos){
 
 vector biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1), 0); }
 
-int checkNAN_vector(int ACTIVE, ptn; vector vec){
+int checkNAN_vector(int ACTIVE; vector vec){
     if(ACTIVE){
         if(!isfinite(vec[0]) || !isfinite(vec[1]) || isnan(vec[0]) || isnan(vec[1]) || length(vec)>LIMIT) return 1; }
     return 0;
 }
 
-void removeNAN_vector(int ACTIVE, ptn; vector vec){ if(checkNAN_vector(ACTIVE, ptn, vec))  removepoint(0, ptn); }
+void removeNAN_vector(int ACTIVE, ptn; vector vec){ if(checkNAN_vector(ACTIVE, vec))  removepoint(0, ptn); }
 
-int checkNAN_float(int ACTIVE, ptn; float flt){ if(ACTIVE){ if(!isfinite(flt) || isnan(flt) || flt>LIMIT) return 1; } return 0; }
+int checkNAN_float(int ACTIVE; float flt){ if(ACTIVE){ if(!isfinite(flt) || isnan(flt) || flt>LIMIT) return 1; } return 0; }
 
-void removeNAN_float(int ACTIVE, ptn; float flt){ if(checkNAN_float(ACTIVE, ptn, flt)) removepoint(0, ptn); }
+void removeNAN_float(int ACTIVE, ptn; float flt){ if(checkNAN_float(ACTIVE, flt)) removepoint(0, ptn); }
 
 void VAR_SYMMETRY(vector pos, pivot; int num, active){
     if(active){
