@@ -23,31 +23,6 @@ Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same result.
 **Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
-## Future additions ?
-
-Some nice addition to this would be:
-
-- **Xaos**
-
-- **Load and save ".flame" file format. (stripping out whats allowed)**
-
-- **Dublicate iterators.**
-
-- **Python additions to make the workflow more enjoable.**
-  
-- **Copy/Paste parameter's groups from one iterator to the other.**
-  
-- **Triangle's handle would be nice, too.**
-  
-- **Color Ramps presets.**
-
-- **More variations even tho using CVEX performace wil need to be safe guarded.**
-
-With time I may get to those, other wise help your self.
-Everything has been compiled in favor of execution speed and to make it feel a compact tool.
-
-Hope you enjoy, I had a blast and still having a blast using it.
-
 ## References
 Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
