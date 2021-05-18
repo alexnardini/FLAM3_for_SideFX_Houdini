@@ -17,7 +17,7 @@
 */
 
 struct genomeSYS{
-    int TMG, DELINVALIDPT, POSTF, FF, USEPSCALE, USEPSCALEVIZ, USEPALETTE, PALETTEMODE, BLENDWITHVCOL, iter_f, symmetry, sym_mode, sym_global, iter, domb, vizmb;
+    int TMG, DELINVALIDPT, POSTF, FF, iter_f, symmetry, sym_mode, sym_global, iter, domb, vizmb;
     float mb_modulate;
 
     void genomeSYSBuild(){
@@ -25,11 +25,6 @@ struct genomeSYS{
         FF            = chi("../dofinalflame");
         if(FF){
             POSTF         = chi("../_dofpost_2"); }
-        USEPSCALE     = chi("../usepscale");
-        USEPSCALEVIZ  = chi("../pscaleviz");
-        USEPALETTE    = chi("../usermp");
-        PALETTEMODE   = chi("../palettemode");
-        BLENDWITHVCOL = chi("../blendwithvcol");
         DELINVALIDPT  = chi("../delinvalidpt");
         symmetry      = chi("../symmetry");
         if(symmetry){
@@ -46,10 +41,9 @@ struct genomeSYS{
 }
 
 struct genome{
-    int     v1type[], v2type[], v3type[], v4type[], cvar_override[], POSTL[], ffv1type, ffv2type, ffv3type;
-    float   IW[], vpscale[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], ffv1weight, ffv2weight, ffv3weight, grt;
+    int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type;
+    float   IW[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], CLR[], CLRSPEED[], ffv1weight, ffv2weight, ffv3weight, grt;
     vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
-    vector  vcol[];
     string  sIDX[];
 
     void genomeBuild(const int VACTIVE[]; const genomeSYS SYS){
@@ -61,13 +55,13 @@ struct genome{
             append(sIDX, IDX); int res=len(sIDX);
             // Iterator's weights
             append(IW, chf(concat("../iw_", IDX)));
-            // Color and pscale
-            append(vcol, chv(concat("../col_", IDX)));
-            append(cvar_override, chi(concat("../cvaroverride_", IDX)));
-            if(SYS.USEPSCALE) append(vpscale, chf(concat("../pscale_" , IDX)));
+            // Color
+            append(CLR, chf(concat("../clr_", IDX)));
+            append(CLRSPEED, chf(concat("../clrspeed_", IDX)));
             // PRE BLUR
             append(PBWEIGHT, chf(concat("../preblurweight_" , IDX)));
-
+            
+            // VARS
             append(v1weight, chf(concat("../v1weight_", IDX)));
             if(v1weight[-1]!=0)
                 append(v1type, atoi(chs(concat("../v1type_", IDX))));

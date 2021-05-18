@@ -28,44 +28,31 @@
 #pragma opmaxinputs 1
 
 void
-_TFFApalettesimple(float _bound_iter_n; vector _bound_Cd; float _bound_mb_modulate)
+_TFFApalettesimple(float _bound_COORD; vector _bound_Cd; float _bound_mb_modulate)
 {
-    int PALETTE, PALETTEMODE, BLENDWITHVCOLOR, USEPSCALE, USEPSCALEVIZ, domb, vizmb;
+    int domb, vizmb;
     vector color, paletteHSV;
     paletteHSV      = chv("../palettehsv_");
-    PALETTE         = chi("../usermp");
-    PALETTEMODE     = chi("../palettemode");
-    BLENDWITHVCOLOR = chi("../blendwithvcol");
-    USEPSCALE       = chi("../usepscale");
-    USEPSCALEVIZ    = chi("../pscaleviz");
     domb            = chi("../domb");
     vizmb           = chi("../vizmb");
-    if((USEPSCALE + USEPSCALEVIZ)<2){
-        if(PALETTE){
-            if(!PALETTEMODE){
-                float vblend = chf("../vblend");
-                color = chramp("../palette", _bound_iter_n);
-                if(paletteHSV[0]!=0 || paletteHSV[1]!=1 || paletteHSV[2]!=1){
-                    vector colorHSV = rgbtohsv(color);
-                    colorHSV[0] += paletteHSV[0];
-                    colorHSV[1] *= paletteHSV[1];
-                    colorHSV[2] *= paletteHSV[2];
-                    color = hsvtorgb(colorHSV);
-                }
-                if(BLENDWITHVCOLOR)
-                    color = lerp(color, _bound_Cd, vblend);
-                if(domb && vizmb)
-                    color *= _bound_mb_modulate;
-                _bound_Cd = color;
-            }
-        }
+
+    color = chramp("../palette", _bound_COORD);
+    if(paletteHSV[0]!=0 || paletteHSV[1]!=1 || paletteHSV[2]!=1){
+        vector colorHSV = rgbtohsv(color);
+        colorHSV[0] += paletteHSV[0];
+        colorHSV[1] *= paletteHSV[1];
+        colorHSV[2] *= paletteHSV[2];
+        color = hsvtorgb(colorHSV);
     }
+    if(domb && vizmb)
+        color *= _bound_mb_modulate;
+    _bound_Cd = color;
 }
 
 cvex
-TFFApalettesimple( export float iter_n = 0;
+TFFApalettesimple( const float COORD = 0;
 	               export vector Cd = 1;
 	               export float mb_modulate = 0)
 {
-    _TFFApalettesimple(iter_n, Cd, mb_modulate);
+    _TFFApalettesimple(COORD, Cd, mb_modulate);
 }
