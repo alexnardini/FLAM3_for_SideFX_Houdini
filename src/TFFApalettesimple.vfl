@@ -10,9 +10,7 @@
  /
  /  Name:       PALETTE simple    "VEX"
  /
- /  Comment:    Its not playing within the Chaos game
- /              and so not iterative, but its fast.
- /              Need to add different blending modes.
+ /  Comment:    Apply color into palette coordinates
 */
 
 #ifndef VOP_OP
