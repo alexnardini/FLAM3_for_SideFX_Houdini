@@ -42,12 +42,12 @@ struct genomeSYS{
 
 struct genome{
     int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type;
-    float   IW[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], CLR[], CLRSPEED[], ffv1weight, ffv2weight, ffv3weight, grt;
+    float   IW[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], CLR[], ONEMINUS[], ffv1weight, ffv2weight, ffv3weight, grt;
     vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
     void genomeBuild(const int VACTIVE[]; const genomeSYS SYS){
-        
+        float coord, speed;
         for(int i=0; i<SYS.iter_f; i++){
             if(!VACTIVE[i]) continue;
             int _IDX=(i+1); string IDX=itoa(_IDX);
@@ -56,8 +56,10 @@ struct genome{
             // Iterator's weights
             append(IW, chf(concat("../iw_", IDX)));
             // Color
-            append(CLR, chf(concat("../clr_", IDX)));
-            append(CLRSPEED, chf(concat("../clrspeed_", IDX)));
+            coord = chf(concat("../clr_", IDX));
+            speed = chf(concat("../clrspeed_", IDX));
+            append(CLR, speed*coord);
+            append(ONEMINUS, 1-speed);
             // PRE BLUR
             append(PBWEIGHT, chf(concat("../preblurweight_" , IDX)));
             

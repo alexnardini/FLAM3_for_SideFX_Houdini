@@ -59,7 +59,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(checkNAN_vector(SYS.DELINVALIDPT, __tmp)){ removepoint(0, _bound_ptnum); break; }
         __mem = __tmp;
         // COLOR
-        CLR = clamp(GEM.CLRSPEED[idx] * GEM.CLR[idx] + ((1 - GEM.CLRSPEED[idx]) * PREV_CLR), 0, 1);
+        CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
         PREV_CLR = CLR;
     }
     if(SYS.FF){
