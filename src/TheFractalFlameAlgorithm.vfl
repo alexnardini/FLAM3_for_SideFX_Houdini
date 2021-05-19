@@ -58,7 +58,6 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     v4GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.v4type);
     // Start the chaos game
     float cdf[] = create_cdf(GEM.IW);
-    int iter_f = len(GEM.v1type);
     vector __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
         idx = sample_cdf(cdf, nrandom('twister'));
