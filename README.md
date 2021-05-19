@@ -23,47 +23,14 @@ Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same result.
 **Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
-## Future additions ?
-
-Some nice addition to this would be:
-
-- **Xaos**
-
-- **Load and save ".flame" file format. (stripping out whats allowed)**
-
-- **Dublicate iterators.**
-
-- **Python additions to make the workflow more enjoable.**
-  
-- **Copy/Paste parameter's groups from one iterator to the other.**
-  
-- **Triangle's handle would be nice, too.**
-  
-- **Color Ramps presets.**
-
-- **More variations even tho using CVEX performace wil need to be safe guarded.**
-
-With time I may get to those, other wise help your self.
-Everything has been compiled in favor of execution speed and to make it feel a compact tool.
-
-Hope you enjoy, I had a blast and still having a blast using it.
-
-## Extra links
-For more images that illustrate the development progress:
-[**FLAM3 for Houdini web page**](https://alexnardini.net/flame-home/)
-
-Watch a video created with an early version of the tool:
-[**F :: the video**](https://vimeo.com/506501855)
-
-Watch the making of here:
-[**F :: making of**](https://vimeo.com/511517064)
-
 ## References
 Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
 Reference B: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
 
 Reference C: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
+
+Reference D: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
 
 
 
