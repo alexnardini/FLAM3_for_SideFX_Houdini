@@ -52,28 +52,26 @@ int checkNAN_float(int ACTIVE; float flt){ if(ACTIVE){ if(!isfinite(flt) || isna
 
 void removeNAN_float(int ACTIVE, ptn; float flt){ if(checkNAN_float(ACTIVE, flt)) removepoint(0, ptn); }
 
-void VAR_SYMMETRY(vector pos, pivot; int num, active){
-    if(active){
-        float angle = 0;
-        // 3-way
-        if(!num){
-            if(nrandom('twister')>(1.0/3.0)){
-                angle = 120;
-                if(nrandom('twister')>0.5) angle = 240;
-                pos *= maketransform(0, 0, 0, set(0, 0, angle), 1, pivot);
-            }
-        }
-        // 5-way
-        else if(num){
-            if(nrandom('twister')>=0.2){
-                float sym = nrandom('twister');
-                if(0.2 < sym <= 0.4)        angle =  72;
-                else if(0.4 < sym <= 0.6)   angle = 144;
-                else if(0.6 < sym <= 0.8)   angle = 216;
-                else if(0.8 < sym <= 1.0)   angle = 288;
-            }
+void VAR_SYMMETRY(vector pos, pivot; int num){
+    float angle = 0;
+    // 3-way
+    if(!num){
+        if(nrandom('twister')>(1.0/3.0)){
+            angle = 120;
+            if(nrandom('twister')>0.5) angle = 240;
             pos *= maketransform(0, 0, 0, set(0, 0, angle), 1, pivot);
         }
+    }
+    // 5-way
+    else if(num){
+        if(nrandom('twister')>=0.2){
+            float sym = nrandom('twister');
+            if(0.2 < sym <= 0.4)        angle =  72;
+            else if(0.4 < sym <= 0.6)   angle = 144;
+            else if(0.6 < sym <= 0.8)   angle = 216;
+            else if(0.8 < sym <= 1.0)   angle = 288;
+        }
+        pos *= maketransform(0, 0, 0, set(0, 0, angle), 1, pivot);
     }
 }
 

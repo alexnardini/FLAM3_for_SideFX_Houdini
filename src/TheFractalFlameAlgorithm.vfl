@@ -71,7 +71,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         __mem = __tmp;
         removeNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem);
     }
-    if(SYS.symmetry) VAR_SYMMETRY(__mem, chv("../symgpivot"), SYS.sym_mode, SYS.sym_global);
+    if(SYS.symmetry) VAR_SYMMETRY(__mem, chv("../symgpivot"), SYS.sym_mode);
     float pscl = 1.0;
     if(SYS.domb) pscl *= SYS.mb_modulate;
 

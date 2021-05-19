@@ -18,7 +18,7 @@
 
 
 struct genomeSYS{
-    int TMG, DELINVALIDPT, POSTF, FF, iter_f, symmetry, sym_mode, sym_global, iter, domb, vizmb;
+    int TMG, DELINVALIDPT, POSTF, FF, iter_f, symmetry, sym_mode, iter, domb, vizmb;
     float mb_modulate;
 
     void genomeSYSBuild(){
@@ -28,9 +28,7 @@ struct genomeSYS{
             POSTF         = chi("../_dofpost_2"); }
         DELINVALIDPT  = chi("../delinvalidpt");
         symmetry      = chi("../symmetry");
-        if(symmetry){
-            sym_mode      = chi("../rotational");
-            sym_global    = chi("../sym_global"); }
+        if(symmetry) sym_mode = chi("../rotational");
         iter_f        = chi("../flamefunc");
         iter          = chi("../iter");
         domb          = chi("../domb");
