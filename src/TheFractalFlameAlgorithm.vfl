@@ -33,7 +33,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
 
     int idx;
     float CLR, PREV_CLR;
-    CLR = PREV_CLR = 0;
+    PREV_CLR = 0;
     // Build genomes
     genomeSYS SYS; SYS->genomeSYSBuild();
     genome GEM; GEM->genomeBuild(_bound_VACTIVE, SYS);
@@ -55,12 +55,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(GEM.v4weight[idx]!=0) __tmp += FLAME(v4GMP, "LOCAL", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4weight[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
-
         if(checkNAN_vector(SYS.DELINVALIDPT, __tmp)){ removepoint(0, _bound_ptnum); break; }
+        PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
         __mem = __tmp;
-        // COLOR
-        CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
-        PREV_CLR = CLR;
+
     }
     if(SYS.FF){
         vector __tmp = 0;
