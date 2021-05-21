@@ -24,18 +24,14 @@ struct genomeSYS{
     void genomeSYSBuild(){
         TMG           = chi("../dotmglobal");
         FF            = chi("../dofinalflame");
-        if(FF){
-            POSTF         = chi("../_dofpost_2"); }
         DELINVALIDPT  = chi("../delinvalidpt");
         symmetry      = chi("../symmetry");
-        if(symmetry) sym_mode = chi("../rotational");
         iter_f        = chi("../flamefunc");
         iter          = chi("../iter");
         domb          = chi("../domb");
         mb_modulate   = 1.0;
-        if(domb){
-            vizmb       = chi("../vizmb");
-            mb_modulate = detail(1, "Tstep_mult", 0); }
+        if(symmetry) sym_mode = chi("../rotational");
+        if(domb){ vizmb = chi("../vizmb"); mb_modulate = detail(1, "Tstep_mult", 0); }
     }
 }
 
