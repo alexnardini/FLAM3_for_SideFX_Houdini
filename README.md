@@ -10,6 +10,11 @@ The code went up and down and finally settled for the most minimalistic version 
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
 fast, ready to use functions like **creating and sampling a cdf** and a very robust **random number generator**.
 
+Being implemented using the internal Houdini's CVEX programming language, it fit right into Houdini powerful package
+witch offer already state of the art viewport display, animation toolsets and all its procedural system available for free.
+It also offer support for state of the art renderer so, even if its not a real time implementation it offer many benefits
+hard to code yourself starting from scratch while building a standalone application of this kind.
+
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions and much more.
 
