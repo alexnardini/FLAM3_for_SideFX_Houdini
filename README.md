@@ -1,5 +1,5 @@
 # The Fractal Flame Algorithm
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Cure_flip.jpg)
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
 
 `The above image consist of 400M points and rendered with Houdini internal Mantra renderer.`
 
