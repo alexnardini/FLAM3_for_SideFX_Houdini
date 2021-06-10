@@ -24,6 +24,7 @@ struct genomeSYS{
     void genomeSYSBuild(){
         TMG           = chi("../dotmglobal");
         FF            = chi("../dofinalflame");
+        POSTF         = chi("../_dofpost_2");
         DELINVALIDPT  = chi("../delinvalidpt");
         symmetry      = chi("../symmetry");
         iter_f        = chi("../flamefunc");
@@ -135,7 +136,7 @@ struct genomeParametrics{
 
         if(max(GEMTYPE)>26){
             int iter_f = len(GEMTYPE);
-            int TYPES_1[], TYPES_2[], TYPE;
+            int TYPE, TYPES_1[], TYPES_2[];
             string PRX, IDX;
             TYPES_1 = {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57, 61};
             TYPES_2 = {63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101};
@@ -151,8 +152,9 @@ struct genomeParametrics{
             PRX="../";
             // iterate
             for(int i=0; i<iter_f; i++){
-                IDX=sIDX[i]; TYPE=GEMTYPE[i];
+                TYPE=GEMTYPE[i];
                 if(TYPE<27) continue;
+                IDX=sIDX[i];
                 else if(find(TYPES_1, TYPE)>=0){
                     if(TYPE<38){
                         // 27 CURL
