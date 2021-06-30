@@ -1,7 +1,7 @@
 # The Fractal Flame Algorithm
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Chaotica_FLAM3_match.jpg)
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
 
-`The above image is one of Chaotica's preset rebuilt with FLAM3 for Houdini. It consist of 400M points and rendered with Houdini internal Mantra renderer.`
+`The above image consist of 400M points and rendered with Houdini internal Mantra renderer.`
 
 
 ## FLAM3 for SideFX Houdini
