@@ -152,9 +152,8 @@ struct genomeParametrics{
             PRX="../";
             // iterate
             for(int i=0; i<iter_f; i++){
-                TYPE=GEMTYPE[i];
+                TYPE=GEMTYPE[i]; IDX=sIDX[i];
                 if(TYPE<27) continue;
-                IDX=sIDX[i];
                 else if(find(TYPES_1, TYPE)>=0){
                     if(TYPE<38){
                         // 27 CURL

@@ -109,7 +109,7 @@ void VAR_SPHERICAL(vector pos, _inp; float weight){
 // 03
 void VAR_SWIRL(vector pos, _inp; float weight){
     float rr = precalc("SUMSQ", _inp);
-    float c1, c2, nx, ny, nz;
+    float c1, c2, nx, ny;
     c1 = sin(rr);
     c2 = cos(rr);
     nx = c1 * _inp[0] - c2 * _inp[1];
@@ -204,7 +204,7 @@ void VAR_JULIA(vector pos, _inp; float weight){
 }
 // 14
 void VAR_BENT(vector pos, _inp; float weight){
-    float nx, ny, nz;
+    float nx, ny;
     nx = _inp[0];
     ny = _inp[1];
     if(nx < 0.0) nx = nx * 2.0;
@@ -214,7 +214,7 @@ void VAR_BENT(vector pos, _inp; float weight){
 }
 // 15
 void VAR_WAVES(vector pos, _inp; float weight, d, e, f, h){
-    float dx2, dy2, dz2, nx, ny, nz;
+    float dx2, dy2, nx, ny;
     // precalc
     dx2 = 1.0/(f*f + EPS);
     dy2 = 1.0/(h*h + EPS);
@@ -258,7 +258,7 @@ void VAR_POWER(vector pos, _inp, precalc; float weight){
 }
 // 20
 void VAR_COSINE(vector pos, _inp; float weight){
-    float aa, sa, ca, nx, ny, nz;
+    float aa, sa, ca, nx, ny;
     aa = _inp[0] * M_PI;
     sincos(aa, sa, ca);
     nx = ca * cosh(_inp[1]);
@@ -362,7 +362,7 @@ void VAR_NGON(vector pos, _inp; float weight, pow, sides, corners, circle){
 }
 // 29 ( parametric )
 void VAR_PDJ(vector pos, _inp; float weight; vector4 pp){
-    float  nx1, nx2, ny1, ny2, nz1;
+    float  nx1, nx2, ny1, ny2;
     nx1 = cos(pp[1] * _inp[0]);
     nx2 = sin(pp[2] * _inp[0]);
     ny1 = sin(pp[0] * _inp[1]);
@@ -595,7 +595,7 @@ void VAR_PARABOLA(vector pos, _inp; float weight, height, width){
 }
 // 52 ( parametric )
 void VAR_BENT2(vector pos, _inp; float weight; vector2 bent2){
-    float nx, ny, nz;
+    float nx, ny;
     nx = _inp[0]; ny = _inp[1];
     if(nx < 0.0)
         nx = nx * bent2[0];
@@ -619,7 +619,7 @@ void VAR_BIPOLAR(vector pos, _inp; float weight, shift){
 }
 // 54
 void VAR_BOARDERS(vector pos, _inp; float weight){
-    float roundX, roundY, roundZ, offsetX, offsetY, offsetZ;
+    float roundX, roundY, offsetX, offsetY;
     roundX = rint(_inp[0]);
     roundY = rint(_inp[1]);
     offsetX = _inp[0] - roundX;
@@ -653,7 +653,7 @@ void VAR_BOARDERS(vector pos, _inp; float weight){
 }
 // 55
 void VAR_BUTTERFLY(vector pos, _inp; float weight){
-    float wx, y2, rr, rrz;
+    float wx, y2, rr;
     wx = weight*1.3029400317411197908970256609023;
     y2 = _inp[1]*2.0;
     rr = wx*sqrt(abs(_inp[1]*_inp[0])/(EPS + _inp[0]*_inp[0] + y2*y2));
@@ -662,7 +662,7 @@ void VAR_BUTTERFLY(vector pos, _inp; float weight){
 }
 // 56 ( parametric )
 void VAR_CELL(vector pos, _inp; float weight, size){
-    float inv_cell_size, x, y, z, dx, dy, dz;
+    float inv_cell_size, x, y, dx, dy;
     inv_cell_size = 1.0/size;
     x = floor(_inp[0]*inv_cell_size);
     y = floor(_inp[1]*inv_cell_size);
@@ -767,7 +767,7 @@ void VAR_ESCHER(vector pos, _inp; float weight, beta){
 }
 // 62
 void VAR_FOCI(vector pos, _inp; float weight){
-    float expx, expnx, expz, expnz, snz, cnz, sn, cn, tmp, tmpz;
+    float expx, expnx, sn, cn, tmp, tmpz;
     expx = exp(_inp[0]) * 0.5;
     expnx = 0.25 / expx;
     sincos(_inp[1], sn, cn);
@@ -820,7 +820,7 @@ void VAR_PREBLUR(vector pos; float weight){
 }
 // 66 ( parametric )
 void VAR_MODULUS(vector pos, _inp; float weight; vector2 m){
-    float xr, yr, zr;
+    float xr, yr;
     xr = 2*m[0]; yr = 2*m[1];
     if(_inp[0] > m[0])
         pos[0] = weight * (m[0] + fmod(_inp[0] + m[0], xr));
@@ -866,7 +866,7 @@ void VAR_SCRY(vector pos, _inp; float weight){
 }
 // 71 ( parametric )
 void VAR_SEPARATION(vector pos, _inp; float weight; vector2 sep, ins){
-    float sx2, sy2, sz2;
+    float sx2, sy2;
     sx2 = sep[0]*sep[0];
     sy2 = sep[1]*sep[1];
     if(_inp[0] > 0.0) pos[0] = weight * (sqrt(_inp[0]*_inp[0] + sx2) - _inp[0]*ins[0]);
@@ -941,7 +941,7 @@ void VAR_WEDGESPH(vector pos, _inp; float weight, swirl, angle, hole, count){
 }
 // 78 ( parametric )
 void VAR_WHORL(vector pos, _inp; float weight, inside, outside){
-    float rr, rrz, aa, aaz, sa, ca, saz, caz;
+    float rr, aa, sa, ca;
     rr = precalc("SQRT", _inp);
     if(rr<weight) aa = precalc("ATANYX", _inp) + inside/(weight-rr);
     else aa = precalc("ATANYX", _inp) + outside/(weight-rr);
@@ -987,7 +987,7 @@ void VAR_COTHECOS(vector pos, _inp; float weight){
 }
 // 84
 void VAR_COTHETAN(vector pos, _inp; float weight){
-    float tansin, tancos, tansinz, tancosz, tansinh, tancosh, tanden;
+    float tansin, tancos, tansinh, tancosh, tanden;
     sincos(2*_inp[0], tansin, tancos);
     tansinh = sinh(2.0*_inp[1]);
     tancosh = cosh(2.0*_inp[1]);
@@ -1007,7 +1007,7 @@ void VAR_COTHESEC(vector pos, _inp; float weight){
 }
 // 86
 void VAR_COTHECSC(vector pos, _inp; float weight){
-    float cscsin, csccos, cscsinz, csccosz, cscsinh, csccosh, cscden, cscdenz;
+    float cscsin, csccos, cscsinh, csccosh, cscden;
     sincos(pos[0], cscsin, csccos);
     cscsinh = sinh(_inp[1]);
     csccosh = cosh(_inp[1]);
@@ -1017,7 +1017,7 @@ void VAR_COTHECSC(vector pos, _inp; float weight){
 }
 // 87
 void VAR_COTHECOT(vector pos, _inp; float weight){
-    float cotsin, cotcos, cotsinz, cotcosz, cotsinh, cotcosh, cotden, cotdenz;
+    float cotsin, cotcos, cotsinh, cotcosh, cotden;
     sincos(2.0*_inp[0], cotsin, cotcos);
     cotsinh = sinh(2.0*_inp[1]);
     cotcosh = cosh(2.0*_inp[1]);
@@ -1045,7 +1045,7 @@ void VAR_COTHECOSH(vector pos, _inp; float weight){
 }
 // 90
 void VAR_COTHETANH(vector pos, _inp; float weight){
-    float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden, tanhdenz;
+    float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden;
     sincos(2.0*_inp[1], tanhsin, tanhcos);
     tanhsinh = sinh(_inp[0]);
     tanhcosh = cosh(_inp[0]);
@@ -1055,7 +1055,7 @@ void VAR_COTHETANH(vector pos, _inp; float weight){
 }
 // 91
 void VAR_COTHESECH(vector pos, _inp; float weight){
-    float sechsin, sechcos, sechsinh, sechcosh, sechden, sechdenz;
+    float sechsin, sechcos, sechsinh, sechcosh, sechden;
     sincos(_inp[1], sechsin, sechcos);
     sechsinh = sinh(_inp[0]);
     sechcosh = cosh(_inp[0]);
@@ -1065,7 +1065,7 @@ void VAR_COTHESECH(vector pos, _inp; float weight){
 }
 // 92
 void VAR_COTHECSCH(vector pos, _inp; float weight){
-    float cschsin, cschcos, cschsinh, cschcosh, cschden, cschdenz;
+    float cschsin, cschcos, cschsinh, cschcosh, cschden;
     sincos(_inp[1], cschsin, cschcos);
     cschsinh = sinh(_inp[0]);
     cschcosh = cosh(_inp[0]);
@@ -1075,7 +1075,7 @@ void VAR_COTHECSCH(vector pos, _inp; float weight){
 }
 // 93
 void VAR_COTHECOTH(vector pos, _inp; float weight){
-    float cothsin, cothcos, cothsinh, cothcosh, cothden, cothdenz;
+    float cothsin, cothcos, cothsinh, cothcosh, cothden;
     sincos(2.0*_inp[1], cothsin, cothcos);
     cothsinh = sinh(2.0*_inp[0]);
     cothcosh = cosh(2.0*_inp[0]);
@@ -1085,7 +1085,7 @@ void VAR_COTHECOTH(vector pos, _inp; float weight){
 }
 // 94 ( parametric )
 void VAR_AUGER(vector pos, _inp; float weight, freq, scale, sym, ww){
-    float  ss, tt, uu, dy, dx, dz;
+    float  ss, tt, uu, dy, dx;
     ss = sin(freq * _inp[0]);
     tt = sin(freq * _inp[1]);
     dx = _inp[1] + ww*(scale*ss/2.0 + abs(_inp[1])*ss);
@@ -1116,7 +1116,7 @@ void VAR_MOBIUS(vector pos, _inp; float weight; vector4 re, im){
 }
 // 97 ( parametric )
 void VAR_CURVE(vector pos, _inp; float weight; vector2 l, a){
-    float pc_xlen, pc_ylen, pc_zlen;
+    float pc_xlen, pc_ylen;
     pc_xlen = l[0]*l[0];
     pc_ylen = l[1]*l[1];
     if (pc_xlen<1E-20) pc_xlen = 1E-20;
