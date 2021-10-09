@@ -36,11 +36,13 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     // Build genomes
     genomeSYS SYS; SYS->genomeSYSBuild();
     genome GEM; GEM->genomeBuild(_bound_VACTIVE, SYS);
-    genomeParametrics v1GMP, v2GMP, v3GMP, v4GMP;
+    genomeParametrics v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.v1type);
     v2GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.v2type);
     v3GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.v3type);
     v4GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.v4type);
+    // POST VAR genome parametric
+    p1GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.p1type);
     // Start the chaos game
     float cdf[] = create_cdf(GEM.IW);
     vector __mem = biunit();
@@ -53,6 +55,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(GEM.v3weight[idx]!=0) __tmp += FLAME(v3GMP, "LOCAL", __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3weight[idx]);
         if(GEM.v4weight[idx]!=0) __tmp += FLAME(v4GMP, "LOCAL", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4weight[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
+        // POST variation
+        if(GEM.p1weight[idx]!=0){ __mem=__tmp; __tmp = FLAME(p1GMP, "LOCAL", __mem, idx, GEM.p1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.p1weight[idx]); }
+
         if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         if(checkNAN_vector(SYS.DELINVALIDPT, __tmp)){ removepoint(0, _bound_ptnum); break; }
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
@@ -64,6 +69,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(GEM.ffv2weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv2type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2weight);
         if(GEM.ffv3weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv3type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3weight);
         if(SYS.POSTF) affinePOST(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
+        // POST FF Variation
+        if(GEM.ffp1weight!=0){ __mem=__tmp; __tmp = FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1weight); }
         __mem = __tmp;
         removeNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem);
     }

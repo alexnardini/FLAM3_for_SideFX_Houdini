@@ -37,8 +37,8 @@ struct genomeSYS{
 }
 
 struct genome{
-    int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type;
-    float   IW[], v1weight[], v2weight[], v3weight[], v4weight[], PBWEIGHT[], CLR[], ONEMINUS[], ffv1weight, ffv2weight, ffv3weight, grt;
+    int     v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
+    float   IW[], v1weight[], v2weight[], v3weight[], v4weight[], p1weight[], PBWEIGHT[], CLR[], ONEMINUS[], ffv1weight, ffv2weight, ffv3weight, ffp1weight, grt;
     vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
@@ -76,6 +76,11 @@ struct genome{
             if(v4weight[-1]!=0)
                 append(v4type, atoi(chs(concat("../v4type_", IDX))));
             else resize(v4type, res);
+            // POST Variation
+            append(p1weight, chf(concat("../p1weight_", IDX)));
+            if(p1weight[-1]!=0)
+                append(p1type, atoi(chs(concat("../p1type_", IDX))));
+            else resize(p1type, res);
 
             // Collect affine coefficients
             append(x, chu(concat("../x_", IDX)));
@@ -111,7 +116,11 @@ struct genome{
                 ffv2type     = chi("../ffv2type");
             ffv3weight   = chf("../ffv3weight");
             if(ffv3weight!=0)
-                ffv3type     = chi("../ffv3type");
+                ffv3type     = chi("../ffp1type");
+            // POST FF Variation
+            ffp1weight   = chf("../ffp1weight");
+            if(ffp1weight!=0)
+                ffp1type     = chi("../ffp1type");
             // Collect FINAL FLAME TRANSFORM affine coefficients
             fx = chu("../_fx_2");
             fy = chu("../_fy_2");
@@ -132,7 +141,7 @@ struct genomeParametrics{
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
 
-    void genomeParametricsBuild(string MODE; const string sIDX[]; const int GEMTYPE[]){
+    void genomeParametricsBuild(const string MODE, sIDX[]; const int GEMTYPE[]){
 
         if(max(GEMTYPE)>26){
             int iter_f = len(GEMTYPE);

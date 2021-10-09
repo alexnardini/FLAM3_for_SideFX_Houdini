@@ -146,7 +146,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
                         "hemisphere",
                         "polynomial" };
 
-    float pbw, w1, w2, w3, w4, fw1, fw2, fw3;
+    float pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
     genomeSYS SYS; SYS->genomeSYSBuild();
 
     if(SYS.domb) append(type, "MB");
@@ -159,7 +159,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     for(int i=0; i<SYS.iter_f; i++){
 
         string _IDX = itoa(i+1);
-        string VAR, W, PB, V1, V2, V3, V4;
+        string VAR, W, PB, V1, V2, V3, V4, P1;
 
         if(!chi(concat("../vactive_", _IDX))) VAR = " :::::::::: ";
         else{
@@ -182,12 +182,19 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             if(w4!=0)
                 V4 = stype[atoi(chs(concat("../v4type_", _IDX)))]+":";
             else V4 = ":";
-            pbw = chf(concat("../preblurweight_" , _IDX));
-            if(pbw>0){
-                if(w1+w2+w3+w4 != 0) PB = "*";
-            }
 
-            if(w1+w2+w3+w4 != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX)));
+            float w_total = w1+w2+w3+w4;
+
+            // Pre blur
+            pbw = chf(concat("../preblurweight_" , _IDX));
+            if(pbw>0){ if(w_total != 0) PB = "*"; }
+
+            // Post var
+            pw1 = chf(concat("../p1weight_", _IDX));
+            if(pw1>0){ if(w_total != 0) P1 = "^"; }
+
+            // Iterator weight
+            if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX)));
             else W = "";
 
             // Reformat iterator weight string floats
@@ -203,14 +210,14 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             else out = SPLIT;
             W = join(out, ".");
     
-            VAR = concat(PB, V1, V2, V3, V4, W);
+            VAR = concat(P1, PB, V1, V2, V3, V4, W);
         }
         append(type, VAR);
     }
 
     if(SYS.FF){
 
-        string VAR, FV1, FV2, FV3;
+        string VAR, FV1, FV2, FV3, FP1;
 
         fw1 = chf("../ffv1weight");
         if(fw1!=0)
@@ -226,8 +233,14 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         if(fw3!=0)
             FV3 = stype[atoi(chs("../ffv3type"))];
         else FV3 = ":";
+
+        float fw_total = fw1+fw2+fw3;
+
+        // Post final var
+        pfw1 = chf("../ffp1weight");
+        if(pfw1!=0) { if(fw_total != 0) FP1 = "^"; }
             
-        VAR = concat(FV1, FV2, FV3);
+        VAR = concat(FP1, FV1, FV2, FV3);
 
         append(type, toupper(VAR));
         }
