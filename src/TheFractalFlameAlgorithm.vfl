@@ -46,8 +46,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     float cdf[] = create_cdf(GEM.IW);
     vector __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
-        idx = sample_cdf(cdf, nrandom('twister'));
         vector __tmp = 0;
+        idx = sample_cdf(cdf, nrandom('twister'));
         if(GEM.PBWEIGHT[idx]>0) VAR_PREBLUR(__mem, GEM.PBWEIGHT[idx]);
         if(GEM.v1weight[idx]!=0) __tmp += FLAME(v1GMP, "LOCAL", __mem, idx, GEM.v1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1weight[idx]);
         if(GEM.v2weight[idx]!=0) __tmp += FLAME(v2GMP, "LOCAL", __mem, idx, GEM.v2type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2weight[idx]);
