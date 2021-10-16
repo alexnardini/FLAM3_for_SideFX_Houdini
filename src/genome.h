@@ -18,27 +18,27 @@
 
 
 struct genomeSYS{
-    int TMG, DELINVALIDPT, POSTF, FF, iter_f, symmetry, sym_mode, iter, domb, vizmb;
+    int TMG, DELPT, POSTF, FF, iter_f, sym, sym_mode, iter, domb, vizmb;
     float mb_modulate;
 
     void genomeSYSBuild(){
         TMG           = chi("../dotmglobal");
         FF            = chi("../dofinalflame");
         POSTF         = chi("../_dofpost_2");
-        DELINVALIDPT  = chi("../delinvalidpt");
-        symmetry      = chi("../symmetry");
+        DELPT         = chi("../delinvalidpt");
+        sym           = chi("../symmetry");
         iter_f        = chi("../flamefunc");
         iter          = chi("../iter");
         domb          = chi("../domb");
         mb_modulate   = 1.0;
-        if(symmetry) sym_mode = chi("../rotational");
+        if(sym) sym_mode = chi("../rotational");
         if(domb){ vizmb = chi("../vizmb"); mb_modulate = detail(1, "Tstep_mult", 0); }
     }
 }
 
 struct genome{
     int     v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   IW[], v1weight[], v2weight[], v3weight[], v4weight[], p1weight[], PBWEIGHT[], CLR[], ONEMINUS[], ffv1weight, ffv2weight, ffv3weight, ffp1weight, grt;
+    float   IW[], v1w[], v2w[], v3w[], v4w[], p1w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
@@ -57,26 +57,26 @@ struct genome{
             append(CLR, speed*coord);
             append(ONEMINUS, 1-speed);
             // PRE BLUR
-            append(PBWEIGHT, chf(concat("../preblurweight_" , IDX)));
+            append(PBW, chf(concat("../preblurweight_" , IDX)));
             // VAR 01
-            append(v1weight, chf(concat("../v1weight_", IDX)));
-            if(v1weight[-1]!=0) append(v1type, atoi(chs(concat("../v1type_", IDX))));
+            append(v1w, chf(concat("../v1weight_", IDX)));
+            if(v1w[-1]!=0) append(v1type, atoi(chs(concat("../v1type_", IDX))));
             else resize(v1type, res);
             // VAR 02
-            append(v2weight, chf(concat("../v2weight_", IDX)));
-            if(v2weight[-1]!=0) append(v2type, atoi(chs(concat("../v2type_", IDX))));
+            append(v2w, chf(concat("../v2weight_", IDX)));
+            if(v2w[-1]!=0) append(v2type, atoi(chs(concat("../v2type_", IDX))));
             else resize(v2type, res);
             // VAR 03
-            append(v3weight, chf(concat("../v3weight_", IDX)));
-            if(v3weight[-1]!=0) append(v3type, atoi(chs(concat("../v3type_", IDX))));
+            append(v3w, chf(concat("../v3weight_", IDX)));
+            if(v3w[-1]!=0) append(v3type, atoi(chs(concat("../v3type_", IDX))));
             else resize(v3type, res);
             // VAR 04
-            append(v4weight, chf(concat("../v4weight_", IDX)));
-            if(v4weight[-1]!=0) append(v4type, atoi(chs(concat("../v4type_", IDX))));
+            append(v4w, chf(concat("../v4weight_", IDX)));
+            if(v4w[-1]!=0) append(v4type, atoi(chs(concat("../v4type_", IDX))));
             else resize(v4type, res);
             // POST VAR 01
-            append(p1weight, chf(concat("../p1weight_", IDX)));
-            if(p1weight[-1]!=0) append(p1type, atoi(chs(concat("../p1type_", IDX))));
+            append(p1w, chf(concat("../p1weight_", IDX)));
+            if(p1w[-1]!=0) append(p1type, atoi(chs(concat("../p1type_", IDX))));
             else resize(p1type, res);
             // Collect affine coefficients
             append(x, chu(concat("../x_", IDX)));
@@ -104,17 +104,17 @@ struct genome{
         }
         if(SYS.FF){
             // FF VAR 01
-            ffv1weight = chf("../ffv1weight");
-            if(ffv1weight!=0) ffv1type = chi("../ffv1type");
+            ffv1w = chf("../ffv1weight");
+            if(ffv1w!=0) ffv1type = chi("../ffv1type");
             // FF VAR 02
-            ffv2weight = chf("../ffv2weight");
-            if(ffv2weight!=0) ffv2type = chi("../ffv2type");
+            ffv2w = chf("../ffv2weight");
+            if(ffv2w!=0) ffv2type = chi("../ffv2type");
             // FF VAR 03
-            ffv3weight = chf("../ffv3weight");
-            if(ffv3weight!=0) ffv3type = chi("../ffp1type");
+            ffv3w = chf("../ffv3weight");
+            if(ffv3w!=0) ffv3type = chi("../ffp1type");
             // // FF POST VAR 01
-            ffp1weight = chf("../ffp1weight");
-            if(ffp1weight!=0) ffp1type = chi("../ffp1type");
+            ffp1w = chf("../ffp1weight");
+            if(ffp1w!=0) ffp1type = chi("../ffp1type");
             // Collect FINAL FLAME TRANSFORM affine coefficients
             fx = chu("../_fx_2");
             fy = chu("../_fy_2");
