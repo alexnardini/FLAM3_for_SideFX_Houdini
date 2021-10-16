@@ -46,7 +46,7 @@ struct genome{
         float coord, speed;
         for(int i=0; i<SYS.iter_f; i++){
             if(!VACTIVE[i]) continue;
-            int _IDX=(i+1); string IDX=itoa(_IDX);
+            string IDX=itoa(i+1);
             // Collect active variation IDs
             append(sIDX, IDX); int res=len(sIDX);
             // Iterator's weights
@@ -58,30 +58,26 @@ struct genome{
             append(ONEMINUS, 1-speed);
             // PRE BLUR
             append(PBWEIGHT, chf(concat("../preblurweight_" , IDX)));
-            
-            // VARS
+            // VAR 01
             append(v1weight, chf(concat("../v1weight_", IDX)));
-            if(v1weight[-1]!=0)
-                append(v1type, atoi(chs(concat("../v1type_", IDX))));
+            if(v1weight[-1]!=0) append(v1type, atoi(chs(concat("../v1type_", IDX))));
             else resize(v1type, res);
+            // VAR 02
             append(v2weight, chf(concat("../v2weight_", IDX)));
-            if(v2weight[-1]!=0)
-                append(v2type, atoi(chs(concat("../v2type_", IDX))));
+            if(v2weight[-1]!=0) append(v2type, atoi(chs(concat("../v2type_", IDX))));
             else resize(v2type, res);
+            // VAR 03
             append(v3weight, chf(concat("../v3weight_", IDX)));
-            if(v3weight[-1]!=0)
-                append(v3type, atoi(chs(concat("../v3type_", IDX))));
+            if(v3weight[-1]!=0) append(v3type, atoi(chs(concat("../v3type_", IDX))));
             else resize(v3type, res);
+            // VAR 04
             append(v4weight, chf(concat("../v4weight_", IDX)));
-            if(v4weight[-1]!=0)
-                append(v4type, atoi(chs(concat("../v4type_", IDX))));
+            if(v4weight[-1]!=0) append(v4type, atoi(chs(concat("../v4type_", IDX))));
             else resize(v4type, res);
-            // POST Variation
+            // POST VAR 01
             append(p1weight, chf(concat("../p1weight_", IDX)));
-            if(p1weight[-1]!=0)
-                append(p1type, atoi(chs(concat("../p1type_", IDX))));
+            if(p1weight[-1]!=0) append(p1type, atoi(chs(concat("../p1type_", IDX))));
             else resize(p1type, res);
-
             // Collect affine coefficients
             append(x, chu(concat("../x_", IDX)));
             append(y, chu(concat("../y_", IDX)));
@@ -94,7 +90,6 @@ struct genome{
                 append(po, chu(concat("../po_", IDX)));
                 }
             else{ resize(px, res); resize(py, res); resize(po, res); }
-            
         }
         // Collect GLOBAL TM
         if(SYS.TMG){
@@ -108,19 +103,18 @@ struct genome{
             //gpv = chv("../fpv");
         }
         if(SYS.FF){
-            ffv1weight   = chf("../ffv1weight");
-            if(ffv1weight!=0)
-                ffv1type     = chi("../ffv1type");
-            ffv2weight   = chf("../ffv2weight");
-            if(ffv2weight!=0)
-                ffv2type     = chi("../ffv2type");
-            ffv3weight   = chf("../ffv3weight");
-            if(ffv3weight!=0)
-                ffv3type     = chi("../ffp1type");
-            // POST FF Variation
-            ffp1weight   = chf("../ffp1weight");
-            if(ffp1weight!=0)
-                ffp1type     = chi("../ffp1type");
+            // FF VAR 01
+            ffv1weight = chf("../ffv1weight");
+            if(ffv1weight!=0) ffv1type = chi("../ffv1type");
+            // FF VAR 02
+            ffv2weight = chf("../ffv2weight");
+            if(ffv2weight!=0) ffv2type = chi("../ffv2type");
+            // FF VAR 03
+            ffv3weight = chf("../ffv3weight");
+            if(ffv3weight!=0) ffv3type = chi("../ffp1type");
+            // // FF POST VAR 01
+            ffp1weight = chf("../ffp1weight");
+            if(ffp1weight!=0) ffp1type = chi("../ffp1type");
             // Collect FINAL FLAME TRANSFORM affine coefficients
             fx = chu("../_fx_2");
             fy = chu("../_fy_2");
@@ -147,8 +141,8 @@ struct genomeParametrics{
             int iter_f = len(GEMTYPE);
             int TYPE, TYPES_1[], TYPES_2[];
             string PRX, IDX;
-            TYPES_1 = {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57, 61};
-            TYPES_2 = {63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101};
+            TYPES_1 = {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57};
+            TYPES_2 = {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101};
             // FLOAT
             resize(rings2_val, iter_f); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // VECTOR
@@ -209,14 +203,14 @@ struct genomeParametrics{
                         else if(TYPE==56){ cell_size[i] = chf(concat(PRX, "cellsize_", IDX)); continue; }
                         // 57 CPOW
                         else if(TYPE==57){ cpow[i] = chv(concat(PRX, "cpow_", IDX)); continue; }
-                        // 61 ESCHER
-                        else if(TYPE==61){ escher_beta[i] = chf(concat(PRX, "escherbeta_", IDX)); continue; }
                     }
                 }
                 else if(find(TYPES_2, TYPE)>=0){
-                    if(TYPE<78){
+                    if(TYPE<77){
+                        // 61 ESCHER
+                        if(TYPE==61){ escher_beta[i] = chf(concat(PRX, "escherbeta_", IDX)); continue; }
                         // 63 LAZYSUSAN
-                        if(TYPE==63){
+                        else if(TYPE==63){
                             lazysusanxyz[i] = chu(concat(PRX, "lazysusanxyz_", IDX));
                             lazysusan[i]    = chu(concat(PRX, "lazysusan_", IDX)); continue; }
                         // 66 MODULUS
@@ -241,12 +235,12 @@ struct genomeParametrics{
                         else if(TYPE==75){ wedge[i] = chp(concat(PRX, "wedge_", IDX)); continue; }
                         // 76 WEDGE JULIA
                         else if(TYPE==76){ wedgejulia[i] = chp(concat(PRX, "wedgejulia_", IDX)); continue; }
-                        // 77 WEDGE SPH
-                        else if(TYPE==77){ wedgesph[i] = chp(concat(PRX, "wedgesph_", IDX)); continue; }
                     }
                     else{
+                        // 77 WEDGE SPH
+                        if(TYPE==77){ wedgesph[i] = chp(concat(PRX, "wedgesph_", IDX)); continue; }
                         // 78 WHORL
-                        if(TYPE==78){ whorl[i]  = chu(concat(PRX, "whorl_",  IDX)); continue; }
+                        else if(TYPE==78){ whorl[i]  = chu(concat(PRX, "whorl_",  IDX)); continue; }
                         // 79 WAVES2
                         else if(TYPE==79){
                             waves2_scale[i] = chu(concat(PRX, "waves2scalexyz_", IDX));

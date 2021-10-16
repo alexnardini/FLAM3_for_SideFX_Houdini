@@ -13,7 +13,6 @@
  /  Comment:    The chaos game
 */
 
-
 #ifndef VOP_OP
 #define VOP_OP
 #endif
@@ -55,11 +54,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(GEM.v3weight[idx]!=0) __tmp += FLAME(v3GMP, "LOCAL", __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3weight[idx]);
         if(GEM.v4weight[idx]!=0) __tmp += FLAME(v4GMP, "LOCAL", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4weight[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
-        // POST variation
         if(GEM.p1weight[idx]!=0){ __mem=__tmp; __tmp = FLAME(p1GMP, "LOCAL", __mem, idx, GEM.p1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.p1weight[idx]); }
-
         if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
-        if(checkNAN_vector(SYS.DELINVALIDPT, __tmp)){ removepoint(0, _bound_ptnum); break; }
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
         __mem = __tmp;
     }
@@ -69,21 +65,21 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
         if(GEM.ffv2weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv2type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2weight);
         if(GEM.ffv3weight!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv3type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3weight);
         if(SYS.POSTF) affinePOST(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
-        // POST FF Variation
+        // POST FF VAR
         if(GEM.ffp1weight!=0){ __mem=__tmp; __tmp = FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1weight); }
         __mem = __tmp;
-        removeNAN_vector(SYS.DELINVALIDPT, _bound_ptnum, __mem);
     }
-    if(SYS.symmetry) VAR_SYMMETRY(__mem, chv("../symgpivot"), SYS.sym_mode);
-    float pscl = 1.0;
-    if(SYS.domb) pscl *= SYS.mb_modulate;
-
-    _bound_P = __mem;
-    _bound_COORD = CLR;
-    _bound_pscale = pscl;
-    // Probably better to bind it into this function
-    if(SYS.domb) setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set");
-
+    if(checkNAN_vector(SYS.DELINVALIDPT, __mem)) removepoint(0, _bound_ptnum);
+    else{
+        if(SYS.symmetry) VAR_SYMMETRY(__mem, chv("../symgpivot"), SYS.sym_mode);
+        float pscl = 1.0;
+        if(SYS.domb) pscl *= SYS.mb_modulate;
+        _bound_P = __mem;
+        _bound_COORD = CLR;
+        _bound_pscale = pscl;
+        // Probably better to bind it into this function
+        if(SYS.domb) setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set");
+    }
 }
 
 cvex
