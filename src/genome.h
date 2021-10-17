@@ -38,7 +38,7 @@ struct genomeSYS{
 
 struct genome{
     int     v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   IW[], v1w[], v2w[], v3w[], v4w[], p1w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
@@ -49,8 +49,6 @@ struct genome{
             string IDX=itoa(i+1);
             // Collect active variation IDs
             append(sIDX, IDX); int res=len(sIDX);
-            // Iterator's weights
-            append(IW, chf(concat("../iw_", IDX)));
             // Color
             coord = chf(concat("../clr_", IDX));
             speed = chf(concat("../clrspeed_", IDX));

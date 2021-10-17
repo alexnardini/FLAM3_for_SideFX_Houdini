@@ -3,17 +3,22 @@
 
 @0 = private constant [13 x i8] c"../flamefunc\00"
 @1 = private constant [0 x i64] zeroinitializer
-@2 = private constant [12 x i8] c"../vactive_\00"
+@2 = private constant [0 x double] zeroinitializer
+@3 = private constant [12 x i8] c"../vactive_\00"
+@4 = private constant [7 x i8] c"../iw_\00"
 @VACTIVE = external global i64*
-@3 = private constant [8 x i8] c"VACTIVE\00"
+@IW = external global double*
+@5 = private constant [8 x i8] c"VACTIVE\00"
+@6 = private constant [3 x i8] c"IW\00"
 
-define private void @"_TFFAvactive@[I"(i64** %_bound_VACTIVE) nounwind alwaysinline {
+define private void @"_TFFAvactive@[I[F"(i64** %_bound_VACTIVE, double** %_bound_IW) nounwind alwaysinline {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @0, i64 0, i64 0))
   br label %cond
 
 cond:                                             ; preds = %body, %__llvm_entry
   %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output, %body ]
+  %IW.0 = phi double* [ getelementptr inbounds ([0 x double]* @2, i64 0, i64 0), %__llvm_entry ], [ %output15, %body ]
   %vactive.0 = phi i64* [ getelementptr inbounds ([0 x i64]* @1, i64 0, i64 0), %__llvm_entry ], [ %output10, %body ]
   %return3 = call i64 @"lt@III"(i64 %i.0, i64 %return)
   %0 = icmp ne i64 %return3, 0
@@ -22,13 +27,17 @@ cond:                                             ; preds = %body, %__llvm_entry
 body:                                             ; preds = %cond
   %output = add i64 %i.0, 1
   %return5 = call i8* @"itoa@SI"(i64 %output)
-  %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8]* @2, i64 0, i64 0), i8* %return5)
+  %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8]* @3, i64 0, i64 0), i8* %return5)
   %return9 = call i64 @"chi@IS"(i8* %return8)
   %output10 = call i64* @"append@[II"(i64* %vactive.0, i64 %return9)
+  %return13 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8]* @4, i64 0, i64 0), i8* %return5)
+  %return14 = call double @"chf@FS"(i8* %return13)
+  %output15 = call double* @"append@[FF"(double* %IW.0, double %return14)
   br label %cond
 
 end:                                              ; preds = %cond
   store i64* %vactive.0, i64** %_bound_VACTIVE
+  store double* %IW.0, double** %_bound_IW
   ret void
 }
 
@@ -42,22 +51,33 @@ declare i8* @"concat@SSS"(i8*, i8*) nounwind readnone
 
 declare i64* @"append@[II"(i64*, i64) nounwind
 
-define void @TFFAvactive(i64* %VACTIVE) nounwind {
+declare double @"chf@FS"(i8*) nounwind readnone
+
+declare double* @"append@[FF"(double*, double) nounwind
+
+define void @TFFAvactive(i64* %VACTIVE, double* %IW) nounwind {
 __llvm_entry:
+  %"<IW>" = alloca double*
   %"<VACTIVE>" = alloca i64*
   store i64* %VACTIVE, i64** %"<VACTIVE>"
-  call void @"_TFFAvactive@[I"(i64** %"<VACTIVE>")
+  store double* %IW, double** %"<IW>"
+  call void @"_TFFAvactive@[I[F"(i64** %"<VACTIVE>", double** %"<IW>")
   %evalue = load i64** %"<VACTIVE>"
-  %gvalue = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([8 x i8]* @3, i64 0, i64 0), i64* %evalue) nounwind readonly
+  %gvalue = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([8 x i8]* @5, i64 0, i64 0), i64* %evalue) nounwind readonly
+  %evalue1 = load double** %"<IW>"
+  %gvalue2 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8]* @6, i64 0, i64 0), double* %evalue1) nounwind readonly
   store i64* %gvalue, i64** @VACTIVE
+  store double* %gvalue2, double** @IW
   ret void
 }
 
 declare i64* @"_export@[IS[I"(i8*, i64*)
 
+declare double* @"_export@[FS[F"(i8*, double*)
+
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAvactive(i64* getelementptr inbounds ([0 x i64]* @1, i64 0, i64 0))
+  call void @TFFAvactive(i64* getelementptr inbounds ([0 x i64]* @1, i64 0, i64 0), double* getelementptr inbounds ([0 x double]* @2, i64 0, i64 0))
   ret void
 }
 
@@ -66,7 +86,7 @@ __llvm_entry:
 !precision = !{!2}
 
 !0 = metadata !{metadata !"cvex"}
-!1 = metadata !{metadata !"18.5.499"}
+!1 = metadata !{metadata !"18.5.696"}
 !2 = metadata !{metadata !"64"}
 
 ;_code_end

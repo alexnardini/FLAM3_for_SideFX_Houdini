@@ -27,7 +27,7 @@
 
 #include <flame.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_pscale, _bound_COORD; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_IW[]; float _bound_pscale, _bound_COORD; vector _bound_P)
 {
 
     int idx;
@@ -43,7 +43,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
     // POST VAR genome parametric
     p1GMP->genomeParametricsBuild("LOCAL", GEM.sIDX, GEM.p1type);
     // Start the chaos game
-    float cdf[] = create_cdf(GEM.IW);
+    float cdf[] = create_cdf(_bound_IW);
     vector __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
         vector __tmp = 0;
@@ -85,9 +85,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum, _bound_VACTIVE[]; float _bound_
 cvex
 TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  int    VACTIVE[] = {};
+                          const  float  IW[] = {};
 	                      export float  pscale    = 0;
 	                      export float  COORD     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, pscale, COORD, P);
+    _TheFractalFlameAlgorithm(ptnum, VACTIVE, IW, pscale, COORD, P);
 }
