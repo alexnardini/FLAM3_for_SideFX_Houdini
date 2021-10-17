@@ -27,7 +27,7 @@
 #pragma opmaxinputs 1
 
 void
-_TFFAvactive(int _bound_VACTIVE[]; float _bound_IW[])
+_TFFAvactive(int _bound_VACTIVE[]; float _bound_CDF[])
 {
     int iter_f = chi("../flamefunc");
     int vactive[] = {};
@@ -38,12 +38,12 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_IW[])
         append(IW, chf(concat("../iw_", IDX)));
     }
     _bound_VACTIVE = vactive;
-    _bound_IW = IW;
+    _bound_CDF = create_cdf(IW);
 }
 
 cvex
 TFFAvactive(export int VACTIVE[] = {};
-            export float IW[] = {})
+            export float CDF[] = {})
 {
-    _TFFAvactive(VACTIVE, IW);
+    _TFFAvactive(VACTIVE, CDF);
 }

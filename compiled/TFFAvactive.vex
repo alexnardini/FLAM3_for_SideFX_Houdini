@@ -7,11 +7,11 @@
 @3 = private constant [12 x i8] c"../vactive_\00"
 @4 = private constant [7 x i8] c"../iw_\00"
 @VACTIVE = external global i64*
-@IW = external global double*
+@CDF = external global double*
 @5 = private constant [8 x i8] c"VACTIVE\00"
-@6 = private constant [3 x i8] c"IW\00"
+@6 = private constant [4 x i8] c"CDF\00"
 
-define private void @"_TFFAvactive@[I[F"(i64** %_bound_VACTIVE, double** %_bound_IW) nounwind alwaysinline {
+define private void @"_TFFAvactive@[I[F"(i64** %_bound_VACTIVE, double** %_bound_CDF) nounwind alwaysinline {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @0, i64 0, i64 0))
   br label %cond
@@ -37,7 +37,8 @@ body:                                             ; preds = %cond
 
 end:                                              ; preds = %cond
   store i64* %vactive.0, i64** %_bound_VACTIVE
-  store double* %IW.0, double** %_bound_IW
+  %return21 = call double* @"create_cdf@[F[F"(double* %IW.0)
+  store double* %return21, double** %_bound_CDF
   ret void
 }
 
@@ -55,19 +56,21 @@ declare double @"chf@FS"(i8*) nounwind readnone
 
 declare double* @"append@[FF"(double*, double) nounwind
 
-define void @TFFAvactive(i64* %VACTIVE, double* %IW) nounwind {
+declare double* @"create_cdf@[F[F"(double*) nounwind readnone
+
+define void @TFFAvactive(i64* %VACTIVE, double* %CDF) nounwind {
 __llvm_entry:
-  %"<IW>" = alloca double*
+  %"<CDF>" = alloca double*
   %"<VACTIVE>" = alloca i64*
   store i64* %VACTIVE, i64** %"<VACTIVE>"
-  store double* %IW, double** %"<IW>"
-  call void @"_TFFAvactive@[I[F"(i64** %"<VACTIVE>", double** %"<IW>")
+  store double* %CDF, double** %"<CDF>"
+  call void @"_TFFAvactive@[I[F"(i64** %"<VACTIVE>", double** %"<CDF>")
   %evalue = load i64** %"<VACTIVE>"
   %gvalue = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([8 x i8]* @5, i64 0, i64 0), i64* %evalue) nounwind readonly
-  %evalue1 = load double** %"<IW>"
-  %gvalue2 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8]* @6, i64 0, i64 0), double* %evalue1) nounwind readonly
+  %evalue1 = load double** %"<CDF>"
+  %gvalue2 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8]* @6, i64 0, i64 0), double* %evalue1) nounwind readonly
   store i64* %gvalue, i64** @VACTIVE
-  store double* %gvalue2, double** @IW
+  store double* %gvalue2, double** @CDF
   ret void
 }
 

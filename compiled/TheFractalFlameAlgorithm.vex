@@ -117,7 +117,7 @@
 @109 = private constant [5 x i8] c"ATAN\00"
 @110 = private constant [7 x i8] c"ATANYX\00"
 @111 = private constant [8 x i8] c"twister\00"
-@112 = private constant [6 x i8] c"LOCAL\00"
+@112 = private constant [2 x i8] c"L\00"
 @113 = private constant [12 x i8] c"../_curlc_2\00"
 @114 = private constant [11 x i8] c"../_ngon_2\00"
 @115 = private constant [11 x i8] c"../_pdjw_2\00"
@@ -169,7 +169,7 @@
 @161 = private constant [20 x i8] c"../_polynomialpow_2\00"
 @162 = private constant [19 x i8] c"../_polynomiallc_2\00"
 @163 = private constant [19 x i8] c"../_polynomialsc_2\00"
-@164 = private constant [6 x i8] c"FINAL\00"
+@164 = private constant [2 x i8] c"F\00"
 @165 = private constant [13 x i8] c"../symgpivot\00"
 @166 = private constant [12 x i8] c"mb_modulate\00"
 @167 = private constant [4 x i8] c"set\00"
@@ -8031,7 +8031,7 @@ false243:                                         ; preds = %false235
 
 true249:                                          ; preds = %false243
   %ftype252 = load i8** %ftype
-  %return253 = call i64 @"eq@ISS"(i8* %ftype252, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return253 = call i64 @"eq@ISS"(i8* %ftype252, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %342 = icmp ne i64 %return253, 0
   br i1 %342, label %true254, label %false255
 
@@ -8067,7 +8067,7 @@ end256:                                           ; preds = %false255, %true254
 
 true271:                                          ; preds = %false250
   %ftype274 = load i8** %ftype
-  %return275 = call i64 @"eq@ISS"(i8* %ftype274, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return275 = call i64 @"eq@ISS"(i8* %ftype274, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %344 = icmp ne i64 %return275, 0
   br i1 %344, label %true276, label %false277
 
@@ -8107,7 +8107,7 @@ end278:                                           ; preds = %false277, %true276
 
 true297:                                          ; preds = %false272
   %ftype300 = load i8** %ftype
-  %return301 = call i64 @"eq@ISS"(i8* %ftype300, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return301 = call i64 @"eq@ISS"(i8* %ftype300, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %346 = icmp ne i64 %return301, 0
   br i1 %346, label %true302, label %false303
 
@@ -8140,7 +8140,7 @@ end304:                                           ; preds = %false303, %true302
 
 true315:                                          ; preds = %false298
   %ftype318 = load i8** %ftype
-  %return319 = call i64 @"eq@ISS"(i8* %ftype318, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return319 = call i64 @"eq@ISS"(i8* %ftype318, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %348 = icmp ne i64 %return319, 0
   br i1 %348, label %true320, label %false321
 
@@ -8180,7 +8180,7 @@ end322:                                           ; preds = %false321, %true320
 
 true340:                                          ; preds = %false316
   %ftype343 = load i8** %ftype
-  %return344 = call i64 @"eq@ISS"(i8* %ftype343, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return344 = call i64 @"eq@ISS"(i8* %ftype343, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %350 = icmp ne i64 %return344, 0
   br i1 %350, label %true345, label %false346
 
@@ -8216,7 +8216,7 @@ end347:                                           ; preds = %false346, %true345
 
 true362:                                          ; preds = %false341
   %ftype365 = load i8** %ftype
-  %return366 = call i64 @"eq@ISS"(i8* %ftype365, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return366 = call i64 @"eq@ISS"(i8* %ftype365, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %352 = icmp ne i64 %return366, 0
   br i1 %352, label %true367, label %false368
 
@@ -8264,7 +8264,7 @@ false385:                                         ; preds = %false363
 
 true391:                                          ; preds = %false385
   %ftype393 = load i8** %ftype
-  %return394 = call i64 @"eq@ISS"(i8* %ftype393, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return394 = call i64 @"eq@ISS"(i8* %ftype393, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %355 = icmp ne i64 %return394, 0
   br i1 %355, label %true395, label %false396
 
@@ -8312,7 +8312,7 @@ false415:                                         ; preds = %true409
 
 true419:                                          ; preds = %true414
   %ftype422 = load i8** %ftype
-  %return423 = call i64 @"eq@ISS"(i8* %ftype422, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return423 = call i64 @"eq@ISS"(i8* %ftype422, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %360 = icmp ne i64 %return423, 0
   br i1 %360, label %true424, label %false425
 
@@ -8347,7 +8347,7 @@ end426:                                           ; preds = %false425, %true424
 
 true438:                                          ; preds = %false420
   %ftype441 = load i8** %ftype
-  %return442 = call i64 @"eq@ISS"(i8* %ftype441, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return442 = call i64 @"eq@ISS"(i8* %ftype441, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %362 = icmp ne i64 %return442, 0
   br i1 %362, label %true443, label %false444
 
@@ -8380,7 +8380,7 @@ end445:                                           ; preds = %false444, %true443
 
 true456:                                          ; preds = %false439
   %ftype459 = load i8** %ftype
-  %return460 = call i64 @"eq@ISS"(i8* %ftype459, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return460 = call i64 @"eq@ISS"(i8* %ftype459, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %364 = icmp ne i64 %return460, 0
   br i1 %364, label %true461, label %false462
 
@@ -8416,7 +8416,7 @@ end463:                                           ; preds = %false462, %true461
 
 true478:                                          ; preds = %false457
   %ftype481 = load i8** %ftype
-  %return482 = call i64 @"eq@ISS"(i8* %ftype481, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return482 = call i64 @"eq@ISS"(i8* %ftype481, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %366 = icmp ne i64 %return482, 0
   br i1 %366, label %true483, label %false484
 
@@ -8562,7 +8562,7 @@ false557:                                         ; preds = %false549
 
 true564:                                          ; preds = %false557
   %ftype567 = load i8** %ftype
-  %return568 = call i64 @"eq@ISS"(i8* %ftype567, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return568 = call i64 @"eq@ISS"(i8* %ftype567, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %376 = icmp ne i64 %return568, 0
   br i1 %376, label %true569, label %false570
 
@@ -8598,7 +8598,7 @@ end571:                                           ; preds = %false570, %true569
 
 true586:                                          ; preds = %false565
   %ftype589 = load i8** %ftype
-  %return590 = call i64 @"eq@ISS"(i8* %ftype589, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return590 = call i64 @"eq@ISS"(i8* %ftype589, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %378 = icmp ne i64 %return590, 0
   br i1 %378, label %true591, label %false592
 
@@ -8641,7 +8641,7 @@ end593:                                           ; preds = %false592, %true591
 
 true614:                                          ; preds = %false587
   %ftype616 = load i8** %ftype
-  %return617 = call i64 @"eq@ISS"(i8* %ftype616, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return617 = call i64 @"eq@ISS"(i8* %ftype616, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %380 = icmp ne i64 %return617, 0
   br i1 %380, label %true618, label %false619
 
@@ -8672,7 +8672,7 @@ end620:                                           ; preds = %false619, %true618
 
 true635:                                          ; preds = %false415
   %ftype638 = load i8** %ftype
-  %return639 = call i64 @"eq@ISS"(i8* %ftype638, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return639 = call i64 @"eq@ISS"(i8* %ftype638, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %381 = icmp ne i64 %return639, 0
   br i1 %381, label %true640, label %false641
 
@@ -8708,7 +8708,7 @@ end642:                                           ; preds = %false641, %true640
 
 true657:                                          ; preds = %false636
   %ftype660 = load i8** %ftype
-  %return661 = call i64 @"eq@ISS"(i8* %ftype660, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return661 = call i64 @"eq@ISS"(i8* %ftype660, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %383 = icmp ne i64 %return661, 0
   br i1 %383, label %true662, label %false663
 
@@ -8744,7 +8744,7 @@ end664:                                           ; preds = %false663, %true662
 
 true679:                                          ; preds = %false658
   %ftype682 = load i8** %ftype
-  %return683 = call i64 @"eq@ISS"(i8* %ftype682, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return683 = call i64 @"eq@ISS"(i8* %ftype682, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %385 = icmp ne i64 %return683, 0
   br i1 %385, label %true684, label %false685
 
@@ -8777,7 +8777,7 @@ end686:                                           ; preds = %false685, %true684
 
 true698:                                          ; preds = %false680
   %ftype701 = load i8** %ftype
-  %return702 = call i64 @"eq@ISS"(i8* %ftype701, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return702 = call i64 @"eq@ISS"(i8* %ftype701, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %387 = icmp ne i64 %return702, 0
   br i1 %387, label %true703, label %false704
 
@@ -8838,7 +8838,7 @@ false725:                                         ; preds = %false717
 
 true732:                                          ; preds = %false725
   %ftype735 = load i8** %ftype
-  %return736 = call i64 @"eq@ISS"(i8* %ftype735, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return736 = call i64 @"eq@ISS"(i8* %ftype735, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %391 = icmp ne i64 %return736, 0
   br i1 %391, label %true737, label %false738
 
@@ -8869,7 +8869,7 @@ end739:                                           ; preds = %false738, %true737
 
 true749:                                          ; preds = %false733
   %ftype752 = load i8** %ftype
-  %return753 = call i64 @"eq@ISS"(i8* %ftype752, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return753 = call i64 @"eq@ISS"(i8* %ftype752, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %393 = icmp ne i64 %return753, 0
   br i1 %393, label %true754, label %false755
 
@@ -8949,7 +8949,7 @@ false790:                                         ; preds = %false782
 
 true797:                                          ; preds = %false790
   %ftype800 = load i8** %ftype
-  %return801 = call i64 @"eq@ISS"(i8* %ftype800, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return801 = call i64 @"eq@ISS"(i8* %ftype800, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %398 = icmp ne i64 %return801, 0
   br i1 %398, label %true802, label %false803
 
@@ -8996,7 +8996,7 @@ false816:                                         ; preds = %false798
 
 true823:                                          ; preds = %false816
   %ftype826 = load i8** %ftype
-  %return827 = call i64 @"eq@ISS"(i8* %ftype826, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return827 = call i64 @"eq@ISS"(i8* %ftype826, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %401 = icmp ne i64 %return827, 0
   br i1 %401, label %true828, label %false829
 
@@ -9053,7 +9053,7 @@ false854:                                         ; preds = %false824
 
 true861:                                          ; preds = %false854
   %ftype864 = load i8** %ftype
-  %return865 = call i64 @"eq@ISS"(i8* %ftype864, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return865 = call i64 @"eq@ISS"(i8* %ftype864, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %404 = icmp ne i64 %return865, 0
   br i1 %404, label %true866, label %false867
 
@@ -9086,7 +9086,7 @@ end868:                                           ; preds = %false867, %true866
 
 true879:                                          ; preds = %false862
   %ftype882 = load i8** %ftype
-  %return883 = call i64 @"eq@ISS"(i8* %ftype882, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return883 = call i64 @"eq@ISS"(i8* %ftype882, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %406 = icmp ne i64 %return883, 0
   br i1 %406, label %true884, label %false885
 
@@ -9140,7 +9140,7 @@ false906:                                         ; preds = %false880
 
 true913:                                          ; preds = %false906
   %ftype915 = load i8** %ftype
-  %return916 = call i64 @"eq@ISS"(i8* %ftype915, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return916 = call i64 @"eq@ISS"(i8* %ftype915, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %409 = icmp ne i64 %return916, 0
   br i1 %409, label %true917, label %false918
 
@@ -9202,7 +9202,7 @@ false945:                                         ; preds = %true939
 
 true952:                                          ; preds = %false945
   %ftype955 = load i8** %ftype
-  %return956 = call i64 @"eq@ISS"(i8* %ftype955, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return956 = call i64 @"eq@ISS"(i8* %ftype955, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %414 = icmp ne i64 %return956, 0
   br i1 %414, label %true957, label %false958
 
@@ -9240,7 +9240,7 @@ end959:                                           ; preds = %false958, %true957
 
 true975:                                          ; preds = %false953
   %ftype978 = load i8** %ftype
-  %return979 = call i64 @"eq@ISS"(i8* %ftype978, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return979 = call i64 @"eq@ISS"(i8* %ftype978, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %416 = icmp ne i64 %return979, 0
   br i1 %416, label %true980, label %false981
 
@@ -9273,7 +9273,7 @@ end982:                                           ; preds = %false981, %true980
 
 true994:                                          ; preds = %false976
   %ftype997 = load i8** %ftype
-  %return998 = call i64 @"eq@ISS"(i8* %ftype997, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return998 = call i64 @"eq@ISS"(i8* %ftype997, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %418 = icmp ne i64 %return998, 0
   br i1 %418, label %true999, label %false1000
 
@@ -9306,7 +9306,7 @@ end1001:                                          ; preds = %false1000, %true999
 
 true1013:                                         ; preds = %false995
   %ftype1016 = load i8** %ftype
-  %return1017 = call i64 @"eq@ISS"(i8* %ftype1016, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1017 = call i64 @"eq@ISS"(i8* %ftype1016, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %420 = icmp ne i64 %return1017, 0
   br i1 %420, label %true1018, label %false1019
 
@@ -9342,7 +9342,7 @@ end1020:                                          ; preds = %false1019, %true101
 
 true1035:                                         ; preds = %false1014
   %ftype1038 = load i8** %ftype
-  %return1039 = call i64 @"eq@ISS"(i8* %ftype1038, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1039 = call i64 @"eq@ISS"(i8* %ftype1038, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %422 = icmp ne i64 %return1039, 0
   br i1 %422, label %true1040, label %false1041
 
@@ -9382,7 +9382,7 @@ end1042:                                          ; preds = %false1041, %true104
 
 true1061:                                         ; preds = %false1036
   %ftype1064 = load i8** %ftype
-  %return1065 = call i64 @"eq@ISS"(i8* %ftype1064, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1065 = call i64 @"eq@ISS"(i8* %ftype1064, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %424 = icmp ne i64 %return1065, 0
   br i1 %424, label %true1066, label %false1067
 
@@ -9422,7 +9422,7 @@ end1068:                                          ; preds = %false1067, %true106
 
 true1087:                                         ; preds = %false1062
   %ftype1090 = load i8** %ftype
-  %return1091 = call i64 @"eq@ISS"(i8* %ftype1090, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1091 = call i64 @"eq@ISS"(i8* %ftype1090, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %426 = icmp ne i64 %return1091, 0
   br i1 %426, label %true1092, label %false1093
 
@@ -9462,7 +9462,7 @@ end1094:                                          ; preds = %false1093, %true109
 
 true1113:                                         ; preds = %false1088
   %ftype1116 = load i8** %ftype
-  %return1117 = call i64 @"eq@ISS"(i8* %ftype1116, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1117 = call i64 @"eq@ISS"(i8* %ftype1116, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %428 = icmp ne i64 %return1117, 0
   br i1 %428, label %true1118, label %false1119
 
@@ -9498,7 +9498,7 @@ end1120:                                          ; preds = %false1119, %true111
 
 true1135:                                         ; preds = %false1114
   %ftype1138 = load i8** %ftype
-  %return1139 = call i64 @"eq@ISS"(i8* %ftype1138, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1139 = call i64 @"eq@ISS"(i8* %ftype1138, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %430 = icmp ne i64 %return1139, 0
   br i1 %430, label %true1140, label %false1141
 
@@ -9727,7 +9727,7 @@ false1262:                                        ; preds = %false1254
 
 true1269:                                         ; preds = %false1262
   %ftype1272 = load i8** %ftype
-  %return1273 = call i64 @"eq@ISS"(i8* %ftype1272, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1273 = call i64 @"eq@ISS"(i8* %ftype1272, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %445 = icmp ne i64 %return1273, 0
   br i1 %445, label %true1274, label %false1275
 
@@ -9767,7 +9767,7 @@ end1276:                                          ; preds = %false1275, %true127
 
 true1295:                                         ; preds = %false1270
   %ftype1298 = load i8** %ftype
-  %return1299 = call i64 @"eq@ISS"(i8* %ftype1298, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1299 = call i64 @"eq@ISS"(i8* %ftype1298, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %447 = icmp ne i64 %return1299, 0
   br i1 %447, label %true1300, label %false1301
 
@@ -9800,7 +9800,7 @@ end1302:                                          ; preds = %false1301, %true130
 
 true1313:                                         ; preds = %false1296
   %ftype1316 = load i8** %ftype
-  %return1317 = call i64 @"eq@ISS"(i8* %ftype1316, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1317 = call i64 @"eq@ISS"(i8* %ftype1316, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %449 = icmp ne i64 %return1317, 0
   br i1 %449, label %true1318, label %false1319
 
@@ -9838,7 +9838,7 @@ end1320:                                          ; preds = %false1319, %true131
 
 true1336:                                         ; preds = %false1314
   %ftype1339 = load i8** %ftype
-  %return1340 = call i64 @"eq@ISS"(i8* %ftype1339, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1340 = call i64 @"eq@ISS"(i8* %ftype1339, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %451 = icmp ne i64 %return1340, 0
   br i1 %451, label %true1341, label %false1342
 
@@ -9876,7 +9876,7 @@ end1343:                                          ; preds = %false1342, %true134
 
 true1359:                                         ; preds = %false1337
   %ftype1362 = load i8** %ftype
-  %return1363 = call i64 @"eq@ISS"(i8* %ftype1362, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1363 = call i64 @"eq@ISS"(i8* %ftype1362, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %453 = icmp ne i64 %return1363, 0
   br i1 %453, label %true1364, label %false1365
 
@@ -9912,7 +9912,7 @@ end1366:                                          ; preds = %false1365, %true136
 
 true1381:                                         ; preds = %false1360
   %ftype1384 = load i8** %ftype
-  %return1385 = call i64 @"eq@ISS"(i8* %ftype1384, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1385 = call i64 @"eq@ISS"(i8* %ftype1384, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %455 = icmp ne i64 %return1385, 0
   br i1 %455, label %true1386, label %false1387
 
@@ -9972,7 +9972,7 @@ false1415:                                        ; preds = %false1382
 
 true1422:                                         ; preds = %false1415
   %ftype1424 = load i8** %ftype
-  %return1425 = call i64 @"eq@ISS"(i8* %ftype1424, i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0))
+  %return1425 = call i64 @"eq@ISS"(i8* %ftype1424, i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0))
   %458 = icmp ne i64 %return1425, 0
   br i1 %458, label %true1426, label %false1427
 
@@ -10021,7 +10021,7 @@ declare <4 x double> @"getcomp@P[PI"(<4 x double>*, i64) nounwind readnone
 
 declare <3 x double> @"getcomp@V[VI"(<3 x double>*, i64) nounwind readnone
 
-define private void @"_TheFractalFlameAlgorithm@I[I[FFFV"(i64* %_bound_ptnum, i64** %_bound_VACTIVE, double** %_bound_IW, double* %_bound_pscale, double* %_bound_COORD, <3 x double>* %_bound_P) nounwind alwaysinline {
+define private void @"_TheFractalFlameAlgorithm@I[I[FFFV"(i64* %_bound_ptnum, i64** %_bound_VACTIVE, double** %_bound_CDF, double* %_bound_pscale, double* %_bound_COORD, <3 x double>* %_bound_P) nounwind alwaysinline {
 __llvm_entry:
   %SYS = alloca %genomeSYS
   %GEM = alloca %genome
@@ -10098,7 +10098,7 @@ __llvm_entry:
   %63 = alloca <2 x double>
   %64 = alloca <2 x double>
   %65 = alloca double
-  %__tmp244 = alloca <3 x double>
+  %__tmp242 = alloca <3 x double>
   %66 = alloca i64
   %67 = alloca <3 x double>
   %68 = alloca %genomeParametrics
@@ -10197,522 +10197,519 @@ __llvm_entry:
   %p1type = extractvalue %genome %GEM23, 4
   store i64* %p1type, i64** %16
   call void @"genomeParametricsBuild@Z17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PS[S[I"(%genomeParametrics* %p1GMP, i8** %14, i8*** %15, i64** %16)
-  %_bound_IW24 = load double** %_bound_IW
-  %return = call double* @"create_cdf@[F[F"(double* %_bound_IW24)
   store <3 x double> zeroinitializer, <3 x double>* %__mem, !vex-initializer-store !3
   %biunit = call <3 x double> @"biunit@V"()
   store <3 x double> %biunit, <3 x double>* %__mem
   br label %cond
 
-cond:                                             ; preds = %end217, %__llvm_entry
-  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output240, %end217 ]
-  %PREV_CLR.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output237, %end217 ]
-  %CLR.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output237, %end217 ]
-  %SYS26 = load %genomeSYS* %SYS
-  %iter = extractvalue %genomeSYS %SYS26, 7
-  %return27 = call i64 @"lt@III"(i64 %i.0, i64 %iter)
-  %109 = icmp ne i64 %return27, 0
+cond:                                             ; preds = %end215, %__llvm_entry
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output238, %end215 ]
+  %PREV_CLR.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output235, %end215 ]
+  %CLR.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output235, %end215 ]
+  %SYS25 = load %genomeSYS* %SYS
+  %iter = extractvalue %genomeSYS %SYS25, 7
+  %return = call i64 @"lt@III"(i64 %i.0, i64 %iter)
+  %109 = icmp ne i64 %return, 0
   br i1 %109, label %body, label %end
 
 body:                                             ; preds = %cond
   %cast = call <3 x double> @"set@VI"(i64 0)
   store <3 x double> %cast, <3 x double>* %__tmp
-  %return30 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @111, i64 0, i64 0))
-  %return31 = call i64 @"sample_cdf@[FFI"(double* %return, double %return30)
-  %GEM32 = load %genome* %GEM
-  %PBW = extractvalue %genome %GEM32, 15
-  %return34 = call double @"getcomp@F[FI"(double* %PBW, i64 %return31)
-  %return35 = fcmp ogt double %return34, 0.000000e+00
-  br i1 %return35, label %true, label %end37
+  %_bound_CDF27 = load double** %_bound_CDF
+  %return28 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8]* @111, i64 0, i64 0))
+  %return29 = call i64 @"sample_cdf@[FFI"(double* %_bound_CDF27, double %return28)
+  %GEM30 = load %genome* %GEM
+  %PBW = extractvalue %genome %GEM30, 15
+  %return32 = call double @"getcomp@F[FI"(double* %PBW, i64 %return29)
+  %return33 = fcmp ogt double %return32, 0.000000e+00
+  br i1 %return33, label %true, label %end35
 
 end:                                              ; preds = %cond
-  %FF = extractvalue %genomeSYS %SYS26, 3
+  %FF = extractvalue %genomeSYS %SYS25, 3
   %110 = icmp ne i64 %FF, 0
-  br i1 %110, label %true242, label %end243
+  br i1 %110, label %true240, label %end241
 
 true:                                             ; preds = %body
-  store double %return34, double* %17
+  store double %return32, double* %17
   call void @"VAR_PREBLUR@VF"(<3 x double>* %__mem, double* %17)
-  br label %end37
+  br label %end35
 
-end37:                                            ; preds = %true, %body
-  %GEM42 = load %genome* %GEM
-  %v1w = extractvalue %genome %GEM42, 10
-  %return44 = call double @"getcomp@F[FI"(double* %v1w, i64 %return31)
-  %return45 = fcmp one double %return44, 0.000000e+00
-  br i1 %return45, label %true47, label %end48
+end35:                                            ; preds = %true, %body
+  %GEM40 = load %genome* %GEM
+  %v1w = extractvalue %genome %GEM40, 10
+  %return42 = call double @"getcomp@F[FI"(double* %v1w, i64 %return29)
+  %return43 = fcmp one double %return42, 0.000000e+00
+  br i1 %return43, label %true45, label %end46
 
-true47:                                           ; preds = %end37
-  %__tmp49 = load <3 x double>* %__tmp
-  %v1GMP50 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP50, %genomeParametrics* %18
-  store i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0), i8** %19
-  %__mem51 = load <3 x double>* %__mem
-  store <3 x double> %__mem51, <3 x double>* %20
-  store i64 %return31, i64* %21
-  %GEM53 = load %genome* %GEM
-  %v1type54 = extractvalue %genome %GEM53, 0
-  %return56 = call i64 @"getcomp@I[II"(i64* %v1type54, i64 %return31)
-  store i64 %return56, i64* %22
-  %GEM57 = load %genome* %GEM
-  %x = extractvalue %genome %GEM57, 25
-  %return59 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x, i64 %return31)
-  store <2 x double> %return59, <2 x double>* %23
-  %GEM60 = load %genome* %GEM
-  %y = extractvalue %genome %GEM60, 26
-  %return62 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y, i64 %return31)
-  store <2 x double> %return62, <2 x double>* %24
-  %GEM63 = load %genome* %GEM
-  %o = extractvalue %genome %GEM63, 27
-  %return65 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o, i64 %return31)
-  store <2 x double> %return65, <2 x double>* %25
-  %GEM66 = load %genome* %GEM
-  %v1w67 = extractvalue %genome %GEM66, 10
-  %return69 = call double @"getcomp@F[FI"(double* %v1w67, i64 %return31)
-  store double %return69, double* %26
+true45:                                           ; preds = %end35
+  %__tmp47 = load <3 x double>* %__tmp
+  %v1GMP48 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP48, %genomeParametrics* %18
+  store i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0), i8** %19
+  %__mem49 = load <3 x double>* %__mem
+  store <3 x double> %__mem49, <3 x double>* %20
+  store i64 %return29, i64* %21
+  %GEM51 = load %genome* %GEM
+  %v1type52 = extractvalue %genome %GEM51, 0
+  %return54 = call i64 @"getcomp@I[II"(i64* %v1type52, i64 %return29)
+  store i64 %return54, i64* %22
+  %GEM55 = load %genome* %GEM
+  %x = extractvalue %genome %GEM55, 25
+  %return57 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x, i64 %return29)
+  store <2 x double> %return57, <2 x double>* %23
+  %GEM58 = load %genome* %GEM
+  %y = extractvalue %genome %GEM58, 26
+  %return60 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y, i64 %return29)
+  store <2 x double> %return60, <2 x double>* %24
+  %GEM61 = load %genome* %GEM
+  %o = extractvalue %genome %GEM61, 27
+  %return63 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o, i64 %return29)
+  store <2 x double> %return63, <2 x double>* %25
+  %GEM64 = load %genome* %GEM
+  %v1w65 = extractvalue %genome %GEM64, 10
+  %return67 = call double @"getcomp@F[FI"(double* %v1w65, i64 %return29)
+  store double %return67, double* %26
   %FLAME = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %18, i8** %19, <3 x double>* %20, i64* %21, i64* %22, <2 x double>* %23, <2 x double>* %24, <2 x double>* %25, double* %26)
-  %output = call <3 x double> @"add@VV"(<3 x double> %__tmp49, <3 x double> %FLAME)
+  %output = call <3 x double> @"add@VV"(<3 x double> %__tmp47, <3 x double> %FLAME)
   store <3 x double> %output, <3 x double>* %__tmp
-  br label %end48
+  br label %end46
 
-end48:                                            ; preds = %true47, %end37
-  %GEM70 = load %genome* %GEM
-  %v2w = extractvalue %genome %GEM70, 11
-  %return72 = call double @"getcomp@F[FI"(double* %v2w, i64 %return31)
-  %return73 = fcmp one double %return72, 0.000000e+00
-  br i1 %return73, label %true75, label %end76
+end46:                                            ; preds = %true45, %end35
+  %GEM68 = load %genome* %GEM
+  %v2w = extractvalue %genome %GEM68, 11
+  %return70 = call double @"getcomp@F[FI"(double* %v2w, i64 %return29)
+  %return71 = fcmp one double %return70, 0.000000e+00
+  br i1 %return71, label %true73, label %end74
 
-true75:                                           ; preds = %end48
-  %__tmp77 = load <3 x double>* %__tmp
-  %v2GMP78 = load %genomeParametrics* %v2GMP
-  store %genomeParametrics %v2GMP78, %genomeParametrics* %27
-  store i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0), i8** %28
-  %__mem79 = load <3 x double>* %__mem
-  store <3 x double> %__mem79, <3 x double>* %29
-  store i64 %return31, i64* %30
-  %GEM81 = load %genome* %GEM
-  %v2type82 = extractvalue %genome %GEM81, 1
-  %return84 = call i64 @"getcomp@I[II"(i64* %v2type82, i64 %return31)
-  store i64 %return84, i64* %31
-  %GEM85 = load %genome* %GEM
-  %x86 = extractvalue %genome %GEM85, 25
-  %return88 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x86, i64 %return31)
-  store <2 x double> %return88, <2 x double>* %32
-  %GEM89 = load %genome* %GEM
-  %y90 = extractvalue %genome %GEM89, 26
-  %return92 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y90, i64 %return31)
-  store <2 x double> %return92, <2 x double>* %33
-  %GEM93 = load %genome* %GEM
-  %o94 = extractvalue %genome %GEM93, 27
-  %return96 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o94, i64 %return31)
-  store <2 x double> %return96, <2 x double>* %34
-  %GEM97 = load %genome* %GEM
-  %v2w98 = extractvalue %genome %GEM97, 11
-  %return100 = call double @"getcomp@F[FI"(double* %v2w98, i64 %return31)
-  store double %return100, double* %35
-  %FLAME101 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %27, i8** %28, <3 x double>* %29, i64* %30, i64* %31, <2 x double>* %32, <2 x double>* %33, <2 x double>* %34, double* %35)
-  %output102 = call <3 x double> @"add@VV"(<3 x double> %__tmp77, <3 x double> %FLAME101)
-  store <3 x double> %output102, <3 x double>* %__tmp
-  br label %end76
+true73:                                           ; preds = %end46
+  %__tmp75 = load <3 x double>* %__tmp
+  %v2GMP76 = load %genomeParametrics* %v2GMP
+  store %genomeParametrics %v2GMP76, %genomeParametrics* %27
+  store i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0), i8** %28
+  %__mem77 = load <3 x double>* %__mem
+  store <3 x double> %__mem77, <3 x double>* %29
+  store i64 %return29, i64* %30
+  %GEM79 = load %genome* %GEM
+  %v2type80 = extractvalue %genome %GEM79, 1
+  %return82 = call i64 @"getcomp@I[II"(i64* %v2type80, i64 %return29)
+  store i64 %return82, i64* %31
+  %GEM83 = load %genome* %GEM
+  %x84 = extractvalue %genome %GEM83, 25
+  %return86 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x84, i64 %return29)
+  store <2 x double> %return86, <2 x double>* %32
+  %GEM87 = load %genome* %GEM
+  %y88 = extractvalue %genome %GEM87, 26
+  %return90 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y88, i64 %return29)
+  store <2 x double> %return90, <2 x double>* %33
+  %GEM91 = load %genome* %GEM
+  %o92 = extractvalue %genome %GEM91, 27
+  %return94 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o92, i64 %return29)
+  store <2 x double> %return94, <2 x double>* %34
+  %GEM95 = load %genome* %GEM
+  %v2w96 = extractvalue %genome %GEM95, 11
+  %return98 = call double @"getcomp@F[FI"(double* %v2w96, i64 %return29)
+  store double %return98, double* %35
+  %FLAME99 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %27, i8** %28, <3 x double>* %29, i64* %30, i64* %31, <2 x double>* %32, <2 x double>* %33, <2 x double>* %34, double* %35)
+  %output100 = call <3 x double> @"add@VV"(<3 x double> %__tmp75, <3 x double> %FLAME99)
+  store <3 x double> %output100, <3 x double>* %__tmp
+  br label %end74
 
-end76:                                            ; preds = %true75, %end48
-  %GEM103 = load %genome* %GEM
-  %v3w = extractvalue %genome %GEM103, 12
-  %return105 = call double @"getcomp@F[FI"(double* %v3w, i64 %return31)
-  %return106 = fcmp one double %return105, 0.000000e+00
-  br i1 %return106, label %true108, label %end109
+end74:                                            ; preds = %true73, %end46
+  %GEM101 = load %genome* %GEM
+  %v3w = extractvalue %genome %GEM101, 12
+  %return103 = call double @"getcomp@F[FI"(double* %v3w, i64 %return29)
+  %return104 = fcmp one double %return103, 0.000000e+00
+  br i1 %return104, label %true106, label %end107
 
-true108:                                          ; preds = %end76
-  %__tmp110 = load <3 x double>* %__tmp
-  %v3GMP111 = load %genomeParametrics* %v3GMP
-  store %genomeParametrics %v3GMP111, %genomeParametrics* %36
-  store i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0), i8** %37
-  %__mem112 = load <3 x double>* %__mem
-  store <3 x double> %__mem112, <3 x double>* %38
-  store i64 %return31, i64* %39
-  %GEM114 = load %genome* %GEM
-  %v3type115 = extractvalue %genome %GEM114, 2
-  %return117 = call i64 @"getcomp@I[II"(i64* %v3type115, i64 %return31)
-  store i64 %return117, i64* %40
-  %GEM118 = load %genome* %GEM
-  %x119 = extractvalue %genome %GEM118, 25
-  %return121 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x119, i64 %return31)
-  store <2 x double> %return121, <2 x double>* %41
-  %GEM122 = load %genome* %GEM
-  %y123 = extractvalue %genome %GEM122, 26
-  %return125 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y123, i64 %return31)
-  store <2 x double> %return125, <2 x double>* %42
-  %GEM126 = load %genome* %GEM
-  %o127 = extractvalue %genome %GEM126, 27
-  %return129 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o127, i64 %return31)
-  store <2 x double> %return129, <2 x double>* %43
-  %GEM130 = load %genome* %GEM
-  %v3w131 = extractvalue %genome %GEM130, 12
-  %return133 = call double @"getcomp@F[FI"(double* %v3w131, i64 %return31)
-  store double %return133, double* %44
-  %FLAME134 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %36, i8** %37, <3 x double>* %38, i64* %39, i64* %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, double* %44)
-  %output135 = call <3 x double> @"add@VV"(<3 x double> %__tmp110, <3 x double> %FLAME134)
-  store <3 x double> %output135, <3 x double>* %__tmp
-  br label %end109
+true106:                                          ; preds = %end74
+  %__tmp108 = load <3 x double>* %__tmp
+  %v3GMP109 = load %genomeParametrics* %v3GMP
+  store %genomeParametrics %v3GMP109, %genomeParametrics* %36
+  store i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0), i8** %37
+  %__mem110 = load <3 x double>* %__mem
+  store <3 x double> %__mem110, <3 x double>* %38
+  store i64 %return29, i64* %39
+  %GEM112 = load %genome* %GEM
+  %v3type113 = extractvalue %genome %GEM112, 2
+  %return115 = call i64 @"getcomp@I[II"(i64* %v3type113, i64 %return29)
+  store i64 %return115, i64* %40
+  %GEM116 = load %genome* %GEM
+  %x117 = extractvalue %genome %GEM116, 25
+  %return119 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x117, i64 %return29)
+  store <2 x double> %return119, <2 x double>* %41
+  %GEM120 = load %genome* %GEM
+  %y121 = extractvalue %genome %GEM120, 26
+  %return123 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y121, i64 %return29)
+  store <2 x double> %return123, <2 x double>* %42
+  %GEM124 = load %genome* %GEM
+  %o125 = extractvalue %genome %GEM124, 27
+  %return127 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o125, i64 %return29)
+  store <2 x double> %return127, <2 x double>* %43
+  %GEM128 = load %genome* %GEM
+  %v3w129 = extractvalue %genome %GEM128, 12
+  %return131 = call double @"getcomp@F[FI"(double* %v3w129, i64 %return29)
+  store double %return131, double* %44
+  %FLAME132 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %36, i8** %37, <3 x double>* %38, i64* %39, i64* %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, double* %44)
+  %output133 = call <3 x double> @"add@VV"(<3 x double> %__tmp108, <3 x double> %FLAME132)
+  store <3 x double> %output133, <3 x double>* %__tmp
+  br label %end107
 
-end109:                                           ; preds = %true108, %end76
-  %GEM136 = load %genome* %GEM
-  %v4w = extractvalue %genome %GEM136, 13
-  %return138 = call double @"getcomp@F[FI"(double* %v4w, i64 %return31)
-  %return139 = fcmp one double %return138, 0.000000e+00
-  br i1 %return139, label %true141, label %end142
+end107:                                           ; preds = %true106, %end74
+  %GEM134 = load %genome* %GEM
+  %v4w = extractvalue %genome %GEM134, 13
+  %return136 = call double @"getcomp@F[FI"(double* %v4w, i64 %return29)
+  %return137 = fcmp one double %return136, 0.000000e+00
+  br i1 %return137, label %true139, label %end140
 
-true141:                                          ; preds = %end109
-  %__tmp143 = load <3 x double>* %__tmp
-  %v4GMP144 = load %genomeParametrics* %v4GMP
-  store %genomeParametrics %v4GMP144, %genomeParametrics* %45
-  store i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0), i8** %46
-  %__mem145 = load <3 x double>* %__mem
-  store <3 x double> %__mem145, <3 x double>* %47
-  store i64 %return31, i64* %48
-  %GEM147 = load %genome* %GEM
-  %v4type148 = extractvalue %genome %GEM147, 3
-  %return150 = call i64 @"getcomp@I[II"(i64* %v4type148, i64 %return31)
-  store i64 %return150, i64* %49
-  %GEM151 = load %genome* %GEM
-  %x152 = extractvalue %genome %GEM151, 25
-  %return154 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x152, i64 %return31)
-  store <2 x double> %return154, <2 x double>* %50
-  %GEM155 = load %genome* %GEM
-  %y156 = extractvalue %genome %GEM155, 26
-  %return158 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y156, i64 %return31)
-  store <2 x double> %return158, <2 x double>* %51
-  %GEM159 = load %genome* %GEM
-  %o160 = extractvalue %genome %GEM159, 27
-  %return162 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o160, i64 %return31)
-  store <2 x double> %return162, <2 x double>* %52
-  %GEM163 = load %genome* %GEM
-  %v4w164 = extractvalue %genome %GEM163, 13
-  %return166 = call double @"getcomp@F[FI"(double* %v4w164, i64 %return31)
-  store double %return166, double* %53
-  %FLAME167 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %45, i8** %46, <3 x double>* %47, i64* %48, i64* %49, <2 x double>* %50, <2 x double>* %51, <2 x double>* %52, double* %53)
-  %output168 = call <3 x double> @"add@VV"(<3 x double> %__tmp143, <3 x double> %FLAME167)
-  store <3 x double> %output168, <3 x double>* %__tmp
-  br label %end142
+true139:                                          ; preds = %end107
+  %__tmp141 = load <3 x double>* %__tmp
+  %v4GMP142 = load %genomeParametrics* %v4GMP
+  store %genomeParametrics %v4GMP142, %genomeParametrics* %45
+  store i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0), i8** %46
+  %__mem143 = load <3 x double>* %__mem
+  store <3 x double> %__mem143, <3 x double>* %47
+  store i64 %return29, i64* %48
+  %GEM145 = load %genome* %GEM
+  %v4type146 = extractvalue %genome %GEM145, 3
+  %return148 = call i64 @"getcomp@I[II"(i64* %v4type146, i64 %return29)
+  store i64 %return148, i64* %49
+  %GEM149 = load %genome* %GEM
+  %x150 = extractvalue %genome %GEM149, 25
+  %return152 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x150, i64 %return29)
+  store <2 x double> %return152, <2 x double>* %50
+  %GEM153 = load %genome* %GEM
+  %y154 = extractvalue %genome %GEM153, 26
+  %return156 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y154, i64 %return29)
+  store <2 x double> %return156, <2 x double>* %51
+  %GEM157 = load %genome* %GEM
+  %o158 = extractvalue %genome %GEM157, 27
+  %return160 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o158, i64 %return29)
+  store <2 x double> %return160, <2 x double>* %52
+  %GEM161 = load %genome* %GEM
+  %v4w162 = extractvalue %genome %GEM161, 13
+  %return164 = call double @"getcomp@F[FI"(double* %v4w162, i64 %return29)
+  store double %return164, double* %53
+  %FLAME165 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %45, i8** %46, <3 x double>* %47, i64* %48, i64* %49, <2 x double>* %50, <2 x double>* %51, <2 x double>* %52, double* %53)
+  %output166 = call <3 x double> @"add@VV"(<3 x double> %__tmp141, <3 x double> %FLAME165)
+  store <3 x double> %output166, <3 x double>* %__tmp
+  br label %end140
 
-end142:                                           ; preds = %true141, %end109
-  %GEM169 = load %genome* %GEM
-  %POSTL = extractvalue %genome %GEM169, 5
-  %return171 = call i64 @"getcomp@I[II"(i64* %POSTL, i64 %return31)
-  %111 = icmp ne i64 %return171, 0
-  br i1 %111, label %true172, label %end173
+end140:                                           ; preds = %true139, %end107
+  %GEM167 = load %genome* %GEM
+  %POSTL = extractvalue %genome %GEM167, 5
+  %return169 = call i64 @"getcomp@I[II"(i64* %POSTL, i64 %return29)
+  %111 = icmp ne i64 %return169, 0
+  br i1 %111, label %true170, label %end171
 
-true172:                                          ; preds = %end142
-  %px = extractvalue %genome %GEM169, 28
-  %return176 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %px, i64 %return31)
-  store <2 x double> %return176, <2 x double>* %54
-  %GEM177 = load %genome* %GEM
-  %py = extractvalue %genome %GEM177, 29
-  %return179 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %py, i64 %return31)
-  store <2 x double> %return179, <2 x double>* %55
-  %GEM180 = load %genome* %GEM
-  %po = extractvalue %genome %GEM180, 30
-  %return182 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %po, i64 %return31)
-  store <2 x double> %return182, <2 x double>* %56
+true170:                                          ; preds = %end140
+  %px = extractvalue %genome %GEM167, 28
+  %return174 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %px, i64 %return29)
+  store <2 x double> %return174, <2 x double>* %54
+  %GEM175 = load %genome* %GEM
+  %py = extractvalue %genome %GEM175, 29
+  %return177 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %py, i64 %return29)
+  store <2 x double> %return177, <2 x double>* %55
+  %GEM178 = load %genome* %GEM
+  %po = extractvalue %genome %GEM178, 30
+  %return180 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %po, i64 %return29)
+  store <2 x double> %return180, <2 x double>* %56
   call void @"affinePOST@VUUU"(<3 x double>* %__tmp, <2 x double>* %54, <2 x double>* %55, <2 x double>* %56)
-  br label %end173
+  br label %end171
 
-end173:                                           ; preds = %true172, %end142
-  %GEM183 = load %genome* %GEM
-  %p1w = extractvalue %genome %GEM183, 14
-  %return185 = call double @"getcomp@F[FI"(double* %p1w, i64 %return31)
-  %return186 = fcmp one double %return185, 0.000000e+00
-  br i1 %return186, label %true188, label %false
+end171:                                           ; preds = %true170, %end140
+  %GEM181 = load %genome* %GEM
+  %p1w = extractvalue %genome %GEM181, 14
+  %return183 = call double @"getcomp@F[FI"(double* %p1w, i64 %return29)
+  %return184 = fcmp one double %return183, 0.000000e+00
+  br i1 %return184, label %true186, label %false
 
-true188:                                          ; preds = %end173
-  %p1GMP190 = load %genomeParametrics* %p1GMP
-  store %genomeParametrics %p1GMP190, %genomeParametrics* %57
-  store i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0), i8** %58
-  %__tmp191 = load <3 x double>* %__tmp
-  store <3 x double> %__tmp191, <3 x double>* %59
-  store i64 %return31, i64* %60
-  %GEM193 = load %genome* %GEM
-  %p1type194 = extractvalue %genome %GEM193, 4
-  %return196 = call i64 @"getcomp@I[II"(i64* %p1type194, i64 %return31)
-  store i64 %return196, i64* %61
-  %GEM197 = load %genome* %GEM
-  %x198 = extractvalue %genome %GEM197, 25
-  %return200 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x198, i64 %return31)
-  store <2 x double> %return200, <2 x double>* %62
-  %GEM201 = load %genome* %GEM
-  %y202 = extractvalue %genome %GEM201, 26
-  %return204 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y202, i64 %return31)
-  store <2 x double> %return204, <2 x double>* %63
-  %GEM205 = load %genome* %GEM
-  %o206 = extractvalue %genome %GEM205, 27
-  %return208 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o206, i64 %return31)
-  store <2 x double> %return208, <2 x double>* %64
-  %GEM209 = load %genome* %GEM
-  %p1w210 = extractvalue %genome %GEM209, 14
-  %return212 = call double @"getcomp@F[FI"(double* %p1w210, i64 %return31)
-  store double %return212, double* %65
-  %FLAME213 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %57, i8** %58, <3 x double>* %59, i64* %60, i64* %61, <2 x double>* %62, <2 x double>* %63, <2 x double>* %64, double* %65)
-  store <3 x double> %FLAME213, <3 x double>* %__mem
-  br label %end189
+true186:                                          ; preds = %end171
+  %p1GMP188 = load %genomeParametrics* %p1GMP
+  store %genomeParametrics %p1GMP188, %genomeParametrics* %57
+  store i8* getelementptr inbounds ([2 x i8]* @112, i64 0, i64 0), i8** %58
+  %__tmp189 = load <3 x double>* %__tmp
+  store <3 x double> %__tmp189, <3 x double>* %59
+  store i64 %return29, i64* %60
+  %GEM191 = load %genome* %GEM
+  %p1type192 = extractvalue %genome %GEM191, 4
+  %return194 = call i64 @"getcomp@I[II"(i64* %p1type192, i64 %return29)
+  store i64 %return194, i64* %61
+  %GEM195 = load %genome* %GEM
+  %x196 = extractvalue %genome %GEM195, 25
+  %return198 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x196, i64 %return29)
+  store <2 x double> %return198, <2 x double>* %62
+  %GEM199 = load %genome* %GEM
+  %y200 = extractvalue %genome %GEM199, 26
+  %return202 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y200, i64 %return29)
+  store <2 x double> %return202, <2 x double>* %63
+  %GEM203 = load %genome* %GEM
+  %o204 = extractvalue %genome %GEM203, 27
+  %return206 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o204, i64 %return29)
+  store <2 x double> %return206, <2 x double>* %64
+  %GEM207 = load %genome* %GEM
+  %p1w208 = extractvalue %genome %GEM207, 14
+  %return210 = call double @"getcomp@F[FI"(double* %p1w208, i64 %return29)
+  store double %return210, double* %65
+  %FLAME211 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %57, i8** %58, <3 x double>* %59, i64* %60, i64* %61, <2 x double>* %62, <2 x double>* %63, <2 x double>* %64, double* %65)
+  store <3 x double> %FLAME211, <3 x double>* %__mem
+  br label %end187
 
-false:                                            ; preds = %end173
-  %__tmp214 = load <3 x double>* %__tmp
-  store <3 x double> %__tmp214, <3 x double>* %__mem
-  br label %end189
+false:                                            ; preds = %end171
+  %__tmp212 = load <3 x double>* %__tmp
+  store <3 x double> %__tmp212, <3 x double>* %__mem
+  br label %end187
 
-end189:                                           ; preds = %false, %true188
-  %SYS215 = load %genomeSYS* %SYS
-  %TMG = extractvalue %genomeSYS %SYS215, 0
+end187:                                           ; preds = %false, %true186
+  %SYS213 = load %genomeSYS* %SYS
+  %TMG = extractvalue %genomeSYS %SYS213, 0
   %112 = icmp ne i64 %TMG, 0
-  br i1 %112, label %true216, label %end217
+  br i1 %112, label %true214, label %end215
 
-true216:                                          ; preds = %end189
-  %__mem218 = load <3 x double>* %__mem
-  %GEM219 = load %genome* %GEM
-  %gtr = extractvalue %genome %GEM219, 23
-  %cast220 = call <3 x double> @"set@VU"(<2 x double> %gtr)
-  %grt = extractvalue %genome %GEM219, 22
-  %return222 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %grt)
-  %gsc = extractvalue %genome %GEM219, 24
-  %cast224 = call <3 x double> @"set@VU"(<2 x double> %gsc)
-  %return226 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast220, <3 x double> %return222, <3 x double> %cast224, <3 x double> %cast)
-  %output227 = call <3 x double> @"mul@V4"(<3 x double> %__mem218, <16 x double> %return226)
-  store <3 x double> %output227, <3 x double>* %__mem
-  br label %end217
+true214:                                          ; preds = %end187
+  %__mem216 = load <3 x double>* %__mem
+  %GEM217 = load %genome* %GEM
+  %gtr = extractvalue %genome %GEM217, 23
+  %cast218 = call <3 x double> @"set@VU"(<2 x double> %gtr)
+  %grt = extractvalue %genome %GEM217, 22
+  %return220 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %grt)
+  %gsc = extractvalue %genome %GEM217, 24
+  %cast222 = call <3 x double> @"set@VU"(<2 x double> %gsc)
+  %return224 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast218, <3 x double> %return220, <3 x double> %cast222, <3 x double> %cast)
+  %output225 = call <3 x double> @"mul@V4"(<3 x double> %__mem216, <16 x double> %return224)
+  store <3 x double> %output225, <3 x double>* %__mem
+  br label %end215
 
-end217:                                           ; preds = %true216, %end189
-  %GEM228 = load %genome* %GEM
-  %CLR229 = extractvalue %genome %GEM228, 16
-  %return231 = call double @"getcomp@F[FI"(double* %CLR229, i64 %return31)
-  %ONEMINUS = extractvalue %genome %GEM228, 17
-  %return234 = call double @"getcomp@F[FI"(double* %ONEMINUS, i64 %return31)
-  %output236 = fmul double %return234, %PREV_CLR.0
-  %output237 = fadd double %return231, %output236
-  %output240 = add i64 %i.0, 1
+end215:                                           ; preds = %true214, %end187
+  %GEM226 = load %genome* %GEM
+  %CLR227 = extractvalue %genome %GEM226, 16
+  %return229 = call double @"getcomp@F[FI"(double* %CLR227, i64 %return29)
+  %ONEMINUS = extractvalue %genome %GEM226, 17
+  %return232 = call double @"getcomp@F[FI"(double* %ONEMINUS, i64 %return29)
+  %output234 = fmul double %return232, %PREV_CLR.0
+  %output235 = fadd double %return229, %output234
+  %output238 = add i64 %i.0, 1
   br label %cond
 
-true242:                                          ; preds = %end
-  %cast245 = call <3 x double> @"set@VI"(i64 0)
-  store <3 x double> %cast245, <3 x double>* %__tmp244
-  %GEM246 = load %genome* %GEM
-  %ffv1w = extractvalue %genome %GEM246, 18
-  %return247 = fcmp one double %ffv1w, 0.000000e+00
-  br i1 %return247, label %true249, label %end250
+true240:                                          ; preds = %end
+  %cast243 = call <3 x double> @"set@VI"(i64 0)
+  store <3 x double> %cast243, <3 x double>* %__tmp242
+  %GEM244 = load %genome* %GEM
+  %ffv1w = extractvalue %genome %GEM244, 18
+  %return245 = fcmp one double %ffv1w, 0.000000e+00
+  br i1 %return245, label %true247, label %end248
 
-end243:                                           ; preds = %true309, %false310, %end
-  %SYS325 = load %genomeSYS* %SYS
-  %DELPT = extractvalue %genomeSYS %SYS325, 1
+end241:                                           ; preds = %true307, %false308, %end
+  %SYS323 = load %genomeSYS* %SYS
+  %DELPT = extractvalue %genomeSYS %SYS323, 1
   store i64 %DELPT, i64* %66
-  %__mem326 = load <3 x double>* %__mem
-  store <3 x double> %__mem326, <3 x double>* %67
+  %__mem324 = load <3 x double>* %__mem
+  store <3 x double> %__mem324, <3 x double>* %67
   %checkNAN_vector = call i64 @"checkNAN_vector@IIV"(i64* %66, <3 x double>* %67)
   %113 = icmp ne i64 %checkNAN_vector, 0
-  br i1 %113, label %true327, label %false328
+  br i1 %113, label %true325, label %false326
 
-true249:                                          ; preds = %true242
-  %v1GMP252 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP252, %genomeParametrics* %68
-  store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %69
-  %__mem253 = load <3 x double>* %__mem
-  store <3 x double> %__mem253, <3 x double>* %70
+true247:                                          ; preds = %true240
+  %v1GMP250 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP250, %genomeParametrics* %68
+  store i8* getelementptr inbounds ([2 x i8]* @164, i64 0, i64 0), i8** %69
+  %__mem251 = load <3 x double>* %__mem
+  store <3 x double> %__mem251, <3 x double>* %70
   store i64 0, i64* %71
-  %GEM254 = load %genome* %GEM
-  %ffv1type = extractvalue %genome %GEM254, 6
+  %GEM252 = load %genome* %GEM
+  %ffv1type = extractvalue %genome %GEM252, 6
   store i64 %ffv1type, i64* %72
-  %GEM255 = load %genome* %GEM
-  %fx = extractvalue %genome %GEM255, 31
+  %GEM253 = load %genome* %GEM
+  %fx = extractvalue %genome %GEM253, 31
   store <2 x double> %fx, <2 x double>* %73
-  %GEM256 = load %genome* %GEM
-  %fy = extractvalue %genome %GEM256, 32
+  %GEM254 = load %genome* %GEM
+  %fy = extractvalue %genome %GEM254, 32
   store <2 x double> %fy, <2 x double>* %74
-  %GEM257 = load %genome* %GEM
-  %fo = extractvalue %genome %GEM257, 33
+  %GEM255 = load %genome* %GEM
+  %fo = extractvalue %genome %GEM255, 33
   store <2 x double> %fo, <2 x double>* %75
-  %GEM258 = load %genome* %GEM
-  %ffv1w259 = extractvalue %genome %GEM258, 18
-  store double %ffv1w259, double* %76
-  %FLAME260 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %68, i8** %69, <3 x double>* %70, i64* %71, i64* %72, <2 x double>* %73, <2 x double>* %74, <2 x double>* %75, double* %76)
-  %output261 = call <3 x double> @"add@VV"(<3 x double> %cast245, <3 x double> %FLAME260)
-  store <3 x double> %output261, <3 x double>* %__tmp244
-  br label %end250
+  %GEM256 = load %genome* %GEM
+  %ffv1w257 = extractvalue %genome %GEM256, 18
+  store double %ffv1w257, double* %76
+  %FLAME258 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %68, i8** %69, <3 x double>* %70, i64* %71, i64* %72, <2 x double>* %73, <2 x double>* %74, <2 x double>* %75, double* %76)
+  %output259 = call <3 x double> @"add@VV"(<3 x double> %cast243, <3 x double> %FLAME258)
+  store <3 x double> %output259, <3 x double>* %__tmp242
+  br label %end248
 
-end250:                                           ; preds = %true249, %true242
-  %GEM262 = load %genome* %GEM
-  %ffv2w = extractvalue %genome %GEM262, 19
-  %return263 = fcmp one double %ffv2w, 0.000000e+00
-  br i1 %return263, label %true265, label %end266
+end248:                                           ; preds = %true247, %true240
+  %GEM260 = load %genome* %GEM
+  %ffv2w = extractvalue %genome %GEM260, 19
+  %return261 = fcmp one double %ffv2w, 0.000000e+00
+  br i1 %return261, label %true263, label %end264
 
-true265:                                          ; preds = %end250
-  %__tmp267 = load <3 x double>* %__tmp244
-  %v1GMP268 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP268, %genomeParametrics* %77
-  store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %78
-  %__mem269 = load <3 x double>* %__mem
-  store <3 x double> %__mem269, <3 x double>* %79
+true263:                                          ; preds = %end248
+  %__tmp265 = load <3 x double>* %__tmp242
+  %v1GMP266 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP266, %genomeParametrics* %77
+  store i8* getelementptr inbounds ([2 x i8]* @164, i64 0, i64 0), i8** %78
+  %__mem267 = load <3 x double>* %__mem
+  store <3 x double> %__mem267, <3 x double>* %79
   store i64 0, i64* %80
-  %GEM270 = load %genome* %GEM
-  %ffv2type = extractvalue %genome %GEM270, 7
+  %GEM268 = load %genome* %GEM
+  %ffv2type = extractvalue %genome %GEM268, 7
   store i64 %ffv2type, i64* %81
+  %GEM269 = load %genome* %GEM
+  %fx270 = extractvalue %genome %GEM269, 31
+  store <2 x double> %fx270, <2 x double>* %82
   %GEM271 = load %genome* %GEM
-  %fx272 = extractvalue %genome %GEM271, 31
-  store <2 x double> %fx272, <2 x double>* %82
+  %fy272 = extractvalue %genome %GEM271, 32
+  store <2 x double> %fy272, <2 x double>* %83
   %GEM273 = load %genome* %GEM
-  %fy274 = extractvalue %genome %GEM273, 32
-  store <2 x double> %fy274, <2 x double>* %83
+  %fo274 = extractvalue %genome %GEM273, 33
+  store <2 x double> %fo274, <2 x double>* %84
   %GEM275 = load %genome* %GEM
-  %fo276 = extractvalue %genome %GEM275, 33
-  store <2 x double> %fo276, <2 x double>* %84
-  %GEM277 = load %genome* %GEM
-  %ffv2w278 = extractvalue %genome %GEM277, 19
-  store double %ffv2w278, double* %85
-  %FLAME279 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %77, i8** %78, <3 x double>* %79, i64* %80, i64* %81, <2 x double>* %82, <2 x double>* %83, <2 x double>* %84, double* %85)
-  %output280 = call <3 x double> @"add@VV"(<3 x double> %__tmp267, <3 x double> %FLAME279)
-  store <3 x double> %output280, <3 x double>* %__tmp244
-  br label %end266
+  %ffv2w276 = extractvalue %genome %GEM275, 19
+  store double %ffv2w276, double* %85
+  %FLAME277 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %77, i8** %78, <3 x double>* %79, i64* %80, i64* %81, <2 x double>* %82, <2 x double>* %83, <2 x double>* %84, double* %85)
+  %output278 = call <3 x double> @"add@VV"(<3 x double> %__tmp265, <3 x double> %FLAME277)
+  store <3 x double> %output278, <3 x double>* %__tmp242
+  br label %end264
 
-end266:                                           ; preds = %true265, %end250
-  %GEM281 = load %genome* %GEM
-  %ffv3w = extractvalue %genome %GEM281, 20
-  %return282 = fcmp one double %ffv3w, 0.000000e+00
-  br i1 %return282, label %true284, label %end285
+end264:                                           ; preds = %true263, %end248
+  %GEM279 = load %genome* %GEM
+  %ffv3w = extractvalue %genome %GEM279, 20
+  %return280 = fcmp one double %ffv3w, 0.000000e+00
+  br i1 %return280, label %true282, label %end283
 
-true284:                                          ; preds = %end266
-  %__tmp286 = load <3 x double>* %__tmp244
-  %v1GMP287 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP287, %genomeParametrics* %86
-  store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %87
-  %__mem288 = load <3 x double>* %__mem
-  store <3 x double> %__mem288, <3 x double>* %88
+true282:                                          ; preds = %end264
+  %__tmp284 = load <3 x double>* %__tmp242
+  %v1GMP285 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP285, %genomeParametrics* %86
+  store i8* getelementptr inbounds ([2 x i8]* @164, i64 0, i64 0), i8** %87
+  %__mem286 = load <3 x double>* %__mem
+  store <3 x double> %__mem286, <3 x double>* %88
   store i64 0, i64* %89
-  %GEM289 = load %genome* %GEM
-  %ffv3type = extractvalue %genome %GEM289, 8
+  %GEM287 = load %genome* %GEM
+  %ffv3type = extractvalue %genome %GEM287, 8
   store i64 %ffv3type, i64* %90
+  %GEM288 = load %genome* %GEM
+  %fx289 = extractvalue %genome %GEM288, 31
+  store <2 x double> %fx289, <2 x double>* %91
   %GEM290 = load %genome* %GEM
-  %fx291 = extractvalue %genome %GEM290, 31
-  store <2 x double> %fx291, <2 x double>* %91
+  %fy291 = extractvalue %genome %GEM290, 32
+  store <2 x double> %fy291, <2 x double>* %92
   %GEM292 = load %genome* %GEM
-  %fy293 = extractvalue %genome %GEM292, 32
-  store <2 x double> %fy293, <2 x double>* %92
+  %fo293 = extractvalue %genome %GEM292, 33
+  store <2 x double> %fo293, <2 x double>* %93
   %GEM294 = load %genome* %GEM
-  %fo295 = extractvalue %genome %GEM294, 33
-  store <2 x double> %fo295, <2 x double>* %93
-  %GEM296 = load %genome* %GEM
-  %ffv3w297 = extractvalue %genome %GEM296, 20
-  store double %ffv3w297, double* %94
-  %FLAME298 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %86, i8** %87, <3 x double>* %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
-  %output299 = call <3 x double> @"add@VV"(<3 x double> %__tmp286, <3 x double> %FLAME298)
-  store <3 x double> %output299, <3 x double>* %__tmp244
-  br label %end285
+  %ffv3w295 = extractvalue %genome %GEM294, 20
+  store double %ffv3w295, double* %94
+  %FLAME296 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %86, i8** %87, <3 x double>* %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
+  %output297 = call <3 x double> @"add@VV"(<3 x double> %__tmp284, <3 x double> %FLAME296)
+  store <3 x double> %output297, <3 x double>* %__tmp242
+  br label %end283
 
-end285:                                           ; preds = %true284, %end266
-  %SYS300 = load %genomeSYS* %SYS
-  %POSTF = extractvalue %genomeSYS %SYS300, 2
+end283:                                           ; preds = %true282, %end264
+  %SYS298 = load %genomeSYS* %SYS
+  %POSTF = extractvalue %genomeSYS %SYS298, 2
   %114 = icmp ne i64 %POSTF, 0
-  br i1 %114, label %true301, label %end302
+  br i1 %114, label %true299, label %end300
 
-true301:                                          ; preds = %end285
-  %GEM303 = load %genome* %GEM
-  %pfx = extractvalue %genome %GEM303, 34
+true299:                                          ; preds = %end283
+  %GEM301 = load %genome* %GEM
+  %pfx = extractvalue %genome %GEM301, 34
   store <2 x double> %pfx, <2 x double>* %95
-  %GEM304 = load %genome* %GEM
-  %pfy = extractvalue %genome %GEM304, 35
+  %GEM302 = load %genome* %GEM
+  %pfy = extractvalue %genome %GEM302, 35
   store <2 x double> %pfy, <2 x double>* %96
-  %GEM305 = load %genome* %GEM
-  %pfo = extractvalue %genome %GEM305, 36
+  %GEM303 = load %genome* %GEM
+  %pfo = extractvalue %genome %GEM303, 36
   store <2 x double> %pfo, <2 x double>* %97
-  call void @"affinePOST@VUUU"(<3 x double>* %__tmp244, <2 x double>* %95, <2 x double>* %96, <2 x double>* %97)
-  br label %end302
+  call void @"affinePOST@VUUU"(<3 x double>* %__tmp242, <2 x double>* %95, <2 x double>* %96, <2 x double>* %97)
+  br label %end300
 
-end302:                                           ; preds = %true301, %end285
-  %GEM306 = load %genome* %GEM
-  %ffp1w = extractvalue %genome %GEM306, 21
-  %return307 = fcmp one double %ffp1w, 0.000000e+00
-  br i1 %return307, label %true309, label %false310
+end300:                                           ; preds = %true299, %end283
+  %GEM304 = load %genome* %GEM
+  %ffp1w = extractvalue %genome %GEM304, 21
+  %return305 = fcmp one double %ffp1w, 0.000000e+00
+  br i1 %return305, label %true307, label %false308
 
-true309:                                          ; preds = %end302
-  %v1GMP312 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP312, %genomeParametrics* %98
-  store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %99
-  %__tmp313 = load <3 x double>* %__tmp244
-  store <3 x double> %__tmp313, <3 x double>* %100
+true307:                                          ; preds = %end300
+  %v1GMP310 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP310, %genomeParametrics* %98
+  store i8* getelementptr inbounds ([2 x i8]* @164, i64 0, i64 0), i8** %99
+  %__tmp311 = load <3 x double>* %__tmp242
+  store <3 x double> %__tmp311, <3 x double>* %100
   store i64 0, i64* %101
-  %GEM314 = load %genome* %GEM
-  %ffp1type = extractvalue %genome %GEM314, 9
+  %GEM312 = load %genome* %GEM
+  %ffp1type = extractvalue %genome %GEM312, 9
   store i64 %ffp1type, i64* %102
+  %GEM313 = load %genome* %GEM
+  %fx314 = extractvalue %genome %GEM313, 31
+  store <2 x double> %fx314, <2 x double>* %103
   %GEM315 = load %genome* %GEM
-  %fx316 = extractvalue %genome %GEM315, 31
-  store <2 x double> %fx316, <2 x double>* %103
+  %fy316 = extractvalue %genome %GEM315, 32
+  store <2 x double> %fy316, <2 x double>* %104
   %GEM317 = load %genome* %GEM
-  %fy318 = extractvalue %genome %GEM317, 32
-  store <2 x double> %fy318, <2 x double>* %104
+  %fo318 = extractvalue %genome %GEM317, 33
+  store <2 x double> %fo318, <2 x double>* %105
   %GEM319 = load %genome* %GEM
-  %fo320 = extractvalue %genome %GEM319, 33
-  store <2 x double> %fo320, <2 x double>* %105
-  %GEM321 = load %genome* %GEM
-  %ffp1w322 = extractvalue %genome %GEM321, 21
-  store double %ffp1w322, double* %106
-  %FLAME323 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %98, i8** %99, <3 x double>* %100, i64* %101, i64* %102, <2 x double>* %103, <2 x double>* %104, <2 x double>* %105, double* %106)
-  store <3 x double> %FLAME323, <3 x double>* %__mem
-  br label %end243
+  %ffp1w320 = extractvalue %genome %GEM319, 21
+  store double %ffp1w320, double* %106
+  %FLAME321 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %98, i8** %99, <3 x double>* %100, i64* %101, i64* %102, <2 x double>* %103, <2 x double>* %104, <2 x double>* %105, double* %106)
+  store <3 x double> %FLAME321, <3 x double>* %__mem
+  br label %end241
 
-false310:                                         ; preds = %end302
-  %__tmp324 = load <3 x double>* %__tmp244
-  store <3 x double> %__tmp324, <3 x double>* %__mem
-  br label %end243
+false308:                                         ; preds = %end300
+  %__tmp322 = load <3 x double>* %__tmp242
+  store <3 x double> %__tmp322, <3 x double>* %__mem
+  br label %end241
 
-true327:                                          ; preds = %end243
-  %_bound_ptnum330 = load i64* %_bound_ptnum
-  %return331 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum330)
-  br label %end329
+true325:                                          ; preds = %end241
+  %_bound_ptnum328 = load i64* %_bound_ptnum
+  %return329 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum328)
+  br label %end327
 
-false328:                                         ; preds = %end243
-  %SYS332 = load %genomeSYS* %SYS
-  %sym = extractvalue %genomeSYS %SYS332, 5
+false326:                                         ; preds = %end241
+  %SYS330 = load %genomeSYS* %SYS
+  %sym = extractvalue %genomeSYS %SYS330, 5
   %115 = icmp ne i64 %sym, 0
-  br i1 %115, label %true333, label %end334
+  br i1 %115, label %true331, label %end332
 
-end329:                                           ; preds = %end339, %true348, %true327
+end327:                                           ; preds = %end337, %true346, %true325
   ret void
 
-true333:                                          ; preds = %false328
-  %return335 = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([13 x i8]* @165, i64 0, i64 0))
-  store <3 x double> %return335, <3 x double>* %107
-  %SYS336 = load %genomeSYS* %SYS
-  %sym_mode = extractvalue %genomeSYS %SYS336, 6
+true331:                                          ; preds = %false326
+  %return333 = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([13 x i8]* @165, i64 0, i64 0))
+  store <3 x double> %return333, <3 x double>* %107
+  %SYS334 = load %genomeSYS* %SYS
+  %sym_mode = extractvalue %genomeSYS %SYS334, 6
   store i64 %sym_mode, i64* %108
   call void @"VAR_SYMMETRY@VVI"(<3 x double>* %__mem, <3 x double>* %107, i64* %108)
-  br label %end334
+  br label %end332
 
-end334:                                           ; preds = %true333, %false328
-  %SYS337 = load %genomeSYS* %SYS
-  %domb = extractvalue %genomeSYS %SYS337, 8
+end332:                                           ; preds = %true331, %false326
+  %SYS335 = load %genomeSYS* %SYS
+  %domb = extractvalue %genomeSYS %SYS335, 8
   %116 = icmp ne i64 %domb, 0
-  br i1 %116, label %true338, label %end339
+  br i1 %116, label %true336, label %end337
 
-true338:                                          ; preds = %end334
-  %mb_modulate = extractvalue %genomeSYS %SYS337, 10
-  %output342 = fmul double 1.000000e+00, %mb_modulate
-  br label %end339
+true336:                                          ; preds = %end332
+  %mb_modulate = extractvalue %genomeSYS %SYS335, 10
+  %output340 = fmul double 1.000000e+00, %mb_modulate
+  br label %end337
 
-end339:                                           ; preds = %true338, %end334
-  %pscl.0 = phi double [ %output342, %true338 ], [ 1.000000e+00, %end334 ]
-  %__mem343 = load <3 x double>* %__mem
-  store <3 x double> %__mem343, <3 x double>* %_bound_P
+end337:                                           ; preds = %true336, %end332
+  %pscl.0 = phi double [ %output340, %true336 ], [ 1.000000e+00, %end332 ]
+  %__mem341 = load <3 x double>* %__mem
+  store <3 x double> %__mem341, <3 x double>* %_bound_P
   store double %CLR.0, double* %_bound_COORD
   store double %pscl.0, double* %_bound_pscale
-  %SYS346 = load %genomeSYS* %SYS
-  %domb347 = extractvalue %genomeSYS %SYS346, 8
-  %117 = icmp ne i64 %domb347, 0
-  br i1 %117, label %true348, label %end329
+  %SYS344 = load %genomeSYS* %SYS
+  %domb345 = extractvalue %genomeSYS %SYS344, 8
+  %117 = icmp ne i64 %domb345, 0
+  br i1 %117, label %true346, label %end327
 
-true348:                                          ; preds = %end339
-  %_bound_ptnum350 = load i64* %_bound_ptnum
-  %mb_modulate352 = extractvalue %genomeSYS %SYS346, 10
-  %return353 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8]* @166, i64 0, i64 0), i64 %_bound_ptnum350, double %mb_modulate352, i8* getelementptr inbounds ([4 x i8]* @167, i64 0, i64 0))
-  br label %end329
+true346:                                          ; preds = %end337
+  %_bound_ptnum348 = load i64* %_bound_ptnum
+  %mb_modulate350 = extractvalue %genomeSYS %SYS344, 10
+  %return351 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8]* @166, i64 0, i64 0), i64 %_bound_ptnum348, double %mb_modulate350, i8* getelementptr inbounds ([4 x i8]* @167, i64 0, i64 0))
+  br label %end327
 }
-
-declare double* @"create_cdf@[F[F"(double*) nounwind readnone
 
 define private i64 @"sample_cdf@[FFI"(double* %rw01, double %rw12) alwaysinline {
 __llvm_entry:
@@ -10725,7 +10722,7 @@ declare { i64, double, double } @"sample_cdf@[FFIFF"(double*, double) nounwind r
 
 declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) nounwind
 
-define void @TheFractalFlameAlgorithm(i64 %ptnum, i64* %VACTIVE, double* %IW, double %pscale, double %COORD, <3 x double> %P) nounwind {
+define void @TheFractalFlameAlgorithm(i64 %ptnum, i64* %VACTIVE, double* %CDF, double %pscale, double %COORD, <3 x double> %P) nounwind {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<COORD>" = alloca double
@@ -10738,7 +10735,7 @@ __llvm_entry:
   store <3 x double> %P, <3 x double>* %"<P>"
   store i64 %ptnum, i64* %0
   store i64* %VACTIVE, i64** %1
-  store double* %IW, double** %2
+  store double* %CDF, double** %2
   call void @"_TheFractalFlameAlgorithm@I[I[FFFV"(i64* %0, i64** %1, double** %2, double* %"<pscale>", double* %"<COORD>", <3 x double>* %"<P>")
   %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8]* @168, i64 0, i64 0), i64 %ptnum) nounwind readonly
   %evalue4 = load double* %"<pscale>"
