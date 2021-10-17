@@ -54,10 +54,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, "LOCAL", __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
         if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, "LOCAL", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
-        if(GEM.p1w[idx]!=0){ __mem=__tmp; __tmp = FLAME(p1GMP, "LOCAL", __mem, idx, GEM.p1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.p1w[idx]); }
-        if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
+        if(GEM.p1w[idx]!=0){ __mem = FLAME(p1GMP, "LOCAL", __tmp, idx, GEM.p1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.p1w[idx]); }
+        else __mem = __tmp;
+        if(SYS.TMG) __mem *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
-        __mem = __tmp;
+        
     }
     if(SYS.FF){
         vector __tmp = 0;
@@ -65,9 +66,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.ffv2w!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv2type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2w);
         if(GEM.ffv3w!=0) __tmp += FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffv3type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3w);
         if(SYS.POSTF) affinePOST(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
-        // POST FF VAR
-        if(GEM.ffp1w!=0){ __mem=__tmp; __tmp = FLAME(v1GMP, "FINAL", __mem, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w); }
-        __mem = __tmp;
+        if(GEM.ffp1w!=0){ __mem = FLAME(v1GMP, "FINAL", __tmp, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w); }
+        else __mem = __tmp;
     }
     if(checkNAN_vector(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
     else{

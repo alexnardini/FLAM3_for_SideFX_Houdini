@@ -10098,7 +10098,7 @@ __llvm_entry:
   %63 = alloca <2 x double>
   %64 = alloca <2 x double>
   %65 = alloca double
-  %__tmp245 = alloca <3 x double>
+  %__tmp244 = alloca <3 x double>
   %66 = alloca i64
   %67 = alloca <3 x double>
   %68 = alloca %genomeParametrics
@@ -10205,7 +10205,7 @@ __llvm_entry:
   br label %cond
 
 cond:                                             ; preds = %end217, %__llvm_entry
-  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output241, %end217 ]
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output240, %end217 ]
   %PREV_CLR.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output237, %end217 ]
   %CLR.0 = phi double [ 0.000000e+00, %__llvm_entry ], [ %output237, %end217 ]
   %SYS26 = load %genomeSYS* %SYS
@@ -10228,7 +10228,7 @@ body:                                             ; preds = %cond
 end:                                              ; preds = %cond
   %FF = extractvalue %genomeSYS %SYS26, 3
   %110 = icmp ne i64 %FF, 0
-  br i1 %110, label %true243, label %end244
+  br i1 %110, label %true242, label %end243
 
 true:                                             ; preds = %body
   store double %return34, double* %17
@@ -10422,49 +10422,52 @@ end173:                                           ; preds = %true172, %end142
   %p1w = extractvalue %genome %GEM183, 14
   %return185 = call double @"getcomp@F[FI"(double* %p1w, i64 %return31)
   %return186 = fcmp one double %return185, 0.000000e+00
-  br i1 %return186, label %true188, label %end189
+  br i1 %return186, label %true188, label %false
 
 true188:                                          ; preds = %end173
-  %__tmp190 = load <3 x double>* %__tmp
-  store <3 x double> %__tmp190, <3 x double>* %__mem
-  %p1GMP191 = load %genomeParametrics* %p1GMP
-  store %genomeParametrics %p1GMP191, %genomeParametrics* %57
+  %p1GMP190 = load %genomeParametrics* %p1GMP
+  store %genomeParametrics %p1GMP190, %genomeParametrics* %57
   store i8* getelementptr inbounds ([6 x i8]* @112, i64 0, i64 0), i8** %58
-  %__mem192 = load <3 x double>* %__mem
-  store <3 x double> %__mem192, <3 x double>* %59
+  %__tmp191 = load <3 x double>* %__tmp
+  store <3 x double> %__tmp191, <3 x double>* %59
   store i64 %return31, i64* %60
-  %GEM194 = load %genome* %GEM
-  %p1type195 = extractvalue %genome %GEM194, 4
-  %return197 = call i64 @"getcomp@I[II"(i64* %p1type195, i64 %return31)
-  store i64 %return197, i64* %61
-  %GEM198 = load %genome* %GEM
-  %x199 = extractvalue %genome %GEM198, 25
-  %return201 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x199, i64 %return31)
-  store <2 x double> %return201, <2 x double>* %62
-  %GEM202 = load %genome* %GEM
-  %y203 = extractvalue %genome %GEM202, 26
-  %return205 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y203, i64 %return31)
-  store <2 x double> %return205, <2 x double>* %63
-  %GEM206 = load %genome* %GEM
-  %o207 = extractvalue %genome %GEM206, 27
-  %return209 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o207, i64 %return31)
-  store <2 x double> %return209, <2 x double>* %64
-  %GEM210 = load %genome* %GEM
-  %p1w211 = extractvalue %genome %GEM210, 14
-  %return213 = call double @"getcomp@F[FI"(double* %p1w211, i64 %return31)
-  store double %return213, double* %65
-  %FLAME214 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %57, i8** %58, <3 x double>* %59, i64* %60, i64* %61, <2 x double>* %62, <2 x double>* %63, <2 x double>* %64, double* %65)
-  store <3 x double> %FLAME214, <3 x double>* %__tmp
+  %GEM193 = load %genome* %GEM
+  %p1type194 = extractvalue %genome %GEM193, 4
+  %return196 = call i64 @"getcomp@I[II"(i64* %p1type194, i64 %return31)
+  store i64 %return196, i64* %61
+  %GEM197 = load %genome* %GEM
+  %x198 = extractvalue %genome %GEM197, 25
+  %return200 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %x198, i64 %return31)
+  store <2 x double> %return200, <2 x double>* %62
+  %GEM201 = load %genome* %GEM
+  %y202 = extractvalue %genome %GEM201, 26
+  %return204 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %y202, i64 %return31)
+  store <2 x double> %return204, <2 x double>* %63
+  %GEM205 = load %genome* %GEM
+  %o206 = extractvalue %genome %GEM205, 27
+  %return208 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %o206, i64 %return31)
+  store <2 x double> %return208, <2 x double>* %64
+  %GEM209 = load %genome* %GEM
+  %p1w210 = extractvalue %genome %GEM209, 14
+  %return212 = call double @"getcomp@F[FI"(double* %p1w210, i64 %return31)
+  store double %return212, double* %65
+  %FLAME213 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %57, i8** %58, <3 x double>* %59, i64* %60, i64* %61, <2 x double>* %62, <2 x double>* %63, <2 x double>* %64, double* %65)
+  store <3 x double> %FLAME213, <3 x double>* %__mem
   br label %end189
 
-end189:                                           ; preds = %true188, %end173
+false:                                            ; preds = %end173
+  %__tmp214 = load <3 x double>* %__tmp
+  store <3 x double> %__tmp214, <3 x double>* %__mem
+  br label %end189
+
+end189:                                           ; preds = %false, %true188
   %SYS215 = load %genomeSYS* %SYS
   %TMG = extractvalue %genomeSYS %SYS215, 0
   %112 = icmp ne i64 %TMG, 0
   br i1 %112, label %true216, label %end217
 
 true216:                                          ; preds = %end189
-  %__tmp218 = load <3 x double>* %__tmp
+  %__mem218 = load <3 x double>* %__mem
   %GEM219 = load %genome* %GEM
   %gtr = extractvalue %genome %GEM219, 23
   %cast220 = call <3 x double> @"set@VU"(<2 x double> %gtr)
@@ -10473,8 +10476,8 @@ true216:                                          ; preds = %end189
   %gsc = extractvalue %genome %GEM219, 24
   %cast224 = call <3 x double> @"set@VU"(<2 x double> %gsc)
   %return226 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast220, <3 x double> %return222, <3 x double> %cast224, <3 x double> %cast)
-  %output227 = call <3 x double> @"mul@V4"(<3 x double> %__tmp218, <16 x double> %return226)
-  store <3 x double> %output227, <3 x double>* %__tmp
+  %output227 = call <3 x double> @"mul@V4"(<3 x double> %__mem218, <16 x double> %return226)
+  store <3 x double> %output227, <3 x double>* %__mem
   br label %end217
 
 end217:                                           ; preds = %true216, %end189
@@ -10485,197 +10488,193 @@ end217:                                           ; preds = %true216, %end189
   %return234 = call double @"getcomp@F[FI"(double* %ONEMINUS, i64 %return31)
   %output236 = fmul double %return234, %PREV_CLR.0
   %output237 = fadd double %return231, %output236
-  %__tmp238 = load <3 x double>* %__tmp
-  store <3 x double> %__tmp238, <3 x double>* %__mem
-  %output241 = add i64 %i.0, 1
+  %output240 = add i64 %i.0, 1
   br label %cond
 
-true243:                                          ; preds = %end
-  %cast246 = call <3 x double> @"set@VI"(i64 0)
-  store <3 x double> %cast246, <3 x double>* %__tmp245
-  %GEM247 = load %genome* %GEM
-  %ffv1w = extractvalue %genome %GEM247, 18
-  %return248 = fcmp one double %ffv1w, 0.000000e+00
-  br i1 %return248, label %true250, label %end251
+true242:                                          ; preds = %end
+  %cast245 = call <3 x double> @"set@VI"(i64 0)
+  store <3 x double> %cast245, <3 x double>* %__tmp244
+  %GEM246 = load %genome* %GEM
+  %ffv1w = extractvalue %genome %GEM246, 18
+  %return247 = fcmp one double %ffv1w, 0.000000e+00
+  br i1 %return247, label %true249, label %end250
 
-end244:                                           ; preds = %end311, %end
-  %SYS326 = load %genomeSYS* %SYS
-  %DELPT = extractvalue %genomeSYS %SYS326, 1
+end243:                                           ; preds = %true309, %false310, %end
+  %SYS325 = load %genomeSYS* %SYS
+  %DELPT = extractvalue %genomeSYS %SYS325, 1
   store i64 %DELPT, i64* %66
-  %__mem327 = load <3 x double>* %__mem
-  store <3 x double> %__mem327, <3 x double>* %67
+  %__mem326 = load <3 x double>* %__mem
+  store <3 x double> %__mem326, <3 x double>* %67
   %checkNAN_vector = call i64 @"checkNAN_vector@IIV"(i64* %66, <3 x double>* %67)
   %113 = icmp ne i64 %checkNAN_vector, 0
-  br i1 %113, label %true328, label %false
+  br i1 %113, label %true327, label %false328
 
-true250:                                          ; preds = %true243
-  %v1GMP253 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP253, %genomeParametrics* %68
+true249:                                          ; preds = %true242
+  %v1GMP252 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP252, %genomeParametrics* %68
   store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %69
-  %__mem254 = load <3 x double>* %__mem
-  store <3 x double> %__mem254, <3 x double>* %70
+  %__mem253 = load <3 x double>* %__mem
+  store <3 x double> %__mem253, <3 x double>* %70
   store i64 0, i64* %71
-  %GEM255 = load %genome* %GEM
-  %ffv1type = extractvalue %genome %GEM255, 6
+  %GEM254 = load %genome* %GEM
+  %ffv1type = extractvalue %genome %GEM254, 6
   store i64 %ffv1type, i64* %72
-  %GEM256 = load %genome* %GEM
-  %fx = extractvalue %genome %GEM256, 31
+  %GEM255 = load %genome* %GEM
+  %fx = extractvalue %genome %GEM255, 31
   store <2 x double> %fx, <2 x double>* %73
-  %GEM257 = load %genome* %GEM
-  %fy = extractvalue %genome %GEM257, 32
+  %GEM256 = load %genome* %GEM
+  %fy = extractvalue %genome %GEM256, 32
   store <2 x double> %fy, <2 x double>* %74
-  %GEM258 = load %genome* %GEM
-  %fo = extractvalue %genome %GEM258, 33
+  %GEM257 = load %genome* %GEM
+  %fo = extractvalue %genome %GEM257, 33
   store <2 x double> %fo, <2 x double>* %75
-  %GEM259 = load %genome* %GEM
-  %ffv1w260 = extractvalue %genome %GEM259, 18
-  store double %ffv1w260, double* %76
-  %FLAME261 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %68, i8** %69, <3 x double>* %70, i64* %71, i64* %72, <2 x double>* %73, <2 x double>* %74, <2 x double>* %75, double* %76)
-  %output262 = call <3 x double> @"add@VV"(<3 x double> %cast246, <3 x double> %FLAME261)
-  store <3 x double> %output262, <3 x double>* %__tmp245
-  br label %end251
+  %GEM258 = load %genome* %GEM
+  %ffv1w259 = extractvalue %genome %GEM258, 18
+  store double %ffv1w259, double* %76
+  %FLAME260 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %68, i8** %69, <3 x double>* %70, i64* %71, i64* %72, <2 x double>* %73, <2 x double>* %74, <2 x double>* %75, double* %76)
+  %output261 = call <3 x double> @"add@VV"(<3 x double> %cast245, <3 x double> %FLAME260)
+  store <3 x double> %output261, <3 x double>* %__tmp244
+  br label %end250
 
-end251:                                           ; preds = %true250, %true243
-  %GEM263 = load %genome* %GEM
-  %ffv2w = extractvalue %genome %GEM263, 19
-  %return264 = fcmp one double %ffv2w, 0.000000e+00
-  br i1 %return264, label %true266, label %end267
+end250:                                           ; preds = %true249, %true242
+  %GEM262 = load %genome* %GEM
+  %ffv2w = extractvalue %genome %GEM262, 19
+  %return263 = fcmp one double %ffv2w, 0.000000e+00
+  br i1 %return263, label %true265, label %end266
 
-true266:                                          ; preds = %end251
-  %__tmp268 = load <3 x double>* %__tmp245
-  %v1GMP269 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP269, %genomeParametrics* %77
+true265:                                          ; preds = %end250
+  %__tmp267 = load <3 x double>* %__tmp244
+  %v1GMP268 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP268, %genomeParametrics* %77
   store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %78
-  %__mem270 = load <3 x double>* %__mem
-  store <3 x double> %__mem270, <3 x double>* %79
+  %__mem269 = load <3 x double>* %__mem
+  store <3 x double> %__mem269, <3 x double>* %79
   store i64 0, i64* %80
-  %GEM271 = load %genome* %GEM
-  %ffv2type = extractvalue %genome %GEM271, 7
+  %GEM270 = load %genome* %GEM
+  %ffv2type = extractvalue %genome %GEM270, 7
   store i64 %ffv2type, i64* %81
-  %GEM272 = load %genome* %GEM
-  %fx273 = extractvalue %genome %GEM272, 31
-  store <2 x double> %fx273, <2 x double>* %82
-  %GEM274 = load %genome* %GEM
-  %fy275 = extractvalue %genome %GEM274, 32
-  store <2 x double> %fy275, <2 x double>* %83
-  %GEM276 = load %genome* %GEM
-  %fo277 = extractvalue %genome %GEM276, 33
-  store <2 x double> %fo277, <2 x double>* %84
-  %GEM278 = load %genome* %GEM
-  %ffv2w279 = extractvalue %genome %GEM278, 19
-  store double %ffv2w279, double* %85
-  %FLAME280 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %77, i8** %78, <3 x double>* %79, i64* %80, i64* %81, <2 x double>* %82, <2 x double>* %83, <2 x double>* %84, double* %85)
-  %output281 = call <3 x double> @"add@VV"(<3 x double> %__tmp268, <3 x double> %FLAME280)
-  store <3 x double> %output281, <3 x double>* %__tmp245
-  br label %end267
+  %GEM271 = load %genome* %GEM
+  %fx272 = extractvalue %genome %GEM271, 31
+  store <2 x double> %fx272, <2 x double>* %82
+  %GEM273 = load %genome* %GEM
+  %fy274 = extractvalue %genome %GEM273, 32
+  store <2 x double> %fy274, <2 x double>* %83
+  %GEM275 = load %genome* %GEM
+  %fo276 = extractvalue %genome %GEM275, 33
+  store <2 x double> %fo276, <2 x double>* %84
+  %GEM277 = load %genome* %GEM
+  %ffv2w278 = extractvalue %genome %GEM277, 19
+  store double %ffv2w278, double* %85
+  %FLAME279 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %77, i8** %78, <3 x double>* %79, i64* %80, i64* %81, <2 x double>* %82, <2 x double>* %83, <2 x double>* %84, double* %85)
+  %output280 = call <3 x double> @"add@VV"(<3 x double> %__tmp267, <3 x double> %FLAME279)
+  store <3 x double> %output280, <3 x double>* %__tmp244
+  br label %end266
 
-end267:                                           ; preds = %true266, %end251
-  %GEM282 = load %genome* %GEM
-  %ffv3w = extractvalue %genome %GEM282, 20
-  %return283 = fcmp one double %ffv3w, 0.000000e+00
-  br i1 %return283, label %true285, label %end286
+end266:                                           ; preds = %true265, %end250
+  %GEM281 = load %genome* %GEM
+  %ffv3w = extractvalue %genome %GEM281, 20
+  %return282 = fcmp one double %ffv3w, 0.000000e+00
+  br i1 %return282, label %true284, label %end285
 
-true285:                                          ; preds = %end267
-  %__tmp287 = load <3 x double>* %__tmp245
-  %v1GMP288 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP288, %genomeParametrics* %86
+true284:                                          ; preds = %end266
+  %__tmp286 = load <3 x double>* %__tmp244
+  %v1GMP287 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP287, %genomeParametrics* %86
   store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %87
-  %__mem289 = load <3 x double>* %__mem
-  store <3 x double> %__mem289, <3 x double>* %88
+  %__mem288 = load <3 x double>* %__mem
+  store <3 x double> %__mem288, <3 x double>* %88
   store i64 0, i64* %89
-  %GEM290 = load %genome* %GEM
-  %ffv3type = extractvalue %genome %GEM290, 8
+  %GEM289 = load %genome* %GEM
+  %ffv3type = extractvalue %genome %GEM289, 8
   store i64 %ffv3type, i64* %90
-  %GEM291 = load %genome* %GEM
-  %fx292 = extractvalue %genome %GEM291, 31
-  store <2 x double> %fx292, <2 x double>* %91
-  %GEM293 = load %genome* %GEM
-  %fy294 = extractvalue %genome %GEM293, 32
-  store <2 x double> %fy294, <2 x double>* %92
-  %GEM295 = load %genome* %GEM
-  %fo296 = extractvalue %genome %GEM295, 33
-  store <2 x double> %fo296, <2 x double>* %93
-  %GEM297 = load %genome* %GEM
-  %ffv3w298 = extractvalue %genome %GEM297, 20
-  store double %ffv3w298, double* %94
-  %FLAME299 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %86, i8** %87, <3 x double>* %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
-  %output300 = call <3 x double> @"add@VV"(<3 x double> %__tmp287, <3 x double> %FLAME299)
-  store <3 x double> %output300, <3 x double>* %__tmp245
-  br label %end286
+  %GEM290 = load %genome* %GEM
+  %fx291 = extractvalue %genome %GEM290, 31
+  store <2 x double> %fx291, <2 x double>* %91
+  %GEM292 = load %genome* %GEM
+  %fy293 = extractvalue %genome %GEM292, 32
+  store <2 x double> %fy293, <2 x double>* %92
+  %GEM294 = load %genome* %GEM
+  %fo295 = extractvalue %genome %GEM294, 33
+  store <2 x double> %fo295, <2 x double>* %93
+  %GEM296 = load %genome* %GEM
+  %ffv3w297 = extractvalue %genome %GEM296, 20
+  store double %ffv3w297, double* %94
+  %FLAME298 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %86, i8** %87, <3 x double>* %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
+  %output299 = call <3 x double> @"add@VV"(<3 x double> %__tmp286, <3 x double> %FLAME298)
+  store <3 x double> %output299, <3 x double>* %__tmp244
+  br label %end285
 
-end286:                                           ; preds = %true285, %end267
-  %SYS301 = load %genomeSYS* %SYS
-  %POSTF = extractvalue %genomeSYS %SYS301, 2
+end285:                                           ; preds = %true284, %end266
+  %SYS300 = load %genomeSYS* %SYS
+  %POSTF = extractvalue %genomeSYS %SYS300, 2
   %114 = icmp ne i64 %POSTF, 0
-  br i1 %114, label %true302, label %end303
+  br i1 %114, label %true301, label %end302
 
-true302:                                          ; preds = %end286
-  %GEM304 = load %genome* %GEM
-  %pfx = extractvalue %genome %GEM304, 34
+true301:                                          ; preds = %end285
+  %GEM303 = load %genome* %GEM
+  %pfx = extractvalue %genome %GEM303, 34
   store <2 x double> %pfx, <2 x double>* %95
-  %GEM305 = load %genome* %GEM
-  %pfy = extractvalue %genome %GEM305, 35
+  %GEM304 = load %genome* %GEM
+  %pfy = extractvalue %genome %GEM304, 35
   store <2 x double> %pfy, <2 x double>* %96
-  %GEM306 = load %genome* %GEM
-  %pfo = extractvalue %genome %GEM306, 36
+  %GEM305 = load %genome* %GEM
+  %pfo = extractvalue %genome %GEM305, 36
   store <2 x double> %pfo, <2 x double>* %97
-  call void @"affinePOST@VUUU"(<3 x double>* %__tmp245, <2 x double>* %95, <2 x double>* %96, <2 x double>* %97)
-  br label %end303
+  call void @"affinePOST@VUUU"(<3 x double>* %__tmp244, <2 x double>* %95, <2 x double>* %96, <2 x double>* %97)
+  br label %end302
 
-end303:                                           ; preds = %true302, %end286
-  %GEM307 = load %genome* %GEM
-  %ffp1w = extractvalue %genome %GEM307, 21
-  %return308 = fcmp one double %ffp1w, 0.000000e+00
-  br i1 %return308, label %true310, label %end311
+end302:                                           ; preds = %true301, %end285
+  %GEM306 = load %genome* %GEM
+  %ffp1w = extractvalue %genome %GEM306, 21
+  %return307 = fcmp one double %ffp1w, 0.000000e+00
+  br i1 %return307, label %true309, label %false310
 
-true310:                                          ; preds = %end303
-  %__tmp312 = load <3 x double>* %__tmp245
-  store <3 x double> %__tmp312, <3 x double>* %__mem
-  %v1GMP313 = load %genomeParametrics* %v1GMP
-  store %genomeParametrics %v1GMP313, %genomeParametrics* %98
+true309:                                          ; preds = %end302
+  %v1GMP312 = load %genomeParametrics* %v1GMP
+  store %genomeParametrics %v1GMP312, %genomeParametrics* %98
   store i8* getelementptr inbounds ([6 x i8]* @164, i64 0, i64 0), i8** %99
-  %__mem314 = load <3 x double>* %__mem
-  store <3 x double> %__mem314, <3 x double>* %100
+  %__tmp313 = load <3 x double>* %__tmp244
+  store <3 x double> %__tmp313, <3 x double>* %100
   store i64 0, i64* %101
-  %GEM315 = load %genome* %GEM
-  %ffp1type = extractvalue %genome %GEM315, 9
+  %GEM314 = load %genome* %GEM
+  %ffp1type = extractvalue %genome %GEM314, 9
   store i64 %ffp1type, i64* %102
-  %GEM316 = load %genome* %GEM
-  %fx317 = extractvalue %genome %GEM316, 31
-  store <2 x double> %fx317, <2 x double>* %103
-  %GEM318 = load %genome* %GEM
-  %fy319 = extractvalue %genome %GEM318, 32
-  store <2 x double> %fy319, <2 x double>* %104
-  %GEM320 = load %genome* %GEM
-  %fo321 = extractvalue %genome %GEM320, 33
-  store <2 x double> %fo321, <2 x double>* %105
-  %GEM322 = load %genome* %GEM
-  %ffp1w323 = extractvalue %genome %GEM322, 21
-  store double %ffp1w323, double* %106
-  %FLAME324 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %98, i8** %99, <3 x double>* %100, i64* %101, i64* %102, <2 x double>* %103, <2 x double>* %104, <2 x double>* %105, double* %106)
-  store <3 x double> %FLAME324, <3 x double>* %__tmp245
-  br label %end311
+  %GEM315 = load %genome* %GEM
+  %fx316 = extractvalue %genome %GEM315, 31
+  store <2 x double> %fx316, <2 x double>* %103
+  %GEM317 = load %genome* %GEM
+  %fy318 = extractvalue %genome %GEM317, 32
+  store <2 x double> %fy318, <2 x double>* %104
+  %GEM319 = load %genome* %GEM
+  %fo320 = extractvalue %genome %GEM319, 33
+  store <2 x double> %fo320, <2 x double>* %105
+  %GEM321 = load %genome* %GEM
+  %ffp1w322 = extractvalue %genome %GEM321, 21
+  store double %ffp1w322, double* %106
+  %FLAME323 = call <3 x double> @"FLAME@VZ17genomeParametricsM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PSVIIUUUF"(%genomeParametrics* %98, i8** %99, <3 x double>* %100, i64* %101, i64* %102, <2 x double>* %103, <2 x double>* %104, <2 x double>* %105, double* %106)
+  store <3 x double> %FLAME323, <3 x double>* %__mem
+  br label %end243
 
-end311:                                           ; preds = %true310, %end303
-  %__tmp325 = load <3 x double>* %__tmp245
-  store <3 x double> %__tmp325, <3 x double>* %__mem
-  br label %end244
+false310:                                         ; preds = %end302
+  %__tmp324 = load <3 x double>* %__tmp244
+  store <3 x double> %__tmp324, <3 x double>* %__mem
+  br label %end243
 
-true328:                                          ; preds = %end244
+true327:                                          ; preds = %end243
   %_bound_ptnum330 = load i64* %_bound_ptnum
   %return331 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum330)
   br label %end329
 
-false:                                            ; preds = %end244
+false328:                                         ; preds = %end243
   %SYS332 = load %genomeSYS* %SYS
   %sym = extractvalue %genomeSYS %SYS332, 5
   %115 = icmp ne i64 %sym, 0
   br i1 %115, label %true333, label %end334
 
-end329:                                           ; preds = %end339, %true348, %true328
+end329:                                           ; preds = %end339, %true348, %true327
   ret void
 
-true333:                                          ; preds = %false
+true333:                                          ; preds = %false328
   %return335 = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([13 x i8]* @165, i64 0, i64 0))
   store <3 x double> %return335, <3 x double>* %107
   %SYS336 = load %genomeSYS* %SYS
@@ -10684,7 +10683,7 @@ true333:                                          ; preds = %false
   call void @"VAR_SYMMETRY@VVI"(<3 x double>* %__mem, <3 x double>* %107, i64* %108)
   br label %end334
 
-end334:                                           ; preds = %true333, %false
+end334:                                           ; preds = %true333, %false328
   %SYS337 = load %genomeSYS* %SYS
   %domb = extractvalue %genomeSYS %SYS337, 8
   %116 = icmp ne i64 %domb, 0
