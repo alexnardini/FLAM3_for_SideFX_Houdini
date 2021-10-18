@@ -16,10 +16,10 @@ __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @0, i64 0, i64 0))
   br label %cond
 
-cond:                                             ; preds = %body, %__llvm_entry
-  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output, %body ]
-  %IW.0 = phi double* [ getelementptr inbounds ([0 x double]* @2, i64 0, i64 0), %__llvm_entry ], [ %output15, %body ]
-  %vactive.0 = phi i64* [ getelementptr inbounds ([0 x i64]* @1, i64 0, i64 0), %__llvm_entry ], [ %output10, %body ]
+cond:                                             ; preds = %iter, %__llvm_entry
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output, %iter ]
+  %IW.0 = phi double* [ getelementptr inbounds ([0 x double]* @2, i64 0, i64 0), %__llvm_entry ], [ %IW.1, %iter ]
+  %vactive.0 = phi i64* [ getelementptr inbounds ([0 x i64]* @1, i64 0, i64 0), %__llvm_entry ], [ %output10, %iter ]
   %return3 = call i64 @"lt@III"(i64 %i.0, i64 %return)
   %0 = icmp ne i64 %return3, 0
   br i1 %0, label %body, label %end
@@ -30,16 +30,26 @@ body:                                             ; preds = %cond
   %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8]* @3, i64 0, i64 0), i8* %return5)
   %return9 = call i64 @"chi@IS"(i8* %return8)
   %output10 = call i64* @"append@[II"(i64* %vactive.0, i64 %return9)
-  %return13 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8]* @4, i64 0, i64 0), i8* %return5)
-  %return14 = call double @"chf@FS"(i8* %return13)
-  %output15 = call double* @"append@[FF"(double* %IW.0, double %return14)
-  br label %cond
+  %return13 = call i64 @"getcomp@I[II"(i64* %output10, i64 %i.0)
+  %return14 = call i64 @"not@II"(i64 %return13)
+  %1 = icmp ne i64 %return14, 0
+  br i1 %1, label %iter, label %end15
 
 end:                                              ; preds = %cond
   store i64* %vactive.0, i64** %_bound_VACTIVE
-  %return21 = call double* @"create_cdf@[F[F"(double* %IW.0)
-  store double* %return21, double** %_bound_CDF
+  %return26 = call double* @"create_cdf@[F[F"(double* %IW.0)
+  store double* %return26, double** %_bound_CDF
   ret void
+
+iter:                                             ; preds = %body, %end15
+  %IW.1 = phi double* [ %IW.0, %body ], [ %output20, %end15 ]
+  br label %cond
+
+end15:                                            ; preds = %body
+  %return18 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8]* @4, i64 0, i64 0), i8* %return5)
+  %return19 = call double @"chf@FS"(i8* %return18)
+  %output20 = call double* @"append@[FF"(double* %IW.0, double %return19)
+  br label %iter
 }
 
 declare i64 @"chi@IS"(i8*) nounwind readnone
@@ -51,6 +61,10 @@ declare i8* @"itoa@SI"(i64) nounwind readnone
 declare i8* @"concat@SSS"(i8*, i8*) nounwind readnone
 
 declare i64* @"append@[II"(i64*, i64) nounwind
+
+declare i64 @"getcomp@I[II"(i64*, i64) nounwind readnone
+
+declare i64 @"not@II"(i64) nounwind readnone
 
 declare double @"chf@FS"(i8*) nounwind readnone
 

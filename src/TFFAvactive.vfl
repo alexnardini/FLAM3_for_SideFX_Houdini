@@ -35,6 +35,7 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_CDF[])
     for(int i=0; i<iter_f; i++){
         string IDX = itoa(i+1);
         append(vactive, chi(concat("../vactive_", IDX)));
+        if(!vactive[i]) continue;
         append(IW, chf(concat("../iw_", IDX)));
     }
     _bound_VACTIVE = vactive;
