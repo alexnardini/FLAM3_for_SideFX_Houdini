@@ -33,13 +33,13 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     int idx;
     float CLR, PREV_CLR; PREV_CLR = 0;
     // Build genomes
-    genomeSYS SYS; SYS->genomeSYSBuild();
-    genome GEM; GEM->genomeBuild(_bound_VACTIVE, SYS);
-    genomeParametrics v1GMP, v2GMP, v3GMP, v4GMP;
-    v1GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v1type);
-    v2GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v2type);
-    v3GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v3type);
-    v4GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v4type);
+    gemSYS SYS; SYS->gemSYSBuild();
+    gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
+    gemPrm v1GMP, v2GMP, v3GMP, v4GMP;
+    v1GMP->gemPrmBuild("L", GEM.sIDX, GEM.v1type);
+    v2GMP->gemPrmBuild("L", GEM.sIDX, GEM.v2type);
+    v3GMP->gemPrmBuild("L", GEM.sIDX, GEM.v3type);
+    v4GMP->gemPrmBuild("L", GEM.sIDX, GEM.v4type);
     // CHAOS game
     float CDF[] = _bound_CDF;
     vector __mem = biunit();
@@ -65,9 +65,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.ffp1w!=0){ __mem = FLAME(v1GMP, "F", __tmp, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w); }
         else __mem = __tmp;
     }
-    if(checkNAN_vector(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
+    if(chkNAN_v(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
     else{
-        if(SYS.sym) VAR_SYMMETRY(__mem, chv("../symgpivot"), SYS.sym_mode);
+        if(SYS.sym) VAR_SYM(__mem, chv("../symgpivot"), SYS.sym_mode);
         float pscl = 1.0;
         if(SYS.domb) pscl *= SYS.mb_modulate;
         _bound_P = __mem;

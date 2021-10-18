@@ -26,10 +26,10 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
-struct genomeSYS{
+struct gemSYS{
 
     int FF, TMG, iter_f, sm, smtype, domb;
-    void genomeSYSBuild(){
+    void gemSYSBuild(){
         FF            = chi("../dofinalflame");
         TMG           = chi("../dotmglobal");
         iter_f        = chi("../flamefunc");
@@ -147,7 +147,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
                         "polynomial" };
 
     float pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
-    genomeSYS SYS; SYS->genomeSYSBuild();
+    gemSYS SYS; SYS->gemSYSBuild();
     if(SYS.domb) append(type, "MB");
     if(SYS.sm){
         if(!SYS.smtype) append(type, "SM3");

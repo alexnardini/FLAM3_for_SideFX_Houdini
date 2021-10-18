@@ -17,11 +17,11 @@
 */
 
 
-struct genomeSYS{
+struct gemSYS{
     int TMG, DELPT, POSTF, FF, iter_f, sym, sym_mode, iter, domb, vizmb;
     float mb_modulate;
 
-    void genomeSYSBuild(){
+    void gemSYSBuild(){
         TMG           = chi("../dotmglobal");
         FF            = chi("../dofinalflame");
         POSTF         = chi("../_dofpost_2");
@@ -36,13 +36,13 @@ struct genomeSYS{
     }
 }
 
-struct genome{
+struct gem{
     int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
-    void genomeBuild(const int VACTIVE[]; const genomeSYS SYS){
+    void gemBuild(const int VACTIVE[]; const gemSYS SYS){
         float coord, speed;
         for(int i=0; i<SYS.iter_f; i++){
             if(!VACTIVE[i]) continue;
@@ -105,7 +105,7 @@ struct genome{
             if(ffv2w!=0) ffv2type = chi("../ffv2type");
             // FF VAR 03
             ffv3w = chf("../ffv3weight");
-            if(ffv3w!=0) ffv3type = chi("../ffp1type");
+            if(ffv3w!=0) ffv3type = chi("../ffv3type");
             // // FF POST VAR 01
             ffp1w = chf("../ffp1weight");
             if(ffp1w!=0) ffp1type = chi("../ffp1type");
@@ -123,13 +123,13 @@ struct genome{
     }
 }
 
-struct genomeParametrics{
+struct gemPrm{
     float   rings2_val[], bipolar_shift[], cell_size[], escher_beta[], popcorn2_c[], flux_spread[];
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
 
-    void genomeParametricsBuild(const string MODE, sIDX[]; const int GEMTYPE[]){
+    void gemPrmBuild(const string MODE, sIDX[]; const int GEMTYPE[]){
 
         if(max(GEMTYPE)>26){
             int iter_f = len(GEMTYPE);

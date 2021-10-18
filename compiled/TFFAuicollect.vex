@@ -1,7 +1,7 @@
 ;_name	TFFAuicollect
 ; ModuleID = 'TFFAuicollect'
 
-%genomeSYS = type { i64, i64, i64, i64, i64, i64 }
+%gemSYS = type { i64, i64, i64, i64, i64, i64 }
 
 @0 = private constant [16 x i8] c"../dofinalflame\00"
 @1 = private constant [14 x i8] c"../dotmglobal\00"
@@ -146,47 +146,47 @@
 @VARTYPE = external global i8**
 @140 = private constant [8 x i8] c"VARTYPE\00"
 
-define private void @"genomeSYSBuild@Z9genomeSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"(%genomeSYS* %this) nounwind alwaysinline {
+define private void @"gemSYSBuild@Z6gemSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"(%gemSYS* %this) nounwind alwaysinline {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8]* @0, i64 0, i64 0))
-  %tmp = load %genomeSYS* %this
-  %0 = insertvalue %genomeSYS %tmp, i64 %return, 0
+  %tmp = load %gemSYS* %this
+  %0 = insertvalue %gemSYS %tmp, i64 %return, 0
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8]* @1, i64 0, i64 0))
-  %1 = insertvalue %genomeSYS %0, i64 %return1, 1
+  %1 = insertvalue %gemSYS %0, i64 %return1, 1
   %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8]* @2, i64 0, i64 0))
-  %2 = insertvalue %genomeSYS %1, i64 %return3, 2
+  %2 = insertvalue %gemSYS %1, i64 %return3, 2
   %return5 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8]* @3, i64 0, i64 0))
-  %3 = insertvalue %genomeSYS %2, i64 %return5, 3
-  store %genomeSYS %3, %genomeSYS* %this
+  %3 = insertvalue %gemSYS %2, i64 %return5, 3
+  store %gemSYS %3, %gemSYS* %this
   %return7 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8]* @4, i64 0, i64 0))
-  %tmp8 = load %genomeSYS* %this
-  %4 = insertvalue %genomeSYS %tmp8, i64 %return7, 4
+  %tmp8 = load %gemSYS* %this
+  %4 = insertvalue %gemSYS %tmp8, i64 %return7, 4
   %return9 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8]* @5, i64 0, i64 0))
-  %5 = insertvalue %genomeSYS %4, i64 %return9, 5
-  store %genomeSYS %5, %genomeSYS* %this
+  %5 = insertvalue %gemSYS %4, i64 %return9, 5
+  store %gemSYS %5, %gemSYS* %this
   ret void
 }
 
 declare i64 @"chi@IS"(i8*) nounwind readnone
 
-define private %genomeSYS @"genomeSYS@Z9genomeSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombIIIIIII"(i64* %FF, i64* %TMG, i64* %iter_f, i64* %sm, i64* %smtype, i64* %domb) nounwind alwaysinline {
+define private %gemSYS @"gemSYS@Z6gemSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombIIIIIII"(i64* %FF, i64* %TMG, i64* %iter_f, i64* %sm, i64* %smtype, i64* %domb) nounwind alwaysinline {
 __llvm_entry:
   %FF1 = load i64* %FF
-  %0 = insertvalue %genomeSYS undef, i64 %FF1, 0
+  %0 = insertvalue %gemSYS undef, i64 %FF1, 0
   %TMG2 = load i64* %TMG
-  %1 = insertvalue %genomeSYS %0, i64 %TMG2, 1
+  %1 = insertvalue %gemSYS %0, i64 %TMG2, 1
   %iter_f4 = load i64* %iter_f
-  %2 = insertvalue %genomeSYS %1, i64 %iter_f4, 2
+  %2 = insertvalue %gemSYS %1, i64 %iter_f4, 2
   %sm6 = load i64* %sm
-  %3 = insertvalue %genomeSYS %2, i64 %sm6, 3
+  %3 = insertvalue %gemSYS %2, i64 %sm6, 3
   %smtype8 = load i64* %smtype
-  %4 = insertvalue %genomeSYS %3, i64 %smtype8, 4
+  %4 = insertvalue %gemSYS %3, i64 %smtype8, 4
   %domb10 = load i64* %domb
-  %5 = insertvalue %genomeSYS %4, i64 %domb10, 5
-  ret %genomeSYS %5
+  %5 = insertvalue %gemSYS %4, i64 %domb10, 5
+  ret %gemSYS %5
 }
 
-define private %genomeSYS @"genomeSYS@Z9genomeSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"() nounwind alwaysinline {
+define private %gemSYS @"gemSYS@Z6gemSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"() nounwind alwaysinline {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -200,18 +200,18 @@ __llvm_entry:
   store i64 0, i64* %2
   store i64 0, i64* %3
   store i64 0, i64* %4
-  %genomeSYS = call %genomeSYS @"genomeSYS@Z9genomeSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombIIIIIII"(i64* %5, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4)
-  ret %genomeSYS %genomeSYS
+  %gemSYS = call %gemSYS @"gemSYS@Z6gemSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombIIIIIII"(i64* %5, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4)
+  ret %gemSYS %gemSYS
 }
 
 define private void @"_TFFAuicollect@[S"(i8*** %_bound_VARTYPE) nounwind alwaysinline {
 __llvm_entry:
-  %SYS = alloca %genomeSYS
-  %SYS1 = call %genomeSYS @"genomeSYS@Z9genomeSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"()
-  store %genomeSYS %SYS1, %genomeSYS* %SYS, !vex-initializer-store !3
-  call void @"genomeSYSBuild@Z9genomeSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"(%genomeSYS* %SYS)
-  %SYS2 = load %genomeSYS* %SYS
-  %domb = extractvalue %genomeSYS %SYS2, 5
+  %SYS = alloca %gemSYS
+  %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"()
+  store %gemSYS %SYS1, %gemSYS* %SYS, !vex-initializer-store !3
+  call void @"gemSYSBuild@Z6gemSYSM6N2FFIN3TMGIN6iter_fIN2smIN6smtypeIN4dombI"(%gemSYS* %SYS)
+  %SYS2 = load %gemSYS* %SYS
+  %domb = extractvalue %gemSYS %SYS2, 5
   %0 = icmp ne i64 %domb, 0
   br i1 %0, label %true, label %end
 
@@ -221,21 +221,21 @@ true:                                             ; preds = %__llvm_entry
 
 end:                                              ; preds = %true, %__llvm_entry
   %type.0 = phi i8** [ %output, %true ], [ getelementptr inbounds ([0 x i8*]* @6, i64 0, i64 0), %__llvm_entry ]
-  %SYS4 = load %genomeSYS* %SYS
-  %sm = extractvalue %genomeSYS %SYS4, 3
+  %SYS4 = load %gemSYS* %SYS
+  %sm = extractvalue %gemSYS %SYS4, 3
   %1 = icmp ne i64 %sm, 0
   br i1 %1, label %true5, label %end6
 
 true5:                                            ; preds = %end
-  %smtype = extractvalue %genomeSYS %SYS4, 4
+  %smtype = extractvalue %gemSYS %SYS4, 4
   %return = call i64 @"not@II"(i64 %smtype)
   %2 = icmp ne i64 %return, 0
   br i1 %2, label %true8, label %false
 
 end6:                                             ; preds = %true8, %false, %end
   %type.1 = phi i8** [ %output11, %true8 ], [ %output13, %false ], [ %type.0, %end ]
-  %SYS14 = load %genomeSYS* %SYS
-  %TMG = extractvalue %genomeSYS %SYS14, 1
+  %SYS14 = load %gemSYS* %SYS
+  %TMG = extractvalue %gemSYS %SYS14, 1
   %3 = icmp ne i64 %TMG, 0
   br i1 %3, label %true15, label %end16
 
@@ -258,8 +258,8 @@ end16:                                            ; preds = %true15, %end6
 cond:                                             ; preds = %end32, %end16
   %type.3 = phi i8** [ %type.2, %end16 ], [ %output184, %end32 ]
   %i.0 = phi i64 [ 0, %end16 ], [ %output24, %end32 ]
-  %SYS20 = load %genomeSYS* %SYS
-  %iter_f = extractvalue %genomeSYS %SYS20, 2
+  %SYS20 = load %gemSYS* %SYS
+  %iter_f = extractvalue %gemSYS %SYS20, 2
   %return21 = call i64 @"lt@III"(i64 %i.0, i64 %iter_f)
   %4 = icmp ne i64 %return21, 0
   br i1 %4, label %body, label %end22
@@ -274,7 +274,7 @@ body:                                             ; preds = %cond
   br i1 %5, label %true30, label %false31
 
 end22:                                            ; preds = %cond
-  %FF = extractvalue %genomeSYS %SYS20, 0
+  %FF = extractvalue %gemSYS %SYS20, 0
   %6 = icmp ne i64 %FF, 0
   br i1 %6, label %true189, label %end190
 
