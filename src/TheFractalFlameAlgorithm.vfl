@@ -35,13 +35,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     // Build genomes
     genomeSYS SYS; SYS->genomeSYSBuild();
     genome GEM; GEM->genomeBuild(_bound_VACTIVE, SYS);
-    genomeParametrics v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
+    genomeParametrics v1GMP, v2GMP, v3GMP, v4GMP;
     v1GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v1type);
     v2GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v2type);
     v3GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v3type);
     v4GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.v4type);
-    // POST VAR genome parametric
-    p1GMP->genomeParametricsBuild("L", GEM.sIDX, GEM.p1type);
     // CHAOS game
     float CDF[] = _bound_CDF;
     vector __mem = biunit();
@@ -54,11 +52,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, "L", __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
         if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, "L", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
-        if(GEM.p1w[idx]!=0){ __mem = FLAME(p1GMP, "L", __tmp, idx, GEM.p1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.p1w[idx]); }
-        else __mem = __tmp;
-        if(SYS.TMG) __mem *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
+        if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
+        __mem = __tmp;
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
-        
     }
     if(SYS.FF){
         vector __tmp = 0;
