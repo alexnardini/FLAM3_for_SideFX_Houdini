@@ -351,8 +351,7 @@ void VAR_CURL(vector pos, _inp; float w, c1, c2){
 void VAR_NGON(vector pos, _inp; float w, pow, sides, corners, circle){
     float cpower, csides, csidesinv, r_factor, theta, phi, amp;
     cpower = -0.5*pow; csides = 2.0*PI/sides; csidesinv = 1.0/csides;
-    if(_inp[0]==0 && _inp[1]==0) r_factor = 0;
-    else r_factor = pow(precalc("SUMSQ", _inp), cpower);
+    r_factor = (_inp[0]==0 && _inp[1]==0) ? 0 : pow(precalc("SUMSQ", _inp), cpower);
     theta = precalc("ATANYX", _inp);
     phi = theta - csides * floor(theta*csidesinv);
     if(phi>0.5*csides) phi -= csides;
@@ -401,8 +400,7 @@ void VAR_JULIASCOPE(vector pos, _inp; float w, power, jdist){
     julian_rN = power;
     julian_cn = jdist / power / 2.0;
     t_rnd = (int)trunc(julian_rN * nrandom('twister'));
-    if((t_rnd & 1) == 0) tmpr = (2.0 * M_PI * t_rnd + precalc("ATANYX", _inp)) / power;
-    else tmpr = (2.0 * M_PI * t_rnd - precalc("ATANYX", _inp)) / power;
+    tmpr = ((t_rnd & 1) == 0) ? (2.0*M_PI*t_rnd+precalc("ATANYX", _inp))/power : (2.0*M_PI*t_rnd-precalc("ATANYX", _inp))/power;
     sincos(tmpr, sina, cosa);
     rr = w * pow( precalc("SUMSQ", _inp), julian_cn );
     pos[0] = rr * cosa;
@@ -425,8 +423,7 @@ void VAR_FAN2(vector pos, _inp; float w; vector2 fan2){
     aa = precalc("ATAN", _inp);
     rr = w * precalc("SQRT", _inp);
     tt = aa + dy - dx * (int)((aa + dy)/dx);
-    if(tt>dx2) aa = aa-dx2;
-    else aa = aa+dx2;
+    aa = (tt>dx2) ? aa-dx2 : aa+dx2;
     sincos(aa, sa, ca);
     pos[0] = rr * sa;
     pos[1] = rr * ca;
@@ -512,8 +509,7 @@ void VAR_SECANT2(vector pos, _inp; float w){
     sr = sin(rr);
     icr = 1.0/cr;
     pos[0] = w * _inp[0];
-    if(cr<0) pos[1] = w * (icr+1);
-    else pos[1] = w * (icr-1);
+    pos[1] = (cr<0) ? w*(icr+1) : w*(icr-1);
 }
 // 45
 void VAR_TWINTRIAN(vector pos, _inp; float w){
@@ -733,13 +729,10 @@ void VAR_ELLIPTIC(vector pos, _inp; float w){
     bb = 1.0 - aa*aa;
     ssx = xmax - 1.0;
     ww = w / M_PI_2;
-    if(bb<0) bb = 0;
-    else bb = sqrt(bb);
-    if(ssx<0) ssx = 0;
-    else ssx = sqrt(ssx);
+    bb = (bb<0) ? 0 : sqrt(bb);
+    ssx = (ssx<0) ? 0 : sqrt(ssx);
     pos[0] = ww * atan2(aa,bb);
-    if(_inp[1] > 0) pos[1] = ww * log(xmax + ssx);
-    else pos[1] = ww * -log(xmax + ssx);
+    pos[1] = (_inp[1] > 0) ? ww*log(xmax+ssx) : ww * -log(xmax+ssx);
 }
 
 // 60
@@ -1143,8 +1136,7 @@ void VAR_BWRAPS(vector pos, _inp; float w, cellsize, space, gain, innertwist, ou
     float radius = 0.5 * (cellsize / (1.0 + space*space ));
     g2 = sqrt(gain) / cellsize + 1e-6;
     max_bubble = g2 * radius;
-    if(max_bubble>2.0) max_bubble=1.0;
-    else max_bubble *= 1.0/( (max_bubble*max_bubble)/4.0+1.0);
+    max_bubble = (max_bubble>2.0) ? 1.0 : max_bubble*1.0/( (max_bubble*max_bubble)/4.0+1.0);
     r2 = radius*radius;
     rfactor = radius/max_bubble;
 
