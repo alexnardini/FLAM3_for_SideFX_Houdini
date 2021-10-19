@@ -20,7 +20,7 @@
 #include <genome.h>
 #include <variations.h>
 
-vector FLAME(gemPrm GMP; string ftype; vector pos; int idx, type; vector2 x, y, o; float w){
+vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int idx, type; const vector2 x, y, o; const float w){
 
     vector outp, _inp, precalc; _inp=0;
     affine(_inp, pos, x, y, o);
