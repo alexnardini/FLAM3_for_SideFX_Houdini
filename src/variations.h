@@ -47,10 +47,6 @@ int chkNAN_v(int ACTIVE; vector vec){
 
 void remNAN_v(int ACTIVE, ptn; vector vec){ if(chkNAN_v(ACTIVE, vec))  removepoint(0, ptn); }
 
-// int chkNAN_f(int ACTIVE; float flt){ if(ACTIVE){ if(!isfinite(flt) || isnan(flt) || flt>LIMIT) return 1; } return 0; }
-
-// void remNAN_f(int ACTIVE, ptn; float flt){ if(chkNAN_f(ACTIVE, flt)) removepoint(0, ptn); }
-
 void VAR_SYM(vector pos, pivot; int num){
     float angle = 0;
     // 3-way
@@ -74,7 +70,6 @@ void VAR_SYM(vector pos, pivot; int num){
     }
 }
 
-// precalc[0]->precalc_sina; precalc[1]->precalc_cosa; precalc[2]->precalc_sinz
 void precalc_utils(int type; vector pos, precalc){
     if(type==9 || type==10 || type==11 || type==19 || type==21 || type==30 || type==35 ){
         precalc = pos / precalc("SQRT", pos);

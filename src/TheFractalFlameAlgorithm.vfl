@@ -68,8 +68,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     }
     if(chkNAN_v(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
     else{
-        if(SYS.sym) VAR_SYM(__mem, chv("../symgpivot"), SYS.sym_mode);
         float pscl = 1.0;
+        if(SYS.sym) VAR_SYM(__mem, chv("../symgpivot"), SYS.sym_mode);
         if(SYS.domb){ pscl *= SYS.mb_modulate; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set"); }
         _bound_P = __mem;
         _bound_COORD = CLR;

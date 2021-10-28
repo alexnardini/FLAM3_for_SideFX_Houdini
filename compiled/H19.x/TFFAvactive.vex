@@ -1,0 +1,127 @@
+;_name	TFFAvactive
+; ModuleID = 'TFFAvactive'
+source_filename = "TFFAvactive"
+
+@0 = private constant [13 x i8] c"../flamefunc\00"
+@1 = private constant [0 x i64] zeroinitializer
+@2 = private constant [0 x double] zeroinitializer
+@3 = private constant [12 x i8] c"../vactive_\00"
+@4 = private constant [7 x i8] c"../iw_\00"
+@VACTIVE = external global i64*
+@CDF = external global double*
+@5 = private constant [8 x i8] c"VACTIVE\00"
+@6 = private constant [4 x i8] c"CDF\00"
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAvactive@[I[F"(i64** %_bound_VACTIVE, double** %_bound_CDF) #0 {
+__llvm_entry:
+  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i64 0, i64 0))
+  br label %cond
+
+cond:                                             ; preds = %iter, %__llvm_entry
+  %vactive.0 = phi i64* [ getelementptr inbounds ([0 x i64], [0 x i64]* @1, i64 0, i64 0), %__llvm_entry ], [ %output10, %iter ]
+  %IW.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @2, i64 0, i64 0), %__llvm_entry ], [ %IW.1, %iter ]
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output, %iter ]
+  %return3 = call i64 @"lt@III"(i64 %i.0, i64 %return)
+  %0 = icmp ne i64 %return3, 0
+  br i1 %0, label %body, label %end
+
+body:                                             ; preds = %cond
+  %output = add i64 %i.0, 1
+  %return5 = call i8* @"itoa@SI"(i64 %output)
+  %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @3, i64 0, i64 0), i8* %return5)
+  %return9 = call i64 @"chi@IS"(i8* %return8)
+  %output10 = call i64* @"append@[II"(i64* %vactive.0, i64 %return9)
+  %return13 = call i64 @"getcomp@I[II"(i64* %output10, i64 %i.0)
+  %return14 = call i64 @"not@II"(i64 %return13)
+  %1 = icmp ne i64 %return14, 0
+  br i1 %1, label %iter, label %end15
+
+end:                                              ; preds = %cond
+  store i64* %vactive.0, i64** %_bound_VACTIVE
+  %return26 = call double* @"create_cdf@[F[F"(double* %IW.0)
+  store double* %return26, double** %_bound_CDF
+  ret void
+
+iter:                                             ; preds = %body, %end15
+  %IW.1 = phi double* [ %IW.0, %body ], [ %output20, %end15 ]
+  br label %cond
+
+end15:                                            ; preds = %body
+  %return18 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @4, i64 0, i64 0), i8* %return5)
+  %return19 = call double @"chf@FS"(i8* %return18)
+  %output20 = call double* @"append@[FF"(double* %IW.0, double %return19)
+  br label %iter
+}
+
+; Function Attrs: nounwind readnone
+declare i64 @"chi@IS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"lt@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"itoa@SI"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"concat@SSS"(i8*, i8*) #1
+
+; Function Attrs: nounwind
+declare i64* @"append@[II"(i64*, i64) #2
+
+; Function Attrs: nounwind readnone
+declare i64 @"getcomp@I[II"(i64*, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"not@II"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"chf@FS"(i8*) #1
+
+; Function Attrs: nounwind
+declare double* @"append@[FF"(double*, double) #2
+
+; Function Attrs: nounwind readnone
+declare double* @"create_cdf@[F[F"(double*) #1
+
+; Function Attrs: nounwind
+define void @TFFAvactive(i64* %VACTIVE, double* %CDF) #2 {
+__llvm_entry:
+  %"<CDF>" = alloca double*
+  %"<VACTIVE>" = alloca i64*
+  store i64* %VACTIVE, i64** %"<VACTIVE>"
+  store double* %CDF, double** %"<CDF>"
+  call void @"_TFFAvactive@[I[F"(i64** %"<VACTIVE>", double** %"<CDF>")
+  %evalue = load i64*, i64** %"<VACTIVE>"
+  %gvalue = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @5, i64 0, i64 0), i64* %evalue) #3
+  %evalue1 = load double*, double** %"<CDF>"
+  %gvalue2 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0), double* %evalue1) #3
+  store i64* %gvalue, i64** @VACTIVE
+  store double* %gvalue2, double** @CDF
+  ret void
+}
+
+declare i64* @"_export@[IS[I"(i8*, i64*)
+
+declare double* @"_export@[FS[F"(i8*, double*)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFAvactive(i64* getelementptr inbounds ([0 x i64], [0 x i64]* @1, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @2, i64 0, i64 0))
+  ret void
+}
+
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind readnone }
+attributes #2 = { nounwind }
+attributes #3 = { nounwind readonly }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"19.0.383"}
+!2 = !{!"64"}
+
+;_code_end

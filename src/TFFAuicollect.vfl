@@ -28,10 +28,11 @@
 
 struct gemSYS{
 
-    int FF, TMG, iter_f, sm, smtype, domb;
+    int FF, TMG, iter, iter_f, sm, smtype, domb;
     void gemSYSBuild(){
         FF            = chi("../dofinalflame");
         TMG           = chi("../dotmglobal");
+        iter          = chi("../iter");
         iter_f        = chi("../flamefunc");
         sm            = chi("../symmetry");
         smtype        = chi("../rotational");
@@ -148,6 +149,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
     float pbw, w1, w2, w3, w4, fw1, fw2, fw3, pfw1;
     gemSYS SYS; SYS->gemSYSBuild();
+    append(type, concat("[", itoa(SYS.iter), "]"));
     if(SYS.domb) append(type, "MB");
     if(SYS.sm){
         if(!SYS.smtype) append(type, "SM3");
