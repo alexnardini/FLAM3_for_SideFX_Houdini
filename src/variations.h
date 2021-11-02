@@ -84,8 +84,8 @@ void affine(vector outp, p; vector2 x, y, o){
 
 void affinePOST(vector p; vector2 x, y, o){
     p = set( x[0]*p[0] + y[0]*p[1] + o[0],
-               x[1]*p[0] + y[1]*p[1] + o[1],
-               0 );
+             x[1]*p[0] + y[1]*p[1] + o[1],
+             0 );
 }
 // VARIATIONS
 //
