@@ -573,12 +573,12 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
             else if(type==96){
                 vector4 re, im;
                 if(ftype){
-                    re  = GMP.mobius_re[idx];
-                    im  = GMP.mobius_im[idx];
+                    re = GMP.mobius_re[idx];
+                    im = GMP.mobius_im[idx];
                 }
                 else{
-                    re  = chp("../_mobiusre_2");
-                    im  = chp("../_mobiusim_2");
+                    re = chp("../_mobiusre_2");
+                    im = chp("../_mobiusim_2");
                 }
                 V_MOBIUS(p, _p, w, re, im);
                 return p; }

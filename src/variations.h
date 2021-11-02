@@ -48,25 +48,25 @@ int chkNAN_v(int ACTIVE; vector vec){
 void remNAN_v(int ACTIVE, ptn; vector vec){ if(chkNAN_v(ACTIVE, vec))  removepoint(0, ptn); }
 
 void V_SYM(vector p, pivot; int num){
-    float angle = 0;
+    float ang = 0;
     // 3-way
     if(!num){
         if(nrandom('twister')>(1.0/3.0)){
-            angle = 120;
-            if(nrandom('twister')>0.5) angle = 240;
-            p *= maketransform(0, 0, 0, set(0, 0, angle), 1, pivot);
+            ang = 120;
+            if(nrandom('twister')>0.5) ang = 240;
+            p *= maketransform(0, 0, 0, set(0, 0, ang), 1, pivot);
         }
     }
     // 5-way
     else if(num){
         if(nrandom('twister')>=0.2){
             float sym = nrandom('twister');
-            if(0.2 < sym <= 0.4)        angle =  72;
-            else if(0.4 < sym <= 0.6)   angle = 144;
-            else if(0.6 < sym <= 0.8)   angle = 216;
-            else if(0.8 < sym <= 1.0)   angle = 288;
+            if(0.2 < sym <= 0.4)        ang =  72;
+            else if(0.4 < sym <= 0.6)   ang = 144;
+            else if(0.6 < sym <= 0.8)   ang = 216;
+            else if(0.8 < sym <= 1.0)   ang = 288;
         }
-        p *= maketransform(0, 0, 0, set(0, 0, angle), 1, pivot);
+        p *= maketransform(0, 0, 0, set(0, 0, ang), 1, pivot);
     }
 }
 
