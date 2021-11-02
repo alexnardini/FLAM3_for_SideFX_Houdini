@@ -20,7 +20,7 @@
 #include <genome.h>
 #include <variations.h>
 
-vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int idx, type; const vector2 x, y, o; const float w){
+vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx, type; const vector2 x, y, o; const float w){
 
     vector outp, _inp, precalc; _inp=0;
     affine(_inp, pos, x, y, o);
@@ -29,7 +29,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
     //
     // 00 LINEAR
     if(!type) return _inp * w;
-    if(type<35){
+    else if(type<35){
         if(type<18){
             // 01 SINUSOIDAL
             if(type==1){
@@ -140,42 +140,42 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 27 CURL ( parametric )
             else if(type==27){
                 vector2 curl_c;
-                if(ftype=="L") curl_c = GMP.curl_c[idx];
+                if(ftype) curl_c = GMP.curl_c[idx];
                 else  curl_c = chu("../_curlc_2");
                 VAR_CURL(outp, _inp, w, curl_c[0], curl_c[1]);
                 return outp; }
             // 28 NGON ( parametric )
             else if(type==28){
                 vector4 ngon;
-                if(ftype=="L") ngon = GMP.ngon[idx];
+                if(ftype) ngon = GMP.ngon[idx];
                 else  ngon = chp("../_ngon_2");
                 VAR_NGON(outp, _inp, w, ngon[0], ngon[1], ngon[2], ngon[3]);
                 return outp; }
             // 29 PDJ ( parametric )
             else if(type==29){
                 vector4 pp;
-                if(ftype=="L") pp = GMP.pdj_w[idx];
+                if(ftype) pp = GMP.pdj_w[idx];
                 else  pp = chp("../_pdjw_2");
                 VAR_PDJ(outp, _inp, w, pp);
                 return outp; }
             // 30 BLOB ( parametric )
             else if(type==30){
                 vector blob;
-                if(ftype=="L") blob = GMP.blob[idx];
+                if(ftype) blob = GMP.blob[idx];
                 else  blob = chv("../_blob_2");
                 VAR_BLOB(outp, _inp, precalc, w, blob[1], blob[0], blob[2]);
                 return outp; }
             // 31 JuliaN ( parametric )
             else if(type==31){
                 vector2 julian;
-                if(ftype=="L") julian = GMP.julian[idx];
+                if(ftype) julian = GMP.julian[idx];
                 else  julian = chu("../_julian_2");
                 VAR_JULIAN(outp, _inp, w, julian[0], julian[1]);
                 return outp; }
             // 32 JuliaScope ( parametric )
             else if(type==32){
                 vector2 juliascope;
-                if(ftype=="L") juliascope = GMP.juliascope[idx];
+                if(ftype) juliascope = GMP.juliascope[idx];
                 else  juliascope = chu("../_juliascope_2");
                 VAR_JULIASCOPE(outp, _inp, w, juliascope[0], juliascope[1]);
                 return outp; }
@@ -186,7 +186,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 34 Fan2 ( parametric )
             else if(type==34){
                 vector2 fan2;
-                if(ftype=="L") fan2 = GMP.fan2[idx];
+                if(ftype) fan2 = GMP.fan2[idx];
                 else  fan2 = chu("../_fan2_2");
                 VAR_FAN2(outp, _inp, w, fan2);
                 return outp; }
@@ -197,28 +197,28 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 35 Rings2 ( parametric )
             if(type==35){
                 float rings2val;
-                if(ftype=="L") rings2val = GMP.rings2_val[idx];
+                if(ftype) rings2val = GMP.rings2_val[idx];
                 else  rings2val = chf("../_rings2val_2");
                 VAR_RINGS2(outp, _inp, precalc, w, rings2val);
                 return outp; }
             // 36 Rectangles ( parametric )
             else if(type==36){
                 vector2 rect;
-                if(ftype=="L") rect = GMP.rectangles[idx];
+                if(ftype) rect = GMP.rectangles[idx];
                 else  rect = chu("../_rectangles_2");
                 VAR_RECTANGLES(outp, _inp, w, rect);
                 return outp; }
             // 37 Radial Blur ( parametric )
             else if(type==37){
                 vector2 radialblur;
-                if(ftype=="L") radialblur = GMP.radialblur[idx];
+                if(ftype) radialblur = GMP.radialblur[idx];
                 else  radialblur = chu("../_radialblur_2");
                 VAR_RADIALBLUR(outp, _inp, w, radialblur[0], radialblur[1]);
                 return outp; }
             // 38 PIE ( parametric )
             else if(type==38){
                 vector pie;
-                if(ftype=="L") pie = GMP.pie[idx];
+                if(ftype) pie = GMP.pie[idx];
                 else  pie = chv("../_pie_2");
                 VAR_PIE(outp, w, pie[0], pie[1], pie[2]);
                 return outp; }
@@ -257,14 +257,14 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 47 DISC2 ( parametric )
             else if(type==47){
                 vector2 disc2;
-                if(ftype=="L") disc2 = GMP.disc2[idx];
+                if(ftype) disc2 = GMP.disc2[idx];
                 else  disc2 = chu("../_disc2_2");
                 VAR_DISC2(outp, _inp, w, disc2[0], disc2[1]);
                 return outp; }
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){
                 vector ss, ss_n;
-                if(ftype=="L"){
+                if(ftype){
                     ss   = GMP.supershape[idx];
                     ss_n = GMP.supershape_n[idx];
                 }
@@ -277,7 +277,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 49 FLOWER ( parametric )
             else if(type==49){
                 vector2 flower;
-                if(ftype=="L") flower = GMP.flower[idx];
+                if(ftype) flower = GMP.flower[idx];
                 else  flower = chu("../_flower_2");
                 VAR_FLOWER(outp, _inp, w, flower[0], flower[1]);
                 return outp; }
@@ -286,28 +286,28 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 50 CONIC
             if(type==50){
                 vector2 conic;
-                if(ftype=="L") conic = GMP.conic[idx];
+                if(ftype) conic = GMP.conic[idx];
                 else  conic =  chu("../_conic_2");
                 VAR_CONIC(outp, _inp, w, conic[0], conic[1]);
                 return outp; }
             // 51 PARABOLA ( parametric )
             else if(type==51){
                 vector2 parabola;
-                if(ftype=="L") parabola = GMP.parabola[idx];
+                if(ftype) parabola = GMP.parabola[idx];
                 else  parabola = chu("../_parabola_2");
                 VAR_PARABOLA(outp, _inp, w, parabola[0], parabola[1]);
                 return outp; }
             // 52 BENT2 ( parametric )
             else if(type==52){
                 vector2 bent2;
-                if(ftype=="L") bent2 = GMP.bent2[idx];
+                if(ftype) bent2 = GMP.bent2[idx];
                 else  bent2 = chu("../_bent2xy_2");
                 VAR_BENT2(outp, _inp, w, bent2);
                 return outp; }
             // 53 BIPOLAR ( parametric )
             else if(type==53){
                 float shift;
-                if(ftype=="L") shift = GMP.bipolar_shift[idx];
+                if(ftype) shift = GMP.bipolar_shift[idx];
                 else  shift = chf("../_bipolarshift_2");
                 VAR_BIPOLAR(outp, _inp, w, shift);
                 return outp; }
@@ -322,14 +322,14 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 56 CELL ( parametric )
             else if(type==56){
                 float size;
-                if(ftype=="L") size = GMP.cell_size[idx];
+                if(ftype) size = GMP.cell_size[idx];
                 else  size = chf("../_cellsize_2");
                 VAR_CELL(outp, _inp, w, size);
                 return outp; }
             // 57 CPOW ( parametric )
             else if(type==57){
                 vector cpow;
-                if(ftype=="L") cpow = GMP.cpow[idx];
+                if(ftype) cpow = GMP.cpow[idx];
                 else  cpow = chv("../_cpow_2");
                 VAR_CPOW(outp, _inp, w, cpow[0], cpow[1], cpow[2]);
                 return outp; }
@@ -348,7 +348,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 61 ESCHER ( parametric )
             else if(type==61){
                 float beta;
-                if(ftype=="L") beta = GMP.escher_beta[idx];
+                if(ftype) beta = GMP.escher_beta[idx];
                 else  beta = chf("../_escherbeta_2");
                 VAR_ESCHER(outp, _inp, w, beta);
                 return outp; }
@@ -360,7 +360,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             else if(type==63){
                 vector lazysusan;
                 vector2 lazysusanxyz;
-                if(ftype=="L"){
+                if(ftype){
                     lazysusanxyz  = GMP.lazysusanxyz[idx];
                     lazysusan     = GMP.lazysusan[idx];
                 }
@@ -383,14 +383,14 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 66 MODULUS ( parametric )
             else if(type==66){
                 vector2 mod;
-                if(ftype=="L") mod = GMP.modulus[idx];
+                if(ftype) mod = GMP.modulus[idx];
                 else  mod = chu("../_modulusXYZ_2");
                 VAR_MODULUS(outp, _inp, w, mod);
                 return outp; }
             // 67 OSCOPE ( parametric )
             else if(type==67){
                 vector4 oscope;
-                if(ftype=="L") oscope = GMP.oscope[idx];
+                if(ftype) oscope = GMP.oscope[idx];
                 else  oscope = chp("../_oscope_2");
                 VAR_OSCOPE(outp, _inp, w, oscope[0], oscope[1], oscope[2], oscope[3]);
                 return outp; }
@@ -402,7 +402,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             else if(type==69){
                 float pop2c;
                 vector2 pop2;
-                if(ftype=="L"){
+                if(ftype){
                     pop2  = GMP.popcorn2[idx];
                     pop2c = GMP.popcorn2_c[idx];
                 }
@@ -423,7 +423,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 71 SEPARATION ( parametric )
             else if(type==71){
                 vector2 sep, ins;
-                if(ftype=="L"){
+                if(ftype){
                     sep = GMP.separation[idx];
                     ins = GMP.separation_inside[idx];
                 }
@@ -436,56 +436,56 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 72 SPLIT ( parametric )
             else if(type==72){
                 vector2 split;
-                if(ftype=="L") split = GMP.split[idx];
+                if(ftype) split = GMP.split[idx];
                 else  split = chu("../_splitxyz_2");
                 VAR_SPLIT(outp, _inp, w, split);
                 return outp; }
             // 73 SPLITS ( parametric )
             else if(type==73){
                 vector2 splits;
-                if(ftype=="L") splits = GMP.splits[idx];
+                if(ftype) splits = GMP.splits[idx];
                 else  splits = chu("../_splitsxyz_2");
                 VAR_SPLITS(outp, _inp, w, splits);
                 return outp; }
             // 74 STRIPES ( parametric )
             else if(type==74){
                 vector2 stripes;
-                if(ftype=="L") stripes = GMP.stripes[idx];
+                if(ftype) stripes = GMP.stripes[idx];
                 else  stripes = chu("../_stripes_2");
                 VAR_STRIPES(outp, _inp, w, stripes[0], stripes[1]);
                 return outp; }
             // 75 WEDGE ( parametric )
             else if(type==75){
                 vector4 wedge;
-                if(ftype=="L") wedge = GMP.wedge[idx];
+                if(ftype) wedge = GMP.wedge[idx];
                 else  wedge = chp("../_wedge_2");
                 VAR_WEDGE(outp, _inp, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return outp; }
             // 76 WEDGE JULIA ( parametric )
             else if(type==76){
                 vector4 wedgejulia;
-                if(ftype=="L") wedgejulia = GMP.wedgejulia[idx];
+                if(ftype) wedgejulia = GMP.wedgejulia[idx];
                 else  wedgejulia = chp("../_wedgejulia_2");
                 VAR_WEDGEJULIA(outp, _inp, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return outp; }
             // 77 WEDGE SPH ( parametric )
             else if(type==77){
                 vector4 wedgesph;
-                if(ftype=="L") wedgesph = GMP.wedgesph[idx];
+                if(ftype) wedgesph = GMP.wedgesph[idx];
                 else  wedgesph = chp("../_wedgesph_2");
                 VAR_WEDGESPH(outp, _inp, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
                 return outp; }
             // 78 WHORL ( parametric )
             else if(type==78){
                 vector2 whorl;
-                if(ftype=="L") whorl  = GMP.whorl[idx];
+                if(ftype) whorl  = GMP.whorl[idx];
                 else  whorl  = chu("../_whorl_2");
                 VAR_WHORL(outp, _inp, w, whorl[0], whorl[1]);
                 return outp; }
             // 79 WAVES2 ( parametric )
             else if(type==79){
                 vector2 scl, freq;
-                if(ftype=="L"){
+                if(ftype){
                     scl  = GMP.waves2_scale[idx];
                     freq = GMP.waves2_freq[idx];
                 }
@@ -556,21 +556,21 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 94 AUGER ( parametric )
             else if(type==94){
                 vector4 auger;
-                if(ftype=="L") auger = GMP.auger[idx];
+                if(ftype) auger = GMP.auger[idx];
                 else  auger = chp("../_auger_2");
                 VAR_AUGER(outp, _inp, w, auger[0], auger[1], auger[2], auger[3]);
                 return outp; }
             // 95 FLUX ( parametric )
             else if(type==95){
                 float spread;
-                if(ftype=="L") spread = GMP.flux_spread[idx];
+                if(ftype) spread = GMP.flux_spread[idx];
                 else  spread = chf("../_fluxspread_2");
                 VAR_FLUX(outp, _inp, w, spread);
                 return outp; }
             // 96 MOBIUS ( parametric )
             else if(type==96){
                 vector4 re, im;
-                if(ftype=="L"){
+                if(ftype){
                     re  = GMP.mobius_re[idx];
                     im  = GMP.mobius_im[idx];
                 }
@@ -583,7 +583,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 97 CURVE ( parametric )
             else if(type==97){
                 vector2 lgt, amp;
-                if(ftype=="L"){
+                if(ftype){
                     lgt = GMP.curve_lenght[idx];
                     amp = GMP.curve_amp[idx];
                 }
@@ -596,7 +596,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 98 PERSPECTIVE ( parametric )
             else if(type==98){
                 vector2 persp;
-                if(ftype=="L") persp = GMP.persp[idx];
+                if(ftype) persp = GMP.persp[idx];
                 else  persp = chu("../_persp_2");
                 VAR_PERSPECTIVE(outp, _inp, w, persp[0], persp[1]);
                 return outp; }
@@ -604,7 +604,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             else if(type==99){
                 vector bwraps;
                 vector2 bwrapstwist;
-                if(ftype=="L"){
+                if(ftype){
                     bwraps = GMP.bwraps[idx];
                     bwrapstwist = GMP.bwrapstwist[idx];
                 }
@@ -621,7 +621,7 @@ vector FLAME(const gemPrm GMP; const string ftype; const vector pos; const int i
             // 101 POLYNOMIAL ( parametric )
             else if(type==101){
                 vector2 pow, lc, sc;
-                if(ftype=="L"){
+                if(ftype){
                     pow = GMP.polynomial_pow[idx];
                     lc  = GMP.polynomial_lc[idx];
                     sc  = GMP.polynomial_sc[idx];

@@ -37,10 +37,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     gemSYS SYS; SYS->gemSYSBuild();
     gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP;
-    v1GMP->gemPrmBuild("L", GEM.sIDX, GEM.v1type);
-    v2GMP->gemPrmBuild("L", GEM.sIDX, GEM.v2type);
-    v3GMP->gemPrmBuild("L", GEM.sIDX, GEM.v3type);
-    v4GMP->gemPrmBuild("L", GEM.sIDX, GEM.v4type);
+    v1GMP->gemPrmBuild(GEM.sIDX, GEM.v1type);
+    v2GMP->gemPrmBuild(GEM.sIDX, GEM.v2type);
+    v3GMP->gemPrmBuild(GEM.sIDX, GEM.v3type);
+    v4GMP->gemPrmBuild(GEM.sIDX, GEM.v4type);
     // CHAOS game
     float CDF[] = _bound_CDF;
     vector __mem = biunit();
@@ -48,10 +48,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         __tmp = 0;
         idx = sample_cdf(CDF, nrandom('twister'));
         if(GEM.PBW[idx]>0) VAR_PREBLUR(__mem, GEM.PBW[idx]);
-        if(GEM.v1w[idx]!=0) __tmp += FLAME(v1GMP, "L", __mem, idx, GEM.v1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1w[idx]);
-        if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, "L", __mem, idx, GEM.v2type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
-        if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, "L", __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
-        if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, "L", __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
+        if(GEM.v1w[idx]!=0) __tmp += FLAME(v1GMP, 1, __mem, idx, GEM.v1type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1w[idx]);
+        if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 1, __mem, idx, GEM.v2type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
+        if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, 1, __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
+        if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 1, __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         __mem = __tmp;
@@ -59,16 +59,16 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     }
     if(SYS.FF){
         __tmp = 0;
-        if(GEM.ffv1w!=0) __tmp += FLAME(v1GMP, "F", __mem, 0, GEM.ffv1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv1w);
-        if(GEM.ffv2w!=0) __tmp += FLAME(v1GMP, "F", __mem, 0, GEM.ffv2type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2w);
-        if(GEM.ffv3w!=0) __tmp += FLAME(v1GMP, "F", __mem, 0, GEM.ffv3type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3w);
+        if(GEM.ffv1w!=0) __tmp += FLAME(v1GMP, 0, __mem, 0, GEM.ffv1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv1w);
+        if(GEM.ffv2w!=0) __tmp += FLAME(v1GMP, 0, __mem, 0, GEM.ffv2type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2w);
+        if(GEM.ffv3w!=0) __tmp += FLAME(v1GMP, 0, __mem, 0, GEM.ffv3type, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3w);
         if(SYS.POSTF) affinePOST(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
-        if(GEM.ffp1w!=0){ __mem = FLAME(v1GMP, "F", __tmp, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w); }
+        if(GEM.ffp1w!=0){ __mem = FLAME(v1GMP, 0, __tmp, 0, GEM.ffp1type, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w); }
         else __mem = __tmp;
     }
     if(chkNAN_v(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
     else{
-        float pscl = 1.0;
+        float pscl = 0.001;
         if(SYS.sym) VAR_SYM(__mem, chv("../symgpivot"), SYS.sym_mode);
         if(SYS.domb){ pscl *= SYS.mb_modulate; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set"); }
         _bound_P = __mem;

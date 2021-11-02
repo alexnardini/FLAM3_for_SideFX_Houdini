@@ -7,9 +7,7 @@ source_filename = "TFFApalettesimple"
 @2 = private constant [9 x i8] c"../vizmb\00"
 @3 = private constant [11 x i8] c"../palette\00"
 @Cd = external global <3 x double>
-@mb_modulate = external global double
 @4 = private constant [3 x i8] c"Cd\00"
-@5 = private constant [12 x i8] c"mb_modulate\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"_TFFApalettesimple@FVF"(double* %_bound_COORD, <3 x double>* %_bound_Cd, double* %_bound_mb_modulate) #0 {
@@ -122,15 +120,11 @@ __llvm_entry:
   call void @"_TFFApalettesimple@FVF"(double* %0, <3 x double>* %"<Cd>", double* %1)
   %evalue = load <3 x double>, <3 x double>* %"<Cd>"
   %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @4, i64 0, i64 0), <3 x double> %evalue) #4
-  %gvalue4 = call double @"_export@FSF"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @5, i64 0, i64 0), double %mb_modulate) #4
   store <3 x double> %gvalue, <3 x double>* @Cd
-  store double %gvalue4, double* @mb_modulate
   ret void
 }
 
 declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
-
-declare double @"_export@FSF"(i8*, double)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
