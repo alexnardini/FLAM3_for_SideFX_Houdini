@@ -47,7 +47,7 @@ int chkNAN_v(int ACTIVE; vector vec){
 
 void remNAN_v(int ACTIVE, ptn; vector vec){ if(chkNAN_v(ACTIVE, vec))  removepoint(0, ptn); }
 
-void VAR_SYM(vector pos, pivot; int num){
+void V_SYM(vector pos, pivot; int num){
     float angle = 0;
     // 3-way
     if(!num){
@@ -91,18 +91,18 @@ void affinePOST(vector pos; vector2 x, y, o){
 //
 
 // 01
-void VAR_SINUSOIDAL(vector pos, _inp; float w){
+void V_SINUSOIDAL(vector pos, _inp; float w){
     pos[0] = w * sin(_inp[0]);
     pos[1] = w * sin(_inp[1]);
 }
 // 02
-void VAR_SPHERICAL(vector pos, _inp; float w){
+void V_SPHERICAL(vector pos, _inp; float w){
     float r2 = w / ( precalc("SUMSQ", _inp) + EPS );
     pos[0] = r2 * _inp[0];
     pos[1] = r2 * _inp[1];
 }
 // 03
-void VAR_SWIRL(vector pos, _inp; float w){
+void V_SWIRL(vector pos, _inp; float w){
     float rr = precalc("SUMSQ", _inp);
     float c1, c2, nx, ny;
     c1 = sin(rr);
@@ -113,13 +113,13 @@ void VAR_SWIRL(vector pos, _inp; float w){
     pos[1] = w * ny;
 }
 // 04
-void VAR_HORSESHOE(vector pos, _inp; float w){
+void V_HORSESHOE(vector pos, _inp; float w){
     float rr = w / (precalc("SQRT", _inp) + EPS);
     pos[0] = (_inp[0] - _inp[1]) * (_inp[0] + _inp[1]) * rr;
     pos[1] = 2.0 * _inp[0] * _inp[1] * rr;
 }
 // 05
-void VAR_POLAR(vector pos, _inp; float w){
+void V_POLAR(vector pos, _inp; float w){
     float nx, ny;
     nx = precalc("ATAN", _inp) * M_1_PI;
     ny = precalc("SQRT", _inp) - 1.0;
@@ -127,13 +127,13 @@ void VAR_POLAR(vector pos, _inp; float w){
     pos[1] = w * ny;
 }
 // 06
-void VAR_HANDKERCHIEF(vector pos, _inp; float w){
+void V_HANDKERCHIEF(vector pos, _inp; float w){
     float aa = precalc("ATAN", _inp);
     pos[0] = w * precalc("SQRT", _inp) * sin(aa+precalc("SQRT", _inp));
     pos[1] = w * precalc("SQRT", _inp) * cos(aa-precalc("SQRT", _inp));
 }
 // 07
-void VAR_HEART(vector pos, _inp; float w){
+void V_HEART(vector pos, _inp; float w){
     float aa, ca, sa, rr;
     aa = precalc("SQRT", _inp) * precalc("ATAN", _inp);
     sa = sin(aa);
@@ -143,7 +143,7 @@ void VAR_HEART(vector pos, _inp; float w){
     pos[1] = (-rr) * ca;
 }
 // 08
-void VAR_DISC(vector pos, _inp; float w){
+void V_DISC(vector pos, _inp; float w){
     float aa, rr, sr, cr;
     aa = precalc("ATAN", _inp) * (1.0/M_PI);
     rr = M_PI * precalc("SQRT", _inp);
@@ -152,7 +152,7 @@ void VAR_DISC(vector pos, _inp; float w){
     pos[1] = w * cr * aa;
 }
 // 09
-void VAR_SPIRAL(vector pos, _inp, precalc; float w){
+void V_SPIRAL(vector pos, _inp, precalc; float w){
     float r, r1, sr, cr;
     r = precalc("SQRT", _inp) + EPS;
     r1 = w/r;
@@ -161,13 +161,13 @@ void VAR_SPIRAL(vector pos, _inp, precalc; float w){
     pos[1] = r1 * (precalc[0] - cr);
 }
 // 10
-void VAR_HIPERBOLIC(vector pos, _inp, precalc; float w){
+void V_HIPERBOLIC(vector pos, _inp, precalc; float w){
     float rr = precalc("SQRT", _inp) + EPS;
     pos[0] = w * precalc[0] / rr;
     pos[1] = w * precalc[1] * rr;
 }
 // 11
-void VAR_DIAMOND(vector pos, _inp, precalc; float w){
+void V_DIAMOND(vector pos, _inp, precalc; float w){
     float rr, sr, cr;
     rr = precalc("SQRT", _inp);
     sincos(rr, sr, cr);
@@ -175,7 +175,7 @@ void VAR_DIAMOND(vector pos, _inp, precalc; float w){
     pos[1] = w * (precalc[1] * sr);
 }
 // 12
-void VAR_EX(vector pos, _inp; float w){
+void V_EX(vector pos, _inp; float w){
     float aa, rr, n0, n1, m0, m1;
     aa = precalc("ATAN", _inp);
     rr = precalc("SQRT", _inp);
@@ -187,7 +187,7 @@ void VAR_EX(vector pos, _inp; float w){
     pos[1] = w * (m0 - m1);
 }
 // 13
-void VAR_JULIA(vector pos, _inp; float w){
+void V_JULIA(vector pos, _inp; float w){
     float rr, aa, sa, ca;
     aa = 0.5 * precalc("ATAN", _inp);
     if(nrandom('twister')<0.5)
@@ -198,7 +198,7 @@ void VAR_JULIA(vector pos, _inp; float w){
     pos[1] = rr * sa;
 }
 // 14
-void VAR_BENT(vector pos, _inp; float w){
+void V_BENT(vector pos, _inp; float w){
     float nx, ny;
     nx = _inp[0];
     ny = _inp[1];
@@ -208,7 +208,7 @@ void VAR_BENT(vector pos, _inp; float w){
     pos[1] = w * ny;
 }
 // 15
-void VAR_WAVES(vector pos, _inp; float w, d, e, f, h){
+void V_WAVES(vector pos, _inp; float w, d, e, f, h){
     float dx2, dy2, nx, ny;
     // precalc
     dx2 = 1.0/(f*f + EPS);
@@ -220,14 +220,14 @@ void VAR_WAVES(vector pos, _inp; float w, d, e, f, h){
     pos[1] = w * ny;
 }
 // 16
-void VAR_FISHEYE(vector pos, _inp; float w){
+void V_FISHEYE(vector pos, _inp; float w){
     float rr = precalc("SQRT", _inp);
     rr = 2 * w / (rr+1);
     pos[0] = rr * _inp[1];
     pos[1] = rr * _inp[0];
 }
 // 17
-void VAR_POPCORN(vector pos, _inp; float w, d, h){
+void V_POPCORN(vector pos, _inp; float w, d, h){
     float dx, dy, nx, ny;
     dx = tan(3*_inp[1]);
     dy = tan(3*_inp[0]);
@@ -237,7 +237,7 @@ void VAR_POPCORN(vector pos, _inp; float w, d, h){
     pos[1] = w * ny;
 }
 // 18
-void VAR_EXPONENTIAL(vector pos, _inp; float w){
+void V_EXPONENTIAL(vector pos, _inp; float w){
     float dx, dy, sdy, cdy;
     dx = w * exp(_inp[0]-1.0);
     dy = M_PI * _inp[1];
@@ -246,13 +246,13 @@ void VAR_EXPONENTIAL(vector pos, _inp; float w){
     pos[1] = dx * sdy;
 }
 // 19
-void VAR_POWER(vector pos, _inp, precalc; float w){
+void V_POWER(vector pos, _inp, precalc; float w){
     float rr = w * pow(precalc("SQRT", _inp), precalc[0]);
     pos[0] = rr * precalc[1];
     pos[1] = rr * precalc[0];
 }
 // 20
-void VAR_COSINE(vector pos, _inp; float w){
+void V_COSINE(vector pos, _inp; float w){
     float aa, sa, ca, nx, ny;
     aa = _inp[0] * M_PI;
     sincos(aa, sa, ca);
@@ -262,7 +262,7 @@ void VAR_COSINE(vector pos, _inp; float w){
     pos[1] = w * ny;
 }
 // 21
-void VAR_RINGS(vector pos, _inp, precalc; float w, d){
+void V_RINGS(vector pos, _inp, precalc; float w, d){
     float dx, rr;
     dx = d*d + EPS;
     rr = precalc("SQRT", _inp);
@@ -271,7 +271,7 @@ void VAR_RINGS(vector pos, _inp, precalc; float w, d){
     pos[1] = rr * precalc[0];
 }
 // 22
-void VAR_FAN(vector pos, _inp; float w, d){
+void V_FAN(vector pos, _inp; float w, d){
     float dx, dx2, dy, aa, rr, sa, ca;
     dx = M_PI * (d*d + EPS);
     dy = d;
@@ -284,24 +284,24 @@ void VAR_FAN(vector pos, _inp; float w, d){
     pos[1] = rr * sa;
 }
 // 23
-void VAR_BUBBLE(vector pos, _inp; float w){
+void V_BUBBLE(vector pos, _inp; float w){
     float rr = w / (0.25 * precalc("SUMSQ", _inp) + 1);
     pos[0] = rr * _inp[0];
     pos[1] = rr * _inp[1];
 }
 // 24
-void VAR_CYLINDER(vector pos, _inp; float w){
+void V_CYLINDER(vector pos, _inp; float w){
     pos[0] = w * sin(_inp[0]);
     pos[1] = w * _inp[1];
 }
 // 25
-void VAR_EYEFISH(vector pos, _inp; float w){
+void V_EYEFISH(vector pos, _inp; float w){
     float rr =  (w * 2.0) / (1.0 + precalc("SQRT", _inp));
     pos[0] =  rr*_inp[0];
     pos[1] =  rr*_inp[1];
 }
 // 26
-void VAR_BLUR(vector pos; float w){
+void V_BLUR(vector pos; float w){
     float tmpr, sinr, cosr, rr;
     tmpr = nrandom("twister") * 2 * M_PI;
     sincos(tmpr, sinr, cosr);
@@ -310,7 +310,7 @@ void VAR_BLUR(vector pos; float w){
     pos[1] = rr * sinr;
 }
 // 27 ( parametric )
-void VAR_CURL(vector pos, _inp; float w, c1, c2){
+void V_CURL(vector pos, _inp; float w, c1, c2){
     float re, im, rr;
     if(c1==0){
         if(c2==0){
@@ -343,7 +343,7 @@ void VAR_CURL(vector pos, _inp; float w, c1, c2){
     }
 }
 // 28 ( parametric )
-void VAR_NGON(vector pos, _inp; float w, pow, sides, corners, circle){
+void V_NGON(vector pos, _inp; float w, pow, sides, corners, circle){
     float cpower, csides, csidesinv, r_factor, theta, phi, amp;
     cpower = -0.5*pow; csides = 2.0*PI/sides; csidesinv = 1.0/csides;
     r_factor = (_inp[0]==0 && _inp[1]==0) ? 0 : pow(precalc("SUMSQ", _inp), cpower);
@@ -355,7 +355,7 @@ void VAR_NGON(vector pos, _inp; float w, pow, sides, corners, circle){
     pos[1] = amp * _inp[1];
 }
 // 29 ( parametric )
-void VAR_PDJ(vector pos, _inp; float w; vector4 pp){
+void V_PDJ(vector pos, _inp; float w; vector4 pp){
     float  nx1, nx2, ny1, ny2;
     nx1 = cos(pp[1] * _inp[0]);
     nx2 = sin(pp[2] * _inp[0]);
@@ -365,7 +365,7 @@ void VAR_PDJ(vector pos, _inp; float w; vector4 pp){
     pos[1] = w * (nx2 - ny2);
 }
 // 30 ( parametric )
-void VAR_BLOB(vector pos, _inp, precalc; float w, pp1, pp2, pp3){
+void V_BLOB(vector pos, _inp, precalc; float w, pp1, pp2, pp3){
     float  blob_coeff, rr, aa, bdiff;
     float SQRT = precalc("SQRT", _inp);
     rr = SQRT;
@@ -376,7 +376,7 @@ void VAR_BLOB(vector pos, _inp, precalc; float w, pp1, pp2, pp3){
     pos[1] = w * precalc[1] * rr;
 }
 // 31 ( parametric )
-void VAR_JULIAN(vector pos, _inp; float w, power, jdist){
+void V_JULIAN(vector pos, _inp; float w, power, jdist){
     int t_rnd;
     float julian_rN, julian_cn, tmpr, rr, sina, cosa;
     julian_rN = power;
@@ -389,7 +389,7 @@ void VAR_JULIAN(vector pos, _inp; float w, power, jdist){
     pos[1] = rr * sina;
 }
 // 32 ( parametric )
-void VAR_JULIASCOPE(vector pos, _inp; float w, power, jdist){
+void V_JULIASCOPE(vector pos, _inp; float w, power, jdist){
     int t_rnd;
     float julian_rN, julian_cn, tmpr, rr, sina, cosa;
     julian_rN = power;
@@ -402,7 +402,7 @@ void VAR_JULIASCOPE(vector pos, _inp; float w, power, jdist){
     pos[1] = rr * sina;
 }
 // 33
-void VAR_GAUSSIAN(vector pos; float w){
+void V_GAUSSIAN(vector pos; float w){
     float ang, rr, sina, cosa;
     ang = nrandom('twister') * 2.0 * M_PI;
     rr = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
@@ -410,7 +410,7 @@ void VAR_GAUSSIAN(vector pos; float w){
     pos[1] = rr * sin(ang);
 }
 // 34 ( parametric )
-void VAR_FAN2(vector pos, _inp; float w; vector2 fan2){
+void V_FAN2(vector pos, _inp; float w; vector2 fan2){
     float dx, dx2, dy, aa, sa,ca,rr, tt;
     dy = fan2[1];
     dx = M_PI * (fan2[0]*fan2[0] + EPS);
@@ -424,7 +424,7 @@ void VAR_FAN2(vector pos, _inp; float w; vector2 fan2){
     pos[1] = rr * ca;
 }
 // 35 ( parametric )
-void VAR_RINGS2(vector pos, _inp, precalc; float w, rings2val){
+void V_RINGS2(vector pos, _inp, precalc; float w, rings2val){
     float rr, dx;
     int nrand;
     rr = precalc("SQRT", _inp);
@@ -434,14 +434,14 @@ void VAR_RINGS2(vector pos, _inp, precalc; float w, rings2val){
     pos[1] = w * precalc[1] * rr;
 }
 // 36 ( parametric )
-void VAR_RECTANGLES(vector pos, _inp; float w; vector2 rect){
+void V_RECTANGLES(vector pos, _inp; float w; vector2 rect){
     if(rect[0]==0) pos[0] = w * _inp[0];
     else pos[0] = w * ((2 * floor(_inp[0] / rect[0]) + 1) * rect[0] - _inp[0]);
     if(rect[1]==0) pos[1] = w * _inp[1];
     else pos[1] = w * ((2 * floor(_inp[1] / rect[1]) + 1) * rect[1] - _inp[1]);
 }
 // 37 ( parametric )
-void VAR_RADIALBLUR(vector pos, _inp; float w, spin, zoom){
+void V_RADIALBLUR(vector pos, _inp; float w, spin, zoom){
     float rndG, tmpa, ra, rz, sa, ca;
     rndG = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
     ra = precalc("SQRT", _inp);
@@ -452,7 +452,7 @@ void VAR_RADIALBLUR(vector pos, _inp; float w, spin, zoom){
     pos[1] = ra * sa + rz * _inp[1];
 }
 // 38 ( parametric )
-void VAR_PIE(vector pos; float w, slices, thickness, rotation){
+void V_PIE(vector pos; float w, slices, thickness, rotation){
     float aa, rr, sa, ca, sl;
     sl = (int)(nrandom('twister')*slices);
     aa = rotation + 2.0 * M_PI * (sl + nrandom("twister") * thickness) / slices;
@@ -462,7 +462,7 @@ void VAR_PIE(vector pos; float w, slices, thickness, rotation){
     pos[1] = rr * sa;
 }
 // 39
-void VAR_ARCH(vector pos, _inp; float w){
+void V_ARCH(vector pos, _inp; float w){
     float ang, sinr, cosr;
     ang = nrandom("twister") * w * M_PI;
     sincos(ang, sinr, cosr);
@@ -470,17 +470,17 @@ void VAR_ARCH(vector pos, _inp; float w){
     pos[1] = _inp[1] + (w * (sinr*sinr)/cosr);
 }
 // 40
-void VAR_TANGENT(vector pos, _inp; float w){
+void V_TANGENT(vector pos, _inp; float w){
     pos[0] = w * (sin(_inp[0])/cos(_inp[1]));
     pos[1] = w * tan(_inp[1]);
 }
 // 41
-void VAR_SQUARE(vector pos, _inp; float w){
+void V_SQUARE(vector pos, _inp; float w){
     pos[0] = w * (nrandom("twister") - 0.5);
     pos[0] = w * (nrandom("twister") - 0.5);
 }
 // 42
-void VAR_RAYS(vector pos, _inp; float w){
+void V_RAYS(vector pos, _inp; float w){
     float ang, rr, tanrr;
     ang = w * nrandom("twister") * M_PI;
     rr = w / (precalc("SUMSQ", _inp) + EPS);
@@ -489,7 +489,7 @@ void VAR_RAYS(vector pos, _inp; float w){
     pos[1] = tanrr * sin(_inp[1]);
 }
 // 43
-void VAR_BLADE(vector pos, _inp; float w){
+void V_BLADE(vector pos, _inp; float w){
     float rr, sinr, cosr;
     rr = nrandom("twister") * w * precalc("SQRT", _inp);
     sincos(rr, sinr, cosr);
@@ -497,7 +497,7 @@ void VAR_BLADE(vector pos, _inp; float w){
     pos[1] = w * _inp[0] * (cosr - sinr);
 }
 // 44
-void VAR_SECANT2(vector pos, _inp; float w){
+void V_SECANT2(vector pos, _inp; float w){
     float rr, cr, sr, icr, isr;
     rr = w * precalc("SQRT", _inp);
     cr = cos(rr);
@@ -507,7 +507,7 @@ void VAR_SECANT2(vector pos, _inp; float w){
     pos[1] = (cr<0) ? w*(icr+1) : w*(icr-1);
 }
 // 45
-void VAR_TWINTRIAN(vector pos, _inp; float w){
+void V_TWINTRIAN(vector pos, _inp; float w){
     float rr, sinr, cosr, diff;
     rr = nrandom("twister") * w * precalc("SQRT", _inp);
     sincos(rr, sinr, cosr);
@@ -518,7 +518,7 @@ void VAR_TWINTRIAN(vector pos, _inp; float w){
     pos[1] = w * _inp[0] * (diff - sinr*M_PI);
 }
 // 46
-void VAR_CROSS(vector pos, _inp; float w){
+void V_CROSS(vector pos, _inp; float w){
     float ss, rr;
     ss = _inp[0]*_inp[0] - _inp[1]*_inp[1];
     rr = w * sqrt(1.0 / (ss*ss+EPS));
@@ -526,7 +526,7 @@ void VAR_CROSS(vector pos, _inp; float w){
     pos[1] = _inp[1]*rr;
 }
 // 47 ( parametric )
-void VAR_DISC2(vector pos, _inp; float w, rot, twist){
+void V_DISC2(vector pos, _inp; float w, rot, twist){
     float rr, tt, sinr, cosr, disc2_sinadd, disc2_cosadd, disc2_timespi;
     // precalc
     float k;
@@ -543,7 +543,7 @@ void VAR_DISC2(vector pos, _inp; float w, rot, twist){
     pos[1] = (cosr + disc2_sinadd) * rr;
 }
 // 48 ( parametric )
-void VAR_SUPERSHAPE(vector pos, _inp; float w, ss_rnd, ss_m, ss_holes; vector ss_n){
+void V_SUPERSHAPE(vector pos, _inp; float w, ss_rnd, ss_m, ss_holes; vector ss_n){
     float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1;
     // precalc
     ss_pm_4 = ss_m / 4.0;
@@ -559,7 +559,7 @@ void VAR_SUPERSHAPE(vector pos, _inp; float w, ss_rnd, ss_m, ss_holes; vector ss
     pos[1] = rr * _inp[1];
 }
 // 49 ( parametric )
-void VAR_FLOWER(vector pos, _inp; float w, petals, holes){
+void V_FLOWER(vector pos, _inp; float w, petals, holes){
     float theta, rr;
     theta = precalc("ATANYX", _inp);
     rr = w * (nrandom("twister") - holes) * cos(petals*theta) / precalc("SQRT", _inp);
@@ -567,7 +567,7 @@ void VAR_FLOWER(vector pos, _inp; float w, petals, holes){
     pos[1] = rr * _inp[1];
 }
 // 50
-void VAR_CONIC(vector pos, _inp; float w, eccentricity, holes){
+void V_CONIC(vector pos, _inp; float w, eccentricity, holes){
     float ct, rr;
     float SQRT = precalc("SQRT", _inp);
     ct = _inp[0] / SQRT;
@@ -577,7 +577,7 @@ void VAR_CONIC(vector pos, _inp; float w, eccentricity, holes){
     pos[1] = rr * _inp[1];
 }
 // 51 ( parametric )
-void VAR_PARABOLA(vector pos, _inp; float w, height, width){
+void V_PARABOLA(vector pos, _inp; float w, height, width){
     float rr, sr, cr;
     rr = precalc("SQRT", _inp);
     sincos(rr, sr, cr);
@@ -585,7 +585,7 @@ void VAR_PARABOLA(vector pos, _inp; float w, height, width){
     pos[1] = width  * w * cr * nrandom("twister");
 }
 // 52 ( parametric )
-void VAR_BENT2(vector pos, _inp; float w; vector2 bent2){
+void V_BENT2(vector pos, _inp; float w; vector2 bent2){
     float nx, ny;
     nx = _inp[0]; ny = _inp[1];
     if(nx < 0.0)
@@ -596,7 +596,7 @@ void VAR_BENT2(vector pos, _inp; float w; vector2 bent2){
     pos[1] = w * ny;
 }
 // 53 ( parametric )
-void VAR_BIPOLAR(vector pos, _inp; float w, shift){
+void V_BIPOLAR(vector pos, _inp; float w, shift){
     float x2y2, tt, x2, ps, y;
     x2y2 = precalc("SUMSQ", _inp);
     tt = x2y2+1;
@@ -609,7 +609,7 @@ void VAR_BIPOLAR(vector pos, _inp; float w, shift){
     pos[1] = w * M_2_PI * y;
 }
 // 54
-void VAR_BOARDERS(vector pos, _inp; float w){
+void V_BOARDERS(vector pos, _inp; float w){
     float roundX, roundY, offsetX, offsetY;
     roundX = rint(_inp[0]);
     roundY = rint(_inp[1]);
@@ -643,7 +643,7 @@ void VAR_BOARDERS(vector pos, _inp; float w){
     }
 }
 // 55
-void VAR_BUTTERFLY(vector pos, _inp; float w){
+void V_BUTTERFLY(vector pos, _inp; float w){
     float wx, y2, rr;
     wx = w*1.3029400317411197908970256609023;
     y2 = _inp[1]*2.0;
@@ -652,7 +652,7 @@ void VAR_BUTTERFLY(vector pos, _inp; float w){
     pos[1] = rr * y2;
 }
 // 56 ( parametric )
-void VAR_CELL(vector pos, _inp; float w, size){
+void V_CELL(vector pos, _inp; float w, size){
     float inv_cell_size, x, y, dx, dy;
     inv_cell_size = 1.0/size;
     x = floor(_inp[0]*inv_cell_size);
@@ -683,7 +683,7 @@ void VAR_CELL(vector pos, _inp; float w, size){
     pos[1] = -(dy + y*size);
 }
 // 57 ( parametric )
-void VAR_CPOW(vector pos, _inp; float w, power, pow_r, pow_i){
+void V_CPOW(vector pos, _inp; float w, power, pow_r, pow_i){
     float aa, lnr, va, vc, vd, ang, sa, ca, mm;
     aa = precalc("ATANYX", _inp);
     lnr = 0.5 * log(precalc("SUMSQ", _inp));
@@ -697,7 +697,7 @@ void VAR_CPOW(vector pos, _inp; float w, power, pow_r, pow_i){
     pos[1] = mm * sa;
 }
 // 58
-void VAR_EDISC(vector pos, _inp; float w){
+void V_EDISC(vector pos, _inp; float w){
     float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
     tmp = precalc("SUMSQ", _inp);
     tmp2 = 2.0 * _inp[0];
@@ -715,7 +715,7 @@ void VAR_EDISC(vector pos, _inp; float w){
     pos[1] = ww * snhu * snv;
 }
 // 59
-void VAR_ELLIPTIC(vector pos, _inp; float w){
+void V_ELLIPTIC(vector pos, _inp; float w){
     float tmp, x2, xmax, aa, bb, ssx, ww;
     tmp = precalc("SUMSQ", _inp) + 1.0;
     x2 = 2.0 * _inp[0];
@@ -731,7 +731,7 @@ void VAR_ELLIPTIC(vector pos, _inp; float w){
 }
 
 // 60
-void VAR_NOISE(vector pos, _inp; float w){
+void V_NOISE(vector pos, _inp; float w){
     float tmpr, sinr, cosr, rr;
     tmpr = nrandom("twister") * 2 * M_PI;
     sincos(tmpr, sinr, cosr);
@@ -740,7 +740,7 @@ void VAR_NOISE(vector pos, _inp; float w){
     pos[1] = _inp[1] * rr * sinr;
 }
 // 61 ( parametric )
-void VAR_ESCHER(vector pos, _inp; float w, beta){
+void V_ESCHER(vector pos, _inp; float w, beta){
     float aa, lnr, seb, ceb, vc, vd, mm, nn, sn, cn;
     aa = precalc("ATANYX", _inp);
     lnr = 0.5 * log(precalc("SUMSQ", _inp));
@@ -754,7 +754,7 @@ void VAR_ESCHER(vector pos, _inp; float w, beta){
     pos[1] = mm * sn;
 }
 // 62
-void VAR_FOCI(vector pos, _inp; float w){
+void V_FOCI(vector pos, _inp; float w){
     float expx, expnx, sn, cn, tmp, tmpz;
     expx = exp(_inp[0]) * 0.5;
     expnx = 0.25 / expx;
@@ -764,7 +764,7 @@ void VAR_FOCI(vector pos, _inp; float w){
     pos[1] = tmp * sn;
 }
 // 63 ( parametric )
-void VAR_LAZYSUSAN(vector pos, _inp; float w, spin, twist, space; vector2 lazy){
+void V_LAZYSUSAN(vector pos, _inp; float w, spin, twist, space; vector2 lazy){
     float xx, yy, rr, sina, cosa, aa;
     xx = _inp[0] - lazy[0];
     yy = _inp[1] - lazy[1];
@@ -783,7 +783,7 @@ void VAR_LAZYSUSAN(vector pos, _inp; float w, spin, twist, space; vector2 lazy){
     }
 }
 // 64
-void VAR_LOONIE(vector pos, _inp; float w){
+void V_LOONIE(vector pos, _inp; float w){
     float rr, rr2, w2;
     rr2 = precalc("SUMSQ", _inp);
     w2 = w * w;
@@ -798,7 +798,7 @@ void VAR_LOONIE(vector pos, _inp; float w){
     }
 }
 // 65
-void VAR_PREBLUR(vector pos; float w){
+void V_PREBLUR(vector pos; float w){
     float rndG, rndA, sinA, cosA;
     rndG = w * (nrandom("twister") + nrandom("twister") + nrandom("twister") + nrandom("twister") - 2.0);
     rndA = nrandom("twister") * 2.0 * M_PI;
@@ -807,7 +807,7 @@ void VAR_PREBLUR(vector pos; float w){
     pos[1] += rndG * sinA;
 }
 // 66 ( parametric )
-void VAR_MODULUS(vector pos, _inp; float w; vector2 m){
+void V_MODULUS(vector pos, _inp; float w; vector2 m){
     float xr, yr;
     xr = 2*m[0]; yr = 2*m[1];
     if(_inp[0] > m[0])
@@ -819,7 +819,7 @@ void VAR_MODULUS(vector pos, _inp; float w; vector2 m){
     else pos[1] = w * _inp[1];
 }
 // 67 ( parametric )
-void VAR_OSCOPE(vector pos, _inp; float w, freq, amp, damp, sep){
+void V_OSCOPE(vector pos, _inp; float w, freq, amp, damp, sep){
     float tpf, tt;
     tpf = 2 * M_PI * freq;
     if(damp == 0.0) tt = amp * cos(tpf*_inp[0]) + sep;
@@ -834,18 +834,18 @@ void VAR_OSCOPE(vector pos, _inp; float w, freq, amp, damp, sep){
     }
 }
 // 68
-void VAR_POLAR2(vector pos, _inp; float w){
+void V_POLAR2(vector pos, _inp; float w){
     float p2v = w / M_PI;
     pos[0] = p2v * precalc("ATAN", _inp);
     pos[1] = p2v/2.0 * log(precalc("SUMSQ", _inp));
     }
 // 69 ( parametric )
-void VAR_POPCORN2(vector pos, _inp; float w, pop2c; vector2 pop2){
+void V_POPCORN2(vector pos, _inp; float w, pop2c; vector2 pop2){
     pos[0] = w * (_inp[0] + pop2[0] * sin(tan(_inp[1]*pop2c)));
     pos[1] = w * (_inp[1] + pop2[1] * sin(tan(_inp[0]*pop2c)));
     }
 // 70 ( parametric )
-void VAR_SCRY(vector pos, _inp; float w){
+void V_SCRY(vector pos, _inp; float w){
     float tt, rr;
     tt = precalc("SUMSQ", _inp);
     rr = 1.0 / (precalc("SQRT", _inp) * (tt + 1.0/(w+EPS)));
@@ -853,7 +853,7 @@ void VAR_SCRY(vector pos, _inp; float w){
     pos[1] = _inp[1] * rr;
 }
 // 71 ( parametric )
-void VAR_SEPARATION(vector pos, _inp; float w; vector2 sep, ins){
+void V_SEPARATION(vector pos, _inp; float w; vector2 sep, ins){
     float sx2, sy2;
     sx2 = sep[0]*sep[0];
     sy2 = sep[1]*sep[1];
@@ -863,21 +863,21 @@ void VAR_SEPARATION(vector pos, _inp; float w; vector2 sep, ins){
     else pos[1] = w * -(sqrt(_inp[1]*_inp[1] + sy2) + _inp[1]*ins[1]);
 }
 // 72 ( parametric )
-void VAR_SPLIT(vector pos, _inp; float w; vector2 split){
+void V_SPLIT(vector pos, _inp; float w; vector2 split){
     if(cos(_inp[0]*split[0]*M_PI) >= 0) pos[1] = w * _inp[1];
     else pos[1] = w * -_inp[1];
     if(cos(_inp[1]*split[1]*M_PI) >= 0) pos[0] = w * _inp[0];
     else pos[0] = w * -_inp[0];
 }
 // 73 ( parametric )
-void VAR_SPLITS(vector pos, _inp; float w; vector2 splits){
+void V_SPLITS(vector pos, _inp; float w; vector2 splits){
     if(_inp[0] >= 0) pos[0] = w * (_inp[0] + splits[0]);
     else pos[0] = w * (_inp[0] - splits[0]);
     if(_inp[1] >= 0) pos[1] = w * (_inp[1] + splits[1]);
     else pos[1] = w * (_inp[1] - splits[1]);
 }
 // 74 ( parametric )
-void VAR_STRIPES(vector pos, _inp; float w, space, warp){
+void V_STRIPES(vector pos, _inp; float w, space, warp){
     float roundx, offsetx;
     roundx = floor(_inp[0] + 0.5);
     offsetx = _inp[0] - roundx;
@@ -885,7 +885,7 @@ void VAR_STRIPES(vector pos, _inp; float w, space, warp){
     pos[1] = w * (_inp[1] + offsetx*offsetx*warp);
 }
 // 75 ( parametric )
-void VAR_WEDGE(vector pos, _inp; float w, swirl, angle, hole, count){
+void V_WEDGE(vector pos, _inp; float w, swirl, angle, hole, count){
     float rr, aa, cc, comp_fac, sa, ca;
     rr = precalc("SQRT", _inp);
     aa = precalc("ATANYX", _inp) + swirl * rr;
@@ -898,7 +898,7 @@ void VAR_WEDGE(vector pos, _inp; float w, swirl, angle, hole, count){
     pos[1] = rr*sa;
 }
 // 76 ( parametric )
-void VAR_WEDGEJULIA(vector pos, _inp; float w, power, angle, dist, count){
+void V_WEDGEJULIA(vector pos, _inp; float w, power, angle, dist, count){
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
     // precalc
     wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
@@ -915,7 +915,7 @@ void VAR_WEDGEJULIA(vector pos, _inp; float w, power, angle, dist, count){
     pos[1] = rr * sa;
 }
 // 77 ( parametric )
-void VAR_WEDGESPH(vector pos, _inp; float w, swirl, angle, hole, count){
+void V_WEDGESPH(vector pos, _inp; float w, swirl, angle, hole, count){
     float rr, aa, cc, comp_fac, sa, ca;
     rr = 1.0/(precalc("SQRT", _inp) + EPS);
     aa = precalc("ATANYX", _inp) + swirl * rr;
@@ -928,7 +928,7 @@ void VAR_WEDGESPH(vector pos, _inp; float w, swirl, angle, hole, count){
     pos[1] = rr * sa;
 }
 // 78 ( parametric )
-void VAR_WHORL(vector pos, _inp; float w, inside, outside){
+void V_WHORL(vector pos, _inp; float w, inside, outside){
     float rr, aa, sa, ca;
     rr = precalc("SQRT", _inp);
     if(rr<w) aa = precalc("ATANYX", _inp) + inside/(w-rr);
@@ -938,12 +938,12 @@ void VAR_WHORL(vector pos, _inp; float w, inside, outside){
     pos[1] = w*rr*sa;
 }
 // 79 ( parametric )
-void VAR_WAVES2(vector pos, _inp; float w; vector2 scl, freq){
+void V_WAVES2(vector pos, _inp; float w; vector2 scl, freq){
     pos[0] = w*(_inp[0] + scl[0]*sin(_inp[1]*freq[0]));
     pos[1] = w*(_inp[1] + scl[1]*sin(_inp[0]*freq[1]));
 }
 // 80
-void VAR_COTHEEXP(vector pos, _inp; float w){
+void V_COTHEEXP(vector pos, _inp; float w){
     float expe, expz, expsin, expcos;
     expe = exp(_inp[0]);
     sincos(pos[1], expsin, expcos);
@@ -951,12 +951,12 @@ void VAR_COTHEEXP(vector pos, _inp; float w){
     pos[1] = w * expe * expsin;
 }
 // 81
-void VAR_COTHELOG(vector pos, _inp; float w){
+void V_COTHELOG(vector pos, _inp; float w){
     pos[0] = w * 0.5 * log(precalc("SUMSQ", _inp));
     pos[1] = w * precalc("ATANYX", _inp);
 }
 // 82
-void VAR_COTHESIN(vector pos, _inp; float w){
+void V_COTHESIN(vector pos, _inp; float w){
     float sinsin, sinacos, sinsinh, sincosh;
     sincos(_inp[0], sinsin, sinacos);
     sinsinh = sinh(_inp[1]);
@@ -965,7 +965,7 @@ void VAR_COTHESIN(vector pos, _inp; float w){
     pos[1] = w * sinacos * sinsinh;
 }
 // 83
-void VAR_COTHECOS(vector pos, _inp; float w){
+void V_COTHECOS(vector pos, _inp; float w){
     float cossin, coscos, cossinh, coscosh;
     sincos(_inp[0], cossin, coscos);
     cossinh = sinh(_inp[1]);
@@ -974,7 +974,7 @@ void VAR_COTHECOS(vector pos, _inp; float w){
     pos[1] = w * cossin * cossinh;
 }
 // 84
-void VAR_COTHETAN(vector pos, _inp; float w){
+void V_COTHETAN(vector pos, _inp; float w){
     float tansin, tancos, tansinh, tancosh, tanden;
     sincos(2*_inp[0], tansin, tancos);
     tansinh = sinh(2.0*_inp[1]);
@@ -984,7 +984,7 @@ void VAR_COTHETAN(vector pos, _inp; float w){
     pos[1] = w * tanden * tancosh;
 }
 // 85
-void VAR_COTHESEC(vector pos, _inp; float w){
+void V_COTHESEC(vector pos, _inp; float w){
     float secsin, seccos, secsinh, seccosh, secden;
     sincos(_inp[0], secsin, seccos);
     secsinh = sinh(_inp[1]);
@@ -994,7 +994,7 @@ void VAR_COTHESEC(vector pos, _inp; float w){
     pos[1] = w * secden * secsin * secsinh;
 }
 // 86
-void VAR_COTHECSC(vector pos, _inp; float w){
+void V_COTHECSC(vector pos, _inp; float w){
     float cscsin, csccos, cscsinh, csccosh, cscden;
     sincos(pos[0], cscsin, csccos);
     cscsinh = sinh(_inp[1]);
@@ -1004,7 +1004,7 @@ void VAR_COTHECSC(vector pos, _inp; float w){
     pos[1] = w * cscden * csccos * cscsinh;
 }
 // 87
-void VAR_COTHECOT(vector pos, _inp; float w){
+void V_COTHECOT(vector pos, _inp; float w){
     float cotsin, cotcos, cotsinh, cotcosh, cotden;
     sincos(2.0*_inp[0], cotsin, cotcos);
     cotsinh = sinh(2.0*_inp[1]);
@@ -1014,7 +1014,7 @@ void VAR_COTHECOT(vector pos, _inp; float w){
     pos[1] = w * cotden * -1 * cotsinh;
 }
 // 88
-void VAR_COTHESINH(vector pos, _inp; float w){
+void V_COTHESINH(vector pos, _inp; float w){
     float sinhsin, sinhcos, sinhsinh, sinhcosh;
     sincos(_inp[1], sinhsin, sinhcos);
     sinhsinh = sinh(_inp[0]);
@@ -1023,7 +1023,7 @@ void VAR_COTHESINH(vector pos, _inp; float w){
     pos[1] = w * sinhcosh * sinhsin;
 }
 // 89
-void VAR_COTHECOSH(vector pos, _inp; float w){
+void V_COTHECOSH(vector pos, _inp; float w){
     float coshsin, coshcos, coshsinh, coshcosh;
     sincos(_inp[1], coshsin, coshcos);
     coshsinh = sinh(_inp[0]);
@@ -1032,7 +1032,7 @@ void VAR_COTHECOSH(vector pos, _inp; float w){
     pos[1] = w * coshsinh * coshsin;
 }
 // 90
-void VAR_COTHETANH(vector pos, _inp; float w){
+void V_COTHETANH(vector pos, _inp; float w){
     float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden;
     sincos(2.0*_inp[1], tanhsin, tanhcos);
     tanhsinh = sinh(_inp[0]);
@@ -1042,7 +1042,7 @@ void VAR_COTHETANH(vector pos, _inp; float w){
     pos[1] = w * tanhden * tanhsin;
 }
 // 91
-void VAR_COTHESECH(vector pos, _inp; float w){
+void V_COTHESECH(vector pos, _inp; float w){
     float sechsin, sechcos, sechsinh, sechcosh, sechden;
     sincos(_inp[1], sechsin, sechcos);
     sechsinh = sinh(_inp[0]);
@@ -1052,7 +1052,7 @@ void VAR_COTHESECH(vector pos, _inp; float w){
     pos[1] = w * sechden * sechsin * sechsinh;
 }
 // 92
-void VAR_COTHECSCH(vector pos, _inp; float w){
+void V_COTHECSCH(vector pos, _inp; float w){
     float cschsin, cschcos, cschsinh, cschcosh, cschden;
     sincos(_inp[1], cschsin, cschcos);
     cschsinh = sinh(_inp[0]);
@@ -1062,7 +1062,7 @@ void VAR_COTHECSCH(vector pos, _inp; float w){
     pos[1] = w * cschden * cschcosh * cschsin;
 }
 // 93
-void VAR_COTHECOTH(vector pos, _inp; float w){
+void V_COTHECOTH(vector pos, _inp; float w){
     float cothsin, cothcos, cothsinh, cothcosh, cothden;
     sincos(2.0*_inp[1], cothsin, cothcos);
     cothsinh = sinh(2.0*_inp[0]);
@@ -1072,7 +1072,7 @@ void VAR_COTHECOTH(vector pos, _inp; float w){
     pos[1] = w * cothden * cothsin;
 }
 // 94 ( parametric )
-void VAR_AUGER(vector pos, _inp; float w, freq, scale, sym, ww){
+void V_AUGER(vector pos, _inp; float w, freq, scale, sym, ww){
     float  ss, tt, uu, dy, dx;
     ss = sin(freq * _inp[0]);
     tt = sin(freq * _inp[1]);
@@ -1082,7 +1082,7 @@ void VAR_AUGER(vector pos, _inp; float w, freq, scale, sym, ww){
     pos[1] = w * dy;
 }
 // 95 ( parametric )
-void VAR_FLUX(vector pos, _inp; float w, spread){
+void V_FLUX(vector pos, _inp; float w, spread){
     float xpw, xmw, avgr, avga;
     xpw = _inp[0] + w;
     xmw = _inp[0] - w;
@@ -1092,7 +1092,7 @@ void VAR_FLUX(vector pos, _inp; float w, spread){
     pos[1] = avgr * sin(avga);
 }
 // 96 ( parametric )
-void VAR_MOBIUS(vector pos, _inp; float w; vector4 re, im){
+void V_MOBIUS(vector pos, _inp; float w; vector4 re, im){
     float reu, imu, rev, imv, radv;
     reu = re[0] * _inp[0] - im[0] * _inp[1] + re[1];
     imu = re[0] * _inp[1] + im[0] * _inp[0] + im[1];
@@ -1103,7 +1103,7 @@ void VAR_MOBIUS(vector pos, _inp; float w; vector4 re, im){
     pos[1] = radv * (imu*rev - reu*imv);
 }
 // 97 ( parametric )
-void VAR_CURVE(vector pos, _inp; float w; vector2 l, a){
+void V_CURVE(vector pos, _inp; float w; vector2 l, a){
     float pc_xlen, pc_ylen;
     pc_xlen = l[0]*l[0];
     pc_ylen = l[1]*l[1];
@@ -1113,7 +1113,7 @@ void VAR_CURVE(vector pos, _inp; float w; vector2 l, a){
     pos[1] = w * (_inp[1] + a[1] * exp(_inp[0]*_inp[0]/l[1]));
 }
 // 98 ( parametric )
-void VAR_PERSPECTIVE(vector pos, _inp; float w, angle, dist){
+void V_PERSPECTIVE(vector pos, _inp; float w, angle, dist){
     float tt, vsin, vfcos;
     // precalc
     float ang = angle * M_PI / 2.0;
@@ -1125,7 +1125,7 @@ void VAR_PERSPECTIVE(vector pos, _inp; float w, angle, dist){
     pos[1] = w * vfcos * _inp[1] * tt;
 }
 // 99 ( parametric )
-void VAR_BWRAPS(vector pos, _inp; float w, cellsize, space, gain, innertwist, outertwist){
+void V_BWRAPS(vector pos, _inp; float w, cellsize, space, gain, innertwist, outertwist){
     float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
     // precalc
     float radius = 0.5 * (cellsize / (1.0 + space*space ));
@@ -1167,14 +1167,14 @@ void VAR_BWRAPS(vector pos, _inp; float w, cellsize, space, gain, innertwist, ou
     }
 }
 // 100
-void VAR_HEMISPHERE(vector pos, _inp; float w){
+void V_HEMISPHERE(vector pos, _inp; float w){
     float tt;
     tt = w / sqrt(precalc("SUMSQ", _inp) + 1);
     pos[0] = _inp[0] * tt;
     pos[1] = _inp[1] * tt;
 }
 // 101 ( parametric )
-void VAR_POLYNOMIAL(vector pos, _inp; float w; vector2 pow, lc, sc){
+void V_POLYNOMIAL(vector pos, _inp; float w; vector2 pow, lc, sc){
     float xp, yp;
     xp = pow(w * abs(_inp[0]), pow[0]);
     yp = pow(w * abs(_inp[1]), pow[1]);

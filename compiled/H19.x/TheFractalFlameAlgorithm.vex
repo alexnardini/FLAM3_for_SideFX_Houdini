@@ -2165,7 +2165,7 @@ declare double @"length@FV"(<3 x double>) #2
 declare i64 @"removepoint@III"(i64, i64) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SYM@VVI"(<3 x double>* %pos, <3 x double>* %pivot, i64* %num) #0 {
+define private void @"V_SYM@VVI"(<3 x double>* %pos, <3 x double>* %pivot, i64* %num) #0 {
 __llvm_entry:
   %num1 = load i64, i64* %num
   %return = call i64 @"not@II"(i64 %num1)
@@ -2381,7 +2381,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SINUSOIDAL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_SINUSOIDAL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %_inp2 = load <3 x double>, <3 x double>* %_inp
@@ -2416,7 +2416,7 @@ __llvm_entry:
 declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SPHERICAL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_SPHERICAL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2444,7 +2444,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SWIRL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_SWIRL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2478,7 +2478,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_HORSESHOE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_HORSESHOE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2513,7 +2513,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_POLAR@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_POLAR@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2544,7 +2544,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_HANDKERCHIEF@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_HANDKERCHIEF@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2598,7 +2598,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_HEART@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_HEART@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2641,7 +2641,7 @@ __llvm_entry:
 declare double @"neg@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_DISC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_DISC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sr = alloca double
   %cr = alloca double
@@ -2684,7 +2684,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SPIRAL@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
+define private void @"V_SPIRAL@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
 __llvm_entry:
   %sr = alloca double
   %cr = alloca double
@@ -2723,7 +2723,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_HIPERBOLIC@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
+define private void @"V_HIPERBOLIC@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2753,7 +2753,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_DIAMOND@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
+define private void @"V_DIAMOND@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
 __llvm_entry:
   %sr = alloca double
   %cr = alloca double
@@ -2791,7 +2791,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_EX@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_EX@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2832,7 +2832,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_JULIA@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_JULIA@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -2882,7 +2882,7 @@ end:                                              ; preds = %true, %__llvm_entry
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BENT@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_BENT@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -2920,7 +2920,7 @@ end12:                                            ; preds = %true11, %end
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_WAVES@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %d, double* %e, double* %f, double* %h) #0 {
+define private void @"V_WAVES@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %d, double* %e, double* %f, double* %h) #0 {
 __llvm_entry:
   %f1 = load double, double* %f
   %output = fmul double %f1, %f1
@@ -2958,7 +2958,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_FISHEYE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_FISHEYE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -2987,7 +2987,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_POPCORN@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %d, double* %h) #0 {
+define private void @"V_POPCORN@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %d, double* %h) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 1)
@@ -3022,7 +3022,7 @@ __llvm_entry:
 declare double @"tan@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_EXPONENTIAL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_EXPONENTIAL@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sdy = alloca double
   %cdy = alloca double
@@ -3057,7 +3057,7 @@ __llvm_entry:
 declare double @"exp@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_POWER@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
+define private void @"V_POWER@VVVF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3089,7 +3089,7 @@ __llvm_entry:
 declare double @"pow@FFF"(double, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COSINE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COSINE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -3131,7 +3131,7 @@ declare double @"cosh@FF"(double) #1
 declare double @"sinh@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_RINGS@VVVFF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w, double* %d) #0 {
+define private void @"V_RINGS@VVVFF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w, double* %d) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3172,7 +3172,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_FAN@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %d) #0 {
+define private void @"V_FAN@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %d) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -3231,7 +3231,7 @@ end:                                              ; preds = %__llvm_entry, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BUBBLE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_BUBBLE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3260,7 +3260,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CYLINDER@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_CYLINDER@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %_inp2 = load <3 x double>, <3 x double>* %_inp
@@ -3282,7 +3282,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_EYEFISH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_EYEFISH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3311,7 +3311,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BLUR@VF"(<3 x double>* %pos, double* %w) #0 {
+define private void @"V_BLUR@VF"(<3 x double>* %pos, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -3341,7 +3341,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CURL@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %c1, double* %c2) #0 {
+define private void @"V_CURL@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %c1, double* %c2) #0 {
 __llvm_entry:
   %c11 = load double, double* %c1
   %return = fcmp oeq double %c11, 0.000000e+00
@@ -3484,7 +3484,7 @@ false84:                                          ; preds = %false
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_NGON@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %pow, double* %sides, double* %corners, double* %circle) #0 {
+define private void @"V_NGON@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %pow, double* %sides, double* %corners, double* %circle) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3565,7 +3565,7 @@ end35:                                            ; preds = %true34, %end
 declare i64 @"and@III"(i64, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_PDJ@VVFP"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <4 x double>* %pp) #0 {
+define private void @"V_PDJ@VVFP"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <4 x double>* %pp) #0 {
 __llvm_entry:
   %pp1 = load <4 x double>, <4 x double>* %pp
   %return = call double @"getcomp@FPI"(<4 x double> %pp1, i64 1)
@@ -3603,7 +3603,7 @@ __llvm_entry:
 declare double @"getcomp@FPI"(<4 x double>, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BLOB@VVVFFFF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w, double* %pp1, double* %pp2, double* %pp3) #0 {
+define private void @"V_BLOB@VVVFFFF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w, double* %pp1, double* %pp2, double* %pp3) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3649,7 +3649,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_JULIAN@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %jdist) #0 {
+define private void @"V_JULIAN@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %jdist) #0 {
 __llvm_entry:
   %sina = alloca double
   %cosa = alloca double
@@ -3704,7 +3704,7 @@ __llvm_entry:
 declare double @"trunc@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_JULIASCOPE@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %jdist) #0 {
+define private void @"V_JULIASCOPE@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %jdist) #0 {
 __llvm_entry:
   %sina = alloca double
   %cosa = alloca double
@@ -3772,7 +3772,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_GAUSSIAN@VF"(<3 x double>* %pos, double* %w) #0 {
+define private void @"V_GAUSSIAN@VF"(<3 x double>* %pos, double* %w) #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @109, i64 0, i64 0))
   %output = fmul double %return, 2.000000e+00
@@ -3802,7 +3802,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_FAN2@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %fan2) #0 {
+define private void @"V_FAN2@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %fan2) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -3857,7 +3857,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_RINGS2@VVVFF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w, double* %rings2val) #0 {
+define private void @"V_RINGS2@VVVFF"(<3 x double>* %pos, <3 x double>* %_inp, <3 x double>* %precalc, double* %w, double* %rings2val) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -3900,7 +3900,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_RECTANGLES@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %rect) #0 {
+define private void @"V_RECTANGLES@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %rect) #0 {
 __llvm_entry:
   %rect1 = load <2 x double>, <2 x double>* %rect
   %return = call double @"getcomp@FUI"(<2 x double> %rect1, i64 0)
@@ -3981,7 +3981,7 @@ end36:                                            ; preds = %false35, %true34
 declare i64 @"floor@IF"(double) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_RADIALBLUR@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %spin, double* %zoom) #0 {
+define private void @"V_RADIALBLUR@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %spin, double* %zoom) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -4041,7 +4041,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_PIE@VFFFF"(<3 x double>* %pos, double* %w, double* %slices, double* %thickness, double* %rotation) #0 {
+define private void @"V_PIE@VFFFF"(<3 x double>* %pos, double* %w, double* %slices, double* %thickness, double* %rotation) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -4082,7 +4082,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_ARCH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_ARCH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -4121,7 +4121,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_TANGENT@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_TANGENT@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %_inp2 = load <3 x double>, <3 x double>* %_inp
@@ -4147,7 +4147,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SQUARE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_SQUARE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @109, i64 0, i64 0))
@@ -4169,7 +4169,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_RAYS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_RAYS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -4207,7 +4207,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BLADE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_BLADE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -4253,7 +4253,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SECANT2@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_SECANT2@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -4287,7 +4287,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_TWINTRIAN@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_TWINTRIAN@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -4351,7 +4351,7 @@ end:                                              ; preds = %true, %__llvm_entry
 declare double @"log10@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CROSS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_CROSS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -4380,7 +4380,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_DISC2@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %rot, double* %twist) #0 {
+define private void @"V_DISC2@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %rot, double* %twist) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -4469,7 +4469,7 @@ end22:                                            ; preds = %true21, %end
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SUPERSHAPE@VVFFFFV"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %ss_rnd, double* %ss_m, double* %ss_holes, <3 x double>* %ss_n) #0 {
+define private void @"V_SUPERSHAPE@VVFFFFV"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %ss_rnd, double* %ss_m, double* %ss_holes, <3 x double>* %ss_n) #0 {
 __llvm_entry:
   %st = alloca double
   %ct = alloca double
@@ -4543,7 +4543,7 @@ __llvm_entry:
 declare double @"abs@FF"(double) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_FLOWER@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %petals, double* %holes) #0 {
+define private void @"V_FLOWER@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %petals, double* %holes) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -4584,7 +4584,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CONIC@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %eccentricity, double* %holes) #0 {
+define private void @"V_CONIC@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %eccentricity, double* %holes) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -4623,7 +4623,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_PARABOLA@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %height, double* %width) #0 {
+define private void @"V_PARABOLA@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %height, double* %width) #0 {
 __llvm_entry:
   %sr = alloca double
   %cr = alloca double
@@ -4665,7 +4665,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BENT2@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %bent2) #0 {
+define private void @"V_BENT2@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %bent2) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -4707,7 +4707,7 @@ end14:                                            ; preds = %true13, %end
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BIPOLAR@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %shift) #0 {
+define private void @"V_BIPOLAR@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %shift) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -4782,7 +4782,7 @@ true28:                                           ; preds = %false
 declare double @"log@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BOARDERS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_BOARDERS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -4913,7 +4913,7 @@ false102:                                         ; preds = %false38
 declare double @"rint@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BUTTERFLY@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_BUTTERFLY@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %output = fmul double %w1, 0x3FF4D8D7A58FA311
@@ -4945,7 +4945,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CELL@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %size) #0 {
+define private void @"V_CELL@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %size) #0 {
 __llvm_entry:
   %size1 = load double, double* %size
   %output = call double @"div@FF"(double 1.000000e+00, double %size1)
@@ -5015,7 +5015,7 @@ false46:                                          ; preds = %false
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CPOW@VVFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %pow_r, double* %pow_i) #0 {
+define private void @"V_CPOW@VVFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %pow_r, double* %pow_i) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -5073,7 +5073,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_EDISC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_EDISC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %snv = alloca double
   %csv = alloca double
@@ -5140,7 +5140,7 @@ end:                                              ; preds = %true, %__llvm_entry
 declare double @"acos@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_ELLIPTIC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_ELLIPTIC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -5214,7 +5214,7 @@ end55:                                            ; preds = %false54, %true53
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_NOISE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_NOISE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -5250,7 +5250,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_ESCHER@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %beta) #0 {
+define private void @"V_ESCHER@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %beta) #0 {
 __llvm_entry:
   %seb = alloca double
   %ceb = alloca double
@@ -5310,7 +5310,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_FOCI@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_FOCI@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sn = alloca double
   %cn = alloca double
@@ -5345,7 +5345,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_LAZYSUSAN@VVFFFFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %spin, double* %twist, double* %space, <2 x double>* %lazy) #0 {
+define private void @"V_LAZYSUSAN@VVFFFFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %spin, double* %twist, double* %space, <2 x double>* %lazy) #0 {
 __llvm_entry:
   %sina = alloca double
   %cosa = alloca double
@@ -5433,7 +5433,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_LOONIE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_LOONIE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -5488,7 +5488,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_PREBLUR@VF"(<3 x double>* %pos, double* %w) #0 {
+define private void @"V_PREBLUR@VF"(<3 x double>* %pos, double* %w) #0 {
 __llvm_entry:
   %sinA = alloca double
   %cosA = alloca double
@@ -5529,7 +5529,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_MODULUS@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %m) #0 {
+define private void @"V_MODULUS@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %m) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -5645,7 +5645,7 @@ false90:                                          ; preds = %false65
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_OSCOPE@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %freq, double* %amp, double* %damp, double* %sep) #0 {
+define private void @"V_OSCOPE@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %freq, double* %amp, double* %damp, double* %sep) #0 {
 __llvm_entry:
   %freq1 = load double, double* %freq
   %output = fmul double 0x401921FB4D12D84A, %freq1
@@ -5721,7 +5721,7 @@ end38:                                            ; preds = %false37, %true36
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_POLAR2@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_POLAR2@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -5753,7 +5753,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_POPCORN2@VVFFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %pop2c, <2 x double>* %pop2) #0 {
+define private void @"V_POPCORN2@VVFFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %pop2c, <2 x double>* %pop2) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %_inp2 = load <3 x double>, <3 x double>* %_inp
@@ -5792,7 +5792,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SCRY@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_SCRY@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -5829,7 +5829,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SEPARATION@VVFUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %sep, <2 x double>* %ins) #0 {
+define private void @"V_SEPARATION@VVFUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %sep, <2 x double>* %ins) #0 {
 __llvm_entry:
   %sep1 = load <2 x double>, <2 x double>* %sep
   %return = call double @"getcomp@FUI"(<2 x double> %sep1, i64 0)
@@ -5904,7 +5904,7 @@ end59:                                            ; preds = %false58, %true57
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SPLIT@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %split) #0 {
+define private void @"V_SPLIT@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %split) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -5970,7 +5970,7 @@ end35:                                            ; preds = %false34, %true33
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_SPLITS@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %splits) #0 {
+define private void @"V_SPLITS@VVFU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %splits) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -6030,7 +6030,7 @@ end30:                                            ; preds = %false29, %true28
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_STRIPES@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %space, double* %warp) #0 {
+define private void @"V_STRIPES@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %space, double* %warp) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -6062,7 +6062,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_WEDGE@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %swirl, double* %angle, double* %hole, double* %count) #0 {
+define private void @"V_WEDGE@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %swirl, double* %angle, double* %hole, double* %count) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -6119,7 +6119,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_WEDGEJULIA@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %angle, double* %dist, double* %count) #0 {
+define private void @"V_WEDGEJULIA@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %power, double* %angle, double* %dist, double* %count) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -6188,7 +6188,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_WEDGESPH@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %swirl, double* %angle, double* %hole, double* %count) #0 {
+define private void @"V_WEDGESPH@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %swirl, double* %angle, double* %hole, double* %count) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -6247,7 +6247,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_WHORL@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %inside, double* %outside) #0 {
+define private void @"V_WHORL@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %inside, double* %outside) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -6309,7 +6309,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_WAVES2@VVFUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %scl, <2 x double>* %freq) #0 {
+define private void @"V_WAVES2@VVFUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %scl, <2 x double>* %freq) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %_inp2 = load <3 x double>, <3 x double>* %_inp
@@ -6348,7 +6348,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHEEXP@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHEEXP@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %expsin = alloca double
   %expcos = alloca double
@@ -6381,7 +6381,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHELOG@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHELOG@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -6413,7 +6413,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHESIN@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHESIN@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sinacos = alloca double
   %0 = alloca double
@@ -6447,7 +6447,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHECOS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHECOS@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %coscos = alloca double
   %0 = alloca double
@@ -6481,7 +6481,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHETAN@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHETAN@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %tancos = alloca double
   %0 = alloca double
@@ -6518,7 +6518,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHESEC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHESEC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %seccos = alloca double
   %0 = alloca double
@@ -6561,7 +6561,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHECSC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHECSC@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %csccos = alloca double
   %0 = alloca double
@@ -6604,7 +6604,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHECOT@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHECOT@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %cotcos = alloca double
   %0 = alloca double
@@ -6645,7 +6645,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHESINH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHESINH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sinhcos = alloca double
   %0 = alloca double
@@ -6679,7 +6679,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHECOSH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHECOSH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %coshcos = alloca double
   %0 = alloca double
@@ -6713,7 +6713,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHETANH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHETANH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %tanhcos = alloca double
   %0 = alloca double
@@ -6750,7 +6750,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHESECH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHESECH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %sechcos = alloca double
   %0 = alloca double
@@ -6793,7 +6793,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHECSCH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHECSCH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %cschcos = alloca double
   %0 = alloca double
@@ -6836,7 +6836,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_COTHECOTH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_COTHECOTH@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %cothcos = alloca double
   %0 = alloca double
@@ -6874,7 +6874,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_AUGER@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %freq, double* %scale, double* %sym, double* %ww) #0 {
+define private void @"V_AUGER@VVFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %freq, double* %scale, double* %sym, double* %ww) #0 {
 __llvm_entry:
   %freq1 = load double, double* %freq
   %_inp2 = load <3 x double>, <3 x double>* %_inp
@@ -6925,7 +6925,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_FLUX@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %spread) #0 {
+define private void @"V_FLUX@VVFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %spread) #0 {
 __llvm_entry:
   %_inp1 = load <3 x double>, <3 x double>* %_inp
   %return = call double @"getcomp@FVI"(<3 x double> %_inp1, i64 0)
@@ -6965,7 +6965,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_MOBIUS@VVFPP"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <4 x double>* %re, <4 x double>* %im) #0 {
+define private void @"V_MOBIUS@VVFPP"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <4 x double>* %re, <4 x double>* %im) #0 {
 __llvm_entry:
   %re1 = load <4 x double>, <4 x double>* %re
   %return = call double @"getcomp@FPI"(<4 x double> %re1, i64 0)
@@ -7020,7 +7020,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_CURVE@VVFUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %l, <2 x double>* %a) #0 {
+define private void @"V_CURVE@VVFUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %l, <2 x double>* %a) #0 {
 __llvm_entry:
   %l1 = load <2 x double>, <2 x double>* %l
   %return = call double @"getcomp@FUI"(<2 x double> %l1, i64 0)
@@ -7080,7 +7080,7 @@ end16:                                            ; preds = %true15, %end
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_PERSPECTIVE@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %angle, double* %dist) #0 {
+define private void @"V_PERSPECTIVE@VVFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %angle, double* %dist) #0 {
 __llvm_entry:
   %angle1 = load double, double* %angle
   %output = fmul double %angle1, 0x400921FB4D12D84A
@@ -7116,7 +7116,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_BWRAPS@VVFFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %cellsize, double* %space, double* %gain, double* %innertwist, double* %outertwist) #0 {
+define private void @"V_BWRAPS@VVFFFFFF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, double* %cellsize, double* %space, double* %gain, double* %innertwist, double* %outertwist) #0 {
 __llvm_entry:
   %ss = alloca double
   %cc = alloca double
@@ -7251,7 +7251,7 @@ false85:                                          ; preds = %false39
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_HEMISPHERE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
+define private void @"V_HEMISPHERE@VVF"(<3 x double>* %pos, <3 x double>* %_inp, double* %w) #0 {
 __llvm_entry:
   %0 = alloca i8*
   %1 = alloca <3 x double>
@@ -7280,7 +7280,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"VAR_POLYNOMIAL@VVFUUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %pow, <2 x double>* %lc, <2 x double>* %sc) #0 {
+define private void @"V_POLYNOMIAL@VVFUUU"(<3 x double>* %pos, <3 x double>* %_inp, double* %w, <2 x double>* %pow, <2 x double>* %lc, <2 x double>* %sc) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -7720,7 +7720,7 @@ true23:                                           ; preds = %true18
   store <3 x double> %_inp26, <3 x double>* %6
   %w27 = load double, double* %w
   store double %w27, double* %7
-  call void @"VAR_SINUSOIDAL@VVF"(<3 x double>* %outp, <3 x double>* %6, double* %7)
+  call void @"V_SINUSOIDAL@VVF"(<3 x double>* %outp, <3 x double>* %6, double* %7)
   %outp28 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7734,7 +7734,7 @@ true31:                                           ; preds = %false24
   store <3 x double> %_inp34, <3 x double>* %8
   %w35 = load double, double* %w
   store double %w35, double* %9
-  call void @"VAR_SPHERICAL@VVF"(<3 x double>* %outp, <3 x double>* %8, double* %9)
+  call void @"V_SPHERICAL@VVF"(<3 x double>* %outp, <3 x double>* %8, double* %9)
   %outp36 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7748,7 +7748,7 @@ true39:                                           ; preds = %false32
   store <3 x double> %_inp42, <3 x double>* %10
   %w43 = load double, double* %w
   store double %w43, double* %11
-  call void @"VAR_SWIRL@VVF"(<3 x double>* %outp, <3 x double>* %10, double* %11)
+  call void @"V_SWIRL@VVF"(<3 x double>* %outp, <3 x double>* %10, double* %11)
   %outp44 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7762,7 +7762,7 @@ true47:                                           ; preds = %false40
   store <3 x double> %_inp50, <3 x double>* %12
   %w51 = load double, double* %w
   store double %w51, double* %13
-  call void @"VAR_HORSESHOE@VVF"(<3 x double>* %outp, <3 x double>* %12, double* %13)
+  call void @"V_HORSESHOE@VVF"(<3 x double>* %outp, <3 x double>* %12, double* %13)
   %outp52 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7776,7 +7776,7 @@ true55:                                           ; preds = %false48
   store <3 x double> %_inp58, <3 x double>* %14
   %w59 = load double, double* %w
   store double %w59, double* %15
-  call void @"VAR_POLAR@VVF"(<3 x double>* %outp, <3 x double>* %14, double* %15)
+  call void @"V_POLAR@VVF"(<3 x double>* %outp, <3 x double>* %14, double* %15)
   %outp60 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7790,7 +7790,7 @@ true63:                                           ; preds = %false56
   store <3 x double> %_inp66, <3 x double>* %16
   %w67 = load double, double* %w
   store double %w67, double* %17
-  call void @"VAR_HANDKERCHIEF@VVF"(<3 x double>* %outp, <3 x double>* %16, double* %17)
+  call void @"V_HANDKERCHIEF@VVF"(<3 x double>* %outp, <3 x double>* %16, double* %17)
   %outp68 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7804,7 +7804,7 @@ true71:                                           ; preds = %false64
   store <3 x double> %_inp74, <3 x double>* %18
   %w75 = load double, double* %w
   store double %w75, double* %19
-  call void @"VAR_HEART@VVF"(<3 x double>* %outp, <3 x double>* %18, double* %19)
+  call void @"V_HEART@VVF"(<3 x double>* %outp, <3 x double>* %18, double* %19)
   %outp76 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7818,7 +7818,7 @@ true79:                                           ; preds = %false72
   store <3 x double> %_inp82, <3 x double>* %20
   %w83 = load double, double* %w
   store double %w83, double* %21
-  call void @"VAR_DISC@VVF"(<3 x double>* %outp, <3 x double>* %20, double* %21)
+  call void @"V_DISC@VVF"(<3 x double>* %outp, <3 x double>* %20, double* %21)
   %outp84 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7834,7 +7834,7 @@ true87:                                           ; preds = %false80
   store <3 x double> %precalc91, <3 x double>* %23
   %w92 = load double, double* %w
   store double %w92, double* %24
-  call void @"VAR_SPIRAL@VVVF"(<3 x double>* %outp, <3 x double>* %22, <3 x double>* %23, double* %24)
+  call void @"V_SPIRAL@VVVF"(<3 x double>* %outp, <3 x double>* %22, <3 x double>* %23, double* %24)
   %outp93 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7850,7 +7850,7 @@ true96:                                           ; preds = %false88
   store <3 x double> %precalc100, <3 x double>* %26
   %w101 = load double, double* %w
   store double %w101, double* %27
-  call void @"VAR_HIPERBOLIC@VVVF"(<3 x double>* %outp, <3 x double>* %25, <3 x double>* %26, double* %27)
+  call void @"V_HIPERBOLIC@VVVF"(<3 x double>* %outp, <3 x double>* %25, <3 x double>* %26, double* %27)
   %outp102 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7866,7 +7866,7 @@ true105:                                          ; preds = %false97
   store <3 x double> %precalc109, <3 x double>* %29
   %w110 = load double, double* %w
   store double %w110, double* %30
-  call void @"VAR_DIAMOND@VVVF"(<3 x double>* %outp, <3 x double>* %28, <3 x double>* %29, double* %30)
+  call void @"V_DIAMOND@VVVF"(<3 x double>* %outp, <3 x double>* %28, <3 x double>* %29, double* %30)
   %outp111 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7880,7 +7880,7 @@ true114:                                          ; preds = %false106
   store <3 x double> %_inp117, <3 x double>* %31
   %w118 = load double, double* %w
   store double %w118, double* %32
-  call void @"VAR_EX@VVF"(<3 x double>* %outp, <3 x double>* %31, double* %32)
+  call void @"V_EX@VVF"(<3 x double>* %outp, <3 x double>* %31, double* %32)
   %outp119 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7894,7 +7894,7 @@ true122:                                          ; preds = %false115
   store <3 x double> %_inp125, <3 x double>* %33
   %w126 = load double, double* %w
   store double %w126, double* %34
-  call void @"VAR_JULIA@VVF"(<3 x double>* %outp, <3 x double>* %33, double* %34)
+  call void @"V_JULIA@VVF"(<3 x double>* %outp, <3 x double>* %33, double* %34)
   %outp127 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7908,7 +7908,7 @@ true130:                                          ; preds = %false123
   store <3 x double> %_inp133, <3 x double>* %35
   %w134 = load double, double* %w
   store double %w134, double* %36
-  call void @"VAR_BENT@VVF"(<3 x double>* %outp, <3 x double>* %35, double* %36)
+  call void @"V_BENT@VVF"(<3 x double>* %outp, <3 x double>* %35, double* %36)
   %outp135 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7934,7 +7934,7 @@ true138:                                          ; preds = %false131
   %o149 = load <2 x double>, <2 x double>* %o
   %return150 = call double @"getcomp@FUI"(<2 x double> %o149, i64 1)
   store double %return150, double* %42
-  call void @"VAR_WAVES@VVFFFFF"(<3 x double>* %outp, <3 x double>* %37, double* %38, double* %39, double* %40, double* %41, double* %42)
+  call void @"V_WAVES@VVFFFFF"(<3 x double>* %outp, <3 x double>* %37, double* %38, double* %39, double* %40, double* %41, double* %42)
   %outp151 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7948,7 +7948,7 @@ true154:                                          ; preds = %false139
   store <3 x double> %_inp157, <3 x double>* %43
   %w158 = load double, double* %w
   store double %w158, double* %44
-  call void @"VAR_FISHEYE@VVF"(<3 x double>* %outp, <3 x double>* %43, double* %44)
+  call void @"V_FISHEYE@VVF"(<3 x double>* %outp, <3 x double>* %43, double* %44)
   %outp159 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7968,7 +7968,7 @@ true162:                                          ; preds = %false155
   %o168 = load <2 x double>, <2 x double>* %o
   %return169 = call double @"getcomp@FUI"(<2 x double> %o168, i64 1)
   store double %return169, double* %48
-  call void @"VAR_POPCORN@VVFFF"(<3 x double>* %outp, <3 x double>* %45, double* %46, double* %47, double* %48)
+  call void @"V_POPCORN@VVFFF"(<3 x double>* %outp, <3 x double>* %45, double* %46, double* %47, double* %48)
   %outp170 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7977,7 +7977,7 @@ true173:                                          ; preds = %false19
   store <3 x double> %_inp176, <3 x double>* %49
   %w177 = load double, double* %w
   store double %w177, double* %50
-  call void @"VAR_EXPONENTIAL@VVF"(<3 x double>* %outp, <3 x double>* %49, double* %50)
+  call void @"V_EXPONENTIAL@VVF"(<3 x double>* %outp, <3 x double>* %49, double* %50)
   %outp178 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -7993,7 +7993,7 @@ true181:                                          ; preds = %false174
   store <3 x double> %precalc185, <3 x double>* %52
   %w186 = load double, double* %w
   store double %w186, double* %53
-  call void @"VAR_POWER@VVVF"(<3 x double>* %outp, <3 x double>* %51, <3 x double>* %52, double* %53)
+  call void @"V_POWER@VVVF"(<3 x double>* %outp, <3 x double>* %51, <3 x double>* %52, double* %53)
   %outp187 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8007,7 +8007,7 @@ true190:                                          ; preds = %false182
   store <3 x double> %_inp193, <3 x double>* %54
   %w194 = load double, double* %w
   store double %w194, double* %55
-  call void @"VAR_COSINE@VVF"(<3 x double>* %outp, <3 x double>* %54, double* %55)
+  call void @"V_COSINE@VVF"(<3 x double>* %outp, <3 x double>* %54, double* %55)
   %outp195 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8026,7 +8026,7 @@ true198:                                          ; preds = %false191
   %o204 = load <2 x double>, <2 x double>* %o
   %return205 = call double @"getcomp@FUI"(<2 x double> %o204, i64 0)
   store double %return205, double* %59
-  call void @"VAR_RINGS@VVVFF"(<3 x double>* %outp, <3 x double>* %56, <3 x double>* %57, double* %58, double* %59)
+  call void @"V_RINGS@VVVFF"(<3 x double>* %outp, <3 x double>* %56, <3 x double>* %57, double* %58, double* %59)
   %outp206 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8043,7 +8043,7 @@ true209:                                          ; preds = %false199
   %o214 = load <2 x double>, <2 x double>* %o
   %return215 = call double @"getcomp@FUI"(<2 x double> %o214, i64 0)
   store double %return215, double* %62
-  call void @"VAR_FAN@VVFF"(<3 x double>* %outp, <3 x double>* %60, double* %61, double* %62)
+  call void @"V_FAN@VVFF"(<3 x double>* %outp, <3 x double>* %60, double* %61, double* %62)
   %outp216 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8057,7 +8057,7 @@ true219:                                          ; preds = %false210
   store <3 x double> %_inp222, <3 x double>* %63
   %w223 = load double, double* %w
   store double %w223, double* %64
-  call void @"VAR_BUBBLE@VVF"(<3 x double>* %outp, <3 x double>* %63, double* %64)
+  call void @"V_BUBBLE@VVF"(<3 x double>* %outp, <3 x double>* %63, double* %64)
   %outp224 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8071,7 +8071,7 @@ true227:                                          ; preds = %false220
   store <3 x double> %_inp230, <3 x double>* %65
   %w231 = load double, double* %w
   store double %w231, double* %66
-  call void @"VAR_CYLINDER@VVF"(<3 x double>* %outp, <3 x double>* %65, double* %66)
+  call void @"V_CYLINDER@VVF"(<3 x double>* %outp, <3 x double>* %65, double* %66)
   %outp232 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8085,7 +8085,7 @@ true235:                                          ; preds = %false228
   store <3 x double> %_inp238, <3 x double>* %67
   %w239 = load double, double* %w
   store double %w239, double* %68
-  call void @"VAR_EYEFISH@VVF"(<3 x double>* %outp, <3 x double>* %67, double* %68)
+  call void @"V_EYEFISH@VVF"(<3 x double>* %outp, <3 x double>* %67, double* %68)
   %outp240 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8097,7 +8097,7 @@ false236:                                         ; preds = %false228
 true243:                                          ; preds = %false236
   %w246 = load double, double* %w
   store double %w246, double* %69
-  call void @"VAR_BLUR@VF"(<3 x double>* %outp, double* %69)
+  call void @"V_BLUR@VF"(<3 x double>* %outp, double* %69)
   %outp247 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8137,7 +8137,7 @@ end256:                                           ; preds = %false255, %true254
   store double %return265, double* %72
   %return267 = call double @"getcomp@FUI"(<2 x double> %curl_c.0, i64 1)
   store double %return267, double* %73
-  call void @"VAR_CURL@VVFFF"(<3 x double>* %outp, <3 x double>* %70, double* %71, double* %72, double* %73)
+  call void @"V_CURL@VVFFF"(<3 x double>* %outp, <3 x double>* %70, double* %71, double* %72, double* %73)
   %outp268 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8176,7 +8176,7 @@ end277:                                           ; preds = %false276, %true275
   store double %return290, double* %78
   %return292 = call double @"getcomp@FPI"(<4 x double> %ngon.0, i64 3)
   store double %return292, double* %79
-  call void @"VAR_NGON@VVFFFFF"(<3 x double>* %outp, <3 x double>* %74, double* %75, double* %76, double* %77, double* %78, double* %79)
+  call void @"V_NGON@VVFFFFF"(<3 x double>* %outp, <3 x double>* %74, double* %75, double* %76, double* %77, double* %78, double* %79)
   %outp293 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8208,7 +8208,7 @@ end302:                                           ; preds = %false301, %true300
   %w308 = load double, double* %w
   store double %w308, double* %81
   store <4 x double> %pp.0, <4 x double>* %82
-  call void @"VAR_PDJ@VVFP"(<3 x double>* %outp, <3 x double>* %80, double* %81, <4 x double>* %82)
+  call void @"V_PDJ@VVFP"(<3 x double>* %outp, <3 x double>* %80, double* %81, <4 x double>* %82)
   %outp310 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8247,7 +8247,7 @@ end319:                                           ; preds = %false318, %true317
   store double %return331, double* %87
   %return333 = call double @"getcomp@FVI"(<3 x double> %blob.0, i64 2)
   store double %return333, double* %88
-  call void @"VAR_BLOB@VVVFFFF"(<3 x double>* %outp, <3 x double>* %83, <3 x double>* %84, double* %85, double* %86, double* %87, double* %88)
+  call void @"V_BLOB@VVVFFFF"(<3 x double>* %outp, <3 x double>* %83, <3 x double>* %84, double* %85, double* %86, double* %87, double* %88)
   %outp334 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8282,7 +8282,7 @@ end343:                                           ; preds = %false342, %true341
   store double %return352, double* %91
   %return354 = call double @"getcomp@FUI"(<2 x double> %julian.0, i64 1)
   store double %return354, double* %92
-  call void @"VAR_JULIAN@VVFFF"(<3 x double>* %outp, <3 x double>* %89, double* %90, double* %91, double* %92)
+  call void @"V_JULIAN@VVFFF"(<3 x double>* %outp, <3 x double>* %89, double* %90, double* %91, double* %92)
   %outp355 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8317,14 +8317,14 @@ end364:                                           ; preds = %false363, %true362
   store double %return373, double* %95
   %return375 = call double @"getcomp@FUI"(<2 x double> %juliascope.0, i64 1)
   store double %return375, double* %96
-  call void @"VAR_JULIASCOPE@VVFFF"(<3 x double>* %outp, <3 x double>* %93, double* %94, double* %95, double* %96)
+  call void @"V_JULIASCOPE@VVFFF"(<3 x double>* %outp, <3 x double>* %93, double* %94, double* %95, double* %96)
   %outp376 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
 true379:                                          ; preds = %false359
   %w382 = load double, double* %w
   store double %w382, double* %97
-  call void @"VAR_GAUSSIAN@VF"(<3 x double>* %outp, double* %97)
+  call void @"V_GAUSSIAN@VF"(<3 x double>* %outp, double* %97)
   %outp383 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8356,7 +8356,7 @@ end391:                                           ; preds = %false390, %true389
   %w398 = load double, double* %w
   store double %w398, double* %99
   store <2 x double> %fan2.0, <2 x double>* %100
-  call void @"VAR_FAN2@VVFU"(<3 x double>* %outp, <3 x double>* %98, double* %99, <2 x double>* %100)
+  call void @"V_FAN2@VVFU"(<3 x double>* %outp, <3 x double>* %98, double* %99, <2 x double>* %100)
   %outp400 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8410,7 +8410,7 @@ end419:                                           ; preds = %false418, %true417
   %w426 = load double, double* %w
   store double %w426, double* %103
   store double %rings2val.0, double* %104
-  call void @"VAR_RINGS2@VVVFF"(<3 x double>* %outp, <3 x double>* %101, <3 x double>* %102, double* %103, double* %104)
+  call void @"V_RINGS2@VVVFF"(<3 x double>* %outp, <3 x double>* %101, <3 x double>* %102, double* %103, double* %104)
   %outp428 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8442,7 +8442,7 @@ end437:                                           ; preds = %false436, %true435
   %w443 = load double, double* %w
   store double %w443, double* %106
   store <2 x double> %rect.0, <2 x double>* %107
-  call void @"VAR_RECTANGLES@VVFU"(<3 x double>* %outp, <3 x double>* %105, double* %106, <2 x double>* %107)
+  call void @"V_RECTANGLES@VVFU"(<3 x double>* %outp, <3 x double>* %105, double* %106, <2 x double>* %107)
   %outp445 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8477,7 +8477,7 @@ end454:                                           ; preds = %false453, %true452
   store double %return463, double* %110
   %return465 = call double @"getcomp@FUI"(<2 x double> %radialblur.0, i64 1)
   store double %return465, double* %111
-  call void @"VAR_RADIALBLUR@VVFFF"(<3 x double>* %outp, <3 x double>* %108, double* %109, double* %110, double* %111)
+  call void @"V_RADIALBLUR@VVFFF"(<3 x double>* %outp, <3 x double>* %108, double* %109, double* %110, double* %111)
   %outp466 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8512,7 +8512,7 @@ end475:                                           ; preds = %false474, %true473
   store double %return485, double* %114
   %return487 = call double @"getcomp@FVI"(<3 x double> %pie.0, i64 2)
   store double %return487, double* %115
-  call void @"VAR_PIE@VFFFF"(<3 x double>* %outp, double* %112, double* %113, double* %114, double* %115)
+  call void @"V_PIE@VFFFF"(<3 x double>* %outp, double* %112, double* %113, double* %114, double* %115)
   %outp488 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8521,7 +8521,7 @@ true491:                                          ; preds = %false470
   store <3 x double> %_inp494, <3 x double>* %116
   %w495 = load double, double* %w
   store double %w495, double* %117
-  call void @"VAR_ARCH@VVF"(<3 x double>* %outp, <3 x double>* %116, double* %117)
+  call void @"V_ARCH@VVF"(<3 x double>* %outp, <3 x double>* %116, double* %117)
   %outp496 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8535,7 +8535,7 @@ true499:                                          ; preds = %false492
   store <3 x double> %_inp502, <3 x double>* %118
   %w503 = load double, double* %w
   store double %w503, double* %119
-  call void @"VAR_TANGENT@VVF"(<3 x double>* %outp, <3 x double>* %118, double* %119)
+  call void @"V_TANGENT@VVF"(<3 x double>* %outp, <3 x double>* %118, double* %119)
   %outp504 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8547,7 +8547,7 @@ false500:                                         ; preds = %false492
 true507:                                          ; preds = %false500
   %w510 = load double, double* %w
   store double %w510, double* %121
-  call void @"VAR_SQUARE@VVF"(<3 x double>* %outp, <3 x double>* %120, double* %121)
+  call void @"V_SQUARE@VVF"(<3 x double>* %outp, <3 x double>* %120, double* %121)
   %outp511 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8561,7 +8561,7 @@ true514:                                          ; preds = %false508
   store <3 x double> %_inp517, <3 x double>* %122
   %w518 = load double, double* %w
   store double %w518, double* %123
-  call void @"VAR_RAYS@VVF"(<3 x double>* %outp, <3 x double>* %122, double* %123)
+  call void @"V_RAYS@VVF"(<3 x double>* %outp, <3 x double>* %122, double* %123)
   %outp519 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8575,7 +8575,7 @@ true522:                                          ; preds = %false515
   store <3 x double> %_inp525, <3 x double>* %124
   %w526 = load double, double* %w
   store double %w526, double* %125
-  call void @"VAR_BLADE@VVF"(<3 x double>* %outp, <3 x double>* %124, double* %125)
+  call void @"V_BLADE@VVF"(<3 x double>* %outp, <3 x double>* %124, double* %125)
   %outp527 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8589,7 +8589,7 @@ true530:                                          ; preds = %false523
   store <3 x double> %_inp533, <3 x double>* %126
   %w534 = load double, double* %w
   store double %w534, double* %127
-  call void @"VAR_SECANT2@VVF"(<3 x double>* %outp, <3 x double>* %126, double* %127)
+  call void @"V_SECANT2@VVF"(<3 x double>* %outp, <3 x double>* %126, double* %127)
   %outp535 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8603,7 +8603,7 @@ true538:                                          ; preds = %false531
   store <3 x double> %_inp541, <3 x double>* %128
   %w542 = load double, double* %w
   store double %w542, double* %129
-  call void @"VAR_TWINTRIAN@VVF"(<3 x double>* %outp, <3 x double>* %128, double* %129)
+  call void @"V_TWINTRIAN@VVF"(<3 x double>* %outp, <3 x double>* %128, double* %129)
   %outp543 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8617,7 +8617,7 @@ true546:                                          ; preds = %false539
   store <3 x double> %_inp549, <3 x double>* %130
   %w550 = load double, double* %w
   store double %w550, double* %131
-  call void @"VAR_CROSS@VVF"(<3 x double>* %outp, <3 x double>* %130, double* %131)
+  call void @"V_CROSS@VVF"(<3 x double>* %outp, <3 x double>* %130, double* %131)
   %outp551 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8657,7 +8657,7 @@ end560:                                           ; preds = %false559, %true558
   store double %return569, double* %134
   %return571 = call double @"getcomp@FUI"(<2 x double> %disc2.0, i64 1)
   store double %return571, double* %135
-  call void @"VAR_DISC2@VVFFF"(<3 x double>* %outp, <3 x double>* %132, double* %133, double* %134, double* %135)
+  call void @"V_DISC2@VVFFF"(<3 x double>* %outp, <3 x double>* %132, double* %133, double* %134, double* %135)
   %outp572 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8699,7 +8699,7 @@ end581:                                           ; preds = %false580, %true579
   %return597 = call double @"getcomp@FVI"(<3 x double> %ss.0, i64 2)
   store double %return597, double* %140
   store <3 x double> %ss_n.0, <3 x double>* %141
-  call void @"VAR_SUPERSHAPE@VVFFFFV"(<3 x double>* %outp, <3 x double>* %136, double* %137, double* %138, double* %139, double* %140, <3 x double>* %141)
+  call void @"V_SUPERSHAPE@VVFFFFV"(<3 x double>* %outp, <3 x double>* %136, double* %137, double* %138, double* %139, double* %140, <3 x double>* %141)
   %outp599 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8729,7 +8729,7 @@ end607:                                           ; preds = %false606, %true605
   store double %return616, double* %144
   %return618 = call double @"getcomp@FUI"(<2 x double> %flower.0, i64 1)
   store double %return618, double* %145
-  call void @"VAR_FLOWER@VVFFF"(<3 x double>* %outp, <3 x double>* %142, double* %143, double* %144, double* %145)
+  call void @"V_FLOWER@VVFFF"(<3 x double>* %outp, <3 x double>* %142, double* %143, double* %144, double* %145)
   %outp619 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8764,7 +8764,7 @@ end628:                                           ; preds = %false627, %true626
   store double %return637, double* %148
   %return639 = call double @"getcomp@FUI"(<2 x double> %conic.0, i64 1)
   store double %return639, double* %149
-  call void @"VAR_CONIC@VVFFF"(<3 x double>* %outp, <3 x double>* %146, double* %147, double* %148, double* %149)
+  call void @"V_CONIC@VVFFF"(<3 x double>* %outp, <3 x double>* %146, double* %147, double* %148, double* %149)
   %outp640 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8799,7 +8799,7 @@ end649:                                           ; preds = %false648, %true647
   store double %return658, double* %152
   %return660 = call double @"getcomp@FUI"(<2 x double> %parabola.0, i64 1)
   store double %return660, double* %153
-  call void @"VAR_PARABOLA@VVFFF"(<3 x double>* %outp, <3 x double>* %150, double* %151, double* %152, double* %153)
+  call void @"V_PARABOLA@VVFFF"(<3 x double>* %outp, <3 x double>* %150, double* %151, double* %152, double* %153)
   %outp661 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8831,7 +8831,7 @@ end670:                                           ; preds = %false669, %true668
   %w677 = load double, double* %w
   store double %w677, double* %155
   store <2 x double> %bent2.0, <2 x double>* %156
-  call void @"VAR_BENT2@VVFU"(<3 x double>* %outp, <3 x double>* %154, double* %155, <2 x double>* %156)
+  call void @"V_BENT2@VVFU"(<3 x double>* %outp, <3 x double>* %154, double* %155, <2 x double>* %156)
   %outp679 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8863,7 +8863,7 @@ end688:                                           ; preds = %false687, %true686
   %w694 = load double, double* %w
   store double %w694, double* %158
   store double %shift.0, double* %159
-  call void @"VAR_BIPOLAR@VVFF"(<3 x double>* %outp, <3 x double>* %157, double* %158, double* %159)
+  call void @"V_BIPOLAR@VVFF"(<3 x double>* %outp, <3 x double>* %157, double* %158, double* %159)
   %outp696 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8872,7 +8872,7 @@ true699:                                          ; preds = %false683
   store <3 x double> %_inp702, <3 x double>* %160
   %w703 = load double, double* %w
   store double %w703, double* %161
-  call void @"VAR_BOARDERS@VVF"(<3 x double>* %outp, <3 x double>* %160, double* %161)
+  call void @"V_BOARDERS@VVF"(<3 x double>* %outp, <3 x double>* %160, double* %161)
   %outp704 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8886,7 +8886,7 @@ true707:                                          ; preds = %false700
   store <3 x double> %_inp710, <3 x double>* %162
   %w711 = load double, double* %w
   store double %w711, double* %163
-  call void @"VAR_BUTTERFLY@VVF"(<3 x double>* %outp, <3 x double>* %162, double* %163)
+  call void @"V_BUTTERFLY@VVF"(<3 x double>* %outp, <3 x double>* %162, double* %163)
   %outp712 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8921,7 +8921,7 @@ end721:                                           ; preds = %false720, %true719
   %_inp726 = load <3 x double>, <3 x double>* %_inp
   store <3 x double> %_inp726, <3 x double>* %164
   store double %size.0, double* %166
-  call void @"VAR_CELL@VVFF"(<3 x double>* %outp, <3 x double>* %164, double* %165, double* %166)
+  call void @"V_CELL@VVFF"(<3 x double>* %outp, <3 x double>* %164, double* %165, double* %166)
   %outp728 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8958,7 +8958,7 @@ end737:                                           ; preds = %false736, %true735
   store double %return748, double* %170
   %return750 = call double @"getcomp@FVI"(<3 x double> %cpow.0, i64 2)
   store double %return750, double* %171
-  call void @"VAR_CPOW@VVFFFF"(<3 x double>* %outp, <3 x double>* %167, double* %168, double* %169, double* %170, double* %171)
+  call void @"V_CPOW@VVFFFF"(<3 x double>* %outp, <3 x double>* %167, double* %168, double* %169, double* %170, double* %171)
   %outp751 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8967,7 +8967,7 @@ true754:                                          ; preds = %false732
   store <3 x double> %_inp757, <3 x double>* %172
   %w758 = load double, double* %w
   store double %w758, double* %173
-  call void @"VAR_EDISC@VVF"(<3 x double>* %outp, <3 x double>* %172, double* %173)
+  call void @"V_EDISC@VVF"(<3 x double>* %outp, <3 x double>* %172, double* %173)
   %outp759 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8981,7 +8981,7 @@ true762:                                          ; preds = %false755
   store <3 x double> %_inp765, <3 x double>* %174
   %w766 = load double, double* %w
   store double %w766, double* %175
-  call void @"VAR_ELLIPTIC@VVF"(<3 x double>* %outp, <3 x double>* %174, double* %175)
+  call void @"V_ELLIPTIC@VVF"(<3 x double>* %outp, <3 x double>* %174, double* %175)
   %outp767 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -8995,7 +8995,7 @@ true770:                                          ; preds = %false763
   store <3 x double> %_inp773, <3 x double>* %176
   %w774 = load double, double* %w
   store double %w774, double* %177
-  call void @"VAR_NOISE@VVF"(<3 x double>* %outp, <3 x double>* %176, double* %177)
+  call void @"V_NOISE@VVF"(<3 x double>* %outp, <3 x double>* %176, double* %177)
   %outp775 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9032,7 +9032,7 @@ end784:                                           ; preds = %false783, %true782
   %w790 = load double, double* %w
   store double %w790, double* %179
   store double %beta.0, double* %180
-  call void @"VAR_ESCHER@VVFF"(<3 x double>* %outp, <3 x double>* %178, double* %179, double* %180)
+  call void @"V_ESCHER@VVFF"(<3 x double>* %outp, <3 x double>* %178, double* %179, double* %180)
   %outp792 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9041,7 +9041,7 @@ true795:                                          ; preds = %false779
   store <3 x double> %_inp798, <3 x double>* %181
   %w799 = load double, double* %w
   store double %w799, double* %182
-  call void @"VAR_FOCI@VVF"(<3 x double>* %outp, <3 x double>* %181, double* %182)
+  call void @"V_FOCI@VVF"(<3 x double>* %outp, <3 x double>* %181, double* %182)
   %outp800 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9088,7 +9088,7 @@ end809:                                           ; preds = %false808, %true807
   %return827 = call double @"getcomp@FVI"(<3 x double> %lazysusan.0, i64 2)
   store double %return827, double* %187
   store <2 x double> %lazysusanxyz.0, <2 x double>* %188
-  call void @"VAR_LAZYSUSAN@VVFFFFU"(<3 x double>* %outp, <3 x double>* %183, double* %184, double* %185, double* %186, double* %187, <2 x double>* %188)
+  call void @"V_LAZYSUSAN@VVFFFFU"(<3 x double>* %outp, <3 x double>* %183, double* %184, double* %185, double* %186, double* %187, <2 x double>* %188)
   %outp829 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9097,7 +9097,7 @@ true832:                                          ; preds = %false804
   store <3 x double> %_inp835, <3 x double>* %189
   %w836 = load double, double* %w
   store double %w836, double* %190
-  call void @"VAR_LOONIE@VVF"(<3 x double>* %outp, <3 x double>* %189, double* %190)
+  call void @"V_LOONIE@VVF"(<3 x double>* %outp, <3 x double>* %189, double* %190)
   %outp837 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9134,7 +9134,7 @@ end846:                                           ; preds = %false845, %true844
   %w852 = load double, double* %w
   store double %w852, double* %192
   store <2 x double> %mod.0, <2 x double>* %193
-  call void @"VAR_MODULUS@VVFU"(<3 x double>* %outp, <3 x double>* %191, double* %192, <2 x double>* %193)
+  call void @"V_MODULUS@VVFU"(<3 x double>* %outp, <3 x double>* %191, double* %192, <2 x double>* %193)
   %outp854 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9173,7 +9173,7 @@ end863:                                           ; preds = %false862, %true861
   store double %return876, double* %198
   %return878 = call double @"getcomp@FPI"(<4 x double> %oscope.0, i64 3)
   store double %return878, double* %199
-  call void @"VAR_OSCOPE@VVFFFFF"(<3 x double>* %outp, <3 x double>* %194, double* %195, double* %196, double* %197, double* %198, double* %199)
+  call void @"V_OSCOPE@VVFFFFF"(<3 x double>* %outp, <3 x double>* %194, double* %195, double* %196, double* %197, double* %198, double* %199)
   %outp879 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9182,7 +9182,7 @@ true882:                                          ; preds = %false858
   store <3 x double> %_inp885, <3 x double>* %200
   %w886 = load double, double* %w
   store double %w886, double* %201
-  call void @"VAR_POLAR2@VVF"(<3 x double>* %outp, <3 x double>* %200, double* %201)
+  call void @"V_POLAR2@VVF"(<3 x double>* %outp, <3 x double>* %200, double* %201)
   %outp887 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9219,7 +9219,7 @@ end895:                                           ; preds = %false894, %true893
   store double %w905, double* %203
   store double %pop2c.0, double* %204
   store <2 x double> %pop2.0, <2 x double>* %205
-  call void @"VAR_POPCORN2@VVFFU"(<3 x double>* %outp, <3 x double>* %202, double* %203, double* %204, <2 x double>* %205)
+  call void @"V_POPCORN2@VVFFU"(<3 x double>* %outp, <3 x double>* %202, double* %203, double* %204, <2 x double>* %205)
   %outp908 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9243,7 +9243,7 @@ true920:                                          ; preds = %true915
   store <3 x double> %_inp923, <3 x double>* %206
   %w924 = load double, double* %w
   store double %w924, double* %207
-  call void @"VAR_SCRY@VVF"(<3 x double>* %outp, <3 x double>* %206, double* %207)
+  call void @"V_SCRY@VVF"(<3 x double>* %outp, <3 x double>* %206, double* %207)
   %outp925 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9285,7 +9285,7 @@ end934:                                           ; preds = %false933, %true932
   store double %w944, double* %209
   store <2 x double> %sep.0, <2 x double>* %210
   store <2 x double> %ins.0, <2 x double>* %211
-  call void @"VAR_SEPARATION@VVFUU"(<3 x double>* %outp, <3 x double>* %208, double* %209, <2 x double>* %210, <2 x double>* %211)
+  call void @"V_SEPARATION@VVFUU"(<3 x double>* %outp, <3 x double>* %208, double* %209, <2 x double>* %210, <2 x double>* %211)
   %outp947 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9317,7 +9317,7 @@ end956:                                           ; preds = %false955, %true954
   %w963 = load double, double* %w
   store double %w963, double* %213
   store <2 x double> %split.0, <2 x double>* %214
-  call void @"VAR_SPLIT@VVFU"(<3 x double>* %outp, <3 x double>* %212, double* %213, <2 x double>* %214)
+  call void @"V_SPLIT@VVFU"(<3 x double>* %outp, <3 x double>* %212, double* %213, <2 x double>* %214)
   %outp965 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9349,7 +9349,7 @@ end974:                                           ; preds = %false973, %true972
   %w981 = load double, double* %w
   store double %w981, double* %216
   store <2 x double> %splits.0, <2 x double>* %217
-  call void @"VAR_SPLITS@VVFU"(<3 x double>* %outp, <3 x double>* %215, double* %216, <2 x double>* %217)
+  call void @"V_SPLITS@VVFU"(<3 x double>* %outp, <3 x double>* %215, double* %216, <2 x double>* %217)
   %outp983 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9384,7 +9384,7 @@ end992:                                           ; preds = %false991, %true990
   store double %return1001, double* %220
   %return1003 = call double @"getcomp@FUI"(<2 x double> %stripes.0, i64 1)
   store double %return1003, double* %221
-  call void @"VAR_STRIPES@VVFFF"(<3 x double>* %outp, <3 x double>* %218, double* %219, double* %220, double* %221)
+  call void @"V_STRIPES@VVFFF"(<3 x double>* %outp, <3 x double>* %218, double* %219, double* %220, double* %221)
   %outp1004 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9423,7 +9423,7 @@ end1013:                                          ; preds = %false1012, %true101
   store double %return1026, double* %226
   %return1028 = call double @"getcomp@FPI"(<4 x double> %wedge.0, i64 3)
   store double %return1028, double* %227
-  call void @"VAR_WEDGE@VVFFFFF"(<3 x double>* %outp, <3 x double>* %222, double* %223, double* %224, double* %225, double* %226, double* %227)
+  call void @"V_WEDGE@VVFFFFF"(<3 x double>* %outp, <3 x double>* %222, double* %223, double* %224, double* %225, double* %226, double* %227)
   %outp1029 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9462,7 +9462,7 @@ end1038:                                          ; preds = %false1037, %true103
   store double %return1051, double* %232
   %return1053 = call double @"getcomp@FPI"(<4 x double> %wedgejulia.0, i64 3)
   store double %return1053, double* %233
-  call void @"VAR_WEDGEJULIA@VVFFFFF"(<3 x double>* %outp, <3 x double>* %228, double* %229, double* %230, double* %231, double* %232, double* %233)
+  call void @"V_WEDGEJULIA@VVFFFFF"(<3 x double>* %outp, <3 x double>* %228, double* %229, double* %230, double* %231, double* %232, double* %233)
   %outp1054 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9501,7 +9501,7 @@ end1063:                                          ; preds = %false1062, %true106
   store double %return1076, double* %238
   %return1078 = call double @"getcomp@FPI"(<4 x double> %wedgesph.0, i64 3)
   store double %return1078, double* %239
-  call void @"VAR_WEDGESPH@VVFFFFF"(<3 x double>* %outp, <3 x double>* %234, double* %235, double* %236, double* %237, double* %238, double* %239)
+  call void @"V_WEDGESPH@VVFFFFF"(<3 x double>* %outp, <3 x double>* %234, double* %235, double* %236, double* %237, double* %238, double* %239)
   %outp1079 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9536,7 +9536,7 @@ end1088:                                          ; preds = %false1087, %true108
   store double %return1097, double* %242
   %return1099 = call double @"getcomp@FUI"(<2 x double> %whorl.0, i64 1)
   store double %return1099, double* %243
-  call void @"VAR_WHORL@VVFFF"(<3 x double>* %outp, <3 x double>* %240, double* %241, double* %242, double* %243)
+  call void @"V_WHORL@VVFFF"(<3 x double>* %outp, <3 x double>* %240, double* %241, double* %242, double* %243)
   %outp1100 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9573,7 +9573,7 @@ end1109:                                          ; preds = %false1108, %true110
   store double %w1119, double* %245
   store <2 x double> %scl.0, <2 x double>* %246
   store <2 x double> %freq.0, <2 x double>* %247
-  call void @"VAR_WAVES2@VVFUU"(<3 x double>* %outp, <3 x double>* %244, double* %245, <2 x double>* %246, <2 x double>* %247)
+  call void @"V_WAVES2@VVFUU"(<3 x double>* %outp, <3 x double>* %244, double* %245, <2 x double>* %246, <2 x double>* %247)
   %outp1122 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9582,7 +9582,7 @@ true1125:                                         ; preds = %false1104
   store <3 x double> %_inp1128, <3 x double>* %248
   %w1129 = load double, double* %w
   store double %w1129, double* %249
-  call void @"VAR_COTHEEXP@VVF"(<3 x double>* %outp, <3 x double>* %248, double* %249)
+  call void @"V_COTHEEXP@VVF"(<3 x double>* %outp, <3 x double>* %248, double* %249)
   %outp1130 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9596,7 +9596,7 @@ true1133:                                         ; preds = %false1126
   store <3 x double> %_inp1136, <3 x double>* %250
   %w1137 = load double, double* %w
   store double %w1137, double* %251
-  call void @"VAR_COTHELOG@VVF"(<3 x double>* %outp, <3 x double>* %250, double* %251)
+  call void @"V_COTHELOG@VVF"(<3 x double>* %outp, <3 x double>* %250, double* %251)
   %outp1138 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9610,7 +9610,7 @@ true1141:                                         ; preds = %false1134
   store <3 x double> %_inp1144, <3 x double>* %252
   %w1145 = load double, double* %w
   store double %w1145, double* %253
-  call void @"VAR_COTHESIN@VVF"(<3 x double>* %outp, <3 x double>* %252, double* %253)
+  call void @"V_COTHESIN@VVF"(<3 x double>* %outp, <3 x double>* %252, double* %253)
   %outp1146 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9624,7 +9624,7 @@ true1149:                                         ; preds = %false1142
   store <3 x double> %_inp1152, <3 x double>* %254
   %w1153 = load double, double* %w
   store double %w1153, double* %255
-  call void @"VAR_COTHECOS@VVF"(<3 x double>* %outp, <3 x double>* %254, double* %255)
+  call void @"V_COTHECOS@VVF"(<3 x double>* %outp, <3 x double>* %254, double* %255)
   %outp1154 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9638,7 +9638,7 @@ true1157:                                         ; preds = %false1150
   store <3 x double> %_inp1160, <3 x double>* %256
   %w1161 = load double, double* %w
   store double %w1161, double* %257
-  call void @"VAR_COTHETAN@VVF"(<3 x double>* %outp, <3 x double>* %256, double* %257)
+  call void @"V_COTHETAN@VVF"(<3 x double>* %outp, <3 x double>* %256, double* %257)
   %outp1162 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9652,7 +9652,7 @@ true1165:                                         ; preds = %false1158
   store <3 x double> %_inp1167, <3 x double>* %258
   %w1168 = load double, double* %w
   store double %w1168, double* %259
-  call void @"VAR_COTHESEC@VVF"(<3 x double>* %outp, <3 x double>* %258, double* %259)
+  call void @"V_COTHESEC@VVF"(<3 x double>* %outp, <3 x double>* %258, double* %259)
   %outp1169 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9661,7 +9661,7 @@ true1172:                                         ; preds = %false916
   store <3 x double> %_inp1175, <3 x double>* %260
   %w1176 = load double, double* %w
   store double %w1176, double* %261
-  call void @"VAR_COTHECSC@VVF"(<3 x double>* %outp, <3 x double>* %260, double* %261)
+  call void @"V_COTHECSC@VVF"(<3 x double>* %outp, <3 x double>* %260, double* %261)
   %outp1177 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9675,7 +9675,7 @@ true1180:                                         ; preds = %false1173
   store <3 x double> %_inp1183, <3 x double>* %262
   %w1184 = load double, double* %w
   store double %w1184, double* %263
-  call void @"VAR_COTHECOT@VVF"(<3 x double>* %outp, <3 x double>* %262, double* %263)
+  call void @"V_COTHECOT@VVF"(<3 x double>* %outp, <3 x double>* %262, double* %263)
   %outp1185 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9689,7 +9689,7 @@ true1188:                                         ; preds = %false1181
   store <3 x double> %_inp1191, <3 x double>* %264
   %w1192 = load double, double* %w
   store double %w1192, double* %265
-  call void @"VAR_COTHESINH@VVF"(<3 x double>* %outp, <3 x double>* %264, double* %265)
+  call void @"V_COTHESINH@VVF"(<3 x double>* %outp, <3 x double>* %264, double* %265)
   %outp1193 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9703,7 +9703,7 @@ true1196:                                         ; preds = %false1189
   store <3 x double> %_inp1199, <3 x double>* %266
   %w1200 = load double, double* %w
   store double %w1200, double* %267
-  call void @"VAR_COTHECOSH@VVF"(<3 x double>* %outp, <3 x double>* %266, double* %267)
+  call void @"V_COTHECOSH@VVF"(<3 x double>* %outp, <3 x double>* %266, double* %267)
   %outp1201 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9717,7 +9717,7 @@ true1204:                                         ; preds = %false1197
   store <3 x double> %_inp1207, <3 x double>* %268
   %w1208 = load double, double* %w
   store double %w1208, double* %269
-  call void @"VAR_COTHETANH@VVF"(<3 x double>* %outp, <3 x double>* %268, double* %269)
+  call void @"V_COTHETANH@VVF"(<3 x double>* %outp, <3 x double>* %268, double* %269)
   %outp1209 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9731,7 +9731,7 @@ true1212:                                         ; preds = %false1205
   store <3 x double> %_inp1215, <3 x double>* %270
   %w1216 = load double, double* %w
   store double %w1216, double* %271
-  call void @"VAR_COTHESECH@VVF"(<3 x double>* %outp, <3 x double>* %270, double* %271)
+  call void @"V_COTHESECH@VVF"(<3 x double>* %outp, <3 x double>* %270, double* %271)
   %outp1217 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9745,7 +9745,7 @@ true1220:                                         ; preds = %false1213
   store <3 x double> %_inp1223, <3 x double>* %272
   %w1224 = load double, double* %w
   store double %w1224, double* %273
-  call void @"VAR_COTHECSCH@VVF"(<3 x double>* %outp, <3 x double>* %272, double* %273)
+  call void @"V_COTHECSCH@VVF"(<3 x double>* %outp, <3 x double>* %272, double* %273)
   %outp1225 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9759,7 +9759,7 @@ true1228:                                         ; preds = %false1221
   store <3 x double> %_inp1231, <3 x double>* %274
   %w1232 = load double, double* %w
   store double %w1232, double* %275
-  call void @"VAR_COTHECOTH@VVF"(<3 x double>* %outp, <3 x double>* %274, double* %275)
+  call void @"V_COTHECOTH@VVF"(<3 x double>* %outp, <3 x double>* %274, double* %275)
   %outp1233 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9803,7 +9803,7 @@ end1242:                                          ; preds = %false1241, %true124
   store double %return1255, double* %280
   %return1257 = call double @"getcomp@FPI"(<4 x double> %auger.0, i64 3)
   store double %return1257, double* %281
-  call void @"VAR_AUGER@VVFFFFF"(<3 x double>* %outp, <3 x double>* %276, double* %277, double* %278, double* %279, double* %280, double* %281)
+  call void @"V_AUGER@VVFFFFF"(<3 x double>* %outp, <3 x double>* %276, double* %277, double* %278, double* %279, double* %280, double* %281)
   %outp1258 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9835,7 +9835,7 @@ end1267:                                          ; preds = %false1266, %true126
   %w1273 = load double, double* %w
   store double %w1273, double* %283
   store double %spread.0, double* %284
-  call void @"VAR_FLUX@VVFF"(<3 x double>* %outp, <3 x double>* %282, double* %283, double* %284)
+  call void @"V_FLUX@VVFF"(<3 x double>* %outp, <3 x double>* %282, double* %283, double* %284)
   %outp1275 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9872,7 +9872,7 @@ end1284:                                          ; preds = %false1283, %true128
   store double %w1294, double* %286
   store <4 x double> %re.0, <4 x double>* %287
   store <4 x double> %im.0, <4 x double>* %288
-  call void @"VAR_MOBIUS@VVFPP"(<3 x double>* %outp, <3 x double>* %285, double* %286, <4 x double>* %287, <4 x double>* %288)
+  call void @"V_MOBIUS@VVFPP"(<3 x double>* %outp, <3 x double>* %285, double* %286, <4 x double>* %287, <4 x double>* %288)
   %outp1297 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9909,7 +9909,7 @@ end1306:                                          ; preds = %false1305, %true130
   store double %w1316, double* %290
   store <2 x double> %lgt.0, <2 x double>* %291
   store <2 x double> %amp.0, <2 x double>* %292
-  call void @"VAR_CURVE@VVFUU"(<3 x double>* %outp, <3 x double>* %289, double* %290, <2 x double>* %291, <2 x double>* %292)
+  call void @"V_CURVE@VVFUU"(<3 x double>* %outp, <3 x double>* %289, double* %290, <2 x double>* %291, <2 x double>* %292)
   %outp1319 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9944,7 +9944,7 @@ end1328:                                          ; preds = %false1327, %true132
   store double %return1337, double* %295
   %return1339 = call double @"getcomp@FUI"(<2 x double> %persp.0, i64 1)
   store double %return1339, double* %296
-  call void @"VAR_PERSPECTIVE@VVFFF"(<3 x double>* %outp, <3 x double>* %293, double* %294, double* %295, double* %296)
+  call void @"V_PERSPECTIVE@VVFFF"(<3 x double>* %outp, <3 x double>* %293, double* %294, double* %295, double* %296)
   %outp1340 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9989,7 +9989,7 @@ end1349:                                          ; preds = %false1348, %true134
   store double %return1369, double* %302
   %return1371 = call double @"getcomp@FUI"(<2 x double> %bwrapstwist.0, i64 1)
   store double %return1371, double* %303
-  call void @"VAR_BWRAPS@VVFFFFFF"(<3 x double>* %outp, <3 x double>* %297, double* %298, double* %299, double* %300, double* %301, double* %302, double* %303)
+  call void @"V_BWRAPS@VVFFFFFF"(<3 x double>* %outp, <3 x double>* %297, double* %298, double* %299, double* %300, double* %301, double* %302, double* %303)
   %outp1372 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -9998,7 +9998,7 @@ true1375:                                         ; preds = %false1344
   store <3 x double> %_inp1378, <3 x double>* %304
   %w1379 = load double, double* %w
   store double %w1379, double* %305
-  call void @"VAR_HEMISPHERE@VVF"(<3 x double>* %outp, <3 x double>* %304, double* %305)
+  call void @"V_HEMISPHERE@VVF"(<3 x double>* %outp, <3 x double>* %304, double* %305)
   %outp1380 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -10040,7 +10040,7 @@ end1388:                                          ; preds = %false1387, %true138
   store <2 x double> %pow.0, <2 x double>* %308
   store <2 x double> %lc.0, <2 x double>* %309
   store <2 x double> %sc.0, <2 x double>* %310
-  call void @"VAR_POLYNOMIAL@VVFUUU"(<3 x double>* %outp, <3 x double>* %306, double* %307, <2 x double>* %308, <2 x double>* %309, <2 x double>* %310)
+  call void @"V_POLYNOMIAL@VVFUUU"(<3 x double>* %outp, <3 x double>* %306, double* %307, <2 x double>* %308, <2 x double>* %309, <2 x double>* %310)
   %outp1406 = load <3 x double>, <3 x double>* %outp
   br label %UnifiedReturnBlock
 
@@ -11672,7 +11672,7 @@ end:                                              ; preds = %cond
 
 true:                                             ; preds = %body
   store double %return29, double* %10
-  call void @"VAR_PREBLUR@VF"(<3 x double>* %__mem, double* %10)
+  call void @"V_PREBLUR@VF"(<3 x double>* %__mem, double* %10)
   br label %end32
 
 end32:                                            ; preds = %true, %body
@@ -17642,7 +17642,7 @@ true295:                                          ; preds = %false290
   %SYS298.fca.9.insert = insertvalue %gemSYS %SYS298.fca.8.insert, i64 %SYS298.fca.9.load, 9
   %SYS298.fca.10.load = load double, double* %SYS1.fca.10.gep
   store i64 %SYS298.fca.6.load, i64* %92
-  call void @"VAR_SYM@VVI"(<3 x double>* %__mem, <3 x double>* %91, i64* %92)
+  call void @"V_SYM@VVI"(<3 x double>* %__mem, <3 x double>* %91, i64* %92)
   br label %end296
 
 end296:                                           ; preds = %true295, %false290
