@@ -4,7 +4,7 @@
 /*  
  /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised May 2021
+ /  date:       October 2020, Last revised November 2021
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -134,7 +134,7 @@ struct gemPrm{
         if(max(GEMTYPE)>26){
             int iter_f = len(GEMTYPE);
             int TYPE, TYPES_1[], TYPES_2[];
-            string PRX, IDX;
+            string IDX;
             TYPES_1 = {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57};
             TYPES_2 = {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101};
             // FLOAT
