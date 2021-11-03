@@ -2194,10 +2194,10 @@ true10:                                           ; preds = %true5
   br label %end11
 
 end11:                                            ; preds = %true10, %true5
-  %angle.0 = phi double [ 2.400000e+02, %true10 ], [ 1.200000e+02, %true5 ]
+  %ang.0 = phi double [ 2.400000e+02, %true10 ], [ 1.200000e+02, %true5 ]
   %p12 = load <3 x double>, <3 x double>* %p
   %cast = call <3 x double> @"set@VI"(i64 0)
-  %return14 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %angle.0)
+  %return14 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.0)
   %cast15 = call <3 x double> @"set@VI"(i64 1)
   %pivot16 = load <3 x double>, <3 x double>* %pivot
   %return17 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %return14, <3 x double> %cast15, <3 x double> %pivot16)
@@ -2219,10 +2219,10 @@ true25:                                           ; preds = %true20
   br i1 %return32, label %true34, label %false35
 
 end26:                                            ; preds = %false53, %true61, %true52, %true43, %true34, %true20
-  %angle.1 = phi double [ 7.200000e+01, %true34 ], [ 1.440000e+02, %true43 ], [ 2.160000e+02, %true52 ], [ 2.880000e+02, %true61 ], [ 0.000000e+00, %false53 ], [ 0.000000e+00, %true20 ]
+  %ang.1 = phi double [ 7.200000e+01, %true34 ], [ 1.440000e+02, %true43 ], [ 2.160000e+02, %true52 ], [ 2.880000e+02, %true61 ], [ 0.000000e+00, %false53 ], [ 0.000000e+00, %true20 ]
   %p63 = load <3 x double>, <3 x double>* %p
   %cast64 = call <3 x double> @"set@VI"(i64 0)
-  %return66 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %angle.1)
+  %return66 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.1)
   %cast67 = call <3 x double> @"set@VI"(i64 1)
   %pivot68 = load <3 x double>, <3 x double>* %pivot
   %return69 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast64, <3 x double> %return66, <3 x double> %cast67, <3 x double> %pivot68)
