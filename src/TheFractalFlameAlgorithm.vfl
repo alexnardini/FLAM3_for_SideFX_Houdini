@@ -80,7 +80,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
 cvex
 TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  int    VACTIVE[] = {};
-                          const  float  CDF[] = {};
+                          const  float  CDF[]     = {};
 	                      export float  pscale    = 0;
 	                      export float  COORD     = 0;
 	                      export vector P         = 0)

@@ -16,6 +16,10 @@
  /  Comment:    GENOME entities and properties.
 */
 
+void affineRot(matrix2 m2; const vector2 x, y; const float ang){
+    m2 = set(x, y);
+    rotate(m2, ang);
+}
 
 struct gemSYS{
     int TMG, DELPT, POSTF, FF, iter_f, sym, sym_mode, iter, domb, vizmb;
@@ -43,7 +47,9 @@ struct gem{
     string  sIDX[];
 
     void gemBuild(const int VACTIVE[]; const gemSYS SYS){
-        float coord, speed;
+        float _a, coord, speed;
+        vector2 _x, _y;
+        matrix2 m2;
         for(int i=0; i<SYS.iter_f; i++){
             if(!VACTIVE[i]) continue;
             string IDX=itoa(i+1);
@@ -73,8 +79,12 @@ struct gem{
             if(v4w[-1]!=0) append(v4type, atoi(chs(concat("../v4type_", IDX))));
             else resize(v4type, res);
             // Collect affine coefficients
-            append(x, chu(concat("../x_", IDX)));
-            append(y, chu(concat("../y_", IDX)));
+            _x = chu(concat("../x_", IDX));
+            _y = chu(concat("../y_", IDX));
+            _a = chf(concat("../ang_", IDX));
+            affineRot(m2, _x, _y, -radians(_a));
+            append(x, set(m2.xx, m2.xy));
+            append(y, set(m2.yx, m2.yy));
             append(o, chu(concat("../o_", IDX)));
             // POST
             append(POSTL, chi(concat("../dopost_", IDX)));
@@ -110,8 +120,12 @@ struct gem{
             ffp1w = chf("../ffp1weight");
             if(ffp1w!=0) ffp1type = chi("../ffp1type");
             // Collect FINAL FLAME TRANSFORM affine coefficients
-            fx = chu("../_fx_2");
-            fy = chu("../_fy_2");
+            _x = chu("../_fx_2");;
+            _y = chu("../_fy_2");;
+            _a = chf("../_ang_2");
+            affineRot(m2, _x, _y, -radians(_a));
+            fx = set(m2.xx, m2.xy);
+            fy = set(m2.yx, m2.yy);
             fo = chu("../_fo_2");
             // POST
             if(SYS.POSTF){
