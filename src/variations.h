@@ -72,12 +72,12 @@ void V_SYM(vector2 p, pivot; int num){
     }
 }
 
-void affine(vector2 outp, p; vector2 x, y, o){
-    outp +=  set( x[0]*p[0] + y[0]*p[1] + o[0],
-                  x[1]*p[0] + y[1]*p[1] + o[1]);
+void affine(vector2 p, x, y, o){
+    p = set( x[0]*p[0] + y[0]*p[1] + o[0],
+             x[1]*p[0] + y[1]*p[1] + o[1]);
 }
 
-void affinePOST(vector2 p; vector2 x, y, o){
+void affinePOST(vector2 p, x, y, o){
     p = set( x[0]*p[0] + y[0]*p[1] + o[0],
              x[1]*p[0] + y[1]*p[1] + o[1]);
 }

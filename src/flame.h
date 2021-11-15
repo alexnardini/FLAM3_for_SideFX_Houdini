@@ -26,8 +26,8 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
 
     //  p = out position
     // _p = incoming position
-    vector2 p, _p; _p=0;
-    affine(_p, pos, x, y, o);
+    vector2 p, _p; _p=pos;
+    affine(_p, x, y, o);
     // FLAME VARIATIONS
     //
     // 00 LINEAR
