@@ -43,7 +43,7 @@ struct gemSYS{
 struct gem{
     int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
-    vector2 gtr, gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
+    vector2 gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo; //gtr, 
     string  sIDX[];
 
     void gemBuild(const int VACTIVE[]; const gemSYS SYS){
@@ -98,7 +98,7 @@ struct gem{
         // Collect GLOBAL TM
         if(SYS.TMG){
             // Translate
-            gtr = chu("../ftr");
+            //gtr = chu("../ftr");
             // Rotate
             grt = chf("../frt");
             // Scale
