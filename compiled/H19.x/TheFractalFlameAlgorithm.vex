@@ -2061,14 +2061,12 @@ __llvm_entry:
 ; Function Attrs: alwaysinline nounwind
 define private double @"SQRT@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
+  %0 = alloca <2 x double>
   %p1 = load <2 x double>, <2 x double>* %p
-  %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
-  %output = fmul double %return, %return
-  %return5 = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
-  %output8 = fmul double %return5, %return5
-  %output9 = fadd double %output, %output8
-  %return10 = call double @"sqrt@FF"(double %output9)
-  ret double %return10
+  store <2 x double> %p1, <2 x double>* %0
+  %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
+  %return = call double @"sqrt@FF"(double %SUMSQ)
+  ret double %return
 }
 
 ; Function Attrs: nounwind readnone

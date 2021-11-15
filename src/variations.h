@@ -32,7 +32,7 @@ float ATANYX(vector2 p){ return atan2(p[1], p[0]); }
 
 float SUMSQ(vector2 p){ return (p[0]*p[0] + p[1]*p[1]); }
 
-float SQRT(vector2 p){ return sqrt((p[0]*p[0] + p[1]*p[1])); }
+float SQRT(vector2 p){ return sqrt(SUMSQ(p)); }
 
 float sgn(float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
