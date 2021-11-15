@@ -31,7 +31,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
 {
 
     int idx;
-    vector __tmp;
+    vector2 __tmp;
     float CLR, PREV_CLR; PREV_CLR = 0;
     // Build genomes
     gemSYS SYS; SYS->gemSYSBuild();
@@ -43,7 +43,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     v4GMP->gemPrmBuild(GEM.sIDX, GEM.v4type);
     // CHAOS game
     float CDF[] = _bound_CDF;
-    vector __mem = biunit();
+    vector2 __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
         __tmp = 0;
         idx = sample_cdf(CDF, nrandom('twister'));
@@ -53,7 +53,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, 1, __mem, idx, GEM.v3type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
         if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 1, __mem, idx, GEM.v4type[idx], GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
         if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
-        if(SYS.TMG) __tmp *= maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
+        if(SYS.TMG) __tmp = (vector2)((vector)__tmp * maketransform(0, 0, (vector)GEM.gtr, set(0, 0, GEM.grt), (vector)GEM.gsc, 0));
         __mem = __tmp;
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
     }
@@ -69,9 +69,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     if(chkNAN_v(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
     else{
         float pscl = 0.001;
-        if(SYS.sym) V_SYM(__mem, chv("../symgpivot"), SYS.sym_mode);
+        if(SYS.sym) V_SYM(__mem, chu("../symgpivot"), SYS.sym_mode);
         if(SYS.domb){ pscl *= SYS.mb_modulate; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set"); }
-        _bound_P = __mem;
+        _bound_P = (vector)__mem;
         _bound_COORD = CLR;
         _bound_pscale = pscl;
     }

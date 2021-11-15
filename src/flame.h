@@ -20,11 +20,11 @@
 #include <genome.h>
 #include <variations.h>
 
-vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx, type; const vector2 x, y, o; const float w){
+vector2 FLAME(const gemPrm GMP; const int ftype; const vector2 pos; const int idx, type; const vector2 x, y, o; const float w){
 
     //  p = out position
     // _p = incoming position
-    vector p, _p; _p=0;
+    vector2 p, _p; _p=0;
     affine(_p, pos, x, y, o);
     // FLAME VARIATIONS
     //
