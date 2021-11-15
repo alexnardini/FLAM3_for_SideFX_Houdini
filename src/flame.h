@@ -20,6 +20,8 @@
 #include <genome.h>
 #include <variations.h>
 
+// VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
+
 vector2 FLAME(const gemPrm GMP; const int ftype; const int idx, type; const vector2 pos, x, y, o; const float w){
 
     //  p = out position
