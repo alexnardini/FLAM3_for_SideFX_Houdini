@@ -7,8 +7,7 @@ https://user-images.githubusercontent.com/42110232/141430036-d6b7f2db-93a0-4c25-
 
 `The above Video consist of 150M points and rendered with Houdini internal Karma renderer.`
 
-
-https://user-images.githubusercontent.com/42110232/141693595-226b1774-064b-4e29-8c59-23a160c277c3.mp4
+https://user-images.githubusercontent.com/42110232/141742842-00628772-a018-4d1f-876d-899f52311c7c.mp4
 
 `The above Video consist of 300M points and rendered with Houdini internal Karma renderer.`
 
