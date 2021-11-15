@@ -2021,6 +2021,32 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
+define private double @"ATAN@FU"(<2 x double>* %p) #0 {
+__llvm_entry:
+  %p1 = load <2 x double>, <2 x double>* %p
+  %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
+  %return3 = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
+  %return4 = call double @"atan2@FFF"(double %return, double %return3)
+  ret double %return4
+}
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FUI"(<2 x double>, i64) #2
+
+; Function Attrs: nounwind readnone
+declare double @"atan2@FFF"(double, double) #2
+
+; Function Attrs: alwaysinline nounwind
+define private double @"ATANYX@FU"(<2 x double>* %p) #0 {
+__llvm_entry:
+  %p1 = load <2 x double>, <2 x double>* %p
+  %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
+  %return3 = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
+  %return4 = call double @"atan2@FFF"(double %return, double %return3)
+  ret double %return4
+}
+
+; Function Attrs: alwaysinline nounwind
 define private double @"SUMSQ@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
   %p1 = load <2 x double>, <2 x double>* %p
@@ -2031,9 +2057,6 @@ __llvm_entry:
   %output9 = fadd double %output, %output8
   ret double %output9
 }
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FUI"(<2 x double>, i64) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private double @"SQRT@FU"(<2 x double>* %p) #0 {
@@ -2050,29 +2073,6 @@ __llvm_entry:
 
 ; Function Attrs: nounwind readnone
 declare double @"sqrt@FF"(double) #2
-
-; Function Attrs: alwaysinline nounwind
-define private double @"ATAN@FU"(<2 x double>* %p) #0 {
-__llvm_entry:
-  %p1 = load <2 x double>, <2 x double>* %p
-  %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
-  %return3 = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
-  %return4 = call double @"atan2@FFF"(double %return, double %return3)
-  ret double %return4
-}
-
-; Function Attrs: nounwind readnone
-declare double @"atan2@FFF"(double, double) #2
-
-; Function Attrs: alwaysinline nounwind
-define private double @"ATANYX@FU"(<2 x double>* %p) #0 {
-__llvm_entry:
-  %p1 = load <2 x double>, <2 x double>* %p
-  %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
-  %return3 = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
-  %return4 = call double @"atan2@FFF"(double %return, double %return3)
-  ret double %return4
-}
 
 ; Function Attrs: alwaysinline nounwind
 define private double @"sgn@FF"(double* %n) #0 {
