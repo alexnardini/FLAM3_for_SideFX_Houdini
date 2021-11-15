@@ -24,9 +24,8 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
 
     //  p = out position
     // _p = incoming position
-    vector p, _p, precalc; _p=0;
+    vector p, _p; _p=0;
     affine(_p, pos, x, y, o);
-    precalc_utils(type, _p, precalc);
     // FLAME VARIATIONS
     //
     // 00 LINEAR
@@ -67,15 +66,15 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
                 return p; }
             // 09 SPIRAL
             else if(type==9){
-                V_SPIRAL(p, _p, precalc, w);
+                V_SPIRAL(p, _p, w);
                 return p; }
             // 10 HIPERBOLIC
             else if(type==10){
-                V_HIPERBOLIC(p, _p, precalc, w);
+                V_HIPERBOLIC(p, _p, w);
                 return p; }
             // 11 DIAMOND
             else if(type==11){
-                V_DIAMOND(p, _p, precalc, w);
+                V_DIAMOND(p, _p, w);
                 return p; }
             // 12 Ex
             else if(type==12){
@@ -109,7 +108,7 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
                 return p; }
             // 19 Power
             else if(type==19){
-                V_POWER(p, _p, precalc, w);
+                V_POWER(p, _p, w);
                 return p; }
             // 20 Cosine
             else if(type==20){
@@ -117,7 +116,7 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
                 return p; }
             // *21 RINGS ( dependent )
             else if(type==21){
-                V_RINGS(p, _p, precalc, w, o[0]);
+                V_RINGS(p, _p, w, o[0]);
                 return p; }
             // *22 FAN ( dependent )
             else if(type==22){
@@ -165,7 +164,7 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
                 vector blob;
                 if(ftype) blob = GMP.blob[idx];
                 else  blob = chv("../_blob_2");
-                V_BLOB(p, _p, precalc, w, blob[1], blob[0], blob[2]);
+                V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(type==31){
@@ -201,7 +200,7 @@ vector FLAME(const gemPrm GMP; const int ftype; const vector pos; const int idx,
                 float rings2val;
                 if(ftype) rings2val = GMP.rings2_val[idx];
                 else  rings2val = chf("../_rings2val_2");
-                V_RINGS2(p, _p, precalc, w, rings2val);
+                V_RINGS2(p, _p, w, rings2val);
                 return p; }
             // 36 Rectangles ( parametric )
             else if(type==36){

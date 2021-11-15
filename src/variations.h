@@ -70,12 +70,6 @@ void V_SYM(vector p, pivot; int num){
     }
 }
 
-void precalc_utils(int type; vector p, precalc){
-    if(type==9 || type==10 || type==11 || type==19 || type==21 || type==30 || type==35 ){
-        precalc = p / precalc("SQRT", p);
-    }
-}
-
 void affine(vector outp, p; vector2 x, y, o){
     outp +=  set( x[0]*p[0] + y[0]*p[1] + o[0],
                   x[1]*p[0] + y[1]*p[1] + o[1],
@@ -154,7 +148,8 @@ void V_DISC(vector p, _p; float w){
     p[1] = w * cr * aa;
 }
 // 09
-void V_SPIRAL(vector p, _p, precalc; float w){
+void V_SPIRAL(vector p, _p; float w){
+    vector precalc = _p / precalc("SQRT", p);
     float r, r1, sr, cr;
     r = precalc("SQRT", _p) + EPS;
     r1 = w/r;
@@ -163,13 +158,15 @@ void V_SPIRAL(vector p, _p, precalc; float w){
     p[1] = r1 * (precalc[0] - cr);
 }
 // 10
-void V_HIPERBOLIC(vector p, _p, precalc; float w){
+void V_HIPERBOLIC(vector p, _p; float w){
+    vector precalc = _p / precalc("SQRT", p);
     float rr = precalc("SQRT", _p) + EPS;
     p[0] = w * precalc[0] / rr;
     p[1] = w * precalc[1] * rr;
 }
 // 11
-void V_DIAMOND(vector p, _p, precalc; float w){
+void V_DIAMOND(vector p, _p; float w){
+    vector precalc = _p / precalc("SQRT", p);
     float rr, sr, cr;
     rr = precalc("SQRT", _p);
     sincos(rr, sr, cr);
@@ -248,7 +245,8 @@ void V_EXPONENTIAL(vector p, _p; float w){
     p[1] = dx * sdy;
 }
 // 19
-void V_POWER(vector p, _p, precalc; float w){
+void V_POWER(vector p, _p; float w){
+    vector precalc = _p / precalc("SQRT", p);
     float rr = w * pow(precalc("SQRT", _p), precalc[0]);
     p[0] = rr * precalc[1];
     p[1] = rr * precalc[0];
@@ -264,7 +262,8 @@ void V_COSINE(vector p, _p; float w){
     p[1] = w * ny;
 }
 // 21
-void V_RINGS(vector p, _p, precalc; float w, d){
+void V_RINGS(vector p, _p; float w, d){
+    vector precalc = _p / precalc("SQRT", p);
     float dx, rr;
     dx = d*d + EPS;
     rr = precalc("SQRT", _p);
@@ -367,7 +366,8 @@ void V_PDJ(vector p, _p; float w; vector4 pp){
     p[1] = w * (nx2 - ny2);
 }
 // 30 ( parametric )
-void V_BLOB(vector p, _p, precalc; float w, pp1, pp2, pp3){
+void V_BLOB(vector p, _p; float w, pp1, pp2, pp3){
+    vector precalc = _p / precalc("SQRT", p);
     float  blob_coeff, rr, aa, bdiff;
     float SQRT = precalc("SQRT", _p);
     rr = SQRT;
@@ -426,7 +426,8 @@ void V_FAN2(vector p, _p; float w; vector2 fan2){
     p[1] = rr * ca;
 }
 // 35 ( parametric )
-void V_RINGS2(vector p, _p, precalc; float w, rings2val){
+void V_RINGS2(vector p, _p; float w, rings2val){
+    vector precalc = _p / precalc("SQRT", p);
     float rr, dx;
     int nrand;
     rr = precalc("SQRT", _p);
