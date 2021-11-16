@@ -196,7 +196,7 @@ declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #1
 declare <4 x double> @"rotate@2F"(<4 x double>, double) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemSYSBuild@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateF"(%gemSYS* %this) #0 {
+define private void @"gemSYSBuild@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"(%gemSYS* %this) #0 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @0, i64 0, i64 0))
   %tmp = load %gemSYS, %gemSYS* %this
@@ -253,7 +253,7 @@ declare i64 @"chi@IS"(i8*) #2
 declare double @"detail@FISI"(i64, i8*, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateFIIIIIIIIIIF"(i64* %TMG, i64* %DELPT, i64* %POSTF, i64* %FF, i64* %iter_f, i64* %sym, i64* %sym_mode, i64* %iter, i64* %domb, i64* %vizmb, double* %mb_modulate) #0 {
+define private %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modFIIIIIIIIIIF"(i64* %TMG, i64* %DELPT, i64* %POSTF, i64* %FF, i64* %iter_f, i64* %sym, i64* %sym_mode, i64* %iter, i64* %domb, i64* %vizmb, double* %mb_mod) #0 {
 __llvm_entry:
   %TMG1 = load i64, i64* %TMG
   %0 = insertvalue %gemSYS undef, i64 %TMG1, 0
@@ -275,13 +275,13 @@ __llvm_entry:
   %8 = insertvalue %gemSYS %7, i64 %domb16, 8
   %vizmb18 = load i64, i64* %vizmb
   %9 = insertvalue %gemSYS %8, i64 %vizmb18, 9
-  %mb_modulate20 = load double, double* %mb_modulate
-  %10 = insertvalue %gemSYS %9, double %mb_modulate20, 10
+  %mb_mod20 = load double, double* %mb_mod
+  %10 = insertvalue %gemSYS %9, double %mb_mod20, 10
   ret %gemSYS %10
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateF"() #0 {
+define private %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -305,12 +305,12 @@ __llvm_entry:
   store i64 0, i64* %7
   store i64 0, i64* %8
   store double 0.000000e+00, double* %9
-  %gemSYS = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateFIIIIIIIIIIF"(i64* %10, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64* %8, double* %9)
+  %gemSYS = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modFIIIIIIIIIIF"(i64* %10, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64* %8, double* %9)
   ret %gemSYS %gemSYS
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemBuild@Z3gemM35N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateF"(%gem* %this, i64** %VACTIVE, %gemSYS* %SYS) #0 {
+define private void @"gemBuild@Z3gemM35N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"(%gem* %this, i64** %VACTIVE, %gemSYS* %SYS) #0 {
 __llvm_entry:
   %m2 = alloca <4 x double>
   %0 = alloca <2 x double>
@@ -9970,7 +9970,7 @@ __llvm_entry:
   %91 = alloca <2 x double>
   %92 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %__tmp, !vex-initializer-store !3
-  %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateF"()
+  %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"()
   %SYS1.fca.0.extract = extractvalue %gemSYS %SYS1, 0
   %SYS1.fca.0.gep = getelementptr inbounds %gemSYS, %gemSYS* %SYS, i32 0, i32 0
   store i64 %SYS1.fca.0.extract, i64* %SYS1.fca.0.gep
@@ -10004,7 +10004,7 @@ __llvm_entry:
   %SYS1.fca.10.extract = extractvalue %gemSYS %SYS1, 10
   %SYS1.fca.10.gep = getelementptr inbounds %gemSYS, %gemSYS* %SYS, i32 0, i32 10
   store double %SYS1.fca.10.extract, double* %SYS1.fca.10.gep
-  call void @"gemSYSBuild@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateF"(%gemSYS* %SYS)
+  call void @"gemSYSBuild@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"(%gemSYS* %SYS)
   %GEM2 = call %gem @"gem@Z3gemM35N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S"()
   %GEM2.fca.0.extract = extractvalue %gem %GEM2, 0
   %GEM2.fca.0.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 0
@@ -10156,7 +10156,7 @@ __llvm_entry:
   store i64 %SYS4.fca.9.load, i64* %SYS4.fca.9.gep
   %SYS4.fca.10.gep = getelementptr inbounds %gemSYS, %gemSYS* %1, i32 0, i32 10
   store double %SYS4.fca.10.load, double* %SYS4.fca.10.gep
-  call void @"gemBuild@Z3gemM35N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN11mb_modulateF"(%gem* %GEM, i64** %0, %gemSYS* %1)
+  call void @"gemBuild@Z3gemM35N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"(%gem* %GEM, i64** %0, %gemSYS* %1)
   %v1GMP5 = call %gemPrm @"gemPrm@Z6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[P"()
   %v1GMP5.fca.0.extract = extractvalue %gemPrm %v1GMP5, 0
   %v1GMP5.fca.0.gep = getelementptr inbounds %gemPrm, %gemPrm* %v1GMP, i32 0, i32 0
