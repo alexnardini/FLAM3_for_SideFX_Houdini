@@ -23,7 +23,7 @@ void affineRot(matrix2 m2; const vector2 x, y; const float ang){
 
 struct gemSYS{
     int TMG, DELPT, POSTF, FF, iter_f, sym, sym_mode, iter, domb, vizmb;
-    float mb_modulate;
+    float mb_mod;
 
     void gemSYSBuild(){
         TMG           = chi("../dotmglobal");
@@ -34,9 +34,9 @@ struct gemSYS{
         iter_f        = chi("../flamefunc");
         iter          = chi("../iter");
         domb          = chi("../domb");
-        mb_modulate   = 1.0;
+        mb_mod        = 1.0;
         if(sym) sym_mode = chi("../rotational");
-        if(domb){ vizmb  = chi("../vizmb"); mb_modulate = detail(1, "Tstep_mult", 0); }
+        if(domb){ vizmb  = chi("../vizmb"); mb_mod = detail(1, "Tstep_mult", 0); }
     }
 }
 

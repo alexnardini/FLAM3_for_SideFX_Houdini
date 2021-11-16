@@ -70,7 +70,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     else{
         float pscl = 0.001;
         if(SYS.sym) V_SYM(__mem, chu("../symgpivot"), SYS.sym_mode);
-        if(SYS.domb){ pscl *= SYS.mb_modulate; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_modulate, "set"); }
+        if(SYS.domb){ pscl *= SYS.mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_mod, "set"); }
         _bound_P = (vector)__mem;
         _bound_COORD = CLR;
         _bound_pscale = pscl;
