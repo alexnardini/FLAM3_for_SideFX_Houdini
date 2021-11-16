@@ -47,8 +47,6 @@ int chkNAN_v(int ACTIVE; vector2 vec){
     return 0;
 }
 
-void remNAN_v(int ACTIVE, ptn; vector2 vec){ if(chkNAN_v(ACTIVE, vec))  removepoint(0, ptn); }
-
 void V_SYM(vector2 p, pivot; int num){
     float ang = 0;
     // 3-way
@@ -77,10 +75,8 @@ void affine(vector2 p, x, y, o){
              x[1]*p[0] + y[1]*p[1] + o[1]);
 }
 
-void affinePOST(vector2 p, x, y, o){
-    p = set( x[0]*p[0] + y[0]*p[1] + o[0],
-             x[1]*p[0] + y[1]*p[1] + o[1]);
-}
+
+
 // VARIATIONS
 //
 //  p = out position

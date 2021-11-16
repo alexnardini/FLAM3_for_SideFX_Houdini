@@ -52,7 +52,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 1, idx, GEM.v2type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
         if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, 1, idx, GEM.v3type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
         if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 1, idx, GEM.v4type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
-        if(GEM.POSTL[idx]) affinePOST(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
+        if(GEM.POSTL[idx]) affine(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= (matrix2)maketransform(0, 0, 0, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         __mem = __tmp;
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
@@ -62,7 +62,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.ffv1w!=0) __tmp += FLAME(v1GMP, 0, 0, GEM.ffv1type, __mem, GEM.fx, GEM.fy, GEM.fo, GEM.ffv1w);
         if(GEM.ffv2w!=0) __tmp += FLAME(v1GMP, 0, 0, GEM.ffv2type, __mem, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2w);
         if(GEM.ffv3w!=0) __tmp += FLAME(v1GMP, 0, 0, GEM.ffv3type, __mem, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3w);
-        if(SYS.POSTF) affinePOST(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
+        if(SYS.POSTF) affine(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
         if(GEM.ffp1w!=0){ __mem = FLAME(v1GMP, 0, 0, GEM.ffp1type, __tmp, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w); }
         else __mem = __tmp;
     }

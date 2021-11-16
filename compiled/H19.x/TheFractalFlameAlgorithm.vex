@@ -2194,9 +2194,6 @@ declare i64 @"isnan@IF"(double) #2
 ; Function Attrs: nounwind
 declare double @"length@FU"(<2 x double>) #1
 
-; Function Attrs: nounwind
-declare i64 @"removepoint@III"(i64, i64) #1
-
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_SYM@UUI"(<2 x double>* %p, <2 x double>* %pivot, i64* %num) #0 {
 __llvm_entry:
@@ -2318,34 +2315,6 @@ declare <2 x double> @"mul@U2"(<2 x double>, <4 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"affine@UUUU"(<2 x double>* %p, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o) #0 {
-__llvm_entry:
-  %x1 = load <2 x double>, <2 x double>* %x
-  %return = call double @"getcomp@FUI"(<2 x double> %x1, i64 0)
-  %p2 = load <2 x double>, <2 x double>* %p
-  %return3 = call double @"getcomp@FUI"(<2 x double> %p2, i64 0)
-  %output = fmul double %return, %return3
-  %y4 = load <2 x double>, <2 x double>* %y
-  %return5 = call double @"getcomp@FUI"(<2 x double> %y4, i64 0)
-  %return7 = call double @"getcomp@FUI"(<2 x double> %p2, i64 1)
-  %output8 = fmul double %return5, %return7
-  %output9 = fadd double %output, %output8
-  %o10 = load <2 x double>, <2 x double>* %o
-  %return11 = call double @"getcomp@FUI"(<2 x double> %o10, i64 0)
-  %output12 = fadd double %output9, %return11
-  %return14 = call double @"getcomp@FUI"(<2 x double> %x1, i64 1)
-  %output17 = fmul double %return14, %return3
-  %return19 = call double @"getcomp@FUI"(<2 x double> %y4, i64 1)
-  %output22 = fmul double %return19, %return7
-  %output23 = fadd double %output17, %output22
-  %return25 = call double @"getcomp@FUI"(<2 x double> %o10, i64 1)
-  %output26 = fadd double %output23, %return25
-  %return27 = call <2 x double> @"set@UFF"(double %output12, double %output26)
-  store <2 x double> %return27, <2 x double>* %p
-  ret void
-}
-
-; Function Attrs: alwaysinline nounwind
-define private void @"affinePOST@UUUU"(<2 x double>* %p, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o) #0 {
 __llvm_entry:
   %x1 = load <2 x double>, <2 x double>* %x
   %return = call double @"getcomp@FUI"(<2 x double> %x1, i64 0)
@@ -14280,7 +14249,7 @@ true167:                                          ; preds = %end137
   %GEM175.fca.34.load = load i8**, i8*** %GEM2.fca.34.gep
   %return177 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM175.fca.27.load, i64 %return26)
   store <2 x double> %return177, <2 x double>* %49
-  call void @"affinePOST@UUUU"(<2 x double>* %__tmp, <2 x double>* %47, <2 x double>* %48, <2 x double>* %49)
+  call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %47, <2 x double>* %48, <2 x double>* %49)
   br label %end168
 
 end168:                                           ; preds = %true167, %end137
@@ -16644,7 +16613,7 @@ true264:                                          ; preds = %end248
   %GEM268.fca.33.insert = insertvalue %gem %GEM268.fca.32.insert, <2 x double> %GEM268.fca.33.load, 33
   %GEM268.fca.34.load = load i8**, i8*** %GEM2.fca.34.gep
   store <2 x double> %GEM268.fca.33.load, <2 x double>* %81
-  call void @"affinePOST@UUUU"(<2 x double>* %__tmp, <2 x double>* %79, <2 x double>* %80, <2 x double>* %81)
+  call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %79, <2 x double>* %80, <2 x double>* %81)
   br label %end265
 
 end265:                                           ; preds = %true264, %end248
@@ -17405,6 +17374,9 @@ declare { i64, double, double } @"sample_cdf@[FFIFF"(double*, double) #2
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #2
+
+; Function Attrs: nounwind
+declare i64 @"removepoint@III"(i64, i64) #1
 
 ; Function Attrs: nounwind
 declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #1
