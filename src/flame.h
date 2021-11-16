@@ -20,7 +20,6 @@
 #include <genome.h>
 #include <variations.h>
 
-// VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
 
 vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x, y, o; const float w){
 
@@ -28,10 +27,12 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
     // _p = incoming position
     vector2 p, _p; _p=pos;
     affine(_p, x, y, o);
+    // VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
+
     // FLAME VARIATIONS
     //
     // 00 LINEAR
-    if(!type) return _p * w;
+    if(!type) return _p*w;
     else if(type<35){
         if(type<18){
             // 01 SINUSOIDAL
