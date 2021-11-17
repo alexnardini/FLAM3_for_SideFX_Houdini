@@ -415,7 +415,7 @@ void V_GAUSSIAN(vector2 p; const float w){
     p[1] = rr * sin(ang);
 }
 // 34 ( parametric )
-void V_FAN2(vector2 p; const vector2 _p; const float w; vector2 fan2){
+void V_FAN2(vector2 p; const vector2 _p; const float w; const vector2 fan2){
     float dx, dx2, dy, aa, sa,ca,rr, tt;
     dy = fan2[1];
     dx = M_PI * (fan2[0]*fan2[0] + EPS);
