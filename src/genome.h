@@ -16,10 +16,7 @@
  /  Comment:    GENOME entities and properties.
 */
 
-void affineRot(matrix2 m2; const vector2 x, y; const float ang){
-    m2 = set(x, y);
-    rotate(m2, ang);
-}
+#include <variations.h>
 
 struct gemSYS{
     int TMG, DELPT, POSTF, FF, iter_f, sym, sym_mode, iter, domb, vizmb;

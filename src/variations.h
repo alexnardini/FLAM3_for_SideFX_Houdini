@@ -75,6 +75,11 @@ void affine(vector2 p, x, y, o){
              x[1]*p[0] + y[1]*p[1] + o[1]);
 }
 
+void affineRot(matrix2 m2; const vector2 x, y; const float ang){
+    m2 = set(x, y);
+    rotate(m2, ang);
+}
+
 
 
 // VARIATIONS
