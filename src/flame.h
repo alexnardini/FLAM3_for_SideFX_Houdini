@@ -271,15 +271,17 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){
                 vector ss, ss_n;
+                vector2 supershape_precalc;
                 if(ftype){
                     ss   = GMP.supershape[idx];
                     ss_n = GMP.supershape_n[idx];
+                    supershape_precalc = GMP.supershape_precalc[idx];
                 }
                 else{
                     ss   = chv("../_supershape_2");
                     ss_n = chv("../_supershapen_2");
                 }
-                V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
+                V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], supershape_precalc[0], supershape_precalc[1], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(type==49){

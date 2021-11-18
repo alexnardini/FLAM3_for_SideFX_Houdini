@@ -540,13 +540,9 @@ void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_times
     p[0] = (sinr + disc2_cosadd) * rr;
     p[1] = (cosr + disc2_sinadd) * rr;
 }
-// 48 ( parametric )
-void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes; const vector ss_n){
-    float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1;
-    // precalc
-    ss_pm_4 = ss_m / 4.0;
-    ss_pneg1_n1 = -1.0 / ss_n[0];
-
+// 48 ( parametric ) PRECALC: ss_pm_4, ss_pneg1_n1
+void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes, ss_pm_4, ss_pneg1_n1; const vector ss_n){
+    float theta, st, ct, tt1, tt2, rr;
     theta = ss_pm_4 * ATANYX(_p) + M_PI_4;
     sincos(theta, st, ct);
     tt1 = abs(ct);  tt1 = pow(tt1, ss_n[1]);

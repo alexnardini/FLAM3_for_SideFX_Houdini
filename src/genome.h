@@ -143,6 +143,7 @@ struct gemPrm{
     // PRECALC
     //
     vector disc2_precalc[];
+    vector2 supershape_precalc[];
 
     void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]){
 
@@ -157,7 +158,7 @@ struct gemPrm{
             // VECTOR
             resize(blob, iter_f);       disc2_precalc=pie=supershape=supershape_n=cpow=lazysusan=blob;
             // VECTOR2
-            resize(curl_c, iter_f);     parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
+            resize(curl_c, iter_f);     supershape_precalc=parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // VECTOR4
             resize(ngon, iter_f);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
@@ -209,8 +210,18 @@ struct gemPrm{
                             }
                         // 48 SUPERSHAPE
                         else if(TYPE==48){
+                            // supershape[i][0] = ss_m
+                            // supershape[i][1] = ss_rnd
+                            // supershape[i][2] = ss_holes
                             supershape[i]   = chv(concat("../supershape_",  IDX));
-                            supershape_n[i] = chv(concat("../supershapen_", IDX)); continue; }
+                            supershape_n[i] = chv(concat("../supershapen_", IDX));
+                            // PRECALC
+                            // supershape_precalc[i][0] = ss_pm_4
+                            // supershape_precalc[i][1] = ss_pneg1_n1
+                            supershape_precalc[i][0] = supershape[i][0] / 4.0;
+                            supershape_precalc[i][1] = -1.0 / supershape_n[i][0];
+                            continue;
+                            }
                         // 49 FLOWER
                         else if(TYPE==49){ flower[i] = chu(concat("../flower_", IDX)); continue; }
                         // 50 CONIC
