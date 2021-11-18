@@ -2470,7 +2470,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist, double* %disc2_timespi, double* %disc2_sinadd, double* %disc2_cosadd) #0 {
+define private void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist, double* %timespi, double* %sinadd, double* %cosadd) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -2478,12 +2478,12 @@ __llvm_entry:
   %1 = alloca <2 x double>
   store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
   store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
-  %disc2_timespi1 = load double, double* %disc2_timespi
+  %timespi1 = load double, double* %timespi
   %_p2 = load <2 x double>, <2 x double>* %_p
   %return = call double @"getcomp@FUI"(<2 x double> %_p2, i64 0)
   %return4 = call double @"getcomp@FUI"(<2 x double> %_p2, i64 1)
   %output = fadd double %return, %return4
-  %output5 = fmul double %disc2_timespi1, %output
+  %output5 = fmul double %timespi1, %output
   store double %output5, double* %0
   call void @"sincos@FFF"(double* %0, double* %sinr, double* %cosr)
   %w7 = load double, double* %w
@@ -2493,16 +2493,16 @@ __llvm_entry:
   %output9 = fmul double %w7, %ATAN
   %output10 = call double @"div@FF"(double %output9, double 0x400921FB4D12D84A)
   %sinr11 = load double, double* %sinr
-  %disc2_cosadd12 = load double, double* %disc2_cosadd
-  %output13 = fadd double %sinr11, %disc2_cosadd12
+  %cosadd12 = load double, double* %cosadd
+  %output13 = fadd double %sinr11, %cosadd12
   %output15 = fmul double %output13, %output10
   %tmp = load <2 x double>, <2 x double>* %p
   %return16 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output15, i64 0)
   %output18 = extractvalue { double, <2 x double> } %return16, 1
   store <2 x double> %output18, <2 x double>* %p
   %cosr19 = load double, double* %cosr
-  %disc2_sinadd20 = load double, double* %disc2_sinadd
-  %output21 = fadd double %cosr19, %disc2_sinadd20
+  %sinadd20 = load double, double* %sinadd
+  %output21 = fadd double %cosr19, %sinadd20
   %output23 = fmul double %output21, %output10
   %return25 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output18, double %output23, i64 1)
   %output27 = extractvalue { double, <2 x double> } %return25, 1

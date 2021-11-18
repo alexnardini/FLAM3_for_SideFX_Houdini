@@ -531,14 +531,14 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
     p[0] = _p[0]*rr;
     p[1] = _p[1]*rr;
 }
-// 47 ( parametric ) PRECALC: disc2_timespi, disc2_sinadd, disc2_cosadd
-void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd){
+// 47 ( parametric ) PRECALC: timespi, sinadd, cosadd
+void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, timespi, sinadd, cosadd){
     float rr, tt, sinr, cosr;
-    tt = disc2_timespi * (_p[0] + _p[1]);
+    tt = timespi * (_p[0] + _p[1]);
     sincos(tt, sinr, cosr);
     rr = w * ATAN(_p) / M_PI;
-    p[0] = (sinr + disc2_cosadd) * rr;
-    p[1] = (cosr + disc2_sinadd) * rr;
+    p[0] = (sinr + cosadd) * rr;
+    p[1] = (cosr + sinadd) * rr;
 }
 // 48 ( parametric ) PRECALC: ss_pm_4, ss_pneg1_n1
 void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes, ss_pm_4, ss_pneg1_n1; const vector ss_n){

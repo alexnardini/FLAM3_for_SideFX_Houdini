@@ -260,7 +260,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==46){
                 V_CROSS(p, _p, w);
                 return p; }
-            // 47 DISC2 ( parametric ) PRECALC
+            // 47 DISC2 ( parametric ) ( PRECALC )
             else if(type==47){
                 vector2 disc2;
                 vector disc2_precalc;
@@ -268,7 +268,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 else  disc2 = chu("../_disc2_2");
                 V_DISC2(p, _p, w, disc2[0], disc2[1], disc2_precalc[0], disc2_precalc[1], disc2_precalc[2]);
                 return p; }
-            // 48 SUPERSHAPE ( parametric )
+            // 48 SUPERSHAPE ( parametric ) ( PRECALC )
             else if(type==48){
                 vector ss, ss_n;
                 vector2 supershape_precalc;
@@ -470,7 +470,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 else  wedge = chp("../_wedge_2");
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
-            // 76 WEDGE JULIA ( parametric )
+            // 76 WEDGE JULIA ( parametric ) ( PRECALC )
             else if(type==76){
                 vector4 wedgejulia;
                 vector wedgejulia_precalc;
@@ -603,14 +603,14 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 }
                 V_CURVE(p, _p, w, lgt, amp);
                 return p; }
-            // 98 PERSPECTIVE ( parametric )
+            // 98 PERSPECTIVE ( parametric ) ( PRECALC )
             else if(type==98){
                 vector2 persp, persp_precalc;
                 if(ftype){ persp = GMP.persp[idx]; persp_precalc = GMP.persp_precalc[idx]; }
                 else  persp = chu("../_persp_2");
                 V_PERSPECTIVE(p, _p, w, persp[0], persp[1], persp_precalc[0], persp_precalc[1]);
                 return p; }
-            // 99 BWRAPS ( parametric )
+            // 99 BWRAPS ( parametric ) ( PRECALC )
             else if(type==99){
                 vector bwraps, bwraps_precalc;
                 vector2 bwrapstwist;

@@ -192,9 +192,9 @@ struct gemPrm{
                             // disc2[i][1] = twist
                             disc2[i] = chu(concat("../disc2_", IDX));
                             // PRECALC
-                            // disc2_precalc[i][0] = disc2_timespi
-                            // disc2_precalc[i][1] = disc2_sinadd
-                            // disc2_precalc[i][2] = disc2_cosadd
+                            // disc2_precalc[i][0] = timespi
+                            // disc2_precalc[i][1] = sinadd
+                            // disc2_precalc[i][2] = cosadd
                             float k;
                             disc2_precalc[i][0] = disc2[i][0] * M_PI;
                             sincos(disc2[i][1], disc2_precalc[i][1], disc2_precalc[i][2]);
