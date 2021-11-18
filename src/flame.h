@@ -23,6 +23,8 @@
 
 vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x, y, o; const float w){
 
+    // string PRX = (ftype<0) ? "../p" : "../";
+    
     //  p = out position
     // _p = incoming position
     vector2 p, _p; _p=pos;
