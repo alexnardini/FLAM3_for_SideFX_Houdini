@@ -260,12 +260,13 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==46){
                 V_CROSS(p, _p, w);
                 return p; }
-            // 47 DISC2 ( parametric )
+            // 47 DISC2 ( parametric ) PRECALC
             else if(type==47){
                 vector2 disc2;
-                if(ftype) disc2 = GMP.disc2[idx];
+                vector disc2_precalc;
+                if(ftype){ disc2 = GMP.disc2[idx]; disc2_precalc = GMP.disc2_precalc[idx]; }
                 else  disc2 = chu("../_disc2_2");
-                V_DISC2(p, _p, w, disc2[0], disc2[1]);
+                V_DISC2(p, _p, w, disc2[0], disc2[1], disc2_precalc[0], disc2_precalc[1], disc2_precalc[2]);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){

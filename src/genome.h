@@ -140,6 +140,10 @@ struct gemPrm{
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
 
+    // PRECALC
+    //
+    vector disc2_precalc[];
+
     void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]){
 
         if(max(GEMTYPE)>26){
@@ -151,7 +155,7 @@ struct gemPrm{
             // FLOAT
             resize(rings2_val, iter_f); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // VECTOR
-            resize(blob, iter_f);       pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, iter_f);       disc2_precalc=pie=supershape=supershape_n=cpow=lazysusan=blob;
             // VECTOR2
             resize(curl_c, iter_f);     parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // VECTOR4
@@ -187,7 +191,22 @@ struct gemPrm{
                         // 38 PIE
                         if(TYPE==38){ pie[i] = chv(concat("../pie_", IDX)); continue; }
                         // 47 DISC2
-                        else if(TYPE==47){ disc2[i] = chu(concat("../disc2_", IDX)); continue; }
+                        else if(TYPE==47){
+                            // disc2[i][0] = rot
+                            // disc2[i][1] = twist
+                            disc2[i] = chu(concat("../disc2_", IDX));
+                            // PRECALC
+                            // disc2_precalc[i][0] = disc2_timespi
+                            // disc2_precalc[i][1] = disc2_sinadd
+                            // disc2_precalc[i][2] = disc2_cosadd
+                            float k;
+                            disc2_precalc[i][0] = disc2[i][0] * M_PI;
+                            sincos(disc2[i][1], disc2_precalc[i][1], disc2_precalc[i][2]);
+                            disc2_precalc[i][2] -= 1;
+                            if(disc2[i][1] > ( 2*M_PI)){ k = (1 + disc2[i][1] - 2*M_PI); disc2_precalc[i][2]*=k; disc2_precalc[i][1]*=k; }
+                            if(disc2[i][1] < (-2*M_PI)){ k = (1 + disc2[i][1] + 2*M_PI); disc2_precalc[i][2]*=k; disc2_precalc[i][1]*=k; }
+                            continue;
+                            }
                         // 48 SUPERSHAPE
                         else if(TYPE==48){
                             supershape[i]   = chv(concat("../supershape_",  IDX));

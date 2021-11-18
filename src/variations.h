@@ -531,17 +531,9 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
     p[0] = _p[0]*rr;
     p[1] = _p[1]*rr;
 }
-// 47 ( parametric )
-void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist){
-    float rr, tt, sinr, cosr, disc2_sinadd, disc2_cosadd, disc2_timespi;
-    // precalc
-    float k;
-    disc2_timespi = rot * M_PI;
-    sincos(twist, disc2_sinadd, disc2_cosadd);
-    disc2_cosadd -= 1;
-    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); disc2_cosadd*=k; disc2_sinadd*=k; }
-    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); disc2_cosadd*=k; disc2_sinadd*=k; }
-
+// 47 ( parametric ) PRECALC: disc2_timespi, disc2_sinadd, disc2_cosadd
+void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd){
+    float rr, tt, sinr, cosr;
     tt = disc2_timespi * (_p[0] + _p[1]);
     sincos(tt, sinr, cosr);
     rr = w * ATAN(_p) / M_PI;
