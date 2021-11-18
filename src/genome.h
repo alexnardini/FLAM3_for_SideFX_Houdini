@@ -142,7 +142,7 @@ struct gemPrm{
 
     // PRECALC
     //
-    vector disc2_precalc[];
+    vector disc2_precalc[], wedgejulia_precalc[];
     vector2 supershape_precalc[];
 
     void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]){
@@ -156,7 +156,7 @@ struct gemPrm{
             // FLOAT
             resize(rings2_val, iter_f); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // VECTOR
-            resize(blob, iter_f);       disc2_precalc=pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, iter_f);       wedgejulia_precalc=disc2_precalc=pie=supershape=supershape_n=cpow=lazysusan=blob;
             // VECTOR2
             resize(curl_c, iter_f);     supershape_precalc=parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // VECTOR4
@@ -267,7 +267,21 @@ struct gemPrm{
                         // 75 WEDGE
                         else if(TYPE==75){ wedge[i] = chp(concat("../wedge_", IDX)); continue; }
                         // 76 WEDGE JULIA
-                        else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", IDX)); continue; }
+                        else if(TYPE==76){
+                            // wedgejulia[i][0] = power
+                            // wedgejulia[i][1] = angle
+                            // wedgejulia[i][2] = dist
+                            // wedgejulia[i][3] = count
+                            wedgejulia[i] = chp(concat("../wedgejulia_", IDX));
+                            // PRECALC
+                            // wedgejulia_precalc[i][0] = wedgeJulia_cf
+                            // wedgejulia_precalc[i][1] = wedgeJulia_rN
+                            // wedgejulia_precalc[i][2] = wedgeJulia_cn
+                            wedgejulia_precalc[i][0] = 1.0 - wedgejulia[i][1] * wedgejulia[i][3] * M_1_PI * 0.5;
+                            wedgejulia_precalc[i][1] = abs(wedgejulia[i][0]);
+                            wedgejulia_precalc[i][2] = wedgejulia[i][2] / wedgejulia[i][0] / 2.0;
+                            continue;
+                            }
                     }
                     else{
                         // 77 WEDGE SPH
