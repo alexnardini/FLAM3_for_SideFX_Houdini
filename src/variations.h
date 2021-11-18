@@ -87,7 +87,9 @@ void affineRot(matrix2 m2; const vector2 x, y; const float ang){
 //  p = out position
 // _p = incoming position
 //
-// VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
+// VARs with precalc _p: 9, 10, 11, 19, 21, 30, 35
+//
+// VARs with PRECALC: 47, 48, 76, 98, 99
 //
 // 01
 void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
