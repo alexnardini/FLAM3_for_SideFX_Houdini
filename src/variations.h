@@ -1101,29 +1101,16 @@ void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
     p[0] = w * (_p[0] + a[0] * exp(_p[1]*_p[1]/l[0]));
     p[1] = w * (_p[1] + a[1] * exp(_p[0]*_p[0]/l[1]));
 }
-// 98 ( parametric )
-void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
-    float tt, vsin, vfcos;
-    // precalc
-    float ang = angle * M_PI / 2.0;
-    vsin = sin(ang);
-    vfcos = dist * cos(ang);
-
+// 98 ( parametric ) PRECALC: vsin, vfcos
+void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist, vsin, vfcos){
+    float tt;
     tt = 1.0 / (dist - _p[1] * vsin);
     p[0] = w * dist * _p[0] * tt;
     p[1] = w * vfcos * _p[1] * tt;
 }
-// 99 ( parametric )
-void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist){
-    float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
-    // precalc
-    float radius = 0.5 * (cellsize / (1.0 + space*space ));
-    g2 = sqrt(gain) / cellsize + 1e-6;
-    max_bubble = g2 * radius;
-    max_bubble = (max_bubble>2.0) ? 1.0 : max_bubble*1.0/( (max_bubble*max_bubble)/4.0+1.0);
-    r2 = radius*radius;
-    rfactor = radius/max_bubble;
-
+// 99 ( parametric ) PRECALC: g2, r2, rfactor
+void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor){
+    float Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
     Vx = _p[0];
     Vy = _p[1];
     if(cellsize == 0.0){

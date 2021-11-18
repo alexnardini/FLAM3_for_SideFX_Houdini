@@ -40,7 +40,7 @@ struct gemSYS{
 struct gem{
     int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
-    vector2 gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo; //gtr, 
+    vector2 gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
     void gemBuild(const int VACTIVE[]; const gemSYS SYS){
@@ -94,14 +94,10 @@ struct gem{
         }
         // Collect GLOBAL TM
         if(SYS.TMG){
-            // Translate
-            //gtr = chu("../ftr");
             // Rotate
             grt = chf("../frt");
             // Scale
             gsc = chu("../fsc");
-            // Pivot
-            //gpv = chv("../fpv");
         }
         if(SYS.FF){
             // FF VAR 01
@@ -141,9 +137,8 @@ struct gemPrm{
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
 
     // PRECALC
-    //
-    vector disc2_precalc[], wedgejulia_precalc[];
-    vector2 supershape_precalc[];
+    vector disc2_precalc[], wedgejulia_precalc[], bwraps_precalc[];
+    vector2 supershape_precalc[], persp_precalc[];
 
     void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]){
 
@@ -156,9 +151,9 @@ struct gemPrm{
             // FLOAT
             resize(rings2_val, iter_f); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // VECTOR
-            resize(blob, iter_f);       wedgejulia_precalc=disc2_precalc=pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, iter_f);       bwraps_precalc=wedgejulia_precalc=disc2_precalc=pie=supershape=supershape_n=cpow=lazysusan=blob;
             // VECTOR2
-            resize(curl_c, iter_f);     supershape_precalc=parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
+            resize(curl_c, iter_f);     persp_precalc=supershape_precalc=parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // VECTOR4
             resize(ngon, iter_f);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
@@ -305,11 +300,37 @@ struct gemPrm{
                             curve_lenght[i] = chu(concat("../curvexyzlenght_", IDX));
                             curve_amp[i]    = chu(concat("../curvexyzamp_",    IDX)); continue; }
                         // 98 PERSPECTIVE
-                        else if(TYPE==98){ persp[i] = chu(concat("../persp_", IDX)); continue; }
+                        else if(TYPE==98){
+                            // persp[i][0] = angle
+                            // persp[i][1] = dist
+                            persp[i] = chu(concat("../persp_", IDX));
+                            // PRECALC
+                            // persp_precalc[i][0] = vsin
+                            // persp_precalc[i][1] = vfsin
+                            float ang = persp[i][0] * M_PI / 2.0;
+                            persp_precalc[i][0] = sin(ang);
+                            persp_precalc[i][1] = persp[i][1] * cos(ang);
+                            continue;
+                            }
                         // 99 BWRAPS
                         else if(TYPE==99){
+                            // bwraps[i][0] = cellsize
+                            // bwraps[i][1] = space
+                            // bwraps[i][2] = gain
                             bwraps[i] = chv(concat("../bwraps_", IDX));
-                            bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX)); continue; }
+                            bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX));
+                            // PRECALC
+                            // bwraps_precalc[i][0] = g2
+                            // bwraps_precalc[i][1] = r2
+                            // bwraps_precalc[i][2] = rfactor
+                            float radius = 0.5 * (bwraps[i][0] / (1.0 + bwraps[i][1]*bwraps[i][1] ));
+                            bwraps_precalc[i][0] = sqrt(bwraps[i][2]) / bwraps[i][0] + 1e-6;
+                            float max_bubble = bwraps_precalc[i][0] * radius;
+                            max_bubble = (max_bubble>2.0) ? 1.0 : max_bubble*1.0/( (max_bubble*max_bubble)/4.0+1.0);
+                            bwraps_precalc[i][1] = radius*radius;
+                            bwraps_precalc[i][2] = radius/max_bubble;
+                            continue;
+                            }
                         // 101 POLYNOMIAL
                         else if(TYPE==101){
                             polynomial_pow[i] = chu(concat("../polynomialpow_", IDX));

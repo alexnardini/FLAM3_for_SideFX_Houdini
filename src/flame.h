@@ -605,24 +605,25 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 return p; }
             // 98 PERSPECTIVE ( parametric )
             else if(type==98){
-                vector2 persp;
-                if(ftype) persp = GMP.persp[idx];
+                vector2 persp, persp_precalc;
+                if(ftype){ persp = GMP.persp[idx]; persp_precalc = GMP.persp_precalc[idx]; }
                 else  persp = chu("../_persp_2");
-                V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
+                V_PERSPECTIVE(p, _p, w, persp[0], persp[1], persp_precalc[0], persp_precalc[1]);
                 return p; }
             // 99 BWRAPS ( parametric )
             else if(type==99){
-                vector bwraps;
+                vector bwraps, bwraps_precalc;
                 vector2 bwrapstwist;
                 if(ftype){
                     bwraps = GMP.bwraps[idx];
                     bwrapstwist = GMP.bwrapstwist[idx];
+                    bwraps_precalc = GMP.bwraps_precalc[idx];
                 }
                 else{
                     bwraps = chv("../_bwraps_2");
                     bwrapstwist = chu("../_bwrapstwist_2");
                 }
-                V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
+                V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1], bwraps_precalc[0], bwraps_precalc[1], bwraps_precalc[2]);
                 return p; }
             // 100 HEMISPHERE
             else if(type==100){
