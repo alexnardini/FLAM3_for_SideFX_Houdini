@@ -195,12 +195,7 @@ struct gemPrm{
                             // disc2_precalc[i][0] = timespi
                             // disc2_precalc[i][1] = sinadd
                             // disc2_precalc[i][2] = cosadd
-                            float k;
-                            disc2_precalc[i][0] = disc2[i][0] * M_PI;
-                            sincos(disc2[i][1], disc2_precalc[i][1], disc2_precalc[i][2]);
-                            disc2_precalc[i][2] -= 1;
-                            if(disc2[i][1] > ( 2*M_PI)){ k = (1 + disc2[i][1] - 2*M_PI); disc2_precalc[i][2]*=k; disc2_precalc[i][1]*=k; }
-                            if(disc2[i][1] < (-2*M_PI)){ k = (1 + disc2[i][1] + 2*M_PI); disc2_precalc[i][2]*=k; disc2_precalc[i][1]*=k; }
+                            precalc_V_DISC2(disc2_precalc[i], disc2[i][0], disc2[i][1]);
                             continue;
                             }
                         // 48 SUPERSHAPE
@@ -213,8 +208,7 @@ struct gemPrm{
                             // PRECALC
                             // supershape_precalc[i][0] = ss_pm_4
                             // supershape_precalc[i][1] = ss_pneg1_n1
-                            supershape_precalc[i][0] = supershape[i][0] / 4.0;
-                            supershape_precalc[i][1] = -1.0 / supershape_n[i][0];
+                            precalc_V_SUPERSHAPE(supershape_precalc[i], supershape[i][0], supershape_n[i][0]);
                             continue;
                             }
                         // 49 FLOWER
@@ -272,9 +266,7 @@ struct gemPrm{
                             // wedgejulia_precalc[i][0] = wedgeJulia_cf
                             // wedgejulia_precalc[i][1] = wedgeJulia_rN
                             // wedgejulia_precalc[i][2] = wedgeJulia_cn
-                            wedgejulia_precalc[i][0] = 1.0 - wedgejulia[i][1] * wedgejulia[i][3] * M_1_PI * 0.5;
-                            wedgejulia_precalc[i][1] = abs(wedgejulia[i][0]);
-                            wedgejulia_precalc[i][2] = wedgejulia[i][2] / wedgejulia[i][0] / 2.0;
+                            precalc_V_WEDGEJULIA(wedgejulia_precalc[i], wedgejulia[i][0], wedgejulia[i][1], wedgejulia[i][2], wedgejulia[i][3]);
                             continue;
                             }
                     }
@@ -307,9 +299,7 @@ struct gemPrm{
                             // PRECALC
                             // persp_precalc[i][0] = vsin
                             // persp_precalc[i][1] = vfsin
-                            float ang = persp[i][0] * M_PI / 2.0;
-                            persp_precalc[i][0] = sin(ang);
-                            persp_precalc[i][1] = persp[i][1] * cos(ang);
+                            precalc_V_PERSP(persp_precalc[i], persp[i][0], persp[i][1]);
                             continue;
                             }
                         // 99 BWRAPS
@@ -323,12 +313,7 @@ struct gemPrm{
                             // bwraps_precalc[i][0] = g2
                             // bwraps_precalc[i][1] = r2
                             // bwraps_precalc[i][2] = rfactor
-                            float radius = 0.5 * (bwraps[i][0] / (1.0 + bwraps[i][1]*bwraps[i][1] ));
-                            bwraps_precalc[i][0] = sqrt(bwraps[i][2]) / bwraps[i][0] + 1e-6;
-                            float max_bubble = bwraps_precalc[i][0] * radius;
-                            max_bubble = (max_bubble>2.0) ? 1.0 : max_bubble*1.0/( (max_bubble*max_bubble)/4.0+1.0);
-                            bwraps_precalc[i][1] = radius*radius;
-                            bwraps_precalc[i][2] = radius/max_bubble;
+                             precalc_V_BWRAPS(bwraps_precalc[i], bwraps[i][0], bwraps[i][1], bwraps[i][2]);
                             continue;
                             }
                         // 101 POLYNOMIAL
