@@ -87,14 +87,13 @@ int chkNAN_v(const int ACTIVE; const vector2 vec){
     return 0;
 }
 
-void V_SYM(vector2 p; const vector2 pivot; const int num){
+void V_SYM(vector2 p; const int num){
     float ang = 0;
     // 3-way
     if(!num){
         if(nrandom('twister')>(1.0/3.0)){
             ang = 120;
             if(nrandom('twister')>0.5) ang = 240;
-            p *= (matrix2)maketransform(0, 0, 0, set(0, 0, ang), 1, (vector)pivot);
         }
     }
     // 5-way
@@ -106,8 +105,8 @@ void V_SYM(vector2 p; const vector2 pivot; const int num){
             else if(0.6 < sym <= 0.8)   ang = 216;
             else if(0.8 < sym <= 1.0)   ang = 288;
         }
-        p *= (matrix2)maketransform(0, 0, 0, set(0, 0, ang), 1, (vector)pivot);
     }
+    p *= (matrix2)maketransform(0, 0, 0, set(0, 0, ang), 1, 0);
 }
 
 void affine(vector2 p; const vector2 x, y, o){

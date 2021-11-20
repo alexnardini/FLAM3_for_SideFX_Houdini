@@ -164,17 +164,16 @@ source_filename = "TheFractalFlameAlgorithm"
 @155 = private constant [20 x i8] c"../_polynomialpow_2\00"
 @156 = private constant [19 x i8] c"../_polynomiallc_2\00"
 @157 = private constant [19 x i8] c"../_polynomialsc_2\00"
-@158 = private constant [13 x i8] c"../symgpivot\00"
-@159 = private constant [12 x i8] c"mb_modulate\00"
-@160 = private constant [4 x i8] c"set\00"
+@158 = private constant [12 x i8] c"mb_modulate\00"
+@159 = private constant [4 x i8] c"set\00"
 @ptnum = external global i64
 @pscale = external global double
 @COORD = external global double
 @P = external global <3 x double>
-@161 = private constant [6 x i8] c"ptnum\00"
-@162 = private constant [7 x i8] c"pscale\00"
-@163 = private constant [6 x i8] c"COORD\00"
-@164 = private constant [2 x i8] c"P\00"
+@160 = private constant [6 x i8] c"ptnum\00"
+@161 = private constant [7 x i8] c"pscale\00"
+@162 = private constant [6 x i8] c"COORD\00"
+@163 = private constant [2 x i8] c"P\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private double @"ATAN@FU"(<2 x double>* %p) #0 {
@@ -384,7 +383,7 @@ declare i64 @"isnan@IF"(double) #1
 declare double @"length@FU"(<2 x double>) #3
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SYM@UUI"(<2 x double>* %p, <2 x double>* %pivot, i64* %num) #0 {
+define private void @"V_SYM@UI"(<2 x double>* %p, i64* %num) #0 {
 __llvm_entry:
   %num1 = load i64, i64* %num
   %return = call i64 @"not@II"(i64 %num1)
@@ -399,92 +398,73 @@ true:                                             ; preds = %__llvm_entry
 
 false:                                            ; preds = %__llvm_entry
   %1 = icmp ne i64 %num1, 0
-  br i1 %1, label %true22, label %end
+  br i1 %1, label %true13, label %end
 
-end:                                              ; preds = %false, %end28, %true, %end11
+end:                                              ; preds = %false45, %true53, %true44, %true35, %true26, %true13, %false, %true5, %true10, %true
+  %ang.0 = phi double [ 2.400000e+02, %true10 ], [ 1.200000e+02, %true5 ], [ 0.000000e+00, %true ], [ 7.200000e+01, %true26 ], [ 1.440000e+02, %true35 ], [ 2.160000e+02, %true44 ], [ 2.880000e+02, %true53 ], [ 0.000000e+00, %false45 ], [ 0.000000e+00, %true13 ], [ 0.000000e+00, %false ]
+  %p55 = load <2 x double>, <2 x double>* %p
+  %cast56 = call <3 x double> @"set@VI"(i64 0)
+  %return58 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.0)
+  %cast59 = call <3 x double> @"set@VI"(i64 1)
+  %return61 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast56, <3 x double> %return58, <3 x double> %cast59, <3 x double> %cast56)
+  %cast62 = call <4 x double> @"set@24"(<16 x double> %return61)
+  %output63 = call <2 x double> @"mul@U2"(<2 x double> %p55, <4 x double> %cast62)
+  store <2 x double> %output63, <2 x double>* %p
   ret void
 
 true5:                                            ; preds = %true
   %return7 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %return8 = fcmp ogt double %return7, 5.000000e-01
-  br i1 %return8, label %true10, label %end11
+  br i1 %return8, label %true10, label %end
 
 true10:                                           ; preds = %true5
-  br label %end11
-
-end11:                                            ; preds = %true10, %true5
-  %ang.0 = phi double [ 2.400000e+02, %true10 ], [ 1.200000e+02, %true5 ]
-  %p12 = load <2 x double>, <2 x double>* %p
-  %cast = call <3 x double> @"set@VI"(i64 0)
-  %return14 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.0)
-  %cast15 = call <3 x double> @"set@VI"(i64 1)
-  %pivot16 = load <2 x double>, <2 x double>* %pivot
-  %cast17 = call <3 x double> @"set@VU"(<2 x double> %pivot16)
-  %return18 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %return14, <3 x double> %cast15, <3 x double> %cast17)
-  %cast19 = call <4 x double> @"set@24"(<16 x double> %return18)
-  %output20 = call <2 x double> @"mul@U2"(<2 x double> %p12, <4 x double> %cast19)
-  store <2 x double> %output20, <2 x double>* %p
   br label %end
 
-true22:                                           ; preds = %false
-  %return24 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %return25 = fcmp oge double %return24, 2.000000e-01
-  br i1 %return25, label %true27, label %end28
+true13:                                           ; preds = %false
+  %return15 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %return16 = fcmp oge double %return15, 2.000000e-01
+  br i1 %return16, label %true18, label %end
 
-true27:                                           ; preds = %true22
-  %return29 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %return31 = fcmp olt double 2.000000e-01, %return29
-  %return32 = zext i1 %return31 to i64
-  %cast33 = sitofp i64 %return32 to double
-  %return34 = fcmp ole double %cast33, 4.000000e-01
-  br i1 %return34, label %true36, label %false37
+true18:                                           ; preds = %true13
+  %return20 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %return22 = fcmp olt double 2.000000e-01, %return20
+  %return23 = zext i1 %return22 to i64
+  %cast = sitofp i64 %return23 to double
+  %return24 = fcmp ole double %cast, 4.000000e-01
+  br i1 %return24, label %true26, label %false27
 
-end28:                                            ; preds = %false55, %true63, %true54, %true45, %true36, %true22
-  %ang.1 = phi double [ 7.200000e+01, %true36 ], [ 1.440000e+02, %true45 ], [ 2.160000e+02, %true54 ], [ 2.880000e+02, %true63 ], [ 0.000000e+00, %false55 ], [ 0.000000e+00, %true22 ]
-  %p65 = load <2 x double>, <2 x double>* %p
-  %cast66 = call <3 x double> @"set@VI"(i64 0)
-  %return68 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.1)
-  %cast69 = call <3 x double> @"set@VI"(i64 1)
-  %pivot70 = load <2 x double>, <2 x double>* %pivot
-  %cast71 = call <3 x double> @"set@VU"(<2 x double> %pivot70)
-  %return72 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast66, <3 x double> %return68, <3 x double> %cast69, <3 x double> %cast71)
-  %cast73 = call <4 x double> @"set@24"(<16 x double> %return72)
-  %output74 = call <2 x double> @"mul@U2"(<2 x double> %p65, <4 x double> %cast73)
-  store <2 x double> %output74, <2 x double>* %p
+true26:                                           ; preds = %true18
   br label %end
 
-true36:                                           ; preds = %true27
-  br label %end28
+false27:                                          ; preds = %true18
+  %return30 = fcmp olt double 4.000000e-01, %return20
+  %return31 = zext i1 %return30 to i64
+  %cast32 = sitofp i64 %return31 to double
+  %return33 = fcmp ole double %cast32, 6.000000e-01
+  br i1 %return33, label %true35, label %false36
 
-false37:                                          ; preds = %true27
-  %return40 = fcmp olt double 4.000000e-01, %return29
-  %return41 = zext i1 %return40 to i64
-  %cast42 = sitofp i64 %return41 to double
-  %return43 = fcmp ole double %cast42, 6.000000e-01
-  br i1 %return43, label %true45, label %false46
+true35:                                           ; preds = %false27
+  br label %end
 
-true45:                                           ; preds = %false37
-  br label %end28
+false36:                                          ; preds = %false27
+  %return39 = fcmp olt double 6.000000e-01, %return20
+  %return40 = zext i1 %return39 to i64
+  %cast41 = sitofp i64 %return40 to double
+  %return42 = fcmp ole double %cast41, 8.000000e-01
+  br i1 %return42, label %true44, label %false45
 
-false46:                                          ; preds = %false37
-  %return49 = fcmp olt double 6.000000e-01, %return29
-  %return50 = zext i1 %return49 to i64
-  %cast51 = sitofp i64 %return50 to double
-  %return52 = fcmp ole double %cast51, 8.000000e-01
-  br i1 %return52, label %true54, label %false55
+true44:                                           ; preds = %false36
+  br label %end
 
-true54:                                           ; preds = %false46
-  br label %end28
+false45:                                          ; preds = %false36
+  %return48 = fcmp olt double 8.000000e-01, %return20
+  %return49 = zext i1 %return48 to i64
+  %cast50 = sitofp i64 %return49 to double
+  %return51 = fcmp ole double %cast50, 1.000000e+00
+  br i1 %return51, label %true53, label %end
 
-false55:                                          ; preds = %false46
-  %return58 = fcmp olt double 8.000000e-01, %return29
-  %return59 = zext i1 %return58 to i64
-  %cast60 = sitofp i64 %return59 to double
-  %return61 = fcmp ole double %cast60, 1.000000e+00
-  br i1 %return61, label %true63, label %end28
-
-true63:                                           ; preds = %false55
-  br label %end28
+true53:                                           ; preds = %false45
+  br label %end
 }
 
 ; Function Attrs: nounwind readnone
@@ -492,9 +472,6 @@ declare <3 x double> @"set@VI"(i64) #1
 
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VFFF"(double, double, double) #1
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind readnone
 declare <16 x double> @"maketransform@4IIVVVV"(i64, i64, <3 x double>, <3 x double>, <3 x double>, <3 x double>) #1
@@ -6962,6 +6939,9 @@ declare { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>*, <3 x dou
 ; Function Attrs: nounwind readnone
 declare { double, double* } @"setcomp@F[FFI"(double*, double, i64) #1
 
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VU"(<2 x double>) #1
+
 ; Function Attrs: alwaysinline nounwind
 define private %gemPrm @"gemPrm@Z6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[P[F[F[F[F[F[F[V[V[V[V[V[V[V[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[P[P[P[P[P[P[P[P[P"(double** %rings2_val, double** %bipolar_shift, double** %cell_size, double** %escher_beta, double** %popcorn2_c, double** %flux_spread, <3 x double>** %blob, <3 x double>** %pie, <3 x double>** %supershape, <3 x double>** %supershape_n, <3 x double>** %cpow, <3 x double>** %lazysusan, <3 x double>** %bwraps, <2 x double>** %curl_c, <2 x double>** %parabola, <2 x double>** %fan2, <2 x double>** %rectangles, <2 x double>** %bent2, <2 x double>** %lazysusanxyz, <2 x double>** %modulus, <2 x double>** %popcorn2, <2 x double>** %separation, <2 x double>** %separation_inside, <2 x double>** %split, <2 x double>** %splits, <2 x double>** %waves2_scale, <2 x double>** %waves2_freq, <2 x double>** %curve_lenght, <2 x double>** %curve_amp, <2 x double>** %polynomial_pow, <2 x double>** %polynomial_lc, <2 x double>** %polynomial_sc, <2 x double>** %julian, <2 x double>** %juliascope, <2 x double>** %radialblur, <2 x double>** %disc2, <2 x double>** %flower, <2 x double>** %conic, <2 x double>** %stripes, <2 x double>** %whorl, <2 x double>** %persp, <2 x double>** %bwrapstwist, <4 x double>** %ngon, <4 x double>** %pdj_w, <4 x double>** %oscope, <4 x double>** %wedge, <4 x double>** %wedgejulia, <4 x double>** %wedgesph, <4 x double>** %auger, <4 x double>** %mobius_re, <4 x double>** %mobius_im) #0 {
 __llvm_entry:
@@ -9970,8 +9950,7 @@ __llvm_entry:
   %88 = alloca <2 x double>
   %89 = alloca <2 x double>
   %90 = alloca double
-  %91 = alloca <2 x double>
-  %92 = alloca i64
+  %91 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %__tmp, !vex-initializer-store !3
   %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN5DELPTIN5POSTFIN2FFIN6iter_fIN3symIN8sym_modeIN4iterIN4dombIN5vizmbIN6mb_modF"()
   %SYS1.fca.0.extract = extractvalue %gemSYS %SYS1, 0
@@ -11371,8 +11350,8 @@ cond:                                             ; preds = %end180, %__llvm_ent
   %SYS22.fca.9.insert = insertvalue %gemSYS %SYS22.fca.8.insert, i64 %SYS22.fca.9.load, 9
   %SYS22.fca.10.load = load double, double* %SYS1.fca.10.gep
   %return = call i64 @"lt@III"(i64 %i.0, i64 %SYS22.fca.7.load)
-  %93 = icmp ne i64 %return, 0
-  br i1 %93, label %body, label %end
+  %92 = icmp ne i64 %return, 0
+  br i1 %92, label %body, label %end
 
 body:                                             ; preds = %cond
   %cast = call <2 x double> @"set@UI"(i64 0)
@@ -11453,8 +11432,8 @@ body:                                             ; preds = %cond
   br i1 %return30, label %true, label %end32
 
 end:                                              ; preds = %cond
-  %94 = icmp ne i64 %SYS22.fca.3.load, 0
-  br i1 %94, label %true206, label %end207
+  %93 = icmp ne i64 %SYS22.fca.3.load, 0
+  br i1 %93, label %true206, label %end207
 
 true:                                             ; preds = %body
   store double %return29, double* %10
@@ -14104,8 +14083,8 @@ end137:                                           ; preds = %true136, %end104
   %GEM164.fca.33.insert = insertvalue %gem %GEM164.fca.32.insert, <2 x double> %GEM164.fca.33.load, 33
   %GEM164.fca.34.load = load i8**, i8*** %GEM2.fca.34.gep
   %return166 = call i64 @"getcomp@I[II"(i64* %GEM164.fca.4.load, i64 %return26)
-  %95 = icmp ne i64 %return166, 0
-  br i1 %95, label %true167, label %end168
+  %94 = icmp ne i64 %return166, 0
+  br i1 %94, label %true167, label %end168
 
 true167:                                          ; preds = %end137
   %return171 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM164.fca.25.load, i64 %return26)
@@ -14277,8 +14256,8 @@ end168:                                           ; preds = %true167, %end137
   %SYS178.fca.9.load = load i64, i64* %SYS1.fca.9.gep
   %SYS178.fca.9.insert = insertvalue %gemSYS %SYS178.fca.8.insert, i64 %SYS178.fca.9.load, 9
   %SYS178.fca.10.load = load double, double* %SYS1.fca.10.gep
-  %96 = icmp ne i64 %SYS178.fca.0.load, 0
-  br i1 %96, label %true179, label %end180
+  %95 = icmp ne i64 %SYS178.fca.0.load, 0
+  br i1 %95, label %true179, label %end180
 
 true179:                                          ; preds = %end168
   %__tmp181 = load <2 x double>, <2 x double>* %__tmp
@@ -14540,8 +14519,8 @@ end207:                                           ; preds = %true272, %false, %e
   %__mem288 = load <2 x double>, <2 x double>* %__mem
   store <2 x double> %__mem288, <2 x double>* %51
   %chkNAN_v = call i64 @"chkNAN_v@IIU"(i64* %50, <2 x double>* %51)
-  %97 = icmp ne i64 %chkNAN_v, 0
-  br i1 %97, label %true289, label %false290
+  %96 = icmp ne i64 %chkNAN_v, 0
+  br i1 %96, label %true289, label %false290
 
 true212:                                          ; preds = %true206
   %v1GMP215.fca.0.load = load double*, double** %v1GMP5.fca.0.gep
@@ -16402,8 +16381,8 @@ end248:                                           ; preds = %true247, %end229
   %SYS263.fca.9.load = load i64, i64* %SYS1.fca.9.gep
   %SYS263.fca.9.insert = insertvalue %gemSYS %SYS263.fca.8.insert, i64 %SYS263.fca.9.load, 9
   %SYS263.fca.10.load = load double, double* %SYS1.fca.10.gep
-  %98 = icmp ne i64 %SYS263.fca.2.load, 0
-  br i1 %98, label %true264, label %end265
+  %97 = icmp ne i64 %SYS263.fca.2.load, 0
+  br i1 %97, label %true264, label %end265
 
 true264:                                          ; preds = %end248
   %GEM266.fca.0.load = load i64*, i64** %GEM2.fca.0.gep
@@ -17286,15 +17265,18 @@ false290:                                         ; preds = %end207
   %SYS294.fca.9.load = load i64, i64* %SYS1.fca.9.gep
   %SYS294.fca.9.insert = insertvalue %gemSYS %SYS294.fca.8.insert, i64 %SYS294.fca.9.load, 9
   %SYS294.fca.10.load = load double, double* %SYS1.fca.10.gep
-  %99 = icmp ne i64 %SYS294.fca.5.load, 0
-  br i1 %99, label %true295, label %end296
+  %98 = icmp ne i64 %SYS294.fca.5.load, 0
+  br i1 %98, label %true295, label %end296
 
-end291:                                           ; preds = %end301, %true289
+end291:                                           ; preds = %end300, %true289
   ret void
 
 true295:                                          ; preds = %false290
-  %return297 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @158, i64 0, i64 0))
-  store <2 x double> %return297, <2 x double>* %91
+  store i64 %SYS294.fca.6.load, i64* %91
+  call void @"V_SYM@UI"(<2 x double>* %__mem, i64* %91)
+  br label %end296
+
+end296:                                           ; preds = %true295, %false290
   %SYS298.fca.0.load = load i64, i64* %SYS1.fca.0.gep
   %SYS298.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS298.fca.0.load, 0
   %SYS298.fca.1.load = load i64, i64* %SYS1.fca.1.gep
@@ -17316,46 +17298,20 @@ true295:                                          ; preds = %false290
   %SYS298.fca.9.load = load i64, i64* %SYS1.fca.9.gep
   %SYS298.fca.9.insert = insertvalue %gemSYS %SYS298.fca.8.insert, i64 %SYS298.fca.9.load, 9
   %SYS298.fca.10.load = load double, double* %SYS1.fca.10.gep
-  store i64 %SYS298.fca.6.load, i64* %92
-  call void @"V_SYM@UUI"(<2 x double>* %__mem, <2 x double>* %91, i64* %92)
-  br label %end296
+  %99 = icmp ne i64 %SYS298.fca.8.load, 0
+  br i1 %99, label %true299, label %end300
 
-end296:                                           ; preds = %true295, %false290
-  %SYS299.fca.0.load = load i64, i64* %SYS1.fca.0.gep
-  %SYS299.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS299.fca.0.load, 0
-  %SYS299.fca.1.load = load i64, i64* %SYS1.fca.1.gep
-  %SYS299.fca.1.insert = insertvalue %gemSYS %SYS299.fca.0.insert, i64 %SYS299.fca.1.load, 1
-  %SYS299.fca.2.load = load i64, i64* %SYS1.fca.2.gep
-  %SYS299.fca.2.insert = insertvalue %gemSYS %SYS299.fca.1.insert, i64 %SYS299.fca.2.load, 2
-  %SYS299.fca.3.load = load i64, i64* %SYS1.fca.3.gep
-  %SYS299.fca.3.insert = insertvalue %gemSYS %SYS299.fca.2.insert, i64 %SYS299.fca.3.load, 3
-  %SYS299.fca.4.load = load i64, i64* %SYS1.fca.4.gep
-  %SYS299.fca.4.insert = insertvalue %gemSYS %SYS299.fca.3.insert, i64 %SYS299.fca.4.load, 4
-  %SYS299.fca.5.load = load i64, i64* %SYS1.fca.5.gep
-  %SYS299.fca.5.insert = insertvalue %gemSYS %SYS299.fca.4.insert, i64 %SYS299.fca.5.load, 5
-  %SYS299.fca.6.load = load i64, i64* %SYS1.fca.6.gep
-  %SYS299.fca.6.insert = insertvalue %gemSYS %SYS299.fca.5.insert, i64 %SYS299.fca.6.load, 6
-  %SYS299.fca.7.load = load i64, i64* %SYS1.fca.7.gep
-  %SYS299.fca.7.insert = insertvalue %gemSYS %SYS299.fca.6.insert, i64 %SYS299.fca.7.load, 7
-  %SYS299.fca.8.load = load i64, i64* %SYS1.fca.8.gep
-  %SYS299.fca.8.insert = insertvalue %gemSYS %SYS299.fca.7.insert, i64 %SYS299.fca.8.load, 8
-  %SYS299.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS299.fca.9.insert = insertvalue %gemSYS %SYS299.fca.8.insert, i64 %SYS299.fca.9.load, 9
-  %SYS299.fca.10.load = load double, double* %SYS1.fca.10.gep
-  %100 = icmp ne i64 %SYS299.fca.8.load, 0
-  br i1 %100, label %true300, label %end301
+true299:                                          ; preds = %end296
+  %output303 = fmul double 1.000000e-03, %SYS298.fca.10.load
+  %_bound_ptnum304 = load i64, i64* %_bound_ptnum
+  %return307 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @158, i64 0, i64 0), i64 %_bound_ptnum304, double %SYS298.fca.10.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @159, i64 0, i64 0))
+  br label %end300
 
-true300:                                          ; preds = %end296
-  %output304 = fmul double 1.000000e-03, %SYS299.fca.10.load
-  %_bound_ptnum305 = load i64, i64* %_bound_ptnum
-  %return308 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @159, i64 0, i64 0), i64 %_bound_ptnum305, double %SYS299.fca.10.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @160, i64 0, i64 0))
-  br label %end301
-
-end301:                                           ; preds = %true300, %end296
-  %pscl.0 = phi double [ %output304, %true300 ], [ 1.000000e-03, %end296 ]
-  %__mem309 = load <2 x double>, <2 x double>* %__mem
-  %cast310 = call <3 x double> @"set@VU"(<2 x double> %__mem309)
-  store <3 x double> %cast310, <3 x double>* %_bound_P
+end300:                                           ; preds = %true299, %end296
+  %pscl.0 = phi double [ %output303, %true299 ], [ 1.000000e-03, %end296 ]
+  %__mem308 = load <2 x double>, <2 x double>* %__mem
+  %cast309 = call <3 x double> @"set@VU"(<2 x double> %__mem308)
+  store <3 x double> %cast309, <3 x double>* %_bound_P
   store double %CLR.0, double* %_bound_COORD
   store double %pscl.0, double* %_bound_pscale
   br label %end291
@@ -17400,13 +17356,13 @@ __llvm_entry:
   store i64* %VACTIVE, i64** %1
   store double* %CDF, double** %2
   call void @"_TheFractalFlameAlgorithm@I[I[FFFV"(i64* %0, i64** %1, double** %2, double* %"<pscale>", double* %"<COORD>", <3 x double>* %"<P>")
-  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @161, i64 0, i64 0), i64 %ptnum) #4
+  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @160, i64 0, i64 0), i64 %ptnum) #4
   %evalue4 = load double, double* %"<pscale>"
-  %gvalue5 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @162, i64 0, i64 0), double %evalue4) #4
+  %gvalue5 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @161, i64 0, i64 0), double %evalue4) #4
   %evalue6 = load double, double* %"<COORD>"
-  %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @163, i64 0, i64 0), double %evalue6) #4
+  %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @162, i64 0, i64 0), double %evalue6) #4
   %evalue8 = load <3 x double>, <3 x double>* %"<P>"
-  %gvalue9 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @164, i64 0, i64 0), <3 x double> %evalue8) #4
+  %gvalue9 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @163, i64 0, i64 0), <3 x double> %evalue8) #4
   store i64 %gvalue, i64* @ptnum
   store double %gvalue5, double* @pscale
   store double %gvalue7, double* @COORD
