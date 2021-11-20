@@ -40,7 +40,8 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
-// The following precal functions are not used yet but here just for reference
+// The following precal functions are not used yet but here just for reference.
+// For the time being those are hard coded inside each variation function.
 ////////////////////////////////////////////////////////////////////////////////////////////////
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
     float k;
