@@ -41,6 +41,7 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
 // The following precal functions are not used yet but here just for reference
+////////////////////////////////////////////////////////////////////////////////////////////////
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
     float k;
     disc2_precalc[0] = rot * M_PI;
@@ -75,7 +76,8 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
     bwraps_precalc[1] = radius*radius;
     bwraps_precalc[2] = radius/max_bubble;
 }
-//
+// End precalc functions
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 vector2 biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1)); }
 
