@@ -136,10 +136,6 @@ struct gemPrm{
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
 
-    // PRECALC
-    vector disc2_precalc[], wedgejulia_precalc[], bwraps_precalc[];
-    vector2 supershape_precalc[], persp_precalc[];
-
     void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]){
 
         if(max(GEMTYPE)>26){
@@ -151,9 +147,9 @@ struct gemPrm{
             // FLOAT
             resize(rings2_val, iter_f); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // VECTOR
-            resize(blob, iter_f);       bwraps_precalc=wedgejulia_precalc=disc2_precalc =pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, iter_f);       pie=supershape=supershape_n=cpow=lazysusan=blob;
             // VECTOR2
-            resize(curl_c, iter_f);     persp_precalc=supershape_precalc =parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
+            resize(curl_c, iter_f);     parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // VECTOR4
             resize(ngon, iter_f);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
@@ -187,30 +183,11 @@ struct gemPrm{
                         // 38 PIE
                         if(TYPE==38){ pie[i] = chv(concat("../pie_", IDX)); continue; }
                         // 47 DISC2
-                        else if(TYPE==47){
-                            // disc2[i][0] = rot
-                            // disc2[i][1] = twist
-                            disc2[i] = chu(concat("../disc2_", IDX));
-                            // PRECALC
-                            // disc2_precalc[i][0] = timespi
-                            // disc2_precalc[i][1] = sinadd
-                            // disc2_precalc[i][2] = cosadd
-                            precalc_V_DISC2(disc2_precalc[i], disc2[i][0], disc2[i][1]);
-                            continue;
-                            }
+                        else if(TYPE==47){ disc2[i] = chu(concat("../disc2_", IDX)); continue; }
                         // 48 SUPERSHAPE
                         else if(TYPE==48){
-                            // supershape[i][0] = ss_m
-                            // supershape[i][1] = ss_rnd
-                            // supershape[i][2] = ss_holes
                             supershape[i]   = chv(concat("../supershape_",  IDX));
-                            supershape_n[i] = chv(concat("../supershapen_", IDX));
-                            // PRECALC
-                            // supershape_precalc[i][0] = ss_pm_4
-                            // supershape_precalc[i][1] = ss_pneg1_n1
-                            precalc_V_SUPERSHAPE(supershape_precalc[i], supershape[i][0], supershape_n[i][0]);
-                            continue;
-                            }
+                            supershape_n[i] = chv(concat("../supershapen_", IDX)); continue; }
                         // 49 FLOWER
                         else if(TYPE==49){ flower[i] = chu(concat("../flower_", IDX)); continue; }
                         // 50 CONIC
@@ -256,19 +233,7 @@ struct gemPrm{
                         // 75 WEDGE
                         else if(TYPE==75){ wedge[i] = chp(concat("../wedge_", IDX)); continue; }
                         // 76 WEDGE JULIA
-                        else if(TYPE==76){
-                            // wedgejulia[i][0] = power
-                            // wedgejulia[i][1] = angle
-                            // wedgejulia[i][2] = dist
-                            // wedgejulia[i][3] = count
-                            wedgejulia[i] = chp(concat("../wedgejulia_", IDX));
-                            // PRECALC
-                            // wedgejulia_precalc[i][0] = wedgeJulia_cf
-                            // wedgejulia_precalc[i][1] = wedgeJulia_rN
-                            // wedgejulia_precalc[i][2] = wedgeJulia_cn
-                            precalc_V_WEDGEJULIA(wedgejulia_precalc[i], wedgejulia[i][0], wedgejulia[i][1], wedgejulia[i][2], wedgejulia[i][3]);
-                            continue;
-                            }
+                        else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", IDX)); continue; }
                     }
                     else{
                         // 77 WEDGE SPH
@@ -292,30 +257,11 @@ struct gemPrm{
                             curve_lenght[i] = chu(concat("../curvexyzlenght_", IDX));
                             curve_amp[i]    = chu(concat("../curvexyzamp_",    IDX)); continue; }
                         // 98 PERSPECTIVE
-                        else if(TYPE==98){
-                            // persp[i][0] = angle
-                            // persp[i][1] = dist
-                            persp[i] = chu(concat("../persp_", IDX));
-                            // PRECALC
-                            // persp_precalc[i][0] = vsin
-                            // persp_precalc[i][1] = vfsin
-                            precalc_V_PERSP(persp_precalc[i], persp[i][0], persp[i][1]);
-                            continue;
-                            }
+                        else if(TYPE==98){ persp[i] = chu(concat("../persp_", IDX)); continue; }
                         // 99 BWRAPS
                         else if(TYPE==99){
-                            // bwraps[i][0] = cellsize
-                            // bwraps[i][1] = space
-                            // bwraps[i][2] = gain
                             bwraps[i] = chv(concat("../bwraps_", IDX));
-                            bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX));
-                            // PRECALC
-                            // bwraps_precalc[i][0] = g2
-                            // bwraps_precalc[i][1] = r2
-                            // bwraps_precalc[i][2] = rfactor
-                             precalc_V_BWRAPS(bwraps_precalc[i], bwraps[i][0], bwraps[i][1], bwraps[i][2]);
-                            continue;
-                            }
+                            bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX)); continue; }
                         // 101 POLYNOMIAL
                         else if(TYPE==101){
                             polynomial_pow[i] = chu(concat("../polynomialpow_", IDX));

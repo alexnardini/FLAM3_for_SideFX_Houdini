@@ -24,17 +24,14 @@
 vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x, y, o; const float w){
 
     // string PRX = (ftype<0) ? "../p" : "../";
-
-    // VARIATIONS
-    //
+    
     //  p = out position
     // _p = incoming position
     vector2 p, _p; _p=pos;
     affine(_p, x, y, o);
-    
-    // VARs with precalc _p: 9, 10, 11, 19, 21, 30, 35
-    //
-    // VARs with PRECALC: 47, 48, 76, 98, 99
+    // VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
+
+    // FLAME VARIATIONS
     //
     // 00 LINEAR
     if(!type) return _p*w;
@@ -263,29 +260,25 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==46){
                 V_CROSS(p, _p, w);
                 return p; }
-            // 47 DISC2 ( parametric ) ( PRECALC )
+            // 47 DISC2 ( parametric )
             else if(type==47){
                 vector2 disc2;
-                vector disc2_precalc;
-                if(ftype){ disc2 = GMP.disc2[idx]; disc2_precalc = GMP.disc2_precalc[idx]; }
-                else{ disc2 = chu("../_disc2_2"); precalc_V_DISC2(disc2_precalc, disc2[0], disc2[1]); }
-                V_DISC2(p, _p, w, disc2_precalc[0], disc2_precalc[1], disc2_precalc[2]);
+                if(ftype) disc2 = GMP.disc2[idx];
+                else  disc2 = chu("../_disc2_2");
+                V_DISC2(p, _p, w, disc2[0], disc2[1]);
                 return p; }
-            // 48 SUPERSHAPE ( parametric ) ( PRECALC )
+            // 48 SUPERSHAPE ( parametric )
             else if(type==48){
                 vector ss, ss_n;
-                vector2 supershape_precalc;
                 if(ftype){
                     ss   = GMP.supershape[idx];
                     ss_n = GMP.supershape_n[idx];
-                    supershape_precalc = GMP.supershape_precalc[idx];
                 }
                 else{
                     ss   = chv("../_supershape_2");
                     ss_n = chv("../_supershapen_2");
-                    precalc_V_SUPERSHAPE(supershape_precalc, ss[0], ss_n[0]);
                 }
-                V_SUPERSHAPE(p, _p, w, ss[1], ss[2], supershape_precalc[0], supershape_precalc[1], ss_n);
+                V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(type==49){
@@ -474,13 +467,12 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 else  wedge = chp("../_wedge_2");
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
-            // 76 WEDGE JULIA ( parametric ) ( PRECALC )
+            // 76 WEDGE JULIA ( parametric )
             else if(type==76){
                 vector4 wedgejulia;
-                vector wedgejulia_precalc;
-                if(ftype){ wedgejulia = GMP.wedgejulia[idx]; wedgejulia_precalc = GMP.wedgejulia_precalc[idx]; }
-                else{ wedgejulia = chp("../_wedgejulia_2"); precalc_V_WEDGEJULIA(wedgejulia_precalc, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]); }
-                V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[3], wedgejulia_precalc[0], wedgejulia_precalc[1], wedgejulia_precalc[2]);
+                if(ftype) wedgejulia = GMP.wedgejulia[idx];
+                else  wedgejulia = chp("../_wedgejulia_2");
+                V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(type==77){
@@ -607,28 +599,26 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 }
                 V_CURVE(p, _p, w, lgt, amp);
                 return p; }
-            // 98 PERSPECTIVE ( parametric ) ( PRECALC )
+            // 98 PERSPECTIVE ( parametric )
             else if(type==98){
-                vector2 persp, persp_precalc;
-                if(ftype){ persp = GMP.persp[idx]; persp_precalc = GMP.persp_precalc[idx]; }
-                else{ persp = chu("../_persp_2"); precalc_V_PERSP(persp_precalc, persp[0], persp[1]); }
-                V_PERSPECTIVE(p, _p, w, persp[1], persp_precalc[0], persp_precalc[1]);
+                vector2 persp;
+                if(ftype) persp = GMP.persp[idx];
+                else  persp = chu("../_persp_2");
+                V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
                 return p; }
-            // 99 BWRAPS ( parametric ) ( PRECALC )
+            // 99 BWRAPS ( parametric )
             else if(type==99){
-                vector bwraps, bwraps_precalc;
+                vector bwraps;
                 vector2 bwrapstwist;
                 if(ftype){
                     bwraps = GMP.bwraps[idx];
                     bwrapstwist = GMP.bwrapstwist[idx];
-                    bwraps_precalc = GMP.bwraps_precalc[idx];
                 }
                 else{
                     bwraps = chv("../_bwraps_2");
                     bwrapstwist = chu("../_bwrapstwist_2");
-                    precalc_V_BWRAPS(bwraps_precalc, bwraps[0], bwraps[1], bwraps[2]);
                 }
-                V_BWRAPS(p, _p, w, bwraps[0], bwrapstwist[0], bwrapstwist[1], bwraps_precalc[0], bwraps_precalc[1], bwraps_precalc[2]);
+                V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
                 return p; }
             // 100 HEMISPHERE
             else if(type==100){

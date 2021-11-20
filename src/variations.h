@@ -40,6 +40,7 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
+// The following precal functions are not used yet but here just for reference
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
     float k;
     disc2_precalc[0] = rot * M_PI;
@@ -74,6 +75,7 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
     bwraps_precalc[1] = radius*radius;
     bwraps_precalc[2] = radius/max_bubble;
 }
+//
 
 vector2 biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1)); }
 
@@ -568,18 +570,30 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
     p[0] = _p[0]*rr;
     p[1] = _p[1]*rr;
 }
-// 47 ( parametric ) PRECALC: timespi, sinadd, cosadd
-void V_DISC2(vector2 p; const vector2 _p; const float w, timespi, sinadd, cosadd){
-    float rr, tt, sinr, cosr;
-    tt = timespi * (_p[0] + _p[1]);
+// 47 ( parametric )
+void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist){
+    float rr, tt, sinr, cosr, disc2_sinadd, disc2_cosadd, disc2_timespi;
+    // precalc
+    float k;
+    disc2_timespi = rot * M_PI;
+    sincos(twist, disc2_sinadd, disc2_cosadd);
+    disc2_cosadd -= 1;
+    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); disc2_cosadd*=k; disc2_sinadd*=k; }
+    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); disc2_cosadd*=k; disc2_sinadd*=k; }
+
+    tt = disc2_timespi * (_p[0] + _p[1]);
     sincos(tt, sinr, cosr);
     rr = w * ATAN(_p) / M_PI;
-    p[0] = (sinr + cosadd) * rr;
-    p[1] = (cosr + sinadd) * rr;
+    p[0] = (sinr + disc2_cosadd) * rr;
+    p[1] = (cosr + disc2_sinadd) * rr;
 }
-// 48 ( parametric ) PRECALC: ss_pm_4, ss_pneg1_n1
-void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_holes, ss_pm_4, ss_pneg1_n1; const vector ss_n){
-    float theta, st, ct, tt1, tt2, rr;
+// 48 ( parametric )
+void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes; const vector ss_n){
+    float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1;
+    // precalc
+    ss_pm_4 = ss_m / 4.0;
+    ss_pneg1_n1 = -1.0 / ss_n[0];
+
     theta = ss_pm_4 * ATANYX(_p) + M_PI_4;
     sincos(theta, st, ct);
     tt1 = abs(ct);  tt1 = pow(tt1, ss_n[1]);
@@ -928,9 +942,14 @@ void V_WEDGE(vector2 p; const vector2 _p; const float w, swirl, angle, hole, cou
     p[0] = rr*ca;
     p[1] = rr*sa;
 }
-// 76 ( parametric ) PRECALC: wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn
-void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, count, wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn){
-    float rr, t_rnd, aa, cc, sa, ca;
+// 76 ( parametric )
+void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist, count){
+    float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
+    // precalc
+    wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
+    wedgeJulia_rN = abs(power);
+    wedgeJulia_cn = dist / power / 2.0;
+
     rr = w * pow(SUMSQ(_p), wedgeJulia_cn);
     t_rnd = (int)((wedgeJulia_rN)*nrandom("twister"));
     aa = (ATANYX(_p) + 2 * M_PI * t_rnd) / power;
@@ -1138,16 +1157,29 @@ void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
     p[0] = w * (_p[0] + a[0] * exp(_p[1]*_p[1]/l[0]));
     p[1] = w * (_p[1] + a[1] * exp(_p[0]*_p[0]/l[1]));
 }
-// 98 ( parametric ) PRECALC: vsin, vfcos
-void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, dist, vsin, vfcos){
-    float tt;
+// 98 ( parametric )
+void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
+    float tt, vsin, vfcos;
+    // precalc
+    float ang = angle * M_PI / 2.0;
+    vsin = sin(ang);
+    vfcos = dist * cos(ang);
+
     tt = 1.0 / (dist - _p[1] * vsin);
     p[0] = w * dist * _p[0] * tt;
     p[1] = w * vfcos * _p[1] * tt;
 }
-// 99 ( parametric ) PRECALC: g2, r2, rfactor
-void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, innertwist, outertwist, g2, r2, rfactor){
-    float Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
+// 99 ( parametric )
+void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist){
+    float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
+    // precalc
+    float radius = 0.5 * (cellsize / (1.0 + space*space ));
+    g2 = sqrt(gain) / cellsize + 1e-6;
+    max_bubble = g2 * radius;
+    max_bubble = (max_bubble>2.0) ? 1.0 : max_bubble*1.0/( (max_bubble*max_bubble)/4.0+1.0);
+    r2 = radius*radius;
+    rfactor = radius/max_bubble;
+
     Vx = _p[0];
     Vy = _p[1];
     if(cellsize == 0.0){
