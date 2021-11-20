@@ -86,8 +86,12 @@ struct gem{
             // POST
             append(POSTL, chi(concat("../dopost_", IDX)));
             if(POSTL[-1]){
-                append(px, chu(concat("../px_", IDX)));
-                append(py, chu(concat("../py_", IDX)));
+                _x = chu(concat("../px_", IDX));
+                _y = chu(concat("../py_", IDX));
+                _a = chf(concat("../pang_", IDX));
+                affineRot(m2, _x, _y, -radians(_a));
+                append(px, set(m2.xx, m2.xy));
+                append(py, set(m2.yx, m2.yy));
                 append(po, chu(concat("../po_", IDX)));
                 }
             else{ resize(px, res); resize(py, res); resize(po, res); }
@@ -122,8 +126,12 @@ struct gem{
             fo = chu("../_fo_2");
             // POST
             if(SYS.POSTF){
-                pfx = chu("../_pfx_2");
-                pfy = chu("../_pfy_2");
+                _x = chu("../_pfx_2");;
+                _y = chu("../_pfy_2");;
+                _a = chf("../_pang_2");
+                affineRot(m2, _x, _y, -radians(_a));
+                pfx = set(m2.xx, m2.xy);
+                pfy = set(m2.yx, m2.yy);
                 pfo = chu("../_pfo_2");
             }
         }

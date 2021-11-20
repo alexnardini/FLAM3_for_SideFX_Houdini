@@ -80,6 +80,8 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
 // End precalc functions
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+string PRX(int ftype){ return (ftype==1) ? "../_" : "../_p1"; }
+
 vector2 biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1)); }
 
 int chkNAN_v(const int ACTIVE; const vector2 vec){
