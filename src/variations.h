@@ -40,8 +40,6 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
-vector2 biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1)); }
-
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
     float k;
     disc2_precalc[0] = rot * M_PI;
@@ -76,6 +74,8 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
     bwraps_precalc[1] = radius*radius;
     bwraps_precalc[2] = radius/max_bubble;
 }
+
+vector2 biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1)); }
 
 int chkNAN_v(const int ACTIVE; const vector2 vec){
     if(ACTIVE){ if(!isfinite(vec[0]) || !isfinite(vec[1]) || isnan(vec[0]) || isnan(vec[1]) || length(vec)>LIMIT) return 1; }
