@@ -29,9 +29,9 @@
 
 void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_CDF[]; float _bound_pscale, _bound_COORD; vector _bound_P)
 {
-    // ftype =  0 -> FF
-    // ftype =  1 -> LOCAL
-    // ftype = -1 -> POST ( to do... )
+    // ftype = 0 -> LOCAL
+    // ftype = 1 -> FF
+    // ftype = 2 -> POST
     
     int idx;
     vector2 __tmp;
