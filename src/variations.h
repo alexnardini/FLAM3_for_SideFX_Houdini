@@ -40,10 +40,11 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
-// The following precal functions are here just for reference.
-// For the time being those are hard coded inside each variation's function as they are faster.
-////////////////////////////////////////////////////////////////////////////////////////////////
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
+    // PRECALC
+    // disc2_precalc[idx][0] = timespi
+    // disc2_precalc[idx][1] = sinadd
+    // disc2_precalc[idx][2] = cosadd
     float k;
     disc2_precalc[0] = rot * M_PI;
     sincos(twist, disc2_precalc[1], disc2_precalc[2]);
@@ -53,23 +54,37 @@ void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
 }
 
 void precalc_V_SUPERSHAPE(vector2 supershape_precalc; const float ss_m, ss_n_0){
+    // PRECALC
+    // supershape_precalc[idx][0] = ss_pm_4
+    // supershape_precalc[idx][1] = ss_pneg1_n1
     supershape_precalc[0] = ss_m / 4.0;
     supershape_precalc[1] = -1.0 / ss_n_0;
 }
 
 void precalc_V_WEDGEJULIA(vector wedgejulia_precalc; const float power, angle, dist, count){
+    // PRECALC
+    // wedgejulia_precalc[idx][0] = wedgeJulia_cf
+    // wedgejulia_precalc[idx][1] = wedgeJulia_rN
+    // wedgejulia_precalc[idx][2] = wedgeJulia_cn
     wedgejulia_precalc[0] = 1.0 - angle * count * M_1_PI * 0.5;
     wedgejulia_precalc[1] = abs(power);
     wedgejulia_precalc[2] = dist / power / 2.0;
 }
 
 void precalc_V_PERSP(vector2 persp_precalc; const float angle, dist){
+    // PRECALC
+    // persp_precalc[idx][0] = vsin
+    // persp_precalc[idx][1] = vfsin
     float ang = angle * M_PI / 2.0;
     persp_precalc[0] = sin(ang);
     persp_precalc[1] = dist * cos(ang);
 }
 
 void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
+    // PRECALC
+    // bwraps_precalc[idx][0] = g2
+    // bwraps_precalc[idx][1] = r2
+    // bwraps_precalc[idx][2] = rfactor
     float radius = 0.5 * (cellsize / (1.0 + space*space ));
     bwraps_precalc[0] = sqrt(gain) / cellsize + 1e-6;
     float max_bubble = bwraps_precalc[0] * radius;
@@ -77,8 +92,6 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
     bwraps_precalc[1] = radius*radius;
     bwraps_precalc[2] = radius/max_bubble;
 }
-// End precalc functions
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 string PRX(int ftype){ return (ftype==1) ? "../_" : "../_p1"; }
 
