@@ -173,7 +173,7 @@ struct gemPrm{
                         // 29 PDJ
                         else if(TYPE==29){ pdj_w[i] = chp(concat("../pdjw_", IDX)); continue; }
                         // 30 BLOB
-                        else if(TYPE==30){ blob[i]  = chv(concat("../blob_",  IDX)); continue; }
+                        else if(TYPE==30){ blob[i]  = chv(concat("../blob_", IDX)); continue; }
                         // 31 JuliaN
                         else if(TYPE==31){ julian[i] = chu(concat("../julian_", IDX)); continue; }
                         // 32 JuliaScope
@@ -194,7 +194,7 @@ struct gemPrm{
                         else if(TYPE==47){ disc2[i] = chu(concat("../disc2_", IDX)); continue; }
                         // 48 SUPERSHAPE
                         else if(TYPE==48){
-                            supershape[i]   = chv(concat("../supershape_",  IDX));
+                            supershape[i]   = chv(concat("../supershape_", IDX));
                             supershape_n[i] = chv(concat("../supershapen_", IDX)); continue; }
                         // 49 FLOWER
                         else if(TYPE==49){ flower[i] = chu(concat("../flower_", IDX)); continue; }
@@ -227,7 +227,7 @@ struct gemPrm{
                         // 69 POPCORN2
                         else if(TYPE==69){
                             popcorn2[i]   = chu(concat("../popcorn2xyz_", IDX));
-                            popcorn2_c[i] = chf(concat("../popcorn2c_",   IDX)); continue; }
+                            popcorn2_c[i] = chf(concat("../popcorn2c_", IDX)); continue; }
                         // 71 SEPARATION
                         else if(TYPE==71){
                             separation[i]        = chu(concat("../separationxyz_", IDX));
@@ -247,13 +247,13 @@ struct gemPrm{
                         // 77 WEDGE SPH
                         if(TYPE==77){ wedgesph[i] = chp(concat("../wedgesph_", IDX)); continue; }
                         // 78 WHORL
-                        else if(TYPE==78){ whorl[i]  = chu(concat("../whorl_",  IDX)); continue; }
+                        else if(TYPE==78){ whorl[i]  = chu(concat("../whorl_", IDX)); continue; }
                         // 79 WAVES2
                         else if(TYPE==79){
                             waves2_scale[i] = chu(concat("../waves2scalexyz_", IDX));
-                            waves2_freq[i]  = chu(concat("../waves2freqxyz_",  IDX)); continue; }
+                            waves2_freq[i]  = chu(concat("../waves2freqxyz_", IDX)); continue; }
                         // 94 AUGER
-                        else if(TYPE==94){ auger[i] = chp(concat("../auger_",   IDX)); continue; }
+                        else if(TYPE==94){ auger[i] = chp(concat("../auger_", IDX)); continue; }
                         // 95 FLUX
                         else if(TYPE==95){ flux_spread[i] = chf(concat("../fluxspread_", IDX)); continue; }
                         // 96 MOBIUS
@@ -263,7 +263,7 @@ struct gemPrm{
                         // 97 CURVE
                         else if(TYPE==97){
                             curve_lenght[i] = chu(concat("../curvexyzlenght_", IDX));
-                            curve_amp[i]    = chu(concat("../curvexyzamp_",    IDX)); continue; }
+                            curve_amp[i]    = chu(concat("../curvexyzamp_", IDX)); continue; }
                         // 98 PERSPECTIVE
                         else if(TYPE==98){ persp[i] = chu(concat("../persp_", IDX)); continue; }
                         // 99 BWRAPS
@@ -273,8 +273,8 @@ struct gemPrm{
                         // 101 POLYNOMIAL
                         else if(TYPE==101){
                             polynomial_pow[i] = chu(concat("../polynomialpow_", IDX));
-                            polynomial_lc[i]  = chu(concat("../polynomiallc_",  IDX));
-                            polynomial_sc[i]  = chu(concat("../polynomialsc_",  IDX)); continue; }
+                            polynomial_lc[i]  = chu(concat("../polynomiallc_", IDX));
+                            polynomial_sc[i]  = chu(concat("../polynomialsc_", IDX)); continue; }
                     }
                 }
             }
