@@ -528,8 +528,8 @@ void V_ARCH(vector2 p; const vector2 _p; const float w){
     float ang, sinr, cosr;
     ang = nrandom("twister") * w * M_PI;
     sincos(ang, sinr, cosr);
-    p[0] = _p[0] + (w * sinr);
-    p[1] = _p[1] + (w * (sinr*sinr)/cosr);
+    p[0] = w * sinr;
+    p[1] = w * (sinr*sinr)/cosr;
 }
 // 40
 void V_TANGENT(vector2 p; const vector2 _p; const float w){

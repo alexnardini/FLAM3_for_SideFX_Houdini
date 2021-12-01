@@ -145,7 +145,7 @@ source_filename = "TFFAuicollect"
 @138 = private constant [14 x i8] c"../ffv3weight\00"
 @139 = private constant [12 x i8] c"../ffv3type\00"
 @140 = private constant [14 x i8] c"../ffp1weight\00"
-@141 = private constant [2 x i8] c"^\00"
+@141 = private constant [12 x i8] c"../ffp1type\00"
 @VARTYPE = external global i8**
 @142 = private constant [8 x i8] c"VARTYPE\00"
 
@@ -521,7 +521,7 @@ true181:                                          ; preds = %end27
   br i1 %return186, label %true188, label %false189
 
 end182:                                           ; preds = %end229, %end27
-  %type.4 = phi i8** [ %output243, %end229 ], [ %type.3, %end27 ]
+  %type.4 = phi i8** [ %output248, %end229 ], [ %type.3, %end27 ]
   store i8** %type.4, i8*** %_bound_VARTYPE
   ret void
 
@@ -579,13 +579,17 @@ true228:                                          ; preds = %end214
   br i1 %return231, label %true233, label %end229
 
 end229:                                           ; preds = %true228, %true233, %end214
-  %FP1.0 = phi i8* [ getelementptr inbounds ([2 x i8], [2 x i8]* @141, i64 0, i64 0), %true233 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %true228 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %end214 ]
-  %return239 = call i8* @"concat@SSS:SS"(i8* %FP1.0, i8* %FV1.0, i8* %FV2.0, i8* %FV3.0)
-  %return242 = call i8* @"toupper@SS"(i8* %return239)
-  %output243 = call i8** @"append@[SS"(i8** %type.3, i8* %return242)
+  %FP1.0 = phi i8* [ %return239, %true233 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %true228 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %end214 ]
+  %return244 = call i8* @"concat@SSS:SS"(i8* %FV1.0, i8* %FV2.0, i8* %FV3.0, i8* %FP1.0)
+  %return247 = call i8* @"toupper@SS"(i8* %return244)
+  %output248 = call i8** @"append@[SS"(i8** %type.3, i8* %return247)
   br label %end182
 
 true233:                                          ; preds = %true228
+  %return236 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @141, i64 0, i64 0))
+  %return237 = call i64 @"atoi@IS"(i8* %return236)
+  %return238 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return237)
+  %return239 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return238, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
   br label %end229
 }
 
@@ -682,7 +686,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"19.0.383"}
+!1 = !{!"19.0.437"}
 !2 = !{!"64"}
 
 ;_code_end
