@@ -65,15 +65,15 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.ffv1w!=0) __tmp += FLAME(v1GMP, 1, 0, GEM.ffv1type, __mem, GEM.fx, GEM.fy, GEM.fo, GEM.ffv1w);
         if(GEM.ffv2w!=0) __tmp += FLAME(v1GMP, 1, 0, GEM.ffv2type, __mem, GEM.fx, GEM.fy, GEM.fo, GEM.ffv2w);
         if(GEM.ffv3w!=0) __tmp += FLAME(v1GMP, 1, 0, GEM.ffv3type, __mem, GEM.fx, GEM.fy, GEM.fo, GEM.ffv3w);
-        if(SYS.POSTF) affine(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
+        if(SYS.PFF) affine(__tmp, GEM.pfx, GEM.pfy, GEM.pfo);
         if(GEM.ffp1w!=0) __mem  = FLAME(v1GMP, 2, 0, GEM.ffp1type, __tmp, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w);
         else __mem = __tmp;
     }
-    if(chkNAN_v(SYS.DELPT, __mem)) removepoint(0, _bound_ptnum);
+    if(chkNAN_v(SYS.RIP, __mem)) removepoint(0, _bound_ptnum);
     else{
         float pscl = 0.001;
-        if(SYS.sym) V_SYM(__mem, SYS.sym_mode);
-        if(SYS.domb){ pscl *= SYS.mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_mod, "set"); }
+        if(SYS.SYM) V_SYM(__mem, SYS.sym_mode);
+        if(SYS.MB){ pscl *= SYS.mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_mod, "set"); }
         _bound_P = (vector)__mem;
         _bound_COORD = CLR;
         _bound_pscale = pscl;

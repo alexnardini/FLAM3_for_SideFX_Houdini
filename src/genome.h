@@ -19,21 +19,21 @@
 #include <variations.h>
 
 struct gemSYS{
-    int TMG, DELPT, POSTF, FF, iter_f, sym, sym_mode, iter, domb, vizmb;
+    int TMG, RIP, PFF, FF, iter_f, SYM, sym_mode, iter, MB, vizmb;
     float mb_mod;
 
     void gemSYSBuild(){
         TMG           = chi("../dotmglobal");
         FF            = chi("../dofinalflame");
-        POSTF         = chi("../_dofpost_2");
-        DELPT         = chi("../delinvalidpt");
-        sym           = chi("../symmetry");
+        PFF           = chi("../_dofpost_2");
+        RIP           = chi("../delinvalidpt");
+        SYM           = chi("../symmetry");
         iter_f        = chi("../flamefunc");
         iter          = chi("../iter");
-        domb          = chi("../domb");
+        MB            = chi("../domb");
         mb_mod        = 1.0;
-        if(sym) sym_mode = chi("../rotational");
-        if(domb){ vizmb  = chi("../vizmb"); mb_mod = detail(1, "Tstep_mult", 0); }
+        if(SYM) sym_mode = chi("../rotational");
+        if(MB){ vizmb  = chi("../vizmb"); mb_mod = detail(1, "Tstep_mult", 0); }
     }
 }
 
@@ -125,7 +125,7 @@ struct gem{
             fy = set(m2.yx, m2.yy);
             fo = chu("../_fo_2");
             // POST
-            if(SYS.POSTF){
+            if(SYS.PFF){
                 _x = chu("../_pfx_2");;
                 _y = chu("../_pfy_2");;
                 _a = chf("../_pang_2");
