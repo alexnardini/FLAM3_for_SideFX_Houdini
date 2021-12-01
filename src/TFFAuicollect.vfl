@@ -214,8 +214,8 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         float fw_total = fw1+fw2+fw3;
         // Post final var
         pfw1 = chf("../ffp1weight");
-        if(pfw1!=0) { if(fw_total != 0) FP1 = "^"; }
-        VAR = concat(FP1, FV1, FV2, FV3);
+        if(pfw1!=0) { if(fw_total != 0) FP1 = concat("[", stype[atoi(chs("../ffp1type"))], "]"); }
+        VAR = concat(FV1, FV2, FV3, FP1);
         append(type, toupper(VAR));
         }
     _bound_VARTYPE = type;
