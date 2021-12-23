@@ -2255,7 +2255,7 @@ __llvm_entry:
   %output8 = fsub double %return7, 5.000000e-01
   %output9 = fmul double %w6, %output8
   %tmp10 = load <2 x double>, <2 x double>* %p
-  %return11 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp10, double %output9, i64 0)
+  %return11 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp10, double %output9, i64 1)
   %output13 = extractvalue { double, <2 x double> } %return11, 1
   store <2 x double> %output13, <2 x double>* %p
   ret void

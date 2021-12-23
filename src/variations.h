@@ -539,7 +539,7 @@ void V_TANGENT(vector2 p; const vector2 _p; const float w){
 // 41
 void V_SQUARE(vector2 p; const vector2 _p; const float w){
     p[0] = w * (nrandom("twister") - 0.5);
-    p[0] = w * (nrandom("twister") - 0.5);
+    p[1] = w * (nrandom("twister") - 0.5);
 }
 // 42
 void V_RAYS(vector2 p; const vector2 _p; const float w){
