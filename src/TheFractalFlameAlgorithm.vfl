@@ -27,7 +27,7 @@
 
 #include <flame.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_CDF[]; float _bound_pscale, _bound_COORD; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_CDF[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
 {
     // ftype = 0 -> LOCAL
     // ftype = 1 -> FF
@@ -72,11 +72,13 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     if(chkNAN_v(SYS.RIP, __mem)) removepoint(0, _bound_ptnum);
     else{
         float pscl = 0.001;
+        float ALPHA = GEM.ALPHA[idx];
         if(SYS.SYM) V_SYM(__mem, SYS.sym_mode);
         if(SYS.MB){ pscl *= SYS.mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_mod, "set"); }
         _bound_P = (vector)__mem;
         _bound_COORD = CLR;
-        _bound_pscale = pscl;
+        _bound_pscale = pscl * ALPHA;
+        _bound_Alpha = ALPHA;
     }
 }
 
@@ -86,7 +88,8 @@ TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  float  CDF[]     = {};
 	                      export float  pscale    = 0;
 	                      export float  COORD     = 0;
+                          export float  Alpha     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, CDF, pscale, COORD, P);
+    _TheFractalFlameAlgorithm(ptnum, VACTIVE, CDF, pscale, COORD, Alpha, P);
 }

@@ -39,7 +39,7 @@ struct gemSYS{
 
 struct gem{
     int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   v1w[], v2w[], v3w[], v4w[], PBW[], CLR[], ONEMINUS[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
+    float   v1w[], v2w[], v3w[], v4w[], PBW[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
@@ -57,6 +57,7 @@ struct gem{
             speed = chf(concat("../clrspeed_", IDX));
             append(CLR, speed*coord);
             append(ONEMINUS, 1-speed);
+            append(ALPHA, chf(concat("../alpha_", IDX)));
             // PRE BLUR
             append(PBW, chf(concat("../preblurweight_" , IDX)));
             // VAR 01
