@@ -57,8 +57,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 0, idx, GEM.v4type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
         if(GEM.POSTL[idx]) affine(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= (matrix2)maketransform(0, 0, 0, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
-        __mem = __tmp;
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
+        __mem = __tmp;
     }
     if(SYS.FF){
         __tmp = 0;
@@ -77,7 +77,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(SYS.MB){ pscl *= SYS.mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_mod, "set"); }
         _bound_P = (vector)__mem;
         _bound_COORD = CLR;
-        _bound_pscale = pscl * ALPHA;
+        _bound_pscale = pscl * ALPHA; // For now until I write a proper material shader
         _bound_Alpha = ALPHA;
     }
 }
