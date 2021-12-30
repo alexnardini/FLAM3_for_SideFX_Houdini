@@ -3,21 +3,6 @@
 
 `The above image consist of 400M points and rendered with Houdini internal Mantra renderer.`
 
-https://user-images.githubusercontent.com/42110232/141430036-d6b7f2db-93a0-4c25-b9e7-d89c35bbefc9.mp4
-
-https://user-images.githubusercontent.com/42110232/141742842-00628772-a018-4d1f-876d-899f52311c7c.mp4
-
-https://user-images.githubusercontent.com/42110232/147511093-6673fd41-abf5-471a-bb26-02a5b3bfcb9c.mp4
-
-https://user-images.githubusercontent.com/42110232/142930391-560d51d8-6ed5-4418-9d1e-a24bf2e37dbd.mp4
-
-https://user-images.githubusercontent.com/42110232/147418904-445e1df7-cca4-417a-b0f2-3645f829bef4.mp4
-
-https://user-images.githubusercontent.com/42110232/147511119-fbf3fd99-ee6a-4ade-a353-61a474c94cf0.mp4
-
-`The above Videos consist of 300M points and rendered with Houdini internal Karma renderer.`
-
-
 ## FLAM3 for SideFX Houdini
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
@@ -48,6 +33,21 @@ Reference C: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.co
 Reference D: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
 
 
+## Example videos
+
+https://user-images.githubusercontent.com/42110232/141430036-d6b7f2db-93a0-4c25-b9e7-d89c35bbefc9.mp4
+
+https://user-images.githubusercontent.com/42110232/141742842-00628772-a018-4d1f-876d-899f52311c7c.mp4
+
+https://user-images.githubusercontent.com/42110232/147511093-6673fd41-abf5-471a-bb26-02a5b3bfcb9c.mp4
+
+https://user-images.githubusercontent.com/42110232/142930391-560d51d8-6ed5-4418-9d1e-a24bf2e37dbd.mp4
+
+https://user-images.githubusercontent.com/42110232/147418904-445e1df7-cca4-417a-b0f2-3645f829bef4.mp4
+
+https://user-images.githubusercontent.com/42110232/147511119-fbf3fd99-ee6a-4ade-a353-61a474c94cf0.mp4
+
+`The above Videos consist of 300M points and rendered with Houdini internal Karma renderer.`
 
 
 
