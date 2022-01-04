@@ -97,8 +97,8 @@ string PRX(int ftype){ return (ftype==1) ? "../_" : "../_p1"; }
 
 vector2 biunit(){ return set(fit01(nrandom('twister'), -1, 1), fit01(nrandom('twister'), -1, 1)); }
 
-int chkNAN_v(const int ACTIVE; const vector2 vec){
-    if(ACTIVE){ if(!isfinite(vec[0]) || !isfinite(vec[1]) || isnan(vec[0]) || isnan(vec[1]) || length(vec)>LIMIT) return 1; }
+int chkNAN_v(const int ACTIVE; const vector2 vec; const float alpha){
+    if(ACTIVE){ if( !isfinite(vec[0]) || !isfinite(vec[1]) || isnan(vec[0]) || isnan(vec[1]) || length(vec)>LIMIT || alpha==0 ) return 1; }
     return 0;
 }
 

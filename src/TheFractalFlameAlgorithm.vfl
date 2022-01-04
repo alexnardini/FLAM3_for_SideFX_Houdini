@@ -69,7 +69,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(GEM.ffp1w!=0) __mem  = FLAME(v1GMP, 2, 0, GEM.ffp1type, __tmp, GEM.fx, GEM.fy, GEM.fo, GEM.ffp1w);
         else __mem = __tmp;
     }
-    if(chkNAN_v(SYS.RIP, __mem)) removepoint(0, _bound_ptnum);
+    if(chkNAN_v(SYS.RIP, __mem, GEM.ALPHA[idx])) removepoint(0, _bound_ptnum);
     else{
         float pscl = 0.001;
         float ALPHA = GEM.ALPHA[idx];
