@@ -1,7 +1,7 @@
 /*  
  /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised November 2021
+ /  date:       October 2020, Last revised January 2022
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -27,13 +27,13 @@
 
 #include <flame.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_CDF[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_XAOS[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
 {
     // ftype = 0 -> LOCAL
     // ftype = 1 -> FF
     // ftype = 2 -> POST
     
-    int idx;
+    int idx, n, SL;
     vector2 __tmp;
     float CLR, PREV_CLR; PREV_CLR = 0;
     // Build genomes
@@ -45,11 +45,13 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     v3GMP->gemPrmBuild(GEM.sIDX, GEM.v3type);
     v4GMP->gemPrmBuild(GEM.sIDX, GEM.v4type);
     // CHAOS game
-    float CDF[] = _bound_CDF;
+    n = len(GEM.sIDX);
+    idx = (int)(nrandom("twister")*n);
+    float XAOS[] = _bound_XAOS;
     vector2 __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
         __tmp = 0;
-        idx = sample_cdf(CDF, nrandom('twister'));
+        SL=idx*n; idx=sample_cdf(slice(XAOS,SL,SL+n), nrandom('twister')); // Surprisingly, slicing into a small array is really slow.
         if(GEM.PBW[idx]>0) V_PREBLUR(__mem, GEM.PBW[idx]);
         if(GEM.v1w[idx]!=0) __tmp += FLAME(v1GMP, 0, idx, GEM.v1type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1w[idx]);
         if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 0, idx, GEM.v2type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
@@ -77,7 +79,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
         if(SYS.MB){ pscl *= SYS.mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, SYS.mb_mod, "set"); }
         _bound_P = (vector)__mem;
         _bound_COORD = CLR;
-        _bound_pscale = pscl * ALPHA; // For now until I write a proper material shader
+        _bound_pscale = pscl * ALPHA;
         _bound_Alpha = ALPHA;
     }
 }
@@ -85,11 +87,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
 cvex
 TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  int    VACTIVE[] = {};
-                          const  float  CDF[]     = {};
+                          const  float  XAOS[]    = {};
 	                      export float  pscale    = 0;
 	                      export float  COORD     = 0;
                           export float  Alpha     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, CDF, pscale, COORD, Alpha, P);
+    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, pscale, COORD, Alpha, P);
 }

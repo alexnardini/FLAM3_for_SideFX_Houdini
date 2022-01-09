@@ -1,7 +1,7 @@
 /*  
  /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised November 2021
+ /  date:       October 2020, Last revised January 2022
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -10,7 +10,8 @@
  /
  /  Name:       TheFractalFlameAlgorithm    "VEX"
  /
- /  Comment:    Variation ACTIVE collect
+ /  Comment:    Collect variation ACTIVE and simple XAOS.
+ /
 */
 
 
@@ -26,27 +27,69 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
+
 void
-_TFFAvactive(int _bound_VACTIVE[]; float _bound_CDF[])
+_TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS[])
 {
     int iter_f = chi("../flamefunc");
     int vactive[];
-    float IWcheck, IW[];
+    float IW[];
+    // ACTIVE vars
+    //
     for(int i=0; i<iter_f; i++){
-        string IDX = itoa(i+1);
-        append(vactive, chi(concat("../vactive_", IDX)));
-        IWcheck = chf(concat("../iw_", IDX));
+        string iIDX = itoa(i+1);
+        append(vactive, chi(concat("../vactive_", iIDX)));
+        float IWcheck = chf(concat("../iw_", iIDX));
         if(IWcheck==0) vactive[i]=0;
         if(!vactive[i]) continue;
-        append(IW, chf(concat("../iw_", IDX)));
+        append(IW, chf(concat("../iw_", iIDX)));
     }
+
+    // XAOS
+    //
+    float XAOS[];
+    for(int i=0; i<iter_f; i++){
+        string iIDX = itoa(i+1);
+        float IWcheck = chf(concat("../iw_", iIDX));
+        int ACTV = chi(concat("../vactive_", iIDX));
+        if(IWcheck==0) ACTV=0;
+        if(!ACTV) continue;
+        string varnote = chs(concat("../varnote_", iIDX));
+        string note[] = split(varnote, ":");
+        float notef[], xaos[];
+
+        if(toupper(note[0])=="XAOS"){
+            pop(note, 0);
+            foreach(string n; note){
+                append(notef, atof(n));
+            }
+            resize(notef, iter_f, 1);
+        }
+        else resize(notef, iter_f, 1);
+        
+        for(int j=0; j<iter_f; j++){
+            string jIDX = itoa(j+1);
+            IWcheck = chf(concat("../iw_", jIDX));
+            ACTV = chi(concat("../vactive_", jIDX));
+            if(IWcheck==0) ACTV=0;
+            if(ACTV) append(xaos, notef[j]);
+        }
+
+        float IW_xaos[];
+        for(int k=0; k<len(xaos); k++){
+            //append(IW_xaos, (IW[k]*xaos[k]);
+            append(IW_xaos, IW[i]*IW[k]*xaos[k]);
+        }
+        append(XAOS, create_cdf(IW_xaos));
+    }
+
     _bound_VACTIVE = vactive;
-    _bound_CDF = create_cdf(IW);
+    _bound_XAOS = XAOS;
 }
 
 cvex
 TFFAvactive(export int VACTIVE[] = {};
-            export float CDF[] = {})
+            export float XAOS[] = {})
 {
-    _TFFAvactive(VACTIVE, CDF);
+    _TFFAvactive(VACTIVE, XAOS);
 }

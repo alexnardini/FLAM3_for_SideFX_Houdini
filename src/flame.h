@@ -4,7 +4,7 @@
 /*  
  /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised November 2021
+ /  date:       October 2020, Last revised December 2021
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase

@@ -4,7 +4,7 @@
 /*  
  /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised November 2021
+ /  date:       October 2020, Last revised December 2021
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -829,19 +829,19 @@ void V_FOCI(vector2 p; const vector2 _p; const float w){
 void V_LAZYSUSAN(vector2 p; const vector2 _p; const float w, spin, twist, space; const vector2 lazy){
     float xx, yy, rr, sina, cosa, aa;
     xx = _p[0] - lazy[0];
-    yy = _p[1] - lazy[1];
+    yy = _p[1] + lazy[1];
     rr = SQRT(set(xx,yy));
     if(rr<w){
         aa = ATANYX(set(xx,yy)) + spin + twist * (w - rr);
         sincos(aa, sina, cosa);
         rr = w * rr;
         p[0] = rr*cosa + lazy[0];
-        p[1] = rr*sina + lazy[1];
+        p[1] = rr*sina - lazy[1];
     }
     else{
         rr = w * (1.0 + space / rr);
         p[0] = rr*xx + lazy[0];
-        p[1] = rr*yy + lazy[1];
+        p[1] = rr*yy - lazy[1];
     }
 }
 // 64
