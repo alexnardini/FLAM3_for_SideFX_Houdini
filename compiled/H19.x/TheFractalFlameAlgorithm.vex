@@ -336,20 +336,17 @@ declare i64 @"eq@III"(i64, i64) #1
 define private <2 x double> @"biunit@U"() #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
-  %return1 = call i64 @"neg@II"(i64 1)
-  %cast = sitofp i64 %return1 to double
-  %return2 = call double @"fit01@FFFF"(double %return, double %cast, double 1.000000e+00)
-  %return3 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
-  %return6 = call double @"fit01@FFFF"(double %return3, double %cast, double 1.000000e+00)
-  %return7 = call <2 x double> @"set@UFF"(double %return2, double %return6)
-  ret <2 x double> %return7
+  %output = fmul double 2.000000e+00, %return
+  %output1 = fsub double %output, 1.000000e+00
+  %return2 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
+  %output3 = fmul double 2.000000e+00, %return2
+  %output4 = fsub double %output3, 1.000000e+00
+  %return5 = call <2 x double> @"set@UFF"(double %output1, double %output4)
+  ret <2 x double> %return5
 }
 
 ; Function Attrs: nounwind
 declare double @"nrandom@F:S"(i8*) #3
-
-; Function Attrs: nounwind
-declare double @"fit01@FFFF"(double, double, double) #3
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"set@UFF"(double, double) #1
