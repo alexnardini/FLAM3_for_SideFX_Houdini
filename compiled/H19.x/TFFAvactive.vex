@@ -22,8 +22,8 @@ __llvm_entry:
   br label %cond
 
 cond:                                             ; preds = %iter, %__llvm_entry
-  %IW.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0), %__llvm_entry ], [ %IW.1, %iter ]
   %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output, %iter ]
+  %IW.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0), %__llvm_entry ], [ %IW.1, %iter ]
   %vactive.0 = phi i64* [ getelementptr inbounds ([0 x i64], [0 x i64]* @2, i64 0, i64 0), %__llvm_entry ], [ %vactive.1, %iter ]
   %sIDX.0 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @1, i64 0, i64 0), %__llvm_entry ], [ %sIDX.1, %iter ]
   %return3 = call i64 @"lt@III"(i64 %i.0, i64 %return)
@@ -68,8 +68,7 @@ end27:                                            ; preds = %end17
 
 cond40:                                           ; preds = %end133, %end
   %XAOS.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0), %end ], [ %output154, %end133 ]
-  %_xaos.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0), %end ], [ %output157, %end133 ]
-  %i39.0 = phi i64 [ 0, %end ], [ %output160, %end133 ]
+  %i39.0 = phi i64 [ 0, %end ], [ %output157, %end133 ]
   %return44 = call i64 @"len@I[S"(i8** %sIDX.0)
   %return45 = call i64 @"lt@III"(i64 %i39.0, i64 %return44)
   %2 = icmp ne i64 %return45, 0
@@ -185,8 +184,7 @@ body128:                                          ; preds = %cond127
 end133:                                           ; preds = %cond127
   %return153 = call double* @"create_cdf@[F[F"(double* %IW_xaos.0)
   %output154 = call double* @"append@[F[F"(double* %XAOS.0, double* %return153)
-  %output157 = call double* @"append@[F[F"(double* %_xaos.0, double* %xaos.0)
-  %output160 = add i64 %i39.0, 1
+  %output157 = add i64 %i39.0, 1
   br label %cond40
 }
 

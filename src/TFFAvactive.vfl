@@ -78,7 +78,6 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS[])
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
         append(XAOS, create_cdf(IW_xaos));
-        append(_xaos, xaos);
     }
 
     _bound_VACTIVE = vactive;
