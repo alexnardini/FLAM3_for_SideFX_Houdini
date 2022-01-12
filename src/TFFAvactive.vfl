@@ -49,28 +49,24 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS[])
 
     // XAOS
     //
-    float XAOS[], _xaos[];
+    float XAOS[];
     for(int i=0; i<len(sIDX); i++){
 
         string varnote = chs(concat("../varnote_", sIDX[i]));
         string note[] = split(varnote, ":");
-        float notef[], xaos[];
+        float xaos[];
 
         if(toupper(note[0])=="XAOS"){
             pop(note, 0);
             foreach(string n; note){
-                append(notef, atof(n));
+                append(xaos, atof(n));
             }
-            resize(notef, iter_f, 1);
+            resize(xaos, iter_f, 1);
         }
-        else resize(notef, iter_f, 1);
+        else resize(xaos, iter_f, 1);
 
         for(int j=0; j<iter_f;j++){
-            if(!vactive[j]) pop(notef, j);
-        }
-        
-        for(int j=0; j<len(sIDX); j++){
-            append(xaos, notef[j]);
+            if(!vactive[j]) pop(xaos, j);
         }
 
         float IW_xaos[];
