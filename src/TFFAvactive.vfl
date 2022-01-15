@@ -27,9 +27,19 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
+#define EPS 1e-10
+
+void XAOS_transpose(const float XAOS[]; float T[]; const int size){
+    for(int i=0; i<size; i++){
+        for(int j=0; j<size; j++){
+            int idx = j*size+i;
+            append(T, XAOS[idx]);
+        }
+    }
+}
 
 void
-_TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS[])
+_TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
 {
     int iter_f = chi("../flamefunc");
     string sIDX[];
@@ -49,8 +59,9 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS[])
 
     // XAOS
     //
-    float XAOS[];
-    for(int i=0; i<len(sIDX); i++){
+    int size = len(sIDX);
+    float _XAOS_TO[], XAOS_TO[], _XAOS_FROM[], XAOS_FROM[];
+    for(int i=0; i<size; i++){
 
         string varnote = chs(concat("../varnote_", sIDX[i]));
         string note[] = split(varnote, ":");
@@ -59,30 +70,42 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS[])
         if(toupper(note[0])=="XAOS"){
             pop(note, 0);
             foreach(string n; note){
-                append(xaos, atof(n));
+                append(xaos, max(atof(n), EPS));
             }
             resize(xaos, iter_f, 1);
         }
         else resize(xaos, iter_f, 1);
-
+        
         for(int j=0; j<iter_f;j++){
             if(!vactive[j]) pop(xaos, j);
         }
-
+        
         float IW_xaos[];
-        for(int k=0; k<len(sIDX); k++){
+        for(int k=0; k<size; k++){
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
-        append(XAOS, create_cdf(IW_xaos));
+
+        append(_XAOS_TO, IW_xaos);
+        append(XAOS_TO, create_cdf(IW_xaos));
+    }
+    // Just in case I need it...do I ? not sure yet
+    XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
+    for(int i=0; i<size; i++){
+        int sl = i*size;
+        append(XAOS_FROM, create_cdf(_XAOS_FROM[sl:sl+size]));
     }
 
+    setdetailattrib(0, "__FROM", _XAOS_FROM, "set");
+    setdetailattrib(0, "__TO", _XAOS_TO, "set");
     _bound_VACTIVE = vactive;
-    _bound_XAOS = XAOS;
+    _bound_XAOS_TO = XAOS_TO;
+    _bound_XAOS_FROM = XAOS_FROM;
 }
 
 cvex
 TFFAvactive(export int VACTIVE[] = {};
-            export float XAOS[] = {})
+            export float XAOS_TO[] = {};
+            export float XAOS_FROM[] = {};)
 {
-    _TFFAvactive(VACTIVE, XAOS);
+    _TFFAvactive(VACTIVE, XAOS_TO, XAOS_FROM);
 }

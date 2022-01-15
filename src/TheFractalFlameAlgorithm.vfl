@@ -27,7 +27,7 @@
 
 #include <flame.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_XAOS[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; const float _bound_XAOS_TO[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
 {
     // ftype = 0 -> LOCAL
     // ftype = 1 -> FF
@@ -47,11 +47,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
     // CHAOS game
     n = len(GEM.sIDX);
     idx = (int)(nrandom("twister")*n);
-    float XAOS[] = _bound_XAOS;
+    float XAOS_TO[] = _bound_XAOS_TO;
     vector2 __mem = biunit();
     for(int i=0; i<SYS.iter; i++){
         __tmp = 0;
-        SL=idx*n; idx=sample_cdf(slice(XAOS,SL,SL+n), nrandom('twister')); // Surprisingly, slicing into a small array is really slow.
+        SL=idx*n; idx=sample_cdf(slice(XAOS_TO,SL,SL+n), nrandom('twister')); // Surprisingly, slicing into a small array is really slow.
         if(GEM.PBW[idx]>0) V_PREBLUR(__mem, GEM.PBW[idx]);
         if(GEM.v1w[idx]!=0) __tmp += FLAME(v1GMP, 0, idx, GEM.v1type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1w[idx]);
         if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 0, idx, GEM.v2type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
@@ -87,11 +87,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[]; con
 cvex
 TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  int    VACTIVE[] = {};
-                          const  float  XAOS[]    = {};
+                          const  float  XAOS_TO[]    = {};
 	                      export float  pscale    = 0;
 	                      export float  COORD     = 0;
                           export float  Alpha     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, pscale, COORD, Alpha, P);
+    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS_TO, pscale, COORD, Alpha, P);
 }
