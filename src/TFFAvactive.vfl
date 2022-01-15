@@ -95,8 +95,8 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
         append(XAOS_FROM, create_cdf(_XAOS_FROM[sl:sl+size]));
     }
 
-    setdetailattrib(0, "__FROM", _XAOS_FROM, "set");
-    setdetailattrib(0, "__TO", _XAOS_TO, "set");
+    // setdetailattrib(0, "__FROM", _XAOS_FROM, "set");
+    // setdetailattrib(0, "__TO", _XAOS_TO, "set");
     _bound_VACTIVE = vactive;
     _bound_XAOS_TO = XAOS_TO;
     _bound_XAOS_FROM = XAOS_FROM;
