@@ -27,16 +27,9 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
-#define EPS 1e-10
 
-void XAOS_transpose(const float XAOS[]; float T[]; const int size){
-    for(int i=0; i<size; i++){
-        for(int j=0; j<size; j++){
-            int idx = j*size+i;
-            append(T, XAOS[idx]);
-        }
-    }
-}
+
+#include <variations.h>
 
 void
 _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
@@ -95,8 +88,10 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
         append(XAOS_FROM, create_cdf(_XAOS_FROM[sl:sl+size]));
     }
 
+    // Debug
     // setdetailattrib(0, "__FROM", _XAOS_FROM, "set");
     // setdetailattrib(0, "__TO", _XAOS_TO, "set");
+
     _bound_VACTIVE = vactive;
     _bound_XAOS_TO = XAOS_TO;
     _bound_XAOS_FROM = XAOS_FROM;

@@ -18,8 +18,92 @@ source_filename = "TFFAvactive"
 @10 = private constant [8 x i8] c"XAOS_TO\00"
 @11 = private constant [10 x i8] c"XAOS_FROM\00"
 
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FUI"(<2 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"atan2@FFF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"sqrt@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"neg@II"(i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"div@FF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"floor@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"sin@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"cos@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"neg@FF"(double) #0
+
+; Function Attrs: nounwind
+declare double @"abs@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"eq@III"(i64, i64) #0
+
+; Function Attrs: nounwind
+declare double @"nrandom@F:S"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"set@UFF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"isfinite@IF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"not@II"(i64) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"or@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"isnan@IF"(double) #0
+
+; Function Attrs: nounwind
+declare double @"length@FU"(<2 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VI"(i64) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VFFF"(double, double, double) #0
+
+; Function Attrs: nounwind readnone
+declare <16 x double> @"maketransform@4IIVVVV"(i64, i64, <3 x double>, <3 x double>, <3 x double>, <3 x double>) #0
+
+; Function Attrs: nounwind
+declare <4 x double> @"set@24"(<16 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"mul@U2"(<2 x double>, <4 x double>) #0
+
+; Function Attrs: nounwind
+declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <4 x double> @"rotate@2F"(<4 x double>, double) #0
+
 ; Function Attrs: alwaysinline nounwind
-define private void @"XAOS_transpose@[F[FI"(double** %XAOS, double** %T, i64* %size) #0 {
+define private void @"XAOS_transpose@[F[FI"(double** %XAOS, double** %T, i64* %size) #2 {
 __llvm_entry:
   br label %cond
 
@@ -60,16 +144,61 @@ end8:                                             ; preds = %cond3
 }
 
 ; Function Attrs: nounwind readnone
-declare i64 @"lt@III"(i64, i64) #1
+declare i64 @"lt@III"(i64, i64) #0
 
 ; Function Attrs: nounwind readnone
-declare double @"getcomp@F[FI"(double*, i64) #1
+declare double @"getcomp@F[FI"(double*, i64) #0
 
 ; Function Attrs: nounwind
-declare double* @"append@[FF"(double*, double) #2
+declare double* @"append@[FF"(double*, double) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"set@UF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"div@UU"(<2 x double>, <2 x double>) #0
+
+; Function Attrs: nounwind readnone
+declare double @"tan@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"exp@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"pow@FFF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"cosh@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"sinh@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"and@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FPI"(<4 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"trunc@FF"(double) #0
+
+; Function Attrs: nounwind
+declare i64 @"floor@IF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"log10@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"log@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"rint@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"acos@FF"(double) #0
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAvactive@[I[F[F"(i64** %_bound_VACTIVE, double** %_bound_XAOS_TO, double** %_bound_XAOS_FROM) #0 {
+define private void @"_TFFAvactive@[I[F[F"(i64** %_bound_VACTIVE, double** %_bound_XAOS_TO, double** %_bound_XAOS_FROM) #2 {
 __llvm_entry:
   %_XAOS_FROM = alloca double*
   %0 = alloca double*
@@ -257,76 +386,73 @@ end153:                                           ; preds = %cond148
 }
 
 ; Function Attrs: nounwind readnone
-declare i64 @"chi@IS"(i8*) #1
+declare i64 @"chi@IS"(i8*) #0
 
 ; Function Attrs: nounwind readnone
-declare i8* @"itoa@SI"(i64) #1
+declare i8* @"itoa@SI"(i64) #0
 
 ; Function Attrs: nounwind readnone
-declare i8* @"concat@SSS"(i8*, i8*) #1
+declare i8* @"concat@SSS"(i8*, i8*) #0
 
 ; Function Attrs: nounwind
-declare i64* @"append@[II"(i64*, i64) #2
+declare i64* @"append@[II"(i64*, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"chf@FS"(i8*) #1
+declare double @"chf@FS"(i8*) #0
 
 ; Function Attrs: nounwind readnone
-declare { i64, i64* } @"setcomp@I[III"(i64*, i64, i64) #1
+declare { i64, i64* } @"setcomp@I[III"(i64*, i64, i64) #0
 
 ; Function Attrs: nounwind readnone
-declare i64 @"getcomp@I[II"(i64*, i64) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"not@II"(i64) #1
+declare i64 @"getcomp@I[II"(i64*, i64) #0
 
 ; Function Attrs: nounwind
-declare i8** @"append@[SS"(i8**, i8*) #2
+declare i8** @"append@[SS"(i8**, i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"len@I[S"(i8**) #1
+declare i64 @"len@I[S"(i8**) #0
 
 ; Function Attrs: nounwind readnone
-declare i8* @"getcomp@S[SI"(i8**, i64) #1
+declare i8* @"getcomp@S[SI"(i8**, i64) #0
 
 ; Function Attrs: nounwind readnone
-declare i8* @"chs@SS"(i8*) #1
+declare i8* @"chs@SS"(i8*) #0
 
 ; Function Attrs: nounwind readnone
-declare i8** @"split@[SSS"(i8*, i8*) #1
+declare i8** @"split@[SSS"(i8*, i8*) #0
 
 ; Function Attrs: nounwind
-declare i8* @"toupper@SS"(i8*) #2
+declare i8* @"toupper@SS"(i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"eq@ISS"(i8*, i8*) #1
+declare i64 @"eq@ISS"(i8*, i8*) #0
 
 ; Function Attrs: nounwind readnone
-declare { i8*, i8** } @"pop@S[SI"(i8**, i64) #1
+declare { i8*, i8** } @"pop@S[SI"(i8**, i64) #0
 
 ; Function Attrs: nounwind readnone
-declare double @"atof@FS"(i8*) #1
+declare double @"atof@FS"(i8*) #0
 
 ; Function Attrs: nounwind readnone
-declare double @"max@FFF"(double, double) #1
+declare double @"max@FFF"(double, double) #0
 
 ; Function Attrs: nounwind readnone
-declare double* @"resize@[FIF"(double*, i64, double) #1
+declare double* @"resize@[FIF"(double*, i64, double) #0
 
 ; Function Attrs: nounwind readnone
-declare { double, double* } @"pop@F[FI"(double*, i64) #1
+declare { double, double* } @"pop@F[FI"(double*, i64) #0
 
 ; Function Attrs: nounwind
-declare double* @"append@[F[F"(double*, double*) #2
+declare double* @"append@[F[F"(double*, double*) #1
 
 ; Function Attrs: nounwind readnone
-declare double* @"create_cdf@[F[F"(double*) #1
+declare double* @"create_cdf@[F[F"(double*) #0
 
 ; Function Attrs: nounwind
-declare double* @"slice@[F[FIIIIII"(double*, i64, i64, i64, i64, i64, i64) #2
+declare double* @"slice@[F[FIIIIII"(double*, i64, i64, i64, i64, i64, i64) #1
 
 ; Function Attrs: nounwind
-define void @TFFAvactive(i64* %VACTIVE, double* %XAOS_TO, double* %XAOS_FROM) #2 {
+define void @TFFAvactive(i64* %VACTIVE, double* %XAOS_TO, double* %XAOS_FROM) #1 {
 __llvm_entry:
   %"<XAOS_TO>" = alloca double*
   %"<XAOS_FROM>" = alloca double*
@@ -357,9 +483,9 @@ __llvm_entry:
   ret void
 }
 
-attributes #0 = { alwaysinline nounwind }
-attributes #1 = { nounwind readnone }
-attributes #2 = { nounwind }
+attributes #0 = { nounwind readnone }
+attributes #1 = { nounwind }
+attributes #2 = { alwaysinline nounwind }
 attributes #3 = { nounwind readonly }
 
 !context = !{!0}

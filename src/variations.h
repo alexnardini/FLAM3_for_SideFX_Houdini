@@ -134,6 +134,15 @@ void affineRot(matrix2 m2; const vector2 x, y; const float ang){
     rotate(m2, ang);
 }
 
+void XAOS_transpose(const float XAOS[]; float T[]; const int size){
+    for(int i=0; i<size; i++){
+        for(int j=0; j<size; j++){
+            int idx = j*size+i;
+            append(T, XAOS[idx]);
+        }
+    }
+}
+
 
 
 // VARIATIONS
