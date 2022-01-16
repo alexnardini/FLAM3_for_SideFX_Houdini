@@ -16,7 +16,7 @@
  /  Comment:    GENOME entities and properties.
 */
 
-#include <variations.h>
+#include <functions.h>
 
 struct gemSYS{
     int TMG, RIP, PFF, FF, iter_f, SYM, sym_mode, iter, MB, vizmb;

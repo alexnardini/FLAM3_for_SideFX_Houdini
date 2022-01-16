@@ -28,16 +28,17 @@
 #pragma opmaxinputs 1
 
 
+#include <functions.h>
 
-#include <variations.h>
 
 void
-_TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
+_TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
 {
     int iter_f = chi("../flamefunc");
     string sIDX[];
     int vactive[];
     float IW[];
+    int xaos_chk = 0;
     // ACTIVE vars
     //
     for(int i=0; i<iter_f; i++){
@@ -75,12 +76,14 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
         
         float IW_xaos[];
         for(int k=0; k<size; k++){
+            if(xaos[k]!=1) xaos_chk++;
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
 
         append(_XAOS_TO, IW_xaos);
         append(XAOS_TO, create_cdf(IW_xaos));
     }
+    
     // Just in case I need it...do I ? not sure yet
     XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
     for(int i=0; i<size; i++){
@@ -93,14 +96,22 @@ _TFFAvactive(int _bound_VACTIVE[]; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
     // setdetailattrib(0, "__TO", _XAOS_TO, "set");
 
     _bound_VACTIVE = vactive;
-    _bound_XAOS_TO = XAOS_TO;
-    _bound_XAOS_FROM = XAOS_FROM;
+    if(xaos_chk){
+        _bound_XAOS = clamp(xaos_chk, 0, 1);
+        _bound_XAOS_TO = XAOS_TO;
+        _bound_XAOS_FROM = XAOS_FROM;
+    }
+    else{
+        _bound_XAOS = 0;
+        _bound_XAOS_TO = create_cdf(IW);
+    }
 }
 
 cvex
 TFFAvactive(export int VACTIVE[] = {};
+            export int XAOS = 0;
             export float XAOS_TO[] = {};
             export float XAOS_FROM[] = {};)
 {
-    _TFFAvactive(VACTIVE, XAOS_TO, XAOS_FROM);
+    _TFFAvactive(VACTIVE, XAOS, XAOS_TO, XAOS_FROM);
 }
