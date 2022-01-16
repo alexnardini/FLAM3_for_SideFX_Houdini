@@ -11,6 +11,7 @@
  /  Name:       TheFractalFlameAlgorithm    "VEX"
  /
  /  Comment:    Collect variation ACTIVE and XAOS.
+ /              This file wont compile on H18.5 and below as the resize() array function got upgraded in H19.
  /
 */
 
@@ -38,7 +39,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     string sIDX[];
     int vactive[];
     float IW[];
-    int xaos_chk = 0;
+    
     // ACTIVE vars
     //
     for(int i=0; i<iter_f; i++){
@@ -53,6 +54,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
 
     // XAOS
     //
+    int xaos_chk = 0;
     int size = len(sIDX);
     float _XAOS_TO[], XAOS_TO[], _XAOS_FROM[], XAOS_FROM[];
     for(int i=0; i<size; i++){
@@ -108,9 +110,9 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
 }
 
 cvex
-TFFAvactive(export int VACTIVE[] = {};
-            export int XAOS = 0;
-            export float XAOS_TO[] = {};
+TFFAvactive(export int VACTIVE[]     = {};
+            export int XAOS          = 0;
+            export float XAOS_TO[]   = {};
             export float XAOS_FROM[] = {};)
 {
     _TFFAvactive(VACTIVE, XAOS, XAOS_TO, XAOS_FROM);
