@@ -86,16 +86,12 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
         append(XAOS_TO, create_cdf(IW_xaos));
     }
     
-    // Just in case I need it...do I ? not sure yet
+    // Just in case I need it...
     XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
     for(int i=0; i<size; i++){
         int sl = i*size;
         append(XAOS_FROM, create_cdf(_XAOS_FROM[sl:sl+size]));
     }
-
-    // Debug
-    // setdetailattrib(0, "__FROM", _XAOS_FROM, "set");
-    // setdetailattrib(0, "__TO", _XAOS_TO, "set");
 
     _bound_VACTIVE = vactive;
     if(xaos_chk){
