@@ -37,8 +37,8 @@ void
 _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
 {
     int iter_f = chi("../flamefunc");
-    string sIDX[];
     int vactive[];
+    string sIDX[];
     float IW[];
     
     // ACTIVE vars
