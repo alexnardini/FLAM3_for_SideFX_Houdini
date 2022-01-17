@@ -163,7 +163,7 @@ struct gemPrm{
             for(int i=0; i<iter_f; i++){
                 TYPE=GEMTYPE[i]; IDX=sIDX[i];
                 if(TYPE<27) continue;
-                else if(find({27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57}, TYPE)>=0){
+                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , TYPE)>=0){
                     if(TYPE<38){
                         // 27 CURL
                         if(TYPE==27){ curl_c[i] = chu(concat("../curlc_", IDX)); continue; }
@@ -211,7 +211,7 @@ struct gemPrm{
                         else if(TYPE==57){ cpow[i] = chv(concat("../cpow_", IDX)); continue; }
                     }
                 }
-                else if(find({61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101}, TYPE)>=0){
+                else if(find( {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101} , TYPE)>=0){
                     if(TYPE<77){
                         // 61 ESCHER
                         if(TYPE==61){ escher_beta[i] = chf(concat("../escherbeta_", IDX)); continue; }
