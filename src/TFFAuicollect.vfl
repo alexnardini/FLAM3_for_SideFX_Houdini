@@ -152,7 +152,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     float pbw, w1, w2, w3, w4, fw1, fw2, fw3, pfw1;
     gemSYS SYS; SYS->gemSYSBuild();
     append(type, concat("[", itoa(SYS.iter), "]"));
-    int xaos_chk = detail(0, "XAOS");
+    int xaos_chk = detail(1, "XAOS");
     if(xaos_chk) append(type, concat("[", "X", "]"));
 
     if(SYS.domb) append(type, "MB");

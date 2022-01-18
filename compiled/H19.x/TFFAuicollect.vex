@@ -260,7 +260,7 @@ __llvm_entry:
   %return = call i8* @"itoa@SI"(i64 %SYS3.fca.2.load)
   %return4 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
   %output = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @7, i64 0, i64 0), i8* %return4)
-  %return5 = call i64 @"detail@IIS"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @113, i64 0, i64 0))
+  %return5 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @113, i64 0, i64 0))
   %0 = icmp ne i64 %return5, 0
   br i1 %0, label %true, label %end
 
