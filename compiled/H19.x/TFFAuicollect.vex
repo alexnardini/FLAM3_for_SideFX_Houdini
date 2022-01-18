@@ -117,37 +117,39 @@ source_filename = "TFFAuicollect"
 @110 = private constant [102 x i8*] [i8* getelementptr inbounds ([7 x i8], [7 x i8]* @8, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @9, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @10, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @11, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @12, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @13, i64 0, i64 0), i8* getelementptr inbounds ([13 x i8], [13 x i8]* @14, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @15, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @17, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @18, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @19, i64 0, i64 0), i8* getelementptr inbounds ([3 x i8], [3 x i8]* @20, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @21, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @22, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @23, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @24, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @25, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @26, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @27, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @28, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @29, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @30, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @31, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @32, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @33, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @34, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @35, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @36, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @37, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @38, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @39, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @40, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @41, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @42, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @43, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @44, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @45, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @46, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @47, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @48, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @49, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @50, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @51, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @52, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @53, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @54, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @55, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @56, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @57, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @58, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @59, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @60, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @61, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @62, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @63, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @64, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @65, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @66, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @67, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @68, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @69, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @70, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @71, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @72, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @73, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @74, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @75, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @76, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @77, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @78, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @79, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @80, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @81, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @82, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @83, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @84, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @85, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @86, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @87, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @88, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @89, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @90, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @91, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @92, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @93, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @94, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @95, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @96, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @97, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @98, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @99, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @100, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @101, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @102, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @103, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @104, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @105, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @106, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @107, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @108, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @109, i64 0, i64 0)]
 @111 = private constant [2 x i8] c"[\00"
 @112 = private constant [2 x i8] c"]\00"
-@113 = private constant [3 x i8] c"MB\00"
-@114 = private constant [4 x i8] c"SM3\00"
-@115 = private constant [4 x i8] c"SM5\00"
-@116 = private constant [3 x i8] c"TM\00"
-@117 = private constant [1 x i8] zeroinitializer
-@118 = private constant [12 x i8] c"../vactive_\00"
-@119 = private constant [13 x i8] c" :::::::::: \00"
-@120 = private constant [13 x i8] c"../v1weight_\00"
-@121 = private constant [11 x i8] c"../v1type_\00"
-@122 = private constant [2 x i8] c":\00"
-@123 = private constant [13 x i8] c"../v2weight_\00"
-@124 = private constant [11 x i8] c"../v2type_\00"
-@125 = private constant [13 x i8] c"../v3weight_\00"
-@126 = private constant [11 x i8] c"../v3type_\00"
-@127 = private constant [13 x i8] c"../v4weight_\00"
-@128 = private constant [11 x i8] c"../v4type_\00"
-@129 = private constant [18 x i8] c"../preblurweight_\00"
-@130 = private constant [2 x i8] c"*\00"
-@131 = private constant [3 x i8] c"%g\00"
-@132 = private constant [7 x i8] c"../iw_\00"
-@133 = private constant [2 x i8] c".\00"
-@134 = private constant [14 x i8] c"../ffv1weight\00"
-@135 = private constant [12 x i8] c"../ffv1type\00"
-@136 = private constant [14 x i8] c"../ffv2weight\00"
-@137 = private constant [12 x i8] c"../ffv2type\00"
-@138 = private constant [14 x i8] c"../ffv3weight\00"
-@139 = private constant [12 x i8] c"../ffv3type\00"
-@140 = private constant [14 x i8] c"../ffp1weight\00"
-@141 = private constant [12 x i8] c"../ffp1type\00"
+@113 = private constant [5 x i8] c"XAOS\00"
+@114 = private constant [2 x i8] c"X\00"
+@115 = private constant [3 x i8] c"MB\00"
+@116 = private constant [4 x i8] c"SM3\00"
+@117 = private constant [4 x i8] c"SM5\00"
+@118 = private constant [3 x i8] c"TM\00"
+@119 = private constant [1 x i8] zeroinitializer
+@120 = private constant [12 x i8] c"../vactive_\00"
+@121 = private constant [13 x i8] c" :::::::::: \00"
+@122 = private constant [13 x i8] c"../v1weight_\00"
+@123 = private constant [11 x i8] c"../v1type_\00"
+@124 = private constant [2 x i8] c":\00"
+@125 = private constant [13 x i8] c"../v2weight_\00"
+@126 = private constant [11 x i8] c"../v2type_\00"
+@127 = private constant [13 x i8] c"../v3weight_\00"
+@128 = private constant [11 x i8] c"../v3type_\00"
+@129 = private constant [13 x i8] c"../v4weight_\00"
+@130 = private constant [11 x i8] c"../v4type_\00"
+@131 = private constant [18 x i8] c"../preblurweight_\00"
+@132 = private constant [2 x i8] c"*\00"
+@133 = private constant [3 x i8] c"%g\00"
+@134 = private constant [7 x i8] c"../iw_\00"
+@135 = private constant [2 x i8] c".\00"
+@136 = private constant [14 x i8] c"../ffv1weight\00"
+@137 = private constant [12 x i8] c"../ffv1type\00"
+@138 = private constant [14 x i8] c"../ffv2weight\00"
+@139 = private constant [12 x i8] c"../ffv2type\00"
+@140 = private constant [14 x i8] c"../ffv3weight\00"
+@141 = private constant [12 x i8] c"../ffv3type\00"
+@142 = private constant [14 x i8] c"../ffp1weight\00"
+@143 = private constant [12 x i8] c"../ffp1type\00"
 @VARTYPE = external global i8**
-@142 = private constant [8 x i8] c"VARTYPE\00"
+@144 = private constant [8 x i8] c"VARTYPE\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"gemSYSBuild@Z6gemSYSM7N2FFIN3TMGIN4iterIN6iter_fIN2smIN6smtypeIN4dombI"(%gemSYS* %this) #0 {
@@ -258,339 +260,350 @@ __llvm_entry:
   %return = call i8* @"itoa@SI"(i64 %SYS3.fca.2.load)
   %return4 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
   %output = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @7, i64 0, i64 0), i8* %return4)
-  %SYS5.fca.0.load = load i64, i64* %SYS1.fca.0.gep
-  %SYS5.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS5.fca.0.load, 0
-  %SYS5.fca.1.load = load i64, i64* %SYS1.fca.1.gep
-  %SYS5.fca.1.insert = insertvalue %gemSYS %SYS5.fca.0.insert, i64 %SYS5.fca.1.load, 1
-  %SYS5.fca.2.load = load i64, i64* %SYS1.fca.2.gep
-  %SYS5.fca.2.insert = insertvalue %gemSYS %SYS5.fca.1.insert, i64 %SYS5.fca.2.load, 2
-  %SYS5.fca.3.load = load i64, i64* %SYS1.fca.3.gep
-  %SYS5.fca.3.insert = insertvalue %gemSYS %SYS5.fca.2.insert, i64 %SYS5.fca.3.load, 3
-  %SYS5.fca.4.load = load i64, i64* %SYS1.fca.4.gep
-  %SYS5.fca.4.insert = insertvalue %gemSYS %SYS5.fca.3.insert, i64 %SYS5.fca.4.load, 4
-  %SYS5.fca.5.load = load i64, i64* %SYS1.fca.5.gep
-  %SYS5.fca.5.insert = insertvalue %gemSYS %SYS5.fca.4.insert, i64 %SYS5.fca.5.load, 5
-  %SYS5.fca.6.load = load i64, i64* %SYS1.fca.6.gep
-  %0 = icmp ne i64 %SYS5.fca.6.load, 0
+  %return5 = call i64 @"detail@IIS"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @113, i64 0, i64 0))
+  %0 = icmp ne i64 %return5, 0
   br i1 %0, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %output7 = call i8** @"append@[SS"(i8** %output, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @113, i64 0, i64 0))
+  %return8 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* getelementptr inbounds ([2 x i8], [2 x i8]* @114, i64 0, i64 0), i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
+  %output9 = call i8** @"append@[SS"(i8** %output, i8* %return8)
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %type.0 = phi i8** [ %output7, %true ], [ %output, %__llvm_entry ]
-  %SYS8.fca.0.load = load i64, i64* %SYS1.fca.0.gep
-  %SYS8.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS8.fca.0.load, 0
-  %SYS8.fca.1.load = load i64, i64* %SYS1.fca.1.gep
-  %SYS8.fca.1.insert = insertvalue %gemSYS %SYS8.fca.0.insert, i64 %SYS8.fca.1.load, 1
-  %SYS8.fca.2.load = load i64, i64* %SYS1.fca.2.gep
-  %SYS8.fca.2.insert = insertvalue %gemSYS %SYS8.fca.1.insert, i64 %SYS8.fca.2.load, 2
-  %SYS8.fca.3.load = load i64, i64* %SYS1.fca.3.gep
-  %SYS8.fca.3.insert = insertvalue %gemSYS %SYS8.fca.2.insert, i64 %SYS8.fca.3.load, 3
-  %SYS8.fca.4.load = load i64, i64* %SYS1.fca.4.gep
-  %SYS8.fca.4.insert = insertvalue %gemSYS %SYS8.fca.3.insert, i64 %SYS8.fca.4.load, 4
-  %SYS8.fca.5.load = load i64, i64* %SYS1.fca.5.gep
-  %SYS8.fca.5.insert = insertvalue %gemSYS %SYS8.fca.4.insert, i64 %SYS8.fca.5.load, 5
-  %SYS8.fca.6.load = load i64, i64* %SYS1.fca.6.gep
-  %1 = icmp ne i64 %SYS8.fca.4.load, 0
-  br i1 %1, label %true9, label %end10
+  %type.0 = phi i8** [ %output9, %true ], [ %output, %__llvm_entry ]
+  %SYS10.fca.0.load = load i64, i64* %SYS1.fca.0.gep
+  %SYS10.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS10.fca.0.load, 0
+  %SYS10.fca.1.load = load i64, i64* %SYS1.fca.1.gep
+  %SYS10.fca.1.insert = insertvalue %gemSYS %SYS10.fca.0.insert, i64 %SYS10.fca.1.load, 1
+  %SYS10.fca.2.load = load i64, i64* %SYS1.fca.2.gep
+  %SYS10.fca.2.insert = insertvalue %gemSYS %SYS10.fca.1.insert, i64 %SYS10.fca.2.load, 2
+  %SYS10.fca.3.load = load i64, i64* %SYS1.fca.3.gep
+  %SYS10.fca.3.insert = insertvalue %gemSYS %SYS10.fca.2.insert, i64 %SYS10.fca.3.load, 3
+  %SYS10.fca.4.load = load i64, i64* %SYS1.fca.4.gep
+  %SYS10.fca.4.insert = insertvalue %gemSYS %SYS10.fca.3.insert, i64 %SYS10.fca.4.load, 4
+  %SYS10.fca.5.load = load i64, i64* %SYS1.fca.5.gep
+  %SYS10.fca.5.insert = insertvalue %gemSYS %SYS10.fca.4.insert, i64 %SYS10.fca.5.load, 5
+  %SYS10.fca.6.load = load i64, i64* %SYS1.fca.6.gep
+  %1 = icmp ne i64 %SYS10.fca.6.load, 0
+  br i1 %1, label %true11, label %end12
 
-true9:                                            ; preds = %end
-  %return12 = call i64 @"not@II"(i64 %SYS8.fca.5.load)
-  %2 = icmp ne i64 %return12, 0
-  br i1 %2, label %true13, label %false
+true11:                                           ; preds = %end
+  %output14 = call i8** @"append@[SS"(i8** %type.0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @115, i64 0, i64 0))
+  br label %end12
 
-end10:                                            ; preds = %true13, %false, %end
-  %type.1 = phi i8** [ %output16, %true13 ], [ %output18, %false ], [ %type.0, %end ]
-  %SYS19.fca.0.load = load i64, i64* %SYS1.fca.0.gep
-  %SYS19.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS19.fca.0.load, 0
-  %SYS19.fca.1.load = load i64, i64* %SYS1.fca.1.gep
-  %SYS19.fca.1.insert = insertvalue %gemSYS %SYS19.fca.0.insert, i64 %SYS19.fca.1.load, 1
-  %SYS19.fca.2.load = load i64, i64* %SYS1.fca.2.gep
-  %SYS19.fca.2.insert = insertvalue %gemSYS %SYS19.fca.1.insert, i64 %SYS19.fca.2.load, 2
-  %SYS19.fca.3.load = load i64, i64* %SYS1.fca.3.gep
-  %SYS19.fca.3.insert = insertvalue %gemSYS %SYS19.fca.2.insert, i64 %SYS19.fca.3.load, 3
-  %SYS19.fca.4.load = load i64, i64* %SYS1.fca.4.gep
-  %SYS19.fca.4.insert = insertvalue %gemSYS %SYS19.fca.3.insert, i64 %SYS19.fca.4.load, 4
-  %SYS19.fca.5.load = load i64, i64* %SYS1.fca.5.gep
-  %SYS19.fca.5.insert = insertvalue %gemSYS %SYS19.fca.4.insert, i64 %SYS19.fca.5.load, 5
-  %SYS19.fca.6.load = load i64, i64* %SYS1.fca.6.gep
-  %3 = icmp ne i64 %SYS19.fca.1.load, 0
-  br i1 %3, label %true20, label %end21
+end12:                                            ; preds = %true11, %end
+  %type.1 = phi i8** [ %output14, %true11 ], [ %type.0, %end ]
+  %SYS15.fca.0.load = load i64, i64* %SYS1.fca.0.gep
+  %SYS15.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS15.fca.0.load, 0
+  %SYS15.fca.1.load = load i64, i64* %SYS1.fca.1.gep
+  %SYS15.fca.1.insert = insertvalue %gemSYS %SYS15.fca.0.insert, i64 %SYS15.fca.1.load, 1
+  %SYS15.fca.2.load = load i64, i64* %SYS1.fca.2.gep
+  %SYS15.fca.2.insert = insertvalue %gemSYS %SYS15.fca.1.insert, i64 %SYS15.fca.2.load, 2
+  %SYS15.fca.3.load = load i64, i64* %SYS1.fca.3.gep
+  %SYS15.fca.3.insert = insertvalue %gemSYS %SYS15.fca.2.insert, i64 %SYS15.fca.3.load, 3
+  %SYS15.fca.4.load = load i64, i64* %SYS1.fca.4.gep
+  %SYS15.fca.4.insert = insertvalue %gemSYS %SYS15.fca.3.insert, i64 %SYS15.fca.4.load, 4
+  %SYS15.fca.5.load = load i64, i64* %SYS1.fca.5.gep
+  %SYS15.fca.5.insert = insertvalue %gemSYS %SYS15.fca.4.insert, i64 %SYS15.fca.5.load, 5
+  %SYS15.fca.6.load = load i64, i64* %SYS1.fca.6.gep
+  %2 = icmp ne i64 %SYS15.fca.4.load, 0
+  br i1 %2, label %true16, label %end17
 
-true13:                                           ; preds = %true9
-  %output16 = call i8** @"append@[SS"(i8** %type.0, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @114, i64 0, i64 0))
-  br label %end10
+true16:                                           ; preds = %end12
+  %return19 = call i64 @"not@II"(i64 %SYS15.fca.5.load)
+  %3 = icmp ne i64 %return19, 0
+  br i1 %3, label %true20, label %false
 
-false:                                            ; preds = %true9
-  %output18 = call i8** @"append@[SS"(i8** %type.0, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @115, i64 0, i64 0))
-  br label %end10
+end17:                                            ; preds = %true20, %false, %end12
+  %type.2 = phi i8** [ %output23, %true20 ], [ %output25, %false ], [ %type.1, %end12 ]
+  %SYS26.fca.0.load = load i64, i64* %SYS1.fca.0.gep
+  %SYS26.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS26.fca.0.load, 0
+  %SYS26.fca.1.load = load i64, i64* %SYS1.fca.1.gep
+  %SYS26.fca.1.insert = insertvalue %gemSYS %SYS26.fca.0.insert, i64 %SYS26.fca.1.load, 1
+  %SYS26.fca.2.load = load i64, i64* %SYS1.fca.2.gep
+  %SYS26.fca.2.insert = insertvalue %gemSYS %SYS26.fca.1.insert, i64 %SYS26.fca.2.load, 2
+  %SYS26.fca.3.load = load i64, i64* %SYS1.fca.3.gep
+  %SYS26.fca.3.insert = insertvalue %gemSYS %SYS26.fca.2.insert, i64 %SYS26.fca.3.load, 3
+  %SYS26.fca.4.load = load i64, i64* %SYS1.fca.4.gep
+  %SYS26.fca.4.insert = insertvalue %gemSYS %SYS26.fca.3.insert, i64 %SYS26.fca.4.load, 4
+  %SYS26.fca.5.load = load i64, i64* %SYS1.fca.5.gep
+  %SYS26.fca.5.insert = insertvalue %gemSYS %SYS26.fca.4.insert, i64 %SYS26.fca.5.load, 5
+  %SYS26.fca.6.load = load i64, i64* %SYS1.fca.6.gep
+  %4 = icmp ne i64 %SYS26.fca.1.load, 0
+  br i1 %4, label %true27, label %end28
 
-true20:                                           ; preds = %end10
-  %output23 = call i8** @"append@[SS"(i8** %type.1, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @116, i64 0, i64 0))
-  br label %end21
+true20:                                           ; preds = %true16
+  %output23 = call i8** @"append@[SS"(i8** %type.1, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @116, i64 0, i64 0))
+  br label %end17
 
-end21:                                            ; preds = %true20, %end10
-  %type.2 = phi i8** [ %output23, %true20 ], [ %type.1, %end10 ]
+false:                                            ; preds = %true16
+  %output25 = call i8** @"append@[SS"(i8** %type.1, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @117, i64 0, i64 0))
+  br label %end17
+
+true27:                                           ; preds = %end17
+  %output30 = call i8** @"append@[SS"(i8** %type.2, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @118, i64 0, i64 0))
+  br label %end28
+
+end28:                                            ; preds = %true27, %end17
+  %type.3 = phi i8** [ %output30, %true27 ], [ %type.2, %end17 ]
   br label %cond
 
-cond:                                             ; preds = %end38, %end21
-  %i.0 = phi i64 [ 0, %end21 ], [ %output30, %end38 ]
-  %type.3 = phi i8** [ %type.2, %end21 ], [ %output176, %end38 ]
-  %SYS25.fca.0.load = load i64, i64* %SYS1.fca.0.gep
-  %SYS25.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS25.fca.0.load, 0
-  %SYS25.fca.1.load = load i64, i64* %SYS1.fca.1.gep
-  %SYS25.fca.1.insert = insertvalue %gemSYS %SYS25.fca.0.insert, i64 %SYS25.fca.1.load, 1
-  %SYS25.fca.2.load = load i64, i64* %SYS1.fca.2.gep
-  %SYS25.fca.2.insert = insertvalue %gemSYS %SYS25.fca.1.insert, i64 %SYS25.fca.2.load, 2
-  %SYS25.fca.3.load = load i64, i64* %SYS1.fca.3.gep
-  %SYS25.fca.3.insert = insertvalue %gemSYS %SYS25.fca.2.insert, i64 %SYS25.fca.3.load, 3
-  %SYS25.fca.4.load = load i64, i64* %SYS1.fca.4.gep
-  %SYS25.fca.4.insert = insertvalue %gemSYS %SYS25.fca.3.insert, i64 %SYS25.fca.4.load, 4
-  %SYS25.fca.5.load = load i64, i64* %SYS1.fca.5.gep
-  %SYS25.fca.5.insert = insertvalue %gemSYS %SYS25.fca.4.insert, i64 %SYS25.fca.5.load, 5
-  %SYS25.fca.6.load = load i64, i64* %SYS1.fca.6.gep
-  %return26 = call i64 @"lt@III"(i64 %i.0, i64 %SYS25.fca.3.load)
-  %4 = icmp ne i64 %return26, 0
-  br i1 %4, label %body, label %end27
+cond:                                             ; preds = %end45, %end28
+  %i.0 = phi i64 [ 0, %end28 ], [ %output37, %end45 ]
+  %type.4 = phi i8** [ %type.3, %end28 ], [ %output183, %end45 ]
+  %SYS32.fca.0.load = load i64, i64* %SYS1.fca.0.gep
+  %SYS32.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS32.fca.0.load, 0
+  %SYS32.fca.1.load = load i64, i64* %SYS1.fca.1.gep
+  %SYS32.fca.1.insert = insertvalue %gemSYS %SYS32.fca.0.insert, i64 %SYS32.fca.1.load, 1
+  %SYS32.fca.2.load = load i64, i64* %SYS1.fca.2.gep
+  %SYS32.fca.2.insert = insertvalue %gemSYS %SYS32.fca.1.insert, i64 %SYS32.fca.2.load, 2
+  %SYS32.fca.3.load = load i64, i64* %SYS1.fca.3.gep
+  %SYS32.fca.3.insert = insertvalue %gemSYS %SYS32.fca.2.insert, i64 %SYS32.fca.3.load, 3
+  %SYS32.fca.4.load = load i64, i64* %SYS1.fca.4.gep
+  %SYS32.fca.4.insert = insertvalue %gemSYS %SYS32.fca.3.insert, i64 %SYS32.fca.4.load, 4
+  %SYS32.fca.5.load = load i64, i64* %SYS1.fca.5.gep
+  %SYS32.fca.5.insert = insertvalue %gemSYS %SYS32.fca.4.insert, i64 %SYS32.fca.5.load, 5
+  %SYS32.fca.6.load = load i64, i64* %SYS1.fca.6.gep
+  %return33 = call i64 @"lt@III"(i64 %i.0, i64 %SYS32.fca.3.load)
+  %5 = icmp ne i64 %return33, 0
+  br i1 %5, label %body, label %end34
 
 body:                                             ; preds = %cond
-  %output30 = add i64 %i.0, 1
-  %return31 = call i8* @"itoa@SI"(i64 %output30)
-  %return33 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @118, i64 0, i64 0), i8* %return31)
-  %return34 = call i64 @"chi@IS"(i8* %return33)
-  %return35 = call i64 @"not@II"(i64 %return34)
-  %5 = icmp ne i64 %return35, 0
-  br i1 %5, label %true36, label %false37
+  %output37 = add i64 %i.0, 1
+  %return38 = call i8* @"itoa@SI"(i64 %output37)
+  %return40 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @120, i64 0, i64 0), i8* %return38)
+  %return41 = call i64 @"chi@IS"(i8* %return40)
+  %return42 = call i64 @"not@II"(i64 %return41)
+  %6 = icmp ne i64 %return42, 0
+  br i1 %6, label %true43, label %false44
 
-end27:                                            ; preds = %cond
-  %6 = icmp ne i64 %SYS25.fca.0.load, 0
-  br i1 %6, label %true181, label %end182
+end34:                                            ; preds = %cond
+  %7 = icmp ne i64 %SYS32.fca.0.load, 0
+  br i1 %7, label %true188, label %end189
 
-true36:                                           ; preds = %body
-  br label %end38
+true43:                                           ; preds = %body
+  br label %end45
 
-false37:                                          ; preds = %body
-  %return40 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @120, i64 0, i64 0), i8* %return31)
-  %return41 = call double @"chf@FS"(i8* %return40)
-  %return43 = fcmp one double %return41, 0.000000e+00
-  br i1 %return43, label %true45, label %false46
+false44:                                          ; preds = %body
+  %return47 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @122, i64 0, i64 0), i8* %return38)
+  %return48 = call double @"chf@FS"(i8* %return47)
+  %return50 = fcmp one double %return48, 0.000000e+00
+  br i1 %return50, label %true52, label %false53
 
-end38:                                            ; preds = %end140, %true36
-  %VAR.0 = phi i8* [ getelementptr inbounds ([13 x i8], [13 x i8]* @119, i64 0, i64 0), %true36 ], [ %return173, %end140 ]
-  %output176 = call i8** @"append@[SS"(i8** %type.3, i8* %VAR.0)
+end45:                                            ; preds = %end147, %true43
+  %VAR.0 = phi i8* [ getelementptr inbounds ([13 x i8], [13 x i8]* @121, i64 0, i64 0), %true43 ], [ %return180, %end147 ]
+  %output183 = call i8** @"append@[SS"(i8** %type.4, i8* %VAR.0)
   br label %cond
 
-true45:                                           ; preds = %false37
-  %return50 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @121, i64 0, i64 0), i8* %return31)
-  %return51 = call i8* @"chs@SS"(i8* %return50)
-  %return52 = call i64 @"atoi@IS"(i8* %return51)
-  %return53 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return52)
-  %output54 = call i8* @"add@SS"(i8* %return53, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0))
-  br label %end47
+true52:                                           ; preds = %false44
+  %return57 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @123, i64 0, i64 0), i8* %return38)
+  %return58 = call i8* @"chs@SS"(i8* %return57)
+  %return59 = call i64 @"atoi@IS"(i8* %return58)
+  %return60 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return59)
+  %output61 = call i8* @"add@SS"(i8* %return60, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end54
 
-false46:                                          ; preds = %false37
-  br label %end47
+false53:                                          ; preds = %false44
+  br label %end54
 
-end47:                                            ; preds = %false46, %true45
-  %V1.0 = phi i8* [ %output54, %true45 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false46 ]
-  %return56 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @123, i64 0, i64 0), i8* %return31)
-  %return57 = call double @"chf@FS"(i8* %return56)
-  %return59 = fcmp one double %return57, 0.000000e+00
-  br i1 %return59, label %true61, label %false62
+end54:                                            ; preds = %false53, %true52
+  %V1.0 = phi i8* [ %output61, %true52 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false53 ]
+  %return63 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @125, i64 0, i64 0), i8* %return38)
+  %return64 = call double @"chf@FS"(i8* %return63)
+  %return66 = fcmp one double %return64, 0.000000e+00
+  br i1 %return66, label %true68, label %false69
 
-true61:                                           ; preds = %end47
-  %return66 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @124, i64 0, i64 0), i8* %return31)
-  %return67 = call i8* @"chs@SS"(i8* %return66)
-  %return68 = call i64 @"atoi@IS"(i8* %return67)
-  %return69 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return68)
-  %output70 = call i8* @"add@SS"(i8* %return69, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0))
-  br label %end63
+true68:                                           ; preds = %end54
+  %return73 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @126, i64 0, i64 0), i8* %return38)
+  %return74 = call i8* @"chs@SS"(i8* %return73)
+  %return75 = call i64 @"atoi@IS"(i8* %return74)
+  %return76 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return75)
+  %output77 = call i8* @"add@SS"(i8* %return76, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end70
 
-false62:                                          ; preds = %end47
-  br label %end63
+false69:                                          ; preds = %end54
+  br label %end70
 
-end63:                                            ; preds = %false62, %true61
-  %V2.0 = phi i8* [ %output70, %true61 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false62 ]
-  %return72 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @125, i64 0, i64 0), i8* %return31)
-  %return73 = call double @"chf@FS"(i8* %return72)
-  %return75 = fcmp one double %return73, 0.000000e+00
-  br i1 %return75, label %true77, label %false78
+end70:                                            ; preds = %false69, %true68
+  %V2.0 = phi i8* [ %output77, %true68 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false69 ]
+  %return79 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @127, i64 0, i64 0), i8* %return38)
+  %return80 = call double @"chf@FS"(i8* %return79)
+  %return82 = fcmp one double %return80, 0.000000e+00
+  br i1 %return82, label %true84, label %false85
 
-true77:                                           ; preds = %end63
-  %return82 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @126, i64 0, i64 0), i8* %return31)
-  %return83 = call i8* @"chs@SS"(i8* %return82)
-  %return84 = call i64 @"atoi@IS"(i8* %return83)
-  %return85 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return84)
-  %output86 = call i8* @"add@SS"(i8* %return85, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0))
-  br label %end79
+true84:                                           ; preds = %end70
+  %return89 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @128, i64 0, i64 0), i8* %return38)
+  %return90 = call i8* @"chs@SS"(i8* %return89)
+  %return91 = call i64 @"atoi@IS"(i8* %return90)
+  %return92 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return91)
+  %output93 = call i8* @"add@SS"(i8* %return92, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end86
 
-false78:                                          ; preds = %end63
-  br label %end79
+false85:                                          ; preds = %end70
+  br label %end86
 
-end79:                                            ; preds = %false78, %true77
-  %V3.0 = phi i8* [ %output86, %true77 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false78 ]
-  %return88 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @127, i64 0, i64 0), i8* %return31)
-  %return89 = call double @"chf@FS"(i8* %return88)
-  %return91 = fcmp one double %return89, 0.000000e+00
-  br i1 %return91, label %true93, label %false94
+end86:                                            ; preds = %false85, %true84
+  %V3.0 = phi i8* [ %output93, %true84 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false85 ]
+  %return95 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @129, i64 0, i64 0), i8* %return38)
+  %return96 = call double @"chf@FS"(i8* %return95)
+  %return98 = fcmp one double %return96, 0.000000e+00
+  br i1 %return98, label %true100, label %false101
 
-true93:                                           ; preds = %end79
-  %return98 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @128, i64 0, i64 0), i8* %return31)
-  %return99 = call i8* @"chs@SS"(i8* %return98)
-  %return100 = call i64 @"atoi@IS"(i8* %return99)
-  %return101 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return100)
-  %output102 = call i8* @"add@SS"(i8* %return101, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0))
-  br label %end95
+true100:                                          ; preds = %end86
+  %return105 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @130, i64 0, i64 0), i8* %return38)
+  %return106 = call i8* @"chs@SS"(i8* %return105)
+  %return107 = call i64 @"atoi@IS"(i8* %return106)
+  %return108 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return107)
+  %output109 = call i8* @"add@SS"(i8* %return108, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end102
 
-false94:                                          ; preds = %end79
-  br label %end95
+false101:                                         ; preds = %end86
+  br label %end102
 
-end95:                                            ; preds = %false94, %true93
-  %V4.0 = phi i8* [ %output102, %true93 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false94 ]
-  %output105 = fadd double %return41, %return57
-  %output107 = fadd double %output105, %return73
-  %output109 = fadd double %output107, %return89
-  %return111 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @129, i64 0, i64 0), i8* %return31)
-  %return112 = call double @"chf@FS"(i8* %return111)
-  %return114 = fcmp ogt double %return112, 0.000000e+00
-  br i1 %return114, label %true116, label %end117
+end102:                                           ; preds = %false101, %true100
+  %V4.0 = phi i8* [ %output109, %true100 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false101 ]
+  %output112 = fadd double %return48, %return64
+  %output114 = fadd double %output112, %return80
+  %output116 = fadd double %output114, %return96
+  %return118 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @131, i64 0, i64 0), i8* %return38)
+  %return119 = call double @"chf@FS"(i8* %return118)
+  %return121 = fcmp ogt double %return119, 0.000000e+00
+  br i1 %return121, label %true123, label %end124
 
-true116:                                          ; preds = %end95
-  %return119 = fcmp one double %output109, 0.000000e+00
-  br i1 %return119, label %true121, label %end117
+true123:                                          ; preds = %end102
+  %return126 = fcmp one double %output116, 0.000000e+00
+  br i1 %return126, label %true128, label %end124
 
-end117:                                           ; preds = %true116, %true121, %end95
-  %PB.0 = phi i8* [ getelementptr inbounds ([2 x i8], [2 x i8]* @130, i64 0, i64 0), %true121 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %true116 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %end95 ]
-  %return124 = fcmp one double %output109, 0.000000e+00
-  br i1 %return124, label %true126, label %false127
+end124:                                           ; preds = %true123, %true128, %end102
+  %PB.0 = phi i8* [ getelementptr inbounds ([2 x i8], [2 x i8]* @132, i64 0, i64 0), %true128 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true123 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end102 ]
+  %return131 = fcmp one double %output116, 0.000000e+00
+  br i1 %return131, label %true133, label %false134
 
-true121:                                          ; preds = %true116
-  br label %end117
+true128:                                          ; preds = %true123
+  br label %end124
 
-true126:                                          ; preds = %end117
-  %return130 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @132, i64 0, i64 0), i8* %return31)
-  %return131 = call double @"chf@FS"(i8* %return130)
-  %return132 = call i8* @"sprintf@SS:F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @131, i64 0, i64 0), double %return131)
-  br label %end128
+true133:                                          ; preds = %end124
+  %return137 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @134, i64 0, i64 0), i8* %return38)
+  %return138 = call double @"chf@FS"(i8* %return137)
+  %return139 = call i8* @"sprintf@SS:F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @133, i64 0, i64 0), double %return138)
+  br label %end135
 
-false127:                                         ; preds = %end117
-  br label %end128
+false134:                                         ; preds = %end124
+  br label %end135
 
-end128:                                           ; preds = %false127, %true126
-  %W.0 = phi i8* [ %return132, %true126 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %false127 ]
-  %return134 = call i8** @"split@[SSS"(i8* %W.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @133, i64 0, i64 0))
-  %return136 = call i64 @"len@I[S"(i8** %return134)
-  %return137 = call i64 @"gt@III"(i64 %return136, i64 1)
-  %7 = icmp ne i64 %return137, 0
-  br i1 %7, label %true138, label %false139
+end135:                                           ; preds = %false134, %true133
+  %W.0 = phi i8* [ %return139, %true133 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %false134 ]
+  %return141 = call i8** @"split@[SSS"(i8* %W.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @135, i64 0, i64 0))
+  %return143 = call i64 @"len@I[S"(i8** %return141)
+  %return144 = call i64 @"gt@III"(i64 %return143, i64 1)
+  %8 = icmp ne i64 %return144, 0
+  br i1 %8, label %true145, label %false146
 
-true138:                                          ; preds = %end128
-  br label %cond143
+true145:                                          ; preds = %end135
+  br label %cond150
 
-false139:                                         ; preds = %end128
-  br label %end140
+false146:                                         ; preds = %end135
+  br label %end147
 
-end140:                                           ; preds = %cond143, %false139
-  %out.0 = phi i8** [ %out.1, %cond143 ], [ %return134, %false139 ]
-  %return166 = call i8* @"join@S[SS"(i8** %out.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @133, i64 0, i64 0))
-  %return173 = call i8* @"concat@SSS:SSSS"(i8* %PB.0, i8* %V1.0, i8* %V2.0, i8* %V3.0, i8* %V4.0, i8* %return166)
-  br label %end38
+end147:                                           ; preds = %cond150, %false146
+  %out.0 = phi i8** [ %out.1, %cond150 ], [ %return141, %false146 ]
+  %return173 = call i8* @"join@S[SS"(i8** %out.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @135, i64 0, i64 0))
+  %return180 = call i8* @"concat@SSS:SSSS"(i8* %PB.0, i8* %V1.0, i8* %V2.0, i8* %V3.0, i8* %V4.0, i8* %return173)
+  br label %end45
 
-cond143:                                          ; preds = %body144, %true138
-  %out.1 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @7, i64 0, i64 0), %true138 ], [ %output158, %body144 ]
-  %count.0 = phi i64 [ 1, %true138 ], [ %output161, %body144 ]
-  %__impl_foreach_index.0 = phi i64 [ 0, %true138 ], [ %output163, %body144 ]
-  %return147 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return136)
-  %8 = icmp ne i64 %return147, 0
-  br i1 %8, label %body144, label %end140
+cond150:                                          ; preds = %body151, %true145
+  %out.1 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @7, i64 0, i64 0), %true145 ], [ %output165, %body151 ]
+  %count.0 = phi i64 [ 1, %true145 ], [ %output168, %body151 ]
+  %__impl_foreach_index.0 = phi i64 [ 0, %true145 ], [ %output170, %body151 ]
+  %return154 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return143)
+  %9 = icmp ne i64 %return154, 0
+  br i1 %9, label %body151, label %end147
 
-body144:                                          ; preds = %cond143
-  %return152 = call i8* @"getcomp@S[SI"(i8** %return134, i64 %__impl_foreach_index.0)
-  %output156 = call i64 @"div@II"(i64 6, i64 %count.0)
-  %return157 = call i8* @"slice@SSIIIIII"(i8* %return152, i64 0, i64 0, i64 1, i64 %output156, i64 0, i64 0)
-  %output158 = call i8** @"append@[SS"(i8** %out.1, i8* %return157)
-  %output161 = add i64 %count.0, 1
-  %output163 = add i64 %__impl_foreach_index.0, 1
-  br label %cond143
+body151:                                          ; preds = %cond150
+  %return159 = call i8* @"getcomp@S[SI"(i8** %return141, i64 %__impl_foreach_index.0)
+  %output163 = call i64 @"div@II"(i64 6, i64 %count.0)
+  %return164 = call i8* @"slice@SSIIIIII"(i8* %return159, i64 0, i64 0, i64 1, i64 %output163, i64 0, i64 0)
+  %output165 = call i8** @"append@[SS"(i8** %out.1, i8* %return164)
+  %output168 = add i64 %count.0, 1
+  %output170 = add i64 %__impl_foreach_index.0, 1
+  br label %cond150
 
-true181:                                          ; preds = %end27
-  %return184 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @134, i64 0, i64 0))
-  %return186 = fcmp one double %return184, 0.000000e+00
-  br i1 %return186, label %true188, label %false189
+true188:                                          ; preds = %end34
+  %return191 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @136, i64 0, i64 0))
+  %return193 = fcmp one double %return191, 0.000000e+00
+  br i1 %return193, label %true195, label %false196
 
-end182:                                           ; preds = %end229, %end27
-  %type.4 = phi i8** [ %output248, %end229 ], [ %type.3, %end27 ]
-  store i8** %type.4, i8*** %_bound_VARTYPE
+end189:                                           ; preds = %end236, %end34
+  %type.5 = phi i8** [ %output255, %end236 ], [ %type.4, %end34 ]
+  store i8** %type.5, i8*** %_bound_VARTYPE
   ret void
 
-true188:                                          ; preds = %true181
-  %return192 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @135, i64 0, i64 0))
-  %return193 = call i64 @"atoi@IS"(i8* %return192)
-  %return194 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return193)
-  %output195 = call i8* @"add@SS"(i8* %return194, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0))
-  br label %end190
+true195:                                          ; preds = %true188
+  %return199 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @137, i64 0, i64 0))
+  %return200 = call i64 @"atoi@IS"(i8* %return199)
+  %return201 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return200)
+  %output202 = call i8* @"add@SS"(i8* %return201, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end197
 
-false189:                                         ; preds = %true181
-  br label %end190
+false196:                                         ; preds = %true188
+  br label %end197
 
-end190:                                           ; preds = %false189, %true188
-  %FV1.0 = phi i8* [ %output195, %true188 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false189 ]
-  %return196 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @136, i64 0, i64 0))
-  %return198 = fcmp one double %return196, 0.000000e+00
-  br i1 %return198, label %true200, label %false201
+end197:                                           ; preds = %false196, %true195
+  %FV1.0 = phi i8* [ %output202, %true195 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false196 ]
+  %return203 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @138, i64 0, i64 0))
+  %return205 = fcmp one double %return203, 0.000000e+00
+  br i1 %return205, label %true207, label %false208
 
-true200:                                          ; preds = %end190
-  %return204 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @137, i64 0, i64 0))
-  %return205 = call i64 @"atoi@IS"(i8* %return204)
-  %return206 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return205)
-  %output207 = call i8* @"add@SS"(i8* %return206, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0))
-  br label %end202
+true207:                                          ; preds = %end197
+  %return211 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @139, i64 0, i64 0))
+  %return212 = call i64 @"atoi@IS"(i8* %return211)
+  %return213 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return212)
+  %output214 = call i8* @"add@SS"(i8* %return213, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end209
 
-false201:                                         ; preds = %end190
-  br label %end202
+false208:                                         ; preds = %end197
+  br label %end209
 
-end202:                                           ; preds = %false201, %true200
-  %FV2.0 = phi i8* [ %output207, %true200 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false201 ]
-  %return208 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @138, i64 0, i64 0))
-  %return210 = fcmp one double %return208, 0.000000e+00
-  br i1 %return210, label %true212, label %false213
+end209:                                           ; preds = %false208, %true207
+  %FV2.0 = phi i8* [ %output214, %true207 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false208 ]
+  %return215 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @140, i64 0, i64 0))
+  %return217 = fcmp one double %return215, 0.000000e+00
+  br i1 %return217, label %true219, label %false220
 
-true212:                                          ; preds = %end202
-  %return216 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @139, i64 0, i64 0))
-  %return217 = call i64 @"atoi@IS"(i8* %return216)
-  %return218 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return217)
-  br label %end214
+true219:                                          ; preds = %end209
+  %return223 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @141, i64 0, i64 0))
+  %return224 = call i64 @"atoi@IS"(i8* %return223)
+  %return225 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return224)
+  br label %end221
 
-false213:                                         ; preds = %end202
-  br label %end214
+false220:                                         ; preds = %end209
+  br label %end221
 
-end214:                                           ; preds = %false213, %true212
-  %FV3.0 = phi i8* [ %return218, %true212 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @122, i64 0, i64 0), %false213 ]
-  %output221 = fadd double %return184, %return196
-  %output223 = fadd double %output221, %return208
-  %return224 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @140, i64 0, i64 0))
-  %return226 = fcmp one double %return224, 0.000000e+00
-  br i1 %return226, label %true228, label %end229
+end221:                                           ; preds = %false220, %true219
+  %FV3.0 = phi i8* [ %return225, %true219 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false220 ]
+  %output228 = fadd double %return191, %return203
+  %output230 = fadd double %output228, %return215
+  %return231 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @142, i64 0, i64 0))
+  %return233 = fcmp one double %return231, 0.000000e+00
+  br i1 %return233, label %true235, label %end236
 
-true228:                                          ; preds = %end214
-  %return231 = fcmp one double %output223, 0.000000e+00
-  br i1 %return231, label %true233, label %end229
+true235:                                          ; preds = %end221
+  %return238 = fcmp one double %output230, 0.000000e+00
+  br i1 %return238, label %true240, label %end236
 
-end229:                                           ; preds = %true228, %true233, %end214
-  %FP1.0 = phi i8* [ %return239, %true233 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %true228 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @117, i64 0, i64 0), %end214 ]
-  %return244 = call i8* @"concat@SSS:SS"(i8* %FV1.0, i8* %FV2.0, i8* %FV3.0, i8* %FP1.0)
-  %return247 = call i8* @"toupper@SS"(i8* %return244)
-  %output248 = call i8** @"append@[SS"(i8** %type.3, i8* %return247)
-  br label %end182
+end236:                                           ; preds = %true235, %true240, %end221
+  %FP1.0 = phi i8* [ %return246, %true240 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true235 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end221 ]
+  %return251 = call i8* @"concat@SSS:SS"(i8* %FV1.0, i8* %FV2.0, i8* %FV3.0, i8* %FP1.0)
+  %return254 = call i8* @"toupper@SS"(i8* %return251)
+  %output255 = call i8** @"append@[SS"(i8** %type.4, i8* %return254)
+  br label %end189
 
-true233:                                          ; preds = %true228
-  %return236 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @141, i64 0, i64 0))
-  %return237 = call i64 @"atoi@IS"(i8* %return236)
-  %return238 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return237)
-  %return239 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return238, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
-  br label %end229
+true240:                                          ; preds = %true235
+  %return243 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @143, i64 0, i64 0))
+  %return244 = call i64 @"atoi@IS"(i8* %return243)
+  %return245 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return244)
+  %return246 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return245, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
+  br label %end236
 }
 
 ; Function Attrs: nounwind readnone
@@ -601,6 +614,9 @@ declare i8* @"concat@SSS:S"(i8*, i8*, i8*) #1
 
 ; Function Attrs: nounwind
 declare i8** @"append@[SS"(i8**, i8*) #2
+
+; Function Attrs: nounwind
+declare i64 @"detail@IIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind readnone
 declare i64 @"not@II"(i64) #1
@@ -663,7 +679,7 @@ __llvm_entry:
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
   call void @"_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
   %evalue = load i8**, i8*** %"<VARTYPE>"
-  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @142, i64 0, i64 0), i8** %evalue) #3
+  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @144, i64 0, i64 0), i8** %evalue) #3
   store i8** %gvalue, i8*** @VARTYPE
   ret void
 }
