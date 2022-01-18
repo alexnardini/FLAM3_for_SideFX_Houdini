@@ -218,7 +218,7 @@ struct gemPrm{
                         // 63 LAZYSUSAN
                         else if(TYPE==63){
                             lazysusanxyz[i] = chu(concat("../lazysusanxyz_", IDX));
-                            lazysusan[i]    = chu(concat("../lazysusan_", IDX)); continue; }
+                            lazysusan[i]    = chv(concat("../lazysusan_", IDX)); continue; }
                         // 66 MODULUS
                         else if(TYPE==66){ modulus[i] = chu(concat("../modulusXYZ_", IDX)); continue; }
                         // 67 OSCOPE
