@@ -30,6 +30,8 @@
 //
 // VARs with PRECALC: 47, 48, 76, 98, 99
 //
+// 00 LINEAR inside "flame.h" header file
+//
 // 01
 void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
     p[0] = w * sin(_p[0]);
