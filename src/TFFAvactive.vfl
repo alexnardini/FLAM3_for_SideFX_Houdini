@@ -92,8 +92,8 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
         // Just in case I need this later
         XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
         for(int i=0; i<size; i++){
-            int sl = i*size;
-            append(XAOS_FROM, create_cdf(_XAOS_FROM[sl:sl+size]));
+            int SL = i*size;
+            append(XAOS_FROM, create_cdf(_XAOS_FROM[SL:SL+size]));
         }
         _bound_XAOS = clamp(xaos_chk, 0, 1);
         _bound_XAOS_TO = XAOS_TO;
