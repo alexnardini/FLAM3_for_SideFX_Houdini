@@ -13,10 +13,18 @@ fast, ready to use functions like **creating and sampling a cdf** and a very rob
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions and much more.
 
+## Viewport live point cloud
 `Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
+
+## Karma interactive rendering
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/CosmicFlower_Karma_UI.jpg)
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/GemsRed_Karma_UI.jpg)
+![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Medalion_Karma_UI.jpg)
+`Karma integrated renderer interactively render the generated fracatl flames in the Houdini's viewport.`
+
 
 **Highly inspired by Apophysis software and its workflow design**,
 it is a one to one match with it.
