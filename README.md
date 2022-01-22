@@ -22,7 +22,7 @@ like attribute binding, UI building, parameters creations, their visibility cond
 ## Karma interactive rendering
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/CosmicFlower_Karma_UI.jpg)
 ![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Medalion_Karma_UI.jpg)
-`Karma integrated renderer interactively render the generated fracatl flames in the Houdini's viewport.`
+`Use Karma integrated renderer to interactively render the generated fractal flames in the Houdini's viewport.`
 
 
 **Highly inspired by Apophysis software and its workflow design**,
