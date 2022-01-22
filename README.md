@@ -1,5 +1,5 @@
 # The Fractal Flame Algorithm
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
+![FLAM3 Houdini Cure image](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
 
 `The above image consist of 400M points and rendered with Houdini internal Mantra renderer.`
 
@@ -15,13 +15,13 @@ like attribute binding, UI building, parameters creations, their visibility cond
 
 ## Viewport live point cloud
 `Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch.jpg)
+![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
+![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 ## Karma interactive rendering
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/CosmicFlower_Karma_UI.jpg)
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/Medalion_Karma_UI.jpg)
+![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/CosmicFlower_Karma_UI.jpg)
+![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/Medalion_Karma_UI.jpg)
 `Use Karma integrated renderer to interactively render the generated fractal flames in the Houdini's viewport.`
 
 
