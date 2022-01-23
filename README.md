@@ -1,7 +1,7 @@
 # The Fractal Flame Algorithm
 ![FLAM3 Houdini Cure image](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
 
-`The above image consist of 400M points and rendered with Houdini internal Mantra renderer.`
+`The above image consist of 400M points and rendered with Houdini internal Mantra renderer. ( originally rendered at 4K resolution )`
 
 ## FLAM3 for SideFX Houdini
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
