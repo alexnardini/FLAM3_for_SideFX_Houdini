@@ -1,7 +1,7 @@
 # The Fractal Flame Algorithm
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
+![FLAM3 Houdini Cure image](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
 
-`The above image consist of 400M points and rendered with Houdini internal Mantra renderer.`
+`The above image consist of 400M points and rendered with Houdini internal Mantra renderer. ( originally rendered at 4K resolution )`
 
 ## FLAM3 for SideFX Houdini
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
@@ -13,16 +13,23 @@ fast, ready to use functions like **creating and sampling a cdf** and a very rob
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions and much more.
 
-`Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
-![alt text](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch.jpg)
-`FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
-
 **Highly inspired by Apophysis software and its workflow design**,
 it is a one to one match with it.
 Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same result.
 **Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
+
+## Viewport live point cloud
+`Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
+![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport.jpg)
+![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch.jpg)
+`FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
+
+## Karma interactive rendering
+![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/CosmicFlower_Karma_UI.jpg)
+![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/Medalion_Karma_UI.jpg)
+`Use Karma integrated renderer to interactively render the generated fractal flames in the Houdini's viewport.`
+
 
 ## References
 Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
