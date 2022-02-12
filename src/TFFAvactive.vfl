@@ -43,7 +43,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     
     // ACTIVE vars
     //
-    for(int i=0; i<iter_f; i++){
+    for(int i=0; i<iter_f; ++i){
         string iIDX = itoa(i+1);
         append(vactive, chi(concat("../vactive_", iIDX)));
         float IWcheck = chf(concat("../iw_", iIDX));
@@ -58,7 +58,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     int xaos_chk = 0;
     int size = len(sIDX);
     float _XAOS_TO[], XAOS_TO[], _XAOS_FROM[], XAOS_FROM[];
-    for(int i=0; i<size; i++){
+    for(int i=0; i<size; ++i){
 
         string varnote = chs(concat("../varnote_", sIDX[i]));
         string note[] = split(varnote, ":");
@@ -91,7 +91,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     if(xaos_chk){
         // Just in case I need this later
         XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
-        for(int i=0; i<size; i++){
+        for(int i=0; i<size; ++i){
             int SL = i*size;
             append(XAOS_FROM, create_cdf(_XAOS_FROM[SL:SL+size]));
         }

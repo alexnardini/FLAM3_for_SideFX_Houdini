@@ -47,7 +47,7 @@ struct gem{
         float _a, coord, speed;
         vector2 _x, _y;
         matrix2 m2;
-        for(int i=0; i<SYS.iter_f; i++){
+        for(int i=0; i<SYS.iter_f; ++i){
             if(!VACTIVE[i]) continue;
             string IDX=itoa(i+1);
             // Collect active variation IDs
@@ -160,7 +160,7 @@ struct gemPrm{
             // VECTOR4
             resize(ngon, iter_f);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
-            for(int i=0; i<iter_f; i++){
+            for(int i=0; i<iter_f; ++i){
                 TYPE=GEMTYPE[i]; IDX=sIDX[i];
                 if(TYPE<27) continue;
                 else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , TYPE)>=0){

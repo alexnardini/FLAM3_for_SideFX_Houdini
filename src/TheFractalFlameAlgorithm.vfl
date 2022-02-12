@@ -49,7 +49,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     float XAOS_TO[] = _bound_XAOS_TO;
     if(XAOS){ n=len(GEM.sIDX); idx=(int)(nrandom("twister")*n); }
     vector2 __mem = biunit();
-    for(int i=0; i<SYS.iter; i++){
+    for(int i=0; i<SYS.iter; ++i){
         __tmp = 0;
         if(XAOS){ SL=idx*n; idx=sample_cdf(slice(XAOS_TO,SL,SL+n), nrandom('twister')); } // Surprisingly, slicing into a small array is really slow.
         else idx=sample_cdf(XAOS_TO, nrandom('twister'));
