@@ -73,12 +73,12 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
         }
         else resize(xaos, iter_f, 1);
         
-        for(int j=0; j<iter_f;j++){
+        for(int j=0; j<iter_f; ++j){
             if(!vactive[j]) pop(xaos, j);
         }
         
         float IW_xaos[];
-        for(int k=0; k<size; k++){
+        for(int k=0; k<size; ++k){
             if(xaos[k]!=1.0) xaos_chk++;
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
