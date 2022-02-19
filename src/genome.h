@@ -19,21 +19,20 @@
 #include <functions.h>
 
 struct gemSYS{
-    int TMG, RIP, PFF, FF, iter_f, SYM, sym_mode, iter, MB, vizmb;
-    float mb_mod;
+    int TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mode, MB;
+    float mb_mod = 1.0;
 
     void gemSYSBuild(){
-        TMG           = chi("../dotmglobal");
-        FF            = chi("../dofinalflame");
-        PFF           = chi("../_dofpost_2");
-        RIP           = chi("../delinvalidpt");
-        SYM           = chi("../symmetry");
-        iter_f        = chi("../flamefunc");
-        iter          = chi("../iter");
-        MB            = chi("../domb");
-        mb_mod        = 1.0;
+        TMG    = chi("../dotmglobal");
+        FF     = chi("../dofinalflame");
+        PFF    = chi("../_dofpost_2");
+        RIP    = chi("../delinvalidpt");
+        SYM    = chi("../symmetry");
+        iter_f = chi("../flamefunc");
+        iter   = chi("../iter");
+        MB     = chi("../domb");
         if(SYM) sym_mode = chi("../rotational");
-        if(MB){ vizmb  = chi("../vizmb"); mb_mod = detail(1, "Tstep_mult", 0); }
+        if(MB) mb_mod = detail(1, "Tstep_mult", 0);
     }
 }
 

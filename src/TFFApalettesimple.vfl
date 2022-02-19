@@ -31,9 +31,9 @@ _TFFApalettesimple(const float _bound_COORD; vector _bound_Cd; const float _boun
 {
     int domb, vizmb;
     vector color, paletteHSV;
-    paletteHSV      = chv("../palettehsv_");
-    domb            = chi("../domb");
-    vizmb           = chi("../vizmb");
+    paletteHSV = chv("../palettehsv_");
+    domb       = chi("../domb");
+    vizmb      = chi("../vizmb");
 
     color = chramp("../palette", _bound_COORD);
     if(paletteHSV[0]!=0 || paletteHSV[1]!=1 || paletteHSV[2]!=1){

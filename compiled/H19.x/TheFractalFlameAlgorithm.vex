@@ -2,7 +2,7 @@
 ; ModuleID = 'TheFractalFlameAlgorithm'
 source_filename = "TheFractalFlameAlgorithm"
 
-%gemSYS = type { i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, double }
+%gemSYS = type { i64, i64, i64, i64, i64, i64, i64, i64, i64, double }
 %gem = type { i64*, i64*, i64*, i64*, i64*, i64, i64, i64, i64, double*, double*, double*, double*, double*, double*, double*, double*, double, double, double, double, double, <2 x double>, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, i8** }
 %gemPrm = type { double*, double*, double*, double*, double*, double*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>* }
 
@@ -18,169 +18,168 @@ source_filename = "TheFractalFlameAlgorithm"
 @9 = private constant [8 x i8] c"../iter\00"
 @10 = private constant [8 x i8] c"../domb\00"
 @11 = private constant [14 x i8] c"../rotational\00"
-@12 = private constant [9 x i8] c"../vizmb\00"
-@13 = private constant [11 x i8] c"Tstep_mult\00"
-@14 = private constant [8 x i8] c"../clr_\00"
-@15 = private constant [13 x i8] c"../clrspeed_\00"
-@16 = private constant [10 x i8] c"../alpha_\00"
-@17 = private constant [18 x i8] c"../preblurweight_\00"
-@18 = private constant [13 x i8] c"../v1weight_\00"
-@19 = private constant [11 x i8] c"../v1type_\00"
-@20 = private constant [13 x i8] c"../v2weight_\00"
-@21 = private constant [11 x i8] c"../v2type_\00"
-@22 = private constant [13 x i8] c"../v3weight_\00"
-@23 = private constant [11 x i8] c"../v3type_\00"
-@24 = private constant [13 x i8] c"../v4weight_\00"
-@25 = private constant [11 x i8] c"../v4type_\00"
-@26 = private constant [6 x i8] c"../x_\00"
-@27 = private constant [6 x i8] c"../y_\00"
-@28 = private constant [8 x i8] c"../ang_\00"
-@29 = private constant [6 x i8] c"../o_\00"
-@30 = private constant [11 x i8] c"../dopost_\00"
-@31 = private constant [7 x i8] c"../px_\00"
-@32 = private constant [7 x i8] c"../py_\00"
-@33 = private constant [9 x i8] c"../pang_\00"
-@34 = private constant [7 x i8] c"../po_\00"
-@35 = private constant [7 x i8] c"../frt\00"
-@36 = private constant [7 x i8] c"../fsc\00"
-@37 = private constant [14 x i8] c"../ffv1weight\00"
-@38 = private constant [12 x i8] c"../ffv1type\00"
-@39 = private constant [14 x i8] c"../ffv2weight\00"
-@40 = private constant [12 x i8] c"../ffv2type\00"
-@41 = private constant [14 x i8] c"../ffv3weight\00"
-@42 = private constant [12 x i8] c"../ffv3type\00"
-@43 = private constant [14 x i8] c"../ffp1weight\00"
-@44 = private constant [12 x i8] c"../ffp1type\00"
-@45 = private constant [9 x i8] c"../_fx_2\00"
-@46 = private constant [9 x i8] c"../_fy_2\00"
-@47 = private constant [10 x i8] c"../_ang_2\00"
-@48 = private constant [9 x i8] c"../_fo_2\00"
-@49 = private constant [10 x i8] c"../_pfx_2\00"
-@50 = private constant [10 x i8] c"../_pfy_2\00"
-@51 = private constant [11 x i8] c"../_pang_2\00"
-@52 = private constant [10 x i8] c"../_pfo_2\00"
-@53 = private constant [0 x i64] zeroinitializer
-@54 = private constant [0 x double] zeroinitializer
-@55 = private constant [0 x <2 x double>] zeroinitializer
-@56 = private constant [0 x i8*] zeroinitializer
-@57 = private constant [20 x double] [double 2.700000e+01, double 2.800000e+01, double 2.900000e+01, double 3.000000e+01, double 3.100000e+01, double 3.200000e+01, double 3.400000e+01, double 3.500000e+01, double 3.600000e+01, double 3.700000e+01, double 3.800000e+01, double 4.700000e+01, double 4.800000e+01, double 4.900000e+01, double 5.000000e+01, double 5.100000e+01, double 5.200000e+01, double 5.300000e+01, double 5.600000e+01, double 5.700000e+01]
-@58 = private constant [10 x i8] c"../curlc_\00"
-@59 = private constant [9 x i8] c"../ngon_\00"
-@60 = private constant [9 x i8] c"../pdjw_\00"
-@61 = private constant [9 x i8] c"../blob_\00"
-@62 = private constant [11 x i8] c"../julian_\00"
-@63 = private constant [15 x i8] c"../juliascope_\00"
-@64 = private constant [9 x i8] c"../fan2_\00"
-@65 = private constant [14 x i8] c"../rings2val_\00"
-@66 = private constant [15 x i8] c"../rectangles_\00"
-@67 = private constant [15 x i8] c"../radialblur_\00"
-@68 = private constant [8 x i8] c"../pie_\00"
-@69 = private constant [10 x i8] c"../disc2_\00"
-@70 = private constant [15 x i8] c"../supershape_\00"
-@71 = private constant [16 x i8] c"../supershapen_\00"
-@72 = private constant [11 x i8] c"../flower_\00"
-@73 = private constant [10 x i8] c"../conic_\00"
-@74 = private constant [13 x i8] c"../parabola_\00"
-@75 = private constant [12 x i8] c"../bent2xy_\00"
-@76 = private constant [17 x i8] c"../bipolarshift_\00"
-@77 = private constant [13 x i8] c"../cellsize_\00"
-@78 = private constant [9 x i8] c"../cpow_\00"
-@79 = private constant [21 x double] [double 6.100000e+01, double 6.300000e+01, double 6.600000e+01, double 6.700000e+01, double 6.900000e+01, double 7.100000e+01, double 7.200000e+01, double 7.300000e+01, double 7.400000e+01, double 7.500000e+01, double 7.600000e+01, double 7.700000e+01, double 7.800000e+01, double 7.900000e+01, double 9.400000e+01, double 9.500000e+01, double 9.600000e+01, double 9.700000e+01, double 9.800000e+01, double 9.900000e+01, double 1.010000e+02]
-@80 = private constant [15 x i8] c"../escherbeta_\00"
-@81 = private constant [17 x i8] c"../lazysusanxyz_\00"
-@82 = private constant [14 x i8] c"../lazysusan_\00"
-@83 = private constant [15 x i8] c"../modulusXYZ_\00"
-@84 = private constant [11 x i8] c"../oscope_\00"
-@85 = private constant [16 x i8] c"../popcorn2xyz_\00"
-@86 = private constant [14 x i8] c"../popcorn2c_\00"
-@87 = private constant [18 x i8] c"../separationxyz_\00"
-@88 = private constant [24 x i8] c"../separationinsidexyz_\00"
-@89 = private constant [13 x i8] c"../splitxyz_\00"
-@90 = private constant [14 x i8] c"../splitsxyz_\00"
-@91 = private constant [12 x i8] c"../stripes_\00"
-@92 = private constant [10 x i8] c"../wedge_\00"
-@93 = private constant [15 x i8] c"../wedgejulia_\00"
-@94 = private constant [13 x i8] c"../wedgesph_\00"
-@95 = private constant [10 x i8] c"../whorl_\00"
-@96 = private constant [19 x i8] c"../waves2scalexyz_\00"
-@97 = private constant [18 x i8] c"../waves2freqxyz_\00"
-@98 = private constant [10 x i8] c"../auger_\00"
-@99 = private constant [15 x i8] c"../fluxspread_\00"
-@100 = private constant [13 x i8] c"../mobiusre_\00"
-@101 = private constant [13 x i8] c"../mobiusim_\00"
-@102 = private constant [19 x i8] c"../curvexyzlenght_\00"
-@103 = private constant [16 x i8] c"../curvexyzamp_\00"
-@104 = private constant [10 x i8] c"../persp_\00"
-@105 = private constant [11 x i8] c"../bwraps_\00"
-@106 = private constant [16 x i8] c"../bwrapstwist_\00"
-@107 = private constant [18 x i8] c"../polynomialpow_\00"
-@108 = private constant [17 x i8] c"../polynomiallc_\00"
-@109 = private constant [17 x i8] c"../polynomialsc_\00"
-@110 = private constant [0 x <3 x double>] zeroinitializer
-@111 = private constant [0 x <4 x double>] zeroinitializer
-@112 = private constant [8 x i8] c"curlc_2\00"
-@113 = private constant [7 x i8] c"ngon_2\00"
-@114 = private constant [7 x i8] c"pdjw_2\00"
-@115 = private constant [7 x i8] c"blob_2\00"
-@116 = private constant [9 x i8] c"julian_2\00"
-@117 = private constant [13 x i8] c"juliascope_2\00"
-@118 = private constant [7 x i8] c"fan2_2\00"
-@119 = private constant [12 x i8] c"rings2val_2\00"
-@120 = private constant [13 x i8] c"rectangles_2\00"
-@121 = private constant [13 x i8] c"radialblur_2\00"
-@122 = private constant [6 x i8] c"pie_2\00"
-@123 = private constant [8 x i8] c"disc2_2\00"
-@124 = private constant [13 x i8] c"supershape_2\00"
-@125 = private constant [14 x i8] c"supershapen_2\00"
-@126 = private constant [9 x i8] c"flower_2\00"
-@127 = private constant [8 x i8] c"conic_2\00"
-@128 = private constant [11 x i8] c"parabola_2\00"
-@129 = private constant [10 x i8] c"bent2xy_2\00"
-@130 = private constant [15 x i8] c"bipolarshift_2\00"
-@131 = private constant [11 x i8] c"cellsize_2\00"
-@132 = private constant [7 x i8] c"cpow_2\00"
-@133 = private constant [13 x i8] c"escherbeta_2\00"
-@134 = private constant [15 x i8] c"lazysusanxyz_2\00"
-@135 = private constant [12 x i8] c"lazysusan_2\00"
-@136 = private constant [13 x i8] c"modulusXYZ_2\00"
-@137 = private constant [9 x i8] c"oscope_2\00"
-@138 = private constant [14 x i8] c"popcorn2xyz_2\00"
-@139 = private constant [12 x i8] c"popcorn2c_2\00"
-@140 = private constant [16 x i8] c"separationxyz_2\00"
-@141 = private constant [22 x i8] c"separationinsidexyz_2\00"
-@142 = private constant [11 x i8] c"splitxyz_2\00"
-@143 = private constant [12 x i8] c"splitsxyz_2\00"
-@144 = private constant [10 x i8] c"stripes_2\00"
-@145 = private constant [8 x i8] c"wedge_2\00"
-@146 = private constant [13 x i8] c"wedgejulia_2\00"
-@147 = private constant [11 x i8] c"wedgesph_2\00"
-@148 = private constant [8 x i8] c"whorl_2\00"
-@149 = private constant [17 x i8] c"waves2scalexyz_2\00"
-@150 = private constant [16 x i8] c"waves2freqxyz_2\00"
-@151 = private constant [8 x i8] c"auger_2\00"
-@152 = private constant [13 x i8] c"fluxspread_2\00"
-@153 = private constant [11 x i8] c"mobiusre_2\00"
-@154 = private constant [11 x i8] c"mobiusim_2\00"
-@155 = private constant [17 x i8] c"curvexyzlenght_2\00"
-@156 = private constant [14 x i8] c"curvexyzamp_2\00"
-@157 = private constant [8 x i8] c"persp_2\00"
-@158 = private constant [9 x i8] c"bwraps_2\00"
-@159 = private constant [14 x i8] c"bwrapstwist_2\00"
-@160 = private constant [16 x i8] c"polynomialpow_2\00"
-@161 = private constant [15 x i8] c"polynomiallc_2\00"
-@162 = private constant [15 x i8] c"polynomialsc_2\00"
-@163 = private constant [12 x i8] c"mb_modulate\00"
-@164 = private constant [4 x i8] c"set\00"
+@12 = private constant [11 x i8] c"Tstep_mult\00"
+@13 = private constant [8 x i8] c"../clr_\00"
+@14 = private constant [13 x i8] c"../clrspeed_\00"
+@15 = private constant [10 x i8] c"../alpha_\00"
+@16 = private constant [18 x i8] c"../preblurweight_\00"
+@17 = private constant [13 x i8] c"../v1weight_\00"
+@18 = private constant [11 x i8] c"../v1type_\00"
+@19 = private constant [13 x i8] c"../v2weight_\00"
+@20 = private constant [11 x i8] c"../v2type_\00"
+@21 = private constant [13 x i8] c"../v3weight_\00"
+@22 = private constant [11 x i8] c"../v3type_\00"
+@23 = private constant [13 x i8] c"../v4weight_\00"
+@24 = private constant [11 x i8] c"../v4type_\00"
+@25 = private constant [6 x i8] c"../x_\00"
+@26 = private constant [6 x i8] c"../y_\00"
+@27 = private constant [8 x i8] c"../ang_\00"
+@28 = private constant [6 x i8] c"../o_\00"
+@29 = private constant [11 x i8] c"../dopost_\00"
+@30 = private constant [7 x i8] c"../px_\00"
+@31 = private constant [7 x i8] c"../py_\00"
+@32 = private constant [9 x i8] c"../pang_\00"
+@33 = private constant [7 x i8] c"../po_\00"
+@34 = private constant [7 x i8] c"../frt\00"
+@35 = private constant [7 x i8] c"../fsc\00"
+@36 = private constant [14 x i8] c"../ffv1weight\00"
+@37 = private constant [12 x i8] c"../ffv1type\00"
+@38 = private constant [14 x i8] c"../ffv2weight\00"
+@39 = private constant [12 x i8] c"../ffv2type\00"
+@40 = private constant [14 x i8] c"../ffv3weight\00"
+@41 = private constant [12 x i8] c"../ffv3type\00"
+@42 = private constant [14 x i8] c"../ffp1weight\00"
+@43 = private constant [12 x i8] c"../ffp1type\00"
+@44 = private constant [9 x i8] c"../_fx_2\00"
+@45 = private constant [9 x i8] c"../_fy_2\00"
+@46 = private constant [10 x i8] c"../_ang_2\00"
+@47 = private constant [9 x i8] c"../_fo_2\00"
+@48 = private constant [10 x i8] c"../_pfx_2\00"
+@49 = private constant [10 x i8] c"../_pfy_2\00"
+@50 = private constant [11 x i8] c"../_pang_2\00"
+@51 = private constant [10 x i8] c"../_pfo_2\00"
+@52 = private constant [0 x i64] zeroinitializer
+@53 = private constant [0 x double] zeroinitializer
+@54 = private constant [0 x <2 x double>] zeroinitializer
+@55 = private constant [0 x i8*] zeroinitializer
+@56 = private constant [20 x double] [double 2.700000e+01, double 2.800000e+01, double 2.900000e+01, double 3.000000e+01, double 3.100000e+01, double 3.200000e+01, double 3.400000e+01, double 3.500000e+01, double 3.600000e+01, double 3.700000e+01, double 3.800000e+01, double 4.700000e+01, double 4.800000e+01, double 4.900000e+01, double 5.000000e+01, double 5.100000e+01, double 5.200000e+01, double 5.300000e+01, double 5.600000e+01, double 5.700000e+01]
+@57 = private constant [10 x i8] c"../curlc_\00"
+@58 = private constant [9 x i8] c"../ngon_\00"
+@59 = private constant [9 x i8] c"../pdjw_\00"
+@60 = private constant [9 x i8] c"../blob_\00"
+@61 = private constant [11 x i8] c"../julian_\00"
+@62 = private constant [15 x i8] c"../juliascope_\00"
+@63 = private constant [9 x i8] c"../fan2_\00"
+@64 = private constant [14 x i8] c"../rings2val_\00"
+@65 = private constant [15 x i8] c"../rectangles_\00"
+@66 = private constant [15 x i8] c"../radialblur_\00"
+@67 = private constant [8 x i8] c"../pie_\00"
+@68 = private constant [10 x i8] c"../disc2_\00"
+@69 = private constant [15 x i8] c"../supershape_\00"
+@70 = private constant [16 x i8] c"../supershapen_\00"
+@71 = private constant [11 x i8] c"../flower_\00"
+@72 = private constant [10 x i8] c"../conic_\00"
+@73 = private constant [13 x i8] c"../parabola_\00"
+@74 = private constant [12 x i8] c"../bent2xy_\00"
+@75 = private constant [17 x i8] c"../bipolarshift_\00"
+@76 = private constant [13 x i8] c"../cellsize_\00"
+@77 = private constant [9 x i8] c"../cpow_\00"
+@78 = private constant [21 x double] [double 6.100000e+01, double 6.300000e+01, double 6.600000e+01, double 6.700000e+01, double 6.900000e+01, double 7.100000e+01, double 7.200000e+01, double 7.300000e+01, double 7.400000e+01, double 7.500000e+01, double 7.600000e+01, double 7.700000e+01, double 7.800000e+01, double 7.900000e+01, double 9.400000e+01, double 9.500000e+01, double 9.600000e+01, double 9.700000e+01, double 9.800000e+01, double 9.900000e+01, double 1.010000e+02]
+@79 = private constant [15 x i8] c"../escherbeta_\00"
+@80 = private constant [17 x i8] c"../lazysusanxyz_\00"
+@81 = private constant [14 x i8] c"../lazysusan_\00"
+@82 = private constant [15 x i8] c"../modulusXYZ_\00"
+@83 = private constant [11 x i8] c"../oscope_\00"
+@84 = private constant [16 x i8] c"../popcorn2xyz_\00"
+@85 = private constant [14 x i8] c"../popcorn2c_\00"
+@86 = private constant [18 x i8] c"../separationxyz_\00"
+@87 = private constant [24 x i8] c"../separationinsidexyz_\00"
+@88 = private constant [13 x i8] c"../splitxyz_\00"
+@89 = private constant [14 x i8] c"../splitsxyz_\00"
+@90 = private constant [12 x i8] c"../stripes_\00"
+@91 = private constant [10 x i8] c"../wedge_\00"
+@92 = private constant [15 x i8] c"../wedgejulia_\00"
+@93 = private constant [13 x i8] c"../wedgesph_\00"
+@94 = private constant [10 x i8] c"../whorl_\00"
+@95 = private constant [19 x i8] c"../waves2scalexyz_\00"
+@96 = private constant [18 x i8] c"../waves2freqxyz_\00"
+@97 = private constant [10 x i8] c"../auger_\00"
+@98 = private constant [15 x i8] c"../fluxspread_\00"
+@99 = private constant [13 x i8] c"../mobiusre_\00"
+@100 = private constant [13 x i8] c"../mobiusim_\00"
+@101 = private constant [19 x i8] c"../curvexyzlenght_\00"
+@102 = private constant [16 x i8] c"../curvexyzamp_\00"
+@103 = private constant [10 x i8] c"../persp_\00"
+@104 = private constant [11 x i8] c"../bwraps_\00"
+@105 = private constant [16 x i8] c"../bwrapstwist_\00"
+@106 = private constant [18 x i8] c"../polynomialpow_\00"
+@107 = private constant [17 x i8] c"../polynomiallc_\00"
+@108 = private constant [17 x i8] c"../polynomialsc_\00"
+@109 = private constant [0 x <3 x double>] zeroinitializer
+@110 = private constant [0 x <4 x double>] zeroinitializer
+@111 = private constant [8 x i8] c"curlc_2\00"
+@112 = private constant [7 x i8] c"ngon_2\00"
+@113 = private constant [7 x i8] c"pdjw_2\00"
+@114 = private constant [7 x i8] c"blob_2\00"
+@115 = private constant [9 x i8] c"julian_2\00"
+@116 = private constant [13 x i8] c"juliascope_2\00"
+@117 = private constant [7 x i8] c"fan2_2\00"
+@118 = private constant [12 x i8] c"rings2val_2\00"
+@119 = private constant [13 x i8] c"rectangles_2\00"
+@120 = private constant [13 x i8] c"radialblur_2\00"
+@121 = private constant [6 x i8] c"pie_2\00"
+@122 = private constant [8 x i8] c"disc2_2\00"
+@123 = private constant [13 x i8] c"supershape_2\00"
+@124 = private constant [14 x i8] c"supershapen_2\00"
+@125 = private constant [9 x i8] c"flower_2\00"
+@126 = private constant [8 x i8] c"conic_2\00"
+@127 = private constant [11 x i8] c"parabola_2\00"
+@128 = private constant [10 x i8] c"bent2xy_2\00"
+@129 = private constant [15 x i8] c"bipolarshift_2\00"
+@130 = private constant [11 x i8] c"cellsize_2\00"
+@131 = private constant [7 x i8] c"cpow_2\00"
+@132 = private constant [13 x i8] c"escherbeta_2\00"
+@133 = private constant [15 x i8] c"lazysusanxyz_2\00"
+@134 = private constant [12 x i8] c"lazysusan_2\00"
+@135 = private constant [13 x i8] c"modulusXYZ_2\00"
+@136 = private constant [9 x i8] c"oscope_2\00"
+@137 = private constant [14 x i8] c"popcorn2xyz_2\00"
+@138 = private constant [12 x i8] c"popcorn2c_2\00"
+@139 = private constant [16 x i8] c"separationxyz_2\00"
+@140 = private constant [22 x i8] c"separationinsidexyz_2\00"
+@141 = private constant [11 x i8] c"splitxyz_2\00"
+@142 = private constant [12 x i8] c"splitsxyz_2\00"
+@143 = private constant [10 x i8] c"stripes_2\00"
+@144 = private constant [8 x i8] c"wedge_2\00"
+@145 = private constant [13 x i8] c"wedgejulia_2\00"
+@146 = private constant [11 x i8] c"wedgesph_2\00"
+@147 = private constant [8 x i8] c"whorl_2\00"
+@148 = private constant [17 x i8] c"waves2scalexyz_2\00"
+@149 = private constant [16 x i8] c"waves2freqxyz_2\00"
+@150 = private constant [8 x i8] c"auger_2\00"
+@151 = private constant [13 x i8] c"fluxspread_2\00"
+@152 = private constant [11 x i8] c"mobiusre_2\00"
+@153 = private constant [11 x i8] c"mobiusim_2\00"
+@154 = private constant [17 x i8] c"curvexyzlenght_2\00"
+@155 = private constant [14 x i8] c"curvexyzamp_2\00"
+@156 = private constant [8 x i8] c"persp_2\00"
+@157 = private constant [9 x i8] c"bwraps_2\00"
+@158 = private constant [14 x i8] c"bwrapstwist_2\00"
+@159 = private constant [16 x i8] c"polynomialpow_2\00"
+@160 = private constant [15 x i8] c"polynomiallc_2\00"
+@161 = private constant [15 x i8] c"polynomialsc_2\00"
+@162 = private constant [12 x i8] c"mb_modulate\00"
+@163 = private constant [4 x i8] c"set\00"
 @ptnum = external global i64
 @pscale = external global double
 @COORD = external global double
 @Alpha = external global double
 @P = external global <3 x double>
-@165 = private constant [6 x i8] c"ptnum\00"
-@166 = private constant [7 x i8] c"pscale\00"
-@167 = private constant [6 x i8] c"COORD\00"
-@168 = private constant [6 x i8] c"Alpha\00"
-@169 = private constant [2 x i8] c"P\00"
+@164 = private constant [6 x i8] c"ptnum\00"
+@165 = private constant [7 x i8] c"pscale\00"
+@166 = private constant [6 x i8] c"COORD\00"
+@167 = private constant [6 x i8] c"Alpha\00"
+@168 = private constant [2 x i8] c"P\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private double @"ATAN@FU"(<2 x double>* %p) #0 {
@@ -560,53 +559,49 @@ declare double @"getcomp@F[FI"(double*, i64) #1
 declare double* @"append@[FF"(double*, double) #3
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemSYSBuild@Z6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modF"(%gemSYS* %this) #0 {
+define private void @"gemSYSBuild@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"(%gemSYS* %this) #0 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @3, i64 0, i64 0))
   %tmp = load %gemSYS, %gemSYS* %this
   %0 = insertvalue %gemSYS %tmp, i64 %return, 0
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @4, i64 0, i64 0))
-  %1 = insertvalue %gemSYS %0, i64 %return1, 3
+  %1 = insertvalue %gemSYS %0, i64 %return1, 1
   %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @5, i64 0, i64 0))
   %2 = insertvalue %gemSYS %1, i64 %return3, 2
   %return5 = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @6, i64 0, i64 0))
-  %3 = insertvalue %gemSYS %2, i64 %return5, 1
+  %3 = insertvalue %gemSYS %2, i64 %return5, 3
   %return7 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @7, i64 0, i64 0))
-  %4 = insertvalue %gemSYS %3, i64 %return7, 5
+  %4 = insertvalue %gemSYS %3, i64 %return7, 4
   %return9 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @8, i64 0, i64 0))
-  %5 = insertvalue %gemSYS %4, i64 %return9, 4
+  %5 = insertvalue %gemSYS %4, i64 %return9, 5
   %return11 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @9, i64 0, i64 0))
-  %6 = insertvalue %gemSYS %5, i64 %return11, 7
+  %6 = insertvalue %gemSYS %5, i64 %return11, 6
   %return13 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @10, i64 0, i64 0))
   %7 = insertvalue %gemSYS %6, i64 %return13, 8
-  %8 = insertvalue %gemSYS %7, double 1.000000e+00, 10
-  store %gemSYS %8, %gemSYS* %this
-  %9 = icmp ne i64 %return7, 0
-  br i1 %9, label %true, label %end
+  store %gemSYS %7, %gemSYS* %this
+  %8 = icmp ne i64 %return7, 0
+  br i1 %8, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %return17 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @11, i64 0, i64 0))
-  %10 = insertvalue %gemSYS %8, i64 %return17, 6
-  store %gemSYS %10, %gemSYS* %this
+  %return16 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @11, i64 0, i64 0))
+  %9 = insertvalue %gemSYS %7, i64 %return16, 7
+  store %gemSYS %9, %gemSYS* %this
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %this19 = load %gemSYS, %gemSYS* %this
-  %MB = extractvalue %gemSYS %this19, 8
-  %11 = icmp ne i64 %MB, 0
-  br i1 %11, label %true20, label %end21
+  %this18 = load %gemSYS, %gemSYS* %this
+  %MB = extractvalue %gemSYS %this18, 8
+  %10 = icmp ne i64 %MB, 0
+  br i1 %10, label %true19, label %end20
 
-true20:                                           ; preds = %end
-  %return22 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @12, i64 0, i64 0))
-  %12 = insertvalue %gemSYS %this19, i64 %return22, 9
-  store %gemSYS %12, %gemSYS* %this
-  %return24 = call double @"detail@FISI"(i64 1, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @13, i64 0, i64 0), i64 0)
-  %tmp25 = load %gemSYS, %gemSYS* %this
-  %13 = insertvalue %gemSYS %tmp25, double %return24, 10
-  store %gemSYS %13, %gemSYS* %this
-  br label %end21
+true19:                                           ; preds = %end
+  %return21 = call double @"detail@FISI"(i64 1, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @12, i64 0, i64 0), i64 0)
+  %tmp22 = load %gemSYS, %gemSYS* %this
+  %11 = insertvalue %gemSYS %tmp22, double %return21, 9
+  store %gemSYS %11, %gemSYS* %this
+  br label %end20
 
-end21:                                            ; preds = %true20, %end
+end20:                                            ; preds = %true19, %end
   ret void
 }
 
@@ -617,35 +612,33 @@ declare i64 @"chi@IS"(i8*) #1
 declare double @"detail@FISI"(i64, i8*, i64) #3
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modFIIIIIIIIIIF"(i64* %TMG, i64* %RIP, i64* %PFF, i64* %FF, i64* %iter_f, i64* %SYM, i64* %sym_mode, i64* %iter, i64* %MB, i64* %vizmb, double* %mb_mod) #0 {
+define private %gemSYS @"gemSYS@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modFIIIIIIIIIF"(i64* %TMG, i64* %FF, i64* %PFF, i64* %RIP, i64* %SYM, i64* %iter_f, i64* %iter, i64* %sym_mode, i64* %MB, double* %mb_mod) #0 {
 __llvm_entry:
   %TMG1 = load i64, i64* %TMG
   %0 = insertvalue %gemSYS undef, i64 %TMG1, 0
-  %RIP2 = load i64, i64* %RIP
-  %1 = insertvalue %gemSYS %0, i64 %RIP2, 1
+  %FF2 = load i64, i64* %FF
+  %1 = insertvalue %gemSYS %0, i64 %FF2, 1
   %PFF4 = load i64, i64* %PFF
   %2 = insertvalue %gemSYS %1, i64 %PFF4, 2
-  %FF6 = load i64, i64* %FF
-  %3 = insertvalue %gemSYS %2, i64 %FF6, 3
-  %iter_f8 = load i64, i64* %iter_f
-  %4 = insertvalue %gemSYS %3, i64 %iter_f8, 4
-  %SYM10 = load i64, i64* %SYM
-  %5 = insertvalue %gemSYS %4, i64 %SYM10, 5
-  %sym_mode12 = load i64, i64* %sym_mode
-  %6 = insertvalue %gemSYS %5, i64 %sym_mode12, 6
-  %iter14 = load i64, i64* %iter
-  %7 = insertvalue %gemSYS %6, i64 %iter14, 7
+  %RIP6 = load i64, i64* %RIP
+  %3 = insertvalue %gemSYS %2, i64 %RIP6, 3
+  %SYM8 = load i64, i64* %SYM
+  %4 = insertvalue %gemSYS %3, i64 %SYM8, 4
+  %iter_f10 = load i64, i64* %iter_f
+  %5 = insertvalue %gemSYS %4, i64 %iter_f10, 5
+  %iter12 = load i64, i64* %iter
+  %6 = insertvalue %gemSYS %5, i64 %iter12, 6
+  %sym_mode14 = load i64, i64* %sym_mode
+  %7 = insertvalue %gemSYS %6, i64 %sym_mode14, 7
   %MB16 = load i64, i64* %MB
   %8 = insertvalue %gemSYS %7, i64 %MB16, 8
-  %vizmb18 = load i64, i64* %vizmb
-  %9 = insertvalue %gemSYS %8, i64 %vizmb18, 9
-  %mb_mod20 = load double, double* %mb_mod
-  %10 = insertvalue %gemSYS %9, double %mb_mod20, 10
-  ret %gemSYS %10
+  %mb_mod18 = load double, double* %mb_mod
+  %9 = insertvalue %gemSYS %8, double %mb_mod18, 9
+  ret %gemSYS %9
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modF"() #0 {
+define private %gemSYS @"gemSYS@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -655,10 +648,9 @@ __llvm_entry:
   %5 = alloca i64
   %6 = alloca i64
   %7 = alloca i64
-  %8 = alloca i64
-  %9 = alloca double
-  %10 = alloca i64
-  store i64 0, i64* %10
+  %8 = alloca double
+  %9 = alloca i64
+  store i64 0, i64* %9
   store i64 0, i64* %0
   store i64 0, i64* %1
   store i64 0, i64* %2
@@ -667,14 +659,13 @@ __llvm_entry:
   store i64 0, i64* %5
   store i64 0, i64* %6
   store i64 0, i64* %7
-  store i64 0, i64* %8
-  store double 0.000000e+00, double* %9
-  %gemSYS = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modFIIIIIIIIIIF"(i64* %10, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64* %8, double* %9)
+  store double 1.000000e+00, double* %8
+  %gemSYS = call %gemSYS @"gemSYS@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modFIIIIIIIIIF"(i64* %9, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, double* %8)
   ret %gemSYS %gemSYS
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemBuild@Z3gemM36N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modF"(%gem* %this, i64** %VACTIVE, %gemSYS* %SYS) #0 {
+define private void @"gemBuild@Z3gemM36N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"(%gem* %this, i64** %VACTIVE, %gemSYS* %SYS) #0 {
 __llvm_entry:
   %m2 = alloca <4 x double>
   %0 = alloca <2 x double>
@@ -695,7 +686,7 @@ __llvm_entry:
 cond:                                             ; preds = %iter, %__llvm_entry
   %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output253, %iter ]
   %SYS2 = load %gemSYS, %gemSYS* %SYS
-  %iter_f = extractvalue %gemSYS %SYS2, 4
+  %iter_f = extractvalue %gemSYS %SYS2, 5
   %return = call i64 @"lt@III"(i64 %i.0, i64 %iter_f)
   %12 = icmp ne i64 %return, 0
   br i1 %12, label %body, label %end
@@ -726,9 +717,9 @@ end7:                                             ; preds = %body
   %15 = insertvalue %gem %tmp, i8** %output12, 35
   store %gem %15, %gem* %this
   %return15 = call i64 @"len@I[S"(i8** %output12)
-  %return17 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @14, i64 0, i64 0), i8* %return9)
+  %return17 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @13, i64 0, i64 0), i8* %return9)
   %return18 = call double @"chf@FS"(i8* %return17)
-  %return20 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @15, i64 0, i64 0), i8* %return9)
+  %return20 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @14, i64 0, i64 0), i8* %return9)
   %return21 = call double @"chf@FS"(i8* %return20)
   %CLR = extractvalue %gem %15, 14
   %output25 = fmul double %return21, %return18
@@ -743,21 +734,21 @@ end7:                                             ; preds = %body
   %17 = insertvalue %gem %tmp32, double* %output31, 15
   store %gem %17, %gem* %this
   %ALPHA = extractvalue %gem %17, 16
-  %return35 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @16, i64 0, i64 0), i8* %return9)
+  %return35 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @15, i64 0, i64 0), i8* %return9)
   %return36 = call double @"chf@FS"(i8* %return35)
   %output37 = call double* @"append@[FF"(double* %ALPHA, double %return36)
   %tmp38 = load %gem, %gem* %this
   %18 = insertvalue %gem %tmp38, double* %output37, 16
   store %gem %18, %gem* %this
   %PBW = extractvalue %gem %18, 13
-  %return41 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @17, i64 0, i64 0), i8* %return9)
+  %return41 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @16, i64 0, i64 0), i8* %return9)
   %return42 = call double @"chf@FS"(i8* %return41)
   %output43 = call double* @"append@[FF"(double* %PBW, double %return42)
   %tmp44 = load %gem, %gem* %this
   %19 = insertvalue %gem %tmp44, double* %output43, 13
   store %gem %19, %gem* %this
   %v1w = extractvalue %gem %19, 9
-  %return47 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @18, i64 0, i64 0), i8* %return9)
+  %return47 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @17, i64 0, i64 0), i8* %return9)
   %return48 = call double @"chf@FS"(i8* %return47)
   %output49 = call double* @"append@[FF"(double* %v1w, double %return48)
   %tmp50 = load %gem, %gem* %this
@@ -770,7 +761,7 @@ end7:                                             ; preds = %body
   br i1 %return55, label %true57, label %false
 
 true57:                                           ; preds = %end7
-  %return61 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @19, i64 0, i64 0), i8* %return9)
+  %return61 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @18, i64 0, i64 0), i8* %return9)
   %return62 = call i8* @"chs@SS"(i8* %return61)
   %return63 = call i64 @"atoi@IS"(i8* %return62)
   %output64 = call i64* @"append@[II"(i64* %v1type, i64 %return63)
@@ -788,7 +779,7 @@ false:                                            ; preds = %end7
 end58:                                            ; preds = %false, %true57
   %this71 = load %gem, %gem* %this
   %v2w = extractvalue %gem %this71, 10
-  %return73 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @20, i64 0, i64 0), i8* %return9)
+  %return73 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @19, i64 0, i64 0), i8* %return9)
   %return74 = call double @"chf@FS"(i8* %return73)
   %output75 = call double* @"append@[FF"(double* %v2w, double %return74)
   %tmp76 = load %gem, %gem* %this
@@ -800,7 +791,7 @@ end58:                                            ; preds = %false, %true57
   br i1 %return81, label %true83, label %false84
 
 true83:                                           ; preds = %end58
-  %return88 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @21, i64 0, i64 0), i8* %return9)
+  %return88 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @20, i64 0, i64 0), i8* %return9)
   %return89 = call i8* @"chs@SS"(i8* %return88)
   %return90 = call i64 @"atoi@IS"(i8* %return89)
   %output91 = call i64* @"append@[II"(i64* %v2type, i64 %return90)
@@ -818,7 +809,7 @@ false84:                                          ; preds = %end58
 end85:                                            ; preds = %false84, %true83
   %this98 = load %gem, %gem* %this
   %v3w = extractvalue %gem %this98, 11
-  %return100 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @22, i64 0, i64 0), i8* %return9)
+  %return100 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @21, i64 0, i64 0), i8* %return9)
   %return101 = call double @"chf@FS"(i8* %return100)
   %output102 = call double* @"append@[FF"(double* %v3w, double %return101)
   %tmp103 = load %gem, %gem* %this
@@ -830,7 +821,7 @@ end85:                                            ; preds = %false84, %true83
   br i1 %return108, label %true110, label %false111
 
 true110:                                          ; preds = %end85
-  %return115 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @23, i64 0, i64 0), i8* %return9)
+  %return115 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @22, i64 0, i64 0), i8* %return9)
   %return116 = call i8* @"chs@SS"(i8* %return115)
   %return117 = call i64 @"atoi@IS"(i8* %return116)
   %output118 = call i64* @"append@[II"(i64* %v3type, i64 %return117)
@@ -848,7 +839,7 @@ false111:                                         ; preds = %end85
 end112:                                           ; preds = %false111, %true110
   %this125 = load %gem, %gem* %this
   %v4w = extractvalue %gem %this125, 12
-  %return127 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @24, i64 0, i64 0), i8* %return9)
+  %return127 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @23, i64 0, i64 0), i8* %return9)
   %return128 = call double @"chf@FS"(i8* %return127)
   %output129 = call double* @"append@[FF"(double* %v4w, double %return128)
   %tmp130 = load %gem, %gem* %this
@@ -860,7 +851,7 @@ end112:                                           ; preds = %false111, %true110
   br i1 %return135, label %true137, label %false138
 
 true137:                                          ; preds = %end112
-  %return142 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @25, i64 0, i64 0), i8* %return9)
+  %return142 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @24, i64 0, i64 0), i8* %return9)
   %return143 = call i8* @"chs@SS"(i8* %return142)
   %return144 = call i64 @"atoi@IS"(i8* %return143)
   %output145 = call i64* @"append@[II"(i64* %v4type, i64 %return144)
@@ -876,11 +867,11 @@ false138:                                         ; preds = %end112
   br label %end139
 
 end139:                                           ; preds = %false138, %true137
-  %return153 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @26, i64 0, i64 0), i8* %return9)
+  %return153 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @25, i64 0, i64 0), i8* %return9)
   %return154 = call <2 x double> @"chu@US"(i8* %return153)
-  %return156 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @27, i64 0, i64 0), i8* %return9)
+  %return156 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @26, i64 0, i64 0), i8* %return9)
   %return157 = call <2 x double> @"chu@US"(i8* %return156)
-  %return159 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @28, i64 0, i64 0), i8* %return9)
+  %return159 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @27, i64 0, i64 0), i8* %return9)
   %return160 = call double @"chf@FS"(i8* %return159)
   store <2 x double> %return154, <2 x double>* %0
   store <2 x double> %return157, <2 x double>* %1
@@ -908,14 +899,14 @@ end139:                                           ; preds = %false138, %true137
   %33 = insertvalue %gem %tmp181, <2 x double>* %output180, 24
   store %gem %33, %gem* %this
   %o = extractvalue %gem %33, 25
-  %return184 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @29, i64 0, i64 0), i8* %return9)
+  %return184 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @28, i64 0, i64 0), i8* %return9)
   %return185 = call <2 x double> @"chu@US"(i8* %return184)
   %output186 = call <2 x double>* @"append@[UU"(<2 x double>* %o, <2 x double> %return185)
   %tmp187 = load %gem, %gem* %this
   %34 = insertvalue %gem %tmp187, <2 x double>* %output186, 25
   store %gem %34, %gem* %this
   %POSTL = extractvalue %gem %34, 4
-  %return190 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @30, i64 0, i64 0), i8* %return9)
+  %return190 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @29, i64 0, i64 0), i8* %return9)
   %return191 = call i64 @"chi@IS"(i8* %return190)
   %output192 = call i64* @"append@[II"(i64* %POSTL, i64 %return191)
   %tmp193 = load %gem, %gem* %this
@@ -926,11 +917,11 @@ end139:                                           ; preds = %false138, %true137
   br i1 %36, label %true198, label %false199
 
 true198:                                          ; preds = %end139
-  %return202 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @31, i64 0, i64 0), i8* %return9)
+  %return202 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @30, i64 0, i64 0), i8* %return9)
   %return203 = call <2 x double> @"chu@US"(i8* %return202)
-  %return205 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @32, i64 0, i64 0), i8* %return9)
+  %return205 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @31, i64 0, i64 0), i8* %return9)
   %return206 = call <2 x double> @"chu@US"(i8* %return205)
-  %return208 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @33, i64 0, i64 0), i8* %return9)
+  %return208 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @32, i64 0, i64 0), i8* %return9)
   %return209 = call double @"chf@FS"(i8* %return208)
   store <2 x double> %return203, <2 x double>* %3
   store <2 x double> %return206, <2 x double>* %4
@@ -958,7 +949,7 @@ true198:                                          ; preds = %end139
   %38 = insertvalue %gem %tmp230, <2 x double>* %output229, 27
   store %gem %38, %gem* %this
   %po = extractvalue %gem %38, 28
-  %return233 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @34, i64 0, i64 0), i8* %return9)
+  %return233 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @33, i64 0, i64 0), i8* %return9)
   %return234 = call <2 x double> @"chu@US"(i8* %return233)
   %output235 = call <2 x double>* @"append@[UU"(<2 x double>* %po, <2 x double> %return234)
   %tmp236 = load %gem, %gem* %this
@@ -980,22 +971,22 @@ false199:                                         ; preds = %end139
   br label %iter
 
 true255:                                          ; preds = %end
-  %return257 = call double @"chf@FS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @35, i64 0, i64 0))
+  %return257 = call double @"chf@FS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @34, i64 0, i64 0))
   %tmp258 = load %gem, %gem* %this
   %43 = insertvalue %gem %tmp258, double %return257, 21
-  %return259 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @36, i64 0, i64 0))
+  %return259 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @35, i64 0, i64 0))
   %44 = insertvalue %gem %43, <2 x double> %return259, 22
   store %gem %44, %gem* %this
   br label %end256
 
 end256:                                           ; preds = %true255, %end
   %SYS261 = load %gemSYS, %gemSYS* %SYS
-  %FF = extractvalue %gemSYS %SYS261, 3
+  %FF = extractvalue %gemSYS %SYS261, 1
   %45 = icmp ne i64 %FF, 0
   br i1 %45, label %true262, label %end263
 
 true262:                                          ; preds = %end256
-  %return264 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @37, i64 0, i64 0))
+  %return264 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @36, i64 0, i64 0))
   %tmp265 = load %gem, %gem* %this
   %46 = insertvalue %gem %tmp265, double %return264, 17
   store %gem %46, %gem* %this
@@ -1006,13 +997,13 @@ end263:                                           ; preds = %end297, %true323, %
   ret void
 
 true269:                                          ; preds = %true262
-  %return271 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @38, i64 0, i64 0))
+  %return271 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @37, i64 0, i64 0))
   %47 = insertvalue %gem %46, i64 %return271, 5
   store %gem %47, %gem* %this
   br label %end270
 
 end270:                                           ; preds = %true269, %true262
-  %return273 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @39, i64 0, i64 0))
+  %return273 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @38, i64 0, i64 0))
   %tmp274 = load %gem, %gem* %this
   %48 = insertvalue %gem %tmp274, double %return273, 18
   store %gem %48, %gem* %this
@@ -1020,13 +1011,13 @@ end270:                                           ; preds = %true269, %true262
   br i1 %return276, label %true278, label %end279
 
 true278:                                          ; preds = %end270
-  %return280 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @40, i64 0, i64 0))
+  %return280 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @39, i64 0, i64 0))
   %49 = insertvalue %gem %48, i64 %return280, 6
   store %gem %49, %gem* %this
   br label %end279
 
 end279:                                           ; preds = %true278, %end270
-  %return282 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @41, i64 0, i64 0))
+  %return282 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @40, i64 0, i64 0))
   %tmp283 = load %gem, %gem* %this
   %50 = insertvalue %gem %tmp283, double %return282, 19
   store %gem %50, %gem* %this
@@ -1034,13 +1025,13 @@ end279:                                           ; preds = %true278, %end270
   br i1 %return285, label %true287, label %end288
 
 true287:                                          ; preds = %end279
-  %return289 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @42, i64 0, i64 0))
+  %return289 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @41, i64 0, i64 0))
   %51 = insertvalue %gem %50, i64 %return289, 7
   store %gem %51, %gem* %this
   br label %end288
 
 end288:                                           ; preds = %true287, %end279
-  %return291 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @43, i64 0, i64 0))
+  %return291 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @42, i64 0, i64 0))
   %tmp292 = load %gem, %gem* %this
   %52 = insertvalue %gem %tmp292, double %return291, 20
   store %gem %52, %gem* %this
@@ -1048,15 +1039,15 @@ end288:                                           ; preds = %true287, %end279
   br i1 %return294, label %true296, label %end297
 
 true296:                                          ; preds = %end288
-  %return298 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @44, i64 0, i64 0))
+  %return298 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @43, i64 0, i64 0))
   %53 = insertvalue %gem %52, i64 %return298, 8
   store %gem %53, %gem* %this
   br label %end297
 
 end297:                                           ; preds = %true296, %end288
-  %return300 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @45, i64 0, i64 0))
-  %return301 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @46, i64 0, i64 0))
-  %return302 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @47, i64 0, i64 0))
+  %return300 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @44, i64 0, i64 0))
+  %return301 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @45, i64 0, i64 0))
+  %return302 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @46, i64 0, i64 0))
   store <2 x double> %return300, <2 x double>* %6
   store <2 x double> %return301, <2 x double>* %7
   %return306 = call double @"radians@FF"(double %return302)
@@ -1073,7 +1064,7 @@ end297:                                           ; preds = %true296, %end288
   %return317 = call double @"getcomp@F2II"(<4 x double> %m2308, i64 1, i64 1)
   %return318 = call <2 x double> @"set@UFF"(double %return315, double %return317)
   %55 = insertvalue %gem %54, <2 x double> %return318, 30
-  %return320 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @48, i64 0, i64 0))
+  %return320 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @47, i64 0, i64 0))
   %56 = insertvalue %gem %55, <2 x double> %return320, 31
   store %gem %56, %gem* %this
   %SYS322 = load %gemSYS, %gemSYS* %SYS
@@ -1082,9 +1073,9 @@ end297:                                           ; preds = %true296, %end288
   br i1 %57, label %true323, label %end263
 
 true323:                                          ; preds = %end297
-  %return325 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @49, i64 0, i64 0))
-  %return326 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @50, i64 0, i64 0))
-  %return327 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @51, i64 0, i64 0))
+  %return325 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @48, i64 0, i64 0))
+  %return326 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @49, i64 0, i64 0))
+  %return327 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @50, i64 0, i64 0))
   store <2 x double> %return325, <2 x double>* %9
   store <2 x double> %return326, <2 x double>* %10
   %return331 = call double @"radians@FF"(double %return327)
@@ -1101,7 +1092,7 @@ true323:                                          ; preds = %end297
   %return342 = call double @"getcomp@F2II"(<4 x double> %m2333, i64 1, i64 1)
   %return343 = call <2 x double> @"set@UFF"(double %return340, double %return342)
   %59 = insertvalue %gem %58, <2 x double> %return343, 33
-  %return345 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @52, i64 0, i64 0))
+  %return345 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @51, i64 0, i64 0))
   %60 = insertvalue %gem %59, <2 x double> %return345, 34
   store %gem %60, %gem* %this
   br label %end263
@@ -1269,42 +1260,42 @@ __llvm_entry:
   %33 = alloca <2 x double>
   %34 = alloca i8**
   %35 = alloca i64*
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %35
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %0
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %1
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %2
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %3
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @52, i64 0, i64 0), i64** %35
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @52, i64 0, i64 0), i64** %0
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @52, i64 0, i64 0), i64** %1
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @52, i64 0, i64 0), i64** %2
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @52, i64 0, i64 0), i64** %3
   store i64 0, i64* %4
   store i64 0, i64* %5
   store i64 0, i64* %6
   store i64 0, i64* %7
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %8
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %9
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %10
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %11
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %12
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %13
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %14
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %15
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %8
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %9
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %10
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %11
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %12
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %13
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %14
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %15
   store double 0.000000e+00, double* %16
   store double 0.000000e+00, double* %17
   store double 0.000000e+00, double* %18
   store double 0.000000e+00, double* %19
   store double 0.000000e+00, double* %20
   store <2 x double> zeroinitializer, <2 x double>* %21
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %22
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %23
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %24
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %25
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %26
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %27
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %22
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %23
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %24
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %25
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %26
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %27
   store <2 x double> zeroinitializer, <2 x double>* %28
   store <2 x double> zeroinitializer, <2 x double>* %29
   store <2 x double> zeroinitializer, <2 x double>* %30
   store <2 x double> zeroinitializer, <2 x double>* %31
   store <2 x double> zeroinitializer, <2 x double>* %32
   store <2 x double> zeroinitializer, <2 x double>* %33
-  store i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @56, i64 0, i64 0), i8*** %34
+  store i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @55, i64 0, i64 0), i8*** %34
   %gem = call %gem @"gem@Z3gemM36N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[I[I[I[I[IIIII[F[F[F[F[F[F[F[FFFFFFU[U[U[U[U[U[UUUUUUU[S"(i64** %35, i64** %0, i64** %1, i64** %2, i64** %3, i64* %4, i64* %5, i64* %6, i64* %7, double** %8, double** %9, double** %10, double** %11, double** %12, double** %13, double** %14, double** %15, double* %16, double* %17, double* %18, double* %19, double* %20, <2 x double>* %21, <2 x double>** %22, <2 x double>** %23, <2 x double>** %24, <2 x double>** %25, <2 x double>** %26, <2 x double>** %27, <2 x double>* %28, <2 x double>* %29, <2 x double>* %30, <2 x double>* %31, <2 x double>* %32, <2 x double>* %33, i8*** %34)
   ret %gem %gem
 }
@@ -1407,7 +1398,7 @@ iter:                                             ; preds = %false718, %false552
 
 false:                                            ; preds = %body
   %cast = sitofp i64 %return79 to double
-  %return88 = call i64 @"find@I[FF"(double* getelementptr inbounds ([20 x double], [20 x double]* @57, i64 0, i64 0), double %cast)
+  %return88 = call i64 @"find@I[FF"(double* getelementptr inbounds ([20 x double], [20 x double]* @56, i64 0, i64 0), double %cast)
   %return89 = call i64 @"ge@III"(i64 %return88, i64 0)
   %53 = icmp ne i64 %return89, 0
   br i1 %53, label %true90, label %false91
@@ -1418,7 +1409,7 @@ true90:                                           ; preds = %false
   br i1 %54, label %true95, label %false96
 
 false91:                                          ; preds = %false
-  %return387 = call i64 @"find@I[FF"(double* getelementptr inbounds ([21 x double], [21 x double]* @79, i64 0, i64 0), double %cast)
+  %return387 = call i64 @"find@I[FF"(double* getelementptr inbounds ([21 x double], [21 x double]* @78, i64 0, i64 0), double %cast)
   %return388 = call i64 @"ge@III"(i64 %return387, i64 0)
   %55 = icmp ne i64 %return388, 0
   br i1 %55, label %true389, label %iter
@@ -1434,7 +1425,7 @@ false96:                                          ; preds = %true90
   br i1 %57, label %true239, label %false240
 
 true100:                                          ; preds = %true95
-  %return105 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @58, i64 0, i64 0), i8* %return82)
+  %return105 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @57, i64 0, i64 0), i8* %return82)
   %return106 = call <2 x double> @"chu@US"(i8* %return105)
   %tmp107 = load %gemPrm, %gemPrm* %this
   %tmp108 = extractvalue %gemPrm %tmp107, 13
@@ -1450,7 +1441,7 @@ false101:                                         ; preds = %true95
   br i1 %59, label %true114, label %false115
 
 true114:                                          ; preds = %false101
-  %return119 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @59, i64 0, i64 0), i8* %return82)
+  %return119 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @58, i64 0, i64 0), i8* %return82)
   %return120 = call <4 x double> @"chp@PS"(i8* %return119)
   %tmp121 = load %gemPrm, %gemPrm* %this
   %tmp122 = extractvalue %gemPrm %tmp121, 42
@@ -1466,7 +1457,7 @@ false115:                                         ; preds = %false101
   br i1 %61, label %true128, label %false129
 
 true128:                                          ; preds = %false115
-  %return133 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @60, i64 0, i64 0), i8* %return82)
+  %return133 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @59, i64 0, i64 0), i8* %return82)
   %return134 = call <4 x double> @"chp@PS"(i8* %return133)
   %tmp135 = load %gemPrm, %gemPrm* %this
   %tmp136 = extractvalue %gemPrm %tmp135, 43
@@ -1482,7 +1473,7 @@ false129:                                         ; preds = %false115
   br i1 %63, label %true142, label %false143
 
 true142:                                          ; preds = %false129
-  %return147 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @61, i64 0, i64 0), i8* %return82)
+  %return147 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @60, i64 0, i64 0), i8* %return82)
   %return148 = call <3 x double> @"chv@VS"(i8* %return147)
   %tmp149 = load %gemPrm, %gemPrm* %this
   %tmp150 = extractvalue %gemPrm %tmp149, 6
@@ -1498,7 +1489,7 @@ false143:                                         ; preds = %false129
   br i1 %65, label %true156, label %false157
 
 true156:                                          ; preds = %false143
-  %return161 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @62, i64 0, i64 0), i8* %return82)
+  %return161 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @61, i64 0, i64 0), i8* %return82)
   %return162 = call <2 x double> @"chu@US"(i8* %return161)
   %tmp163 = load %gemPrm, %gemPrm* %this
   %tmp164 = extractvalue %gemPrm %tmp163, 32
@@ -1514,7 +1505,7 @@ false157:                                         ; preds = %false143
   br i1 %67, label %true170, label %false171
 
 true170:                                          ; preds = %false157
-  %return175 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @63, i64 0, i64 0), i8* %return82)
+  %return175 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @62, i64 0, i64 0), i8* %return82)
   %return176 = call <2 x double> @"chu@US"(i8* %return175)
   %tmp177 = load %gemPrm, %gemPrm* %this
   %tmp178 = extractvalue %gemPrm %tmp177, 33
@@ -1530,7 +1521,7 @@ false171:                                         ; preds = %false157
   br i1 %69, label %true184, label %false185
 
 true184:                                          ; preds = %false171
-  %return189 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @64, i64 0, i64 0), i8* %return82)
+  %return189 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @63, i64 0, i64 0), i8* %return82)
   %return190 = call <2 x double> @"chu@US"(i8* %return189)
   %tmp191 = load %gemPrm, %gemPrm* %this
   %tmp192 = extractvalue %gemPrm %tmp191, 15
@@ -1546,7 +1537,7 @@ false185:                                         ; preds = %false171
   br i1 %71, label %true198, label %false199
 
 true198:                                          ; preds = %false185
-  %return203 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @65, i64 0, i64 0), i8* %return82)
+  %return203 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @64, i64 0, i64 0), i8* %return82)
   %return204 = call double @"chf@FS"(i8* %return203)
   %tmp205 = load %gemPrm, %gemPrm* %this
   %tmp206 = extractvalue %gemPrm %tmp205, 0
@@ -1562,7 +1553,7 @@ false199:                                         ; preds = %false185
   br i1 %73, label %true212, label %false213
 
 true212:                                          ; preds = %false199
-  %return217 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @66, i64 0, i64 0), i8* %return82)
+  %return217 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @65, i64 0, i64 0), i8* %return82)
   %return218 = call <2 x double> @"chu@US"(i8* %return217)
   %tmp219 = load %gemPrm, %gemPrm* %this
   %tmp220 = extractvalue %gemPrm %tmp219, 16
@@ -1578,7 +1569,7 @@ false213:                                         ; preds = %false199
   br i1 %75, label %true226, label %iter
 
 true226:                                          ; preds = %false213
-  %return230 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @67, i64 0, i64 0), i8* %return82)
+  %return230 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @66, i64 0, i64 0), i8* %return82)
   %return231 = call <2 x double> @"chu@US"(i8* %return230)
   %tmp232 = load %gemPrm, %gemPrm* %this
   %tmp233 = extractvalue %gemPrm %tmp232, 34
@@ -1589,7 +1580,7 @@ true226:                                          ; preds = %false213
   br label %iter
 
 true239:                                          ; preds = %false96
-  %return244 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @68, i64 0, i64 0), i8* %return82)
+  %return244 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @67, i64 0, i64 0), i8* %return82)
   %return245 = call <3 x double> @"chv@VS"(i8* %return244)
   %tmp246 = load %gemPrm, %gemPrm* %this
   %tmp247 = extractvalue %gemPrm %tmp246, 7
@@ -1605,7 +1596,7 @@ false240:                                         ; preds = %false96
   br i1 %78, label %true253, label %false254
 
 true253:                                          ; preds = %false240
-  %return258 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @69, i64 0, i64 0), i8* %return82)
+  %return258 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @68, i64 0, i64 0), i8* %return82)
   %return259 = call <2 x double> @"chu@US"(i8* %return258)
   %tmp260 = load %gemPrm, %gemPrm* %this
   %tmp261 = extractvalue %gemPrm %tmp260, 35
@@ -1621,14 +1612,14 @@ false254:                                         ; preds = %false240
   br i1 %80, label %true267, label %false268
 
 true267:                                          ; preds = %false254
-  %return272 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @70, i64 0, i64 0), i8* %return82)
+  %return272 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @69, i64 0, i64 0), i8* %return82)
   %return273 = call <3 x double> @"chv@VS"(i8* %return272)
   %tmp274 = load %gemPrm, %gemPrm* %this
   %tmp275 = extractvalue %gemPrm %tmp274, 8
   %return276 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %tmp275, <3 x double> %return273, i64 %i.0)
   %output278 = extractvalue { <3 x double>, <3 x double>* } %return276, 1
   %81 = insertvalue %gemPrm %tmp274, <3 x double>* %output278, 8
-  %return281 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @71, i64 0, i64 0), i8* %return82)
+  %return281 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @70, i64 0, i64 0), i8* %return82)
   %return282 = call <3 x double> @"chv@VS"(i8* %return281)
   %tmp284 = extractvalue %gemPrm %81, 9
   %return285 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %tmp284, <3 x double> %return282, i64 %i.0)
@@ -1643,7 +1634,7 @@ false268:                                         ; preds = %false254
   br i1 %83, label %true290, label %false291
 
 true290:                                          ; preds = %false268
-  %return295 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @72, i64 0, i64 0), i8* %return82)
+  %return295 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @71, i64 0, i64 0), i8* %return82)
   %return296 = call <2 x double> @"chu@US"(i8* %return295)
   %tmp297 = load %gemPrm, %gemPrm* %this
   %tmp298 = extractvalue %gemPrm %tmp297, 36
@@ -1659,7 +1650,7 @@ false291:                                         ; preds = %false268
   br i1 %85, label %true304, label %false305
 
 true304:                                          ; preds = %false291
-  %return309 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @73, i64 0, i64 0), i8* %return82)
+  %return309 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @72, i64 0, i64 0), i8* %return82)
   %return310 = call <2 x double> @"chu@US"(i8* %return309)
   %tmp311 = load %gemPrm, %gemPrm* %this
   %tmp312 = extractvalue %gemPrm %tmp311, 37
@@ -1675,7 +1666,7 @@ false305:                                         ; preds = %false291
   br i1 %87, label %true318, label %false319
 
 true318:                                          ; preds = %false305
-  %return323 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @74, i64 0, i64 0), i8* %return82)
+  %return323 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @73, i64 0, i64 0), i8* %return82)
   %return324 = call <2 x double> @"chu@US"(i8* %return323)
   %tmp325 = load %gemPrm, %gemPrm* %this
   %tmp326 = extractvalue %gemPrm %tmp325, 14
@@ -1691,7 +1682,7 @@ false319:                                         ; preds = %false305
   br i1 %89, label %true332, label %false333
 
 true332:                                          ; preds = %false319
-  %return337 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @75, i64 0, i64 0), i8* %return82)
+  %return337 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @74, i64 0, i64 0), i8* %return82)
   %return338 = call <2 x double> @"chu@US"(i8* %return337)
   %tmp339 = load %gemPrm, %gemPrm* %this
   %tmp340 = extractvalue %gemPrm %tmp339, 17
@@ -1707,7 +1698,7 @@ false333:                                         ; preds = %false319
   br i1 %91, label %true346, label %false347
 
 true346:                                          ; preds = %false333
-  %return351 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @76, i64 0, i64 0), i8* %return82)
+  %return351 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @75, i64 0, i64 0), i8* %return82)
   %return352 = call double @"chf@FS"(i8* %return351)
   %tmp353 = load %gemPrm, %gemPrm* %this
   %tmp354 = extractvalue %gemPrm %tmp353, 1
@@ -1723,7 +1714,7 @@ false347:                                         ; preds = %false333
   br i1 %93, label %true360, label %false361
 
 true360:                                          ; preds = %false347
-  %return365 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @77, i64 0, i64 0), i8* %return82)
+  %return365 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @76, i64 0, i64 0), i8* %return82)
   %return366 = call double @"chf@FS"(i8* %return365)
   %tmp367 = load %gemPrm, %gemPrm* %this
   %tmp368 = extractvalue %gemPrm %tmp367, 2
@@ -1739,7 +1730,7 @@ false361:                                         ; preds = %false347
   br i1 %95, label %true374, label %iter
 
 true374:                                          ; preds = %false361
-  %return378 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @78, i64 0, i64 0), i8* %return82)
+  %return378 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @77, i64 0, i64 0), i8* %return82)
   %return379 = call <3 x double> @"chv@VS"(i8* %return378)
   %tmp380 = load %gemPrm, %gemPrm* %this
   %tmp381 = extractvalue %gemPrm %tmp380, 10
@@ -1765,7 +1756,7 @@ false394:                                         ; preds = %true389
   br i1 %99, label %true578, label %false579
 
 true398:                                          ; preds = %true393
-  %return403 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @80, i64 0, i64 0), i8* %return82)
+  %return403 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @79, i64 0, i64 0), i8* %return82)
   %return404 = call double @"chf@FS"(i8* %return403)
   %tmp405 = load %gemPrm, %gemPrm* %this
   %tmp406 = extractvalue %gemPrm %tmp405, 3
@@ -1781,14 +1772,14 @@ false399:                                         ; preds = %true393
   br i1 %101, label %true412, label %false413
 
 true412:                                          ; preds = %false399
-  %return417 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @81, i64 0, i64 0), i8* %return82)
+  %return417 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @80, i64 0, i64 0), i8* %return82)
   %return418 = call <2 x double> @"chu@US"(i8* %return417)
   %tmp419 = load %gemPrm, %gemPrm* %this
   %tmp420 = extractvalue %gemPrm %tmp419, 18
   %return421 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp420, <2 x double> %return418, i64 %i.0)
   %output423 = extractvalue { <2 x double>, <2 x double>* } %return421, 1
   %102 = insertvalue %gemPrm %tmp419, <2 x double>* %output423, 18
-  %return426 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @82, i64 0, i64 0), i8* %return82)
+  %return426 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @81, i64 0, i64 0), i8* %return82)
   %return427 = call <3 x double> @"chv@VS"(i8* %return426)
   %tmp429 = extractvalue %gemPrm %102, 11
   %return430 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %tmp429, <3 x double> %return427, i64 %i.0)
@@ -1803,7 +1794,7 @@ false413:                                         ; preds = %false399
   br i1 %104, label %true435, label %false436
 
 true435:                                          ; preds = %false413
-  %return440 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @83, i64 0, i64 0), i8* %return82)
+  %return440 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @82, i64 0, i64 0), i8* %return82)
   %return441 = call <2 x double> @"chu@US"(i8* %return440)
   %tmp442 = load %gemPrm, %gemPrm* %this
   %tmp443 = extractvalue %gemPrm %tmp442, 19
@@ -1819,7 +1810,7 @@ false436:                                         ; preds = %false413
   br i1 %106, label %true449, label %false450
 
 true449:                                          ; preds = %false436
-  %return454 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @84, i64 0, i64 0), i8* %return82)
+  %return454 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @83, i64 0, i64 0), i8* %return82)
   %return455 = call <4 x double> @"chp@PS"(i8* %return454)
   %tmp456 = load %gemPrm, %gemPrm* %this
   %tmp457 = extractvalue %gemPrm %tmp456, 44
@@ -1835,14 +1826,14 @@ false450:                                         ; preds = %false436
   br i1 %108, label %true463, label %false464
 
 true463:                                          ; preds = %false450
-  %return468 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @85, i64 0, i64 0), i8* %return82)
+  %return468 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @84, i64 0, i64 0), i8* %return82)
   %return469 = call <2 x double> @"chu@US"(i8* %return468)
   %tmp470 = load %gemPrm, %gemPrm* %this
   %tmp471 = extractvalue %gemPrm %tmp470, 20
   %return472 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp471, <2 x double> %return469, i64 %i.0)
   %output474 = extractvalue { <2 x double>, <2 x double>* } %return472, 1
   %109 = insertvalue %gemPrm %tmp470, <2 x double>* %output474, 20
-  %return477 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @86, i64 0, i64 0), i8* %return82)
+  %return477 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @85, i64 0, i64 0), i8* %return82)
   %return478 = call double @"chf@FS"(i8* %return477)
   %tmp480 = extractvalue %gemPrm %109, 4
   %return481 = call { double, double* } @"setcomp@F[FFI"(double* %tmp480, double %return478, i64 %i.0)
@@ -1857,14 +1848,14 @@ false464:                                         ; preds = %false450
   br i1 %111, label %true486, label %false487
 
 true486:                                          ; preds = %false464
-  %return491 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @87, i64 0, i64 0), i8* %return82)
+  %return491 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @86, i64 0, i64 0), i8* %return82)
   %return492 = call <2 x double> @"chu@US"(i8* %return491)
   %tmp493 = load %gemPrm, %gemPrm* %this
   %tmp494 = extractvalue %gemPrm %tmp493, 21
   %return495 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp494, <2 x double> %return492, i64 %i.0)
   %output497 = extractvalue { <2 x double>, <2 x double>* } %return495, 1
   %112 = insertvalue %gemPrm %tmp493, <2 x double>* %output497, 21
-  %return500 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([24 x i8], [24 x i8]* @88, i64 0, i64 0), i8* %return82)
+  %return500 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([24 x i8], [24 x i8]* @87, i64 0, i64 0), i8* %return82)
   %return501 = call <2 x double> @"chu@US"(i8* %return500)
   %tmp503 = extractvalue %gemPrm %112, 22
   %return504 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp503, <2 x double> %return501, i64 %i.0)
@@ -1879,7 +1870,7 @@ false487:                                         ; preds = %false464
   br i1 %114, label %true509, label %false510
 
 true509:                                          ; preds = %false487
-  %return514 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @89, i64 0, i64 0), i8* %return82)
+  %return514 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @88, i64 0, i64 0), i8* %return82)
   %return515 = call <2 x double> @"chu@US"(i8* %return514)
   %tmp516 = load %gemPrm, %gemPrm* %this
   %tmp517 = extractvalue %gemPrm %tmp516, 23
@@ -1895,7 +1886,7 @@ false510:                                         ; preds = %false487
   br i1 %116, label %true523, label %false524
 
 true523:                                          ; preds = %false510
-  %return528 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @90, i64 0, i64 0), i8* %return82)
+  %return528 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @89, i64 0, i64 0), i8* %return82)
   %return529 = call <2 x double> @"chu@US"(i8* %return528)
   %tmp530 = load %gemPrm, %gemPrm* %this
   %tmp531 = extractvalue %gemPrm %tmp530, 24
@@ -1911,7 +1902,7 @@ false524:                                         ; preds = %false510
   br i1 %118, label %true537, label %false538
 
 true537:                                          ; preds = %false524
-  %return542 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @91, i64 0, i64 0), i8* %return82)
+  %return542 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @90, i64 0, i64 0), i8* %return82)
   %return543 = call <2 x double> @"chu@US"(i8* %return542)
   %tmp544 = load %gemPrm, %gemPrm* %this
   %tmp545 = extractvalue %gemPrm %tmp544, 38
@@ -1927,7 +1918,7 @@ false538:                                         ; preds = %false524
   br i1 %120, label %true551, label %false552
 
 true551:                                          ; preds = %false538
-  %return556 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @92, i64 0, i64 0), i8* %return82)
+  %return556 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @91, i64 0, i64 0), i8* %return82)
   %return557 = call <4 x double> @"chp@PS"(i8* %return556)
   %tmp558 = load %gemPrm, %gemPrm* %this
   %tmp559 = extractvalue %gemPrm %tmp558, 45
@@ -1943,7 +1934,7 @@ false552:                                         ; preds = %false538
   br i1 %122, label %true565, label %iter
 
 true565:                                          ; preds = %false552
-  %return569 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @93, i64 0, i64 0), i8* %return82)
+  %return569 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @92, i64 0, i64 0), i8* %return82)
   %return570 = call <4 x double> @"chp@PS"(i8* %return569)
   %tmp571 = load %gemPrm, %gemPrm* %this
   %tmp572 = extractvalue %gemPrm %tmp571, 46
@@ -1954,7 +1945,7 @@ true565:                                          ; preds = %false552
   br label %iter
 
 true578:                                          ; preds = %false394
-  %return583 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @94, i64 0, i64 0), i8* %return82)
+  %return583 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @93, i64 0, i64 0), i8* %return82)
   %return584 = call <4 x double> @"chp@PS"(i8* %return583)
   %tmp585 = load %gemPrm, %gemPrm* %this
   %tmp586 = extractvalue %gemPrm %tmp585, 47
@@ -1970,7 +1961,7 @@ false579:                                         ; preds = %false394
   br i1 %125, label %true592, label %false593
 
 true592:                                          ; preds = %false579
-  %return597 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @95, i64 0, i64 0), i8* %return82)
+  %return597 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @94, i64 0, i64 0), i8* %return82)
   %return598 = call <2 x double> @"chu@US"(i8* %return597)
   %tmp599 = load %gemPrm, %gemPrm* %this
   %tmp600 = extractvalue %gemPrm %tmp599, 39
@@ -1986,14 +1977,14 @@ false593:                                         ; preds = %false579
   br i1 %127, label %true606, label %false607
 
 true606:                                          ; preds = %false593
-  %return611 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @96, i64 0, i64 0), i8* %return82)
+  %return611 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @95, i64 0, i64 0), i8* %return82)
   %return612 = call <2 x double> @"chu@US"(i8* %return611)
   %tmp613 = load %gemPrm, %gemPrm* %this
   %tmp614 = extractvalue %gemPrm %tmp613, 25
   %return615 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp614, <2 x double> %return612, i64 %i.0)
   %output617 = extractvalue { <2 x double>, <2 x double>* } %return615, 1
   %128 = insertvalue %gemPrm %tmp613, <2 x double>* %output617, 25
-  %return620 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @97, i64 0, i64 0), i8* %return82)
+  %return620 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @96, i64 0, i64 0), i8* %return82)
   %return621 = call <2 x double> @"chu@US"(i8* %return620)
   %tmp623 = extractvalue %gemPrm %128, 26
   %return624 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp623, <2 x double> %return621, i64 %i.0)
@@ -2008,7 +1999,7 @@ false607:                                         ; preds = %false593
   br i1 %130, label %true629, label %false630
 
 true629:                                          ; preds = %false607
-  %return634 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @98, i64 0, i64 0), i8* %return82)
+  %return634 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @97, i64 0, i64 0), i8* %return82)
   %return635 = call <4 x double> @"chp@PS"(i8* %return634)
   %tmp636 = load %gemPrm, %gemPrm* %this
   %tmp637 = extractvalue %gemPrm %tmp636, 48
@@ -2024,7 +2015,7 @@ false630:                                         ; preds = %false607
   br i1 %132, label %true643, label %false644
 
 true643:                                          ; preds = %false630
-  %return648 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @99, i64 0, i64 0), i8* %return82)
+  %return648 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @98, i64 0, i64 0), i8* %return82)
   %return649 = call double @"chf@FS"(i8* %return648)
   %tmp650 = load %gemPrm, %gemPrm* %this
   %tmp651 = extractvalue %gemPrm %tmp650, 5
@@ -2040,14 +2031,14 @@ false644:                                         ; preds = %false630
   br i1 %134, label %true657, label %false658
 
 true657:                                          ; preds = %false644
-  %return662 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @100, i64 0, i64 0), i8* %return82)
+  %return662 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @99, i64 0, i64 0), i8* %return82)
   %return663 = call <4 x double> @"chp@PS"(i8* %return662)
   %tmp664 = load %gemPrm, %gemPrm* %this
   %tmp665 = extractvalue %gemPrm %tmp664, 49
   %return666 = call { <4 x double>, <4 x double>* } @"setcomp@P[PPI"(<4 x double>* %tmp665, <4 x double> %return663, i64 %i.0)
   %output668 = extractvalue { <4 x double>, <4 x double>* } %return666, 1
   %135 = insertvalue %gemPrm %tmp664, <4 x double>* %output668, 49
-  %return671 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @101, i64 0, i64 0), i8* %return82)
+  %return671 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @100, i64 0, i64 0), i8* %return82)
   %return672 = call <4 x double> @"chp@PS"(i8* %return671)
   %tmp674 = extractvalue %gemPrm %135, 50
   %return675 = call { <4 x double>, <4 x double>* } @"setcomp@P[PPI"(<4 x double>* %tmp674, <4 x double> %return672, i64 %i.0)
@@ -2062,14 +2053,14 @@ false658:                                         ; preds = %false644
   br i1 %137, label %true680, label %false681
 
 true680:                                          ; preds = %false658
-  %return685 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @102, i64 0, i64 0), i8* %return82)
+  %return685 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @101, i64 0, i64 0), i8* %return82)
   %return686 = call <2 x double> @"chu@US"(i8* %return685)
   %tmp687 = load %gemPrm, %gemPrm* %this
   %tmp688 = extractvalue %gemPrm %tmp687, 27
   %return689 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp688, <2 x double> %return686, i64 %i.0)
   %output691 = extractvalue { <2 x double>, <2 x double>* } %return689, 1
   %138 = insertvalue %gemPrm %tmp687, <2 x double>* %output691, 27
-  %return694 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @103, i64 0, i64 0), i8* %return82)
+  %return694 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @102, i64 0, i64 0), i8* %return82)
   %return695 = call <2 x double> @"chu@US"(i8* %return694)
   %tmp697 = extractvalue %gemPrm %138, 28
   %return698 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp697, <2 x double> %return695, i64 %i.0)
@@ -2084,7 +2075,7 @@ false681:                                         ; preds = %false658
   br i1 %140, label %true703, label %false704
 
 true703:                                          ; preds = %false681
-  %return708 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @104, i64 0, i64 0), i8* %return82)
+  %return708 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @103, i64 0, i64 0), i8* %return82)
   %return709 = call <2 x double> @"chu@US"(i8* %return708)
   %tmp710 = load %gemPrm, %gemPrm* %this
   %tmp711 = extractvalue %gemPrm %tmp710, 40
@@ -2100,14 +2091,14 @@ false704:                                         ; preds = %false681
   br i1 %142, label %true717, label %false718
 
 true717:                                          ; preds = %false704
-  %return722 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @105, i64 0, i64 0), i8* %return82)
+  %return722 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @104, i64 0, i64 0), i8* %return82)
   %return723 = call <3 x double> @"chv@VS"(i8* %return722)
   %tmp724 = load %gemPrm, %gemPrm* %this
   %tmp725 = extractvalue %gemPrm %tmp724, 12
   %return726 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %tmp725, <3 x double> %return723, i64 %i.0)
   %output728 = extractvalue { <3 x double>, <3 x double>* } %return726, 1
   %143 = insertvalue %gemPrm %tmp724, <3 x double>* %output728, 12
-  %return731 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @106, i64 0, i64 0), i8* %return82)
+  %return731 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @105, i64 0, i64 0), i8* %return82)
   %return732 = call <2 x double> @"chu@US"(i8* %return731)
   %tmp734 = extractvalue %gemPrm %143, 41
   %return735 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp734, <2 x double> %return732, i64 %i.0)
@@ -2122,20 +2113,20 @@ false718:                                         ; preds = %false704
   br i1 %145, label %true740, label %iter
 
 true740:                                          ; preds = %false718
-  %return744 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @107, i64 0, i64 0), i8* %return82)
+  %return744 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @106, i64 0, i64 0), i8* %return82)
   %return745 = call <2 x double> @"chu@US"(i8* %return744)
   %tmp746 = load %gemPrm, %gemPrm* %this
   %tmp747 = extractvalue %gemPrm %tmp746, 29
   %return748 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp747, <2 x double> %return745, i64 %i.0)
   %output750 = extractvalue { <2 x double>, <2 x double>* } %return748, 1
   %146 = insertvalue %gemPrm %tmp746, <2 x double>* %output750, 29
-  %return753 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @108, i64 0, i64 0), i8* %return82)
+  %return753 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @107, i64 0, i64 0), i8* %return82)
   %return754 = call <2 x double> @"chu@US"(i8* %return753)
   %tmp756 = extractvalue %gemPrm %146, 30
   %return757 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp756, <2 x double> %return754, i64 %i.0)
   %output759 = extractvalue { <2 x double>, <2 x double>* } %return757, 1
   %147 = insertvalue %gemPrm %146, <2 x double>* %output759, 30
-  %return762 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @109, i64 0, i64 0), i8* %return82)
+  %return762 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([17 x i8], [17 x i8]* @108, i64 0, i64 0), i8* %return82)
   %return763 = call <2 x double> @"chu@US"(i8* %return762)
   %tmp765 = extractvalue %gemPrm %147, 31
   %return766 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp765, <2 x double> %return763, i64 %i.0)
@@ -2352,57 +2343,57 @@ __llvm_entry:
   %48 = alloca <4 x double>*
   %49 = alloca <4 x double>*
   %50 = alloca double*
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %50
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %0
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %1
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %2
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %3
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double** %4
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %5
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %6
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %7
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %8
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %9
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %10
-  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @110, i64 0, i64 0), <3 x double>** %11
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %12
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %13
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %14
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %15
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %16
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %17
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %18
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %19
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %20
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %21
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %22
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %23
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %24
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %25
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %26
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %27
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %28
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %29
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %30
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %31
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %32
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %33
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %34
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %35
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %36
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %37
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %38
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %39
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @55, i64 0, i64 0), <2 x double>** %40
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %41
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %42
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %43
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %44
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %45
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %46
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %47
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %48
-  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @111, i64 0, i64 0), <4 x double>** %49
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %50
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %0
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %1
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %2
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %3
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double** %4
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %5
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %6
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %7
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %8
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %9
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %10
+  store <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @109, i64 0, i64 0), <3 x double>** %11
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %12
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %13
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %14
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %15
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %16
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %17
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %18
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %19
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %20
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %21
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %22
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %23
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %24
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %25
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %26
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %27
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %28
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %29
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %30
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %31
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %32
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %33
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %34
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %35
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %36
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %37
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %38
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %39
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %40
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %41
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %42
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %43
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %44
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %45
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %46
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %47
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %48
+  store <4 x double>* getelementptr inbounds ([0 x <4 x double>], [0 x <4 x double>]* @110, i64 0, i64 0), <4 x double>** %49
   %gemPrm = call %gemPrm @"gemPrm@Z6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[P[F[F[F[F[F[F[V[V[V[V[V[V[V[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[U[P[P[P[P[P[P[P[P[P"(double** %50, double** %0, double** %1, double** %2, double** %3, double** %4, <3 x double>** %5, <3 x double>** %6, <3 x double>** %7, <3 x double>** %8, <3 x double>** %9, <3 x double>** %10, <3 x double>** %11, <2 x double>** %12, <2 x double>** %13, <2 x double>** %14, <2 x double>** %15, <2 x double>** %16, <2 x double>** %17, <2 x double>** %18, <2 x double>** %19, <2 x double>** %20, <2 x double>** %21, <2 x double>** %22, <2 x double>** %23, <2 x double>** %24, <2 x double>** %25, <2 x double>** %26, <2 x double>** %27, <2 x double>** %28, <2 x double>** %29, <2 x double>** %30, <2 x double>** %31, <2 x double>** %32, <2 x double>** %33, <2 x double>** %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>** %39, <2 x double>** %40, <4 x double>** %41, <4 x double>** %42, <4 x double>** %43, <4 x double>** %44, <4 x double>** %45, <4 x double>** %46, <4 x double>** %47, <4 x double>** %48, <4 x double>** %49)
   ret %gemPrm %gemPrm
 }
@@ -8028,7 +8019,7 @@ true247:                                          ; preds = %true242
 false248:                                         ; preds = %true242
   store i64 %ftype245, i64* %62
   %PRX = call i8* @"PRX@SI"(i64* %62)
-  %return255 = call i8* @"concat@SSS"(i8* %PRX, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @112, i64 0, i64 0))
+  %return255 = call i8* @"concat@SSS"(i8* %PRX, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @111, i64 0, i64 0))
   %return256 = call <2 x double> @"chu@US"(i8* %return255)
   br label %end249
 
@@ -8067,7 +8058,7 @@ true271:                                          ; preds = %true266
 false272:                                         ; preds = %true266
   store i64 %ftype269, i64* %67
   %PRX279 = call i8* @"PRX@SI"(i64* %67)
-  %return280 = call i8* @"concat@SSS"(i8* %PRX279, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @113, i64 0, i64 0))
+  %return280 = call i8* @"concat@SSS"(i8* %PRX279, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @112, i64 0, i64 0))
   %return281 = call <4 x double> @"chp@PS"(i8* %return280)
   br label %end273
 
@@ -8110,7 +8101,7 @@ true300:                                          ; preds = %true295
 false301:                                         ; preds = %true295
   store i64 %ftype298, i64* %74
   %PRX307 = call i8* @"PRX@SI"(i64* %74)
-  %return308 = call i8* @"concat@SSS"(i8* %PRX307, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @114, i64 0, i64 0))
+  %return308 = call i8* @"concat@SSS"(i8* %PRX307, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @113, i64 0, i64 0))
   %return309 = call <4 x double> @"chp@PS"(i8* %return308)
   br label %end302
 
@@ -8146,7 +8137,7 @@ true321:                                          ; preds = %true316
 false322:                                         ; preds = %true316
   store i64 %ftype319, i64* %78
   %PRX329 = call i8* @"PRX@SI"(i64* %78)
-  %return330 = call i8* @"concat@SSS"(i8* %PRX329, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @115, i64 0, i64 0))
+  %return330 = call i8* @"concat@SSS"(i8* %PRX329, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @114, i64 0, i64 0))
   %return331 = call <3 x double> @"chv@VS"(i8* %return330)
   br label %end323
 
@@ -8187,7 +8178,7 @@ true348:                                          ; preds = %true343
 false349:                                         ; preds = %true343
   store i64 %ftype346, i64* %84
   %PRX356 = call i8* @"PRX@SI"(i64* %84)
-  %return357 = call i8* @"concat@SSS"(i8* %PRX356, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @116, i64 0, i64 0))
+  %return357 = call i8* @"concat@SSS"(i8* %PRX356, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @115, i64 0, i64 0))
   %return358 = call <2 x double> @"chu@US"(i8* %return357)
   br label %end350
 
@@ -8226,7 +8217,7 @@ true373:                                          ; preds = %true368
 false374:                                         ; preds = %true368
   store i64 %ftype371, i64* %89
   %PRX381 = call i8* @"PRX@SI"(i64* %89)
-  %return382 = call i8* @"concat@SSS"(i8* %PRX381, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @117, i64 0, i64 0))
+  %return382 = call i8* @"concat@SSS"(i8* %PRX381, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @116, i64 0, i64 0))
   %return383 = call <2 x double> @"chu@US"(i8* %return382)
   br label %end375
 
@@ -8272,7 +8263,7 @@ true404:                                          ; preds = %true400
 false405:                                         ; preds = %true400
   store i64 %ftype402, i64* %95
   %PRX412 = call i8* @"PRX@SI"(i64* %95)
-  %return413 = call i8* @"concat@SSS"(i8* %PRX412, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @118, i64 0, i64 0))
+  %return413 = call i8* @"concat@SSS"(i8* %PRX412, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @117, i64 0, i64 0))
   %return414 = call <2 x double> @"chu@US"(i8* %return413)
   br label %end406
 
@@ -8328,7 +8319,7 @@ true436:                                          ; preds = %true431
 false437:                                         ; preds = %true431
   store i64 %ftype434, i64* %99
   %PRX443 = call i8* @"PRX@SI"(i64* %99)
-  %return444 = call i8* @"concat@SSS"(i8* %PRX443, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @119, i64 0, i64 0))
+  %return444 = call i8* @"concat@SSS"(i8* %PRX443, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @118, i64 0, i64 0))
   %return445 = call double @"chf@FS"(i8* %return444)
   br label %end438
 
@@ -8364,7 +8355,7 @@ true457:                                          ; preds = %true452
 false458:                                         ; preds = %true452
   store i64 %ftype455, i64* %103
   %PRX464 = call i8* @"PRX@SI"(i64* %103)
-  %return465 = call i8* @"concat@SSS"(i8* %PRX464, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @120, i64 0, i64 0))
+  %return465 = call i8* @"concat@SSS"(i8* %PRX464, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @119, i64 0, i64 0))
   %return466 = call <2 x double> @"chu@US"(i8* %return465)
   br label %end459
 
@@ -8400,7 +8391,7 @@ true478:                                          ; preds = %true473
 false479:                                         ; preds = %true473
   store i64 %ftype476, i64* %107
   %PRX486 = call i8* @"PRX@SI"(i64* %107)
-  %return487 = call i8* @"concat@SSS"(i8* %PRX486, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @121, i64 0, i64 0))
+  %return487 = call i8* @"concat@SSS"(i8* %PRX486, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @120, i64 0, i64 0))
   %return488 = call <2 x double> @"chu@US"(i8* %return487)
   br label %end480
 
@@ -8439,7 +8430,7 @@ true503:                                          ; preds = %true498
 false504:                                         ; preds = %true498
   store i64 %ftype501, i64* %112
   %PRX511 = call i8* @"PRX@SI"(i64* %112)
-  %return512 = call i8* @"concat@SSS"(i8* %PRX511, i8* getelementptr inbounds ([6 x i8], [6 x i8]* @122, i64 0, i64 0))
+  %return512 = call i8* @"concat@SSS"(i8* %PRX511, i8* getelementptr inbounds ([6 x i8], [6 x i8]* @121, i64 0, i64 0))
   %return513 = call <3 x double> @"chv@VS"(i8* %return512)
   br label %end505
 
@@ -8586,7 +8577,7 @@ true591:                                          ; preds = %true586
 false592:                                         ; preds = %true586
   store i64 %ftype589, i64* %133
   %PRX599 = call i8* @"PRX@SI"(i64* %133)
-  %return600 = call i8* @"concat@SSS"(i8* %PRX599, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @123, i64 0, i64 0))
+  %return600 = call i8* @"concat@SSS"(i8* %PRX599, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @122, i64 0, i64 0))
   %return601 = call <2 x double> @"chu@US"(i8* %return600)
   br label %end593
 
@@ -8627,12 +8618,12 @@ true616:                                          ; preds = %true611
 false617:                                         ; preds = %true611
   store i64 %ftype614, i64* %138
   %PRX626 = call i8* @"PRX@SI"(i64* %138)
-  %return627 = call i8* @"concat@SSS"(i8* %PRX626, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @124, i64 0, i64 0))
+  %return627 = call i8* @"concat@SSS"(i8* %PRX626, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @123, i64 0, i64 0))
   %return628 = call <3 x double> @"chv@VS"(i8* %return627)
   %ftype629 = load i64, i64* %ftype
   store i64 %ftype629, i64* %139
   %PRX630 = call i8* @"PRX@SI"(i64* %139)
-  %return631 = call i8* @"concat@SSS"(i8* %PRX630, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @125, i64 0, i64 0))
+  %return631 = call i8* @"concat@SSS"(i8* %PRX630, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @124, i64 0, i64 0))
   %return632 = call <3 x double> @"chv@VS"(i8* %return631)
   br label %end618
 
@@ -8670,7 +8661,7 @@ true649:                                          ; preds = %true645
 false650:                                         ; preds = %true645
   store i64 %ftype647, i64* %146
   %PRX657 = call i8* @"PRX@SI"(i64* %146)
-  %return658 = call i8* @"concat@SSS"(i8* %PRX657, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @126, i64 0, i64 0))
+  %return658 = call i8* @"concat@SSS"(i8* %PRX657, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @125, i64 0, i64 0))
   %return659 = call <2 x double> @"chu@US"(i8* %return658)
   br label %end651
 
@@ -8709,7 +8700,7 @@ true674:                                          ; preds = %true669
 false675:                                         ; preds = %true669
   store i64 %ftype672, i64* %151
   %PRX682 = call i8* @"PRX@SI"(i64* %151)
-  %return683 = call i8* @"concat@SSS"(i8* %PRX682, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @127, i64 0, i64 0))
+  %return683 = call i8* @"concat@SSS"(i8* %PRX682, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @126, i64 0, i64 0))
   %return684 = call <2 x double> @"chu@US"(i8* %return683)
   br label %end676
 
@@ -8748,7 +8739,7 @@ true699:                                          ; preds = %true694
 false700:                                         ; preds = %true694
   store i64 %ftype697, i64* %156
   %PRX707 = call i8* @"PRX@SI"(i64* %156)
-  %return708 = call i8* @"concat@SSS"(i8* %PRX707, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @128, i64 0, i64 0))
+  %return708 = call i8* @"concat@SSS"(i8* %PRX707, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @127, i64 0, i64 0))
   %return709 = call <2 x double> @"chu@US"(i8* %return708)
   br label %end701
 
@@ -8787,7 +8778,7 @@ true724:                                          ; preds = %true719
 false725:                                         ; preds = %true719
   store i64 %ftype722, i64* %161
   %PRX732 = call i8* @"PRX@SI"(i64* %161)
-  %return733 = call i8* @"concat@SSS"(i8* %PRX732, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @129, i64 0, i64 0))
+  %return733 = call i8* @"concat@SSS"(i8* %PRX732, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @128, i64 0, i64 0))
   %return734 = call <2 x double> @"chu@US"(i8* %return733)
   br label %end726
 
@@ -8823,7 +8814,7 @@ true746:                                          ; preds = %true741
 false747:                                         ; preds = %true741
   store i64 %ftype744, i64* %165
   %PRX753 = call i8* @"PRX@SI"(i64* %165)
-  %return754 = call i8* @"concat@SSS"(i8* %PRX753, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @130, i64 0, i64 0))
+  %return754 = call i8* @"concat@SSS"(i8* %PRX753, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @129, i64 0, i64 0))
   %return755 = call double @"chf@FS"(i8* %return754)
   br label %end748
 
@@ -8887,7 +8878,7 @@ true783:                                          ; preds = %true778
 false784:                                         ; preds = %true778
   store i64 %ftype781, i64* %173
   %PRX790 = call i8* @"PRX@SI"(i64* %173)
-  %return791 = call i8* @"concat@SSS"(i8* %PRX790, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @131, i64 0, i64 0))
+  %return791 = call i8* @"concat@SSS"(i8* %PRX790, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @130, i64 0, i64 0))
   %return792 = call double @"chf@FS"(i8* %return791)
   br label %end785
 
@@ -8921,7 +8912,7 @@ true803:                                          ; preds = %true798
 false804:                                         ; preds = %true798
   store i64 %ftype801, i64* %177
   %PRX811 = call i8* @"PRX@SI"(i64* %177)
-  %return812 = call i8* @"concat@SSS"(i8* %PRX811, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @132, i64 0, i64 0))
+  %return812 = call i8* @"concat@SSS"(i8* %PRX811, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @131, i64 0, i64 0))
   %return813 = call <3 x double> @"chv@VS"(i8* %return812)
   br label %end805
 
@@ -9004,7 +8995,7 @@ true854:                                          ; preds = %true849
 false855:                                         ; preds = %true849
   store i64 %ftype852, i64* %189
   %PRX861 = call i8* @"PRX@SI"(i64* %189)
-  %return862 = call i8* @"concat@SSS"(i8* %PRX861, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @133, i64 0, i64 0))
+  %return862 = call i8* @"concat@SSS"(i8* %PRX861, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @132, i64 0, i64 0))
   %return863 = call double @"chf@FS"(i8* %return862)
   br label %end856
 
@@ -9056,12 +9047,12 @@ true883:                                          ; preds = %true878
 false884:                                         ; preds = %true878
   store i64 %ftype881, i64* %195
   %PRX895 = call i8* @"PRX@SI"(i64* %195)
-  %return896 = call i8* @"concat@SSS"(i8* %PRX895, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @134, i64 0, i64 0))
+  %return896 = call i8* @"concat@SSS"(i8* %PRX895, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @133, i64 0, i64 0))
   %return897 = call <2 x double> @"chu@US"(i8* %return896)
   %ftype898 = load i64, i64* %ftype
   store i64 %ftype898, i64* %196
   %PRX899 = call i8* @"PRX@SI"(i64* %196)
-  %return900 = call i8* @"concat@SSS"(i8* %PRX899, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @135, i64 0, i64 0))
+  %return900 = call i8* @"concat@SSS"(i8* %PRX899, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @134, i64 0, i64 0))
   %return901 = call <3 x double> @"chv@VS"(i8* %return900)
   br label %end885
 
@@ -9118,7 +9109,7 @@ true927:                                          ; preds = %true922
 false928:                                         ; preds = %true922
   store i64 %ftype925, i64* %205
   %PRX934 = call i8* @"PRX@SI"(i64* %205)
-  %return935 = call i8* @"concat@SSS"(i8* %PRX934, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @136, i64 0, i64 0))
+  %return935 = call i8* @"concat@SSS"(i8* %PRX934, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @135, i64 0, i64 0))
   %return936 = call <2 x double> @"chu@US"(i8* %return935)
   br label %end929
 
@@ -9154,7 +9145,7 @@ true948:                                          ; preds = %true943
 false949:                                         ; preds = %true943
   store i64 %ftype946, i64* %209
   %PRX956 = call i8* @"PRX@SI"(i64* %209)
-  %return957 = call i8* @"concat@SSS"(i8* %PRX956, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @137, i64 0, i64 0))
+  %return957 = call i8* @"concat@SSS"(i8* %PRX956, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @136, i64 0, i64 0))
   %return958 = call <4 x double> @"chp@PS"(i8* %return957)
   br label %end950
 
@@ -9208,12 +9199,12 @@ true984:                                          ; preds = %true980
 false985:                                         ; preds = %true980
   store i64 %ftype982, i64* %218
   %PRX994 = call i8* @"PRX@SI"(i64* %218)
-  %return995 = call i8* @"concat@SSS"(i8* %PRX994, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @138, i64 0, i64 0))
+  %return995 = call i8* @"concat@SSS"(i8* %PRX994, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @137, i64 0, i64 0))
   %return996 = call <2 x double> @"chu@US"(i8* %return995)
   %ftype997 = load i64, i64* %ftype
   store i64 %ftype997, i64* %219
   %PRX998 = call i8* @"PRX@SI"(i64* %219)
-  %return999 = call i8* @"concat@SSS"(i8* %PRX998, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @139, i64 0, i64 0))
+  %return999 = call i8* @"concat@SSS"(i8* %PRX998, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @138, i64 0, i64 0))
   %return1000 = call double @"chf@FS"(i8* %return999)
   br label %end986
 
@@ -9282,12 +9273,12 @@ true1030:                                         ; preds = %true1025
 false1031:                                        ; preds = %true1025
   store i64 %ftype1028, i64* %226
   %PRX1040 = call i8* @"PRX@SI"(i64* %226)
-  %return1041 = call i8* @"concat@SSS"(i8* %PRX1040, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @140, i64 0, i64 0))
+  %return1041 = call i8* @"concat@SSS"(i8* %PRX1040, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @139, i64 0, i64 0))
   %return1042 = call <2 x double> @"chu@US"(i8* %return1041)
   %ftype1043 = load i64, i64* %ftype
   store i64 %ftype1043, i64* %227
   %PRX1044 = call i8* @"PRX@SI"(i64* %227)
-  %return1045 = call i8* @"concat@SSS"(i8* %PRX1044, i8* getelementptr inbounds ([22 x i8], [22 x i8]* @141, i64 0, i64 0))
+  %return1045 = call i8* @"concat@SSS"(i8* %PRX1044, i8* getelementptr inbounds ([22 x i8], [22 x i8]* @140, i64 0, i64 0))
   %return1046 = call <2 x double> @"chu@US"(i8* %return1045)
   br label %end1032
 
@@ -9325,7 +9316,7 @@ true1059:                                         ; preds = %true1054
 false1060:                                        ; preds = %true1054
   store i64 %ftype1057, i64* %232
   %PRX1067 = call i8* @"PRX@SI"(i64* %232)
-  %return1068 = call i8* @"concat@SSS"(i8* %PRX1067, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @142, i64 0, i64 0))
+  %return1068 = call i8* @"concat@SSS"(i8* %PRX1067, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @141, i64 0, i64 0))
   %return1069 = call <2 x double> @"chu@US"(i8* %return1068)
   br label %end1061
 
@@ -9361,7 +9352,7 @@ true1081:                                         ; preds = %true1076
 false1082:                                        ; preds = %true1076
   store i64 %ftype1079, i64* %236
   %PRX1089 = call i8* @"PRX@SI"(i64* %236)
-  %return1090 = call i8* @"concat@SSS"(i8* %PRX1089, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @143, i64 0, i64 0))
+  %return1090 = call i8* @"concat@SSS"(i8* %PRX1089, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @142, i64 0, i64 0))
   %return1091 = call <2 x double> @"chu@US"(i8* %return1090)
   br label %end1083
 
@@ -9397,7 +9388,7 @@ true1103:                                         ; preds = %true1098
 false1104:                                        ; preds = %true1098
   store i64 %ftype1101, i64* %240
   %PRX1111 = call i8* @"PRX@SI"(i64* %240)
-  %return1112 = call i8* @"concat@SSS"(i8* %PRX1111, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @144, i64 0, i64 0))
+  %return1112 = call i8* @"concat@SSS"(i8* %PRX1111, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @143, i64 0, i64 0))
   %return1113 = call <2 x double> @"chu@US"(i8* %return1112)
   br label %end1105
 
@@ -9436,7 +9427,7 @@ true1128:                                         ; preds = %true1123
 false1129:                                        ; preds = %true1123
   store i64 %ftype1126, i64* %245
   %PRX1136 = call i8* @"PRX@SI"(i64* %245)
-  %return1137 = call i8* @"concat@SSS"(i8* %PRX1136, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @145, i64 0, i64 0))
+  %return1137 = call i8* @"concat@SSS"(i8* %PRX1136, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @144, i64 0, i64 0))
   %return1138 = call <4 x double> @"chp@PS"(i8* %return1137)
   br label %end1130
 
@@ -9479,7 +9470,7 @@ true1157:                                         ; preds = %true1152
 false1158:                                        ; preds = %true1152
   store i64 %ftype1155, i64* %252
   %PRX1165 = call i8* @"PRX@SI"(i64* %252)
-  %return1166 = call i8* @"concat@SSS"(i8* %PRX1165, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @146, i64 0, i64 0))
+  %return1166 = call i8* @"concat@SSS"(i8* %PRX1165, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @145, i64 0, i64 0))
   %return1167 = call <4 x double> @"chp@PS"(i8* %return1166)
   br label %end1159
 
@@ -9522,7 +9513,7 @@ true1186:                                         ; preds = %true1181
 false1187:                                        ; preds = %true1181
   store i64 %ftype1184, i64* %259
   %PRX1194 = call i8* @"PRX@SI"(i64* %259)
-  %return1195 = call i8* @"concat@SSS"(i8* %PRX1194, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @147, i64 0, i64 0))
+  %return1195 = call i8* @"concat@SSS"(i8* %PRX1194, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @146, i64 0, i64 0))
   %return1196 = call <4 x double> @"chp@PS"(i8* %return1195)
   br label %end1188
 
@@ -9565,7 +9556,7 @@ true1215:                                         ; preds = %true1210
 false1216:                                        ; preds = %true1210
   store i64 %ftype1213, i64* %266
   %PRX1223 = call i8* @"PRX@SI"(i64* %266)
-  %return1224 = call i8* @"concat@SSS"(i8* %PRX1223, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @148, i64 0, i64 0))
+  %return1224 = call i8* @"concat@SSS"(i8* %PRX1223, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @147, i64 0, i64 0))
   %return1225 = call <2 x double> @"chu@US"(i8* %return1224)
   br label %end1217
 
@@ -9606,12 +9597,12 @@ true1240:                                         ; preds = %true1235
 false1241:                                        ; preds = %true1235
   store i64 %ftype1238, i64* %271
   %PRX1250 = call i8* @"PRX@SI"(i64* %271)
-  %return1251 = call i8* @"concat@SSS"(i8* %PRX1250, i8* getelementptr inbounds ([17 x i8], [17 x i8]* @149, i64 0, i64 0))
+  %return1251 = call i8* @"concat@SSS"(i8* %PRX1250, i8* getelementptr inbounds ([17 x i8], [17 x i8]* @148, i64 0, i64 0))
   %return1252 = call <2 x double> @"chu@US"(i8* %return1251)
   %ftype1253 = load i64, i64* %ftype
   store i64 %ftype1253, i64* %272
   %PRX1254 = call i8* @"PRX@SI"(i64* %272)
-  %return1255 = call i8* @"concat@SSS"(i8* %PRX1254, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @150, i64 0, i64 0))
+  %return1255 = call i8* @"concat@SSS"(i8* %PRX1254, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @149, i64 0, i64 0))
   %return1256 = call <2 x double> @"chu@US"(i8* %return1255)
   br label %end1242
 
@@ -9840,7 +9831,7 @@ true1380:                                         ; preds = %true1375
 false1381:                                        ; preds = %true1375
   store i64 %ftype1378, i64* %305
   %PRX1388 = call i8* @"PRX@SI"(i64* %305)
-  %return1389 = call i8* @"concat@SSS"(i8* %PRX1388, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @151, i64 0, i64 0))
+  %return1389 = call i8* @"concat@SSS"(i8* %PRX1388, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @150, i64 0, i64 0))
   %return1390 = call <4 x double> @"chp@PS"(i8* %return1389)
   br label %end1382
 
@@ -9883,7 +9874,7 @@ true1409:                                         ; preds = %true1404
 false1410:                                        ; preds = %true1404
   store i64 %ftype1407, i64* %312
   %PRX1416 = call i8* @"PRX@SI"(i64* %312)
-  %return1417 = call i8* @"concat@SSS"(i8* %PRX1416, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @152, i64 0, i64 0))
+  %return1417 = call i8* @"concat@SSS"(i8* %PRX1416, i8* getelementptr inbounds ([13 x i8], [13 x i8]* @151, i64 0, i64 0))
   %return1418 = call double @"chf@FS"(i8* %return1417)
   br label %end1411
 
@@ -9921,12 +9912,12 @@ true1430:                                         ; preds = %true1425
 false1431:                                        ; preds = %true1425
   store i64 %ftype1428, i64* %316
   %PRX1440 = call i8* @"PRX@SI"(i64* %316)
-  %return1441 = call i8* @"concat@SSS"(i8* %PRX1440, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @153, i64 0, i64 0))
+  %return1441 = call i8* @"concat@SSS"(i8* %PRX1440, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @152, i64 0, i64 0))
   %return1442 = call <4 x double> @"chp@PS"(i8* %return1441)
   %ftype1443 = load i64, i64* %ftype
   store i64 %ftype1443, i64* %317
   %PRX1444 = call i8* @"PRX@SI"(i64* %317)
-  %return1445 = call i8* @"concat@SSS"(i8* %PRX1444, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @154, i64 0, i64 0))
+  %return1445 = call i8* @"concat@SSS"(i8* %PRX1444, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @153, i64 0, i64 0))
   %return1446 = call <4 x double> @"chp@PS"(i8* %return1445)
   br label %end1432
 
@@ -9966,12 +9957,12 @@ true1459:                                         ; preds = %true1454
 false1460:                                        ; preds = %true1454
   store i64 %ftype1457, i64* %322
   %PRX1469 = call i8* @"PRX@SI"(i64* %322)
-  %return1470 = call i8* @"concat@SSS"(i8* %PRX1469, i8* getelementptr inbounds ([17 x i8], [17 x i8]* @155, i64 0, i64 0))
+  %return1470 = call i8* @"concat@SSS"(i8* %PRX1469, i8* getelementptr inbounds ([17 x i8], [17 x i8]* @154, i64 0, i64 0))
   %return1471 = call <2 x double> @"chu@US"(i8* %return1470)
   %ftype1472 = load i64, i64* %ftype
   store i64 %ftype1472, i64* %323
   %PRX1473 = call i8* @"PRX@SI"(i64* %323)
-  %return1474 = call i8* @"concat@SSS"(i8* %PRX1473, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @156, i64 0, i64 0))
+  %return1474 = call i8* @"concat@SSS"(i8* %PRX1473, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @155, i64 0, i64 0))
   %return1475 = call <2 x double> @"chu@US"(i8* %return1474)
   br label %end1461
 
@@ -10009,7 +10000,7 @@ true1488:                                         ; preds = %true1483
 false1489:                                        ; preds = %true1483
   store i64 %ftype1486, i64* %328
   %PRX1496 = call i8* @"PRX@SI"(i64* %328)
-  %return1497 = call i8* @"concat@SSS"(i8* %PRX1496, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @157, i64 0, i64 0))
+  %return1497 = call i8* @"concat@SSS"(i8* %PRX1496, i8* getelementptr inbounds ([8 x i8], [8 x i8]* @156, i64 0, i64 0))
   %return1498 = call <2 x double> @"chu@US"(i8* %return1497)
   br label %end1490
 
@@ -10050,12 +10041,12 @@ true1513:                                         ; preds = %true1508
 false1514:                                        ; preds = %true1508
   store i64 %ftype1511, i64* %333
   %PRX1525 = call i8* @"PRX@SI"(i64* %333)
-  %return1526 = call i8* @"concat@SSS"(i8* %PRX1525, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @158, i64 0, i64 0))
+  %return1526 = call i8* @"concat@SSS"(i8* %PRX1525, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @157, i64 0, i64 0))
   %return1527 = call <3 x double> @"chv@VS"(i8* %return1526)
   %ftype1528 = load i64, i64* %ftype
   store i64 %ftype1528, i64* %334
   %PRX1529 = call i8* @"PRX@SI"(i64* %334)
-  %return1530 = call i8* @"concat@SSS"(i8* %PRX1529, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @159, i64 0, i64 0))
+  %return1530 = call i8* @"concat@SSS"(i8* %PRX1529, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @158, i64 0, i64 0))
   %return1531 = call <2 x double> @"chu@US"(i8* %return1530)
   br label %end1515
 
@@ -10114,17 +10105,17 @@ true1559:                                         ; preds = %true1555
 false1560:                                        ; preds = %true1555
   store i64 %ftype1557, i64* %344
   %PRX1572 = call i8* @"PRX@SI"(i64* %344)
-  %return1573 = call i8* @"concat@SSS"(i8* %PRX1572, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @160, i64 0, i64 0))
+  %return1573 = call i8* @"concat@SSS"(i8* %PRX1572, i8* getelementptr inbounds ([16 x i8], [16 x i8]* @159, i64 0, i64 0))
   %return1574 = call <2 x double> @"chu@US"(i8* %return1573)
   %ftype1575 = load i64, i64* %ftype
   store i64 %ftype1575, i64* %345
   %PRX1576 = call i8* @"PRX@SI"(i64* %345)
-  %return1577 = call i8* @"concat@SSS"(i8* %PRX1576, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @161, i64 0, i64 0))
+  %return1577 = call i8* @"concat@SSS"(i8* %PRX1576, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @160, i64 0, i64 0))
   %return1578 = call <2 x double> @"chu@US"(i8* %return1577)
   %ftype1579 = load i64, i64* %ftype
   store i64 %ftype1579, i64* %346
   %PRX1580 = call i8* @"PRX@SI"(i64* %346)
-  %return1581 = call i8* @"concat@SSS"(i8* %PRX1580, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @162, i64 0, i64 0))
+  %return1581 = call i8* @"concat@SSS"(i8* %PRX1580, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @161, i64 0, i64 0))
   %return1582 = call <2 x double> @"chu@US"(i8* %return1581)
   br label %end1561
 
@@ -10265,7 +10256,7 @@ __llvm_entry:
   %91 = alloca double
   %92 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %__tmp, !vex-initializer-store !3
-  %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modF"()
+  %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"()
   %SYS1.fca.0.extract = extractvalue %gemSYS %SYS1, 0
   %SYS1.fca.0.gep = getelementptr inbounds %gemSYS, %gemSYS* %SYS, i32 0, i32 0
   store i64 %SYS1.fca.0.extract, i64* %SYS1.fca.0.gep
@@ -10295,11 +10286,8 @@ __llvm_entry:
   store i64 %SYS1.fca.8.extract, i64* %SYS1.fca.8.gep
   %SYS1.fca.9.extract = extractvalue %gemSYS %SYS1, 9
   %SYS1.fca.9.gep = getelementptr inbounds %gemSYS, %gemSYS* %SYS, i32 0, i32 9
-  store i64 %SYS1.fca.9.extract, i64* %SYS1.fca.9.gep
-  %SYS1.fca.10.extract = extractvalue %gemSYS %SYS1, 10
-  %SYS1.fca.10.gep = getelementptr inbounds %gemSYS, %gemSYS* %SYS, i32 0, i32 10
-  store double %SYS1.fca.10.extract, double* %SYS1.fca.10.gep
-  call void @"gemSYSBuild@Z6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modF"(%gemSYS* %SYS)
+  store double %SYS1.fca.9.extract, double* %SYS1.fca.9.gep
+  call void @"gemSYSBuild@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"(%gemSYS* %SYS)
   %GEM2 = call %gem @"gem@Z3gemM36N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S"()
   %GEM2.fca.0.extract = extractvalue %gem %GEM2, 0
   %GEM2.fca.0.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 0
@@ -10429,9 +10417,7 @@ __llvm_entry:
   %SYS4.fca.7.insert = insertvalue %gemSYS %SYS4.fca.6.insert, i64 %SYS4.fca.7.load, 7
   %SYS4.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS4.fca.8.insert = insertvalue %gemSYS %SYS4.fca.7.insert, i64 %SYS4.fca.8.load, 8
-  %SYS4.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS4.fca.9.insert = insertvalue %gemSYS %SYS4.fca.8.insert, i64 %SYS4.fca.9.load, 9
-  %SYS4.fca.10.load = load double, double* %SYS1.fca.10.gep
+  %SYS4.fca.9.load = load double, double* %SYS1.fca.9.gep
   %SYS4.fca.0.gep = getelementptr inbounds %gemSYS, %gemSYS* %1, i32 0, i32 0
   store i64 %SYS4.fca.0.load, i64* %SYS4.fca.0.gep
   %SYS4.fca.1.gep = getelementptr inbounds %gemSYS, %gemSYS* %1, i32 0, i32 1
@@ -10451,10 +10437,8 @@ __llvm_entry:
   %SYS4.fca.8.gep = getelementptr inbounds %gemSYS, %gemSYS* %1, i32 0, i32 8
   store i64 %SYS4.fca.8.load, i64* %SYS4.fca.8.gep
   %SYS4.fca.9.gep = getelementptr inbounds %gemSYS, %gemSYS* %1, i32 0, i32 9
-  store i64 %SYS4.fca.9.load, i64* %SYS4.fca.9.gep
-  %SYS4.fca.10.gep = getelementptr inbounds %gemSYS, %gemSYS* %1, i32 0, i32 10
-  store double %SYS4.fca.10.load, double* %SYS4.fca.10.gep
-  call void @"gemBuild@Z3gemM36N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM11N3TMGIN3RIPIN3PFFIN2FFIN6iter_fIN3SYMIN8sym_modeIN4iterIN2MBIN5vizmbIN6mb_modF"(%gem* %GEM, i64** %0, %gemSYS* %1)
+  store double %SYS4.fca.9.load, double* %SYS4.fca.9.gep
+  call void @"gemBuild@Z3gemM36N6v1type[IN6v2type[IN6v3type[IN6v4type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3PBW[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN3gscUN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[S[IZ6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"(%gem* %GEM, i64** %0, %gemSYS* %1)
   %v1GMP5 = call %gemPrm @"gemPrm@Z6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[P"()
   %v1GMP5.fca.0.extract = extractvalue %gemPrm %v1GMP5, 0
   %v1GMP5.fca.0.gep = getelementptr inbounds %gemPrm, %gemPrm* %v1GMP, i32 0, i32 0
@@ -11766,10 +11750,8 @@ cond:                                             ; preds = %end206, %end
   %SYS29.fca.7.insert = insertvalue %gemSYS %SYS29.fca.6.insert, i64 %SYS29.fca.7.load, 7
   %SYS29.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS29.fca.8.insert = insertvalue %gemSYS %SYS29.fca.7.insert, i64 %SYS29.fca.8.load, 8
-  %SYS29.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS29.fca.9.insert = insertvalue %gemSYS %SYS29.fca.8.insert, i64 %SYS29.fca.9.load, 9
-  %SYS29.fca.10.load = load double, double* %SYS1.fca.10.gep
-  %return30 = call i64 @"lt@III"(i64 %i.0, i64 %SYS29.fca.7.load)
+  %SYS29.fca.9.load = load double, double* %SYS1.fca.9.gep
+  %return30 = call i64 @"lt@III"(i64 %i.0, i64 %SYS29.fca.6.load)
   %94 = icmp ne i64 %return30, 0
   br i1 %94, label %body, label %end31
 
@@ -11779,7 +11761,7 @@ body:                                             ; preds = %cond
   br i1 %93, label %true35, label %false
 
 end31:                                            ; preds = %cond
-  %95 = icmp ne i64 %SYS29.fca.3.load, 0
+  %95 = icmp ne i64 %SYS29.fca.1.load, 0
   br i1 %95, label %true231, label %end232
 
 true35:                                           ; preds = %body
@@ -14744,9 +14726,7 @@ end194:                                           ; preds = %true193, %end163
   %SYS204.fca.7.insert = insertvalue %gemSYS %SYS204.fca.6.insert, i64 %SYS204.fca.7.load, 7
   %SYS204.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS204.fca.8.insert = insertvalue %gemSYS %SYS204.fca.7.insert, i64 %SYS204.fca.8.load, 8
-  %SYS204.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS204.fca.9.insert = insertvalue %gemSYS %SYS204.fca.8.insert, i64 %SYS204.fca.9.load, 9
-  %SYS204.fca.10.load = load double, double* %SYS1.fca.10.gep
+  %SYS204.fca.9.load = load double, double* %SYS1.fca.9.gep
   %97 = icmp ne i64 %SYS204.fca.0.load, 0
   br i1 %97, label %true205, label %end206
 
@@ -15009,10 +14989,8 @@ end232:                                           ; preds = %true297, %false298,
   %SYS313.fca.7.insert = insertvalue %gemSYS %SYS313.fca.6.insert, i64 %SYS313.fca.7.load, 7
   %SYS313.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS313.fca.8.insert = insertvalue %gemSYS %SYS313.fca.7.insert, i64 %SYS313.fca.8.load, 8
-  %SYS313.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS313.fca.9.insert = insertvalue %gemSYS %SYS313.fca.8.insert, i64 %SYS313.fca.9.load, 9
-  %SYS313.fca.10.load = load double, double* %SYS1.fca.10.gep
-  store i64 %SYS313.fca.1.load, i64* %50
+  %SYS313.fca.9.load = load double, double* %SYS1.fca.9.gep
+  store i64 %SYS313.fca.3.load, i64* %50
   %__mem314 = load <2 x double>, <2 x double>* %__mem
   store <2 x double> %__mem314, <2 x double>* %51
   %GEM315.fca.0.load = load i64*, i64** %GEM2.fca.0.gep
@@ -16982,9 +16960,7 @@ end273:                                           ; preds = %true272, %end254
   %SYS288.fca.7.insert = insertvalue %gemSYS %SYS288.fca.6.insert, i64 %SYS288.fca.7.load, 7
   %SYS288.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS288.fca.8.insert = insertvalue %gemSYS %SYS288.fca.7.insert, i64 %SYS288.fca.8.load, 8
-  %SYS288.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS288.fca.9.insert = insertvalue %gemSYS %SYS288.fca.8.insert, i64 %SYS288.fca.9.load, 9
-  %SYS288.fca.10.load = load double, double* %SYS1.fca.10.gep
+  %SYS288.fca.9.load = load double, double* %SYS1.fca.9.gep
   %99 = icmp ne i64 %SYS288.fca.2.load, 0
   br i1 %99, label %true289, label %end290
 
@@ -17956,17 +17932,15 @@ false319:                                         ; preds = %end232
   %SYS328.fca.7.insert = insertvalue %gemSYS %SYS328.fca.6.insert, i64 %SYS328.fca.7.load, 7
   %SYS328.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS328.fca.8.insert = insertvalue %gemSYS %SYS328.fca.7.insert, i64 %SYS328.fca.8.load, 8
-  %SYS328.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS328.fca.9.insert = insertvalue %gemSYS %SYS328.fca.8.insert, i64 %SYS328.fca.9.load, 9
-  %SYS328.fca.10.load = load double, double* %SYS1.fca.10.gep
-  %100 = icmp ne i64 %SYS328.fca.5.load, 0
+  %SYS328.fca.9.load = load double, double* %SYS1.fca.9.gep
+  %100 = icmp ne i64 %SYS328.fca.4.load, 0
   br i1 %100, label %true329, label %end330
 
 end320:                                           ; preds = %end334, %true318
   ret void
 
 true329:                                          ; preds = %false319
-  store i64 %SYS328.fca.6.load, i64* %92
+  store i64 %SYS328.fca.7.load, i64* %92
   call void @"V_SYM@UI"(<2 x double>* %__mem, i64* %92)
   br label %end330
 
@@ -17989,16 +17963,14 @@ end330:                                           ; preds = %true329, %false319
   %SYS332.fca.7.insert = insertvalue %gemSYS %SYS332.fca.6.insert, i64 %SYS332.fca.7.load, 7
   %SYS332.fca.8.load = load i64, i64* %SYS1.fca.8.gep
   %SYS332.fca.8.insert = insertvalue %gemSYS %SYS332.fca.7.insert, i64 %SYS332.fca.8.load, 8
-  %SYS332.fca.9.load = load i64, i64* %SYS1.fca.9.gep
-  %SYS332.fca.9.insert = insertvalue %gemSYS %SYS332.fca.8.insert, i64 %SYS332.fca.9.load, 9
-  %SYS332.fca.10.load = load double, double* %SYS1.fca.10.gep
+  %SYS332.fca.9.load = load double, double* %SYS1.fca.9.gep
   %101 = icmp ne i64 %SYS332.fca.8.load, 0
   br i1 %101, label %true333, label %end334
 
 true333:                                          ; preds = %end330
-  %output337 = fmul double 1.000000e-03, %SYS332.fca.10.load
+  %output337 = fmul double 1.000000e-03, %SYS332.fca.9.load
   %_bound_ptnum338 = load i64, i64* %_bound_ptnum
-  %return341 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @163, i64 0, i64 0), i64 %_bound_ptnum338, double %SYS332.fca.10.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @164, i64 0, i64 0))
+  %return341 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @162, i64 0, i64 0), i64 %_bound_ptnum338, double %SYS332.fca.9.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @163, i64 0, i64 0))
   br label %end334
 
 end334:                                           ; preds = %true333, %end330
@@ -18062,15 +18034,15 @@ __llvm_entry:
   store i64 %XAOS, i64* %2
   store double* %XAOS_TO, double** %3
   call void @"_TheFractalFlameAlgorithm@I[II[FFFFV"(i64* %0, i64** %1, i64* %2, double** %3, double* %"<pscale>", double* %"<COORD>", double* %"<Alpha>", <3 x double>* %"<P>")
-  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @165, i64 0, i64 0), i64 %ptnum) #4
+  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @164, i64 0, i64 0), i64 %ptnum) #4
   %evalue5 = load double, double* %"<pscale>"
-  %gvalue6 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @166, i64 0, i64 0), double %evalue5) #4
+  %gvalue6 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @165, i64 0, i64 0), double %evalue5) #4
   %evalue7 = load double, double* %"<COORD>"
-  %gvalue8 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @167, i64 0, i64 0), double %evalue7) #4
+  %gvalue8 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @166, i64 0, i64 0), double %evalue7) #4
   %evalue9 = load double, double* %"<Alpha>"
-  %gvalue10 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @168, i64 0, i64 0), double %evalue9) #4
+  %gvalue10 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @167, i64 0, i64 0), double %evalue9) #4
   %evalue11 = load <3 x double>, <3 x double>* %"<P>"
-  %gvalue12 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @169, i64 0, i64 0), <3 x double> %evalue11) #4
+  %gvalue12 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @168, i64 0, i64 0), <3 x double> %evalue11) #4
   store i64 %gvalue, i64* @ptnum
   store double %gvalue6, double* @pscale
   store double %gvalue8, double* @COORD
@@ -18087,7 +18059,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TheFractalFlameAlgorithm(i64 0, i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @54, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
+  call void @TheFractalFlameAlgorithm(i64 0, i64* getelementptr inbounds ([0 x i64], [0 x i64]* @52, i64 0, i64 0), i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
   ret void
 }
 
