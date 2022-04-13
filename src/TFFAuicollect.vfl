@@ -162,7 +162,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     }
     if(SYS.TMG) append(type, "TM");
 
-    for(int i=0; i<SYS.iter_f; i++){
+    for(int i=0; i<SYS.iter_f; ++i){
 
         string _IDX = itoa(i+1);
         string VAR, W, PB, V1, V2, V3, V4;
