@@ -37,8 +37,8 @@ struct gemSYS{
 }
 
 struct gem{
-    int     v1type[], v2type[], v3type[], v4type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   v1w[], v2w[], v3w[], v4w[], PBW[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
+    int     v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], PBW[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
@@ -75,6 +75,10 @@ struct gem{
             append(v4w, chf(concat("../v4weight_", IDX)));
             if(v4w[-1]!=0) append(v4type, atoi(chs(concat("../v4type_", IDX))));
             else resize(v4type, res);
+            // // POST VAR 01
+            append(p1w, chf(concat("../p1weight_", IDX)));
+            if(p1w[-1]!=0) append(p1type, atoi(chs(concat("../p1type_", IDX))));
+            else resize(p1type, res);
             // Collect affine coefficients
             _x = chu(concat("../x_", IDX));
             _y = chu(concat("../y_", IDX));

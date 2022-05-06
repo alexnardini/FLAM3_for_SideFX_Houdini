@@ -39,11 +39,12 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     // Build genomes
     gemSYS SYS; SYS->gemSYSBuild();
     gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
-    gemPrm v1GMP, v2GMP, v3GMP, v4GMP;
+    gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->gemPrmBuild(GEM.sIDX, GEM.v1type);
     v2GMP->gemPrmBuild(GEM.sIDX, GEM.v2type);
     v3GMP->gemPrmBuild(GEM.sIDX, GEM.v3type);
     v4GMP->gemPrmBuild(GEM.sIDX, GEM.v4type);
+    p1GMP->gemPrmBuild(GEM.sIDX, GEM.p1type);
     // CHAOS game
     int XAOS = _bound_XAOS;
     float XAOS_TO[] = _bound_XAOS_TO;
@@ -58,6 +59,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 0, idx, GEM.v2type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
         if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, 0, idx, GEM.v3type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
         if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 0, idx, GEM.v4type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
+        if(GEM.p1w[idx]!=0) __tmp  = FLAME(p1GMP, 0, idx, GEM.p1type[idx], __tmp, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.p1w[idx]);
         if(GEM.POSTL[idx]) affine(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
         if(SYS.TMG) __tmp *= (matrix2)maketransform(0, 0, 0, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
         PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;

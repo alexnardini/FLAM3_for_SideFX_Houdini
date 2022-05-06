@@ -149,7 +149,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
 
 
-    float pbw, w1, w2, w3, w4, fw1, fw2, fw3, pfw1;
+    float pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
     gemSYS SYS; SYS->gemSYSBuild();
     append(type, concat("[", itoa(SYS.iter), "]"));
     int xaos_chk = detail(1, "XAOS");
@@ -165,7 +165,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     for(int i=0; i<SYS.iter_f; ++i){
 
         string _IDX = itoa(i+1);
-        string VAR, W, PB, V1, V2, V3, V4;
+        string VAR, W, PB, V1, V2, V3, V4, P1;
         if(!chi(concat("../vactive_", _IDX))) VAR = " :::::::::: ";
         else{
             w1 = chf(concat("../v1weight_", _IDX));
@@ -181,6 +181,10 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             if(w4!=0) V4 = stype[atoi(chs(concat("../v4type_", _IDX)))]+":";
             else V4 = ":";
             float w_total = w1+w2+w3+w4;
+            // Post var
+            pw1 = chf(concat("../p1weight_", _IDX));
+            if(pw1!=0) { if(w_total != 0) P1 = concat( "[", stype[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
+
             // Pre blur
             pbw = chf(concat("../preblurweight_" , _IDX));
             if(pbw>0){ if(w_total != 0) PB = "*"; }
@@ -199,7 +203,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             }
             else out = SPLIT;
             W = join(out, ".");
-            VAR = concat(PB, V1, V2, V3, V4, W);
+            VAR = concat(PB, V1, V2, V3, V4, P1, W);
         }
         append(type, VAR);
     }
