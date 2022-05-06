@@ -45,6 +45,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     v3GMP->gemPrmBuild(GEM.sIDX, GEM.v3type);
     v4GMP->gemPrmBuild(GEM.sIDX, GEM.v4type);
     p1GMP->gemPrmBuild(GEM.sIDX, GEM.p1type);
+    int v1type[], v2type[], v3type[], v4type[], p1type[]; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type;
+    float v1w[], v2w[], v3w[], v4w[], p1w[], PBW[], _CLR[], ONEMINUS[]; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; PBW=GEM.PBW; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS;
+    vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // CHAOS game
     int XAOS = _bound_XAOS;
     float XAOS_TO[] = _bound_XAOS_TO;
@@ -54,15 +57,15 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         __tmp = 0;
         if(XAOS){ SL=idx*n; idx=sample_cdf(slice(XAOS_TO,SL,SL+n), nrandom('twister')); } // Surprisingly, slicing into a small array is really slow.
         else idx=sample_cdf(XAOS_TO, nrandom('twister'));
-        if(GEM.PBW[idx]>0) V_PREBLUR(__mem, GEM.PBW[idx]);
-        if(GEM.v1w[idx]!=0) __tmp += FLAME(v1GMP, 0, idx, GEM.v1type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v1w[idx]);
-        if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 0, idx, GEM.v2type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v2w[idx]);
-        if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, 0, idx, GEM.v3type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v3w[idx]);
-        if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 0, idx, GEM.v4type[idx], __mem, GEM.x[idx], GEM.y[idx], GEM.o[idx], GEM.v4w[idx]);
-        if(GEM.p1w[idx]!=0) __tmp  = FLAME(p1GMP, 0, idx, GEM.p1type[idx], __tmp, {1, 0}, {0, 1}, {0, 0}, GEM.p1w[idx]);
-        if(GEM.POSTL[idx]) affine(__tmp, GEM.px[idx], GEM.py[idx], GEM.po[idx]);
+        if(GEM.PBW[idx]>0) V_PREBLUR(__mem, PBW[idx]);
+        if(GEM.v1w[idx]!=0) __tmp += FLAME(v1GMP, 0, idx, v1type[idx], __mem, x[idx], y[idx], o[idx], v1w[idx]);
+        if(GEM.v2w[idx]!=0) __tmp += FLAME(v2GMP, 0, idx, v2type[idx], __mem, x[idx], y[idx], o[idx], v2w[idx]);
+        if(GEM.v3w[idx]!=0) __tmp += FLAME(v3GMP, 0, idx, v3type[idx], __mem, x[idx], y[idx], o[idx], v3w[idx]);
+        if(GEM.v4w[idx]!=0) __tmp += FLAME(v4GMP, 0, idx, v4type[idx], __mem, x[idx], y[idx], o[idx], v4w[idx]);
+        if(GEM.p1w[idx]!=0) __tmp  = FLAME(p1GMP, 0, idx, p1type[idx], __tmp, {1, 0}, {0, 1}, {0, 0}, p1w[idx]);
+        if(GEM.POSTL[idx]) affine(__tmp, px[idx], py[idx], po[idx]);
         if(SYS.TMG) __tmp *= (matrix2)maketransform(0, 0, 0, set(0, 0, GEM.grt), (vector)GEM.gsc, 0);
-        PREV_CLR = CLR = GEM.CLR[idx] + GEM.ONEMINUS[idx] * PREV_CLR;
+        PREV_CLR = CLR = _CLR[idx] + ONEMINUS[idx] * PREV_CLR;
         __mem = __tmp;
     }
     if(SYS.FF){
