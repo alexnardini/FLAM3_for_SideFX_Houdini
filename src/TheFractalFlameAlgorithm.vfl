@@ -63,7 +63,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         if(v2w[idx]!=0) __tmp += FLAME(v2GMP, 0, idx, v2type[idx], __mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) __tmp += FLAME(v3GMP, 0, idx, v3type[idx], __mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) __tmp += FLAME(v4GMP, 0, idx, v4type[idx], __mem, x[idx], y[idx], o[idx], v4w[idx]);
-        if(p1w[idx]!=0) __tmp  = FLAME(p1GMP, 0, idx, p1type[idx], __tmp, {1, 0}, {0, 1}, {0, 0}, p1w[idx]);
+        if(p1w[idx]!=0) __tmp  = FLAME(p1GMP, 2, idx, p1type[idx], __tmp, {1, 0}, {0, 1}, {0, 0}, p1w[idx]);
         if(POSTL[idx]) affine(__tmp, px[idx], py[idx], po[idx]);
         if(TMG) __tmp *= (matrix2)maketransform(0, 0, 0, set(0, 0, grt), (vector)gsc, 0);
         PREV_CLR = CLR = _CLR[idx] + ONEMINUS[idx] * PREV_CLR;
