@@ -43,10 +43,11 @@ struct gem{
     string  sIDX[];
 
     void gemBuild(const int VACTIVE[]; const gemSYS SYS){
+        int iter_f, TMG, FF, PFF; iter_f=SYS.iter_f; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF;
         float _a, coord, speed;
         vector2 _x, _y;
         matrix2 m2;
-        for(int i=0; i<SYS.iter_f; ++i){
+        for(int i=0; i<iter_f; ++i){
             if(!VACTIVE[i]) continue;
             string IDX=itoa(i+1);
             // Collect active variation IDs
@@ -101,13 +102,13 @@ struct gem{
             else{ resize(px, res); resize(py, res); resize(po, res); }
         }
         // Collect GLOBAL TM
-        if(SYS.TMG){
+        if(TMG){
             // Rotate
             grt = chf("../frt");
             // Scale
             gsc = chu("../fsc");
         }
-        if(SYS.FF){
+        if(FF){
             // FF VAR 01
             ffv1w = chf("../ffv1weight");
             if(ffv1w!=0) ffv1type = chi("../ffv1type");
@@ -129,7 +130,7 @@ struct gem{
             fy = set(m2.yx, m2.yy);
             fo = chu("../_fo_2");
             // POST
-            if(SYS.PFF){
+            if(PFF){
                 _x = chu("../_pfx_2");;
                 _y = chu("../_pfy_2");;
                 _a = chf("../_pang_2");

@@ -39,7 +39,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     // Build genomes
     gemSYS SYS; SYS->gemSYSBuild();
     gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
-    int v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
+    int iter, v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; iter=SYS.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
     float v1w[], v2w[], v3w[], v4w[], p1w[], grt, PBW[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; grt=GEM.grt; PBW=GEM.PBW; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=SYS.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[], gsc; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po; gsc=GEM.gsc;
     string sIDX[]=GEM.sIDX;
@@ -54,7 +54,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     float XAOS_TO[] = _bound_XAOS_TO;
     if(XAOS){ n=len(sIDX); idx=0; }
     vector2 __mem = biunit();
-    for(int i=0; i<SYS.iter; ++i){
+    for(int i=0; i<iter; ++i){
         __tmp = 0;
         if(XAOS){ SL=idx*n; idx=sample_cdf(slice(XAOS_TO,SL,SL+n), nrandom('twister')); }
         else idx=sample_cdf(XAOS_TO, nrandom('twister'));
