@@ -37,16 +37,17 @@ struct gemSYS{
 }
 
 struct gem{
-    int     v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
+    int     v2chk, v3chk, v4chk, p1chk, v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], PBW[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 gsc, x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
-
+    
     void gemBuild(const int VACTIVE[]; const gemSYS SYS){
         int iter_f, TMG, FF, PFF; iter_f=SYS.iter_f; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF;
         float _a, coord, speed;
         vector2 _x, _y;
         matrix2 m2;
+        v2chk=v3chk=v4chk=p1chk=0;
         for(int i=0; i<iter_f; ++i){
             if(!VACTIVE[i]) continue;
             string IDX=itoa(i+1);
@@ -101,6 +102,8 @@ struct gem{
                 }
             else{ resize(px, res); resize(py, res); resize(po, res); }
         }
+        // Set checks for any active vars.
+        if(max(v2w)!=0 || min(v2w)!=0) v2chk=1; if(max(v3w)!=0 || min(v3w)!=0) v3chk=1; if(max(v4w)!=0 || min(v4w)!=0) v4chk=1; if(max(p1w)!=0 || min(p1w)!=0) p1chk=1;
         // Collect GLOBAL TM
         if(TMG){
             // Rotate
