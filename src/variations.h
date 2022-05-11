@@ -2,7 +2,7 @@
 #define __variations_h__
 
 /*  
- /  Title:      SideFX Houdini FRACTAL FLAME generator: 2D
+ /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
  /  date:       October 2020, Last revised January 2022
  /
