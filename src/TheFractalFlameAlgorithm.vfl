@@ -52,7 +52,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     // CHAOS game
     int XAOS = _bound_XAOS;
     float XAOS_TO[] = _bound_XAOS_TO;
-    if(XAOS){ n=len(sIDX); idx=0; }
+    if(XAOS){ n=len(sIDX); idx=(int)(nrandom('twister')*n); }
     vector2 __mem = biunit();
     for(int i=0; i<iter; ++i){
         __tmp = 0;
@@ -81,10 +81,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         if(PFF) affine(__tmp, pfx, pfy, pfo);
         __mem = __tmp;
     }
-    if(chkNAN_v(RIP, __mem, _ALPHA[idx])) removepoint(0, _bound_ptnum);
+    float ALPHA = _ALPHA[idx];
+    if(chkNAN_v(RIP, __mem, ALPHA)) removepoint(0, _bound_ptnum);
     else{
         float pscl = 0.001;
-        float ALPHA = _ALPHA[idx];
         if(SYM) V_SYM(__mem, sym_mode);
         if(MB){ pscl *= mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, mb_mod, "set"); }
         _bound_P = (vector)__mem;
