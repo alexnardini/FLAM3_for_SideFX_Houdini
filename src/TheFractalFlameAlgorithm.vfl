@@ -39,16 +39,16 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     // Build genomes
     gemSYS SYS; SYS->gemSYSBuild();
     gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
-    int v2chk, v3chk, v4chk, p1chk, iter, v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; v2chk=GEM.v2chk; v3chk=GEM.v3chk; v4chk=GEM.v4chk; p1chk=GEM.p1chk; iter=SYS.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
+    int iter, v1type[], v2type[], v3type[], v4type[], p1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; iter=SYS.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
     float v1w[], v2w[], v3w[], v4w[], p1w[], grt, PBW[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; grt=GEM.grt; PBW=GEM.PBW; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=SYS.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[], gsc; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po; gsc=GEM.gsc;
     string sIDX[]=GEM.sIDX;
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->gemPrmBuild(sIDX, v1type);
-    if(v2chk) v2GMP->gemPrmBuild(sIDX, v2type);
-    if(v3chk) v3GMP->gemPrmBuild(sIDX, v3type);
-    if(v4chk) v4GMP->gemPrmBuild(sIDX, v4type);
-    if(p1chk) p1GMP->gemPrmBuild(sIDX, p1type);
+    v2GMP->gemPrmBuild(sIDX, v2type);
+    v3GMP->gemPrmBuild(sIDX, v3type);
+    v4GMP->gemPrmBuild(sIDX, v4type);
+    p1GMP->gemPrmBuild(sIDX, p1type);
     // CHAOS game
     int XAOS = _bound_XAOS;
     float XAOS_TO[] = _bound_XAOS_TO;
