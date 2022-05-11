@@ -44,11 +44,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     vector2 x[], y[], o[], px[], py[], po[], gsc; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po; gsc=GEM.gsc;
     string sIDX[]=GEM.sIDX;
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
-    v1GMP->gemPrmBuild(sIDX, v1type);
-    v2GMP->gemPrmBuild(sIDX, v2type);
-    v3GMP->gemPrmBuild(sIDX, v3type);
-    v4GMP->gemPrmBuild(sIDX, v4type);
-    p1GMP->gemPrmBuild(sIDX, p1type);
+    v1GMP->gemPrmBuild(sIDX, v1type, v1w);
+    v2GMP->gemPrmBuild(sIDX, v2type, v2w);
+    v3GMP->gemPrmBuild(sIDX, v3type, v3w);
+    v4GMP->gemPrmBuild(sIDX, v4type, v4w);
+    p1GMP->gemPrmBuild(sIDX, p1type, p1w);
     // CHAOS game
     int XAOS = _bound_XAOS;
     float XAOS_TO[] = _bound_XAOS_TO;

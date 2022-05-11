@@ -149,7 +149,7 @@ struct gemPrm{
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
 
-    void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]){
+    void gemPrmBuild(const string sIDX[]; const int GEMTYPE[]; const float w[]){
 
         if(max(GEMTYPE)>26){
             int iter_f = len(GEMTYPE);
@@ -166,7 +166,7 @@ struct gemPrm{
 
             for(int i=0; i<iter_f; ++i){
                 TYPE=GEMTYPE[i]; IDX=sIDX[i];
-                if(TYPE<27) continue;
+                if(TYPE<27 || w[i]==0) continue;
                 else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , TYPE)>=0){
                     if(TYPE<38){
                         // 27 CURL
