@@ -81,9 +81,8 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
             if(xaos[k]!=1.0) xaos_chk++;
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
-        append(_XAOS_TO, IW_xaos);
-        if(min(xaos)==max(xaos)) append(XAOS_TO, create_cdf(IW));
-        else append(XAOS_TO, create_cdf(IW_xaos));
+        if(min(xaos)==max(xaos)){ append(XAOS_TO, create_cdf(IW)); append(_XAOS_TO, IW); }
+        else{ append(XAOS_TO, create_cdf(IW_xaos)); append(_XAOS_TO, IW_xaos); }
     }
     
     _bound_VACTIVE = vactive;
