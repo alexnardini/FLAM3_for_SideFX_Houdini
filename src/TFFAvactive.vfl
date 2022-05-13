@@ -11,8 +11,8 @@
  /  Name:       TheFractalFlameAlgorithm    "VEX"
  /
  /  Comment:    Collect variation ACTIVE and XAOS.
- /              This file wont compile on H18.5 and below
- /              as the resize() array function got upgraded in H19 with an optional argument to set a default value for the new indexes.
+ /              This file wont compile on H18.5 and below as the resize() array function
+ /              got upgraded in H19 with an optional argument to set a default value for the new indexes.
  /
 */
 
