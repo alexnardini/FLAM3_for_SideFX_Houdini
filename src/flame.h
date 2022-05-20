@@ -145,42 +145,42 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==27){
                 vector2 curl_c;
                 if(!ftype) curl_c = GMP.curl_c[idx];
-                else  curl_c = chu(concat(PRX(ftype), "curlc_2"));
+                else curl_c = chu(concat(PRX(ftype), "curlc_2"));
                 V_CURL(p, _p, w, curl_c[0], curl_c[1]);
                 return p; }
             // 28 NGON ( parametric )
             else if(type==28){
                 vector4 ngon;
                 if(!ftype) ngon = GMP.ngon[idx];
-                else  ngon = chp(concat(PRX(ftype), "ngon_2"));
+                else ngon = chp(concat(PRX(ftype), "ngon_2"));
                 V_NGON(p, _p, w, ngon[0], ngon[1], ngon[2], ngon[3]);
                 return p; }
             // 29 PDJ ( parametric )
             else if(type==29){
                 vector4 pp;
                 if(!ftype) pp = GMP.pdj_w[idx];
-                else  pp = chp(concat(PRX(ftype), "pdjw_2"));
+                else pp = chp(concat(PRX(ftype), "pdjw_2"));
                 V_PDJ(p, _p, w, pp);
                 return p; }
             // 30 BLOB ( parametric )
             else if(type==30){
                 vector blob;
                 if(!ftype) blob = GMP.blob[idx];
-                else  blob = chv(concat(PRX(ftype), "blob_2"));
+                else blob = chv(concat(PRX(ftype), "blob_2"));
                 V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(type==31){
                 vector2 julian;
                 if(!ftype) julian = GMP.julian[idx];
-                else  julian = chu(concat(PRX(ftype), "julian_2"));
+                else julian = chu(concat(PRX(ftype), "julian_2"));
                 V_JULIAN(p, _p, w, julian[0], julian[1]);
                 return p; }
             // 32 JuliaScope ( parametric )
             else if(type==32){
                 vector2 juliascope;
                 if(!ftype) juliascope = GMP.juliascope[idx];
-                else  juliascope = chu(concat(PRX(ftype), "juliascope_2"));
+                else juliascope = chu(concat(PRX(ftype), "juliascope_2"));
                 V_JULIASCOPE(p, _p, w, juliascope[0], juliascope[1]);
                 return p; }
             // 33 Gaussian
@@ -191,7 +191,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==34){
                 vector2 fan2;
                 if(!ftype) fan2 = GMP.fan2[idx];
-                else  fan2 = chu(concat(PRX(ftype), "fan2_2"));
+                else fan2 = chu(concat(PRX(ftype), "fan2_2"));
                 V_FAN2(p, _p, w, fan2);
                 return p; }
         }
@@ -202,28 +202,28 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             if(type==35){
                 float rings2val;
                 if(!ftype) rings2val = GMP.rings2_val[idx];
-                else  rings2val = chf(concat(PRX(ftype), "rings2val_2"));
+                else rings2val = chf(concat(PRX(ftype), "rings2val_2"));
                 V_RINGS2(p, _p, w, rings2val);
                 return p; }
             // 36 Rectangles ( parametric )
             else if(type==36){
                 vector2 rect;
                 if(!ftype) rect = GMP.rectangles[idx];
-                else  rect = chu(concat(PRX(ftype), "rectangles_2"));
+                else rect = chu(concat(PRX(ftype), "rectangles_2"));
                 V_RECTANGLES(p, _p, w, rect);
                 return p; }
             // 37 Radial Blur ( parametric )
             else if(type==37){
                 vector2 radialblur;
                 if(!ftype) radialblur = GMP.radialblur[idx];
-                else  radialblur = chu(concat(PRX(ftype), "radialblur_2"));
+                else radialblur = chu(concat(PRX(ftype), "radialblur_2"));
                 V_RADIALBLUR(p, _p, w, radialblur[0], radialblur[1]);
                 return p; }
             // 38 PIE ( parametric )
             else if(type==38){
                 vector pie;
                 if(!ftype) pie = GMP.pie[idx];
-                else  pie = chv(concat(PRX(ftype), "pie_2"));
+                else pie = chv(concat(PRX(ftype), "pie_2"));
                 V_PIE(p, w, pie[0], pie[1], pie[2]);
                 return p; }
             // 39 ARCH
@@ -262,18 +262,18 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==47){
                 vector2 disc2;
                 if(!ftype) disc2 = GMP.disc2[idx];
-                else  disc2 = chu(concat(PRX(ftype), "disc2_2"));
+                else disc2 = chu(concat(PRX(ftype), "disc2_2"));
                 V_DISC2(p, _p, w, disc2[0], disc2[1]);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){
                 vector ss, ss_n;
                 if(!ftype){
-                    ss   = GMP.supershape[idx];
+                    ss = GMP.supershape[idx];
                     ss_n = GMP.supershape_n[idx];
                 }
                 else{
-                    ss   = chv(concat(PRX(ftype), "supershape_2"));
+                    ss = chv(concat(PRX(ftype), "supershape_2"));
                     ss_n = chv(concat(PRX(ftype), "supershapen_2"));
                 }
                 V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
@@ -282,7 +282,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==49){
                 vector2 flower;
                 if(!ftype) flower = GMP.flower[idx];
-                else  flower = chu(concat(PRX(ftype), "flower_2"));
+                else flower = chu(concat(PRX(ftype), "flower_2"));
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
         }
@@ -291,28 +291,28 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             if(type==50){
                 vector2 conic;
                 if(!ftype) conic = GMP.conic[idx];
-                else  conic =  chu(concat(PRX(ftype), "conic_2"));
+                else conic =  chu(concat(PRX(ftype), "conic_2"));
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
             // 51 PARABOLA ( parametric )
             else if(type==51){
                 vector2 parabola;
                 if(!ftype) parabola = GMP.parabola[idx];
-                else  parabola = chu(concat(PRX(ftype), "parabola_2"));
+                else parabola = chu(concat(PRX(ftype), "parabola_2"));
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
             // 52 BENT2 ( parametric )
             else if(type==52){
                 vector2 bent2;
                 if(!ftype) bent2 = GMP.bent2[idx];
-                else  bent2 = chu(concat(PRX(ftype), "bent2xy_2"));
+                else bent2 = chu(concat(PRX(ftype), "bent2xy_2"));
                 V_BENT2(p, _p, w, bent2);
                 return p; }
             // 53 BIPOLAR ( parametric )
             else if(type==53){
                 float shift;
                 if(!ftype) shift = GMP.bipolar_shift[idx];
-                else  shift = chf(concat(PRX(ftype), "bipolarshift_2"));
+                else shift = chf(concat(PRX(ftype), "bipolarshift_2"));
                 V_BIPOLAR(p, _p, w, shift);
                 return p; }
             // 54 BOARDERS
@@ -327,14 +327,14 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==56){
                 float size;
                 if(!ftype) size = GMP.cell_size[idx];
-                else  size = chf(concat(PRX(ftype), "cellsize_2"));
+                else size = chf(concat(PRX(ftype), "cellsize_2"));
                 V_CELL(p, _p, w, size);
                 return p; }
             // 57 CPOW ( parametric )
             else if(type==57){
                 vector cpow;
                 if(!ftype) cpow = GMP.cpow[idx];
-                else  cpow = chv(concat(PRX(ftype), "cpow_2"));
+                else cpow = chv(concat(PRX(ftype), "cpow_2"));
                 V_CPOW(p, _p, w, cpow[0], cpow[1], cpow[2]);
                 return p; }
             // 58 EDISC
@@ -353,7 +353,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==61){
                 float beta;
                 if(!ftype) beta = GMP.escher_beta[idx];
-                else  beta = chf(concat(PRX(ftype), "escherbeta_2"));
+                else beta = chf(concat(PRX(ftype), "escherbeta_2"));
                 V_ESCHER(p, _p, w, beta);
                 return p; }
             // 62 FOCI
@@ -365,12 +365,12 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 vector lazysusan;
                 vector2 lazysusanxyz;
                 if(!ftype){
-                    lazysusanxyz  = GMP.lazysusanxyz[idx];
-                    lazysusan     = GMP.lazysusan[idx];
+                    lazysusanxyz = GMP.lazysusanxyz[idx];
+                    lazysusan = GMP.lazysusan[idx];
                 }
                 else{
-                    lazysusanxyz  = chu(concat(PRX(ftype), "lazysusanxyz_2"));
-                    lazysusan     = chv(concat(PRX(ftype), "lazysusan_2"));
+                    lazysusanxyz = chu(concat(PRX(ftype), "lazysusanxyz_2"));
+                    lazysusan = chv(concat(PRX(ftype), "lazysusan_2"));
                 }
                 V_LAZYSUSAN(p, _p, w, lazysusan[0], lazysusan[1], lazysusan[2], lazysusanxyz);
                 return p; }
@@ -388,14 +388,14 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==66){
                 vector2 mod;
                 if(!ftype) mod = GMP.modulus[idx];
-                else  mod = chu(concat(PRX(ftype), "modulusXYZ_2"));
+                else mod = chu(concat(PRX(ftype), "modulusXYZ_2"));
                 V_MODULUS(p, _p, w, mod);
                 return p; }
             // 67 OSCOPE ( parametric )
             else if(type==67){
                 vector4 oscope;
                 if(!ftype) oscope = GMP.oscope[idx];
-                else  oscope = chp(concat(PRX(ftype), "oscope_2"));
+                else oscope = chp(concat(PRX(ftype), "oscope_2"));
                 V_OSCOPE(p, _p, w, oscope[0], oscope[1], oscope[2], oscope[3]);
                 return p; }
             // 68 POLAR2
@@ -407,11 +407,11 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 float pop2c;
                 vector2 pop2;
                 if(!ftype){
-                    pop2  = GMP.popcorn2[idx];
+                    pop2 = GMP.popcorn2[idx];
                     pop2c = GMP.popcorn2_c[idx];
                 }
                 else{
-                    pop2  = chu(concat(PRX(ftype), "popcorn2xyz_2"));
+                    pop2 = chu(concat(PRX(ftype), "popcorn2xyz_2"));
                     pop2c = chf(concat(PRX(ftype), "popcorn2c_2"));
                 }
                 V_POPCORN2(p, _p, w, pop2c, pop2);
@@ -441,60 +441,60 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==72){
                 vector2 split;
                 if(!ftype) split = GMP.split[idx];
-                else  split = chu(concat(PRX(ftype), "splitxyz_2"));
+                else split = chu(concat(PRX(ftype), "splitxyz_2"));
                 V_SPLIT(p, _p, w, split);
                 return p; }
             // 73 SPLITS ( parametric )
             else if(type==73){
                 vector2 splits;
                 if(!ftype) splits = GMP.splits[idx];
-                else  splits = chu(concat(PRX(ftype), "splitsxyz_2"));
+                else splits = chu(concat(PRX(ftype), "splitsxyz_2"));
                 V_SPLITS(p, _p, w, splits);
                 return p; }
             // 74 STRIPES ( parametric )
             else if(type==74){
                 vector2 stripes;
                 if(!ftype) stripes = GMP.stripes[idx];
-                else  stripes = chu(concat(PRX(ftype), "stripes_2"));
+                else stripes = chu(concat(PRX(ftype), "stripes_2"));
                 V_STRIPES(p, _p, w, stripes[0], stripes[1]);
                 return p; }
             // 75 WEDGE ( parametric )
             else if(type==75){
                 vector4 wedge;
                 if(!ftype) wedge = GMP.wedge[idx];
-                else  wedge = chp(concat(PRX(ftype), "wedge_2"));
+                else wedge = chp(concat(PRX(ftype), "wedge_2"));
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
             // 76 WEDGE JULIA ( parametric )
             else if(type==76){
                 vector4 wedgejulia;
                 if(!ftype) wedgejulia = GMP.wedgejulia[idx];
-                else  wedgejulia = chp(concat(PRX(ftype), "wedgejulia_2"));
+                else wedgejulia = chp(concat(PRX(ftype), "wedgejulia_2"));
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(type==77){
                 vector4 wedgesph;
                 if(!ftype) wedgesph = GMP.wedgesph[idx];
-                else  wedgesph = chp(concat(PRX(ftype), "wedgesph_2"));
+                else wedgesph = chp(concat(PRX(ftype), "wedgesph_2"));
                 V_WEDGESPH(p, _p, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
                 return p; }
             // 78 WHORL ( parametric )
             else if(type==78){
                 vector2 whorl;
-                if(!ftype) whorl  = GMP.whorl[idx];
-                else  whorl  = chu(concat(PRX(ftype), "whorl_2"));
+                if(!ftype) whorl = GMP.whorl[idx];
+                else whorl = chu(concat(PRX(ftype), "whorl_2"));
                 V_WHORL(p, _p, w, whorl[0], whorl[1]);
                 return p; }
             // 79 WAVES2 ( parametric )
             else if(type==79){
                 vector2 scl, freq;
                 if(!ftype){
-                    scl  = GMP.waves2_scale[idx];
+                    scl = GMP.waves2_scale[idx];
                     freq = GMP.waves2_freq[idx];
                 }
                 else{
-                    scl  = chu(concat(PRX(ftype), "waves2scalexyz_2"));
+                    scl = chu(concat(PRX(ftype), "waves2scalexyz_2"));
                     freq = chu(concat(PRX(ftype), "waves2freqxyz_2"));
                 }
                 V_WAVES2(p, _p, w, scl, freq);
@@ -561,14 +561,14 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==94){
                 vector4 auger;
                 if(!ftype) auger = GMP.auger[idx];
-                else  auger = chp(concat(PRX(ftype), "auger_2"));
+                else auger = chp(concat(PRX(ftype), "auger_2"));
                 V_AUGER(p, _p, w, auger[0], auger[1], auger[2], auger[3]);
                 return p; }
             // 95 FLUX ( parametric )
             else if(type==95){
                 float spread;
                 if(!ftype) spread = GMP.flux_spread[idx];
-                else  spread = chf(concat(PRX(ftype), "fluxspread_2"));
+                else spread = chf(concat(PRX(ftype), "fluxspread_2"));
                 V_FLUX(p, _p, w, spread);
                 return p; }
             // 96 MOBIUS ( parametric )
@@ -601,7 +601,7 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
             else if(type==98){
                 vector2 persp;
                 if(!ftype) persp = GMP.persp[idx];
-                else  persp = chu(concat(PRX(ftype), "persp_2"));
+                else persp = chu(concat(PRX(ftype), "persp_2"));
                 V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
                 return p; }
             // 99 BWRAPS ( parametric )
@@ -627,13 +627,13 @@ vector2 FLAME(const gemPrm GMP; const int ftype, idx, type; const vector2 pos, x
                 vector2 pow, lc, sc;
                 if(!ftype){
                     pow = GMP.polynomial_pow[idx];
-                    lc  = GMP.polynomial_lc[idx];
-                    sc  = GMP.polynomial_sc[idx];
+                    lc = GMP.polynomial_lc[idx];
+                    sc = GMP.polynomial_sc[idx];
                 }
                 else{
                     pow = chu(concat(PRX(ftype), "polynomialpow_2"));
-                    lc  = chu(concat(PRX(ftype), "polynomiallc_2"));
-                    sc  = chu(concat(PRX(ftype), "polynomialsc_2"));
+                    lc = chu(concat(PRX(ftype), "polynomiallc_2"));
+                    sc = chu(concat(PRX(ftype), "polynomialsc_2"));
                 }
                 V_POLYNOMIAL(p, _p, w, pow, lc, sc);
                 return p; }
