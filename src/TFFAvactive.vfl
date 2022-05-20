@@ -86,6 +86,8 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     
     _bound_VACTIVE = vactive;
     if(xaos_chk){
+        _bound_XAOS = xaos_chk;
+        _bound_XAOS_TO = XAOS_TO;
         /*
         // Just in case I need this later
         XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
@@ -93,13 +95,8 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
             int SL = i*size;
             append(XAOS_FROM, create_cdf(_XAOS_FROM[SL:SL+size]));
         }
+        _bound_XAOS_FROM = XAOS_FROM;
         */
-
-        _bound_XAOS = xaos_chk;
-        _bound_XAOS_TO = XAOS_TO;
-        
-        // For now we skip this last one
-        //_bound_XAOS_FROM = XAOS_FROM;
     }
     else{
         _bound_XAOS = 0;
