@@ -32,7 +32,7 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
     // 00 PREBLUR ( LINEAR removed from pre-variations, for now. )
     if(!type){ V_PREBLUR(_p, w); return _p; }
     else if(type<41){
-        if(type<14){
+        if(type<11){
             // 01 SINUSOIDAL
             if(type==1){
                 V_SINUSOIDAL(p, _p, w);
@@ -73,8 +73,10 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==10){
                 V_HIPERBOLIC(p, _p, w);
                 return p; }
+        }
+        else{
             // 11 DIAMOND
-            else if(type==11){
+            if(type==11){
                 V_DIAMOND(p, _p, w);
                 return p; }
             // 12 Ex
@@ -85,10 +87,8 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==13){
                 V_JULIA(p, _p, w);
                 return p; }
-        }
-        else{
             // 14 Bent
-            if(type==14){
+            else if(type==14){
                 V_BENT(p, _p, w);
                 return p; }
             // *15 Waves ( dependent )
@@ -115,8 +115,12 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==20){
                 V_COSINE(p, _p, w);
                 return p; }
+        }
+    }
+    else if(type<62){
+        if(type<42){
             // *21 RINGS ( dependent )
-            else if(type==21){
+            if(type==21){
                 V_RINGS(p, _p, w, o[0]);
                 return p; }
             // *22 FAN ( dependent )
@@ -143,12 +147,8 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==33){
                 V_GAUSSIAN(p, w);
                 return p; }
-        }
-    }
-    else if(type<70){
-        if(type<50){
             // 39 ARCH
-            if(type==39){
+            else if(type==39){
                 V_ARCH(p, _p, w);
                 return p; }
             // 40 TANGENT
@@ -159,8 +159,10 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==41){
                 V_SQUARE(p, _p, w);
                 return p; }
+        }
+        else{
             // 42 RAYS
-            else if(type==42){
+            if(type==42){
                 V_RAYS(p, _p, w);
                 return p; }
             // 43 BLADE
@@ -179,10 +181,8 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==46){
                 V_CROSS(p, _p, w);
                 return p; }
-        }
-        else{
             // 54 BOARDERS
-            if(type==54){
+            else if(type==54){
                 V_BOARDERS(p, _p, w);
                 return p; }
             // 55 BUTTERFLY
@@ -201,8 +201,12 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==60){
                 V_NOISE(p, _p, w);
                 return p; }
+        }
+    }
+    else if(type<102){
+        if(type<86){
             // 62 FOCI
-            else if(type==62){
+            if(type==62){
                 V_FOCI(p, _p, w);
                 return p; }
             // 64 LOONIE
@@ -219,12 +223,8 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==68){
                 V_POLAR2(p, _p, w);
                 return p; }
-        }
-    }
-    else if(type<102){
-        if(type<86){
             // 80 COTHE EXP
-            if(type==80){
+            else if(type==80){
                 V_COTHEEXP(p, _p, w);
                 return p; }
             // 81 COTHE LOG
@@ -254,7 +254,7 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
                 V_COTHECSC(p, _p, w);
                 return p; }
             // 87 COTHE COT
-            else if(type==87){
+            if(type==87){
                 V_COTHECOT(p, _p, w);
                 return p; }
             // 88 COTHE SINH
