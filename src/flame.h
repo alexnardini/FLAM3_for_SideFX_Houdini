@@ -13,7 +13,7 @@
  /
  /  Name:       TheFractalFlameAlgorithm    "VEX"
  /
- /  Comment:    Main FLAME function.
+ /  Comment:    FLAME function selection.
 */
 
 

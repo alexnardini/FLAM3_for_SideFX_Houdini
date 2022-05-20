@@ -13,7 +13,7 @@
  /
  /  Name:       TheFractalFlameAlgorithm    "VEX"
  /
- /  Comment:    Main FLAME PRE function.
+ /  Comment:    FLAME PRE function selection.
 */
 
 
@@ -25,7 +25,7 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
     //  p = out position
     // _p = incoming position
     vector2 p, _p; _p=pos;
-    // VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
+    // VARs with precalc pos: 9, 10, 11, 19, 21
 
     // FLAME VARIATIONS
     //
