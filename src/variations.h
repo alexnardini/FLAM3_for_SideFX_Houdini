@@ -752,8 +752,8 @@ void V_PREBLUR(vector2 p; const float w){
     rndG = w * (nrandom("twister") + nrandom("twister") + nrandom("twister") + nrandom("twister") - 2.0);
     rndA = nrandom("twister") * 2.0 * M_PI;
     sincos(rndA, sinA, cosA);
-    p[0] += rndG * cosA;
-    p[1] += rndG * sinA;
+    p[0] = rndG * cosA;
+    p[1] = rndG * sinA;
 }
 // 66 ( parametric )
 void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
