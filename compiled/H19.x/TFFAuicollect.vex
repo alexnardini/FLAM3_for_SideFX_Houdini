@@ -92,20 +92,20 @@ source_filename = "TFFAuicollect"
 @85 = private constant [10 x i8] c"wedge sph\00"
 @86 = private constant [6 x i8] c"whorl\00"
 @87 = private constant [7 x i8] c"waves2\00"
-@88 = private constant [10 x i8] c"cothe exp\00"
-@89 = private constant [10 x i8] c"cothe log\00"
-@90 = private constant [10 x i8] c"cothe sin\00"
-@91 = private constant [10 x i8] c"cothe cos\00"
-@92 = private constant [10 x i8] c"cothe tan\00"
-@93 = private constant [10 x i8] c"cothe sec\00"
-@94 = private constant [10 x i8] c"cothe csc\00"
-@95 = private constant [10 x i8] c"cothe cot\00"
-@96 = private constant [11 x i8] c"cothe sinh\00"
-@97 = private constant [11 x i8] c"cothe cosh\00"
-@98 = private constant [11 x i8] c"cothe tanh\00"
-@99 = private constant [11 x i8] c"cothe sech\00"
-@100 = private constant [11 x i8] c"cothe csch\00"
-@101 = private constant [11 x i8] c"cothe coth\00"
+@88 = private constant [4 x i8] c"exp\00"
+@89 = private constant [4 x i8] c"log\00"
+@90 = private constant [4 x i8] c"sin\00"
+@91 = private constant [4 x i8] c"cos\00"
+@92 = private constant [4 x i8] c"tan\00"
+@93 = private constant [4 x i8] c"sec\00"
+@94 = private constant [4 x i8] c"csc\00"
+@95 = private constant [4 x i8] c"cot\00"
+@96 = private constant [5 x i8] c"sinh\00"
+@97 = private constant [5 x i8] c"cosh\00"
+@98 = private constant [5 x i8] c"tanh\00"
+@99 = private constant [5 x i8] c"sech\00"
+@100 = private constant [5 x i8] c"csch\00"
+@101 = private constant [5 x i8] c"coth\00"
 @102 = private constant [6 x i8] c"auger\00"
 @103 = private constant [5 x i8] c"flux\00"
 @104 = private constant [7 x i8] c"mobius\00"
@@ -114,7 +114,7 @@ source_filename = "TFFAuicollect"
 @107 = private constant [7 x i8] c"bwraps\00"
 @108 = private constant [11 x i8] c"hemisphere\00"
 @109 = private constant [11 x i8] c"polynomial\00"
-@110 = private constant [102 x i8*] [i8* getelementptr inbounds ([7 x i8], [7 x i8]* @8, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @9, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @10, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @11, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @12, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @13, i64 0, i64 0), i8* getelementptr inbounds ([13 x i8], [13 x i8]* @14, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @15, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @17, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @18, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @19, i64 0, i64 0), i8* getelementptr inbounds ([3 x i8], [3 x i8]* @20, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @21, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @22, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @23, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @24, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @25, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @26, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @27, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @28, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @29, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @30, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @31, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @32, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @33, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @34, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @35, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @36, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @37, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @38, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @39, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @40, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @41, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @42, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @43, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @44, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @45, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @46, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @47, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @48, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @49, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @50, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @51, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @52, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @53, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @54, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @55, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @56, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @57, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @58, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @59, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @60, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @61, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @62, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @63, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @64, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @65, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @66, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @67, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @68, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @69, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @70, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @71, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @72, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @73, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @74, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @75, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @76, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @77, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @78, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @79, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @80, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @81, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @82, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @83, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @84, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @85, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @86, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @87, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @88, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @89, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @90, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @91, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @92, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @93, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @94, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @95, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @96, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @97, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @98, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @99, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @100, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @101, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @102, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @103, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @104, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @105, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @106, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @107, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @108, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @109, i64 0, i64 0)]
+@110 = private constant [102 x i8*] [i8* getelementptr inbounds ([7 x i8], [7 x i8]* @8, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @9, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @10, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @11, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @12, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @13, i64 0, i64 0), i8* getelementptr inbounds ([13 x i8], [13 x i8]* @14, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @15, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @17, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @18, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @19, i64 0, i64 0), i8* getelementptr inbounds ([3 x i8], [3 x i8]* @20, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @21, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @22, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @23, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @24, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @25, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @26, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @27, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @28, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @29, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @30, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @31, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @32, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @33, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @34, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @35, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @36, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @37, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @38, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @39, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @40, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @41, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @42, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @43, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @44, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @45, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @46, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @47, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @48, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @49, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @50, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @51, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @52, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @53, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @54, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @55, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @56, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @57, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @58, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @59, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @60, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @61, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @62, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @63, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @64, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @65, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @66, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @67, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @68, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @69, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @70, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @71, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @72, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @73, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @74, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @75, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @76, i64 0, i64 0), i8* getelementptr inbounds ([9 x i8], [9 x i8]* @77, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @78, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @79, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @80, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @81, i64 0, i64 0), i8* getelementptr inbounds ([8 x i8], [8 x i8]* @82, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @83, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @84, i64 0, i64 0), i8* getelementptr inbounds ([10 x i8], [10 x i8]* @85, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @86, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @87, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @88, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @89, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @90, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @91, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @92, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @93, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @94, i64 0, i64 0), i8* getelementptr inbounds ([4 x i8], [4 x i8]* @95, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @96, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @97, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @98, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @99, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @100, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @101, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @102, i64 0, i64 0), i8* getelementptr inbounds ([5 x i8], [5 x i8]* @103, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @104, i64 0, i64 0), i8* getelementptr inbounds ([6 x i8], [6 x i8]* @105, i64 0, i64 0), i8* getelementptr inbounds ([12 x i8], [12 x i8]* @106, i64 0, i64 0), i8* getelementptr inbounds ([7 x i8], [7 x i8]* @107, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @108, i64 0, i64 0), i8* getelementptr inbounds ([11 x i8], [11 x i8]* @109, i64 0, i64 0)]
 @111 = private constant [2 x i8] c"[\00"
 @112 = private constant [2 x i8] c"]\00"
 @113 = private constant [5 x i8] c"XAOS\00"
@@ -136,23 +136,25 @@ source_filename = "TFFAuicollect"
 @129 = private constant [13 x i8] c"../v4weight_\00"
 @130 = private constant [11 x i8] c"../v4type_\00"
 @131 = private constant [13 x i8] c"../p1weight_\00"
-@132 = private constant [11 x i8] c"../p1type_\00"
-@133 = private constant [3 x i8] c"] \00"
-@134 = private constant [18 x i8] c"../preblurweight_\00"
-@135 = private constant [2 x i8] c"*\00"
-@136 = private constant [3 x i8] c"%g\00"
-@137 = private constant [7 x i8] c"../iw_\00"
-@138 = private constant [2 x i8] c".\00"
-@139 = private constant [14 x i8] c"../ffv1weight\00"
-@140 = private constant [12 x i8] c"../ffv1type\00"
-@141 = private constant [14 x i8] c"../ffv2weight\00"
-@142 = private constant [12 x i8] c"../ffv2type\00"
-@143 = private constant [14 x i8] c"../ffv3weight\00"
-@144 = private constant [12 x i8] c"../ffv3type\00"
-@145 = private constant [14 x i8] c"../ffp1weight\00"
-@146 = private constant [12 x i8] c"../ffp1type\00"
+@132 = private constant [3 x i8] c" [\00"
+@133 = private constant [11 x i8] c"../p1type_\00"
+@134 = private constant [3 x i8] c"] \00"
+@135 = private constant [18 x i8] c"../preblurweight_\00"
+@136 = private constant [16 x i8] c"../preblurtype_\00"
+@137 = private constant [2 x i8] c"*\00"
+@138 = private constant [3 x i8] c"%g\00"
+@139 = private constant [7 x i8] c"../iw_\00"
+@140 = private constant [2 x i8] c".\00"
+@141 = private constant [14 x i8] c"../ffv1weight\00"
+@142 = private constant [12 x i8] c"../ffv1type\00"
+@143 = private constant [14 x i8] c"../ffv2weight\00"
+@144 = private constant [12 x i8] c"../ffv2type\00"
+@145 = private constant [14 x i8] c"../ffv3weight\00"
+@146 = private constant [12 x i8] c"../ffv3type\00"
+@147 = private constant [14 x i8] c"../ffp1weight\00"
+@148 = private constant [12 x i8] c"../ffp1type\00"
 @VARTYPE = external global i8**
-@147 = private constant [8 x i8] c"VARTYPE\00"
+@149 = private constant [8 x i8] c"VARTYPE\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"gemSYSBuild@Z6gemSYSM7N2FFIN3TMGIN4iterIN6iter_fIN2smIN6smtypeIN4dombI"(%gemSYS* %this) #0 {
@@ -353,7 +355,7 @@ end28:                                            ; preds = %true27, %end17
 
 cond:                                             ; preds = %end45, %end28
   %i.0 = phi i64 [ 0, %end28 ], [ %output37, %end45 ]
-  %type.4 = phi i8** [ %type.3, %end28 ], [ %output204, %end45 ]
+  %type.4 = phi i8** [ %type.3, %end28 ], [ %output219, %end45 ]
   %SYS32.fca.0.load = load i64, i64* %SYS1.fca.0.gep
   %SYS32.fca.0.insert = insertvalue %gemSYS undef, i64 %SYS32.fca.0.load, 0
   %SYS32.fca.1.load = load i64, i64* %SYS1.fca.1.gep
@@ -382,7 +384,7 @@ body:                                             ; preds = %cond
 
 end34:                                            ; preds = %cond
   %7 = icmp ne i64 %SYS32.fca.0.load, 0
-  br i1 %7, label %true208, label %end209
+  br i1 %7, label %true223, label %end224
 
 true43:                                           ; preds = %body
   br label %end45
@@ -393,9 +395,9 @@ false44:                                          ; preds = %body
   %return50 = fcmp one double %return48, 0.000000e+00
   br i1 %return50, label %true52, label %false53
 
-end45:                                            ; preds = %end167, %true43
-  %VAR.0 = phi i8* [ getelementptr inbounds ([13 x i8], [13 x i8]* @121, i64 0, i64 0), %true43 ], [ %return201, %end167 ]
-  %output204 = call i8** @"append@[SS"(i8** %type.4, i8* %VAR.0)
+end45:                                            ; preds = %end182, %true43
+  %VAR.0 = phi i8* [ getelementptr inbounds ([13 x i8], [13 x i8]* @121, i64 0, i64 0), %true43 ], [ %return216, %end182 ]
+  %output219 = call i8** @"append@[SS"(i8** %type.4, i8* %VAR.0)
   br label %cond
 
 true52:                                           ; preds = %false44
@@ -479,153 +481,166 @@ true123:                                          ; preds = %end102
 
 end124:                                           ; preds = %true123, %true128, %end102
   %P1.0 = phi i8* [ %return136, %true128 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true123 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end102 ]
-  %return138 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @134, i64 0, i64 0), i8* %return38)
+  %return138 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @135, i64 0, i64 0), i8* %return38)
   %return139 = call double @"chf@FS"(i8* %return138)
   %return141 = fcmp ogt double %return139, 0.000000e+00
   br i1 %return141, label %true143, label %end144
 
 true128:                                          ; preds = %true123
-  %return132 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @132, i64 0, i64 0), i8* %return38)
+  %return132 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @133, i64 0, i64 0), i8* %return38)
   %return133 = call i8* @"chs@SS"(i8* %return132)
   %return134 = call i64 @"atoi@IS"(i8* %return133)
   %return135 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return134)
-  %return136 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return135, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @133, i64 0, i64 0))
+  %return136 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @132, i64 0, i64 0), i8* %return135, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @134, i64 0, i64 0))
   br label %end124
 
 true143:                                          ; preds = %end124
   %return146 = fcmp one double %output116, 0.000000e+00
   br i1 %return146, label %true148, label %end144
 
-end144:                                           ; preds = %true143, %true148, %end124
-  %PB.0 = phi i8* [ getelementptr inbounds ([2 x i8], [2 x i8]* @135, i64 0, i64 0), %true148 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true143 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end124 ]
-  %return151 = fcmp one double %output116, 0.000000e+00
-  br i1 %return151, label %true153, label %false154
+end144:                                           ; preds = %true155, %false156, %true143, %end124
+  %PB.0 = phi i8* [ getelementptr inbounds ([2 x i8], [2 x i8]* @137, i64 0, i64 0), %true155 ], [ %return164, %false156 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true143 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end124 ]
+  %return166 = fcmp one double %output116, 0.000000e+00
+  br i1 %return166, label %true168, label %false169
 
 true148:                                          ; preds = %true143
+  %return151 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @136, i64 0, i64 0), i8* %return38)
+  %return152 = call i8* @"chs@SS"(i8* %return151)
+  %return153 = call i64 @"atoi@IS"(i8* %return152)
+  %return154 = call i64 @"not@II"(i64 %return153)
+  %8 = icmp ne i64 %return154, 0
+  br i1 %8, label %true155, label %false156
+
+true155:                                          ; preds = %true148
   br label %end144
 
-true153:                                          ; preds = %end144
-  %return157 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @137, i64 0, i64 0), i8* %return38)
-  %return158 = call double @"chf@FS"(i8* %return157)
-  %return159 = call i8* @"sprintf@SS:F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @136, i64 0, i64 0), double %return158)
-  br label %end155
+false156:                                         ; preds = %true148
+  %return163 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return153)
+  %return164 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return163, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @134, i64 0, i64 0))
+  br label %end144
 
-false154:                                         ; preds = %end144
-  br label %end155
+true168:                                          ; preds = %end144
+  %return172 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8* %return38)
+  %return173 = call double @"chf@FS"(i8* %return172)
+  %return174 = call i8* @"sprintf@SS:F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @138, i64 0, i64 0), double %return173)
+  br label %end170
 
-end155:                                           ; preds = %false154, %true153
-  %W.0 = phi i8* [ %return159, %true153 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %false154 ]
-  %return161 = call i8** @"split@[SSS"(i8* %W.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @138, i64 0, i64 0))
-  %return163 = call i64 @"len@I[S"(i8** %return161)
-  %return164 = call i64 @"gt@III"(i64 %return163, i64 1)
-  %8 = icmp ne i64 %return164, 0
-  br i1 %8, label %true165, label %false166
+false169:                                         ; preds = %end144
+  br label %end170
 
-true165:                                          ; preds = %end155
-  br label %cond170
+end170:                                           ; preds = %false169, %true168
+  %W.0 = phi i8* [ %return174, %true168 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %false169 ]
+  %return176 = call i8** @"split@[SSS"(i8* %W.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @140, i64 0, i64 0))
+  %return178 = call i64 @"len@I[S"(i8** %return176)
+  %return179 = call i64 @"gt@III"(i64 %return178, i64 1)
+  %9 = icmp ne i64 %return179, 0
+  br i1 %9, label %true180, label %false181
 
-false166:                                         ; preds = %end155
-  br label %end167
+true180:                                          ; preds = %end170
+  br label %cond185
 
-end167:                                           ; preds = %cond170, %false166
-  %out.0 = phi i8** [ %out.1, %cond170 ], [ %return161, %false166 ]
-  %return193 = call i8* @"join@S[SS"(i8** %out.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @138, i64 0, i64 0))
-  %return201 = call i8* @"concat@SSS:SSSSS"(i8* %PB.0, i8* %V1.0, i8* %V2.0, i8* %V3.0, i8* %V4.0, i8* %P1.0, i8* %return193)
+false181:                                         ; preds = %end170
+  br label %end182
+
+end182:                                           ; preds = %cond185, %false181
+  %out.0 = phi i8** [ %out.1, %cond185 ], [ %return176, %false181 ]
+  %return208 = call i8* @"join@S[SS"(i8** %out.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @140, i64 0, i64 0))
+  %return216 = call i8* @"concat@SSS:SSSSS"(i8* %PB.0, i8* %V1.0, i8* %V2.0, i8* %V3.0, i8* %V4.0, i8* %P1.0, i8* %return208)
   br label %end45
 
-cond170:                                          ; preds = %body171, %true165
-  %out.1 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @7, i64 0, i64 0), %true165 ], [ %output185, %body171 ]
-  %count.0 = phi i64 [ 1, %true165 ], [ %output188, %body171 ]
-  %__impl_foreach_index.0 = phi i64 [ 0, %true165 ], [ %output190, %body171 ]
-  %return174 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return163)
-  %9 = icmp ne i64 %return174, 0
-  br i1 %9, label %body171, label %end167
+cond185:                                          ; preds = %body186, %true180
+  %out.1 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @7, i64 0, i64 0), %true180 ], [ %output200, %body186 ]
+  %count.0 = phi i64 [ 1, %true180 ], [ %output203, %body186 ]
+  %__impl_foreach_index.0 = phi i64 [ 0, %true180 ], [ %output205, %body186 ]
+  %return189 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return178)
+  %10 = icmp ne i64 %return189, 0
+  br i1 %10, label %body186, label %end182
 
-body171:                                          ; preds = %cond170
-  %return179 = call i8* @"getcomp@S[SI"(i8** %return161, i64 %__impl_foreach_index.0)
-  %output183 = call i64 @"div@II"(i64 6, i64 %count.0)
-  %return184 = call i8* @"slice@SSIIIIII"(i8* %return179, i64 0, i64 0, i64 1, i64 %output183, i64 0, i64 0)
-  %output185 = call i8** @"append@[SS"(i8** %out.1, i8* %return184)
-  %output188 = add i64 %count.0, 1
-  %output190 = add i64 %__impl_foreach_index.0, 1
-  br label %cond170
+body186:                                          ; preds = %cond185
+  %return194 = call i8* @"getcomp@S[SI"(i8** %return176, i64 %__impl_foreach_index.0)
+  %output198 = call i64 @"div@II"(i64 6, i64 %count.0)
+  %return199 = call i8* @"slice@SSIIIIII"(i8* %return194, i64 0, i64 0, i64 1, i64 %output198, i64 0, i64 0)
+  %output200 = call i8** @"append@[SS"(i8** %out.1, i8* %return199)
+  %output203 = add i64 %count.0, 1
+  %output205 = add i64 %__impl_foreach_index.0, 1
+  br label %cond185
 
-true208:                                          ; preds = %end34
-  %return211 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @139, i64 0, i64 0))
-  %return213 = fcmp one double %return211, 0.000000e+00
-  br i1 %return213, label %true215, label %false216
+true223:                                          ; preds = %end34
+  %return226 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @141, i64 0, i64 0))
+  %return228 = fcmp one double %return226, 0.000000e+00
+  br i1 %return228, label %true230, label %false231
 
-end209:                                           ; preds = %end256, %end34
-  %type.5 = phi i8** [ %output275, %end256 ], [ %type.4, %end34 ]
+end224:                                           ; preds = %end271, %end34
+  %type.5 = phi i8** [ %output290, %end271 ], [ %type.4, %end34 ]
   store i8** %type.5, i8*** %_bound_VARTYPE
   ret void
 
-true215:                                          ; preds = %true208
-  %return219 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @140, i64 0, i64 0))
-  %return220 = call i64 @"atoi@IS"(i8* %return219)
-  %return221 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return220)
-  %output222 = call i8* @"add@SS"(i8* %return221, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
-  br label %end217
+true230:                                          ; preds = %true223
+  %return234 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @142, i64 0, i64 0))
+  %return235 = call i64 @"atoi@IS"(i8* %return234)
+  %return236 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return235)
+  %output237 = call i8* @"add@SS"(i8* %return236, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end232
 
-false216:                                         ; preds = %true208
-  br label %end217
+false231:                                         ; preds = %true223
+  br label %end232
 
-end217:                                           ; preds = %false216, %true215
-  %FV1.0 = phi i8* [ %output222, %true215 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false216 ]
-  %return223 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @141, i64 0, i64 0))
-  %return225 = fcmp one double %return223, 0.000000e+00
-  br i1 %return225, label %true227, label %false228
+end232:                                           ; preds = %false231, %true230
+  %FV1.0 = phi i8* [ %output237, %true230 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false231 ]
+  %return238 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @143, i64 0, i64 0))
+  %return240 = fcmp one double %return238, 0.000000e+00
+  br i1 %return240, label %true242, label %false243
 
-true227:                                          ; preds = %end217
-  %return231 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @142, i64 0, i64 0))
-  %return232 = call i64 @"atoi@IS"(i8* %return231)
-  %return233 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return232)
-  %output234 = call i8* @"add@SS"(i8* %return233, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
-  br label %end229
+true242:                                          ; preds = %end232
+  %return246 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @144, i64 0, i64 0))
+  %return247 = call i64 @"atoi@IS"(i8* %return246)
+  %return248 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return247)
+  %output249 = call i8* @"add@SS"(i8* %return248, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0))
+  br label %end244
 
-false228:                                         ; preds = %end217
-  br label %end229
+false243:                                         ; preds = %end232
+  br label %end244
 
-end229:                                           ; preds = %false228, %true227
-  %FV2.0 = phi i8* [ %output234, %true227 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false228 ]
-  %return235 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @143, i64 0, i64 0))
-  %return237 = fcmp one double %return235, 0.000000e+00
-  br i1 %return237, label %true239, label %false240
+end244:                                           ; preds = %false243, %true242
+  %FV2.0 = phi i8* [ %output249, %true242 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false243 ]
+  %return250 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @145, i64 0, i64 0))
+  %return252 = fcmp one double %return250, 0.000000e+00
+  br i1 %return252, label %true254, label %false255
 
-true239:                                          ; preds = %end229
-  %return243 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @144, i64 0, i64 0))
-  %return244 = call i64 @"atoi@IS"(i8* %return243)
-  %return245 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return244)
-  br label %end241
-
-false240:                                         ; preds = %end229
-  br label %end241
-
-end241:                                           ; preds = %false240, %true239
-  %FV3.0 = phi i8* [ %return245, %true239 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false240 ]
-  %output248 = fadd double %return211, %return223
-  %output250 = fadd double %output248, %return235
-  %return251 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @145, i64 0, i64 0))
-  %return253 = fcmp one double %return251, 0.000000e+00
-  br i1 %return253, label %true255, label %end256
-
-true255:                                          ; preds = %end241
-  %return258 = fcmp one double %output250, 0.000000e+00
-  br i1 %return258, label %true260, label %end256
-
-end256:                                           ; preds = %true255, %true260, %end241
-  %FP1.0 = phi i8* [ %return266, %true260 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true255 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end241 ]
-  %return271 = call i8* @"concat@SSS:SS"(i8* %FV1.0, i8* %FV2.0, i8* %FV3.0, i8* %FP1.0)
-  %return274 = call i8* @"toupper@SS"(i8* %return271)
-  %output275 = call i8** @"append@[SS"(i8** %type.4, i8* %return274)
-  br label %end209
-
-true260:                                          ; preds = %true255
-  %return263 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @146, i64 0, i64 0))
-  %return264 = call i64 @"atoi@IS"(i8* %return263)
-  %return265 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return264)
-  %return266 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return265, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
+true254:                                          ; preds = %end244
+  %return258 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @146, i64 0, i64 0))
+  %return259 = call i64 @"atoi@IS"(i8* %return258)
+  %return260 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return259)
   br label %end256
+
+false255:                                         ; preds = %end244
+  br label %end256
+
+end256:                                           ; preds = %false255, %true254
+  %FV3.0 = phi i8* [ %return260, %true254 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @124, i64 0, i64 0), %false255 ]
+  %output263 = fadd double %return226, %return238
+  %output265 = fadd double %output263, %return250
+  %return266 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @147, i64 0, i64 0))
+  %return268 = fcmp one double %return266, 0.000000e+00
+  br i1 %return268, label %true270, label %end271
+
+true270:                                          ; preds = %end256
+  %return273 = fcmp one double %output265, 0.000000e+00
+  br i1 %return273, label %true275, label %end271
+
+end271:                                           ; preds = %true270, %true275, %end256
+  %FP1.0 = phi i8* [ %return281, %true275 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %true270 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @119, i64 0, i64 0), %end256 ]
+  %return286 = call i8* @"concat@SSS:SS"(i8* %FV1.0, i8* %FV2.0, i8* %FV3.0, i8* %FP1.0)
+  %return289 = call i8* @"toupper@SS"(i8* %return286)
+  %output290 = call i8** @"append@[SS"(i8** %type.4, i8* %return289)
+  br label %end224
+
+true275:                                          ; preds = %true270
+  %return278 = call i8* @"chs@SS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @148, i64 0, i64 0))
+  %return279 = call i64 @"atoi@IS"(i8* %return278)
+  %return280 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([102 x i8*], [102 x i8*]* @110, i64 0, i64 0), i64 %return279)
+  %return281 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return280, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
+  br label %end271
 }
 
 ; Function Attrs: nounwind readnone
@@ -701,7 +716,7 @@ __llvm_entry:
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
   call void @"_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
   %evalue = load i8**, i8*** %"<VARTYPE>"
-  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @147, i64 0, i64 0), i8** %evalue) #3
+  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @149, i64 0, i64 0), i8** %evalue) #3
   store i8** %gvalue, i8*** @VARTYPE
   ret void
 }

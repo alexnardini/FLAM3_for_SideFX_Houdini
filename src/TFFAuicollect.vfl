@@ -183,11 +183,16 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             float w_total = w1+w2+w3+w4;
             // Post var
             pw1 = chf(concat("../p1weight_", _IDX));
-            if(pw1!=0) { if(w_total != 0) P1 = concat( "[", stype[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
+            if(pw1!=0) { if(w_total != 0) P1 = concat( " [", stype[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
 
             // Pre blur
             pbw = chf(concat("../preblurweight_" , _IDX));
-            if(pbw>0){ if(w_total != 0) PB = "*"; }
+            if(pbw>0){
+                if(w_total != 0){
+                    if(!atoi(chs(concat("../preblurtype_", _IDX)))) PB="*";
+                    else PB = concat( "[", stype[atoi(chs(concat("../preblurtype_", _IDX)))], "] ");
+                    }
+            }
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX)));
             else W = "";
