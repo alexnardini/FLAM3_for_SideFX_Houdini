@@ -223,6 +223,10 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
             else if(type==68){
                 V_POLAR2(p, _p, w);
                 return p; }
+            // 70 SCRY ( parametric )
+            else if(type==70){
+                V_SCRY(p, _p, w);
+                return p; }
             // 80 COTHE EXP
             else if(type==80){
                 V_COTHEEXP(p, _p, w);
