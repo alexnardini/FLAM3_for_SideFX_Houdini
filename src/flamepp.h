@@ -31,7 +31,7 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
     //
     // 00 PREBLUR ( LINEAR removed from pre-variations, for now. )
     if(!type){ V_PREBLUR(_p, w); return _p; }
-    else if(type<41){
+    else if(type<21){
         if(type<11){
             // 01 SINUSOIDAL
             if(type==1){
@@ -203,7 +203,7 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
                 return p; }
         }
     }
-    else if(type<102){
+    else if(type<101){
         if(type<86){
             // 62 FOCI
             if(type==62){

@@ -10366,7 +10366,7 @@ true:                                             ; preds = %__llvm_entry
   br label %UnifiedReturnBlock
 
 false:                                            ; preds = %__llvm_entry
-  %return6 = call i64 @"lt@III"(i64 %type2, i64 41)
+  %return6 = call i64 @"lt@III"(i64 %type2, i64 21)
   %124 = icmp ne i64 %return6, 0
   br i1 %124, label %true7, label %false8
 
@@ -10668,7 +10668,7 @@ true187:                                          ; preds = %false8
   br i1 %147, label %true192, label %false193
 
 false188:                                         ; preds = %false8
-  %return354 = call i64 @"lt@III"(i64 %type2, i64 102)
+  %return354 = call i64 @"lt@III"(i64 %type2, i64 101)
   %148 = icmp ne i64 %return354, 0
   br i1 %148, label %true355, label %end9
 
