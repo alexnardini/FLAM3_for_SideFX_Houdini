@@ -14,6 +14,9 @@
  /  Name:       TheFractalFlameAlgorithm    "VEX"
  /
  /  Comment:    FLAME PRE function selection.
+ /              Parametric variations have been removed to keep it faster
+ /              I may add them back in the future if SideFX improve somehow on retriving parameters data and such.
+ /              Still, just with the non-parametric variations it allow infinite combinations already.
 */
 
 
