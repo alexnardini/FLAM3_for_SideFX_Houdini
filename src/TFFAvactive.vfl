@@ -100,10 +100,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     }
     else{
         _bound_XAOS = 0;
-        float CDF[] = create_cdf(IW);
-        for(int i=0; i<1024; ++i){
-            append(_bound_XAOS_TO, (float)sample_cdf(CDF, nrandom("twister")));
-        }
+        _bound_XAOS_TO = create_cdf(IW);
     }
 }
 
