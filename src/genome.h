@@ -60,7 +60,7 @@ struct gem{
             append(ALPHA, chf(concat("../alpha_", IDX)));
             // PRE BLUR
             append(pp1w, chf(concat("../preblurweight_" , IDX)));
-            if(pp1w[-1]!=0) append(pp1type, atoi(chs(concat("../preblurtype_", IDX))));
+            if(pp1w[-1]>0) append(pp1type, atoi(chs(concat("../preblurtype_", IDX))));
             else resize(pp1type, res);
             // VAR 01
             append(v1w, chf(concat("../v1weight_", IDX)));

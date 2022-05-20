@@ -754,7 +754,7 @@ end15:                                            ; preds = %body
   store %gem %19, %gem* %this
   %return55 = call i64 @"neg@II"(i64 1)
   %return56 = call double @"getcomp@F[FI"(double* %output51, i64 %return55)
-  %return57 = fcmp one double %return56, 0.000000e+00
+  %return57 = fcmp ogt double %return56, 0.000000e+00
   %pp1type = extractvalue %gem %19, 5
   br i1 %return57, label %true59, label %false
 
