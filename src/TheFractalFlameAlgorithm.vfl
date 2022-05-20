@@ -76,10 +76,10 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         float ffv1w, ffv2w, ffv3w, ffp1w; ffv1w=GEM.ffv1w; ffv2w=GEM.ffv2w; ffv3w=GEM.ffv3w; ffp1w=GEM.ffp1w;
         vector2 fx, fy, fo, pfx, pfy, pfo; fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
         __tmp = 0;
-        if(ffv1w!=0) __tmp += FLAMEFF(v1GMP, 1, 0, ffv1type, __mem, fx, fy, fo, ffv1w);
-        if(ffv2w!=0) __tmp += FLAMEFF(v1GMP, 1, 0, ffv2type, __mem, fx, fy, fo, ffv2w);
-        if(ffv3w!=0) __tmp += FLAMEFF(v1GMP, 1, 0, ffv3type, __mem, fx, fy, fo, ffv3w);
-        if(ffp1w!=0) __tmp  = FLAMEFF(v1GMP, 2, 0, ffp1type, __tmp, {1, 0}, {0, 1}, {0, 0}, ffp1w);
+        if(ffv1w!=0) __tmp += FLAMEFF(v1GMP, 1, ffv1type, __mem, fx, fy, fo, ffv1w);
+        if(ffv2w!=0) __tmp += FLAMEFF(v1GMP, 1, ffv2type, __mem, fx, fy, fo, ffv2w);
+        if(ffv3w!=0) __tmp += FLAMEFF(v1GMP, 1, ffv3type, __mem, fx, fy, fo, ffv3w);
+        if(ffp1w!=0) __tmp  = FLAMEFF(v1GMP, 2, ffp1type, __tmp, {1, 0}, {0, 1}, {0, 0}, ffp1w);
         if(PFF) affine(__tmp, pfx, pfy, pfo);
         __mem = __tmp;
     }

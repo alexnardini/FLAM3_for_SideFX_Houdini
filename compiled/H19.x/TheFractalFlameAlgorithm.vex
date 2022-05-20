@@ -10378,7 +10378,7 @@ UnifiedReturnBlock:                               ; preds = %true506, %true498, 
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIIUUUUF"(%gemPrm* %GMP, i64* %ftype, i64* %idx, i64* %type, <2 x double>* %pos, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o, double* %w) #0 {
+define private <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %GMP, i64* %ftype, i64* %type, <2 x double>* %pos, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o, double* %w) #0 {
 __llvm_entry:
   %_p = alloca <2 x double>
   %0 = alloca <2 x double>
@@ -12705,43 +12705,39 @@ __llvm_entry:
   %69 = alloca %gemPrm
   %70 = alloca i64
   %71 = alloca i64
-  %72 = alloca i64
+  %72 = alloca <2 x double>
   %73 = alloca <2 x double>
   %74 = alloca <2 x double>
   %75 = alloca <2 x double>
-  %76 = alloca <2 x double>
-  %77 = alloca double
-  %78 = alloca %gemPrm
+  %76 = alloca double
+  %77 = alloca %gemPrm
+  %78 = alloca i64
   %79 = alloca i64
-  %80 = alloca i64
-  %81 = alloca i64
+  %80 = alloca <2 x double>
+  %81 = alloca <2 x double>
   %82 = alloca <2 x double>
   %83 = alloca <2 x double>
-  %84 = alloca <2 x double>
-  %85 = alloca <2 x double>
-  %86 = alloca double
-  %87 = alloca %gemPrm
-  %88 = alloca i64
-  %89 = alloca i64
-  %90 = alloca i64
+  %84 = alloca double
+  %85 = alloca %gemPrm
+  %86 = alloca i64
+  %87 = alloca i64
+  %88 = alloca <2 x double>
+  %89 = alloca <2 x double>
+  %90 = alloca <2 x double>
   %91 = alloca <2 x double>
-  %92 = alloca <2 x double>
-  %93 = alloca <2 x double>
-  %94 = alloca <2 x double>
-  %95 = alloca double
-  %96 = alloca %gemPrm
-  %97 = alloca i64
-  %98 = alloca i64
-  %99 = alloca i64
-  %100 = alloca <2 x double>
+  %92 = alloca double
+  %93 = alloca %gemPrm
+  %94 = alloca i64
+  %95 = alloca i64
+  %96 = alloca <2 x double>
+  %97 = alloca <2 x double>
+  %98 = alloca <2 x double>
+  %99 = alloca <2 x double>
+  %100 = alloca double
   %101 = alloca <2 x double>
   %102 = alloca <2 x double>
   %103 = alloca <2 x double>
-  %104 = alloca double
-  %105 = alloca <2 x double>
-  %106 = alloca <2 x double>
-  %107 = alloca <2 x double>
-  %108 = alloca i64
+  %104 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %__tmp, !vex-initializer-store !3
   %SYS1 = call %gemSYS @"gemSYS@Z6gemSYSM10N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN8sym_modeIN2MBIN6mb_modF"()
   %SYS1.fca.0.extract = extractvalue %gemSYS %SYS1, 0
@@ -13818,8 +13814,8 @@ __llvm_entry:
   call void @"gemPrmBuild@Z6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[P[S[I[F"(%gemPrm* %p1GMP, i8*** %14, i64** %15, double** %16)
   %_bound_XAOS91 = load i64, i64* %_bound_XAOS
   %_bound_XAOS_TO92 = load double*, double** %_bound_XAOS_TO
-  %109 = icmp ne i64 %_bound_XAOS91, 0
-  br i1 %109, label %true, label %end
+  %105 = icmp ne i64 %_bound_XAOS91, 0
+  br i1 %105, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
   %return = call i64 @"len@I[S"(i8** %GEM7.fca.37.load)
@@ -13842,17 +13838,17 @@ cond:                                             ; preds = %end279, %end
   %PREV_CLR.0 = phi double [ 0.000000e+00, %end ], [ %output297, %end279 ]
   %i.0 = phi i64 [ 0, %end ], [ %output300, %end279 ]
   %return100 = call i64 @"lt@III"(i64 %i.0, i64 %SYS5.fca.6.load)
-  %110 = icmp ne i64 %return100, 0
-  br i1 %110, label %body, label %end101
+  %106 = icmp ne i64 %return100, 0
+  br i1 %106, label %body, label %end101
 
 body:                                             ; preds = %cond
   %cast103 = call <2 x double> @"set@UI"(i64 0)
   store <2 x double> %cast103, <2 x double>* %__tmp
-  br i1 %109, label %true105, label %false
+  br i1 %105, label %true105, label %false
 
 end101:                                           ; preds = %cond
-  %111 = icmp ne i64 %SYS5.fca.1.load, 0
-  br i1 %111, label %true302, label %end303
+  %107 = icmp ne i64 %SYS5.fca.1.load, 0
+  br i1 %107, label %true302, label %end303
 
 true105:                                          ; preds = %body
   %output109 = mul i64 %idx.1, %n.0
@@ -15018,8 +15014,8 @@ true251:                                          ; preds = %end224
 
 end252:                                           ; preds = %true251, %end224
   %return265 = call i64 @"getcomp@I[II"(i64* %GEM7.fca.6.load, i64 %idx.2)
-  %112 = icmp ne i64 %return265, 0
-  br i1 %112, label %true266, label %end267
+  %108 = icmp ne i64 %return265, 0
+  br i1 %108, label %true266, label %end267
 
 true266:                                          ; preds = %end252
   %return270 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM7.fca.28.load, i64 %idx.2)
@@ -15032,8 +15028,8 @@ true266:                                          ; preds = %end252
   br label %end267
 
 end267:                                           ; preds = %true266, %end252
-  %113 = icmp ne i64 %SYS5.fca.0.load, 0
-  br i1 %113, label %true278, label %end279
+  %109 = icmp ne i64 %SYS5.fca.0.load, 0
+  br i1 %109, label %true278, label %end279
 
 true278:                                          ; preds = %end267
   %__tmp280 = load <2 x double>, <2 x double>* %__tmp
@@ -15144,19 +15140,19 @@ end303:                                           ; preds = %end385, %end101
   store <2 x double> %__mem394, <2 x double>* %67
   store double %return392, double* %68
   %chkNAN_v = call i64 @"chkNAN_v@IIUF"(i64* %66, <2 x double>* %67, double* %68)
-  %114 = icmp ne i64 %chkNAN_v, 0
-  br i1 %114, label %true396, label %false397
+  %110 = icmp ne i64 %chkNAN_v, 0
+  br i1 %110, label %true396, label %false397
 
 true336:                                          ; preds = %true302
   store i64 1, i64* %70
-  store i64 %GEM304.fca.7.load, i64* %72
+  store i64 %GEM304.fca.7.load, i64* %71
   %__mem340 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem340, <2 x double>* %73
-  store <2 x double> %GEM304.fca.31.load, <2 x double>* %74
-  store <2 x double> %GEM304.fca.32.load, <2 x double>* %75
-  store <2 x double> %GEM304.fca.33.load, <2 x double>* %76
-  store double %GEM304.fca.20.load, double* %77
-  %FLAMEFF = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIIUUUUF"(%gemPrm* %69, i64* %70, i64* %71, i64* %72, <2 x double>* %73, <2 x double>* %74, <2 x double>* %75, <2 x double>* %76, double* %77)
+  store <2 x double> %__mem340, <2 x double>* %72
+  store <2 x double> %GEM304.fca.31.load, <2 x double>* %73
+  store <2 x double> %GEM304.fca.32.load, <2 x double>* %74
+  store <2 x double> %GEM304.fca.33.load, <2 x double>* %75
+  store double %GEM304.fca.20.load, double* %76
+  %FLAMEFF = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %69, i64* %70, i64* %71, <2 x double>* %72, <2 x double>* %73, <2 x double>* %74, <2 x double>* %75, double* %76)
   %output345 = call <2 x double> @"add@UU"(<2 x double> %cast332, <2 x double> %FLAMEFF)
   store <2 x double> %output345, <2 x double>* %__tmp
   br label %end337
@@ -15167,15 +15163,15 @@ end337:                                           ; preds = %true336, %true302
 
 true349:                                          ; preds = %end337
   %__tmp351 = load <2 x double>, <2 x double>* %__tmp
-  store i64 1, i64* %79
-  store i64 %GEM304.fca.8.load, i64* %81
+  store i64 1, i64* %78
+  store i64 %GEM304.fca.8.load, i64* %79
   %__mem353 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem353, <2 x double>* %82
-  store <2 x double> %GEM304.fca.31.load, <2 x double>* %83
-  store <2 x double> %GEM304.fca.32.load, <2 x double>* %84
-  store <2 x double> %GEM304.fca.33.load, <2 x double>* %85
-  store double %GEM304.fca.21.load, double* %86
-  %FLAMEFF358 = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIIUUUUF"(%gemPrm* %78, i64* %79, i64* %80, i64* %81, <2 x double>* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, double* %86)
+  store <2 x double> %__mem353, <2 x double>* %80
+  store <2 x double> %GEM304.fca.31.load, <2 x double>* %81
+  store <2 x double> %GEM304.fca.32.load, <2 x double>* %82
+  store <2 x double> %GEM304.fca.33.load, <2 x double>* %83
+  store double %GEM304.fca.21.load, double* %84
+  %FLAMEFF358 = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %77, i64* %78, i64* %79, <2 x double>* %80, <2 x double>* %81, <2 x double>* %82, <2 x double>* %83, double* %84)
   %output359 = call <2 x double> @"add@UU"(<2 x double> %__tmp351, <2 x double> %FLAMEFF358)
   store <2 x double> %output359, <2 x double>* %__tmp
   br label %end350
@@ -15186,15 +15182,15 @@ end350:                                           ; preds = %true349, %end337
 
 true363:                                          ; preds = %end350
   %__tmp365 = load <2 x double>, <2 x double>* %__tmp
-  store i64 1, i64* %88
-  store i64 %GEM304.fca.9.load, i64* %90
+  store i64 1, i64* %86
+  store i64 %GEM304.fca.9.load, i64* %87
   %__mem367 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem367, <2 x double>* %91
-  store <2 x double> %GEM304.fca.31.load, <2 x double>* %92
-  store <2 x double> %GEM304.fca.32.load, <2 x double>* %93
-  store <2 x double> %GEM304.fca.33.load, <2 x double>* %94
-  store double %GEM304.fca.22.load, double* %95
-  %FLAMEFF372 = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIIUUUUF"(%gemPrm* %87, i64* %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, <2 x double>* %94, double* %95)
+  store <2 x double> %__mem367, <2 x double>* %88
+  store <2 x double> %GEM304.fca.31.load, <2 x double>* %89
+  store <2 x double> %GEM304.fca.32.load, <2 x double>* %90
+  store <2 x double> %GEM304.fca.33.load, <2 x double>* %91
+  store double %GEM304.fca.22.load, double* %92
+  %FLAMEFF372 = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %85, i64* %86, i64* %87, <2 x double>* %88, <2 x double>* %89, <2 x double>* %90, <2 x double>* %91, double* %92)
   %output373 = call <2 x double> @"add@UU"(<2 x double> %__tmp365, <2 x double> %FLAMEFF372)
   store <2 x double> %output373, <2 x double>* %__tmp
   br label %end364
@@ -15204,27 +15200,27 @@ end364:                                           ; preds = %true363, %end350
   br i1 %return375, label %true377, label %end378
 
 true377:                                          ; preds = %end364
-  store i64 2, i64* %97
-  store i64 %GEM304.fca.10.load, i64* %99
+  store i64 2, i64* %94
+  store i64 %GEM304.fca.10.load, i64* %95
   %__tmp380 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp380, <2 x double>* %100
-  store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %101
-  store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %102
-  store <2 x double> zeroinitializer, <2 x double>* %103
-  store double %GEM304.fca.23.load, double* %104
-  %FLAMEFF382 = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIIUUUUF"(%gemPrm* %96, i64* %97, i64* %98, i64* %99, <2 x double>* %100, <2 x double>* %101, <2 x double>* %102, <2 x double>* %103, double* %104)
+  store <2 x double> %__tmp380, <2 x double>* %96
+  store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %97
+  store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %98
+  store <2 x double> zeroinitializer, <2 x double>* %99
+  store double %GEM304.fca.23.load, double* %100
+  %FLAMEFF382 = call <2 x double> @"FLAMEFF@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %93, i64* %94, i64* %95, <2 x double>* %96, <2 x double>* %97, <2 x double>* %98, <2 x double>* %99, double* %100)
   store <2 x double> %FLAMEFF382, <2 x double>* %__tmp
   br label %end378
 
 end378:                                           ; preds = %true377, %end364
-  %115 = icmp ne i64 %SYS5.fca.2.load, 0
-  br i1 %115, label %true384, label %end385
+  %111 = icmp ne i64 %SYS5.fca.2.load, 0
+  br i1 %111, label %true384, label %end385
 
 true384:                                          ; preds = %end378
-  store <2 x double> %GEM304.fca.34.load, <2 x double>* %105
-  store <2 x double> %GEM304.fca.35.load, <2 x double>* %106
-  store <2 x double> %GEM304.fca.36.load, <2 x double>* %107
-  call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %105, <2 x double>* %106, <2 x double>* %107)
+  store <2 x double> %GEM304.fca.34.load, <2 x double>* %101
+  store <2 x double> %GEM304.fca.35.load, <2 x double>* %102
+  store <2 x double> %GEM304.fca.36.load, <2 x double>* %103
+  call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %101, <2 x double>* %102, <2 x double>* %103)
   br label %end385
 
 end385:                                           ; preds = %true384, %end378
@@ -15238,20 +15234,20 @@ true396:                                          ; preds = %end303
   br label %end398
 
 false397:                                         ; preds = %end303
-  %116 = icmp ne i64 %SYS5.fca.4.load, 0
-  br i1 %116, label %true402, label %end403
+  %112 = icmp ne i64 %SYS5.fca.4.load, 0
+  br i1 %112, label %true402, label %end403
 
 end398:                                           ; preds = %end407, %true396
   ret void
 
 true402:                                          ; preds = %false397
-  store i64 %SYS5.fca.7.load, i64* %108
-  call void @"V_SYM@UI"(<2 x double>* %__mem, i64* %108)
+  store i64 %SYS5.fca.7.load, i64* %104
+  call void @"V_SYM@UI"(<2 x double>* %__mem, i64* %104)
   br label %end403
 
 end403:                                           ; preds = %true402, %false397
-  %117 = icmp ne i64 %SYS5.fca.8.load, 0
-  br i1 %117, label %true406, label %end407
+  %113 = icmp ne i64 %SYS5.fca.8.load, 0
+  br i1 %113, label %true406, label %end407
 
 true406:                                          ; preds = %end403
   %output410 = fmul double 1.000000e-03, %SYS5.fca.9.load
