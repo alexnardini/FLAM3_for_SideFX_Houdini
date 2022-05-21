@@ -43,7 +43,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
     int iter, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; iter=SYS.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pp1type=GEM.pp1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
     float v1w[], v2w[], v3w[], v4w[], p1w[], grt, pp1w[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; grt=GEM.grt; pp1w=GEM.pp1w; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=SYS.mb_mod;
-    vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po; // , gsc; gsc=GEM.gsc;
+    vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     string sIDX[]=GEM.sIDX;
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->gemPrmBuild(sIDX, v1type, v1w);

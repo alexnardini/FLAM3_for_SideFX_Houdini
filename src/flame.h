@@ -143,38 +143,32 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 27 CURL ( parametric )
             else if(type==27){
-                vector2 curl_c;
-                curl_c = GMP.curl_c[idx];
+                vector2 curl_c = GMP.curl_c[idx];
                 V_CURL(p, _p, w, curl_c[0], curl_c[1]);
                 return p; }
             // 28 NGON ( parametric )
             else if(type==28){
-                vector4 ngon;
-                ngon = GMP.ngon[idx];
+                vector4 ngon = GMP.ngon[idx];
                 V_NGON(p, _p, w, ngon[0], ngon[1], ngon[2], ngon[3]);
                 return p; }
             // 29 PDJ ( parametric )
             else if(type==29){
-                vector4 pp;
-                pp = GMP.pdj_w[idx];
+                vector4 pp = GMP.pdj_w[idx];
                 V_PDJ(p, _p, w, pp);
                 return p; }
             // 30 BLOB ( parametric )
             else if(type==30){
-                vector blob;
-                blob = GMP.blob[idx];
+                vector blob = GMP.blob[idx];
                 V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(type==31){
-                vector2 julian;
-                julian = GMP.julian[idx];
+                vector2 julian = GMP.julian[idx];
                 V_JULIAN(p, _p, w, julian[0], julian[1]);
                 return p; }
             // 32 JuliaScope ( parametric )
             else if(type==32){
-                vector2 juliascope;
-                juliascope = GMP.juliascope[idx];
+                vector2 juliascope = GMP.juliascope[idx];
                 V_JULIASCOPE(p, _p, w, juliascope[0], juliascope[1]);
                 return p; }
             // 33 Gaussian
@@ -183,8 +177,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 34 Fan2 ( parametric )
             else if(type==34){
-                vector2 fan2;
-                fan2 = GMP.fan2[idx];
+                vector2 fan2 = GMP.fan2[idx];
                 V_FAN2(p, _p, w, fan2);
                 return p; }
         }
@@ -193,26 +186,22 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
         if(type<50){
             // 35 Rings2 ( parametric )
             if(type==35){
-                float rings2val;
-                rings2val = GMP.rings2_val[idx];
+                float rings2val = GMP.rings2_val[idx];
                 V_RINGS2(p, _p, w, rings2val);
                 return p; }
             // 36 Rectangles ( parametric )
             else if(type==36){
-                vector2 rect;
-                rect = GMP.rectangles[idx];
+                vector2 rect = GMP.rectangles[idx];
                 V_RECTANGLES(p, _p, w, rect);
                 return p; }
             // 37 Radial Blur ( parametric )
             else if(type==37){
-                vector2 radialblur;
-                radialblur = GMP.radialblur[idx];
+                vector2 radialblur = GMP.radialblur[idx];
                 V_RADIALBLUR(p, _p, w, radialblur[0], radialblur[1]);
                 return p; }
             // 38 PIE ( parametric )
             else if(type==38){
-                vector pie;
-                pie = GMP.pie[idx];
+                vector pie = GMP.pie[idx];
                 V_PIE(p, w, pie[0], pie[1], pie[2]);
                 return p; }
             // 39 ARCH
@@ -249,8 +238,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 47 DISC2 ( parametric )
             else if(type==47){
-                vector2 disc2;
-                disc2 = GMP.disc2[idx];
+                vector2 disc2 = GMP.disc2[idx];
                 V_DISC2(p, _p, w, disc2[0], disc2[1]);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
@@ -262,34 +250,29 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 49 FLOWER ( parametric )
             else if(type==49){
-                vector2 flower;
-                flower = GMP.flower[idx];
+                vector2 flower = GMP.flower[idx];
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
         }
         else{
             // 50 CONIC
             if(type==50){
-                vector2 conic;
-                conic = GMP.conic[idx];
+                vector2 conic = GMP.conic[idx];
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
             // 51 PARABOLA ( parametric )
             else if(type==51){
-                vector2 parabola;
-                parabola = GMP.parabola[idx];
+                vector2 parabola = GMP.parabola[idx];
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
             // 52 BENT2 ( parametric )
             else if(type==52){
-                vector2 bent2;
-                bent2 = GMP.bent2[idx];
+                vector2 bent2 = GMP.bent2[idx];
                 V_BENT2(p, _p, w, bent2);
                 return p; }
             // 53 BIPOLAR ( parametric )
             else if(type==53){
-                float shift;
-                shift = GMP.bipolar_shift[idx];
+                float shift = GMP.bipolar_shift[idx];
                 V_BIPOLAR(p, _p, w, shift);
                 return p; }
             // 54 BOARDERS
@@ -302,14 +285,12 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 56 CELL ( parametric )
             else if(type==56){
-                float size;
-                size = GMP.cell_size[idx];
+                float size = GMP.cell_size[idx];
                 V_CELL(p, _p, w, size);
                 return p; }
             // 57 CPOW ( parametric )
             else if(type==57){
-                vector cpow;
-                cpow = GMP.cpow[idx];
+                vector cpow = GMP.cpow[idx];
                 V_CPOW(p, _p, w, cpow[0], cpow[1], cpow[2]);
                 return p; }
             // 58 EDISC
@@ -326,8 +307,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 61 ESCHER ( parametric )
             else if(type==61){
-                float beta;
-                beta = GMP.escher_beta[idx];
+                float beta = GMP.escher_beta[idx];
                 V_ESCHER(p, _p, w, beta);
                 return p; }
             // 62 FOCI
@@ -336,10 +316,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 63 LAZYSUSAN ( parametric )
             else if(type==63){
-                vector lazysusan;
-                vector2 lazysusanxyz;
-                lazysusanxyz = GMP.lazysusanxyz[idx];
-                lazysusan = GMP.lazysusan[idx];
+                vector lazysusan = GMP.lazysusan[idx];
+                vector2 lazysusanxyz = GMP.lazysusanxyz[idx];
                 V_LAZYSUSAN(p, _p, w, lazysusan[0], lazysusan[1], lazysusan[2], lazysusanxyz);
                 return p; }
             // 64 LOONIE
@@ -354,14 +332,12 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
             */
             // 66 MODULUS ( parametric )
             else if(type==66){
-                vector2 mod;
-                mod = GMP.modulus[idx];
+                vector2 mod = GMP.modulus[idx];
                 V_MODULUS(p, _p, w, mod);
                 return p; }
             // 67 OSCOPE ( parametric )
             else if(type==67){
-                vector4 oscope;
-                oscope = GMP.oscope[idx];
+                vector4 oscope = GMP.oscope[idx];
                 V_OSCOPE(p, _p, w, oscope[0], oscope[1], oscope[2], oscope[3]);
                 return p; }
             // 68 POLAR2
@@ -370,10 +346,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 69 POPCORN2 ( parametric )
             else if(type==69){
-                float pop2c;
-                vector2 pop2;
-                pop2 = GMP.popcorn2[idx];
-                pop2c = GMP.popcorn2_c[idx];
+                float pop2c = GMP.popcorn2_c[idx];
+                vector2 pop2 = GMP.popcorn2[idx];
                 V_POPCORN2(p, _p, w, pop2c, pop2);
                 return p; }
         }
@@ -393,44 +367,37 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 72 SPLIT ( parametric )
             else if(type==72){
-                vector2 split;
-                split = GMP.split[idx];
+                vector2 split = GMP.split[idx];
                 V_SPLIT(p, _p, w, split);
                 return p; }
             // 73 SPLITS ( parametric )
             else if(type==73){
-                vector2 splits;
-                splits = GMP.splits[idx];
+                vector2 splits = GMP.splits[idx];
                 V_SPLITS(p, _p, w, splits);
                 return p; }
             // 74 STRIPES ( parametric )
             else if(type==74){
-                vector2 stripes;
-                stripes = GMP.stripes[idx];
+                vector2 stripes = GMP.stripes[idx];
                 V_STRIPES(p, _p, w, stripes[0], stripes[1]);
                 return p; }
             // 75 WEDGE ( parametric )
             else if(type==75){
-                vector4 wedge;
-                wedge = GMP.wedge[idx];
+                vector4 wedge = GMP.wedge[idx];
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
             // 76 WEDGE JULIA ( parametric )
             else if(type==76){
-                vector4 wedgejulia;
-                wedgejulia = GMP.wedgejulia[idx];
+                vector4 wedgejulia = GMP.wedgejulia[idx];
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(type==77){
-                vector4 wedgesph;
-                wedgesph = GMP.wedgesph[idx];
+                vector4 wedgesph = GMP.wedgesph[idx];
                 V_WEDGESPH(p, _p, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
                 return p; }
             // 78 WHORL ( parametric )
             else if(type==78){
-                vector2 whorl;
-                whorl = GMP.whorl[idx];
+                vector2 whorl = GMP.whorl[idx];
                 V_WHORL(p, _p, w, whorl[0], whorl[1]);
                 return p; }
             // 79 WAVES2 ( parametric )
@@ -500,14 +467,12 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 94 AUGER ( parametric )
             else if(type==94){
-                vector4 auger;
-                auger = GMP.auger[idx];
+                vector4 auger = GMP.auger[idx];
                 V_AUGER(p, _p, w, auger[0], auger[1], auger[2], auger[3]);
                 return p; }
             // 95 FLUX ( parametric )
             else if(type==95){
-                float spread;
-                spread = GMP.flux_spread[idx];
+                float spread = GMP.flux_spread[idx];
                 V_FLUX(p, _p, w, spread);
                 return p; }
             // 96 MOBIUS ( parametric )
@@ -526,16 +491,13 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
             // 98 PERSPECTIVE ( parametric )
             else if(type==98){
-                vector2 persp;
-                persp = GMP.persp[idx];
+                vector2 persp = GMP.persp[idx];
                 V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
                 return p; }
             // 99 BWRAPS ( parametric )
             else if(type==99){
-                vector bwraps;
-                vector2 bwrapstwist;
-                bwraps = GMP.bwraps[idx];
-                bwrapstwist = GMP.bwrapstwist[idx];
+                vector bwraps = GMP.bwraps[idx];
+                vector2 bwrapstwist = GMP.bwrapstwist[idx];
                 V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
                 return p; }
             // 100 HEMISPHERE

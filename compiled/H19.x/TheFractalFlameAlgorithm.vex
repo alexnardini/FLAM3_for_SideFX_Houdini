@@ -141,12 +141,12 @@ source_filename = "TheFractalFlameAlgorithm"
 @132 = private constant [11 x i8] c"cellsize_2\00"
 @133 = private constant [7 x i8] c"cpow_2\00"
 @134 = private constant [13 x i8] c"escherbeta_2\00"
-@135 = private constant [15 x i8] c"lazysusanxyz_2\00"
-@136 = private constant [12 x i8] c"lazysusan_2\00"
+@135 = private constant [12 x i8] c"lazysusan_2\00"
+@136 = private constant [15 x i8] c"lazysusanxyz_2\00"
 @137 = private constant [13 x i8] c"modulusXYZ_2\00"
 @138 = private constant [9 x i8] c"oscope_2\00"
-@139 = private constant [14 x i8] c"popcorn2xyz_2\00"
-@140 = private constant [12 x i8] c"popcorn2c_2\00"
+@139 = private constant [12 x i8] c"popcorn2c_2\00"
+@140 = private constant [14 x i8] c"popcorn2xyz_2\00"
 @141 = private constant [16 x i8] c"separationxyz_2\00"
 @142 = private constant [22 x i8] c"separationinsidexyz_2\00"
 @143 = private constant [11 x i8] c"splitxyz_2\00"
@@ -8675,22 +8675,22 @@ false679:                                         ; preds = %false667
 
 true686:                                          ; preds = %false679
   %GMP689 = load %gemPrm, %gemPrm* %GMP
-  %lazysusanxyz690 = extractvalue %gemPrm %GMP689, 18
+  %lazysusan690 = extractvalue %gemPrm %GMP689, 11
   %idx691 = load i64, i64* %idx
-  %return692 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %lazysusanxyz690, i64 %idx691)
-  %lazysusan694 = extractvalue %gemPrm %GMP689, 11
-  %return696 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %lazysusan694, i64 %idx691)
+  %return692 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %lazysusan690, i64 %idx691)
+  %lazysusanxyz694 = extractvalue %gemPrm %GMP689, 18
+  %return696 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %lazysusanxyz694, i64 %idx691)
   %_p697 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p697, <2 x double>* %173
   %w698 = load double, double* %w
   store double %w698, double* %174
-  %return700 = call double @"getcomp@FVI"(<3 x double> %return696, i64 0)
+  %return700 = call double @"getcomp@FVI"(<3 x double> %return692, i64 0)
   store double %return700, double* %175
-  %return702 = call double @"getcomp@FVI"(<3 x double> %return696, i64 1)
+  %return702 = call double @"getcomp@FVI"(<3 x double> %return692, i64 1)
   store double %return702, double* %176
-  %return704 = call double @"getcomp@FVI"(<3 x double> %return696, i64 2)
+  %return704 = call double @"getcomp@FVI"(<3 x double> %return692, i64 2)
   store double %return704, double* %177
-  store <2 x double> %return692, <2 x double>* %178
+  store <2 x double> %return696, <2 x double>* %178
   call void @"V_LAZYSUSAN@UUFFFFU"(<2 x double>* %p, <2 x double>* %173, double* %174, double* %175, double* %176, double* %177, <2 x double>* %178)
   %p706 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
@@ -8775,17 +8775,17 @@ false750:                                         ; preds = %false730
 
 true757:                                          ; preds = %false750
   %GMP759 = load %gemPrm, %gemPrm* %GMP
-  %popcorn2 = extractvalue %gemPrm %GMP759, 20
-  %idx760 = load i64, i64* %idx
-  %return761 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %popcorn2, i64 %idx760)
   %popcorn2_c = extractvalue %gemPrm %GMP759, 4
-  %return764 = call double @"getcomp@F[FI"(double* %popcorn2_c, i64 %idx760)
+  %idx760 = load i64, i64* %idx
+  %return761 = call double @"getcomp@F[FI"(double* %popcorn2_c, i64 %idx760)
+  %popcorn2 = extractvalue %gemPrm %GMP759, 20
+  %return764 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %popcorn2, i64 %idx760)
   %_p765 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p765, <2 x double>* %192
   %w766 = load double, double* %w
   store double %w766, double* %193
-  store double %return764, double* %194
-  store <2 x double> %return761, <2 x double>* %195
+  store double %return761, double* %194
+  store <2 x double> %return764, <2 x double>* %195
   call void @"V_POPCORN2@UUFFU"(<2 x double>* %p, <2 x double>* %192, double* %193, double* %194, <2 x double>* %195)
   %p769 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
@@ -11857,24 +11857,24 @@ true693:                                          ; preds = %false686
   %ftype696 = load i64, i64* %ftype
   store i64 %ftype696, i64* %195
   %PRX697 = call i8* @"PRX@SI"(i64* %195)
-  %return698 = call i8* @"concat@SSS"(i8* %PRX697, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @135, i64 0, i64 0))
-  %return699 = call <2 x double> @"chu@US"(i8* %return698)
+  %return698 = call i8* @"concat@SSS"(i8* %PRX697, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @135, i64 0, i64 0))
+  %return699 = call <3 x double> @"chv@VS"(i8* %return698)
   %ftype700 = load i64, i64* %ftype
   store i64 %ftype700, i64* %196
   %PRX701 = call i8* @"PRX@SI"(i64* %196)
-  %return702 = call i8* @"concat@SSS"(i8* %PRX701, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @136, i64 0, i64 0))
-  %return703 = call <3 x double> @"chv@VS"(i8* %return702)
+  %return702 = call i8* @"concat@SSS"(i8* %PRX701, i8* getelementptr inbounds ([15 x i8], [15 x i8]* @136, i64 0, i64 0))
+  %return703 = call <2 x double> @"chu@US"(i8* %return702)
   %_p704 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p704, <2 x double>* %197
   %w705 = load double, double* %w
   store double %w705, double* %198
-  %return707 = call double @"getcomp@FVI"(<3 x double> %return703, i64 0)
+  %return707 = call double @"getcomp@FVI"(<3 x double> %return699, i64 0)
   store double %return707, double* %199
-  %return709 = call double @"getcomp@FVI"(<3 x double> %return703, i64 1)
+  %return709 = call double @"getcomp@FVI"(<3 x double> %return699, i64 1)
   store double %return709, double* %200
-  %return711 = call double @"getcomp@FVI"(<3 x double> %return703, i64 2)
+  %return711 = call double @"getcomp@FVI"(<3 x double> %return699, i64 2)
   store double %return711, double* %201
-  store <2 x double> %return699, <2 x double>* %202
+  store <2 x double> %return703, <2 x double>* %202
   call void @"V_LAZYSUSAN@UUFFFFU"(<2 x double>* %p, <2 x double>* %197, double* %198, double* %199, double* %200, double* %201, <2 x double>* %202)
   %p713 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
@@ -11963,19 +11963,19 @@ true765:                                          ; preds = %false758
   %ftype767 = load i64, i64* %ftype
   store i64 %ftype767, i64* %218
   %PRX768 = call i8* @"PRX@SI"(i64* %218)
-  %return769 = call i8* @"concat@SSS"(i8* %PRX768, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @139, i64 0, i64 0))
-  %return770 = call <2 x double> @"chu@US"(i8* %return769)
+  %return769 = call i8* @"concat@SSS"(i8* %PRX768, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @139, i64 0, i64 0))
+  %return770 = call double @"chf@FS"(i8* %return769)
   %ftype771 = load i64, i64* %ftype
   store i64 %ftype771, i64* %219
   %PRX772 = call i8* @"PRX@SI"(i64* %219)
-  %return773 = call i8* @"concat@SSS"(i8* %PRX772, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @140, i64 0, i64 0))
-  %return774 = call double @"chf@FS"(i8* %return773)
+  %return773 = call i8* @"concat@SSS"(i8* %PRX772, i8* getelementptr inbounds ([14 x i8], [14 x i8]* @140, i64 0, i64 0))
+  %return774 = call <2 x double> @"chu@US"(i8* %return773)
   %_p775 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p775, <2 x double>* %220
   %w776 = load double, double* %w
   store double %w776, double* %221
-  store double %return774, double* %222
-  store <2 x double> %return770, <2 x double>* %223
+  store double %return770, double* %222
+  store <2 x double> %return774, <2 x double>* %223
   call void @"V_POPCORN2@UUFFU"(<2 x double>* %p, <2 x double>* %220, double* %221, double* %222, <2 x double>* %223)
   %p779 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock

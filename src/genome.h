@@ -39,7 +39,7 @@ struct gemSYS{
 struct gem{
     int     v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
-    vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo; // gsc, 
+    vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
     
     void gemBuild(const int VACTIVE[]; const gemSYS SYS){
