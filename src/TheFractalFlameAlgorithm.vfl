@@ -59,7 +59,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     for(int i=0; i<iter; ++i){
         __tmp = 0;
         if(XAOS){ SL=idx*n; float CDF[]=XAOS_TO[SL:SL+n]; idx=sample_cdf(CDF, nrandom('twister')); }
-        else idx=sample_cdf(XAOS_TO, nrandom("twister"));
+        else idx=(int)XAOS_TO[(int)(nrandom("twister")*4096)];
+        //else idx=sample_cdf(XAOS_TO, nrandom("twister"));
         if(pp1w[idx]>0) __mem  = FLAMEPP(pp1type[idx], __mem, {1, 0}, {0, 1}, {0, 0}, pp1w[idx]);
         if(v1w[idx]!=0) __tmp += FLAME(v1GMP, idx, v1type[idx], __mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) __tmp += FLAME(v2GMP, idx, v2type[idx], __mem, x[idx], y[idx], o[idx], v2w[idx]);
