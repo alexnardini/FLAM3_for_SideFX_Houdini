@@ -21,7 +21,7 @@
 struct gemSYS{
     int TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mode, MB;
     float mb_mod = 1.0;
-
+    
     void gemSYSBuild(){
         TMG    = chi("../dotmglobal");
         FF     = chi("../dofinalflame");
