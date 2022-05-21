@@ -41,7 +41,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     // Build genomes
     gemSYS SYS; SYS->gemSYSBuild();
     gem GEM; GEM->gemBuild(_bound_VACTIVE, SYS);
-    int iter, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; iter=SYS.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pp1type=GEM.pp1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
+    int res, iter, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], TMG, FF, PFF, RIP, SYM, MB, sym_mode; res=GEM.res; iter=SYS.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pp1type=GEM.pp1type; POSTL=GEM.POSTL; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF; RIP=SYS.RIP; SYM=SYS.SYM; MB=SYS.MB; sym_mode=SYS.sym_mode;
     float v1w[], v2w[], v3w[], v4w[], p1w[], grt, pp1w[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; grt=GEM.grt; pp1w=GEM.pp1w; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=SYS.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     string sIDX[]=GEM.sIDX;
@@ -54,11 +54,11 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     // CHAOS game
     int XAOS = _bound_XAOS;
     float XAOS_TO[] = _bound_XAOS_TO;
-    if(XAOS){ n=len(sIDX); idx=(int)(nrandom('twister')*n); }
+    if(XAOS) idx=(int)(nrandom('twister')*res);
     vector2 __mem = biunit();
     for(int i=0; i<iter; ++i){
         __tmp = 0;
-        if(XAOS){ SL=idx*n; float CDF[]=XAOS_TO[SL:SL+n]; idx=sample_cdf(CDF, nrandom('twister')); }
+        if(XAOS){ SL=idx*res; float CDF[]=XAOS_TO[SL:SL+res]; idx=sample_cdf(CDF, nrandom('twister')); }
         else idx=sample_cdf(XAOS_TO, nrandom("twister"));
         // The following is a good idea and faster but for some reasons it miss to produce correct results. Check TFFAvactive.vfl to see the other bit of it.
         //else idx=(int)XAOS_TO[(int)(nrandom("twister")*4096)];
