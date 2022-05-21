@@ -31,7 +31,6 @@
 
 void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bound_XAOS; const float _bound_XAOS_TO[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
 {
-    // ftype = 0 -> LOCAL
     // ftype = 1 -> FF
     // ftype = 2 -> POST
     
