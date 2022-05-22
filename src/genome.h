@@ -18,11 +18,20 @@
 
 #include <functions.h>
 
-struct gemSYS{
-    int TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mode, MB;
+
+struct gem{
+
+    int     TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
+            res, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
+    vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
+    string  sIDX[];
+
     float mb_mod = 1.0;
     
-    void gemSYSBuild(){
+    void gemBuild(const int ACTV[]){
+
+        // SYS
         TMG    = chi("../dotmglobal");
         FF     = chi("../dofinalflame");
         PFF    = chi("../_dofpost_2");
@@ -31,26 +40,16 @@ struct gemSYS{
         iter_f = chi("../flamefunc");
         iter   = chi("../iter");
         MB     = chi("../domb");
-        if(SYM) sym_mode = chi("../rotational");
+        if(SYM) sym_mod = chi("../rotational");
         if(MB) mb_mod = detail(1, "Tstep_mult", 0);
-    }
-}
 
-struct gem{
-    int     res, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
-    vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
-    string  sIDX[];
-    
-    void gemBuild(const int VACTIVE[]; const gemSYS SYS){
-        int iter_f, TMG, FF, PFF; iter_f=SYS.iter_f; TMG=SYS.TMG; FF=SYS.FF; PFF=SYS.PFF;
+        // GEM
         res = 0;
         float _a, coord, speed;
         vector2 _x, _y;
         matrix2 m2;
-        
         for(int i=0; i<iter_f; ++i){
-            if(!VACTIVE[i]) continue;
+            if(!ACTV[i]) continue;
             string IDX=itoa(i+1);
             // Collect active variation IDs
             append(sIDX, IDX); res++;
