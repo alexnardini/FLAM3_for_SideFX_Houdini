@@ -23,7 +23,7 @@ struct gem{
 
     int     TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
             res, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pb1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     string  sIDX[];
 
@@ -61,8 +61,10 @@ struct gem{
             append(ONEMINUS, 1-speed);
             append(ALPHA, chf(concat("../alpha_", IDX)));
             // PRE BLUR
-            append(pp1w, chf(concat("../preblurweight_" , IDX)));
-            if(pp1w[-1]>0) append(pp1type, atoi(chs(concat("../preblurtype_", IDX))));
+            append(pb1w, chf(concat("../preblurweight_" , IDX)));
+            // PRE VAR 01
+            append(pp1w, chf(concat("../pre1weight_" , IDX)));
+            if(pp1w[-1]>0) append(pp1type, atoi(chs(concat("../pre1type_", IDX))));
             else resize(pp1type, res);
             // VAR 01
             append(v1w, chf(concat("../v1weight_", IDX)));
