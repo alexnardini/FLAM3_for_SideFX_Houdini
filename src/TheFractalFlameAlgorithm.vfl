@@ -24,14 +24,14 @@
 #include <flamepp.h>
 #include <flameff.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bound_XAOS; const float _bound_XAOS_TO[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bound_XAOS; const float _bound_IW[], _bound_XAOS_TO[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
 {
     // ftype = 1 -> FF
     // ftype = 2 -> POST
     
     int SL, idx, n;
     vector2 __tmp;
-    float CLR, PREV_CLR, ALPHA; PREV_CLR = 0;
+    float CLR, PREV_CLR, ALPHA, XAOS_TO[]; PREV_CLR = 0;
     // Build genomes
     int ACTV[] = _bound_VACTIVE;
     gem GEM; GEM->gemBuild(ACTV);
@@ -47,13 +47,13 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     p1GMP->gemPrmBuild(sIDX, res, p1type, p1w);
     // CHAOS game
     int XAOS = _bound_XAOS;
-    float XAOS_TO[] = _bound_XAOS_TO;
-    if(XAOS) idx=(int)(nrandom('twister')*res);
+    float IW[] = _bound_IW;
+    if(XAOS) XAOS_TO = _bound_XAOS_TO; idx=sample_cdf(IW, nrandom('twister'));
     vector2 __mem = biunit();
     for(int i=0; i<iter; ++i){
         __tmp = 0;
         if(XAOS){ SL=idx*res; idx=sample_cdf(XAOS_TO[SL:SL+res], nrandom('twister')); }
-        else idx=sample_cdf(XAOS_TO, nrandom("twister"));
+        else idx=sample_cdf(IW, nrandom("twister"));
         if(pp1w[idx]>0) __mem  = FLAMEPP(pp1type[idx], __mem, {1, 0}, {0, 1}, {0, 0}, pp1w[idx]);
         if(v1w[idx]!=0) __tmp += FLAME(v1GMP, idx, v1type[idx], __mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) __tmp += FLAME(v2GMP, idx, v2type[idx], __mem, x[idx], y[idx], o[idx], v2w[idx]);
@@ -94,11 +94,12 @@ cvex
 TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  int    VACTIVE[] = {};
                           const  int    XAOS      = 0;
+                          const  float  IW[]      = {};
                           const  float  XAOS_TO[] = {};
 	                      export float  pscale    = 0;
 	                      export float  COORD     = 0;
                           export float  Alpha     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, XAOS_TO, pscale, COORD, Alpha, P);
+    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, IW, XAOS_TO, pscale, COORD, Alpha, P);
 }

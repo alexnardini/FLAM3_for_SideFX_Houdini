@@ -27,7 +27,7 @@
 
 
 void
-_TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bound_XAOS_FROM[])
+_TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XAOS_TO[], _bound_XAOS_FROM[])
 {
     int iter_f = chi("../flamefunc");
     int vactive[];
@@ -81,6 +81,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     if(xaos_chk){
         _bound_XAOS = xaos_chk;
         _bound_XAOS_TO = XAOS_TO;
+        _bound_IW = create_cdf(IW);
         /*
         // Just in case I need this later
         XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
@@ -93,15 +94,16 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_XAOS_TO[], _bou
     }
     else{
         _bound_XAOS = 0;
-        _bound_XAOS_TO = create_cdf(IW);
+        _bound_IW = create_cdf(IW);
     }
 }
 
 cvex
 TFFAvactive(export int VACTIVE[]     = {};
             export int XAOS          = 0;
+            export float IW[]        = {};
             export float XAOS_TO[]   = {};
             export float XAOS_FROM[] = {};)
 {
-    _TFFAvactive(VACTIVE, XAOS, XAOS_TO, XAOS_FROM);
+    _TFFAvactive(VACTIVE, XAOS, IW, XAOS_TO, XAOS_FROM);
 }
