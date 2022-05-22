@@ -50,8 +50,10 @@ _TFFAcamhandles(vector4 _bound_orient)
     x = normalize(px - cam_center);
     y = normalize(py - cam_center);
     z = normalize(pz - cam_center);
+    
     matrix3 m3 = set(x, y, z);
     _bound_orient = quaternion(m3);
+
     near_pos = cam_pos - (cam_dir * hp);
     far_pos  = cam_pos - (cam_dir *hp);
     int near = addpoint(0, near_pos);
