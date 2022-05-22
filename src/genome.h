@@ -43,7 +43,7 @@ struct gem{
         if(SYM) sym_mod = chi("../rotational");
         if(MB) mb_mod = detail(1, "Tstep_mult", 0);
 
-        // GEM
+        // GENOME
         res = 0;
         float _a, coord, speed;
         vector2 _x, _y;
