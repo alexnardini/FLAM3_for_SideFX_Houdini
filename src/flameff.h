@@ -255,7 +255,7 @@ vector2 FLAMEFF(const int ftype, type; const vector2 pos, x, y, o; const float w
                 return p; }
         }
         else{
-            // 50 CONIC
+            // 50 CONIC ( parametric )
             if(type==50){
                 vector2 conic =  chu(concat(PRX(ftype), "conic_2"));
                 V_CONIC(p, _p, w, conic[0], conic[1]);

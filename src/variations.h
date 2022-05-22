@@ -515,7 +515,7 @@ void V_FLOWER(vector2 p; const vector2 _p; const float w, petals, holes){
     p[0] = rr * _p[0];
     p[1] = rr * _p[1];
 }
-// 50
+// 50 ( parametric )
 void V_CONIC(vector2 p; const vector2 _p; const float w, eccentricity, holes){
     float ct, rr;
     float SQRT = SQRT(_p);

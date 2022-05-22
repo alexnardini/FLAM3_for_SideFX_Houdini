@@ -255,7 +255,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
                 return p; }
         }
         else{
-            // 50 CONIC
+            // 50 CONIC ( parametric )
             if(type==50){
                 vector2 conic = GMP.conic[idx];
                 V_CONIC(p, _p, w, conic[0], conic[1]);
