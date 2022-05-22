@@ -50,9 +50,10 @@ struct gem{
         matrix2 m2;
         for(int i=0; i<iter_f; ++i){
             if(!ACTV[i]) continue;
+            res++;
             string IDX=itoa(i+1);
             // Collect active variation IDs
-            append(sIDX, IDX); res++;
+            append(sIDX, IDX);
             // Color
             coord = chf(concat("../clr_", IDX));
             speed = chf(concat("../clrspeed_", IDX));
