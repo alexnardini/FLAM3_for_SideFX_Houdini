@@ -27,7 +27,7 @@
 
 
 void
-_TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XAOS_TO[], _bound_XAOS_FROM[])
+_TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XAOS_TO[])
 {
     int iter_f = chi("../flamefunc");
     int vactive[];
@@ -50,7 +50,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XA
     //
     int xaos_chk = 0;
     int size = len(sIDX);
-    float _XAOS_TO[], XAOS_TO[], _XAOS_FROM[], XAOS_FROM[];
+    float _XAOS_TO[], XAOS_TO[], _XAOS_FROM[];
     for(int i=0; i<size; ++i){
 
         string varnote = chs(concat("../varnote_", sIDX[i]));
@@ -82,15 +82,6 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XA
         _bound_XAOS = xaos_chk;
         _bound_XAOS_TO = XAOS_TO;
         _bound_IW = create_cdf(IW);
-        /*
-        // Just in case I need this later
-        XAOS_transpose(_XAOS_TO, _XAOS_FROM, size);
-        for(int i=0; i<size; ++i){
-            int SL = i*size;
-            append(XAOS_FROM, create_cdf(_XAOS_FROM[SL:SL+size]));
-        }
-        _bound_XAOS_FROM = XAOS_FROM;
-        */
     }
     else{
         _bound_XAOS = 0;
@@ -102,8 +93,7 @@ cvex
 TFFAvactive(export int VACTIVE[]     = {};
             export int XAOS          = 0;
             export float IW[]        = {};
-            export float XAOS_TO[]   = {};
-            export float XAOS_FROM[] = {};)
+            export float XAOS_TO[]   = {};)
 {
-    _TFFAvactive(VACTIVE, XAOS, IW, XAOS_TO, XAOS_FROM);
+    _TFFAvactive(VACTIVE, XAOS, IW, XAOS_TO);
 }
