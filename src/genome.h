@@ -51,8 +51,8 @@ struct gem{
         for(int i=0; i<iter_f; ++i){
             if(!ACTV[i]) continue;
             res++;
-            string IDX=itoa(i+1);
             // Collect active variation IDs
+            string IDX=itoa(i+1);
             append(sIDX, IDX);
             // Color
             coord = chf(concat("../clr_", IDX));
