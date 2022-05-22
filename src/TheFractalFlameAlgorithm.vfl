@@ -11,17 +11,12 @@
  /  Name:       TheFractalFlameAlgorithm    "CVEX"
  /
  /  Comment:    The chaos game
+ /
 */
 
-#ifndef VOP_OP
-#define VOP_OP
-#endif
-#ifndef VOP_CVEX
-#define VOP_CVEX
-#endif
 
-#pragma opname  "FLAME"
-#pragma oplabel "FLAME"
+#pragma opname  "FLAM3"
+#pragma oplabel "FLAM3"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 

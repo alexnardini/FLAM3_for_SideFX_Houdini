@@ -17,13 +17,6 @@
 */
 
 
-#ifndef VOP_OP
-#define VOP_OP
-#endif
-#ifndef VOP_CVEX
-#define VOP_CVEX
-#endif
-
 #pragma opname  "TFFAvactive"
 #pragma oplabel "TFFAvactive"
 #pragma opmininputs 1

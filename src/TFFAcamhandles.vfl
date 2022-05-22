@@ -16,13 +16,6 @@
 */
 
 
-#ifndef VOP_OP
-#define VOP_OP
-#endif
-#ifndef VOP_CVEX
-#define VOP_CVEX
-#endif
-
 #pragma opname  "TFFAcamhandles"
 #pragma oplabel "TFFAcamhandles"
 #pragma opmininputs 1
@@ -50,7 +43,7 @@ _TFFAcamhandles(vector4 _bound_orient)
     x = normalize(px - cam_center);
     y = normalize(py - cam_center);
     z = normalize(pz - cam_center);
-    
+
     matrix3 m3 = set(x, y, z);
     _bound_orient = quaternion(m3);
 

@@ -16,15 +16,8 @@
 */
 
 
-#ifndef VOP_OP
-#define VOP_OP
-#endif
-#ifndef VOP_CVEX
-#define VOP_CVEX
-#endif
-
 #pragma opname  "TFFAcamcull"
-#pragma oplabel "TFFcamcull"
+#pragma oplabel "TFFAcamcull"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 

@@ -11,15 +11,9 @@
  /  Name:       Viewport VARS Display   "CVEX"
  /
  /  Comment:    display FLAME infos as a viewport's TAG.
+ /
 */
 
-
-#ifndef VOP_OP
-#define VOP_OP
-#endif
-#ifndef VOP_CVEX
-#define VOP_CVEX
-#endif
 
 #pragma opname  "TFFAuicollect"
 #pragma oplabel "TFFAuicollect"

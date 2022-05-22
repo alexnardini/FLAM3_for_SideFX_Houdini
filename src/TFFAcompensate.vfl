@@ -11,15 +11,9 @@
  /  Name:       FLAME motion blur compensate   "CVEX"
  /
  /  Comment:    pscale compensation due to motion blur.
+ /
 */
 
-
-#ifndef VOP_OP
-#define VOP_OP
-#endif
-#ifndef VOP_CVEX
-#define VOP_CVEX
-#endif
 
 #pragma opname  "TFFAcompensate"
 #pragma oplabel "TFFAcompensate"
