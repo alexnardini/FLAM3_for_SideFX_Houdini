@@ -33,7 +33,7 @@ vector2 FLAMEPP(const int type; const vector2 pos, x, y, o; const float w){
     // FLAME VARIATIONS
     //
     // 00 PREBLUR ( LINEAR removed from pre-variations, for now. )
-    if(!type){ return _p*w; }
+    if(!type) return _p*w;
     else if(type<21){
         if(type<11){
             // 01 SINUSOIDAL
