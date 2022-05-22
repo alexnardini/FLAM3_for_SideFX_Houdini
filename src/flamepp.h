@@ -11,7 +11,7 @@
  /  Weblink:    https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
  /
- /  Name:       TheFractalFlameAlgorithm    "VEX"
+ /  Name:       TheFractalFlameAlgorithm    "CVEX"
  /
  /  Comment:    FLAME PRE function selection.
  /              Parametric variations have been removed to keep it faster

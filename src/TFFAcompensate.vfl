@@ -8,7 +8,7 @@
  /  Weblink:    https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
  /
- /  Name:       FLAME motion blur compensate   "VEX"
+ /  Name:       FLAME motion blur compensate   "CVEX"
  /
  /  Comment:    pscale compensation due to motion blur.
 */

@@ -11,7 +11,7 @@
  /  Weblink:    https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
  /
- /  Name:       FLAME variations    "VEX"
+ /  Name:       FLAME variations    "CVEX"
  /
  /  Comment:    FLAM3 functions
 */

@@ -11,7 +11,7 @@
  /  Weblink:    https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
  /
- /  Name:       FLAME GENOME   "VEX"
+ /  Name:       FLAME GENOME   "CVEX"
  /
  /  Comment:    GENOME entities and properties.
 */

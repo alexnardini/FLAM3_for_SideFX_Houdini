@@ -8,7 +8,7 @@
  /  Weblink:    https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
  /
- /  Name:       TheFractalFlameAlgorithm    "VEX"
+ /  Name:       TheFractalFlameAlgorithm    "CVEX"
  /
  /  Comment:    Camera cull.
  /              Remove points outside the camera POV.
