@@ -16,9 +16,11 @@
  /  Comment:    GENOME entities and properties.
 */
 
+
 #include <functions.h>
 
 
+// GENOME
 struct gem{
 
     int     TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
@@ -149,6 +151,8 @@ struct gem{
     }
 }
 
+
+// GENOME PARAMETRICS
 struct gemPrm{
     float   rings2_val[], bipolar_shift[], cell_size[], escher_beta[], popcorn2_c[], flux_spread[];
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
