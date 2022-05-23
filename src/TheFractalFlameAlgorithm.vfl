@@ -39,6 +39,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     float v1w[], v2w[], v3w[], v4w[], p1w[], grt, pb1w[], pp1w[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; grt=GEM.grt; pb1w=GEM.pb1w; pp1w=GEM.pp1w; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=GEM.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     string sIDX[]=GEM.sIDX;
+    // Build genome's parametrics
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->gemPrmBuild(sIDX, res, v1type, v1w);
     v2GMP->gemPrmBuild(sIDX, res, v2type, v2w);
@@ -65,6 +66,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         prev_clr = clr = _CLR[idx] + ONEMINUS[idx] * prev_clr;
         __mem = __tmp;
     }
+    // Final flame transform
     if(FF){
         int ffv1type, ffv2type, ffv3type, ffp1type; ffv1type=GEM.ffv1type; ffv2type=GEM.ffv2type; ffv3type=GEM.ffv3type; ffp1type=GEM.ffp1type;
         float ffv1w, ffv2w, ffv3w, ffp1w; ffv1w=GEM.ffv1w; ffv2w=GEM.ffv2w; ffv3w=GEM.ffv3w; ffp1w=GEM.ffp1w;
