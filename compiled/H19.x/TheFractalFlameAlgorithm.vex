@@ -13812,8 +13812,8 @@ end:                                              ; preds = %true, %__llvm_entry
   br label %cond
 
 cond:                                             ; preds = %end292, %end
-  %clr.0 = phi double [ 0.000000e+00, %end ], [ %output307, %end292 ]
   %prev_clr.0 = phi double [ 0.000000e+00, %end ], [ %output307, %end292 ]
+  %clr.0 = phi double [ 0.000000e+00, %end ], [ %output307, %end292 ]
   %idx.1 = phi i64 [ %idx.0, %end ], [ %idx.2, %end292 ]
   %i.0 = phi i64 [ 0, %end ], [ %output310, %end292 ]
   %return105 = call i64 @"lt@III"(i64 %i.0, i64 %GEM4.fca.6.load)
