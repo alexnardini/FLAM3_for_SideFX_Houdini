@@ -80,7 +80,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         __mem=__tmp;
     }
     alpha = _ALPHA[idx];
-    if(chkNAN_v(RIP, __mem, alpha)) removepoint(0, _bound_ptnum);
+    if(chkPT(RIP, __mem, alpha)) removepoint(0, _bound_ptnum);
     else{
         float pscl = 0.001*alpha;
         if(SYM) V_SYM(__mem, sym_mod);
