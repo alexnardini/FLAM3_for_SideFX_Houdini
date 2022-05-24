@@ -13812,10 +13812,10 @@ end:                                              ; preds = %true, %__llvm_entry
   br label %cond
 
 cond:                                             ; preds = %end292, %end
-  %prev_clr.0 = phi double [ 0.000000e+00, %end ], [ %output310, %end292 ]
-  %clr.0 = phi double [ 0.000000e+00, %end ], [ %output310, %end292 ]
+  %prev_clr.0 = phi double [ 0.000000e+00, %end ], [ %output307, %end292 ]
+  %clr.0 = phi double [ 0.000000e+00, %end ], [ %output307, %end292 ]
   %idx.1 = phi i64 [ %idx.0, %end ], [ %idx.2, %end292 ]
-  %i.0 = phi i64 [ 0, %end ], [ %output313, %end292 ]
+  %i.0 = phi i64 [ 0, %end ], [ %output310, %end292 ]
   %return105 = call i64 @"lt@III"(i64 %i.0, i64 %GEM4.fca.6.load)
   %107 = icmp ne i64 %return105, 0
   br i1 %107, label %body, label %end106
@@ -13827,7 +13827,7 @@ body:                                             ; preds = %cond
 
 end106:                                           ; preds = %cond
   %108 = icmp ne i64 %GEM4.fca.1.load, 0
-  br i1 %108, label %true315, label %end316
+  br i1 %108, label %true312, label %end313
 
 true109:                                          ; preds = %body
   %output = mul i64 %idx.1, %GEM4.fca.9.load
@@ -15022,262 +15022,260 @@ end280:                                           ; preds = %true279, %end265
 
 true291:                                          ; preds = %end280
   %__tmp293 = load <2 x double>, <2 x double>* %__tmp
-  %cast294 = call <3 x double> @"set@VI"(i64 0)
-  %return296 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %GEM4.fca.35.load)
-  %cast297 = call <3 x double> @"set@VI"(i64 1)
-  %return299 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast294, <3 x double> %return296, <3 x double> %cast297, <3 x double> %cast294)
-  %cast300 = call <4 x double> @"set@24"(<16 x double> %return299)
-  %output301 = call <2 x double> @"mul@U2"(<2 x double> %__tmp293, <4 x double> %cast300)
-  store <2 x double> %output301, <2 x double>* %__tmp
+  %return295 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %GEM4.fca.35.load)
+  %return296 = call <9 x double> @"maketransform@3IV"(i64 0, <3 x double> %return295)
+  %cast297 = call <4 x double> @"set@23"(<9 x double> %return296)
+  %output298 = call <2 x double> @"mul@U2"(<2 x double> %__tmp293, <4 x double> %cast297)
+  store <2 x double> %output298, <2 x double>* %__tmp
   br label %end292
 
 end292:                                           ; preds = %true291, %end280
-  %return304 = call double @"getcomp@F[FI"(double* %GEM4.fca.28.load, i64 %idx.2)
-  %return307 = call double @"getcomp@F[FI"(double* %GEM4.fca.29.load, i64 %idx.2)
-  %output309 = fmul double %return307, %prev_clr.0
-  %output310 = fadd double %return304, %output309
-  %__tmp311 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp311, <2 x double>* %__mem
-  %output313 = add i64 %i.0, 1
+  %return301 = call double @"getcomp@F[FI"(double* %GEM4.fca.28.load, i64 %idx.2)
+  %return304 = call double @"getcomp@F[FI"(double* %GEM4.fca.29.load, i64 %idx.2)
+  %output306 = fmul double %return304, %prev_clr.0
+  %output307 = fadd double %return301, %output306
+  %__tmp308 = load <2 x double>, <2 x double>* %__tmp
+  store <2 x double> %__tmp308, <2 x double>* %__mem
+  %output310 = add i64 %i.0, 1
   br label %cond
 
-true315:                                          ; preds = %end106
-  %GEM317.fca.0.load = load i64, i64* %GEM2.fca.0.gep
-  %GEM317.fca.0.insert = insertvalue %gem undef, i64 %GEM317.fca.0.load, 0
-  %GEM317.fca.1.load = load i64, i64* %GEM2.fca.1.gep
-  %GEM317.fca.1.insert = insertvalue %gem %GEM317.fca.0.insert, i64 %GEM317.fca.1.load, 1
-  %GEM317.fca.2.load = load i64, i64* %GEM2.fca.2.gep
-  %GEM317.fca.2.insert = insertvalue %gem %GEM317.fca.1.insert, i64 %GEM317.fca.2.load, 2
-  %GEM317.fca.3.load = load i64, i64* %GEM2.fca.3.gep
-  %GEM317.fca.3.insert = insertvalue %gem %GEM317.fca.2.insert, i64 %GEM317.fca.3.load, 3
-  %GEM317.fca.4.load = load i64, i64* %GEM2.fca.4.gep
-  %GEM317.fca.4.insert = insertvalue %gem %GEM317.fca.3.insert, i64 %GEM317.fca.4.load, 4
-  %GEM317.fca.5.load = load i64, i64* %GEM2.fca.5.gep
-  %GEM317.fca.5.insert = insertvalue %gem %GEM317.fca.4.insert, i64 %GEM317.fca.5.load, 5
-  %GEM317.fca.6.load = load i64, i64* %GEM2.fca.6.gep
-  %GEM317.fca.6.insert = insertvalue %gem %GEM317.fca.5.insert, i64 %GEM317.fca.6.load, 6
-  %GEM317.fca.7.load = load i64, i64* %GEM2.fca.7.gep
-  %GEM317.fca.7.insert = insertvalue %gem %GEM317.fca.6.insert, i64 %GEM317.fca.7.load, 7
-  %GEM317.fca.8.load = load i64, i64* %GEM2.fca.8.gep
-  %GEM317.fca.8.insert = insertvalue %gem %GEM317.fca.7.insert, i64 %GEM317.fca.8.load, 8
-  %GEM317.fca.9.load = load i64, i64* %GEM2.fca.9.gep
-  %GEM317.fca.9.insert = insertvalue %gem %GEM317.fca.8.insert, i64 %GEM317.fca.9.load, 9
-  %GEM317.fca.10.load = load i64*, i64** %GEM2.fca.10.gep
-  %GEM317.fca.10.insert = insertvalue %gem %GEM317.fca.9.insert, i64* %GEM317.fca.10.load, 10
-  %GEM317.fca.11.load = load i64*, i64** %GEM2.fca.11.gep
-  %GEM317.fca.11.insert = insertvalue %gem %GEM317.fca.10.insert, i64* %GEM317.fca.11.load, 11
-  %GEM317.fca.12.load = load i64*, i64** %GEM2.fca.12.gep
-  %GEM317.fca.12.insert = insertvalue %gem %GEM317.fca.11.insert, i64* %GEM317.fca.12.load, 12
-  %GEM317.fca.13.load = load i64*, i64** %GEM2.fca.13.gep
-  %GEM317.fca.13.insert = insertvalue %gem %GEM317.fca.12.insert, i64* %GEM317.fca.13.load, 13
-  %GEM317.fca.14.load = load i64*, i64** %GEM2.fca.14.gep
-  %GEM317.fca.14.insert = insertvalue %gem %GEM317.fca.13.insert, i64* %GEM317.fca.14.load, 14
-  %GEM317.fca.15.load = load i64*, i64** %GEM2.fca.15.gep
-  %GEM317.fca.15.insert = insertvalue %gem %GEM317.fca.14.insert, i64* %GEM317.fca.15.load, 15
-  %GEM317.fca.16.load = load i64*, i64** %GEM2.fca.16.gep
-  %GEM317.fca.16.insert = insertvalue %gem %GEM317.fca.15.insert, i64* %GEM317.fca.16.load, 16
-  %GEM317.fca.17.load = load i64, i64* %GEM2.fca.17.gep
-  %GEM317.fca.17.insert = insertvalue %gem %GEM317.fca.16.insert, i64 %GEM317.fca.17.load, 17
-  %GEM317.fca.18.load = load i64, i64* %GEM2.fca.18.gep
-  %GEM317.fca.18.insert = insertvalue %gem %GEM317.fca.17.insert, i64 %GEM317.fca.18.load, 18
-  %GEM317.fca.19.load = load i64, i64* %GEM2.fca.19.gep
-  %GEM317.fca.19.insert = insertvalue %gem %GEM317.fca.18.insert, i64 %GEM317.fca.19.load, 19
-  %GEM317.fca.20.load = load i64, i64* %GEM2.fca.20.gep
-  %GEM317.fca.20.insert = insertvalue %gem %GEM317.fca.19.insert, i64 %GEM317.fca.20.load, 20
-  %GEM317.fca.21.load = load double*, double** %GEM2.fca.21.gep
-  %GEM317.fca.21.insert = insertvalue %gem %GEM317.fca.20.insert, double* %GEM317.fca.21.load, 21
-  %GEM317.fca.22.load = load double*, double** %GEM2.fca.22.gep
-  %GEM317.fca.22.insert = insertvalue %gem %GEM317.fca.21.insert, double* %GEM317.fca.22.load, 22
-  %GEM317.fca.23.load = load double*, double** %GEM2.fca.23.gep
-  %GEM317.fca.23.insert = insertvalue %gem %GEM317.fca.22.insert, double* %GEM317.fca.23.load, 23
-  %GEM317.fca.24.load = load double*, double** %GEM2.fca.24.gep
-  %GEM317.fca.24.insert = insertvalue %gem %GEM317.fca.23.insert, double* %GEM317.fca.24.load, 24
-  %GEM317.fca.25.load = load double*, double** %GEM2.fca.25.gep
-  %GEM317.fca.25.insert = insertvalue %gem %GEM317.fca.24.insert, double* %GEM317.fca.25.load, 25
-  %GEM317.fca.26.load = load double*, double** %GEM2.fca.26.gep
-  %GEM317.fca.26.insert = insertvalue %gem %GEM317.fca.25.insert, double* %GEM317.fca.26.load, 26
-  %GEM317.fca.27.load = load double*, double** %GEM2.fca.27.gep
-  %GEM317.fca.27.insert = insertvalue %gem %GEM317.fca.26.insert, double* %GEM317.fca.27.load, 27
-  %GEM317.fca.28.load = load double*, double** %GEM2.fca.28.gep
-  %GEM317.fca.28.insert = insertvalue %gem %GEM317.fca.27.insert, double* %GEM317.fca.28.load, 28
-  %GEM317.fca.29.load = load double*, double** %GEM2.fca.29.gep
-  %GEM317.fca.29.insert = insertvalue %gem %GEM317.fca.28.insert, double* %GEM317.fca.29.load, 29
-  %GEM317.fca.30.load = load double*, double** %GEM2.fca.30.gep
-  %GEM317.fca.30.insert = insertvalue %gem %GEM317.fca.29.insert, double* %GEM317.fca.30.load, 30
-  %GEM317.fca.31.load = load double, double* %GEM2.fca.31.gep
-  %GEM317.fca.31.insert = insertvalue %gem %GEM317.fca.30.insert, double %GEM317.fca.31.load, 31
-  %GEM317.fca.32.load = load double, double* %GEM2.fca.32.gep
-  %GEM317.fca.32.insert = insertvalue %gem %GEM317.fca.31.insert, double %GEM317.fca.32.load, 32
-  %GEM317.fca.33.load = load double, double* %GEM2.fca.33.gep
-  %GEM317.fca.33.insert = insertvalue %gem %GEM317.fca.32.insert, double %GEM317.fca.33.load, 33
-  %GEM317.fca.34.load = load double, double* %GEM2.fca.34.gep
-  %GEM317.fca.34.insert = insertvalue %gem %GEM317.fca.33.insert, double %GEM317.fca.34.load, 34
-  %GEM317.fca.35.load = load double, double* %GEM2.fca.35.gep
-  %GEM317.fca.35.insert = insertvalue %gem %GEM317.fca.34.insert, double %GEM317.fca.35.load, 35
-  %GEM317.fca.36.load = load <2 x double>*, <2 x double>** %GEM2.fca.36.gep
-  %GEM317.fca.36.insert = insertvalue %gem %GEM317.fca.35.insert, <2 x double>* %GEM317.fca.36.load, 36
-  %GEM317.fca.37.load = load <2 x double>*, <2 x double>** %GEM2.fca.37.gep
-  %GEM317.fca.37.insert = insertvalue %gem %GEM317.fca.36.insert, <2 x double>* %GEM317.fca.37.load, 37
-  %GEM317.fca.38.load = load <2 x double>*, <2 x double>** %GEM2.fca.38.gep
-  %GEM317.fca.38.insert = insertvalue %gem %GEM317.fca.37.insert, <2 x double>* %GEM317.fca.38.load, 38
-  %GEM317.fca.39.load = load <2 x double>*, <2 x double>** %GEM2.fca.39.gep
-  %GEM317.fca.39.insert = insertvalue %gem %GEM317.fca.38.insert, <2 x double>* %GEM317.fca.39.load, 39
-  %GEM317.fca.40.load = load <2 x double>*, <2 x double>** %GEM2.fca.40.gep
-  %GEM317.fca.40.insert = insertvalue %gem %GEM317.fca.39.insert, <2 x double>* %GEM317.fca.40.load, 40
-  %GEM317.fca.41.load = load <2 x double>*, <2 x double>** %GEM2.fca.41.gep
-  %GEM317.fca.41.insert = insertvalue %gem %GEM317.fca.40.insert, <2 x double>* %GEM317.fca.41.load, 41
-  %GEM317.fca.42.load = load <2 x double>, <2 x double>* %GEM2.fca.42.gep
-  %GEM317.fca.42.insert = insertvalue %gem %GEM317.fca.41.insert, <2 x double> %GEM317.fca.42.load, 42
-  %GEM317.fca.43.load = load <2 x double>, <2 x double>* %GEM2.fca.43.gep
-  %GEM317.fca.43.insert = insertvalue %gem %GEM317.fca.42.insert, <2 x double> %GEM317.fca.43.load, 43
-  %GEM317.fca.44.load = load <2 x double>, <2 x double>* %GEM2.fca.44.gep
-  %GEM317.fca.44.insert = insertvalue %gem %GEM317.fca.43.insert, <2 x double> %GEM317.fca.44.load, 44
-  %GEM317.fca.45.load = load <2 x double>, <2 x double>* %GEM2.fca.45.gep
-  %GEM317.fca.45.insert = insertvalue %gem %GEM317.fca.44.insert, <2 x double> %GEM317.fca.45.load, 45
-  %GEM317.fca.46.load = load <2 x double>, <2 x double>* %GEM2.fca.46.gep
-  %GEM317.fca.46.insert = insertvalue %gem %GEM317.fca.45.insert, <2 x double> %GEM317.fca.46.load, 46
-  %GEM317.fca.47.load = load <2 x double>, <2 x double>* %GEM2.fca.47.gep
-  %GEM317.fca.47.insert = insertvalue %gem %GEM317.fca.46.insert, <2 x double> %GEM317.fca.47.load, 47
-  %GEM317.fca.48.load = load i8**, i8*** %GEM2.fca.48.gep
-  %GEM317.fca.48.insert = insertvalue %gem %GEM317.fca.47.insert, i8** %GEM317.fca.48.load, 48
-  %GEM317.fca.49.load = load double, double* %GEM2.fca.49.gep
-  %cast345 = call <2 x double> @"set@UI"(i64 0)
-  store <2 x double> %cast345, <2 x double>* %__tmp
-  %return347 = fcmp one double %GEM317.fca.31.load, 0.000000e+00
-  br i1 %return347, label %true349, label %end350
+true312:                                          ; preds = %end106
+  %GEM314.fca.0.load = load i64, i64* %GEM2.fca.0.gep
+  %GEM314.fca.0.insert = insertvalue %gem undef, i64 %GEM314.fca.0.load, 0
+  %GEM314.fca.1.load = load i64, i64* %GEM2.fca.1.gep
+  %GEM314.fca.1.insert = insertvalue %gem %GEM314.fca.0.insert, i64 %GEM314.fca.1.load, 1
+  %GEM314.fca.2.load = load i64, i64* %GEM2.fca.2.gep
+  %GEM314.fca.2.insert = insertvalue %gem %GEM314.fca.1.insert, i64 %GEM314.fca.2.load, 2
+  %GEM314.fca.3.load = load i64, i64* %GEM2.fca.3.gep
+  %GEM314.fca.3.insert = insertvalue %gem %GEM314.fca.2.insert, i64 %GEM314.fca.3.load, 3
+  %GEM314.fca.4.load = load i64, i64* %GEM2.fca.4.gep
+  %GEM314.fca.4.insert = insertvalue %gem %GEM314.fca.3.insert, i64 %GEM314.fca.4.load, 4
+  %GEM314.fca.5.load = load i64, i64* %GEM2.fca.5.gep
+  %GEM314.fca.5.insert = insertvalue %gem %GEM314.fca.4.insert, i64 %GEM314.fca.5.load, 5
+  %GEM314.fca.6.load = load i64, i64* %GEM2.fca.6.gep
+  %GEM314.fca.6.insert = insertvalue %gem %GEM314.fca.5.insert, i64 %GEM314.fca.6.load, 6
+  %GEM314.fca.7.load = load i64, i64* %GEM2.fca.7.gep
+  %GEM314.fca.7.insert = insertvalue %gem %GEM314.fca.6.insert, i64 %GEM314.fca.7.load, 7
+  %GEM314.fca.8.load = load i64, i64* %GEM2.fca.8.gep
+  %GEM314.fca.8.insert = insertvalue %gem %GEM314.fca.7.insert, i64 %GEM314.fca.8.load, 8
+  %GEM314.fca.9.load = load i64, i64* %GEM2.fca.9.gep
+  %GEM314.fca.9.insert = insertvalue %gem %GEM314.fca.8.insert, i64 %GEM314.fca.9.load, 9
+  %GEM314.fca.10.load = load i64*, i64** %GEM2.fca.10.gep
+  %GEM314.fca.10.insert = insertvalue %gem %GEM314.fca.9.insert, i64* %GEM314.fca.10.load, 10
+  %GEM314.fca.11.load = load i64*, i64** %GEM2.fca.11.gep
+  %GEM314.fca.11.insert = insertvalue %gem %GEM314.fca.10.insert, i64* %GEM314.fca.11.load, 11
+  %GEM314.fca.12.load = load i64*, i64** %GEM2.fca.12.gep
+  %GEM314.fca.12.insert = insertvalue %gem %GEM314.fca.11.insert, i64* %GEM314.fca.12.load, 12
+  %GEM314.fca.13.load = load i64*, i64** %GEM2.fca.13.gep
+  %GEM314.fca.13.insert = insertvalue %gem %GEM314.fca.12.insert, i64* %GEM314.fca.13.load, 13
+  %GEM314.fca.14.load = load i64*, i64** %GEM2.fca.14.gep
+  %GEM314.fca.14.insert = insertvalue %gem %GEM314.fca.13.insert, i64* %GEM314.fca.14.load, 14
+  %GEM314.fca.15.load = load i64*, i64** %GEM2.fca.15.gep
+  %GEM314.fca.15.insert = insertvalue %gem %GEM314.fca.14.insert, i64* %GEM314.fca.15.load, 15
+  %GEM314.fca.16.load = load i64*, i64** %GEM2.fca.16.gep
+  %GEM314.fca.16.insert = insertvalue %gem %GEM314.fca.15.insert, i64* %GEM314.fca.16.load, 16
+  %GEM314.fca.17.load = load i64, i64* %GEM2.fca.17.gep
+  %GEM314.fca.17.insert = insertvalue %gem %GEM314.fca.16.insert, i64 %GEM314.fca.17.load, 17
+  %GEM314.fca.18.load = load i64, i64* %GEM2.fca.18.gep
+  %GEM314.fca.18.insert = insertvalue %gem %GEM314.fca.17.insert, i64 %GEM314.fca.18.load, 18
+  %GEM314.fca.19.load = load i64, i64* %GEM2.fca.19.gep
+  %GEM314.fca.19.insert = insertvalue %gem %GEM314.fca.18.insert, i64 %GEM314.fca.19.load, 19
+  %GEM314.fca.20.load = load i64, i64* %GEM2.fca.20.gep
+  %GEM314.fca.20.insert = insertvalue %gem %GEM314.fca.19.insert, i64 %GEM314.fca.20.load, 20
+  %GEM314.fca.21.load = load double*, double** %GEM2.fca.21.gep
+  %GEM314.fca.21.insert = insertvalue %gem %GEM314.fca.20.insert, double* %GEM314.fca.21.load, 21
+  %GEM314.fca.22.load = load double*, double** %GEM2.fca.22.gep
+  %GEM314.fca.22.insert = insertvalue %gem %GEM314.fca.21.insert, double* %GEM314.fca.22.load, 22
+  %GEM314.fca.23.load = load double*, double** %GEM2.fca.23.gep
+  %GEM314.fca.23.insert = insertvalue %gem %GEM314.fca.22.insert, double* %GEM314.fca.23.load, 23
+  %GEM314.fca.24.load = load double*, double** %GEM2.fca.24.gep
+  %GEM314.fca.24.insert = insertvalue %gem %GEM314.fca.23.insert, double* %GEM314.fca.24.load, 24
+  %GEM314.fca.25.load = load double*, double** %GEM2.fca.25.gep
+  %GEM314.fca.25.insert = insertvalue %gem %GEM314.fca.24.insert, double* %GEM314.fca.25.load, 25
+  %GEM314.fca.26.load = load double*, double** %GEM2.fca.26.gep
+  %GEM314.fca.26.insert = insertvalue %gem %GEM314.fca.25.insert, double* %GEM314.fca.26.load, 26
+  %GEM314.fca.27.load = load double*, double** %GEM2.fca.27.gep
+  %GEM314.fca.27.insert = insertvalue %gem %GEM314.fca.26.insert, double* %GEM314.fca.27.load, 27
+  %GEM314.fca.28.load = load double*, double** %GEM2.fca.28.gep
+  %GEM314.fca.28.insert = insertvalue %gem %GEM314.fca.27.insert, double* %GEM314.fca.28.load, 28
+  %GEM314.fca.29.load = load double*, double** %GEM2.fca.29.gep
+  %GEM314.fca.29.insert = insertvalue %gem %GEM314.fca.28.insert, double* %GEM314.fca.29.load, 29
+  %GEM314.fca.30.load = load double*, double** %GEM2.fca.30.gep
+  %GEM314.fca.30.insert = insertvalue %gem %GEM314.fca.29.insert, double* %GEM314.fca.30.load, 30
+  %GEM314.fca.31.load = load double, double* %GEM2.fca.31.gep
+  %GEM314.fca.31.insert = insertvalue %gem %GEM314.fca.30.insert, double %GEM314.fca.31.load, 31
+  %GEM314.fca.32.load = load double, double* %GEM2.fca.32.gep
+  %GEM314.fca.32.insert = insertvalue %gem %GEM314.fca.31.insert, double %GEM314.fca.32.load, 32
+  %GEM314.fca.33.load = load double, double* %GEM2.fca.33.gep
+  %GEM314.fca.33.insert = insertvalue %gem %GEM314.fca.32.insert, double %GEM314.fca.33.load, 33
+  %GEM314.fca.34.load = load double, double* %GEM2.fca.34.gep
+  %GEM314.fca.34.insert = insertvalue %gem %GEM314.fca.33.insert, double %GEM314.fca.34.load, 34
+  %GEM314.fca.35.load = load double, double* %GEM2.fca.35.gep
+  %GEM314.fca.35.insert = insertvalue %gem %GEM314.fca.34.insert, double %GEM314.fca.35.load, 35
+  %GEM314.fca.36.load = load <2 x double>*, <2 x double>** %GEM2.fca.36.gep
+  %GEM314.fca.36.insert = insertvalue %gem %GEM314.fca.35.insert, <2 x double>* %GEM314.fca.36.load, 36
+  %GEM314.fca.37.load = load <2 x double>*, <2 x double>** %GEM2.fca.37.gep
+  %GEM314.fca.37.insert = insertvalue %gem %GEM314.fca.36.insert, <2 x double>* %GEM314.fca.37.load, 37
+  %GEM314.fca.38.load = load <2 x double>*, <2 x double>** %GEM2.fca.38.gep
+  %GEM314.fca.38.insert = insertvalue %gem %GEM314.fca.37.insert, <2 x double>* %GEM314.fca.38.load, 38
+  %GEM314.fca.39.load = load <2 x double>*, <2 x double>** %GEM2.fca.39.gep
+  %GEM314.fca.39.insert = insertvalue %gem %GEM314.fca.38.insert, <2 x double>* %GEM314.fca.39.load, 39
+  %GEM314.fca.40.load = load <2 x double>*, <2 x double>** %GEM2.fca.40.gep
+  %GEM314.fca.40.insert = insertvalue %gem %GEM314.fca.39.insert, <2 x double>* %GEM314.fca.40.load, 40
+  %GEM314.fca.41.load = load <2 x double>*, <2 x double>** %GEM2.fca.41.gep
+  %GEM314.fca.41.insert = insertvalue %gem %GEM314.fca.40.insert, <2 x double>* %GEM314.fca.41.load, 41
+  %GEM314.fca.42.load = load <2 x double>, <2 x double>* %GEM2.fca.42.gep
+  %GEM314.fca.42.insert = insertvalue %gem %GEM314.fca.41.insert, <2 x double> %GEM314.fca.42.load, 42
+  %GEM314.fca.43.load = load <2 x double>, <2 x double>* %GEM2.fca.43.gep
+  %GEM314.fca.43.insert = insertvalue %gem %GEM314.fca.42.insert, <2 x double> %GEM314.fca.43.load, 43
+  %GEM314.fca.44.load = load <2 x double>, <2 x double>* %GEM2.fca.44.gep
+  %GEM314.fca.44.insert = insertvalue %gem %GEM314.fca.43.insert, <2 x double> %GEM314.fca.44.load, 44
+  %GEM314.fca.45.load = load <2 x double>, <2 x double>* %GEM2.fca.45.gep
+  %GEM314.fca.45.insert = insertvalue %gem %GEM314.fca.44.insert, <2 x double> %GEM314.fca.45.load, 45
+  %GEM314.fca.46.load = load <2 x double>, <2 x double>* %GEM2.fca.46.gep
+  %GEM314.fca.46.insert = insertvalue %gem %GEM314.fca.45.insert, <2 x double> %GEM314.fca.46.load, 46
+  %GEM314.fca.47.load = load <2 x double>, <2 x double>* %GEM2.fca.47.gep
+  %GEM314.fca.47.insert = insertvalue %gem %GEM314.fca.46.insert, <2 x double> %GEM314.fca.47.load, 47
+  %GEM314.fca.48.load = load i8**, i8*** %GEM2.fca.48.gep
+  %GEM314.fca.48.insert = insertvalue %gem %GEM314.fca.47.insert, i8** %GEM314.fca.48.load, 48
+  %GEM314.fca.49.load = load double, double* %GEM2.fca.49.gep
+  %cast342 = call <2 x double> @"set@UI"(i64 0)
+  store <2 x double> %cast342, <2 x double>* %__tmp
+  %return344 = fcmp one double %GEM314.fca.31.load, 0.000000e+00
+  br i1 %return344, label %true346, label %end347
 
-end316:                                           ; preds = %end398, %end106
-  %return405 = call double @"getcomp@F[FI"(double* %GEM4.fca.30.load, i64 %idx.1)
+end313:                                           ; preds = %end395, %end106
+  %return402 = call double @"getcomp@F[FI"(double* %GEM4.fca.30.load, i64 %idx.1)
   store i64 %GEM4.fca.3.load, i64* %71
-  %__mem407 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem407, <2 x double>* %72
-  store double %return405, double* %73
+  %__mem404 = load <2 x double>, <2 x double>* %__mem
+  store <2 x double> %__mem404, <2 x double>* %72
+  store double %return402, double* %73
   %chkNAN_v = call i64 @"chkNAN_v@IIUF"(i64* %71, <2 x double>* %72, double* %73)
   %111 = icmp ne i64 %chkNAN_v, 0
-  br i1 %111, label %true409, label %false410
+  br i1 %111, label %true406, label %false407
 
-true349:                                          ; preds = %true315
+true346:                                          ; preds = %true312
   store i64 1, i64* %74
-  store i64 %GEM317.fca.17.load, i64* %75
-  %__mem353 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem353, <2 x double>* %76
-  store <2 x double> %GEM317.fca.42.load, <2 x double>* %77
-  store <2 x double> %GEM317.fca.43.load, <2 x double>* %78
-  store <2 x double> %GEM317.fca.44.load, <2 x double>* %79
-  store double %GEM317.fca.31.load, double* %80
+  store i64 %GEM314.fca.17.load, i64* %75
+  %__mem350 = load <2 x double>, <2 x double>* %__mem
+  store <2 x double> %__mem350, <2 x double>* %76
+  store <2 x double> %GEM314.fca.42.load, <2 x double>* %77
+  store <2 x double> %GEM314.fca.43.load, <2 x double>* %78
+  store <2 x double> %GEM314.fca.44.load, <2 x double>* %79
+  store double %GEM314.fca.31.load, double* %80
   %FLAMEFF = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %74, i64* %75, <2 x double>* %76, <2 x double>* %77, <2 x double>* %78, <2 x double>* %79, double* %80)
-  %output358 = call <2 x double> @"add@UU"(<2 x double> %cast345, <2 x double> %FLAMEFF)
-  store <2 x double> %output358, <2 x double>* %__tmp
-  br label %end350
+  %output355 = call <2 x double> @"add@UU"(<2 x double> %cast342, <2 x double> %FLAMEFF)
+  store <2 x double> %output355, <2 x double>* %__tmp
+  br label %end347
 
-end350:                                           ; preds = %true349, %true315
-  %return360 = fcmp one double %GEM317.fca.32.load, 0.000000e+00
-  br i1 %return360, label %true362, label %end363
+end347:                                           ; preds = %true346, %true312
+  %return357 = fcmp one double %GEM314.fca.32.load, 0.000000e+00
+  br i1 %return357, label %true359, label %end360
 
-true362:                                          ; preds = %end350
-  %__tmp364 = load <2 x double>, <2 x double>* %__tmp
+true359:                                          ; preds = %end347
+  %__tmp361 = load <2 x double>, <2 x double>* %__tmp
   store i64 1, i64* %81
-  store i64 %GEM317.fca.18.load, i64* %82
-  %__mem366 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem366, <2 x double>* %83
-  store <2 x double> %GEM317.fca.42.load, <2 x double>* %84
-  store <2 x double> %GEM317.fca.43.load, <2 x double>* %85
-  store <2 x double> %GEM317.fca.44.load, <2 x double>* %86
-  store double %GEM317.fca.32.load, double* %87
-  %FLAMEFF371 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %81, i64* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, <2 x double>* %86, double* %87)
-  %output372 = call <2 x double> @"add@UU"(<2 x double> %__tmp364, <2 x double> %FLAMEFF371)
-  store <2 x double> %output372, <2 x double>* %__tmp
-  br label %end363
+  store i64 %GEM314.fca.18.load, i64* %82
+  %__mem363 = load <2 x double>, <2 x double>* %__mem
+  store <2 x double> %__mem363, <2 x double>* %83
+  store <2 x double> %GEM314.fca.42.load, <2 x double>* %84
+  store <2 x double> %GEM314.fca.43.load, <2 x double>* %85
+  store <2 x double> %GEM314.fca.44.load, <2 x double>* %86
+  store double %GEM314.fca.32.load, double* %87
+  %FLAMEFF368 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %81, i64* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, <2 x double>* %86, double* %87)
+  %output369 = call <2 x double> @"add@UU"(<2 x double> %__tmp361, <2 x double> %FLAMEFF368)
+  store <2 x double> %output369, <2 x double>* %__tmp
+  br label %end360
 
-end363:                                           ; preds = %true362, %end350
-  %return374 = fcmp one double %GEM317.fca.33.load, 0.000000e+00
-  br i1 %return374, label %true376, label %end377
+end360:                                           ; preds = %true359, %end347
+  %return371 = fcmp one double %GEM314.fca.33.load, 0.000000e+00
+  br i1 %return371, label %true373, label %end374
 
-true376:                                          ; preds = %end363
-  %__tmp378 = load <2 x double>, <2 x double>* %__tmp
+true373:                                          ; preds = %end360
+  %__tmp375 = load <2 x double>, <2 x double>* %__tmp
   store i64 1, i64* %88
-  store i64 %GEM317.fca.19.load, i64* %89
-  %__mem380 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem380, <2 x double>* %90
-  store <2 x double> %GEM317.fca.42.load, <2 x double>* %91
-  store <2 x double> %GEM317.fca.43.load, <2 x double>* %92
-  store <2 x double> %GEM317.fca.44.load, <2 x double>* %93
-  store double %GEM317.fca.33.load, double* %94
-  %FLAMEFF385 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %88, i64* %89, <2 x double>* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
-  %output386 = call <2 x double> @"add@UU"(<2 x double> %__tmp378, <2 x double> %FLAMEFF385)
-  store <2 x double> %output386, <2 x double>* %__tmp
-  br label %end377
+  store i64 %GEM314.fca.19.load, i64* %89
+  %__mem377 = load <2 x double>, <2 x double>* %__mem
+  store <2 x double> %__mem377, <2 x double>* %90
+  store <2 x double> %GEM314.fca.42.load, <2 x double>* %91
+  store <2 x double> %GEM314.fca.43.load, <2 x double>* %92
+  store <2 x double> %GEM314.fca.44.load, <2 x double>* %93
+  store double %GEM314.fca.33.load, double* %94
+  %FLAMEFF382 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %88, i64* %89, <2 x double>* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
+  %output383 = call <2 x double> @"add@UU"(<2 x double> %__tmp375, <2 x double> %FLAMEFF382)
+  store <2 x double> %output383, <2 x double>* %__tmp
+  br label %end374
 
-end377:                                           ; preds = %true376, %end363
-  %return388 = fcmp one double %GEM317.fca.34.load, 0.000000e+00
-  br i1 %return388, label %true390, label %end391
+end374:                                           ; preds = %true373, %end360
+  %return385 = fcmp one double %GEM314.fca.34.load, 0.000000e+00
+  br i1 %return385, label %true387, label %end388
 
-true390:                                          ; preds = %end377
+true387:                                          ; preds = %end374
   store i64 2, i64* %95
-  store i64 %GEM317.fca.20.load, i64* %96
-  %__tmp393 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp393, <2 x double>* %97
+  store i64 %GEM314.fca.20.load, i64* %96
+  %__tmp390 = load <2 x double>, <2 x double>* %__tmp
+  store <2 x double> %__tmp390, <2 x double>* %97
   store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %98
   store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %99
   store <2 x double> zeroinitializer, <2 x double>* %100
-  store double %GEM317.fca.34.load, double* %101
-  %FLAMEFF395 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %95, i64* %96, <2 x double>* %97, <2 x double>* %98, <2 x double>* %99, <2 x double>* %100, double* %101)
-  store <2 x double> %FLAMEFF395, <2 x double>* %__tmp
-  br label %end391
+  store double %GEM314.fca.34.load, double* %101
+  %FLAMEFF392 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %95, i64* %96, <2 x double>* %97, <2 x double>* %98, <2 x double>* %99, <2 x double>* %100, double* %101)
+  store <2 x double> %FLAMEFF392, <2 x double>* %__tmp
+  br label %end388
 
-end391:                                           ; preds = %true390, %end377
+end388:                                           ; preds = %true387, %end374
   %112 = icmp ne i64 %GEM4.fca.2.load, 0
-  br i1 %112, label %true397, label %end398
+  br i1 %112, label %true394, label %end395
 
-true397:                                          ; preds = %end391
-  store <2 x double> %GEM317.fca.45.load, <2 x double>* %102
-  store <2 x double> %GEM317.fca.46.load, <2 x double>* %103
-  store <2 x double> %GEM317.fca.47.load, <2 x double>* %104
+true394:                                          ; preds = %end388
+  store <2 x double> %GEM314.fca.45.load, <2 x double>* %102
+  store <2 x double> %GEM314.fca.46.load, <2 x double>* %103
+  store <2 x double> %GEM314.fca.47.load, <2 x double>* %104
   call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %102, <2 x double>* %103, <2 x double>* %104)
-  br label %end398
+  br label %end395
 
-end398:                                           ; preds = %true397, %end391
-  %__tmp402 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp402, <2 x double>* %__mem
-  br label %end316
+end395:                                           ; preds = %true394, %end388
+  %__tmp399 = load <2 x double>, <2 x double>* %__tmp
+  store <2 x double> %__tmp399, <2 x double>* %__mem
+  br label %end313
 
-true409:                                          ; preds = %end316
-  %_bound_ptnum412 = load i64, i64* %_bound_ptnum
-  %return413 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum412)
-  br label %end411
+true406:                                          ; preds = %end313
+  %_bound_ptnum409 = load i64, i64* %_bound_ptnum
+  %return410 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum409)
+  br label %end408
 
-false410:                                         ; preds = %end316
+false407:                                         ; preds = %end313
   %113 = icmp ne i64 %GEM4.fca.4.load, 0
-  br i1 %113, label %true415, label %end416
+  br i1 %113, label %true412, label %end413
 
-end411:                                           ; preds = %end420, %true409
+end408:                                           ; preds = %end417, %true406
   ret void
 
-true415:                                          ; preds = %false410
+true412:                                          ; preds = %false407
   store i64 %GEM4.fca.7.load, i64* %105
   call void @"V_SYM@UI"(<2 x double>* %__mem, i64* %105)
-  br label %end416
+  br label %end413
 
-end416:                                           ; preds = %true415, %false410
+end413:                                           ; preds = %true412, %false407
   %114 = icmp ne i64 %GEM4.fca.8.load, 0
-  br i1 %114, label %true419, label %end420
+  br i1 %114, label %true416, label %end417
 
-true419:                                          ; preds = %end416
-  %output423 = fmul double 1.000000e-03, %GEM4.fca.49.load
-  %_bound_ptnum424 = load i64, i64* %_bound_ptnum
-  %return426 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @165, i64 0, i64 0), i64 %_bound_ptnum424, double %GEM4.fca.49.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @166, i64 0, i64 0))
-  br label %end420
+true416:                                          ; preds = %end413
+  %output420 = fmul double 1.000000e-03, %GEM4.fca.49.load
+  %_bound_ptnum421 = load i64, i64* %_bound_ptnum
+  %return423 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @165, i64 0, i64 0), i64 %_bound_ptnum421, double %GEM4.fca.49.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @166, i64 0, i64 0))
+  br label %end417
 
-end420:                                           ; preds = %true419, %end416
-  %pscl.0 = phi double [ %output423, %true419 ], [ 1.000000e-03, %end416 ]
-  %__mem427 = load <2 x double>, <2 x double>* %__mem
-  %cast428 = call <3 x double> @"set@VU"(<2 x double> %__mem427)
-  store <3 x double> %cast428, <3 x double>* %_bound_P
+end417:                                           ; preds = %true416, %end413
+  %pscl.0 = phi double [ %output420, %true416 ], [ 1.000000e-03, %end413 ]
+  %__mem424 = load <2 x double>, <2 x double>* %__mem
+  %cast425 = call <3 x double> @"set@VU"(<2 x double> %__mem424)
+  store <3 x double> %cast425, <3 x double>* %_bound_P
   store double %clr.0, double* %_bound_COORD
-  %output432 = fmul double %pscl.0, %return405
-  store double %output432, double* %_bound_pscale
-  store double %return405, double* %_bound_Alpha
-  br label %end411
+  %output429 = fmul double %pscl.0, %return402
+  store double %output429, double* %_bound_pscale
+  store double %return402, double* %_bound_Alpha
+  br label %end408
 }
 
 ; Function Attrs: alwaysinline
@@ -15299,6 +15297,12 @@ declare double* @"slice@[F[FIIIIII"(double*, i64, i64, i64, i64, i64, i64) #3
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <9 x double> @"maketransform@3IV"(i64, <3 x double>) #1
+
+; Function Attrs: nounwind
+declare <4 x double> @"set@23"(<9 x double>) #3
 
 ; Function Attrs: nounwind
 declare i64 @"removepoint@III"(i64, i64) #3
