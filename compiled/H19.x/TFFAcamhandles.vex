@@ -56,6 +56,7 @@ __llvm_entry:
   %return80 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @5, i64 0, i64 0), i64 %return60, <3 x double> <double 1.000000e+00, double 1.000000e+00, double 1.000000e+00>, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @4, i64 0, i64 0))
   %output83 = fmul double 2.200000e-01, %return66
   %return84 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @6, i64 0, i64 0), i64 %return60, double %output83, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @4, i64 0, i64 0))
+  %return85 = call i64 @"removepoint@III"(i64 0, i64 0)
   ret void
 }
 
@@ -115,6 +116,9 @@ declare i64 @"setpointattrib@IISIVS"(i64, i8*, i64, <3 x double>, i8*) #2
 
 ; Function Attrs: nounwind
 declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #2
+
+; Function Attrs: nounwind
+declare i64 @"removepoint@III"(i64, i64) #2
 
 ; Function Attrs: nounwind
 define void @TFFAcamhandles(<4 x double> %orient) #2 {

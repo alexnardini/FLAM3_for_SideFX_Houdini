@@ -59,7 +59,8 @@ _TFFAcamhandles(vector4 _bound_orient)
     setpointattrib(0, "orient", far, _bound_orient, "set");
     setpointattrib(0, "Cd", far, {1,1,1}, "set");
     setpointattrib(0, "pscale", far, (float)0.22 * f_pscale, "set");
-    
+    // remove init pt
+    removepoint(0, 0);
 }
 
 cvex
