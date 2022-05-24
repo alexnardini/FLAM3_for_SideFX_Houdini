@@ -174,12 +174,12 @@ source_filename = "TheFractalFlameAlgorithm"
 @166 = private constant [4 x i8] c"set\00"
 @ptnum = external global i64
 @pscale = external global double
-@COORD = external global double
+@clr = external global double
 @Alpha = external global double
 @P = external global <3 x double>
 @167 = private constant [6 x i8] c"ptnum\00"
 @168 = private constant [7 x i8] c"pscale\00"
-@169 = private constant [6 x i8] c"COORD\00"
+@169 = private constant [4 x i8] c"clr\00"
 @170 = private constant [6 x i8] c"Alpha\00"
 @171 = private constant [2 x i8] c"P\00"
 
@@ -353,7 +353,7 @@ declare double @"nrandom@F:S"(i8*) #3
 declare <2 x double> @"set@UFF"(double, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private i64 @"chkNAN_v@IIUF"(i64* %ACTIVE, <2 x double>* %vec, double* %alpha) #0 {
+define private i64 @"chkPT@IIUF"(i64* %ACTIVE, <2 x double>* %vec, double* %alpha) #0 {
 __llvm_entry:
   %ACTIVE1 = load i64, i64* %ACTIVE
   %0 = icmp ne i64 %ACTIVE1, 0
@@ -425,13 +425,11 @@ false:                                            ; preds = %__llvm_entry
 end:                                              ; preds = %false45, %true53, %true44, %true35, %true26, %true13, %false, %true5, %true10, %true
   %ang.0 = phi double [ 2.400000e+02, %true10 ], [ 1.200000e+02, %true5 ], [ 0.000000e+00, %true ], [ 7.200000e+01, %true26 ], [ 1.440000e+02, %true35 ], [ 2.160000e+02, %true44 ], [ 2.880000e+02, %true53 ], [ 0.000000e+00, %false45 ], [ 0.000000e+00, %true13 ], [ 0.000000e+00, %false ]
   %p55 = load <2 x double>, <2 x double>* %p
-  %cast56 = call <3 x double> @"set@VI"(i64 0)
-  %return58 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.0)
-  %cast59 = call <3 x double> @"set@VI"(i64 1)
-  %return61 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast56, <3 x double> %return58, <3 x double> %cast59, <3 x double> %cast56)
-  %cast62 = call <4 x double> @"set@24"(<16 x double> %return61)
-  %output63 = call <2 x double> @"mul@U2"(<2 x double> %p55, <4 x double> %cast62)
-  store <2 x double> %output63, <2 x double>* %p
+  %return57 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %ang.0)
+  %return58 = call <9 x double> @"maketransform@3IV"(i64 0, <3 x double> %return57)
+  %cast59 = call <4 x double> @"set@23"(<9 x double> %return58)
+  %output60 = call <2 x double> @"mul@U2"(<2 x double> %p55, <4 x double> %cast59)
+  store <2 x double> %output60, <2 x double>* %p
   ret void
 
 true5:                                            ; preds = %true
@@ -490,16 +488,13 @@ true53:                                           ; preds = %false45
 }
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VI"(i64) #1
-
-; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VFFF"(double, double, double) #1
 
 ; Function Attrs: nounwind readnone
-declare <16 x double> @"maketransform@4IIVVVV"(i64, i64, <3 x double>, <3 x double>, <3 x double>, <3 x double>) #1
+declare <9 x double> @"maketransform@3IV"(i64, <3 x double>) #1
 
 ; Function Attrs: nounwind
-declare <4 x double> @"set@24"(<16 x double>) #3
+declare <4 x double> @"set@23"(<9 x double>) #3
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"mul@U2"(<2 x double>, <4 x double>) #1
@@ -12627,7 +12622,7 @@ UnifiedReturnBlock:                               ; preds = %true1183, %true1175
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TheFractalFlameAlgorithm@I[II[F[FFFFV"(i64* %_bound_ptnum, i64** %_bound_VACTIVE, i64* %_bound_XAOS, double** %_bound_IW, double** %_bound_XAOS_TO, double* %_bound_pscale, double* %_bound_COORD, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
+define private void @"_TheFractalFlameAlgorithm@I[II[F[FFFFV"(i64* %_bound_ptnum, i64** %_bound_VACTIVE, i64* %_bound_XAOS, double** %_bound_IW, double** %_bound_XAOS_TO, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
   %__tmp = alloca <2 x double>
   %GEM = alloca %gem
@@ -15150,8 +15145,8 @@ end313:                                           ; preds = %end395, %end106
   %__mem404 = load <2 x double>, <2 x double>* %__mem
   store <2 x double> %__mem404, <2 x double>* %72
   store double %return402, double* %73
-  %chkNAN_v = call i64 @"chkNAN_v@IIUF"(i64* %71, <2 x double>* %72, double* %73)
-  %111 = icmp ne i64 %chkNAN_v, 0
+  %chkPT = call i64 @"chkPT@IIUF"(i64* %71, <2 x double>* %72, double* %73)
+  %111 = icmp ne i64 %chkPT, 0
   br i1 %111, label %true406, label %false407
 
 true346:                                          ; preds = %true312
@@ -15272,7 +15267,7 @@ end419:                                           ; preds = %true418, %end415
   %__mem426 = load <2 x double>, <2 x double>* %__mem
   %cast427 = call <3 x double> @"set@VU"(<2 x double> %__mem426)
   store <3 x double> %cast427, <3 x double>* %_bound_P
-  store double %clr.0, double* %_bound_COORD
+  store double %clr.0, double* %_bound_clr
   store double %pscl.0, double* %_bound_pscale
   store double %return402, double* %_bound_Alpha
   br label %end408
@@ -15298,12 +15293,6 @@ declare double* @"slice@[F[FIIIIII"(double*, i64, i64, i64, i64, i64, i64) #3
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #1
 
-; Function Attrs: nounwind readnone
-declare <9 x double> @"maketransform@3IV"(i64, <3 x double>) #1
-
-; Function Attrs: nounwind
-declare <4 x double> @"set@23"(<9 x double>) #3
-
 ; Function Attrs: nounwind
 declare i64 @"removepoint@III"(i64, i64) #3
 
@@ -15314,10 +15303,10 @@ declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #3
 declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind
-define void @TheFractalFlameAlgorithm(i64 %ptnum, i64* %VACTIVE, i64 %XAOS, double* %IW, double* %XAOS_TO, double %pscale, double %COORD, double %Alpha, <3 x double> %P) #3 {
+define void @TheFractalFlameAlgorithm(i64 %ptnum, i64* %VACTIVE, i64 %XAOS, double* %IW, double* %XAOS_TO, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
 __llvm_entry:
   %"<pscale>" = alloca double
-  %"<COORD>" = alloca double
+  %"<clr>" = alloca double
   %"<Alpha>" = alloca double
   %"<P>" = alloca <3 x double>
   %0 = alloca i64
@@ -15326,7 +15315,7 @@ __llvm_entry:
   %3 = alloca double*
   %4 = alloca double*
   store double %pscale, double* %"<pscale>"
-  store double %COORD, double* %"<COORD>"
+  store double %clr, double* %"<clr>"
   store double %Alpha, double* %"<Alpha>"
   store <3 x double> %P, <3 x double>* %"<P>"
   store i64 %ptnum, i64* %0
@@ -15334,19 +15323,19 @@ __llvm_entry:
   store i64 %XAOS, i64* %2
   store double* %IW, double** %3
   store double* %XAOS_TO, double** %4
-  call void @"_TheFractalFlameAlgorithm@I[II[F[FFFFV"(i64* %0, i64** %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<COORD>", double* %"<Alpha>", <3 x double>* %"<P>")
+  call void @"_TheFractalFlameAlgorithm@I[II[F[FFFFV"(i64* %0, i64** %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
   %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @167, i64 0, i64 0), i64 %ptnum) #4
   %evalue6 = load double, double* %"<pscale>"
   %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @168, i64 0, i64 0), double %evalue6) #4
-  %evalue8 = load double, double* %"<COORD>"
-  %gvalue9 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @169, i64 0, i64 0), double %evalue8) #4
+  %evalue8 = load double, double* %"<clr>"
+  %gvalue9 = call double @"_export@FSF"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @169, i64 0, i64 0), double %evalue8) #4
   %evalue10 = load double, double* %"<Alpha>"
   %gvalue11 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @170, i64 0, i64 0), double %evalue10) #4
   %evalue12 = load <3 x double>, <3 x double>* %"<P>"
   %gvalue13 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @171, i64 0, i64 0), <3 x double> %evalue12) #4
   store i64 %gvalue, i64* @ptnum
   store double %gvalue7, double* @pscale
-  store double %gvalue9, double* @COORD
+  store double %gvalue9, double* @clr
   store double %gvalue11, double* @Alpha
   store <3 x double> %gvalue13, <3 x double>* @P
   ret void

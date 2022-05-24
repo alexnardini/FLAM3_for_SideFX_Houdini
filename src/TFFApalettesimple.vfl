@@ -21,15 +21,16 @@
 #pragma opmaxinputs 1
 
 void
-_TFFApalettesimple(const float _bound_COORD; vector _bound_Cd; const float _bound_mb_modulate)
+_TFFApalettesimple(const float _bound_clr; vector _bound_Cd; const float _bound_mb_modulate)
 {
     int domb, vizmb;
     vector color, paletteHSV;
     paletteHSV = chv("../palettehsv_");
     domb       = chi("../domb");
     vizmb      = chi("../vizmb");
-
-    color = chramp("../palette", _bound_COORD);
+    
+    float clr = _bound_clr;
+    color = chramp("../palette", clr);
     if(paletteHSV[0]!=0 || paletteHSV[1]!=1 || paletteHSV[2]!=1){
         vector colorHSV = rgbtohsv(color);
         colorHSV[0] += paletteHSV[0];
@@ -43,9 +44,9 @@ _TFFApalettesimple(const float _bound_COORD; vector _bound_Cd; const float _boun
 }
 
 cvex
-TFFApalettesimple( const float COORD = 0;
+TFFApalettesimple( const float clr = 0;
 	               export vector Cd = 1;
 	               const float mb_modulate = 0)
 {
-    _TFFApalettesimple(COORD, Cd, mb_modulate);
+    _TFFApalettesimple(clr, Cd, mb_modulate);
 }

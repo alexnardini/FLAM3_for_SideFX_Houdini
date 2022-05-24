@@ -10,58 +10,58 @@ source_filename = "TFFApalettesimple"
 @4 = private constant [3 x i8] c"Cd\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFApalettesimple@FVF"(double* %_bound_COORD, <3 x double>* %_bound_Cd, double* %_bound_mb_modulate) #0 {
+define private void @"_TFFApalettesimple@FVF"(double* %_bound_clr, <3 x double>* %_bound_Cd, double* %_bound_mb_modulate) #0 {
 __llvm_entry:
   %return = call <3 x double> @"chv@VS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @0, i64 0, i64 0))
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @1, i64 0, i64 0))
   %return2 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @2, i64 0, i64 0))
-  %_bound_COORD3 = load double, double* %_bound_COORD
-  %return4 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @3, i64 0, i64 0), double %_bound_COORD3)
-  %return6 = call double @"getcomp@FVI"(<3 x double> %return, i64 0)
-  %return7 = fcmp one double %return6, 0.000000e+00
-  %return8 = zext i1 %return7 to i64
-  %return10 = call double @"getcomp@FVI"(<3 x double> %return, i64 1)
-  %return11 = fcmp one double %return10, 1.000000e+00
-  %return12 = zext i1 %return11 to i64
-  %return13 = call i64 @"or@III"(i64 %return8, i64 %return12)
-  %return15 = call double @"getcomp@FVI"(<3 x double> %return, i64 2)
-  %return16 = fcmp one double %return15, 1.000000e+00
-  %return17 = zext i1 %return16 to i64
-  %return18 = call i64 @"or@III"(i64 %return13, i64 %return17)
-  %0 = icmp ne i64 %return18, 0
+  %_bound_clr3 = load double, double* %_bound_clr
+  %return5 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @3, i64 0, i64 0), double %_bound_clr3)
+  %return7 = call double @"getcomp@FVI"(<3 x double> %return, i64 0)
+  %return8 = fcmp one double %return7, 0.000000e+00
+  %return9 = zext i1 %return8 to i64
+  %return11 = call double @"getcomp@FVI"(<3 x double> %return, i64 1)
+  %return12 = fcmp one double %return11, 1.000000e+00
+  %return13 = zext i1 %return12 to i64
+  %return14 = call i64 @"or@III"(i64 %return9, i64 %return13)
+  %return16 = call double @"getcomp@FVI"(<3 x double> %return, i64 2)
+  %return17 = fcmp one double %return16, 1.000000e+00
+  %return18 = zext i1 %return17 to i64
+  %return19 = call i64 @"or@III"(i64 %return14, i64 %return18)
+  %0 = icmp ne i64 %return19, 0
   br i1 %0, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %return20 = call <3 x double> @"rgbtohsv@VV"(<3 x double> %return4)
-  %return22 = call double @"getcomp@FVI"(<3 x double> %return20, i64 0)
-  %output = fadd double %return22, %return6
-  %return25 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return20, double %output, i64 0)
-  %output27 = extractvalue { double, <3 x double> } %return25, 1
-  %return29 = call double @"getcomp@FVI"(<3 x double> %output27, i64 1)
-  %output32 = fmul double %return29, %return10
-  %return34 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output27, double %output32, i64 1)
-  %output36 = extractvalue { double, <3 x double> } %return34, 1
-  %return38 = call double @"getcomp@FVI"(<3 x double> %output36, i64 2)
-  %output41 = fmul double %return38, %return15
-  %return43 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output36, double %output41, i64 2)
-  %output45 = extractvalue { double, <3 x double> } %return43, 1
-  %return47 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output45)
+  %return21 = call <3 x double> @"rgbtohsv@VV"(<3 x double> %return5)
+  %return23 = call double @"getcomp@FVI"(<3 x double> %return21, i64 0)
+  %output = fadd double %return23, %return7
+  %return26 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return21, double %output, i64 0)
+  %output28 = extractvalue { double, <3 x double> } %return26, 1
+  %return30 = call double @"getcomp@FVI"(<3 x double> %output28, i64 1)
+  %output33 = fmul double %return30, %return11
+  %return35 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output28, double %output33, i64 1)
+  %output37 = extractvalue { double, <3 x double> } %return35, 1
+  %return39 = call double @"getcomp@FVI"(<3 x double> %output37, i64 2)
+  %output42 = fmul double %return39, %return16
+  %return44 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output37, double %output42, i64 2)
+  %output46 = extractvalue { double, <3 x double> } %return44, 1
+  %return48 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output46)
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %color.0 = phi <3 x double> [ %return47, %true ], [ %return4, %__llvm_entry ]
-  %return50 = call i64 @"and@III"(i64 %return1, i64 %return2)
-  %1 = icmp ne i64 %return50, 0
-  br i1 %1, label %true51, label %end52
+  %color.0 = phi <3 x double> [ %return48, %true ], [ %return5, %__llvm_entry ]
+  %return51 = call i64 @"and@III"(i64 %return1, i64 %return2)
+  %1 = icmp ne i64 %return51, 0
+  br i1 %1, label %true52, label %end53
 
-true51:                                           ; preds = %end
-  %_bound_mb_modulate54 = load double, double* %_bound_mb_modulate
-  %cast = call <3 x double> @"set@VF"(double %_bound_mb_modulate54)
-  %output55 = call <3 x double> @"mul@VV"(<3 x double> %color.0, <3 x double> %cast)
-  br label %end52
+true52:                                           ; preds = %end
+  %_bound_mb_modulate55 = load double, double* %_bound_mb_modulate
+  %cast = call <3 x double> @"set@VF"(double %_bound_mb_modulate55)
+  %output56 = call <3 x double> @"mul@VV"(<3 x double> %color.0, <3 x double> %cast)
+  br label %end53
 
-end52:                                            ; preds = %true51, %end
-  %color.1 = phi <3 x double> [ %output55, %true51 ], [ %color.0, %end ]
+end53:                                            ; preds = %true52, %end
+  %color.1 = phi <3 x double> [ %output56, %true52 ], [ %color.0, %end ]
   store <3 x double> %color.1, <3 x double>* %_bound_Cd
   ret void
 }
@@ -109,13 +109,13 @@ declare <3 x double> @"set@VF"(double) #1
 declare <3 x double> @"mul@VV"(<3 x double>, <3 x double>) #1
 
 ; Function Attrs: nounwind
-define void @TFFApalettesimple(double %COORD, <3 x double> %Cd, double %mb_modulate) #3 {
+define void @TFFApalettesimple(double %clr, <3 x double> %Cd, double %mb_modulate) #3 {
 __llvm_entry:
   %"<Cd>" = alloca <3 x double>
   %0 = alloca double
   %1 = alloca double
   store <3 x double> %Cd, <3 x double>* %"<Cd>"
-  store double %COORD, double* %0
+  store double %clr, double* %0
   store double %mb_modulate, double* %1
   call void @"_TFFApalettesimple@FVF"(double* %0, <3 x double>* %"<Cd>", double* %1)
   %evalue = load <3 x double>, <3 x double>* %"<Cd>"

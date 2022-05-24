@@ -24,7 +24,7 @@
 #include <flamepp.h>
 #include <flameff.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bound_XAOS; const float _bound_IW[], _bound_XAOS_TO[]; float _bound_pscale, _bound_COORD, _bound_Alpha; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bound_XAOS; const float _bound_IW[], _bound_XAOS_TO[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     // ftype = 1 -> FF
     // ftype = 2 -> FF POST
@@ -86,7 +86,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         if(SYM) V_SYM(__mem, sym_mod);
         if(MB){ pscl *= mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, mb_mod, "set"); }
         _bound_P = (vector)__mem;
-        _bound_COORD = clr;
+        _bound_clr = clr;
         _bound_pscale = pscl;
         _bound_Alpha = alpha;
     }
@@ -99,9 +99,9 @@ TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           const  float  IW[]      = {};
                           const  float  XAOS_TO[] = {};
 	                      export float  pscale    = 0;
-	                      export float  COORD     = 0;
+	                      export float  clr       = 0;
                           export float  Alpha     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, IW, XAOS_TO, pscale, COORD, Alpha, P);
+    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, IW, XAOS_TO, pscale, clr, Alpha, P);
 }
