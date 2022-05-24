@@ -140,7 +140,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     domb          = chi("../domb");
 
     // UI collect
-    float pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
+    float ppw, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
     append(type, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XAOS");
     if(xaos_chk) append(type, concat("[", "X", "]"));
@@ -155,7 +155,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     for(int i=0; i<iter_f; ++i){
 
         string _IDX = itoa(i+1);
-        string VAR, W, PB, V1, V2, V3, V4, P1;
+        string VAR, W, PP, PB, V1, V2, V3, V4, P1;
         if(!chi(concat("../vactive_", _IDX))) VAR = " :::::::::: ";
         else{
             w1 = chf(concat("../v1weight_", _IDX));
@@ -177,12 +177,11 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
             // Pre blur
             pbw = chf(concat("../preblurweight_" , _IDX));
-            if(pbw>0){
-                if(w_total != 0){
-                    if(!atoi(chs(concat("../preblurtype_", _IDX)))) PB="*";
-                    else PB = concat( "[", stype[atoi(chs(concat("../preblurtype_", _IDX)))], "] ");
-                    }
-            }
+            if(pbw>0){ if(w_total != 0) PB="*"; }
+            // Pre var 
+            ppw = chf(concat("../pre1weight_" , _IDX));
+            if(ppw>0){ if(w_total != 0) PP = concat( "[", stype[atoi(chs(concat("../pre1type_", _IDX)))], "] "); }
+
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX)));
             else W = "";
@@ -198,7 +197,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             }
             else out = SPLIT;
             W = join(out, ".");
-            VAR = concat(PB, V1, V2, V3, V4, P1, W);
+            VAR = concat(PB, PP, V1, V2, V3, V4, P1, W);
         }
         append(type, VAR);
     }
