@@ -160,7 +160,6 @@ struct gemPrm{
     void gemPrmBuild(const string sIDX[]; const int res, GEMTYPE[]; const float w[]){
 
         if(max(GEMTYPE)>26){
-            // int iter_f = res;
             int TYPE;
             string IDX;
             // FLOAT
