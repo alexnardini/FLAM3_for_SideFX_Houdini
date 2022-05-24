@@ -20,19 +20,6 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
-struct gemSYS{
-
-    int FF, TMG, iter, iter_f, sm, smtype, domb;
-    void gemSYSBuild(){
-        FF            = chi("../dofinalflame");
-        TMG           = chi("../dotmglobal");
-        iter          = chi("../iter");
-        iter_f        = chi("../flamefunc");
-        sm            = chi("../symmetry");
-        smtype        = chi("../rotational");
-        domb          = chi("../domb");
-    }
-}
 
 void
 _TFFAuicollect(string _bound_VARTYPE[]){
@@ -142,21 +129,30 @@ _TFFAuicollect(string _bound_VARTYPE[]){
                         "polynomial" };
 
 
+    // SYS
+    int FF, TMG, iter, iter_f, sm, smtype, domb;
+    FF            = chi("../dofinalflame");
+    TMG           = chi("../dotmglobal");
+    iter          = chi("../iter");
+    iter_f        = chi("../flamefunc");
+    sm            = chi("../symmetry");
+    smtype        = chi("../rotational");
+    domb          = chi("../domb");
 
+    // UI collect
     float pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
-    gemSYS SYS; SYS->gemSYSBuild();
-    append(type, concat("[", itoa(SYS.iter), "]"));
+    append(type, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XAOS");
     if(xaos_chk) append(type, concat("[", "X", "]"));
 
-    if(SYS.domb) append(type, "MB");
-    if(SYS.sm){
-        if(!SYS.smtype) append(type, "SM3");
+    if(domb) append(type, "MB");
+    if(sm){
+        if(!smtype) append(type, "SM3");
         else append(type, "SM5");
     }
-    if(SYS.TMG) append(type, "TM");
+    if(TMG) append(type, "TM");
 
-    for(int i=0; i<SYS.iter_f; ++i){
+    for(int i=0; i<iter_f; ++i){
 
         string _IDX = itoa(i+1);
         string VAR, W, PB, V1, V2, V3, V4, P1;
@@ -207,8 +203,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         append(type, VAR);
     }
 
-    if(SYS.FF){
-
+    if(FF){
         string VAR, FV1, FV2, FV3, FP1;
         fw1 = chf("../ffv1weight");
         if(fw1!=0) FV1 = stype[atoi(chs("../ffv1type"))]+":";
