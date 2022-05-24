@@ -120,7 +120,7 @@ void V_SYM(vector2 p; const int num){
             else if(0.8 < sym <= 1.0)   ang = 288;
         }
     }
-    p *= (matrix2)maketransform(0, 0, 0, set(0, 0, ang), 1, 0);
+    p *= (matrix2)maketransform(0, set(0, 0, ang));
 }
 
 void affine(vector2 p; const vector2 x, y, o){
