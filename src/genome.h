@@ -23,7 +23,7 @@
 // GENOME
 struct gem{
 
-    int     TMG, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
+    int     TM, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
             res, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], pb1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
@@ -34,7 +34,7 @@ struct gem{
     void gemBuild(const int ACTV[]){
 
         // SYS
-        TMG    = chi("../dotmglobal");
+        TM     = chi("../dotmglobal");
         FF     = chi("../dofinalflame");
         PFF    = chi("../_dofpost_2");
         RIP    = chi("../delinvalidpt");
@@ -110,11 +110,9 @@ struct gem{
             else{ resize(px, res); resize(py, res); resize(po, res); }
         }
         // Collect GLOBAL TM
-        if(TMG){
+        if(TM){
             // Rotate
             grt = chf("../frt");
-            // Scale
-            //gsc = chu("../fsc");
         }
         if(FF){
             // FF VAR 01

@@ -561,7 +561,7 @@ declare double @"getcomp@F[FI"(double*, i64) #1
 declare double* @"append@[FF"(double*, double) #3
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemBuild@Z3gemM50N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF[I"(%gem* %this, i64** %ACTV) #0 {
+define private void @"gemBuild@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF[I"(%gem* %this, i64** %ACTV) #0 {
 __llvm_entry:
   %m2 = alloca <4 x double>
   %0 = alloca <2 x double>
@@ -639,8 +639,8 @@ body:                                             ; preds = %cond
   br i1 %26, label %iter, label %end33
 
 end27:                                            ; preds = %cond
-  %TMG = extractvalue %gem %this25, 0
-  %27 = icmp ne i64 %TMG, 0
+  %TM = extractvalue %gem %this25, 0
+  %27 = icmp ne i64 %TM, 0
   br i1 %27, label %true347, label %end348
 
 iter:                                             ; preds = %true287, %false288, %body
@@ -1153,10 +1153,10 @@ declare <2 x double>* @"append@[UU"(<2 x double>*, <2 x double>) #3
 declare <2 x double>* @"resize@[UI"(<2 x double>*, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM50N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modFIIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU[SF"(i64* %TMG, i64* %FF, i64* %PFF, i64* %RIP, i64* %SYM, i64* %iter_f, i64* %iter, i64* %sym_mod, i64* %MB, i64* %res, i64** %v1type, i64** %v2type, i64** %v3type, i64** %v4type, i64** %p1type, i64** %pp1type, i64** %POSTL, i64* %ffv1type, i64* %ffv2type, i64* %ffv3type, i64* %ffp1type, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %p1w, double** %pb1w, double** %pp1w, double** %CLR, double** %ONEMINUS, double** %ALPHA, double* %ffv1w, double* %ffv2w, double* %ffv3w, double* %ffp1w, double* %grt, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo, i8*** %sIDX, double* %mb_mod) #0 {
+define private %gem @"gem@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modFIIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU[SF"(i64* %TM, i64* %FF, i64* %PFF, i64* %RIP, i64* %SYM, i64* %iter_f, i64* %iter, i64* %sym_mod, i64* %MB, i64* %res, i64** %v1type, i64** %v2type, i64** %v3type, i64** %v4type, i64** %p1type, i64** %pp1type, i64** %POSTL, i64* %ffv1type, i64* %ffv2type, i64* %ffv3type, i64* %ffp1type, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %p1w, double** %pb1w, double** %pp1w, double** %CLR, double** %ONEMINUS, double** %ALPHA, double* %ffv1w, double* %ffv2w, double* %ffv3w, double* %ffp1w, double* %grt, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo, i8*** %sIDX, double* %mb_mod) #0 {
 __llvm_entry:
-  %TMG1 = load i64, i64* %TMG
-  %0 = insertvalue %gem undef, i64 %TMG1, 0
+  %TM1 = load i64, i64* %TM
+  %0 = insertvalue %gem undef, i64 %TM1, 0
   %FF2 = load i64, i64* %FF
   %1 = insertvalue %gem %0, i64 %FF2, 1
   %PFF4 = load i64, i64* %PFF
@@ -1259,7 +1259,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM50N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF"() #0 {
+define private %gem @"gem@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -1361,7 +1361,7 @@ __llvm_entry:
   store <2 x double> zeroinitializer, <2 x double>* %46
   store i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @58, i64 0, i64 0), i8*** %47
   store double 1.000000e+00, double* %48
-  %gem = call %gem @"gem@Z3gemM50N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modFIIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU[SF"(i64* %49, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64* %8, i64** %9, i64** %10, i64** %11, i64** %12, i64** %13, i64** %14, i64** %15, i64* %16, i64* %17, i64* %18, i64* %19, double** %20, double** %21, double** %22, double** %23, double** %24, double** %25, double** %26, double** %27, double** %28, double** %29, double* %30, double* %31, double* %32, double* %33, double* %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>** %39, <2 x double>** %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <2 x double>* %45, <2 x double>* %46, i8*** %47, double* %48)
+  %gem = call %gem @"gem@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modFIIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU[SF"(i64* %49, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64* %8, i64** %9, i64** %10, i64** %11, i64** %12, i64** %13, i64** %14, i64** %15, i64* %16, i64* %17, i64* %18, i64* %19, double** %20, double** %21, double** %22, double** %23, double** %24, double** %25, double** %26, double** %27, double** %28, double** %29, double* %30, double* %31, double* %32, double* %33, double* %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>** %39, <2 x double>** %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <2 x double>* %45, <2 x double>* %46, i8*** %47, double* %48)
   ret %gem %gem
 }
 
@@ -12745,7 +12745,7 @@ __llvm_entry:
   %105 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %__tmp, !vex-initializer-store !3
   %_bound_VACTIVE1 = load i64*, i64** %_bound_VACTIVE
-  %GEM2 = call %gem @"gem@Z3gemM50N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF"()
+  %GEM2 = call %gem @"gem@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF"()
   %GEM2.fca.0.extract = extractvalue %gem %GEM2, 0
   %GEM2.fca.0.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 0
   store i64 %GEM2.fca.0.extract, i64* %GEM2.fca.0.gep
@@ -12897,7 +12897,7 @@ __llvm_entry:
   %GEM2.fca.49.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 49
   store double %GEM2.fca.49.extract, double* %GEM2.fca.49.gep
   store i64* %_bound_VACTIVE1, i64** %0
-  call void @"gemBuild@Z3gemM50N3TMGIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF[I"(%gem* %GEM, i64** %0)
+  call void @"gemBuild@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN7pp1type[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN4pb1w[FN4pp1w[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN3grtFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4sIDX[SN6mb_modF[I"(%gem* %GEM, i64** %0)
   %GEM4.fca.0.load = load i64, i64* %GEM2.fca.0.gep
   %GEM4.fca.0.insert = insertvalue %gem undef, i64 %GEM4.fca.0.load, 0
   %GEM4.fca.1.load = load i64, i64* %GEM2.fca.1.gep
