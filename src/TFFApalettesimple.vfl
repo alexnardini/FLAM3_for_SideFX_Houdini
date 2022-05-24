@@ -24,19 +24,19 @@ void
 _TFFApalettesimple(const float _bound_clr; vector _bound_Cd; const float _bound_mb_modulate)
 {
     int domb, vizmb;
-    vector color, paletteHSV;
-    paletteHSV = chv("../palettehsv_");
-    domb       = chi("../domb");
-    vizmb      = chi("../vizmb");
-    
+    vector color, pcHSV;
+    pcHSV  = chv("../palettehsv_");
+    domb   = chi("../domb");
+    vizmb  = chi("../vizmb");
+
     float clr = _bound_clr;
     color = chramp("../palette", clr);
-    if(paletteHSV[0]!=0 || paletteHSV[1]!=1 || paletteHSV[2]!=1){
-        vector colorHSV = rgbtohsv(color);
-        colorHSV[0] += paletteHSV[0];
-        colorHSV[1] *= paletteHSV[1];
-        colorHSV[2] *= paletteHSV[2];
-        color = hsvtorgb(colorHSV);
+    if(pcHSV[0]!=0 || pcHSV[1]!=1 || pcHSV[2]!=1){
+        vector clrHSV = rgbtohsv(color);
+        clrHSV[0] += pcHSV[0];
+        clrHSV[1] *= pcHSV[1];
+        clrHSV[2] *= pcHSV[2];
+        color = hsvtorgb(clrHSV);
     }
     if(domb && vizmb)
         color *= _bound_mb_modulate;
