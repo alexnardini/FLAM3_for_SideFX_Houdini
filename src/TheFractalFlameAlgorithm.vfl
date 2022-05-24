@@ -31,7 +31,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     
     int SL, idx, n;
     vector2 __tmp;
-    float clr, prev_clr, alpha, XAOS_TO[]; prev_clr = 0;
+    float pscl, clr, prev_clr, alpha, XAOS_TO[]; prev_clr = 0;
     // Build genomes
     int ACTV[] = _bound_VACTIVE;
     gem GEM; GEM->gemBuild(ACTV);
@@ -82,7 +82,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     alpha = _ALPHA[idx];
     if(chkNAN_v(RIP, __mem, alpha)) removepoint(0, _bound_ptnum);
     else{
-        float pscl = 0.001*alpha;
+        pscl = 0.001*alpha;
         if(SYM) V_SYM(__mem, sym_mod);
         if(MB){ pscl *= mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, mb_mod, "set"); }
         _bound_P = (vector)__mem;
