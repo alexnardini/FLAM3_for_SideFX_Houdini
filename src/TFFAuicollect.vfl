@@ -180,17 +180,13 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             if(pw1!=0) { if(w_total != 0) P1 = concat( " [", stype[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
 
             // Iterator weight
-            if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX)));
-            else W = "";
+            if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX))); else W = "";
             // Reformat iterator weight string floats
             string out[] = {};
             string SPLIT[] = split(W, ".");
             if(len(SPLIT)>1){
                 int count = 1;
-                foreach(string s; SPLIT){
-                    append(out, s[:(6/count)]);
-                    count++;
-                }
+                foreach(string s; SPLIT){ append(out, s[:(6/count)]); count++; }
             }
             else out = SPLIT;
             W = join(out, ".");
