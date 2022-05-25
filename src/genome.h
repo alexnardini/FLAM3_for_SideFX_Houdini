@@ -25,8 +25,9 @@ struct gem{
 
     int     TM, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
             res, v1type[], v2type[], v3type[], v4type[], p1type[], pp1type[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pb1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w, grt;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pb1w[], pp1w[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
+    matrix2 TMm2;
     string  sIDX[];
 
     float mb_mod = 1.0;
@@ -47,9 +48,9 @@ struct gem{
 
         // GENOME
         res = 0;
-        float _a, coord, speed;
+        float _a, clr, speed;
         vector2 _x, _y;
-        matrix2 m2;
+        matrix2 _m2;
         for(int i=0; i<iter_f; ++i){
             if(!ACTV[i]) continue;
             res++;
@@ -57,9 +58,9 @@ struct gem{
             string IDX=itoa(i+1);
             append(sIDX, IDX);
             // Color
-            coord = chf(concat("../clr_", IDX));
+            clr = chf(concat("../clr_", IDX));
             speed = chf(concat("../clrspeed_", IDX));
-            append(CLR, speed*coord);
+            append(CLR, speed*clr);
             append(ONEMINUS, 1-speed);
             append(ALPHA, chf(concat("../alpha_", IDX)));
             // PRE BLUR
@@ -92,9 +93,9 @@ struct gem{
             _x = chu(concat("../x_", IDX));
             _y = chu(concat("../y_", IDX));
             _a = chf(concat("../ang_", IDX));
-            affineRot(m2, _x, _y, -radians(_a));
-            append(x, set(m2.xx, m2.xy));
-            append(y, set(m2.yx, m2.yy));
+            affineRot(_m2, _x, _y, -radians(_a));
+            append(x, set(_m2.xx, _m2.xy));
+            append(y, set(_m2.yx, _m2.yy));
             append(o, chu(concat("../o_", IDX)));
             // POST
             append(POSTL, chi(concat("../dopost_", IDX)));
@@ -102,17 +103,17 @@ struct gem{
                 _x = chu(concat("../px_", IDX));
                 _y = chu(concat("../py_", IDX));
                 _a = chf(concat("../pang_", IDX));
-                affineRot(m2, _x, _y, -radians(_a));
-                append(px, set(m2.xx, m2.xy));
-                append(py, set(m2.yx, m2.yy));
+                affineRot(_m2, _x, _y, -radians(_a));
+                append(px, set(_m2.xx, _m2.xy));
+                append(py, set(_m2.yx, _m2.yy));
                 append(po, chu(concat("../po_", IDX)));
                 }
             else{ resize(px, res); resize(py, res); resize(po, res); }
         }
-        // Collect GLOBAL TM
+        // Build TM
         if(TM){
-            // Rotate
-            grt = chf("../frt");
+            float grt = chf("../frt");
+            TMm2 = (matrix2)maketransform(0, set(0, 0, grt));
         }
         if(FF){
             // FF VAR 01
@@ -131,18 +132,18 @@ struct gem{
             _x = chu("../_fx_2");;
             _y = chu("../_fy_2");;
             _a = chf("../_ang_2");
-            affineRot(m2, _x, _y, -radians(_a));
-            fx = set(m2.xx, m2.xy);
-            fy = set(m2.yx, m2.yy);
+            affineRot(_m2, _x, _y, -radians(_a));
+            fx = set(_m2.xx, _m2.xy);
+            fy = set(_m2.yx, _m2.yy);
             fo = chu("../_fo_2");
             // POST
             if(PFF){
                 _x = chu("../_pfx_2");;
                 _y = chu("../_pfy_2");;
                 _a = chf("../_pang_2");
-                affineRot(m2, _x, _y, -radians(_a));
-                pfx = set(m2.xx, m2.xy);
-                pfy = set(m2.yx, m2.yy);
+                affineRot(_m2, _x, _y, -radians(_a));
+                pfx = set(_m2.xx, _m2.xy);
+                pfy = set(_m2.yx, _m2.yy);
                 pfo = chu("../_pfo_2");
             }
         }
