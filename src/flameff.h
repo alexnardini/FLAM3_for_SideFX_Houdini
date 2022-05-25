@@ -324,7 +324,7 @@ vector2 FLAMEFF(const int ftype, type; const vector2 pos, x, y, o; const float w
             else if(type==64){
                 V_LOONIE(p, _p, w);
                 return p; }
-            // 65 PRE BLUR
+            // 65 PRE BLUR ( Hard coded into the chaos game )
             /*
             else if(type==65){
                 V_PREBLUR(p, w);

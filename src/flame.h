@@ -324,7 +324,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
             else if(type==64){
                 V_LOONIE(p, _p, w);
                 return p; }
-            // 65 PRE BLUR
+            // 65 PRE BLUR ( Hard coded into the chaos game )
             /*
             else if(type==65){
                 V_PREBLUR(p, w);
