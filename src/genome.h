@@ -157,7 +157,7 @@ struct gemPrm{
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
-
+    vector pc_DISC2[];
     void gemPrmBuild(const string sIDX[]; const int res, GEMTYPE[]; const float w[]){
 
         if(max(GEMTYPE)>26){
@@ -166,7 +166,7 @@ struct gemPrm{
             // FLOAT
             resize(rings2_val, res); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // VECTOR
-            resize(blob, res);       pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, res);       pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=blob;
             // VECTOR2
             resize(curl_c, res);     parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // VECTOR4
@@ -202,7 +202,14 @@ struct gemPrm{
                         // 38 PIE
                         if(TYPE==38){ pie[i] = chv(concat("../pie_", IDX)); continue; }
                         // 47 DISC2
-                        else if(TYPE==47){ disc2[i] = chu(concat("../disc2_", IDX)); continue; }
+                        // This one seem to be the only one to benefit from the precalc.
+                        else if(TYPE==47){
+                            disc2[i] = chu(concat("../disc2_", IDX));
+                            float rot=disc2[i][0]; float twist=disc2[i][1];
+                            vector calc; precalc_V_DISC2(calc, rot, twist);
+                            pc_DISC2[i] = calc;
+                            continue;
+                        }
                         // 48 SUPERSHAPE
                         else if(TYPE==48){
                             supershape[i]   = chv(concat("../supershape_", IDX));
@@ -278,6 +285,7 @@ struct gemPrm{
                         // 98 PERSPECTIVE
                         else if(TYPE==98){ persp[i] = chu(concat("../persp_", IDX)); continue; }
                         // 99 BWRAPS
+                        // I did try to implement the precalc but turn out to be 15% slower, I dnt know why...odd.
                         else if(TYPE==99){
                             bwraps[i] = chv(concat("../bwraps_", IDX));
                             bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX)); continue; }

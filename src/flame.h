@@ -239,7 +239,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
             // 47 DISC2 ( parametric )
             else if(type==47){
                 vector2 disc2 = GMP.disc2[idx];
-                V_DISC2(p, _p, w, disc2[0], disc2[1]);
+                vector precalc = GMP.pc_DISC2[idx];
+                V_DISC2_L(p, _p, w, disc2[0], disc2[1], precalc);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){

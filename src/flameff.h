@@ -239,7 +239,7 @@ vector2 FLAMEFF(const int ftype, type; const vector2 pos, x, y, o; const float w
             // 47 DISC2 ( parametric )
             else if(type==47){
                 vector2 disc2 = chu(concat(PRX(ftype), "disc2_2"));
-                V_DISC2(p, _p, w, disc2[0], disc2[1]);
+                V_DISC2_FF(p, _p, w, disc2[0], disc2[1]);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){
