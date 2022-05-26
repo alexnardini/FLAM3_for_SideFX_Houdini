@@ -501,8 +501,9 @@ vector2 FLAME(const gemPrm GMP; const int idx, type; const vector2 pos, x, y, o;
             else if(type==99){
                 vector bwraps = GMP.bwraps[idx];
                 vector2 bwrapstwist = GMP.bwrapstwist[idx];
-                // vector precalc = GMP.pc_BWRAPS[idx];
                 V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
+                // vector precalc = GMP.pc_BWRAPS[idx];
+                // V_BWRAPS_L(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1], precalc);
                 return p; }
             // 100 HEMISPHERE
             else if(type==100){
