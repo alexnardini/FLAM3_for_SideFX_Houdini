@@ -485,7 +485,7 @@ void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_times
 }
 // 47 L ( parametric )
 void V_DISC2_L(vector2 p; const vector2 _p; const float w, rot, twist; const vector precalc){
-    float rr, tt, sinr, cosr, disc2_sinadd, disc2_cosadd, disc2_timespi;
+    float disc2_sinadd, disc2_cosadd, disc2_timespi;
     // precalc
     disc2_timespi = precalc[0];
     disc2_sinadd  = precalc[1];
@@ -495,7 +495,7 @@ void V_DISC2_L(vector2 p; const vector2 _p; const float w, rot, twist; const vec
 }
 // 47 FF ( parametric )
 void V_DISC2_FF(vector2 p; const vector2 _p; const float w, rot, twist;){
-    float rr, tt, sinr, cosr, disc2_sinadd, disc2_cosadd, disc2_timespi;
+    float disc2_sinadd, disc2_cosadd, disc2_timespi;
     // precalc
     vector precalc;
     precalc_V_DISC2(precalc, rot, twist);
