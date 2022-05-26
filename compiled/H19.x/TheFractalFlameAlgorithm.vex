@@ -4499,68 +4499,44 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist, double* %disc2_timespi, double* %disc2_sinadd, double* %disc2_cosadd) #0 {
+define private void @"V_DISC2_L@UUFFFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist, <3 x double>* %precalc) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
   %0 = alloca double
   %1 = alloca <2 x double>
-  store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
-  store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
-  %disc2_timespi1 = load double, double* %disc2_timespi
-  %_p2 = load <2 x double>, <2 x double>* %_p
-  %return = call double @"getcomp@FUI"(<2 x double> %_p2, i64 0)
-  %return4 = call double @"getcomp@FUI"(<2 x double> %_p2, i64 1)
-  %output = fadd double %return, %return4
-  %output5 = fmul double %disc2_timespi1, %output
-  store double %output5, double* %0
-  call void @"sincos@FFF"(double* %0, double* %sinr, double* %cosr)
-  %w7 = load double, double* %w
-  %_p8 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p8, <2 x double>* %1
-  %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
-  %output9 = fmul double %w7, %ATAN
-  %output10 = call double @"div@FF"(double %output9, double 0x400921FB4D12D84A)
-  %sinr11 = load double, double* %sinr
-  %disc2_cosadd12 = load double, double* %disc2_cosadd
-  %output13 = fadd double %sinr11, %disc2_cosadd12
-  %output15 = fmul double %output13, %output10
-  %tmp = load <2 x double>, <2 x double>* %p
-  %return16 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output15, i64 0)
-  %output18 = extractvalue { double, <2 x double> } %return16, 1
-  store <2 x double> %output18, <2 x double>* %p
-  %cosr19 = load double, double* %cosr
-  %disc2_sinadd20 = load double, double* %disc2_sinadd
-  %output21 = fadd double %cosr19, %disc2_sinadd20
-  %output23 = fmul double %output21, %output10
-  %return25 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output18, double %output23, i64 1)
-  %output27 = extractvalue { double, <2 x double> } %return25, 1
-  store <2 x double> %output27, <2 x double>* %p
-  ret void
-}
-
-; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC2_L@UUFFFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist, <3 x double>* %precalc) #0 {
-__llvm_entry:
-  %0 = alloca <2 x double>
-  %1 = alloca double
-  %2 = alloca double
-  %3 = alloca double
-  %4 = alloca double
-  %5 = alloca double
-  %6 = alloca double
   %precalc1 = load <3 x double>, <3 x double>* %precalc
   %return = call double @"getcomp@FVI"(<3 x double> %precalc1, i64 0)
   %return3 = call double @"getcomp@FVI"(<3 x double> %precalc1, i64 1)
   %return5 = call double @"getcomp@FVI"(<3 x double> %precalc1, i64 2)
-  %_p6 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p6, <2 x double>* %0
-  %w7 = load double, double* %w
-  store double %w7, double* %1
-  store double %return, double* %4
-  store double %return3, double* %5
-  store double %return5, double* %6
-  call void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %0, double* %1, double* %2, double* %3, double* %4, double* %5, double* %6)
+  store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
+  store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
+  %_p7 = load <2 x double>, <2 x double>* %_p
+  %return8 = call double @"getcomp@FUI"(<2 x double> %_p7, i64 0)
+  %return10 = call double @"getcomp@FUI"(<2 x double> %_p7, i64 1)
+  %output = fadd double %return8, %return10
+  %output11 = fmul double %return, %output
+  store double %output11, double* %0
+  call void @"sincos@FFF"(double* %0, double* %sinr, double* %cosr)
+  %w13 = load double, double* %w
+  %_p14 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p14, <2 x double>* %1
+  %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
+  %output15 = fmul double %w13, %ATAN
+  %output16 = call double @"div@FF"(double %output15, double 0x400921FB4D12D84A)
+  %sinr17 = load double, double* %sinr
+  %output19 = fadd double %sinr17, %return5
+  %output21 = fmul double %output19, %output16
+  %tmp = load <2 x double>, <2 x double>* %p
+  %return22 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output21, i64 0)
+  %output24 = extractvalue { double, <2 x double> } %return22, 1
+  store <2 x double> %output24, <2 x double>* %p
+  %cosr25 = load double, double* %cosr
+  %output27 = fadd double %cosr25, %return3
+  %output29 = fmul double %output27, %output16
+  %return31 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output24, double %output29, i64 1)
+  %output33 = extractvalue { double, <2 x double> } %return31, 1
+  store <2 x double> %output33, <2 x double>* %p
   ret void
 }
 
@@ -4570,13 +4546,10 @@ __llvm_entry:
   %precalc = alloca <3 x double>
   %0 = alloca double
   %1 = alloca double
-  %2 = alloca <2 x double>
-  %3 = alloca double
-  %4 = alloca double
-  %5 = alloca double
-  %6 = alloca double
-  %7 = alloca double
-  %8 = alloca double
+  %sinr = alloca double
+  %cosr = alloca double
+  %2 = alloca double
+  %3 = alloca <2 x double>
   store <3 x double> zeroinitializer, <3 x double>* %precalc, !vex-initializer-store !3
   %rot1 = load double, double* %rot
   store double %rot1, double* %0
@@ -4587,14 +4560,34 @@ __llvm_entry:
   %return = call double @"getcomp@FVI"(<3 x double> %precalc3, i64 0)
   %return5 = call double @"getcomp@FVI"(<3 x double> %precalc3, i64 1)
   %return7 = call double @"getcomp@FVI"(<3 x double> %precalc3, i64 2)
-  %_p8 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p8, <2 x double>* %2
-  %w9 = load double, double* %w
-  store double %w9, double* %3
-  store double %return, double* %6
-  store double %return5, double* %7
-  store double %return7, double* %8
-  call void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %2, double* %3, double* %4, double* %5, double* %6, double* %7, double* %8)
+  store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
+  store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
+  %_p9 = load <2 x double>, <2 x double>* %_p
+  %return10 = call double @"getcomp@FUI"(<2 x double> %_p9, i64 0)
+  %return12 = call double @"getcomp@FUI"(<2 x double> %_p9, i64 1)
+  %output = fadd double %return10, %return12
+  %output13 = fmul double %return, %output
+  store double %output13, double* %2
+  call void @"sincos@FFF"(double* %2, double* %sinr, double* %cosr)
+  %w15 = load double, double* %w
+  %_p16 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p16, <2 x double>* %3
+  %ATAN = call double @"ATAN@FU"(<2 x double>* %3)
+  %output17 = fmul double %w15, %ATAN
+  %output18 = call double @"div@FF"(double %output17, double 0x400921FB4D12D84A)
+  %sinr19 = load double, double* %sinr
+  %output21 = fadd double %sinr19, %return7
+  %output23 = fmul double %output21, %output18
+  %tmp = load <2 x double>, <2 x double>* %p
+  %return24 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output23, i64 0)
+  %output26 = extractvalue { double, <2 x double> } %return24, 1
+  store <2 x double> %output26, <2 x double>* %p
+  %cosr27 = load double, double* %cosr
+  %output29 = fadd double %cosr27, %return5
+  %output31 = fmul double %output29, %output18
+  %return33 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output26, double %output31, i64 1)
+  %output35 = extractvalue { double, <2 x double> } %return33, 1
+  store <2 x double> %output35, <2 x double>* %p
   ret void
 }
 
