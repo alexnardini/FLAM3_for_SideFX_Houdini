@@ -878,6 +878,29 @@ void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist
     p[1] = rr * sa;
 }
 /*
+// 76 ( parametric ) // const vector precalc)
+void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist, count, wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn){ 
+    float rr, t_rnd, aa, cc, sa, ca;
+
+    rr = w * pow(SUMSQ(_p), wedgeJulia_cn);
+    t_rnd = (int)((wedgeJulia_rN)*nrandom("twister"));
+    aa = (ATANYX(_p) + 2 * M_PI * t_rnd) / power;
+    cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
+    aa = aa * wedgeJulia_cf + cc * angle;
+    sincos(aa, sa, ca);
+    p[0] = rr * ca;
+    p[1] = rr * sa;
+}
+// 76 L ( parametric )
+void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, dist, count; const vector precalc){
+    float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
+    // precalc
+    wedgeJulia_cf = precalc[0];
+    wedgeJulia_rN = precalc[1];
+    wedgeJulia_cn = precalc[2];
+
+    V_WEDGEJULIA(p, _p, w, power, angle, dist, count)
+}
 // 76 FF ( parametric )
 void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, dist, count){
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
@@ -888,14 +911,7 @@ void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, d
     wedgeJulia_rN = precalc[1];
     wedgeJulia_cn = precalc[2];
 
-    rr = w * pow(SUMSQ(_p), wedgeJulia_cn);
-    t_rnd = (int)((wedgeJulia_rN)*nrandom("twister"));
-    aa = (ATANYX(_p) + 2 * M_PI * t_rnd) / power;
-    cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
-    aa = aa * wedgeJulia_cf + cc * angle;
-    sincos(aa, sa, ca);
-    p[0] = rr * ca;
-    p[1] = rr * sa;
+    V_WEDGEJULIA(p, _p, w, power, angle, dist, count)
 }
 */
 // 77 ( parametric )
