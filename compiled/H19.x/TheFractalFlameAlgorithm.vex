@@ -170,7 +170,7 @@ source_filename = "TheFractalFlameAlgorithm"
 @162 = private constant [16 x i8] c"polynomialpow_2\00"
 @163 = private constant [15 x i8] c"polynomiallc_2\00"
 @164 = private constant [15 x i8] c"polynomialsc_2\00"
-@165 = private constant [12 x i8] c"mb_modulate\00"
+@165 = private constant [7 x i8] c"mb_mod\00"
 @166 = private constant [4 x i8] c"set\00"
 @ptnum = external global i64
 @pscale = external global double
@@ -15413,7 +15413,7 @@ end412:                                           ; preds = %true411, %false404
 true415:                                          ; preds = %end412
   %output419 = fmul double %output409, %GEM4.fca.49.load
   %_bound_ptnum420 = load i64, i64* %_bound_ptnum
-  %return422 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([12 x i8], [12 x i8]* @165, i64 0, i64 0), i64 %_bound_ptnum420, double %GEM4.fca.49.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @166, i64 0, i64 0))
+  %return422 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @165, i64 0, i64 0), i64 %_bound_ptnum420, double %GEM4.fca.49.load, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @166, i64 0, i64 0))
   br label %end416
 
 end416:                                           ; preds = %true415, %end412

@@ -14,6 +14,7 @@
  /
 */
 
+#define PSCL 0.001
 
 #define X {1,0}
 #define Y {0,1}
@@ -87,9 +88,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     alpha=_ALPHA[idx];
     if(chkPT(RIP, mem, alpha)) removepoint(0, _bound_ptnum);
     else{
-        float pscl = 0.001*alpha;
+        float pscl = PSCL*alpha;
         if(SYM) V_SYM(mem, sym_mod);
-        if(MB){ pscl*=mb_mod; setpointattrib(0, "mb_modulate", _bound_ptnum, mb_mod, "set"); }
+        if(MB){ pscl*=mb_mod; setpointattrib(0, "mb_mod", _bound_ptnum, mb_mod, "set"); }
         _bound_P=(vector)mem;
         _bound_clr=clr;
         _bound_pscale=pscl;
