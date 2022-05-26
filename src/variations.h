@@ -1195,7 +1195,7 @@ void V_BWRAPS_L(vector2 p; const vector2 _p; const float w, cellsize, space, gai
     // precalc
     g2 = precalc[0];
     r2  = precalc[1];
-    rdactor  = precalc[2];
+    rfactor  = precalc[2];
 
     V_BWRAPS(p, _p, w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor);
 }
@@ -1207,7 +1207,7 @@ void V_BWRAPS_FF(vector2 p; const vector2 _p; const float w, cellsize, space, ga
     precalc_V_BWRAPS(precalc, cellsize, space, gain)
     g2 = precalc[0];
     r2  = precalc[1];
-    rdactor  = precalc[2];
+    rfactor  = precalc[2];
 
     V_BWRAPS(p, _p, w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor);
 }
