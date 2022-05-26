@@ -56,7 +56,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     if(XAOS){ XAOS_TO=_bound_XAOS_TO; idx=sample_cdf(IW, nrandom('twister')); }
     vector2 mem=biunit();
     for(int i=0; i<iter; ++i){
-        tmp = 0;
+        tmp=0;
         if(XAOS){ sl=idx*res; idx=sample_cdf(XAOS_TO[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
