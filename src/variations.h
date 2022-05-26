@@ -491,15 +491,7 @@ void V_DISC2_L(vector2 p; const vector2 _p; const float w, rot, twist; const vec
     disc2_sinadd  = precalc[1];
     disc2_cosadd  = precalc[2];
 
-    // A bit faster than calling V_DISC2()
-    float rr, tt, sinr, cosr;
-    tt = disc2_timespi * (_p[0] + _p[1]);
-    sincos(tt, sinr, cosr);
-    rr = w * ATAN(_p) / M_PI;
-    p[0] = (sinr + disc2_cosadd) * rr;
-    p[1] = (cosr + disc2_sinadd) * rr;
-
-    // V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
+    V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
 }
 // 47 FF ( parametric )
 void V_DISC2_FF(vector2 p; const vector2 _p; const float w, rot, twist;){
@@ -511,15 +503,7 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w, rot, twist;){
     disc2_sinadd  = precalc[1];
     disc2_cosadd  = precalc[2];
 
-    // A bit faster than calling V_DISC2()
-    float rr, tt, sinr, cosr;
-    tt = disc2_timespi * (_p[0] + _p[1]);
-    sincos(tt, sinr, cosr);
-    rr = w * ATAN(_p) / M_PI;
-    p[0] = (sinr + disc2_cosadd) * rr;
-    p[1] = (cosr + disc2_sinadd) * rr;
-
-    // V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
+    V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
 }
 // 48 ( parametric )
 void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes; const vector ss_n){
