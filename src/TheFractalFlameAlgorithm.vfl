@@ -15,6 +15,10 @@
 */
 
 
+#define X {1,0}
+#define Y {0,1}
+#define O {0,0}
+
 #pragma opname  "FLAM3"
 #pragma oplabel "FLAM3"
 #pragma opmininputs 1
@@ -56,12 +60,12 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         if(XAOS){ SL=idx*res; idx=sample_cdf(XAOS_TO[SL:SL+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
         if(pbw[idx] >0) V_PREBLUR(__mem, pbw[idx]);
-        if(ppw[idx] >0) __mem  = FLAMEPP(pptype[idx], __mem, {1, 0}, {0, 1}, {0, 0}, ppw[idx]);
+        if(ppw[idx] >0) __mem  = FLAMEPP(pptype[idx], __mem, X, Y, O, ppw[idx]);
         if(v1w[idx]!=0) __tmp += FLAME(v1GMP, idx, v1type[idx], __mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) __tmp += FLAME(v2GMP, idx, v2type[idx], __mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) __tmp += FLAME(v3GMP, idx, v3type[idx], __mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) __tmp += FLAME(v4GMP, idx, v4type[idx], __mem, x[idx], y[idx], o[idx], v4w[idx]);
-        if(p1w[idx]!=0) __tmp  = FLAME(p1GMP, idx, p1type[idx], __tmp, {1, 0}, {0, 1}, {0, 0}, p1w[idx]);
+        if(p1w[idx]!=0) __tmp  = FLAME(p1GMP, idx, p1type[idx], __tmp, X, Y, O, p1w[idx]);
         if(POSTL[idx]) affine(__tmp, px[idx], py[idx], po[idx]);
         if(TM) __tmp *= TMm2;
         prev_clr = clr = _CLR[idx] + ONEMINUS[idx] * prev_clr;
@@ -76,7 +80,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
         if(ffv1w!=0) __tmp += FLAMEFF(1, ffv1type, __mem, fx, fy, fo, ffv1w);
         if(ffv2w!=0) __tmp += FLAMEFF(1, ffv2type, __mem, fx, fy, fo, ffv2w);
         if(ffv3w!=0) __tmp += FLAMEFF(1, ffv3type, __mem, fx, fy, fo, ffv3w);
-        if(ffp1w!=0) __tmp  = FLAMEFF(2, ffp1type, __tmp, {1, 0}, {0, 1}, {0, 0}, ffp1w);
+        if(ffp1w!=0) __tmp  = FLAMEFF(2, ffp1type, __tmp, X, Y, O, ffp1w);
         if(PFF) affine(__tmp, pfx, pfy, pfo);
         __mem=__tmp;
     }
