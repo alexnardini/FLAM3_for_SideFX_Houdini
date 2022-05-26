@@ -860,8 +860,8 @@ void V_WEDGE(vector2 p; const vector2 _p; const float w, swirl, angle, hole, cou
     p[0] = rr*ca;
     p[1] = rr*sa;
 }
-// 76 ( parametric )
-void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist, count){
+// 76 ( parametric ) // const vector precalc)
+void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist, count){ 
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
     // precalc
     wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
@@ -877,6 +877,27 @@ void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist
     p[0] = rr * ca;
     p[1] = rr * sa;
 }
+/*
+// 76 FF ( parametric )
+void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, dist, count){
+    float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
+    // precalc
+    vector precalc;
+    precalc_V_WEDGEJULIA(precalc, power, angle, dist, count)
+    wedgeJulia_cf = precalc[0];
+    wedgeJulia_rN = precalc[1];
+    wedgeJulia_cn = precalc[2];
+
+    rr = w * pow(SUMSQ(_p), wedgeJulia_cn);
+    t_rnd = (int)((wedgeJulia_rN)*nrandom("twister"));
+    aa = (ATANYX(_p) + 2 * M_PI * t_rnd) / power;
+    cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
+    aa = aa * wedgeJulia_cf + cc * angle;
+    sincos(aa, sa, ca);
+    p[0] = rr * ca;
+    p[1] = rr * sa;
+}
+*/
 // 77 ( parametric )
 void V_WEDGESPH(vector2 p; const vector2 _p; const float w, swirl, angle, hole, count){
     float rr, aa, cc, comp_fac, sa, ca;

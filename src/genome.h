@@ -157,7 +157,7 @@ struct gemPrm{
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
-    vector pc_DISC2[]; // pc_BWRAPS[]
+    vector pc_DISC2[]; // pc_BWRAPS[], pc_WEDGEJULIA[];
     void gemPrmBuild(const string sIDX[]; const int res, GEMTYPE[]; const float w[]){
 
         if(max(GEMTYPE)>26){
@@ -257,8 +257,13 @@ struct gemPrm{
                         else if(TYPE==74){ stripes[i] = chu(concat("../stripes_", IDX)); continue; }
                         // 75 WEDGE
                         else if(TYPE==75){ wedge[i] = chp(concat("../wedge_", IDX)); continue; }
-                        // 76 WEDGE JULIA
-                        else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", IDX)); continue; }
+                        // 76 WEDGE JULIA ( The precalc made it 15% slower, I dnt know why...odd. )
+                        else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", IDX));
+                            // power, angle, dist, count
+                            // vector calc; precalc_V_WEDGEJULIA(calc, wedgejulia[i][0], wedgejulia[i][1], wedgejulia[i][2], wedgejulia[i][3]);
+                            // pc_WEDGEJULIA[i] = calc;
+                            continue;
+                        }
                     }
                     else{
                         // 77 WEDGE SPH
@@ -296,7 +301,8 @@ struct gemPrm{
                         else if(TYPE==101){
                             polynomial_pow[i] = chu(concat("../polynomialpow_", IDX));
                             polynomial_lc[i]  = chu(concat("../polynomiallc_", IDX));
-                            polynomial_sc[i]  = chu(concat("../polynomialsc_", IDX)); continue; }
+                            polynomial_sc[i]  = chu(concat("../polynomialsc_", IDX)); continue;
+                        }
                     }
                 }
             }
