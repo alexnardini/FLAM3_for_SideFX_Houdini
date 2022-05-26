@@ -1129,7 +1129,10 @@ void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain,
         }
     }
 }
+
 /*
+// BWRAPS PRECALC
+//
 // 99 ( parametric )
 void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor){
     float max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
@@ -1188,6 +1191,7 @@ void V_BWRAPS_FF(vector2 p; const vector2 _p; const float w, cellsize, space, ga
     V_BWRAPS(p, _p, w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor);
 }
 */
+
 // 100
 void V_HEMISPHERE(vector2 p; const vector2 _p; const float w){
     float tt;
