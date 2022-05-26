@@ -12628,7 +12628,7 @@ UnifiedReturnBlock:                               ; preds = %true1183, %true1175
 ; Function Attrs: alwaysinline nounwind
 define private void @"_TheFractalFlameAlgorithm@I[II[F[FFFFV"(i64* %_bound_ptnum, i64** %_bound_VACTIVE, i64* %_bound_XAOS, double** %_bound_IW, double** %_bound_XAOS_TO, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
-  %__tmp = alloca <2 x double>
+  %tmp = alloca <2 x double>
   %GEM = alloca %gem
   %0 = alloca i64*
   %v1GMP = alloca %gemPrm
@@ -12656,7 +12656,7 @@ __llvm_entry:
   %18 = alloca i64
   %19 = alloca i64*
   %20 = alloca double*
-  %__mem = alloca <2 x double>
+  %mem = alloca <2 x double>
   %21 = alloca double
   %22 = alloca i64
   %23 = alloca <2 x double>
@@ -12742,7 +12742,7 @@ __llvm_entry:
   %103 = alloca <2 x double>
   %104 = alloca <2 x double>
   %105 = alloca i64
-  store <2 x double> zeroinitializer, <2 x double>* %__tmp, !vex-initializer-store !3
+  store <2 x double> zeroinitializer, <2 x double>* %tmp, !vex-initializer-store !3
   %_bound_VACTIVE1 = load i64*, i64** %_bound_VACTIVE
   %GEM2 = call %gem @"gem@Z3gemM50N2TMIN2FFIN3PFFIN3RIPIN3SYMIN6iter_fIN4iterIN7sym_modIN2MBIN3resIN6v1type[IN6v2type[IN6v3type[IN6v4type[IN6p1type[IN6pptype[IN5POSTL[IN8ffv1typeIN8ffv2typeIN8ffv3typeIN8ffp1typeIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN8ONEMINUS[FN5ALPHA[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N4sIDX[SN6mb_modF"()
   %GEM2.fca.0.extract = extractvalue %gem %GEM2, 0
@@ -13805,9 +13805,9 @@ true:                                             ; preds = %__llvm_entry
 end:                                              ; preds = %true, %__llvm_entry
   %XAOS_TO.0 = phi double* [ %_bound_XAOS_TO100, %true ], [ getelementptr inbounds ([0 x double], [0 x double]* @56, i64 0, i64 0), %__llvm_entry ]
   %idx.0 = phi i64 [ %return102, %true ], [ 0, %__llvm_entry ]
-  store <2 x double> zeroinitializer, <2 x double>* %__mem, !vex-initializer-store !3
+  store <2 x double> zeroinitializer, <2 x double>* %mem, !vex-initializer-store !3
   %biunit = call <2 x double> @"biunit@U"()
-  store <2 x double> %biunit, <2 x double>* %__mem
+  store <2 x double> %biunit, <2 x double>* %mem
   br label %cond
 
 cond:                                             ; preds = %end292, %end
@@ -13821,7 +13821,7 @@ cond:                                             ; preds = %end292, %end
 
 body:                                             ; preds = %cond
   %cast = call <2 x double> @"set@UI"(i64 0)
-  store <2 x double> %cast, <2 x double>* %__tmp
+  store <2 x double> %cast, <2 x double>* %tmp
   br i1 %106, label %true109, label %false
 
 end106:                                           ; preds = %cond
@@ -13849,7 +13849,7 @@ end110:                                           ; preds = %false, %true109
 
 true129:                                          ; preds = %end110
   store double %return126, double* %21
-  call void @"V_PREBLUR@UF"(<2 x double>* %__mem, double* %21)
+  call void @"V_PREBLUR@UF"(<2 x double>* %mem, double* %21)
   br label %end130
 
 end130:                                           ; preds = %true129, %end110
@@ -13860,14 +13860,14 @@ end130:                                           ; preds = %true129, %end110
 true139:                                          ; preds = %end130
   %return143 = call i64 @"getcomp@I[II"(i64* %GEM4.fca.15.load, i64 %idx.2)
   store i64 %return143, i64* %22
-  %__mem144 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem144, <2 x double>* %23
+  %mem144 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem144, <2 x double>* %23
   store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %24
   store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %25
   store <2 x double> zeroinitializer, <2 x double>* %26
   store double %return136, double* %27
   %FLAMEPP = call <2 x double> @"FLAMEPP@UIUUUUF"(i64* %22, <2 x double>* %23, <2 x double>* %24, <2 x double>* %25, <2 x double>* %26, double* %27)
-  store <2 x double> %FLAMEPP, <2 x double>* %__mem
+  store <2 x double> %FLAMEPP, <2 x double>* %mem
   br label %end140
 
 end140:                                           ; preds = %true139, %end130
@@ -13876,7 +13876,7 @@ end140:                                           ; preds = %true139, %end130
   br i1 %return151, label %true153, label %end154
 
 true153:                                          ; preds = %end140
-  %__tmp155 = load <2 x double>, <2 x double>* %__tmp
+  %tmp155 = load <2 x double>, <2 x double>* %tmp
   %v1GMP156.fca.0.load = load double*, double** %v1GMP72.fca.0.gep
   %v1GMP156.fca.0.insert = insertvalue %gemPrm undef, double* %v1GMP156.fca.0.load, 0
   %v1GMP156.fca.1.load = load double*, double** %v1GMP72.fca.1.gep
@@ -14083,8 +14083,8 @@ true153:                                          ; preds = %end140
   store i64 %idx.2, i64* %29
   %return160 = call i64 @"getcomp@I[II"(i64* %GEM4.fca.10.load, i64 %idx.2)
   store i64 %return160, i64* %30
-  %__mem161 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem161, <2 x double>* %31
+  %mem161 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem161, <2 x double>* %31
   %return164 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.35.load, i64 %idx.2)
   store <2 x double> %return164, <2 x double>* %32
   %return167 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.36.load, i64 %idx.2)
@@ -14093,8 +14093,8 @@ true153:                                          ; preds = %end140
   store <2 x double> %return170, <2 x double>* %34
   store double %return150, double* %35
   %FLAME = call <2 x double> @"FLAME@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %28, i64* %29, i64* %30, <2 x double>* %31, <2 x double>* %32, <2 x double>* %33, <2 x double>* %34, double* %35)
-  %output174 = call <2 x double> @"add@UU"(<2 x double> %__tmp155, <2 x double> %FLAME)
-  store <2 x double> %output174, <2 x double>* %__tmp
+  %output174 = call <2 x double> @"add@UU"(<2 x double> %tmp155, <2 x double> %FLAME)
+  store <2 x double> %output174, <2 x double>* %tmp
   br label %end154
 
 end154:                                           ; preds = %true153, %end140
@@ -14103,7 +14103,7 @@ end154:                                           ; preds = %true153, %end140
   br i1 %return178, label %true180, label %end181
 
 true180:                                          ; preds = %end154
-  %__tmp182 = load <2 x double>, <2 x double>* %__tmp
+  %tmp182 = load <2 x double>, <2 x double>* %tmp
   %v2GMP183.fca.0.load = load double*, double** %v2GMP73.fca.0.gep
   %v2GMP183.fca.0.insert = insertvalue %gemPrm undef, double* %v2GMP183.fca.0.load, 0
   %v2GMP183.fca.1.load = load double*, double** %v2GMP73.fca.1.gep
@@ -14310,8 +14310,8 @@ true180:                                          ; preds = %end154
   store i64 %idx.2, i64* %37
   %return187 = call i64 @"getcomp@I[II"(i64* %GEM4.fca.11.load, i64 %idx.2)
   store i64 %return187, i64* %38
-  %__mem188 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem188, <2 x double>* %39
+  %mem188 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem188, <2 x double>* %39
   %return191 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.35.load, i64 %idx.2)
   store <2 x double> %return191, <2 x double>* %40
   %return194 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.36.load, i64 %idx.2)
@@ -14320,8 +14320,8 @@ true180:                                          ; preds = %end154
   store <2 x double> %return197, <2 x double>* %42
   store double %return177, double* %43
   %FLAME201 = call <2 x double> @"FLAME@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %36, i64* %37, i64* %38, <2 x double>* %39, <2 x double>* %40, <2 x double>* %41, <2 x double>* %42, double* %43)
-  %output202 = call <2 x double> @"add@UU"(<2 x double> %__tmp182, <2 x double> %FLAME201)
-  store <2 x double> %output202, <2 x double>* %__tmp
+  %output202 = call <2 x double> @"add@UU"(<2 x double> %tmp182, <2 x double> %FLAME201)
+  store <2 x double> %output202, <2 x double>* %tmp
   br label %end181
 
 end181:                                           ; preds = %true180, %end154
@@ -14330,7 +14330,7 @@ end181:                                           ; preds = %true180, %end154
   br i1 %return206, label %true208, label %end209
 
 true208:                                          ; preds = %end181
-  %__tmp210 = load <2 x double>, <2 x double>* %__tmp
+  %tmp210 = load <2 x double>, <2 x double>* %tmp
   %v3GMP211.fca.0.load = load double*, double** %v3GMP74.fca.0.gep
   %v3GMP211.fca.0.insert = insertvalue %gemPrm undef, double* %v3GMP211.fca.0.load, 0
   %v3GMP211.fca.1.load = load double*, double** %v3GMP74.fca.1.gep
@@ -14537,8 +14537,8 @@ true208:                                          ; preds = %end181
   store i64 %idx.2, i64* %45
   %return215 = call i64 @"getcomp@I[II"(i64* %GEM4.fca.12.load, i64 %idx.2)
   store i64 %return215, i64* %46
-  %__mem216 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem216, <2 x double>* %47
+  %mem216 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem216, <2 x double>* %47
   %return219 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.35.load, i64 %idx.2)
   store <2 x double> %return219, <2 x double>* %48
   %return222 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.36.load, i64 %idx.2)
@@ -14547,8 +14547,8 @@ true208:                                          ; preds = %end181
   store <2 x double> %return225, <2 x double>* %50
   store double %return205, double* %51
   %FLAME229 = call <2 x double> @"FLAME@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %44, i64* %45, i64* %46, <2 x double>* %47, <2 x double>* %48, <2 x double>* %49, <2 x double>* %50, double* %51)
-  %output230 = call <2 x double> @"add@UU"(<2 x double> %__tmp210, <2 x double> %FLAME229)
-  store <2 x double> %output230, <2 x double>* %__tmp
+  %output230 = call <2 x double> @"add@UU"(<2 x double> %tmp210, <2 x double> %FLAME229)
+  store <2 x double> %output230, <2 x double>* %tmp
   br label %end209
 
 end209:                                           ; preds = %true208, %end181
@@ -14557,7 +14557,7 @@ end209:                                           ; preds = %true208, %end181
   br i1 %return234, label %true236, label %end237
 
 true236:                                          ; preds = %end209
-  %__tmp238 = load <2 x double>, <2 x double>* %__tmp
+  %tmp238 = load <2 x double>, <2 x double>* %tmp
   %v4GMP239.fca.0.load = load double*, double** %v4GMP75.fca.0.gep
   %v4GMP239.fca.0.insert = insertvalue %gemPrm undef, double* %v4GMP239.fca.0.load, 0
   %v4GMP239.fca.1.load = load double*, double** %v4GMP75.fca.1.gep
@@ -14764,8 +14764,8 @@ true236:                                          ; preds = %end209
   store i64 %idx.2, i64* %53
   %return243 = call i64 @"getcomp@I[II"(i64* %GEM4.fca.13.load, i64 %idx.2)
   store i64 %return243, i64* %54
-  %__mem244 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem244, <2 x double>* %55
+  %mem244 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem244, <2 x double>* %55
   %return247 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.35.load, i64 %idx.2)
   store <2 x double> %return247, <2 x double>* %56
   %return250 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.36.load, i64 %idx.2)
@@ -14774,8 +14774,8 @@ true236:                                          ; preds = %end209
   store <2 x double> %return253, <2 x double>* %58
   store double %return233, double* %59
   %FLAME257 = call <2 x double> @"FLAME@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %52, i64* %53, i64* %54, <2 x double>* %55, <2 x double>* %56, <2 x double>* %57, <2 x double>* %58, double* %59)
-  %output258 = call <2 x double> @"add@UU"(<2 x double> %__tmp238, <2 x double> %FLAME257)
-  store <2 x double> %output258, <2 x double>* %__tmp
+  %output258 = call <2 x double> @"add@UU"(<2 x double> %tmp238, <2 x double> %FLAME257)
+  store <2 x double> %output258, <2 x double>* %tmp
   br label %end237
 
 end237:                                           ; preds = %true236, %end209
@@ -14990,14 +14990,14 @@ true264:                                          ; preds = %end237
   store i64 %idx.2, i64* %61
   %return270 = call i64 @"getcomp@I[II"(i64* %GEM4.fca.14.load, i64 %idx.2)
   store i64 %return270, i64* %62
-  %__tmp271 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp271, <2 x double>* %63
+  %tmp271 = load <2 x double>, <2 x double>* %tmp
+  store <2 x double> %tmp271, <2 x double>* %63
   store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %64
   store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %65
   store <2 x double> zeroinitializer, <2 x double>* %66
   store double %return261, double* %67
   %FLAME275 = call <2 x double> @"FLAME@UZ6gemPrmM51N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PIIUUUUF"(%gemPrm* %60, i64* %61, i64* %62, <2 x double>* %63, <2 x double>* %64, <2 x double>* %65, <2 x double>* %66, double* %67)
-  store <2 x double> %FLAME275, <2 x double>* %__tmp
+  store <2 x double> %FLAME275, <2 x double>* %tmp
   br label %end265
 
 end265:                                           ; preds = %true264, %end237
@@ -15012,7 +15012,7 @@ true279:                                          ; preds = %end265
   store <2 x double> %return286, <2 x double>* %69
   %return289 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM4.fca.40.load, i64 %idx.2)
   store <2 x double> %return289, <2 x double>* %70
-  call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %68, <2 x double>* %69, <2 x double>* %70)
+  call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %68, <2 x double>* %69, <2 x double>* %70)
   br label %end280
 
 end280:                                           ; preds = %true279, %end265
@@ -15020,9 +15020,9 @@ end280:                                           ; preds = %true279, %end265
   br i1 %110, label %true291, label %end292
 
 true291:                                          ; preds = %end280
-  %__tmp293 = load <2 x double>, <2 x double>* %__tmp
-  %output295 = call <2 x double> @"mul@U2"(<2 x double> %__tmp293, <4 x double> %GEM4.fca.47.load)
-  store <2 x double> %output295, <2 x double>* %__tmp
+  %tmp293 = load <2 x double>, <2 x double>* %tmp
+  %output295 = call <2 x double> @"mul@U2"(<2 x double> %tmp293, <4 x double> %GEM4.fca.47.load)
+  store <2 x double> %output295, <2 x double>* %tmp
   br label %end292
 
 end292:                                           ; preds = %true291, %end280
@@ -15030,8 +15030,8 @@ end292:                                           ; preds = %true291, %end280
   %return301 = call double @"getcomp@F[FI"(double* %GEM4.fca.29.load, i64 %idx.2)
   %output303 = fmul double %return301, %prev_clr.0
   %output304 = fadd double %return298, %output303
-  %__tmp305 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp305, <2 x double>* %__mem
+  %tmp305 = load <2 x double>, <2 x double>* %tmp
+  store <2 x double> %tmp305, <2 x double>* %mem
   %output307 = add i64 %i.0, 1
   br label %cond
 
@@ -15136,15 +15136,15 @@ true309:                                          ; preds = %end106
   %GEM311.fca.48.insert = insertvalue %gem %GEM311.fca.47.insert, i8** %GEM311.fca.48.load, 48
   %GEM311.fca.49.load = load double, double* %GEM2.fca.49.gep
   %cast339 = call <2 x double> @"set@UI"(i64 0)
-  store <2 x double> %cast339, <2 x double>* %__tmp
+  store <2 x double> %cast339, <2 x double>* %tmp
   %return341 = fcmp one double %GEM311.fca.31.load, 0.000000e+00
   br i1 %return341, label %true343, label %end344
 
 end310:                                           ; preds = %end392, %end106
   %return399 = call double @"getcomp@F[FI"(double* %GEM4.fca.30.load, i64 %idx.1)
   store i64 %GEM4.fca.3.load, i64* %71
-  %__mem401 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem401, <2 x double>* %72
+  %mem401 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem401, <2 x double>* %72
   store double %return399, double* %73
   %chkPT = call i64 @"chkPT@IIUF"(i64* %71, <2 x double>* %72, double* %73)
   %111 = icmp ne i64 %chkPT, 0
@@ -15153,15 +15153,15 @@ end310:                                           ; preds = %end392, %end106
 true343:                                          ; preds = %true309
   store i64 1, i64* %74
   store i64 %GEM311.fca.17.load, i64* %75
-  %__mem347 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem347, <2 x double>* %76
+  %mem347 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem347, <2 x double>* %76
   store <2 x double> %GEM311.fca.41.load, <2 x double>* %77
   store <2 x double> %GEM311.fca.42.load, <2 x double>* %78
   store <2 x double> %GEM311.fca.43.load, <2 x double>* %79
   store double %GEM311.fca.31.load, double* %80
   %FLAMEFF = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %74, i64* %75, <2 x double>* %76, <2 x double>* %77, <2 x double>* %78, <2 x double>* %79, double* %80)
   %output352 = call <2 x double> @"add@UU"(<2 x double> %cast339, <2 x double> %FLAMEFF)
-  store <2 x double> %output352, <2 x double>* %__tmp
+  store <2 x double> %output352, <2 x double>* %tmp
   br label %end344
 
 end344:                                           ; preds = %true343, %true309
@@ -15169,18 +15169,18 @@ end344:                                           ; preds = %true343, %true309
   br i1 %return354, label %true356, label %end357
 
 true356:                                          ; preds = %end344
-  %__tmp358 = load <2 x double>, <2 x double>* %__tmp
+  %tmp358 = load <2 x double>, <2 x double>* %tmp
   store i64 1, i64* %81
   store i64 %GEM311.fca.18.load, i64* %82
-  %__mem360 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem360, <2 x double>* %83
+  %mem360 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem360, <2 x double>* %83
   store <2 x double> %GEM311.fca.41.load, <2 x double>* %84
   store <2 x double> %GEM311.fca.42.load, <2 x double>* %85
   store <2 x double> %GEM311.fca.43.load, <2 x double>* %86
   store double %GEM311.fca.32.load, double* %87
   %FLAMEFF365 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %81, i64* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, <2 x double>* %86, double* %87)
-  %output366 = call <2 x double> @"add@UU"(<2 x double> %__tmp358, <2 x double> %FLAMEFF365)
-  store <2 x double> %output366, <2 x double>* %__tmp
+  %output366 = call <2 x double> @"add@UU"(<2 x double> %tmp358, <2 x double> %FLAMEFF365)
+  store <2 x double> %output366, <2 x double>* %tmp
   br label %end357
 
 end357:                                           ; preds = %true356, %end344
@@ -15188,18 +15188,18 @@ end357:                                           ; preds = %true356, %end344
   br i1 %return368, label %true370, label %end371
 
 true370:                                          ; preds = %end357
-  %__tmp372 = load <2 x double>, <2 x double>* %__tmp
+  %tmp372 = load <2 x double>, <2 x double>* %tmp
   store i64 1, i64* %88
   store i64 %GEM311.fca.19.load, i64* %89
-  %__mem374 = load <2 x double>, <2 x double>* %__mem
-  store <2 x double> %__mem374, <2 x double>* %90
+  %mem374 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem374, <2 x double>* %90
   store <2 x double> %GEM311.fca.41.load, <2 x double>* %91
   store <2 x double> %GEM311.fca.42.load, <2 x double>* %92
   store <2 x double> %GEM311.fca.43.load, <2 x double>* %93
   store double %GEM311.fca.33.load, double* %94
   %FLAMEFF379 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %88, i64* %89, <2 x double>* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, double* %94)
-  %output380 = call <2 x double> @"add@UU"(<2 x double> %__tmp372, <2 x double> %FLAMEFF379)
-  store <2 x double> %output380, <2 x double>* %__tmp
+  %output380 = call <2 x double> @"add@UU"(<2 x double> %tmp372, <2 x double> %FLAMEFF379)
+  store <2 x double> %output380, <2 x double>* %tmp
   br label %end371
 
 end371:                                           ; preds = %true370, %end357
@@ -15209,14 +15209,14 @@ end371:                                           ; preds = %true370, %end357
 true384:                                          ; preds = %end371
   store i64 2, i64* %95
   store i64 %GEM311.fca.20.load, i64* %96
-  %__tmp387 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp387, <2 x double>* %97
+  %tmp387 = load <2 x double>, <2 x double>* %tmp
+  store <2 x double> %tmp387, <2 x double>* %97
   store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %98
   store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %99
   store <2 x double> zeroinitializer, <2 x double>* %100
   store double %GEM311.fca.34.load, double* %101
   %FLAMEFF389 = call <2 x double> @"FLAMEFF@UIIUUUUF"(i64* %95, i64* %96, <2 x double>* %97, <2 x double>* %98, <2 x double>* %99, <2 x double>* %100, double* %101)
-  store <2 x double> %FLAMEFF389, <2 x double>* %__tmp
+  store <2 x double> %FLAMEFF389, <2 x double>* %tmp
   br label %end385
 
 end385:                                           ; preds = %true384, %end371
@@ -15227,12 +15227,12 @@ true391:                                          ; preds = %end385
   store <2 x double> %GEM311.fca.44.load, <2 x double>* %102
   store <2 x double> %GEM311.fca.45.load, <2 x double>* %103
   store <2 x double> %GEM311.fca.46.load, <2 x double>* %104
-  call void @"affine@UUUU"(<2 x double>* %__tmp, <2 x double>* %102, <2 x double>* %103, <2 x double>* %104)
+  call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %102, <2 x double>* %103, <2 x double>* %104)
   br label %end392
 
 end392:                                           ; preds = %true391, %end385
-  %__tmp396 = load <2 x double>, <2 x double>* %__tmp
-  store <2 x double> %__tmp396, <2 x double>* %__mem
+  %tmp396 = load <2 x double>, <2 x double>* %tmp
+  store <2 x double> %tmp396, <2 x double>* %mem
   br label %end310
 
 true403:                                          ; preds = %end310
@@ -15250,7 +15250,7 @@ end405:                                           ; preds = %end416, %true403
 
 true411:                                          ; preds = %false404
   store i64 %GEM4.fca.7.load, i64* %105
-  call void @"V_SYM@UI"(<2 x double>* %__mem, i64* %105)
+  call void @"V_SYM@UI"(<2 x double>* %mem, i64* %105)
   br label %end412
 
 end412:                                           ; preds = %true411, %false404
@@ -15265,8 +15265,8 @@ true415:                                          ; preds = %end412
 
 end416:                                           ; preds = %true415, %end412
   %pscl.0 = phi double [ %output419, %true415 ], [ %output409, %end412 ]
-  %__mem423 = load <2 x double>, <2 x double>* %__mem
-  %cast424 = call <3 x double> @"set@VU"(<2 x double> %__mem423)
+  %mem423 = load <2 x double>, <2 x double>* %mem
+  %cast424 = call <3 x double> @"set@VU"(<2 x double> %mem423)
   store <3 x double> %cast424, <3 x double>* %_bound_P
   store double %clr.0, double* %_bound_clr
   store double %pscl.0, double* %_bound_pscale
