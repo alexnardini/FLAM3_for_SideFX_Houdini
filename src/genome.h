@@ -201,7 +201,7 @@ struct gemPrm{
                     else{
                         // 38 PIE
                         if(TYPE==38){ pie[i] = chv(concat("../pie_", IDX)); continue; }
-                        // 47 DISC2 ( This one seem to be the only one to benefit from the precalc. )
+                        // 47 DISC2 ( This seem to be the only one to benefit from the precalc. )
                         else if(TYPE==47){
                             disc2[i] = chu(concat("../disc2_", IDX));
                             float rot=disc2[i][0]; float twist=disc2[i][1];
@@ -257,7 +257,7 @@ struct gemPrm{
                         else if(TYPE==74){ stripes[i] = chu(concat("../stripes_", IDX)); continue; }
                         // 75 WEDGE
                         else if(TYPE==75){ wedge[i] = chp(concat("../wedge_", IDX)); continue; }
-                        // 76 WEDGE JULIA ( The precalc made it 15% slower, I dnt know why...odd. )
+                        // 76 WEDGE JULIA ( The precalc made it 10% slower, I dnt know why...odd. )
                         else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", IDX));
                             // power, angle, dist, count
                             // vector calc; precalc_V_WEDGEJULIA(calc, wedgejulia[i][0], wedgejulia[i][1], wedgejulia[i][2], wedgejulia[i][3]);
