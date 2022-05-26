@@ -201,7 +201,7 @@ struct gemPrm{
                     else{
                         // 38 PIE
                         if(TYPE==38){ pie[i] = chv(concat("../pie_", IDX)); continue; }
-                        // 47 DISC2 ( This seem to be the only one to benefit from the precalc. )
+                        // 47 DISC2 ( This seem to be the only one to benefit from the precalc: 18% faster. )
                         else if(TYPE==47){
                             disc2[i] = chu(concat("../disc2_", IDX));
                             float rot=disc2[i][0]; float twist=disc2[i][1];
