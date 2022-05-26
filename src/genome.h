@@ -201,8 +201,7 @@ struct gemPrm{
                     else{
                         // 38 PIE
                         if(TYPE==38){ pie[i] = chv(concat("../pie_", IDX)); continue; }
-                        // 47 DISC2
-                        // This one seem to be the only one to benefit from the precalc.
+                        // 47 DISC2 ( This one seem to be the only one to benefit from the precalc. )
                         else if(TYPE==47){
                             disc2[i] = chu(concat("../disc2_", IDX));
                             float rot=disc2[i][0]; float twist=disc2[i][1];
@@ -284,8 +283,7 @@ struct gemPrm{
                             curve_amp[i]    = chu(concat("../curvexyzamp_", IDX)); continue; }
                         // 98 PERSPECTIVE
                         else if(TYPE==98){ persp[i] = chu(concat("../persp_", IDX)); continue; }
-                        // 99 BWRAPS
-                        // I did try to implement the precalc but turn out to be 15% slower, I dnt know why...odd.
+                        // 99 BWRAPS ( The precalc made it 15% slower, I dnt know why...odd. )
                         else if(TYPE==99){
                             bwraps[i] = chv(concat("../bwraps_", IDX));
                             bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX)); continue; }
