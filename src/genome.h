@@ -259,6 +259,7 @@ struct gemPrm{
                         else if(TYPE==75){ wedge[i] = chp(concat("../wedge_", IDX)); continue; }
                         // 76 WEDGE JULIA ( The precalc made it 10% slower, I dnt know why...odd. )
                         else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", IDX));
+                            // precalc
                             // float power=wedgejulia[i][0]; float angle= wedgejulia[i][1]; float dist=wedgejulia[i][2]; float count=wedgejulia[i][3];
                             // vector calc; precalc_V_WEDGEJULIA(calc, power, angle, dist, count);
                             // pc_WEDGEJULIA[i] = calc;
