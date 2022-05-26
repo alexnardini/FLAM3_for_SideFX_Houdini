@@ -1129,6 +1129,65 @@ void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain,
         }
     }
 }
+/*
+// 99 ( parametric )
+void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor){
+    float max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
+    
+    Vx = _p[0];
+    Vy = _p[1];
+    if(cellsize == 0.0){
+        p[0] = w * Vx;
+        p[1] = w * Vy;
+    }
+    else{
+        Cx = (floor(Vx / cellsize) + 0.5) * cellsize;
+        Cy = (floor(Vy / cellsize) + 0.5) * cellsize;
+        Lx = Vx - Cx;
+        Ly = Vy - Cy;
+        if((Lx*Lx + Ly*Ly) > r2){
+            p[0] = w * Vx;
+            p[1] = w * Vy;
+        }
+        else{
+            Lx *= g2;
+            Ly *= g2;
+            rr = rfactor / ((Lx*Lx + Ly*Ly) / 4.0 + 1);
+            Lx *= rr;
+            Ly *= rr;
+            rr = (Lx*Lx + Ly*Ly) / r2;
+            theta = innertwist * (1.0 - rr) + outertwist * rr;
+            sincos(theta, ss, cc);
+            Vx = Cx + cc * Lx + ss * Ly;
+            Vy = Cy - ss * Lx + cc * Ly;
+            p[0] = w * Vx;
+            p[1] = w * Vy;
+        }
+    }
+}
+// 99 L ( parametric )
+void V_BWRAPS_L(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist; const vector precalc){
+    float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
+    // precalc
+    g2 = precalc[0];
+    r2  = precalc[1];
+    rdactor  = precalc[2];
+
+    V_BWRAPS(p, _p, w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor);
+}
+// 99 FF ( parametric )
+void V_BWRAPS_FF(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist){
+    float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
+    // precalc
+    vector precalc;
+    precalc_V_BWRAPS(precalc, cellsize, space, gain)
+    g2 = precalc[0];
+    r2  = precalc[1];
+    rdactor  = precalc[2];
+
+    V_BWRAPS(p, _p, w, cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor);
+}
+*/
 // 100
 void V_HEMISPHERE(vector2 p; const vector2 _p; const float w){
     float tt;

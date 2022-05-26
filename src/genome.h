@@ -157,7 +157,7 @@ struct gemPrm{
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
-    vector pc_DISC2[];
+    vector pc_DISC2[]; // pc_BWRAPS[]
     void gemPrmBuild(const string sIDX[]; const int res, GEMTYPE[]; const float w[]){
 
         if(max(GEMTYPE)>26){
@@ -286,7 +286,12 @@ struct gemPrm{
                         // 99 BWRAPS ( The precalc made it 15% slower, I dnt know why...odd. )
                         else if(TYPE==99){
                             bwraps[i] = chv(concat("../bwraps_", IDX));
-                            bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX)); continue; }
+                            bwrapstwist[i] = chu(concat("../bwrapstwist_", IDX));
+                            // precalc
+                            // float cellsize=bwraps[i][0]; float space=bwraps[i][1]; float gain=bwraps[i][2];
+                            // vector calc; precalc_V_BWRAPS(calc, cellsize, space, gain);
+                            // pc_BWRAPS[i] = calc;
+                            continue; }
                         // 101 POLYNOMIAL
                         else if(TYPE==101){
                             polynomial_pow[i] = chu(concat("../polynomialpow_", IDX));
