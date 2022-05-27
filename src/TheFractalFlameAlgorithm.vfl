@@ -44,6 +44,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
     int res, iter, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], TM, FF, PFF, RIP, SYM, MB, sym_mod; res=GEM.res; iter=GEM.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pptype=GEM.pptype; POSTL=GEM.POSTL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SYM=GEM.SYM; MB=GEM.MB; sym_mod=GEM.sym_mod;
     float v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=GEM.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
+    // cast TM
     matrix2 TMm2=GEM.TMm2;
     // cast FF
     int ffv1type, ffv2type, ffv3type, ffp1type; ffv1type=GEM.ffv1type; ffv2type=GEM.ffv2type; ffv3type=GEM.ffv3type; ffp1type=GEM.ffp1type;
