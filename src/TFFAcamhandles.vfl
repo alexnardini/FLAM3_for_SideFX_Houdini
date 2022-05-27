@@ -26,7 +26,7 @@ void
 _TFFAcamhandles(vector4 _bound_orient)
 {
 
-    
+    float   n_pscale, f_pscale;
     vector  center_from_NDC, cam_center, cam_pos, cam_dir,
             px, py, pz, x, y, z,
             near_pos, far_pos;
@@ -47,12 +47,10 @@ _TFFAcamhandles(vector4 _bound_orient)
     matrix3 m3 = set(x, y, z);
     _bound_orient = quaternion(m3);
 
-    near_pos = cam_pos - (cam_dir * hp);
-    far_pos  = cam_pos - (cam_dir *hp);
+    far_pos=near_pos=cam_pos - (cam_dir * hp);
     int near = addpoint(0, near_pos);
     int far = addpoint(0, far_pos);
-    float n_pscale = distance(cam_pos, near_pos);
-    float f_pscale = distance(cam_pos, far_pos);
+    f_pscale=n_pscale=distance(cam_pos, near_pos);
     setpointattrib(0, "orient", near, _bound_orient, "set");
     setpointattrib(0, "Cd", near, {1,0.7,0}, "set");
     setpointattrib(0, "pscale", near, (float)0.19 * n_pscale, "set");
