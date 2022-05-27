@@ -29,14 +29,14 @@
 void
 _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XAOS_TO[])
 {
-    int iter_f = chi("../flamefunc");
+    int inum = chi("../flamefunc");
     int vactive[];
     string sIDX[];
     float IW[];
     
     // ACTIVE vars
     //
-    for(int i=0; i<iter_f; ++i){
+    for(int i=0; i<inum; ++i){
         string iIDX = itoa(i+1);
         append(vactive, chi(concat("../vactive_", iIDX)));
         float IWcheck = chf(concat("../iw_", iIDX));
@@ -50,7 +50,7 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XA
     //
     int xaos_chk = 0;
     int size = len(sIDX);
-    float _XAOS_TO[], XAOS_TO[], _XAOS_FROM[];
+    float _XAOS_TO[], XAOS_TO[];
     for(int i=0; i<size; ++i){
 
         string varnote = chs(concat("../varnote_", sIDX[i]));
@@ -62,10 +62,10 @@ _TFFAvactive(int _bound_VACTIVE[]; int _bound_XAOS; float _bound_IW[], _bound_XA
             foreach(string n; varxaos){
                 append(xaos, max(atof(n), EPS));
             }
-            resize(xaos, iter_f, 1);
+            resize(xaos, inum, 1);
         }
-        else resize(xaos, iter_f, 1);
-        for(int j=0; j<iter_f; ++j){
+        else resize(xaos, inum, 1);
+        for(int j=0; j<inum; ++j){
             if(!vactive[j]) pop(xaos, j);
         }
         

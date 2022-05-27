@@ -23,7 +23,7 @@
 // GENOME
 struct gem{
 
-    int     TM, FF, PFF, RIP, SYM, iter_f, iter, sym_mod, MB,
+    int     TM, FF, PFF, RIP, SYM, iter, sym_mod, MB,
             res, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
@@ -40,18 +40,18 @@ struct gem{
         PFF    = chi("../_dofpost_2");
         RIP    = chi("../delinvalidpt");
         SYM    = chi("../symmetry");
-        iter_f = chi("../flamefunc");
         iter   = chi("../iter");
         MB     = chi("../domb");
         if(SYM) sym_mod = chi("../rotational");
         if(MB) mb_mod = detail(1, "Tstep_mult", 0);
+        int inum = chi("../flamefunc");
 
         // GENOME
         res = 0;
         float _a, clr, speed, grt;
         vector2 _x, _y;
         matrix2 _m2;
-        for(int i=0; i<iter_f; ++i){
+        for(int i=0; i<inum; ++i){
             if(!ACTV[i]) continue;
             res++;
             // Collect active variation IDs

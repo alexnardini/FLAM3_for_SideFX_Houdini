@@ -130,11 +130,11 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
 
     // SYS
-    int FF, TMG, iter, iter_f, sm, smtype, domb;
+    int FF, TMG, iter, inum, sm, smtype, domb;
     FF            = chi("../dofinalflame");
     TMG           = chi("../dotmglobal");
     iter          = chi("../iter");
-    iter_f        = chi("../flamefunc");
+    inum          = chi("../flamefunc");
     sm            = chi("../symmetry");
     smtype        = chi("../rotational");
     domb          = chi("../domb");
@@ -149,7 +149,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     if(sm){ if(!smtype) append(type, "SM3"); else append(type, "SM5"); }
     if(TMG) append(type, "TM");
 
-    for(int i=0; i<iter_f; ++i){
+    for(int i=0; i<inum; ++i){
 
         string _IDX = itoa(i+1);
         string VAR, W, PP, PB, V1, V2, V3, V4, P1;
