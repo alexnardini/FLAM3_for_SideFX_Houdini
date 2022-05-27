@@ -131,13 +131,13 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
     // SYS
     int FF, TMG, iter, inum, sm, smtype, domb;
-    FF            = chi("../dofinalflame");
-    TMG           = chi("../dotmglobal");
-    iter          = chi("../iter");
-    inum          = chi("../flamefunc");
-    sm            = chi("../symmetry");
-    smtype        = chi("../rotational");
-    domb          = chi("../domb");
+    FF     = chi("../dofinalflame");
+    TMG    = chi("../dotmglobal");
+    iter   = chi("../iter");
+    inum   = chi("../flamefunc");
+    sm     = chi("../symmetry");
+    smtype = chi("../rotational");
+    domb   = chi("../domb");
 
     // UI collect
     float ppw, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;

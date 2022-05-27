@@ -35,13 +35,13 @@ struct gem{
     void gemBuild(const int ACTV[]){
 
         // SYS
-        TM     = chi("../dotmglobal");
-        FF     = chi("../dofinalflame");
-        PFF    = chi("../_dofpost_2");
-        RIP    = chi("../delinvalidpt");
-        SYM    = chi("../symmetry");
-        iter   = chi("../iter");
-        MB     = chi("../domb");
+        TM   = chi("../dotmglobal");
+        FF   = chi("../dofinalflame");
+        PFF  = chi("../_dofpost_2");
+        RIP  = chi("../delinvalidpt");
+        SYM  = chi("../symmetry");
+        iter = chi("../iter");
+        MB   = chi("../domb");
         if(SYM) sym_mod = chi("../rotational");
         if(MB) mb_mod = detail(1, "Tstep_mult", 0);
         int inum = chi("../flamefunc");
