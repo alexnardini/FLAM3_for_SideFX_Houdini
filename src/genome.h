@@ -157,7 +157,7 @@ struct gemPrm{
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[];
-    vector pc_DISC2[]; // pc_BWRAPS[], pc_WEDGEJULIA[];
+    vector  pc_DISC2[]; // pc_BWRAPS[], pc_WEDGEJULIA[];
     void gemPrmBuild(const string sIDX[]; const int res, GEMTYPE[]; const float w[]){
 
         if(max(GEMTYPE)>26){
