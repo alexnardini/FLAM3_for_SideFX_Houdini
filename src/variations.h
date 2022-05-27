@@ -906,7 +906,7 @@ void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, d
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
     // precalc
     vector precalc;
-    precalc_V_WEDGEJULIA(precalc, power, angle, dist, count)
+    precalc_V_WEDGEJULIA(precalc, power, angle, dist, count);
     wedgeJulia_cf = precalc[0];
     wedgeJulia_rN = precalc[1];
     wedgeJulia_cn = precalc[2];
