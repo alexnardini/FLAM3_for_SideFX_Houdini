@@ -899,7 +899,7 @@ void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, d
     wedgeJulia_rN = precalc[1];
     wedgeJulia_cn = precalc[2];
 
-    V_WEDGEJULIA(p, _p, w, power, angle, dist, count)
+    V_WEDGEJULIA(p, _p, w, power, angle, dist, count, wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn);
 }
 // 76 FF ( parametric )
 void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, dist, count){
@@ -911,7 +911,7 @@ void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, d
     wedgeJulia_rN = precalc[1];
     wedgeJulia_cn = precalc[2];
 
-    V_WEDGEJULIA(p, _p, w, power, angle, dist, count)
+    V_WEDGEJULIA(p, _p, w, power, angle, dist, count, wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn);
 }
 */
 // 77 ( parametric )
