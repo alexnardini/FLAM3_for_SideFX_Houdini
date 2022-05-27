@@ -48,7 +48,7 @@ struct gem{
 
         // GENOME
         res = 0;
-        float _a, clr, speed;
+        float _a, clr, speed, grt;
         vector2 _x, _y;
         matrix2 _m2;
         for(int i=0; i<iter_f; ++i){
@@ -112,7 +112,7 @@ struct gem{
         }
         // Build TM
         if(TM){
-            float grt = chf("../frt");
+            grt = chf("../frt");
             TMm2 = (matrix2)maketransform(0, set(0, 0, grt));
         }
         if(FF){
