@@ -196,6 +196,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     }
 
     if(FF){
+
         string VAR, FV1, FV2, FV3, FP1;
         fw1 = chf("../ffv1weight");
         if(fw1!=0) FV1 = stype[atoi(chs("../ffv1type"))]+":";
@@ -213,6 +214,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         VAR = concat(FV1, FV2, FV3, FP1);
         append(type, toupper(VAR));
         }
+        
     _bound_VARTYPE = type;
 }
 
