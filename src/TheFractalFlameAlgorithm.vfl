@@ -31,29 +31,28 @@
 #include <flamepp.h>
 #include <flameff.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bound_XAOS; const float _bound_IW[], _bound_XAOS_TO[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; const int _bound_XAOS; const float _bound_IW[], _bound_XAOS_TO[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     // ftype = 1 -> FF
     // ftype = 2 -> FF POST
     
-    int sl, idx;
+    int     sl, idx;
+    float   pscl, clr, prev_clr, alpha, XAOS_TO[]; prev_clr=0; pscl=PSCL;
     vector2 tmp;
-    float pscl, clr, prev_clr, alpha, XAOS_TO[]; prev_clr=0; pscl=PSCL;
     // Build genomes
-    int ACTV[]=_bound_VACTIVE;
-    gem GEM; GEM->gemBuild(ACTV);
+    string sIDX[]=_bound_sIDX;
+    gem GEM; GEM->gemBuild(sIDX);
     // cast FLAME
-    int res, iter, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], TM, FF, PFF, RIP, SYM, MB, sym_mod; res=GEM.res; iter=GEM.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pptype=GEM.pptype; POSTL=GEM.POSTL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SYM=GEM.SYM; MB=GEM.MB; sym_mod=GEM.sym_mod;
-    float v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=GEM.mb_mod;
+    int     res, iter, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], TM, FF, PFF, RIP, SYM, MB, sym_mod; res=GEM.res; iter=GEM.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pptype=GEM.pptype; POSTL=GEM.POSTL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SYM=GEM.SYM; MB=GEM.MB; sym_mod=GEM.sym_mod;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=GEM.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast TM
     matrix2 TMm2=GEM.TMm2;
     // cast FF
-    int ffv1type, ffv2type, ffv3type, ffp1type; ffv1type=GEM.ffv1type; ffv2type=GEM.ffv2type; ffv3type=GEM.ffv3type; ffp1type=GEM.ffp1type;
-    float ffv1w, ffv2w, ffv3w, ffp1w; ffv1w=GEM.ffv1w; ffv2w=GEM.ffv2w; ffv3w=GEM.ffv3w; ffp1w=GEM.ffp1w;
+    int     ffv1type, ffv2type, ffv3type, ffp1type; ffv1type=GEM.ffv1type; ffv2type=GEM.ffv2type; ffv3type=GEM.ffv3type; ffp1type=GEM.ffp1type;
+    float   ffv1w, ffv2w, ffv3w, ffp1w; ffv1w=GEM.ffv1w; ffv2w=GEM.ffv2w; ffv3w=GEM.ffv3w; ffp1w=GEM.ffp1w;
     vector2 fx, fy, fo, pfx, pfy, pfo; fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
-    string sIDX[]=GEM.sIDX;
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->gemPrmBuild(sIDX, res, v1type, v1w);
     v2GMP->gemPrmBuild(sIDX, res, v2type, v2w);
@@ -106,7 +105,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const int _bound_VACTIVE[], _bo
 
 cvex
 TheFractalFlameAlgorithm( export int    ptnum     = 0;
-                          const  int    VACTIVE[] = {};
+                          const  string sIDX[]    = {};
                           const  int    XAOS      = 0;
                           const  float  IW[]      = {};
                           const  float  XAOS_TO[] = {};
@@ -115,5 +114,5 @@ TheFractalFlameAlgorithm( export int    ptnum     = 0;
                           export float  Alpha     = 0;
 	                      export vector P         = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, VACTIVE, XAOS, IW, XAOS_TO, pscale, clr, Alpha, P);
+    _TheFractalFlameAlgorithm(ptnum, sIDX, XAOS, IW, XAOS_TO, pscale, clr, Alpha, P);
 }

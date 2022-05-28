@@ -28,11 +28,9 @@ struct gem{
     float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
-    string  sIDX[];
-
-    float mb_mod = 1.0;
+    float   mb_mod=1.0;
     
-    void gemBuild(const int ACTV[]){
+    void gemBuild(const string sIDX[]){
 
         // SYS
         TM   = chi("../dotmglobal");
@@ -44,71 +42,64 @@ struct gem{
         MB   = chi("../domb");
         if(SYM) sym_mod = chi("../rotational");
         if(MB) mb_mod = detail(1, "Tstep_mult", 0);
-        int inum = chi("../flamefunc");
 
         // GENOME
-        res = 0;
-        float _a, clr, speed, grt;
+        res = len(sIDX);
+        resize(v1type, res); v2type=v3type=v4type=p1type=pptype=POSTL=v1type;
+        resize(v1w, res);    v2w=v3w=v4w=p1w=pbw=ppw=CLR=ONEMINUS=ALPHA=v1w;
+        resize(x, res);      y=o=px=py=po=x;
+        float   _a, clr, speed, grt;
         vector2 _x, _y;
         matrix2 _m2;
-        for(int i=0; i<inum; ++i){
-            if(!ACTV[i]) continue;
-            res++;
-            // Collect active variation IDs
-            string idx=itoa(i+1);
-            append(sIDX, idx);
-            // Color
+        string  idx;
+        for(int i=0; i<res; ++i){
+
+            idx=sIDX[i];
+            // SHADER
             clr = chf(concat("../clr_", idx));
             speed = chf(concat("../clrspeed_", idx));
-            append(CLR, speed*clr);
-            append(ONEMINUS, 1-speed);
-            append(ALPHA, chf(concat("../alpha_", idx)));
+            CLR[i] = speed*clr;
+            ONEMINUS[i] = 1-speed;
+            ALPHA[i] = chf(concat("../alpha_", idx));
             // PRE BLUR
-            append(pbw, chf(concat("../preblurweight_" , idx)));
+            pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
-            append(ppw, chf(concat("../pre1weight_" , idx)));
-            if(ppw[-1]>0) append(pptype, atoi(chs(concat("../pre1type_", idx))));
-            else resize(pptype, res);
+            ppw[i] = chf(concat("../pre1weight_" , idx));
+            if(ppw[i]>0) pptype[i]=atoi(chs(concat("../pre1type_", idx)));
             // VAR 01
-            append(v1w, chf(concat("../v1weight_", idx)));
-            if(v1w[-1]!=0) append(v1type, atoi(chs(concat("../v1type_", idx))));
-            else resize(v1type, res);
+            v1w[i] = chf(concat("../v1weight_", idx));
+            if(v1w[i]!=0) v1type[i]=atoi(chs(concat("../v1type_", idx)));
             // VAR 02
-            append(v2w, chf(concat("../v2weight_", idx)));
-            if(v2w[-1]!=0) append(v2type, atoi(chs(concat("../v2type_", idx))));
-            else resize(v2type, res);
+            v2w[i] = chf(concat("../v2weight_", idx));
+            if(v2w[i]!=0) v2type[i]=atoi(chs(concat("../v2type_", idx)));
             // VAR 03
-            append(v3w, chf(concat("../v3weight_", idx)));
-            if(v3w[-1]!=0) append(v3type, atoi(chs(concat("../v3type_", idx))));
-            else resize(v3type, res);
+            v3w[i] = chf(concat("../v3weight_", idx));
+            if(v3w[i]!=0) v3type[i]=atoi(chs(concat("../v3type_", idx)));
             // VAR 04
-            append(v4w, chf(concat("../v4weight_", idx)));
-            if(v4w[-1]!=0) append(v4type, atoi(chs(concat("../v4type_", idx))));
-            else resize(v4type, res);
+            v4w[i] = chf(concat("../v4weight_", idx));
+            if(v4w[i]!=0) v4type[i]=atoi(chs(concat("../v4type_", idx)));
             // // POST VAR 01
-            append(p1w, chf(concat("../p1weight_", idx)));
-            if(p1w[-1]!=0) append(p1type, atoi(chs(concat("../p1type_", idx))));
-            else resize(p1type, res);
+            p1w[i] = chf(concat("../p1weight_", idx));
+            if(p1w[i]!=0) p1type[i]=atoi(chs(concat("../p1type_", idx)));
             // Collect affine coefficients
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));
             _a = chf(concat("../ang_", idx));
             affineRot(_m2, _x, _y, -radians(_a));
-            append(x, set(_m2.xx, _m2.xy));
-            append(y, set(_m2.yx, _m2.yy));
-            append(o, chu(concat("../o_", idx)));
+            x[i] = set(_m2.xx, _m2.xy);
+            y[i] = set(_m2.yx, _m2.yy);
+            o[i] = chu(concat("../o_", idx));
             // POST
-            append(POSTL, chi(concat("../dopost_", idx)));
-            if(POSTL[-1]){
+            POSTL[i] = chi(concat("../dopost_", idx));
+            if(POSTL[i]){
                 _x = chu(concat("../px_", idx));
                 _y = chu(concat("../py_", idx));
                 _a = chf(concat("../pang_", idx));
                 affineRot(_m2, _x, _y, -radians(_a));
-                append(px, set(_m2.xx, _m2.xy));
-                append(py, set(_m2.yx, _m2.yy));
-                append(po, chu(concat("../po_", idx)));
-                }
-            else{ resize(px, res); resize(py, res); resize(po, res); }
+                px[i] = set(_m2.xx, _m2.xy);
+                py[i] = set(_m2.yx, _m2.yy);
+                po[i] = chu(concat("../po_", idx));
+            }
         }
         // Build TM
         if(TM){
