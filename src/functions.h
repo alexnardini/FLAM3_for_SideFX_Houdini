@@ -93,8 +93,6 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
     bwraps_precalc[2] = radius/max_bubble;
 }
 
-string PRX(int ftype){ return (ftype==1) ? "../_" : "../_p1"; }
-
 vector2 biunit(){ return set(2*nrandom('twister')-1, 2*nrandom('twister')-1); }
 
 int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
