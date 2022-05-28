@@ -45,7 +45,7 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
     }
 
     // XAOS
-    int xaos_chk = 0;
+    int x_chk = 0;
     int res = len(sIDX);
     float _XAOS_TO[], XAOS_TO[];
 
@@ -70,13 +70,13 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
         if(min(xaos)==max(xaos)) append(XAOS_TO, create_cdf(IW));
-        else{ append(XAOS_TO, create_cdf(IW_xaos)); xaos_chk=1; }
+        else{ append(XAOS_TO, create_cdf(IW_xaos)); x_chk=1; }
     }
 
     // OUT
     _bound_sIDX = sIDX;
     _bound_IW = create_cdf(IW);
-    if(xaos_chk){
+    if(x_chk){
         _bound_XS = 1;
         _bound_XST = XAOS_TO;
     }
