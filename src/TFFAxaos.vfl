@@ -1,0 +1,93 @@
+/*  
+ /  Title:      SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       October 2020, Last revised May 2022
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /  Weblink:    https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Name:       TheFractalFlameAlgorithm    "CVEX"
+ /
+ /  Comment:    Collect iterator's XAOS.
+ /
+*/
+
+
+#pragma opname  "TFFAxaos"
+#pragma oplabel "TFFAxaos"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+#include <functions.h>
+
+
+void
+_TFFAvactive(string _bound_sIDX[]; int _bound_X; float _bound_IW[], _bound_XT[])
+{
+    int inum = chi("../flamefunc");
+    int vactive[];
+    string sIDX[];
+    float IW[];
+    
+    // ACTIVE VARS
+    for(int i=0; i<inum; ++i){
+        
+        string iIDX = itoa(i+1);
+        append(vactive, chi(concat("../vactive_", iIDX)));
+        float IWcheck = chf(concat("../iw_", iIDX));
+        if(IWcheck==0) vactive[i]=0;
+        if(!vactive[i]) continue;
+        append(IW, chf(concat("../iw_", iIDX)));
+        append(sIDX, iIDX);
+    }
+
+    // XAOS
+    int xaos_chk = 0;
+    int res = len(sIDX);
+    float _XAOS_TO[], XAOS_TO[];
+
+    for(int i=0; i<res; ++i){
+
+        string varnote = chs(concat("../varnote_", sIDX[i]));
+        string varxaos[] = split(varnote, ":");
+        float xaos[];
+        if(toupper(varxaos[0])=="XAOS"){
+            pop(varxaos, 0);
+            foreach(string n; varxaos){
+                append(xaos, max(atof(n), EPS));
+            }
+            resize(xaos, inum, 1);
+        }
+        else resize(xaos, inum, 1);
+        for(int j=0; j<inum; ++j){
+            if(!vactive[j]) pop(xaos, j);
+        }
+        float IW_xaos[];
+        for(int k=0; k<res; ++k){
+            append(IW_xaos, IW[i]*IW[k]*xaos[k]);
+        }
+        if(min(xaos)==max(xaos)) append(XAOS_TO, create_cdf(IW));
+        else{ append(XAOS_TO, create_cdf(IW_xaos)); xaos_chk=1; }
+    }
+
+    // OUT
+    _bound_sIDX = sIDX;
+    _bound_IW = create_cdf(IW);
+    if(xaos_chk){
+        _bound_X = 1;
+        _bound_XT = XAOS_TO;
+    }
+    else _bound_X = 0;
+}
+
+cvex
+TFFAvactive(export string sIDX[] = {};
+            export int X         = 0;
+            export float IW[]    = {};
+            export float XT[]    = {};)
+{
+    _TFFAvactive(sIDX, X, IW, XT);
+}

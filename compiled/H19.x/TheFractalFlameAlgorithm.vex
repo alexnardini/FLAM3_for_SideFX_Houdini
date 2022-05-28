@@ -12499,7 +12499,7 @@ UnifiedReturnBlock:                               ; preds = %true1136, %true1128
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TheFractalFlameAlgorithm@I[SI[F[FFFFV"(i64* %_bound_ptnum, i8*** %_bound_sIDX, i64* %_bound_XAOS, double** %_bound_IW, double** %_bound_XAOS_TO, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
+define private void @"_TheFractalFlameAlgorithm@I[SI[F[FFFFV"(i64* %_bound_ptnum, i8*** %_bound_sIDX, i64* %_bound_X, double** %_bound_IW, double** %_bound_XT, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
   %tmp = alloca <2 x double>
   %GEM = alloca %gem
@@ -13670,18 +13670,18 @@ __llvm_entry:
   store double* %GEM4.fca.24.load, double** %20
   call void @"gemPrmBuild@Z6gemPrmM52N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PN8pc_DISC2[V[SI[I[F"(%gemPrm* %p1GMP, i8*** %17, i64* %18, i64** %19, double** %20)
   %_bound_IW124 = load double*, double** %_bound_IW
-  %_bound_XAOS125 = load i64, i64* %_bound_XAOS
-  %106 = icmp ne i64 %_bound_XAOS125, 0
+  %_bound_X125 = load i64, i64* %_bound_X
+  %106 = icmp ne i64 %_bound_X125, 0
   br i1 %106, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %_bound_XAOS_TO127 = load double*, double** %_bound_XAOS_TO
+  %_bound_XT127 = load double*, double** %_bound_XT
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %return129 = call i64 @"sample_cdf@[FFI"(double* %_bound_IW124, double %return)
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %XAOS_TO.0 = phi double* [ %_bound_XAOS_TO127, %true ], [ getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), %__llvm_entry ]
+  %XT.0 = phi double* [ %_bound_XT127, %true ], [ getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), %__llvm_entry ]
   %idx.0 = phi i64 [ %return129, %true ], [ 0, %__llvm_entry ]
   store <2 x double> zeroinitializer, <2 x double>* %mem, !vex-initializer-store !3
   %biunit = call <2 x double> @"biunit@U"()
@@ -13709,7 +13709,7 @@ end133:                                           ; preds = %cond
 true136:                                          ; preds = %body
   %output = mul i64 %idx.1, %GEM4.fca.8.load
   %output144 = add i64 %output, %GEM4.fca.8.load
-  %return145 = call double* @"slice@[F[FIIIIII"(double* %XAOS_TO.0, i64 1, i64 %output, i64 1, i64 %output144, i64 0, i64 0)
+  %return145 = call double* @"slice@[F[FIIIIII"(double* %XT.0, i64 1, i64 %output, i64 1, i64 %output144, i64 0, i64 0)
   %return146 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %return147 = call i64 @"sample_cdf@[FFI"(double* %return145, double %return146)
   br label %end137
@@ -15103,7 +15103,7 @@ declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #3
 declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind
-define void @TheFractalFlameAlgorithm(i64 %ptnum, i8** %sIDX, i64 %XAOS, double* %IW, double* %XAOS_TO, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
+define void @TheFractalFlameAlgorithm(i64 %ptnum, i8** %sIDX, i64 %X, double* %IW, double* %XT, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<clr>" = alloca double
@@ -15120,9 +15120,9 @@ __llvm_entry:
   store <3 x double> %P, <3 x double>* %"<P>"
   store i64 %ptnum, i64* %0
   store i8** %sIDX, i8*** %1
-  store i64 %XAOS, i64* %2
+  store i64 %X, i64* %2
   store double* %IW, double** %3
-  store double* %XAOS_TO, double** %4
+  store double* %XT, double** %4
   call void @"_TheFractalFlameAlgorithm@I[SI[F[FFFFV"(i64* %0, i8*** %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
   %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @166, i64 0, i64 0), i64 %ptnum) #4
   %evalue6 = load double, double* %"<pscale>"
