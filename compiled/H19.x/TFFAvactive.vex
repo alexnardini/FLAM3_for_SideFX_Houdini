@@ -58,9 +58,6 @@ declare double @"neg@FF"(double) #0
 ; Function Attrs: nounwind
 declare double @"abs@FF"(double) #1
 
-; Function Attrs: nounwind readnone
-declare i64 @"eq@III"(i64, i64) #0
-
 ; Function Attrs: nounwind
 declare double @"nrandom@F:S"(i8*) #1
 
