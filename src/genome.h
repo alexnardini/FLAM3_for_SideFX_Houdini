@@ -37,7 +37,7 @@ struct gem{
         FF   = chi("../dofinalflame");
         PFF  = chi("../_dofpost_2");
         RIP  = chi("../delinvalidpt");
-        SM  = chi("../symmetry");
+        SM   = chi("../symmetry");
         iter = chi("../iter");
         MB   = chi("../domb");
         if(SM) sm_mod = chi("../rotational");
@@ -66,7 +66,7 @@ struct gem{
             pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
             ppw[i] = chf(concat("../pre1weight_" , idx));
-            if(ppw[i]>0) pptype[i]=atoi(chs(concat("../pre1type_", idx)));
+            if(ppw[i] >0) pptype[i]=atoi(chs(concat("../pre1type_", idx)));
             // VAR 01
             v1w[i] = chf(concat("../v1weight_", idx));
             if(v1w[i]!=0) v1type[i]=atoi(chs(concat("../v1type_", idx)));
