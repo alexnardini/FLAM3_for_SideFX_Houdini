@@ -24,7 +24,7 @@
 struct gem{
 
     int     TM, FF, PFF, RIP, SM, iter, sm_mod, MB,
-            res, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
+            res, v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], ffv1t, ffv2t, ffv3t, ffp1t;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], OM[], A[], ffv1w, ffv2w, ffv3w, ffp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
@@ -45,9 +45,9 @@ struct gem{
 
         // GENOME
         res = len(sIDX);
-        resize(v1type, res); v2type=v3type=v4type=p1type=pptype=POSTL=v1type;
-        resize(v1w, res);    v2w=v3w=v4w=p1w=pbw=ppw=CLR=OM=A=v1w;
-        resize(x, res);      y=o=px=py=po=x;
+        resize(v1t, res); v2t=v3t=v4t=p1t=ppt=PPL=v1t;
+        resize(v1w, res); v2w=v3w=v4w=p1w=pbw=ppw=CLR=OM=A=v1w;
+        resize(x, res);   y=o=px=py=po=x;
         float   _a, clr, spd, grt;
         vector2 _x, _y;
         matrix2 _m2;
@@ -66,22 +66,22 @@ struct gem{
             pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
             ppw[i] = chf(concat("../pre1weight_" , idx));
-            if(ppw[i] >0) pptype[i]=atoi(chs(concat("../pre1type_", idx)));
+            if(ppw[i] >0) ppt[i]=atoi(chs(concat("../pre1type_", idx)));
             // VAR 01
             v1w[i] = chf(concat("../v1weight_", idx));
-            if(v1w[i]!=0) v1type[i]=atoi(chs(concat("../v1type_", idx)));
+            if(v1w[i]!=0) v1t[i]=atoi(chs(concat("../v1type_", idx)));
             // VAR 02
             v2w[i] = chf(concat("../v2weight_", idx));
-            if(v2w[i]!=0) v2type[i]=atoi(chs(concat("../v2type_", idx)));
+            if(v2w[i]!=0) v2t[i]=atoi(chs(concat("../v2type_", idx)));
             // VAR 03
             v3w[i] = chf(concat("../v3weight_", idx));
-            if(v3w[i]!=0) v3type[i]=atoi(chs(concat("../v3type_", idx)));
+            if(v3w[i]!=0) v3t[i]=atoi(chs(concat("../v3type_", idx)));
             // VAR 04
             v4w[i] = chf(concat("../v4weight_", idx));
-            if(v4w[i]!=0) v4type[i]=atoi(chs(concat("../v4type_", idx)));
+            if(v4w[i]!=0) v4t[i]=atoi(chs(concat("../v4type_", idx)));
             // // POST VAR 01
             p1w[i] = chf(concat("../p1weight_", idx));
-            if(p1w[i]!=0) p1type[i]=atoi(chs(concat("../p1type_", idx)));
+            if(p1w[i]!=0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
             // AFFINE
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));
@@ -91,8 +91,8 @@ struct gem{
             y[i] = set(_m2.yx, _m2.yy);
             o[i] = chu(concat("../o_", idx));
             // POST AFFINE
-            POSTL[i] = chi(concat("../dopost_", idx));
-            if(POSTL[i]){
+            PPL[i] = chi(concat("../dopost_", idx));
+            if(PPL[i]){
                 _x = chu(concat("../px_", idx));
                 _y = chu(concat("../py_", idx));
                 _a = chf(concat("../pang_", idx));
@@ -110,16 +110,16 @@ struct gem{
         if(FF){
             // FF VAR 01
             ffv1w = chf("../ffv1weight");
-            if(ffv1w!=0) ffv1type = chi("../ffv1type");
+            if(ffv1w!=0) ffv1t = chi("../ffv1type");
             // FF VAR 02
             ffv2w = chf("../ffv2weight");
-            if(ffv2w!=0) ffv2type = chi("../ffv2type");
+            if(ffv2w!=0) ffv2t = chi("../ffv2type");
             // FF VAR 03
             ffv3w = chf("../ffv3weight");
-            if(ffv3w!=0) ffv3type = chi("../ffv3type");
+            if(ffv3w!=0) ffv3t = chi("../ffv3type");
             // // FF POST VAR 01
             ffp1w = chf("../ffp1weight");
-            if(ffp1w!=0) ffp1type = chi("../ffp1type");
+            if(ffp1w!=0) ffp1t = chi("../ffp1type");
             // FF AFFINE
             _x = chu("../_fx_2");;
             _y = chu("../_fy_2");;
@@ -156,7 +156,7 @@ struct gemPrm{
 
         if(max(GEMTYPE)>26){
             
-            int TYPE;
+            int T;
             string idx;
             // FLOAT
             resize(rings2_val, res); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
@@ -168,36 +168,36 @@ struct gemPrm{
             resize(ngon, res);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
             for(int i=0; i<res; ++i){
-                TYPE=GEMTYPE[i]; idx=sIDX[i];
-                if(TYPE<27 || w[i]==0) continue;
-                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , TYPE)>=0){
-                    if(TYPE<38){
+                T=GEMTYPE[i]; idx=sIDX[i];
+                if(T<27 || w[i]==0) continue;
+                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , T)>=0){
+                    if(T<38){
                         // 27 CURL
-                        if(TYPE==27){ curl_c[i] = chu(concat("../curlc_", idx)); continue; }
+                        if(T==27){ curl_c[i] = chu(concat("../curlc_", idx)); continue; }
                         // 28 NGON
-                        else if(TYPE==28){ ngon[i]  = chp(concat("../ngon_", idx)); continue; }
+                        else if(T==28){ ngon[i]  = chp(concat("../ngon_", idx)); continue; }
                         // 29 PDJ
-                        else if(TYPE==29){ pdj_w[i] = chp(concat("../pdjw_", idx)); continue; }
+                        else if(T==29){ pdj_w[i] = chp(concat("../pdjw_", idx)); continue; }
                         // 30 BLOB
-                        else if(TYPE==30){ blob[i]  = chv(concat("../blob_", idx)); continue; }
+                        else if(T==30){ blob[i]  = chv(concat("../blob_", idx)); continue; }
                         // 31 JuliaN
-                        else if(TYPE==31){ julian[i] = chu(concat("../julian_", idx)); continue; }
+                        else if(T==31){ julian[i] = chu(concat("../julian_", idx)); continue; }
                         // 32 JuliaScope
-                        else if(TYPE==32){ juliascope[i] = chu(concat("../juliascope_", idx)); continue; }
+                        else if(T==32){ juliascope[i] = chu(concat("../juliascope_", idx)); continue; }
                         // 34 FAN2
-                        else if(TYPE==34){ fan2[i] = chu(concat("../fan2_", idx)); continue; }
+                        else if(T==34){ fan2[i] = chu(concat("../fan2_", idx)); continue; }
                         // 35 RINGS2
-                        else if(TYPE==35){ rings2_val[i] = chf(concat("../rings2val_", idx)); continue; }
+                        else if(T==35){ rings2_val[i] = chf(concat("../rings2val_", idx)); continue; }
                         // 36 RECTANGLES
-                        else if(TYPE==36){ rectangles[i] = chu(concat("../rectangles_", idx)); continue; }
+                        else if(T==36){ rectangles[i] = chu(concat("../rectangles_", idx)); continue; }
                         // 37 RADIAL BLUR
-                        else if(TYPE==37){ radialblur[i] = chu(concat("../radialblur_", idx)); continue; }
+                        else if(T==37){ radialblur[i] = chu(concat("../radialblur_", idx)); continue; }
                     }
                     else{
                         // 38 PIE
-                        if(TYPE==38){ pie[i] = chv(concat("../pie_", idx)); continue; }
+                        if(T==38){ pie[i] = chv(concat("../pie_", idx)); continue; }
                         // 47 DISC2 ( This seem to be the only one to benefit from the precalc: 18% faster. )
-                        else if(TYPE==47){
+                        else if(T==47){
                             disc2[i] = chu(concat("../disc2_", idx));
                             float rot=disc2[i][0]; float twist=disc2[i][1];
                             vector calc; precalc_V_DISC2(calc, rot, twist);
@@ -205,55 +205,55 @@ struct gemPrm{
                             continue;
                         }
                         // 48 SUPERSHAPE
-                        else if(TYPE==48){
+                        else if(T==48){
                             supershape[i]   = chv(concat("../supershape_", idx));
                             supershape_n[i] = chv(concat("../supershapen_", idx)); continue; }
                         // 49 FLOWER
-                        else if(TYPE==49){ flower[i] = chu(concat("../flower_", idx)); continue; }
+                        else if(T==49){ flower[i] = chu(concat("../flower_", idx)); continue; }
                         // 50 CONIC
-                        else if(TYPE==50){ conic[i] = chu(concat("../conic_", idx)); continue; }
+                        else if(T==50){ conic[i] = chu(concat("../conic_", idx)); continue; }
                         // 51 PARABOLA
-                        else if(TYPE==51){ parabola[i] = chu(concat("../parabola_", idx)); continue; }
+                        else if(T==51){ parabola[i] = chu(concat("../parabola_", idx)); continue; }
                         // 52 BENT2
-                        else if(TYPE==52){ bent2[i] = chu(concat("../bent2xy_", idx)); continue; }
+                        else if(T==52){ bent2[i] = chu(concat("../bent2xy_", idx)); continue; }
                         // 53 BIPOLAR
-                        else if(TYPE==53){ bipolar_shift[i] = chf(concat("../bipolarshift_", idx)); continue; }
+                        else if(T==53){ bipolar_shift[i] = chf(concat("../bipolarshift_", idx)); continue; }
                         // 56 CELL
-                        else if(TYPE==56){ cell_size[i] = chf(concat("../cellsize_", idx)); continue; }
+                        else if(T==56){ cell_size[i] = chf(concat("../cellsize_", idx)); continue; }
                         // 57 CPOW
-                        else if(TYPE==57){ cpow[i] = chv(concat("../cpow_", idx)); continue; }
+                        else if(T==57){ cpow[i] = chv(concat("../cpow_", idx)); continue; }
                     }
                 }
-                else if(find( {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101} , TYPE)>=0){
-                    if(TYPE<77){
+                else if(find( {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101} , T)>=0){
+                    if(T<77){
                         // 61 ESCHER
-                        if(TYPE==61){ escher_beta[i] = chf(concat("../escherbeta_", idx)); continue; }
+                        if(T==61){ escher_beta[i] = chf(concat("../escherbeta_", idx)); continue; }
                         // 63 LAZYSUSAN
-                        else if(TYPE==63){
+                        else if(T==63){
                             lazysusanxyz[i] = chu(concat("../lazysusanxyz_", idx));
                             lazysusan[i]    = chv(concat("../lazysusan_", idx)); continue; }
                         // 66 MODULUS
-                        else if(TYPE==66){ modulus[i] = chu(concat("../modulusXYZ_", idx)); continue; }
+                        else if(T==66){ modulus[i] = chu(concat("../modulusXYZ_", idx)); continue; }
                         // 67 OSCOPE
-                        else if(TYPE==67){ oscope[i] = chp(concat("../oscope_", idx)); continue; }
+                        else if(T==67){ oscope[i] = chp(concat("../oscope_", idx)); continue; }
                         // 69 POPCORN2
-                        else if(TYPE==69){
+                        else if(T==69){
                             popcorn2[i]   = chu(concat("../popcorn2xyz_", idx));
                             popcorn2_c[i] = chf(concat("../popcorn2c_", idx)); continue; }
                         // 71 SEPARATION
-                        else if(TYPE==71){
+                        else if(T==71){
                             separation[i]        = chu(concat("../separationxyz_", idx));
                             separation_inside[i] = chu(concat("../separationinsidexyz_", idx)); continue; }
                         // 72 SPLIT
-                        else if(TYPE==72){ split[i] = chu(concat("../splitxyz_", idx)); continue; }
+                        else if(T==72){ split[i] = chu(concat("../splitxyz_", idx)); continue; }
                         // 73 SPLITS
-                        else if(TYPE==73){ splits[i] = chu(concat("../splitsxyz_", idx)); continue; }
+                        else if(T==73){ splits[i] = chu(concat("../splitsxyz_", idx)); continue; }
                         // 74 STRIPES
-                        else if(TYPE==74){ stripes[i] = chu(concat("../stripes_", idx)); continue; }
+                        else if(T==74){ stripes[i] = chu(concat("../stripes_", idx)); continue; }
                         // 75 WEDGE
-                        else if(TYPE==75){ wedge[i] = chp(concat("../wedge_", idx)); continue; }
+                        else if(T==75){ wedge[i] = chp(concat("../wedge_", idx)); continue; }
                         // 76 WEDGE JULIA ( The precalc made it 10% slower, I dnt know why...odd. )
-                        else if(TYPE==76){ wedgejulia[i] = chp(concat("../wedgejulia_", idx));
+                        else if(T==76){ wedgejulia[i] = chp(concat("../wedgejulia_", idx));
                             // precalc
                             // float power=wedgejulia[i][0]; float angle= wedgejulia[i][1]; float dist=wedgejulia[i][2]; float count=wedgejulia[i][3];
                             // vector calc; precalc_V_WEDGEJULIA(calc, power, angle, dist, count);
@@ -263,29 +263,29 @@ struct gemPrm{
                     }
                     else{
                         // 77 WEDGE SPH
-                        if(TYPE==77){ wedgesph[i] = chp(concat("../wedgesph_", idx)); continue; }
+                        if(T==77){ wedgesph[i] = chp(concat("../wedgesph_", idx)); continue; }
                         // 78 WHORL
-                        else if(TYPE==78){ whorl[i]  = chu(concat("../whorl_", idx)); continue; }
+                        else if(T==78){ whorl[i]  = chu(concat("../whorl_", idx)); continue; }
                         // 79 WAVES2
-                        else if(TYPE==79){
+                        else if(T==79){
                             waves2_scale[i] = chu(concat("../waves2scalexyz_", idx));
                             waves2_freq[i]  = chu(concat("../waves2freqxyz_", idx)); continue; }
                         // 94 AUGER
-                        else if(TYPE==94){ auger[i] = chp(concat("../auger_", idx)); continue; }
+                        else if(T==94){ auger[i] = chp(concat("../auger_", idx)); continue; }
                         // 95 FLUX
-                        else if(TYPE==95){ flux_spread[i] = chf(concat("../fluxspread_", idx)); continue; }
+                        else if(T==95){ flux_spread[i] = chf(concat("../fluxspread_", idx)); continue; }
                         // 96 MOBIUS
-                        else if(TYPE==96){
+                        else if(T==96){
                             mobius_re[i] = chp(concat("../mobiusre_", idx));
                             mobius_im[i] = chp(concat("../mobiusim_", idx)); continue; }
                         // 97 CURVE
-                        else if(TYPE==97){
+                        else if(T==97){
                             curve_lenght[i] = chu(concat("../curvexyzlenght_", idx));
                             curve_amp[i]    = chu(concat("../curvexyzamp_", idx)); continue; }
                         // 98 PERSPECTIVE
-                        else if(TYPE==98){ persp[i] = chu(concat("../persp_", idx)); continue; }
+                        else if(T==98){ persp[i] = chu(concat("../persp_", idx)); continue; }
                         // 99 BWRAPS ( The precalc made it 15% slower, I dnt know why...odd. )
-                        else if(TYPE==99){
+                        else if(T==99){
                             bwraps[i] = chv(concat("../bwraps_", idx));
                             bwrapstwist[i] = chu(concat("../bwrapstwist_", idx));
                             // precalc
@@ -294,7 +294,7 @@ struct gemPrm{
                             // pc_BWRAPS[i] = calc;
                             continue; }
                         // 101 POLYNOMIAL
-                        else if(TYPE==101){
+                        else if(T==101){
                             polynomial_pow[i] = chu(concat("../polynomialpow_", idx));
                             polynomial_lc[i]  = chu(concat("../polynomiallc_", idx));
                             polynomial_sc[i]  = chu(concat("../polynomialsc_", idx)); continue;
