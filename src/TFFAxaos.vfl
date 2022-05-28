@@ -47,7 +47,7 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
     // XAOS
     int x_chk = 0;
     int res = len(sIDX);
-    float _XAOS_TO[], XAOS_TO[];
+    float XAOS_TO[];
 
     for(int i=0; i<res; ++i){
 
