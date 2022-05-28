@@ -47,7 +47,7 @@ struct gem{
         res = len(sIDX);
         resize(v1t, res); v2t=v3t=v4t=p1t=ppt=PPL=v1t;
         resize(v1w, res); v2w=v3w=v4w=p1w=pbw=ppw=CLR=OM=A=v1w;
-        resize(x, res);   y=o=px=py=po=x;
+        resize(x,   res); y=o=px=py=po=x;
         float   _a, clr, spd, grt;
         vector2 _x, _y;
         matrix2 _m2;
