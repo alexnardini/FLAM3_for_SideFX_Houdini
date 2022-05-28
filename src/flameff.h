@@ -21,7 +21,7 @@
 #include <variations.h>
 
 
-vector2 FLAMEFF(const string prx; const int type; const vector2 pos, x, y, o; const float w){
+vector2 FLAMEFF(const string prx; const int T; const vector2 pos, x, y, o; const float w){
 
     //  p = out position
     // _p = incoming position
@@ -32,481 +32,481 @@ vector2 FLAMEFF(const string prx; const int type; const vector2 pos, x, y, o; co
     // FLAME VARIATIONS
     //
     // 00 LINEAR
-    if(!type) return _p*w;
-    else if(type<35){
-        if(type<18){
+    if(!T) return _p*w;
+    else if(T<35){
+        if(T<18){
             // 01 SINUSOIDAL
-            if(type==1){
+            if(T==1){
                 V_SINUSOIDAL(p, _p, w);
                 return p; }
             // 02 SPHERICAL
-            else if(type==2){
+            else if(T==2){
                 V_SPHERICAL(p, _p, w);
                 return p; }
             // 03 SWIRL
-            else if(type==3){
+            else if(T==3){
                 V_SWIRL(p, _p, w);
                 return p; }
             // 04 HORSESHOE
-            else if(type==4){
+            else if(T==4){
                 V_HORSESHOE(p, _p, w);
                 return p; }
             // 05 POLAR
-            else if(type==5){
+            else if(T==5){
                 V_POLAR(p, _p, w);
                 return p; }
             // 06 HANDKERCHIEF
-            else if(type==6){
+            else if(T==6){
                 V_HANDKERCHIEF(p, _p, w);
                 return p; }
             // 07 HEART
-            else if(type==7){
+            else if(T==7){
                 V_HEART(p, _p, w);
                 return p; }
             // 08 DISC
-            else if(type==8){
+            else if(T==8){
                 V_DISC(p, _p, w);
                 return p; }
             // 09 SPIRAL
-            else if(type==9){
+            else if(T==9){
                 V_SPIRAL(p, _p, w);
                 return p; }
             // 10 HIPERBOLIC
-            else if(type==10){
+            else if(T==10){
                 V_HIPERBOLIC(p, _p, w);
                 return p; }
             // 11 DIAMOND
-            else if(type==11){
+            else if(T==11){
                 V_DIAMOND(p, _p, w);
                 return p; }
             // 12 Ex
-            else if(type==12){
+            else if(T==12){
                 V_EX(p, _p, w);
                 return p; }
             // 13 Julia
-            else if(type==13){
+            else if(T==13){
                 V_JULIA(p, _p, w);
                 return p; }
             // 14 Bent
-            else if(type==14){
+            else if(T==14){
                 V_BENT(p, _p, w);
                 return p; }
             // *15 Waves ( dependent )
-            else if(type==15){
+            else if(T==15){
                 V_WAVES(p, _p, w, o[0], x[1], y[1], o[1]);
                 return p; }
             // 16 Fisheye
-            else if(type==16){
+            else if(T==16){
                 V_FISHEYE(p, _p, w);
                 return p; }
             // *17 Popcorn ( dependent )
-            else if(type==17){
+            else if(T==17){
                 V_POPCORN(p, _p, w, o[0], o[1]);
                 return p; }
         }
         else{
             // 18 Exponential
-            if(type==18){
+            if(T==18){
                 V_EXPONENTIAL(p, _p, w);
                 return p; }
             // 19 Power
-            else if(type==19){
+            else if(T==19){
                 V_POWER(p, _p, w);
                 return p; }
             // 20 Cosine
-            else if(type==20){
+            else if(T==20){
                 V_COSINE(p, _p, w);
                 return p; }
             // *21 RINGS ( dependent )
-            else if(type==21){
+            else if(T==21){
                 V_RINGS(p, _p, w, o[0]);
                 return p; }
             // *22 FAN ( dependent )
-            else if(type==22){
+            else if(T==22){
                 V_FAN(p, _p, w, o[0]);
                 return p; }
             // 23 BUBBLE
-            else if(type==23){
+            else if(T==23){
                 V_BUBBLE(p, _p, w);
                 return p; }
             // 24 CYLINDER
-            else if(type==24){
+            else if(T==24){
                 V_CYLINDER(p, _p, w);
                 return p; }
             // 25 EYEFISH
-            else if(type==25){
+            else if(T==25){
                 V_EYEFISH(p, _p, w);
                 return p; }
             // 26 BLUR
-            else if(type==26){
+            else if(T==26){
                 V_BLUR(p, w);
                 return p; }
             // 27 CURL ( parametric )
-            else if(type==27){
+            else if(T==27){
                 vector2 curl_c = chu(concat(prx, "curlc_2"));
                 V_CURL(p, _p, w, curl_c[0], curl_c[1]);
                 return p; }
             // 28 NGON ( parametric )
-            else if(type==28){
+            else if(T==28){
                 vector4 ngon = chp(concat(prx, "ngon_2"));
                 V_NGON(p, _p, w, ngon[0], ngon[1], ngon[2], ngon[3]);
                 return p; }
             // 29 PDJ ( parametric )
-            else if(type==29){
+            else if(T==29){
                 vector4 pp = chp(concat(prx, "pdjw_2"));
                 V_PDJ(p, _p, w, pp);
                 return p; }
             // 30 BLOB ( parametric )
-            else if(type==30){
+            else if(T==30){
                 vector blob = chv(concat(prx, "blob_2"));
                 V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
-            else if(type==31){
+            else if(T==31){
                 vector2 julian = chu(concat(prx, "julian_2"));
                 V_JULIAN(p, _p, w, julian[0], julian[1]);
                 return p; }
             // 32 JuliaScope ( parametric )
-            else if(type==32){
+            else if(T==32){
                 vector2 juliascope = chu(concat(prx, "juliascope_2"));
                 V_JULIASCOPE(p, _p, w, juliascope[0], juliascope[1]);
                 return p; }
             // 33 Gaussian
-            else if(type==33){
+            else if(T==33){
                 V_GAUSSIAN(p, w);
                 return p; }
             // 34 Fan2 ( parametric )
-            else if(type==34){
+            else if(T==34){
                 vector2 fan2 = chu(concat(prx, "fan2_2"));
                 V_FAN2(p, _p, w, fan2);
                 return p; }
         }
     }
-    else if(type<70){
-        if(type<50){
+    else if(T<70){
+        if(T<50){
             // 35 Rings2 ( parametric )
-            if(type==35){
+            if(T==35){
                 float rings2val = chf(concat(prx, "rings2val_2"));
                 V_RINGS2(p, _p, w, rings2val);
                 return p; }
             // 36 Rectangles ( parametric )
-            else if(type==36){
+            else if(T==36){
                 vector2 rect = chu(concat(prx, "rectangles_2"));
                 V_RECTANGLES(p, _p, w, rect);
                 return p; }
             // 37 Radial Blur ( parametric )
-            else if(type==37){
+            else if(T==37){
                 vector2 radialblur = chu(concat(prx, "radialblur_2"));
                 V_RADIALBLUR(p, _p, w, radialblur[0], radialblur[1]);
                 return p; }
             // 38 PIE ( parametric )
-            else if(type==38){
+            else if(T==38){
                 vector pie = chv(concat(prx, "pie_2"));
                 V_PIE(p, w, pie[0], pie[1], pie[2]);
                 return p; }
             // 39 ARCH
-            else if(type==39){
+            else if(T==39){
                 V_ARCH(p, _p, w);
                 return p; }
             // 40 TANGENT
-            else if(type==40){
+            else if(T==40){
                 V_TANGENT(p, _p, w);
                 return p; }
             // 41 SQUARE
-            else if(type==41){
+            else if(T==41){
                 V_SQUARE(p, _p, w);
                 return p; }
             // 42 RAYS
-            else if(type==42){
+            else if(T==42){
                 V_RAYS(p, _p, w);
                 return p; }
             // 43 BLADE
-            else if(type==43){
+            else if(T==43){
                 V_BLADE(p, _p, w);
                 return p; }
             // 44 SECANT2
-            else if(type==44){
+            else if(T==44){
                 V_SECANT2(p, _p, w);
                 return p; }
             // 45 TWINTRIAN
-            else if(type==45){
+            else if(T==45){
                 V_TWINTRIAN(p, _p, w);
                 return p; }
             // 46 CROSS
-            else if(type==46){
+            else if(T==46){
                 V_CROSS(p, _p, w);
                 return p; }
             // 47 DISC2 ( parametric )
-            else if(type==47){
+            else if(T==47){
                 vector2 disc2 = chu(concat(prx, "disc2_2"));
                 V_DISC2_FF(p, _p, w, disc2[0], disc2[1]);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
-            else if(type==48){
+            else if(T==48){
                 vector ss, ss_n;
                 ss = chv(concat(prx, "supershape_2"));
                 ss_n = chv(concat(prx, "supershapen_2"));
                 V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
-            else if(type==49){
+            else if(T==49){
                 vector2 flower = chu(concat(prx, "flower_2"));
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
         }
         else{
             // 50 CONIC ( parametric )
-            if(type==50){
+            if(T==50){
                 vector2 conic =  chu(concat(prx, "conic_2"));
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
             // 51 PARABOLA ( parametric )
-            else if(type==51){
+            else if(T==51){
                 vector2 parabola = chu(concat(prx, "parabola_2"));
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
             // 52 BENT2 ( parametric )
-            else if(type==52){
+            else if(T==52){
                 vector2 bent2 = chu(concat(prx, "bent2xy_2"));
                 V_BENT2(p, _p, w, bent2);
                 return p; }
             // 53 BIPOLAR ( parametric )
-            else if(type==53){
+            else if(T==53){
                 float shift = chf(concat(prx, "bipolarshift_2"));
                 V_BIPOLAR(p, _p, w, shift);
                 return p; }
             // 54 BOARDERS
-            else if(type==54){
+            else if(T==54){
                 V_BOARDERS(p, _p, w);
                 return p; }
             // 55 BUTTERFLY
-            else if(type==55){
+            else if(T==55){
                 V_BUTTERFLY(p, _p, w);
                 return p; }
             // 56 CELL ( parametric )
-            else if(type==56){
+            else if(T==56){
                 float size = chf(concat(prx, "cellsize_2"));
                 V_CELL(p, _p, w, size);
                 return p; }
             // 57 CPOW ( parametric )
-            else if(type==57){
+            else if(T==57){
                 vector cpow = chv(concat(prx, "cpow_2"));
                 V_CPOW(p, _p, w, cpow[0], cpow[1], cpow[2]);
                 return p; }
             // 58 EDISC
-            else if(type==58){
+            else if(T==58){
                 V_EDISC(p, _p, w);
                 return p; }
             // 59 ELLIPTIC
-            else if(type==59){
+            else if(T==59){
                 V_ELLIPTIC(p, _p, w);
                 return p; }
             // 60 NOISE
-            else if(type==60){
+            else if(T==60){
                 V_NOISE(p, _p, w);
                 return p; }
             // 61 ESCHER ( parametric )
-            else if(type==61){
+            else if(T==61){
                 float beta = chf(concat(prx, "escherbeta_2"));
                 V_ESCHER(p, _p, w, beta);
                 return p; }
             // 62 FOCI
-            else if(type==62){
+            else if(T==62){
                 V_FOCI(p, _p, w);
                 return p; }
             // 63 LAZYSUSAN ( parametric )
-            else if(type==63){
+            else if(T==63){
                 vector lazysusan = chv(concat(prx, "lazysusan_2"));
                 vector2 lazysusanxyz = chu(concat(prx, "lazysusanxyz_2"));
                 V_LAZYSUSAN(p, _p, w, lazysusan[0], lazysusan[1], lazysusan[2], lazysusanxyz);
                 return p; }
             // 64 LOONIE
-            else if(type==64){
+            else if(T==64){
                 V_LOONIE(p, _p, w);
                 return p; }
             // 65 PRE BLUR ( Hard coded into the chaos game )
             /*
-            else if(type==65){
+            else if(T==65){
                 V_PREBLUR(p, w);
                 return p; }
             */
             // 66 MODULUS ( parametric )
-            else if(type==66){
+            else if(T==66){
                 vector2 mod = chu(concat(prx, "modulusXYZ_2"));
                 V_MODULUS(p, _p, w, mod);
                 return p; }
             // 67 OSCOPE ( parametric )
-            else if(type==67){
+            else if(T==67){
                 vector4 oscope = chp(concat(prx, "oscope_2"));
                 V_OSCOPE(p, _p, w, oscope[0], oscope[1], oscope[2], oscope[3]);
                 return p; }
             // 68 POLAR2
-            else if(type==68){
+            else if(T==68){
                 V_POLAR2(p, _p, w);
                 return p; }
             // 69 POPCORN2 ( parametric )
-            else if(type==69){
+            else if(T==69){
                 float pop2c = chf(concat(prx, "popcorn2c_2"));
                 vector2 pop2 = chu(concat(prx, "popcorn2xyz_2"));
                 V_POPCORN2(p, _p, w, pop2c, pop2);
                 return p; }
         }
     }
-    else if(type<102){
-        if(type<86){
+    else if(T<102){
+        if(T<86){
             // 70 SCRY ( parametric )
-            if(type==70){
+            if(T==70){
                 V_SCRY(p, _p, w);
                 return p; }
             // 71 SEPARATION ( parametric )
-            else if(type==71){
+            else if(T==71){
                 vector2 sep, ins;
                 sep = chu(concat(prx, "separationxyz_2"));
                 ins = chu(concat(prx, "separationinsidexyz_2"));
                 V_SEPARATION(p, _p, w, sep, ins);
                 return p; }
             // 72 SPLIT ( parametric )
-            else if(type==72){
+            else if(T==72){
                 vector2 split = chu(concat(prx, "splitxyz_2"));
                 V_SPLIT(p, _p, w, split);
                 return p; }
             // 73 SPLITS ( parametric )
-            else if(type==73){
+            else if(T==73){
                 vector2 splits = chu(concat(prx, "splitsxyz_2"));
                 V_SPLITS(p, _p, w, splits);
                 return p; }
             // 74 STRIPES ( parametric )
-            else if(type==74){
+            else if(T==74){
                 vector2 stripes = chu(concat(prx, "stripes_2"));
                 V_STRIPES(p, _p, w, stripes[0], stripes[1]);
                 return p; }
             // 75 WEDGE ( parametric )
-            else if(type==75){
+            else if(T==75){
                 vector4 wedge = chp(concat(prx, "wedge_2"));
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
             // 76 WEDGE JULIA ( parametric )
-            else if(type==76){
+            else if(T==76){
                 vector4 wedgejulia = chp(concat(prx, "wedgejulia_2"));
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 // V_WEDGEJULIA_FF(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return p; }
             // 77 WEDGE SPH ( parametric )
-            else if(type==77){
+            else if(T==77){
                 vector4 wedgesph = chp(concat(prx, "wedgesph_2"));
                 V_WEDGESPH(p, _p, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
                 return p; }
             // 78 WHORL ( parametric )
-            else if(type==78){
+            else if(T==78){
                 vector2 whorl = chu(concat(prx, "whorl_2"));
                 V_WHORL(p, _p, w, whorl[0], whorl[1]);
                 return p; }
             // 79 WAVES2 ( parametric )
-            else if(type==79){
+            else if(T==79){
                 vector2 scl, freq;
                 scl = chu(concat(prx, "waves2scalexyz_2"));
                 freq = chu(concat(prx, "waves2freqxyz_2"));
                 V_WAVES2(p, _p, w, scl, freq);
                 return p; }
             // 80 COTHE EXP
-            else if(type==80){
+            else if(T==80){
                 V_COTHEEXP(p, _p, w);
                 return p; }
             // 81 COTHE LOG
-            else if(type==81){
+            else if(T==81){
                 V_COTHELOG(p, _p, w);
                 return p; }
             // 82 COTHE SIN
-            else if(type==82){
+            else if(T==82){
                 V_COTHESIN(p, _p, w);
                 return p; }
             // 83 COTHE COS
-            else if(type==83){
+            else if(T==83){
                 V_COTHECOS(p, _p, w);
                 return p; }
             // 84 COTHE TAN
-            else if(type==84){
+            else if(T==84){
                 V_COTHETAN(p, _p, w);
                 return p; }
             // 85 COTHE SEC
-            else if(type==85){
+            else if(T==85){
                 V_COTHESEC(p, _p, w);
                 return p; }
         }
         else{
             // 86 COTHE CSC
-            if(type==86){
+            if(T==86){
                 V_COTHECSC(p, _p, w);
                 return p; }
             // 87 COTHE COT
-            else if(type==87){
+            else if(T==87){
                 V_COTHECOT(p, _p, w);
                 return p; }
             // 88 COTHE SINH
-            else if(type==88){
+            else if(T==88){
                 V_COTHESINH(p, _p, w);
                 return p; }
             // 89 COTHE COSH
-            else if(type==89){
+            else if(T==89){
                 V_COTHECOSH(p, _p, w);
                 return p; }
             // 90 COTHE TANH
-            else if(type==90){
+            else if(T==90){
                 V_COTHETANH(p, _p, w);
                 return p; }
             // 91 COTHE SECH
-            else if(type==91){
+            else if(T==91){
                 V_COTHESECH(p, _p, w);
                 return p; }
             // 92 COTHE CSCH
-            else if(type==92){
+            else if(T==92){
                 V_COTHECSCH(p, _p, w);
                 return p; }
             // 93 COTHE COTH
-            else if(type==93){
+            else if(T==93){
                 V_COTHECOTH(p, _p, w);
                 return p; }
             // 94 AUGER ( parametric )
-            else if(type==94){
+            else if(T==94){
                 vector4 auger = chp(concat(prx, "auger_2"));
                 V_AUGER(p, _p, w, auger[0], auger[1], auger[2], auger[3]);
                 return p; }
             // 95 FLUX ( parametric )
-            else if(type==95){
+            else if(T==95){
                 float spread = chf(concat(prx, "fluxspread_2"));
                 V_FLUX(p, _p, w, spread);
                 return p; }
             // 96 MOBIUS ( parametric )
-            else if(type==96){
+            else if(T==96){
                 vector4 re, im;
                 re = chp(concat(prx, "mobiusre_2"));
                 im = chp(concat(prx, "mobiusim_2"));
                 V_MOBIUS(p, _p, w, re, im);
                 return p; }
             // 97 CURVE ( parametric )
-            else if(type==97){
+            else if(T==97){
                 vector2 lgt, amp;
                 lgt = chu(concat(prx, "curvexyzlenght_2"));
                 amp = chu(concat(prx, "curvexyzamp_2"));
                 V_CURVE(p, _p, w, lgt, amp);
                 return p; }
             // 98 PERSPECTIVE ( parametric )
-            else if(type==98){
+            else if(T==98){
                 vector2 persp = chu(concat(prx, "persp_2"));
                 V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
                 return p; }
             // 99 BWRAPS ( parametric )
-            else if(type==99){
+            else if(T==99){
                 vector bwraps = chv(concat(prx, "bwraps_2"));
                 vector2 bwrapstwist = chu(concat(prx, "bwrapstwist_2"));
                 V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
                 return p; }
             // 100 HEMISPHERE
-            else if(type==100){
+            else if(T==100){
                 V_HEMISPHERE(p, _p, w);
                 return p; }
             // 101 POLYNOMIAL ( parametric )
-            else if(type==101){
+            else if(T==101){
                 vector2 pow, lc, sc;
                 pow = chu(concat(prx, "polynomialpow_2"));
                 lc = chu(concat(prx, "polynomiallc_2"));
