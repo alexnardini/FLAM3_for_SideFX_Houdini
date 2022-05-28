@@ -12,13 +12,13 @@ source_filename = "TFFAvactive"
 @7 = private constant [2 x i8] c":\00"
 @8 = private constant [5 x i8] c"XAOS\00"
 @sIDX = external global i8**
-@X = external global i64
+@XS = external global i64
 @IW = external global double*
-@XT = external global double*
+@XST = external global double*
 @9 = private constant [5 x i8] c"sIDX\00"
-@10 = private constant [2 x i8] c"X\00"
+@10 = private constant [3 x i8] c"XS\00"
 @11 = private constant [3 x i8] c"IW\00"
-@12 = private constant [3 x i8] c"XT\00"
+@12 = private constant [4 x i8] c"XST\00"
 
 ; Function Attrs: nounwind readnone
 declare double @"getcomp@FUI"(<2 x double>, i64) #0
@@ -108,7 +108,7 @@ declare double @"getcomp@F[FI"(double*, i64) #0
 declare double* @"append@[FF"(double*, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAvactive@[SI[F[F"(i8*** %_bound_sIDX, i64* %_bound_X, double** %_bound_IW, double** %_bound_XT) #2 {
+define private void @"_TFFAvactive@[SI[F[F"(i8*** %_bound_sIDX, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST) #2 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i64 0, i64 0))
   br label %cond
@@ -284,12 +284,12 @@ end140:                                           ; preds = %false139, %true138
   br label %cond41
 
 true155:                                          ; preds = %end46
-  store i64 1, i64* %_bound_X
-  store double* %XAOS_TO.0, double** %_bound_XT
+  store i64 1, i64* %_bound_XS
+  store double* %XAOS_TO.0, double** %_bound_XST
   br label %end157
 
 false156:                                         ; preds = %end46
-  store i64 0, i64* %_bound_X
+  store i64 0, i64* %_bound_XS
   br label %end157
 
 end157:                                           ; preds = %false156, %true155
@@ -366,29 +366,29 @@ declare double* @"create_cdf@[F[F"(double*) #0
 declare double* @"append@[F[F"(double*, double*) #1
 
 ; Function Attrs: nounwind
-define void @TFFAvactive(i8** %sIDX, i64 %X, double* %IW, double* %XT) #1 {
+define void @TFFAvactive(i8** %sIDX, i64 %XS, double* %IW, double* %XST) #1 {
 __llvm_entry:
-  %"<X>" = alloca i64
+  %"<XS>" = alloca i64
   %"<IW>" = alloca double*
-  %"<XT>" = alloca double*
+  %"<XST>" = alloca double*
   %"<sIDX>" = alloca i8**
   store i8** %sIDX, i8*** %"<sIDX>"
-  store i64 %X, i64* %"<X>"
+  store i64 %XS, i64* %"<XS>"
   store double* %IW, double** %"<IW>"
-  store double* %XT, double** %"<XT>"
-  call void @"_TFFAvactive@[SI[F[F"(i8*** %"<sIDX>", i64* %"<X>", double** %"<IW>", double** %"<XT>")
+  store double* %XST, double** %"<XST>"
+  call void @"_TFFAvactive@[SI[F[F"(i8*** %"<sIDX>", i64* %"<XS>", double** %"<IW>", double** %"<XST>")
   %evalue = load i8**, i8*** %"<sIDX>"
   %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0), i8** %evalue) #3
-  %evalue1 = load i64, i64* %"<X>"
-  %gvalue2 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @10, i64 0, i64 0), i64 %evalue1) #3
+  %evalue1 = load i64, i64* %"<XS>"
+  %gvalue2 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @10, i64 0, i64 0), i64 %evalue1) #3
   %evalue3 = load double*, double** %"<IW>"
   %gvalue4 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @11, i64 0, i64 0), double* %evalue3) #3
-  %evalue5 = load double*, double** %"<XT>"
-  %gvalue6 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @12, i64 0, i64 0), double* %evalue5) #3
+  %evalue5 = load double*, double** %"<XST>"
+  %gvalue6 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @12, i64 0, i64 0), double* %evalue5) #3
   store i8** %gvalue, i8*** @sIDX
-  store i64 %gvalue2, i64* @X
+  store i64 %gvalue2, i64* @XS
   store double* %gvalue4, double** @IW
-  store double* %gvalue6, double** @XT
+  store double* %gvalue6, double** @XST
   ret void
 }
 

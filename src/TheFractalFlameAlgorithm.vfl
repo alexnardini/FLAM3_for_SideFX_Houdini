@@ -18,9 +18,9 @@
 #define PSCL 0.001
 #define FFL "../_"
 #define FFP "../_p1"
-#define ax {1,0}
-#define ay {0,1}
-#define ao {0,0}
+#define X {1,0}
+#define Y {0,1}
+#define O {0,0}
 
 #pragma opname  "FLAM3"
 #pragma oplabel "FLAM3"
@@ -31,13 +31,13 @@
 #include <flamepp.h>
 #include <flameff.h>
 
-void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; const int _bound_X; const float _bound_IW[], _bound_XT[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
+void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     // ft = 1 -> FF
     // ft = 2 -> FF POST
     
     int     sl, idx;
-    float   pscl, clr, prev_clr, alpha, XT[]; prev_clr=0; pscl=PSCL;
+    float   pscl, clr, prev_clr, alpha, XST[]; prev_clr=0; pscl=PSCL;
     vector2 tmp;
     // Build genomes
     string sIDX[]=_bound_sIDX;
@@ -60,20 +60,20 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
     p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
     // CHAOS game
-    float IW[]=_bound_IW; int X=_bound_X;
-    if(X){ XT=_bound_XT; idx=sample_cdf(IW, nrandom('twister')); }
+    float IW[]=_bound_IW; int XS=_bound_XS;
+    if(XS){ XST=_bound_XST; idx=sample_cdf(IW, nrandom('twister')); }
     vector2 mem=biunit();
     for(int i=0; i<iter; ++i){
         tmp=0;
-        if(X){ sl=idx*res; idx=sample_cdf(XT[sl:sl+res], nrandom('twister')); }
+        if(XS){ sl=idx*res; idx=sample_cdf(XST[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
-        if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, ax, ay, ao, ppw[idx]);
+        if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, X, Y, O, ppw[idx]);
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], mem, x[idx], y[idx], o[idx], v4w[idx]);
-        if(p1w[idx]!=0) tmp  = FLAME(p1GMP, idx, p1t[idx], tmp, ax, ay, ao, p1w[idx]);
+        if(p1w[idx]!=0) tmp  = FLAME(p1GMP, idx, p1t[idx], tmp, X, Y, O, p1w[idx]);
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
         if(TM) tmp*=TMm2;
         prev_clr=clr=_CLR[idx]+OM[idx]*prev_clr;
@@ -85,7 +85,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
         if(ffv1w!=0) tmp += FLAMEFF(FFL, ffv1t, mem, fx, fy, fo, ffv1w);
         if(ffv2w!=0) tmp += FLAMEFF(FFL, ffv2t, mem, fx, fy, fo, ffv2w);
         if(ffv3w!=0) tmp += FLAMEFF(FFL, ffv3t, mem, fx, fy, fo, ffv3w);
-        if(ffp1w!=0) tmp  = FLAMEFF(FFP, ffp1t, tmp, ax, ay, ao, ffp1w);
+        if(ffp1w!=0) tmp  = FLAMEFF(FFP, ffp1t, tmp, X, Y, O, ffp1w);
         if(PFF) affine(tmp, pfx, pfy, pfo);
         mem=tmp;
     }
@@ -106,13 +106,13 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
 cvex
 TheFractalFlameAlgorithm( export int    ptnum  = 0;
                           const  string sIDX[] = {};
-                          const  int    X      = 0;
+                          const  int    XS     = 0;
                           const  float  IW[]   = {};
-                          const  float  XT[]   = {};
+                          const  float  XST[]  = {};
 	                      export float  pscale = 0;
 	                      export float  clr    = 0;
                           export float  Alpha  = 0;
 	                      export vector P      = 0)
 {
-    _TheFractalFlameAlgorithm(ptnum, sIDX, X, IW, XT, pscale, clr, Alpha, P);
+    _TheFractalFlameAlgorithm(ptnum, sIDX, XS, IW, XST, pscale, clr, Alpha, P);
 }
