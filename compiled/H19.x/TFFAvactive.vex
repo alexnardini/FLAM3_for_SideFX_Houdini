@@ -182,8 +182,10 @@ body42:                                           ; preds = %cond41
 
 end46:                                            ; preds = %cond41
   store i8** %sIDX.0, i8*** %_bound_sIDX
+  %return153 = call double* @"create_cdf@[F[F"(double* %IW.0)
+  store double* %return153, double** %_bound_IW
   %4 = icmp ne i64 %xaos_chk.0, 0
-  br i1 %4, label %true153, label %false154
+  br i1 %4, label %true155, label %false156
 
 true59:                                           ; preds = %body42
   %return62 = call { i8*, i8** } @"pop@S[SI"(i8** %return54, i64 0)
@@ -283,20 +285,16 @@ end140:                                           ; preds = %false139, %true138
   %output150 = add i64 %i40.0, 1
   br label %cond41
 
-true153:                                          ; preds = %end46
-  store i64 %xaos_chk.0, i64* %_bound_XAOS
+true155:                                          ; preds = %end46
+  store i64 1, i64* %_bound_XAOS
   store double* %XAOS_TO.0, double** %_bound_XAOS_TO
-  %return159 = call double* @"create_cdf@[F[F"(double* %IW.0)
-  store double* %return159, double** %_bound_IW
-  br label %end155
+  br label %end157
 
-false154:                                         ; preds = %end46
+false156:                                         ; preds = %end46
   store i64 0, i64* %_bound_XAOS
-  %return161 = call double* @"create_cdf@[F[F"(double* %IW.0)
-  store double* %return161, double** %_bound_IW
-  br label %end155
+  br label %end157
 
-end155:                                           ; preds = %false154, %true153
+end157:                                           ; preds = %false156, %true155
   ret void
 }
 

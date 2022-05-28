@@ -56,7 +56,6 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XAOS; float _bound_IW[], _bound_XA
         string varnote = chs(concat("../varnote_", sIDX[i]));
         string varxaos[] = split(varnote, ":");
         float xaos[];
-
         if(toupper(varxaos[0])=="XAOS"){
             pop(varxaos, 0);
             foreach(string n; varxaos){
@@ -68,7 +67,6 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XAOS; float _bound_IW[], _bound_XA
         for(int j=0; j<inum; ++j){
             if(!vactive[j]) pop(xaos, j);
         }
-        
         float IW_xaos[];
         for(int k=0; k<size; ++k){
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
@@ -77,16 +75,14 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XAOS; float _bound_IW[], _bound_XA
         else{ append(XAOS_TO, create_cdf(IW_xaos)); xaos_chk=1; }
     }
 
+    // OUT
     _bound_sIDX = sIDX;
+    _bound_IW = create_cdf(IW);
     if(xaos_chk){
-        _bound_XAOS = xaos_chk;
+        _bound_XAOS = 1;
         _bound_XAOS_TO = XAOS_TO;
-        _bound_IW = create_cdf(IW);
     }
-    else{
-        _bound_XAOS = 0;
-        _bound_IW = create_cdf(IW);
-    }
+    else _bound_XAOS = 0;
 }
 
 cvex
