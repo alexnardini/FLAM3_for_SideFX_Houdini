@@ -52,6 +52,7 @@ struct gem{
         vector2 _x, _y;
         matrix2 _m2;
         string  idx;
+        
         for(int i=0; i<res; ++i){
 
             idx=sIDX[i];
