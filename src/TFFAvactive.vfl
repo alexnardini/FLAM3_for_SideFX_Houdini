@@ -34,8 +34,7 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XAOS; float _bound_IW[], _bound_XA
     string sIDX[];
     float IW[];
     
-    // ACTIVE vars
-    //
+    // ACTIVE VARS
     for(int i=0; i<inum; ++i){
         string iIDX = itoa(i+1);
         append(vactive, chi(concat("../vactive_", iIDX)));
@@ -47,10 +46,10 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XAOS; float _bound_IW[], _bound_XA
     }
 
     // XAOS
-    //
     int xaos_chk = 0;
     int size = len(sIDX);
     float _XAOS_TO[], XAOS_TO[];
+
     for(int i=0; i<size; ++i){
 
         string varnote = chs(concat("../varnote_", sIDX[i]));

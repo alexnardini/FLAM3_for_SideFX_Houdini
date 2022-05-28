@@ -43,8 +43,8 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
     string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(sIDX);
     // cast FLAME
-    int     res, iter, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], TM, FF, PFF, RIP, SYM, MB, sym_mod; res=GEM.res; iter=GEM.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pptype=GEM.pptype; POSTL=GEM.POSTL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SYM=GEM.SYM; MB=GEM.MB; sym_mod=GEM.sym_mod;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], ONEMINUS[], _ALPHA[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; ONEMINUS=GEM.ONEMINUS; _ALPHA=GEM.ALPHA; mb_mod=GEM.mb_mod;
+    int     res, iter, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], TM, FF, PFF, RIP, SM, MB, sm_mod; res=GEM.res; iter=GEM.iter; v1type=GEM.v1type; v2type=GEM.v2type; v3type=GEM.v3type; v4type=GEM.v4type; p1type=GEM.p1type; pptype=GEM.pptype; POSTL=GEM.POSTL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; sm_mod=GEM.sm_mod;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], OM[], A[], mb_mod; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A; mb_mod=GEM.mb_mod;
     vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast TM
     matrix2 TMm2=GEM.TMm2;
@@ -76,7 +76,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
         if(p1w[idx]!=0) tmp  = FLAME(p1GMP, idx, p1type[idx], tmp, X, Y, O, p1w[idx]);
         if(POSTL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
         if(TM) tmp*=TMm2;
-        prev_clr=clr=_CLR[idx]+ONEMINUS[idx]*prev_clr;
+        prev_clr=clr=_CLR[idx]+OM[idx]*prev_clr;
         mem=tmp;
     }
     // FF
@@ -89,12 +89,12 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
         if(PFF) affine(tmp, pfx, pfy, pfo);
         mem=tmp;
     }
-    alpha=_ALPHA[idx];
+    alpha=A[idx];
     if(chkPT(RIP, mem, alpha)) removepoint(0, _bound_ptnum);
     else{
         // OUT
         pscl*=alpha;
-        if(SYM) V_SYM(mem, sym_mod);
+        if(SM) V_SYM(mem, sm_mod);
         if(MB){ pscl*=mb_mod; setpointattrib(0, "mb_mod", _bound_ptnum, mb_mod, "set"); }
         _bound_P=(vector)mem;
         _bound_clr=clr;

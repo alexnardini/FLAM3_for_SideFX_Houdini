@@ -23,9 +23,9 @@
 // GENOME
 struct gem{
 
-    int     TM, FF, PFF, RIP, SYM, iter, sym_mod, MB,
+    int     TM, FF, PFF, RIP, SM, iter, sm_mod, MB,
             res, v1type[], v2type[], v3type[], v4type[], p1type[], pptype[], POSTL[], ffv1type, ffv2type, ffv3type, ffp1type;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], ONEMINUS[], ALPHA[], ffv1w, ffv2w, ffv3w, ffp1w;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], OM[], A[], ffv1w, ffv2w, ffv3w, ffp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
     float   mb_mod=1.0;
@@ -37,18 +37,18 @@ struct gem{
         FF   = chi("../dofinalflame");
         PFF  = chi("../_dofpost_2");
         RIP  = chi("../delinvalidpt");
-        SYM  = chi("../symmetry");
+        SM  = chi("../symmetry");
         iter = chi("../iter");
         MB   = chi("../domb");
-        if(SYM) sym_mod = chi("../rotational");
+        if(SM) sm_mod = chi("../rotational");
         if(MB) mb_mod = detail(1, "Tstep_mult", 0);
 
         // GENOME
         res = len(sIDX);
         resize(v1type, res); v2type=v3type=v4type=p1type=pptype=POSTL=v1type;
-        resize(v1w, res);    v2w=v3w=v4w=p1w=pbw=ppw=CLR=ONEMINUS=ALPHA=v1w;
+        resize(v1w, res);    v2w=v3w=v4w=p1w=pbw=ppw=CLR=OM=A=v1w;
         resize(x, res);      y=o=px=py=po=x;
-        float   _a, clr, speed, grt;
+        float   _a, clr, spd, grt;
         vector2 _x, _y;
         matrix2 _m2;
         string  idx;
@@ -58,10 +58,10 @@ struct gem{
             idx=sIDX[i];
             // SHADER
             clr = chf(concat("../clr_", idx));
-            speed = chf(concat("../clrspeed_", idx));
-            CLR[i] = speed*clr;
-            ONEMINUS[i] = 1-speed;
-            ALPHA[i] = chf(concat("../alpha_", idx));
+            spd = chf(concat("../clrspeed_", idx));
+            CLR[i] = spd*clr;
+            OM[i] = 1-spd;
+            A[i] = chf(concat("../alpha_", idx));
             // PRE BLUR
             pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
@@ -82,7 +82,7 @@ struct gem{
             // // POST VAR 01
             p1w[i] = chf(concat("../p1weight_", idx));
             if(p1w[i]!=0) p1type[i]=atoi(chs(concat("../p1type_", idx)));
-            // Collect affine coefficients
+            // AFFINE
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));
             _a = chf(concat("../ang_", idx));
@@ -90,7 +90,7 @@ struct gem{
             x[i] = set(_m2.xx, _m2.xy);
             y[i] = set(_m2.yx, _m2.yy);
             o[i] = chu(concat("../o_", idx));
-            // POST
+            // POST AFFINE
             POSTL[i] = chi(concat("../dopost_", idx));
             if(POSTL[i]){
                 _x = chu(concat("../px_", idx));
@@ -120,7 +120,7 @@ struct gem{
             // // FF POST VAR 01
             ffp1w = chf("../ffp1weight");
             if(ffp1w!=0) ffp1type = chi("../ffp1type");
-            // Collect FINAL FLAME TRANSFORM affine coefficients
+            // FF AFFINE
             _x = chu("../_fx_2");;
             _y = chu("../_fy_2");;
             _a = chf("../_ang_2");
@@ -128,7 +128,7 @@ struct gem{
             fx = set(_m2.xx, _m2.xy);
             fy = set(_m2.yx, _m2.yy);
             fo = chu("../_fo_2");
-            // POST
+            // FF POST AFFINE
             if(PFF){
                 _x = chu("../_pfx_2");;
                 _y = chu("../_pfy_2");;
