@@ -60,8 +60,8 @@ struct gem{
             clr = chf(concat("../clr_", idx));
             spd = chf(concat("../clrspeed_", idx));
             CLR[i] = spd*clr;
-            OM[i] = 1-spd;
-            A[i] = chf(concat("../alpha_", idx));
+            OM[i]  = 1-spd;
+            A[i]   = chf(concat("../alpha_", idx));
             // PRE BLUR
             pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
