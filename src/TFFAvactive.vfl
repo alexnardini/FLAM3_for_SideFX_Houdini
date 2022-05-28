@@ -34,6 +34,7 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XAOS; float _bound_IW[], _bound_XA
     
     // ACTIVE VARS
     for(int i=0; i<inum; ++i){
+        
         string iIDX = itoa(i+1);
         append(vactive, chi(concat("../vactive_", iIDX)));
         float IWcheck = chf(concat("../iw_", iIDX));
