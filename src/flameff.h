@@ -21,7 +21,7 @@
 #include <variations.h>
 
 
-vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; const float w){
+vector2 FLAMEFF(const string prx; const int type; const vector2 pos, x, y, o; const float w){
 
     //  p = out position
     // _p = incoming position
@@ -143,32 +143,32 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 27 CURL ( parametric )
             else if(type==27){
-                vector2 curl_c = chu(concat(ftype, "curlc_2"));
+                vector2 curl_c = chu(concat(prx, "curlc_2"));
                 V_CURL(p, _p, w, curl_c[0], curl_c[1]);
                 return p; }
             // 28 NGON ( parametric )
             else if(type==28){
-                vector4 ngon = chp(concat(ftype, "ngon_2"));
+                vector4 ngon = chp(concat(prx, "ngon_2"));
                 V_NGON(p, _p, w, ngon[0], ngon[1], ngon[2], ngon[3]);
                 return p; }
             // 29 PDJ ( parametric )
             else if(type==29){
-                vector4 pp = chp(concat(ftype, "pdjw_2"));
+                vector4 pp = chp(concat(prx, "pdjw_2"));
                 V_PDJ(p, _p, w, pp);
                 return p; }
             // 30 BLOB ( parametric )
             else if(type==30){
-                vector blob = chv(concat(ftype, "blob_2"));
+                vector blob = chv(concat(prx, "blob_2"));
                 V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(type==31){
-                vector2 julian = chu(concat(ftype, "julian_2"));
+                vector2 julian = chu(concat(prx, "julian_2"));
                 V_JULIAN(p, _p, w, julian[0], julian[1]);
                 return p; }
             // 32 JuliaScope ( parametric )
             else if(type==32){
-                vector2 juliascope = chu(concat(ftype, "juliascope_2"));
+                vector2 juliascope = chu(concat(prx, "juliascope_2"));
                 V_JULIASCOPE(p, _p, w, juliascope[0], juliascope[1]);
                 return p; }
             // 33 Gaussian
@@ -177,7 +177,7 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 34 Fan2 ( parametric )
             else if(type==34){
-                vector2 fan2 = chu(concat(ftype, "fan2_2"));
+                vector2 fan2 = chu(concat(prx, "fan2_2"));
                 V_FAN2(p, _p, w, fan2);
                 return p; }
         }
@@ -186,22 +186,22 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
         if(type<50){
             // 35 Rings2 ( parametric )
             if(type==35){
-                float rings2val = chf(concat(ftype, "rings2val_2"));
+                float rings2val = chf(concat(prx, "rings2val_2"));
                 V_RINGS2(p, _p, w, rings2val);
                 return p; }
             // 36 Rectangles ( parametric )
             else if(type==36){
-                vector2 rect = chu(concat(ftype, "rectangles_2"));
+                vector2 rect = chu(concat(prx, "rectangles_2"));
                 V_RECTANGLES(p, _p, w, rect);
                 return p; }
             // 37 Radial Blur ( parametric )
             else if(type==37){
-                vector2 radialblur = chu(concat(ftype, "radialblur_2"));
+                vector2 radialblur = chu(concat(prx, "radialblur_2"));
                 V_RADIALBLUR(p, _p, w, radialblur[0], radialblur[1]);
                 return p; }
             // 38 PIE ( parametric )
             else if(type==38){
-                vector pie = chv(concat(ftype, "pie_2"));
+                vector pie = chv(concat(prx, "pie_2"));
                 V_PIE(p, w, pie[0], pie[1], pie[2]);
                 return p; }
             // 39 ARCH
@@ -238,41 +238,41 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 47 DISC2 ( parametric )
             else if(type==47){
-                vector2 disc2 = chu(concat(ftype, "disc2_2"));
+                vector2 disc2 = chu(concat(prx, "disc2_2"));
                 V_DISC2_FF(p, _p, w, disc2[0], disc2[1]);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(type==48){
                 vector ss, ss_n;
-                ss = chv(concat(ftype, "supershape_2"));
-                ss_n = chv(concat(ftype, "supershapen_2"));
+                ss = chv(concat(prx, "supershape_2"));
+                ss_n = chv(concat(prx, "supershapen_2"));
                 V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(type==49){
-                vector2 flower = chu(concat(ftype, "flower_2"));
+                vector2 flower = chu(concat(prx, "flower_2"));
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
         }
         else{
             // 50 CONIC ( parametric )
             if(type==50){
-                vector2 conic =  chu(concat(ftype, "conic_2"));
+                vector2 conic =  chu(concat(prx, "conic_2"));
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
             // 51 PARABOLA ( parametric )
             else if(type==51){
-                vector2 parabola = chu(concat(ftype, "parabola_2"));
+                vector2 parabola = chu(concat(prx, "parabola_2"));
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
             // 52 BENT2 ( parametric )
             else if(type==52){
-                vector2 bent2 = chu(concat(ftype, "bent2xy_2"));
+                vector2 bent2 = chu(concat(prx, "bent2xy_2"));
                 V_BENT2(p, _p, w, bent2);
                 return p; }
             // 53 BIPOLAR ( parametric )
             else if(type==53){
-                float shift = chf(concat(ftype, "bipolarshift_2"));
+                float shift = chf(concat(prx, "bipolarshift_2"));
                 V_BIPOLAR(p, _p, w, shift);
                 return p; }
             // 54 BOARDERS
@@ -285,12 +285,12 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 56 CELL ( parametric )
             else if(type==56){
-                float size = chf(concat(ftype, "cellsize_2"));
+                float size = chf(concat(prx, "cellsize_2"));
                 V_CELL(p, _p, w, size);
                 return p; }
             // 57 CPOW ( parametric )
             else if(type==57){
-                vector cpow = chv(concat(ftype, "cpow_2"));
+                vector cpow = chv(concat(prx, "cpow_2"));
                 V_CPOW(p, _p, w, cpow[0], cpow[1], cpow[2]);
                 return p; }
             // 58 EDISC
@@ -307,7 +307,7 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 61 ESCHER ( parametric )
             else if(type==61){
-                float beta = chf(concat(ftype, "escherbeta_2"));
+                float beta = chf(concat(prx, "escherbeta_2"));
                 V_ESCHER(p, _p, w, beta);
                 return p; }
             // 62 FOCI
@@ -316,8 +316,8 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 63 LAZYSUSAN ( parametric )
             else if(type==63){
-                vector lazysusan = chv(concat(ftype, "lazysusan_2"));
-                vector2 lazysusanxyz = chu(concat(ftype, "lazysusanxyz_2"));
+                vector lazysusan = chv(concat(prx, "lazysusan_2"));
+                vector2 lazysusanxyz = chu(concat(prx, "lazysusanxyz_2"));
                 V_LAZYSUSAN(p, _p, w, lazysusan[0], lazysusan[1], lazysusan[2], lazysusanxyz);
                 return p; }
             // 64 LOONIE
@@ -332,12 +332,12 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
             */
             // 66 MODULUS ( parametric )
             else if(type==66){
-                vector2 mod = chu(concat(ftype, "modulusXYZ_2"));
+                vector2 mod = chu(concat(prx, "modulusXYZ_2"));
                 V_MODULUS(p, _p, w, mod);
                 return p; }
             // 67 OSCOPE ( parametric )
             else if(type==67){
-                vector4 oscope = chp(concat(ftype, "oscope_2"));
+                vector4 oscope = chp(concat(prx, "oscope_2"));
                 V_OSCOPE(p, _p, w, oscope[0], oscope[1], oscope[2], oscope[3]);
                 return p; }
             // 68 POLAR2
@@ -346,8 +346,8 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 69 POPCORN2 ( parametric )
             else if(type==69){
-                float pop2c = chf(concat(ftype, "popcorn2c_2"));
-                vector2 pop2 = chu(concat(ftype, "popcorn2xyz_2"));
+                float pop2c = chf(concat(prx, "popcorn2c_2"));
+                vector2 pop2 = chu(concat(prx, "popcorn2xyz_2"));
                 V_POPCORN2(p, _p, w, pop2c, pop2);
                 return p; }
         }
@@ -361,51 +361,51 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
             // 71 SEPARATION ( parametric )
             else if(type==71){
                 vector2 sep, ins;
-                sep = chu(concat(ftype, "separationxyz_2"));
-                ins = chu(concat(ftype, "separationinsidexyz_2"));
+                sep = chu(concat(prx, "separationxyz_2"));
+                ins = chu(concat(prx, "separationinsidexyz_2"));
                 V_SEPARATION(p, _p, w, sep, ins);
                 return p; }
             // 72 SPLIT ( parametric )
             else if(type==72){
-                vector2 split = chu(concat(ftype, "splitxyz_2"));
+                vector2 split = chu(concat(prx, "splitxyz_2"));
                 V_SPLIT(p, _p, w, split);
                 return p; }
             // 73 SPLITS ( parametric )
             else if(type==73){
-                vector2 splits = chu(concat(ftype, "splitsxyz_2"));
+                vector2 splits = chu(concat(prx, "splitsxyz_2"));
                 V_SPLITS(p, _p, w, splits);
                 return p; }
             // 74 STRIPES ( parametric )
             else if(type==74){
-                vector2 stripes = chu(concat(ftype, "stripes_2"));
+                vector2 stripes = chu(concat(prx, "stripes_2"));
                 V_STRIPES(p, _p, w, stripes[0], stripes[1]);
                 return p; }
             // 75 WEDGE ( parametric )
             else if(type==75){
-                vector4 wedge = chp(concat(ftype, "wedge_2"));
+                vector4 wedge = chp(concat(prx, "wedge_2"));
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
             // 76 WEDGE JULIA ( parametric )
             else if(type==76){
-                vector4 wedgejulia = chp(concat(ftype, "wedgejulia_2"));
+                vector4 wedgejulia = chp(concat(prx, "wedgejulia_2"));
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 // V_WEDGEJULIA_FF(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(type==77){
-                vector4 wedgesph = chp(concat(ftype, "wedgesph_2"));
+                vector4 wedgesph = chp(concat(prx, "wedgesph_2"));
                 V_WEDGESPH(p, _p, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
                 return p; }
             // 78 WHORL ( parametric )
             else if(type==78){
-                vector2 whorl = chu(concat(ftype, "whorl_2"));
+                vector2 whorl = chu(concat(prx, "whorl_2"));
                 V_WHORL(p, _p, w, whorl[0], whorl[1]);
                 return p; }
             // 79 WAVES2 ( parametric )
             else if(type==79){
                 vector2 scl, freq;
-                scl = chu(concat(ftype, "waves2scalexyz_2"));
-                freq = chu(concat(ftype, "waves2freqxyz_2"));
+                scl = chu(concat(prx, "waves2scalexyz_2"));
+                freq = chu(concat(prx, "waves2freqxyz_2"));
                 V_WAVES2(p, _p, w, scl, freq);
                 return p; }
             // 80 COTHE EXP
@@ -468,37 +468,37 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
                 return p; }
             // 94 AUGER ( parametric )
             else if(type==94){
-                vector4 auger = chp(concat(ftype, "auger_2"));
+                vector4 auger = chp(concat(prx, "auger_2"));
                 V_AUGER(p, _p, w, auger[0], auger[1], auger[2], auger[3]);
                 return p; }
             // 95 FLUX ( parametric )
             else if(type==95){
-                float spread = chf(concat(ftype, "fluxspread_2"));
+                float spread = chf(concat(prx, "fluxspread_2"));
                 V_FLUX(p, _p, w, spread);
                 return p; }
             // 96 MOBIUS ( parametric )
             else if(type==96){
                 vector4 re, im;
-                re = chp(concat(ftype, "mobiusre_2"));
-                im = chp(concat(ftype, "mobiusim_2"));
+                re = chp(concat(prx, "mobiusre_2"));
+                im = chp(concat(prx, "mobiusim_2"));
                 V_MOBIUS(p, _p, w, re, im);
                 return p; }
             // 97 CURVE ( parametric )
             else if(type==97){
                 vector2 lgt, amp;
-                lgt = chu(concat(ftype, "curvexyzlenght_2"));
-                amp = chu(concat(ftype, "curvexyzamp_2"));
+                lgt = chu(concat(prx, "curvexyzlenght_2"));
+                amp = chu(concat(prx, "curvexyzamp_2"));
                 V_CURVE(p, _p, w, lgt, amp);
                 return p; }
             // 98 PERSPECTIVE ( parametric )
             else if(type==98){
-                vector2 persp = chu(concat(ftype, "persp_2"));
+                vector2 persp = chu(concat(prx, "persp_2"));
                 V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
                 return p; }
             // 99 BWRAPS ( parametric )
             else if(type==99){
-                vector bwraps = chv(concat(ftype, "bwraps_2"));
-                vector2 bwrapstwist = chu(concat(ftype, "bwrapstwist_2"));
+                vector bwraps = chv(concat(prx, "bwraps_2"));
+                vector2 bwrapstwist = chu(concat(prx, "bwrapstwist_2"));
                 V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
                 return p; }
             // 100 HEMISPHERE
@@ -508,9 +508,9 @@ vector2 FLAMEFF(const string ftype; const int type; const vector2 pos, x, y, o; 
             // 101 POLYNOMIAL ( parametric )
             else if(type==101){
                 vector2 pow, lc, sc;
-                pow = chu(concat(ftype, "polynomialpow_2"));
-                lc = chu(concat(ftype, "polynomiallc_2"));
-                sc = chu(concat(ftype, "polynomialsc_2"));
+                pow = chu(concat(prx, "polynomialpow_2"));
+                lc = chu(concat(prx, "polynomiallc_2"));
+                sc = chu(concat(prx, "polynomialsc_2"));
                 V_POLYNOMIAL(p, _p, w, pow, lc, sc);
                 return p; }
         }
