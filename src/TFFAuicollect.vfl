@@ -144,7 +144,6 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     append(type, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XAOS");
     if(xaos_chk) append(type, concat("[", "X", "]"));
-
     if(domb) append(type, "MB");
     if(sm){ if(!smtype) append(type, "SM3"); else append(type, "SM5"); }
     if(TMG) append(type, "TM");
@@ -178,9 +177,9 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             // Post var
             pw1 = chf(concat("../p1weight_", _IDX));
             if(pw1!=0) { if(w_total != 0) P1 = concat( " [", stype[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
-
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX))); else W = "";
+            
             // Reformat iterator weight string floats
             string out[] = {};
             string SPLIT[] = split(W, ".");

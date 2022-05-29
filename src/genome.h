@@ -48,6 +48,7 @@ struct gem{
         resize(v1t, res); v2t=v3t=v4t=p1t=ppt=PPL=v1t;
         resize(v1w, res); v2w=v3w=v4w=p1w=pbw=ppw=CLR=OM=A=v1w;
         resize(x,   res); y=o=px=py=po=x;
+
         float   _a, clr, spd, grt;
         vector2 _x, _y;
         matrix2 _m2;
@@ -79,7 +80,7 @@ struct gem{
             // VAR 04
             v4w[i] = chf(concat("../v4weight_", idx));
             if(v4w[i]!=0) v4t[i]=atoi(chs(concat("../v4type_", idx)));
-            // // POST VAR 01
+            // POST VAR 01
             p1w[i] = chf(concat("../p1weight_", idx));
             if(p1w[i]!=0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
             // AFFINE
@@ -170,7 +171,7 @@ struct gemPrm{
             for(int i=0; i<res; ++i){
                 T=GEMTYPE[i]; idx=sIDX[i];
                 if(T<27 || w[i]==0) continue;
-                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , T)>=0){
+                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , T )>=0){
                     if(T<38){
                         // 27 CURL
                         if(T==27){ curl_c[i] = chu(concat("../curlc_", idx)); continue; }
@@ -224,7 +225,7 @@ struct gemPrm{
                         else if(T==57){ cpow[i] = chv(concat("../cpow_", idx)); continue; }
                     }
                 }
-                else if(find( {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101} , T)>=0){
+                else if(find( {61, 63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101} , T )>=0){
                     if(T<77){
                         // 61 ESCHER
                         if(T==61){ escher_beta[i] = chf(concat("../escherbeta_", idx)); continue; }

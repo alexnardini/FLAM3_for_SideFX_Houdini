@@ -33,8 +33,6 @@
 
 void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
-    // ft = 1 -> FF
-    // ft = 2 -> FF POST
     
     int     sl, idx;
     float   pscl, clr, prev_clr, alpha, XST[]; prev_clr=0; pscl=PSCL;
