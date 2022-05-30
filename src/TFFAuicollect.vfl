@@ -24,8 +24,8 @@
 void
 _TFFAuicollect(string _bound_VARTYPE[]){
 
-    string type[];
-    string stype[] = {  "linear", 
+    string T[];
+    string Ts[] = {  "linear", 
                         "sinusoidal",
                         "spherical",
                         "swirl",
@@ -130,23 +130,23 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
 
     // SYS
-    int FF, TMG, iter, inum, sm, smtype, domb;
+    int FF, TM, SM, inum, iter, smmod, domb;
     FF     = chi("../dofinalflame");
-    TMG    = chi("../dotmglobal");
-    iter   = chi("../iter");
+    TM     = chi("../dotmglobal");
+    SM     = chi("../symmetry");
     inum   = chi("../flamefunc");
-    sm     = chi("../symmetry");
-    smtype = chi("../rotational");
+    iter   = chi("../iter");
+    smmod  = chi("../rotational");
     domb   = chi("../domb");
 
     // UI collect
     float ppw, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
-    append(type, concat("[", itoa(iter), "]"));
+    append(T, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XAOS");
-    if(xaos_chk) append(type, concat("[", "X", "]"));
-    if(domb) append(type, "MB");
-    if(sm){ if(!smtype) append(type, "SM3"); else append(type, "SM5"); }
-    if(TMG) append(type, "TM");
+    if(xaos_chk) append(T, concat("[", "X", "]"));
+    if(domb) append(T, "MB");
+    if(SM){ if(!smmod) append(T, "SM3"); else append(T, "SM5"); }
+    if(TM) append(T, "TM");
 
     for(int i=0; i<inum; ++i){
 
@@ -155,16 +155,16 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         if(!chi(concat("../vactive_", _IDX))) VAR = " :::::::::: ";
         else{
             w1 = chf(concat("../v1weight_", _IDX));
-            if(w1!=0) V1 = stype[atoi(chs(concat("../v1type_", _IDX)))]+":";
+            if(w1!=0) V1 = Ts[atoi(chs(concat("../v1type_", _IDX)))]+":";
             else V1 = ":";
             w2 = chf(concat("../v2weight_", _IDX));
-            if(w2!=0) V2 = stype[atoi(chs(concat("../v2type_", _IDX)))]+":";
+            if(w2!=0) V2 = Ts[atoi(chs(concat("../v2type_", _IDX)))]+":";
             else V2 = ":";
             w3 = chf(concat("../v3weight_", _IDX));
-            if(w3!=0) V3 = stype[atoi(chs(concat("../v3type_", _IDX)))]+":";
+            if(w3!=0) V3 = Ts[atoi(chs(concat("../v3type_", _IDX)))]+":";
             else V3 = ":";
             w4 = chf(concat("../v4weight_", _IDX));
-            if(w4!=0) V4 = stype[atoi(chs(concat("../v4type_", _IDX)))]+":";
+            if(w4!=0) V4 = Ts[atoi(chs(concat("../v4type_", _IDX)))]+":";
             else V4 = ":";
             float w_total = w1+w2+w3+w4;
             
@@ -173,10 +173,10 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             if(pbw>0){ if(w_total != 0) PB="*"; }
             // Pre var 
             ppw = chf(concat("../pre1weight_" , _IDX));
-            if(ppw>0){ if(w_total != 0) PP = concat( "[", stype[atoi(chs(concat("../pre1type_", _IDX)))], "] "); }
+            if(ppw>0){ if(w_total != 0) PP = concat( "[", Ts[atoi(chs(concat("../pre1type_", _IDX)))], "] "); }
             // Post var
             pw1 = chf(concat("../p1weight_", _IDX));
-            if(pw1!=0) { if(w_total != 0) P1 = concat( " [", stype[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
+            if(pw1!=0) { if(w_total != 0) P1 = concat( " [", Ts[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX))); else W = "";
             
@@ -191,30 +191,30 @@ _TFFAuicollect(string _bound_VARTYPE[]){
             W = join(out, ".");
             VAR = concat(PB, PP, V1, V2, V3, V4, P1, W);
         }
-        append(type, VAR);
+        append(T, VAR);
     }
 
     if(FF){
 
         string VAR, FV1, FV2, FV3, FP1;
         fw1 = chf("../ffv1weight");
-        if(fw1!=0) FV1 = stype[atoi(chs("../ffv1type"))]+":";
+        if(fw1!=0) FV1 = Ts[atoi(chs("../ffv1type"))]+":";
         else FV1 = ":";
         fw2 = chf("../ffv2weight");
-        if(fw2!=0) FV2 = stype[atoi(chs("../ffv2type"))]+":";
+        if(fw2!=0) FV2 = Ts[atoi(chs("../ffv2type"))]+":";
         else FV2 = ":";
         fw3 = chf("../ffv3weight");
-        if(fw3!=0) FV3 = stype[atoi(chs("../ffv3type"))];
+        if(fw3!=0) FV3 = Ts[atoi(chs("../ffv3type"))];
         else FV3 = ":";
         float fw_total = fw1+fw2+fw3;
         // Post final var
         pfw1 = chf("../ffp1weight");
-        if(pfw1!=0) { if(fw_total != 0) FP1 = concat("[", stype[atoi(chs("../ffp1type"))], "]"); }
+        if(pfw1!=0) { if(fw_total != 0) FP1 = concat("[", Ts[atoi(chs("../ffp1type"))], "]"); }
         VAR = concat(FV1, FV2, FV3, FP1);
-        append(type, toupper(VAR));
+        append(T, toupper(VAR));
         }
         
-    _bound_VARTYPE = type;
+    _bound_VARTYPE = T;
 }
 
 cvex
