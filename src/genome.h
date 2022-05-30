@@ -23,12 +23,12 @@
 // GENOME
 struct gem{
 
-    int     TM, FF, PFF, RIP, SM, iter, sm_mod, MB,
+    int     TM, FF, PFF, RIP, SM, iter, smm, MB,
             res, v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], ffv1t, ffv2t, ffv3t, ffp1t;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], OM[], A[], ffv1w, ffv2w, ffv3w, ffp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
-    float   mb_mod=1.0;
+    float   mbm=1.0;
     
     void gemBuild(const string sIDX[]){
 
@@ -40,8 +40,8 @@ struct gem{
         SM   = chi("../symmetry");
         iter = chi("../iter");
         MB   = chi("../domb");
-        if(SM) sm_mod = chi("../rotational");
-        if(MB) mb_mod = detail(1, "Tstep_mult", 0);
+        if(SM) smm = chi("../rotational");
+        if(MB) mbm = detail(1, "Tstep_mult", 0);
 
         // GENOME
         res = len(sIDX);
@@ -159,13 +159,13 @@ struct gemPrm{
             
             int T;
             string idx;
-            // FLOAT
+            // float
             resize(rings2_val, res); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
-            // VECTOR
+            // vector
             resize(blob, res);       pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=blob;
-            // VECTOR2
+            // vector2
             resize(curl_c, res);     parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
-            // VECTOR4
+            // vector4
             resize(ngon, res);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
             for(int i=0; i<res; ++i){

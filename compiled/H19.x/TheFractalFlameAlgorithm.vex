@@ -627,7 +627,7 @@ declare double @"getcomp@F[FI"(double*, i64) #1
 declare double* @"append@[FF"(double*, double) #3
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN6sm_modIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N6mb_modF[S"(%gem* %this, i8*** %sIDX) #0 {
+define private void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF[S"(%gem* %this, i8*** %sIDX) #0 {
 __llvm_entry:
   %_m2 = alloca <4 x double>
   %0 = alloca <2 x double>
@@ -1172,7 +1172,7 @@ declare { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>*, <2 x dou
 declare i64 @"getcomp@I[II"(i64*, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN6sm_modIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N6mb_modFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %TM, i64* %FF, i64* %PFF, i64* %RIP, i64* %SM, i64* %iter, i64* %sm_mod, i64* %MB, i64* %res, i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, i64** %p1t, i64** %ppt, i64** %PPL, i64* %ffv1t, i64* %ffv2t, i64* %ffv3t, i64* %ffp1t, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %p1w, double** %pbw, double** %ppw, double** %CLR, double** %OM, double** %A, double* %ffv1w, double* %ffv2w, double* %ffv3w, double* %ffp1w, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo, <4 x double>* %TMm2, double* %mb_mod) #0 {
+define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %TM, i64* %FF, i64* %PFF, i64* %RIP, i64* %SM, i64* %iter, i64* %smm, i64* %MB, i64* %res, i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, i64** %p1t, i64** %ppt, i64** %PPL, i64* %ffv1t, i64* %ffv2t, i64* %ffv3t, i64* %ffp1t, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %p1w, double** %pbw, double** %ppw, double** %CLR, double** %OM, double** %A, double* %ffv1w, double* %ffv2w, double* %ffv3w, double* %ffp1w, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo, <4 x double>* %TMm2, double* %mbm) #0 {
 __llvm_entry:
   %TM1 = load i64, i64* %TM
   %0 = insertvalue %gem undef, i64 %TM1, 0
@@ -1186,8 +1186,8 @@ __llvm_entry:
   %4 = insertvalue %gem %3, i64 %SM8, 4
   %iter10 = load i64, i64* %iter
   %5 = insertvalue %gem %4, i64 %iter10, 5
-  %sm_mod12 = load i64, i64* %sm_mod
-  %6 = insertvalue %gem %5, i64 %sm_mod12, 6
+  %smm12 = load i64, i64* %smm
+  %6 = insertvalue %gem %5, i64 %smm12, 6
   %MB14 = load i64, i64* %MB
   %7 = insertvalue %gem %6, i64 %MB14, 7
   %res16 = load i64, i64* %res
@@ -1268,13 +1268,13 @@ __llvm_entry:
   %45 = insertvalue %gem %44, <2 x double> %pfo90, 45
   %TMm292 = load <4 x double>, <4 x double>* %TMm2
   %46 = insertvalue %gem %45, <4 x double> %TMm292, 46
-  %mb_mod94 = load double, double* %mb_mod
-  %47 = insertvalue %gem %46, double %mb_mod94, 47
+  %mbm94 = load double, double* %mbm
+  %47 = insertvalue %gem %46, double %mbm94, 47
   ret %gem %47
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN6sm_modIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N6mb_modF"() #0 {
+define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -1372,7 +1372,7 @@ __llvm_entry:
   store <2 x double> zeroinitializer, <2 x double>* %44
   store <4 x double> zeroinitializer, <4 x double>* %45
   store double 1.000000e+00, double* %46
-  %gem = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN6sm_modIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N6mb_modFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %47, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64** %8, i64** %9, i64** %10, i64** %11, i64** %12, i64** %13, i64** %14, i64* %15, i64* %16, i64* %17, i64* %18, double** %19, double** %20, double** %21, double** %22, double** %23, double** %24, double** %25, double** %26, double** %27, double** %28, double* %29, double* %30, double* %31, double* %32, <2 x double>** %33, <2 x double>** %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>* %39, <2 x double>* %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <4 x double>* %45, double* %46)
+  %gem = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %47, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64** %8, i64** %9, i64** %10, i64** %11, i64** %12, i64** %13, i64** %14, i64* %15, i64* %16, i64* %17, i64* %18, double** %19, double** %20, double** %21, double** %22, double** %23, double** %24, double** %25, double** %26, double** %27, double** %28, double* %29, double* %30, double* %31, double* %32, <2 x double>** %33, <2 x double>** %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>* %39, <2 x double>* %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <4 x double>* %45, double* %46)
   ret %gem %gem
 }
 
@@ -12617,7 +12617,7 @@ __llvm_entry:
   %105 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %tmp, !vex-initializer-store !3
   %_bound_sIDX1 = load i8**, i8*** %_bound_sIDX
-  %GEM2 = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN6sm_modIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N6mb_modF"()
+  %GEM2 = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF"()
   %GEM2.fca.0.extract = extractvalue %gem %GEM2, 0
   %GEM2.fca.0.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 0
   store i64 %GEM2.fca.0.extract, i64* %GEM2.fca.0.gep
@@ -12763,7 +12763,7 @@ __llvm_entry:
   %GEM2.fca.47.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 47
   store double %GEM2.fca.47.extract, double* %GEM2.fca.47.gep
   store i8** %_bound_sIDX1, i8*** %0
-  call void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN6sm_modIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N6mb_modF[S"(%gem* %GEM, i8*** %0)
+  call void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF[S"(%gem* %GEM, i8*** %0)
   %GEM4.fca.0.load = load i64, i64* %GEM2.fca.0.gep
   %GEM4.fca.0.insert = insertvalue %gem undef, i64 %GEM4.fca.0.load, 0
   %GEM4.fca.1.load = load i64, i64* %GEM2.fca.1.gep
@@ -13690,7 +13690,7 @@ end:                                              ; preds = %true, %__llvm_entry
 
 cond:                                             ; preds = %end319, %end
   %clr.0 = phi double [ 0.000000e+00, %end ], [ %output331, %end319 ]
-  %prev_clr.0 = phi double [ 0.000000e+00, %end ], [ %output331, %end319 ]
+  %prv_clr.0 = phi double [ 0.000000e+00, %end ], [ %output331, %end319 ]
   %idx.1 = phi i64 [ %idx.0, %end ], [ %idx.2, %end319 ]
   %i.0 = phi i64 [ 0, %end ], [ %output334, %end319 ]
   %return132 = call i64 @"lt@III"(i64 %i.0, i64 %GEM4.fca.5.load)
@@ -14926,7 +14926,7 @@ true318:                                          ; preds = %end307
 end319:                                           ; preds = %true318, %end307
   %return325 = call double @"getcomp@F[FI"(double* %GEM4.fca.27.load, i64 %idx.2)
   %return328 = call double @"getcomp@F[FI"(double* %GEM4.fca.28.load, i64 %idx.2)
-  %output330 = fmul double %return328, %prev_clr.0
+  %output330 = fmul double %return328, %prv_clr.0
   %output331 = fadd double %return325, %output330
   %tmp332 = load <2 x double>, <2 x double>* %tmp
   store <2 x double> %tmp332, <2 x double>* %mem

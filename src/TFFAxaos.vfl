@@ -28,7 +28,7 @@ void
 _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
 {
     int inum = chi("../flamefunc");
-    int vactive[];
+    int va[];
     string sIDX[];
     float IW[];
     
@@ -36,10 +36,10 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
-        append(vactive, chi(concat("../vactive_", iIDX)));
+        append(va, chi(concat("../vactive_", iIDX)));
         float IWcheck = chf(concat("../iw_", iIDX));
-        if(IWcheck==0) vactive[i]=0;
-        if(!vactive[i]) continue;
+        if(IWcheck==0) va[i]=0;
+        if(!va[i]) continue;
         append(IW, chf(concat("../iw_", iIDX)));
         append(sIDX, iIDX);
     }
@@ -63,7 +63,7 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
         }
         else resize(xaos, inum, 1);
         for(int j=0; j<inum; ++j){
-            if(!vactive[j]) pop(xaos, j);
+            if(!va[j]) pop(xaos, j);
         }
         float IW_xaos[];
         for(int k=0; k<res; ++k){
