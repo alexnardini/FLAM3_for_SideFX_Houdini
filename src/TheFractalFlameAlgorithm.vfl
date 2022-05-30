@@ -61,7 +61,9 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
     float IW[]=_bound_IW; int XS=_bound_XS;
     if(XS){ XST=_bound_XST; idx=sample_cdf(IW, nrandom('twister')); }
     vector2 mem=biunit();
+
     for(int i=0; i<iter; ++i){
+
         tmp=0;
         if(XS){ sl=idx*res; idx=sample_cdf(XST[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
@@ -79,6 +81,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
     }
     // FF
     if(FF){
+
         tmp=0;
         if(ffv1w!=0) tmp += FLAMEFF(FFL, ffv1t, mem, fx, fy, fo, ffv1w);
         if(ffv2w!=0) tmp += FLAMEFF(FFL, ffv2t, mem, fx, fy, fo, ffv2w);
@@ -90,6 +93,7 @@ void _TheFractalFlameAlgorithm(int _bound_ptnum; const string _bound_sIDX[]; con
     alpha=A[idx];
     if(chkPT(RIP, mem, alpha)) removepoint(0, _bound_ptnum);
     else{
+        
         // OUT
         pscl*=alpha;
         if(SM) V_SYM(mem, sm_mod);

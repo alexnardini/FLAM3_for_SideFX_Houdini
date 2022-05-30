@@ -169,6 +169,7 @@ struct gemPrm{
             resize(ngon, res);       pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
             for(int i=0; i<res; ++i){
+                
                 T=GEMTYPE[i]; idx=sIDX[i];
                 if(T<27 || w[i]==0) continue;
                 else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57} , T )>=0){
