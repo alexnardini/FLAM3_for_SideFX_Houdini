@@ -115,7 +115,7 @@ source_filename = "TFFAuicollect"
 @110 = private constant [8 x i8] c"../domb\00"
 @111 = private constant [2 x i8] c"[\00"
 @112 = private constant [2 x i8] c"]\00"
-@113 = private constant [5 x i8] c"XAOS\00"
+@113 = private constant [3 x i8] c"XS\00"
 @114 = private constant [2 x i8] c"X\00"
 @115 = private constant [3 x i8] c"MB\00"
 @116 = private constant [4 x i8] c"SM3\00"
@@ -168,7 +168,7 @@ __llvm_entry:
   %return9 = call i8* @"itoa@SI"(i64 %return4)
   %return10 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return9, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
   %output = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @0, i64 0, i64 0), i8* %return10)
-  %return11 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @113, i64 0, i64 0))
+  %return11 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @113, i64 0, i64 0))
   %0 = icmp ne i64 %return11, 0
   br i1 %0, label %true, label %end
 

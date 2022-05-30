@@ -142,7 +142,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     // UI collect
     float ppw, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
     append(T, concat("[", itoa(iter), "]"));
-    int xaos_chk = detail(1, "XAOS");
+    int xaos_chk = detail(1, "XS");
     if(xaos_chk) append(T, concat("[", "X", "]"));
     if(domb) append(T, "MB");
     if(SM){ if(!smmod) append(T, "SM3"); else append(T, "SM5"); }
