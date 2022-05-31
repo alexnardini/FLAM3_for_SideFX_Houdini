@@ -4,6 +4,8 @@
 `The above image consist of 400M points and rendered with Houdini internal Mantra renderer. ( originally rendered at 4K resolution )`
 
 ## FLAM3 for SideFX Houdini
+**[FLAM3HOUDINI website](https://www.alexnardini.net/)**
+
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
@@ -42,7 +44,7 @@ Reference D: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/m
 
 
 ## Example videos
-[FLAM3HOUDINI vimeo](https://vimeo.com/alexnardini)
+**[FLAM3HOUDINI vimeo](https://vimeo.com/alexnardini)**
 
 
 
