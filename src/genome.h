@@ -24,8 +24,8 @@
 struct gem{
 
     int     TM, FF, PFF, RIP, SM, iter, smm, MB,
-            res, v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], ffv1t, ffv2t, ffv3t, ffp1t;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], OM[], A[], ffv1w, ffv2w, ffv3w, ffp1w;
+            res, v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], fv1t, fv2t, fv3t, fp1t;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
     float   mbm=1.0;
@@ -110,17 +110,17 @@ struct gem{
         }
         if(FF){
             // FF VAR 01
-            ffv1w = chf("../ffv1weight");
-            if(ffv1w!=0) ffv1t = chi("../ffv1type");
+            fv1w = chf("../ffv1weight");
+            if(fv1w!=0) fv1t = chi("../ffv1type");
             // FF VAR 02
-            ffv2w = chf("../ffv2weight");
-            if(ffv2w!=0) ffv2t = chi("../ffv2type");
+            fv2w = chf("../ffv2weight");
+            if(fv2w!=0) fv2t = chi("../ffv2type");
             // FF VAR 03
-            ffv3w = chf("../ffv3weight");
-            if(ffv3w!=0) ffv3t = chi("../ffv3type");
+            fv3w = chf("../ffv3weight");
+            if(fv3w!=0) fv3t = chi("../ffv3type");
             // // FF POST VAR 01
-            ffp1w = chf("../ffp1weight");
-            if(ffp1w!=0) ffp1t = chi("../ffp1type");
+            fp1w = chf("../ffp1weight");
+            if(fp1w!=0) fp1t = chi("../ffp1type");
             // FF AFFINE
             _x = chu("../_fx_2");;
             _y = chu("../_fy_2");;

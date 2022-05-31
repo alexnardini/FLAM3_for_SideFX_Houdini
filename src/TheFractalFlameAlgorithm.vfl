@@ -16,8 +16,8 @@
 
 
 #define PSCL 0.001
-#define FFL "../_"
-#define FFP "../_p1"
+#define FL "../_"
+#define FP "../_p1"
 #define X {1,0}
 #define Y {0,1}
 #define O {0,0}
@@ -47,8 +47,8 @@ void _TheFractalFlameAlgorithm(const string _bound_sIDX[]; int _bound_ptnum; con
     // cast TM
     matrix2 TMm2=GEM.TMm2;
     // cast FF
-    int     ffv1t, ffv2t, ffv3t, ffp1t; ffv1t=GEM.ffv1t; ffv2t=GEM.ffv2t; ffv3t=GEM.ffv3t; ffp1t=GEM.ffp1t;
-    float   ffv1w, ffv2w, ffv3w, ffp1w; ffv1w=GEM.ffv1w; ffv2w=GEM.ffv2w; ffv3w=GEM.ffv3w; ffp1w=GEM.ffp1w;
+    int     fv1t, fv2t, fv3t, fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t;
+    float   fv1w, fv2w, fv3w, fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w;
     vector2 fx, fy, fo, pfx, pfy, pfo; fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
@@ -83,10 +83,10 @@ void _TheFractalFlameAlgorithm(const string _bound_sIDX[]; int _bound_ptnum; con
     if(FF){
 
         tmp=0;
-        if(ffv1w!=0) tmp += FLAMEFF(FFL, ffv1t, mem, fx, fy, fo, ffv1w);
-        if(ffv2w!=0) tmp += FLAMEFF(FFL, ffv2t, mem, fx, fy, fo, ffv2w);
-        if(ffv3w!=0) tmp += FLAMEFF(FFL, ffv3t, mem, fx, fy, fo, ffv3w);
-        if(ffp1w!=0) tmp  = FLAMEFF(FFP, ffp1t, tmp, X, Y, O, ffp1w);
+        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, mem, fx, fy, fo, fv1w);
+        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, mem, fx, fy, fo, fv2w);
+        if(fv3w!=0) tmp += FLAMEFF(FL, fv3t, mem, fx, fy, fo, fv3w);
+        if(fp1w!=0) tmp  = FLAMEFF(FP, fp1t, tmp, X, Y, O, fp1w);
         if(PFF) affine(tmp, pfx, pfy, pfo);
         mem=tmp;
     }
