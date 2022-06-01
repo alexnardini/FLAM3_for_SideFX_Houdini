@@ -627,7 +627,7 @@ declare double @"getcomp@F[FI"(double*, i64) #1
 declare double* @"append@[FF"(double*, double) #3
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF[S"(%gem* %this, i8*** %sIDX) #0 {
+define private void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN4fv1tIN4fv2tIN4fv3tIN4fp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN4fv1wFN4fv2wFN4fv3wFN4fp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF[S"(%gem* %this, i8*** %sIDX) #0 {
 __llvm_entry:
   %_m2 = alloca <4 x double>
   %0 = alloca <2 x double>
@@ -1172,7 +1172,7 @@ declare { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>*, <2 x dou
 declare i64 @"getcomp@I[II"(i64*, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %TM, i64* %FF, i64* %PFF, i64* %RIP, i64* %SM, i64* %iter, i64* %smm, i64* %MB, i64* %res, i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, i64** %p1t, i64** %ppt, i64** %PPL, i64* %ffv1t, i64* %ffv2t, i64* %ffv3t, i64* %ffp1t, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %p1w, double** %pbw, double** %ppw, double** %CLR, double** %OM, double** %A, double* %ffv1w, double* %ffv2w, double* %ffv3w, double* %ffp1w, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo, <4 x double>* %TMm2, double* %mbm) #0 {
+define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN4fv1tIN4fv2tIN4fv3tIN4fp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN4fv1wFN4fv2wFN4fv3wFN4fp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %TM, i64* %FF, i64* %PFF, i64* %RIP, i64* %SM, i64* %iter, i64* %smm, i64* %MB, i64* %res, i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, i64** %p1t, i64** %ppt, i64** %PPL, i64* %fv1t, i64* %fv2t, i64* %fv3t, i64* %fp1t, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %p1w, double** %pbw, double** %ppw, double** %CLR, double** %OM, double** %A, double* %fv1w, double* %fv2w, double* %fv3w, double* %fp1w, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo, <4 x double>* %TMm2, double* %mbm) #0 {
 __llvm_entry:
   %TM1 = load i64, i64* %TM
   %0 = insertvalue %gem undef, i64 %TM1, 0
@@ -1206,14 +1206,14 @@ __llvm_entry:
   %14 = insertvalue %gem %13, i64* %ppt28, 14
   %PPL30 = load i64*, i64** %PPL
   %15 = insertvalue %gem %14, i64* %PPL30, 15
-  %ffv1t32 = load i64, i64* %ffv1t
-  %16 = insertvalue %gem %15, i64 %ffv1t32, 16
-  %ffv2t34 = load i64, i64* %ffv2t
-  %17 = insertvalue %gem %16, i64 %ffv2t34, 17
-  %ffv3t36 = load i64, i64* %ffv3t
-  %18 = insertvalue %gem %17, i64 %ffv3t36, 18
-  %ffp1t38 = load i64, i64* %ffp1t
-  %19 = insertvalue %gem %18, i64 %ffp1t38, 19
+  %fv1t32 = load i64, i64* %fv1t
+  %16 = insertvalue %gem %15, i64 %fv1t32, 16
+  %fv2t34 = load i64, i64* %fv2t
+  %17 = insertvalue %gem %16, i64 %fv2t34, 17
+  %fv3t36 = load i64, i64* %fv3t
+  %18 = insertvalue %gem %17, i64 %fv3t36, 18
+  %fp1t38 = load i64, i64* %fp1t
+  %19 = insertvalue %gem %18, i64 %fp1t38, 19
   %v1w40 = load double*, double** %v1w
   %20 = insertvalue %gem %19, double* %v1w40, 20
   %v2w42 = load double*, double** %v2w
@@ -1234,14 +1234,14 @@ __llvm_entry:
   %28 = insertvalue %gem %27, double* %OM56, 28
   %A58 = load double*, double** %A
   %29 = insertvalue %gem %28, double* %A58, 29
-  %ffv1w60 = load double, double* %ffv1w
-  %30 = insertvalue %gem %29, double %ffv1w60, 30
-  %ffv2w62 = load double, double* %ffv2w
-  %31 = insertvalue %gem %30, double %ffv2w62, 31
-  %ffv3w64 = load double, double* %ffv3w
-  %32 = insertvalue %gem %31, double %ffv3w64, 32
-  %ffp1w66 = load double, double* %ffp1w
-  %33 = insertvalue %gem %32, double %ffp1w66, 33
+  %fv1w60 = load double, double* %fv1w
+  %30 = insertvalue %gem %29, double %fv1w60, 30
+  %fv2w62 = load double, double* %fv2w
+  %31 = insertvalue %gem %30, double %fv2w62, 31
+  %fv3w64 = load double, double* %fv3w
+  %32 = insertvalue %gem %31, double %fv3w64, 32
+  %fp1w66 = load double, double* %fp1w
+  %33 = insertvalue %gem %32, double %fp1w66, 33
   %x68 = load <2 x double>*, <2 x double>** %x
   %34 = insertvalue %gem %33, <2 x double>* %x68, 34
   %y70 = load <2 x double>*, <2 x double>** %y
@@ -1274,7 +1274,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF"() #0 {
+define private %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN4fv1tIN4fv2tIN4fv3tIN4fp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN4fv1wFN4fv2wFN4fv3wFN4fp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -1372,7 +1372,7 @@ __llvm_entry:
   store <2 x double> zeroinitializer, <2 x double>* %44
   store <4 x double> zeroinitializer, <4 x double>* %45
   store double 1.000000e+00, double* %46
-  %gem = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %47, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64** %8, i64** %9, i64** %10, i64** %11, i64** %12, i64** %13, i64** %14, i64* %15, i64* %16, i64* %17, i64* %18, double** %19, double** %20, double** %21, double** %22, double** %23, double** %24, double** %25, double** %26, double** %27, double** %28, double* %29, double* %30, double* %31, double* %32, <2 x double>** %33, <2 x double>** %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>* %39, <2 x double>* %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <4 x double>* %45, double* %46)
+  %gem = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN4fv1tIN4fv2tIN4fv3tIN4fp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN4fv1wFN4fv2wFN4fv3wFN4fp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmFIIIIIIIII[I[I[I[I[I[I[IIIII[F[F[F[F[F[F[F[F[F[FFFFF[U[U[U[U[U[UUUUUUU2F"(i64* %47, i64* %0, i64* %1, i64* %2, i64* %3, i64* %4, i64* %5, i64* %6, i64* %7, i64** %8, i64** %9, i64** %10, i64** %11, i64** %12, i64** %13, i64** %14, i64* %15, i64* %16, i64* %17, i64* %18, double** %19, double** %20, double** %21, double** %22, double** %23, double** %24, double** %25, double** %26, double** %27, double** %28, double* %29, double* %30, double* %31, double* %32, <2 x double>** %33, <2 x double>** %34, <2 x double>** %35, <2 x double>** %36, <2 x double>** %37, <2 x double>** %38, <2 x double>* %39, <2 x double>* %40, <2 x double>* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <4 x double>* %45, double* %46)
   ret %gem %gem
 }
 
@@ -6337,7 +6337,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHEEXP@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %expsin = alloca double
   %expcos = alloca double
@@ -6370,7 +6370,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHELOG@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -6398,7 +6398,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHESIN@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_SIN@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinacos = alloca double
   %0 = alloca double
@@ -6432,7 +6432,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHECOS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_COS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %coscos = alloca double
   %0 = alloca double
@@ -6466,7 +6466,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHETAN@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_TAN@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %tancos = alloca double
   %0 = alloca double
@@ -6503,7 +6503,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHESEC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_SEC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %seccos = alloca double
   %0 = alloca double
@@ -6546,7 +6546,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHECSC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_CSC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %csccos = alloca double
   %0 = alloca double
@@ -6589,7 +6589,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHECOT@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_COT@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %cotcos = alloca double
   %0 = alloca double
@@ -6630,7 +6630,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHESINH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_SINH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinhcos = alloca double
   %0 = alloca double
@@ -6664,7 +6664,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHECOSH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_COSH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %coshcos = alloca double
   %0 = alloca double
@@ -6698,7 +6698,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHETANH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_TANH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %tanhcos = alloca double
   %0 = alloca double
@@ -6735,7 +6735,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHESECH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_SECH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sechcos = alloca double
   %0 = alloca double
@@ -6778,7 +6778,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHECSCH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_CSCH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %cschcos = alloca double
   %0 = alloca double
@@ -6821,7 +6821,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTHECOTH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
+define private void @"V_COTH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %cothcos = alloca double
   %0 = alloca double
@@ -9076,7 +9076,7 @@ true939:                                          ; preds = %false924
   store <2 x double> %_p942, <2 x double>* %239
   %w943 = load double, double* %w
   store double %w943, double* %240
-  call void @"V_COTHEEXP@UUF"(<2 x double>* %p, <2 x double>* %239, double* %240)
+  call void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %239, double* %240)
   %p944 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9090,7 +9090,7 @@ true947:                                          ; preds = %false940
   store <2 x double> %_p950, <2 x double>* %241
   %w951 = load double, double* %w
   store double %w951, double* %242
-  call void @"V_COTHELOG@UUF"(<2 x double>* %p, <2 x double>* %241, double* %242)
+  call void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %241, double* %242)
   %p952 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9104,7 +9104,7 @@ true955:                                          ; preds = %false948
   store <2 x double> %_p958, <2 x double>* %243
   %w959 = load double, double* %w
   store double %w959, double* %244
-  call void @"V_COTHESIN@UUF"(<2 x double>* %p, <2 x double>* %243, double* %244)
+  call void @"V_SIN@UUF"(<2 x double>* %p, <2 x double>* %243, double* %244)
   %p960 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9118,7 +9118,7 @@ true963:                                          ; preds = %false956
   store <2 x double> %_p966, <2 x double>* %245
   %w967 = load double, double* %w
   store double %w967, double* %246
-  call void @"V_COTHECOS@UUF"(<2 x double>* %p, <2 x double>* %245, double* %246)
+  call void @"V_COS@UUF"(<2 x double>* %p, <2 x double>* %245, double* %246)
   %p968 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9132,7 +9132,7 @@ true971:                                          ; preds = %false964
   store <2 x double> %_p974, <2 x double>* %247
   %w975 = load double, double* %w
   store double %w975, double* %248
-  call void @"V_COTHETAN@UUF"(<2 x double>* %p, <2 x double>* %247, double* %248)
+  call void @"V_TAN@UUF"(<2 x double>* %p, <2 x double>* %247, double* %248)
   %p976 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9146,7 +9146,7 @@ true979:                                          ; preds = %false972
   store <2 x double> %_p981, <2 x double>* %249
   %w982 = load double, double* %w
   store double %w982, double* %250
-  call void @"V_COTHESEC@UUF"(<2 x double>* %p, <2 x double>* %249, double* %250)
+  call void @"V_SEC@UUF"(<2 x double>* %p, <2 x double>* %249, double* %250)
   %p983 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9155,7 +9155,7 @@ true986:                                          ; preds = %false777
   store <2 x double> %_p989, <2 x double>* %251
   %w990 = load double, double* %w
   store double %w990, double* %252
-  call void @"V_COTHECSC@UUF"(<2 x double>* %p, <2 x double>* %251, double* %252)
+  call void @"V_CSC@UUF"(<2 x double>* %p, <2 x double>* %251, double* %252)
   %p991 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9169,7 +9169,7 @@ true994:                                          ; preds = %false987
   store <2 x double> %_p997, <2 x double>* %253
   %w998 = load double, double* %w
   store double %w998, double* %254
-  call void @"V_COTHECOT@UUF"(<2 x double>* %p, <2 x double>* %253, double* %254)
+  call void @"V_COT@UUF"(<2 x double>* %p, <2 x double>* %253, double* %254)
   %p999 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9183,7 +9183,7 @@ true1002:                                         ; preds = %false995
   store <2 x double> %_p1005, <2 x double>* %255
   %w1006 = load double, double* %w
   store double %w1006, double* %256
-  call void @"V_COTHESINH@UUF"(<2 x double>* %p, <2 x double>* %255, double* %256)
+  call void @"V_SINH@UUF"(<2 x double>* %p, <2 x double>* %255, double* %256)
   %p1007 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9197,7 +9197,7 @@ true1010:                                         ; preds = %false1003
   store <2 x double> %_p1013, <2 x double>* %257
   %w1014 = load double, double* %w
   store double %w1014, double* %258
-  call void @"V_COTHECOSH@UUF"(<2 x double>* %p, <2 x double>* %257, double* %258)
+  call void @"V_COSH@UUF"(<2 x double>* %p, <2 x double>* %257, double* %258)
   %p1015 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9211,7 +9211,7 @@ true1018:                                         ; preds = %false1011
   store <2 x double> %_p1021, <2 x double>* %259
   %w1022 = load double, double* %w
   store double %w1022, double* %260
-  call void @"V_COTHETANH@UUF"(<2 x double>* %p, <2 x double>* %259, double* %260)
+  call void @"V_TANH@UUF"(<2 x double>* %p, <2 x double>* %259, double* %260)
   %p1023 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9225,7 +9225,7 @@ true1026:                                         ; preds = %false1019
   store <2 x double> %_p1029, <2 x double>* %261
   %w1030 = load double, double* %w
   store double %w1030, double* %262
-  call void @"V_COTHESECH@UUF"(<2 x double>* %p, <2 x double>* %261, double* %262)
+  call void @"V_SECH@UUF"(<2 x double>* %p, <2 x double>* %261, double* %262)
   %p1031 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9239,7 +9239,7 @@ true1034:                                         ; preds = %false1027
   store <2 x double> %_p1037, <2 x double>* %263
   %w1038 = load double, double* %w
   store double %w1038, double* %264
-  call void @"V_COTHECSCH@UUF"(<2 x double>* %p, <2 x double>* %263, double* %264)
+  call void @"V_CSCH@UUF"(<2 x double>* %p, <2 x double>* %263, double* %264)
   %p1039 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -9253,7 +9253,7 @@ true1042:                                         ; preds = %false1035
   store <2 x double> %_p1045, <2 x double>* %265
   %w1046 = load double, double* %w
   store double %w1046, double* %266
-  call void @"V_COTHECOTH@UUF"(<2 x double>* %p, <2 x double>* %265, double* %266)
+  call void @"V_COTH@UUF"(<2 x double>* %p, <2 x double>* %265, double* %266)
   %p1047 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10231,7 +10231,7 @@ true396:                                          ; preds = %false389
   store <2 x double> %pos1, <2 x double>* %94
   %w400 = load double, double* %w
   store double %w400, double* %95
-  call void @"V_COTHEEXP@UUF"(<2 x double>* %p, <2 x double>* %94, double* %95)
+  call void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %94, double* %95)
   %p401 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10244,7 +10244,7 @@ true404:                                          ; preds = %false397
   store <2 x double> %pos1, <2 x double>* %96
   %w408 = load double, double* %w
   store double %w408, double* %97
-  call void @"V_COTHELOG@UUF"(<2 x double>* %p, <2 x double>* %96, double* %97)
+  call void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %96, double* %97)
   %p409 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10257,7 +10257,7 @@ true412:                                          ; preds = %false405
   store <2 x double> %pos1, <2 x double>* %98
   %w416 = load double, double* %w
   store double %w416, double* %99
-  call void @"V_COTHESIN@UUF"(<2 x double>* %p, <2 x double>* %98, double* %99)
+  call void @"V_SIN@UUF"(<2 x double>* %p, <2 x double>* %98, double* %99)
   %p417 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10270,7 +10270,7 @@ true420:                                          ; preds = %false413
   store <2 x double> %pos1, <2 x double>* %100
   %w424 = load double, double* %w
   store double %w424, double* %101
-  call void @"V_COTHECOS@UUF"(<2 x double>* %p, <2 x double>* %100, double* %101)
+  call void @"V_COS@UUF"(<2 x double>* %p, <2 x double>* %100, double* %101)
   %p425 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10283,7 +10283,7 @@ true428:                                          ; preds = %false421
   store <2 x double> %pos1, <2 x double>* %102
   %w432 = load double, double* %w
   store double %w432, double* %103
-  call void @"V_COTHETAN@UUF"(<2 x double>* %p, <2 x double>* %102, double* %103)
+  call void @"V_TAN@UUF"(<2 x double>* %p, <2 x double>* %102, double* %103)
   %p433 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10296,7 +10296,7 @@ true436:                                          ; preds = %false429
   store <2 x double> %pos1, <2 x double>* %104
   %w439 = load double, double* %w
   store double %w439, double* %105
-  call void @"V_COTHESEC@UUF"(<2 x double>* %p, <2 x double>* %104, double* %105)
+  call void @"V_SEC@UUF"(<2 x double>* %p, <2 x double>* %104, double* %105)
   %p440 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10304,7 +10304,7 @@ true443:                                          ; preds = %false360
   store <2 x double> %pos1, <2 x double>* %106
   %w446 = load double, double* %w
   store double %w446, double* %107
-  call void @"V_COTHECSC@UUF"(<2 x double>* %p, <2 x double>* %106, double* %107)
+  call void @"V_CSC@UUF"(<2 x double>* %p, <2 x double>* %106, double* %107)
   %p447 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10317,7 +10317,7 @@ true450:                                          ; preds = %end444
   store <2 x double> %pos1, <2 x double>* %108
   %w454 = load double, double* %w
   store double %w454, double* %109
-  call void @"V_COTHECOT@UUF"(<2 x double>* %p, <2 x double>* %108, double* %109)
+  call void @"V_COT@UUF"(<2 x double>* %p, <2 x double>* %108, double* %109)
   %p455 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10330,7 +10330,7 @@ true458:                                          ; preds = %false451
   store <2 x double> %pos1, <2 x double>* %110
   %w462 = load double, double* %w
   store double %w462, double* %111
-  call void @"V_COTHESINH@UUF"(<2 x double>* %p, <2 x double>* %110, double* %111)
+  call void @"V_SINH@UUF"(<2 x double>* %p, <2 x double>* %110, double* %111)
   %p463 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10343,7 +10343,7 @@ true466:                                          ; preds = %false459
   store <2 x double> %pos1, <2 x double>* %112
   %w470 = load double, double* %w
   store double %w470, double* %113
-  call void @"V_COTHECOSH@UUF"(<2 x double>* %p, <2 x double>* %112, double* %113)
+  call void @"V_COSH@UUF"(<2 x double>* %p, <2 x double>* %112, double* %113)
   %p471 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10356,7 +10356,7 @@ true474:                                          ; preds = %false467
   store <2 x double> %pos1, <2 x double>* %114
   %w478 = load double, double* %w
   store double %w478, double* %115
-  call void @"V_COTHETANH@UUF"(<2 x double>* %p, <2 x double>* %114, double* %115)
+  call void @"V_TANH@UUF"(<2 x double>* %p, <2 x double>* %114, double* %115)
   %p479 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10369,7 +10369,7 @@ true482:                                          ; preds = %false475
   store <2 x double> %pos1, <2 x double>* %116
   %w486 = load double, double* %w
   store double %w486, double* %117
-  call void @"V_COTHESECH@UUF"(<2 x double>* %p, <2 x double>* %116, double* %117)
+  call void @"V_SECH@UUF"(<2 x double>* %p, <2 x double>* %116, double* %117)
   %p487 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10382,7 +10382,7 @@ true490:                                          ; preds = %false483
   store <2 x double> %pos1, <2 x double>* %118
   %w494 = load double, double* %w
   store double %w494, double* %119
-  call void @"V_COTHECSCH@UUF"(<2 x double>* %p, <2 x double>* %118, double* %119)
+  call void @"V_CSCH@UUF"(<2 x double>* %p, <2 x double>* %118, double* %119)
   %p495 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -10395,7 +10395,7 @@ true498:                                          ; preds = %false491
   store <2 x double> %pos1, <2 x double>* %120
   %w502 = load double, double* %w
   store double %w502, double* %121
-  call void @"V_COTHECOTH@UUF"(<2 x double>* %p, <2 x double>* %120, double* %121)
+  call void @"V_COTH@UUF"(<2 x double>* %p, <2 x double>* %120, double* %121)
   %p503 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12139,7 +12139,7 @@ true915:                                          ; preds = %false900
   store <2 x double> %_p918, <2 x double>* %238
   %w919 = load double, double* %w
   store double %w919, double* %239
-  call void @"V_COTHEEXP@UUF"(<2 x double>* %p, <2 x double>* %238, double* %239)
+  call void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %238, double* %239)
   %p920 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12153,7 +12153,7 @@ true923:                                          ; preds = %false916
   store <2 x double> %_p926, <2 x double>* %240
   %w927 = load double, double* %w
   store double %w927, double* %241
-  call void @"V_COTHELOG@UUF"(<2 x double>* %p, <2 x double>* %240, double* %241)
+  call void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %240, double* %241)
   %p928 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12167,7 +12167,7 @@ true931:                                          ; preds = %false924
   store <2 x double> %_p934, <2 x double>* %242
   %w935 = load double, double* %w
   store double %w935, double* %243
-  call void @"V_COTHESIN@UUF"(<2 x double>* %p, <2 x double>* %242, double* %243)
+  call void @"V_SIN@UUF"(<2 x double>* %p, <2 x double>* %242, double* %243)
   %p936 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12181,7 +12181,7 @@ true939:                                          ; preds = %false932
   store <2 x double> %_p942, <2 x double>* %244
   %w943 = load double, double* %w
   store double %w943, double* %245
-  call void @"V_COTHECOS@UUF"(<2 x double>* %p, <2 x double>* %244, double* %245)
+  call void @"V_COS@UUF"(<2 x double>* %p, <2 x double>* %244, double* %245)
   %p944 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12195,7 +12195,7 @@ true947:                                          ; preds = %false940
   store <2 x double> %_p950, <2 x double>* %246
   %w951 = load double, double* %w
   store double %w951, double* %247
-  call void @"V_COTHETAN@UUF"(<2 x double>* %p, <2 x double>* %246, double* %247)
+  call void @"V_TAN@UUF"(<2 x double>* %p, <2 x double>* %246, double* %247)
   %p952 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12209,7 +12209,7 @@ true955:                                          ; preds = %false948
   store <2 x double> %_p957, <2 x double>* %248
   %w958 = load double, double* %w
   store double %w958, double* %249
-  call void @"V_COTHESEC@UUF"(<2 x double>* %p, <2 x double>* %248, double* %249)
+  call void @"V_SEC@UUF"(<2 x double>* %p, <2 x double>* %248, double* %249)
   %p959 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12218,7 +12218,7 @@ true962:                                          ; preds = %false760
   store <2 x double> %_p965, <2 x double>* %250
   %w966 = load double, double* %w
   store double %w966, double* %251
-  call void @"V_COTHECSC@UUF"(<2 x double>* %p, <2 x double>* %250, double* %251)
+  call void @"V_CSC@UUF"(<2 x double>* %p, <2 x double>* %250, double* %251)
   %p967 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12232,7 +12232,7 @@ true970:                                          ; preds = %false963
   store <2 x double> %_p973, <2 x double>* %252
   %w974 = load double, double* %w
   store double %w974, double* %253
-  call void @"V_COTHECOT@UUF"(<2 x double>* %p, <2 x double>* %252, double* %253)
+  call void @"V_COT@UUF"(<2 x double>* %p, <2 x double>* %252, double* %253)
   %p975 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12246,7 +12246,7 @@ true978:                                          ; preds = %false971
   store <2 x double> %_p981, <2 x double>* %254
   %w982 = load double, double* %w
   store double %w982, double* %255
-  call void @"V_COTHESINH@UUF"(<2 x double>* %p, <2 x double>* %254, double* %255)
+  call void @"V_SINH@UUF"(<2 x double>* %p, <2 x double>* %254, double* %255)
   %p983 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12260,7 +12260,7 @@ true986:                                          ; preds = %false979
   store <2 x double> %_p989, <2 x double>* %256
   %w990 = load double, double* %w
   store double %w990, double* %257
-  call void @"V_COTHECOSH@UUF"(<2 x double>* %p, <2 x double>* %256, double* %257)
+  call void @"V_COSH@UUF"(<2 x double>* %p, <2 x double>* %256, double* %257)
   %p991 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12274,7 +12274,7 @@ true994:                                          ; preds = %false987
   store <2 x double> %_p997, <2 x double>* %258
   %w998 = load double, double* %w
   store double %w998, double* %259
-  call void @"V_COTHETANH@UUF"(<2 x double>* %p, <2 x double>* %258, double* %259)
+  call void @"V_TANH@UUF"(<2 x double>* %p, <2 x double>* %258, double* %259)
   %p999 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12288,7 +12288,7 @@ true1002:                                         ; preds = %false995
   store <2 x double> %_p1005, <2 x double>* %260
   %w1006 = load double, double* %w
   store double %w1006, double* %261
-  call void @"V_COTHESECH@UUF"(<2 x double>* %p, <2 x double>* %260, double* %261)
+  call void @"V_SECH@UUF"(<2 x double>* %p, <2 x double>* %260, double* %261)
   %p1007 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12302,7 +12302,7 @@ true1010:                                         ; preds = %false1003
   store <2 x double> %_p1013, <2 x double>* %262
   %w1014 = load double, double* %w
   store double %w1014, double* %263
-  call void @"V_COTHECSCH@UUF"(<2 x double>* %p, <2 x double>* %262, double* %263)
+  call void @"V_CSCH@UUF"(<2 x double>* %p, <2 x double>* %262, double* %263)
   %p1015 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12316,7 +12316,7 @@ true1018:                                         ; preds = %false1011
   store <2 x double> %_p1021, <2 x double>* %264
   %w1022 = load double, double* %w
   store double %w1022, double* %265
-  call void @"V_COTHECOTH@UUF"(<2 x double>* %p, <2 x double>* %264, double* %265)
+  call void @"V_COTH@UUF"(<2 x double>* %p, <2 x double>* %264, double* %265)
   %p1023 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12499,7 +12499,7 @@ UnifiedReturnBlock:                               ; preds = %true1136, %true1128
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TheFractalFlameAlgorithm@I[SI[F[FFFFV"(i64* %_bound_ptnum, i8*** %_bound_sIDX, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
+define private void @"_TheFractalFlameAlgorithm@[SII[F[FFFFV"(i8*** %_bound_sIDX, i64* %_bound_ptnum, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
   %tmp = alloca <2 x double>
   %GEM = alloca %gem
@@ -12617,7 +12617,7 @@ __llvm_entry:
   %105 = alloca i64
   store <2 x double> zeroinitializer, <2 x double>* %tmp, !vex-initializer-store !3
   %_bound_sIDX1 = load i8**, i8*** %_bound_sIDX
-  %GEM2 = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF"()
+  %GEM2 = call %gem @"gem@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN4fv1tIN4fv2tIN4fv3tIN4fp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN4fv1wFN4fv2wFN4fv3wFN4fp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF"()
   %GEM2.fca.0.extract = extractvalue %gem %GEM2, 0
   %GEM2.fca.0.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 0
   store i64 %GEM2.fca.0.extract, i64* %GEM2.fca.0.gep
@@ -12763,7 +12763,7 @@ __llvm_entry:
   %GEM2.fca.47.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 47
   store double %GEM2.fca.47.extract, double* %GEM2.fca.47.gep
   store i8** %_bound_sIDX1, i8*** %0
-  call void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN5ffv1tIN5ffv2tIN5ffv3tIN5ffp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN5ffv1wFN5ffv2wFN5ffv3wFN5ffp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF[S"(%gem* %GEM, i8*** %0)
+  call void @"gemBuild@Z3gemM48N2TMIN2FFIN3PFFIN3RIPIN2SMIN4iterIN3smmIN2MBIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3ppt[IN3PPL[IN4fv1tIN4fv2tIN4fv3tIN4fp1tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3p1w[FN3pbw[FN3ppw[FN3CLR[FN2OM[FN1A[FN4fv1wFN4fv2wFN4fv3wFN4fp1wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUN4TMm22N3mbmF[S"(%gem* %GEM, i8*** %0)
   %GEM4.fca.0.load = load i64, i64* %GEM2.fca.0.gep
   %GEM4.fca.0.insert = insertvalue %gem undef, i64 %GEM4.fca.0.load, 0
   %GEM4.fca.1.load = load i64, i64* %GEM2.fca.1.gep
@@ -15103,14 +15103,14 @@ declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #3
 declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind
-define void @TheFractalFlameAlgorithm(i64 %ptnum, i8** %sIDX, i64 %XS, double* %IW, double* %XST, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
+define void @TheFractalFlameAlgorithm(i8** %sIDX, i64 %ptnum, i64 %XS, double* %IW, double* %XST, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<clr>" = alloca double
   %"<Alpha>" = alloca double
   %"<P>" = alloca <3 x double>
-  %0 = alloca i64
-  %1 = alloca i8**
+  %0 = alloca i8**
+  %1 = alloca i64
   %2 = alloca i64
   %3 = alloca double*
   %4 = alloca double*
@@ -15118,12 +15118,12 @@ __llvm_entry:
   store double %clr, double* %"<clr>"
   store double %Alpha, double* %"<Alpha>"
   store <3 x double> %P, <3 x double>* %"<P>"
-  store i64 %ptnum, i64* %0
-  store i8** %sIDX, i8*** %1
+  store i8** %sIDX, i8*** %0
+  store i64 %ptnum, i64* %1
   store i64 %XS, i64* %2
   store double* %IW, double** %3
   store double* %XST, double** %4
-  call void @"_TheFractalFlameAlgorithm@I[SI[F[FFFFV"(i64* %0, i8*** %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
+  call void @"_TheFractalFlameAlgorithm@[SII[F[FFFFV"(i8*** %0, i64* %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
   %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @166, i64 0, i64 0), i64 %ptnum) #4
   %evalue6 = load double, double* %"<pscale>"
   %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @167, i64 0, i64 0), double %evalue6) #4
@@ -15149,7 +15149,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TheFractalFlameAlgorithm(i64 0, i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @161, i64 0, i64 0), i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
+  call void @TheFractalFlameAlgorithm(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @161, i64 0, i64 0), i64 0, i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
   ret void
 }
 

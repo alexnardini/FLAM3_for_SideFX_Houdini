@@ -412,61 +412,61 @@ vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; co
                 return p; }
             // 80 COTHE EXP
             else if(T==80){
-                V_COTHEEXP(p, _p, w);
+                V_EXP(p, _p, w);
                 return p; }
             // 81 COTHE LOG
             else if(T==81){
-                V_COTHELOG(p, _p, w);
+                V_LOG(p, _p, w);
                 return p; }
             // 82 COTHE SIN
             else if(T==82){
-                V_COTHESIN(p, _p, w);
+                V_SIN(p, _p, w);
                 return p; }
             // 83 COTHE COS
             else if(T==83){
-                V_COTHECOS(p, _p, w);
+                V_COS(p, _p, w);
                 return p; }
             // 84 COTHE TAN
             else if(T==84){
-                V_COTHETAN(p, _p, w);
+                V_TAN(p, _p, w);
                 return p; }
             // 85 COTHE SEC
             else if(T==85){
-                V_COTHESEC(p, _p, w);
+                V_SEC(p, _p, w);
                 return p; }
         }
         else{
             // 86 COTHE CSC
             if(T==86){
-                V_COTHECSC(p, _p, w);
+                V_CSC(p, _p, w);
                 return p; }
             // 87 COTHE COT
             else if(T==87){
-                V_COTHECOT(p, _p, w);
+                V_COT(p, _p, w);
                 return p; }
             // 88 COTHE SINH
             else if(T==88){
-                V_COTHESINH(p, _p, w);
+                V_SINH(p, _p, w);
                 return p; }
             // 89 COTHE COSH
             else if(T==89){
-                V_COTHECOSH(p, _p, w);
+                V_COSH(p, _p, w);
                 return p; }
             // 90 COTHE TANH
             else if(T==90){
-                V_COTHETANH(p, _p, w);
+                V_TANH(p, _p, w);
                 return p; }
             // 91 COTHE SECH
             else if(T==91){
-                V_COTHESECH(p, _p, w);
+                V_SECH(p, _p, w);
                 return p; }
             // 92 COTHE CSCH
             else if(T==92){
-                V_COTHECSCH(p, _p, w);
+                V_CSCH(p, _p, w);
                 return p; }
             // 93 COTHE COTH
             else if(T==93){
-                V_COTHECOTH(p, _p, w);
+                V_COTH(p, _p, w);
                 return p; }
             // 94 AUGER ( parametric )
             else if(T==94){

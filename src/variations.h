@@ -943,7 +943,7 @@ void V_WAVES2(vector2 p; const vector2 _p; const float w; const vector2 scl, fre
     p[1] = w*(_p[1] + scl[1]*sin(_p[0]*freq[1]));
 }
 // 80
-void V_COTHEEXP(vector2 p; const vector2 _p; const float w){
+void V_EXP(vector2 p; const vector2 _p; const float w){
     float expe, expz, expsin, expcos;
     expe = exp(_p[0]);
     sincos(p[1], expsin, expcos);
@@ -951,12 +951,12 @@ void V_COTHEEXP(vector2 p; const vector2 _p; const float w){
     p[1] = w * expe * expsin;
 }
 // 81
-void V_COTHELOG(vector2 p; const vector2 _p; const float w){
+void V_LOG(vector2 p; const vector2 _p; const float w){
     p[0] = w * 0.5 * log(SUMSQ(_p));
     p[1] = w * ATANYX(_p);
 }
 // 82
-void V_COTHESIN(vector2 p; const vector2 _p; const float w){
+void V_SIN(vector2 p; const vector2 _p; const float w){
     float sinsin, sinacos, sinsinh, sincosh;
     sincos(_p[0], sinsin, sinacos);
     sinsinh = sinh(_p[1]);
@@ -965,7 +965,7 @@ void V_COTHESIN(vector2 p; const vector2 _p; const float w){
     p[1] = w * sinacos * sinsinh;
 }
 // 83
-void V_COTHECOS(vector2 p; const vector2 _p; const float w){
+void V_COS(vector2 p; const vector2 _p; const float w){
     float cossin, coscos, cossinh, coscosh;
     sincos(_p[0], cossin, coscos);
     cossinh = sinh(_p[1]);
@@ -974,7 +974,7 @@ void V_COTHECOS(vector2 p; const vector2 _p; const float w){
     p[1] = w * cossin * cossinh;
 }
 // 84
-void V_COTHETAN(vector2 p; const vector2 _p; const float w){
+void V_TAN(vector2 p; const vector2 _p; const float w){
     float tansin, tancos, tansinh, tancosh, tanden;
     sincos(2*_p[0], tansin, tancos);
     tansinh = sinh(2.0*_p[1]);
@@ -984,7 +984,7 @@ void V_COTHETAN(vector2 p; const vector2 _p; const float w){
     p[1] = w * tanden * tancosh;
 }
 // 85
-void V_COTHESEC(vector2 p; const vector2 _p; const float w){
+void V_SEC(vector2 p; const vector2 _p; const float w){
     float secsin, seccos, secsinh, seccosh, secden;
     sincos(_p[0], secsin, seccos);
     secsinh = sinh(_p[1]);
@@ -994,7 +994,7 @@ void V_COTHESEC(vector2 p; const vector2 _p; const float w){
     p[1] = w * secden * secsin * secsinh;
 }
 // 86
-void V_COTHECSC(vector2 p; const vector2 _p; const float w){
+void V_CSC(vector2 p; const vector2 _p; const float w){
     float cscsin, csccos, cscsinh, csccosh, cscden;
     sincos(p[0], cscsin, csccos);
     cscsinh = sinh(_p[1]);
@@ -1004,7 +1004,7 @@ void V_COTHECSC(vector2 p; const vector2 _p; const float w){
     p[1] = w * cscden * csccos * cscsinh;
 }
 // 87
-void V_COTHECOT(vector2 p; const vector2 _p; const float w){
+void V_COT(vector2 p; const vector2 _p; const float w){
     float cotsin, cotcos, cotsinh, cotcosh, cotden;
     sincos(2.0*_p[0], cotsin, cotcos);
     cotsinh = sinh(2.0*_p[1]);
@@ -1014,7 +1014,7 @@ void V_COTHECOT(vector2 p; const vector2 _p; const float w){
     p[1] = w * cotden * -1 * cotsinh;
 }
 // 88
-void V_COTHESINH(vector2 p; const vector2 _p; const float w){
+void V_SINH(vector2 p; const vector2 _p; const float w){
     float sinhsin, sinhcos, sinhsinh, sinhcosh;
     sincos(_p[1], sinhsin, sinhcos);
     sinhsinh = sinh(_p[0]);
@@ -1023,7 +1023,7 @@ void V_COTHESINH(vector2 p; const vector2 _p; const float w){
     p[1] = w * sinhcosh * sinhsin;
 }
 // 89
-void V_COTHECOSH(vector2 p; const vector2 _p; const float w){
+void V_COSH(vector2 p; const vector2 _p; const float w){
     float coshsin, coshcos, coshsinh, coshcosh;
     sincos(_p[1], coshsin, coshcos);
     coshsinh = sinh(_p[0]);
@@ -1032,7 +1032,7 @@ void V_COTHECOSH(vector2 p; const vector2 _p; const float w){
     p[1] = w * coshsinh * coshsin;
 }
 // 90
-void V_COTHETANH(vector2 p; const vector2 _p; const float w){
+void V_TANH(vector2 p; const vector2 _p; const float w){
     float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden;
     sincos(2.0*_p[1], tanhsin, tanhcos);
     tanhsinh = sinh(_p[0]);
@@ -1042,7 +1042,7 @@ void V_COTHETANH(vector2 p; const vector2 _p; const float w){
     p[1] = w * tanhden * tanhsin;
 }
 // 91
-void V_COTHESECH(vector2 p; const vector2 _p; const float w){
+void V_SECH(vector2 p; const vector2 _p; const float w){
     float sechsin, sechcos, sechsinh, sechcosh, sechden;
     sincos(_p[1], sechsin, sechcos);
     sechsinh = sinh(_p[0]);
@@ -1052,7 +1052,7 @@ void V_COTHESECH(vector2 p; const vector2 _p; const float w){
     p[1] = w * sechden * sechsin * sechsinh;
 }
 // 92
-void V_COTHECSCH(vector2 p; const vector2 _p; const float w){
+void V_CSCH(vector2 p; const vector2 _p; const float w){
     float cschsin, cschcos, cschsinh, cschcosh, cschden;
     sincos(_p[1], cschsin, cschcos);
     cschsinh = sinh(_p[0]);
@@ -1062,7 +1062,7 @@ void V_COTHECSCH(vector2 p; const vector2 _p; const float w){
     p[1] = w * cschden * cschcosh * cschsin;
 }
 // 93
-void V_COTHECOTH(vector2 p; const vector2 _p; const float w){
+void V_COTH(vector2 p; const vector2 _p; const float w){
     float cothsin, cothcos, cothsinh, cothcosh, cothden;
     sincos(2.0*_p[1], cothsin, cothcos);
     cothsinh = sinh(2.0*_p[0]);
