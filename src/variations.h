@@ -892,7 +892,7 @@ void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist
     p[1] = rr * sa;
 }
 // 76 L ( parametric )
-void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, dist, count; const vector precalc){
+void V_WEDGEJULIA_L(vector2 p; const vector2 _p; const float w, power, angle, dist, count; const vector precalc){
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
     // precalc
     wedgeJulia_cf = precalc[0];

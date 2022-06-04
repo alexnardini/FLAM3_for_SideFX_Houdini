@@ -391,7 +391,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; co
                 vector4 wedgejulia = GMP.wedgejulia[idx];
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 // vector precalc = GMP.pc_WEDGEJULIA[idx];
-                // V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3], precalc);
+                // V_WEDGEJULIA_L(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3], precalc);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(T==77){

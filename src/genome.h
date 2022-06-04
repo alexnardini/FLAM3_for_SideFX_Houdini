@@ -38,8 +38,8 @@ struct gem{
         PFF  = chi("../_dofpost_2");
         RIP  = chi("../delinvalidpt");
         SM   = chi("../symmetry");
-        iter = chi("../iter");
         MB   = chi("../domb");
+        iter = chi("../iter");
         if(SM) smm = chi("../rotational");
         if(MB) mbm = detail(1, "Tstep_mult", 0);
 
