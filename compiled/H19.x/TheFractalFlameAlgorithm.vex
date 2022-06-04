@@ -11,8 +11,8 @@ source_filename = "TheFractalFlameAlgorithm"
 @3 = private constant [14 x i8] c"../_dofpost_2\00"
 @4 = private constant [16 x i8] c"../delinvalidpt\00"
 @5 = private constant [12 x i8] c"../symmetry\00"
-@6 = private constant [8 x i8] c"../iter\00"
-@7 = private constant [8 x i8] c"../domb\00"
+@6 = private constant [8 x i8] c"../domb\00"
+@7 = private constant [8 x i8] c"../iter\00"
 @8 = private constant [14 x i8] c"../rotational\00"
 @9 = private constant [11 x i8] c"Tstep_mult\00"
 @10 = private constant [8 x i8] c"../clr_\00"
@@ -654,9 +654,9 @@ __llvm_entry:
   %return7 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @5, i64 0, i64 0))
   %16 = insertvalue %gem %15, i64 %return7, 4
   %return9 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @6, i64 0, i64 0))
-  %17 = insertvalue %gem %16, i64 %return9, 5
+  %17 = insertvalue %gem %16, i64 %return9, 7
   %return11 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @7, i64 0, i64 0))
-  %18 = insertvalue %gem %17, i64 %return11, 7
+  %18 = insertvalue %gem %17, i64 %return11, 5
   store %gem %18, %gem* %this
   %19 = icmp ne i64 %return7, 0
   br i1 %19, label %true, label %end
