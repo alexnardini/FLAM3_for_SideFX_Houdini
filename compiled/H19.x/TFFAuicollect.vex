@@ -109,10 +109,10 @@ source_filename = "TFFAuicollect"
 @104 = private constant [16 x i8] c"../dofinalflame\00"
 @105 = private constant [14 x i8] c"../dotmglobal\00"
 @106 = private constant [12 x i8] c"../symmetry\00"
-@107 = private constant [13 x i8] c"../flamefunc\00"
-@108 = private constant [8 x i8] c"../iter\00"
-@109 = private constant [14 x i8] c"../rotational\00"
-@110 = private constant [8 x i8] c"../domb\00"
+@107 = private constant [8 x i8] c"../domb\00"
+@108 = private constant [13 x i8] c"../flamefunc\00"
+@109 = private constant [8 x i8] c"../iter\00"
+@110 = private constant [14 x i8] c"../rotational\00"
 @111 = private constant [2 x i8] c"[\00"
 @112 = private constant [2 x i8] c"]\00"
 @113 = private constant [3 x i8] c"XS\00"
@@ -161,11 +161,11 @@ __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @104, i64 0, i64 0))
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @105, i64 0, i64 0))
   %return2 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @106, i64 0, i64 0))
-  %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @107, i64 0, i64 0))
-  %return4 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @108, i64 0, i64 0))
-  %return5 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @109, i64 0, i64 0))
-  %return6 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @110, i64 0, i64 0))
-  %return9 = call i8* @"itoa@SI"(i64 %return4)
+  %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @107, i64 0, i64 0))
+  %return4 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @108, i64 0, i64 0))
+  %return5 = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @109, i64 0, i64 0))
+  %return6 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @110, i64 0, i64 0))
+  %return9 = call i8* @"itoa@SI"(i64 %return5)
   %return10 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @111, i64 0, i64 0), i8* %return9, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @112, i64 0, i64 0))
   %output = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @0, i64 0, i64 0), i8* %return10)
   %return11 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @113, i64 0, i64 0))
@@ -179,7 +179,7 @@ true:                                             ; preds = %__llvm_entry
 
 end:                                              ; preds = %true, %__llvm_entry
   %T.0 = phi i8** [ %output15, %true ], [ %output, %__llvm_entry ]
-  %1 = icmp ne i64 %return6, 0
+  %1 = icmp ne i64 %return3, 0
   br i1 %1, label %true17, label %end18
 
 true17:                                           ; preds = %end
@@ -192,7 +192,7 @@ end18:                                            ; preds = %true17, %end
   br i1 %2, label %true22, label %end23
 
 true22:                                           ; preds = %end18
-  %return25 = call i64 @"not@II"(i64 %return5)
+  %return25 = call i64 @"not@II"(i64 %return6)
   %3 = icmp ne i64 %return25, 0
   br i1 %3, label %true26, label %false
 
@@ -220,7 +220,7 @@ end34:                                            ; preds = %true33, %end23
 cond:                                             ; preds = %end51, %end34
   %i.0 = phi i64 [ 0, %end34 ], [ %output43, %end51 ]
   %T.4 = phi i8** [ %T.3, %end34 ], [ %output231, %end51 ]
-  %return39 = call i64 @"lt@III"(i64 %i.0, i64 %return3)
+  %return39 = call i64 @"lt@III"(i64 %i.0, i64 %return4)
   %5 = icmp ne i64 %return39, 0
   br i1 %5, label %body, label %end40
 
