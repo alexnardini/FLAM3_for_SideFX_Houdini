@@ -1,7 +1,7 @@
 # The Fractal Flame Algorithm
-![FLAM3 Houdini Cure image](https://github.com/alexnardini/FLAM3/blob/main/img/TheCURE_hd.jpg)
+![FLAM3 Houdini Cure image](https://github.com/alexnardini/FLAM3/blob/main/img/JulianSwirlsKarma.jpg)
 
-`The above image consist of 400M points and rendered with Houdini internal Mantra renderer. ( originally rendered at 4K resolution )`
+`The above image consist of 400M points and rendered with Houdini internal Karma renderer. ( originally rendered at 4K resolution )`
 
 ## FLAM3 for SideFX Houdini
 **[FLAM3HOUDINI website](https://www.alexnardini.net/)**
