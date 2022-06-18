@@ -209,7 +209,7 @@ cond67:                                           ; preds = %body68, %true59
 body68:                                           ; preds = %cond67
   %return76 = call i8* @"getcomp@S[SI"(i8** %output64, i64 %__impl_foreach_index.0)
   %return79 = call double @"atof@FS"(i8* %return76)
-  %return80 = call double @"max@FFF"(double %return79, double 1.000000e-10)
+  %return80 = call double @"max@FFF"(double %return79, double 0.000000e+00)
   %output81 = call double* @"append@[FF"(double* %xaos.1, double %return80)
   %output83 = add i64 %__impl_foreach_index.0, 1
   br label %cond67

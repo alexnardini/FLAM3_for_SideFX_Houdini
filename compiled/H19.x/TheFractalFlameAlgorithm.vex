@@ -1,6 +1,6 @@
-;_name	TheFractalFlameAlgorithm
-; ModuleID = 'TheFractalFlameAlgorithm'
-source_filename = "TheFractalFlameAlgorithm"
+;_name	FLAM3
+; ModuleID = 'FLAM3'
+source_filename = "FLAM3"
 
 %gem = type { i64, i64, i64, i64, i64, i64, i64, i64, i64, i64*, i64*, i64*, i64*, i64*, i64*, i64*, i64, i64, i64, i64, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double, double, double, double, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <4 x double>, double }
 %gemPrm = type { double*, double*, double*, double*, double*, double*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <3 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <4 x double>*, <3 x double>* }
@@ -12499,7 +12499,7 @@ UnifiedReturnBlock:                               ; preds = %true1136, %true1128
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TheFractalFlameAlgorithm@[SII[F[FFFFV"(i8*** %_bound_sIDX, i64* %_bound_ptnum, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
+define private void @"_FLAM3@[SII[F[FFFFV"(i8*** %_bound_sIDX, i64* %_bound_ptnum, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
   %tmp = alloca <2 x double>
   %GEM = alloca %gem
@@ -15103,7 +15103,7 @@ declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #3
 declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind
-define void @TheFractalFlameAlgorithm(i8** %sIDX, i64 %ptnum, i64 %XS, double* %IW, double* %XST, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
+define void @FLAM3(i8** %sIDX, i64 %ptnum, i64 %XS, double* %IW, double* %XST, double %pscale, double %clr, double %Alpha, <3 x double> %P) #3 {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<clr>" = alloca double
@@ -15123,7 +15123,7 @@ __llvm_entry:
   store i64 %XS, i64* %2
   store double* %IW, double** %3
   store double* %XST, double** %4
-  call void @"_TheFractalFlameAlgorithm@[SII[F[FFFFV"(i8*** %0, i64* %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
+  call void @"_FLAM3@[SII[F[FFFFV"(i8*** %0, i64* %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
   %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @166, i64 0, i64 0), i64 %ptnum) #4
   %evalue6 = load double, double* %"<pscale>"
   %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @167, i64 0, i64 0), double %evalue6) #4
@@ -15149,7 +15149,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TheFractalFlameAlgorithm(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @161, i64 0, i64 0), i64 0, i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
+  call void @FLAM3(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @161, i64 0, i64 0), i64 0, i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @53, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
   ret void
 }
 
