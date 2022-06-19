@@ -86,9 +86,9 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
 
 cvex
 TFFAvactive(export string sIDX[] = {};
-            export int XS        = 0;
-            export float IW[]    = {};
-            export float XST[]   = {};)
+            export int    XS     = 0;
+            export float  IW[]   = {};
+            export float  XST[]  = {};)
 {
     _TFFAvactive(sIDX, XS, IW, XST);
 }
