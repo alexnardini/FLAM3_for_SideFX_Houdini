@@ -64,9 +64,10 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
 
     for(int i=0; i<iter; ++i){
 
-        tmp=0;
         if(XS){ sl=idx*res; idx=sample_cdf(XST[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
+
+        tmp=0;
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
         if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, X, Y, O, ppw[idx]);
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);
