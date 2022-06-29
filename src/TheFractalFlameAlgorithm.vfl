@@ -58,9 +58,9 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
     p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
     // CHAOS game
+    vector2 mem=biunit();
     float IW[]=_bound_IW; int XS=_bound_XS;
     if(XS){ XST=_bound_XST; idx=sample_cdf(IW, nrandom('twister')); }
-    vector2 mem=biunit();
 
     for(int i=0; i<iter; ++i){
 
