@@ -23,11 +23,12 @@ and you can copy all values into FLAM3 for houdini to get the same result.
 
 ## Viewport live point cloud
 `Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
-![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
 ![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch_H19.jpg)
+![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 ## Karma interactive rendering
+![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/DDragon_Karma_UI.jpg)
 ![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/CosmicFlower_Karma_UI.jpg)
 ![FLAM3 Houdini Karma](https://github.com/alexnardini/FLAM3/blob/main/img/Medalion_Karma_UI.jpg)
 `Use Karma integrated renderer to interactively render the generated fractal flames in the Houdini's viewport.`
