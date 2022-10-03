@@ -41,15 +41,15 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
     string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(sIDX);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], res, iter, TM, FF, PFF, RIP, SM, MB, smm; res=GEM.res; iter=GEM.iter; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; ppt=GEM.ppt; PPL=GEM.PPL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; smm=GEM.smm;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], OM[], A[], mbm; v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A; mbm=GEM.mbm;
-    vector2 x[], y[], o[], px[], py[], po[]; x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], res, iter, TM, FF, PFF, RIP, SM, MB, smm; /* CAST */ res=GEM.res; iter=GEM.iter; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; ppt=GEM.ppt; PPL=GEM.PPL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; smm=GEM.smm;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], OM[], A[], mbm; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A; mbm=GEM.mbm;
+    vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast TM
     matrix2 TMm2=GEM.TMm2;
     // cast FF
-    int     fv1t, fv2t, fv3t, fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t;
-    float   fv1w, fv2w, fv3w, fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w;
-    vector2 fx, fy, fo, pfx, pfy, pfo; fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
+    int     fv1t, fv2t, fv3t, fp1t;     /* CAST */ fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t;
+    float   fv1w, fv2w, fv3w, fp1w;     /* CAST */ fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w;
+    vector2 fx, fy, fo, pfx, pfy, pfo;  /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
     v1GMP->gemPrmBuild(sIDX, res, v1t, v1w);
