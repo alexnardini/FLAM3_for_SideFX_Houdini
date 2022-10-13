@@ -1,6 +1,6 @@
-;_name	TFFAvactive
-; ModuleID = 'TFFAvactive'
-source_filename = "TFFAvactive"
+;_name	TFFAxaos
+; ModuleID = 'TFFAxaos'
+source_filename = "TFFAxaos"
 
 @0 = private constant [13 x i8] c"../flamefunc\00"
 @1 = private constant [0 x i64] zeroinitializer
@@ -108,7 +108,7 @@ declare double @"getcomp@F[FI"(double*, i64) #0
 declare double* @"append@[FF"(double*, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAvactive@[SI[F[F"(i8*** %_bound_sIDX, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST) #2 {
+define private void @"_TFFAxaos@[SI[F[F"(i8*** %_bound_sIDX, i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST) #2 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i64 0, i64 0))
   br label %cond
@@ -366,7 +366,7 @@ declare double* @"create_cdf@[F[F"(double*) #0
 declare double* @"append@[F[F"(double*, double*) #1
 
 ; Function Attrs: nounwind
-define void @TFFAvactive(i8** %sIDX, i64 %XS, double* %IW, double* %XST) #1 {
+define void @TFFAxaos(i8** %sIDX, i64 %XS, double* %IW, double* %XST) #1 {
 __llvm_entry:
   %"<XS>" = alloca i64
   %"<IW>" = alloca double*
@@ -376,7 +376,7 @@ __llvm_entry:
   store i64 %XS, i64* %"<XS>"
   store double* %IW, double** %"<IW>"
   store double* %XST, double** %"<XST>"
-  call void @"_TFFAvactive@[SI[F[F"(i8*** %"<sIDX>", i64* %"<XS>", double** %"<IW>", double** %"<XST>")
+  call void @"_TFFAxaos@[SI[F[F"(i8*** %"<sIDX>", i64* %"<XS>", double** %"<IW>", double** %"<XST>")
   %evalue = load i8**, i8*** %"<sIDX>"
   %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0), i8** %evalue) #3
   %evalue1 = load i64, i64* %"<XS>"
@@ -400,7 +400,7 @@ declare double* @"_export@[FS[F"(i8*, double*)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAvactive(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @2, i64 0, i64 0), i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0))
+  call void @TFFAxaos(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @2, i64 0, i64 0), i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @3, i64 0, i64 0))
   ret void
 }
 
@@ -414,7 +414,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"19.0.622"}
+!1 = !{!"19.5.399"}
 !2 = !{!"64"}
 
 ;_code_end

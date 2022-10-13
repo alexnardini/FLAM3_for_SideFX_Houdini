@@ -25,7 +25,7 @@
 
 
 void
-_TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
+_TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
 {
     int inum = chi("../flamefunc");
     int va[];
@@ -85,10 +85,10 @@ _TFFAvactive(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[
 }
 
 cvex
-TFFAvactive(export string sIDX[] = {};
+TFFAxaos(export string sIDX[] = {};
             export int    XS     = 0;
             export float  IW[]   = {};
             export float  XST[]  = {};)
 {
-    _TFFAvactive(sIDX, XS, IW, XST);
+    _TFFAxaos(sIDX, XS, IW, XST);
 }
