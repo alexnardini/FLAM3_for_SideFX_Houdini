@@ -64,7 +64,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
 
     for(int i=0; i<iter; ++i){
 
-        // THIS DO NOT WORK
+        // This do not work fully due to a bug submitted on Oct 10 2022 as: bug (ID# 124486)
         if(XS){ sl=idx*res; idx=sample_cdf(XST[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
 
