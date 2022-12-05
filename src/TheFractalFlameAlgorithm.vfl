@@ -52,12 +52,12 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
     vector2 fx, fy, fo, pfx, pfy, pfo;  /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
     gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP, p2GMP;
+    p2GMP->gemPrmBuild(sIDX, res, p2t, p2w);
     v1GMP->gemPrmBuild(sIDX, res, v1t, v1w);
     v2GMP->gemPrmBuild(sIDX, res, v2t, v2w);
     v3GMP->gemPrmBuild(sIDX, res, v3t, v3w);
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
     p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
-    p2GMP->gemPrmBuild(sIDX, res, p2t, p2w);
     // CHAOS game
     vector2 mem=biunit();
     float IW[]=_bound_IW; int XS=_bound_XS;
@@ -72,7 +72,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
         if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, X, Y, O, ppw[idx]);
         if(p2w[idx]!=0) mem  = FLAME(p2GMP, idx, p2t[idx], mem, X, Y, O, p2w[idx]);
-        
+
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], mem, x[idx], y[idx], o[idx], v3w[idx]);
