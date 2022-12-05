@@ -41,22 +41,23 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
     string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(sIDX);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], res, iter, TM, FF, PFF, RIP, SM, MB, smm; /* CAST */ res=GEM.res; iter=GEM.iter; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; ppt=GEM.ppt; PPL=GEM.PPL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; smm=GEM.smm;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], _CLR[], OM[], A[], mbm; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A; mbm=GEM.mbm;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], res, iter, TM, FF, PFF, RIP, SM, MB, smm; /* CAST */ res=GEM.res; iter=GEM.iter; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; ppt=GEM.ppt; PPL=GEM.PPL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; smm=GEM.smm;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], pbw[], ppw[], _CLR[], OM[], A[], mbm; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A; mbm=GEM.mbm;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast TM
     matrix2 TMm2=GEM.TMm2;
     // cast FF
-    int     fv1t, fv2t, fv3t, fp1t;     /* CAST */ fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t;
-    float   fv1w, fv2w, fv3w, fp1w;     /* CAST */ fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w;
+    int     fv1t, fv2t, fv3t, fp1t, fp2t;     /* CAST */ fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t; fp2t=GEM.fp2t;
+    float   fv1w, fv2w, fv3w, fp1w, fp2w;     /* CAST */ fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w; fp2w=GEM.fp2w;
     vector2 fx, fy, fo, pfx, pfy, pfo;  /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
-    gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP;
+    gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP, p2GMP;
     v1GMP->gemPrmBuild(sIDX, res, v1t, v1w);
     v2GMP->gemPrmBuild(sIDX, res, v2t, v2w);
     v3GMP->gemPrmBuild(sIDX, res, v3t, v3w);
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
     p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
+    p2GMP->gemPrmBuild(sIDX, res, p2t, p2w);
     // CHAOS game
     vector2 mem=biunit();
     float IW[]=_bound_IW; int XS=_bound_XS;
@@ -64,18 +65,20 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
 
     for(int i=0; i<iter; ++i){
 
-        // This do not work fully due to a bug submitted to SideFX on Oct 10 2022 as: bug (ID# 124486)
         if(XS){ sl=idx*res; idx=sample_cdf(XST[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
 
         tmp=0;
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
         if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, X, Y, O, ppw[idx]);
+        if(p2w[idx]!=0) mem  = FLAME(p2GMP, idx, p2t[idx], mem, X, Y, O, p2w[idx]);
+        
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], mem, x[idx], y[idx], o[idx], v4w[idx]);
         if(p1w[idx]!=0) tmp  = FLAME(p1GMP, idx, p1t[idx], tmp, X, Y, O, p1w[idx]);
+        
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
         if(TM) tmp*=TMm2;
         prv_clr=clr=_CLR[idx]+OM[idx]*prv_clr;
@@ -89,6 +92,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
         if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, mem, fx, fy, fo, fv2w);
         if(fv3w!=0) tmp += FLAMEFF(FL, fv3t, mem, fx, fy, fo, fv3w);
         if(fp1w!=0) tmp  = FLAMEFF(FP, fp1t, tmp, X, Y, O, fp1w);
+        if(fp2w!=0) tmp  = FLAMEFF(FP, fp2t, tmp, X, Y, O, fp2w);
         if(PFF) affine(tmp, pfx, pfy, pfo);
         mem=tmp;
     }

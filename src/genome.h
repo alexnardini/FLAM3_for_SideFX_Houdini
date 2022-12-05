@@ -24,8 +24,8 @@
 struct gem{
 
     int     TM, FF, PFF, RIP, SM, iter, smm, MB,
-            res, v1t[], v2t[], v3t[], v4t[], p1t[], ppt[], PPL[], fv1t, fv2t, fv3t, fp1t;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], pbw[], ppw[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w;
+            res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], fv1t, fv2t, fv3t, fp1t, fp2t;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], pbw[], ppw[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w, fp2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
     float   mbm=1.0;
@@ -45,8 +45,8 @@ struct gem{
 
         // GENOME
         res = len(sIDX);
-        resize(v1t, res); v2t=v3t=v4t=p1t=ppt=PPL=v1t;
-        resize(v1w, res); v2w=v3w=v4w=p1w=pbw=ppw=CLR=OM=A=v1w;
+        resize(v1t, res); v2t=v3t=v4t=p1t=p2t=ppt=PPL=v1t;
+        resize(v1w, res); v2w=v3w=v4w=p1w=p2w=pbw=ppw=CLR=OM=A=v1w;
         resize(x,   res); y=o=px=py=po=x;
 
         float   _a, clr, spd, grt;
@@ -83,6 +83,9 @@ struct gem{
             // POST VAR 01
             p1w[i] = chf(concat("../p1weight_", idx));
             if(p1w[i]!=0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
+            // POST VAR 02
+            p2w[i] = chf(concat("../p2weight_", idx));
+            if(p2w[i]!=0) p2t[i]=atoi(chs(concat("../p2type_", idx)));
             // AFFINE
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));
@@ -121,6 +124,9 @@ struct gem{
             // // FF POST VAR 01
             fp1w = chf("../ffp1weight");
             if(fp1w!=0) fp1t = chi("../ffp1type");
+            // // FF POST VAR 02
+            fp2w = chf("../ffp2weight");
+            if(fp2w!=0) fp2t = chi("../ffp2type");
             // FF AFFINE
             _x = chu("../_fx_2");;
             _y = chu("../_fy_2");;
