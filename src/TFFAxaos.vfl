@@ -56,10 +56,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
         float xaos[];
         if(toupper(varxaos[0])=="XAOS"){
             pop(varxaos, 0);
-            foreach(string n; varxaos){
-                append(xaos, max(atof(n), 0));
-                //append(xaos, max(atof(n), EPS));
-            }
+            foreach(string n; varxaos){ append(xaos, max(atof(n), 0)); }
             resize(xaos, inum, 1);
         }
         else resize(xaos, inum, 1);
