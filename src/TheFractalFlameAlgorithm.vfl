@@ -34,7 +34,7 @@
 void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
-    int     sl, idx;
+    int     idx;
     float   pscl, clr, prv_clr, a, XST[]; prv_clr=0; pscl=PSCL;
     vector2 tmp;
     // Build genomes
@@ -47,63 +47,70 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
     // cast TM
     matrix2 TMm2=GEM.TMm2;
     // cast FF
-    int     fv1t, fv2t, fv3t, fp1t, fp2t;     /* CAST */ fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t; fp2t=GEM.fp2t;
-    float   fv1w, fv2w, fv3w, fp1w, fp2w;     /* CAST */ fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w; fp2w=GEM.fp2w;
-    vector2 fx, fy, fo, pfx, pfy, pfo;  /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
+    int     fv1t, fv2t, fv3t, fp1t, fp2t; /* CAST */ fv1t=GEM.fv1t; fv2t=GEM.fv2t; fv3t=GEM.fv3t; fp1t=GEM.fp1t; fp2t=GEM.fp2t;
+    float   fv1w, fv2w, fv3w, fp1w, fp2w; /* CAST */ fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w; fp2w=GEM.fp2w;
+    vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
-    gemPrm v1GMP, v2GMP, v3GMP, v4GMP, p1GMP, p2GMP;
+    gemPrm p2GMP, v1GMP, v2GMP, v3GMP, v4GMP, P1GMP;
     p2GMP->gemPrmBuild(sIDX, res, p2t, p2w);
     v1GMP->gemPrmBuild(sIDX, res, v1t, v1w);
     v2GMP->gemPrmBuild(sIDX, res, v2t, v2w);
     v3GMP->gemPrmBuild(sIDX, res, v3t, v3w);
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
-    p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
+    P1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
     // CHAOS game
     vector2 mem=biunit();
     float IW[]=_bound_IW; int XS=_bound_XS;
-    if(XS){ XST=_bound_XST; idx=sample_cdf(IW, nrandom('twister')); }
+    if(XS) idx=sample_cdf(IW, nrandom('twister'));
 
     for(int i=0; i<iter; ++i){
 
-        if(XS){ sl=idx*res; idx=sample_cdf(XST[sl:sl+res], nrandom('twister')); }
+        // Xoas
+        if(XS){ int sl=idx*res; idx=sample_cdf(_bound_XST[sl:sl+res], nrandom('twister')); }
         else idx=sample_cdf(IW, nrandom("twister"));
 
         tmp=0;
+        // Pre
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
         if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, X, Y, O, ppw[idx]);
-        if(p2w[idx]!=0) mem  = FLAME(p2GMP, idx, p2t[idx], mem, X, Y, O, p2w[idx]);
-
+        if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], mem, X, Y, O, p2w[idx]);
+        // Var
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], mem, x[idx], y[idx], o[idx], v4w[idx]);
-        if(p1w[idx]!=0) tmp  = FLAME(p1GMP, idx, p1t[idx], tmp, X, Y, O, p1w[idx]);
-        
+        // Post
+        if(p1w[idx] >0) tmp  = FLAME(P1GMP, idx, p1t[idx], tmp, X, Y, O, p1w[idx]);
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
         if(TM) tmp*=TMm2;
+        // Clr
         prv_clr=clr=_CLR[idx]+OM[idx]*prv_clr;
+        // Out
         mem=tmp;
     }
     // FF
     if(FF){
 
         tmp=0;
+        // FF Var
         if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, mem, fx, fy, fo, fv1w);
         if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, mem, fx, fy, fo, fv2w);
         if(fv3w!=0) tmp += FLAMEFF(FL, fv3t, mem, fx, fy, fo, fv3w);
-        if(fp1w!=0) tmp  = FLAMEFF(FP, fp1t, tmp, X, Y, O, fp1w);
-        if(fp2w!=0) tmp  = FLAMEFF(FP, fp2t, tmp, X, Y, O, fp2w);
+        // FF Post
+        if(fp1w >0) tmp  = FLAMEFF(FP, fp1t, tmp, X, Y, O, fp1w);
+        if(fp2w >0) tmp  = FLAMEFF(FP, fp2t, tmp, X, Y, O, fp2w);
         if(PFF) affine(tmp, pfx, pfy, pfo);
+        // FF out
         mem=tmp;
     }
     a=A[idx];
     if(chkPT(RIP, mem, a)) removepoint(0, _bound_ptnum);
     else{
         
-        // OUT
         pscl*=a;
         if(SM) V_SYM(mem, smm);
         if(MB){ pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
+        // OUT
         _bound_P=(vector)mem;
         _bound_clr=clr;
         _bound_pscale=pscl;

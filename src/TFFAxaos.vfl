@@ -67,8 +67,8 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
         for(int k=0; k<res; ++k){
             append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         }
-        if(min(xaos)==max(xaos)) append(XAOS_TO, create_cdf(IW));
-        else{ append(XAOS_TO, create_cdf(IW_xaos)); x_chk=1; }
+        if(min(xaos)==max(xaos)) append(XAOS_TO, (float[])create_cdf(IW));
+        else{ append(XAOS_TO, create_cdf((float[])IW_xaos)); x_chk=1; }
     }
 
     // OUT
@@ -76,16 +76,16 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
     _bound_IW = create_cdf(IW);
     if(x_chk){
         _bound_XS = 1;
-        _bound_XST = XAOS_TO;
+        _bound_XST = (float[])XAOS_TO;
     }
     else _bound_XS = 0;
 }
 
 cvex
-TFFAxaos(export string sIDX[] = {};
-            export int    XS     = 0;
-            export float  IW[]   = {};
-            export float  XST[]  = {};)
+TFFAxaos( export string sIDX[] = {};
+          export int    XS     = 0;
+          export float  IW[]   = {};
+          export float  XST[]  = {}; )
 {
     _TFFAxaos(sIDX, XS, IW, XST);
 }

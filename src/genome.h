@@ -68,6 +68,9 @@ struct gem{
             // PRE VAR 01
             ppw[i] = chf(concat("../pre1weight_" , idx));
             if(ppw[i] >0) ppt[i]=atoi(chs(concat("../pre1type_", idx)));
+            // PRE VAR 02
+            p2w[i] = chf(concat("../pre2weight_", idx));
+            if(p2w[i] >0) p2t[i]=atoi(chs(concat("../pre2type_", idx)));
             // VAR 01
             v1w[i] = chf(concat("../v1weight_", idx));
             if(v1w[i]!=0) v1t[i]=atoi(chs(concat("../v1type_", idx)));
@@ -82,10 +85,7 @@ struct gem{
             if(v4w[i]!=0) v4t[i]=atoi(chs(concat("../v4type_", idx)));
             // POST VAR 01
             p1w[i] = chf(concat("../p1weight_", idx));
-            if(p1w[i]!=0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
-            // POST VAR 02
-            p2w[i] = chf(concat("../p2weight_", idx));
-            if(p2w[i]!=0) p2t[i]=atoi(chs(concat("../p2type_", idx)));
+            if(p1w[i] >0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
             // AFFINE
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));
@@ -123,10 +123,10 @@ struct gem{
             if(fv3w!=0) fv3t = chi("../ffv3type");
             // // FF POST VAR 01
             fp1w = chf("../ffp1weight");
-            if(fp1w!=0) fp1t = chi("../ffp1type");
+            if(fp1w >0) fp1t = chi("../ffp1type");
             // // FF POST VAR 02
             fp2w = chf("../ffp2weight");
-            if(fp2w!=0) fp2t = chi("../ffp2type");
+            if(fp2w >0) fp2t = chi("../ffp2type");
             // FF AFFINE
             _x = chu("../_fx_2");;
             _y = chu("../_fy_2");;
@@ -168,11 +168,11 @@ struct gemPrm{
             // float
             resize(rings2_val, res); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // vector
-            resize(blob, res);   pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, res); pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=blob;
             // vector2
             resize(curl_c, res); parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=curl_c;
             // vector4
-            resize(ngon, res);   pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
+            resize(ngon, res); pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=mobius_im=ngon;
 
             for(int i=0; i<res; ++i){
                 
