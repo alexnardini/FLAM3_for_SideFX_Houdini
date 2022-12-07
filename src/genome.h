@@ -8,8 +8,12 @@
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
- /  Weblink:    https://flam3.com/flame_draves.pdf
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
  /
  /  Name:       FLAME GENOME   "CVEX"
  /

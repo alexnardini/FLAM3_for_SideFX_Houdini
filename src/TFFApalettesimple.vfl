@@ -1,17 +1,20 @@
 /*  
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised December 2020
+ /  date:       October 2020, Last revised May 2022
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
- /  Weblink:    https://flam3.com/flame_draves.pdf
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
  /  Date:       September 2003, Last revised November 2008
  /
- /  Name:       PALETTE simple    "CVEX"
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
  /
- /  Comment:    Apply color into palette coordinates
+ /  Name:       FLAME GENOME   "CVEX"
  /
+ /  Comment:    GENOME entities and properties.
 */
 
 
