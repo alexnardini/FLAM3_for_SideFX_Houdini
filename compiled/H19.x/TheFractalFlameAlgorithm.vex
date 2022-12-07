@@ -1437,13 +1437,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemPrmBuild@Z6gemPrmM52N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PN8pc_DISC2[V[SI[I[F"(%gemPrm* %this, i8*** %sIDX, i64* %res, i64** %GEMTYPE, double** %w) #0 {
+define private void @"gemPrmBuild@Z6gemPrmM52N10rings2_val[FN13bipolar_shift[FN9cell_size[FN11escher_beta[FN10popcorn2_c[FN11flux_spread[FN4blob[VN3pie[VN10supershape[VN12supershape_n[VN4cpow[VN9lazysusan[VN6bwraps[VN6curl_c[UN8parabola[UN4fan2[UN10rectangles[UN5bent2[UN12lazysusanxyz[UN7modulus[UN8popcorn2[UN10separation[UN17separation_inside[UN5split[UN6splits[UN12waves2_scale[UN11waves2_freq[UN12curve_lenght[UN9curve_amp[UN14polynomial_pow[UN13polynomial_lc[UN13polynomial_sc[UN6julian[UN10juliascope[UN10radialblur[UN5disc2[UN6flower[UN5conic[UN7stripes[UN5whorl[UN5persp[UN11bwrapstwist[UN4ngon[PN5pdj_w[PN6oscope[PN5wedge[PN10wedgejulia[PN8wedgesph[PN5auger[PN9mobius_re[PN9mobius_im[PN8pc_DISC2[V[SI[I[F"(%gemPrm* %this, i8*** %sIDX, i64* %res, i64** %TYPE, double** %w) #0 {
 __llvm_entry:
   %calc = alloca <3 x double>
   %0 = alloca double
   %1 = alloca double
-  %GEMTYPE1 = load i64*, i64** %GEMTYPE
-  %return = call i64 @"max@I[I"(i64* %GEMTYPE1)
+  %TYPE1 = load i64*, i64** %TYPE
+  %return = call i64 @"max@I[I"(i64* %TYPE1)
   %return2 = call i64 @"gt@III"(i64 %return, i64 26)
   %2 = icmp ne i64 %return2, 0
   br i1 %2, label %true, label %end
@@ -1530,8 +1530,8 @@ cond:                                             ; preds = %iter, %true
   br i1 %54, label %body, label %end
 
 body:                                             ; preds = %cond
-  %GEMTYPE76 = load i64*, i64** %GEMTYPE
-  %return78 = call i64 @"getcomp@I[II"(i64* %GEMTYPE76, i64 %i.0)
+  %TYPE76 = load i64*, i64** %TYPE
+  %return78 = call i64 @"getcomp@I[II"(i64* %TYPE76, i64 %i.0)
   %sIDX79 = load i8**, i8*** %sIDX
   %return81 = call i8* @"getcomp@S[SI"(i8** %sIDX79, i64 %i.0)
   %return83 = call i64 @"lt@III"(i64 %return78, i64 27)

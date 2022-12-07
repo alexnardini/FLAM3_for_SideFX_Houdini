@@ -35,7 +35,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
 {
     
     int     idx;
-    float   pscl, clr, prv_clr, a, XST[]; prv_clr=0; pscl=PSCL;
+    float   pscl, clr, prv_clr, a; prv_clr=0; pscl=PSCL;
     vector2 tmp;
     // Build genomes
     string sIDX[]=_bound_sIDX;
