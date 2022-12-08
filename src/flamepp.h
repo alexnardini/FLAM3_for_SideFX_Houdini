@@ -17,7 +17,7 @@
  /
  /  Name:       FLAME GENOME   "CVEX"
  /
- /  Comment:    GENOME entities and properties.
+ /  Comment:    POST FLAM3 variation selection.
 */
 
 
