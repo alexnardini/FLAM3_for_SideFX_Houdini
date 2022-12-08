@@ -70,7 +70,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
 
         // Xoas
         if(XS){ int sl=idx*res; idx=sample_cdf((float[])_bound_XST[sl:sl+res], nrandom('twister')); }
-        else idx=sample_cdf(_bound_IW, nrandom("twister"));
+        else idx=sample_cdf((float[])_bound_IW, nrandom("twister"));
 
         tmp=0;
         // Pre
