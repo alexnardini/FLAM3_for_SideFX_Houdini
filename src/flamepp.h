@@ -15,7 +15,7 @@
  /  Github:     https://github.com/scottdraves/flam3
  /  Date:       December 2002, Last revised May 2015
  /
- /  Name:       FLAME GENOME   "CVEX"
+ /  Name:       FLAMEPP "CVEX"
  /
  /  Comment:    POST FLAM3 variation selection.
 */

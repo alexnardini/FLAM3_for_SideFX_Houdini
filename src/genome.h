@@ -15,9 +15,9 @@
  /  Github:     https://github.com/scottdraves/flam3
  /  Date:       December 2002, Last revised May 2015
  /
- /  Name:       FLAME GENOME   "CVEX"
+ /  Name:       GENOME "CVEX"
  /
- /  Comment:    GENOME entities and properties.
+ /  Comment:    Genome entities and properties.
 */
 
 
