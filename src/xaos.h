@@ -20,8 +20,8 @@
  /  Comment:    XAOS selection.
  /              Allow up to 20 iterators max.
  /              This is being done to overcome a Houdini bug in the array slice function
- /              as it does not produce correct results when a variable updated inside the chaos game loop
- /              is being updated and used as index for the array slice start and end position,
+ /              as it does not always produce correct results when a variable inside the chaos game loop
+ /              is being updated and used as index for the array slice start and end position each iteration.
  /              so I'm slicing it manually here based on iterators number, for a max of up to 20 iterators.
  /              
  /              Not ideal, as it could have been just a one line of code instead.
@@ -123,49 +123,61 @@ int XAOS(int idx; const float XST[], res){
             else if(idx==10){ return sample_cdf((float[])XST[110:121], nrandom('twister')); }
         }
         else if(res==12){
-            if(idx==0){ return sample_cdf((float[])XST[0:12], nrandom('twister')); }
-            else if(idx==1){ return sample_cdf((float[])XST[12:24], nrandom('twister')); }
-            else if(idx==2){ return sample_cdf((float[])XST[24:36], nrandom('twister')); }
-            else if(idx==3){ return sample_cdf((float[])XST[36:48], nrandom('twister')); }
-            else if(idx==4){ return sample_cdf((float[])XST[48:60], nrandom('twister')); }
-            else if(idx==5){ return sample_cdf((float[])XST[60:72], nrandom('twister')); }
-            else if(idx==6){ return sample_cdf((float[])XST[72:84], nrandom('twister')); }
-            else if(idx==7){ return sample_cdf((float[])XST[84:96], nrandom('twister')); }
-            else if(idx==8){ return sample_cdf((float[])XST[96:108], nrandom('twister')); }
-            else if(idx==9){ return sample_cdf((float[])XST[108:120], nrandom('twister')); }
-            else if(idx==10){ return sample_cdf((float[])XST[120:132], nrandom('twister')); }
-            else if(idx==11){ return sample_cdf((float[])XST[132:144], nrandom('twister')); }
+            if(idx<6){
+                if(idx==0){ return sample_cdf((float[])XST[0:12], nrandom('twister')); }
+                else if(idx==1){ return sample_cdf((float[])XST[12:24], nrandom('twister')); }
+                else if(idx==2){ return sample_cdf((float[])XST[24:36], nrandom('twister')); }
+                else if(idx==3){ return sample_cdf((float[])XST[36:48], nrandom('twister')); }
+                else if(idx==4){ return sample_cdf((float[])XST[48:60], nrandom('twister')); }
+                else if(idx==5){ return sample_cdf((float[])XST[60:72], nrandom('twister')); }
+            }
+            else{
+                if(idx==6){ return sample_cdf((float[])XST[72:84], nrandom('twister')); }
+                else if(idx==7){ return sample_cdf((float[])XST[84:96], nrandom('twister')); }
+                else if(idx==8){ return sample_cdf((float[])XST[96:108], nrandom('twister')); }
+                else if(idx==9){ return sample_cdf((float[])XST[108:120], nrandom('twister')); }
+                else if(idx==10){ return sample_cdf((float[])XST[120:132], nrandom('twister')); }
+                else if(idx==11){ return sample_cdf((float[])XST[132:144], nrandom('twister')); }
+            }
         }
         else if(res==13){
-            if(idx==0){ return sample_cdf((float[])XST[0:13], nrandom('twister')); }
-            else if(idx==1){ return sample_cdf((float[])XST[13:26], nrandom('twister')); }
-            else if(idx==2){ return sample_cdf((float[])XST[26:39], nrandom('twister')); }
-            else if(idx==3){ return sample_cdf((float[])XST[39:52], nrandom('twister')); }
-            else if(idx==4){ return sample_cdf((float[])XST[52:65], nrandom('twister')); }
-            else if(idx==5){ return sample_cdf((float[])XST[65:78], nrandom('twister')); }
-            else if(idx==6){ return sample_cdf((float[])XST[78:91], nrandom('twister')); }
-            else if(idx==7){ return sample_cdf((float[])XST[91:104], nrandom('twister')); }
-            else if(idx==8){ return sample_cdf((float[])XST[104:117], nrandom('twister')); }
-            else if(idx==9){ return sample_cdf((float[])XST[117:130], nrandom('twister')); }
-            else if(idx==10){ return sample_cdf((float[])XST[130:143], nrandom('twister')); }
-            else if(idx==11){ return sample_cdf((float[])XST[143:156], nrandom('twister')); }
-            else if(idx==12){ return sample_cdf((float[])XST[156:169], nrandom('twister')); }
+            if(idx<7){
+                if(idx==0){ return sample_cdf((float[])XST[0:13], nrandom('twister')); }
+                else if(idx==1){ return sample_cdf((float[])XST[13:26], nrandom('twister')); }
+                else if(idx==2){ return sample_cdf((float[])XST[26:39], nrandom('twister')); }
+                else if(idx==3){ return sample_cdf((float[])XST[39:52], nrandom('twister')); }
+                else if(idx==4){ return sample_cdf((float[])XST[52:65], nrandom('twister')); }
+                else if(idx==5){ return sample_cdf((float[])XST[65:78], nrandom('twister')); }
+                else if(idx==6){ return sample_cdf((float[])XST[78:91], nrandom('twister')); }
+            }
+            else{
+                if(idx==7){ return sample_cdf((float[])XST[91:104], nrandom('twister')); }
+                else if(idx==8){ return sample_cdf((float[])XST[104:117], nrandom('twister')); }
+                else if(idx==9){ return sample_cdf((float[])XST[117:130], nrandom('twister')); }
+                else if(idx==10){ return sample_cdf((float[])XST[130:143], nrandom('twister')); }
+                else if(idx==11){ return sample_cdf((float[])XST[143:156], nrandom('twister')); }
+                else if(idx==12){ return sample_cdf((float[])XST[156:169], nrandom('twister')); }
+            }
         }
         else if(res==14){
-            if(idx==0){ return sample_cdf((float[])XST[0:14], nrandom('twister')); }
-            else if(idx==1){ return sample_cdf((float[])XST[14:28], nrandom('twister')); }
-            else if(idx==2){ return sample_cdf((float[])XST[28:42], nrandom('twister')); }
-            else if(idx==3){ return sample_cdf((float[])XST[42:56], nrandom('twister')); }
-            else if(idx==4){ return sample_cdf((float[])XST[56:70], nrandom('twister')); }
-            else if(idx==5){ return sample_cdf((float[])XST[70:84], nrandom('twister')); }
-            else if(idx==6){ return sample_cdf((float[])XST[84:98], nrandom('twister')); }
-            else if(idx==7){ return sample_cdf((float[])XST[98:112], nrandom('twister')); }
-            else if(idx==8){ return sample_cdf((float[])XST[112:126], nrandom('twister')); }
-            else if(idx==9){ return sample_cdf((float[])XST[126:140], nrandom('twister')); }
-            else if(idx==10){ return sample_cdf((float[])XST[140:154], nrandom('twister')); }
-            else if(idx==11){ return sample_cdf((float[])XST[154:168], nrandom('twister')); }
-            else if(idx==12){ return sample_cdf((float[])XST[168:182], nrandom('twister')); }
-            else if(idx==13){ return sample_cdf((float[])XST[182:196], nrandom('twister')); }
+            if(idx<7){
+                if(idx==0){ return sample_cdf((float[])XST[0:14], nrandom('twister')); }
+                else if(idx==1){ return sample_cdf((float[])XST[14:28], nrandom('twister')); }
+                else if(idx==2){ return sample_cdf((float[])XST[28:42], nrandom('twister')); }
+                else if(idx==3){ return sample_cdf((float[])XST[42:56], nrandom('twister')); }
+                else if(idx==4){ return sample_cdf((float[])XST[56:70], nrandom('twister')); }
+                else if(idx==5){ return sample_cdf((float[])XST[70:84], nrandom('twister')); }
+                else if(idx==6){ return sample_cdf((float[])XST[84:98], nrandom('twister')); }
+            }
+            else{
+                if(idx==7){ return sample_cdf((float[])XST[98:112], nrandom('twister')); }
+                else if(idx==8){ return sample_cdf((float[])XST[112:126], nrandom('twister')); }
+                else if(idx==9){ return sample_cdf((float[])XST[126:140], nrandom('twister')); }
+                else if(idx==10){ return sample_cdf((float[])XST[140:154], nrandom('twister')); }
+                else if(idx==11){ return sample_cdf((float[])XST[154:168], nrandom('twister')); }
+                else if(idx==12){ return sample_cdf((float[])XST[168:182], nrandom('twister')); }
+                else if(idx==13){ return sample_cdf((float[])XST[182:196], nrandom('twister')); }
+            }
         }
     }
     else if(res<21){
