@@ -24,7 +24,7 @@
  /              is being updated and used as index for the array slice start and end position,
  /              so I'm slicing it manually here based on iterators number, for a max of up to 20 iterators.
  /              
- /              I know it sucks, as it could be just a one line solution.
+ /              Not ideal, as it could have been just a one line of code instead.
  /              
  /              I filed the bug to SideFX on the 10th of October 2022 
  /              [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
