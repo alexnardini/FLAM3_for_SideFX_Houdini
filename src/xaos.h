@@ -34,7 +34,10 @@
 
 
 
-int XAOS(int idx; const int res; const float XST[]){
+//int XAOS(int idx; const int res; const float XST[]){
+
+// "res" is an INT but for some reasons this way is faster...
+int XAOS(int idx; const float res, XST[]){
  
     if(res<15){
         if(res==2){
@@ -315,11 +318,14 @@ int XAOS(int idx; const int res; const float XST[]){
             }
         }
     }
+
+    /*
     else{
         // The following is what it should have been if there was not a bug in Houdini.
         // [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
         int sl=idx*res; return sample_cdf((float[])XST[sl:sl+res], nrandom('twister'));
     }
+    */
 
     return idx;
 
