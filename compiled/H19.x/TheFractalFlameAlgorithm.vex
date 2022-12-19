@@ -187,7 +187,7 @@ source_filename = "FLAM3"
 @174 = private constant [2 x i8] c"P\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private i64 @"XAOS@II[FF"(i64* %idx, double** %XST, double* %res) #0 {
+define private i64 @"XAOS@IIF[F"(i64* %idx, double* %res, double** %XST) #0 {
 __llvm_entry:
   %res1 = load double, double* %res
   %return = fcmp olt double %res1, 1.500000e+01
@@ -15264,8 +15264,8 @@ __llvm_entry:
   %23 = alloca i64*
   %24 = alloca double*
   %mem = alloca <2 x double>
-  %25 = alloca double*
-  %26 = alloca double
+  %25 = alloca double
+  %26 = alloca double*
   %27 = alloca double
   %28 = alloca i64
   %29 = alloca <2 x double>
@@ -16636,11 +16636,11 @@ end144:                                           ; preds = %cond
   br i1 %129, label %true356, label %end357
 
 true147:                                          ; preds = %body
-  %_bound_XST149 = load double*, double** %_bound_XST
-  store double* %_bound_XST149, double** %25
   %cast = sitofp i64 %GEM4.fca.8.load to double
-  store double %cast, double* %26
-  %XAOS = call i64 @"XAOS@II[FF"(i64* %idx, double** %25, double* %26)
+  store double %cast, double* %25
+  %_bound_XST150 = load double*, double** %_bound_XST
+  store double* %_bound_XST150, double** %26
+  %XAOS = call i64 @"XAOS@IIF[F"(i64* %idx, double* %25, double** %26)
   store i64 %XAOS, i64* %idx
   br label %end148
 
