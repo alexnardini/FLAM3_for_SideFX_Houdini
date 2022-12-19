@@ -74,7 +74,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
         // if(XS){ int sl=idx*res; idx=sample_cdf((float[])_bound_XST[sl:sl+res], nrandom('twister')); }
         //
         // XAOS ( new )
-        if(XS){ idx=XAOS(idx, _bound_XST, res); }
+        if(XS){ idx=XAOS(idx, res, _bound_XST); }
         else idx=sample_cdf((float[])_bound_IW, nrandom("twister"));
 
         tmp=0;

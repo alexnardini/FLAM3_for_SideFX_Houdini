@@ -34,7 +34,7 @@
 
 
 
-int XAOS(int idx; const float XST[], res){
+int XAOS(int idx; const float res, XST[]){
  
     if(res<15){
         if(res==2){
