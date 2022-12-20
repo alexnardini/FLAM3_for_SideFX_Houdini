@@ -323,7 +323,7 @@ int XAOS(int idx; const float res, XST[]){
     else{
         // The following is what it should have been if there was not a bug in Houdini.
         // [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
-        int sl=idx*res; return sample_cdf((float[])XST[sl:sl+res], nrandom('twister'));
+        int sl=idx*(int)res; return sample_cdf((float[])XST[sl:sl+(int)res], nrandom('twister'));
     }
     */
 
