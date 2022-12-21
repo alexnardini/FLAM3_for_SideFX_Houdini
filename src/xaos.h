@@ -17,19 +17,14 @@
  /
  /  Name:       XAOS "CVEX"
  /
- /  Comment:    XAOS selection.
- /              Allow up to 20 iterators max.
- /              This is being done to overcome a Houdini bug in the array slice function
- /              as it does not always produce correct results when a variable inside the chaos game loop
- /              is being updated and used as index for the array slice start and end position each iteration.
- /              so I'm slicing it manually here based on iterators number, for a max of up to 20 iterators.
- /              
+ /  Comment:    XAOS selection. Allow up to 20 iterators max.
+ /
+ /              This is being done to overcome a Houdini bug in the array slice function.
  /              Not ideal, as it could have been just a one line of code instead.
  /              
  /              I filed the bug to SideFX on the 10th of October 2022 
  /              [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
  /              
- /              ...never heard back from them.
 */
 
 
