@@ -183,7 +183,7 @@ end46:                                            ; preds = %cond41
   %return153 = call double* @"create_cdf@[F[F"(double* %IW.0)
   store double* %return153, double** %_bound_IW
   %4 = icmp ne i64 %x_chk.0, 0
-  br i1 %4, label %true155, label %false156
+  br i1 %4, label %true155, label %end156
 
 true59:                                           ; preds = %body42
   %return62 = call { i8*, i8** } @"pop@S[SI"(i8** %return54, i64 0)
@@ -286,13 +286,9 @@ end140:                                           ; preds = %false139, %true138
 true155:                                          ; preds = %end46
   store i64 1, i64* %_bound_XS
   store double* %XAOS_TO.0, double** %_bound_XST
-  br label %end157
+  br label %end156
 
-false156:                                         ; preds = %end46
-  store i64 0, i64* %_bound_XS
-  br label %end157
-
-end157:                                           ; preds = %false156, %true155
+end156:                                           ; preds = %true155, %end46
   ret void
 }
 
@@ -414,7 +410,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"19.5.399"}
+!1 = !{!"19.5.435"}
 !2 = !{!"64"}
 
 ;_code_end

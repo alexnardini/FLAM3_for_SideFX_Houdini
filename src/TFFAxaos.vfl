@@ -81,7 +81,6 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
         _bound_XS = 1;
         _bound_XST = (float[])XAOS_TO;
     }
-    else _bound_XS = 0;
 }
 
 cvex
