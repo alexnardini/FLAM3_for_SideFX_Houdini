@@ -32,8 +32,8 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
 {
     int inum = chi("../flamefunc");
     int va[];
-    string sIDX[];
     float IW[];
+    string sIDX[];
     
     // ACTIVE VARS
     for(int i=0; i<inum; ++i){
@@ -61,21 +61,24 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
         float xaos[];
         if(toupper(varxaos[0])=="XAOS"){
             pop(varxaos, 0);
-            foreach(string n; varxaos){ append(xaos, max(atof(n), 0)); }
-            resize(xaos, inum, 1);
+            foreach(string n; varxaos) append(xaos, max(atof(n), 0));
+            resize(xaos, inum, 1.0);
             // For "xaos FROM" string
             resize(varxaos, inum, "1");
         }
         else{
-            resize(xaos, inum, 1);
+            resize(xaos, inum, 1.0);
             // For "xaos FROM" string
             resize(varxaos, inum, "1");
             }
         for(int j=0; j<inum; ++j){
-            if(!va[j]){ pop(xaos, j); pop(varxaos, j); }
+            if(!va[j]){ 
+                pop(xaos, j);
+                // For "xaos FROM" string
+                pop(varxaos, j);
+            }
         }
-        float IW_xaos[];
-        for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
+        float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         if(min(xaos)==max(xaos)){
             append(XAOS_TO, (float[])create_cdf(IW));
             // For "xaos FROM" string
@@ -98,8 +101,8 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
         XAOS_transpose_s(xaos_tos, xaos_tos_t, res);
         resize(XAOS_TO, 0);
         for(int i=0; i<res; ++i){
-            int sl=i*res; string xw[] = xaos_tos_t[sl:sl+res];
-            float xaos_froms[]; foreach(string n; xw){ append(xaos_froms, max(atof(n), 0)); }
+            int sl=i*res; string xw[]=xaos_tos_t[sl:sl+res];
+            float xaos_froms[]; foreach(string n; xw) append(xaos_froms, max(atof(n), 0));
             float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos_froms[k]);
             append(XAOS_TO, create_cdf((float[])IW_xaos));
         }
