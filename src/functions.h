@@ -25,8 +25,9 @@
 
 
 
-#define EPS     1e-10
+//#define EPS     1e-10
 #define LIMIT   1000
+#define EPS     2.220446049250313e-016
 #define M_1_PI  0.318309886183790671538
 #define M_2_PI  0.636619772367581343076
 
@@ -137,6 +138,15 @@ void affineRot(matrix2 m2; const vector2 x, y; const float ang){
 }
 
 void XAOS_transpose(const float XAOS[]; float T[]; const int size){
+    for(int i=0; i<size; i++){
+        for(int j=0; j<size; j++){
+            int idx = j*size+i;
+            append(T, XAOS[idx]);
+        }
+    }
+}
+
+void XAOS_transpose_s(const string XAOS[]; string T[]; const int size){
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
             int idx = j*size+i;
