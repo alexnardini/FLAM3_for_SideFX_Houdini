@@ -356,14 +356,14 @@ true172:                                          ; preds = %end46
 end173:                                           ; preds = %cond179, %end46
   %XAOS_TO.2 = phi double* [ %XAOS_TO.3, %cond179 ], [ %XAOS_TO.0, %end46 ]
   store i8** %sIDX.0, i8*** %_bound_sIDX
-  %return260 = call double* @"create_cdf@[F[F"(double* %IW.0)
-  store double* %return260, double** %_bound_IW
+  %return247 = call double* @"create_cdf@[F[F"(double* %IW.0)
+  store double* %return247, double** %_bound_IW
   %11 = icmp ne i64 %x_chk.0, 0
-  br i1 %11, label %true262, label %end263
+  br i1 %11, label %true249, label %end250
 
-cond179:                                          ; preds = %end247, %true172
-  %XAOS_TO.3 = phi double* [ %output177, %true172 ], [ %XAOS_TO.4, %end247 ]
-  %i178.0 = phi i64 [ 0, %true172 ], [ %output257, %end247 ]
+cond179:                                          ; preds = %end222, %true172
+  %XAOS_TO.3 = phi double* [ %output177, %true172 ], [ %output242, %end222 ]
+  %i178.0 = phi i64 [ 0, %true172 ], [ %output244, %end222 ]
   %return183 = call i64 @"lt@III"(i64 %i178.0, i64 %return39)
   %12 = icmp ne i64 %return183, 0
   br i1 %12, label %body180, label %end173
@@ -412,32 +412,17 @@ body218:                                          ; preds = %cond217
   br label %cond217
 
 end222:                                           ; preds = %cond217
-  %return240 = call double @"min@F[F"(double* %xaos_froms.0)
-  %return242 = call double @"max@F[F"(double* %xaos_froms.0)
-  %return243 = fcmp oeq double %return240, %return242
-  br i1 %return243, label %true245, label %false246
-
-true245:                                          ; preds = %end222
-  %return250 = call double* @"create_cdf@[F[F"(double* %IW.0)
-  %output251 = call double* @"append@[F[F"(double* %XAOS_TO.3, double* %return250)
-  br label %end247
-
-false246:                                         ; preds = %end222
-  %return254 = call double* @"create_cdf@[F[F"(double* %IW_xaos215.0)
-  %output255 = call double* @"append@[F[F"(double* %XAOS_TO.3, double* %return254)
-  br label %end247
-
-end247:                                           ; preds = %false246, %true245
-  %XAOS_TO.4 = phi double* [ %output251, %true245 ], [ %output255, %false246 ]
-  %output257 = add i64 %i178.0, 1
+  %return241 = call double* @"create_cdf@[F[F"(double* %IW_xaos215.0)
+  %output242 = call double* @"append@[F[F"(double* %XAOS_TO.3, double* %return241)
+  %output244 = add i64 %i178.0, 1
   br label %cond179
 
-true262:                                          ; preds = %end173
+true249:                                          ; preds = %end173
   store i64 1, i64* %_bound_XS
   store double* %XAOS_TO.2, double** %_bound_XST
-  br label %end263
+  br label %end250
 
-end263:                                           ; preds = %true262, %end173
+end250:                                           ; preds = %true249, %end173
   ret void
 }
 

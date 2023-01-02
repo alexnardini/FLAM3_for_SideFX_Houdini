@@ -95,8 +95,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
             foreach(string n; xw){ append(xaos_froms, max(atof(n), 0)); }
             float IW_xaos[];
             for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos_froms[k]);
-            if(min(xaos_froms)==max(xaos_froms)) append(XAOS_TO, (float[])create_cdf(IW));
-            else append(XAOS_TO, create_cdf((float[])IW_xaos));
+            append(XAOS_TO, create_cdf((float[])IW_xaos));
         }
     }
 
