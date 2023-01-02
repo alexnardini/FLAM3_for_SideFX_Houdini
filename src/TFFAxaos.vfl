@@ -1,7 +1,7 @@
 /*  
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised May 2022
+ /  date:       Jan 2022, Last revised Jan 2023
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -51,7 +51,8 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
     int x_chk = 0;
     int res = len(sIDX);
     float XAOS_TO[];
-    string xaos_tos[], xaos_tos_t[]; // For "xaos from" string
+    // For "xaos FROM" string
+    string xaos_tos[], xaos_tos_t[];
 
     for(int i=0; i<res; ++i){
 
@@ -62,10 +63,13 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
             pop(varxaos, 0);
             foreach(string n; varxaos){ append(xaos, max(atof(n), 0)); }
             resize(xaos, inum, 1);
-            resize(varxaos, inum, "1"); // For "xaos from" string
+            // For "xaos FROM" string
+            resize(varxaos, inum, "1");
         }
-        else{ resize(xaos, inum, 1);
-              resize(varxaos, inum, "1"); // For "xaos from" string
+        else{
+            resize(xaos, inum, 1);
+            // For "xaos FROM" string
+            resize(varxaos, inum, "1");
             }
         for(int j=0; j<inum; ++j){
             if(!va[j]){ pop(xaos, j); pop(varxaos, j); }
@@ -73,28 +77,30 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
         float IW_xaos[];
         for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         if(min(xaos)==max(xaos)){
-                append(XAOS_TO, (float[])create_cdf(IW));
-                append(xaos_tos, varxaos); // For "xaos from" string
+            append(XAOS_TO, (float[])create_cdf(IW));
+            // For "xaos FROM" string
+            append(xaos_tos, varxaos);
             }
-        else{   append(XAOS_TO, create_cdf((float[])IW_xaos)); x_chk=1;
-                append(xaos_tos, varxaos); // For "xaos from" string
+        else{
+            append(XAOS_TO, create_cdf((float[])IW_xaos)); x_chk=1;
+            // For "xaos FROM" string
+            append(xaos_tos, varxaos);
             }
     }
 
-    // XAOS FROM if selected and XAOS is active
+    // Xaos FROM - if selected and Xaos is active
     //
     // The following code becasue I need to start from a string
-    // and reformat/reconvert due to an array slice bug in houdini.
+    // and reformat/reconvert due to an array slice bug in Houdini.
+    // [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
     int xm = chi("../xm");
     if(xm && x_chk){
         XAOS_transpose_s(xaos_tos, xaos_tos_t, res);
         resize(XAOS_TO, 0);
         for(int i=0; i<res; ++i){
             int sl=i*res; string xw[] = xaos_tos_t[sl:sl+res];
-            float xaos_froms[];
-            foreach(string n; xw){ append(xaos_froms, max(atof(n), 0)); }
-            float IW_xaos[];
-            for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos_froms[k]);
+            float xaos_froms[]; foreach(string n; xw){ append(xaos_froms, max(atof(n), 0)); }
+            float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos_froms[k]);
             append(XAOS_TO, create_cdf((float[])IW_xaos));
         }
     }
