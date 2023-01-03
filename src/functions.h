@@ -137,6 +137,9 @@ void affineRot(matrix2 m2; const vector2 x, y; const float ang){
     rotate(m2, ang);
 }
 
+/*
+ / Not needed for now as I use string data.
+
 void XAOS_transpose(const float XAOS[]; float T[]; const int size){
     for(int i=0; i<size; i++){
         for(int j=0; j<size; j++){
@@ -145,6 +148,7 @@ void XAOS_transpose(const float XAOS[]; float T[]; const int size){
         }
     }
 }
+*/
 
 void XAOS_transpose_s(const string XAOS[]; string T[]; const int size){
     for(int i=0; i<size; i++){
