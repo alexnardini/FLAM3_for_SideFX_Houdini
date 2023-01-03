@@ -91,11 +91,14 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
             }
     }
 
-    // Xaos FROM - if selected and Xaos is active
-    //
-    // The following code becasue I need to start from a string
-    // and reformat/reconvert due to an array slice bug in Houdini.
-    // [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
+    /*
+     / Xaos FROM - if selected and Xaos is active
+     /
+     / The following code becasue I need to start from a string
+     / and reformat/reconvert due to an array slice bug in Houdini.
+     / [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
+    */
+    
     int xm = chi("../xm");
     if(xm && x_chk){
         XAOS_transpose_s(xaos_tos, xaos_tos_t, res);
