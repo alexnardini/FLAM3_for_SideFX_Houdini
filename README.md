@@ -1,13 +1,15 @@
 # The Fractal Flame Algorithm
-![FLAM3 Houdini Cure image](https://github.com/alexnardini/FLAM3/blob/main/img/JulianSwirlsKarma.jpg)
+![FLAM3 Houdini LazySwirl image](https://github.com/alexnardini/FLAM3/blob/main/img/JulianSwirlsKarma.jpg)
 
 `The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
 ## FLAM3 for SideFX Houdini
+
+![FLAM3 logo svg](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_HDA_intro.svg)
+
 **[FLAM3HOUDINI website](https://www.alexnardini.net/)**
 
 **[FLAM3HOUDINI instagram](https://www.instagram.com/alexnardini/)**
-
 
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
