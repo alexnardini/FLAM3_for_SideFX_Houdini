@@ -25,7 +25,7 @@
 
 
 void
-_TFFAuicollect(string _bound_VARTYPE[]){
+_TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
     string T[];
     string Ts[] = { "linear", 
@@ -218,10 +218,12 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         }
         
     _bound_VARTYPE = T;
+    _bound_XS = xaos_chk;
 }
 
 cvex
-TFFAuicollect( export string VARTYPE[] = {} )
+TFFAuicollect( export string VARTYPE[] = {};
+               export int XS = 0; )
 {
-    _TFFAuicollect(VARTYPE);
+    _TFFAuicollect(VARTYPE, XS);
 }

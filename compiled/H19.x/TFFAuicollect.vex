@@ -153,10 +153,11 @@ source_filename = "TFFAuicollect"
 @148 = private constant [14 x i8] c"../ffp1weight\00"
 @149 = private constant [12 x i8] c"../ffp1type\00"
 @VARTYPE = external global i8**
+@XS = external global i64
 @150 = private constant [8 x i8] c"VARTYPE\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAuicollect@[S"(i8*** %_bound_VARTYPE) #0 {
+define private void @"_TFFAuicollect@[SI"(i8*** %_bound_VARTYPE, i64* %_bound_XS) #0 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @104, i64 0, i64 0))
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @105, i64 0, i64 0))
@@ -430,6 +431,7 @@ true235:                                          ; preds = %end40
 end236:                                           ; preds = %end283, %end40
   %T.5 = phi i8** [ %output302, %end283 ], [ %T.4, %end40 ]
   store i8** %T.5, i8*** %_bound_VARTYPE
+  store i64 %return11, i64* %_bound_XS
   ret void
 
 true242:                                          ; preds = %true235
@@ -570,22 +572,29 @@ declare i8* @"concat@SSS:SS"(i8*, i8*, i8*, i8*) #1
 declare i8* @"toupper@SS"(i8*) #2
 
 ; Function Attrs: nounwind
-define void @TFFAuicollect(i8** %VARTYPE) #2 {
+define void @TFFAuicollect(i8** %VARTYPE, i64 %XS) #2 {
 __llvm_entry:
+  %"<XS>" = alloca i64
   %"<VARTYPE>" = alloca i8**
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
-  call void @"_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
+  store i64 %XS, i64* %"<XS>"
+  call void @"_TFFAuicollect@[SI"(i8*** %"<VARTYPE>", i64* %"<XS>")
   %evalue = load i8**, i8*** %"<VARTYPE>"
   %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @150, i64 0, i64 0), i8** %evalue) #3
+  %evalue1 = load i64, i64* %"<XS>"
+  %gvalue2 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @113, i64 0, i64 0), i64 %evalue1) #3
   store i8** %gvalue, i8*** @VARTYPE
+  store i64 %gvalue2, i64* @XS
   ret void
 }
 
 declare i8** @"_export@[SS[S"(i8*, i8**)
 
+declare i64 @"_export@ISI"(i8*, i64)
+
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAuicollect(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @0, i64 0, i64 0))
+  call void @TFFAuicollect(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @0, i64 0, i64 0), i64 0)
   ret void
 }
 
@@ -599,7 +608,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"19.0.622"}
+!1 = !{!"19.5.435"}
 !2 = !{!"64"}
 
 ;_code_end
