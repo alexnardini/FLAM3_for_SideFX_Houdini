@@ -17,15 +17,18 @@ An implementation of FLAM3 inside SideFX Houdini software using CVEX programming
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
-fast, ready to use functions like **creating and sampling a cdf** and a very robust **random number generator**.
+fast, ready to use functions like **creating and sampling a cdf**, a very robust **random number generator** and more.
 
 Part of the work is done inside the HDA within the Houdini environment
-like attribute binding, UI building, parameters creations, their visibility conditions and much more.
+like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
+
+FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
+From there to the final image it is left to the users ( aka points rendering ).
 
 **Highly inspired by Apophysis software and its workflow design**,
 it is a one to one match with it.
 Many Apophysis fractal Flames are available for download on the web
-and you can copy all values into FLAM3 for houdini to get the same result.
+and you can copy all values into FLAM3 for houdini to get the same results.
 **Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
 ## Viewport live point cloud
