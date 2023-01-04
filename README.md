@@ -6,7 +6,7 @@
 ## FLAM3 for SideFX Houdini
 
 <p align="center">
-  <img width="128" height="128" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
+  <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
 </p>
 
 **[FLAM3HOUDINI website](https://www.alexnardini.net/)**
