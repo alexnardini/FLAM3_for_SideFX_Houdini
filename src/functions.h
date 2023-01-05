@@ -25,7 +25,6 @@
 
 
 
-//#define EPS     1e-10
 #define LIMIT   1000
 #define EPS     2.220446049250313e-016
 #define M_1_PI  0.318309886183790671538
