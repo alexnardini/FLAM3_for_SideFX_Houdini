@@ -78,17 +78,12 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
                 pop(varxaos, j);
             }
         }
+        // For "xaos FROM" string
+        append(xaos_tos, varxaos);
+        // For "xaos TO"
         float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
-        if(min(xaos)==max(xaos)){
-            append(XAOS_TO, (float[])create_cdf(IW));
-            // For "xaos FROM" string
-            append(xaos_tos, varxaos);
-            }
-        else{
-            append(XAOS_TO, create_cdf((float[])IW_xaos)); x_chk=1;
-            // For "xaos FROM" string
-            append(xaos_tos, varxaos);
-            }
+        if(min(xaos)==max(xaos)) append(XAOS_TO, (float[])create_cdf(IW));
+        else{ append(XAOS_TO, create_cdf((float[])IW_xaos)); if(!x_chk) x_chk=1; }
     }
 
     /*
