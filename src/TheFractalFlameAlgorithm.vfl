@@ -19,8 +19,8 @@
 
 
 #define PSCL 0.001
-#define FL "../_"
-#define FP "../_p1"
+#define FL "../ff_"
+#define FP "../fp1_"
 #define X {1,0}
 #define Y {0,1}
 #define O {0,0}

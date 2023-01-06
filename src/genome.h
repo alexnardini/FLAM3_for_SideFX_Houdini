@@ -37,14 +37,14 @@ struct gem{
     void gemBuild(const string sIDX[]){
 
         // SYS
-        TM   = chi("../dotmglobal");
-        FF   = chi("../dofinalflame");
-        PFF  = chi("../_dofpost_2");
-        RIP  = chi("../delinvalidpt");
-        SM   = chi("../symmetry");
+        TM   = chi("../dotm");
+        FF   = chi("../doff");
+        PFF  = chi("../dofp");
+        RIP  = chi("../rip");
+        SM   = chi("../sm");
         MB   = chi("../domb");
         iter = chi("../iter");
-        if(SM) smm = chi("../rotational");
+        if(SM) smm = chi("../smrot");
         if(MB) mbm = detail(1, "Tstep_mult", 0);
 
         // GENOME
