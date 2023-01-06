@@ -89,7 +89,9 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
         if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], mem, x[idx], y[idx], o[idx], v4w[idx]);
         // Post
         if(p1w[idx] >0) tmp  = FLAME(P1GMP, idx, p1t[idx], tmp, X, Y, O, p1w[idx]);
+        // Post affine
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
+        // Post transformation
         if(TM) tmp*=TMm2;
         // Clr
         prv_clr=clr=_CLR[idx]+OM[idx]*prv_clr;
@@ -107,8 +109,9 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
         // FF Post
         if(fp1w >0) tmp  = FLAMEFF(FP, fp1t, tmp, X, Y, O, fp1w);
         if(fp2w >0) tmp  = FLAMEFF(FP, fp2t, tmp, X, Y, O, fp2w);
+        // FF Post affine
         if(PFF) affine(tmp, pfx, pfy, pfo);
-        // FF out
+        // FF Out
         mem=tmp;
     }
     a=A[idx];
