@@ -126,6 +126,8 @@ void V_SYM(vector2 p; const int num){
     p *= (matrix2)maketransform(0, set(0, 0, ang));
 }
 
+// Hardcoded inside "flam*.h" files, earned 7kb in final compile file size.
+// Used for post affine operation inside the chaos game.
 void affine(vector2 p; const vector2 x, y, o){
     p = set( x[0]*p[0] + y[0]*p[1] + o[0],
              x[1]*p[0] + y[1]*p[1] + o[1]);
