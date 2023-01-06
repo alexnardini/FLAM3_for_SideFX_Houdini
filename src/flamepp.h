@@ -29,8 +29,8 @@ vector2 FLAMEPP(const int T; const vector2 pos, x, y, o; const float w){
     //  p = out position
     // _p = incoming position
     vector2 p, _p; _p=pos;
-    // pre affine are their identity matrix for post variations.
-    
+    // pre affine are their identity matrix for pre/post variations.
+
     // VARs with precalc pos: 9, 10, 11, 19, 21
 
     // FLAME VARIATIONS
