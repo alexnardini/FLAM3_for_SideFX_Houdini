@@ -30,7 +30,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; co
     //  p = out position
     // _p = incoming position
     vector2 p, _p; _p=pos;
-    // pre affine
+    // pre affine ( hardcoded here instead of using the inline function. )
     _p = set( x[0]*_p[0] + y[0]*_p[1] + o[0],
               x[1]*_p[0] + y[1]*_p[1] + o[1] );
     
