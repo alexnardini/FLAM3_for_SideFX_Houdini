@@ -30,7 +30,10 @@ vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; co
     //  p = out position
     // _p = incoming position
     vector2 p, _p; _p=pos;
-    affine(_p, x, y, o);
+    // pre affine
+    _p = set( x[0]*_p[0] + y[0]*_p[1] + o[0],
+              x[1]*_p[0] + y[1]*_p[1] + o[1] );
+    
     // VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
 
     // FLAME VARIATIONS

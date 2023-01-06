@@ -34,7 +34,8 @@
 //
 // VARs with PRECALC: 47, 48, 76, 98, 99
 //
-// 00 LINEAR inside "flame.h" header file
+// 00 LINEAR
+// hardcoded inside "flame.h", "flamepp.h", "flameff.h" header files.
 //
 // 01
 void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
