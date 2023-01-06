@@ -395,7 +395,6 @@ vector2 FLAMEFF(const string prx; const int T; const vector2 pos, x, y, o; const
             else if(T==76){
                 vector4 wedgejulia = chp(concat(prx, "wedgejulia"));
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
-                // V_WEDGEJULIA_FF(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(T==77){
