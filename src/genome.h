@@ -112,7 +112,7 @@ struct gem{
         }
         // Build TM
         if(TM){
-            grt = chf("../frt");
+            grt = chf("../tmrt");
             TMm2 = (matrix2)maketransform(0, set(0, 0, grt));
         }
         if(FF){
@@ -132,22 +132,22 @@ struct gem{
             fp2w = chf("../ffp2weight");
             if(fp2w >0) fp2t = chi("../ffp2type");
             // FF AFFINE
-            _x = chu("../_fx_2");;
-            _y = chu("../_fy_2");;
-            _a = chf("../_ang_2");
+            _x = chu("../ffx");;
+            _y = chu("../ffy");;
+            _a = chf("../ffang");
             affineRot(_m2, _x, _y, -radians(_a));
             fx = set(_m2.xx, _m2.xy);
             fy = set(_m2.yx, _m2.yy);
-            fo = chu("../_fo_2");
+            fo = chu("../ffo");
             // FF POST AFFINE
             if(PFF){
-                _x = chu("../_pfx_2");;
-                _y = chu("../_pfy_2");;
-                _a = chf("../_pang_2");
+                _x = chu("../ffpx");;
+                _y = chu("../ffpy");;
+                _a = chf("../ffpang");
                 affineRot(_m2, _x, _y, -radians(_a));
                 pfx = set(_m2.xx, _m2.xy);
                 pfy = set(_m2.yx, _m2.yy);
-                pfo = chu("../_pfo_2");
+                pfo = chu("../ffpo");
             }
         }
     }

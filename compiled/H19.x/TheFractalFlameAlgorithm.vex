@@ -42,7 +42,7 @@ source_filename = "FLAM3"
 @34 = private constant [7 x i8] c"../py_\00"
 @35 = private constant [9 x i8] c"../pang_\00"
 @36 = private constant [7 x i8] c"../po_\00"
-@37 = private constant [7 x i8] c"../frt\00"
+@37 = private constant [8 x i8] c"../tmrt\00"
 @38 = private constant [14 x i8] c"../ffv1weight\00"
 @39 = private constant [12 x i8] c"../ffv1type\00"
 @40 = private constant [14 x i8] c"../ffv2weight\00"
@@ -53,14 +53,14 @@ source_filename = "FLAM3"
 @45 = private constant [12 x i8] c"../ffp1type\00"
 @46 = private constant [14 x i8] c"../ffp2weight\00"
 @47 = private constant [12 x i8] c"../ffp2type\00"
-@48 = private constant [9 x i8] c"../_fx_2\00"
-@49 = private constant [9 x i8] c"../_fy_2\00"
-@50 = private constant [10 x i8] c"../_ang_2\00"
-@51 = private constant [9 x i8] c"../_fo_2\00"
-@52 = private constant [10 x i8] c"../_pfx_2\00"
-@53 = private constant [10 x i8] c"../_pfy_2\00"
-@54 = private constant [11 x i8] c"../_pang_2\00"
-@55 = private constant [10 x i8] c"../_pfo_2\00"
+@48 = private constant [7 x i8] c"../ffx\00"
+@49 = private constant [7 x i8] c"../ffy\00"
+@50 = private constant [9 x i8] c"../ffang\00"
+@51 = private constant [7 x i8] c"../ffo\00"
+@52 = private constant [8 x i8] c"../ffpx\00"
+@53 = private constant [8 x i8] c"../ffpy\00"
+@54 = private constant [10 x i8] c"../ffpang\00"
+@55 = private constant [8 x i8] c"../ffpo\00"
 @56 = private constant [0 x i64] zeroinitializer
 @57 = private constant [0 x double] zeroinitializer
 @58 = private constant [0 x <2 x double>] zeroinitializer
@@ -3691,7 +3691,7 @@ end355:                                           ; preds = %true354, %end286
   br label %cond
 
 true404:                                          ; preds = %end69
-  %return406 = call double @"chf@FS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @37, i64 0, i64 0))
+  %return406 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @37, i64 0, i64 0))
   %return408 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %return406)
   %return409 = call <9 x double> @"maketransform@3IV"(i64 0, <3 x double> %return408)
   %cast = call <4 x double> @"set@23"(<9 x double> %return409)
@@ -3779,9 +3779,9 @@ true455:                                          ; preds = %end447
   br label %end456
 
 end456:                                           ; preds = %true455, %end447
-  %return459 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @48, i64 0, i64 0))
-  %return460 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @49, i64 0, i64 0))
-  %return461 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @50, i64 0, i64 0))
+  %return459 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @48, i64 0, i64 0))
+  %return460 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @49, i64 0, i64 0))
+  %return461 = call double @"chf@FS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @50, i64 0, i64 0))
   store <2 x double> %return459, <2 x double>* %6
   store <2 x double> %return460, <2 x double>* %7
   %return465 = call double @"radians@FF"(double %return461)
@@ -3798,7 +3798,7 @@ end456:                                           ; preds = %true455, %end447
   %return476 = call double @"getcomp@F2II"(<4 x double> %_m2467, i64 1, i64 1)
   %return477 = call <2 x double> @"set@UFF"(double %return474, double %return476)
   %90 = insertvalue %gem %89, <2 x double> %return477, 45
-  %return479 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @51, i64 0, i64 0))
+  %return479 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @51, i64 0, i64 0))
   %91 = insertvalue %gem %90, <2 x double> %return479, 46
   store %gem %91, %gem* %this
   %PFF = extractvalue %gem %91, 2
@@ -3806,9 +3806,9 @@ end456:                                           ; preds = %true455, %end447
   br i1 %92, label %true482, label %end413
 
 true482:                                          ; preds = %end456
-  %return484 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @52, i64 0, i64 0))
-  %return485 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @53, i64 0, i64 0))
-  %return486 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @54, i64 0, i64 0))
+  %return484 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @52, i64 0, i64 0))
+  %return485 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @53, i64 0, i64 0))
+  %return486 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @54, i64 0, i64 0))
   store <2 x double> %return484, <2 x double>* %9
   store <2 x double> %return485, <2 x double>* %10
   %return490 = call double @"radians@FF"(double %return486)
@@ -3825,7 +3825,7 @@ true482:                                          ; preds = %end456
   %return501 = call double @"getcomp@F2II"(<4 x double> %_m2492, i64 1, i64 1)
   %return502 = call <2 x double> @"set@UFF"(double %return499, double %return501)
   %94 = insertvalue %gem %93, <2 x double> %return502, 48
-  %return504 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @55, i64 0, i64 0))
+  %return504 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @55, i64 0, i64 0))
   %95 = insertvalue %gem %94, <2 x double> %return504, 49
   store %gem %95, %gem* %this
   br label %end413
