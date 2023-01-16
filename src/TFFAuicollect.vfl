@@ -143,7 +143,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     smm  = chi("../smrot");
 
     // UI collect
-    float ppw, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
+    float ppw1, ppw2, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, pfw1;
     append(T, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XS");
     if(xaos_chk) append(T, concat("[", "X", "]"));
@@ -154,7 +154,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     for(int i=0; i<inum; ++i){
 
         string _IDX = itoa(i+1);
-        string VAR, W, PP, PB, V1, V2, V3, V4, P1;
+        string VAR, W, PP[], PB, V1, V2, V3, V4, P1;
         if(!chi(concat("../vactive_", _IDX))) VAR = " :::::::::: ";
         else{
             w1 = chf(concat("../v1weight_", _IDX));
@@ -174,12 +174,20 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
             // Pre blur
             pbw = chf(concat("../preblurweight_" , _IDX));
             if(pbw>0){ if(w_total != 0) PB="*"; }
-            // Pre var 
-            ppw = chf(concat("../pre1weight_" , _IDX));
-            if(ppw>0){ if(w_total != 0) PP = concat( "[", Ts[atoi(chs(concat("../pre1type_", _IDX)))], "] "); }
+            // Pre var 1
+            ppw1 = chf(concat("../pre1weight_" , _IDX));
+            if(ppw1>0){ if(w_total != 0) append(PP, Ts[atoi(chs(concat("../pre1type_", _IDX)))]); }
+            // Pre var 2
+            ppw2 = chf(concat("../pre2weight_" , _IDX));
+            if(ppw2>0){ if(w_total != 0) append(PP, Ts[atoi(chs(concat("../pre2type_", _IDX)))]); }
+            // Build pre vars tag string
+            string PP_build;
+            if(len(PP)==1) PP_build = concat( "[", PP[0], "]:");
+            else if(len(PP)==2) PP_build = concat( "[", join(PP, ", "), "]:");
+            else PP_build = "";
             // Post var
             pw1 = chf(concat("../p1weight_", _IDX));
-            if(pw1!=0) { if(w_total != 0) P1 = concat( " [", Ts[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
+            if(pw1!=0) { if(w_total != 0) P1 = concat( "[", Ts[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX))); else W = "";
             
@@ -192,9 +200,10 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
             }
             else out = SPLIT;
             W = join(out, ".");
-            VAR = concat(PB, PP, V1, V2, V3, V4, P1, W);
+            VAR = concat(PB, PP_build, V1, V2, V3, V4, P1, W);
         }
         append(T, VAR);
+        PP = {};
     }
 
     if(FF){
