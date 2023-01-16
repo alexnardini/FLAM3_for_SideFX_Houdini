@@ -220,10 +220,6 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         else FV3 = ":";
         float fw_total = fw1+fw2+fw3;
 
-        // Post final var
-        // pfw1 = chf("../ffp1weight");
-        // if(pfw1!=0) { if(fw_total != 0) FP1 = concat("[", Ts[atoi(chs("../ffp1type"))], "]"); }
-
         // Post var 1
         fpw1 = chf("../ffp1weight");
         if(fpw1>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("../ffp1type"))]); }
