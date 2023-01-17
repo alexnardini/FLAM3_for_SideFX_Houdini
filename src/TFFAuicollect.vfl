@@ -14,7 +14,7 @@
  /
  /  Name:       UICOLLECT "CVEX"
  /
- /  Comment:    UI FLAM3 TAG infos collection.
+ /  Comment:    UI FLAM3 viewport TAG infos collection.
 */
 
 
@@ -183,11 +183,11 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
             // Build pre vars tag string
             string PP_build;
             if(len(PP)==1) PP_build = concat( "[", PP[0], "]:");
-            else if(len(PP)==2) PP_build = concat( "[", join(PP, ", "), "]:");
+            else if(len(PP)>1) PP_build = concat( "[", join(PP, ", "), "]:");
             else PP_build = "";
             // Post var
             pw1 = chf(concat("../p1weight_", _IDX));
-            if(pw1!=0) { if(w_total != 0) P1 = concat( "[", Ts[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
+            if(pw1>0) { if(w_total != 0) P1 = concat( "[", Ts[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX))); else W = "";
             
@@ -229,7 +229,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         // Build post vars tag string
         string FP_build;
         if(len(FP)==1) FP_build = concat( ":[", FP[0], "]");
-        else if(len(FP)==2) FP_build = concat( ":[", join(FP, ", "), "]");
+        else if(len(FP)>1) FP_build = concat( ":[", join(FP, ", "), "]");
         else FP_build = "";
 
         VAR = concat(FV1, FV2, FV3, FP_build);
