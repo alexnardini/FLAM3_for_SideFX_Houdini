@@ -18,6 +18,8 @@
  /  Name:       FLAME "CVEX"
  /
  /  Comment:    FLAM3 variation selection.
+ /              Type 65 PRE BLUR is missing as it is hardcoded into the chaose game,
+ /              so there is a jump from 64 to 66 directly.
 */
 
 
