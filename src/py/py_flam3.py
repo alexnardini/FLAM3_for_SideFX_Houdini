@@ -38,6 +38,7 @@ class flam3_varsPRM:
 
 
     # Collect all variations and their parametric parameters.
+
     varsPRM = ( ["linear", 0], 
                 ["sinusoidal", 0], 
                 ["spherical", 0], 
@@ -361,7 +362,7 @@ def prm_paste_sel(kwargs):
         ################################################################################
         elif paste_sel == 4:
             
-            # var's type
+            # var's type and set parametric variation's parameter if it find any
             pastePRM_from_list(FLAM3VARS.sec_prevarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_prevarsW, node, flam3node, id, id_from)
@@ -378,7 +379,7 @@ def prm_paste_sel(kwargs):
         ################################################################################
         elif paste_sel == 5:
 
-            # var's type
+            # var's type and set parametric variation's parameter if it find any
             pastePRM_from_list(FLAM3VARS.sec_varsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_varsW, node, flam3node, id, id_from)
@@ -395,7 +396,7 @@ def prm_paste_sel(kwargs):
         ################################################################################
         elif paste_sel == 6:
 
-            # var's type
+            # var's type and set parametric variation's parameter if it find any
             pastePRM_from_list(FLAM3VARS.sec_postvarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_postvarsW, node, flam3node, id, id_from)
