@@ -147,8 +147,28 @@ class flam3_varsPRM:
                 [["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
 
 
+    # ALL method lists
+    allType = [ "pre1type_", "pre2type_", "v1type_", "v2type_", "v3type_", "v4type_", "p1type_" ] # preblur is omitted as it is always ZERO
+    allMisc = [ "vactive_", "iw_", "clr_", "clrspeed_", "alpha_", "preblurweight_", "pre1weight_", "pre2weight_", "v1weight_", "v2weight_", "v3weight_", "v4weight_", "p1weight_", "dopost_", "ang_", "pang_" ]
+    allAffineTUPLE = [ "x_", "y_", "o_", "px_", "py_", "po_" ]
 
-
+    # SECTIONS method lists
+    #
+    # Names that start with an underscore "_" are single parms and not lists
+    sec_main = [ "vactive_", "iw_" ]
+    sec_shader = [ "clr_", "clrspeed_", "alpha_" ]
+    sec__xaos = "varnote_"
+    sec_prevarsT = [ "pre1type_", "pre2type_" ] # preblur is omitted as it is always ZERO
+    sec_prevarsW = [ "preblurweight_", "pre1weight_", "pre2weight_" ]
+    sec_varsT = [ "v1type_", "v2type_", "v3type_", "v4type_" ]
+    sec_varsW = [ "v1weight_", "v2weight_", "v3weight_", "v4weight_" ]
+    sec_postvarsT = [ "p1type_" ]
+    sec_postvarsW = [ "p1weight_" ]
+    sec_preAffineTuple = [ "x_", "y_", "o_" ]
+    sec__preAffineAng = "ang_"
+    sec__postAffineCheck = "dopost_"
+    sec_postAffineTuple = [ "px_", "py_", "po_" ]
+    sec__postAffineAng = "pang_"
 
 ###############################################################################################
 # FLAM3 on create init
@@ -327,24 +347,17 @@ def prm_paste(kwargs):
         # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from != -1:
 
-            # Parameters 
-            prmT_list = [ "pre1type_", "pre2type_", "v1type_", "v2type_", "v3type_", "v4type_", "p1type_" ]
-
-            # Quick and dirty way to access the rest of the parameters
-            prm_list = [ "vactive_", "iw_", "clr_", "clrspeed_", "alpha_", "preblurweight_", "pre1weight_", "pre2weight_", "v1weight_", "v2weight_", "v3weight_", "v4weight_", "p1weight_", "dopost_", "ang_", "pang_" ]
-            prmAffineTuple_list = [ "x_", "y_", "o_", "px_", "py_", "po_" ]
-
             # Create flam3 variation's parameter object
-            flam3vars = flam3_varsPRM()
+            FLAM3VARS = flam3_varsPRM()
 
             # var's type
-            for prm in prmT_list:
+            for prm in FLAM3VARS.allType:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 # Check if this var is a parametric or not
                 type = int(prm_from)
-                if(flam3vars.varsPRM[type][-1]):
-                    for t in flam3vars.varsPRM[type][:-1]:
+                if(FLAM3VARS.varsPRM[type][-1]):
+                    for t in FLAM3VARS.varsPRM[type][:-1]:
                         # if a tuple
                         if t[1]:
                             t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
@@ -353,11 +366,11 @@ def prm_paste(kwargs):
                             t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
                             node.setParms({t[0] + str(id): t_prm_from})
 
-            for prm in prm_list:
+            for prm in FLAM3VARS.allMisc:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
-            for prm in prmAffineTuple_list:
+            for prm in FLAM3VARS.allAffineTUPLE:
                 prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
@@ -410,25 +423,9 @@ def prm_paste_sel(kwargs):
 
     # If we ever copied an iterator from a currently existing FLAM3 node
     if id_from != -1:
-    
-        # Parameters  lists
-        main_list = [ "vactive_", "iw_" ]
-        shader_list = [ "clr_", "clrspeed_", "alpha_" ]
-        xaos = "varnote_"
-        prevarsT_list = [ "pre1type_", "pre2type_" ] # preblur is omitted as it is always ZERO
-        prevarsW_list = [ "preblurweight_", "pre1weight_", "pre2weight_" ]
-        varsT_list = [ "v1type_", "v2type_", "v3type_", "v4type_" ]
-        varsW_list = [ "v1weight_", "v2weight_", "v3weight_", "v4weight_" ]
-        postvarsT_list = [ "p1type_" ]
-        postvarsW_list = [ "p1weight_" ]
-        preAffineTuple_list = [ "x_", "y_", "o_" ]
-        preAffineAng = "ang_"
-        postAffineCheck = "dopost_"
-        postAffineTuple_list = [ "px_", "py_", "po_" ]
-        postAffineAng = "pang_"
         
         # Create flam3 variation's parameter object
-        flam3vars = flam3_varsPRM()
+        FLAM3VARS = flam3_varsPRM()
         
         # Get user selection of paste methods
         paste_sel = node.parm("prmpastesel_" + str(id)).evalAsInt()
@@ -437,7 +434,7 @@ def prm_paste_sel(kwargs):
         ################################################################################
         if paste_sel == 1:
         
-            for prm in main_list:
+            for prm in FLAM3VARS.sec_main:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
@@ -453,8 +450,8 @@ def prm_paste_sel(kwargs):
         ################################################################################
         elif paste_sel == 2:
         
-            xaos_from = flam3node.parm(xaos + str(id_from)).eval()
-            node.setParms({xaos + str(id): xaos_from})
+            xaos_from = flam3node.parm(FLAM3VARS.sec__xaos + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__xaos + str(id): xaos_from})
                 
             # Set note to know the node and iterator those values are coming from
             if node == flam3node:
@@ -468,7 +465,7 @@ def prm_paste_sel(kwargs):
         ################################################################################ 
         elif paste_sel == 3:
         
-            for prm in shader_list:
+            for prm in FLAM3VARS.sec_shader:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
@@ -485,13 +482,13 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 4:
             
             # var's type
-            for prm in prevarsT_list:
+            for prm in FLAM3VARS.sec_prevarsT:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 # Check if this var is a parametric or not
                 type = int(prm_from)
-                if(flam3vars.varsPRM[type][-1]):
-                    for t in flam3vars.varsPRM[type][:-1]:
+                if(FLAM3VARS.varsPRM[type][-1]):
+                    for t in FLAM3VARS.varsPRM[type][:-1]:
                         # if a tuple
                         if t[1]:
                             t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
@@ -501,7 +498,7 @@ def prm_paste_sel(kwargs):
                             node.setParms({t[0] + str(id): t_prm_from})
 
             # var's weight
-            for prm in prevarsW_list:
+            for prm in FLAM3VARS.sec_prevarsW:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
@@ -518,13 +515,13 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 5:
 
             # var's type
-            for prm in varsT_list:
+            for prm in FLAM3VARS.sec_varsT:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 # Check if this var is a parametric or not
                 type = int(prm_from)
-                if(flam3vars.varsPRM[type][-1]):
-                    for t in flam3vars.varsPRM[type][:-1]:
+                if(FLAM3VARS.varsPRM[type][-1]):
+                    for t in FLAM3VARS.varsPRM[type][:-1]:
                         # if a tuple
                         if t[1]:
                             t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
@@ -534,7 +531,7 @@ def prm_paste_sel(kwargs):
                             node.setParms({t[0] + str(id): t_prm_from})
 
             # var's weight
-            for prm in varsW_list:
+            for prm in FLAM3VARS.sec_varsW:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
@@ -551,13 +548,13 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 6:
 
             # var's type
-            for prm in postvarsT_list:
+            for prm in FLAM3VARS.sec_postvarsT:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 # Check if this var is a parametric or not
                 type = int(prm_from)
-                if(flam3vars.varsPRM[type][-1]):
-                    for t in flam3vars.varsPRM[type][:-1]:
+                if(FLAM3VARS.varsPRM[type][-1]):
+                    for t in FLAM3VARS.varsPRM[type][:-1]:
                         # if a tuple
                         if t[1]:
                             t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
@@ -567,7 +564,7 @@ def prm_paste_sel(kwargs):
                             node.setParms({t[0] + str(id): t_prm_from})
 
             # var's weight
-            for prm in postvarsW_list:
+            for prm in FLAM3VARS.sec_postvarsW:
                 prm_from = flam3node.parm(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
@@ -583,12 +580,12 @@ def prm_paste_sel(kwargs):
         ################################################################################
         elif paste_sel == 7:
         
-            for prm in preAffineTuple_list:
+            for prm in FLAM3VARS.sec_preAffineTuple:
                 prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
             # One off angle parameter
-            ang_from = flam3node.parm(preAffineAng + str(id_from)).eval()
-            node.setParms({preAffineAng + str(id): ang_from})
+            ang_from = flam3node.parm(FLAM3VARS.sec__preAffineAng + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__preAffineAng + str(id): ang_from})
             
             # Set note to know the node and iterator those values are coming from
             if node == flam3node:
@@ -602,16 +599,16 @@ def prm_paste_sel(kwargs):
         ################################################################################
         elif paste_sel == 8:
         
-            for prm in postAffineTuple_list:
+            for prm in FLAM3VARS.sec_postAffineTuple:
                 prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
                 node.setParms({prm + str(id): prm_from})
                 
             # One off dopost paramter
-            dop_from = flam3node.parm(postAffineCheck + str(id_from)).eval()
-            node.setParms({postAffineCheck + str(id): dop_from})
+            dop_from = flam3node.parm(FLAM3VARS.sec__postAffineCheck + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__postAffineCheck + str(id): dop_from})
             # One off angle parameter
-            ang_from = flam3node.parm(postAffineAng + str(id_from)).eval()
-            node.setParms({postAffineAng + str(id): ang_from})
+            ang_from = flam3node.parm(FLAM3VARS.sec__postAffineAng + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__postAffineAng + str(id): ang_from})
             
             # Set note to know the node and iterator those values are coming from
             if node == flam3node:
