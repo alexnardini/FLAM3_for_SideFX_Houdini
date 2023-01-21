@@ -38,11 +38,6 @@ class flam3_varsPRM:
 
 
     # Collect all variations and their parametric parameters.
-    #
-    # This is built to hold some data relative to each parameter/variation.
-    # The last idx of the first array its a bool to tell us if it is a parametric variation or not.
-    # We then go inside and check if each parameter is a tuple or not
-    # using a second bool data still placed as the last idx of the variation->parameter->sub array.
     varsPRM = ( ["linear", 0], 
                 ["sinusoidal", 0], 
                 ["spherical", 0], 
@@ -169,6 +164,300 @@ class flam3_varsPRM:
     sec__postAffineCheck = "dopost_"
     sec_postAffineTuple = [ "px_", "py_", "po_" ]
     sec__postAffineAng = "pang_"
+
+
+
+
+
+###############################################################################################
+# FLAM3 paste list of parms
+###############################################################################################
+def paste_from_list(prmlist, node, flam3node, id, id_from):
+    for prm in prmlist:
+        prm_from = flam3node.parm(prm + str(id_from)).eval()
+        node.setParms({prm + str(id): prm_from})
+
+
+
+
+
+###############################################################################################
+# FLAM3 paste list of tuple parms
+###############################################################################################
+def pasteTuple_from_list(prmlist, node, flam3node, id, id_from):
+    for prm in prmlist:
+        prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
+        node.setParms({prm + str(id): prm_from})
+
+
+
+
+
+###############################################################################################
+# FLAM3 paste parametric parms if any are found in the list of var types passed in
+###############################################################################################
+def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
+    
+    for prm in prmlist:
+        prm_from = flam3node.parm(prm + str(id_from)).eval()
+        node.setParms({prm + str(id): prm_from})
+        # Check if this var is a parametric or not
+        type = int(prm_from)
+        if(varsPRM[type][-1]):
+            for t in varsPRM[type][:-1]:
+                # if a tuple
+                if t[1]:
+                    t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
+                    node.setParms({t[0] + str(id): t_prm_from})
+                else:
+                    t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
+                    node.setParms({t[0] + str(id): t_prm_from})
+
+
+
+
+
+###############################################################################################
+# Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
+###############################################################################################
+def prm_paste(kwargs):
+
+    if kwargs["ctrl"]:
+
+        # current node
+        node=kwargs['node']
+        
+        # current iterator
+        id = kwargs['script_multiparm_index']
+
+        # FLAM3 node and Iterator we just copied
+        flam3node = hou.session.flam3node
+        id_from = hou.session.flam3node_mp_id
+
+        # If an iterator was copied on a node that has been deleted
+        # revert to -1 so that we are forced to copy an iterator again.
+        try:
+            flam3node.type()
+        except:
+            id_from = -1
+
+        # If we ever copied an iterator from a currently existing FLAM3 node
+        if id_from != -1:
+
+            # Create flam3 variation's parameter object
+            FLAM3VARS = flam3_varsPRM()
+
+            # var's type
+            pastePRM_from_list(FLAM3VARS.allType, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+
+            for prm in FLAM3VARS.allMisc:
+                prm_from = flam3node.parm(prm + str(id_from)).eval()
+                node.setParms({prm + str(id): prm_from})
+                
+            for prm in FLAM3VARS.allAffineTUPLE:
+                prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
+                node.setParms({prm + str(id): prm_from})
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'Cloned iter.' + str(id_from)})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + " to: " + "iter." + str(id))
+            else:
+                node.setParms({'variter_' + str(id): 'Cloned ' + str(flam3node) + '->iter.' + str(id_from)})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + " to: " + str(node) + "->iter." + str(id))
+
+        else:
+            print(str(node) + ": Please copy an iterator first.")
+
+    else:
+        hou.session.flam3node_mp_id = kwargs['script_multiparm_index']
+        hou.session.flam3node = kwargs['node']
+        print(str(kwargs['node']) + ": Copied values from: " + str(hou.session.flam3node) + "->iter." + str(hou.session.flam3node_mp_id))
+
+
+
+
+
+
+###############################################################################################
+# paste sections of iterator's values from one to another and also from different FLAM3 nodes
+###############################################################################################
+def prm_paste_sel(kwargs):
+
+    # current node
+    node=kwargs['node']
+    
+    # current iterator
+    id = kwargs['script_multiparm_index']
+
+    # FLAM3 node and Iterator we just copied
+    flam3node = hou.session.flam3node
+    id_from = hou.session.flam3node_mp_id
+
+    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
+    #
+    # If an iterator was copied from a node that has been deleted
+    # revert to -1 so that we are forced to copy an iterator again.
+    '''
+    try:
+        flam3node.type()
+    except:
+        id_from = -1
+    '''
+
+    # If we ever copied an iterator from a currently existing FLAM3 node
+    if id_from != -1:
+        
+        # Create flam3 variation's parameter object
+        FLAM3VARS = flam3_varsPRM()
+        
+        # Get user selection of paste methods
+        paste_sel = node.parm("prmpastesel_" + str(id)).evalAsInt()
+
+        # set MAIN
+        ################################################################################
+        if paste_sel == 1:
+        
+            paste_from_list(FLAM3VARS.sec_main, node, flam3node, id, id_from)
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".main"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".main" + " to: " + "iter." + str(id) + ".main")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".main"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".main" + " to: " + str(node) + "->iter." + str(id) + ".main")
+
+        # set XAOS
+        ################################################################################
+        elif paste_sel == 2:
+        
+            xaos_from = flam3node.parm(FLAM3VARS.sec__xaos + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__xaos + str(id): xaos_from})
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".xaos"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".xaos" + " to: " + "iter." + str(id) + ".xaos")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".xaos"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".xaos" + " to: " + str(node) + "->iter." + str(id) + ".xaos")
+
+        # set SHADER
+        ################################################################################ 
+        elif paste_sel == 3:
+        
+            paste_from_list(FLAM3VARS.sec_shader, node, flam3node, id, id_from)
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".shader"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".shader" + " to: " + "iter." + str(id) + ".shader")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".shader"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".shader" + " to: " + str(node) + "->iter." + str(id) + ".shader")
+        
+        # set PRE VARS
+        ################################################################################
+        elif paste_sel == 4:
+            
+            # var's type
+            pastePRM_from_list(FLAM3VARS.sec_prevarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+            # var's weight
+            paste_from_list(FLAM3VARS.sec_prevarsW, node, flam3node, id, id_from)
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".pre_vars"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".pre_vars" + " to: " + "iter." + str(id) + ".pre_vars")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".pre_vars"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".pre_vars" + " to: " + str(node) + "->iter." + str(id) + ".pre_vars")
+
+        # set VARS
+        ################################################################################
+        elif paste_sel == 5:
+
+            # var's type
+            pastePRM_from_list(FLAM3VARS.sec_varsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+            # var's weight
+            paste_from_list(FLAM3VARS.sec_varsW, node, flam3node, id, id_from)
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".vars"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".vars" + " to: " + "iter." + str(id) + ".vars")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".vars"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".vars" + " to: " + str(node) + "->iter." + str(id) + ".vars")
+
+        # set POST VARS
+        ################################################################################
+        elif paste_sel == 6:
+
+            # var's type
+            pastePRM_from_list(FLAM3VARS.sec_postvarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+            # var's weight
+            paste_from_list(FLAM3VARS.sec_postvarsW, node, flam3node, id, id_from)
+                
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".post_vars"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".post_var" + " to: " + "iter." + str(id) + ".post_var")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".post_vars"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".post_var" + " to: " + str(node) + "->iter." + str(id) + ".post_var")
+                
+        # set PRE AFFINE
+        ################################################################################
+        elif paste_sel == 7:
+        
+            pasteTuple_from_list(FLAM3VARS.sec_preAffineTuple, node, flam3node, id, id_from)
+            # One off angle parameter
+            ang_from = flam3node.parm(FLAM3VARS.sec__preAffineAng + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__preAffineAng + str(id): ang_from})
+            
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".pre_affine"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".pre_affine" + " to: " + "iter." + str(id) + ".pre_affine")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".pre_affine"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".pre_affine" + " to: " + str(node) + "->iter." + str(id) + ".pre_affine")
+        
+        # set POST AFFINE
+        ################################################################################
+        elif paste_sel == 8:
+        
+            pasteTuple_from_list(FLAM3VARS.sec_postAffineTuple, node, flam3node, id, id_from)
+            # One off dopost paramter
+            dop_from = flam3node.parm(FLAM3VARS.sec__postAffineCheck + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__postAffineCheck + str(id): dop_from})
+            # One off angle parameter
+            ang_from = flam3node.parm(FLAM3VARS.sec__postAffineAng + str(id_from)).eval()
+            node.setParms({FLAM3VARS.sec__postAffineAng + str(id): ang_from})
+            
+            # Set note to know the node and iterator those values are coming from
+            if node == flam3node:
+                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".post_affine"})
+                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".post_affine" + " to: " + "iter." + str(id) + ".post_affine")
+            else:
+                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".post_affine"})
+                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".post_affine" + " to: " + str(node) + "->iter." + str(id) + ".post_affine")
+     
+        # Set it to a null value ( first in the menu array idx in this case )
+        # so that we can paste the same section again, if we want to.
+        #
+        # please check the "prmpastesel_" python menu script to know its size.
+        node.setParms({"prmpastesel_" + str(id): str(0)})
+                
+    
+    else:
+        print(str(node) + ": Please copy an iterator first.")
+
+
+
+
 
 ###############################################################################################
 # FLAM3 on create init
@@ -315,320 +604,6 @@ def json_to_ramp(kwargs):
         # Initialize new ramp.
         ramp = hou.Ramp(bases, keys, values)
         ramp_parm.set(ramp)
-
-
-
-
-
-###############################################################################################
-# Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
-###############################################################################################
-def prm_paste(kwargs):
-
-    if kwargs["ctrl"]:
-
-        # current node
-        node=kwargs['node']
-        
-        # current iterator
-        id = kwargs['script_multiparm_index']
-
-        # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3node
-        id_from = hou.session.flam3node_mp_id
-
-        # If an iterator was copied on a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
-        try:
-            flam3node.type()
-        except:
-            id_from = -1
-
-        # If we ever copied an iterator from a currently existing FLAM3 node
-        if id_from != -1:
-
-            # Create flam3 variation's parameter object
-            FLAM3VARS = flam3_varsPRM()
-
-            # var's type
-            for prm in FLAM3VARS.allType:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                # Check if this var is a parametric or not
-                type = int(prm_from)
-                if(FLAM3VARS.varsPRM[type][-1]):
-                    for t in FLAM3VARS.varsPRM[type][:-1]:
-                        # if a tuple
-                        if t[1]:
-                            t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-                        else:
-                            t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-
-            for prm in FLAM3VARS.allMisc:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            for prm in FLAM3VARS.allAffineTUPLE:
-                prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'Cloned iter.' + str(id_from)})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + " to: " + "iter." + str(id))
-            else:
-                node.setParms({'variter_' + str(id): 'Cloned ' + str(flam3node) + '->iter.' + str(id_from)})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + " to: " + str(node) + "->iter." + str(id))
-
-        else:
-            print(str(node) + ": Please copy an iterator first.")
-
-    else:
-        hou.session.flam3node_mp_id = kwargs['script_multiparm_index']
-        hou.session.flam3node = kwargs['node']
-        print(str(kwargs['node']) + ": Copied values from: " + str(hou.session.flam3node) + "->iter." + str(hou.session.flam3node_mp_id))
-
-
-
-
-
-
-###############################################################################################
-# paste sections of iterator's values from one to another and also from different FLAM3 nodes
-###############################################################################################
-def prm_paste_sel(kwargs):
-
-    # current node
-    node=kwargs['node']
-    
-    # current iterator
-    id = kwargs['script_multiparm_index']
-
-    # FLAM3 node and Iterator we just copied
-    flam3node = hou.session.flam3node
-    id_from = hou.session.flam3node_mp_id
-
-    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
-    #
-    # If an iterator was copied from a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
-    '''
-    try:
-        flam3node.type()
-    except:
-        id_from = -1
-    '''
-
-    # If we ever copied an iterator from a currently existing FLAM3 node
-    if id_from != -1:
-        
-        # Create flam3 variation's parameter object
-        FLAM3VARS = flam3_varsPRM()
-        
-        # Get user selection of paste methods
-        paste_sel = node.parm("prmpastesel_" + str(id)).evalAsInt()
-
-        # set MAIN
-        ################################################################################
-        if paste_sel == 1:
-        
-            for prm in FLAM3VARS.sec_main:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".main"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".main" + " to: " + "iter." + str(id) + ".main")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".main"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".main" + " to: " + str(node) + "->iter." + str(id) + ".main")
-
-        # set XAOS
-        ################################################################################
-        elif paste_sel == 2:
-        
-            xaos_from = flam3node.parm(FLAM3VARS.sec__xaos + str(id_from)).eval()
-            node.setParms({FLAM3VARS.sec__xaos + str(id): xaos_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".xaos"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".xaos" + " to: " + "iter." + str(id) + ".xaos")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".xaos"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".xaos" + " to: " + str(node) + "->iter." + str(id) + ".xaos")
-
-        # set SHADER
-        ################################################################################ 
-        elif paste_sel == 3:
-        
-            for prm in FLAM3VARS.sec_shader:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".shader"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".shader" + " to: " + "iter." + str(id) + ".shader")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".shader"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".shader" + " to: " + str(node) + "->iter." + str(id) + ".shader")
-        
-        # set PRE VARS
-        ################################################################################
-        elif paste_sel == 4:
-            
-            # var's type
-            for prm in FLAM3VARS.sec_prevarsT:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                # Check if this var is a parametric or not
-                type = int(prm_from)
-                if(FLAM3VARS.varsPRM[type][-1]):
-                    for t in FLAM3VARS.varsPRM[type][:-1]:
-                        # if a tuple
-                        if t[1]:
-                            t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-                        else:
-                            t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-
-            # var's weight
-            for prm in FLAM3VARS.sec_prevarsW:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".pre_vars"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".pre_vars" + " to: " + "iter." + str(id) + ".pre_vars")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".pre_vars"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".pre_vars" + " to: " + str(node) + "->iter." + str(id) + ".pre_vars")
-
-        # set VARS
-        ################################################################################
-        elif paste_sel == 5:
-
-            # var's type
-            for prm in FLAM3VARS.sec_varsT:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                # Check if this var is a parametric or not
-                type = int(prm_from)
-                if(FLAM3VARS.varsPRM[type][-1]):
-                    for t in FLAM3VARS.varsPRM[type][:-1]:
-                        # if a tuple
-                        if t[1]:
-                            t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-                        else:
-                            t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-
-            # var's weight
-            for prm in FLAM3VARS.sec_varsW:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".vars"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".vars" + " to: " + "iter." + str(id) + ".vars")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".vars"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".vars" + " to: " + str(node) + "->iter." + str(id) + ".vars")
-
-        # set POST VARS
-        ################################################################################
-        elif paste_sel == 6:
-
-            # var's type
-            for prm in FLAM3VARS.sec_postvarsT:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                # Check if this var is a parametric or not
-                type = int(prm_from)
-                if(FLAM3VARS.varsPRM[type][-1]):
-                    for t in FLAM3VARS.varsPRM[type][:-1]:
-                        # if a tuple
-                        if t[1]:
-                            t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-                        else:
-                            t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
-                            node.setParms({t[0] + str(id): t_prm_from})
-
-            # var's weight
-            for prm in FLAM3VARS.sec_postvarsW:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".post_vars"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".post_var" + " to: " + "iter." + str(id) + ".post_var")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".post_vars"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".post_var" + " to: " + str(node) + "->iter." + str(id) + ".post_var")
-                
-        # set PRE AFFINE
-        ################################################################################
-        elif paste_sel == 7:
-        
-            for prm in FLAM3VARS.sec_preAffineTuple:
-                prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-            # One off angle parameter
-            ang_from = flam3node.parm(FLAM3VARS.sec__preAffineAng + str(id_from)).eval()
-            node.setParms({FLAM3VARS.sec__preAffineAng + str(id): ang_from})
-            
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".pre_affine"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".pre_affine" + " to: " + "iter." + str(id) + ".pre_affine")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".pre_affine"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".pre_affine" + " to: " + str(node) + "->iter." + str(id) + ".pre_affine")
-        
-        # set POST AFFINE
-        ################################################################################
-        elif paste_sel == 8:
-        
-            for prm in FLAM3VARS.sec_postAffineTuple:
-                prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            # One off dopost paramter
-            dop_from = flam3node.parm(FLAM3VARS.sec__postAffineCheck + str(id_from)).eval()
-            node.setParms({FLAM3VARS.sec__postAffineCheck + str(id): dop_from})
-            # One off angle parameter
-            ang_from = flam3node.parm(FLAM3VARS.sec__postAffineAng + str(id_from)).eval()
-            node.setParms({FLAM3VARS.sec__postAffineAng + str(id): ang_from})
-            
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".post_affine"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".post_affine" + " to: " + "iter." + str(id) + ".post_affine")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".post_affine"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".post_affine" + " to: " + str(node) + "->iter." + str(id) + ".post_affine")
-     
-        # Set it to a null value ( first in the menu array idx in this case )
-        # so that we can paste the same section again, if we want to.
-        #
-        # please check the "prmpastesel_" python menu script to know its size.
-        node.setParms({"prmpastesel_" + str(id): str(0)})
-                
-    
-    else:
-        print(str(node) + ": Please copy an iterator first.")
-
-
 
 
 
