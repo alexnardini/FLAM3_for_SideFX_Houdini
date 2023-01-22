@@ -174,7 +174,7 @@ class flam3_varsPRM:
 ###############################################################################################
 def paste_from_list(prmlist, node, flam3node, id, id_from):
     for prm in prmlist:
-        # If it is a tuple
+        # if a tuple
         if prm[1]:
             prm_from = flam3node.parmTuple(prm[0] + str(id_from)).eval()
             node.setParms({prm[0] + str(id): prm_from})
@@ -197,14 +197,14 @@ def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
         # Check if this var is a parametric or not
         type = int(prm_from)
         if(varsPRM[type][-1]):
-            for t in varsPRM[type][1:-1]:
+            for p in varsPRM[type][1:-1]:
                 # if a tuple
-                if t[1]:
-                    t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
-                    node.setParms({t[0] + str(id): t_prm_from})
+                if p[1]:
+                    t_prm_from = flam3node.parmTuple(p[0] + str(id_from)).eval()
+                    node.setParms({p[0] + str(id): t_prm_from})
                 else:
-                    t_prm_from = flam3node.parm(t[0] + str(id_from)).eval()
-                    node.setParms({t[0] + str(id): t_prm_from})
+                    t_prm_from = flam3node.parm(p[0] + str(id_from)).eval()
+                    node.setParms({p[0] + str(id): t_prm_from})
 
 
 
