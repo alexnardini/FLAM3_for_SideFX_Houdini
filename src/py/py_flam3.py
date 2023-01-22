@@ -142,7 +142,8 @@ class flam3_varsPRM:
 
     # SECTIONS method lists
     #
-    # (*T)Types have no signature and always to be used with: pastePRM_from_list()
+    # (*T)Types have no signature and always to be used with: pastePRM_from_list() for now.
+    # The reason is because we use those as hook to find the parametric parameter being used and only set whats needed.
     sec_main = [ ["vactive_", 0], ["iw_", 0] ]
     sec_xaos = [ ["varnote_", 0] ]
     sec_shader = [ ["clr_", 0], ["clrspeed_", 0], ["alpha_", 0] ]
@@ -378,7 +379,7 @@ class flam3_varsPRM_FF:
 
 
 
-    # SECTIONS FF method lists
+    # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_from_list()
     sec_varsT_FF = [ "ffv1type", "ffv2type", "ffv3type" ]
@@ -388,7 +389,7 @@ class flam3_varsPRM_FF:
     sec_preAffine_FF = [ ["ffx", 1], ["ffy", 1], ["ffo", 1], ["ffang", 0] ]
     sec_postAffine_FF = [ ["dofp", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
     
-    # ALL FF method lists
+    # ALL method lists
     allT_FF = sec_varsT_FF + sec_postvarsT_FF
     allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
@@ -436,13 +437,13 @@ def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
 
 
 
-def paste_set_note(str_section, node, flam3node, id, id_from):
+def paste_set_note(section, node, flam3node, id, id_from):
     if node == flam3node:
-        node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + str_section})
-        print(str(node) + ": Copied values from: " + "iter." + str(id_from) + str_section + " to: " + "iter." + str(id) + str_section)
+        node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + section})
+        print(str(node) + ": Copied values from: " + "iter." + str(id_from) + section + " to: " + "iter." + str(id) + section)
     else:
-        node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + str_section})
-        print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + str_section + " to: " + str(node) + "->iter." + str(id) + str_section)
+        node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + section})
+        print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + section + " to: " + str(node) + "->iter." + str(id) + section)
 
 
 
@@ -787,7 +788,7 @@ def flam3_default(self):
     for p in self.parms():
         p.deleteAllKeyframes()
     # Add back iterators
-    # This way all iterator's parameters will reset to their default values.
+    # This way all parameters will reset to their default values.
     self.setParms({"flamefunc": 3})
 
     #
