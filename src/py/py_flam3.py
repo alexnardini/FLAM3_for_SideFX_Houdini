@@ -786,7 +786,7 @@ def flam3_default(self):
     for p in self.parms():
         p.deleteAllKeyframes()
     # Add back iterators
-    # This way all parameters will reset to their default values.
+    # This way all iterator's parameters will reset to their default values.
     self.setParms({"flamefunc": 3})
 
     #
