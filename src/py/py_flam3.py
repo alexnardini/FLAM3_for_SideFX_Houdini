@@ -389,6 +389,7 @@ class flam3_varsPRM_FF:
     sec_postAffine_FF = [ ["dofp", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
     
     # ALL FF method lists
+    allT_FF = sec_varsT_FF + sec_postvarsT_FF
     allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
