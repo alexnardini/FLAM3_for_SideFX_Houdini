@@ -143,7 +143,6 @@ class flam3_varsPRM:
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_from_list() for now.
-    # The reason is because we use those as hook to find the parametric parameter being used and only set whats needed.
     sec_main = [ ["vactive_", 0], ["iw_", 0] ]
     sec_xaos = [ ["varnote_", 0] ]
     sec_shader = [ ["clr_", 0], ["clrspeed_", 0], ["alpha_", 0] ]
@@ -390,7 +389,6 @@ class flam3_varsPRM_FF:
     sec_postAffine_FF = [ ["dofp", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
     
     # ALL method lists
-    allT_FF = sec_varsT_FF + sec_postvarsT_FF
     allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
@@ -437,13 +435,32 @@ def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
 
 
 
-def paste_set_note(section, node, flam3node, id, id_from):
-    if node == flam3node:
-        node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + section})
-        print(str(node) + ": Copied values from: " + "iter." + str(id_from) + section + " to: " + "iter." + str(id) + section)
-    else:
-        node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + section})
-        print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + section + " to: " + str(node) + "->iter." + str(id) + section)
+
+###############################################################################################
+# FLAM3 paste parametric parms if any are found in the list of var types passed in
+# int_mode:
+# 0 -> iterators
+# 1 -> FF all
+# 2 -> FF sections
+###############################################################################################
+def paste_set_note(int_mode, str_section, node, flam3node, id, id_from):
+
+    if int_mode == 0:
+        # If on the same FLAM3 node
+        if node == flam3node:
+            node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + str_section})
+            print(str(node) + ": Copied values from: " + "iter." + str(id_from) + str_section + " to: " + "iter." + str(id) + str_section)
+        else:
+            node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + str_section})
+            print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + str_section + " to: " + str(node) + "->iter." + str(id) + str_section)
+    elif int_mode == 1:
+        if node != flam3node:
+            node.setParms({'ffnote': str(flam3node) + "->FF"})
+            print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF" + " to: " + str(node) + "->FF")
+    elif int_mode == 2:
+            if node != flam3node:
+                node.setParms({'ffnote': str(flam3node) + "->FF." + str_section})
+                print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF." + str_section + " to: " + str(node) + "->FF." + str_section)
 
 
 
@@ -485,7 +502,7 @@ def prm_paste(kwargs):
                 # paste rest
                 paste_from_list(FLAM3VARS.allMisc, node, flam3node, id, id_from)
                 # set note
-                paste_set_note("", node, flam3node, id, id_from)
+                paste_set_note(0, "", node, flam3node, id, id_from)
 
         else:
             print(str(node) + ": Please copy an iterator first.")
@@ -495,6 +512,54 @@ def prm_paste(kwargs):
         hou.session.flam3node = kwargs['node']
         print(str(kwargs['node']) + ": Copied iterator: " + str(hou.session.flam3node) + "->iter." + str(hou.session.flam3node_mp_id))
 
+
+
+
+
+###############################################################################################
+# FF - Copy paste all FF's values from one FLAM3 node to another FLAM3 node
+###############################################################################################
+def prm_paste_FF(kwargs):
+
+    if kwargs["ctrl"]:
+
+        # current node
+        node=kwargs['node']
+
+        # FLAM3 node and Iterator we just copied
+        flam3node_FF = hou.session.flam3node_FF
+        flam3node_FF_check = hou.session.flam3node_FF_check
+
+        # If an iterator was copied on a node that has been deleted
+        # revert to -1 so that we are forced to copy an iterator again.
+        try:
+            flam3node_FF.type()
+        except:
+            flam3node_FF_check = -1
+
+        # If we ever copied an iterator from a currently existing FLAM3 node
+        if flam3node_FF_check != -1:
+            if node==flam3node_FF:
+                print(str(node) + ": FF copied. Select a different FLAM3 node to paste those FF values.")
+            else:
+                # Create flam3 variation's parameter object
+                FLAM3VARS_FF = flam3_varsPRM_FF()
+
+                # var's type and set parametric variation's parameter if it find any
+                pastePRM_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF, node, flam3node_FF, "", "")
+                pastePRM_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FF.varsPRM_FP, node, flam3node_FF, "", "")
+                # paste rest
+                paste_from_list(FLAM3VARS_FF.allMisc_FF, node, flam3node_FF, "", "")
+                # set note
+                paste_set_note(1, "", node, flam3node_FF, "", "")
+
+        else:
+            print(str(node) + ": Please copy FF first.")
+
+    else:
+        hou.session.flam3node_FF_check = 1
+        hou.session.flam3node_FF = kwargs['node']
+        print(str(kwargs['node']) + ": Copied FF: " + str(hou.session.flam3node_FF) + "->FF" )
 
 
 
@@ -543,7 +608,7 @@ def prm_paste_sel(kwargs):
         
             paste_from_list(FLAM3VARS.sec_main, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".main", node, flam3node, id, id_from)
+            paste_set_note(0, ".main", node, flam3node, id, id_from)
 
         # set XAOS
         ################################################################################
@@ -551,7 +616,7 @@ def prm_paste_sel(kwargs):
         
             paste_from_list(FLAM3VARS.sec_xaos, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".xaos", node, flam3node, id, id_from)
+            paste_set_note(0, ".xaos", node, flam3node, id, id_from)
 
         # set SHADER
         ################################################################################ 
@@ -559,7 +624,7 @@ def prm_paste_sel(kwargs):
         
             paste_from_list(FLAM3VARS.sec_shader, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".shader", node, flam3node, id, id_from)
+            paste_set_note(0, ".shader", node, flam3node, id, id_from)
         
         # set PRE VARS
         ################################################################################
@@ -570,7 +635,7 @@ def prm_paste_sel(kwargs):
             # var's weight
             paste_from_list(FLAM3VARS.sec_prevarsW, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".pre_vars", node, flam3node, id, id_from)
+            paste_set_note(0, ".pre_vars", node, flam3node, id, id_from)
 
         # set VARS
         ################################################################################
@@ -581,7 +646,7 @@ def prm_paste_sel(kwargs):
             # var's weight
             paste_from_list(FLAM3VARS.sec_varsW, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".vars", node, flam3node, id, id_from)
+            paste_set_note(0, ".vars", node, flam3node, id, id_from)
 
         # set POST VARS
         ################################################################################
@@ -592,7 +657,7 @@ def prm_paste_sel(kwargs):
             # var's weight
             paste_from_list(FLAM3VARS.sec_postvarsW, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".post_var", node, flam3node, id, id_from)
+            paste_set_note(0, ".post_var", node, flam3node, id, id_from)
                 
         # set PRE AFFINE
         ################################################################################
@@ -600,7 +665,7 @@ def prm_paste_sel(kwargs):
         
             paste_from_list(FLAM3VARS.sec_preAffine, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".pre_affine", node, flam3node, id, id_from)
+            paste_set_note(0, ".pre_affine", node, flam3node, id, id_from)
         
         # set POST AFFINE
         ################################################################################
@@ -608,7 +673,7 @@ def prm_paste_sel(kwargs):
         
             paste_from_list(FLAM3VARS.sec_postAffine, node, flam3node, id, id_from)
             # set note
-            paste_set_note(".post_affine", node, flam3node, id, id_from)
+            paste_set_note(0, ".post_affine", node, flam3node, id, id_from)
      
 
 
@@ -616,12 +681,102 @@ def prm_paste_sel(kwargs):
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
         #
-        # please check the FLAM3node.prmpastesel_# parameter python menu script to know its size.
+        # please check the FLAM3node.ff_prmpastesel parameter python menu script to know its size.
         node.setParms({"prmpastesel_" + str(id): str(0)})
                 
     
     else:
-        print(str(node) + ": Please copy an iterator first.")
+        print(str(node) + ": Please copy the FF first.")
+
+
+
+
+
+###############################################################################################
+# FF paste sections of FF's values from one FLAM3 node to another FLAM3 node
+###############################################################################################
+def prm_paste_sel_FF(kwargs):
+
+    # current node
+    node=kwargs['node']
+
+    # FLAM3 node and Iterator we just copied
+    flam3node_FF = hou.session.flam3node_FF
+    flam3node_FF_check = hou.session.flam3node_FF_check
+
+    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
+    #
+    # If an iterator was copied from a node that has been deleted
+    # revert to -1 so that we are forced to copy an iterator again.
+    '''
+    try:
+        flam3node_FF.type()
+    except:
+        flam3node_FF_check = -1
+    '''
+
+    # If we ever copied an iterator from a currently existing FLAM3 node
+    if flam3node_FF_check != -1:
+        
+        # Create flam3 variation's parameter object
+        FLAM3VARS_FF = flam3_varsPRM_FF()
+        # Get user selection of paste methods
+        ff_paste_sel = node.parm("ff_prmpastesel").evalAsInt()
+
+
+
+
+
+        # set FF VARS
+        ################################################################################
+        if ff_paste_sel == 1:
+
+            # var's type and set parametric variation's parameter if it find any
+            pastePRM_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF, node, flam3node_FF, "", "")
+            # var's weight
+            paste_from_list(FLAM3VARS_FF.sec_varsW_FF, node, flam3node_FF, "", "")
+            # set note
+            paste_set_note(2, "vars", node, flam3node_FF, "", "")
+        
+        # set FF POST VARS
+        ################################################################################
+        elif ff_paste_sel == 2:
+
+            # var's type and set parametric variation's parameter if it find any
+            pastePRM_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FF.varsPRM_FP, node, flam3node_FF, "", "")
+            # var's weight
+            paste_from_list(FLAM3VARS_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
+            # set note
+            paste_set_note(2, "post_vars", node, flam3node_FF, "", "")
+
+        # set FF PRE AFFINE
+        ################################################################################
+        elif ff_paste_sel == 3:
+        
+            paste_from_list(FLAM3VARS_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
+            # set note
+            paste_set_note(2, "pre_affine", node, flam3node_FF, "", "")
+        
+        # set FF POST AFFINE
+        ################################################################################
+        elif ff_paste_sel == 4:
+        
+            paste_from_list(FLAM3VARS_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
+            # set note
+            paste_set_note(2, "post_affine", node, flam3node_FF, "", "")
+
+
+
+
+
+        # Set it to a null value ( first in the menu array idx in this case )
+        # so that we can paste the same section again, if we want to.
+        #
+        # please check the FLAM3node.ff_prmpastesel parameter python menu script to know its size.
+        node.setParms({"ff_prmpastesel": str(0)})
+                
+    else:
+        print(str(node) + ": Please copy the FF first.")
 
 
 
@@ -636,7 +791,7 @@ def flam3_on_create(kwargs):
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
 
-    # FLAM3 node and MultiParameter id.
+    # FLAM3 node and MultiParameter id for iterators
     #
     # If there were already a FLAM3 node in the scene
     # and we copied already an iterator's values, lets keep whats stored,
@@ -659,6 +814,26 @@ def flam3_on_create(kwargs):
 
 
 
+    # FLAM3 node for FF.
+    #
+    # If there were already a FLAM3 node in the scene
+    # and we copied already FF's values, lets keep whats stored,
+    # otherwise initialize those values.
+    try:
+        hou.session.flam3node_FF
+    except:
+        hou.session.flam3node_FF = node
+    try:
+        hou.session.flam3node_FF_check
+    except:
+        hou.session.flam3node_FF_check = -1
+
+    # If the FF was copied from a node that has been deleted
+    # revert to -1 so that we are forced to copy an iterator again.
+    try:
+        hou.session.flam3node_FF.type()
+    except:
+        hou.session.flam3node_FF_check = -1
 
 
 ###############################################################################################
