@@ -32,13 +32,7 @@ import webbrowser
 
 class flam3_varsPRM:
 
-    # Simple class for now to hold all parameters
-    # so I can access those from everywhere on demand,
-    # other than having all of them in one place for future updates.
-
-
     # Collect all variations and their parametric parameters.
-
     varsPRM = ( ["linear", 0], 
                 ["sinusoidal", 0], 
                 ["spherical", 0], 
@@ -71,7 +65,7 @@ class flam3_varsPRM:
                 ["pdj...", ["pdjw_", 1], 1], 
                 ["blob...", ["blob_", 1], 1], 
                 ["juliaN...", ["julian_", 1], 1], 
-                ["juliascope...", ["juliascope", 1], 1], 
+                ["juliascope...", ["juliascope_", 1], 1], 
                 ["gaussian", 0], 
                 ["fan2...", ["fan2_", 1], 1], 
                 ["rings2...", ["rings2val_", 0], 1], 
@@ -148,7 +142,8 @@ class flam3_varsPRM:
 
     # SECTIONS method lists
     #
-    # (*T)Types have no signature and always to be used with: pastePRM_from_list()
+    # (*T)Types have no signature and always to be used with: pastePRM_from_list() for now.
+    # The reason is because we use those as hook to find the parametric parameter being used and only set whats needed.
     sec_main = [ ["vactive_", 0], ["iw_", 0] ]
     sec_xaos = [ ["varnote_", 0] ]
     sec_shader = [ ["clr_", 0], ["clrspeed_", 0], ["alpha_", 0] ]
@@ -164,6 +159,238 @@ class flam3_varsPRM:
     # ALL method lists
     allT = sec_prevarsT + sec_varsT + sec_postvarsT
     allMisc = sec_main + sec_shader + sec_prevarsW + sec_varsW + sec_postvarsW + sec_preAffine + sec_postAffine
+
+
+
+
+class flam3_varsPRM_FF:
+
+    # Collect all FF variations and their parametric parameters.
+    varsPRM_FF = (  ["linear", 0], 
+                    ["sinusoidal", 0], 
+                    ["spherical", 0], 
+                    ["swirl", 0], 
+                    ["horseshoe", 0], 
+                    ["polar", 0], 
+                    ["handkerchief", 0], 
+                    ["heart", 0], 
+                    ["disc", 0], 
+                    ["spiral", 0], 
+                    ["hiperbolic", 0], 
+                    ["diamond", 0], 
+                    ["ex", 0], 
+                    ["julia", 0], 
+                    ["bent", 0], 
+                    ["*waves", 0], 
+                    ["fisheye", 0], 
+                    ["*popcorn", 0], 
+                    ["expo", 0], 
+                    ["power", 0], 
+                    ["cosine", 0], 
+                    ["*rings", 0], 
+                    ["*fan", 0], 
+                    ["bubble", 0], 
+                    ["cylinder", 0], 
+                    ["eyefish", 0], 
+                    ["blur", 0], 
+                    ["curl...", ["ff_curlc", 1], 1], 
+                    ["ngon...", ["ff_ngon", 1], 1], 
+                    ["pdj...", ["ff_pdjw", 1], 1], 
+                    ["blob...", ["ff_blob", 1], 1], 
+                    ["juliaN...", ["ff_julian", 1], 1], 
+                    ["juliascope...", ["ff_juliascope", 1], 1], 
+                    ["gaussian", 0], 
+                    ["fan2...", ["ff_fan2", 1], 1], 
+                    ["rings2...", ["ff_rings2val", 0], 1], 
+                    ["rectangles...", ["ff_rectangles", 1], 1], 
+                    ["radialblur...", ["ff_radialblur", 1], 1], 
+                    ["pie...", ["ff_pie", 1], 1], 
+                    ["arch", 0], 
+                    ["tangent", 0], 
+                    ["square", 0], 
+                    ["rays", 0], 
+                    ["blade", 0], 
+                    ["secant2", 0], 
+                    ["twintrian", 0], 
+                    ["cross", 0], 
+                    ["disc2...", ["ff_disc2", 1], 1], 
+                    ["supershape...", ["ff_supershape", 1], ["ff_supershapen", 1], 1], 
+                    ["flower...", ["ff_flower", 1], 1], 
+                    ["conic...", ["ff_conic", 1], 1], 
+                    ["parabola...", ["ff_parabola", 1], 1], 
+                    ["bent2...", ["ff_bent2xy", 1], 1], 
+                    ["bipolar...", ["ff_bipolarshift", 0], 1],
+                    ["boarders", 0],
+                    ["butterfly", 0], 
+                    ["cell...", ["ff_cellsize", 0], 1], 
+                    ["cpow...", ["ff_cpow", 1], 1], 
+                    ["edisc", 0], 
+                    ["elliptic", 0], 
+                    ["noise", 0], 
+                    ["escher...", ["ff_escherbeta", 0], 1], 
+                    ["foci", 0], 
+                    ["lazysusan...", ["ff_lazysusanxyz", 1], ["ff_lazysusan", 1], 1], 
+                    ["loonie", 0], 
+                    ["preblur", 0], 
+                    ["modulus...", ["ff_modulusXYZ", 1], 1], 
+                    ["oscope...", ["ff_oscope", 1], 1], 
+                    ["polar2", 0], 
+                    ["popcorn...", ["ff_popcorn2xyz", 1], ["ff_popcorn2c", 0], 1], 
+                    ["scry", 0], 
+                    ["separation...", ["ff_separationxyz", 1], ["ff_separationinsidexyz", 1], 1], 
+                    ["split...", ["ff_splitxyz", 1], 1], 
+                    ["splits...", ["ff_splitsxyz", 1], 1], 
+                    ["stripes...", ["ff_stripes", 1], 1], 
+                    ["wedge...", ["ff_wedge", 1], 1], 
+                    ["wedgejulia...", ["ff_wedgejulia", 1], 1], 
+                    ["wedgesph", ["ff_wedgesph", 1], 1], 
+                    ["whorl...", ["ff_whorl", 1], 1], 
+                    ["waves2...", ["ff_waves2scalexyz", 1], ["ff_waves2freqxyz", 1], 1], 
+                    ["cothe exp", 0], 
+                    ["cothe log", 0], 
+                    ["cothe sin", 0], 
+                    ["cothe cos", 0], 
+                    ["cothe tan", 0], 
+                    ["cothe sec", 0], 
+                    ["cothe csc", 0], 
+                    ["cothe cot", 0], 
+                    ["cothe sinh", 0], 
+                    ["cothe cosh", 0], 
+                    ["cothe tanh", 0], 
+                    ["cothe sech", 0], 
+                    ["cothe csch", 0], 
+                    ["cothe coth", 0], 
+                    ["auger...", ["ff_auger", 1], 1], 
+                    ["flux...", ["ff_fluxspread", 0], 1], 
+                    ["mobius...", ["ff_mobiusre", 1], ["ff_mobiusim", 1], 1],
+                    ["curve...", ["ff_curvexyzlenght", 1], ["ff_curvexyzamp", 1], 1], 
+                    ["persp...", ["ff_persp", 1], 1], 
+                    ["bwraps...", ["ff_bwraps", 1], ["ff_bwrapstwist", 1], 1], 
+                    ["hemisphere", 0], 
+                    ["polynomial...", ["ff_polynomialpow", 1], ["ff_polynomiallc", 1], ["ff_polynomialsc", 1], 1] )
+
+
+
+
+    varsPRM_FP = (  ["linear", 0], 
+                    ["sinusoidal", 0], 
+                    ["spherical", 0], 
+                    ["swirl", 0], 
+                    ["horseshoe", 0], 
+                    ["polar", 0], 
+                    ["handkerchief", 0], 
+                    ["heart", 0], 
+                    ["disc", 0], 
+                    ["spiral", 0], 
+                    ["hiperbolic", 0], 
+                    ["diamond", 0], 
+                    ["ex", 0], 
+                    ["julia", 0], 
+                    ["bent", 0], 
+                    ["*waves", 0], 
+                    ["fisheye", 0], 
+                    ["*popcorn", 0], 
+                    ["expo", 0], 
+                    ["power", 0], 
+                    ["cosine", 0], 
+                    ["*rings", 0], 
+                    ["*fan", 0], 
+                    ["bubble", 0], 
+                    ["cylinder", 0], 
+                    ["eyefish", 0], 
+                    ["blur", 0], 
+                    ["curl...", ["fp1_curlc", 1], 1], 
+                    ["ngon...", ["fp1_ngon", 1], 1], 
+                    ["pdj...", ["fp1_pdjw", 1], 1], 
+                    ["blob...", ["fp1_blob", 1], 1], 
+                    ["juliaN...", ["fp1_julian", 1], 1], 
+                    ["juliascope...", ["fp1_juliascope", 1], 1], 
+                    ["gaussian", 0], 
+                    ["fan2...", ["fp1_fan2", 1], 1], 
+                    ["rings2...", ["fp1_rings2val", 0], 1], 
+                    ["rectangles...", ["fp1_rectangles", 1], 1], 
+                    ["radialblur...", ["fp1_radialblur", 1], 1], 
+                    ["pie...", ["fp1_pie", 1], 1], 
+                    ["arch", 0], 
+                    ["tangent", 0], 
+                    ["square", 0], 
+                    ["rays", 0], 
+                    ["blade", 0], 
+                    ["secant2", 0], 
+                    ["twintrian", 0], 
+                    ["cross", 0], 
+                    ["disc2...", ["fp1_disc2", 1], 1], 
+                    ["supershape...", ["fp1_supershape", 1], ["fp1_supershapen", 1], 1], 
+                    ["flower...", ["fp1_flower", 1], 1], 
+                    ["conic...", ["fp1_conic", 1], 1], 
+                    ["parabola...", ["fp1_parabola", 1], 1], 
+                    ["bent2...", ["fp1_bent2xy", 1], 1], 
+                    ["bipolar...", ["fp1_bipolarshift", 0], 1],
+                    ["boarders", 0],
+                    ["butterfly", 0], 
+                    ["cell...", ["fp1_cellsize", 0], 1], 
+                    ["cpow...", ["fp1_cpow", 1], 1], 
+                    ["edisc", 0], 
+                    ["elliptic", 0], 
+                    ["noise", 0], 
+                    ["escher...", ["fp1_escherbeta", 0], 1], 
+                    ["foci", 0], 
+                    ["lazysusan...", ["fp1_lazysusanxyz", 1], ["fp1_lazysusan", 1], 1], 
+                    ["loonie", 0], 
+                    ["preblur", 0], 
+                    ["modulus...", ["fp1_modulusXYZ", 1], 1], 
+                    ["oscope...", ["fp1_oscope", 1], 1], 
+                    ["polar2", 0], 
+                    ["popcorn...", ["fp1_popcorn2xyz", 1], ["fp1_popcorn2c", 0], 1], 
+                    ["scry", 0], 
+                    ["separation...", ["fp1_separationxyz", 1], ["fp1_separationinsidexyz", 1], 1], 
+                    ["split...", ["fp1_splitxyz", 1], 1], 
+                    ["splits...", ["fp1_splitsxyz", 1], 1], 
+                    ["stripes...", ["fp1_stripes", 1], 1], 
+                    ["wedge...", ["fp1_wedge", 1], 1], 
+                    ["wedgejulia...", ["fp1_wedgejulia", 1], 1], 
+                    ["wedgesph", ["fp1_wedgesph", 1], 1], 
+                    ["whorl...", ["fp1_whorl", 1], 1], 
+                    ["waves2...", ["fp1_waves2scalexyz", 1], ["fp1_waves2freqxyz", 1], 1], 
+                    ["cothe exp", 0], 
+                    ["cothe log", 0], 
+                    ["cothe sin", 0], 
+                    ["cothe cos", 0], 
+                    ["cothe tan", 0], 
+                    ["cothe sec", 0], 
+                    ["cothe csc", 0], 
+                    ["cothe cot", 0], 
+                    ["cothe sinh", 0], 
+                    ["cothe cosh", 0], 
+                    ["cothe tanh", 0], 
+                    ["cothe sech", 0], 
+                    ["cothe csch", 0], 
+                    ["cothe coth", 0], 
+                    ["auger...", ["fp1_auger", 1], 1], 
+                    ["flux...", ["fp1_fluxspread", 0], 1], 
+                    ["mobius...", ["fp1_mobiusre", 1], ["fp1_mobiusim", 1], 1],
+                    ["curve...", ["fp1_curvexyzlenght", 1], ["fp1_curvexyzamp", 1], 1], 
+                    ["persp...", ["fp1_persp", 1], 1], 
+                    ["bwraps...", ["fp1_bwraps", 1], ["fp1_bwrapstwist", 1], 1], 
+                    ["hemisphere", 0], 
+                    ["polynomial...", ["fp1_polynomialpow", 1], ["fp1_polynomiallc", 1], ["fp1_polynomialsc", 1], 1] )
+
+
+
+
+
+    # SECTIONS method lists
+    #
+    # (*T)Types have no signature and always to be used with: pastePRM_from_list()
+    sec_varsT_FF = [ "ffv1type", "ffv2type", "ffv3type" ]
+    sec_varsW_FF = [ ["ffv1weight", 0], ["ffv2weight", 0], ["ffv3weight", 0] ]
+    sec_postvarsT_FF = [ "ffp1type", "ffp2type" ]
+    sec_postvarsW_FF = [ ["ffp1weight", 0], ["ffp2weight", 0] ]
+    sec_preAffine_FF = [ ["ffx", 1], ["ffy", 1], ["ffo", 1], ["ffang", 0] ]
+    sec_postAffine_FF = [ ["dofp", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
+    
+    # ALL method lists
+    allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
 
@@ -209,6 +436,16 @@ def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
 
 
 
+def paste_set_note(section, node, flam3node, id, id_from):
+    if node == flam3node:
+        node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + section})
+        print(str(node) + ": Copied values from: " + "iter." + str(id_from) + section + " to: " + "iter." + str(id) + section)
+    else:
+        node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + section})
+        print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + section + " to: " + str(node) + "->iter." + str(id) + section)
+
+
+
 
 ###############################################################################################
 # Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
@@ -236,22 +473,18 @@ def prm_paste(kwargs):
 
         # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from != -1:
-
-            # Create flam3 variation's parameter object
-            FLAM3VARS = flam3_varsPRM()
-
-            # var's type and set parametric variation's parameter if it find any
-            pastePRM_from_list(FLAM3VARS.allT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
-            # paste rest
-            paste_from_list(FLAM3VARS.allMisc, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'Cloned iter.' + str(id_from)})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + " to: " + "iter." + str(id))
+            if node==flam3node and id==id_from:
+                print(str(node) + ": Iterator copied. Select a different iterator number to paste those values.")
             else:
-                node.setParms({'variter_' + str(id): 'Cloned ' + str(flam3node) + '->iter.' + str(id_from)})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + " to: " + str(node) + "->iter." + str(id))
+                # Create flam3 variation's parameter object
+                FLAM3VARS = flam3_varsPRM()
+
+                # var's type and set parametric variation's parameter if it find any
+                pastePRM_from_list(FLAM3VARS.allT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+                # paste rest
+                paste_from_list(FLAM3VARS.allMisc, node, flam3node, id, id_from)
+                # set note
+                paste_set_note("", node, flam3node, id, id_from)
 
         else:
             print(str(node) + ": Please copy an iterator first.")
@@ -259,7 +492,7 @@ def prm_paste(kwargs):
     else:
         hou.session.flam3node_mp_id = kwargs['script_multiparm_index']
         hou.session.flam3node = kwargs['node']
-        print(str(kwargs['node']) + ": Copied values from: " + str(hou.session.flam3node) + "->iter." + str(hou.session.flam3node_mp_id))
+        print(str(kwargs['node']) + ": Copied iterator: " + str(hou.session.flam3node) + "->iter." + str(hou.session.flam3node_mp_id))
 
 
 
@@ -297,51 +530,35 @@ def prm_paste_sel(kwargs):
         
         # Create flam3 variation's parameter object
         FLAM3VARS = flam3_varsPRM()
-        
         # Get user selection of paste methods
         paste_sel = node.parm("prmpastesel_" + str(id)).evalAsInt()
+
+
+
 
         # set MAIN
         ################################################################################
         if paste_sel == 1:
         
             paste_from_list(FLAM3VARS.sec_main, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".main"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".main" + " to: " + "iter." + str(id) + ".main")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".main"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".main" + " to: " + str(node) + "->iter." + str(id) + ".main")
+            # set note
+            paste_set_note(".main", node, flam3node, id, id_from)
 
         # set XAOS
         ################################################################################
         elif paste_sel == 2:
         
             paste_from_list(FLAM3VARS.sec_xaos, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".xaos"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".xaos" + " to: " + "iter." + str(id) + ".xaos")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".xaos"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".xaos" + " to: " + str(node) + "->iter." + str(id) + ".xaos")
+            # set note
+            paste_set_note(".xaos", node, flam3node, id, id_from)
 
         # set SHADER
         ################################################################################ 
         elif paste_sel == 3:
         
             paste_from_list(FLAM3VARS.sec_shader, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".shader"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".shader" + " to: " + "iter." + str(id) + ".shader")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".shader"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".shader" + " to: " + str(node) + "->iter." + str(id) + ".shader")
+            # set note
+            paste_set_note(".shader", node, flam3node, id, id_from)
         
         # set PRE VARS
         ################################################################################
@@ -351,14 +568,8 @@ def prm_paste_sel(kwargs):
             pastePRM_from_list(FLAM3VARS.sec_prevarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_prevarsW, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".pre_vars"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".pre_vars" + " to: " + "iter." + str(id) + ".pre_vars")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".pre_vars"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".pre_vars" + " to: " + str(node) + "->iter." + str(id) + ".pre_vars")
+            # set note
+            paste_set_note(".pre_vars", node, flam3node, id, id_from)
 
         # set VARS
         ################################################################################
@@ -368,14 +579,8 @@ def prm_paste_sel(kwargs):
             pastePRM_from_list(FLAM3VARS.sec_varsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_varsW, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".vars"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".vars" + " to: " + "iter." + str(id) + ".vars")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".vars"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".vars" + " to: " + str(node) + "->iter." + str(id) + ".vars")
+            # set note
+            paste_set_note(".vars", node, flam3node, id, id_from)
 
         # set POST VARS
         ################################################################################
@@ -385,43 +590,28 @@ def prm_paste_sel(kwargs):
             pastePRM_from_list(FLAM3VARS.sec_postvarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_postvarsW, node, flam3node, id, id_from)
-                
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".post_vars"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".post_var" + " to: " + "iter." + str(id) + ".post_var")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".post_vars"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".post_var" + " to: " + str(node) + "->iter." + str(id) + ".post_var")
+            # set note
+            paste_set_note(".post_var", node, flam3node, id, id_from)
                 
         # set PRE AFFINE
         ################################################################################
         elif paste_sel == 7:
         
             paste_from_list(FLAM3VARS.sec_preAffine, node, flam3node, id, id_from)
-            
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".pre_affine"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".pre_affine" + " to: " + "iter." + str(id) + ".pre_affine")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".pre_affine"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".pre_affine" + " to: " + str(node) + "->iter." + str(id) + ".pre_affine")
+            # set note
+            paste_set_note(".pre_affine", node, flam3node, id, id_from)
         
         # set POST AFFINE
         ################################################################################
         elif paste_sel == 8:
         
             paste_from_list(FLAM3VARS.sec_postAffine, node, flam3node, id, id_from)
-            
-            # Set note to know the node and iterator those values are coming from
-            if node == flam3node:
-                node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + ".post_affine"})
-                print(str(node) + ": Copied values from: " + "iter." + str(id_from) + ".post_affine" + " to: " + "iter." + str(id) + ".post_affine")
-            else:
-                node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + ".post_affine"})
-                print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + ".post_affine" + " to: " + str(node) + "->iter." + str(id) + ".post_affine")
+            # set note
+            paste_set_note(".post_affine", node, flam3node, id, id_from)
      
+
+
+
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
         #
