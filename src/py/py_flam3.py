@@ -248,16 +248,11 @@ def prm_paste(kwargs):
             # Create flam3 variation's parameter object
             FLAM3VARS = flam3_varsPRM()
 
-            # var's type
+            # var's type and set parametric variation's parameter if it find any
             pastePRM_from_list(FLAM3VARS.allType, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
-
-            for prm in FLAM3VARS.allMisc:
-                prm_from = flam3node.parm(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
-                
-            for prm in FLAM3VARS.allAffineTUPLE:
-                prm_from = flam3node.parmTuple(prm + str(id_from)).eval()
-                node.setParms({prm + str(id): prm_from})
+            # paste rest
+            paste_from_list(FLAM3VARS.allMisc, node, flam3node, id, id_from)
+            pasteTuple_from_list(FLAM3VARS.allAffineTUPLE, node, flam3node, id, id_from)
                 
             # Set note to know the node and iterator those values are coming from
             if node == flam3node:
