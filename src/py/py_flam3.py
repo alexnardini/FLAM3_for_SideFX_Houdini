@@ -444,7 +444,7 @@ def prm_paste_sel(kwargs):
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
         #
-        # please check the "prmpastesel_" python menu script to know its size.
+        # please check the FLAM3node.prmpastesel_# parameter python menu script to know its size.
         node.setParms({"prmpastesel_" + str(id): str(0)})
                 
     
