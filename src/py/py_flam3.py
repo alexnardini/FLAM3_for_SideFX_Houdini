@@ -66,18 +66,18 @@ class flam3_varsPRM:
                 ["cylinder", 0], 
                 ["eyefish", 0], 
                 ["blur", 0], 
-                [["curlc_", 1], 1], 
-                [["ngon_", 1], 1], 
-                [["pdjw_", 1], 1], 
-                [["blob_", 1], 1], 
-                [["julian_", 1], 1], 
-                [["juliascope", 1], 1], 
+                ["curl...", ["curlc_", 1], 1], 
+                ["ngon...", ["ngon_", 1], 1], 
+                ["pdj...", ["pdjw_", 1], 1], 
+                ["blob...", ["blob_", 1], 1], 
+                ["juliaN...", ["julian_", 1], 1], 
+                ["juliascope...", ["juliascope", 1], 1], 
                 ["gaussian", 0], 
-                [["fan2_", 1], 1], 
-                [["rings2val_", 0], 1], 
-                [["rectangles_", 1], 1], 
-                [["radialblur_", 1], 1], 
-                [["pie_", 1], 1], 
+                ["fan2...", ["fan2_", 1], 1], 
+                ["rings2...", ["rings2val_", 0], 1], 
+                ["rectangles...", ["rectangles_", 1], 1], 
+                ["radialblur...", ["radialblur_", 1], 1], 
+                ["pie...", ["pie_", 1], 1], 
                 ["arch", 0], 
                 ["tangent", 0], 
                 ["square", 0], 
@@ -86,39 +86,39 @@ class flam3_varsPRM:
                 ["secant2", 0], 
                 ["twintrian", 0], 
                 ["cross", 0], 
-                [["disc2_", 1], 1], 
-                [["supershape_", 1], ["supershapen_", 1], 1], 
-                [["flower_", 1], 1], 
-                [["conic_", 1], 1], 
-                [["parabola_", 1], 1], 
-                [["bent2xy_", 1], 1], 
-                [["bipolarshift_", 0], 1],
+                ["disc2...", ["disc2_", 1], 1], 
+                ["supershape...", ["supershape_", 1], ["supershapen_", 1], 1], 
+                ["flower...", ["flower_", 1], 1], 
+                ["conic...", ["conic_", 1], 1], 
+                ["parabola...", ["parabola_", 1], 1], 
+                ["bent2...", ["bent2xy_", 1], 1], 
+                ["bipolar...", ["bipolarshift_", 0], 1],
                 ["boarders", 0],
                 ["butterfly", 0], 
-                [["cellsize_", 0], 1], 
-                [["cpow_", 1], 1], 
+                ["cell...", ["cellsize_", 0], 1], 
+                ["cpow...", ["cpow_", 1], 1], 
                 ["edisc", 0], 
                 ["elliptic", 0], 
                 ["noise", 0], 
-                [["escherbeta_", 0], 1], 
+                ["escher...", ["escherbeta_", 0], 1], 
                 ["foci", 0], 
-                [["lazysusanxyz_", 1], ["lazysusan_", 1], 1], 
+                ["lazysusan...", ["lazysusanxyz_", 1], ["lazysusan_", 1], 1], 
                 ["loonie", 0], 
                 ["preblur", 0], 
-                [["modulusXYZ_", 1], 1], 
-                [["oscope_", 1], 1], 
+                ["modulus...", ["modulusXYZ_", 1], 1], 
+                ["oscope...", ["oscope_", 1], 1], 
                 ["polar2", 0], 
-                [["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
+                ["popcorn...", ["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
                 ["scry", 0], 
-                [["separationxyz_", 1], ["separationinsidexyz_", 1], 1], 
-                [["splitxyz_", 1], 1], 
-                [["splitsxyz_", 1], 1], 
-                [["stripes_", 1], 1], 
-                [["wedge_", 1], 1], 
-                [["wedgejulia_", 1], 1], 
-                [["wedgesph_", 1], 1], 
-                [["whorl_", 1], 1], 
-                [["waves2scalexyz_", 1], ["waves2freqxyz_", 1], 1], 
+                ["separation...", ["separationxyz_", 1], ["separationinsidexyz_", 1], 1], 
+                ["split...", ["splitxyz_", 1], 1], 
+                ["splits...", ["splitsxyz_", 1], 1], 
+                ["stripes...", ["stripes_", 1], 1], 
+                ["wedge...", ["wedge_", 1], 1], 
+                ["wedgejulia...", ["wedgejulia_", 1], 1], 
+                ["wedgesph", ["wedgesph_", 1], 1], 
+                ["whorl...", ["whorl_", 1], 1], 
+                ["waves2...", ["waves2scalexyz_", 1], ["waves2freqxyz_", 1], 1], 
                 ["cothe exp", 0], 
                 ["cothe log", 0], 
                 ["cothe sin", 0], 
@@ -133,14 +133,14 @@ class flam3_varsPRM:
                 ["cothe sech", 0], 
                 ["cothe csch", 0], 
                 ["cothe coth", 0], 
-                [["auger_", 1], 1], 
-                [["fluxspread_", 0], 1], 
-                [["mobiusre_", 1], ["mobiusim_", 1], 1],
-                [["curvexyzlenght_", 1], ["curvexyzamp_", 1], 1], 
-                [["persp_", 1], 1], 
-                [["bwraps_", 1], ["bwrapstwist_", 1], 1], 
+                ["auger...", ["auger_", 1], 1], 
+                ["flux...", ["fluxspread_", 0], 1], 
+                ["mobius...", ["mobiusre_", 1], ["mobiusim_", 1], 1],
+                ["curve...", ["curvexyzlenght_", 1], ["curvexyzamp_", 1], 1], 
+                ["persp...", ["persp_", 1], 1], 
+                ["bwraps...", ["bwraps_", 1], ["bwrapstwist_", 1], 1], 
                 ["hemisphere", 0], 
-                [["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
+                ["polynomial...", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
 
 
 
@@ -164,6 +164,8 @@ class flam3_varsPRM:
     # ALL method lists
     allT = sec_prevarsT + sec_varsT + sec_postvarsT
     allMisc = sec_main + sec_shader + sec_prevarsW + sec_varsW + sec_postvarsW + sec_preAffine + sec_postAffine
+
+
 
 
 
@@ -195,7 +197,7 @@ def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
         # Check if this var is a parametric or not
         type = int(prm_from)
         if(varsPRM[type][-1]):
-            for t in varsPRM[type][:-1]:
+            for t in varsPRM[type][1:-1]:
                 # if a tuple
                 if t[1]:
                     t_prm_from = flam3node.parmTuple(t[0] + str(id_from)).eval()
