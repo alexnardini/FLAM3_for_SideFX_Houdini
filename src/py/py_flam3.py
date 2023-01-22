@@ -397,9 +397,6 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 7:
         
             paste_from_list(FLAM3VARS.sec_preAffine, node, flam3node, id, id_from)
-            # One off angle parameter
-            #ang_from = flam3node.parm(FLAM3VARS.sec__preAffineAng + str(id_from)).eval()
-            #node.setParms({FLAM3VARS.sec__preAffineAng + str(id): ang_from})
             
             # Set note to know the node and iterator those values are coming from
             if node == flam3node:
@@ -414,12 +411,6 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 8:
         
             paste_from_list(FLAM3VARS.sec_postAffine, node, flam3node, id, id_from)
-            # One off dopost paramter
-            #dop_from = flam3node.parm(FLAM3VARS.sec__postAffineCheck + str(id_from)).eval()
-            #node.setParms({FLAM3VARS.sec__postAffineCheck + str(id): dop_from})
-            # One off angle parameter
-            #ang_from = flam3node.parm(FLAM3VARS.sec__postAffineAng + str(id_from)).eval()
-            #node.setParms({FLAM3VARS.sec__postAffineAng + str(id): ang_from})
             
             # Set note to know the node and iterator those values are coming from
             if node == flam3node:
