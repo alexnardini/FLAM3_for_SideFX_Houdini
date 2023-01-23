@@ -1,0 +1,621 @@
+#icon: opdef:.?iconBlackSVG.svg
+#type: node
+#context: sop
+#namespace: FLAM3
+#internal: FLAM3
+#version: 0.9.3
+
+"""The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
+
+[Scott Draves|Wp:Scott_Draves]
+[The Fractal Flame Algorithm|Wp:Fractal_Flame]
+[Electric Sheep|Wp:Electric_Sheep]
+[IFS|Wp:Iterated_function_system]
+[Fractal Art|Wp:Fractal_art]
+[Apophysis|Wp:Apophysis_(software)]
+
+_*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]*_
+
+_*[FLAM3 for Houdini - website|https://www.alexnardini.net/flame-home/]*_
+
+_*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
+
+_*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
+
+    
+    
+[Image:opdef:.?FLAM3_HDA_intro.svg] 
+
+@parameters
+
+NOTE:
+    FLAM3 for Houdini set all *`@pscale`* to a value of *`0.001`* for convenience.
+    Use the upstream geometry node point size multiplier or a wrangle to adjust it as needed.
+    When importing FLAM3 into Stage/Solaris remember that *`@pscale`* will become *`@widths`*.
+
+:box:
+    #display: inverted teal
+
+    *GLOBAL*
+
+density:
+    #id: GLOBAL
+    Number of points to use. For high qualty fractals start from 20M up to 500M and more depending the type of Fractal Flame you are ending up with. As a general rule, the more the better.
+    * Must find the sweet spot between quality and processing time.
+    
+iterations:
+    #id: GLOBAL
+    Number of iterations to use.
+    * You dnt need many iterations to get some good Fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
+    However, if you increase an iterator weight, use xaos to build containers or use some kind of variations you will require higher number to resolve and show you the proper result.
+    Almost all of the fractal flame showcased inside FLAM3 for Houdini website/instagram account use less than 64 iterations with a few exceptions reaching 96 and in rare cases 128/256.
+
+    
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *SYS:* _System options._
+
+    
+FF:
+    #id: SYS
+    Enable Final Flame variation's transform.
+        
+TAG:
+    #id: SYS
+    Enable vieport TAG infos.
+    * This shoud always be On as it is useful to review the Flame fractal being worked on. The iterator weight is displayed also per each iterator.
+         
+TAG size:
+    #id: SYS
+    Set different viewport TAG sizes.
+    
+                
+RIP:
+    #id: SYS
+    Remove Invalid Points. *INF*, *NAN*, *Zero Alpha* and *out of bounds* points.
+    * It can happen that some points shoot to infinity after being transformed by the algorithm.
+    Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
+    
+loaddef:
+    #id: SYS
+    [Largeicon:opdef:.?PALETTEsimpleSVG.svg]
+    
+    Load/reset to default Sierpinsky Triangle preset.
+
+
+
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAME:* _Flame variations/iterators._
+
+iterators:
+    #id: FLAME
+    Number of iterators to use.
+    * This is equivalent to the number of triangle handles you have inside popular fractal flame editors out there.
+    
+~~~
+
+note:
+    #id: FLAME
+    Set a short descriptive note about this iterator.
+    
+copy/paste:
+    #id: FLAME
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Click to COPY this iterator vaues. "CTRL"+CLICK to PASTE the copied values into another iterator.
+    It will copy everything, parametric variation's parameters included but not XAOS.
+    
+    It will work also between different FLAM3 nodes.
+    
+    Once you copy an iterator you can have access to the arrow icon menu next to the *F* icon.
+    From this menu you will be able to paste specific sections from the copied iterator, xaos incuded.
+
+
+:box:
+    #display: rounded white
+
+    *iterator:#*
+    
+A:
+    #id: FLAME
+    Enable/Disable this iterator.
+    
+W:
+    #id: FLAME
+    The iterator weight. Define the probability this iterator is choosen during the chaos game.
+    The higher an iterator weight is compared to the others and the more iterations you may need to properly resolve the Fractal Flame's shapes you are working on..
+    
+xaos:
+    #id: FLAME
+    
+    NOTE:
+        *When using XAOS, you are allowed to use up to 20 iterators max.*
+        Using more than 20 iterators with XAOS enabled will give you incorrect results.
+        
+        This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
+    
+    Set XAOS weights or add a extra short descriptive note about this iterator.
+    
+    The default mode is *xaos TO*. You can change it to use *xaos FROM* mode instead in the preferences tab.
+    
+    To set XAOS for a flame with 4 iterators, use the *xaos* keyword followed by each iterator weights values
+    separated by a colon: *xaos:1:2:3:4* ( *xaos* keyword can be uppercase too if you prefer. )
+    
+    If no set or when using a short descriptive note,
+    FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
+    
+    If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0.
+    *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
+    
+    When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values
+    to account for missing iterator so you wont need to remove values from the command string,
+    *unless you delete an iterator in witch case you will require to modify the "XAOS:" string*.
+    
+    TIP:
+        #display: orange
+    
+        XAOS is OFF by default and FLAM3 will activate it automatically
+        only when needed. (ex: when one of its weights is set to a value different than the others, ex: *xaos:3:3:3:2.9* ).
+    
+:box:
+    #display: rounded white
+
+    *F#: shader*
+
+location:
+    #id: FLAME
+    The color location in the ramp *{0:1}*.
+    
+speed:
+    #id: FLAME
+    Speed of color blending between iterations. Values above ZERO attract the selected color while values below ZERO will repel it.
+    
+opacity:
+    #id: FLAME
+    The opacity of the current transform. Opacity 0 means it will be entirely transparent, and opacity 1, entirely opaque. It can be used also to fine tune your fractal, making parts of it more or less prominent in addition to the iterator's weight.
+    
+:box:
+    #display: rounded white
+
+    *F#: variation*
+        
+pre:
+    #id: FLAME
+    Enable PRE Variations for the selected iterator.
+    For speed purpose only one non parametrics and one parametric are allowed at the moment.
+    
+    NOTE:
+        When using PRE variations, the affine values used are their identity matrix. ( *X(1, 0), Y(0, 1), O(0, 0)* )
+    
+var:
+    #id: FLAME
+    List of variations to choose from.
+        
+    * Variation's name that start with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    * Each iterators allow up to 8 variations ( pre-blur var, 2 pre var, 4 vars plus 1 post var) to be used. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    
+    
+    TIP:
+        #display: orange
+    
+        A good way to try out the variations, is to laydown a fresh FLAM3 node
+        and while using the default Siepinsky triangle activate the Final Flame transform (*FF*)
+        and change variations there to see the result. ( remember to play a bit with the AFFINE coefficents to check the results )    
+
+post:
+    #id: FLAME
+    Enable POST Variation for the selected iterator.
+    For speed purpose only one parametric is allowed at the moment.
+    
+    NOTE:
+        When using POST variation, the affine values used are their identity matrix. ( *X(1, 0), Y(0, 1), O(0, 0)* )
+        
+w:
+    #id: FLAME
+    The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
+    Can be set higher than 1 and negative too.
+    * If more than one variation is active, remember that as a general rule it is suggested ( not mandatory ) to have the sum of all weights equal to 1.
+    
+    TIP:
+        #display: orange
+        
+        Its better to set a variation weight to ZERO instead of keeping it at a very low values if their contribution isnt noticable to reduce the cost of the computation. At ZERO the variation will be completely ignored.
+    
+post:
+    #id: FLAME
+    Enable post affine.
+
+:box:
+    #display: rounded white
+
+    *F#: affine*
+    
+        
+post:
+    #id: FLAME
+    Enable post affine.
+    
+pre affine:
+    #id: FLAME
+    Affine coefficients for the current variations. Those are applied before the variations.
+    With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
+    They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
+    The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    There are two ways you can use the affine:
+    * One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
+    * and the other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    * Note that the resulting affine coefficients after rotation are not updated in the UI but passed directly internally to the algorithm so that
+    if you are copying values from Apophysis, then the rotation must be set to ZERO to match or you will apply a double transformation otherwise.
+         
+    * For Apophysis users: every Coefficent has the name of the axis it represent to match what Apophysis transformation's name look like inside the world editor.
+      
+post affine:
+    #id: FLAME
+    Post affine coefficients for the current variations. Those are applied after the variations.
+    * See above affine description for more informations.
+        
+    
+VARS Tab:
+    #id: FLAME
+    If a parametric variation is selected, its parameters will populate this Tab.
+    
+    
+    
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *TM:* _Global post affine transformations applied to all the variations at once._
+
+TM:
+    #id: TM
+    Enable global Transformations. Those transformations will get applyed to all Iterator's variations.
+    This is being added as its handy for animation.
+    
+
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FF:* _Final Flame transform._
+
+note:
+    #id: FF
+    Add a short descriptive note about this Final Flame transform.
+    
+copy/paste:
+    #id: FF
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Click to COPY this FF vaues. "CTRL"+CLICK on another FLAM3 node to PASTE the copied FF values.
+    It will copy everything, parametric variation's parameters included.
+    
+    It will only work between different FLAM3 nodes.
+    
+    Once you copy the FF, on another FLAM3 node you can have access to the arrow icon menu next to the *F* icon.
+    From this menu you will be able to paste specific sections from the copied FF.
+
+    
+:box:
+    #display: rounded white
+
+    *Final Flame transform*
+    
+FF variation:
+    #id: FF
+    List of variations to choose from. It take the combined result of everything you do inside FLAME Tab and transform it using those variations.
+        
+    * Variation's name that start with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    * Final Flame allow up to 3 variations. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 3 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    
+FF Post variation:
+    #id: FF
+    POST variations to be used ( last one from the top, spaced from the others). This is applyed after the post affine. It is the very last transformation.
+    * POST variation act the same way as the Final Flame variations does. It take the combined result of everything you do inside FLAME Tab plus everything you do inside FF Tab and transform it one more time using a selected variation.
+    * When using parametric variations, its parameters will populate the *POST VARS* Tab.
+    
+    NOTE:
+        When using POST variations, the affine values used are their identity matrix. ( *X(1, 0), Y(0, 1), O(0, 0)* )
+    
+w:
+    #id: FF
+    The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
+    Can be set higher than 1 and negative too.
+    
+    TIP:
+        #display: orange
+        Its better to set a variation weight to ZERO instead of keeping it at a very low values if their contribution isnt noticable to reduce the cost of the computation. At ZERO the variation will be completely ignored.
+    
+:box:
+    #display: rounded white
+
+    *FF: affine*
+        
+post:
+    #id: FF
+    Enable post affine.
+    
+pre affine:
+    #id: FF
+    Affine coefficients for the current variations. Those are applied before the variations.
+    With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
+    They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
+    The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    There are two ways you can use the affine:
+    * One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
+    * and the other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    * Note that the resulting affine coefficients after rotation are not updated in the UI but passed directly internally to the algorithm so that
+    if you are copying values from Apophysis, then the rotation must be set to ZERO to match or you will apply a double transformation otherwise.
+        
+    * For Apophysis users: every Coefficent has the name of the axis it represent to match what Apophysis transformation's name look like inside the world editor.
+
+post affine:
+    #id: FF
+    Post affine coefficients for the current variations. Those are applied after the variations.
+    * See above affine description for more informations.
+        
+VARS Tab:
+    #id: FF
+    If a parametric variation is selected, its parameters will populate this Tab.
+    
+POST VARS Tab:
+    #id: FF
+    If a post parametric variation is selected, its parameters will populate this Tab.
+    
+
+    
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *CP:* _Flame fractal color palette._
+    
+LIB:
+    #id: PALETTE LIBRARY
+    When you load a json palette file,
+    click this menu to display all the palette included in the loaded file and select one to load
+    
+HSV:
+    #id: PALETTE
+    Hue/Saturation/Value of the palette's colors.
+    
+palette:
+    #id: PALETTE
+    the actual color palette.
+    
+JSON file:
+    #id: PALETTE
+    Load an already created json palette lib file or select the name of a new one to create.
+    
+Save:
+    #id: PALETTE
+    Once you loaded or created a new json palette file,
+    click save to add a new palette to the selected file (append) or create a new one (override).
+    
+
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *SM:* _Flame fractal rotational symmetry._
+
+on:
+    #id: prefs
+    Enable symmetry.
+    
+Rotational:
+    #id: prefs
+    Symmetry type and mode. Only rotational is allowed at the moment.
+    
+
+    
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *MB:* _Flame fractal moton blur._
+
+on:
+    #id: MB
+    Enable motion blur.
+    
+    TIP:
+        #display: orange
+        
+        If you animate any of the available parameters using expresions,
+        remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.
+
+fps:
+    #id: MB
+    desired Frames per second.
+    
+samples:
+    #id: MB
+    Motion blur samples.
+    
+shutter offset:
+    #id: MB
+    Shutter time.
+    
+viz mb:
+    #id: MB
+    Visualize Motion Blur using color. ( Set viewport background to black for better viewing )
+    
+    NOTE:
+        Remember to turn this OFF when rendering so to not overimpose a darker color.
+        
+
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *PREFS:* _Tool's preferences._
+
+display prefs:
+    #id: prefs
+    Display preferences.
+    
+:box:
+    #display: rounded white
+
+    *xaos*
+    
+xaos modes:
+    #id: prefs
+    Select to use xaos in either *xaos TO* or *xaos FROM* mode.
+    
+:box:
+    #display: rounded white
+
+    *camera*
+            
+handle:
+    #id: prefs
+    Display viewport camera handle to help frame/center your fractal Flame.
+    On the left you will have the FLAM3 node name and on the right the selected camera name.
+    
+    :box:
+        #display: inverted red
+    
+        *TURN THIS OFF WHEN RENDERING.*
+    
+camera cull:
+    #id: prefs
+    Enable culling based on camera view.
+    
+cam:
+    #id: prefs
+    Pick a camera to use for either the handle or the culling.
+    
+amount:
+    #id: prefs
+    Culling amount.
+        
+== Variations infos ==
+
+_Dependant variation's affine coefficients:_
+
+*_WAVES_*: `O[0] X[1]   Y[1] O[1]`
+
+*_POPCORN_*: `O[0]  O[1]`
+
+*_RINGS_*: `O[0]`
+
+*_FAN_*: `O[0]`
+
+_A list of all variations included with FLAM3 v0.9.3 for SideFX Houdini:_
+
+*_linear, 
+sinusoidal, 
+spherical, 
+swirl, 
+horseshoe, 
+polar, 
+handkerchief, 
+heart, 
+disc, 
+spiral, 
+hiperbolic, 
+diamond, 
+ex, 
+julia, 
+bent, 
+waves, 
+fisheye, 
+popcorn, 
+exponential, 
+power, 
+cosine, 
+rings, 
+fan, 
+bubble, 
+cylinder, 
+eyefish, 
+blur, 
+curl, 
+ngon, 
+pdj, 
+blob, 
+juliaN, 
+juliaScope, 
+gaussian, 
+fan2, 
+rings2, 
+rectangles, 
+radialblur, 
+pie, 
+arch, 
+tangent, 
+square, 
+rays, 
+blade, 
+secant2, 
+twintrian, 
+cross, 
+disc2, 
+supershape, 
+flower, 
+conic, 
+parabola, 
+bent2, 
+bipolar, 
+boarders, 
+butterfly, 
+cell, 
+cpow, 
+edisc, 
+elliptic, 
+noise, 
+escher, 
+foci, 
+lazysusan, 
+loonie, 
+pre blur, 
+modulus, 
+oscope, 
+polar2, 
+popcorn2, 
+scry, 
+separation, 
+split, 
+splits, 
+stripes, 
+wedge, 
+wedge julia, 
+wedge sph, 
+whorl, 
+waves2, 
+cothe exp, 
+cothe log, 
+cothe sin, 
+cothe cos, 
+cothe tan, 
+cothe sec, 
+cothe csc, 
+cothe cot, 
+cothe sinh, 
+cothe cosh, 
+cothe tanh, 
+cothe sech, 
+cothe csch, 
+cothe coth, 
+auger, 
+flux, 
+mobius, 
+curve, 
+perspective, 
+bwraps, 
+hemisphere, 
+polynomial._*
