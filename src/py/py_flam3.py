@@ -720,7 +720,7 @@ def prm_paste_sel_FF(kwargs):
     flam3node_FF = hou.session.flam3node_FF
     flam3node_FF_check = hou.session.flam3node_FF_check
 
-    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
+    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ff_prmpastesel parameter
     #
     # If an iterator was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
