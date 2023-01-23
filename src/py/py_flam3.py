@@ -446,7 +446,7 @@ def pastePRM_T_from_list(prmT_list, varsPRM, node, flam3node, id, id_from):
 
 
 ###############################################################################################
-# FLAM3 paste parametric parms if any are found in the list of var types passed in
+# FLAM3 paste note msg
 # int_mode:
 # 0 -> iterators
 # 1 -> FF all
