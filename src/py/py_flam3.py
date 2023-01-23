@@ -142,7 +142,7 @@ class flam3_varsPRM:
 
     # SECTIONS method lists
     #
-    # (*T)Types have no signature and always to be used with: pastePRM_from_list() for now.
+    # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
     sec_main = [ ["vactive_", 0], ["iw_", 0] ]
     sec_xaos = [ ["varnote_", 0] ]
     sec_shader = [ ["clr_", 0], ["clrspeed_", 0], ["alpha_", 0] ]
@@ -380,7 +380,7 @@ class flam3_varsPRM_FF:
 
     # SECTIONS method lists
     #
-    # (*T)Types have no signature and always to be used with: pastePRM_from_list()
+    # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
     sec_varsT_FF = [ "ffv1type", "ffv2type", "ffv3type" ]
     sec_varsW_FF = [ ["ffv1weight", 0], ["ffv2weight", 0], ["ffv3weight", 0] ]
     sec_postvarsT_FF = [ "ffp1type", "ffp2type" ]
@@ -398,15 +398,29 @@ class flam3_varsPRM_FF:
 ###############################################################################################
 # FLAM3 paste list of parms
 ###############################################################################################
-def paste_from_list(prmlist, node, flam3node, id, id_from):
-    for prm in prmlist:
+def paste_from_list(prm_list, node, flam3node, id, id_from):
+
+    for prm in prm_list:
         # if a tuple
         if prm[1]:
-            prm_from = flam3node.parmTuple(prm[0] + str(id_from)).eval()
-            node.setParms({prm[0] + str(id): prm_from})
+            prm_from = flam3node.parmTuple(prm[0] + str(id_from))
+            prm_to = node.parmTuple(prm[0] + str(id))
+            prm_idx = 0
+            for p in prm_from:
+                if len(p.keyframes()):
+                    for k in p.keyframes():
+                        prm_to[prm_idx].setKeyframe(k)
+                else:
+                    prm_to[prm_idx].set(p.eval())
+                prm_idx += 1
         else:
-            prm_from = flam3node.parm(prm[0] + str(id_from)).eval()
-            node.setParms({prm[0] + str(id): prm_from})
+            prm_from = flam3node.parm(prm[0] + str(id_from))
+            prm_to = node.parm(prm[0] + str(id))
+            if len(prm_from.keyframes()):
+                    for k in prm_from.keyframes():
+                        prm_to.setKeyframe(k)
+            else:
+                prm_to.set(prm_from.eval())
 
 
 
@@ -415,22 +429,15 @@ def paste_from_list(prmlist, node, flam3node, id, id_from):
 ###############################################################################################
 # FLAM3 paste parametric parms if any are found in the list of var types passed in
 ###############################################################################################
-def pastePRM_from_list(prmlist, varsPRM, node, flam3node, id, id_from):
+def pastePRM_T_from_list(prmT_list, varsPRM, node, flam3node, id, id_from):
     
-    for prm in prmlist:
+    for prm in prmT_list:
         prm_from = flam3node.parm(prm + str(id_from)).eval()
         node.setParms({prm + str(id): prm_from})
         # Check if this var is a parametric or not
         type = int(prm_from)
         if(varsPRM[type][-1]):
-            for p in varsPRM[type][1:-1]:
-                # if a tuple
-                if p[1]:
-                    t_prm_from = flam3node.parmTuple(p[0] + str(id_from)).eval()
-                    node.setParms({p[0] + str(id): t_prm_from})
-                else:
-                    t_prm_from = flam3node.parm(p[0] + str(id_from)).eval()
-                    node.setParms({p[0] + str(id): t_prm_from})
+            paste_from_list(varsPRM[type][1:-1], node, flam3node, id, id_from)
 
 
 
@@ -498,7 +505,7 @@ def prm_paste(kwargs):
                 FLAM3VARS = flam3_varsPRM()
 
                 # var's type and set parametric variation's parameter if it find any
-                pastePRM_from_list(FLAM3VARS.allT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+                pastePRM_T_from_list(FLAM3VARS.allT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
                 # paste rest
                 paste_from_list(FLAM3VARS.allMisc, node, flam3node, id, id_from)
                 # set note
@@ -546,8 +553,8 @@ def prm_paste_FF(kwargs):
                 FLAM3VARS_FF = flam3_varsPRM_FF()
 
                 # var's type and set parametric variation's parameter if it find any
-                pastePRM_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF, node, flam3node_FF, "", "")
-                pastePRM_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FF.varsPRM_FP, node, flam3node_FF, "", "")
+                pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF, node, flam3node_FF, "", "")
+                pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FF.varsPRM_FP, node, flam3node_FF, "", "")
                 # paste rest
                 paste_from_list(FLAM3VARS_FF.allMisc_FF, node, flam3node_FF, "", "")
                 # set note
@@ -631,7 +638,7 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 4:
             
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_from_list(FLAM3VARS.sec_prevarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+            pastePRM_T_from_list(FLAM3VARS.sec_prevarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_prevarsW, node, flam3node, id, id_from)
             # set note
@@ -642,7 +649,7 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 5:
 
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_from_list(FLAM3VARS.sec_varsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+            pastePRM_T_from_list(FLAM3VARS.sec_varsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_varsW, node, flam3node, id, id_from)
             # set note
@@ -653,7 +660,7 @@ def prm_paste_sel(kwargs):
         elif paste_sel == 6:
 
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_from_list(FLAM3VARS.sec_postvarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
+            pastePRM_T_from_list(FLAM3VARS.sec_postvarsT, FLAM3VARS.varsPRM, node, flam3node, id, id_from)
             # var's weight
             paste_from_list(FLAM3VARS.sec_postvarsW, node, flam3node, id, id_from)
             # set note
@@ -732,7 +739,7 @@ def prm_paste_sel_FF(kwargs):
         if ff_paste_sel == 1:
 
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF, node, flam3node_FF, "", "")
+            pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF, node, flam3node_FF, "", "")
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             # set note
@@ -743,7 +750,7 @@ def prm_paste_sel_FF(kwargs):
         elif ff_paste_sel == 2:
 
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FF.varsPRM_FP, node, flam3node_FF, "", "")
+            pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FF.varsPRM_FP, node, flam3node_FF, "", "")
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             # set note
