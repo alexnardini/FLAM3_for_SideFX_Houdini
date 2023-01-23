@@ -722,7 +722,7 @@ def prm_paste_sel_FF(kwargs):
 
     # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ff_prmpastesel parameter
     #
-    # If an iterator was copied from a node that has been deleted
+    # If the FF was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     '''
     try:
