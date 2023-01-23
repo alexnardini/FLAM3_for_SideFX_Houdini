@@ -24,6 +24,9 @@ import webbrowser
     Name:       PY_FLAM3 "PYTHON"
 
     Comment:    Python classes and definitions for tool's user experience.
+    
+                Everything is then glued together inside Houdini.
+                For ex. UI menus use their own pyhton code scripts inside them.
 '''
 
 
