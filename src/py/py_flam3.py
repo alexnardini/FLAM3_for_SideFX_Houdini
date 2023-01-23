@@ -516,6 +516,10 @@ def prm_paste(kwargs):
         else:
             print(str(node) + ": Please copy an iterator first.")
 
+    elif kwargs["shift"]:
+        del hou.session.flam3node_mp_id
+        del hou.session.flam3node
+
     else:
         hou.session.flam3node_mp_id = kwargs['script_multiparm_index']
         hou.session.flam3node = kwargs['node']
@@ -564,6 +568,10 @@ def prm_paste_FF(kwargs):
 
         else:
             print(str(node) + ": Please copy FF first.")
+
+    elif kwargs["shift"]:
+        del hou.session.flam3node_FF_check
+        del hou.session.flam3node_FF
 
     else:
         hou.session.flam3node_FF_check = 1
@@ -692,7 +700,6 @@ def prm_paste_sel(kwargs):
         #
         # please check the FLAM3node.ff_prmpastesel parameter python menu script to know its size.
         node.setParms({"prmpastesel_" + str(id): str(0)})
-                
     
     else:
         print(str(node) + ": Please copy the FF first.")
