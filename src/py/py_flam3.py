@@ -468,7 +468,7 @@ def paste_set_note(int_mode, str_section, node, flam3node, id, id_from):
             print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF" + " to: " + str(node) + "->FF")
     elif int_mode == 2:
             if node != flam3node:
-                node.setParms({'ffnote': str(flam3node) + "->FF." + str_section})
+                node.setParms({'ffnote': str(flam3node) + "->FF" + str_section})
                 print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF" + str_section + " to: " + str(node) + "->FF" + str_section)
 
 
