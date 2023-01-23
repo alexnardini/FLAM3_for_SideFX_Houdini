@@ -702,7 +702,7 @@ def prm_paste_sel(kwargs):
         node.setParms({"prmpastesel_" + str(id): str(0)})
     
     else:
-        print(str(node) + ": Please copy the FF first.")
+        print(str(node) + ": Please copy an iterator first.")
 
 
 
