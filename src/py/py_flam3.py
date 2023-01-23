@@ -389,6 +389,8 @@ class flam3_varsPRM_FF:
     sec_postAffine_FF = [ ["dofp", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
     
     # ALL method lists
+    # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
+    # so I need to handle them one by one inside: def prm_paste_FF() and def prm_paste_sel_FF()
     allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
