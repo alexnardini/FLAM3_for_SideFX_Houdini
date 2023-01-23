@@ -838,7 +838,7 @@ def flam3_on_create(kwargs):
         hou.session.flam3node_FF_check = -1
 
     # If the FF was copied from a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
+    # revert to -1 so that we are forced to copy the FF again.
     try:
         hou.session.flam3node_FF.type()
     except:
