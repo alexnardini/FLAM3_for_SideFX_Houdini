@@ -716,7 +716,7 @@ def prm_paste_sel_FF(kwargs):
     # current node
     node=kwargs['node']
 
-    # FLAM3 node and Iterator we just copied
+    # FLAM3 node and its state we just copied
     flam3node_FF = hou.session.flam3node_FF
     flam3node_FF_check = hou.session.flam3node_FF_check
 
