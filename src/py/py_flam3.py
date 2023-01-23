@@ -467,7 +467,7 @@ def paste_set_note(int_mode, str_section, node, flam3node, id, id_from):
     elif int_mode == 2:
             if node != flam3node:
                 node.setParms({'ffnote': str(flam3node) + "->FF." + str_section})
-                print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF." + str_section + " to: " + str(node) + "->FF." + str_section)
+                print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF" + str_section + " to: " + str(node) + "->FF" + str_section)
 
 
 
@@ -743,7 +743,7 @@ def prm_paste_sel_FF(kwargs):
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             # set note
-            paste_set_note(2, "vars", node, flam3node_FF, "", "")
+            paste_set_note(2, ".vars", node, flam3node_FF, "", "")
         
         # set FF POST VARS
         ################################################################################
@@ -754,7 +754,7 @@ def prm_paste_sel_FF(kwargs):
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             # set note
-            paste_set_note(2, "post_vars", node, flam3node_FF, "", "")
+            paste_set_note(2, ".post_vars", node, flam3node_FF, "", "")
 
         # set FF PRE AFFINE
         ################################################################################
@@ -762,7 +762,7 @@ def prm_paste_sel_FF(kwargs):
         
             paste_from_list(FLAM3VARS_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
             # set note
-            paste_set_note(2, "pre_affine", node, flam3node_FF, "", "")
+            paste_set_note(2, ".pre_affine", node, flam3node_FF, "", "")
         
         # set FF POST AFFINE
         ################################################################################
@@ -770,7 +770,7 @@ def prm_paste_sel_FF(kwargs):
         
             paste_from_list(FLAM3VARS_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
             # set note
-            paste_set_note(2, "post_affine", node, flam3node_FF, "", "")
+            paste_set_note(2, ".post_affine", node, flam3node_FF, "", "")
 
 
 
