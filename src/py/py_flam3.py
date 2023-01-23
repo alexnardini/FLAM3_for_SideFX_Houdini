@@ -731,7 +731,7 @@ def prm_paste_sel_FF(kwargs):
         flam3node_FF_check = -1
     '''
 
-    # If we ever copied an iterator from a currently existing FLAM3 node
+    # If we ever copied an FF from a currently existing FLAM3 node
     if flam3node_FF_check != -1:
         
         # Create flam3 variation's parameter object
