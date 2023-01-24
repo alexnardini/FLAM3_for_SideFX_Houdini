@@ -24,7 +24,7 @@ import webbrowser
     Name:       PY_FLAM3 "PYTHON"
 
     Comment:    Python classes and definitions for tool's user experience.
-    
+
                 Everything is then glued together inside Houdini.
                 For ex. UI menus use their own pyhton code scripts inside them.
 '''
@@ -542,18 +542,18 @@ def prm_paste_FF(kwargs):
         # current node
         node=kwargs['node']
 
-        # FLAM3 node and Iterator we just copied
+        # FLAM3 node and its state we just copied
         flam3node_FF = hou.session.flam3node_FF
         flam3node_FF_check = hou.session.flam3node_FF_check
 
-        # If an iterator was copied on a node that has been deleted
+        # If the FF was copied from a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
             flam3node_FF.type()
         except:
             flam3node_FF_check = -1
 
-        # If we ever copied an iterator from a currently existing FLAM3 node
+        # If we ever copied an FF from a currently existing FLAM3 node
         if flam3node_FF_check != -1:
             if node==flam3node_FF:
                 print(str(node) + ": FF copied. Select a different FLAM3 node to paste those FF values.")
