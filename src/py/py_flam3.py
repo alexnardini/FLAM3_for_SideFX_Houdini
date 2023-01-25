@@ -55,7 +55,7 @@ class flam3_varsPRM:
                 ["waves*", 0], 
                 ["fisheye", 0], 
                 ["popcorn*", 0], 
-                ["expo", 0], 
+                ["exponential", 0], 
                 ["power", 0], 
                 ["cosine", 0], 
                 ["rings*", 0], 
