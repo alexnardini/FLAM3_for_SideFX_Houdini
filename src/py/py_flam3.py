@@ -168,10 +168,10 @@ class flam3_varsPRM:
 
 class flam3_varsPRM_FF:
 
-    def __init__(self, prx):
+    def __init__(self, prx: str):
         self.prx = prx
 
-    def varsPRM_FF(self):
+    def varsPRM_FF(self) -> list:
 
         FLAM3VARS = flam3_varsPRM()
         varsPRM_FF = (  FLAM3VARS.varsPRM[0], 
@@ -301,7 +301,7 @@ class flam3_varsPRM_FF:
 ###############################################################################################
 # MENU - Build vars type menus
 ###############################################################################################
-def menu_T(int_mode):
+def menu_T(int_mode: int) -> list:
     
     # Build var's names list
     FLAM3VARS = flam3_varsPRM()
@@ -340,7 +340,7 @@ def menu_T(int_mode):
 ###############################################################################################
 # MENU - Build iterator copy paste menu
 ###############################################################################################
-def menu_copypaste(kwargs):
+def menu_copypaste(kwargs: dict) -> list:
 
     # init menu
     menu=[]
@@ -394,7 +394,7 @@ def menu_copypaste(kwargs):
 ###############################################################################################
 # MENU - Build FF copy paste menu
 ###############################################################################################
-def menu_copypaste_FF(kwargs):
+def menu_copypaste_FF(kwargs: dict) -> list:
         
     # init menu
     menu=[]
@@ -443,7 +443,7 @@ def menu_copypaste_FF(kwargs):
 ###############################################################################################
 # FLAM3 paste list of parms
 ###############################################################################################
-def paste_from_list(prm_list, node, flam3node, id, id_from):
+def paste_from_list(prm_list: list, node: hou.Node, flam3node: hou.Node, id: int, id_from: int) -> None:
 
     for prm in prm_list:
         # if a tuple
@@ -474,7 +474,7 @@ def paste_from_list(prm_list, node, flam3node, id, id_from):
 ###############################################################################################
 # FLAM3 (*T)Types-> paste parametric parms if any are found in the list of var types passed in
 ###############################################################################################
-def pastePRM_T_from_list(prmT_list, varsPRM, node, flam3node, id, id_from):
+def pastePRM_T_from_list(prmT_list: list, varsPRM: list, node: hou.Node, flam3node: hou.Node, id: int, id_from: int) -> None:
     
     for prm in prmT_list:
         prm_from = flam3node.parm(prm + str(id_from)).eval()
@@ -495,7 +495,7 @@ def pastePRM_T_from_list(prmT_list, varsPRM, node, flam3node, id, id_from):
 # 1 -> FF all
 # 2 -> FF sections
 ###############################################################################################
-def paste_set_note(int_mode, str_section, node, flam3node, id, id_from):
+def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: int, id_from: int) -> None:
 
     if int_mode == 0:
         # If on the same FLAM3 node
@@ -520,7 +520,7 @@ def paste_set_note(int_mode, str_section, node, flam3node, id, id_from):
 ###############################################################################################
 # Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
 ###############################################################################################
-def prm_paste(kwargs):
+def prm_paste(kwargs: dict) -> None:
 
     if kwargs["ctrl"]:
 
@@ -575,7 +575,7 @@ def prm_paste(kwargs):
 ###############################################################################################
 # FF - Copy paste all FF's values from one FLAM3 node to another FLAM3 node
 ###############################################################################################
-def prm_paste_FF(kwargs):
+def prm_paste_FF(kwargs: dict) -> None:
 
     if kwargs["ctrl"]:
 
@@ -628,7 +628,7 @@ def prm_paste_FF(kwargs):
 ###############################################################################################
 # paste sections of iterator's values from one to another and also from different FLAM3 nodes
 ###############################################################################################
-def prm_paste_sel(kwargs):
+def prm_paste_sel(kwargs: dict) -> None:
 
     # current node
     node=kwargs['node']
@@ -748,7 +748,7 @@ def prm_paste_sel(kwargs):
 ###############################################################################################
 # FF paste sections of FF's values from one FLAM3 node to another FLAM3 node
 ###############################################################################################
-def prm_paste_sel_FF(kwargs):
+def prm_paste_sel_FF(kwargs: dict) -> None:
 
     # current node
     node=kwargs['node']
@@ -831,7 +831,7 @@ def prm_paste_sel_FF(kwargs):
 ###############################################################################################
 # FLAM3 on create init
 ###############################################################################################
-def flam3_on_create(kwargs):
+def flam3_on_create(kwargs: dict) -> None:
 
     # Set initial node color
     node = kwargs['node']
@@ -885,7 +885,7 @@ def flam3_on_create(kwargs):
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid ramp json file
 ###############################################################################################
-def ramp_init_presets(kwargs):
+def ramp_init_presets(kwargs: dict) -> None:
 
     node = kwargs['node']
     ramp_presets = node.parm('presets')
@@ -898,7 +898,7 @@ def ramp_init_presets(kwargs):
 ###############################################################################################
 # Save current ramp to a json file
 ###############################################################################################
-def ramp_save(kwargs):
+def ramp_save(kwargs: dict) -> None:
 
     filepath = kwargs['node'].parm('filepath').evalAsString()
     path = os.path.dirname(filepath)
@@ -963,7 +963,7 @@ def ramp_save(kwargs):
 ###############################################################################################
 # Set ramp value from a json file
 ###############################################################################################
-def json_to_ramp(kwargs):
+def json_to_ramp(kwargs: dict) -> None:
 
     node = kwargs['node']
     
@@ -1001,7 +1001,7 @@ def json_to_ramp(kwargs):
 ###############################################################################################
 # Load default values. ( Sierpinsky triangle )
 ###############################################################################################
-def flam3_default(self):
+def flam3_default(self: hou.Node) -> None:
 
     # Iterators reset
     self.setParms({"flamefunc": 0})
@@ -1143,7 +1143,7 @@ def flam3_default(self):
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website
 ###############################################################################################
-def web_flame3hda():
+def web_flame3hda() -> None:
     page = "https://alexnardini.net/flame-home/"
     webbrowser.open(page)
 
@@ -1154,7 +1154,7 @@ def web_flame3hda():
 ###############################################################################################
 # Open web browser to the FractalFlame Algorithm paper
 ###############################################################################################
-def web_TFFA():
+def web_TFFA() -> None:
     page = "https://flam3.com/flame_draves.pdf"
     webbrowser.open(page)
 
