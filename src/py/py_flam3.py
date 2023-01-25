@@ -781,7 +781,7 @@ def prm_paste_sel_FF(kwargs):
 
             FLAM3VARS_FF = flam3_varsPRM_FF("ff_")
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.vars_FF(), node, flam3node_FF, "", "")
+            pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF(), node, flam3node_FF, "", "")
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             # set note
@@ -793,7 +793,7 @@ def prm_paste_sel_FF(kwargs):
 
             FLAM3VARS_FP = flam3_varsPRM_FF("fp1_")
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FP.vars_FF(), node, flam3node_FF, "", "")
+            pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FP.varsPRM_FF(), node, flam3node_FF, "", "")
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             # set note
