@@ -609,7 +609,7 @@ def menu_copypaste_FF(kwargs):
     flam3node_FF_check = hou.session.flam3node_FF_check
 
     # If the FF has been copied on a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
+    # revert to -1 so that we are forced to copy an FF again.
     try:
         hou.session.flam3node_FF.type()
     except:
@@ -624,7 +624,6 @@ def menu_copypaste_FF(kwargs):
         if node == flam3node_FF:
             menuitems = [ "FF copied. Select a different FLAM3 node to paste those FF values." ]
         else:
-            #menuitems = [ "pizza" ]
             flam3nodeFF = str(flam3node_FF) + ".FF"
             menuitems = [ "", flam3nodeFF + ": var", flam3nodeFF + ": post", flam3nodeFF + ": pre affine", flam3nodeFF + ": post affine", "" ]
         for i, item in enumerate(menuitems):
