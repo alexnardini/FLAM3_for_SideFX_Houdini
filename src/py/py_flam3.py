@@ -33,6 +33,7 @@ import webbrowser
 
 
 
+
 class flam3_varsPRM:
 
     # Collect all variations and their parametric parameters.
@@ -51,14 +52,14 @@ class flam3_varsPRM:
                 ["ex", 0], 
                 ["julia", 0], 
                 ["bent", 0], 
-                ["*waves", 0], 
+                ["waves*", 0], 
                 ["fisheye", 0], 
-                ["*popcorn", 0], 
+                ["popcorn*", 0], 
                 ["expo", 0], 
                 ["power", 0], 
                 ["cosine", 0], 
-                ["*rings", 0], 
-                ["*fan", 0], 
+                ["rings*", 0], 
+                ["fan*", 0], 
                 ["bubble", 0], 
                 ["cylinder", 0], 
                 ["eyefish", 0], 
@@ -183,14 +184,14 @@ class flam3_varsPRM_FF:
                     ["ex", 0], 
                     ["julia", 0], 
                     ["bent", 0], 
-                    ["*waves", 0], 
+                    ["waves*", 0], 
                     ["fisheye", 0], 
-                    ["*popcorn", 0], 
+                    ["popcorn*", 0], 
                     ["expo", 0], 
                     ["power", 0], 
                     ["cosine", 0], 
-                    ["*rings", 0], 
-                    ["*fan", 0], 
+                    ["rings*", 0], 
+                    ["fan*", 0], 
                     ["bubble", 0], 
                     ["cylinder", 0], 
                     ["eyefish", 0], 
@@ -289,14 +290,14 @@ class flam3_varsPRM_FF:
                     ["ex", 0], 
                     ["julia", 0], 
                     ["bent", 0], 
-                    ["*waves", 0], 
+                    ["waves*", 0], 
                     ["fisheye", 0], 
-                    ["*popcorn", 0], 
+                    ["popcorn*", 0], 
                     ["expo", 0], 
                     ["power", 0], 
                     ["cosine", 0], 
-                    ["*rings", 0], 
-                    ["*fan", 0], 
+                    ["rings*", 0], 
+                    ["fan*", 0], 
                     ["bubble", 0], 
                     ["cylinder", 0], 
                     ["eyefish", 0], 
@@ -395,6 +396,247 @@ class flam3_varsPRM_FF:
     # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
     # so I need to handle them one by one inside: def prm_paste_FF() and def prm_paste_sel_FF()
     allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
+
+
+
+
+
+###############################################################################################
+# MENU - Build vars type menus
+###############################################################################################
+def menu_T(int_mode):
+
+    vars = ["linear", 
+            "sinusoidal",
+            "spherical",
+            "swirl",
+            "horseshoe",
+            "polar",
+            "handkerchief",
+            "heart",
+            "disc",
+            "spiral",
+            "hiperbolic",
+            "diamond",
+            "ex",
+            "julia",
+            "bent",
+            "waves*",
+            "fisheye",
+            "popcorn*",
+            "exponential",
+            "power",
+            "cosine",
+            "rings*",
+            "fan*",
+            "bubble",
+            "cylinder",
+            "eyefish",
+            "blur",
+            "curl...",
+            "ngon...",
+            "pdj...",
+            "blob...",
+            "juliaN...",
+            "juliaScope...",
+            "gaussian",
+            "fan2...",
+            "rings2...",
+            "rectangles...",
+            "radialblur...",
+            "pie...",
+            "arch",
+            "tangent",
+            "square",
+            "rays",
+            "blade",
+            "secant2",
+            "twintrian",
+            "cross",
+            "disc2...",
+            "supershape...",
+            "flower...",
+            "conic...",
+            "parabola...",
+            "bent2...",
+            "bipolar...",
+            "boarders",
+            "butterfly",
+            "cell...",
+            "cpow...",
+            "edisc",
+            "elliptic",
+            "noise",
+            "escher...",
+            "foci",
+            "lazysusan...",
+            "loonie...",
+            "pre blur",
+            "modulus...",
+            "oscope...",
+            "polar2",
+            "popcorn2...",
+            "scry",
+            "separation...",
+            "split...",
+            "splits...",
+            "stripes...",
+            "wedge...",
+            "wedge julia...",
+            "wedge sph...",
+            "whorl...",
+            "waves2...",
+            "cothe exp",
+            "cothe log",
+            "cothe sin",
+            "cothe cos",
+            "cothe tan",
+            "cothe sec",
+            "cothe csc",
+            "cothe cot",
+            "cothe sinh",
+            "cothe cosh",
+            "cothe tanh",
+            "cothe sech",
+            "cothe csch",
+            "cothe coth",
+            "auger...",
+            "flux...",
+            "mobius...",
+            "curve...",
+            "perspective...",
+            "bwraps...",
+            "hemisphere",
+            "polynomial..." ]
+
+    vars_no_lin = list(enumerate(vars))[1:]
+    # remove "pre blur" as it is hard coded into the chaos game
+    vars_no_lin.remove((65, 'pre blur'))
+    vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
+    vars_all = list(enumerate(['linear'])) + vars_sorted
+
+    menu=[]
+    if int_mode:
+        # remove parametrics just for the pre1type_# parameter
+        vars_no_prm = []
+        for var in vars_all:
+            if var[1][-3:] != "...":
+                vars_no_prm.append(var)
+        # build menu
+        for i, item in vars_no_prm:
+            menu.append(i)
+            menu.append(item)
+    else:
+        # build menu
+        for i, item in vars_all:
+            menu.append(i)
+            menu.append(item)
+        
+    return menu
+
+
+
+
+
+###############################################################################################
+# MENU - Build iterator copy paste menu
+###############################################################################################
+def menu_copypaste(kwargs):
+
+    # init menu
+    menu=[]
+
+    # Check if we copied an iterator
+    try:
+        hou.session.flam3node_mp_id
+    except:
+        hou.session.flam3node_mp_id = -1
+
+    id_from = hou.session.flam3node_mp_id
+
+    # If an iterator has been copied on a node that has been deleted
+    # revert to -1 so that we are forced to copy an iterator again.
+    try:
+        hou.session.flam3node.type()
+    except:
+        id_from = -1
+
+    # If we did and the FLAM3 node still exist
+    if id_from != -1:
+
+        # current id
+        id = kwargs['script_multiparm_index']
+
+        node=kwargs['node']
+        flam3node = hou.session.flam3node
+        
+        if node == flam3node and id==id_from:
+            menuitems = [ "Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" ]
+        elif node == flam3node:
+            menuitems = [ "", str(id_from), str(id_from) + ": xaos:", str(id_from) + ": shader", str(id_from) + ": pre", str(id_from) + ": vars", str(id_from) + ": post", str(id_from) + ": pre affine", str(id_from) + ": post affine", "" ]
+        else:
+            flam3nodeIter = str(flam3node) + ".iter."
+            menuitems = [ "", flam3nodeIter + str(id_from), flam3nodeIter + str(id_from) + ": xaos:", flam3nodeIter + str(id_from) + ": shader", flam3nodeIter + str(id_from) + ": pre", flam3nodeIter + str(id_from) + ": vars", flam3nodeIter + str(id_from) + ": post", flam3nodeIter + str(id_from) + ": pre affine", flam3nodeIter + str(id_from) + ": post affine", "" ]
+        for i, item in enumerate(menuitems):
+            menu.append(i)
+            menu.append(item)
+        return menu
+    else:
+        menuitems = [ "Please copy an iterator first" ]
+        for i, item in enumerate(menuitems):
+            menu.append(i-1)
+            menu.append(item)
+        return menu
+
+
+
+
+
+###############################################################################################
+# MENU - Build FF copy paste menu
+###############################################################################################
+def menu_copypaste_FF(kwargs):
+        
+    # init menu
+    menu=[]
+
+    # Check if we copied an iterator
+    try:
+        hou.session.flam3node_FF_check
+    except:
+        hou.session.flam3node_FF_check = -1
+
+    flam3node_FF_check = hou.session.flam3node_FF_check
+
+    # If the FF has been copied on a node that has been deleted
+    # revert to -1 so that we are forced to copy an iterator again.
+    try:
+        hou.session.flam3node_FF.type()
+    except:
+        flam3node_FF_check = -1
+
+    # If we did and the FLAM3 node still exist
+    if flam3node_FF_check != -1:
+
+        node=kwargs['node']
+        flam3node_FF = hou.session.flam3node_FF
+        
+        if node == flam3node_FF:
+            menuitems = [ "FF copied. Select a different FLAM3 node to paste those FF values." ]
+        else:
+            #menuitems = [ "pizza" ]
+            flam3nodeFF = str(flam3node_FF) + ".FF"
+            menuitems = [ "", flam3nodeFF + ": var", flam3nodeFF + ": post", flam3nodeFF + ": pre affine", flam3nodeFF + ": post affine", "" ]
+        for i, item in enumerate(menuitems):
+            menu.append(i)
+            menu.append(item)
+        return menu
+    else:
+        menuitems = [ "Please copy the FF first" ]
+        for i, item in enumerate(menuitems):
+            menu.append(i-1)
+            menu.append(item)
+        return menu
 
 
 
@@ -1130,4 +1372,7 @@ def web_flame3hda():
 def web_TFFA():
     page = "https://flam3.com/flame_draves.pdf"
     webbrowser.open(page)
+
+
+
 
