@@ -791,9 +791,8 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         ################################################################################
         elif ff_paste_sel == 2:
 
-            FLAM3VARS_FP_varsT_PRM = flam3_varsPRM_FF("fp1_").varsPRM_FF()
             # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FP_varsT_PRM, node, flam3node_FF, "", "")
+            pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
             # var's weight
             paste_from_list(FLAM3VARS_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             # set note
