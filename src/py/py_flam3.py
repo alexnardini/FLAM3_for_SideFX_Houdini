@@ -370,18 +370,18 @@ def menu_copypaste(kwargs: dict) -> list:
         flam3node = hou.session.flam3node
         
         if node == flam3node and id==id_from:
-            menuitems = [ "Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" ]
+            menuitems = [ f"Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" ]
         elif node == flam3node:
-            menuitems = [ "", str(id_from), str(id_from) + ": xaos:", str(id_from) + ": shader", str(id_from) + ": pre", str(id_from) + ": vars", str(id_from) + ": post", str(id_from) + ": pre affine", str(id_from) + ": post affine", "" ]
+            menuitems = [ f"", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", f"" ]
         else:
-            flam3nodeIter = str(flam3node) + ".iter."
-            menuitems = [ "", flam3nodeIter + str(id_from), flam3nodeIter + str(id_from) + ": xaos:", flam3nodeIter + str(id_from) + ": shader", flam3nodeIter + str(id_from) + ": pre", flam3nodeIter + str(id_from) + ": vars", flam3nodeIter + str(id_from) + ": post", flam3nodeIter + str(id_from) + ": pre affine", flam3nodeIter + str(id_from) + ": post affine", "" ]
+            flam3nodeIter = f"{str(flam3node)}.iter."
+            menuitems = [ f"", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", f"" ]
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
         return menu
     else:
-        menuitems = [ "Please copy an iterator first" ]
+        menuitems = [ f"Please copy an iterator first" ]
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
@@ -423,8 +423,8 @@ def menu_copypaste_FF(kwargs: dict) -> list:
         if node == flam3node_FF:
             menuitems = [ "FF copied. Select a different FLAM3 node to paste those FF values." ]
         else:
-            flam3nodeFF = str(flam3node_FF) + ".FF"
-            menuitems = [ "", flam3nodeFF + ": var", flam3nodeFF + ": post", flam3nodeFF + ": pre affine", flam3nodeFF + ": post affine", "" ]
+            flam3nodeFF = f"{str(flam3node_FF)}.FF"
+            menuitems = [ "", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", f"" ]
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
@@ -500,19 +500,20 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
     if int_mode == 0:
         # If on the same FLAM3 node
         if node == flam3node:
-            node.setParms({'variter_' + str(id): 'iter.' + str(id_from) + str_section})
-            print(str(node) + ": Copied values from: " + "iter." + str(id_from) + str_section + " to: " + "iter." + str(id) + str_section)
+            node.setParms({f"variter_{str(id)}": f"iter.{str(id_from)}{str_section}"})
+            print(f"{str(node)} : Copied values from: iter.{str(id_from)}{str_section} to: iter.{str(id)}{str_section}")
         else:
-            node.setParms({'variter_' + str(id): str(flam3node) + '->iter.' + str(id_from) + str_section})
-            print(str(node) + ": Copied values from: " + str(flam3node) + "->iter." + str(id_from) + str_section + " to: " + str(node) + "->iter." + str(id) + str_section)
+            node.setParms({f"variter_{str(id)}": f"{str(flam3node)}->iter.{str(id_from)}{str_section}"})
+            print(f"{str(node)} : Copied values from: {str(flam3node)}->iter.{str(id_from)}{str_section} to: {str(node)}->iter.{str(id)}{str_section}")
     elif int_mode == 1:
         if node != flam3node:
-            node.setParms({'ffnote': str(flam3node) + "->FF"})
-            print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF" + " to: " + str(node) + "->FF")
+            node.setParms({'ffnote': f"{str(flam3node)}->FF"})
+            print(f"{str(node)}: Copied FF from: {str(flam3node)}->FF to: {str(node)}->FF")
     elif int_mode == 2:
         if node != flam3node:
-            node.setParms({'ffnote': str(flam3node) + "->FF" + str_section})
-            print(str(node) + ": Copied FF from: " + str(flam3node) + "->FF" + str_section + " to: " + str(node) + "->FF" + str_section)
+            node.setParms({'ffnote': f"{str(flam3node)}->FF{str_section}"})
+            print(f"{str(node)}: Copied FF from: {str(flam3node)}->FF{str_section} to: {str(node)}->FF{str_section}")
+
 
 
 
@@ -544,7 +545,7 @@ def prm_paste(kwargs: dict) -> None:
         # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from != -1:
             if node==flam3node and id==id_from:
-                print(str(node) + ": Iterator copied. Select a different iterator number to paste those values.")
+                print(f"{str(node)}: Iterator copied. Select a different iterator number to paste those values.")
             else:
                 # Create flam3 variation's parameter object
                 FLAM3VARS = flam3_varsPRM()
@@ -557,7 +558,7 @@ def prm_paste(kwargs: dict) -> None:
                 paste_set_note(0, "", node, flam3node, id, id_from)
 
         else:
-            print(str(node) + ": Please copy an iterator first.")
+            print(f"{str(node)}: Please copy an iterator first.")
 
     elif kwargs["shift"]:
         del hou.session.flam3node_mp_id
@@ -566,7 +567,7 @@ def prm_paste(kwargs: dict) -> None:
     else:
         hou.session.flam3node_mp_id = kwargs['script_multiparm_index']
         hou.session.flam3node = kwargs['node']
-        print(str(kwargs['node']) + ": Copied iterator: " + str(hou.session.flam3node) + "->iter." + str(hou.session.flam3node_mp_id))
+        print(f"{str(kwargs['node'])}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}")
 
 
 
@@ -596,7 +597,7 @@ def prm_paste_FF(kwargs: dict) -> None:
         # If we ever copied an FF from a currently existing FLAM3 node
         if flam3node_FF_check != -1:
             if node==flam3node_FF:
-                print(str(node) + ": FF copied. Select a different FLAM3 node to paste those FF values.")
+                print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
             else:
                 # Create flam3 FF and FP variation's parameter objects
                 FLAM3VARS_FF = flam3_varsPRM_FF("ff_")
@@ -610,7 +611,7 @@ def prm_paste_FF(kwargs: dict) -> None:
                 paste_set_note(1, "", node, flam3node_FF, "", "")
 
         else:
-            print(str(node) + ": Please copy FF first.")
+            print(f"{str(node)}: Please copy FF first.")
 
     elif kwargs["shift"]:
         del hou.session.flam3node_FF_check
@@ -619,7 +620,7 @@ def prm_paste_FF(kwargs: dict) -> None:
     else:
         hou.session.flam3node_FF_check = 1
         hou.session.flam3node_FF = kwargs['node']
-        print(str(kwargs['node']) + ": Copied FF: " + str(hou.session.flam3node_FF) + "->FF" )
+        print(f"{str(kwargs['node'])}: Copied FF: {str(hou.session.flam3node_FF)}->FF")
 
 
 
@@ -739,7 +740,7 @@ def prm_paste_sel(kwargs: dict) -> None:
         node.setParms({"prmpastesel_" + str(id): str(0)})
     
     else:
-        print(str(node) + ": Please copy an iterator first.")
+        print(f"{str(node)}: Please copy an iterator first")
 
 
 
@@ -822,7 +823,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         node.setParms({"ff_prmpastesel": str(0)})
                 
     else:
-        print(str(node) + ": Please copy the FF first.")
+        print(f"{str(node)}: Please copy the FF first.")
 
 
 
