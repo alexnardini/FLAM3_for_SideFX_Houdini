@@ -8,25 +8,24 @@ import webbrowser
 
 
 '''  
-    Title:      SideFX Houdini FLAM3: 2D
-    Author:     Alessandro Nardini
-    date:       January 2023, Last revised January 2023
-
-    info:       Based on the original: "The Fractal Flame Algorithm"
-    Authors:    Scott Draves, Erik Reckase
-
-    Paper:      https://flam3.com/flame_draves.pdf
-    Date:       September 2003, Last revised November 2008
-
-    Github:     https://github.com/scottdraves/flam3
-    Date:       December 2002, Last revised May 2015
-
-    Name:       PY_FLAM3 "PYTHON"
-
-    Comment:    Python classes and definitions for tool's user experience.
-
-                Everything is then glued together inside Houdini.
-                For ex. UI menus use their own pyhton code scripts inside them.
+#   Title:      SideFX Houdini FLAM3: 2D
+#   Author:     Alessandro Nardini
+#   date:       January 2023, Last revised January 2023
+#
+#   info:       Based on the original: "The Fractal Flame Algorithm"
+#   Authors:    Scott Draves, Erik Reckase
+#
+#   Paper:      https://flam3.com/flame_draves.pdf
+#   Date:       September 2003, Last revised November 2008
+#
+#   Github:     https://github.com/scottdraves/flam3
+#   Date:       December 2002, Last revised May 2015
+#
+#   Name:       PY_FLAM3 "PYTHON"
+#
+#   Comment:    Python classes and definitions for tool's user experience.
+#
+#               Everything is then glued together inside Houdini.
 '''
 
 
