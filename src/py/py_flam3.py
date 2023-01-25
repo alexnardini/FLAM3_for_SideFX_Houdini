@@ -105,7 +105,7 @@ class flam3_varsPRM:
                 ["modulus...", ["modulusXYZ_", 1], 1], 
                 ["oscope...", ["oscope_", 1], 1], 
                 ["polar2", 0], 
-                ["popcorn...", ["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
+                ["popcorn2...", ["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
                 ["scry", 0], 
                 ["separation...", ["separationxyz_", 1], ["separationinsidexyz_", 1], 1], 
                 ["split...", ["splitxyz_", 1], 1], 
@@ -237,7 +237,7 @@ class flam3_varsPRM_FF:
                     ["modulus...", ["ff_modulusXYZ", 1], 1], 
                     ["oscope...", ["ff_oscope", 1], 1], 
                     ["polar2", 0], 
-                    ["popcorn...", ["ff_popcorn2xyz", 1], ["ff_popcorn2c", 0], 1], 
+                    ["popcorn2...", ["ff_popcorn2xyz", 1], ["ff_popcorn2c", 0], 1], 
                     ["scry", 0], 
                     ["separation...", ["ff_separationxyz", 1], ["ff_separationinsidexyz", 1], 1], 
                     ["split...", ["ff_splitxyz", 1], 1], 
@@ -343,7 +343,7 @@ class flam3_varsPRM_FF:
                     ["modulus...", ["fp1_modulusXYZ", 1], 1], 
                     ["oscope...", ["fp1_oscope", 1], 1], 
                     ["polar2", 0], 
-                    ["popcorn...", ["fp1_popcorn2xyz", 1], ["fp1_popcorn2c", 0], 1], 
+                    ["popcorn2...", ["fp1_popcorn2xyz", 1], ["fp1_popcorn2c", 0], 1], 
                     ["scry", 0], 
                     ["separation...", ["fp1_separationxyz", 1], ["fp1_separationinsidexyz", 1], 1], 
                     ["split...", ["fp1_splitxyz", 1], 1], 
@@ -1058,6 +1058,14 @@ def flam3_default(self):
     # shader
     self.setParms({"clr_1": 0})
     self.setParms({"clrspeed_1": 0.75})
+    # vars
+    self.setParms({"pre1type_1": 0})
+    self.setParms({"pre2type_1": 0})
+    self.setParms({"v1type_1": 0})
+    self.setParms({"v2type_1": 0})
+    self.setParms({"v3type_1": 0})
+    self.setParms({"v4type_1": 0})
+    self.setParms({"p1type_1": 0})
     # pre affine
     self.setParms({"x_1": hou.Vector2((0.5, 0.0))})
     self.setParms({"y_1": hou.Vector2((0.0, 0.5))})
@@ -1068,6 +1076,14 @@ def flam3_default(self):
     # shader
     self.setParms({"clr_2": 0.5})
     self.setParms({"clrspeed_2": 0.75})
+    # vars
+    self.setParms({"pre1type_2": 0})
+    self.setParms({"pre2type_2": 0})
+    self.setParms({"v1type_2": 0})
+    self.setParms({"v2type_2": 0})
+    self.setParms({"v3type_2": 0})
+    self.setParms({"v4type_2": 0})
+    self.setParms({"p1type_2": 0})
     # pre affine
     self.setParms({"x_2": hou.Vector2((0.5, 0.0))})
     self.setParms({"y_2": hou.Vector2((0.0, 0.5))})
@@ -1078,6 +1094,14 @@ def flam3_default(self):
     # shader
     self.setParms({"clr_3": 1.0})
     self.setParms({"clrspeed_3": 0.75})
+    # vars
+    self.setParms({"pre1type_3": 0})
+    self.setParms({"pre2type_3": 0})
+    self.setParms({"v1type_3": 0})
+    self.setParms({"v2type_3": 0})
+    self.setParms({"v3type_3": 0})
+    self.setParms({"v4type_3": 0})
+    self.setParms({"p1type_3": 0})
     # pre affine
     self.setParms({"x_3": hou.Vector2((0.5, 0.0))})
     self.setParms({"y_3": hou.Vector2((0.0, 0.5))})
@@ -1106,3 +1130,4 @@ def web_flame3hda():
 def web_TFFA():
     page = "https://flam3.com/flame_draves.pdf"
     webbrowser.open(page)
+
