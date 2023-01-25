@@ -304,7 +304,6 @@ class flam3_varsPRM_FF:
 def menu_T(int_mode: int) -> list:
     
     # Build var's names list
-    FLAM3VARS = flam3_varsPRM()
     vars = []
     for v in flam3_varsPRM.varsPRM:
         vars.append(v[0])
