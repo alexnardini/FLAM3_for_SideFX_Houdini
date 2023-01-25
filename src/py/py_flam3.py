@@ -772,14 +772,15 @@ def prm_paste_sel_FF(kwargs):
     # If we ever copied an FF from a currently existing FLAM3 node
     if flam3node_FF_check != -1:
         
+        FLAM3VARS_FF = flam3_varsPRM_FF("ff_")
+        FLAM3VARS_FP = flam3_varsPRM_FF("fp1_")
         # Get user selection of paste methods
         ff_paste_sel = node.parm("ff_prmpastesel").evalAsInt()
 
         # set FF VARS
         ################################################################################
         if ff_paste_sel == 1:
-
-            FLAM3VARS_FF = flam3_varsPRM_FF("ff_")
+            
             # var's type and set parametric variation's parameter if it find any
             pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF(), node, flam3node_FF, "", "")
             # var's weight
@@ -791,7 +792,6 @@ def prm_paste_sel_FF(kwargs):
         ################################################################################
         elif ff_paste_sel == 2:
 
-            FLAM3VARS_FP = flam3_varsPRM_FF("fp1_")
             # var's type and set parametric variation's parameter if it find any
             pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FP.varsPRM_FF(), node, flam3node_FF, "", "")
             # var's weight
