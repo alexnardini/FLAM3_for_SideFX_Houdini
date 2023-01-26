@@ -378,12 +378,14 @@ def menu_copypaste(kwargs: dict) -> list:
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
+
         return menu
     else:
         menuitems = [ f"Please copy an iterator first" ]
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
+
         return menu
 
 
@@ -427,12 +429,14 @@ def menu_copypaste_FF(kwargs: dict) -> list:
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
+
         return menu
     else:
         menuitems = [ "Please copy the FF first" ]
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
+
         return menu
 
 
@@ -735,7 +739,7 @@ def prm_paste_sel(kwargs: dict) -> None:
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
         #
-        # please check the FLAM3node.ff_prmpastesel parameter python menu script to know its size.
+        # please check the def->menu_copypaste() to know its size.
         node.setParms({f"prmpastesel_{str(id)}": str(0)})
     
     else:
@@ -817,7 +821,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
         #
-        # please check the FLAM3node.ff_prmpastesel parameter python menu script to know its size.
+        # please check def->menu_copypaste_FF() to know its size.
         node.setParms({"ff_prmpastesel": str(0)})
                 
     else:
