@@ -308,10 +308,13 @@ def menu_T(int_mode: int) -> list:
     for v in flam3_varsPRM.varsPRM:
         vars.append(v[0])
 
-    vars_no_lin = list(enumerate(vars))[1:]
-    vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game
-    vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
+    vars_enum = list(enumerate(vars))
+    vars_enum.remove((0, 'linear'))     # remove "linear" variation.
+    vars_enum.remove((65, 'pre blur'))  # remove "pre blur" variation as it is hard coded into the chaos game.
+    vars_sorted = sorted(vars_enum, key=lambda var: var[1])
+    # add 'linear' back so it will be the first entry in the menu.
     vars_all = list(enumerate(['linear'])) + vars_sorted
+
 
     menu=[]
     if int_mode:
