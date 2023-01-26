@@ -75,6 +75,7 @@ copy/paste:
     
     Click to COPY this iterator vaues. "CTRL"+CLICK to PASTE the copied values into another iterator.
     It will copy everything, parametric variation's parameters included but not XAOS.
+    "CTRL"+SHIFT will delete the stored data.
     
     It will work also between different FLAM3 nodes.
     
@@ -262,13 +263,13 @@ copy/paste:
     
     Click to COPY this FF vaues. "CTRL"+CLICK on another FLAM3 node to PASTE the copied FF values.
     It will copy everything, parametric variation's parameters included.
+    "CTRL"+SHIFT will delete the stored data
     
     It will only work between different FLAM3 nodes.
     
     Once you copy the FF, on another FLAM3 node you can have access to the arrow icon menu next to the *F* icon.
     From this menu you will be able to paste specific sections from the copied FF.
 
-    
 :box:
     #display: rounded white
 
