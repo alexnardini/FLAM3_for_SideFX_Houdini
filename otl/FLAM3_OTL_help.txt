@@ -56,41 +56,6 @@ iterations:
 :box:
     #display: inverted teal
 
-    *SYS:* _System options._
-
-    
-FF:
-    #id: SYS
-    Enable Final Flame variation's transform.
-        
-TAG:
-    #id: SYS
-    Enable vieport TAG infos.
-    * This shoud always be On as it is useful to review the Flame fractal being worked on. The iterator weight is displayed also per each iterator.
-         
-TAG size:
-    #id: SYS
-    Set different viewport TAG sizes.
-    
-                
-RIP:
-    #id: SYS
-    Remove Invalid Points. *INF*, *NAN*, *Zero Alpha* and *out of bounds* points.
-    * It can happen that some points shoot to infinity after being transformed by the algorithm.
-    Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
-    
-loaddef:
-    #id: SYS
-    [Largeicon:opdef:.?PALETTEsimpleSVG.svg]
-    
-    Load/reset to default Sierpinsky Triangle preset.
-
-
-
-~~~
-:box:
-    #display: inverted teal
-
     *FLAME:* _Flame variations/iterators._
 
 iterators:
@@ -197,7 +162,7 @@ var:
     #id: FLAME
     List of variations to choose from.
         
-    * Variation's name that start with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    * Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
     * Each iterators allow up to 8 variations ( pre-blur var, 2 pre var, 4 vars plus 1 post var) to be used. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     
@@ -313,7 +278,7 @@ FF variation:
     #id: FF
     List of variations to choose from. It take the combined result of everything you do inside FLAME Tab and transform it using those variations.
         
-    * Variation's name that start with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    * Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
     * Final Flame allow up to 3 variations. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 3 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
 FF Post variation:
@@ -515,7 +480,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v0.9.3 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v0.9.3b for SideFX Houdini:_
 
 *_linear, 
 sinusoidal, 
