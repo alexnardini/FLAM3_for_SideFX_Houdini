@@ -425,7 +425,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
             menuitems = [ "FF copied. Select a different FLAM3 node to paste those FF values." ]
         else:
             flam3nodeFF = f"{str(flam3node_FF)}.FF"
-            menuitems = [ "", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", f"" ]
+            menuitems = [ "", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" ]
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
