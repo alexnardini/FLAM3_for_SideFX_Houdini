@@ -693,7 +693,7 @@ def prm_paste_sel(kwargs: dict) -> None:
         elif paste_sel == 6:
             pastePRM_T_from_list(flam3_iterator.sec_postvarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".post_var", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, ".post_vars", node, flam3node, str(id), str(id_from))
                 
         # set PRE AFFINE
         ################################################################################
