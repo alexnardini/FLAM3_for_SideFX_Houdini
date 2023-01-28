@@ -330,12 +330,12 @@ def menu_T(int_mode: int) -> list:
         # build menu
         for i, item in vars_no_prm:
             menu.append(i)
-            menu.append(item)
+            menu.append(item.capitalize())
     else:
         # build menu
         for i, item in vars_all:
             menu.append(i)
-            menu.append(item)
+            menu.append(item.capitalize())
         
     return menu
 
