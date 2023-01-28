@@ -143,6 +143,8 @@ class flam3_varsPRM:
 
 
 
+class flam3_iterator:
+
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
@@ -166,118 +168,123 @@ class flam3_varsPRM:
 
 
 
-class flam3_varsPRM_FF:
+class flam3_varsPRM_FF(flam3_varsPRM):
 
     def __init__(self, prx: str):
         self.prx = prx
 
     def varsPRM_FF(self) -> list:
 
-        FLAM3VARS = flam3_varsPRM()
-        varsPRM_FF = (  FLAM3VARS.varsPRM[0], 
-                        FLAM3VARS.varsPRM[1], 
-                        FLAM3VARS.varsPRM[2], 
-                        FLAM3VARS.varsPRM[3], 
-                        FLAM3VARS.varsPRM[4], 
-                        FLAM3VARS.varsPRM[5], 
-                        FLAM3VARS.varsPRM[6], 
-                        FLAM3VARS.varsPRM[7], 
-                        FLAM3VARS.varsPRM[8], 
-                        FLAM3VARS.varsPRM[9], 
-                        FLAM3VARS.varsPRM[10], 
-                        FLAM3VARS.varsPRM[11], 
-                        FLAM3VARS.varsPRM[12], 
-                        FLAM3VARS.varsPRM[13], 
-                        FLAM3VARS.varsPRM[14], 
-                        FLAM3VARS.varsPRM[15], 
-                        FLAM3VARS.varsPRM[16], 
-                        FLAM3VARS.varsPRM[17], 
-                        FLAM3VARS.varsPRM[18], 
-                        FLAM3VARS.varsPRM[19], 
-                        FLAM3VARS.varsPRM[20], 
-                        FLAM3VARS.varsPRM[21], 
-                        FLAM3VARS.varsPRM[22], 
-                        FLAM3VARS.varsPRM[23], 
-                        FLAM3VARS.varsPRM[24], 
-                        FLAM3VARS.varsPRM[25], 
-                        FLAM3VARS.varsPRM[26], 
-                        [FLAM3VARS.varsPRM[27][0], [f"{self.prx}{FLAM3VARS.varsPRM[27][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[28][0], [f"{self.prx}{FLAM3VARS.varsPRM[28][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[29][0], [f"{self.prx}{FLAM3VARS.varsPRM[29][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[30][0], [f"{self.prx}{FLAM3VARS.varsPRM[30][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[31][0], [f"{self.prx}{FLAM3VARS.varsPRM[31][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[32][0], [f"{self.prx}{FLAM3VARS.varsPRM[32][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[33][0], 0], 
-                        [FLAM3VARS.varsPRM[34][0], [f"{self.prx}{FLAM3VARS.varsPRM[34][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[35][0], [f"{self.prx}{FLAM3VARS.varsPRM[35][1][0][:-1]}", 0], 1], 
-                        [FLAM3VARS.varsPRM[36][0], [f"{self.prx}{FLAM3VARS.varsPRM[36][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[37][0], [f"{self.prx}{FLAM3VARS.varsPRM[37][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[38][0], [f"{self.prx}{FLAM3VARS.varsPRM[38][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[39][0], 0], 
-                        [FLAM3VARS.varsPRM[40][0], 0], 
-                        [FLAM3VARS.varsPRM[41][0], 0], 
-                        [FLAM3VARS.varsPRM[42][0], 0], 
-                        [FLAM3VARS.varsPRM[43][0], 0], 
-                        [FLAM3VARS.varsPRM[44][0], 0], 
-                        [FLAM3VARS.varsPRM[45][0], 0], 
-                        [FLAM3VARS.varsPRM[46][0], 0], 
-                        [FLAM3VARS.varsPRM[47][0], [f"{self.prx}{FLAM3VARS.varsPRM[47][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[48][0], [f"{self.prx}{FLAM3VARS.varsPRM[48][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[48][2][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[49][0], [f"{self.prx}{FLAM3VARS.varsPRM[49][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[50][0], [f"{self.prx}{FLAM3VARS.varsPRM[50][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[51][0], [f"{self.prx}{FLAM3VARS.varsPRM[51][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[52][0], [f"{self.prx}{FLAM3VARS.varsPRM[52][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[53][0], [f"{self.prx}{FLAM3VARS.varsPRM[53][1][0][:-1]}", 0], 1],
-                        [FLAM3VARS.varsPRM[54][0], 0],
-                        [FLAM3VARS.varsPRM[55][0], 0], 
-                        [FLAM3VARS.varsPRM[56][0], [f"{self.prx}{FLAM3VARS.varsPRM[56][1][0][:-1]}", 0], 1], 
-                        [FLAM3VARS.varsPRM[57][0], [f"{self.prx}{FLAM3VARS.varsPRM[57][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[58][0], 0], 
-                        [FLAM3VARS.varsPRM[59][0], 0], 
-                        [FLAM3VARS.varsPRM[60][0], 0], 
-                        [FLAM3VARS.varsPRM[61][0], [f"{self.prx}{FLAM3VARS.varsPRM[61][1][0][:-1]}", 0], 1], 
-                        [FLAM3VARS.varsPRM[62][0], 0], 
-                        [FLAM3VARS.varsPRM[63][0], [f"{self.prx}{FLAM3VARS.varsPRM[63][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[63][2][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[64][0], 0], 
-                        [FLAM3VARS.varsPRM[65][0], 0], 
-                        [FLAM3VARS.varsPRM[66][0], [f"{self.prx}{FLAM3VARS.varsPRM[66][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[67][0], [f"{self.prx}{FLAM3VARS.varsPRM[67][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[68][0], 0], 
-                        [FLAM3VARS.varsPRM[69][0], [f"{self.prx}{FLAM3VARS.varsPRM[69][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[69][2][0][:-1]}", 0], 1], 
-                        [FLAM3VARS.varsPRM[70][0], 0], 
-                        [FLAM3VARS.varsPRM[71][0], [f"{self.prx}{FLAM3VARS.varsPRM[71][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[71][2][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[72][0], [f"{self.prx}{FLAM3VARS.varsPRM[72][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[73][0], [f"{self.prx}{FLAM3VARS.varsPRM[73][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[74][0], [f"{self.prx}{FLAM3VARS.varsPRM[74][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[75][0], [f"{self.prx}{FLAM3VARS.varsPRM[75][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[76][0], [f"{self.prx}{FLAM3VARS.varsPRM[76][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[77][0], [f"{self.prx}{FLAM3VARS.varsPRM[77][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[78][0], [f"{self.prx}{FLAM3VARS.varsPRM[78][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[79][0], [f"{self.prx}{FLAM3VARS.varsPRM[79][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[79][2][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[80][0], 0], 
-                        [FLAM3VARS.varsPRM[81][0], 0], 
-                        [FLAM3VARS.varsPRM[82][0], 0], 
-                        [FLAM3VARS.varsPRM[83][0], 0], 
-                        [FLAM3VARS.varsPRM[84][0], 0], 
-                        [FLAM3VARS.varsPRM[85][0], 0], 
-                        [FLAM3VARS.varsPRM[86][0], 0], 
-                        [FLAM3VARS.varsPRM[87][0], 0], 
-                        [FLAM3VARS.varsPRM[88][0], 0], 
-                        [FLAM3VARS.varsPRM[89][0], 0], 
-                        [FLAM3VARS.varsPRM[90][0], 0], 
-                        [FLAM3VARS.varsPRM[91][0], 0], 
-                        [FLAM3VARS.varsPRM[92][0], 0], 
-                        [FLAM3VARS.varsPRM[93][0], 0], 
-                        [FLAM3VARS.varsPRM[94][0], [f"{self.prx}{FLAM3VARS.varsPRM[94][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[95][0], [f"{self.prx}{FLAM3VARS.varsPRM[95][1][0][:-1]}", 0], 1], 
-                        [FLAM3VARS.varsPRM[96][0], [f"{self.prx}{FLAM3VARS.varsPRM[96][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[96][2][0][:-1]}", 1], 1],
-                        [FLAM3VARS.varsPRM[97][0], [f"{self.prx}{FLAM3VARS.varsPRM[97][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[97][2][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[98][0], [f"{self.prx}{FLAM3VARS.varsPRM[98][1][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[99][0], [f"{self.prx}{FLAM3VARS.varsPRM[99][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[99][2][0][:-1]}", 1], 1], 
-                        [FLAM3VARS.varsPRM[100][0], 0], 
-                        [FLAM3VARS.varsPRM[101][0], [f"{self.prx}{FLAM3VARS.varsPRM[101][1][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[101][2][0][:-1]}", 1], [f"{self.prx}{FLAM3VARS.varsPRM[101][3][0][:-1]}", 1], 1] )
+        varsPRM_FF = (  self.varsPRM[0], 
+                        self.varsPRM[1], 
+                        self.varsPRM[2], 
+                        self.varsPRM[3], 
+                        self.varsPRM[4], 
+                        self.varsPRM[5], 
+                        self.varsPRM[6], 
+                        self.varsPRM[7], 
+                        self.varsPRM[8], 
+                        self.varsPRM[9], 
+                        self.varsPRM[10], 
+                        self.varsPRM[11], 
+                        self.varsPRM[12], 
+                        self.varsPRM[13], 
+                        self.varsPRM[14], 
+                        self.varsPRM[15], 
+                        self.varsPRM[16], 
+                        self.varsPRM[17], 
+                        self.varsPRM[18], 
+                        self.varsPRM[19], 
+                        self.varsPRM[20], 
+                        self.varsPRM[21], 
+                        self.varsPRM[22], 
+                        self.varsPRM[23], 
+                        self.varsPRM[24], 
+                        self.varsPRM[25], 
+                        self.varsPRM[26], 
+                        [self.varsPRM[27][0], [f"{self.prx}{self.varsPRM[27][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[28][0], [f"{self.prx}{self.varsPRM[28][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[29][0], [f"{self.prx}{self.varsPRM[29][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[30][0], [f"{self.prx}{self.varsPRM[30][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[31][0], [f"{self.prx}{self.varsPRM[31][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[32][0], [f"{self.prx}{self.varsPRM[32][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[33][0], 0], 
+                        [self.varsPRM[34][0], [f"{self.prx}{self.varsPRM[34][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[35][0], [f"{self.prx}{self.varsPRM[35][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[36][0], [f"{self.prx}{self.varsPRM[36][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[37][0], [f"{self.prx}{self.varsPRM[37][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[38][0], [f"{self.prx}{self.varsPRM[38][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[39][0], 0], 
+                        [self.varsPRM[40][0], 0], 
+                        [self.varsPRM[41][0], 0], 
+                        [self.varsPRM[42][0], 0], 
+                        [self.varsPRM[43][0], 0], 
+                        [self.varsPRM[44][0], 0], 
+                        [self.varsPRM[45][0], 0], 
+                        [self.varsPRM[46][0], 0], 
+                        [self.varsPRM[47][0], [f"{self.prx}{self.varsPRM[47][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[48][0], [f"{self.prx}{self.varsPRM[48][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[48][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[49][0], [f"{self.prx}{self.varsPRM[49][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[50][0], [f"{self.prx}{self.varsPRM[50][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[51][0], [f"{self.prx}{self.varsPRM[51][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[52][0], [f"{self.prx}{self.varsPRM[52][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[53][0], [f"{self.prx}{self.varsPRM[53][1][0][:-1]}", 0], 1],
+                        [self.varsPRM[54][0], 0],
+                        [self.varsPRM[55][0], 0], 
+                        [self.varsPRM[56][0], [f"{self.prx}{self.varsPRM[56][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[57][0], [f"{self.prx}{self.varsPRM[57][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[58][0], 0], 
+                        [self.varsPRM[59][0], 0], 
+                        [self.varsPRM[60][0], 0], 
+                        [self.varsPRM[61][0], [f"{self.prx}{self.varsPRM[61][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[62][0], 0], 
+                        [self.varsPRM[63][0], [f"{self.prx}{self.varsPRM[63][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[63][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[64][0], 0], 
+                        [self.varsPRM[65][0], 0], 
+                        [self.varsPRM[66][0], [f"{self.prx}{self.varsPRM[66][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[67][0], [f"{self.prx}{self.varsPRM[67][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[68][0], 0], 
+                        [self.varsPRM[69][0], [f"{self.prx}{self.varsPRM[69][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[69][2][0][:-1]}", 0], 1], 
+                        [self.varsPRM[70][0], 0], 
+                        [self.varsPRM[71][0], [f"{self.prx}{self.varsPRM[71][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[71][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[72][0], [f"{self.prx}{self.varsPRM[72][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[73][0], [f"{self.prx}{self.varsPRM[73][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[74][0], [f"{self.prx}{self.varsPRM[74][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[75][0], [f"{self.prx}{self.varsPRM[75][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[76][0], [f"{self.prx}{self.varsPRM[76][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[77][0], [f"{self.prx}{self.varsPRM[77][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[78][0], [f"{self.prx}{self.varsPRM[78][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[79][0], [f"{self.prx}{self.varsPRM[79][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[79][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[80][0], 0], 
+                        [self.varsPRM[81][0], 0], 
+                        [self.varsPRM[82][0], 0], 
+                        [self.varsPRM[83][0], 0], 
+                        [self.varsPRM[84][0], 0], 
+                        [self.varsPRM[85][0], 0], 
+                        [self.varsPRM[86][0], 0], 
+                        [self.varsPRM[87][0], 0], 
+                        [self.varsPRM[88][0], 0], 
+                        [self.varsPRM[89][0], 0], 
+                        [self.varsPRM[90][0], 0], 
+                        [self.varsPRM[91][0], 0], 
+                        [self.varsPRM[92][0], 0], 
+                        [self.varsPRM[93][0], 0], 
+                        [self.varsPRM[94][0], [f"{self.prx}{self.varsPRM[94][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[95][0], [f"{self.prx}{self.varsPRM[95][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[96][0], [f"{self.prx}{self.varsPRM[96][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[96][2][0][:-1]}", 1], 1],
+                        [self.varsPRM[97][0], [f"{self.prx}{self.varsPRM[97][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[97][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[98][0], [f"{self.prx}{self.varsPRM[98][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[99][0], [f"{self.prx}{self.varsPRM[99][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[99][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[100][0], 0], 
+                        [self.varsPRM[101][0], [f"{self.prx}{self.varsPRM[101][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[101][2][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[101][3][0][:-1]}", 1], 1] )
         
         return varsPRM_FF
+
+
+
+
+
+class flam3_FF:
 
     # SECTIONS method lists
     #
@@ -550,14 +557,8 @@ def prm_paste(kwargs: dict) -> None:
             if node==flam3node and id==id_from:
                 print(f"{str(node)}: Iterator copied. Select a different iterator number to paste those values.")
             else:
-                # Create flam3 variation's parameter object
-                FLAM3VARS = flam3_varsPRM()
-
-                # var's type and set parametric variation's parameter if it find any
-                pastePRM_T_from_list(FLAM3VARS.allT, FLAM3VARS.varsPRM, node, flam3node, str(id), str(id_from))
-                # paste rest
-                paste_from_list(FLAM3VARS.allMisc, node, flam3node, str(id), str(id_from))
-                # set note
+                pastePRM_T_from_list(flam3_iterator.allT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+                paste_from_list(flam3_iterator.allMisc, node, flam3node, str(id), str(id_from))
                 paste_set_note(0, "", node, flam3node, str(id), str(id_from))
 
         else:
@@ -602,15 +603,9 @@ def prm_paste_FF(kwargs: dict) -> None:
             if node==flam3node_FF:
                 print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
             else:
-                # Create flam3 FF and FP variation's parameter objects
-                FLAM3VARS_FF = flam3_varsPRM_FF("ff_")
-                FLAM3VARS_FP = flam3_varsPRM_FF("fp1_")
-                # var's type and set parametric variation's parameter if it find any
-                pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF(), node, flam3node_FF, "", "")
-                pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, FLAM3VARS_FP.varsPRM_FF(), node, flam3node_FF, "", "")
-                # paste rest
-                paste_from_list(FLAM3VARS_FF.allMisc_FF, node, flam3node_FF, "", "")
-                # set note
+                pastePRM_T_from_list(flam3_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
+                paste_from_list(flam3_FF.allMisc_FF, node, flam3node_FF, "", "")
                 paste_set_note(1, "", node, flam3node_FF, "", "")
 
         else:
@@ -658,81 +653,58 @@ def prm_paste_sel(kwargs: dict) -> None:
     # If we ever copied an iterator from a currently existing FLAM3 node
     if id_from != -1:
         
-        FLAM3VARS = flam3_varsPRM()
         # Get user selection of paste methods
         paste_sel = node.parm(f"prmpastesel_{str(id)}").evalAsInt()
 
         # set MAIN
         ################################################################################
         if paste_sel == 1:
-        
-            paste_from_list(FLAM3VARS.sec_main, node, flam3node, str(id), str(id_from))
-            # set note
+            paste_from_list(flam3_iterator.sec_main, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".main", node, flam3node, str(id), str(id_from))
 
         # set XAOS
         ################################################################################
         elif paste_sel == 2:
-        
-            paste_from_list(FLAM3VARS.sec_xaos, node, flam3node, str(id), str(id_from))
-            # set note
+            paste_from_list(flam3_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".xaos", node, flam3node, str(id), str(id_from))
 
         # set SHADER
         ################################################################################ 
         elif paste_sel == 3:
-        
-            paste_from_list(FLAM3VARS.sec_shader, node, flam3node, str(id), str(id_from))
-            # set note
+            paste_from_list(flam3_iterator.sec_shader, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".shader", node, flam3node, str(id), str(id_from))
         
         # set PRE VARS
         ################################################################################
         elif paste_sel == 4:
-            
-            # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS.sec_prevarsT, FLAM3VARS.varsPRM, node, flam3node, str(id), str(id_from))
-            # var's weight
-            paste_from_list(FLAM3VARS.sec_prevarsW, node, flam3node, str(id), str(id_from))
-            # set note
+            pastePRM_T_from_list(flam3_iterator.sec_prevarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+            paste_from_list(flam3_iterator.sec_prevarsW, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".pre_vars", node, flam3node, str(id), str(id_from))
 
         # set VARS
         ################################################################################
         elif paste_sel == 5:
-
-            # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS.sec_varsT, FLAM3VARS.varsPRM, node, flam3node, str(id), str(id_from))
-            # var's weight
-            paste_from_list(FLAM3VARS.sec_varsW, node, flam3node, str(id), str(id_from))
-            # set note
+            pastePRM_T_from_list(flam3_iterator.sec_varsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+            paste_from_list(flam3_iterator.sec_varsW, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".vars", node, flam3node, str(id), str(id_from))
 
         # set POST VARS
         ################################################################################
         elif paste_sel == 6:
-
-            # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS.sec_postvarsT, FLAM3VARS.varsPRM, node, flam3node, str(id), str(id_from))
-            # var's weight
-            paste_from_list(FLAM3VARS.sec_postvarsW, node, flam3node, str(id), str(id_from))
-            # set note
+            pastePRM_T_from_list(flam3_iterator.sec_postvarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+            paste_from_list(flam3_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".post_var", node, flam3node, str(id), str(id_from))
                 
         # set PRE AFFINE
         ################################################################################
         elif paste_sel == 7:
-        
-            paste_from_list(FLAM3VARS.sec_preAffine, node, flam3node, str(id), str(id_from))
-            # set note
+            paste_from_list(flam3_iterator.sec_preAffine, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".pre_affine", node, flam3node, str(id), str(id_from))
         
         # set POST AFFINE
         ################################################################################
         elif paste_sel == 8:
-        
-            paste_from_list(FLAM3VARS.sec_postAffine, node, flam3node, str(id), str(id_from))
-            # set note
+            paste_from_list(flam3_iterator.sec_postAffine, node, flam3node, str(id), str(id_from))
             paste_set_note(0, ".post_affine", node, flam3node, str(id), str(id_from))
      
 
@@ -775,46 +747,33 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     # If we ever copied an FF from a currently existing FLAM3 node
     if flam3node_FF_check != -1:
         
-        FLAM3VARS_FF = flam3_varsPRM_FF("ff_")
         # Get user selection of paste methods
         ff_paste_sel = node.parm("ff_prmpastesel").evalAsInt()
 
         # set FF VARS
         ################################################################################
         if ff_paste_sel == 1:
-            
-            # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS_FF.sec_varsT_FF, FLAM3VARS_FF.varsPRM_FF(), node, flam3node_FF, "", "")
-            # var's weight
-            paste_from_list(FLAM3VARS_FF.sec_varsW_FF, node, flam3node_FF, "", "")
-            # set note
+            pastePRM_T_from_list(flam3_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
+            paste_from_list(flam3_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".vars", node, flam3node_FF, "", "")
         
         # set FF POST VARS
         ################################################################################
         elif ff_paste_sel == 2:
-
-            # var's type and set parametric variation's parameter if it find any
-            pastePRM_T_from_list(FLAM3VARS_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
-            # var's weight
-            paste_from_list(FLAM3VARS_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
-            # set note
+            pastePRM_T_from_list(flam3_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
+            paste_from_list(flam3_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".post_vars", node, flam3node_FF, "", "")
 
         # set FF PRE AFFINE
         ################################################################################
         elif ff_paste_sel == 3:
-        
-            paste_from_list(FLAM3VARS_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
-            # set note
+            paste_from_list(flam3_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".pre_affine", node, flam3node_FF, "", "")
         
         # set FF POST AFFINE
         ################################################################################
         elif ff_paste_sel == 4:
-        
-            paste_from_list(FLAM3VARS_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
-            # set note
+            paste_from_list(flam3_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".post_affine", node, flam3node_FF, "", "")
 
 
