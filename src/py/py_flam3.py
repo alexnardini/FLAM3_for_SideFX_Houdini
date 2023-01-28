@@ -284,7 +284,7 @@ class flam3_varsPRM_FF(flam3_varsPRM):
 
 
 
-class flam3_FF:
+class flam3_iterator_FF:
 
     # SECTIONS method lists
     #
@@ -603,9 +603,9 @@ def prm_paste_FF(kwargs: dict) -> None:
             if node==flam3node_FF:
                 print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
             else:
-                pastePRM_T_from_list(flam3_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
-                pastePRM_T_from_list(flam3_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
-                paste_from_list(flam3_FF.allMisc_FF, node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
+                paste_from_list(flam3_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
                 paste_set_note(1, "", node, flam3node_FF, "", "")
 
         else:
@@ -753,27 +753,27 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         # set FF VARS
         ################################################################################
         if ff_paste_sel == 1:
-            pastePRM_T_from_list(flam3_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
-            paste_from_list(flam3_FF.sec_varsW_FF, node, flam3node_FF, "", "")
+            pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
+            paste_from_list(flam3_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".vars", node, flam3node_FF, "", "")
         
         # set FF POST VARS
         ################################################################################
         elif ff_paste_sel == 2:
-            pastePRM_T_from_list(flam3_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
-            paste_from_list(flam3_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
+            pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
+            paste_from_list(flam3_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".post_vars", node, flam3node_FF, "", "")
 
         # set FF PRE AFFINE
         ################################################################################
         elif ff_paste_sel == 3:
-            paste_from_list(flam3_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
+            paste_from_list(flam3_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".pre_affine", node, flam3node_FF, "", "")
         
         # set FF POST AFFINE
         ################################################################################
         elif ff_paste_sel == 4:
-            paste_from_list(flam3_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
+            paste_from_list(flam3_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, ".post_affine", node, flam3node_FF, "", "")
 
 
