@@ -27,6 +27,8 @@ From there to the final image it is left to the users ( aka points rendering ).
 
 **Highly inspired by Apophysis software and its workflow design**,
 it is a one to one match with it.
+8 vars per iterator. ( 3 pre variations, 4 variations plus 1 post variation each iterator )
+
 Many Apophysis fractal Flames are available for download on the web
 and you can copy all values into FLAM3 for houdini to get the same results.
 **Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
