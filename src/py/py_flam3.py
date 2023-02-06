@@ -32,6 +32,14 @@ import webbrowser
 
 
 
+DPT_PRX = "*"
+PRM_PRX = "..."
+FF_PRM = "ff_"
+FF_PRM_POST = "fp1_"
+
+
+
+
 
 class flam3_varsPRM:
 
@@ -51,30 +59,30 @@ class flam3_varsPRM:
                 ["ex", 0], 
                 ["julia", 0], 
                 ["bent", 0], 
-                ["waves*", 0], 
+                [f"waves{DPT_PRX}", 0], 
                 ["fisheye", 0], 
-                ["popcorn*", 0], 
+                [f"popcorn{DPT_PRX}", 0], 
                 ["exponential", 0], 
                 ["power", 0], 
                 ["cosine", 0], 
-                ["rings*", 0], 
-                ["fan*", 0], 
+                [f"rings{DPT_PRX}", 0], 
+                [f"fan{DPT_PRX}", 0], 
                 ["bubble", 0], 
                 ["cylinder", 0], 
                 ["eyefish", 0], 
                 ["blur", 0], 
-                ["curl...", ["curlc_", 1], 1], 
-                ["ngon...", ["ngon_", 1], 1], 
-                ["pdj...", ["pdjw_", 1], 1], 
-                ["blob...", ["blob_", 1], 1], 
-                ["juliaN...", ["julian_", 1], 1], 
-                ["juliascope...", ["juliascope_", 1], 1], 
+                [f"curl{PRM_PRX}", ["curlc_", 1], 1], 
+                [f"ngon{PRM_PRX}", ["ngon_", 1], 1], 
+                [f"pdj{PRM_PRX}", ["pdjw_", 1], 1], 
+                [f"blob{PRM_PRX}", ["blob_", 1], 1], 
+                [f"juliaN{PRM_PRX}", ["julian_", 1], 1], 
+                [f"juliascope{PRM_PRX}", ["juliascope_", 1], 1], 
                 ["gaussian", 0], 
-                ["fan2...", ["fan2_", 1], 1], 
-                ["rings2...", ["rings2val_", 0], 1], 
-                ["rectangles...", ["rectangles_", 1], 1], 
-                ["radialblur...", ["radialblur_", 1], 1], 
-                ["pie...", ["pie_", 1], 1], 
+                [f"fan2{PRM_PRX}", ["fan2_", 1], 1], 
+                [f"rings2{PRM_PRX}", ["rings2val_", 0], 1], 
+                [f"rectangles{PRM_PRX}", ["rectangles_", 1], 1], 
+                [f"radialblur{PRM_PRX}", ["radialblur_", 1], 1], 
+                [f"pie{PRM_PRX}", ["pie_", 1], 1], 
                 ["arch", 0], 
                 ["tangent", 0], 
                 ["square", 0], 
@@ -83,39 +91,39 @@ class flam3_varsPRM:
                 ["secant2", 0], 
                 ["twintrian", 0], 
                 ["cross", 0], 
-                ["disc2...", ["disc2_", 1], 1], 
-                ["supershape...", ["supershape_", 1], ["supershapen_", 1], 1], 
-                ["flower...", ["flower_", 1], 1], 
-                ["conic...", ["conic_", 1], 1], 
-                ["parabola...", ["parabola_", 1], 1], 
-                ["bent2...", ["bent2xy_", 1], 1], 
-                ["bipolar...", ["bipolarshift_", 0], 1],
+                [f"disc2{PRM_PRX}", ["disc2_", 1], 1], 
+                [f"supershape{PRM_PRX}", ["supershape_", 1], ["supershapen_", 1], 1], 
+                [f"flower{PRM_PRX}", ["flower_", 1], 1], 
+                [f"conic{PRM_PRX}", ["conic_", 1], 1], 
+                [f"parabola{PRM_PRX}", ["parabola_", 1], 1], 
+                [f"bent2{PRM_PRX}", ["bent2xy_", 1], 1], 
+                [f"bipolar{PRM_PRX}", ["bipolarshift_", 0], 1],
                 ["boarders", 0],
                 ["butterfly", 0], 
-                ["cell...", ["cellsize_", 0], 1], 
-                ["cpow...", ["cpow_", 1], 1], 
+                [f"cell{PRM_PRX}", ["cellsize_", 0], 1], 
+                [f"cpow{PRM_PRX}", ["cpow_", 1], 1], 
                 ["edisc", 0], 
                 ["elliptic", 0], 
                 ["noise", 0], 
-                ["escher...", ["escherbeta_", 0], 1], 
+                [f"escher{PRM_PRX}", ["escherbeta_", 0], 1], 
                 ["foci", 0], 
-                ["lazysusan...", ["lazysusanxyz_", 1], ["lazysusan_", 1], 1], 
+                [f"lazysusan{PRM_PRX}", ["lazysusanxyz_", 1], ["lazysusan_", 1], 1], 
                 ["loonie", 0], 
                 ["pre blur", 0], 
-                ["modulus...", ["modulusXYZ_", 1], 1], 
-                ["oscope...", ["oscope_", 1], 1], 
+                [f"modulus{PRM_PRX}", ["modulusXYZ_", 1], 1], 
+                [f"oscope{PRM_PRX}", ["oscope_", 1], 1], 
                 ["polar2", 0], 
-                ["popcorn2...", ["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
+                [f"popcorn2{PRM_PRX}", ["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
                 ["scry", 0], 
-                ["separation...", ["separationxyz_", 1], ["separationinsidexyz_", 1], 1], 
-                ["split...", ["splitxyz_", 1], 1], 
-                ["splits...", ["splitsxyz_", 1], 1], 
-                ["stripes...", ["stripes_", 1], 1], 
-                ["wedge...", ["wedge_", 1], 1], 
-                ["wedgejulia...", ["wedgejulia_", 1], 1], 
-                ["wedgesph", ["wedgesph_", 1], 1], 
-                ["whorl...", ["whorl_", 1], 1], 
-                ["waves2...", ["waves2scalexyz_", 1], ["waves2freqxyz_", 1], 1], 
+                [f"separation{PRM_PRX}", ["separationxyz_", 1], ["separationinsidexyz_", 1], 1], 
+                [f"split{PRM_PRX}", ["splitxyz_", 1], 1], 
+                [f"splits{PRM_PRX}", ["splitsxyz_", 1], 1], 
+                [f"stripes{PRM_PRX}", ["stripes_", 1], 1], 
+                [f"wedge{PRM_PRX}", ["wedge_", 1], 1], 
+                [f"wedgejulia{PRM_PRX}", ["wedgejulia_", 1], 1], 
+                [f"wedgesph{PRM_PRX}", ["wedgesph_", 1], 1], 
+                [f"whorl{PRM_PRX}", ["whorl_", 1], 1], 
+                [f"waves2{PRM_PRX}", ["waves2scalexyz_", 1], ["waves2freqxyz_", 1], 1], 
                 ["cothe exp", 0], 
                 ["cothe log", 0], 
                 ["cothe sin", 0], 
@@ -130,14 +138,14 @@ class flam3_varsPRM:
                 ["cothe sech", 0], 
                 ["cothe csch", 0], 
                 ["cothe coth", 0], 
-                ["auger...", ["auger_", 1], 1], 
-                ["flux...", ["fluxspread_", 0], 1], 
-                ["mobius...", ["mobiusre_", 1], ["mobiusim_", 1], 1],
-                ["curve...", ["curvexyzlenght_", 1], ["curvexyzamp_", 1], 1], 
-                ["persp...", ["persp_", 1], 1], 
-                ["bwraps...", ["bwraps_", 1], ["bwrapstwist_", 1], 1], 
+                [f"auger{PRM_PRX}", ["auger_", 1], 1], 
+                [f"flux{PRM_PRX}", ["fluxspread_", 0], 1], 
+                [f"mobius{PRM_PRX}", ["mobiusre_", 1], ["mobiusim_", 1], 1],
+                [f"curve{PRM_PRX}", ["curvexyzlenght_", 1], ["curvexyzamp_", 1], 1], 
+                [f"persp{PRM_PRX}", ["persp_", 1], 1], 
+                [f"bwraps{PRM_PRX}", ["bwraps_", 1], ["bwrapstwist_", 1], 1], 
                 ["hemisphere", 0], 
-                ["polynomial...", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
+                [f"polynomial{PRM_PRX}", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
 
 
 
@@ -311,9 +319,7 @@ class flam3_iterator_FF:
 def menu_T(int_mode: int) -> list:
     
     # Build var's names list
-    vars = []
-    for v in flam3_varsPRM.varsPRM:
-        vars.append(v[0])
+    vars = list(map(lambda x: x[0], flam3_varsPRM.varsPRM))
 
     vars_no_lin = list(enumerate(vars))[1:]
     vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
@@ -322,13 +328,8 @@ def menu_T(int_mode: int) -> list:
 
     menu=[]
     if int_mode:
-        # remove parametrics just for the pre1type_# parameter
-        vars_no_prm = []
-        for var in vars_all:
-            if var[1][-3:] != "...":
-                vars_no_prm.append(var)
-        # build menu
-        for i, item in vars_no_prm:
+        # build menu with no parametrics
+        for i, item in list((map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM_PRX, vars_all)))):
             menu.append(i)
             menu.append(item.capitalize())
     else:
@@ -603,8 +604,8 @@ def prm_paste_FF(kwargs: dict) -> None:
             if node==flam3node_FF:
                 print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
             else:
-                pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
-                pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
                 paste_from_list(flam3_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
                 paste_set_note(1, "", node, flam3node_FF, "", "")
 
