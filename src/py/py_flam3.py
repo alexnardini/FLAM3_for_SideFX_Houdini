@@ -34,8 +34,8 @@ import webbrowser
 
 DPT = "*"
 PRM = "..."
-FF_PRM = "ff_"
-FF_PRM_POST = "fp1_"
+PRX_FF_PRM = "ff_"
+PRX_FF_PRM_POST = "fp1_"
 
 
 
@@ -604,8 +604,8 @@ def prm_paste_FF(kwargs: dict) -> None:
             if node==flam3node_FF:
                 print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
             else:
-                pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
-                pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
+                pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
                 paste_from_list(flam3_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
                 paste_set_note(1, "", node, flam3node_FF, "", "")
 
