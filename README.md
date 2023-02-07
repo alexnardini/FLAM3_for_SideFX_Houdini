@@ -3,7 +3,7 @@
 
 `The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
-## FLAM3 for SideFX Houdini ( personal project )
+## FLAM3 for SideFX Houdini
 
 <p align="center">
   <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
