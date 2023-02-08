@@ -36,6 +36,14 @@ DPT = "*"
 PRM = "..."
 PRX_FF_PRM = "ff_"
 PRX_FF_PRM_POST = "fp1_"
+SEC_MAIN = ".main"
+SEC_XAOS = ".xaos"
+SEC_SHADER = ".shader"
+SEC_PREVARS = ".pre_vars"
+SEC_VARS = ".vars"
+SEC_POSTVARS = ".post_vars"
+SEC_PREAFFINE = ".pre_affine"
+SEC_POSTAFFINE = ".post_affine"
 
 
 
@@ -660,45 +668,45 @@ def prm_paste_sel(kwargs: dict) -> None:
         # set MAIN
         if paste_sel == 1:
             paste_from_list(flam3_iterator.sec_main, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".main", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_MAIN, node, flam3node, str(id), str(id_from))
 
         # set XAOS
         elif paste_sel == 2:
             paste_from_list(flam3_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".xaos", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_XAOS, node, flam3node, str(id), str(id_from))
 
         # set SHADER 
         elif paste_sel == 3:
             paste_from_list(flam3_iterator.sec_shader, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".shader", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_SHADER, node, flam3node, str(id), str(id_from))
         
         # set PRE VARS
         elif paste_sel == 4:
             pastePRM_T_from_list(flam3_iterator.sec_prevarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_prevarsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".pre_vars", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_PREVARS, node, flam3node, str(id), str(id_from))
 
         # set VARS
         elif paste_sel == 5:
             pastePRM_T_from_list(flam3_iterator.sec_varsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_varsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".vars", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_VARS, node, flam3node, str(id), str(id_from))
 
         # set POST VARS
         elif paste_sel == 6:
             pastePRM_T_from_list(flam3_iterator.sec_postvarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".post_vars", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_POSTVARS, node, flam3node, str(id), str(id_from))
                 
         # set PRE AFFINE
         elif paste_sel == 7:
             paste_from_list(flam3_iterator.sec_preAffine, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".pre_affine", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_PREAFFINE, node, flam3node, str(id), str(id_from))
         
         # set POST AFFINE
         elif paste_sel == 8:
             paste_from_list(flam3_iterator.sec_postAffine, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, ".post_affine", node, flam3node, str(id), str(id_from))
+            paste_set_note(0, SEC_POSTAFFINE, node, flam3node, str(id), str(id_from))
      
 
         # Set it to a null value ( first in the menu array idx in this case )
@@ -747,23 +755,23 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         if ff_paste_sel == 1:
             pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, ".vars", node, flam3node_FF, "", "")
+            paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
         
         # set FF POST VARS
         elif ff_paste_sel == 2:
             pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, ".post_vars", node, flam3node_FF, "", "")
+            paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
 
         # set FF PRE AFFINE
         elif ff_paste_sel == 3:
             paste_from_list(flam3_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, ".pre_affine", node, flam3node_FF, "", "")
+            paste_set_note(2, SEC_PREAFFINE, node, flam3node_FF, "", "")
         
         # set FF POST AFFINE
         elif ff_paste_sel == 4:
             paste_from_list(flam3_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, ".post_affine", node, flam3node_FF, "", "")
+            paste_set_note(2, SEC_POSTAFFINE, node, flam3node_FF, "", "")
 
 
         # Set it to a null value ( first in the menu array idx in this case )
