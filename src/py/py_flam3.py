@@ -753,13 +753,13 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
 
         # set FF VARS
         if ff_paste_sel == 1:
-            pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF("ff_").varsPRM_FF(), node, flam3node_FF, "", "")
+            pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
         
         # set FF POST VARS
         elif ff_paste_sel == 2:
-            pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF("fp1_").varsPRM_FF(), node, flam3node_FF, "", "")
+            pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
 
