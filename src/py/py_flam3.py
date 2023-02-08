@@ -329,7 +329,7 @@ def menu_T(int_mode: int) -> list:
     menu=[]
     if int_mode:
         # build menu with no parametrics
-        for i, item in list((map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, vars_all)))):
+        for i, item in list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, vars_all))):
             menu.append(i)
             menu.append(item.capitalize())
     else:
@@ -512,10 +512,10 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
         # If on the same FLAM3 node
         if node == flam3node:
             node.setParms({f"variter_{id}": f"iter.{id_from}{str_section}"})
-            print(f"{str(node)} : Copied values from: iter.{id_from}{str_section} to: iter.{id}{str_section}")
+            print(f"{str(node)}: Copied values from: iter.{id_from}{str_section} to: iter.{id}{str_section}")
         else:
             node.setParms({f"variter_{id}": f"{str(flam3node)}->iter.{id_from}{str_section}"})
-            print(f"{str(node)} : Copied values from: {str(flam3node)}->iter.{id_from}{str_section} to: {str(node)}->iter.{id}{str_section}")
+            print(f"{str(node)}: Copied values from: {str(flam3node)}->iter.{id_from}{str_section} to: {str(node)}->iter.{id}{str_section}")
     elif int_mode == 1:
         if node != flam3node:
             node.setParms({'ffnote': f"{str(flam3node)}->FF"})
