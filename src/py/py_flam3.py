@@ -968,7 +968,7 @@ def json_to_ramp(kwargs: dict) -> None:
 
 
 ###############################################################################################
-# instantiate palette values into another palette ramp parameter ( hidden )
+# palette copy values from source palette
 ###############################################################################################
 def palette_cp(self):
 
@@ -983,7 +983,7 @@ def palette_cp(self):
 
 
 ###############################################################################################
-# Apply HSV values
+# palette apply HSV values
 ###############################################################################################
 def palette_hsv(self):
 
@@ -1006,7 +1006,7 @@ def palette_hsv(self):
 
 
 ###############################################################################################
-# Apply HSV values ( Lock the color corrected palette from user input )
+# palette lock ( Lock the color corrected palette from user input )
 ###############################################################################################
 def palette_lock(self):
 
