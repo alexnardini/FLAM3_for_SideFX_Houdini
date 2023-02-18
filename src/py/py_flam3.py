@@ -879,7 +879,7 @@ def ramp_save(kwargs: dict) -> None:
     
         #get ramp parameters to a dictionary
         node=kwargs['node']
-        parm = node.parm('palettesrc')
+        parm = node.parm('palette')
         ramp = parm.evalAsRamp()
         interplookup = [hou.rampBasis.Constant, hou.rampBasis.Linear, hou.rampBasis.CatmullRom, hou.rampBasis.MonotoneCubic, hou.rampBasis.Bezier, hou.rampBasis.BSpline, hou.rampBasis.Hermite]
         
@@ -931,7 +931,7 @@ def json_to_ramp(kwargs: dict) -> None:
     node = kwargs['node']
     
     #get ramp parm
-    ramp_parm = node.parm('palettesrc')
+    ramp_parm = node.parm('palette')
     ramp_parm.deleteAllKeyframes()
     
     #read from json and set ramp values
