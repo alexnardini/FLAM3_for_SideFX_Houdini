@@ -4,7 +4,7 @@ source_filename = "TFFApalettesimple"
 
 @0 = private constant [8 x i8] c"../domb\00"
 @1 = private constant [9 x i8] c"../vizmb\00"
-@2 = private constant [11 x i8] c"../palette\00"
+@2 = private constant [14 x i8] c"../palettehsv\00"
 @Alpha = external global double
 @Cd = external global <3 x double>
 @3 = private constant [6 x i8] c"Alpha\00"
@@ -18,7 +18,7 @@ __llvm_entry:
   %return2 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @1, i64 0, i64 0))
   %_bound_clr3 = load double, double* %_bound_clr
   %_bound_Alpha4 = load double, double* %_bound_Alpha
-  %return6 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @2, i64 0, i64 0), double %_bound_clr3)
+  %return6 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @2, i64 0, i64 0), double %_bound_clr3)
   %return9 = call i64 @"and@III"(i64 %return, i64 %return2)
   %0 = icmp ne i64 %return9, 0
   br i1 %0, label %true, label %end

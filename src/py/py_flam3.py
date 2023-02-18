@@ -972,8 +972,8 @@ def json_to_ramp(kwargs: dict) -> None:
 ###############################################################################################
 def palette_cp(self):
 
-    rmp = self.parm('palette')
-    rmpsrc = self.parm('palettesrc')
+    rmp = self.parm('palettehsv')
+    rmpsrc = self.parm('palette')
     rmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
     # Apply HSV if any is currently set
     palette_hsv(self)
@@ -987,8 +987,8 @@ def palette_cp(self):
 ###############################################################################################
 def palette_hsv(self):
 
-    rmp = self.parm('palette')
-    rmpsrc = self.parm('palettesrc')
+    rmp = self.parm('palettehsv')
+    rmpsrc = self.parm('palette')
     hsvprm = self.parmTuple('palettehsv_')
     hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
     
@@ -1072,7 +1072,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({"filepath": ""})
     self.setParms({"palettehsv_": hou.Vector3((0.0, 1.0, 1.0))})
     # CP->ramp
-    ramp_parm = self.parm('palettesrc')
+    ramp_parm = self.parm('palette')
     ramp_parm.deleteAllKeyframes()
     color_bases = [hou.rampBasis.Linear] * 3
     color_keys = [0.0, 0.5, 1.0]
