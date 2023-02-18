@@ -13,25 +13,25 @@ source_filename = "TFFApalettesimple"
 ; Function Attrs: alwaysinline nounwind
 define private void @"_TFFApalettesimple@FFVF"(double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_Cd, double* %_bound_mb_mod) #0 {
 __llvm_entry:
-  %_bound_mb_mod1 = load double, double* %_bound_mb_mod
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %return2 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @1, i64 0, i64 0))
-  %_bound_clr3 = load double, double* %_bound_clr
-  %_bound_Alpha4 = load double, double* %_bound_Alpha
-  %return6 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @2, i64 0, i64 0), double %_bound_clr3)
-  %return9 = call i64 @"and@III"(i64 %return, i64 %return2)
+  %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @1, i64 0, i64 0))
+  %_bound_clr2 = load double, double* %_bound_clr
+  %_bound_Alpha3 = load double, double* %_bound_Alpha
+  %_bound_mb_mod4 = load double, double* %_bound_mb_mod
+  %return6 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @2, i64 0, i64 0), double %_bound_clr2)
+  %return9 = call i64 @"and@III"(i64 %return, i64 %return1)
   %0 = icmp ne i64 %return9, 0
   br i1 %0, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %cast = call <3 x double> @"set@VF"(double %_bound_mb_mod1)
+  %cast = call <3 x double> @"set@VF"(double %_bound_mb_mod4)
   %output = call <3 x double> @"mul@VV"(<3 x double> %return6, <3 x double> %cast)
-  %output14 = fmul double %_bound_Alpha4, %_bound_mb_mod1
+  %output14 = fmul double %_bound_Alpha3, %_bound_mb_mod4
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
   %color.0 = phi <3 x double> [ %output, %true ], [ %return6, %__llvm_entry ]
-  %alpha.0 = phi double [ %output14, %true ], [ %_bound_Alpha4, %__llvm_entry ]
+  %alpha.0 = phi double [ %output14, %true ], [ %_bound_Alpha3, %__llvm_entry ]
   store <3 x double> %color.0, <3 x double>* %_bound_Cd
   store double %alpha.0, double* %_bound_Alpha
   ret void
