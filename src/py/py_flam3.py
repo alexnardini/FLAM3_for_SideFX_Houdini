@@ -45,7 +45,7 @@ SEC_VARS = ".vars"
 SEC_POSTVARS = ".post_vars"
 SEC_PREAFFINE = ".pre_affine"
 SEC_POSTAFFINE = ".post_affine"
-RAMP_NAME = "palette"
+RAMP_SRC_NAME = "palette"
 RAMP_HSV_NAME = "palettehsv"
 
 
@@ -881,7 +881,7 @@ def ramp_save(kwargs: dict) -> None:
     
         #get ramp parameters to a dictionary
         node=kwargs['node']
-        parm = node.parm(RAMP_NAME)
+        parm = node.parm(RAMP_SRC_NAME)
         ramp = parm.evalAsRamp()
         interplookup = [hou.rampBasis.Constant, hou.rampBasis.Linear, hou.rampBasis.CatmullRom, hou.rampBasis.MonotoneCubic, hou.rampBasis.Bezier, hou.rampBasis.BSpline, hou.rampBasis.Hermite]
         
@@ -933,7 +933,7 @@ def json_to_ramp(kwargs: dict) -> None:
     node = kwargs['node']
     
     #get ramp parm
-    ramp_parm = node.parm(RAMP_NAME)
+    ramp_parm = node.parm(RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
     
     #read from json and set ramp values
@@ -972,7 +972,7 @@ def json_to_ramp(kwargs: dict) -> None:
 def palette_cp(self):
 
     rmphsv = self.parm(RAMP_HSV_NAME)
-    rmpsrc = self.parm(RAMP_NAME)
+    rmpsrc = self.parm(RAMP_SRC_NAME)
     rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
     # Apply HSV if any is currently set
     palette_hsv(self)
@@ -987,7 +987,7 @@ def palette_cp(self):
 def palette_hsv(self):
 
     rmphsv = self.parm(RAMP_HSV_NAME)
-    rmpsrc = self.parm(RAMP_NAME)
+    rmpsrc = self.parm(RAMP_SRC_NAME)
     hsvprm = self.parmTuple('palettehsv_')
     hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
     
