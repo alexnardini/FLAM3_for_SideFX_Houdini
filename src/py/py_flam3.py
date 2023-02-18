@@ -975,6 +975,7 @@ def palette_cp(self):
     rmp = self.parm('palette')
     rmpsrc = self.parm('palettesrc')
     rmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
+    # Apply HSV if any is currently set
     palette_hsv(self)
     
 
@@ -998,7 +999,6 @@ def palette_hsv(self):
         v = item[2] * hsvprm[2].eval()
         rgb.append(colorsys.hsv_to_rgb(h, s, v))
     
-    
     rmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
 
 
@@ -1006,7 +1006,7 @@ def palette_hsv(self):
 
 
 ###############################################################################################
-# Apply HSV values
+# Apply HSV values ( Lock the color corrected palette from user input )
 ###############################################################################################
 def palette_reset(self):
 
