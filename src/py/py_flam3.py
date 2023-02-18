@@ -971,9 +971,9 @@ def json_to_ramp(kwargs: dict) -> None:
 ###############################################################################################
 def palette_cp(self):
 
-    rmp = self.parm(RAMP_HSV_NAME)
+    rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_NAME)
-    rmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
+    rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
     # Apply HSV if any is currently set
     palette_hsv(self)
     
@@ -986,7 +986,7 @@ def palette_cp(self):
 ###############################################################################################
 def palette_hsv(self):
 
-    rmp = self.parm(RAMP_HSV_NAME)
+    rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_NAME)
     hsvprm = self.parmTuple('palettehsv_')
     hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
@@ -998,7 +998,7 @@ def palette_hsv(self):
         v = item[2] * hsvprm[2].eval()
         rgb.append(colorsys.hsv_to_rgb(h, s, v))
     
-    rmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
+    rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
 
 
 
