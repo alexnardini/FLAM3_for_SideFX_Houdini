@@ -1008,7 +1008,7 @@ def palette_hsv(self):
 ###############################################################################################
 # Apply HSV values ( Lock the color corrected palette from user input )
 ###############################################################################################
-def palette_reset(self):
+def palette_lock(self):
 
     palette_cp(self)
     palette_hsv(self)
