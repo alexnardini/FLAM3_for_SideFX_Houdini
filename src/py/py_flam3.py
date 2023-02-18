@@ -965,7 +965,7 @@ def json_to_ramp(kwargs: dict) -> None:
 
 
 ###############################################################################################
-# palette copy values from source palette
+# palette copy values to paletteHSV
 ###############################################################################################
 def palette_cp(self):
 
