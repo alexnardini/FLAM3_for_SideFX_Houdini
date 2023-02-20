@@ -969,7 +969,7 @@ def json_to_ramp(kwargs: dict) -> None:
 ###############################################################################################
 # palette copy values to paletteHSV
 ###############################################################################################
-def palette_cp(self):
+def palette_cp(self: hou.Node) -> None:
 
     rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_SRC_NAME)
@@ -984,7 +984,7 @@ def palette_cp(self):
 ###############################################################################################
 # palette apply HSV values
 ###############################################################################################
-def palette_hsv(self):
+def palette_hsv(self: hou.Node) -> None:
 
     rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_SRC_NAME)
@@ -1007,7 +1007,7 @@ def palette_hsv(self):
 ###############################################################################################
 # palette lock ( Lock the color corrected palette from user input )
 ###############################################################################################
-def palette_lock(self):
+def palette_lock(self: hou.Node) -> None:
 
     palette_cp(self)
     palette_hsv(self)
