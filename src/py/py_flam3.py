@@ -24,8 +24,7 @@ import webbrowser
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
-#   Comment:    Python classes and definitions for tool's user experience.
-#
+#   Comment:    WIP - Python classes and definitions for tool's user experience.
 #               Everything is then glued together inside Houdini.
 '''
 
@@ -188,8 +187,15 @@ class flam3_iterator:
 
 
 class flam3_varsPRM_FF(flam3_varsPRM):
-
+    """
+    Args:
+        flam3_varsPRM ([class]): [inherit properties methods from the flam3_varsPRM class]
+    """    
     def __init__(self, prx: str):
+        """
+        Args:
+            prx (str): [parameter name prefix string]
+        """        
         self.prx = prx
 
     def varsPRM_FF(self) -> list:
@@ -328,7 +334,13 @@ class flam3_iterator_FF:
 # MENU - Build vars type menus
 ###############################################################################################
 def menu_T(int_mode: int) -> list:
-    
+    """
+    Args:
+        int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
+
+    Returns:
+        list: [return menu list]
+    """    
     # Build var's names list
     vars = list(map(lambda x: x[0], flam3_varsPRM.varsPRM))
 
@@ -359,7 +371,13 @@ def menu_T(int_mode: int) -> list:
 # MENU - Build iterator copy paste menu
 ###############################################################################################
 def menu_copypaste(kwargs: dict) -> list:
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
 
+    Returns:
+        list: [return menu list]
+    """    
     # init menu
     menu=[]
 
@@ -415,7 +433,13 @@ def menu_copypaste(kwargs: dict) -> list:
 # MENU - Build FF copy paste menu
 ###############################################################################################
 def menu_copypaste_FF(kwargs: dict) -> list:
-        
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+
+    Returns:
+        list: [return menu list]
+    """    
     # init menu
     menu=[]
 
@@ -466,7 +490,14 @@ def menu_copypaste_FF(kwargs: dict) -> list:
 # FLAM3 paste list of parms
 ###############################################################################################
 def paste_from_list(prm_list: list, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
-
+    """
+    Args:
+        prm_list (list): [parameters list to query and set]
+        node (hou.Node): [current hou.Node to set]
+        flam3node (hou.Node): [hou.Node to copy values from]
+        id (str): [current multiparamter index]
+        id_from (str): [multiparameter index to copy from]
+    """    
     for prm in prm_list:
         # if a tuple
         if prm[1]:
@@ -497,7 +528,15 @@ def paste_from_list(prm_list: list, node: hou.Node, flam3node: hou.Node, id: str
 # FLAM3 (*T)Types-> paste parametric parms if any are found in the list of var types passed in
 ###############################################################################################
 def pastePRM_T_from_list(prmT_list: list, varsPRM: list, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
-    
+    """
+    Args:
+        prmT_list (list): [variations list - types]
+        varsPRM (list): [variation's parmaters list]
+        node (hou.Node): [current hou.Node to set]
+        flam3node (hou.Node): [hou.Node to copy values from]
+        id (str): [current multiparamter index]
+        id_from (str): [multiparameter index to copy from]
+    """    
     for prm in prmT_list:
         prm_from = flam3node.parm(f"{prm}{id_from}").eval()
         node.setParms({f"{prm}{id}": prm_from})
@@ -518,7 +557,15 @@ def pastePRM_T_from_list(prmT_list: list, varsPRM: list, node: hou.Node, flam3no
 # 2 -> FF sections
 ###############################################################################################
 def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
-
+    """
+    Args:
+        int_mode (int): [int(0) copy/paste iterator into the smae node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
+        str_section (str): [section name string to be copied, this is only for msg print info]
+        node (hou.Node): [current hou.Node to set]
+        flam3node (hou.Node): [[hou.Node to copy values from]
+        id (str): [current multiparamter index]
+        id_from (str): [multiparameter index to copy from]
+    """    
     if int_mode == 0:
         # If on the same FLAM3 node
         if node == flam3node:
@@ -544,7 +591,10 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
 # Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
 ###############################################################################################
 def prm_paste(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     if kwargs["ctrl"]:
 
         # current node
@@ -593,7 +643,10 @@ def prm_paste(kwargs: dict) -> None:
 # FF - Copy paste all FF's values from one FLAM3 node to another FLAM3 node
 ###############################################################################################
 def prm_paste_FF(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     if kwargs["ctrl"]:
 
         # current node
@@ -640,7 +693,10 @@ def prm_paste_FF(kwargs: dict) -> None:
 # paste sections of iterator's values from one to another and also from different FLAM3 nodes
 ###############################################################################################
 def prm_paste_sel(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     # current node
     node=kwargs['node']
     
@@ -729,7 +785,10 @@ def prm_paste_sel(kwargs: dict) -> None:
 # FF paste sections of FF's values from one FLAM3 node to another FLAM3 node
 ###############################################################################################
 def prm_paste_sel_FF(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     # current node
     node=kwargs['node']
 
@@ -794,7 +853,10 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
 # FLAM3 on create init
 ###############################################################################################
 def flam3_on_create(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     # Set initial node color
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
@@ -851,7 +913,10 @@ def flam3_on_create(kwargs: dict) -> None:
 # Init parameter presets menu list as soon as you load a valid ramp json file
 ###############################################################################################
 def ramp_init_presets(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     node = kwargs['node']
     ramp_presets = node.parm('presets')
     ramp_presets.set('0')
@@ -864,7 +929,10 @@ def ramp_init_presets(kwargs: dict) -> None:
 # Save current ramp to a json file
 ###############################################################################################
 def ramp_save(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     filepath = kwargs['node'].parm('filepath').evalAsString()
     path = os.path.dirname(filepath)
     if not os.path.exists(path):
@@ -929,7 +997,10 @@ def ramp_save(kwargs: dict) -> None:
 # Set ramp value from a json file
 ###############################################################################################
 def json_to_ramp(kwargs: dict) -> None:
-
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
     node = kwargs['node']
     
     #get ramp parm
@@ -970,7 +1041,10 @@ def json_to_ramp(kwargs: dict) -> None:
 # palette copy values to paletteHSV
 ###############################################################################################
 def palette_cp(self: hou.Node) -> None:
-
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
     rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_SRC_NAME)
     rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
@@ -985,7 +1059,10 @@ def palette_cp(self: hou.Node) -> None:
 # palette apply HSV values
 ###############################################################################################
 def palette_hsv(self: hou.Node) -> None:
-
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
     rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_SRC_NAME)
     hsvprm = self.parmTuple('palettehsv_')
@@ -1008,7 +1085,10 @@ def palette_hsv(self: hou.Node) -> None:
 # palette lock ( Lock the color corrected palette from user input )
 ###############################################################################################
 def palette_lock(self: hou.Node) -> None:
-
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
     palette_cp(self)
     palette_hsv(self)
 
@@ -1020,7 +1100,10 @@ def palette_lock(self: hou.Node) -> None:
 # Load default values. ( Sierpinsky triangle )
 ###############################################################################################
 def flam3_default(self: hou.Node) -> None:
-
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
     # Iterators reset
     self.setParms({"flamefunc": 0})
     # delete channel references
