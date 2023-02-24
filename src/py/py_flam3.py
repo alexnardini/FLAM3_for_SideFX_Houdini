@@ -163,6 +163,7 @@ class flam3_varsPRM:
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience]
         """        
+
         vars = list(map(lambda x: x[0], self.varsPRM))
         vars_no_lin = list(enumerate(vars))[1:]
         vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
@@ -340,7 +341,7 @@ class flam3_iterator_FF:
     sec_postvarsT_FF = [ "ffp1type", "ffp2type" ]
     sec_postvarsW_FF = [ ["ffp1weight", 0], ["ffp2weight", 0] ]
     sec_preAffine_FF = [ ["ffx", 1], ["ffy", 1], ["ffo", 1], ["ffang", 0] ]
-    sec_postAffine_FF = [ ["dofp", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
+    sec_postAffine_FF = [ ["ffdopost", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
     
     # ALL method lists
     # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
