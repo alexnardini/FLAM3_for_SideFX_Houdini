@@ -159,7 +159,17 @@ class flam3_varsPRM:
     
     @classmethod
     def vars_name_list(cls) -> list:
-        return list(map(lambda x: x[0], cls.varsPRM))
+
+        vars = list(map(lambda x: x[0], cls.varsPRM))
+
+        vars_no_lin = list(enumerate(vars))[1:]
+        vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
+        vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
+        
+        vars_all = list(enumerate(['linear'])) + vars_sorted
+        vars_no_PRM = list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, vars_all)))
+        
+        return [vars_all, vars_no_PRM]
 
 
 
@@ -346,7 +356,7 @@ def menu_T(int_mode: int) -> list:
         list: [return menu list]
     """
     
-    vars_no_lin = list(enumerate(flam3_varsPRM().vars_name_list()))[1:]
+    vars_no_lin = list(enumerate(flam3_varsPRM().vars_name_list()[0]))[1:]
     vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
     vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
     vars_all = list(enumerate(['linear'])) + vars_sorted
@@ -354,7 +364,8 @@ def menu_T(int_mode: int) -> list:
     menu=[]
     if int_mode:
         # build menu with no parametrics
-        for i, item in list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, vars_all))):
+        for i, item in flam3_varsPRM().vars_name_list()[1]:
+        #for i, item in list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, vars_all))):
             menu.append(i)
             menu.append(item.capitalize())
     else:
