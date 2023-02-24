@@ -160,6 +160,10 @@ class flam3_varsPRM:
 
     @classmethod
     def vars_all(cls) -> list:
+        """
+        Returns:
+            list: [return an enumerated menu list]
+        """        
 
         vars = list(map(lambda x: x[0], cls.varsPRM))
         vars_no_lin = list(enumerate(vars))[1:]
@@ -171,7 +175,10 @@ class flam3_varsPRM:
     
     @classmethod
     def vars_no_PRM(cls) -> list:
-
+        """
+        Returns:
+            list: [return an enumerated menu list]
+        """   
         return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, cls().vars_all())))
 
 
