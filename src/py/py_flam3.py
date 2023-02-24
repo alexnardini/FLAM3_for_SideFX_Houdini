@@ -332,16 +332,26 @@ class flam3_varsPRM_FF(flam3_varsPRM):
 
 
 class flam3_iterator_FF:
+    """
+        Note that every parameters inside the FF have the same name as the iterator parameters 
+        plus the string "ff" added at the beginning of their names.
+        If you create new parameters insde the FF, or change the parameters names inside the flam3 iterator,
+        please be sure to follow the same nameing convetion so to keep the flam3_varsPRM: class as the only source for their names.
+
+        "PRX_FF_PRM" is the parametric parameter's prefix, so we use that and strip out the ending underscore: f"{PRX_FF_PRM[:-1]}
+    """    
+    iter = flam3_iterator()
 
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-    sec_varsT_FF = [ "ffv1type", "ffv2type", "ffv3type" ]
-    sec_varsW_FF = [ ["ffv1weight", 0], ["ffv2weight", 0], ["ffv3weight", 0] ]
-    sec_postvarsT_FF = [ "ffp1type", "ffp2type" ]
-    sec_postvarsW_FF = [ ["ffp1weight", 0], ["ffp2weight", 0] ]
-    sec_preAffine_FF = [ ["ffx", 1], ["ffy", 1], ["ffo", 1], ["ffang", 0] ]
-    sec_postAffine_FF = [ ["ffdopost", 0], ["ffpx", 1], ["ffpy", 1], ["ffpo", 1], ["ffpang", 0] ]
+    sec_varsT_FF = [ f"{PRX_FF_PRM[:-1]}{iter.sec_varsT[0][:-1]}", f"{PRX_FF_PRM[:-1]}{iter.sec_varsT[1][:-1]}", f"{PRX_FF_PRM[:-1]}{iter.sec_varsT[2][:-1]}" ]
+    sec_varsW_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_varsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}{iter.sec_varsW[1][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}{iter.sec_varsW[2][0][:-1]}", 0] ]
+    sec_postvarsT_FF = [ f"{PRX_FF_PRM[:-1]}{iter.sec_postvarsT[0][:-1]}", f"{PRX_FF_PRM[:-1]}p2type" ]
+    sec_postvarsW_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_postvarsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}p2weight", 0] ]
+    sec_preAffine_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[0][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[3][0][:-1]}", 0] ]
+    sec_postAffine_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[0][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[3][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[4][0][:-1]}", 0] ]
+    
     
     # ALL method lists
     # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
