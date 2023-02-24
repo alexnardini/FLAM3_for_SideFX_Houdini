@@ -156,21 +156,23 @@ class flam3_varsPRM:
                 [f"bwraps{PRM}", ["bwraps_", 1], ["bwrapstwist_", 1], 1], 
                 ["hemisphere", 0], 
                 [f"polynomial{PRM}", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
-    
-    
+
+
     @classmethod
-    def vars_name_list(cls) -> list:
+    def vars_all(cls) -> list:
 
         vars = list(map(lambda x: x[0], cls.varsPRM))
-
         vars_no_lin = list(enumerate(vars))[1:]
         vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
         vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
-        
-        vars_all = list(enumerate(['linear'])) + vars_sorted
-        vars_no_PRM = list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, vars_all)))
-        
-        return [vars_all, vars_no_PRM]
+
+        return list(enumerate(['linear'])) + vars_sorted
+
+    
+    @classmethod
+    def vars_no_PRM(cls) -> list:
+
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, cls().vars_all())))
 
 
 
@@ -356,22 +358,15 @@ def menu_T(int_mode: int) -> list:
     Returns:
         list: [return menu list]
     """
-    
-    vars_no_lin = list(enumerate(flam3_varsPRM().vars_name_list()[0]))[1:]
-    vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
-    vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
-    
-    vars_all = list(enumerate(['linear'])) + vars_sorted
-
     menu=[]
     if int_mode:
-        # build menu with no parametrics
-        for i, item in flam3_varsPRM().vars_name_list()[1]:
+        # build menu without parametrics
+        for i, item in flam3_varsPRM().vars_no_PRM():
             menu.append(i)
             menu.append(item.capitalize())
     else:
-        # build menu
-        for i, item in vars_all:
+        # build menu with parametrics
+        for i, item in flam3_varsPRM().vars_all():
             menu.append(i)
             menu.append(item.capitalize())
         
