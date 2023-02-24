@@ -158,14 +158,12 @@ class flam3_varsPRM:
                 [f"polynomial{PRM}", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
 
 
-    @classmethod
-    def menu_vars_all(cls) -> list:
+    def menu_vars_all(self) -> list:
         """
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience]
         """        
-
-        vars = list(map(lambda x: x[0], cls.varsPRM))
+        vars = list(map(lambda x: x[0], self.varsPRM))
         vars_no_lin = list(enumerate(vars))[1:]
         vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
         vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
@@ -173,13 +171,12 @@ class flam3_varsPRM:
         return list(enumerate(['linear'])) + vars_sorted
 
     
-    @classmethod
-    def menu_vars_no_PRM(cls) -> list:
+    def menu_vars_no_PRM(self) -> list:
         """
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
         """   
-        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, cls().menu_vars_all())))
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
 
 
 
