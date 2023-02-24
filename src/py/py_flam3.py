@@ -156,7 +156,8 @@ class flam3_varsPRM:
                 [f"bwraps{PRM}", ["bwraps_", 1], ["bwrapstwist_", 1], 1], 
                 ["hemisphere", 0], 
                 [f"polynomial{PRM}", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
-
+    
+    vars_name_list = list(map(lambda x: x[0], varsPRM))
 
 
 
@@ -340,11 +341,9 @@ def menu_T(int_mode: int) -> list:
 
     Returns:
         list: [return menu list]
-    """    
-    # Build var's names list
-    vars = list(map(lambda x: x[0], flam3_varsPRM.varsPRM))
-
-    vars_no_lin = list(enumerate(vars))[1:]
+    """
+    
+    vars_no_lin = list(enumerate(flam3_varsPRM.vars_name_list))[1:]
     vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
     vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
     vars_all = list(enumerate(['linear'])) + vars_sorted
@@ -559,7 +558,7 @@ def pastePRM_T_from_list(prmT_list: list, varsPRM: list, node: hou.Node, flam3no
 def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
     """
     Args:
-        int_mode (int): [int(0) copy/paste iterator into the smae node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
+        int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
         str_section (str): [section name string to be copied, this is only for msg print info]
         node (hou.Node): [current hou.Node to set]
         flam3node (hou.Node): [[hou.Node to copy values from]
@@ -969,7 +968,7 @@ def ramp_save(kwargs: dict) -> None:
         #write - overwrite or append json to disk
         if os.path.isfile(filepath) and os.path.getsize(filepath)>0: #if file exists and is not zero bytes
             
-            user = hou.ui.displayMessage('a file already exists', buttons=('Append','Overwrite','Cancel')) 
+            user = hou.ui.displayMessage('This file already exist: "Append" this palette to the current file or "Override" the current file with this palette.', buttons=('Append','Overwrite','Cancel')) 
             if user==0:#append mode
                 with open(filepath,'r') as r:
                     prevdata = json.load(r)
