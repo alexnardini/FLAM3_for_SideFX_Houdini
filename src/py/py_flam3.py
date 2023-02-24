@@ -159,10 +159,10 @@ class flam3_varsPRM:
 
 
     @classmethod
-    def vars_all(cls) -> list:
+    def menu_vars_all(cls) -> list:
         """
         Returns:
-            list: [return an enumerated menu list]
+            list: [return an enumerated variations menu list with "linear" being the first one for convenience]
         """        
 
         vars = list(map(lambda x: x[0], cls.varsPRM))
@@ -174,12 +174,12 @@ class flam3_varsPRM:
 
     
     @classmethod
-    def vars_no_PRM(cls) -> list:
+    def menu_vars_no_PRM(cls) -> list:
         """
         Returns:
-            list: [return an enumerated menu list]
+            list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
         """   
-        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, cls().vars_all())))
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, cls().menu_vars_all())))
 
 
 
@@ -368,12 +368,12 @@ def menu_T(int_mode: int) -> list:
     menu=[]
     if int_mode:
         # build menu without parametrics
-        for i, item in flam3_varsPRM().vars_no_PRM():
+        for i, item in flam3_varsPRM().menu_vars_no_PRM():
             menu.append(i)
             menu.append(item.capitalize())
     else:
         # build menu with parametrics
-        for i, item in flam3_varsPRM().vars_all():
+        for i, item in flam3_varsPRM().menu_vars_all():
             menu.append(i)
             menu.append(item.capitalize())
         
