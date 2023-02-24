@@ -339,6 +339,7 @@ class flam3_iterator_FF:
         please be sure to follow the same nameing convetion so to keep the flam3_varsPRM: class as the only source for their names.
 
         "PRX_FF_PRM" is the parametric parameter's prefix, so we use that and strip out the ending underscore: f"{PRX_FF_PRM[:-1]}
+        The prefix for the FF parametric parameters is "ff_"
     """    
     iter = flam3_iterator()
 
