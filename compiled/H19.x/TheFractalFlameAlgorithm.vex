@@ -32,14 +32,14 @@ source_filename = "FLAM3"
 @24 = private constant [11 x i8] c"../v4type_\00"
 @25 = private constant [13 x i8] c"../p1weight_\00"
 @26 = private constant [11 x i8] c"../p1type_\00"
-@27 = private constant [8 x i8] c"../ang_\00"
-@28 = private constant [6 x i8] c"../x_\00"
-@29 = private constant [6 x i8] c"../y_\00"
+@27 = private constant [6 x i8] c"../x_\00"
+@28 = private constant [6 x i8] c"../y_\00"
+@29 = private constant [8 x i8] c"../ang_\00"
 @30 = private constant [6 x i8] c"../o_\00"
 @31 = private constant [11 x i8] c"../dopost_\00"
-@32 = private constant [9 x i8] c"../pang_\00"
-@33 = private constant [7 x i8] c"../px_\00"
-@34 = private constant [7 x i8] c"../py_\00"
+@32 = private constant [7 x i8] c"../px_\00"
+@33 = private constant [7 x i8] c"../py_\00"
+@34 = private constant [9 x i8] c"../pang_\00"
 @35 = private constant [7 x i8] c"../po_\00"
 @36 = private constant [8 x i8] c"../tmrt\00"
 @37 = private constant [14 x i8] c"../ffv1weight\00"
@@ -52,14 +52,14 @@ source_filename = "FLAM3"
 @44 = private constant [12 x i8] c"../ffp1type\00"
 @45 = private constant [14 x i8] c"../ffp2weight\00"
 @46 = private constant [12 x i8] c"../ffp2type\00"
-@47 = private constant [9 x i8] c"../ffang\00"
-@48 = private constant [7 x i8] c"../ffx\00"
-@49 = private constant [7 x i8] c"../ffy\00"
+@47 = private constant [7 x i8] c"../ffx\00"
+@48 = private constant [7 x i8] c"../ffy\00"
+@49 = private constant [9 x i8] c"../ffang\00"
 @50 = private constant [7 x i8] c"../ffo\00"
 @51 = private constant [12 x i8] c"../ffdopost\00"
-@52 = private constant [10 x i8] c"../ffpang\00"
-@53 = private constant [8 x i8] c"../ffpx\00"
-@54 = private constant [8 x i8] c"../ffpy\00"
+@52 = private constant [8 x i8] c"../ffpx\00"
+@53 = private constant [8 x i8] c"../ffpy\00"
+@54 = private constant [10 x i8] c"../ffpang\00"
 @55 = private constant [8 x i8] c"../ffpo\00"
 @56 = private constant [0 x i64] zeroinitializer
 @57 = private constant [0 x double] zeroinitializer
@@ -3392,8 +3392,8 @@ end16:                                            ; preds = %true15, %end
   store <4 x double> zeroinitializer, <4 x double>* %_m2, !vex-initializer-store !3
   br label %cond
 
-cond:                                             ; preds = %end376, %end16
-  %i.0 = phi i64 [ 0, %end16 ], [ %output447, %end376 ]
+cond:                                             ; preds = %end360, %end16
+  %i.0 = phi i64 [ 0, %end16 ], [ %output414, %end360 ]
   %this64 = load %gem, %gem* %this
   %res65 = extractvalue %gem %this64, 8
   %return66 = call i64 @"lt@III"(i64 %i.0, i64 %res65)
@@ -3443,7 +3443,7 @@ body:                                             ; preds = %cond
 end67:                                            ; preds = %cond
   %TM = extractvalue %gem %this64, 0
   %54 = icmp ne i64 %TM, 0
-  br i1 %54, label %true449, label %end450
+  br i1 %54, label %true416, label %end417
 
 true126:                                          ; preds = %body
   %return130 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @14, i64 0, i64 0), i8* %return70)
@@ -3601,317 +3601,269 @@ true283:                                          ; preds = %end258
   br label %end284
 
 end284:                                           ; preds = %true283, %end258
-  %return296 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @27, i64 0, i64 0), i8* %return70)
-  %return297 = call double @"chf@FS"(i8* %return296)
-  %return299 = fcmp one double %return297, 0.000000e+00
-  br i1 %return299, label %true301, label %false
+  %return296 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @27, i64 0, i64 0), i8* %return70)
+  %return297 = call <2 x double> @"chu@US"(i8* %return296)
+  %return299 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @28, i64 0, i64 0), i8* %return70)
+  %return300 = call <2 x double> @"chu@US"(i8* %return299)
+  %return302 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @29, i64 0, i64 0), i8* %return70)
+  %return303 = call double @"chf@FS"(i8* %return302)
+  %return305 = fcmp one double %return303, 0.000000e+00
+  br i1 %return305, label %true307, label %end308
 
-true301:                                          ; preds = %end284
-  %return304 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @28, i64 0, i64 0), i8* %return70)
-  %return305 = call <2 x double> @"chu@US"(i8* %return304)
-  %return307 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @29, i64 0, i64 0), i8* %return70)
-  %return308 = call <2 x double> @"chu@US"(i8* %return307)
-  store <2 x double> %return305, <2 x double>* %0
-  store <2 x double> %return308, <2 x double>* %1
-  %return312 = call double @"radians@FF"(double %return297)
+true307:                                          ; preds = %end284
+  store <2 x double> %return297, <2 x double>* %0
+  store <2 x double> %return300, <2 x double>* %1
+  %return312 = call double @"radians@FF"(double %return303)
   %return313 = call double @"neg@FF"(double %return312)
   store double %return313, double* %2
   call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %0, <2 x double>* %1, double* %2)
-  %_m2315 = load <4 x double>, <4 x double>* %_m2
-  %return316 = call double @"getcomp@F2II"(<4 x double> %_m2315, i64 0, i64 0)
-  %return318 = call double @"getcomp@F2II"(<4 x double> %_m2315, i64 0, i64 1)
-  %return319 = call <2 x double> @"set@UFF"(double %return316, double %return318)
-  %tmp320 = load %gem, %gem* %this
-  %tmp321 = extractvalue %gem %tmp320, 38
-  %return322 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp321, <2 x double> %return319, i64 %i.0)
-  %output324 = extractvalue { <2 x double>, <2 x double>* } %return322, 1
-  %68 = insertvalue %gem %tmp320, <2 x double>* %output324, 38
-  %return327 = call double @"getcomp@F2II"(<4 x double> %_m2315, i64 1, i64 0)
-  %return329 = call double @"getcomp@F2II"(<4 x double> %_m2315, i64 1, i64 1)
-  %return330 = call <2 x double> @"set@UFF"(double %return327, double %return329)
-  %tmp332 = extractvalue %gem %68, 39
-  %return333 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp332, <2 x double> %return330, i64 %i.0)
-  %output335 = extractvalue { <2 x double>, <2 x double>* } %return333, 1
-  %69 = insertvalue %gem %68, <2 x double>* %output335, 39
-  store %gem %69, %gem* %this
-  br label %end302
+  %_m2314 = load <4 x double>, <4 x double>* %_m2
+  %return315 = call double @"getcomp@F2II"(<4 x double> %_m2314, i64 0, i64 0)
+  %return317 = call double @"getcomp@F2II"(<4 x double> %_m2314, i64 0, i64 1)
+  %return318 = call <2 x double> @"set@UFF"(double %return315, double %return317)
+  %return320 = call double @"getcomp@F2II"(<4 x double> %_m2314, i64 1, i64 0)
+  %return322 = call double @"getcomp@F2II"(<4 x double> %_m2314, i64 1, i64 1)
+  %return323 = call <2 x double> @"set@UFF"(double %return320, double %return322)
+  br label %end308
 
-false:                                            ; preds = %end284
-  %return338 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @28, i64 0, i64 0), i8* %return70)
-  %return339 = call <2 x double> @"chu@US"(i8* %return338)
-  %tmp340 = load %gem, %gem* %this
-  %tmp341 = extractvalue %gem %tmp340, 38
-  %return342 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp341, <2 x double> %return339, i64 %i.0)
-  %output344 = extractvalue { <2 x double>, <2 x double>* } %return342, 1
-  %70 = insertvalue %gem %tmp340, <2 x double>* %output344, 38
-  %return347 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @29, i64 0, i64 0), i8* %return70)
-  %return348 = call <2 x double> @"chu@US"(i8* %return347)
-  %tmp350 = extractvalue %gem %70, 39
-  %return351 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp350, <2 x double> %return348, i64 %i.0)
-  %output353 = extractvalue { <2 x double>, <2 x double>* } %return351, 1
-  %71 = insertvalue %gem %70, <2 x double>* %output353, 39
+end308:                                           ; preds = %true307, %end284
+  %_x.0 = phi <2 x double> [ %return318, %true307 ], [ %return297, %end284 ]
+  %_y.0 = phi <2 x double> [ %return323, %true307 ], [ %return300, %end284 ]
+  %tmp326 = load %gem, %gem* %this
+  %tmp327 = extractvalue %gem %tmp326, 38
+  %return328 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp327, <2 x double> %_x.0, i64 %i.0)
+  %output330 = extractvalue { <2 x double>, <2 x double>* } %return328, 1
+  %68 = insertvalue %gem %tmp326, <2 x double>* %output330, 38
+  %tmp334 = extractvalue %gem %68, 39
+  %return335 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp334, <2 x double> %_y.0, i64 %i.0)
+  %output337 = extractvalue { <2 x double>, <2 x double>* } %return335, 1
+  %69 = insertvalue %gem %68, <2 x double>* %output337, 39
+  %return340 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @30, i64 0, i64 0), i8* %return70)
+  %return341 = call <2 x double> @"chu@US"(i8* %return340)
+  %tmp343 = extractvalue %gem %69, 40
+  %return344 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp343, <2 x double> %return341, i64 %i.0)
+  %output346 = extractvalue { <2 x double>, <2 x double>* } %return344, 1
+  %70 = insertvalue %gem %69, <2 x double>* %output346, 40
+  %return349 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @31, i64 0, i64 0), i8* %return70)
+  %return350 = call i64 @"chi@IS"(i8* %return349)
+  %tmp352 = extractvalue %gem %70, 16
+  %return353 = call { i64, i64* } @"setcomp@I[III"(i64* %tmp352, i64 %return350, i64 %i.0)
+  %output355 = extractvalue { i64, i64* } %return353, 1
+  %71 = insertvalue %gem %70, i64* %output355, 16
   store %gem %71, %gem* %this
-  br label %end302
+  %return358 = call i64 @"getcomp@I[II"(i64* %output355, i64 %i.0)
+  %72 = icmp ne i64 %return358, 0
+  br i1 %72, label %true359, label %end360
 
-end302:                                           ; preds = %false, %true301
-  %return356 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @30, i64 0, i64 0), i8* %return70)
-  %return357 = call <2 x double> @"chu@US"(i8* %return356)
-  %tmp358 = load %gem, %gem* %this
-  %tmp359 = extractvalue %gem %tmp358, 40
-  %return360 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp359, <2 x double> %return357, i64 %i.0)
-  %output362 = extractvalue { <2 x double>, <2 x double>* } %return360, 1
-  %72 = insertvalue %gem %tmp358, <2 x double>* %output362, 40
-  %return365 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @31, i64 0, i64 0), i8* %return70)
-  %return366 = call i64 @"chi@IS"(i8* %return365)
-  %tmp368 = extractvalue %gem %72, 16
-  %return369 = call { i64, i64* } @"setcomp@I[III"(i64* %tmp368, i64 %return366, i64 %i.0)
-  %output371 = extractvalue { i64, i64* } %return369, 1
-  %73 = insertvalue %gem %72, i64* %output371, 16
-  store %gem %73, %gem* %this
-  %return374 = call i64 @"getcomp@I[II"(i64* %output371, i64 %i.0)
-  %74 = icmp ne i64 %return374, 0
-  br i1 %74, label %true375, label %end376
+true359:                                          ; preds = %end308
+  %return362 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @32, i64 0, i64 0), i8* %return70)
+  %return363 = call <2 x double> @"chu@US"(i8* %return362)
+  %return365 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @33, i64 0, i64 0), i8* %return70)
+  %return366 = call <2 x double> @"chu@US"(i8* %return365)
+  %return368 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @34, i64 0, i64 0), i8* %return70)
+  %return369 = call double @"chf@FS"(i8* %return368)
+  %return371 = fcmp one double %return369, 0.000000e+00
+  br i1 %return371, label %true373, label %end374
 
-true375:                                          ; preds = %end302
-  %return378 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @32, i64 0, i64 0), i8* %return70)
-  %return379 = call double @"chf@FS"(i8* %return378)
-  %return381 = fcmp one double %return379, 0.000000e+00
-  br i1 %return381, label %true383, label %false384
-
-end376:                                           ; preds = %end385, %end302
-  %output447 = add i64 %i.0, 1
+end360:                                           ; preds = %end374, %end308
+  %output414 = add i64 %i.0, 1
   br label %cond
 
-true383:                                          ; preds = %true375
-  %return387 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @33, i64 0, i64 0), i8* %return70)
-  %return388 = call <2 x double> @"chu@US"(i8* %return387)
-  %return390 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @34, i64 0, i64 0), i8* %return70)
-  %return391 = call <2 x double> @"chu@US"(i8* %return390)
-  store <2 x double> %return388, <2 x double>* %3
-  store <2 x double> %return391, <2 x double>* %4
-  %return395 = call double @"radians@FF"(double %return379)
-  %return396 = call double @"neg@FF"(double %return395)
-  store double %return396, double* %5
+true373:                                          ; preds = %true359
+  store <2 x double> %return363, <2 x double>* %3
+  store <2 x double> %return366, <2 x double>* %4
+  %return378 = call double @"radians@FF"(double %return369)
+  %return379 = call double @"neg@FF"(double %return378)
+  store double %return379, double* %5
   call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %3, <2 x double>* %4, double* %5)
-  %_m2398 = load <4 x double>, <4 x double>* %_m2
-  %return399 = call double @"getcomp@F2II"(<4 x double> %_m2398, i64 0, i64 0)
-  %return401 = call double @"getcomp@F2II"(<4 x double> %_m2398, i64 0, i64 1)
-  %return402 = call <2 x double> @"set@UFF"(double %return399, double %return401)
-  %tmp403 = load %gem, %gem* %this
-  %tmp404 = extractvalue %gem %tmp403, 41
-  %return405 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp404, <2 x double> %return402, i64 %i.0)
-  %output407 = extractvalue { <2 x double>, <2 x double>* } %return405, 1
-  %75 = insertvalue %gem %tmp403, <2 x double>* %output407, 41
-  %return410 = call double @"getcomp@F2II"(<4 x double> %_m2398, i64 1, i64 0)
-  %return412 = call double @"getcomp@F2II"(<4 x double> %_m2398, i64 1, i64 1)
-  %return413 = call <2 x double> @"set@UFF"(double %return410, double %return412)
-  %tmp415 = extractvalue %gem %75, 42
-  %return416 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp415, <2 x double> %return413, i64 %i.0)
-  %output418 = extractvalue { <2 x double>, <2 x double>* } %return416, 1
-  %76 = insertvalue %gem %75, <2 x double>* %output418, 42
+  %_m2380 = load <4 x double>, <4 x double>* %_m2
+  %return381 = call double @"getcomp@F2II"(<4 x double> %_m2380, i64 0, i64 0)
+  %return383 = call double @"getcomp@F2II"(<4 x double> %_m2380, i64 0, i64 1)
+  %return384 = call <2 x double> @"set@UFF"(double %return381, double %return383)
+  %return386 = call double @"getcomp@F2II"(<4 x double> %_m2380, i64 1, i64 0)
+  %return388 = call double @"getcomp@F2II"(<4 x double> %_m2380, i64 1, i64 1)
+  %return389 = call <2 x double> @"set@UFF"(double %return386, double %return388)
+  br label %end374
+
+end374:                                           ; preds = %true373, %true359
+  %_x.1 = phi <2 x double> [ %return384, %true373 ], [ %return363, %true359 ]
+  %_y.1 = phi <2 x double> [ %return389, %true373 ], [ %return366, %true359 ]
+  %tmp392 = load %gem, %gem* %this
+  %tmp393 = extractvalue %gem %tmp392, 41
+  %return394 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp393, <2 x double> %_x.1, i64 %i.0)
+  %output396 = extractvalue { <2 x double>, <2 x double>* } %return394, 1
+  %73 = insertvalue %gem %tmp392, <2 x double>* %output396, 41
+  %tmp400 = extractvalue %gem %73, 42
+  %return401 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp400, <2 x double> %_y.1, i64 %i.0)
+  %output403 = extractvalue { <2 x double>, <2 x double>* } %return401, 1
+  %74 = insertvalue %gem %73, <2 x double>* %output403, 42
+  %return406 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @35, i64 0, i64 0), i8* %return70)
+  %return407 = call <2 x double> @"chu@US"(i8* %return406)
+  %tmp409 = extractvalue %gem %74, 43
+  %return410 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp409, <2 x double> %return407, i64 %i.0)
+  %output412 = extractvalue { <2 x double>, <2 x double>* } %return410, 1
+  %75 = insertvalue %gem %74, <2 x double>* %output412, 43
+  store %gem %75, %gem* %this
+  br label %end360
+
+true416:                                          ; preds = %end67
+  %return418 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @36, i64 0, i64 0))
+  %return420 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %return418)
+  %return421 = call <9 x double> @"maketransform@3IV"(i64 0, <3 x double> %return420)
+  %cast = call <4 x double> @"set@23"(<9 x double> %return421)
+  %tmp422 = load %gem, %gem* %this
+  %76 = insertvalue %gem %tmp422, <4 x double> %cast, 50
   store %gem %76, %gem* %this
-  br label %end385
+  br label %end417
 
-false384:                                         ; preds = %true375
-  %return421 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @33, i64 0, i64 0), i8* %return70)
-  %return422 = call <2 x double> @"chu@US"(i8* %return421)
-  %tmp424 = extractvalue %gem %73, 41
-  %return425 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp424, <2 x double> %return422, i64 %i.0)
-  %output427 = extractvalue { <2 x double>, <2 x double>* } %return425, 1
-  %77 = insertvalue %gem %73, <2 x double>* %output427, 41
-  %return430 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @34, i64 0, i64 0), i8* %return70)
-  %return431 = call <2 x double> @"chu@US"(i8* %return430)
-  %tmp433 = extractvalue %gem %77, 42
-  %return434 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp433, <2 x double> %return431, i64 %i.0)
-  %output436 = extractvalue { <2 x double>, <2 x double>* } %return434, 1
-  %78 = insertvalue %gem %77, <2 x double>* %output436, 42
+end417:                                           ; preds = %true416, %end67
+  %this423 = load %gem, %gem* %this
+  %FF = extractvalue %gem %this423, 1
+  %77 = icmp ne i64 %FF, 0
+  br i1 %77, label %true424, label %end425
+
+true424:                                          ; preds = %end417
+  %return426 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @37, i64 0, i64 0))
+  %78 = insertvalue %gem %this423, double %return426, 33
   store %gem %78, %gem* %this
-  br label %end385
+  %return429 = fcmp one double %return426, 0.000000e+00
+  br i1 %return429, label %true431, label %end432
 
-end385:                                           ; preds = %false384, %true383
-  %return439 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @35, i64 0, i64 0), i8* %return70)
-  %return440 = call <2 x double> @"chu@US"(i8* %return439)
-  %tmp441 = load %gem, %gem* %this
-  %tmp442 = extractvalue %gem %tmp441, 43
-  %return443 = call { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>* %tmp442, <2 x double> %return440, i64 %i.0)
-  %output445 = extractvalue { <2 x double>, <2 x double>* } %return443, 1
-  %79 = insertvalue %gem %tmp441, <2 x double>* %output445, 43
-  store %gem %79, %gem* %this
-  br label %end376
-
-true449:                                          ; preds = %end67
-  %return451 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @36, i64 0, i64 0))
-  %return453 = call <3 x double> @"set@VFFF"(double 0.000000e+00, double 0.000000e+00, double %return451)
-  %return454 = call <9 x double> @"maketransform@3IV"(i64 0, <3 x double> %return453)
-  %cast = call <4 x double> @"set@23"(<9 x double> %return454)
-  %tmp455 = load %gem, %gem* %this
-  %80 = insertvalue %gem %tmp455, <4 x double> %cast, 50
-  store %gem %80, %gem* %this
-  br label %end450
-
-end450:                                           ; preds = %true449, %end67
-  %this456 = load %gem, %gem* %this
-  %FF = extractvalue %gem %this456, 1
-  %81 = icmp ne i64 %FF, 0
-  br i1 %81, label %true457, label %end458
-
-true457:                                          ; preds = %end450
-  %return459 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @37, i64 0, i64 0))
-  %82 = insertvalue %gem %this456, double %return459, 33
-  store %gem %82, %gem* %this
-  %return462 = fcmp one double %return459, 0.000000e+00
-  br i1 %return462, label %true464, label %end465
-
-end458:                                           ; preds = %end510, %end547, %end450
+end425:                                           ; preds = %end478, %end512, %end417
   ret void
 
-true464:                                          ; preds = %true457
-  %return466 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @38, i64 0, i64 0))
-  %83 = insertvalue %gem %82, i64 %return466, 17
+true431:                                          ; preds = %true424
+  %return433 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @38, i64 0, i64 0))
+  %79 = insertvalue %gem %78, i64 %return433, 17
+  store %gem %79, %gem* %this
+  br label %end432
+
+end432:                                           ; preds = %true431, %true424
+  %return435 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @39, i64 0, i64 0))
+  %tmp436 = load %gem, %gem* %this
+  %80 = insertvalue %gem %tmp436, double %return435, 34
+  store %gem %80, %gem* %this
+  %return438 = fcmp one double %return435, 0.000000e+00
+  br i1 %return438, label %true440, label %end441
+
+true440:                                          ; preds = %end432
+  %return442 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @40, i64 0, i64 0))
+  %81 = insertvalue %gem %80, i64 %return442, 18
+  store %gem %81, %gem* %this
+  br label %end441
+
+end441:                                           ; preds = %true440, %end432
+  %return444 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @41, i64 0, i64 0))
+  %tmp445 = load %gem, %gem* %this
+  %82 = insertvalue %gem %tmp445, double %return444, 35
+  store %gem %82, %gem* %this
+  %return447 = fcmp one double %return444, 0.000000e+00
+  br i1 %return447, label %true449, label %end450
+
+true449:                                          ; preds = %end441
+  %return451 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @42, i64 0, i64 0))
+  %83 = insertvalue %gem %82, i64 %return451, 19
   store %gem %83, %gem* %this
-  br label %end465
+  br label %end450
 
-end465:                                           ; preds = %true464, %true457
-  %return468 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @39, i64 0, i64 0))
-  %tmp469 = load %gem, %gem* %this
-  %84 = insertvalue %gem %tmp469, double %return468, 34
+end450:                                           ; preds = %true449, %end441
+  %return453 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @43, i64 0, i64 0))
+  %tmp454 = load %gem, %gem* %this
+  %84 = insertvalue %gem %tmp454, double %return453, 36
   store %gem %84, %gem* %this
-  %return471 = fcmp one double %return468, 0.000000e+00
-  br i1 %return471, label %true473, label %end474
+  %return456 = fcmp ogt double %return453, 0.000000e+00
+  br i1 %return456, label %true458, label %end459
 
-true473:                                          ; preds = %end465
-  %return475 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @40, i64 0, i64 0))
-  %85 = insertvalue %gem %84, i64 %return475, 18
+true458:                                          ; preds = %end450
+  %return460 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @44, i64 0, i64 0))
+  %85 = insertvalue %gem %84, i64 %return460, 20
   store %gem %85, %gem* %this
-  br label %end474
+  br label %end459
 
-end474:                                           ; preds = %true473, %end465
-  %return477 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @41, i64 0, i64 0))
-  %tmp478 = load %gem, %gem* %this
-  %86 = insertvalue %gem %tmp478, double %return477, 35
+end459:                                           ; preds = %true458, %end450
+  %return462 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @45, i64 0, i64 0))
+  %tmp463 = load %gem, %gem* %this
+  %86 = insertvalue %gem %tmp463, double %return462, 37
   store %gem %86, %gem* %this
-  %return480 = fcmp one double %return477, 0.000000e+00
-  br i1 %return480, label %true482, label %end483
+  %return465 = fcmp ogt double %return462, 0.000000e+00
+  br i1 %return465, label %true467, label %end468
 
-true482:                                          ; preds = %end474
-  %return484 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @42, i64 0, i64 0))
-  %87 = insertvalue %gem %86, i64 %return484, 19
+true467:                                          ; preds = %end459
+  %return469 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @46, i64 0, i64 0))
+  %87 = insertvalue %gem %86, i64 %return469, 21
   store %gem %87, %gem* %this
-  br label %end483
+  br label %end468
 
-end483:                                           ; preds = %true482, %end474
-  %return486 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @43, i64 0, i64 0))
-  %tmp487 = load %gem, %gem* %this
-  %88 = insertvalue %gem %tmp487, double %return486, 36
-  store %gem %88, %gem* %this
-  %return489 = fcmp ogt double %return486, 0.000000e+00
-  br i1 %return489, label %true491, label %end492
+end468:                                           ; preds = %true467, %end459
+  %return471 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @47, i64 0, i64 0))
+  %return472 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @48, i64 0, i64 0))
+  %return473 = call double @"chf@FS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @49, i64 0, i64 0))
+  %return475 = fcmp one double %return473, 0.000000e+00
+  br i1 %return475, label %true477, label %end478
 
-true491:                                          ; preds = %end483
-  %return493 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @44, i64 0, i64 0))
-  %89 = insertvalue %gem %88, i64 %return493, 20
-  store %gem %89, %gem* %this
-  br label %end492
-
-end492:                                           ; preds = %true491, %end483
-  %return495 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @45, i64 0, i64 0))
-  %tmp496 = load %gem, %gem* %this
-  %90 = insertvalue %gem %tmp496, double %return495, 37
-  store %gem %90, %gem* %this
-  %return498 = fcmp ogt double %return495, 0.000000e+00
-  br i1 %return498, label %true500, label %end501
-
-true500:                                          ; preds = %end492
-  %return502 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @46, i64 0, i64 0))
-  %91 = insertvalue %gem %90, i64 %return502, 21
-  store %gem %91, %gem* %this
-  br label %end501
-
-end501:                                           ; preds = %true500, %end492
-  %return504 = call double @"chf@FS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @47, i64 0, i64 0))
-  %return506 = fcmp one double %return504, 0.000000e+00
-  %return511 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @48, i64 0, i64 0))
-  br i1 %return506, label %true508, label %false509
-
-true508:                                          ; preds = %end501
-  %return512 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @49, i64 0, i64 0))
-  store <2 x double> %return511, <2 x double>* %6
-  store <2 x double> %return512, <2 x double>* %7
-  %return516 = call double @"radians@FF"(double %return504)
-  %return517 = call double @"neg@FF"(double %return516)
-  store double %return517, double* %8
+true477:                                          ; preds = %end468
+  store <2 x double> %return471, <2 x double>* %6
+  store <2 x double> %return472, <2 x double>* %7
+  %return482 = call double @"radians@FF"(double %return473)
+  %return483 = call double @"neg@FF"(double %return482)
+  store double %return483, double* %8
   call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %6, <2 x double>* %7, double* %8)
+  %_m2484 = load <4 x double>, <4 x double>* %_m2
+  %return485 = call double @"getcomp@F2II"(<4 x double> %_m2484, i64 0, i64 0)
+  %return487 = call double @"getcomp@F2II"(<4 x double> %_m2484, i64 0, i64 1)
+  %return488 = call <2 x double> @"set@UFF"(double %return485, double %return487)
+  %return490 = call double @"getcomp@F2II"(<4 x double> %_m2484, i64 1, i64 0)
+  %return492 = call double @"getcomp@F2II"(<4 x double> %_m2484, i64 1, i64 1)
+  %return493 = call <2 x double> @"set@UFF"(double %return490, double %return492)
+  br label %end478
+
+end478:                                           ; preds = %true477, %end468
+  %_x.2 = phi <2 x double> [ %return488, %true477 ], [ %return471, %end468 ]
+  %_y.2 = phi <2 x double> [ %return493, %true477 ], [ %return472, %end468 ]
+  %tmp495 = load %gem, %gem* %this
+  %88 = insertvalue %gem %tmp495, <2 x double> %_x.2, 44
+  %89 = insertvalue %gem %88, <2 x double> %_y.2, 45
+  %return498 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @50, i64 0, i64 0))
+  %90 = insertvalue %gem %89, <2 x double> %return498, 46
+  %return500 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @51, i64 0, i64 0))
+  %91 = insertvalue %gem %90, i64 %return500, 2
+  store %gem %91, %gem* %this
+  %92 = icmp ne i64 %return500, 0
+  br i1 %92, label %true503, label %end425
+
+true503:                                          ; preds = %end478
+  %return505 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @52, i64 0, i64 0))
+  %return506 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @53, i64 0, i64 0))
+  %return507 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @54, i64 0, i64 0))
+  %return509 = fcmp one double %return507, 0.000000e+00
+  br i1 %return509, label %true511, label %end512
+
+true511:                                          ; preds = %true503
+  store <2 x double> %return505, <2 x double>* %9
+  store <2 x double> %return506, <2 x double>* %10
+  %return516 = call double @"radians@FF"(double %return507)
+  %return517 = call double @"neg@FF"(double %return516)
+  store double %return517, double* %11
+  call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %9, <2 x double>* %10, double* %11)
   %_m2518 = load <4 x double>, <4 x double>* %_m2
   %return519 = call double @"getcomp@F2II"(<4 x double> %_m2518, i64 0, i64 0)
   %return521 = call double @"getcomp@F2II"(<4 x double> %_m2518, i64 0, i64 1)
   %return522 = call <2 x double> @"set@UFF"(double %return519, double %return521)
-  %tmp523 = load %gem, %gem* %this
-  %92 = insertvalue %gem %tmp523, <2 x double> %return522, 44
-  %return525 = call double @"getcomp@F2II"(<4 x double> %_m2518, i64 1, i64 0)
-  %return527 = call double @"getcomp@F2II"(<4 x double> %_m2518, i64 1, i64 1)
-  %return528 = call <2 x double> @"set@UFF"(double %return525, double %return527)
-  %93 = insertvalue %gem %92, <2 x double> %return528, 45
-  store %gem %93, %gem* %this
-  br label %end510
+  %return524 = call double @"getcomp@F2II"(<4 x double> %_m2518, i64 1, i64 0)
+  %return526 = call double @"getcomp@F2II"(<4 x double> %_m2518, i64 1, i64 1)
+  %return527 = call <2 x double> @"set@UFF"(double %return524, double %return526)
+  br label %end512
 
-false509:                                         ; preds = %end501
-  %tmp531 = load %gem, %gem* %this
-  %94 = insertvalue %gem %tmp531, <2 x double> %return511, 44
-  %return532 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @49, i64 0, i64 0))
-  %95 = insertvalue %gem %94, <2 x double> %return532, 45
+end512:                                           ; preds = %true511, %true503
+  %_x.3 = phi <2 x double> [ %return522, %true511 ], [ %return505, %true503 ]
+  %_y.3 = phi <2 x double> [ %return527, %true511 ], [ %return506, %true503 ]
+  %tmp529 = load %gem, %gem* %this
+  %93 = insertvalue %gem %tmp529, <2 x double> %_x.3, 47
+  %94 = insertvalue %gem %93, <2 x double> %_y.3, 48
+  %return532 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @55, i64 0, i64 0))
+  %95 = insertvalue %gem %94, <2 x double> %return532, 49
   store %gem %95, %gem* %this
-  br label %end510
-
-end510:                                           ; preds = %false509, %true508
-  %return534 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @50, i64 0, i64 0))
-  %tmp535 = load %gem, %gem* %this
-  %96 = insertvalue %gem %tmp535, <2 x double> %return534, 46
-  %return536 = call i64 @"chi@IS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @51, i64 0, i64 0))
-  %97 = insertvalue %gem %96, i64 %return536, 2
-  store %gem %97, %gem* %this
-  %98 = icmp ne i64 %return536, 0
-  br i1 %98, label %true539, label %end458
-
-true539:                                          ; preds = %end510
-  %return541 = call double @"chf@FS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @52, i64 0, i64 0))
-  %return543 = fcmp one double %return541, 0.000000e+00
-  %return548 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @53, i64 0, i64 0))
-  br i1 %return543, label %true545, label %false546
-
-true545:                                          ; preds = %true539
-  %return549 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @54, i64 0, i64 0))
-  store <2 x double> %return548, <2 x double>* %9
-  store <2 x double> %return549, <2 x double>* %10
-  %return553 = call double @"radians@FF"(double %return541)
-  %return554 = call double @"neg@FF"(double %return553)
-  store double %return554, double* %11
-  call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %9, <2 x double>* %10, double* %11)
-  %_m2555 = load <4 x double>, <4 x double>* %_m2
-  %return556 = call double @"getcomp@F2II"(<4 x double> %_m2555, i64 0, i64 0)
-  %return558 = call double @"getcomp@F2II"(<4 x double> %_m2555, i64 0, i64 1)
-  %return559 = call <2 x double> @"set@UFF"(double %return556, double %return558)
-  %tmp560 = load %gem, %gem* %this
-  %99 = insertvalue %gem %tmp560, <2 x double> %return559, 47
-  %return562 = call double @"getcomp@F2II"(<4 x double> %_m2555, i64 1, i64 0)
-  %return564 = call double @"getcomp@F2II"(<4 x double> %_m2555, i64 1, i64 1)
-  %return565 = call <2 x double> @"set@UFF"(double %return562, double %return564)
-  %100 = insertvalue %gem %99, <2 x double> %return565, 48
-  store %gem %100, %gem* %this
-  br label %end547
-
-false546:                                         ; preds = %true539
-  %101 = insertvalue %gem %97, <2 x double> %return548, 47
-  %return569 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @54, i64 0, i64 0))
-  %102 = insertvalue %gem %101, <2 x double> %return569, 48
-  store %gem %102, %gem* %this
-  br label %end547
-
-end547:                                           ; preds = %false546, %true545
-  %return571 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @55, i64 0, i64 0))
-  %tmp572 = load %gem, %gem* %this
-  %103 = insertvalue %gem %tmp572, <2 x double> %return571, 49
-  store %gem %103, %gem* %this
-  br label %end458
+  br label %end425
 }
 
 ; Function Attrs: nounwind readnone
