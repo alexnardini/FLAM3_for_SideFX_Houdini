@@ -34,8 +34,8 @@ import webbrowser
 
 DPT = "*"
 PRM = "..."
-PRX_FF_PRM = "ff_"
-PRX_FF_PRM_POST = "fp1_"
+PRX_FF_PRM = "ff"
+PRX_FF_PRM_POST = "fp1"
 SEC_MAIN = ".main"
 SEC_XAOS = ".xaos"
 SEC_SHADER = ".shader"
@@ -249,18 +249,18 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         self.varsPRM[24], 
                         self.varsPRM[25], 
                         self.varsPRM[26], 
-                        [self.varsPRM[27][0], [f"{self.prx}{self.varsPRM[27][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[28][0], [f"{self.prx}{self.varsPRM[28][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[29][0], [f"{self.prx}{self.varsPRM[29][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[30][0], [f"{self.prx}{self.varsPRM[30][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[31][0], [f"{self.prx}{self.varsPRM[31][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[32][0], [f"{self.prx}{self.varsPRM[32][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[27][0], [f"{self.prx}_{self.varsPRM[27][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[28][0], [f"{self.prx}_{self.varsPRM[28][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[29][0], [f"{self.prx}_{self.varsPRM[29][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[30][0], [f"{self.prx}_{self.varsPRM[30][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[31][0], [f"{self.prx}_{self.varsPRM[31][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[32][0], [f"{self.prx}_{self.varsPRM[32][1][0][:-1]}", 1], 1], 
                         [self.varsPRM[33][0], 0], 
-                        [self.varsPRM[34][0], [f"{self.prx}{self.varsPRM[34][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[35][0], [f"{self.prx}{self.varsPRM[35][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[36][0], [f"{self.prx}{self.varsPRM[36][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[37][0], [f"{self.prx}{self.varsPRM[37][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[38][0], [f"{self.prx}{self.varsPRM[38][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[34][0], [f"{self.prx}_{self.varsPRM[34][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[35][0], [f"{self.prx}_{self.varsPRM[35][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[36][0], [f"{self.prx}_{self.varsPRM[36][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[37][0], [f"{self.prx}_{self.varsPRM[37][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[38][0], [f"{self.prx}_{self.varsPRM[38][1][0][:-1]}", 1], 1], 
                         [self.varsPRM[39][0], 0], 
                         [self.varsPRM[40][0], 0], 
                         [self.varsPRM[41][0], 0], 
@@ -269,39 +269,39 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         [self.varsPRM[44][0], 0], 
                         [self.varsPRM[45][0], 0], 
                         [self.varsPRM[46][0], 0], 
-                        [self.varsPRM[47][0], [f"{self.prx}{self.varsPRM[47][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[48][0], [f"{self.prx}{self.varsPRM[48][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[48][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[49][0], [f"{self.prx}{self.varsPRM[49][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[50][0], [f"{self.prx}{self.varsPRM[50][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[51][0], [f"{self.prx}{self.varsPRM[51][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[52][0], [f"{self.prx}{self.varsPRM[52][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[53][0], [f"{self.prx}{self.varsPRM[53][1][0][:-1]}", 0], 1],
+                        [self.varsPRM[47][0], [f"{self.prx}_{self.varsPRM[47][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[48][0], [f"{self.prx}_{self.varsPRM[48][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[48][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[49][0], [f"{self.prx}_{self.varsPRM[49][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[50][0], [f"{self.prx}_{self.varsPRM[50][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[51][0], [f"{self.prx}_{self.varsPRM[51][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[52][0], [f"{self.prx}_{self.varsPRM[52][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[53][0], [f"{self.prx}_{self.varsPRM[53][1][0][:-1]}", 0], 1],
                         [self.varsPRM[54][0], 0],
                         [self.varsPRM[55][0], 0], 
-                        [self.varsPRM[56][0], [f"{self.prx}{self.varsPRM[56][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[57][0], [f"{self.prx}{self.varsPRM[57][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[56][0], [f"{self.prx}_{self.varsPRM[56][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[57][0], [f"{self.prx}_{self.varsPRM[57][1][0][:-1]}", 1], 1], 
                         [self.varsPRM[58][0], 0], 
                         [self.varsPRM[59][0], 0], 
                         [self.varsPRM[60][0], 0], 
-                        [self.varsPRM[61][0], [f"{self.prx}{self.varsPRM[61][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[61][0], [f"{self.prx}_{self.varsPRM[61][1][0][:-1]}", 0], 1], 
                         [self.varsPRM[62][0], 0], 
-                        [self.varsPRM[63][0], [f"{self.prx}{self.varsPRM[63][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[63][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[63][0], [f"{self.prx}_{self.varsPRM[63][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[63][2][0][:-1]}", 1], 1], 
                         [self.varsPRM[64][0], 0], 
                         [self.varsPRM[65][0], 0], 
-                        [self.varsPRM[66][0], [f"{self.prx}{self.varsPRM[66][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[67][0], [f"{self.prx}{self.varsPRM[67][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[66][0], [f"{self.prx}_{self.varsPRM[66][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[67][0], [f"{self.prx}_{self.varsPRM[67][1][0][:-1]}", 1], 1], 
                         [self.varsPRM[68][0], 0], 
-                        [self.varsPRM[69][0], [f"{self.prx}{self.varsPRM[69][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[69][2][0][:-1]}", 0], 1], 
+                        [self.varsPRM[69][0], [f"{self.prx}_{self.varsPRM[69][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[69][2][0][:-1]}", 0], 1], 
                         [self.varsPRM[70][0], 0], 
-                        [self.varsPRM[71][0], [f"{self.prx}{self.varsPRM[71][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[71][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[72][0], [f"{self.prx}{self.varsPRM[72][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[73][0], [f"{self.prx}{self.varsPRM[73][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[74][0], [f"{self.prx}{self.varsPRM[74][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[75][0], [f"{self.prx}{self.varsPRM[75][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[76][0], [f"{self.prx}{self.varsPRM[76][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[77][0], [f"{self.prx}{self.varsPRM[77][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[78][0], [f"{self.prx}{self.varsPRM[78][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[79][0], [f"{self.prx}{self.varsPRM[79][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[79][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[71][0], [f"{self.prx}_{self.varsPRM[71][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[71][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[72][0], [f"{self.prx}_{self.varsPRM[72][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[73][0], [f"{self.prx}_{self.varsPRM[73][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[74][0], [f"{self.prx}_{self.varsPRM[74][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[75][0], [f"{self.prx}_{self.varsPRM[75][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[76][0], [f"{self.prx}_{self.varsPRM[76][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[77][0], [f"{self.prx}_{self.varsPRM[77][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[78][0], [f"{self.prx}_{self.varsPRM[78][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[79][0], [f"{self.prx}_{self.varsPRM[79][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[79][2][0][:-1]}", 1], 1], 
                         [self.varsPRM[80][0], 0], 
                         [self.varsPRM[81][0], 0], 
                         [self.varsPRM[82][0], 0], 
@@ -316,14 +316,14 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         [self.varsPRM[91][0], 0], 
                         [self.varsPRM[92][0], 0], 
                         [self.varsPRM[93][0], 0], 
-                        [self.varsPRM[94][0], [f"{self.prx}{self.varsPRM[94][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[95][0], [f"{self.prx}{self.varsPRM[95][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[96][0], [f"{self.prx}{self.varsPRM[96][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[96][2][0][:-1]}", 1], 1],
-                        [self.varsPRM[97][0], [f"{self.prx}{self.varsPRM[97][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[97][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[98][0], [f"{self.prx}{self.varsPRM[98][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[99][0], [f"{self.prx}{self.varsPRM[99][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[99][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[94][0], [f"{self.prx}_{self.varsPRM[94][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[95][0], [f"{self.prx}_{self.varsPRM[95][1][0][:-1]}", 0], 1], 
+                        [self.varsPRM[96][0], [f"{self.prx}_{self.varsPRM[96][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[96][2][0][:-1]}", 1], 1],
+                        [self.varsPRM[97][0], [f"{self.prx}_{self.varsPRM[97][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[97][2][0][:-1]}", 1], 1], 
+                        [self.varsPRM[98][0], [f"{self.prx}_{self.varsPRM[98][1][0][:-1]}", 1], 1], 
+                        [self.varsPRM[99][0], [f"{self.prx}_{self.varsPRM[99][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[99][2][0][:-1]}", 1], 1], 
                         [self.varsPRM[100][0], 0], 
-                        [self.varsPRM[101][0], [f"{self.prx}{self.varsPRM[101][1][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[101][2][0][:-1]}", 1], [f"{self.prx}{self.varsPRM[101][3][0][:-1]}", 1], 1] )
+                        [self.varsPRM[101][0], [f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1], 1] )
         
         return varsPRM_FF
 
@@ -335,23 +335,20 @@ class flam3_iterator_FF:
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
         plus the string "ff" added at the beginning of their names.
-        If you create new parameters insde the FF, or change the parameters names inside the flam3 iterator,
+        If you create new parameters inside the FF, or change the parameters names inside the flam3 iterator,
         please be sure to follow the same nameing convetion so to keep the flam3_varsPRM: class as the only source for their names.
-
-        "PRX_FF_PRM" is the parametric parameter's prefix, so we use that and strip out the ending underscore: f"{PRX_FF_PRM[:-1]}
-        The prefix for the FF parametric parameters is "ff_"
     """    
     iter = flam3_iterator()
 
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-    sec_varsT_FF = [ f"{PRX_FF_PRM[:-1]}{iter.sec_varsT[0][:-1]}", f"{PRX_FF_PRM[:-1]}{iter.sec_varsT[1][:-1]}", f"{PRX_FF_PRM[:-1]}{iter.sec_varsT[2][:-1]}" ]
-    sec_varsW_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_varsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}{iter.sec_varsW[1][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}{iter.sec_varsW[2][0][:-1]}", 0] ]
-    sec_postvarsT_FF = [ f"{PRX_FF_PRM[:-1]}{iter.sec_postvarsT[0][:-1]}", f"{PRX_FF_PRM[:-1]}p2type" ]
-    sec_postvarsW_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_postvarsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}p2weight", 0] ]
-    sec_preAffine_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[0][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_preAffine[3][0][:-1]}", 0] ]
-    sec_postAffine_FF = [ [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[0][0][:-1]}", 0], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[3][0][:-1]}", 1], [f"{PRX_FF_PRM[:-1]}{iter.sec_postAffine[4][0][:-1]}", 0] ]
+    sec_varsT_FF = [ f"{PRX_FF_PRM}{iter.sec_varsT[0][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[1][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[2][:-1]}" ]
+    sec_varsW_FF = [ [f"{PRX_FF_PRM}{iter.sec_varsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM}{iter.sec_varsW[1][0][:-1]}", 0], [f"{PRX_FF_PRM}{iter.sec_varsW[2][0][:-1]}", 0] ]
+    sec_postvarsT_FF = [ f"{PRX_FF_PRM}{iter.sec_postvarsT[0][:-1]}", f"{PRX_FF_PRM}p2type" ]
+    sec_postvarsW_FF = [ [f"{PRX_FF_PRM}{iter.sec_postvarsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM}p2weight", 0] ]
+    sec_preAffine_FF = [ [f"{PRX_FF_PRM}{iter.sec_preAffine[0][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_preAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_preAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_preAffine[3][0][:-1]}", 0] ]
+    sec_postAffine_FF = [ [f"{PRX_FF_PRM}{iter.sec_postAffine[0][0][:-1]}", 0], [f"{PRX_FF_PRM}{iter.sec_postAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_postAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_postAffine[3][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_postAffine[4][0][:-1]}", 0] ]
     
     
     # ALL method lists

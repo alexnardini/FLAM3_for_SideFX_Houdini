@@ -39,7 +39,6 @@ struct gem{
         // SYS
         TM   = chi("../dotm");
         FF   = chi("../doff");
-        PFF  = chi("../dofp");
         RIP  = chi("../rip");
         SM   = chi("../sm");
         MB   = chi("../domb");
@@ -140,6 +139,7 @@ struct gem{
             fy = set(_m2.yx, _m2.yy);
             fo = chu("../ffo");
             // FF POST AFFINE
+            PFF  = chi("../ffdopost");
             if(PFF){
                 _x = chu("../ffpx");;
                 _y = chu("../ffpy");;
