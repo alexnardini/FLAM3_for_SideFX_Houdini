@@ -938,7 +938,7 @@ def flam3_on_create(kwargs: dict) -> None:
     except:
         hou.session.flam3node_FF_check = -1
 
-    # INITIALIZE flam3 Color Scheme
+    # Initialize flam3 viewport Color Scheme
     try:
         hou.session.flam3_CS
     except:
