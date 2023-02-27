@@ -11,7 +11,7 @@ import webbrowser
 '''  
 #   Title:      SideFX Houdini FLAM3: 2D
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised January 2023
+#   date:       January 2023, Last revised February 2023
 #
 #   info:       Based on the original: "The Fractal Flame Algorithm"
 #   Authors:    Scott Draves, Erik Reckase
