@@ -143,12 +143,18 @@ struct gem{
             fp2w = chf("../ffp2weight");
             if(fp2w >0) fp2t = chi("../ffp2type");
             // FF AFFINE
-            _x = chu("../ffx");
-            _y = chu("../ffy");
             _a = chf("../ffang");
-            affineRot(_m2, _x, _y, -radians(_a));
-            fx = set(_m2.xx, _m2.xy);
-            fy = set(_m2.yx, _m2.yy);
+            if(_a!=0){
+                _x = chu("../ffx");
+                _y = chu("../ffy");
+                affineRot(_m2, _x, _y, -radians(_a));
+                fx = set(_m2.xx, _m2.xy);
+                fy = set(_m2.yx, _m2.yy);
+            }
+            else{
+                fx = chu("../ffx");
+                fy = chu("../ffy");
+            }
             fo = chu("../ffo");
             // FF POST AFFINE
             PFF = chi("../ffdopost");
