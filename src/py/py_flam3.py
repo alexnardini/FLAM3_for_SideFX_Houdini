@@ -46,6 +46,7 @@ SEC_PREAFFINE = ".pre_affine"
 SEC_POSTAFFINE = ".post_affine"
 RAMP_SRC_NAME = "palette"
 RAMP_HSV_NAME = "palettehsv"
+RAMP_HSV_VAL_NAME = "hsv"
 
 
 
@@ -158,13 +159,22 @@ class flam3_varsPRM:
                 [f"polynomial{PRM}", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
 
 
+    def vars_all(self) -> list:
+        """
+        Returns:
+            list: [return a list of all the variation names properly ordered as per flame*.h files]
+        """
+
+        return list(map(lambda x: x[0], self.varsPRM))
+
+
     def menu_vars_all(self) -> list:
         """
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience]
         """        
 
-        vars = list(map(lambda x: x[0], self.varsPRM))
+        vars = self.vars_all()
         vars_no_lin = list(enumerate(vars))[1:]
         vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
         vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
@@ -334,7 +344,7 @@ class flam3_varsPRM_FF(flam3_varsPRM):
 class flam3_iterator_FF:
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
-        plus the string "ff" added at the beginning of their names.
+        plus the string "ff" added at the beginning of their names. parametric variation's parameters have the string  "ff_" instead.
         If you create new parameters inside the FF, or change the parameters names inside the flam3 iterator,
         please be sure to follow the same nameing convetion so to keep the flam3_varsPRM: class as the only source for their names.
     """    
@@ -1087,7 +1097,7 @@ def palette_hsv(self: hou.Node) -> None:
     """    
     rmphsv = self.parm(RAMP_HSV_NAME)
     rmpsrc = self.parm(RAMP_SRC_NAME)
-    hsvprm = self.parmTuple('palettehsv_')
+    hsvprm = self.parmTuple(RAMP_HSV_VAL_NAME)
     hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
     
     rgb = []
@@ -1174,7 +1184,7 @@ def flam3_default(self: hou.Node) -> None:
 
     # CP
     self.setParms({"filepath": ""})
-    self.setParms({"palettehsv_": hou.Vector3((0.0, 1.0, 1.0))})
+    self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
     # CP->ramp
     ramp_parm = self.parm(RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
