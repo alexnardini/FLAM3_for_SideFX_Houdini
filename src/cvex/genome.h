@@ -139,7 +139,7 @@ struct gem{
             fy = set(_m2.yx, _m2.yy);
             fo = chu("../ffo");
             // FF POST AFFINE
-            PFF  = chi("../ffdopost");
+            PFF = chi("../ffdopost");
             if(PFF){
                 _x = chu("../ffpx");;
                 _y = chu("../ffpy");;
