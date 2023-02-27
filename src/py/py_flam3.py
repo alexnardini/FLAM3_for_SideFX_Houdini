@@ -938,7 +938,11 @@ def flam3_on_create(kwargs: dict) -> None:
     except:
         hou.session.flam3node_FF_check = -1
 
-
+    # INITIALIZE flam3 Color Scheme
+    try:
+        hou.session.flam3_CS
+    except:
+        hou.session.flam3_CS = []
 
 
 
@@ -1124,6 +1128,62 @@ def palette_lock(self: hou.Node) -> None:
     """    
     palette_cp(self)
     palette_hsv(self)
+
+
+
+
+
+###############################################################################################
+# Color scheme dark ( and remember the current color scheme if not dark )
+###############################################################################################
+def FLAM3_colorSchemeDark(self):
+    
+    try:
+        module_test = hou.session.flam3_CS;
+    except:
+        hou.session.flam3_CS = []
+        
+    views = hou.ui.paneTabs()
+    viewers = []
+    viewers_col = []
+    for v in views:
+        if isinstance(v, hou.SceneViewer):
+            viewers.append(v)
+    count = 0
+    for view in viewers:
+        sett = view.curViewport().settings()
+        col = str(sett.colorScheme()).split('.')[1]
+        viewers_col.append(col)
+        try:
+            idx_test = hou.session.flam3_CS[count]
+        except:
+            if len(hou.session.flam3_CS) > 0:
+                hou.session.flam3_CS.append(viewers_col)
+            else:
+                hou.session.flam3_CS = [];
+                hou.session.flam3_CS.append(viewers_col)
+        if self.parm("setdark").eval():
+            if len(hou.session.flam3_CS) == 0:
+                if col == "Light" or col == "Grey":
+                    sett.setColorScheme(hou.viewportColorScheme.Dark)
+            else:
+                if col == "Light" or col ==  "Grey":
+                    sett.setColorScheme(hou.viewportColorScheme.Dark)
+                if col == "Dark" and hou.session.flam3_CS[count] != "Dark":
+                    if hou.session.flam3_CS[count] == "Light":
+                        sett.setColorScheme(hou.viewportColorScheme.Light)
+                    if hou.session.flam3_CS[count] == "Grey":
+                        sett.setColorScheme(hou.viewportColorScheme.Grey)
+        if self.parm("setdark").eval() == 0:
+            if col == "Dark" and hou.session.flam3_CS[count] != "Dark":
+                if hou.session.flam3_CS[count] == "Light":
+                    sett.setColorScheme(hou.viewportColorScheme.Light)
+                if hou.session.flam3_CS[count] == "Grey":
+                    sett.setColorScheme(hou.viewportColorScheme.Grey)
+        count += 1
+    # Update history
+    hou.session.flam3_CS = []
+    hou.session.flam3_CS = viewers_col
 
 
 
