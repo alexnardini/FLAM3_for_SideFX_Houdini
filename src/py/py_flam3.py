@@ -1137,7 +1137,7 @@ def palette_lock(self: hou.Node) -> None:
 # Color scheme dark ( and remember the current color scheme if not dark )
 ###############################################################################################
 def FLAM3_colorSchemeDark(self):
-    
+
     try:
         module_test = hou.session.flam3_CS;
     except:
@@ -1169,16 +1169,16 @@ def FLAM3_colorSchemeDark(self):
             else:
                 if col == "Light" or col ==  "Grey":
                     sett.setColorScheme(hou.viewportColorScheme.Dark)
-                if col == "Dark" and hou.session.flam3_CS[count] != "Dark":
+                elif col == "Dark" and hou.session.flam3_CS[count] != "Dark":
                     if hou.session.flam3_CS[count] == "Light":
                         sett.setColorScheme(hou.viewportColorScheme.Light)
-                    if hou.session.flam3_CS[count] == "Grey":
+                    elif hou.session.flam3_CS[count] == "Grey":
                         sett.setColorScheme(hou.viewportColorScheme.Grey)
         if self.parm("setdark").eval() == 0:
             if col == "Dark" and hou.session.flam3_CS[count] != "Dark":
                 if hou.session.flam3_CS[count] == "Light":
                     sett.setColorScheme(hou.viewportColorScheme.Light)
-                if hou.session.flam3_CS[count] == "Grey":
+                elif hou.session.flam3_CS[count] == "Grey":
                     sett.setColorScheme(hou.viewportColorScheme.Grey)
         count += 1
     # Update history
