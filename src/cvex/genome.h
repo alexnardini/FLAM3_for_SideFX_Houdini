@@ -90,22 +90,34 @@ struct gem{
             p1w[i] = chf(concat("../p1weight_", idx));
             if(p1w[i] >0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
             // AFFINE
-            _x = chu(concat("../x_", idx));
-            _y = chu(concat("../y_", idx));
             _a = chf(concat("../ang_", idx));
-            affineRot(_m2, _x, _y, -radians(_a));
-            x[i] = set(_m2.xx, _m2.xy);
-            y[i] = set(_m2.yx, _m2.yy);
+            if(_a!=0){
+                _x = chu(concat("../x_", idx));
+                _y = chu(concat("../y_", idx));
+                affineRot(_m2, _x, _y, -radians(_a));
+                x[i] = set(_m2.xx, _m2.xy);
+                y[i] = set(_m2.yx, _m2.yy);
+            }
+            else{
+                x[i] = chu(concat("../x_", idx));
+                y[i] = chu(concat("../y_", idx));
+            }
             o[i] = chu(concat("../o_", idx));
             // POST AFFINE
             PPL[i] = chi(concat("../dopost_", idx));
             if(PPL[i]){
-                _x = chu(concat("../px_", idx));
-                _y = chu(concat("../py_", idx));
                 _a = chf(concat("../pang_", idx));
-                affineRot(_m2, _x, _y, -radians(_a));
-                px[i] = set(_m2.xx, _m2.xy);
-                py[i] = set(_m2.yx, _m2.yy);
+                if(_a!=0){
+                    _x = chu(concat("../px_", idx));
+                    _y = chu(concat("../py_", idx));
+                    affineRot(_m2, _x, _y, -radians(_a));
+                    px[i] = set(_m2.xx, _m2.xy);
+                    py[i] = set(_m2.yx, _m2.yy);
+                }
+                else{
+                    px[i] = chu(concat("../px_", idx));
+                    py[i] = chu(concat("../py_", idx));
+                }
                 po[i] = chu(concat("../po_", idx));
             }
         }
@@ -131,8 +143,8 @@ struct gem{
             fp2w = chf("../ffp2weight");
             if(fp2w >0) fp2t = chi("../ffp2type");
             // FF AFFINE
-            _x = chu("../ffx");;
-            _y = chu("../ffy");;
+            _x = chu("../ffx");
+            _y = chu("../ffy");
             _a = chf("../ffang");
             affineRot(_m2, _x, _y, -radians(_a));
             fx = set(_m2.xx, _m2.xy);
@@ -141,12 +153,18 @@ struct gem{
             // FF POST AFFINE
             PFF = chi("../ffdopost");
             if(PFF){
-                _x = chu("../ffpx");;
-                _y = chu("../ffpy");;
                 _a = chf("../ffpang");
-                affineRot(_m2, _x, _y, -radians(_a));
-                pfx = set(_m2.xx, _m2.xy);
-                pfy = set(_m2.yx, _m2.yy);
+                if(_a!=0){
+                    _x = chu("../ffpx");
+                    _y = chu("../ffpy");
+                    affineRot(_m2, _x, _y, -radians(_a));
+                    pfx = set(_m2.xx, _m2.xy);
+                    pfy = set(_m2.yx, _m2.yy);
+                }
+                else{
+                    pfx = chu("../ffpx");
+                    pfy = chu("../ffpy");
+                }
                 pfo = chu("../ffpo");
             }
         }
