@@ -1136,7 +1136,7 @@ def palette_lock(self: hou.Node) -> None:
 ###############################################################################################
 # Color scheme dark ( and remember the current color scheme if not dark )
 ###############################################################################################
-def FLAM3_colorSchemeDark(self):
+def flam3_colorSchemeDark(self):
 
     try:
         module_test = hou.session.flam3_CS;
@@ -1184,6 +1184,33 @@ def FLAM3_colorSchemeDark(self):
     # Update history
     hou.session.flam3_CS = []
     hou.session.flam3_CS = viewers_col
+
+
+
+
+
+###############################################################################################
+# set viewport particle display. ( Points or Pixels )
+###############################################################################################
+def flam3_viewportParticleDisplay(self):
+
+    pttype = self.parm("vptype").evalAsInt()
+    ptsize = self.parm("vpptsize").evalAsFloat()
+
+    views = hou.ui.paneTabs()
+    viewers = []
+
+    for v in views:
+        if isinstance(v, hou.SceneViewer):
+            viewers.append(v)
+
+    for view in viewers:
+        sett = view.curViewport().settings()
+        if pttype == 0:
+            sett.particleDisplayType(hou.viewportParticleDisplay.Points)
+            sett.particlePointSize(ptsize)
+        elif pttype == 1:
+            sett.particleDisplayType(hou.viewportParticleDisplay.Pixels)
 
 
 
