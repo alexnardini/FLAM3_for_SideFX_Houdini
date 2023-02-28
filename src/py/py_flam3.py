@@ -1136,7 +1136,7 @@ def palette_lock(self: hou.Node) -> None:
 ###############################################################################################
 # Color scheme dark ( and remember the current color scheme if not dark )
 ###############################################################################################
-def flam3_colorSchemeDark(self):
+def flam3_colorSchemeDark(self: hou.Node) -> None:
 
     try:
         module_test = hou.session.flam3_CS;
@@ -1192,7 +1192,7 @@ def flam3_colorSchemeDark(self):
 ###############################################################################################
 # set viewport particle display. ( Points or Pixels )
 ###############################################################################################
-def flam3_viewportParticleDisplay(self):
+def flam3_viewportParticleDisplay(self: hou.Node) -> None:
 
     pttype = self.parm("vptype").evalAsInt()
     ptsize = self.parm("vpptsize").evalAsFloat()
