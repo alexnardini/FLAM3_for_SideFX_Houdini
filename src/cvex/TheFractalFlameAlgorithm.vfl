@@ -39,7 +39,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
 {
     
     int idx, TM, FF, RIP, SM, iter, smm, MB;
-    float pscl, clr, prv_clr, a; prv_clr=0; pscl=PSCL; float mbm=1.0;
+    float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp;
     // SYS
     TM   = _bound_SYS[0];
