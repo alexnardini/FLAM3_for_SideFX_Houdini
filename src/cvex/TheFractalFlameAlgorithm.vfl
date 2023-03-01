@@ -48,8 +48,6 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     SM   = _bound_SYS[3];
     MB   = _bound_SYS[4];
     iter = _bound_SYS[5];
-    smm  = _bound_SYS[6];
-    if(MB) mbm=detail(1, "Tstep_mult", 0);
     // Build genomes
     string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(sIDX, TM, FF);
@@ -129,8 +127,8 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     else{
         
         pscl*=a;
-        if(SM) V_SYM(mem, smm);
-        if(MB){ pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
+        if(SM) V_SYM(mem, _bound_SYS[6]);
+        if(MB){ mbm=detail(1, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
         // OUT
         _bound_P=(vector)mem;
         _bound_clr=clr;
