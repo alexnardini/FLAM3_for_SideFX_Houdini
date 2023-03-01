@@ -28,8 +28,22 @@
 
 
 void
-_TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
+_TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], _bound_XST[])
 {
+    
+    // SYS
+    int TM, FF, RIP, SM, iter, smm, MB;
+    TM   = chi("../dotm");
+    FF   = chi("../doff");
+    RIP  = chi("../rip");
+    SM   = chi("../sm");
+    MB   = chi("../domb");
+    iter = chi("../iter");
+    if(SM) smm = chi("../smrot");
+    _bound_SYS = array(TM, FF, RIP, SM, MB, iter, smm);
+
+    
+    
     int inum = chi("../flamefunc");
     int va[];
     float IW[];
@@ -117,9 +131,10 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_XS; float _bound_IW[], _bound_XST[])
 
 cvex
 TFFAxaos( export string sIDX[] = {};
+          export int    SYS[]  = {};
           export int    XS     = 0;
           export float  IW[]   = {};
           export float  XST[]  = {}; )
 {
-    _TFFAxaos(sIDX, XS, IW, XST);
+    _TFFAxaos(sIDX, SYS, XS, IW, XST);
 }

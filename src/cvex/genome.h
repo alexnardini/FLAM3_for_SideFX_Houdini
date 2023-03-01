@@ -27,23 +27,22 @@
 // GENOME
 struct gem{
 
-    int     TM, FF, PFF, RIP, SM, iter, smm, MB,
+    int     PFF, TM, FF, RIP, SM, /*iter,*/ smm, MB,
             res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], fv1t, fv2t, fv3t, fp1t, fp2t;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], pbw[], ppw[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w, fp2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
     float   mbm=1.0;
     
-    void gemBuild(const string sIDX[]){
+    void gemBuild(const string sIDX[]; const int SYS[]){
 
         // SYS
-        TM   = chi("../dotm");
-        FF   = chi("../doff");
-        RIP  = chi("../rip");
-        SM   = chi("../sm");
-        MB   = chi("../domb");
-        iter = chi("../iter");
-        if(SM) smm = chi("../smrot");
+        TM  = SYS[0];
+        FF  = SYS[1];
+        RIP = SYS[2];
+        SM  = SYS[3];
+        MB  = SYS[4];
+        if(SM) smm = SYS[6];
         if(MB) mbm = detail(1, "Tstep_mult", 0);
 
         // GENOME

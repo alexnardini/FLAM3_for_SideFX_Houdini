@@ -35,17 +35,17 @@
 #include <flamepp.h>
 #include <flameff.h>
 
-void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
+void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
-    int     idx;
+    int     idx; int SYS[] = _bound_SYS;
     float   pscl, clr, prv_clr, a; prv_clr=0; pscl=PSCL;
     vector2 tmp;
     // Build genomes
     string sIDX[]=_bound_sIDX;
-    gem GEM; GEM->gemBuild(sIDX);
+    gem GEM; GEM->gemBuild(sIDX, SYS);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], res, iter, TM, FF, PFF, RIP, SM, MB, smm; /* CAST */ res=GEM.res; iter=GEM.iter; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; ppt=GEM.ppt; PPL=GEM.PPL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; smm=GEM.smm;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], res, iter, TM, FF, PFF, RIP, SM, MB, smm; /* CAST */ res=GEM.res; iter= SYS[5]; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; ppt=GEM.ppt; PPL=GEM.PPL; TM=GEM.TM; FF=GEM.FF; PFF=GEM.PFF; RIP=GEM.RIP; SM=GEM.SM; MB=GEM.MB; smm=GEM.smm;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], pbw[], ppw[], _CLR[], OM[], A[], mbm; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A; mbm=GEM.mbm;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast TM
@@ -132,6 +132,7 @@ void _FLAM3(const string _bound_sIDX[]; int _bound_ptnum; const int _bound_XS; c
 
 cvex
 FLAM3(  const  string sIDX[] = {};
+        const  int    SYS[]  = {};
         export int    ptnum  = 0;
         const  int    XS     = 0;
         const  float  IW[]   = {};
@@ -141,5 +142,5 @@ FLAM3(  const  string sIDX[] = {};
         export float  Alpha  = 0;
 	    export vector P      = 0)
 {
-    _FLAM3(sIDX, ptnum, XS, IW, XST, pscale, clr, Alpha, P);
+    _FLAM3(sIDX, SYS, ptnum, XS, IW, XST, pscale, clr, Alpha, P);
 }
