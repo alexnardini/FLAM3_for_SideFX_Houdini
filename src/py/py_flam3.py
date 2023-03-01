@@ -342,7 +342,7 @@ class flam3_varsPRM_FF(flam3_varsPRM):
 
 
 
-class flam3_iterator_FF:
+class flam3_iterator_FF():
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
         plus the string "ff" added at the beginning of their names. parametric variation's parameters have the string  "ff_" instead.
