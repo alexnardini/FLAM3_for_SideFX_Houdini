@@ -1423,6 +1423,11 @@ def iteratorCountZero(self: hou.Node) -> None:
         
         #prefs
         self.setParms({"showprefs": 1})
+        #self.setParms({"xm": 0})
+        self.setParms({"camhandle": 0})
+        self.setParms({"camcull": 0})
+        #self.setParms({"fcam": ""})
+        #self.setParms({"cullamount": 0.99})
 
 
 
