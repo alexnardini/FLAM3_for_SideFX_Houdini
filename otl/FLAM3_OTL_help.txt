@@ -503,6 +503,20 @@ cam:
 amount:
     #id: prefs
     Culling amount.
+    
+dark:
+    #id: prefs
+    Set viewports color scheme to dark if not already.
+    It will remember the color scheme of all the viewports and revert back to it if unchecked.
+    If a viewport is already using a dark color scheme, checking this option will do nothing.
+    
+type:
+    #id: prefs
+    Set viewports particle display mode to either Points or Pixels.
+    
+size:
+    #id: prefs
+    When viewport particle display is set to Points, this will control their size in the viewport.
         
 == Variations infos ==
 
