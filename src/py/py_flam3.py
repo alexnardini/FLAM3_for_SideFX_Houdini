@@ -1371,7 +1371,7 @@ def iteratorCountZero(self: hou.Node) -> None:
     """
     Args:
         self (hou.Node): [current hou.Node]
-    """    
+    """
 
     if not self.parm("flamefunc").evalAsInt():
 
