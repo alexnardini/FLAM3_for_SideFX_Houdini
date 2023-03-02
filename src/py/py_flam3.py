@@ -1136,7 +1136,7 @@ def palette_lock(self: hou.Node) -> None:
 ###############################################################################################
 # Color scheme dark ( and remember the current color scheme if not dark )
 ###############################################################################################
-def flam3_colorSchemeDark(self: hou.Node) -> None:
+def colorSchemeDark(self: hou.Node) -> None:
 
     try:
         module_test = hou.session.flam3_CS;
@@ -1192,7 +1192,7 @@ def flam3_colorSchemeDark(self: hou.Node) -> None:
 ###############################################################################################
 # set viewport particle display. ( Points or Pixels )
 ###############################################################################################
-def flam3_viewportParticleDisplay(self: hou.Node) -> None:
+def viewportParticleDisplay(self: hou.Node) -> None:
 
     pttype = self.parm("vptype").evalAsInt()
     ptsize = self.parm("vpptsize").evalAsFloat()
@@ -1359,6 +1359,70 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{flam3_iterator.sec_preAffine[2][0]}3": hou.Vector2((0.29575, 0.0))})
 
     #######################################################################
+
+
+
+
+
+###############################################################################################
+# Parameters reset if iterators count is set to ZERO.
+###############################################################################################
+def iteratorCountZero(self: hou.Node) -> None:
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
+
+    if not self.parm("flamefunc").evalAsInt():
+
+        # delete channel references
+        for p in self.parms():
+            p.deleteAllKeyframes()
+
+        # SYS
+        self.setParms({"doff": 0})
+        self.setParms({"rip": 0})
+        
+        # TM
+        self.setParms({"dotm": 0})
+        self.setParms({"tmrt": 0})
+        
+        # FF vars
+        self.setParms({"ffnote": ""})
+        self.setParms({flam3_iterator_FF.sec_varsT_FF[0]: 0})
+        self.setParms({flam3_iterator_FF.sec_varsT_FF[1]: 0})
+        self.setParms({flam3_iterator_FF.sec_varsT_FF[2]: 0})
+        self.setParms({flam3_iterator_FF.sec_varsW_FF[0][0]: 1})
+        self.setParms({flam3_iterator_FF.sec_varsW_FF[1][0]: 0})
+        self.setParms({flam3_iterator_FF.sec_varsW_FF[2][0]: 0})
+        # FF post
+        self.setParms({flam3_iterator_FF.sec_postvarsT_FF[0]: 0})
+        self.setParms({flam3_iterator_FF.sec_postvarsT_FF[1]: 0})
+        self.setParms({flam3_iterator_FF.sec_postvarsW_FF[0][0]: 0})
+        self.setParms({flam3_iterator_FF.sec_postvarsW_FF[1][0]: 0})
+        # FF affine
+        self.setParms({flam3_iterator_FF.sec_preAffine_FF[0][0]: hou.Vector2((1.0, 0.0))})
+        self.setParms({flam3_iterator_FF.sec_preAffine_FF[1][0]: hou.Vector2((0.0, 1.0))})
+        self.setParms({flam3_iterator_FF.sec_preAffine_FF[2][0]: hou.Vector2((0.0, 0.0))})
+        self.setParms({flam3_iterator_FF.sec_preAffine_FF[3][0]: 0})
+        self.setParms({flam3_iterator_FF.sec_postAffine_FF[0][0]: 0})
+        self.setParms({flam3_iterator_FF.sec_postAffine_FF[1][0]: hou.Vector2((1.0, 0.0))})
+        self.setParms({flam3_iterator_FF.sec_postAffine_FF[2][0]: hou.Vector2((0.0, 1.0))})
+        self.setParms({flam3_iterator_FF.sec_postAffine_FF[3][0]: hou.Vector2((0.0, 0.0))})
+        self.setParms({flam3_iterator_FF.sec_postAffine_FF[4][0]: 0})
+
+        # SM
+        self.setParms({"sm": 0})
+        self.setParms({"smrot": 0})
+        
+        # MB
+        self.setParms({"domb": 0})
+        self.setParms({"fps": 24})
+        self.setParms({"mbsamples": 16})
+        self.setParms({"shutter": 0.5})
+        
+        #prefs
+        self.setParms({"showprefs": 1})
 
 
 
