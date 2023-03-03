@@ -1134,6 +1134,26 @@ def palette_lock(self: hou.Node) -> None:
 
 
 ###############################################################################################
+# Get scene viewers
+###############################################################################################
+def getSceneViewers() -> list:
+    """
+    Returns:
+        list: [return a list of open scene viewers]
+    """    
+    views = hou.ui.paneTabs()
+    viewers = []
+    viewers_col = []
+    for v in views:
+        if isinstance(v, hou.SceneViewer):
+            viewers.append(v)
+    return viewers
+
+
+
+
+
+###############################################################################################
 # Color scheme dark ( and remember the current color scheme if not dark )
 ###############################################################################################
 def colorSchemeDark(self: hou.Node) -> None:
@@ -1142,15 +1162,10 @@ def colorSchemeDark(self: hou.Node) -> None:
         module_test = hou.session.flam3_CS;
     except:
         hou.session.flam3_CS = []
-        
-    views = hou.ui.paneTabs()
-    viewers = []
-    viewers_col = []
-    for v in views:
-        if isinstance(v, hou.SceneViewer):
-            viewers.append(v)
+
     count = 0
-    for view in viewers:
+    viewers_col = []
+    for view in getSceneViewers():
         sett = view.curViewport().settings()
         col = str(sett.colorScheme()).split('.')[1]
         viewers_col.append(col)
@@ -1197,14 +1212,7 @@ def viewportParticleDisplay(self: hou.Node) -> None:
     pttype = self.parm("vptype").evalAsInt()
     ptsize = self.parm("vpptsize").evalAsFloat()
 
-    views = hou.ui.paneTabs()
-    viewers = []
-
-    for v in views:
-        if isinstance(v, hou.SceneViewer):
-            viewers.append(v)
-
-    for view in viewers:
+    for view in getSceneViewers():
         sett = view.curViewport().settings()
         if pttype == 0:
             sett.particleDisplayType(hou.viewportParticleDisplay.Points)
