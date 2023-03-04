@@ -616,7 +616,7 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
     """ 
     _current_note = node.parm(f"variter_{id}").evalAsString()
     _current_note_FF = node.parm("ffnote").evalAsString()
-    # s[s.find("(")+1:s.find(")")]
+
     if int_mode == 0:
         # If on the same FLAM3 node
         if node == flam3node:
