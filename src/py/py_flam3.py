@@ -56,108 +56,108 @@ class flam3_varsPRM:
 
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
     
-    varsPRM = ( ["linear", 0], 
-                ["sinusoidal", 0], 
-                ["spherical", 0], 
-                ["swirl", 0], 
-                ["horseshoe", 0], 
-                ["polar", 0], 
-                ["handkerchief", 0], 
-                ["heart", 0], 
-                ["disc", 0], 
-                ["spiral", 0], 
-                ["hiperbolic", 0], 
-                ["diamond", 0], 
-                ["ex", 0], 
-                ["julia", 0], 
-                ["bent", 0], 
-                [f"waves{DPT}", 0], 
-                ["fisheye", 0], 
-                [f"popcorn{DPT}", 0], 
-                ["exponential", 0], 
-                ["power", 0], 
-                ["cosine", 0], 
-                [f"rings{DPT}", 0], 
-                [f"fan{DPT}", 0], 
-                ["bubble", 0], 
-                ["cylinder", 0], 
-                ["eyefish", 0], 
-                ["blur", 0], 
-                [f"curl{PRM}", ["curlc_", 1], 1], 
-                [f"ngon{PRM}", ["ngon_", 1], 1], 
-                [f"pdj{PRM}", ["pdjw_", 1], 1], 
-                [f"blob{PRM}", ["blob_", 1], 1], 
-                [f"juliaN{PRM}", ["julian_", 1], 1], 
-                [f"juliascope{PRM}", ["juliascope_", 1], 1], 
-                ["gaussian", 0], 
-                [f"fan2{PRM}", ["fan2_", 1], 1], 
-                [f"rings2{PRM}", ["rings2val_", 0], 1], 
-                [f"rectangles{PRM}", ["rectangles_", 1], 1], 
-                [f"radialblur{PRM}", ["radialblur_", 1], 1], 
-                [f"pie{PRM}", ["pie_", 1], 1], 
-                ["arch", 0], 
-                ["tangent", 0], 
-                ["square", 0], 
-                ["rays", 0], 
-                ["blade", 0], 
-                ["secant2", 0], 
-                ["twintrian", 0], 
-                ["cross", 0], 
-                [f"disc2{PRM}", ["disc2_", 1], 1], 
-                [f"supershape{PRM}", ["supershape_", 1], ["supershapen_", 1], 1], 
-                [f"flower{PRM}", ["flower_", 1], 1], 
-                [f"conic{PRM}", ["conic_", 1], 1], 
-                [f"parabola{PRM}", ["parabola_", 1], 1], 
-                [f"bent2{PRM}", ["bent2xy_", 1], 1], 
-                [f"bipolar{PRM}", ["bipolarshift_", 0], 1],
-                ["boarders", 0],
-                ["butterfly", 0], 
-                [f"cell{PRM}", ["cellsize_", 0], 1], 
-                [f"cpow{PRM}", ["cpow_", 1], 1], 
-                ["edisc", 0], 
-                ["elliptic", 0], 
-                ["noise", 0], 
-                [f"escher{PRM}", ["escherbeta_", 0], 1], 
-                ["foci", 0], 
-                [f"lazysusan{PRM}", ["lazysusanxyz_", 1], ["lazysusan_", 1], 1], 
-                ["loonie", 0], 
-                ["pre blur", 0], 
-                [f"modulus{PRM}", ["modulusXYZ_", 1], 1], 
-                [f"oscope{PRM}", ["oscope_", 1], 1], 
-                ["polar2", 0], 
-                [f"popcorn2{PRM}", ["popcorn2xyz_", 1], ["popcorn2c_", 0], 1], 
-                ["scry", 0], 
-                [f"separation{PRM}", ["separationxyz_", 1], ["separationinsidexyz_", 1], 1], 
-                [f"split{PRM}", ["splitxyz_", 1], 1], 
-                [f"splits{PRM}", ["splitsxyz_", 1], 1], 
-                [f"stripes{PRM}", ["stripes_", 1], 1], 
-                [f"wedge{PRM}", ["wedge_", 1], 1], 
-                [f"wedgejulia{PRM}", ["wedgejulia_", 1], 1], 
-                [f"wedgesph{PRM}", ["wedgesph_", 1], 1], 
-                [f"whorl{PRM}", ["whorl_", 1], 1], 
-                [f"waves2{PRM}", ["waves2scalexyz_", 1], ["waves2freqxyz_", 1], 1], 
-                ["cothe exp", 0], 
-                ["cothe log", 0], 
-                ["cothe sin", 0], 
-                ["cothe cos", 0], 
-                ["cothe tan", 0], 
-                ["cothe sec", 0], 
-                ["cothe csc", 0], 
-                ["cothe cot", 0], 
-                ["cothe sinh", 0], 
-                ["cothe cosh", 0], 
-                ["cothe tanh", 0], 
-                ["cothe sech", 0], 
-                ["cothe csch", 0], 
-                ["cothe coth", 0], 
-                [f"auger{PRM}", ["auger_", 1], 1], 
-                [f"flux{PRM}", ["fluxspread_", 0], 1], 
-                [f"mobius{PRM}", ["mobiusre_", 1], ["mobiusim_", 1], 1],
-                [f"curve{PRM}", ["curvexyzlenght_", 1], ["curvexyzamp_", 1], 1], 
-                [f"persp{PRM}", ["persp_", 1], 1], 
-                [f"bwraps{PRM}", ["bwraps_", 1], ["bwrapstwist_", 1], 1], 
-                ["hemisphere", 0], 
-                [f"polynomial{PRM}", ["polynomialpow_", 1], ["polynomiallc_", 1], ["polynomialsc_", 1], 1] )
+    varsPRM = ( ("linear", 0), 
+                ("sinusoidal", 0), 
+                ("spherical", 0), 
+                ("swirl", 0), 
+                ("horseshoe", 0), 
+                ("polar", 0), 
+                ("handkerchief", 0), 
+                ("heart", 0), 
+                ("disc", 0), 
+                ("spiral", 0), 
+                ("hiperbolic", 0), 
+                ("diamond", 0), 
+                ("ex", 0), 
+                ("julia", 0), 
+                ("bent", 0), 
+                (f"waves{DPT}", 0), 
+                ("fisheye", 0), 
+                (f"popcorn{DPT}", 0), 
+                ("exponential", 0), 
+                ("power", 0), 
+                ("cosine", 0), 
+                (f"rings{DPT}", 0), 
+                (f"fan{DPT}", 0), 
+                ("bubble", 0), 
+                ("cylinder", 0), 
+                ("eyefish", 0), 
+                ("blur", 0), 
+                (f"curl{PRM}", ("curlc_", 1), 1), 
+                (f"ngon{PRM}", ("ngon_", 1), 1), 
+                (f"pdj{PRM}", ("pdjw_", 1), 1), 
+                (f"blob{PRM}", ("blob_", 1), 1), 
+                (f"juliaN{PRM}", ("julian_", 1), 1), 
+                (f"juliascope{PRM}", ("juliascope_", 1), 1), 
+                ("gaussian", 0), 
+                (f"fan2{PRM}", ("fan2_", 1), 1), 
+                (f"rings2{PRM}", ("rings2val_", 0), 1), 
+                (f"rectangles{PRM}", ("rectangles_", 1), 1), 
+                (f"radialblur{PRM}", ("radialblur_", 1), 1), 
+                (f"pie{PRM}", ("pie_", 1), 1), 
+                ("arch", 0), 
+                ("tangent", 0), 
+                ("square", 0), 
+                ("rays", 0), 
+                ("blade", 0), 
+                ("secant2", 0), 
+                ("twintrian", 0), 
+                ("cross", 0), 
+                (f"disc2{PRM}", ("disc2_", 1), 1), 
+                (f"supershape{PRM}", ("supershape_", 1), ("supershapen_", 1), 1), 
+                (f"flower{PRM}", ("flower_", 1), 1), 
+                (f"conic{PRM}", ("conic_", 1), 1), 
+                (f"parabola{PRM}", ("parabola_", 1), 1), 
+                (f"bent2{PRM}", ("bent2xy_", 1), 1), 
+                (f"bipolar{PRM}", ("bipolarshift_", 0), 1),
+                ("boarders", 0),
+                ("butterfly", 0), 
+                (f"cell{PRM}", ("cellsize_", 0), 1), 
+                (f"cpow{PRM}", ("cpow_", 1), 1), 
+                ("edisc", 0), 
+                ("elliptic", 0), 
+                ("noise", 0), 
+                (f"escher{PRM}", ("escherbeta_", 0), 1), 
+                ("foci", 0), 
+                (f"lazysusan{PRM}", ("lazysusanxyz_", 1), ("lazysusan_", 1), 1), 
+                ("loonie", 0), 
+                ("pre blur", 0), 
+                (f"modulus{PRM}", ("modulusXYZ_", 1), 1), 
+                (f"oscope{PRM}", ("oscope_", 1), 1), 
+                ("polar2", 0), 
+                (f"popcorn2{PRM}", ("popcorn2xyz_", 1), ("popcorn2c_", 0), 1), 
+                ("scry", 0), 
+                (f"separation{PRM}", ("separationxyz_", 1), ("separationinsidexyz_", 1), 1), 
+                (f"split{PRM}", ("splitxyz_", 1), 1), 
+                (f"splits{PRM}", ("splitsxyz_", 1), 1), 
+                (f"stripes{PRM}", ("stripes_", 1), 1), 
+                (f"wedge{PRM}", ("wedge_", 1), 1), 
+                (f"wedgejulia{PRM}", ("wedgejulia_", 1), 1), 
+                (f"wedgesph{PRM}", ("wedgesph_", 1), 1), 
+                (f"whorl{PRM}", ("whorl_", 1), 1), 
+                (f"waves2{PRM}", ("waves2scalexyz_", 1), ("waves2freqxyz_", 1), 1), 
+                ("cothe exp", 0), 
+                ("cothe log", 0), 
+                ("cothe sin", 0), 
+                ("cothe cos", 0), 
+                ("cothe tan", 0), 
+                ("cothe sec", 0), 
+                ("cothe csc", 0), 
+                ("cothe cot", 0), 
+                ("cothe sinh", 0), 
+                ("cothe cosh", 0), 
+                ("cothe tanh", 0), 
+                ("cothe sech", 0), 
+                ("cothe csch", 0), 
+                ("cothe coth", 0), 
+                (f"auger{PRM}", ("auger_", 1), 1), 
+                (f"flux{PRM}", ("fluxspread_", 0), 1), 
+                (f"mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
+                (f"curve{PRM}", ("curvexyzlenght_", 1), ("curvexyzamp_", 1), 1), 
+                (f"persp{PRM}", ("persp_", 1), 1), 
+                (f"bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
+                ("hemisphere", 0), 
+                (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1) )
 
 
     def vars_all(self) -> list:
@@ -199,17 +199,17 @@ class flam3_iterator:
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
-    sec_main = [ ["vactive_", 0], ["iw_", 0] ]
-    sec_xaos = [ ["varnote_", 0] ]
-    sec_shader = [ ["clr_", 0], ["clrspeed_", 0], ["alpha_", 0] ]
-    sec_prevarsT = [ "pre1type_", "pre2type_" ] # preblur is omitted as it is always ZERO
-    sec_prevarsW = [ ["preblurweight_", 0], ["pre1weight_", 0], ["pre2weight_", 0] ]
-    sec_varsT = [ "v1type_", "v2type_", "v3type_", "v4type_" ]
-    sec_varsW = [ ["v1weight_", 0], ["v2weight_", 0], ["v3weight_", 0], ["v4weight_", 0] ]
-    sec_postvarsT = [ "p1type_" ]
-    sec_postvarsW = [ ["p1weight_", 0] ]
-    sec_preAffine = [ ["x_", 1], ["y_", 1], ["o_", 1], ["ang_", 0] ]
-    sec_postAffine = [ ["dopost_", 0], ["px_", 1], ["py_", 1], ["po_", 1], ["pang_", 0] ]
+    sec_main = ( ("vactive_", 0), ("iw_", 0) )
+    sec_xaos = ( ("varnote_", 0), )
+    sec_shader = ( ("clr_", 0), ("clrspeed_", 0), ("alpha_", 0) )
+    sec_prevarsT = ( "pre1type_", "pre2type_" ) # preblur is omitted as it is always ZERO
+    sec_prevarsW = ( ("preblurweight_", 0), ("pre1weight_", 0), ("pre2weight_", 0) )
+    sec_varsT = ( "v1type_", "v2type_", "v3type_", "v4type_" )
+    sec_varsW = ( ("v1weight_", 0), ("v2weight_", 0), ("v3weight_", 0), ("v4weight_", 0) )
+    sec_postvarsT = ( "p1type_", )
+    sec_postvarsW = ( ("p1weight_", 0), )
+    sec_preAffine = ( ("x_", 1), ("y_", 1), ("o_", 1), ("ang_", 0) )
+    sec_postAffine = ( ("dopost_", 0), ("px_", 1), ("py_", 1), ("po_", 1), ("pang_", 0) )
     
     # ALL method lists
     allT = sec_prevarsT + sec_varsT + sec_postvarsT
@@ -231,7 +231,7 @@ class flam3_varsPRM_FF(flam3_varsPRM):
         """        
         self.prx = prx
 
-    def varsPRM_FF(self) -> list:
+    def varsPRM_FF(self) -> tuple:
 
         varsPRM_FF = (  self.varsPRM[0], 
                         self.varsPRM[1], 
@@ -260,81 +260,81 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         self.varsPRM[24], 
                         self.varsPRM[25], 
                         self.varsPRM[26], 
-                        [self.varsPRM[27][0], [f"{self.prx}_{self.varsPRM[27][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[28][0], [f"{self.prx}_{self.varsPRM[28][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[29][0], [f"{self.prx}_{self.varsPRM[29][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[30][0], [f"{self.prx}_{self.varsPRM[30][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[31][0], [f"{self.prx}_{self.varsPRM[31][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[32][0], [f"{self.prx}_{self.varsPRM[32][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[33][0], 0], 
-                        [self.varsPRM[34][0], [f"{self.prx}_{self.varsPRM[34][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[35][0], [f"{self.prx}_{self.varsPRM[35][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[36][0], [f"{self.prx}_{self.varsPRM[36][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[37][0], [f"{self.prx}_{self.varsPRM[37][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[38][0], [f"{self.prx}_{self.varsPRM[38][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[39][0], 0], 
-                        [self.varsPRM[40][0], 0], 
-                        [self.varsPRM[41][0], 0], 
-                        [self.varsPRM[42][0], 0], 
-                        [self.varsPRM[43][0], 0], 
-                        [self.varsPRM[44][0], 0], 
-                        [self.varsPRM[45][0], 0], 
-                        [self.varsPRM[46][0], 0], 
-                        [self.varsPRM[47][0], [f"{self.prx}_{self.varsPRM[47][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[48][0], [f"{self.prx}_{self.varsPRM[48][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[48][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[49][0], [f"{self.prx}_{self.varsPRM[49][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[50][0], [f"{self.prx}_{self.varsPRM[50][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[51][0], [f"{self.prx}_{self.varsPRM[51][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[52][0], [f"{self.prx}_{self.varsPRM[52][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[53][0], [f"{self.prx}_{self.varsPRM[53][1][0][:-1]}", 0], 1],
-                        [self.varsPRM[54][0], 0],
-                        [self.varsPRM[55][0], 0], 
-                        [self.varsPRM[56][0], [f"{self.prx}_{self.varsPRM[56][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[57][0], [f"{self.prx}_{self.varsPRM[57][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[58][0], 0], 
-                        [self.varsPRM[59][0], 0], 
-                        [self.varsPRM[60][0], 0], 
-                        [self.varsPRM[61][0], [f"{self.prx}_{self.varsPRM[61][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[62][0], 0], 
-                        [self.varsPRM[63][0], [f"{self.prx}_{self.varsPRM[63][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[63][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[64][0], 0], 
-                        [self.varsPRM[65][0], 0], 
-                        [self.varsPRM[66][0], [f"{self.prx}_{self.varsPRM[66][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[67][0], [f"{self.prx}_{self.varsPRM[67][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[68][0], 0], 
-                        [self.varsPRM[69][0], [f"{self.prx}_{self.varsPRM[69][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[69][2][0][:-1]}", 0], 1], 
-                        [self.varsPRM[70][0], 0], 
-                        [self.varsPRM[71][0], [f"{self.prx}_{self.varsPRM[71][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[71][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[72][0], [f"{self.prx}_{self.varsPRM[72][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[73][0], [f"{self.prx}_{self.varsPRM[73][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[74][0], [f"{self.prx}_{self.varsPRM[74][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[75][0], [f"{self.prx}_{self.varsPRM[75][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[76][0], [f"{self.prx}_{self.varsPRM[76][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[77][0], [f"{self.prx}_{self.varsPRM[77][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[78][0], [f"{self.prx}_{self.varsPRM[78][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[79][0], [f"{self.prx}_{self.varsPRM[79][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[79][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[80][0], 0], 
-                        [self.varsPRM[81][0], 0], 
-                        [self.varsPRM[82][0], 0], 
-                        [self.varsPRM[83][0], 0], 
-                        [self.varsPRM[84][0], 0], 
-                        [self.varsPRM[85][0], 0], 
-                        [self.varsPRM[86][0], 0], 
-                        [self.varsPRM[87][0], 0], 
-                        [self.varsPRM[88][0], 0], 
-                        [self.varsPRM[89][0], 0], 
-                        [self.varsPRM[90][0], 0], 
-                        [self.varsPRM[91][0], 0], 
-                        [self.varsPRM[92][0], 0], 
-                        [self.varsPRM[93][0], 0], 
-                        [self.varsPRM[94][0], [f"{self.prx}_{self.varsPRM[94][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[95][0], [f"{self.prx}_{self.varsPRM[95][1][0][:-1]}", 0], 1], 
-                        [self.varsPRM[96][0], [f"{self.prx}_{self.varsPRM[96][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[96][2][0][:-1]}", 1], 1],
-                        [self.varsPRM[97][0], [f"{self.prx}_{self.varsPRM[97][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[97][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[98][0], [f"{self.prx}_{self.varsPRM[98][1][0][:-1]}", 1], 1], 
-                        [self.varsPRM[99][0], [f"{self.prx}_{self.varsPRM[99][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[99][2][0][:-1]}", 1], 1], 
-                        [self.varsPRM[100][0], 0], 
-                        [self.varsPRM[101][0], [f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1], [f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1], 1] )
+                        (self.varsPRM[27][0], (f"{self.prx}_{self.varsPRM[27][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[28][0], (f"{self.prx}_{self.varsPRM[28][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[29][0], (f"{self.prx}_{self.varsPRM[29][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[30][0], (f"{self.prx}_{self.varsPRM[30][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[31][0], (f"{self.prx}_{self.varsPRM[31][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[32][0], (f"{self.prx}_{self.varsPRM[32][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[33][0], 0), 
+                        (self.varsPRM[34][0], (f"{self.prx}_{self.varsPRM[34][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[35][0], (f"{self.prx}_{self.varsPRM[35][1][0][:-1]}", 0), 1), 
+                        (self.varsPRM[36][0], (f"{self.prx}_{self.varsPRM[36][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[37][0], (f"{self.prx}_{self.varsPRM[37][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[38][0], (f"{self.prx}_{self.varsPRM[38][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[39][0], 0), 
+                        (self.varsPRM[40][0], 0), 
+                        (self.varsPRM[41][0], 0), 
+                        (self.varsPRM[42][0], 0), 
+                        (self.varsPRM[43][0], 0), 
+                        (self.varsPRM[44][0], 0), 
+                        (self.varsPRM[45][0], 0), 
+                        (self.varsPRM[46][0], 0), 
+                        (self.varsPRM[47][0], (f"{self.prx}_{self.varsPRM[47][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[48][0], (f"{self.prx}_{self.varsPRM[48][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[48][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[49][0], (f"{self.prx}_{self.varsPRM[49][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[50][0], (f"{self.prx}_{self.varsPRM[50][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[51][0], (f"{self.prx}_{self.varsPRM[51][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[52][0], (f"{self.prx}_{self.varsPRM[52][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[53][0], (f"{self.prx}_{self.varsPRM[53][1][0][:-1]}", 0), 1),
+                        (self.varsPRM[54][0], 0),
+                        (self.varsPRM[55][0], 0), 
+                        (self.varsPRM[56][0], (f"{self.prx}_{self.varsPRM[56][1][0][:-1]}", 0), 1), 
+                        (self.varsPRM[57][0], (f"{self.prx}_{self.varsPRM[57][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[58][0], 0), 
+                        (self.varsPRM[59][0], 0), 
+                        (self.varsPRM[60][0], 0), 
+                        (self.varsPRM[61][0], (f"{self.prx}_{self.varsPRM[61][1][0][:-1]}", 0), 1), 
+                        (self.varsPRM[62][0], 0), 
+                        (self.varsPRM[63][0], (f"{self.prx}_{self.varsPRM[63][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[63][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[64][0], 0), 
+                        (self.varsPRM[65][0], 0), 
+                        (self.varsPRM[66][0], (f"{self.prx}_{self.varsPRM[66][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[67][0], (f"{self.prx}_{self.varsPRM[67][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[68][0], 0), 
+                        (self.varsPRM[69][0], (f"{self.prx}_{self.varsPRM[69][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[69][2][0][:-1]}", 0), 1), 
+                        (self.varsPRM[70][0], 0), 
+                        (self.varsPRM[71][0], (f"{self.prx}_{self.varsPRM[71][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[71][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[72][0], (f"{self.prx}_{self.varsPRM[72][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[73][0], (f"{self.prx}_{self.varsPRM[73][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[74][0], (f"{self.prx}_{self.varsPRM[74][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[75][0], (f"{self.prx}_{self.varsPRM[75][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[76][0], (f"{self.prx}_{self.varsPRM[76][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[77][0], (f"{self.prx}_{self.varsPRM[77][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[78][0], (f"{self.prx}_{self.varsPRM[78][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[79][0], (f"{self.prx}_{self.varsPRM[79][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[79][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[80][0], 0), 
+                        (self.varsPRM[81][0], 0), 
+                        (self.varsPRM[82][0], 0), 
+                        (self.varsPRM[83][0], 0), 
+                        (self.varsPRM[84][0], 0), 
+                        (self.varsPRM[85][0], 0), 
+                        (self.varsPRM[86][0], 0), 
+                        (self.varsPRM[87][0], 0), 
+                        (self.varsPRM[88][0], 0), 
+                        (self.varsPRM[89][0], 0), 
+                        (self.varsPRM[90][0], 0), 
+                        (self.varsPRM[91][0], 0), 
+                        (self.varsPRM[92][0], 0), 
+                        (self.varsPRM[93][0], 0), 
+                        (self.varsPRM[94][0], (f"{self.prx}_{self.varsPRM[94][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[95][0], (f"{self.prx}_{self.varsPRM[95][1][0][:-1]}", 0), 1), 
+                        (self.varsPRM[96][0], (f"{self.prx}_{self.varsPRM[96][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[96][2][0][:-1]}", 1), 1),
+                        (self.varsPRM[97][0], (f"{self.prx}_{self.varsPRM[97][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[97][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[98][0], (f"{self.prx}_{self.varsPRM[98][1][0][:-1]}", 1), 1), 
+                        (self.varsPRM[99][0], (f"{self.prx}_{self.varsPRM[99][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[99][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[100][0], 0), 
+                        (self.varsPRM[101][0], (f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1), 1) )
         
         return varsPRM_FF
 
@@ -354,12 +354,12 @@ class flam3_iterator_FF():
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-    sec_varsT_FF = [ f"{PRX_FF_PRM}{iter.sec_varsT[0][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[1][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[2][:-1]}" ]
-    sec_varsW_FF = [ [f"{PRX_FF_PRM}{iter.sec_varsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM}{iter.sec_varsW[1][0][:-1]}", 0], [f"{PRX_FF_PRM}{iter.sec_varsW[2][0][:-1]}", 0] ]
-    sec_postvarsT_FF = [ f"{PRX_FF_PRM}{iter.sec_postvarsT[0][:-1]}", f"{PRX_FF_PRM}p2type" ]
-    sec_postvarsW_FF = [ [f"{PRX_FF_PRM}{iter.sec_postvarsW[0][0][:-1]}", 0], [f"{PRX_FF_PRM}p2weight", 0] ]
-    sec_preAffine_FF = [ [f"{PRX_FF_PRM}{iter.sec_preAffine[0][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_preAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_preAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_preAffine[3][0][:-1]}", 0] ]
-    sec_postAffine_FF = [ [f"{PRX_FF_PRM}{iter.sec_postAffine[0][0][:-1]}", 0], [f"{PRX_FF_PRM}{iter.sec_postAffine[1][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_postAffine[2][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_postAffine[3][0][:-1]}", 1], [f"{PRX_FF_PRM}{iter.sec_postAffine[4][0][:-1]}", 0] ]
+    sec_varsT_FF = ( f"{PRX_FF_PRM}{iter.sec_varsT[0][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[1][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[2][:-1]}" )
+    sec_varsW_FF = ( (f"{PRX_FF_PRM}{iter.sec_varsW[0][0][:-1]}", 0), (f"{PRX_FF_PRM}{iter.sec_varsW[1][0][:-1]}", 0), (f"{PRX_FF_PRM}{iter.sec_varsW[2][0][:-1]}", 0) )
+    sec_postvarsT_FF = ( f"{PRX_FF_PRM}{iter.sec_postvarsT[0][:-1]}", f"{PRX_FF_PRM}p2type" )
+    sec_postvarsW_FF = ( (f"{PRX_FF_PRM}{iter.sec_postvarsW[0][0][:-1]}", 0), (f"{PRX_FF_PRM}p2weight", 0) )
+    sec_preAffine_FF = ( (f"{PRX_FF_PRM}{iter.sec_preAffine[0][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_preAffine[1][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_preAffine[2][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_preAffine[3][0][:-1]}", 0) )
+    sec_postAffine_FF = ( (f"{PRX_FF_PRM}{iter.sec_postAffine[0][0][:-1]}", 0), (f"{PRX_FF_PRM}{iter.sec_postAffine[1][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_postAffine[2][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_postAffine[3][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_postAffine[4][0][:-1]}", 0) )
     
     
     # ALL method lists
@@ -439,19 +439,19 @@ def menu_copypaste(kwargs: dict) -> list:
         flam3node = hou.session.flam3node
         
         if node == flam3node and id==id_from:
-            menuitems = [ f"Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" ]
+            menuitems = ( f"Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" )
         elif node == flam3node:
-            menuitems = [ "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" ]
+            menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
         else:
             flam3nodeIter = f"{str(flam3node)}.iter."
-            menuitems = [ "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" ]
+            menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
 
         return menu
     else:
-        menuitems = [ f"Please copy an iterator first" ]
+        menuitems = ( f"Please copy an iterator first" )
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
@@ -498,17 +498,17 @@ def menu_copypaste_FF(kwargs: dict) -> list:
         flam3node_FF = hou.session.flam3node_FF
         
         if node == flam3node_FF:
-            menuitems = [ "FF copied. Select a different FLAM3 node to paste those FF values." ]
+            menuitems = ( "FF copied. Select a different FLAM3 node to paste those FF values." )
         else:
             flam3nodeFF = f"{str(flam3node_FF)}.FF"
-            menuitems = [ "", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" ]
+            menuitems = ( "", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
 
         return menu
     else:
-        menuitems = [ "Please copy the FF first" ]
+        menuitems = ( "Please copy the FF first" )
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
@@ -522,10 +522,10 @@ def menu_copypaste_FF(kwargs: dict) -> list:
 ###############################################################################################
 # FLAM3 paste list of parms
 ###############################################################################################
-def paste_from_list(prm_list: list, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+def paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
     """
     Args:
-        prm_list (list): [parameters list to query and set]
+        prm_list (tuple): [parameters list to query and set]
         node (hou.Node): [current hou.Node to set]
         flam3node (hou.Node): [hou.Node to copy values from]
         id (str): [current multiparamter index]
@@ -560,7 +560,7 @@ def paste_from_list(prm_list: list, node: hou.Node, flam3node: hou.Node, id: str
 ###############################################################################################
 # FLAM3 (*T)Types-> paste parametric parms if any are found in the list of var types passed in
 ###############################################################################################
-def pastePRM_T_from_list(prmT_list: list, varsPRM: list, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
     """
     Args:
         prmT_list (list): [variations list - types]
