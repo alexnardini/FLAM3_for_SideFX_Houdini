@@ -1143,7 +1143,6 @@ def getSceneViewers() -> list:
     """    
     views = hou.ui.paneTabs()
     viewers = []
-    viewers_col = []
     for v in views:
         if isinstance(v, hou.SceneViewer):
             viewers.append(v)
