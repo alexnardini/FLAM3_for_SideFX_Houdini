@@ -27,13 +27,22 @@ void
 _TFFApalettesimple(const float _bound_clr; float _bound_Alpha; vector _bound_Cd; const float _bound_mb_mod)
 {
     int domb, vizmb;
+    float mb_mod = _bound_mb_mod;
+    vector color, HSV;
+    HSV  = chv("../hsv");
     domb   = chi("../domb");
     vizmb  = chi("../vizmb");
+
     float clr = _bound_clr;
     float alpha = _bound_Alpha;
-    float mb_mod = _bound_mb_mod;
-
-    vector color = chramp("../palettehsv", clr);
+    color = chramp("../palette", clr);
+    if(HSV[0]!=0 || HSV[1]!=1 || HSV[2]!=1){
+        vector clrHSV = rgbtohsv(color);
+        clrHSV[0] += HSV[0];
+        clrHSV[1] *= HSV[1];
+        clrHSV[2] *= HSV[2];
+        color = hsvtorgb(clrHSV);
+    }
     if(domb && vizmb){ color*=mb_mod; alpha*=mb_mod; }
     _bound_Cd = color;
     _bound_Alpha = alpha;
