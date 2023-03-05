@@ -36,7 +36,7 @@ _TFFApalettesimple(const float _bound_clr; float _bound_Alpha; vector _bound_Cd;
     float clr = _bound_clr;
     float alpha = _bound_Alpha;
     color = chramp("../palette", clr);
-    if(HSV[0]!=0 || HSV[1]!=1 || HSV[2]!=1){
+    if(HSV[0]>0 || HSV[1]!=1 || HSV[2]!=1){
         vector clrHSV = rgbtohsv(color);
         clrHSV[0] += HSV[0];
         clrHSV[1] *= HSV[1];
