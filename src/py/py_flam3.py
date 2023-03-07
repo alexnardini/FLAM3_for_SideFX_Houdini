@@ -439,7 +439,7 @@ def menu_copypaste(kwargs: dict) -> list:
         flam3node = hou.session.flam3node
         
         if node == flam3node and id==id_from:
-            menuitems = ( f"Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" )
+            menuitems = ( "Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values" )
         elif node == flam3node:
             menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
         else:
@@ -451,7 +451,7 @@ def menu_copypaste(kwargs: dict) -> list:
 
         return menu
     else:
-        menuitems = ( f"Please copy an iterator first" )
+        menuitems = ( "Please copy an iterator first" )
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
@@ -571,11 +571,13 @@ def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3
         id_from (str): [multiparameter index to copy from]
     """    
     for prm in prmT_list:
+
         prm_from = flam3node.parm(f"{prm}{id_from}").eval()
         node.setParms({f"{prm}{id}": prm_from})
         # Check if this var is a parametric or not
         type = int(prm_from)
         if(varsPRM[type][-1]):
+            
             paste_from_list(varsPRM[type][1:-1], node, flam3node, id, id_from)
 
 
@@ -583,14 +585,29 @@ def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3
 
 
 ###############################################################################################
-# save existing note and add the iterator copy info to it
+# simple save existing note and add the iterator copy string info to it
 ###############################################################################################
 def paste_save_note(_note: str) -> str:
+    """
+    Args:
+        _note (str): [current note in the parameter]
 
-    if _note.find(")") == -1:
-        note = _note
+    Returns:
+        str: [simple new note append]
+    """
+
+    if _note.find("(") or _note.find(")") == -1:
+
+        _note_split = _note.split(" ")
+        if len(_note_split) > 1 and (".iter" in _note_split[-1].rpartition(".iter") or ".FF" in _note_split[-1].rpartition(".FF")):
+            note = "(" + " ".join(_note_split[0:-1]) + ")" + " "
+        elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
+            note = ""
+        else:
+            note = "(" + _note + ")" + " "
     else:
-        note = _note[_note.find("(")+1:_note.find(")")]
+        note = "(" + _note[_note.find("(")+1:_note.find(")")] + ")" + " "
+
     return note
 
 
@@ -614,36 +631,37 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
         id (str): [current multiparamter index]
         id_from (str): [multiparameter index to copy from]
     """ 
-    _current_note = node.parm(f"variter_{id}").evalAsString()
+    
     _current_note_FF = node.parm("ffnote").evalAsString()
 
     if int_mode == 0:
+        _current_note = node.parm(f"variter_{id}").evalAsString()
         # If on the same FLAM3 node
         if node == flam3node:
             if len(_current_note) == 0:
                 node.setParms({f"variter_{id}": f"iter.{id_from}{str_section}"})
             else:
-                node.setParms({f"variter_{id}": f"({paste_save_note(_current_note)}) iter.{id_from}{str_section}"})
+                node.setParms({f"variter_{id}": f"{paste_save_note(_current_note)}iter.{id_from}{str_section}"})
         else:
             if len(_current_note) == 0:
-                node.setParms({f"variter_{id}": f"{str(flam3node)}->iter.{id_from}{str_section}"})
+                node.setParms({f"variter_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"})
             else:
-                node.setParms({f"variter_{id}": f"({paste_save_note(_current_note)}) {str(flam3node)}->iter.{id_from}{str_section}"})
-            print(f"{str(node)}: Copied values from: {str(flam3node)}->iter.{id_from}{str_section} to: {str(node)}->iter.{id}{str_section}")
+                node.setParms({f"variter_{id}": f"{paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"})
+            print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section} to: {str(node)}.iter.{id}{str_section}")
     elif int_mode == 1:
         if node != flam3node:
             if len(_current_note_FF) == 0:
-                node.setParms({'ffnote': f"{str(flam3node)}->FF"})
+                node.setParms({'ffnote': f"{str(flam3node)}.FF"})
             else:
-                node.setParms({'ffnote': f"({paste_save_note(_current_note_FF)}) {str(flam3node)}->FF"})
-            print(f"{str(node)}: Copied FF from: {str(flam3node)}->FF to: {str(node)}->FF")
+                node.setParms({'ffnote': f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF"})
+            print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF to: {str(node)}.FF")
     elif int_mode == 2:
         if node != flam3node:
             if len(_current_note_FF) == 0:
-                node.setParms({'ffnote': f"{str(flam3node)}->FF{str_section}"})
+                node.setParms({'ffnote': f"{str(flam3node)}.FF{str_section}"})
             else:
-                node.setParms({'ffnote': f"({paste_save_note(_current_note_FF)}) {str(flam3node)}->FF{str_section}"})
-            print(f"{str(node)}: Copied FF from: {str(flam3node)}->FF{str_section} to: {str(node)}->FF{str_section}")
+                node.setParms({'ffnote': f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"})
+            print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
 
 
 
