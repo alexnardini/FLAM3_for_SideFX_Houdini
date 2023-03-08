@@ -596,10 +596,13 @@ def paste_save_note(_note: str) -> str:
         str: [simple new note append]
     """
 
+    search_iter = "iter."
+    search_FF = ".FF"
+
     if _note.find("(") or _note.find(")") == -1:
 
         _note_split = _note.split(" ")
-        if len(_note_split) > 1 and (".iter" in _note_split[-1].rpartition(".iter") or ".FF" in _note_split[-1].rpartition(".FF")):
+        if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
             note = "(" + " ".join(_note_split[0:-1]) + ")" + " "
         elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
             note = ""
