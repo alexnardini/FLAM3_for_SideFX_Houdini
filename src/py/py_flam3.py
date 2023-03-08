@@ -879,7 +879,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     flam3node_FF = hou.session.flam3node_FF
     flam3node_FF_check = hou.session.flam3node_FF_check
 
-    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ff_prmpastesel parameter
+    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
     #
     # If the FF was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
@@ -894,7 +894,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     if flam3node_FF_check != -1:
         
         # Get user selection of paste methods
-        ff_paste_sel = node.parm("ff_prmpastesel").evalAsInt()
+        ff_paste_sel = node.parm("ffprmpastesel").evalAsInt()
 
         # set FF VARS
         if ff_paste_sel == 1:
@@ -923,7 +923,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         # so that we can paste the same section again, if we want to.
         #
         # please check def->menu_copypaste_FF() to know its size.
-        node.setParms({"ff_prmpastesel": str(0)})
+        node.setParms({"ffprmpastesel": str(0)})
                 
     else:
         print(f"{str(node)}: Please copy the FF first.")
@@ -1259,15 +1259,28 @@ def colorSchemeDark(self: hou.Node) -> None:
 def viewportParticleDisplay(self: hou.Node) -> None:
 
     pttype = self.parm("vptype").evalAsInt()
-    ptsize = self.parm("vpptsize").evalAsFloat()
 
     for view in getSceneViewers():
         sett = view.curViewport().settings()
         if pttype == 0:
             sett.particleDisplayType(hou.viewportParticleDisplay.Points)
-            sett.particlePointSize(ptsize)
         elif pttype == 1:
             sett.particleDisplayType(hou.viewportParticleDisplay.Pixels)
+
+
+
+
+
+###############################################################################################
+# set viewport particle display. ( Points or Pixels )
+###############################################################################################
+def viewportParticleSize(self: hou.Node) -> None:
+
+    ptsize = self.parm("vpptsize").evalAsFloat()
+
+    for view in getSceneViewers():
+        sett = view.curViewport().settings()
+        sett.particlePointSize(ptsize)
 
 
 
