@@ -600,7 +600,6 @@ def paste_save_note(_note: str) -> str:
     search_FF = ".FF"
 
     if _note.find("(") or _note.find(")") == -1:
-
         _note_split = _note.split(" ")
         if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
             note = "(" + " ".join(_note_split[0:-1]) + ")" + " "
@@ -1214,7 +1213,9 @@ def colorSchemeDark(self: hou.Node) -> None:
 
     count = 0
     viewers_col = []
+
     for view in getSceneViewers():
+
         sett = view.curViewport().settings()
         col = str(sett.colorScheme()).split('.')[1]
         viewers_col.append(col)
@@ -1226,6 +1227,7 @@ def colorSchemeDark(self: hou.Node) -> None:
             else:
                 hou.session.flam3_CS = [];
                 hou.session.flam3_CS.append(viewers_col)
+
         if self.parm("setdark").eval():
             if len(hou.session.flam3_CS) == 0:
                 if col == "Light" or col == "Grey":
@@ -1238,7 +1240,8 @@ def colorSchemeDark(self: hou.Node) -> None:
                         sett.setColorScheme(hou.viewportColorScheme.Light)
                     elif hou.session.flam3_CS[count] == "Grey":
                         sett.setColorScheme(hou.viewportColorScheme.Grey)
-        if self.parm("setdark").eval() == 0:
+
+        else:
             if col == "Dark" and hou.session.flam3_CS[count] != "Dark":
                 if hou.session.flam3_CS[count] == "Light":
                     sett.setColorScheme(hou.viewportColorScheme.Light)
@@ -1260,12 +1263,15 @@ def viewportParticleDisplay(self: hou.Node) -> None:
 
     pttype = self.parm("vptype").evalAsInt()
 
+    Points = hou.viewportParticleDisplay.Points
+    Pixels = hou.viewportParticleDisplay.Pixels
+
     for view in getSceneViewers():
         sett = view.curViewport().settings()
         if pttype == 0:
-            sett.particleDisplayType(hou.viewportParticleDisplay.Points)
+            sett.particleDisplayType(Points)
         elif pttype == 1:
-            sett.particleDisplayType(hou.viewportParticleDisplay.Pixels)
+            sett.particleDisplayType(Pixels)
 
 
 
