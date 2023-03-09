@@ -564,8 +564,8 @@ def paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: st
 def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
     """
     Args:
-        prmT_list (list): [variations list - types]
-        varsPRM (list): [variation's parmaters list]
+        prmT_list (tuple): [variations list - types]
+        varsPRM (tuple): [variation's parmaters list]
         node (hou.Node): [current hou.Node to set]
         flam3node (hou.Node): [hou.Node to copy values from]
         id (str): [current multiparamter index]
