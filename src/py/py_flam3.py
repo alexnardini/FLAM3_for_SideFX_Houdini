@@ -1,8 +1,9 @@
-import hou
-import os
-import json
-import colorsys
-import webbrowser
+import os, hou, json, colorsys, webbrowser
+
+#import os
+#import json
+#import colorsys
+#import webbrowser
 
 
 
@@ -1006,6 +1007,33 @@ def ramp_init_presets(kwargs: dict) -> None:
     node = kwargs['node']
     ramp_presets = node.parm('presets')
     ramp_presets.set('0')
+
+
+
+
+
+###############################################################################################
+# MENU - JSON - build menu from ramp presets file
+###############################################################################################
+def menu_ramp_presets(kwargs: dict) -> list:
+
+    filepath = kwargs['node'].parm('filepath').evalAsString()
+
+    menu=[]
+    if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+
+        with open(filepath) as f:
+            data = json.load(f)
+        
+        menuitems = data.keys()
+
+        for i, item in enumerate(menuitems):
+            menu.append(i)
+            menu.append(item)
+            
+        return menu
+    else:
+        return menu
 
 
 
