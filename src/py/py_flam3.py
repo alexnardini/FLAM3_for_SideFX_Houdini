@@ -1276,6 +1276,7 @@ def colorSchemeDark(self: hou.Node) -> None:
                 elif hou.session.flam3_CS[count] == "Grey":
                     sett.setColorScheme(hou.viewportColorScheme.Grey)
         count += 1
+    
     # Update history
     hou.session.flam3_CS = []
     hou.session.flam3_CS = viewers_col
@@ -1306,7 +1307,7 @@ def viewportParticleDisplay(self: hou.Node) -> None:
 
 
 ###############################################################################################
-# set viewport particle display. ( Points or Pixels )
+# set viewport particle size. ( Points or Pixels )
 ###############################################################################################
 def viewportParticleSize(self: hou.Node) -> None:
 
