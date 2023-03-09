@@ -1,10 +1,5 @@
 import os, hou, json, colorsys, webbrowser
 
-#import os
-#import json
-#import colorsys
-#import webbrowser
-
 
 
 
