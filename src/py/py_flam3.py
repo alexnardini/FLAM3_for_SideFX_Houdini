@@ -1237,10 +1237,15 @@ def colorSchemeDark(self: hou.Node) -> None:
     count = 0
     viewers_col = []
 
+    setprm = self.parm("setdark").eval()
+    Light = hou.viewportColorScheme.Light
+    Grey  = hou.viewportColorScheme.Grey
+    Dark  = hou.viewportColorScheme.Dark
+
     for view in getSceneViewers():
 
-        sett = view.curViewport().settings()
-        col = str(sett.colorScheme()).split('.')[1]
+        settings = view.curViewport().settings()
+        col = settings.colorScheme()
         viewers_col.append(col)
         try:
             idx_test = hou.session.flam3_CS[count]
@@ -1251,25 +1256,25 @@ def colorSchemeDark(self: hou.Node) -> None:
                 hou.session.flam3_CS = [];
                 hou.session.flam3_CS.append(viewers_col)
 
-        if self.parm("setdark").eval():
+        if setprm:
             if len(hou.session.flam3_CS) == 0:
-                if col == "Light" or col == "Grey":
-                    sett.setColorScheme(hou.viewportColorScheme.Dark)
+                if col == Light or col == Grey:
+                    settings.setColorScheme(Dark)
             else:
-                if col == "Light" or col ==  "Grey":
-                    sett.setColorScheme(hou.viewportColorScheme.Dark)
-                elif col == "Dark" and hou.session.flam3_CS[count] != "Dark":
-                    if hou.session.flam3_CS[count] == "Light":
-                        sett.setColorScheme(hou.viewportColorScheme.Light)
-                    elif hou.session.flam3_CS[count] == "Grey":
-                        sett.setColorScheme(hou.viewportColorScheme.Grey)
+                if col == Light or col == Grey:
+                    settings.setColorScheme(Dark)
+                elif col == Dark and hou.session.flam3_CS[count] != Dark:
+                    if hou.session.flam3_CS[count] == Light:
+                        settings.setColorScheme(Light)
+                    elif hou.session.flam3_CS[count] == Grey:
+                        settings.setColorScheme(Grey)
 
         else:
-            if col == "Dark" and hou.session.flam3_CS[count] != "Dark":
-                if hou.session.flam3_CS[count] == "Light":
-                    sett.setColorScheme(hou.viewportColorScheme.Light)
-                elif hou.session.flam3_CS[count] == "Grey":
-                    sett.setColorScheme(hou.viewportColorScheme.Grey)
+            if col == Dark and hou.session.flam3_CS[count] != Dark:
+                if hou.session.flam3_CS[count] == Light:
+                    settings.setColorScheme(Light)
+                elif hou.session.flam3_CS[count] == Grey:
+                    settings.setColorScheme(Grey)
         count += 1
     
     # Update history
@@ -1291,11 +1296,11 @@ def viewportParticleDisplay(self: hou.Node) -> None:
     Pixels = hou.viewportParticleDisplay.Pixels
 
     for view in getSceneViewers():
-        sett = view.curViewport().settings()
+        settings = view.curViewport().settings()
         if pttype == 0:
-            sett.particleDisplayType(Points)
+            settings.particleDisplayType(Points)
         elif pttype == 1:
-            sett.particleDisplayType(Pixels)
+            settings.particleDisplayType(Pixels)
 
 
 
@@ -1309,8 +1314,8 @@ def viewportParticleSize(self: hou.Node) -> None:
     ptsize = self.parm("vpptsize").evalAsFloat()
 
     for view in getSceneViewers():
-        sett = view.curViewport().settings()
-        sett.particlePointSize(ptsize)
+        settings = view.curViewport().settings()
+        settings.particlePointSize(ptsize)
 
 
 
