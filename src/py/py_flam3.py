@@ -190,22 +190,74 @@ class flam3_varsPRM:
 
 
 
+class flam3_iterator_prm_names:
+
+    main_vactive = "vactive"
+    main_weight = "iw"
+
+    xaos = "varnote"
+    
+    shader_color = "clr"
+    shader_speed = "clrspeed"
+    shader_alpha = "alpha"
+    
+    prevar_blur = "preblurtype" # this can be omitted as it is always zero
+    prevar_weight_blur = "preblurweight"
+
+    prevar_type_1 = "pre1type"
+    prevar_type_2 = "pre2type"    
+    prevar_weight_1 = "pre1weight"
+    prevar_weight_2 = "pre2weight"
+
+    var_type_1 = "v1type"
+    var_type_2 = "v2type"
+    var_type_3 = "v3type"
+    var_type_4 = "v4type"
+    var_weight_1 = "v1weight"
+    var_weight_2 = "v2weight"
+    var_weight_3 = "v3weight"
+    var_weight_4 = "v4weight"
+
+    postvar_type_1 = "p1type"
+    postvar_type_2 = "p2type"
+    postvar_weight_1 = "p1weight"
+    postvar_weight_2 = "p2weight"
+
+    preaffine_x = "x"
+    preaffine_y = "y"
+    preaffine_o = "o"
+    preaffine_ang = "ang"
+
+    postaffine_do = "dopost"
+    postaffine_x = "px"
+    postaffine_y = "py"
+    postaffine_o = "po"
+    postaffine_ang = "pang"
+
+
+
+
+
+
+
 class flam3_iterator:
+
+    n = flam3_iterator_prm_names
 
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
-    sec_main = ( ("vactive_", 0), ("iw_", 0) )
-    sec_xaos = ( ("varnote_", 0), )
-    sec_shader = ( ("clr_", 0), ("clrspeed_", 0), ("alpha_", 0) )
-    sec_prevarsT = ( "pre1type_", "pre2type_" ) # preblur is omitted as it is always ZERO
-    sec_prevarsW = ( ("preblurweight_", 0), ("pre1weight_", 0), ("pre2weight_", 0) )
-    sec_varsT = ( "v1type_", "v2type_", "v3type_", "v4type_" )
-    sec_varsW = ( ("v1weight_", 0), ("v2weight_", 0), ("v3weight_", 0), ("v4weight_", 0) )
-    sec_postvarsT = ( "p1type_", )
-    sec_postvarsW = ( ("p1weight_", 0), )
-    sec_preAffine = ( ("x_", 1), ("y_", 1), ("o_", 1), ("ang_", 0) )
-    sec_postAffine = ( ("dopost_", 0), ("px_", 1), ("py_", 1), ("po_", 1), ("pang_", 0) )
+    sec_main = ( (f"{n.main_vactive}_", 0), (f"{n.main_weight}_", 0) )
+    sec_xaos = ( (f"{n.xaos}_", 0), )
+    sec_shader = ( (f"{n.shader_color}_", 0), (f"{n.shader_speed}_", 0), (f"{n.shader_alpha}_", 0) )
+    sec_prevarsT = ( f"{n.prevar_type_1}_", f"{n.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
+    sec_prevarsW = ( (f"{n.prevar_weight_blur}_", 0), (f"{n.prevar_weight_1}_", 0), (f"{n.prevar_weight_2}_", 0) )
+    sec_varsT = ( f"{n.var_type_1}_", f"{n.var_type_2}_", f"{n.var_type_3}_", f"{n.var_type_4}_" )
+    sec_varsW = ( (f"{n.var_weight_1}_", 0), (f"{n.var_weight_2}_", 0), (f"{n.var_weight_3}_", 0), (f"{n.var_weight_4}_", 0) )
+    sec_postvarsT = ( f"{n.postvar_type_1}_", )
+    sec_postvarsW = ( (f"{n.postvar_weight_1}_", 0), )
+    sec_preAffine = ( (f"{n.preaffine_x}_", 1), (f"{n.preaffine_y}_", 1), (f"{n.preaffine_o}_", 1), (f"{n.preaffine_ang}_", 0) )
+    sec_postAffine = ( (f"{n.postaffine_do}_", 0), (f"{n.postaffine_x}_", 1), (f"{n.postaffine_y}_", 1), (f"{n.postaffine_o}_", 1), (f"{n.postaffine_ang}_", 0) )
     
     # ALL method lists
     allT = sec_prevarsT + sec_varsT + sec_postvarsT
@@ -338,24 +390,24 @@ class flam3_varsPRM_FF(flam3_varsPRM):
 
 
 
-class flam3_iterator_FF():
+class flam3_iterator_FF:
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
         plus the string "ff" added at the beginning of their names. parametric variation's parameters have the string  "ff_" instead.
         If you create new parameters inside the FF, or change the parameters names inside the flam3 iterator,
         please be sure to follow the same nameing convetion so to keep the flam3_varsPRM: class as the only source for their names.
     """
-    iter = flam3_iterator()
+    n = flam3_iterator_prm_names
 
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-    sec_varsT_FF = ( f"{PRX_FF_PRM}{iter.sec_varsT[0][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[1][:-1]}", f"{PRX_FF_PRM}{iter.sec_varsT[2][:-1]}" )
-    sec_varsW_FF = ( (f"{PRX_FF_PRM}{iter.sec_varsW[0][0][:-1]}", 0), (f"{PRX_FF_PRM}{iter.sec_varsW[1][0][:-1]}", 0), (f"{PRX_FF_PRM}{iter.sec_varsW[2][0][:-1]}", 0) )
-    sec_postvarsT_FF = ( f"{PRX_FF_PRM}{iter.sec_postvarsT[0][:-1]}", f"{PRX_FF_PRM}p2type" )
-    sec_postvarsW_FF = ( (f"{PRX_FF_PRM}{iter.sec_postvarsW[0][0][:-1]}", 0), (f"{PRX_FF_PRM}p2weight", 0) )
-    sec_preAffine_FF = ( (f"{PRX_FF_PRM}{iter.sec_preAffine[0][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_preAffine[1][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_preAffine[2][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_preAffine[3][0][:-1]}", 0) )
-    sec_postAffine_FF = ( (f"{PRX_FF_PRM}{iter.sec_postAffine[0][0][:-1]}", 0), (f"{PRX_FF_PRM}{iter.sec_postAffine[1][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_postAffine[2][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_postAffine[3][0][:-1]}", 1), (f"{PRX_FF_PRM}{iter.sec_postAffine[4][0][:-1]}", 0) )
+    sec_varsT_FF = ( f"{PRX_FF_PRM}{n.var_type_1}", f"{PRX_FF_PRM}{n.var_type_2}", f"{PRX_FF_PRM}{n.var_type_3}" )
+    sec_varsW_FF = ( (f"{PRX_FF_PRM}{n.var_weight_1}", 0), (f"{PRX_FF_PRM}{n.var_weight_2}", 0), (f"{PRX_FF_PRM}{n.var_weight_3}", 0) )
+    sec_postvarsT_FF = ( f"{PRX_FF_PRM}{n.postvar_type_1}", f"{PRX_FF_PRM}{n.postvar_type_2}" )
+    sec_postvarsW_FF = ( (f"{PRX_FF_PRM}{n.postvar_weight_1}", 0), (f"{PRX_FF_PRM}{n.postvar_weight_2}", 0) )
+    sec_preAffine_FF = ( (f"{PRX_FF_PRM}{n.preaffine_x}", 1), (f"{PRX_FF_PRM}{n.preaffine_y}", 1), (f"{PRX_FF_PRM}{n.preaffine_o}", 1), (f"{PRX_FF_PRM}{n.preaffine_ang}", 0) )
+    sec_postAffine_FF = ( (f"{PRX_FF_PRM}{n.postaffine_do}", 0), (f"{PRX_FF_PRM}{n.postaffine_x}", 1), (f"{PRX_FF_PRM}{n.postaffine_y}", 1), (f"{PRX_FF_PRM}{n.postaffine_o}", 1), (f"{PRX_FF_PRM}{n.postaffine_ang}", 0) )
     
     
     # ALL method lists
@@ -1555,7 +1607,5 @@ def web_flame3hda() -> None:
 def web_TFFA() -> None:
     page = "https://flam3.com/flame_draves.pdf"
     webbrowser.open(page)
-
-
 
 
