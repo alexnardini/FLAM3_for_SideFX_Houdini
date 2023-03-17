@@ -197,7 +197,11 @@ class flam3_iterator_prm_names:
     for easy access everywhere I need.
 
     '''
+    # ITERATOR
+    #
     # Main
+    main_note = "note"
+    main_prmpastesel = "prmpastesel"
     main_vactive = "vactive"
     main_weight = "iw"
     # Xaos
