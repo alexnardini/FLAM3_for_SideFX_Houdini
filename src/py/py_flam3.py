@@ -1404,28 +1404,30 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({"tmrt": 0})
     
     # FF vars
+    iter_FF = flam3_iterator_FF
+
     self.setParms({"ffnote": ""})
-    self.setParms({flam3_iterator_FF.sec_varsT_FF[0]: 0})
-    self.setParms({flam3_iterator_FF.sec_varsT_FF[1]: 0})
-    self.setParms({flam3_iterator_FF.sec_varsT_FF[2]: 0})
-    self.setParms({flam3_iterator_FF.sec_varsW_FF[0][0]: 1})
-    self.setParms({flam3_iterator_FF.sec_varsW_FF[1][0]: 0})
-    self.setParms({flam3_iterator_FF.sec_varsW_FF[2][0]: 0})
+    self.setParms({iter_FF.sec_varsT_FF[0]: 0})
+    self.setParms({iter_FF.sec_varsT_FF[1]: 0})
+    self.setParms({iter_FF.sec_varsT_FF[2]: 0})
+    self.setParms({iter_FF.sec_varsW_FF[0][0]: 1})
+    self.setParms({iter_FF.sec_varsW_FF[1][0]: 0})
+    self.setParms({iter_FF.sec_varsW_FF[2][0]: 0})
     # FF post
-    self.setParms({flam3_iterator_FF.sec_postvarsT_FF[0]: 0})
-    self.setParms({flam3_iterator_FF.sec_postvarsT_FF[1]: 0})
-    self.setParms({flam3_iterator_FF.sec_postvarsW_FF[0][0]: 0})
-    self.setParms({flam3_iterator_FF.sec_postvarsW_FF[1][0]: 0})
+    self.setParms({iter_FF.sec_postvarsT_FF[0]: 0})
+    self.setParms({iter_FF.sec_postvarsT_FF[1]: 0})
+    self.setParms({iter_FF.sec_postvarsW_FF[0][0]: 0})
+    self.setParms({iter_FF.sec_postvarsW_FF[1][0]: 0})
     # FF affine
-    self.setParms({flam3_iterator_FF.sec_preAffine_FF[0][0]: hou.Vector2((1.0, 0.0))})
-    self.setParms({flam3_iterator_FF.sec_preAffine_FF[1][0]: hou.Vector2((0.0, 1.0))})
-    self.setParms({flam3_iterator_FF.sec_preAffine_FF[2][0]: hou.Vector2((0.0, 0.0))})
-    self.setParms({flam3_iterator_FF.sec_preAffine_FF[3][0]: 0})
-    self.setParms({flam3_iterator_FF.sec_postAffine_FF[0][0]: 0})
-    self.setParms({flam3_iterator_FF.sec_postAffine_FF[1][0]: hou.Vector2((1.0, 0.0))})
-    self.setParms({flam3_iterator_FF.sec_postAffine_FF[2][0]: hou.Vector2((0.0, 1.0))})
-    self.setParms({flam3_iterator_FF.sec_postAffine_FF[3][0]: hou.Vector2((0.0, 0.0))})
-    self.setParms({flam3_iterator_FF.sec_postAffine_FF[4][0]: 0})
+    self.setParms({iter_FF.sec_preAffine_FF[0][0]: hou.Vector2((1.0, 0.0))})
+    self.setParms({iter_FF.sec_preAffine_FF[1][0]: hou.Vector2((0.0, 1.0))})
+    self.setParms({iter_FF.sec_preAffine_FF[2][0]: hou.Vector2((0.0, 0.0))})
+    self.setParms({iter_FF.sec_preAffine_FF[3][0]: 0})
+    self.setParms({iter_FF.sec_postAffine_FF[0][0]: 0})
+    self.setParms({iter_FF.sec_postAffine_FF[1][0]: hou.Vector2((1.0, 0.0))})
+    self.setParms({iter_FF.sec_postAffine_FF[2][0]: hou.Vector2((0.0, 1.0))})
+    self.setParms({iter_FF.sec_postAffine_FF[3][0]: hou.Vector2((0.0, 0.0))})
+    self.setParms({iter_FF.sec_postAffine_FF[4][0]: 0})
 
     # CP
     self.setParms({"filepath": ""})
@@ -1461,59 +1463,62 @@ def flam3_default(self: hou.Node) -> None:
 
     #######################################################################
     
+    # iterators
+    iter = flam3_iterator
+
     # Iterator 1
     #
     # shader
-    self.setParms({f"{flam3_iterator.sec_shader[0][0]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_shader[1][0]}1": 0.75})
+    self.setParms({f"{iter.sec_shader[0][0]}1": 0})
+    self.setParms({f"{iter.sec_shader[1][0]}1": 0.75})
     # vars
-    self.setParms({f"{flam3_iterator.sec_prevarsT[0]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_prevarsT[1]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[0]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[1]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[2]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[3]}1": 0})
-    self.setParms({f"{flam3_iterator.sec_postvarsT[0]}1": 0})
+    self.setParms({f"{iter.sec_prevarsT[0]}1": 0})
+    self.setParms({f"{iter.sec_prevarsT[1]}1": 0})
+    self.setParms({f"{iter.sec_varsT[0]}1": 0})
+    self.setParms({f"{iter.sec_varsT[1]}1": 0})
+    self.setParms({f"{iter.sec_varsT[2]}1": 0})
+    self.setParms({f"{iter.sec_varsT[3]}1": 0})
+    self.setParms({f"{iter.sec_postvarsT[0]}1": 0})
     # pre affine
-    self.setParms({f"{flam3_iterator.sec_preAffine[0][0]}1": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{flam3_iterator.sec_preAffine[1][0]}1": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{flam3_iterator.sec_preAffine[2][0]}1": hou.Vector2((0.0, 0.51225))})
+    self.setParms({f"{iter.sec_preAffine[0][0]}1": hou.Vector2((0.5, 0.0))})
+    self.setParms({f"{iter.sec_preAffine[1][0]}1": hou.Vector2((0.0, 0.5))})
+    self.setParms({f"{iter.sec_preAffine[2][0]}1": hou.Vector2((0.0, 0.51225))})
 
     # Iterator 2
     #
     # shader
-    self.setParms({f"{flam3_iterator.sec_shader[0][0]}2": 0.5})
-    self.setParms({f"{flam3_iterator.sec_shader[1][0]}2": 0.75})
+    self.setParms({f"{iter.sec_shader[0][0]}2": 0.5})
+    self.setParms({f"{iter.sec_shader[1][0]}2": 0.75})
     # vars
-    self.setParms({f"{flam3_iterator.sec_prevarsT[0]}2": 0})
-    self.setParms({f"{flam3_iterator.sec_prevarsT[1]}2": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[0]}2": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[1]}2": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[2]}2": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[3]}2": 0})
-    self.setParms({f"{flam3_iterator.sec_postvarsT[0]}2": 0})
+    self.setParms({f"{iter.sec_prevarsT[0]}2": 0})
+    self.setParms({f"{iter.sec_prevarsT[1]}2": 0})
+    self.setParms({f"{iter.sec_varsT[0]}2": 0})
+    self.setParms({f"{iter.sec_varsT[1]}2": 0})
+    self.setParms({f"{iter.sec_varsT[2]}2": 0})
+    self.setParms({f"{iter.sec_varsT[3]}2": 0})
+    self.setParms({f"{iter.sec_postvarsT[0]}2": 0})
     # pre affine
-    self.setParms({f"{flam3_iterator.sec_preAffine[0][0]}2": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{flam3_iterator.sec_preAffine[1][0]}2": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{flam3_iterator.sec_preAffine[2][0]}2": hou.Vector2((-0.29575, 0.0))})
+    self.setParms({f"{iter.sec_preAffine[0][0]}2": hou.Vector2((0.5, 0.0))})
+    self.setParms({f"{iter.sec_preAffine[1][0]}2": hou.Vector2((0.0, 0.5))})
+    self.setParms({f"{iter.sec_preAffine[2][0]}2": hou.Vector2((-0.29575, 0.0))})
 
     # Iterator 3
     #
     # shader
-    self.setParms({f"{flam3_iterator.sec_shader[0][0]}3": 1.0})
-    self.setParms({f"{flam3_iterator.sec_shader[1][0]}3": 0.75})
+    self.setParms({f"{iter.sec_shader[0][0]}3": 1.0})
+    self.setParms({f"{iter.sec_shader[1][0]}3": 0.75})
     # vars
-    self.setParms({f"{flam3_iterator.sec_prevarsT[0]}3": 0})
-    self.setParms({f"{flam3_iterator.sec_prevarsT[1]}3": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[0]}3": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[1]}3": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[2]}3": 0})
-    self.setParms({f"{flam3_iterator.sec_varsT[3]}3": 0})
-    self.setParms({f"{flam3_iterator.sec_postvarsT[0]}3": 0})
+    self.setParms({f"{iter.sec_prevarsT[0]}3": 0})
+    self.setParms({f"{iter.sec_prevarsT[1]}3": 0})
+    self.setParms({f"{iter.sec_varsT[0]}3": 0})
+    self.setParms({f"{iter.sec_varsT[1]}3": 0})
+    self.setParms({f"{iter.sec_varsT[2]}3": 0})
+    self.setParms({f"{iter.sec_varsT[3]}3": 0})
+    self.setParms({f"{iter.sec_postvarsT[0]}3": 0})
     # pre affine
-    self.setParms({f"{flam3_iterator.sec_preAffine[0][0]}3": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{flam3_iterator.sec_preAffine[1][0]}3": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{flam3_iterator.sec_preAffine[2][0]}3": hou.Vector2((0.29575, 0.0))})
+    self.setParms({f"{iter.sec_preAffine[0][0]}3": hou.Vector2((0.5, 0.0))})
+    self.setParms({f"{iter.sec_preAffine[1][0]}3": hou.Vector2((0.0, 0.5))})
+    self.setParms({f"{iter.sec_preAffine[2][0]}3": hou.Vector2((0.29575, 0.0))})
 
     #######################################################################
 
