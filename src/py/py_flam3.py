@@ -192,6 +192,12 @@ class flam3_varsPRM:
 
 class flam3_iterator_prm_names:
 
+    '''
+    Mostly, handy to have all those packed into one class
+    for easy access everywhere I need.
+
+    '''
+
     main_vactive = "vactive"
     main_weight = "iw"
 
