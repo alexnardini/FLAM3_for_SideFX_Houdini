@@ -197,24 +197,23 @@ class flam3_iterator_prm_names:
     for easy access everywhere I need.
 
     '''
-
+    # Main
     main_vactive = "vactive"
     main_weight = "iw"
-
+    # Xaos
     xaos = "varnote"
-    
+    # Shader
     shader_color = "clr"
     shader_speed = "clrspeed"
     shader_alpha = "alpha"
-    
+    # Pre 
     prevar_blur = "preblurtype" # this can be omitted as it is always zero
     prevar_weight_blur = "preblurweight"
-
     prevar_type_1 = "pre1type"
     prevar_type_2 = "pre2type"    
     prevar_weight_1 = "pre1weight"
     prevar_weight_2 = "pre2weight"
-
+    # Var
     var_type_1 = "v1type"
     var_type_2 = "v2type"
     var_type_3 = "v3type"
@@ -223,17 +222,17 @@ class flam3_iterator_prm_names:
     var_weight_2 = "v2weight"
     var_weight_3 = "v3weight"
     var_weight_4 = "v4weight"
-
+    # Post
     postvar_type_1 = "p1type"
     postvar_type_2 = "p2type"
     postvar_weight_1 = "p1weight"
     postvar_weight_2 = "p2weight"
-
+    # Pre affine
     preaffine_x = "x"
     preaffine_y = "y"
     preaffine_o = "o"
     preaffine_ang = "ang"
-
+    # post affine
     postaffine_do = "dopost"
     postaffine_x = "px"
     postaffine_y = "py"
