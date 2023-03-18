@@ -1413,30 +1413,30 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({"tmrt": 0})
     
     # FF vars
-    iter_FF = flam3_iterator_FF
+    n = flam3_iterator_prm_names
 
-    self.setParms({"ffnote": ""})
-    self.setParms({iter_FF.sec_varsT_FF[0]: 0})
-    self.setParms({iter_FF.sec_varsT_FF[1]: 0})
-    self.setParms({iter_FF.sec_varsT_FF[2]: 0})
-    self.setParms({iter_FF.sec_varsW_FF[0][0]: 1})
-    self.setParms({iter_FF.sec_varsW_FF[1][0]: 0})
-    self.setParms({iter_FF.sec_varsW_FF[2][0]: 0})
+    self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_3}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_3}": 0})
     # FF post
-    self.setParms({iter_FF.sec_postvarsT_FF[0]: 0})
-    self.setParms({iter_FF.sec_postvarsT_FF[1]: 0})
-    self.setParms({iter_FF.sec_postvarsW_FF[0][0]: 0})
-    self.setParms({iter_FF.sec_postvarsW_FF[1][0]: 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0})
     # FF affine
-    self.setParms({iter_FF.sec_preAffine_FF[0][0]: hou.Vector2((1.0, 0.0))})
-    self.setParms({iter_FF.sec_preAffine_FF[1][0]: hou.Vector2((0.0, 1.0))})
-    self.setParms({iter_FF.sec_preAffine_FF[2][0]: hou.Vector2((0.0, 0.0))})
-    self.setParms({iter_FF.sec_preAffine_FF[3][0]: 0})
-    self.setParms({iter_FF.sec_postAffine_FF[0][0]: 0})
-    self.setParms({iter_FF.sec_postAffine_FF[1][0]: hou.Vector2((1.0, 0.0))})
-    self.setParms({iter_FF.sec_postAffine_FF[2][0]: hou.Vector2((0.0, 1.0))})
-    self.setParms({iter_FF.sec_postAffine_FF[3][0]: hou.Vector2((0.0, 0.0))})
-    self.setParms({iter_FF.sec_postAffine_FF[4][0]: 0})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
 
     # CP
     self.setParms({"filepath": ""})
@@ -1478,56 +1478,56 @@ def flam3_default(self: hou.Node) -> None:
     # Iterator 1
     #
     # shader
-    self.setParms({f"{iter.sec_shader[0][0]}1": 0})
-    self.setParms({f"{iter.sec_shader[1][0]}1": 0.75})
+    self.setParms({f"{n.shader_color}_1": 0})
+    self.setParms({f"{n.shader_speed}_1": 0.75})
     # vars
-    self.setParms({f"{iter.sec_prevarsT[0]}1": 0})
-    self.setParms({f"{iter.sec_prevarsT[1]}1": 0})
-    self.setParms({f"{iter.sec_varsT[0]}1": 0})
-    self.setParms({f"{iter.sec_varsT[1]}1": 0})
-    self.setParms({f"{iter.sec_varsT[2]}1": 0})
-    self.setParms({f"{iter.sec_varsT[3]}1": 0})
-    self.setParms({f"{iter.sec_postvarsT[0]}1": 0})
+    self.setParms({f"{n.prevar_type_1}_1": 0})
+    self.setParms({f"{n.prevar_type_2}_1": 0})
+    self.setParms({f"{n.var_type_1}_1": 0})
+    self.setParms({f"{n.var_type_2}_1": 0})
+    self.setParms({f"{n.var_type_3}_1": 0})
+    self.setParms({f"{n.var_type_4}_1": 0})
+    self.setParms({f"{n.postvar_type_1}_1": 0})
     # pre affine
-    self.setParms({f"{iter.sec_preAffine[0][0]}1": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{iter.sec_preAffine[1][0]}1": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{iter.sec_preAffine[2][0]}1": hou.Vector2((0.0, 0.51225))})
+    self.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))})
+    self.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))})
+    self.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))})
 
     # Iterator 2
     #
     # shader
-    self.setParms({f"{iter.sec_shader[0][0]}2": 0.5})
-    self.setParms({f"{iter.sec_shader[1][0]}2": 0.75})
+    self.setParms({f"{n.shader_color}_2": 0.5})
+    self.setParms({f"{n.shader_speed}_2": 0.75})
     # vars
-    self.setParms({f"{iter.sec_prevarsT[0]}2": 0})
-    self.setParms({f"{iter.sec_prevarsT[1]}2": 0})
-    self.setParms({f"{iter.sec_varsT[0]}2": 0})
-    self.setParms({f"{iter.sec_varsT[1]}2": 0})
-    self.setParms({f"{iter.sec_varsT[2]}2": 0})
-    self.setParms({f"{iter.sec_varsT[3]}2": 0})
-    self.setParms({f"{iter.sec_postvarsT[0]}2": 0})
+    self.setParms({f"{n.prevar_type_1}_2": 0})
+    self.setParms({f"{n.prevar_type_2}_2": 0})
+    self.setParms({f"{n.var_type_1}_2": 0})
+    self.setParms({f"{n.var_type_2}_2": 0})
+    self.setParms({f"{n.var_type_3}_2": 0})
+    self.setParms({f"{n.var_type_4}_2": 0})
+    self.setParms({f"{n.postvar_type_1}_2": 0})
     # pre affine
-    self.setParms({f"{iter.sec_preAffine[0][0]}2": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{iter.sec_preAffine[1][0]}2": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{iter.sec_preAffine[2][0]}2": hou.Vector2((-0.29575, 0.0))})
+    self.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))})
+    self.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))})
+    self.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))})
 
     # Iterator 3
     #
     # shader
-    self.setParms({f"{iter.sec_shader[0][0]}3": 1.0})
-    self.setParms({f"{iter.sec_shader[1][0]}3": 0.75})
+    self.setParms({f"{n.shader_color}_3": 1.0})
+    self.setParms({f"{n.shader_speed}_3": 0.75})
     # vars
-    self.setParms({f"{iter.sec_prevarsT[0]}3": 0})
-    self.setParms({f"{iter.sec_prevarsT[1]}3": 0})
-    self.setParms({f"{iter.sec_varsT[0]}3": 0})
-    self.setParms({f"{iter.sec_varsT[1]}3": 0})
-    self.setParms({f"{iter.sec_varsT[2]}3": 0})
-    self.setParms({f"{iter.sec_varsT[3]}3": 0})
-    self.setParms({f"{iter.sec_postvarsT[0]}3": 0})
+    self.setParms({f"{n.prevar_type_1}_3": 0})
+    self.setParms({f"{n.prevar_type_2}_3": 0})
+    self.setParms({f"{n.var_type_1}_3": 0})
+    self.setParms({f"{n.var_type_2}_3": 0})
+    self.setParms({f"{n.var_type_3}_3": 0})
+    self.setParms({f"{n.var_type_4}_3": 0})
+    self.setParms({f"{n.postvar_type_1}_3": 0})
     # pre affine
-    self.setParms({f"{iter.sec_preAffine[0][0]}3": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{iter.sec_preAffine[1][0]}3": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{iter.sec_preAffine[2][0]}3": hou.Vector2((0.29575, 0.0))})
+    self.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))})
+    self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))})
+    self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))})
 
     #######################################################################
 
@@ -1559,30 +1559,30 @@ def iteratorCountZero(self: hou.Node) -> None:
         self.setParms({"tmrt": 0})
         
         # FF vars
-        iter_FF = flam3_iterator_FF
+        n = flam3_iterator_prm_names
 
-        self.setParms({"ffnote": ""})
-        self.setParms({iter_FF.sec_varsT_FF[0]: 0})
-        self.setParms({iter_FF.sec_varsT_FF[1]: 0})
-        self.setParms({iter_FF.sec_varsT_FF[2]: 0})
-        self.setParms({iter_FF.sec_varsW_FF[0][0]: 1})
-        self.setParms({iter_FF.sec_varsW_FF[1][0]: 0})
-        self.setParms({iter_FF.sec_varsW_FF[2][0]: 0})
+        self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
+        self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.var_type_3}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
+        self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.var_weight_3}": 0})
         # FF post
-        self.setParms({iter_FF.sec_postvarsT_FF[0]: 0})
-        self.setParms({iter_FF.sec_postvarsT_FF[1]: 0})
-        self.setParms({iter_FF.sec_postvarsW_FF[0][0]: 0})
-        self.setParms({iter_FF.sec_postvarsW_FF[1][0]: 0})
+        self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0})
         # FF affine
-        self.setParms({iter_FF.sec_preAffine_FF[0][0]: hou.Vector2((1.0, 0.0))})
-        self.setParms({iter_FF.sec_preAffine_FF[1][0]: hou.Vector2((0.0, 1.0))})
-        self.setParms({iter_FF.sec_preAffine_FF[2][0]: hou.Vector2((0.0, 0.0))})
-        self.setParms({iter_FF.sec_preAffine_FF[3][0]: 0})
-        self.setParms({iter_FF.sec_postAffine_FF[0][0]: 0})
-        self.setParms({iter_FF.sec_postAffine_FF[1][0]: hou.Vector2((1.0, 0.0))})
-        self.setParms({iter_FF.sec_postAffine_FF[2][0]: hou.Vector2((0.0, 1.0))})
-        self.setParms({iter_FF.sec_postAffine_FF[3][0]: hou.Vector2((0.0, 0.0))})
-        self.setParms({iter_FF.sec_postAffine_FF[4][0]: 0})
+        self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
+        self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
+        self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
+        self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
+        self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
+        self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
+        self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
+        self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
 
         # SM
         self.setParms({"sm": 0})
