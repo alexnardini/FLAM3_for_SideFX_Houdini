@@ -1383,6 +1383,40 @@ def viewportParticleSize(self: hou.Node) -> None:
 
 
 ###############################################################################################
+# Reset finalxform.
+###############################################################################################
+def reset_FF(self):
+
+    n = flam3_iterator_prm_names
+
+    self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_3}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_3}": 0})
+    # FF post
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0})
+    # FF affine
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
+
+
+
+
+
+###############################################################################################
 # Load default values. ( Sierpinsky triangle )
 ###############################################################################################
 def flam3_default(self: hou.Node) -> None:
@@ -1413,30 +1447,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({"tmrt": 0})
     
     # FF vars
-    n = flam3_iterator_prm_names
-
-    self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_3}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_3}": 0})
-    # FF post
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0})
-    # FF affine
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
+    reset_FF(self)
 
     # CP
     self.setParms({"filepath": ""})
@@ -1473,7 +1484,7 @@ def flam3_default(self: hou.Node) -> None:
     #######################################################################
     
     # iterators
-    iter = flam3_iterator
+    n = flam3_iterator_prm_names
 
     # Iterator 1
     #
@@ -1559,30 +1570,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         self.setParms({"tmrt": 0})
         
         # FF vars
-        n = flam3_iterator_prm_names
-
-        self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
-        self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.var_type_3}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
-        self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.var_weight_3}": 0})
-        # FF post
-        self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0})
-        # FF affine
-        self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
-        self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
-        self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
-        self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
-        self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
-        self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
-        self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
-        self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
+        reset_FF(self)
 
         # SM
         self.setParms({"sm": 0})
