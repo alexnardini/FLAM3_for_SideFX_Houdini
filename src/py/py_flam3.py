@@ -2553,7 +2553,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
                 # if this variation is not found, set it to Linear and set its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
         
-        # Activate iterators, just in case
+        # Activate iterators, just in case i reload a preset after disabling them
         if not mode:
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
         # Set the rest of the iterator
