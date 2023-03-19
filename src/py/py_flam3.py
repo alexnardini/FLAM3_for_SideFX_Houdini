@@ -2565,6 +2565,9 @@ def apo_to_flam3(self):
         reset_FF(self)
         self.setParms({"doff": 1})
         apo_set_iterator(1, self, apo_data)
+    else:
+        reset_FF(self)
+        self.setParms({"doff": 0})
     # CP
     ramp_parm = self.parm(RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
