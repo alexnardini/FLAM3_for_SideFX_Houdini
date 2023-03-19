@@ -2236,7 +2236,7 @@ class apo_flame_iter_data(apo_flame):
 def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], list[str]], tuple[None, None]]:
     """
     Args:
-        xforms (tuple): [list of all xforms contained inside this flame]
+        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
 
     Returns:
         Union[tuple[list, list], tuple[None, None]]: [return a list of variation' names and their parametric parameter's names for each xform withou "pre" and "post" variations,  or None]
@@ -2277,7 +2277,7 @@ def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], lis
 def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     """
     Args:
-        data (list): [a list of floats containt the current parameter values]
+        data (list): [a list of floats containinig the current parameter values to be converted into hou types]
 
     Returns:
         Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [description]
