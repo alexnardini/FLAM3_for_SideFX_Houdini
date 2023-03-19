@@ -1,5 +1,5 @@
 from __future__ import division
-from typing import Union
+from typing import Union, Type
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
@@ -47,6 +47,9 @@ SEC_POSTAFFINE = ".post_affine"
 RAMP_SRC_NAME = "palette"
 RAMP_HSV_NAME = "palettehsv"
 RAMP_HSV_VAL_NAME = "hsv"
+
+MAX_VARS = 4
+MAX_FF_VARS = 3
 
 
 
@@ -433,7 +436,7 @@ class flam3_iterator_FF:
 
 
 ###############################################################################################
-# MENU - Build vars type menus
+# MENU - Build vars v_type menus
 ###############################################################################################
 def menu_T(int_mode: int) -> list:
     """
@@ -486,7 +489,7 @@ def menu_copypaste(kwargs: dict) -> list:
     # If an iterator has been copied on a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
-        hou.session.flam3node.type()
+        hou.session.flam3node.v_type()
     except:
         id_from = -1
 
@@ -548,7 +551,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
     # If the FF has been copied on a node that has been deleted
     # revert to -1 so that we are forced to copy an FF again.
     try:
-        hou.session.flam3node_FF.type()
+        hou.session.flam3node_FF.v_type()
     except:
         flam3node_FF_check = -1
 
@@ -636,10 +639,10 @@ def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3
         prm_from = flam3node.parm(f"{prm}{id_from}").eval()
         node.setParms({f"{prm}{id}": prm_from})
         # Check if this var is a parametric or not
-        type = int(prm_from)
-        if(varsPRM[type][-1]):
+        v_type = int(prm_from)
+        if(varsPRM[v_type][-1]):
             
-            paste_from_list(varsPRM[type][1:-1], node, flam3node, id, id_from)
+            paste_from_list(varsPRM[v_type][1:-1], node, flam3node, id, id_from)
 
 
 
@@ -755,7 +758,7 @@ def prm_paste(kwargs: dict) -> None:
         # If an iterator was copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
-            flam3node.type()
+            flam3node.v_type()
         except:
             id_from = -1
 
@@ -804,7 +807,7 @@ def prm_paste_FF(kwargs: dict) -> None:
         # If the FF was copied from a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
-            flam3node_FF.type()
+            flam3node_FF.v_type()
         except:
             flam3node_FF_check = -1
 
@@ -858,7 +861,7 @@ def prm_paste_sel(kwargs: dict) -> None:
     # revert to -1 so that we are forced to copy an iterator again.
     '''
     try:
-        flam3node.type()
+        flam3node.v_type()
     except:
         id_from = -1
     '''
@@ -949,7 +952,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     # revert to -1 so that we are forced to copy an iterator again.
     '''
     try:
-        flam3node_FF.type()
+        flam3node_FF.v_type()
     except:
         flam3node_FF_check = -1
     '''
@@ -1027,7 +1030,7 @@ def flam3_on_create(kwargs: dict) -> None:
     # If an iterator was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
-        hou.session.flam3node.type()
+        hou.session.flam3node.v_type()
     except:
         hou.session.flam3node_mp_id = -1
 
@@ -1050,7 +1053,7 @@ def flam3_on_create(kwargs: dict) -> None:
     # If the FF was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy the FF again.
     try:
-        hou.session.flam3node_FF.type()
+        hou.session.flam3node_FF.v_type()
     except:
         hou.session.flam3node_FF_check = -1
 
@@ -1649,7 +1652,10 @@ XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "flatten", "pre_blur", "coe
 
 
 
-# this is only as idx lookup table
+# This is only as idx lookup table. Every variation name in this list
+# is the same name as written by Apophysis inside the XML file.
+# When you load a fractal flame, every variation name in the XML file
+# will look itself up inside this table, and if it find itself will proceed.
 VARS_APO = ("linear", 
             "sinusoidal",
             "spherical",
@@ -1681,8 +1687,8 @@ VARS_APO = ("linear",
             "ngon",
             "pdj",
             "blob",
-            "juliaN",
-            "juliaScope",
+            "julian",
+            "juliascope",
             "gaussian",
             "fan2",
             "rings2",
@@ -1758,18 +1764,25 @@ VARS_APO = ("linear",
 
 
 class flam3_varsPRM_APO:
-
-    # Collect all variations and their parametric parameters properly ordered as per flame*.h files
     
-    # the following are missing yet
+    # Collect all variations and their parametric parameters properly ordered as per flame*.h files
+    # Those parameters matches the Apophysis parameter's names.
+    # They are gouped as follow and based on the FLAM3 houdini node parametric parameters:
     #
-    # blob
-    # radial_blur
-    # disc2
-    # supershape
-    # flower
-    # conic
+    # for generic variation:
+    # ("variation name", bool: (parametric or not parametric)),
+    #
+    # for parametric variation:
+    # ("variation name", (prm_1, ..., prm_4), (prm_1, ..., prm_4), bool: (parametric or not parametric)),
+    #
+    # -> (prm_1, ..., prm_4) accept a max of 4 entries (hou.Vector4) and based on the number of parameters
+    # they are then automatically converted to the expeted v_type using the function: 
+    # typemaker((prm_1, ..., prm_4)) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+    #
+    # The (("variation_name") entrie, is not used here but only present for readabilty.
 
+
+    # Marked with: *** -> are missing from my current Apophysis package. Need to find them.
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
                 ("spherical", 0), 
@@ -1800,14 +1813,14 @@ class flam3_varsPRM_APO:
                 ("curl", ("curlc1", "curlc2"), 1), 
                 ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
                 ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("blob", ("blob_"), 1), 
-                ("juliaN", ("julian_power", "julian_dist", 1)), 
+                ("***blob", ("blob_"), 1), 
+                ("juliaN", ("julian_power", "julian_dist"), 1), 
                 ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
                 ("gaussian", 0), 
                 ("fan2", ("fan2_x", "fan2_y"), 1), 
                 ("rings2", ("rings2_val"), 1), 
                 ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                ("radial_blur", ("radialblur_"), 1), 
+                ("***radial_blur", ("radialblur_"), 1), 
                 ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
                 ("arch", 0), 
                 ("tangent", 0), 
@@ -1817,61 +1830,61 @@ class flam3_varsPRM_APO:
                 ("secant2", 0), 
                 ("twintrian", 0), 
                 ("cross", 0), 
-                ("disc2", ("disc2_"), 1), 
-                ("supershape", ("supershape_"), ("supershapen_"), 1), 
-                ("flower", ("flower_"), 1), 
-                ("conic", ("conic_"), 1), 
-                ("parabola", ("parabola_"), 1), 
+                ("***disc2", ("disc2_"), 1), 
+                ("***supershape", ("supershape_"), ("supershapen_"), 1), 
+                ("***flower", ("flower_"), 1), 
+                ("***conic", ("conic_"), 1), 
+                ("***parabola", ("parabola_"), 1), 
                 ("bent2", ("bent2_x", "bent2_y"), 1), 
                 ("bipolar", ("bipolar_shift"), 1),
                 ("boarders", 0),
                 ("butterfly", 0), 
-                ("cell", ("cell_size"), 1), 
+                ("cell", ("cell_size", ), 1), 
                 ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
                 ("edisc", 0), 
                 ("elliptic", 0), 
                 ("noise", 0), 
                 ("escher", ("escher_beta"), 1), 
                 ("foci", 0), 
-                ("lazysusan", ("lazysusan_spin", "lazysusan_twist" "lazysusan_space", "lazysusan_x", "lazysusan_y"), 1), 
+                ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
                 ("loonie", 0), 
                 ("pre blur", 0), 
                 ("modulus", ("modulus_x", "modulus_y"), 1), 
-                ("oscilloscope", ("oscope_frequency", "oscope_aplitude", "oscope_damping" "oscope_separation"), 1), 
+                ("oscilloscope", ("oscope_frequency", "oscope_aplitude", "oscope_damping", "oscope_separation"), 1), 
                 ("polar2", 0), 
-                ("popcorn2", ("popcorn2_c", "popcorn2_x", "popcorn2_y"), 1), 
+                ("popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
                 ("scry", 0), 
-                ("separation", ("separationxyz_"), ("separationinsidexyz_"), 1), 
+                ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
                 ("split", ("split_xsize", "split_ysize"), 1), 
                 ("splits", ("splits_x", "splits_y"), 1), 
                 ("stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
-                ("wedgejulia", ("wedgejulia_"), 1), 
-                ("wedgesph", ("wedgesph_"), 1), 
+                ("***wedgejulia", ("wedgejulia_"), 1), 
+                ("***wedgesph", ("wedgesph_"), 1), 
                 ("whorl", ("whorl_inside", "whorl_outside"), 1), 
-                ("waves2", ("waves2_scalex", "waves2_scaley", "waves2_freqx", "waves2_freqy"), 1), 
-                ("cothe exp", 0), 
-                ("cothe log", 0), 
-                ("cothe sin", 0), 
-                ("cothe cos", 0), 
-                ("cothe tan", 0), 
-                ("cothe sec", 0), 
-                ("cothe csc", 0), 
-                ("cothe cot", 0), 
-                ("cothe sinh", 0), 
-                ("cothe cosh", 0), 
-                ("cothe tanh", 0), 
-                ("cothe sech", 0), 
-                ("cothe csch", 0), 
-                ("cothe coth", 0), 
+                ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
+                ("***cothe exp", 0), 
+                ("***cothe log", 0), 
+                ("***cothe sin", 0), 
+                ("***cothe cos", 0), 
+                ("***cothe tan", 0), 
+                ("***cothe sec", 0), 
+                ("***cothe csc", 0), 
+                ("***cothe cot", 0), 
+                ("***cothe sinh", 0), 
+                ("***cothe cosh", 0), 
+                ("***cothe tanh", 0), 
+                ("***cothe sech", 0), 
+                ("***cothe csch", 0), 
+                ("***cothe coth", 0), 
                 ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
                 ("flux", ("flux_spread"), 1), 
-                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D", "Im_A", "Im_B", "Im_C", "Im_D"), 1),
-                ("curve", ("curve_xlength", "curve_ylength", "curve_xamp", "curve_yamp"), 1), 
-                ("persp", ("persp_"), 1), 
-                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain", "bwraps_inner_twist", "bwraps_outer_twist"), 1), 
+                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
+                ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
+                ("***persp", ("persp_"), 1), 
+                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("hemisphere", 0), 
-                ("polynomial", ("polynomial_powx", "polynomial_powy", "polynomial_lcx", "polynomial_lcy", "polynomial_scx", "polynomial_scy"), 1) )
+                ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
 
 
 
@@ -1881,7 +1894,7 @@ class _xml_tree:
     def __init__(self, xmlfile: str) -> None:
         """
         Args:
-            xmlfile (str): xmlfile (str): [xml *.flame file type to load]
+            xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
         self._tree = ET.parse(xmlfile)
@@ -1939,7 +1952,7 @@ class apo_flame(_xml_tree):
     def __init__(self, xmlfile: str) -> None:
         """
         Args:
-            xmlfile (str): [xml *.flame type file to load]
+            xmlfile (str): [xml *.flame v_type file to load]
         """        
         super().__init__(xmlfile)
         self._name = self._xml_tree__get_name()
@@ -1950,10 +1963,10 @@ class apo_flame(_xml_tree):
     def hex_to_rgb(self, hex: str):
         """
         Args:
-            hex ([type]): [hex value to be converted into rgb value]
+            hex ([v_type]): [hex value to be converted into rgb value]
 
         Returns:
-            [type]: [rgb value]
+            [v_type]: [rgb value]
         """        
         return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
     
@@ -2089,6 +2102,9 @@ class apo_flame(_xml_tree):
                         keyvalues.append(float(xform.get(key)))
                     else:
                         keyvalues.append([])
+                #if not max(list(map(lambda x: len(x), keyvalues))):
+                #    return None
+                #else:
                 return tuple(keyvalues)
         else:
             return None
@@ -2137,7 +2153,7 @@ class apo_flame_iter_data(apo_flame):
     def __init__(self, xmlfile: str, idx=0) -> None:
         """
         Args:
-            xmlfile (str): xmlfile (str): [xml flame type file to load]
+            xmlfile (str): xmlfile (str): [xml flame v_type file to load]
             idx (int, optional): [flame idx out of all flames included in the loaded flame file]. Defaults to 0.
         """        
         super().__init__(xmlfile)
@@ -2259,6 +2275,7 @@ def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], lis
 
 
 def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+
     if len(data) == 1:
         return float(data[0])
     elif len(data) == 2:
@@ -2282,120 +2299,213 @@ def apo_get_var_key_idx(key: str) -> Union[int, None]:
 
 
 
+def flam3_prx_mode(mode: int) -> tuple[str, str]:
+
+    prx = ""
+    prx_prm = ""
+    if mode:
+        prx = PRX_FF_PRM
+        prx_prm = PRX_FF_PRM + "_"
+    return prx, prx_prm
+
+
+
+
 
 # yeah, function pointer this and all the others!!!!!
-def v_bwraps(mode: int, node: hou.Node, myidx: int, idx_t: int, xform: dict, TYPE: int, weight: float, VAR_PRM: tuple, APO_PRM: tuple) -> None:
+def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
-        myidx (int): [for multiparameter index -> the xform count from the outer loop: (myidx + 1)]
-        idx_t (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
         xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        T (int): [the current variation type index]
+        v_type (int): [the current variation type index]
         weight (float): [the current variation weight]
-        VAR_PRM (tuple): [tuple of all FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM]
-        APO_PRM (tuple): [tuple of all APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM]
+        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
     """
-    prx = ""
-    prx_prm = ""
-    if mode:
-        prx = PRX_FF_PRM
-        prx_prm = PRX_FF_PRM + "_"
+    prx, prx_prm = flam3_prx_mode(mode)
 
     VAR: list = []
-    var_prm_vals: list = []
-    for name in APO_PRM[TYPE][1]:
-        var_prm_vals.append(float(xform.get(name)))
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in names:
+            var_prm_vals.append(float(xform.get(n)))
+        VAR.append(typemaker(var_prm_vals))
 
-    # need to find a way to make this work 
-    # for all parametric variations
-    VAR.append(hou.Vector3((tuple(var_prm_vals[0:3]))))
-    VAR.append(hou.Vector2(tuple((var_prm_vals[3:]))))
-
-    for idx, prm in enumerate(VAR_PRM[TYPE][1:-1]):
+    for idx, prm in enumerate(var_prm[1:-1]):
         if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]})
-        else: node.setParms({f"{prx_prm}{prm[0]}{str(myidx+1)}": VAR[idx]})
+        else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
 
-    # Set variation type and weight
+    # Set variation v_type and weight
     if mode:
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t][:-1]}": TYPE})
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0][:-1]}": weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
     else:
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t]}{str(myidx+1)}": TYPE})
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0]}{str(myidx+1)}":weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
 
     
     
 
 
-def v_generic(mode: int, node: hou.Node, myidx: int, idx_t: int, TYPE: int, weight: float) -> None:
+def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
-        myidx (int): [Multiparameter index -> the xform count from the outer loop: (myidx + 1)]
-        idx_t (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        T (int): [Current variation type index]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        v_type (int): [Current variation type index]
         weight (float): [Current variation weight]
     """
-    prx = ""
-    prx_prm = ""
-    if mode:
-        prx = PRX_FF_PRM
-        prx_prm = PRX_FF_PRM + "_"
+    prx, prx_prm = flam3_prx_mode(mode)
 
-    # Set variation type and weight
+    # Set variation v_type and weight
     if mode:
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t][:-1]}": TYPE})
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0][:-1]}": weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
     else:
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t]}{str(myidx+1)}": TYPE})
-        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0]}{str(myidx+1)}":weight})
-
-    
-    
-    
-    
-    
-    
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
 
 
-node = hou.node('/obj/geo1/FLAME1')
-xml = 'C:/Users/alexn/Desktop/ccc.flame'
-idx = 0
-apo = apo_flame(xml)
-apo_data = apo_flame_iter_data(apo.xmlfile, idx)
 
-VAR_PRM: tuple = flam3_varsPRM.varsPRM
-APO_PRM: tuple = flam3_varsPRM_APO.varsPRM
-vars_keys, vars_prm_keys = apo_get_xforms_var_and_prm_keys(apo_data.xforms)
 
-ff_vars_keys = []
-ff_vars_prm_keys = []
-if apo_data.finalxform is not None:
-    ff_vars_keys, ff_vars_prm_keys = apo_get_xforms_var_and_prm_keys(apo_data.finalxform)
 
-for idx, xform in enumerate(apo_data.xforms):
-    print("multiparam", idx+1)
-    print("XFORM ->", idx, xform)
-    for idx_t, key_name in enumerate(vars_keys[idx]):
-        TYPE = apo_get_var_key_idx(key_name)
-        if TYPE is not None:
-            #get this variation weight
-            type_weight: float = float(xform.get(key_name))
-            # if PARAMETRIC
-            if APO_PRM[TYPE][-1]:
-                # the following function will instead be a function pointer array
-                # where T will select the proper one based on the same variation's index
-                # ex: pointer(T)(0, hou.Node, idx, xform, T, type_weight, VAR_PRM, APO_PRM)
-                v_bwraps(0, node, idx, idx_t, xform, TYPE, type_weight, VAR_PRM, APO_PRM)
-                # print(TYPE, "::", key_name, ":", type_weight, "-> PARAMETRIC", APO_PRM[TYPE][1])
-                # print(TYPE, "::", key_name, ":", type_weight, "-> PARAMETRIC", VAR_PRM[TYPE][1:-1])
-            # if NOT
+def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: tuple) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        pb_weights (tuple): [all iterators pre_blur weight values]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+    if mode: pass
+    else:
+        if pb_weights[mp_idx]:
+            node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
+
+
+
+
+
+def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter_data, n: flam3_iterator_prm_names, mp_idx: int) -> None:
+
+    if mode:
+        # Set pre affine (X, Y, O)
+        node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]})
+        node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]})
+        node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]})
+        # Set post affine (X, Y, O)
+        if apo_data.finalxform_post is not None:
+            node.setParms({f"{prx}{n.postaffine_do}": 1})
+            node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][0]})
+            node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]})
+            node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]})
+    else:
+        # Set pre affine (X, Y, O)
+        node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]})
+        node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]})
+        node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]})
+        # Set post affine (X, Y, O)
+        if apo_data.post is not None:
+            if apo_data.post[mp_idx]:
+                node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1})
+                node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]})
+                node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]})
+                node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]})
+
+
+
+
+
+def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: str, mp_idx: int) -> None:
+
+    if mode:
+        pass
+    else:
+        if apo_data is not None:
+            if apo_data[mp_idx]:
+                node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]})
+                print(f"{prx}{prm_name}_{str(mp_idx+1)}")
+
+
+
+
+# need to add kwargs back as its first argument
+def apo_set_iterator(mode: int, apo_data: apo_flame_iter_data) -> None:
+
+    xforms = ()
+    max_vars = 0
+    if mode:
+        max_vars = MAX_FF_VARS
+        xforms = apo_data.finalxform
+    else:
+        max_vars = MAX_VARS
+        xforms = apo_data.xforms
+
+    iterator_names = flam3_iterator_prm_names()
+    prx, prx_prm = flam3_prx_mode(mode)
+
+    # node = kwargs['node']
+    node = hou.node('/obj/geo1/FLAME1')
+
+    var_prm: tuple = flam3_varsPRM.varsPRM
+    apo_prm: tuple = flam3_varsPRM_APO.varsPRM
+    vars_keys, vars_prm_keys = apo_get_xforms_var_and_prm_keys(xforms)
+
+    # Set variations
+    for mp_idx, xform in enumerate(xforms):
+        for t_idx, key_name in enumerate(vars_keys[mp_idx][:max_vars]):
+            v_type = apo_get_var_key_idx(key_name)
+            if v_type is not None:
+                v_weight: float = float(xform.get(key_name))
+                if apo_prm[v_type][-1]:
+                    v_parametric(mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                else:
+                    v_pre_blur(mode, node, mp_idx, t_idx, apo_data.pre_blur)
+                    v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
+
             else:
-                v_generic(0, node, idx, idx_t, TYPE, type_weight)
-                # print(TYPE, "::", key_name, ":", type_weight, "-> VARIATION")
+                # if this variation is not found, set it to Linear and its weight to ZERO
+                v_generic(mode, node, mp_idx, t_idx, 0, 0)
+        
+        # Set the rest of the iterator
+        apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
+        apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
+        apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)
+        apo_set_data(mode, node, prx, apo_data.colorspeed, iterator_names.shader_speed, mp_idx)
+        apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+
+
+
+
+
+
+# n = flam3_iterator_prm_names
+# print(n)
+# #apo_set_variations(0)
+
+xml = 'C:/Users/alexn/Desktop/ff2.flame'
+parameter_idx = 0
+apo_data = apo_flame_iter_data(xml, parameter_idx)
+apo_set_iterator(0, apo_data)
+if apo_data.finalxform is not None:
+    apo_set_iterator(1, apo_data)
+
+iterator_names = flam3_iterator_prm_names()
+print(iterator_names.shader_speed)
+print(apo_data.xaos)
+
+# ff_vars_keys = []
+# ff_vars_prm_keys = []
+# if apo_data.finalxform is not None:
+#     ff_vars_keys, ff_vars_prm_keys = apo_get_xforms_var_and_prm_keys(apo_data.finalxform)
 
 
 
@@ -2403,8 +2513,25 @@ for idx, xform in enumerate(apo_data.xforms):
 
 
 
+###############################################################################################
+# MENU - JSON - build menu from ramp presets file
+###############################################################################################
+def menu_ramp_presets(kwargs: dict) -> list:
 
-a = [1,6,5]
-b = typemaker(a)
-b
+    filepath = kwargs['node'].parm('filepath').evalAsString()
 
+    menu=[]
+    if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+
+        with open(filepath) as f:
+            data = json.load(f)
+        
+        menuitems = data.keys()
+
+        for i, item in enumerate(menuitems):
+            menu.append(i)
+            menu.append(item)
+            
+        return menu
+    else:
+        return menu
