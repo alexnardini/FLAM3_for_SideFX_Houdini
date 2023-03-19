@@ -2576,6 +2576,7 @@ def apo_to_flam3(self):
         preset_id = int(self.parm('apopresets').eval())
         preset = self.parm('apopresets').menuLabels()[preset_id]
 
+        # Parse XML data
         apo_data = apo_flame_iter_data(xml, preset_id)
 
         # SYS
@@ -2586,6 +2587,8 @@ def apo_to_flam3(self):
         for p in self.parms():
             p.deleteAllKeyframes()
         self.setParms({"flamefunc":  len(apo_data.xforms)})
+
+        # Load XML iterator's data
         apo_set_iterator(0, self, apo_data)
         if apo_data.finalxform is not None:
             reset_FF(self)
@@ -2597,7 +2600,9 @@ def apo_to_flam3(self):
         # CP
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
+        # Set XML palette data
         ramp_parm.set(apo_data.palette)
+        
         palette_cp(self)
         palette_hsv(self)
 
