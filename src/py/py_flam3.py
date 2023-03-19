@@ -1,5 +1,5 @@
 from __future__ import division
-from typing import Union, Type
+from typing import Union
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
