@@ -2599,6 +2599,7 @@ def apo_to_flam3(self):
             reset_FF(self)
             self.setParms({"doff": 0})
         # CP
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
