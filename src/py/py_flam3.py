@@ -2552,23 +2552,23 @@ def apo_to_flam3(self):
     preset_id = int(self.parm('apopresets').eval())
     apo_data = apo_flame_iter_data(xml, preset_id)
 
+    # SYS
+    self.setParms({"ptcount": 500000})
+    self.setParms({"iter": 16})
+    # iterators
     self.setParms({"flamefunc": 0})
     for p in self.parms():
         p.deleteAllKeyframes()
     self.setParms({"flamefunc":  len(apo_data.xforms)})
-    
-    
     apo_set_iterator(0, self, apo_data)
     if apo_data.finalxform is not None:
         reset_FF(self)
         self.setParms({"doff": 1})
         apo_set_iterator(1, self, apo_data)
-
-    #Set color palette from XML file palette entrie
+    # CP
     ramp_parm = self.parm(RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
     ramp_parm.set(apo_data.palette)
-
     palette_cp(self)
     palette_hsv(self)
 
