@@ -1732,8 +1732,8 @@ VARS_APO = ("linear",
             "splits",
             "stripes",
             "wedge",
-            "wedge julia",
-            "wedge sph",
+            "wedgejulia",
+            "wedgesph",
             "whorl",
             "waves2",
             "exp",
@@ -1782,7 +1782,7 @@ class flam3_varsPRM_APO:
     # The (("variation_name") entrie, is not used here but only present for readabilty.
 
 
-    # Marked with: *** -> are missing from my current Apophysis package. Need to find them.
+    # Marked with: ************ -> are missing from my current Apophysis package. Need to find them.
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
                 ("spherical", 0), 
@@ -1813,14 +1813,14 @@ class flam3_varsPRM_APO:
                 ("curl", ("curlc1", "curlc2"), 1), 
                 ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
                 ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("***blob", ("blob_"), 1), 
+                ("******blob", ("blob_"), 1), 
                 ("juliaN", ("julian_power", "julian_dist"), 1), 
                 ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
                 ("gaussian", 0), 
                 ("fan2", ("fan2_x", "fan2_y"), 1), 
                 ("rings2", ("rings2_val"), 1), 
                 ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                ("***radial_blur", ("radialblur_"), 1), 
+                ("******radial_blur", ("radialblur_"), 1), 
                 ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
                 ("arch", 0), 
                 ("tangent", 0), 
@@ -1830,11 +1830,11 @@ class flam3_varsPRM_APO:
                 ("secant2", 0), 
                 ("twintrian", 0), 
                 ("cross", 0), 
-                ("***disc2", ("disc2_"), 1), 
-                ("***supershape", ("supershape_"), ("supershapen_"), 1), 
-                ("***flower", ("flower_"), 1), 
-                ("***conic", ("conic_"), 1), 
-                ("***parabola", ("parabola_"), 1), 
+                ("******disc2", ("disc2_"), 1), 
+                ("******supershape", ("supershape_"), ("supershapen_"), 1), 
+                ("******flower", ("flower_"), 1), 
+                ("******conic", ("conic_"), 1), 
+                ("******parabola", ("parabola_"), 1), 
                 ("bent2", ("bent2_x", "bent2_y"), 1), 
                 ("bipolar", ("bipolar_shift"), 1),
                 ("boarders", 0),
@@ -1859,29 +1859,29 @@ class flam3_varsPRM_APO:
                 ("splits", ("splits_x", "splits_y"), 1), 
                 ("stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
-                ("***wedgejulia", ("wedgejulia_"), 1), 
-                ("***wedgesph", ("wedgesph_"), 1), 
+                ("******wedgejulia", ("wedgejulia_"), 1), 
+                ("******wedgesph", ("wedgesph_"), 1), 
                 ("whorl", ("whorl_inside", "whorl_outside"), 1), 
                 ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
-                ("***cothe exp", 0), 
-                ("***cothe log", 0), 
-                ("***cothe sin", 0), 
-                ("***cothe cos", 0), 
-                ("***cothe tan", 0), 
-                ("***cothe sec", 0), 
-                ("***cothe csc", 0), 
-                ("***cothe cot", 0), 
-                ("***cothe sinh", 0), 
-                ("***cothe cosh", 0), 
-                ("***cothe tanh", 0), 
-                ("***cothe sech", 0), 
-                ("***cothe csch", 0), 
-                ("***cothe coth", 0), 
+                ("******cothe exp", 0), 
+                ("******cothe log", 0), 
+                ("******cothe sin", 0), 
+                ("******cothe cos", 0), 
+                ("******cothe tan", 0), 
+                ("******cothe sec", 0), 
+                ("******cothe csc", 0), 
+                ("******cothe cot", 0), 
+                ("******cothe sinh", 0), 
+                ("******cothe cosh", 0), 
+                ("******cothe tanh", 0), 
+                ("******cothe sech", 0), 
+                ("******cothe csch", 0), 
+                ("******cothe coth", 0), 
                 ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
                 ("flux", ("flux_spread"), 1), 
                 ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
                 ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                ("***persp", ("persp_"), 1), 
+                ("******persp", ("persp_"), 1), 
                 ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("hemisphere", 0), 
                 ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
@@ -2275,7 +2275,13 @@ def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], lis
 
 
 def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+    """
+    Args:
+        data (list): [a list of floats containt the current parameter values]
 
+    Returns:
+        Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [description]
+    """
     if len(data) == 1:
         return float(data[0])
     elif len(data) == 2:
@@ -2291,7 +2297,13 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
 
 
 def apo_get_var_key_idx(key: str) -> Union[int, None]:
+    """
+    Args:
+        key (str): [variation name we are processing]
 
+    Returns:
+        Union[int, None]: [description]
+    """
     try: idx = VARS_APO.index(key)
     except: return None
     return idx
@@ -2300,7 +2312,13 @@ def apo_get_var_key_idx(key: str) -> Union[int, None]:
 
 
 def flam3_prx_mode(mode: int) -> tuple[str, str]:
+    """
+    Args:
+        mode (int): [0 for iterator and 1 for FF]
 
+    Returns:
+        tuple[str, str]: [description]
+    """
     prx = ""
     prx_prm = ""
     if mode:
@@ -2395,7 +2413,15 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: t
 
 
 def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter_data, n: flam3_iterator_prm_names, mp_idx: int) -> None:
-
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        prx (str): [parameter name prefix]
+        apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
+        n (flam3_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[apo_flame_iter_data]]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+    """
     if mode:
         # Set pre affine (X, Y, O)
         node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]})
@@ -2425,7 +2451,15 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
 
 
 def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: str, mp_idx: int) -> None:
-
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        prx (str): [parameter name prefix]
+        apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
+        prm_name (str): [parameter name for the current data we want to set]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+    """
     if mode:
         pass
     else:
@@ -2437,7 +2471,7 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 
-# need to add kwargs back as its first argument
+# remember to add kwargs back as its first funtion argument.
 def apo_set_iterator(mode: int, apo_data: apo_flame_iter_data) -> None:
 
     xforms = ()
@@ -2481,6 +2515,7 @@ def apo_set_iterator(mode: int, apo_data: apo_flame_iter_data) -> None:
         apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)
         apo_set_data(mode, node, prx, apo_data.colorspeed, iterator_names.shader_speed, mp_idx)
         apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+        apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
 
 
 
