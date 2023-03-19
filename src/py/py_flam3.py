@@ -1813,7 +1813,7 @@ class flam3_varsPRM_APO:
                 ("cylinder", 0), 
                 ("eyefish", 0), 
                 ("blur", 0), 
-                ("curl", ("curlc1", "curlc2"), 1), 
+                ("curl", ("curl_c1", "curl_c2"), 1), 
                 ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
                 ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
                 ("******blob", ("blob_"), 1), 
@@ -2552,7 +2552,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
                     v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
 
             else:
-                # if this variation is not found, set it to Linear and its weight to ZERO
+                # if this variation is not found, set it to Linear and set its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
         
         # Set the rest of the iterator
@@ -2602,7 +2602,7 @@ def apo_to_flam3(self):
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
         ramp_parm.set(apo_data.palette)
-        
+
         palette_cp(self)
         palette_hsv(self)
 
