@@ -2110,9 +2110,6 @@ class apo_flame(_xml_tree):
                         keyvalues.append(float(xform.get(key)))
                     else:
                         keyvalues.append([])
-                #if not max(list(map(lambda x: len(x), keyvalues))):
-                #    return None
-                #else:
                 return tuple(keyvalues)
         else:
             return None
@@ -2264,6 +2261,7 @@ def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], lis
                                         ) 
                                     ) 
                                 )
+            # I dnt really need this but I'll leave it here for now...
             vars_prm_keys.append( list( map( lambda x: x, 
                                         filter( lambda x: x.split("_")[0] != "pre" and x.split("_")[0] != "post", 
                                             filter( lambda x: 
@@ -2347,7 +2345,7 @@ def apo_get_var_key_idx(key: str) -> Union[int, None]:
         key (str): [variation name we are processing]
 
     Returns:
-        Union[int, None]: [description]
+        Union[int, None]: [return variation idx from the tuple look up table]
     """
     try: idx = VARS_APO.index(key)
     except: return None
@@ -2362,7 +2360,7 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
         mode (int): [0 for iterator and 1 for FF]
 
     Returns:
-        tuple[str, str]: [description]
+        tuple[str, str]: [return parameter prefix based on mode: Iterator or FF]
     """
     prx = ""
     prx_prm = ""
@@ -2555,6 +2553,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
                 # if this variation is not found, set it to Linear and set its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
         
+        # Activate iterators, just in case
+        if not mode:
+            node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
         # Set the rest of the iterator
         apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
         apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
