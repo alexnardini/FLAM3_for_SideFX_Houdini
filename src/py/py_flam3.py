@@ -1,13 +1,18 @@
-import os, hou, json, colorsys, webbrowser
+from __future__ import division
+from typing import Union
+from itertools import count as iter_count
+from itertools import islice as iter_islice
+from textwrap import wrap
+import xml.etree.ElementTree as ET
+import os, hou, json, colorsys, webbrowser, inspect
 
 
 
 
-
-'''  
+ 
 #   Title:      SideFX Houdini FLAM3: 2D
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised February 2023
+#   date:       January 2023, Last revised April 2023
 #
 #   info:       Based on the original: "The Fractal Flame Algorithm"
 #   Authors:    Scott Draves, Erik Reckase
@@ -22,7 +27,6 @@ import os, hou, json, colorsys, webbrowser
 #
 #   Comment:    WIP - Python classes and definitions for tool's user experience.
 #               Everything is then glued together inside Houdini.
-'''
 
 
 
@@ -194,7 +198,7 @@ class flam3_iterator_prm_names:
 
     '''
     Mostly, handy to have all those packed into one class
-    for easy access everywhere I need.
+    for easy access everywhere I need and better readability.
 
     '''
     # ITERATOR
@@ -691,6 +695,8 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
         id_from (str): [multiparameter index to copy from]
     """ 
     
+    n = flam3_iterator_prm_names
+
     _current_note_FF = node.parm("ffnote").evalAsString()
 
     if int_mode == 0:
@@ -698,28 +704,28 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
         # If on the same FLAM3 node
         if node == flam3node:
             if len(_current_note) == 0:
-                node.setParms({f"note_{id}": f"iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"})
             else:
-                node.setParms({f"note_{id}": f"{paste_save_note(_current_note)}iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}iter.{id_from}{str_section}"})
         else:
             if len(_current_note) == 0:
-                node.setParms({f"note_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"})
             else:
-                node.setParms({f"note_{id}": f"{paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"})
             print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section} to: {str(node)}.iter.{id}{str_section}")
     elif int_mode == 1:
         if node != flam3node:
             if len(_current_note_FF) == 0:
-                node.setParms({'ffnote': f"{str(flam3node)}.FF"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"})
             else:
-                node.setParms({'ffnote': f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF"})
             print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF to: {str(node)}.FF")
     elif int_mode == 2:
         if node != flam3node:
             if len(_current_note_FF) == 0:
-                node.setParms({'ffnote': f"{str(flam3node)}.FF{str_section}"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"})
             else:
-                node.setParms({'ffnote': f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"})
             print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
 
 
@@ -857,11 +863,13 @@ def prm_paste_sel(kwargs: dict) -> None:
         id_from = -1
     '''
 
+    n = flam3_iterator_prm_names
+
     # If we ever copied an iterator from a currently existing FLAM3 node
     if id_from != -1:
         
         # Get user selection of paste methods
-        paste_sel = node.parm(f"prmpastesel_{str(id)}").evalAsInt()
+        paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
 
         # set MAIN
         if paste_sel == 1:
@@ -911,7 +919,7 @@ def prm_paste_sel(kwargs: dict) -> None:
         # so that we can paste the same section again, if we want to.
         #
         # please check the def->menu_copypaste() to know its size.
-        node.setParms({f"prmpastesel_{str(id)}": str(0)})
+        node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
     
     else:
         print(f"{str(node)}: Please copy an iterator first")
@@ -946,11 +954,13 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         flam3node_FF_check = -1
     '''
 
+    n = flam3_iterator_prm_names
+
     # If we ever copied an FF from a currently existing FLAM3 node
     if flam3node_FF_check != -1:
         
         # Get user selection of paste methods
-        ff_paste_sel = node.parm("ffprmpastesel").evalAsInt()
+        ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
 
         # set FF VARS
         if ff_paste_sel == 1:
@@ -979,7 +989,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         # so that we can paste the same section again, if we want to.
         #
         # please check def->menu_copypaste_FF() to know its size.
-        node.setParms({"ffprmpastesel": str(0)})
+        node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
                 
     else:
         print(f"{str(node)}: Please copy the FF first.")
@@ -1383,9 +1393,9 @@ def viewportParticleSize(self: hou.Node) -> None:
 
 
 ###############################################################################################
-# Reset finalxform.
+# Reset FF. (finalxform)
 ###############################################################################################
-def reset_FF(self):
+def reset_FF(self: hou.Node) -> None:
 
     n = flam3_iterator_prm_names
 
@@ -1612,4 +1622,789 @@ def web_TFFA() -> None:
     page = "https://flam3.com/flame_draves.pdf"
     webbrowser.open(page)
 
+
+
+
+
+
+# XML
+FLAME = "flame"
+NAME = "name"
+XF = "xform"
+XF_WEIGHT = "weight"
+PB = "pre_blur"
+FF = "finalxform"
+PRE_AFFINE = "coefs"
+POST_AFFINE = "post"
+XAOS = "chaos"
+PALETTE = "palette"
+PALETTE_COUNT = "count"
+PALETTE_FORMAT = "format"
+COLOR = "color"
+COLOR_SPEED = "symmetry"
+OPACITY = "opacity"
+
+XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
+
+
+
+
+# this is only as idx lookup table
+VARS_APO = ("linear", 
+            "sinusoidal",
+            "spherical",
+            "swirl",
+            "horseshoe",
+            "polar",
+            "handkerchief",
+            "heart",
+            "disc",
+            "spiral",
+            "hiperbolic",
+            "diamond",
+            "ex",
+            "julia",
+            "bent",
+            "waves",
+            "fisheye",
+            "popcorn",
+            "exponential",
+            "power",
+            "cosine",
+            "rings",
+            "fan",
+            "bubble",
+            "cylinder",
+            "eyefish",
+            "blur",
+            "curl",
+            "ngon",
+            "pdj",
+            "blob",
+            "juliaN",
+            "juliaScope",
+            "gaussian",
+            "fan2",
+            "rings2",
+            "rectangles",
+            "radia_lblur",
+            "pie",
+            "arch",
+            "tangent",
+            "square",
+            "rays",
+            "blade",
+            "secant2",
+            "twintrian",
+            "cross",
+            "disc2",
+            "supershape",
+            "flower",
+            "conic",
+            "parabola",
+            "bent2",
+            "bipolar",
+            "boarders",
+            "butterfly",
+            "cell",
+            "cpow",
+            "edisc",
+            "elliptic",
+            "noise",
+            "escher",
+            "foci",
+            "lazysusan",
+            "loonie",
+            "pre_blur",
+            "modulus",
+            "oscilloscope",
+            "polar2",
+            "popcorn2",
+            "scry",
+            "separation",
+            "split",
+            "splits",
+            "stripes",
+            "wedge",
+            "wedge julia",
+            "wedge sph",
+            "whorl",
+            "waves2",
+            "exp",
+            "log",
+            "sin",
+            "cos",
+            "tan",
+            "sec",
+            "csc",
+            "cot",
+            "sinh",
+            "cosh",
+            "tanh",
+            "sech",
+            "csch",
+            "coth",
+            "auger",
+            "flux",
+            "mobius",
+            "curve",
+            "perspective",
+            "bwraps",
+            "hemisphere",
+            "polynomial")
+
+
+
+
+
+class flam3_varsPRM_APO:
+
+    # Collect all variations and their parametric parameters properly ordered as per flame*.h files
+    
+    # the following are missing yet
+    #
+    # blob
+    # radial_blur
+    # disc2
+    # supershape
+    # flower
+    # conic
+
+    varsPRM = ( ("linear", 0), 
+                ("sinusoidal", 0), 
+                ("spherical", 0), 
+                ("swirl", 0), 
+                ("horseshoe", 0), 
+                ("polar", 0), 
+                ("handkerchief", 0), 
+                ("heart", 0), 
+                ("disc", 0), 
+                ("spiral", 0), 
+                ("hiperbolic", 0), 
+                ("diamond", 0), 
+                ("ex", 0), 
+                ("julia", 0), 
+                ("bent", 0), 
+                ("waves", 0), 
+                ("fisheye", 0), 
+                ("popcorn", 0), 
+                ("exponential", 0), 
+                ("power", 0), 
+                ("cosine", 0), 
+                ("rings", 0), 
+                ("fan", 0), 
+                ("bubble", 0), 
+                ("cylinder", 0), 
+                ("eyefish", 0), 
+                ("blur", 0), 
+                ("curl", ("curlc1", "curlc2"), 1), 
+                ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
+                ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
+                ("blob", ("blob_"), 1), 
+                ("juliaN", ("julian_power", "julian_dist", 1)), 
+                ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
+                ("gaussian", 0), 
+                ("fan2", ("fan2_x", "fan2_y"), 1), 
+                ("rings2", ("rings2_val"), 1), 
+                ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
+                ("radial_blur", ("radialblur_"), 1), 
+                ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
+                ("arch", 0), 
+                ("tangent", 0), 
+                ("square", 0), 
+                ("rays", 0), 
+                ("blade", 0), 
+                ("secant2", 0), 
+                ("twintrian", 0), 
+                ("cross", 0), 
+                ("disc2", ("disc2_"), 1), 
+                ("supershape", ("supershape_"), ("supershapen_"), 1), 
+                ("flower", ("flower_"), 1), 
+                ("conic", ("conic_"), 1), 
+                ("parabola", ("parabola_"), 1), 
+                ("bent2", ("bent2_x", "bent2_y"), 1), 
+                ("bipolar", ("bipolar_shift"), 1),
+                ("boarders", 0),
+                ("butterfly", 0), 
+                ("cell", ("cell_size"), 1), 
+                ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
+                ("edisc", 0), 
+                ("elliptic", 0), 
+                ("noise", 0), 
+                ("escher", ("escher_beta"), 1), 
+                ("foci", 0), 
+                ("lazysusan", ("lazysusan_spin", "lazysusan_twist" "lazysusan_space", "lazysusan_x", "lazysusan_y"), 1), 
+                ("loonie", 0), 
+                ("pre blur", 0), 
+                ("modulus", ("modulus_x", "modulus_y"), 1), 
+                ("oscilloscope", ("oscope_frequency", "oscope_aplitude", "oscope_damping" "oscope_separation"), 1), 
+                ("polar2", 0), 
+                ("popcorn2", ("popcorn2_c", "popcorn2_x", "popcorn2_y"), 1), 
+                ("scry", 0), 
+                ("separation", ("separationxyz_"), ("separationinsidexyz_"), 1), 
+                ("split", ("split_xsize", "split_ysize"), 1), 
+                ("splits", ("splits_x", "splits_y"), 1), 
+                ("stripes", ("stripes_space", "stripes_warp"), 1), 
+                ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
+                ("wedgejulia", ("wedgejulia_"), 1), 
+                ("wedgesph", ("wedgesph_"), 1), 
+                ("whorl", ("whorl_inside", "whorl_outside"), 1), 
+                ("waves2", ("waves2_scalex", "waves2_scaley", "waves2_freqx", "waves2_freqy"), 1), 
+                ("cothe exp", 0), 
+                ("cothe log", 0), 
+                ("cothe sin", 0), 
+                ("cothe cos", 0), 
+                ("cothe tan", 0), 
+                ("cothe sec", 0), 
+                ("cothe csc", 0), 
+                ("cothe cot", 0), 
+                ("cothe sinh", 0), 
+                ("cothe cosh", 0), 
+                ("cothe tanh", 0), 
+                ("cothe sech", 0), 
+                ("cothe csch", 0), 
+                ("cothe coth", 0), 
+                ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
+                ("flux", ("flux_spread"), 1), 
+                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D", "Im_A", "Im_B", "Im_C", "Im_D"), 1),
+                ("curve", ("curve_xlength", "curve_ylength", "curve_xamp", "curve_yamp"), 1), 
+                ("persp", ("persp_"), 1), 
+                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain", "bwraps_inner_twist", "bwraps_outer_twist"), 1), 
+                ("hemisphere", 0), 
+                ("polynomial", ("polynomial_powx", "polynomial_powy", "polynomial_lcx", "polynomial_lcy", "polynomial_scx", "polynomial_scy"), 1) )
+
+
+
+
+class _xml_tree:
+
+    def __init__(self, xmlfile: str) -> None:
+        """
+        Args:
+            xmlfile (str): xmlfile (str): [xml *.flame file type to load]
+        """        
+        self._xmlfile = xmlfile
+        self._tree = ET.parse(xmlfile)
+        self._isvalidtree = isinstance(self._tree, ET.ElementTree)
+
+
+    
+    @property
+    def xmlfile(self):
+        return self._xmlfile
+    
+    @property
+    def tree(self):
+        return self._tree
+    
+    @property
+    def isvalidtree(self):
+        return self._isvalidtree
+    
+
+    
+    def __get_name(self, key=NAME) -> Union[tuple, None]:
+        if self._isvalidtree:
+            root = self._tree.getroot()
+            names = []
+            for name in root:
+                if name.get(key) is not None:
+                    names.append(name.get(key))
+                else:
+                    names.append([])
+            return tuple(names)
+        else:
+            return None
+        
+    def __get_flame(self, key=FLAME) -> Union[tuple, None]:
+        if self._isvalidtree:
+            root = self._tree.getroot()
+            flames = []    
+            for f in root.iter(key):
+                flames.append(f)
+            return tuple(flames)
+        else:
+            return None
+
+    def __get_flame_count(self, flames: list) -> int:
+        if self._isvalidtree:
+            return len(flames)
+
+
+
+
+
+class apo_flame(_xml_tree):
+
+    def __init__(self, xmlfile: str) -> None:
+        """
+        Args:
+            xmlfile (str): [xml *.flame type file to load]
+        """        
+        super().__init__(xmlfile)
+        self._name = self._xml_tree__get_name()
+        self._flame = self._xml_tree__get_flame()
+        self._flame_count = self._xml_tree__get_flame_count(self._flame)
+        
+
+    def hex_to_rgb(self, hex: str):
+        """
+        Args:
+            hex ([type]): [hex value to be converted into rgb value]
+
+        Returns:
+            [type]: [rgb value]
+        """        
+        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+    
+    def affine_coupling(self, affine: list) -> list:
+        """
+        Args:
+            affine (list): [affine values from the xml]
+
+        Returns:
+            list: [a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms]
+        """        
+        return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
+    
+
+    @property
+    def tree(self):
+        return self._tree
+    
+    @property
+    def isvalidtree(self):
+        return self._isvalidtree
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def flame(self):
+        return self._flame
+
+    @property
+    def flame_count(self):
+        return self._flame_count
+
+
+    def __is_valid_idx(self, idx: int) -> int:
+        """Make sure the fractal flame's idx passed in will always be valid and never out of range.
+
+        Args:
+            idx (int): [flame idx out of all flames included in the loaded flame file]
+
+        Returns:
+            int: [clamped idx value just in case the user pass an invalid idx to this function]
+        """        
+        return 0 if idx < 0 else 0 if self._flame_count == 1 else self._flame_count - 1 if idx > self._flame_count - 1 else idx
+
+    def __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
+        """Get choosen fractal flame's xforms collected inside a dict each.
+        every xform in xforms is a dict coming directly from the parsed XML file.
+
+        Args:
+            idx (int): [flame idx out of all flames included in the loaded flame file]
+            key (str): [use "xform" for transforms and "finalxofrm" for final flame transform]
+
+        Returns:
+            list: [a list of all xforms inside the selected flame or None]
+        """
+        if  self._isvalidtree:
+            xforms = []
+            for xf in self._flame[idx].iter(key):
+                xforms.append(xf.attrib)
+            if not xforms:
+                return None
+            else:
+                return tuple(xforms)
+        else:
+            return None
+    
+    def __get_xaos(self, xforms: list, key=XAOS) -> Union[tuple, None]:
+        """
+        Args:
+            tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
+            xforms (list): [list of all xforms contained inside this flame]
+
+        Returns:
+            Union[list, None]: [either a list of xaos strings or None]
+        """        
+        if  self._isvalidtree:
+            xaos = []
+            for xform in xforms:
+                if xform.get(key) is not None:
+                    chaos = ":".join(xform.get(key).split())
+                    xaos.append(f"xaos:{chaos}")
+                else:
+                    xaos.append([])
+            if not max(list(map(lambda x: len(x), xaos))):
+                return None
+            else:
+                return tuple(xaos)
+        else:
+            return None
+
+    def __get_affine(self, xforms: list, key: str) -> Union[tuple, None]:
+        """
+        Args:
+            tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
+            xforms (list): [list of all xforms contained inside this flame]
+            key (str): [affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine]
+
+        Returns:
+            Union[list, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
+        """           
+        if  self._isvalidtree:
+            if xforms is not None:
+                coefs = []
+                for xform in xforms:
+                    if xform.get(key) is not None:
+                        preAffine = [float(x) for x in xform.get(key).split()]
+                        coefs.append(tuple(self.affine_coupling(preAffine)))
+                    else:
+                        coefs.append([])
+                if not max(list(map(lambda x: len(x), coefs))):
+                    return None
+                else:
+                    return tuple(coefs)
+        else:
+            return None
+        
+    def __get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
+        """
+        Args:
+            xforms (list): [list of all xforms contained inside this flame]
+            key (str): [xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity']
+
+        Returns:
+            Union[list, None]: [description]
+        """        
+        if  self._isvalidtree:
+            if xforms is not None:
+                keyvalues = []
+                for xform in xforms:
+                    if xform.get(key) is not None:
+                        keyvalues.append(float(xform.get(key)))
+                    else:
+                        keyvalues.append([])
+                return tuple(keyvalues)
+        else:
+            return None
+
+        
+    def __get_palette(self, idx: int, key=PALETTE) -> Union[hou.Ramp, None]:
+        """
+        Args:
+            tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
+            idx (int): [flame idx out of all flames included in the loaded flame file]
+
+        Returns:
+            hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
+        """        
+        if  self._isvalidtree:
+            palette_hex = self._flame[idx].find(key).text
+            palette_attrib = self._flame[idx].find(key).attrib
+            count = int(dict(palette_attrib).get(PALETTE_COUNT)) - 1
+            # optional
+            format = dict(palette_attrib).get(PALETTE_FORMAT)
+    
+            HEX = []
+            for line in palette_hex.splitlines():
+                cleandoc = inspect.cleandoc(line)
+                if(len(cleandoc)>1):
+                    [HEX.append(hex) for hex in wrap(cleandoc, 6)]
+    
+            RGB = []
+            for hex in HEX:
+                x = self.hex_to_rgb(hex)
+                RGB.append((x[0]/(count + 0.0), x[1]/(count + 0.0), x[2]/(count + 0.0)))
+    
+            POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
+            BASES = [hou.rampBasis.Linear] * (count + 1)
+    
+            return hou.Ramp(BASES, POS, RGB)
+        else:
+            return None
+
+
+
+
+
+class apo_flame_iter_data(apo_flame):
+
+    def __init__(self, xmlfile: str, idx=0) -> None:
+        """
+        Args:
+            xmlfile (str): xmlfile (str): [xml flame type file to load]
+            idx (int, optional): [flame idx out of all flames included in the loaded flame file]. Defaults to 0.
+        """        
+        super().__init__(xmlfile)
+        self._idx = self._apo_flame__is_valid_idx(idx)
+        self._xforms = self._apo_flame__get_xforms(self._idx, XF)
+        self._weight = self._apo_flame__get_keyvalue(self._xforms, XF_WEIGHT)
+        self._pre_blur = self._apo_flame__get_keyvalue(self._xforms, PB)
+        self._xaos  = self._apo_flame__get_xaos(self._xforms)
+        self._coefs = self._apo_flame__get_affine(self._xforms, PRE_AFFINE)
+        self._post  = self._apo_flame__get_affine(self._xforms, POST_AFFINE)
+        self._finalxform = self._apo_flame__get_xforms(self._idx, FF)
+        self._finalxform_coefs = self._apo_flame__get_affine(self._finalxform, PRE_AFFINE)
+        self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, POST_AFFINE)
+        self._palette = self._apo_flame__get_palette(self._idx)
+        self._color = self._apo_flame__get_keyvalue(self._xforms, COLOR)
+        self._colorspeed = self._apo_flame__get_keyvalue(self._xforms, COLOR_SPEED)
+        self._opacity = self._apo_flame__get_keyvalue(self._xforms, OPACITY)
+
+
+    @property
+    def idx(self):
+        return self._idx
+
+    @property
+    def xforms(self):
+        return self._xforms
+    
+    @property
+    def weight(self):
+        return self._weight
+    
+    @property
+    def pre_blur(self):
+        return self._pre_blur
+    
+    @property
+    def finalxform(self):
+        return self._finalxform
+         
+    @property
+    def xaos(self):
+        return self._xaos
+ 
+    @property
+    def coefs(self):
+        return self._coefs
+        
+    @property
+    def post(self):
+        return self._post
+    
+    @property
+    def finalxform_coefs(self):
+        return self._finalxform_coefs
+        
+    @property
+    def finalxform_post(self):
+        return self._finalxform_post
+    
+    @property
+    def palette(self):
+        return self._palette
+    
+    @property
+    def color(self):
+        return self._color
+    
+    @property
+    def colorspeed(self):
+        return self._colorspeed
+    
+    @property
+    def opacity(self):
+        return self._opacity
+    
+
+
+
+
+def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], list[str]], tuple[None, None]]:
+    """
+    Args:
+        xforms (tuple): [list of all xforms contained inside this flame]
+
+    Returns:
+        Union[tuple[list, list], tuple[None, None]]: [return a list of variation' names and their parametric parameter's names for each xform withou "pre" and "post" variations,  or None]
+    """    
+        
+    if xforms is not None:
+        vars_keys = []
+        vars_prm_keys = []
+        for xf in xforms:
+            idx = list(xf.keys()).index(PRE_AFFINE)
+            vars_keys.append( list( map( lambda x: x, 
+                                        filter( lambda x: x.split("_")[0] != "pre" and x.split("_")[0] != "post", 
+                                            filter( lambda x: 
+                                                    x not in XML_XF_KEY_EXCLUDE, 
+                                                    list(xf)[:idx] ) 
+                                            ) 
+                                        ) 
+                                    ) 
+                                )
+            vars_prm_keys.append( list( map( lambda x: x, 
+                                        filter( lambda x: x.split("_")[0] != "pre" and x.split("_")[0] != "post", 
+                                            filter( lambda x: 
+                                                    x not in XML_XF_KEY_EXCLUDE, 
+                                                    list(xf)[idx:] ) 
+                                            ) 
+                                        ) 
+                                    ) 
+                                )
+            
+        return vars_keys, vars_prm_keys
+    else:
+        return None, None
+
+
+
+
+
+def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+    if len(data) == 1:
+        return float(data[0])
+    elif len(data) == 2:
+        return hou.Vector2((data))
+    elif len(data) == 3:
+        return hou.Vector3((data))
+    elif len(data) == 4:
+        return hou.Vector4((data))
+    return data
+
+
+
+
+
+def apo_get_var_key_idx(key: str) -> Union[int, None]:
+
+    try: idx = VARS_APO.index(key)
+    except: return None
+    return idx
+
+
+
+
+
+# yeah, function pointer this and all the others!!!!!
+def v_bwraps(mode: int, node: hou.Node, myidx: int, idx_t: int, xform: dict, TYPE: int, weight: float, VAR_PRM: tuple, APO_PRM: tuple) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        myidx (int): [for multiparameter index -> the xform count from the outer loop: (myidx + 1)]
+        idx_t (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        T (int): [the current variation type index]
+        weight (float): [the current variation weight]
+        VAR_PRM (tuple): [tuple of all FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM]
+        APO_PRM (tuple): [tuple of all APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM]
+    """
+    prx = ""
+    prx_prm = ""
+    if mode:
+        prx = PRX_FF_PRM
+        prx_prm = PRX_FF_PRM + "_"
+
+    VAR: list = []
+    var_prm_vals: list = []
+    for name in APO_PRM[TYPE][1]:
+        var_prm_vals.append(float(xform.get(name)))
+
+    # need to find a way to make this work 
+    # for all parametric variations
+    VAR.append(hou.Vector3((tuple(var_prm_vals[0:3]))))
+    VAR.append(hou.Vector2(tuple((var_prm_vals[3:]))))
+
+    for idx, prm in enumerate(VAR_PRM[TYPE][1:-1]):
+        if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]})
+        else: node.setParms({f"{prx_prm}{prm[0]}{str(myidx+1)}": VAR[idx]})
+
+    # Set variation type and weight
+    if mode:
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t][:-1]}": TYPE})
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0][:-1]}": weight})
+    else:
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t]}{str(myidx+1)}": TYPE})
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0]}{str(myidx+1)}":weight})
+
+    
+    
+
+
+def v_generic(mode: int, node: hou.Node, myidx: int, idx_t: int, TYPE: int, weight: float) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        myidx (int): [Multiparameter index -> the xform count from the outer loop: (myidx + 1)]
+        idx_t (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        T (int): [Current variation type index]
+        weight (float): [Current variation weight]
+    """
+    prx = ""
+    prx_prm = ""
+    if mode:
+        prx = PRX_FF_PRM
+        prx_prm = PRX_FF_PRM + "_"
+
+    # Set variation type and weight
+    if mode:
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t][:-1]}": TYPE})
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0][:-1]}": weight})
+    else:
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsT[idx_t]}{str(myidx+1)}": TYPE})
+        node.setParms({f"{prx_prm}{flam3_iterator.sec_varsW[idx_t][0]}{str(myidx+1)}":weight})
+
+    
+    
+    
+    
+    
+    
+
+
+node = hou.node('/obj/geo1/FLAME1')
+xml = 'C:/Users/alexn/Desktop/ccc.flame'
+idx = 0
+apo = apo_flame(xml)
+apo_data = apo_flame_iter_data(apo.xmlfile, idx)
+
+VAR_PRM: tuple = flam3_varsPRM.varsPRM
+APO_PRM: tuple = flam3_varsPRM_APO.varsPRM
+vars_keys, vars_prm_keys = apo_get_xforms_var_and_prm_keys(apo_data.xforms)
+
+ff_vars_keys = []
+ff_vars_prm_keys = []
+if apo_data.finalxform is not None:
+    ff_vars_keys, ff_vars_prm_keys = apo_get_xforms_var_and_prm_keys(apo_data.finalxform)
+
+for idx, xform in enumerate(apo_data.xforms):
+    print("multiparam", idx+1)
+    print("XFORM ->", idx, xform)
+    for idx_t, key_name in enumerate(vars_keys[idx]):
+        TYPE = apo_get_var_key_idx(key_name)
+        if TYPE is not None:
+            #get this variation weight
+            type_weight: float = float(xform.get(key_name))
+            # if PARAMETRIC
+            if APO_PRM[TYPE][-1]:
+                # the following function will instead be a function pointer array
+                # where T will select the proper one based on the same variation's index
+                # ex: pointer(T)(0, hou.Node, idx, xform, T, type_weight, VAR_PRM, APO_PRM)
+                v_bwraps(0, node, idx, idx_t, xform, TYPE, type_weight, VAR_PRM, APO_PRM)
+                # print(TYPE, "::", key_name, ":", type_weight, "-> PARAMETRIC", APO_PRM[TYPE][1])
+                # print(TYPE, "::", key_name, ":", type_weight, "-> PARAMETRIC", VAR_PRM[TYPE][1:-1])
+            # if NOT
+            else:
+                v_generic(0, node, idx, idx_t, TYPE, type_weight)
+                # print(TYPE, "::", key_name, ":", type_weight, "-> VARIATION")
+
+
+
+
+
+
+
+
+a = [1,6,5]
+b = typemaker(a)
+b
 
