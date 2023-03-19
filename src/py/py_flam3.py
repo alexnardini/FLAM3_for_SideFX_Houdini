@@ -2323,7 +2323,7 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
         data (list): [a list of floats containinig the current parameter values to be converted into hou types]
 
     Returns:
-        Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [description]
+        Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [Based on how many element in the passed list return the proper type of data]
     """
     if len(data) == 1:
         return float(data[0])
