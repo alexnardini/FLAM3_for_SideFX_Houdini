@@ -436,7 +436,7 @@ class flam3_iterator_FF:
 
 
 ###############################################################################################
-# MENU - Build vars v_type menus
+# MENU - Build vars type menus
 ###############################################################################################
 def menu_T(int_mode: int) -> list:
     """
@@ -489,7 +489,7 @@ def menu_copypaste(kwargs: dict) -> list:
     # If an iterator has been copied on a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
-        hou.session.flam3node.v_type()
+        hou.session.flam3node.type()
     except:
         id_from = -1
 
@@ -551,7 +551,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
     # If the FF has been copied on a node that has been deleted
     # revert to -1 so that we are forced to copy an FF again.
     try:
-        hou.session.flam3node_FF.v_type()
+        hou.session.flam3node_FF.type()
     except:
         flam3node_FF_check = -1
 
@@ -699,7 +699,6 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
     """ 
     
     n = flam3_iterator_prm_names
-
     _current_note_FF = node.parm("ffnote").evalAsString()
 
     if int_mode == 0:
@@ -758,7 +757,7 @@ def prm_paste(kwargs: dict) -> None:
         # If an iterator was copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
-            flam3node.v_type()
+            flam3node.type()
         except:
             id_from = -1
 
@@ -807,7 +806,7 @@ def prm_paste_FF(kwargs: dict) -> None:
         # If the FF was copied from a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
-            flam3node_FF.v_type()
+            flam3node_FF.type()
         except:
             flam3node_FF_check = -1
 
@@ -861,15 +860,15 @@ def prm_paste_sel(kwargs: dict) -> None:
     # revert to -1 so that we are forced to copy an iterator again.
     '''
     try:
-        flam3node.v_type()
+        flam3node.type()
     except:
         id_from = -1
     '''
 
-    n = flam3_iterator_prm_names
-
     # If we ever copied an iterator from a currently existing FLAM3 node
     if id_from != -1:
+
+        n = flam3_iterator_prm_names
         
         # Get user selection of paste methods
         paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
@@ -952,15 +951,15 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     # revert to -1 so that we are forced to copy an iterator again.
     '''
     try:
-        flam3node_FF.v_type()
+        flam3node_FF.type()
     except:
         flam3node_FF_check = -1
     '''
 
-    n = flam3_iterator_prm_names
-
     # If we ever copied an FF from a currently existing FLAM3 node
     if flam3node_FF_check != -1:
+
+        n = flam3_iterator_prm_names
         
         # Get user selection of paste methods
         ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
@@ -1030,7 +1029,7 @@ def flam3_on_create(kwargs: dict) -> None:
     # If an iterator was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
-        hou.session.flam3node.v_type()
+        hou.session.flam3node.type()
     except:
         hou.session.flam3node_mp_id = -1
 
@@ -1053,7 +1052,7 @@ def flam3_on_create(kwargs: dict) -> None:
     # If the FF was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy the FF again.
     try:
-        hou.session.flam3node_FF.v_type()
+        hou.session.flam3node_FF.type()
     except:
         hou.session.flam3node_FF_check = -1
 
@@ -1893,6 +1892,7 @@ class flam3_varsPRM_APO:
 
 
 
+
 class _xml_tree:
 
     def __init__(self, xmlfile: str) -> None:
@@ -1901,9 +1901,13 @@ class _xml_tree:
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
-        self._tree = ET.parse(xmlfile)
-        self._isvalidtree = isinstance(self._tree, ET.ElementTree)
-
+        self._tree = None
+        self._isvalidtree = False
+        try:
+            self._tree = ET.parse(xmlfile)
+            self._isvalidtree = isinstance(self._tree, ET.ElementTree)
+        except:
+            pass
 
     
     @property
@@ -2014,7 +2018,7 @@ class apo_flame(_xml_tree):
 
         Returns:
             int: [clamped idx value just in case the user pass an invalid idx to this function]
-        """        
+        """     
         return 0 if idx < 0 else 0 if self._flame_count == 1 else self._flame_count - 1 if idx > self._flame_count - 1 else idx
 
     def __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
@@ -2302,6 +2306,19 @@ def menu_apo_presets(kwargs: dict) -> list:
 
 
 
+def isvalid_tree(xmlfile: str) -> bool:
+
+    try:
+        tree = ET.parse(xmlfile)
+        isvalidtree = isinstance(tree, ET.ElementTree)
+        return True
+    except:
+        return False
+
+
+
+
+
 def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     """
     Args:
@@ -2358,7 +2375,6 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
 
 
 
-# yeah, function pointer this and all the others!!!!!
 def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
@@ -2494,13 +2510,18 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
         if apo_data is not None:
             if apo_data[mp_idx]:
                 node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]})
-                print(f"{prx}{prm_name}_{str(mp_idx+1)}")
 
 
 
 
 
 def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
+    """    
 
     xforms = ()
     max_vars = 0
@@ -2549,31 +2570,41 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 def apo_to_flam3(self):
 
     xml = self.parm('apofilepath').evalAsString()
-    preset_id = int(self.parm('apopresets').eval())
-    apo_data = apo_flame_iter_data(xml, preset_id)
 
-    # SYS
-    self.setParms({"ptcount": 500000})
-    self.setParms({"iter": 16})
-    # iterators
-    self.setParms({"flamefunc": 0})
-    for p in self.parms():
-        p.deleteAllKeyframes()
-    self.setParms({"flamefunc":  len(apo_data.xforms)})
-    apo_set_iterator(0, self, apo_data)
-    if apo_data.finalxform is not None:
-        reset_FF(self)
-        self.setParms({"doff": 1})
-        apo_set_iterator(1, self, apo_data)
+    if isvalid_tree(xml):
+        
+        preset_id = int(self.parm('apopresets').eval())
+        preset = self.parm('apopresets').menuLabels()[preset_id]
+
+        apo_data = apo_flame_iter_data(xml, preset_id)
+
+        # SYS
+        self.setParms({"ptcount": 500000})
+        self.setParms({"iter": 16})
+        # iterators
+        self.setParms({"flamefunc": 0})
+        for p in self.parms():
+            p.deleteAllKeyframes()
+        self.setParms({"flamefunc":  len(apo_data.xforms)})
+        apo_set_iterator(0, self, apo_data)
+        if apo_data.finalxform is not None:
+            reset_FF(self)
+            self.setParms({"doff": 1})
+            apo_set_iterator(1, self, apo_data)
+        else:
+            reset_FF(self)
+            self.setParms({"doff": 0})
+        # CP
+        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        ramp_parm.set(apo_data.palette)
+        palette_cp(self)
+        palette_hsv(self)
+
+        print(f"{str(self)}: Loaded Apophysis preset: {preset}")
+    
     else:
-        reset_FF(self)
-        self.setParms({"doff": 0})
-    # CP
-    ramp_parm = self.parm(RAMP_SRC_NAME)
-    ramp_parm.deleteAllKeyframes()
-    ramp_parm.set(apo_data.palette)
-    palette_cp(self)
-    palette_hsv(self)
+        print(f"{str(self)}: Please, load a valid Apophysis fractal flame file.")
 
 
 
