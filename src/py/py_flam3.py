@@ -1068,14 +1068,15 @@ def flam3_on_create(kwargs: dict) -> None:
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid ramp json file
 ###############################################################################################
-def ramp_init_presets(kwargs: dict) -> None:
+def init_presets(kwargs: dict, prm_name: str) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
     """    
     node = kwargs['node']
-    ramp_presets = node.parm('presets')
-    ramp_presets.set('0')
+    prm = node.parm(prm_name)
+    prm.set('999999')
+
 
 
 
@@ -1485,6 +1486,9 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({"fps": 24})
     self.setParms({"mbsamples": 16})
     self.setParms({"shutter": 0.5})
+
+    # IO
+    self.setParms({"apofilepath": ""})
     
     #prefs
     self.setParms({"showprefs": 1})
@@ -2274,6 +2278,30 @@ def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], lis
 
 
 
+###############################################################################################
+# MENU - APO - build menu from Apophysis flame file
+###############################################################################################
+def menu_apo_presets(kwargs: dict) -> list:
+
+    apo_filepath = kwargs['node'].parm('apofilepath').evalAsString()
+
+    menu=[]
+    if os.path.isfile(apo_filepath) and os.path.getsize(apo_filepath)>0:
+
+        apo = apo_flame(apo_filepath)
+        
+        for i, item in enumerate(apo.name):
+            menu.append(i)
+            menu.append(item)
+            
+        return menu
+    else:
+        return menu
+
+
+
+
+
 def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     """
     Args:
@@ -2471,8 +2499,8 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 
-# remember to add kwargs back as its first funtion argument.
-def apo_set_iterator(mode: int, apo_data: apo_flame_iter_data) -> None:
+
+def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -> None:
 
     xforms = ()
     max_vars = 0
@@ -2485,9 +2513,6 @@ def apo_set_iterator(mode: int, apo_data: apo_flame_iter_data) -> None:
 
     iterator_names = flam3_iterator_prm_names()
     prx, prx_prm = flam3_prx_mode(mode)
-
-    # node = kwargs['node']
-    node = hou.node('/obj/geo1/FLAME1')
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
@@ -2521,52 +2546,32 @@ def apo_set_iterator(mode: int, apo_data: apo_flame_iter_data) -> None:
 
 
 
+def apo_to_flam3(self):
 
-# n = flam3_iterator_prm_names
-# print(n)
-# #apo_set_variations(0)
+    xml = self.parm('apofilepath').evalAsString()
+    preset_id = int(self.parm('apopresets').eval())
+    apo_data = apo_flame_iter_data(xml, preset_id)
 
-xml = 'C:/Users/alexn/Desktop/ff2.flame'
-parameter_idx = 0
-apo_data = apo_flame_iter_data(xml, parameter_idx)
-apo_set_iterator(0, apo_data)
-if apo_data.finalxform is not None:
-    apo_set_iterator(1, apo_data)
+    self.setParms({"flamefunc": 0})
+    for p in self.parms():
+        p.deleteAllKeyframes()
+    self.setParms({"flamefunc":  len(apo_data.xforms)})
+    
+    
+    apo_set_iterator(0, self, apo_data)
+    if apo_data.finalxform is not None:
+        reset_FF(self)
+        self.setParms({"doff": 1})
+        apo_set_iterator(1, self, apo_data)
 
-iterator_names = flam3_iterator_prm_names()
-print(iterator_names.shader_speed)
-print(apo_data.xaos)
+    #Set color palette from XML file palette entrie
+    ramp_parm = self.parm(RAMP_SRC_NAME)
+    ramp_parm.deleteAllKeyframes()
+    ramp_parm.set(apo_data.palette)
 
-# ff_vars_keys = []
-# ff_vars_prm_keys = []
-# if apo_data.finalxform is not None:
-#     ff_vars_keys, ff_vars_prm_keys = apo_get_xforms_var_and_prm_keys(apo_data.finalxform)
-
+    palette_cp(self)
+    palette_hsv(self)
 
 
 
 
-
-
-###############################################################################################
-# MENU - JSON - build menu from ramp presets file
-###############################################################################################
-def menu_ramp_presets(kwargs: dict) -> list:
-
-    filepath = kwargs['node'].parm('filepath').evalAsString()
-
-    menu=[]
-    if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-
-        with open(filepath) as f:
-            data = json.load(f)
-        
-        menuitems = data.keys()
-
-        for i, item in enumerate(menuitems):
-            menu.append(i)
-            menu.append(item)
-            
-        return menu
-    else:
-        return menu
