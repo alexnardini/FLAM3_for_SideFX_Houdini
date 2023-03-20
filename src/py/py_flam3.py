@@ -2616,3 +2616,10 @@ def apo_to_flam3(self):
         print(f"{str(self)}: Please, load a valid Apophysis fractal flame file.")
 
 
+
+
+
+# vars_keys.append(list(map(lambda x: x, filter(lambda x: str(x.split("_")[0]).lower() != "pre" and str(x.split("_")[0]).lower() != "post", filter( lambda x: x not in XML_XF_KEY_EXCLUDE, filter(lambda x: len(str(x).split("_"))==1,  xf.keys()) )  ) )) )
+# vars_prm_keys.append(list(map(lambda x: x, filter( lambda x: x not in list(map(lambda x: x, filter(lambda x: str(x.split("_")[0]).lower() != "pre" and str(x.split("_")[0]).lower() != "post", filter( lambda x: x not in XML_XF_KEY_EXCLUDE, filter(lambda x: len(str(x).split("_"))==1,  xf.keys()) )  ) )), filter( lambda x: x not in XML_XF_KEY_EXCLUDE,  xf.keys()  ) ) ) ) )
+
+
