@@ -1882,7 +1882,7 @@ class flam3_varsPRM_APO:
                 ("******cothe coth", 0), 
                 ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
                 ("flux", ("flux_spread"), 1), 
-                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
+                ("mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
                 ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
                 ("******from fractorium test******persp", ("perspective_angle", "perspective_dist"), 1), 
                 ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
@@ -2033,10 +2033,19 @@ class apo_flame(_xml_tree):
             xforms = []
             for xf in self._flame[idx].iter(key):
                 xforms.append(xf.attrib)
-            if not xforms:
-                return None
+            # turn everything to lowervase
+            xforms_lower = []
+            if xforms:
+                for xf in xforms:
+                    _k = xf.keys()
+                    k = [str(x).lower() for x in _k]
+                    v = xf.values()
+                    kv = zip(k, v)
+                    xforms_lower.append(dict(kv))
             else:
-                return tuple(xforms)
+                return None
+            
+            return tuple(xforms_lower)
         else:
             return None
     
