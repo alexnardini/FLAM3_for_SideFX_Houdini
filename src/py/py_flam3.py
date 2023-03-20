@@ -1650,7 +1650,7 @@ COLOR = "color"
 COLOR_SPEED = "symmetry"
 OPACITY = "opacity"
 
-XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
+XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
 
 
 
@@ -2616,7 +2616,8 @@ def apo_to_flam3(self):
         print(f"{str(self)}: Please, load a valid Apophysis fractal flame file.")
 
 
-
+n = flam3_iterator_prm_names
+n.
 
 
 # vars_keys.append(list(map(lambda x: x, filter(lambda x: str(x.split("_")[0]).lower() != "pre" and str(x.split("_")[0]).lower() != "post", filter( lambda x: x not in XML_XF_KEY_EXCLUDE, filter(lambda x: len(str(x).split("_"))==1,  xf.keys()) )  ) )) )
