@@ -1631,7 +1631,7 @@ def web_TFFA() -> None:
 
 
 
-
+APO_VERSION = "Apophysis 7x"
 
 # XML
 FLAME = "flame"
@@ -1650,7 +1650,7 @@ COLOR = "color"
 COLOR_SPEED = "symmetry"
 OPACITY = "opacity"
 
-XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
+XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
 
 
 
@@ -1707,7 +1707,7 @@ VARS_APO = ("linear",
             "twintrian",
             "cross",
             "disc2",
-            "supershape",
+            "super_shape",
             "flower",
             "conic",
             "parabola",
@@ -1735,8 +1735,8 @@ VARS_APO = ("linear",
             "splits",
             "stripes",
             "wedge",
-            "wedgejulia",
-            "wedgesph",
+            "wedge_julia",
+            "wedge_sph",
             "whorl",
             "waves2",
             "exp",
@@ -1816,7 +1816,7 @@ class flam3_varsPRM_APO:
                 ("curl", ("curl_c1", "curl_c2"), 1), 
                 ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
                 ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("******blob", ("blob_"), 1), 
+                ("******from fractorium test******blob", ("blob_low", "blob_high", "blob_waves"), 1), 
                 ("juliaN", ("julian_power", "julian_dist"), 1), 
                 ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
                 ("gaussian", 0), 
@@ -1834,10 +1834,10 @@ class flam3_varsPRM_APO:
                 ("twintrian", 0), 
                 ("cross", 0), 
                 ("******disc2", ("disc2_"), 1), 
-                ("******supershape", ("supershape_"), ("supershapen_"), 1), 
-                ("******flower", ("flower_"), 1), 
-                ("******conic", ("conic_"), 1), 
-                ("******parabola", ("parabola_"), 1), 
+                ("******from fractorium test******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                ("******from fractorium test******flower", ("flower_petals", "flower_holes"), 1), 
+                ("******from fractorium test******conic", ("conic_eccentricity", "conic_holes"), 1), 
+                ("******from fractorium test******parabola", ("parabola_height", "parabola_width"), 1), 
                 ("bent2", ("bent2_x", "bent2_y"), 1), 
                 ("bipolar", ("bipolar_shift"), 1),
                 ("boarders", 0),
@@ -1853,7 +1853,7 @@ class flam3_varsPRM_APO:
                 ("loonie", 0), 
                 ("pre blur", 0), 
                 ("modulus", ("modulus_x", "modulus_y"), 1), 
-                ("oscilloscope", ("oscope_frequency", "oscope_aplitude", "oscope_damping", "oscope_separation"), 1), 
+                ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
                 ("polar2", 0), 
                 ("popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
                 ("scry", 0), 
@@ -1862,8 +1862,8 @@ class flam3_varsPRM_APO:
                 ("splits", ("splits_x", "splits_y"), 1), 
                 ("stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
-                ("******wedgejulia", ("wedgejulia_"), 1), 
-                ("******wedgesph", ("wedgesph_"), 1), 
+                ("******from fractorium test******wedgejulia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                ("******from fractorium test******wedgesph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
                 ("whorl", ("whorl_inside", "whorl_outside"), 1), 
                 ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
                 ("******cothe exp", 0), 
@@ -1884,7 +1884,7 @@ class flam3_varsPRM_APO:
                 ("flux", ("flux_spread"), 1), 
                 ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
                 ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                ("******persp", ("persp_"), 1), 
+                ("******from fractorium test******persp", ("perspective_angle", "perspective_dist"), 1), 
                 ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("hemisphere", 0), 
                 ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
@@ -1964,6 +1964,7 @@ class apo_flame(_xml_tree):
         """        
         super().__init__(xmlfile)
         self._name = self._xml_tree__get_name()
+        self._apo_version = self._xml_tree__get_name("version")
         self._flame = self._xml_tree__get_flame()
         self._flame_count = self._xml_tree__get_flame_count(self._flame)
         
@@ -1990,16 +1991,12 @@ class apo_flame(_xml_tree):
     
 
     @property
-    def tree(self):
-        return self._tree
-    
-    @property
-    def isvalidtree(self):
-        return self._isvalidtree
-
-    @property
     def name(self):
         return self._name
+    
+    @property
+    def apo_version(self):
+        return self._apo_version
 
     @property
     def flame(self):
@@ -2580,39 +2577,42 @@ def apo_to_flam3(self):
         # Parse XML data
         apo_data = apo_flame_iter_data(xml, preset_id)
 
-        # SYS
-        self.setParms({"ptcount": 500000})
-        self.setParms({"iter": 16})
-        # iterators
-        self.setParms({"flamefunc": 0})
-        for p in self.parms():
-            p.deleteAllKeyframes()
-        self.setParms({"flamefunc":  len(apo_data.xforms)})
+        if apo_data.apo_version[apo_data.idx] == APO_VERSION:
 
-        # Load XML iterator's data
-        apo_set_iterator(0, self, apo_data)
-        if apo_data.finalxform is not None:
-            reset_FF(self)
-            self.setParms({"doff": 1})
-            apo_set_iterator(1, self, apo_data)
+            # SYS
+            self.setParms({"ptcount": 500000})
+            self.setParms({"iter": 16})
+            # iterators
+            self.setParms({"flamefunc": 0})
+            for p in self.parms():
+                p.deleteAllKeyframes()
+            self.setParms({"flamefunc":  len(apo_data.xforms)})
+
+            # Load XML iterator's data
+            apo_set_iterator(0, self, apo_data)
+            if apo_data.finalxform is not None:
+                reset_FF(self)
+                self.setParms({"doff": 1})
+                apo_set_iterator(1, self, apo_data)
+            else:
+                reset_FF(self)
+                self.setParms({"doff": 0})
+            # CP
+            self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
+            ramp_parm = self.parm(RAMP_SRC_NAME)
+            ramp_parm.deleteAllKeyframes()
+            # Set XML palette data
+            ramp_parm.set(apo_data.palette)
+
+            palette_cp(self)
+            palette_hsv(self)
+
+            print(f"{str(self)}: Loaded Apophysis preset: {preset}")
+        
         else:
-            reset_FF(self)
-            self.setParms({"doff": 0})
-        # CP
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
-        ramp_parm = self.parm(RAMP_SRC_NAME)
-        ramp_parm.deleteAllKeyframes()
-        # Set XML palette data
-        ramp_parm.set(apo_data.palette)
-
-        palette_cp(self)
-        palette_hsv(self)
-
-        print(f"{str(self)}: Loaded Apophysis preset: {preset}")
+            print(f"{str(self)}: This flame has not been created with Apophysis 7x. Can't load it!")
     
     else:
         print(f"{str(self)}: Please, load a valid Apophysis fractal flame file.")
-
-
 
 
