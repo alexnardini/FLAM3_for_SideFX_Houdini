@@ -1650,7 +1650,7 @@ COLOR = "color"
 COLOR_SPEED = "symmetry"
 OPACITY = "opacity"
 
-XML_XF_KEY_EXCLUDE = ["weight", "color", "symmetry", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
+XML_XF_KEY_EXCLUDE = ["weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
 
 
 
