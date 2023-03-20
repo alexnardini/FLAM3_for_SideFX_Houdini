@@ -2582,6 +2582,26 @@ def apo_to_flam3(self):
             # SYS
             self.setParms({"ptcount": 500000})
             self.setParms({"iter": 16})
+            self.setParms({"rip": 0})
+            # TM
+            self.setParms({"dotm": 0})
+            self.setParms({"tmrt": 0})
+            # SM
+            self.setParms({"sm": 0})
+            # self.setParms({"smrot": 0})
+            # MB
+            self.setParms({"domb": 0})
+            # self.setParms({"fps": 24})
+            # self.setParms({"mbsamples": 16})
+            # self.setParms({"shutter": 0.5})
+            #prefs
+            self.setParms({"showprefs": 1})
+            self.setParms({"xm": 0})
+            # self.setParms({"camhandle": 0})
+            # self.setParms({"camcull": 0})
+            self.setParms({"fcam": ""})
+            self.setParms({"cullamount": 0.99})
+            
             # iterators
             self.setParms({"flamefunc": 0})
             for p in self.parms():
