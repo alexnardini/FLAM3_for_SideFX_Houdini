@@ -2581,7 +2581,7 @@ def apo_to_flam3(self):
 
             # SYS
             self.setParms({"ptcount": 500000})
-            self.setParms({"iter": 16})
+            self.setParms({"iter": 24})
             self.setParms({"rip": 0})
             # TM
             self.setParms({"dotm": 0})
@@ -2634,6 +2634,7 @@ def apo_to_flam3(self):
     
     else:
         print(f"{str(self)}: Please, load a valid Apophysis fractal flame file.")
+
 
 
 
