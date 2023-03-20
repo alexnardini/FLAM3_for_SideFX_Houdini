@@ -51,8 +51,8 @@ struct gem{
             // SHADER
             clr = chf(concat("../clr_", idx));
             spd = chf(concat("../clrspeed_", idx));
-            CLR[i] = spd*clr;
-            OM[i]  = 1-spd;
+            CLR[i] = clr * (1.0-spd)/2.0; //spd*clr;
+            OM[i]  = (1.0 + spd)/2.0;  //1-spd;
             A[i]   = chf(concat("../alpha_", idx));
             // PRE BLUR
             pbw[i] = chf(concat("../preblurweight_" , idx));
