@@ -1014,7 +1014,7 @@ def flam3_on_create(kwargs: dict) -> None:
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
     
-        # Set about message
+    # Set about tab infos
     flam3_about_msg(node)
 
     # FLAM3 node and MultiParameter id for iterators
