@@ -2156,7 +2156,7 @@ class apo_flame(_xml_tree):
             return None
 
         
-    def __get_palette(self, idx: int, key=PALETTE) -> Union[hou.Ramp, None]:
+    def __get_palette(self, idx: int, key=PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
         """
         Args:
             tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
@@ -2186,7 +2186,7 @@ class apo_flame(_xml_tree):
             POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
             BASES = [hou.rampBasis.Linear] * (count + 1)
     
-            return hou.Ramp(BASES, POS, RGB)
+            return hou.Ramp(BASES, POS, RGB), (count+1), format
         else:
             return None
 
@@ -2303,7 +2303,7 @@ def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
 
 
 ###############################################################################################
-# MENU - APO - build menu from Apophysis flame file
+# MENU - APO - build menu from flame file presets
 ###############################################################################################
 def menu_apo_presets(kwargs: dict) -> list:
 
@@ -2588,7 +2588,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 
 
 
-def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
+def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
         pb_bool = False
         for item in apo_data.pre_blur:
@@ -2617,6 +2617,7 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         xaos = f"xaos: {xaos_bool}"
         ff = f"FF: {ff_bool}"
         ff_post = f"FF post affine: {ff_post_bool}"
+        palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
         var_used_heading = "Variations used:"
         
         vars_keys = apo_get_xforms_var_keys(apo_data.xforms)
@@ -2637,17 +2638,29 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
             
-        return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nnl + var_used_heading + nl + vars_txt 
+        return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nl + palette_count_format + nl + nnl + var_used_heading + nl + vars_txt 
 
 
 
 def flam3_about_msg(self):
 
-    nl = "\n"
-    nnl = "\n\n"
     vars_sorted = sorted(VARS_APO, key=lambda var: var) 
     n = 6
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+    
+    nl = "\n"
+    nnl = "\n\n"
+    Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE 2002/2015"
+    Implementation = "Houdini implementation: ALESSANDRO NARDINI 2020/2023"
+    version = "Version: 0.9.4"
+    h_version = '.'.join(str(x) for x in hou.applicationVersion())
+    Houdini_version = f"Host: SideFX Houdini {h_version}"
+    license_type = str(hou.licenseCategory()).split(".")[-1]
+    Houdini_license = f"License: {license_type}"
+    Platform = f"Platform: {hou.applicationPlatformInfo()}"
+    PC_name = f"Machine name: {hou.machineName()}"
+    User = f"User: {hou.userName()}"
+    include_vars_heading = "Variations included:"
     
     vars = list(VARS_APO)
     vars_sorted = sorted(vars, key=lambda var: var)
@@ -2656,19 +2669,6 @@ def flam3_about_msg(self):
     for grp in vars_sorted_grp:
         _vars.append(", ".join(grp) + "\n")
     vars_txt = "".join(_vars)
-    
-    Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE 2002/2015"
-    Implementation = "Houdini implementation: ALESSANDRO NARDINI 2020/2023"
-    version = "Version: 0.9.4"
-    h_version = '.'.join(str(x) for x in hou.applicationVersion())
-    Houdini_version = f"Host: SideFX Houdini {h_version}"
-    #license = str(hou.licenseCategory())
-    license_type = str(hou.licenseCategory()).split(".")[-1]
-    Houdini_license = f"License: {license_type}"
-    Platform = f"Platform: {hou.applicationPlatformInfo()}"
-    PC_name = f"Machine name: {hou.machineName()}"
-    User = f"User: {hou.userName()}"
-    include_vars_heading = "Variations included:"
     
     about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User + nnl + include_vars_heading + nl + vars_txt
     
@@ -2715,12 +2715,12 @@ def apo_to_flam3(self: hou.Node) -> None:
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
-        ramp_parm.set(apo_data.palette)
+        ramp_parm.set(apo_data.palette[0])
         palette_cp(self)
         palette_hsv(self)
         
         #Updated flame stats
-        self.setParms({"flamestats_msg": apo_stats_msg(preset_id, apo_data)})
+        self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
         
         print(f"{str(self)}: Loaded Apophysis preset: {preset_name}")
         print(f"{str(self)}: Created with: {apo_data.apo_version[apo_data.idx]}")
@@ -2729,9 +2729,3 @@ def apo_to_flam3(self: hou.Node) -> None:
     else:
         self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
 
-
-xml = "C:/Users/alexn/Desktop/test.flame"
-tree = ET.parse(xml)
-isvalidtree = isinstance(tree, ET.ElementTree)
-root = tree.getroot()
-print(root.tag)
