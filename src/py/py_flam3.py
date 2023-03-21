@@ -2655,11 +2655,16 @@ def flam3_about_msg(self):
     
     Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE"
     Implementation = "Houdini implementation: ALESSANDRO NARDINI"
-    version = '.'.join(str(x) for x in hou.applicationVersion())
-    Houdini_version = f"SideFX Houdini {version}"
+    version = "Version: 0.9.4"
+    h_version = '.'.join(str(x) for x in hou.applicationVersion())
+    Houdini_version = f"Host: SideFX Houdini {h_version}"
+    license = str(hou.licenseCategory())
+    license_type = license.split(".")[-1]
+    Houdini_license = f"License: {license_type}"
+    Platform = f"Platform: {hou.applicationPlatformInfo()}"
     include_vars_heading = "Variations included:"
     
-    about_msg_txt = Authors + nl + Implementation + nl + Houdini_version + nnl + include_vars_heading + nl + vars_txt
+    about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + nnl + include_vars_heading + nl + vars_txt
     
     self.setParms({"flam3about_msg": about_msg_txt})
 
@@ -2717,5 +2722,4 @@ def apo_to_flam3(self: hou.Node) -> None:
         
     else:
         self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
-
 
