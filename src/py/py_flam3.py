@@ -2722,10 +2722,6 @@ def apo_to_flam3(self: hou.Node) -> None:
         #Updated flame stats
         self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
         
-        print(f"{str(self)}: Loaded Apophysis preset: {preset_name}")
-        print(f"{str(self)}: Created with: {apo_data.apo_version[apo_data.idx]}")
-        print("")
-        
     else:
         self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
 
