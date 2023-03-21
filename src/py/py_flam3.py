@@ -1667,6 +1667,7 @@ FLAME = "flame"
 NAME = "name"
 XF = "xform"
 XF_WEIGHT = "weight"
+XF_NAME = "name"
 PB = "pre_blur"
 FF = "finalxform"
 PRE_AFFINE = "coefs"
@@ -1676,7 +1677,8 @@ PALETTE = "palette"
 PALETTE_COUNT = "count"
 PALETTE_FORMAT = "format"
 COLOR = "color"
-COLOR_SPEED = "symmetry"
+SYMMETRY = "symmetry"
+COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
@@ -1877,7 +1879,7 @@ class flam3_varsPRM_APO:
                 ("******from Fractorium******conic", ("conic_eccentricity", "conic_holes"), 1), 
                 ("******from Fractorium******parabola", ("parabola_height", "parabola_width"), 1), 
                 ("bent2", ("bent2_x", "bent2_y"), 1), 
-                ("bipolar", ("bipolar_shift"), 1),
+                ("bipolar", ("bipolar_shift", ), 1),
                 ("boarders", 0),
                 ("butterfly", 0), 
                 ("cell", ("cell_size", ), 1), 
@@ -2123,8 +2125,8 @@ class apo_flame(_xml_tree):
                 coefs = []
                 for xform in xforms:
                     if xform.get(key) is not None:
-                        preAffine = [float(x) for x in xform.get(key).split()]
-                        coefs.append(tuple(self.affine_coupling(preAffine)))
+                        affine = [float(x) for x in xform.get(key).split()]
+                        coefs.append(tuple(self.affine_coupling(affine)))
                     else:
                         coefs.append([])
                 if not max(list(map(lambda x: len(x), coefs))):
@@ -2148,7 +2150,10 @@ class apo_flame(_xml_tree):
                 keyvalues = []
                 for xform in xforms:
                     if xform.get(key) is not None:
-                        keyvalues.append(float(xform.get(key)))
+                        if key in XF_NAME:
+                            keyvalues.append(xform.get(key))
+                        else:
+                            keyvalues.append(float(xform.get(key)))
                     else:
                         keyvalues.append([])
                 return tuple(keyvalues)
@@ -2205,6 +2210,7 @@ class apo_flame_iter_data(apo_flame):
         super().__init__(xmlfile)
         self._idx = self._apo_flame__is_valid_idx(idx)
         self._xforms = self._apo_flame__get_xforms(self._idx, XF)
+        self._xf_name = self._apo_flame__get_keyvalue(self._xforms, XF_NAME)
         self._weight = self._apo_flame__get_keyvalue(self._xforms, XF_WEIGHT)
         self._pre_blur = self._apo_flame__get_keyvalue(self._xforms, PB)
         self._xaos  = self._apo_flame__get_xaos(self._xforms)
@@ -2215,7 +2221,8 @@ class apo_flame_iter_data(apo_flame):
         self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, POST_AFFINE)
         self._palette = self._apo_flame__get_palette(self._idx)
         self._color = self._apo_flame__get_keyvalue(self._xforms, COLOR)
-        self._colorspeed = self._apo_flame__get_keyvalue(self._xforms, COLOR_SPEED)
+        self._color_speed = self._apo_flame__get_keyvalue(self._xforms, COLOR_SPEED)
+        self._symmetry = self._apo_flame__get_keyvalue(self._xforms, SYMMETRY)
         self._opacity = self._apo_flame__get_keyvalue(self._xforms, OPACITY)
 
 
@@ -2226,6 +2233,10 @@ class apo_flame_iter_data(apo_flame):
     @property
     def xforms(self):
         return self._xforms
+    
+    @property
+    def xf_name(self):
+        return self._xf_name
     
     @property
     def weight(self):
@@ -2268,8 +2279,12 @@ class apo_flame_iter_data(apo_flame):
         return self._color
     
     @property
-    def colorspeed(self):
-        return self._colorspeed
+    def color_speed(self):
+        return self._color_speed
+    
+    @property
+    def symmetry(self):
+        return self._symmetry
     
     @property
     def opacity(self):
@@ -2496,7 +2511,7 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
         node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]})
         if apo_data.finalxform_post is not None:
             node.setParms({f"{prx}{n.postaffine_do}": 1})
-            node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][0]})
+            node.setParms({f"{prx}{n.postaffine_x}": apo_data.finalxform_post[mp_idx][0]})
             node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]})
             node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]})
     else:
@@ -2506,7 +2521,7 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
         if apo_data.post is not None:
             if apo_data.post[mp_idx]:
                 node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1})
-                node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]})
+                node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]})
                 node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]})
                 node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]})
 
@@ -2548,6 +2563,8 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
         apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
     """    
 
+    use_color_symmetry = node.parm("usesymmetry").evalAsInt()
+
     xforms = ()
     max_vars = 0
     if mode:
@@ -2584,10 +2601,14 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
         if not mode:
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
         # Set the rest of the iterator
+        if use_color_symmetry:
+            apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
+        else:
+            apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
+        apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
         apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
         apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-        apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)
-        apo_set_data(mode, node, prx, apo_data.colorspeed, iterator_names.shader_speed, mp_idx)
+        apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)        
         apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
         apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
 
