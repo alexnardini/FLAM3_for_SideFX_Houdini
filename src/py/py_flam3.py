@@ -1727,7 +1727,7 @@ VARS_APO = ("linear",
             "fan2",
             "rings2",
             "rectangles",
-            "radial_blur",
+            "***radial blur",
             "pie",
             "arch",
             "tangent",
@@ -1900,8 +1900,8 @@ class flam3_varsPRM_APO:
                 ("splits", ("splits_x", "splits_y"), 1), 
                 ("stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
-                ("******from Fractorium******wedgejulia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
-                ("******from Fractorium******wedgesph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
+                ("******from Fractorium******wedge_julia", ("julia_power", "julia_angle", "julia_dist", "julia_count"), 1), 
+                ("******from Fractorium******wedgesph", ("sph_swirl", "sph_angle", "sph_hole", "sph_count"), 1), 
                 ("whorl", ("whorl_inside", "whorl_outside"), 1), 
                 ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
                 ("******cothe exp", 0), 
@@ -2329,7 +2329,12 @@ def isvalid_tree(xmlfile: str) -> bool:
     try:
         tree = ET.parse(xmlfile)
         isvalidtree = isinstance(tree, ET.ElementTree)
-        return True
+        if isvalidtree:
+            root = tree.getroot()
+            if "flames" in root.tag:
+                return True
+            else:
+                return False
     except:
         return False
 
@@ -2641,30 +2646,31 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
     vars_sorted = sorted(VARS_APO, key=lambda var: var) 
-    n = 5
+    n = 6
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     
     vars = list(VARS_APO)
     vars_sorted = sorted(vars, key=lambda var: var)
-    n = 5
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     _vars = []
     for grp in vars_sorted_grp:
         _vars.append(", ".join(grp) + "\n")
     vars_txt = "".join(_vars)
     
-    Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE"
-    Implementation = "Houdini implementation: ALESSANDRO NARDINI"
+    Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE 2002/2015"
+    Implementation = "Houdini implementation: ALESSANDRO NARDINI 2020/2023"
     version = "Version: 0.9.4"
     h_version = '.'.join(str(x) for x in hou.applicationVersion())
     Houdini_version = f"Host: SideFX Houdini {h_version}"
-    license = str(hou.licenseCategory())
-    license_type = license.split(".")[-1]
+    #license = str(hou.licenseCategory())
+    license_type = str(hou.licenseCategory()).split(".")[-1]
     Houdini_license = f"License: {license_type}"
     Platform = f"Platform: {hou.applicationPlatformInfo()}"
+    PC_name = f"Machine name: {hou.machineName()}"
+    User = f"User: {hou.userName()}"
     include_vars_heading = "Variations included:"
     
-    about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + nnl + include_vars_heading + nl + vars_txt
+    about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User + nnl + include_vars_heading + nl + vars_txt
     
     self.setParms({"flam3about_msg": about_msg_txt})
 
@@ -2723,3 +2729,9 @@ def apo_to_flam3(self: hou.Node) -> None:
     else:
         self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
 
+
+xml = "C:/Users/alexn/Desktop/test.flame"
+tree = ET.parse(xml)
+isvalidtree = isinstance(tree, ET.ElementTree)
+root = tree.getroot()
+print(root.tag)
