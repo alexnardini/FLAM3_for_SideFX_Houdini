@@ -2582,6 +2582,12 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
         # Build flame stats
+        pb_bool = False
+        print(apo_data.pre_blur)
+        for item in apo_data.pre_blur:
+            if item:
+                pb_bool = True
+                break
         post_bool = "NO"
         if apo_data.post is not None:
             post_bool = "YES"
@@ -2607,6 +2613,8 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         var_used_heading = "Variations used:"
         
         vars_keys = apo_get_xforms_var_keys(apo_data.xforms)
+        if pb_bool:
+            vars_keys += [["pre_blur"]]
         vars_keys_FF = []
         if apo_data.finalxform is not None:
             vars_keys_FF = apo_get_xforms_var_keys(apo_data.finalxform)
@@ -2615,8 +2623,9 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         flatten = [item for sublist in vars_keys for item in sublist]
         result = []
         [result.append(x) for x in flatten if x not in result]
+        result_sorted = sorted(result, key=lambda var: var)
         n = 5
-        result_grp = [result[i:i+n] for i in range(0, len(result), n)]  
+        result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
         vars = []
         for grp in result_grp:
             vars.append(", ".join(grp) + "\n")
