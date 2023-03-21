@@ -157,7 +157,7 @@ class flam3_varsPRM:
                 (f"flux{PRM}", ("fluxspread_", 0), 1), 
                 (f"mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
                 (f"curve{PRM}", ("curvexyzlenght_", 1), ("curvexyzamp_", 1), 1), 
-                (f"persp{PRM}", ("persp_", 1), 1), 
+                (f"perspective{PRM}", ("persp_", 1), 1), 
                 (f"bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
                 ("hemisphere", 0), 
                 (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1) )
@@ -1075,6 +1075,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     node = kwargs['node']
     prm = node.parm(prm_name)
     prm.set('999999')
+    
     
     if "apopresets" in prm_name:
         xml = node.parm('apofilepath').evalAsString()
