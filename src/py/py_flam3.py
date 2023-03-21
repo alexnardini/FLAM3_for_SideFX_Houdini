@@ -2719,14 +2719,3 @@ def apo_to_flam3(self: hou.Node) -> None:
         self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
 
 
-    
-
-vars = list(VARS_APO)
-vars_sorted = sorted(vars, key=lambda var: var)
-n = 5
-vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-_vars = []
-for grp in vars_sorted_grp:
-    _vars.append(", ".join(grp) + "\n")
-vars_txt = "".join(_vars)
-print(vars_txt)
