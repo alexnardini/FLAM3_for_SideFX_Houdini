@@ -2323,7 +2323,7 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
 
 
 
-def apo_get_var_key_idx(key: str) -> Union[int, None]:
+def apo_get_idx_by_key(key: str) -> Union[int, None]:
     """
     Args:
         key (str): [variation name we are processing]
@@ -2527,7 +2527,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
     # Set variations
     for mp_idx, xform in enumerate(xforms):
         for t_idx, key_name in enumerate(vars_keys[mp_idx][:max_vars]):
-            v_type = apo_get_var_key_idx(key_name)
+            v_type = apo_get_idx_by_key(key_name)
             if v_type is not None:
                 v_weight: float = float(xform.get(key_name))
                 if apo_prm[v_type][-1]:
@@ -2636,6 +2636,6 @@ def apo_to_flam3(self) -> None:
         print("")
         
     else:
-        print(f"{str(self)}: This flame has not been created with Apophysis 7x. Can't load it!")
+        print(f"{str(self)}: Please load a valid *.flame file.")
 
 
