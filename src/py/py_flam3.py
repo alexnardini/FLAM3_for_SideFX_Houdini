@@ -2582,9 +2582,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 
 def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
-        # Build flame stats
         pb_bool = False
-        print(apo_data.pre_blur)
         for item in apo_data.pre_blur:
             if item:
                 pb_bool = True
@@ -2620,7 +2618,6 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         if apo_data.finalxform is not None:
             vars_keys_FF = apo_get_xforms_var_keys(apo_data.finalxform)
             vars_keys += vars_keys_FF
-        
         flatten = [item for sublist in vars_keys for item in sublist]
         result = []
         [result.append(x) for x in flatten if x not in result]
@@ -2630,8 +2627,6 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         vars = []
         for grp in result_grp:
             vars.append(", ".join(grp) + "\n")
-            
-            
         vars_txt = "".join(vars)
             
         return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nnl + var_used_heading + nl + vars_txt 
@@ -2647,9 +2642,8 @@ def apo_to_flam3(self) -> None:
     if isvalid_tree(xml):
         
         preset_id = int(self.parm('apopresets').eval())
-        preset = self.parm('apopresets').menuLabels()[preset_id]
+        preset_name = self.parm('apopresets').menuLabels()[preset_id]
 
-        # Parse XML data
         apo_data = apo_flame_iter_data(xml, preset_id)
 
         reset_SYS(self, 500000, 24, 0)
@@ -2679,20 +2673,18 @@ def apo_to_flam3(self) -> None:
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
         ramp_parm.set(apo_data.palette)
-
         palette_cp(self)
         palette_hsv(self)
         
         #Updated flame stats
         self.setParms({"flamestats_msg": apo_stats_msg(preset_id, apo_data)})
         
-        print(f"{str(self)}: Loaded Apophysis preset: {preset}")
+        print(f"{str(self)}: Loaded Apophysis preset: {preset_name}")
         print(f"{str(self)}: Created with: {apo_data.apo_version[apo_data.idx]}")
         print("")
         
     else:
         self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
-        print(f"{str(self)}: Please load a valid *.flame file.")
 
 
     
