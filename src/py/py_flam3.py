@@ -1436,7 +1436,7 @@ def reset_FF(self: hou.Node) -> None:
     self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
 
 
-def reset_SYS(self, density: int, iter: int, mode: int) -> None:
+def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     """
     Args:
         density (int): Numper of points to use
@@ -2635,7 +2635,7 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
 
 
 
-def apo_to_flam3(self) -> None:
+def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
 
