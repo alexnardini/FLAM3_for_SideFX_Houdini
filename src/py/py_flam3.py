@@ -1065,7 +1065,7 @@ def flam3_on_create(kwargs: dict) -> None:
 
 
 ###############################################################################################
-# Init parameter presets menu list as soon as you load a valid ramp json file
+# Init parameter presets menu list as soon as you load a valid json/flame file
 ###############################################################################################
 def init_presets(kwargs: dict, prm_name: str) -> None:
     """
@@ -1080,6 +1080,9 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         xml = node.parm('apofilepath').evalAsString()
         if not isvalid_tree(xml):
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+        else:
+            prm.set('0')
+            apo_to_flam3(node)
         
 
 
