@@ -2397,7 +2397,6 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
         if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]})
         else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
 
-    # Set variation v_type and weight
     if mode:
         node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
@@ -2421,7 +2420,6 @@ def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v
     """
     prx, prx_prm = flam3_prx_mode(mode)
 
-    # Set variation v_type and weight
     if mode:
         node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
@@ -2463,22 +2461,18 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
         mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
     """
     if mode:
-        # Set pre affine (X, Y, O)
         node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]})
         node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]})
         node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]})
-        # Set post affine (X, Y, O)
         if apo_data.finalxform_post is not None:
             node.setParms({f"{prx}{n.postaffine_do}": 1})
             node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][0]})
             node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]})
             node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]})
     else:
-        # Set pre affine (X, Y, O)
         node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]})
         node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]})
         node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]})
-        # Set post affine (X, Y, O)
         if apo_data.post is not None:
             if apo_data.post[mp_idx]:
                 node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1})
@@ -2548,10 +2542,10 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
                     v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
 
             else:
-                # if this variation is not found, set it to Linear and set its weight to ZERO
+                # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
         
-        # Activate iterators, just in case i reload a preset after disabling them
+        # Activate iterators, just in case
         if not mode:
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
         # Set the rest of the iterator
