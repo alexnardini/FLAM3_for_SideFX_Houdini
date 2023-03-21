@@ -1472,10 +1472,9 @@ def flam3_default(self: hou.Node) -> None:
     """
     Args:
         self (hou.Node): [current hou.Node]
-    """    
+    """
     # Iterators reset
     self.setParms({"flamefunc": 0})
-    # delete channel references
     for p in self.parms():
         p.deleteAllKeyframes()
     # Add back iterators
@@ -1505,15 +1504,14 @@ def flam3_default(self: hou.Node) -> None:
     palette_cp(self)
     palette_hsv(self)
     
-    # IO
+    # IN
     self.setParms({"apofilepath": ""})
-
-    #######################################################################
+    self.setParms({"apopresets": str(0)})
     
     # iterators
     n = flam3_iterator_prm_names
 
-    # Iterator 1
+    # iter 1
     #
     # shader
     self.setParms({f"{n.shader_color}_1": 0})
@@ -1531,7 +1529,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))})
     self.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))})
 
-    # Iterator 2
+    # iter 2
     #
     # shader
     self.setParms({f"{n.shader_color}_2": 0.5})
@@ -1549,7 +1547,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))})
     self.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))})
 
-    # Iterator 3
+    # iter 3
     #
     # shader
     self.setParms({f"{n.shader_color}_3": 1.0})
@@ -1567,7 +1565,6 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))})
     self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))})
 
-    #######################################################################
 
 
 
