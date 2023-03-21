@@ -1631,7 +1631,7 @@ def web_TFFA() -> None:
 
 
 
-APO_VERSION = "Apophysis 7x"
+
 
 # XML
 FLAME = "flame"
@@ -1650,7 +1650,7 @@ COLOR = "color"
 COLOR_SPEED = "symmetry"
 OPACITY = "opacity"
 
-XML_XF_KEY_EXCLUDE = ["weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity"]
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 
 
 
@@ -1821,7 +1821,7 @@ class flam3_varsPRM_APO:
                 ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
                 ("gaussian", 0), 
                 ("fan2", ("fan2_x", "fan2_y"), 1), 
-                ("rings2", ("rings2_val"), 1), 
+                ("rings2", ("rings2_val", ), 1), 
                 ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
                 ("******radial_blur", ("radialblur_"), 1), 
                 ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
@@ -1833,7 +1833,7 @@ class flam3_varsPRM_APO:
                 ("secant2", 0), 
                 ("twintrian", 0), 
                 ("cross", 0), 
-                ("******disc2", ("disc2_"), 1), 
+                ("******from fractorium test******disc2", ("disc2_rot", "disc2_twist"), 1), 
                 ("******from fractorium test******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
                 ("******from fractorium test******flower", ("flower_petals", "flower_holes"), 1), 
                 ("******from fractorium test******conic", ("conic_eccentricity", "conic_holes"), 1), 
@@ -1847,7 +1847,7 @@ class flam3_varsPRM_APO:
                 ("edisc", 0), 
                 ("elliptic", 0), 
                 ("noise", 0), 
-                ("escher", ("escher_beta"), 1), 
+                ("escher", ("escher_beta", ), 1), 
                 ("foci", 0), 
                 ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
                 ("loonie", 0), 
@@ -1881,7 +1881,7 @@ class flam3_varsPRM_APO:
                 ("******cothe csch", 0), 
                 ("******cothe coth", 0), 
                 ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
-                ("flux", ("flux_spread"), 1), 
+                ("flux", ("flux_spread", ), 1), 
                 ("mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
                 ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
                 ("******from fractorium test******persp", ("perspective_angle", "perspective_dist"), 1), 
@@ -2033,14 +2033,11 @@ class apo_flame(_xml_tree):
             xforms = []
             for xf in self._flame[idx].iter(key):
                 xforms.append(xf.attrib)
-            # turn everything to lowervase
             xforms_lower = []
             if xforms:
                 for xf in xforms:
-                    _k = xf.keys()
-                    k = [str(x).lower() for x in _k]
-                    v = xf.values()
-                    kv = zip(k, v)
+                    k = [str(x).lower() for x in xf.keys()]
+                    kv = zip(k, xf.values())
                     xforms_lower.append(dict(kv))
             else:
                 return None
@@ -2244,7 +2241,7 @@ class apo_flame_iter_data(apo_flame):
 
 
 
-def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], list[str]], tuple[None, None]]:
+def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2257,30 +2254,11 @@ def apo_get_xforms_var_and_prm_keys(xforms: tuple) -> Union[tuple[list[str], lis
         vars_keys = []
         vars_prm_keys = []
         for xf in xforms:
-            idx = list(xf.keys()).index(PRE_AFFINE)
-            vars_keys.append( list( map( lambda x: x, 
-                                        filter( lambda x: x.split("_")[0] != "pre" and x.split("_")[0] != "post", 
-                                            filter( lambda x: 
-                                                    x not in XML_XF_KEY_EXCLUDE, 
-                                                    list(xf)[:idx] ) 
-                                            ) 
-                                        ) 
-                                    ) 
-                                )
-            # I dnt really need this but I'll leave it here for now...
-            vars_prm_keys.append( list( map( lambda x: x, 
-                                        filter( lambda x: x.split("_")[0] != "pre" and x.split("_")[0] != "post", 
-                                            filter( lambda x: 
-                                                    x not in XML_XF_KEY_EXCLUDE, 
-                                                    list(xf)[idx:] ) 
-                                            ) 
-                                        ) 
-                                    ) 
-                                )
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_APO, xf.keys()))))
             
-        return vars_keys, vars_prm_keys
+        return vars_keys
     else:
-        return None, None
+        return None
 
 
 
@@ -2398,7 +2376,10 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
         for n in names:
-            var_prm_vals.append(float(xform.get(n)))
+            for k in xform.keys():
+                if n in k:
+                    var_prm_vals.append(float(xform.get(k)))
+                    break
         VAR.append(typemaker(var_prm_vals))
 
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -2541,7 +2522,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys, vars_prm_keys = apo_get_xforms_var_and_prm_keys(xforms)
+    vars_keys = apo_get_xforms_var_keys(xforms)
 
     # Set variations
     for mp_idx, xform in enumerate(xforms):
@@ -2574,7 +2555,40 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 
 
 
-def apo_to_flam3(self):
+def reset_SYS(self) -> None:
+    self.setParms({"ptcount": 500000})
+    self.setParms({"iter": 24})
+    self.setParms({"rip": 0})
+
+
+def reset_TM(self) -> None:
+    self.setParms({"dotm": 0})
+    self.setParms({"tmrt": 0})
+
+        
+def reset_SM(self) -> None:
+    self.setParms({"sm": 0})
+    self.setParms({"smrot": 0})
+
+    
+def reset_MB(self) -> None:
+    self.setParms({"domb": 0})
+    self.setParms({"fps": 24})
+    self.setParms({"mbsamples": 16})
+    self.setParms({"shutter": 0.5})
+
+    
+def reset_PREFS(self) -> None:
+    self.setParms({"showprefs": 1})
+    self.setParms({"xm": 0})
+    self.setParms({"camhandle": 0})
+    self.setParms({"camcull": 0})
+    self.setParms({"fcam": ""})
+    self.setParms({"cullamount": 0.99})
+
+
+        
+def apo_to_flam3(self) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
 
@@ -2586,68 +2600,42 @@ def apo_to_flam3(self):
         # Parse XML data
         apo_data = apo_flame_iter_data(xml, preset_id)
 
-        if apo_data.apo_version[apo_data.idx] == APO_VERSION:
+        reset_SYS(self)
+        reset_TM(self)
+        reset_SM(self)
+        reset_MB(self)
+        reset_PREFS(self)
 
-            # SYS
-            self.setParms({"ptcount": 500000})
-            self.setParms({"iter": 24})
-            self.setParms({"rip": 0})
-            # TM
-            self.setParms({"dotm": 0})
-            self.setParms({"tmrt": 0})
-            # SM
-            self.setParms({"sm": 0})
-            # self.setParms({"smrot": 0})
-            # MB
-            self.setParms({"domb": 0})
-            # self.setParms({"fps": 24})
-            # self.setParms({"mbsamples": 16})
-            # self.setParms({"shutter": 0.5})
-            #prefs
-            self.setParms({"showprefs": 1})
-            self.setParms({"xm": 0})
-            self.setParms({"camhandle": 0})
-            self.setParms({"camcull": 0})
-            # self.setParms({"fcam": ""})
-            self.setParms({"cullamount": 0.99})
-            
-            # iterators
-            self.setParms({"flamefunc": 0})
-            for p in self.parms():
-                p.deleteAllKeyframes()
-            self.setParms({"flamefunc":  len(apo_data.xforms)})
+        # iterators
+        self.setParms({"flamefunc": 0})
+        for p in self.parms():
+            p.deleteAllKeyframes()
+        self.setParms({"flamefunc":  len(apo_data.xforms)})
 
-            # Load XML iterator's data
-            apo_set_iterator(0, self, apo_data)
-            if apo_data.finalxform is not None:
-                reset_FF(self)
-                self.setParms({"doff": 1})
-                apo_set_iterator(1, self, apo_data)
-            else:
-                reset_FF(self)
-                self.setParms({"doff": 0})
-            # CP
-            self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
-            ramp_parm = self.parm(RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            # Set XML palette data
-            ramp_parm.set(apo_data.palette)
-
-            palette_cp(self)
-            palette_hsv(self)
-
-            print(f"{str(self)}: Loaded Apophysis preset: {preset}")
-        
+        apo_set_iterator(0, self, apo_data)
+        if apo_data.finalxform is not None:
+            reset_FF(self)
+            self.setParms({"doff": 1})
+            apo_set_iterator(1, self, apo_data)
         else:
-            print(f"{str(self)}: This flame has not been created with Apophysis 7x. Can't load it!")
-    
+            reset_FF(self)
+            self.setParms({"doff": 0})
+            
+        # CP
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
+        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        # Set XML palette data
+        ramp_parm.set(apo_data.palette)
+
+        palette_cp(self)
+        palette_hsv(self)
+
+        print(f"{str(self)}: Loaded Apophysis preset: {preset}")
+        print(f"{str(self)}: Created with: {apo_data.apo_version[apo_data.idx]}")
+        print("")
+        
     else:
-        print(f"{str(self)}: Please, load a valid Apophysis fractal flame file.")
-
-
-
-
-# vars_keys.append(list(map(lambda x: x, filter(lambda x: str(x.split("_")[0]).lower() != "pre" and str(x.split("_")[0]).lower() != "post", filter( lambda x: x not in XML_XF_KEY_EXCLUDE, filter(lambda x: len(str(x).split("_"))==1,  xf.keys()) )  ) )) )
-# vars_prm_keys.append(list(map(lambda x: x, filter( lambda x: x not in list(map(lambda x: x, filter(lambda x: str(x.split("_")[0]).lower() != "pre" and str(x.split("_")[0]).lower() != "post", filter( lambda x: x not in XML_XF_KEY_EXCLUDE, filter(lambda x: len(str(x).split("_"))==1,  xf.keys()) )  ) )), filter( lambda x: x not in XML_XF_KEY_EXCLUDE,  xf.keys()  ) ) ) ) )
+        print(f"{str(self)}: This flame has not been created with Apophysis 7x. Can't load it!")
 
 
