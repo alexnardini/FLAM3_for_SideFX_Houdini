@@ -48,7 +48,7 @@ RAMP_SRC_NAME = "palette"
 RAMP_HSV_NAME = "palettehsv"
 RAMP_HSV_VAL_NAME = "hsv"
 
-MAX_VARS = 4
+MAX_ITER_VARS = 4
 MAX_FF_VARS = 3
 
 
@@ -1207,7 +1207,7 @@ def json_to_ramp(kwargs: dict) -> None:
     preset = node.parm('presets').menuLabels()[preset_id]
     
     if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-    
+
         with open(filepath) as f:
             data = json.load(f)[preset]
             keys = []
@@ -2541,7 +2541,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
         max_vars = MAX_FF_VARS
         xforms = apo_data.finalxform
     else:
-        max_vars = MAX_VARS
+        max_vars = MAX_ITER_VARS
         xforms = apo_data.xforms
 
     iterator_names = flam3_iterator_prm_names()
