@@ -1075,6 +1075,12 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     node = kwargs['node']
     prm = node.parm(prm_name)
     prm.set('999999')
+    
+    if "apopresets" in prm_name:
+        xml = node.parm('apofilepath').evalAsString()
+        if not isvalid_tree(xml):
+            node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+        
 
 
 
@@ -1396,7 +1402,7 @@ def viewportParticleSize(self: hou.Node) -> None:
 
 
 ###############################################################################################
-# Resets... 
+# Parameters resets... 
 ###############################################################################################
 def reset_FF(self: hou.Node) -> None:
 
@@ -1427,6 +1433,12 @@ def reset_FF(self: hou.Node) -> None:
 
 
 def reset_SYS(self, density: int, iter: int, mode: int) -> None:
+    """
+    Args:
+        density (int): Numper of points to use
+        iter (int): Number of iterations
+        mode (int): 0: skip "doff" 1: reset "doff"
+    """    
     
     self.setParms({"ptcount": density})
     self.setParms({"iter": iter})
@@ -1664,9 +1676,11 @@ XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed",
 
 
 # This is only as idx lookup table. Every variation name in this list
-# is the same name as written by Apophysis inside the XML file.
+# is the same name as written by Apophysis or Fratorium inside the XML file during save.
+#
 # When you load a fractal flame, every variation name in the XML file
 # will look itself up inside this table, and if it find itself will proceed.
+
 VARS_APO = ("linear", 
             "sinusoidal",
             "spherical",
@@ -1776,9 +1790,15 @@ VARS_APO = ("linear",
 
 class flam3_varsPRM_APO:
     
-    # Collect all variations and their parametric parameters properly ordered as per flame*.h files
-    # Those parameters matches the Apophysis parameter's names.
-    # They are gouped as follow and based on the FLAM3 houdini node parametric parameters:
+    # Those parameters matches the Apophysis/Fractorium parameter's names,
+    # so no need to regex for now as the strings names are matching already.
+    #
+    # Only exception so far are Mobius parameters in Fractorium:
+    # In Apophysis: Re_A, Re_B, Re_C, Re_D, Im_A, Im_B, Im_C, Im_D
+    # In Fractorium: Mobius_Re_A, Mobius_Re_B, Mobius_Re_C, Mobius_Re_D, Mobius_Im_A, Mobius_Im_B, Mobius_Im_C, Mobius_Im_D
+    # I handled this only case simply for now, see from code line 2396 to see how.
+    #
+    # They are gouped as follow and based on the FLAM3 Houdini node parametric parameters:
     #
     # for generic variation:
     # ("variation name", bool: (parametric or not parametric)),
@@ -1790,10 +1810,11 @@ class flam3_varsPRM_APO:
     # they are then automatically converted to the expeted v_type using the function: 
     # typemaker((prm_1, ..., prm_4)) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     #
-    # The (("variation_name") entrie, is not used here but only present for readabilty.
+    # The (("variation_name") entrie, is not used here but eventuallt I will.
 
-
-    # Marked with: ************ -> are missing from my current Apophysis package. Need to find them.
+    # Marked with: ************ -> are missing from my current Apophysis package, need to find them. They are however present in Fractorium.
+    # Marked with: ******from Fractorium****** are taken from Fractorium app.
+    
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
                 ("spherical", 0), 
@@ -1824,7 +1845,7 @@ class flam3_varsPRM_APO:
                 ("curl", ("curl_c1", "curl_c2"), 1), 
                 ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
                 ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("******from fractorium test******blob", ("blob_low", "blob_high", "blob_waves"), 1), 
+                ("******from Fractorium******blob", ("blob_low", "blob_high", "blob_waves"), 1), 
                 ("juliaN", ("julian_power", "julian_dist"), 1), 
                 ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
                 ("gaussian", 0), 
@@ -1841,11 +1862,11 @@ class flam3_varsPRM_APO:
                 ("secant2", 0), 
                 ("twintrian", 0), 
                 ("cross", 0), 
-                ("******from fractorium test******disc2", ("disc2_rot", "disc2_twist"), 1), 
-                ("******from fractorium test******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
-                ("******from fractorium test******flower", ("flower_petals", "flower_holes"), 1), 
-                ("******from fractorium test******conic", ("conic_eccentricity", "conic_holes"), 1), 
-                ("******from fractorium test******parabola", ("parabola_height", "parabola_width"), 1), 
+                ("******from Fractorium******disc2", ("disc2_rot", "disc2_twist"), 1), 
+                ("******from Fractorium******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                ("******from Fractorium******flower", ("flower_petals", "flower_holes"), 1), 
+                ("******from Fractorium******conic", ("conic_eccentricity", "conic_holes"), 1), 
+                ("******from Fractorium******parabola", ("parabola_height", "parabola_width"), 1), 
                 ("bent2", ("bent2_x", "bent2_y"), 1), 
                 ("bipolar", ("bipolar_shift"), 1),
                 ("boarders", 0),
@@ -1870,8 +1891,8 @@ class flam3_varsPRM_APO:
                 ("splits", ("splits_x", "splits_y"), 1), 
                 ("stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
-                ("******from fractorium test******wedgejulia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
-                ("******from fractorium test******wedgesph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
+                ("******from Fractorium******wedgejulia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                ("******from Fractorium******wedgesph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
                 ("whorl", ("whorl_inside", "whorl_outside"), 1), 
                 ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
                 ("******cothe exp", 0), 
@@ -1892,7 +1913,7 @@ class flam3_varsPRM_APO:
                 ("flux", ("flux_spread", ), 1), 
                 ("mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
                 ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                ("******from fractorium test******persp", ("perspective_angle", "perspective_dist"), 1), 
+                ("******from Fractorium******persp", ("perspective_angle", "perspective_dist"), 1), 
                 ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("hemisphere", 0), 
                 ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
@@ -2262,7 +2283,7 @@ def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
         vars_keys = []
         vars_prm_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_APO, xf.keys()))))
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_APO, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
@@ -2555,7 +2576,57 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 
 
 
+def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
+    
+        # Build flame stats
+        post_bool = "NO"
+        if apo_data.post is not None:
+            post_bool = "YES"
+        xaos_bool = "NO"
+        if apo_data.xaos is not None:
+            xaos_bool = "YES"
+        ff_bool = "NO"
+        if apo_data.finalxform is not None:
+            ff_bool = "YES"
+        ff_post_bool = "NO"
+        if apo_data.finalxform_post is not None:
+            ff_post_bool = "YES"
+            
+        nl = "\n"
+        nnl = "\n\n"
+        sw = f"Software: {apo_data.apo_version[preset_id]}"
+        name = f"NAME: {apo_data.name[preset_id]}"
+        iter_count = f"iterators count: {str(len(apo_data.xforms))}"
+        post = f"post affine: {post_bool}"
+        xaos = f"xaos: {xaos_bool}"
+        ff = f"FF: {ff_bool}"
+        ff_post = f"FF post affine: {ff_post_bool}"
+        var_used_heading = "Variations used:"
         
+        vars_keys = apo_get_xforms_var_keys(apo_data.xforms)
+        vars_keys_FF = []
+        if apo_data.finalxform is not None:
+            vars_keys_FF = apo_get_xforms_var_keys(apo_data.finalxform)
+            vars_keys += vars_keys_FF
+        
+        flatten = [item for sublist in vars_keys for item in sublist]
+        result = []
+        [result.append(x) for x in flatten if x not in result]
+        n = 5
+        result_grp = [result[i:i+n] for i in range(0, len(result), n)]  
+        vars = []
+        for grp in result_grp:
+            vars.append(", ".join(grp) + "\n")
+            
+            
+        vars_txt = "".join(vars)
+            
+        return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nnl + var_used_heading + nl + vars_txt 
+        
+
+
+
+
 def apo_to_flam3(self) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
@@ -2598,12 +2669,17 @@ def apo_to_flam3(self) -> None:
 
         palette_cp(self)
         palette_hsv(self)
-
+        
+        #Updated flame stats
+        self.setParms({"flamestats_msg": apo_stats_msg(preset_id, apo_data)})
+        
         print(f"{str(self)}: Loaded Apophysis preset: {preset}")
         print(f"{str(self)}: Created with: {apo_data.apo_version[apo_data.idx]}")
         print("")
         
     else:
+        self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
         print(f"{str(self)}: Please load a valid *.flame file.")
 
 
+    
