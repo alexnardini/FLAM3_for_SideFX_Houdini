@@ -2302,13 +2302,11 @@ def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
 ###############################################################################################
 def menu_apo_presets(kwargs: dict) -> list:
 
-    apo_filepath = kwargs['node'].parm('apofilepath').evalAsString()
-
+    xml = kwargs['node'].parm('apofilepath').evalAsString()
     menu=[]
-    if os.path.isfile(apo_filepath) and os.path.getsize(apo_filepath)>0:
-
-        apo = apo_flame(apo_filepath)
-        
+    if isvalid_tree(xml):
+        apo = apo_flame(xml)
+        names = apo.name
         for i, item in enumerate(apo.name):
             menu.append(i)
             menu.append(item)
