@@ -1007,10 +1007,15 @@ def flam3_on_create(kwargs: dict) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
-    """    
+    """
+    
+    
     # Set initial node color
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
+    
+        # Set about message
+    flam3_about_msg(node)
 
     # FLAM3 node and MultiParameter id for iterators
     #
@@ -2628,7 +2633,36 @@ def apo_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         vars_txt = "".join(vars)
             
         return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nnl + var_used_heading + nl + vars_txt 
-        
+
+
+
+def flam3_about_msg(self):
+
+    nl = "\n"
+    nnl = "\n\n"
+    vars_sorted = sorted(VARS_APO, key=lambda var: var) 
+    n = 5
+    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+    
+    vars = list(VARS_APO)
+    vars_sorted = sorted(vars, key=lambda var: var)
+    n = 5
+    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+    _vars = []
+    for grp in vars_sorted_grp:
+        _vars.append(", ".join(grp) + "\n")
+    vars_txt = "".join(_vars)
+    
+    Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE"
+    Implementation = "Houdini implementation: ALESSANDRO NARDINI"
+    version = '.'.join(str(x) for x in hou.applicationVersion())
+    Houdini_version = f"SideFX Houdini {version}"
+    include_vars_heading = "Variations included:"
+    
+    about_msg_txt = Authors + nl + Implementation + nl + Houdini_version + nnl + include_vars_heading + nl + vars_txt
+    
+    self.setParms({"flam3about_msg": about_msg_txt})
+
 
 
 
@@ -2686,3 +2720,13 @@ def apo_to_flam3(self: hou.Node) -> None:
 
 
     
+
+vars = list(VARS_APO)
+vars_sorted = sorted(vars, key=lambda var: var)
+n = 5
+vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+_vars = []
+for grp in vars_sorted_grp:
+    _vars.append(", ".join(grp) + "\n")
+vars_txt = "".join(_vars)
+print(vars_txt)
