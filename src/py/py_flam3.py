@@ -1396,7 +1396,7 @@ def viewportParticleSize(self: hou.Node) -> None:
 
 
 ###############################################################################################
-# Reset FF. (finalxform)
+# Resets... 
 ###############################################################################################
 def reset_FF(self: hou.Node) -> None:
 
@@ -1426,6 +1426,42 @@ def reset_FF(self: hou.Node) -> None:
     self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
 
 
+def reset_SYS(self, density: int, iter: int, mode: int) -> None:
+    
+    self.setParms({"ptcount": density})
+    self.setParms({"iter": iter})
+    if mode:
+        self.setParms({"doff": 0})
+    self.setParms({"tag": 1})
+    self.setParms({"tagsize": 0})
+    self.setParms({"rip": 0})
+
+
+def reset_TM(self) -> None:
+    self.setParms({"dotm": 0})
+    self.setParms({"tmrt": 0})
+        
+
+def reset_SM(self) -> None:
+    self.setParms({"sm": 0})
+    self.setParms({"smrot": 0})
+
+
+def reset_MB(self) -> None:
+    self.setParms({"domb": 0})
+    self.setParms({"fps": 24})
+    self.setParms({"mbsamples": 16})
+    self.setParms({"shutter": 0.5})
+
+
+def reset_PREFS(self) -> None:
+    self.setParms({"showprefs": 1})
+    self.setParms({"xm": 0})
+    self.setParms({"camhandle": 0})
+    self.setParms({"camcull": 0})
+    self.setParms({"fcam": ""})
+    self.setParms({"cullamount": 0.99})
+
 
 
 
@@ -1448,19 +1484,12 @@ def flam3_default(self: hou.Node) -> None:
 
     #
     # SYS
-    self.setParms({"ptcount": 500000})
-    self.setParms({"iter": 10})
-    self.setParms({"doff": 0})
-    self.setParms({"tag": 1})
-    self.setParms({"tagsize": 0})
-    self.setParms({"rip": 0})
-    
-    # TM
-    self.setParms({"dotm": 0})
-    self.setParms({"tmrt": 0})
-    
-    # FF vars
+    reset_SYS(self, 500000, 10, 1)
+    reset_TM(self)
     reset_FF(self)
+    reset_SM(self)
+    reset_MB(self)
+    reset_PREFS(self)
 
     # CP
     self.setParms({"filepath": ""})
@@ -1475,27 +1504,9 @@ def flam3_default(self: hou.Node) -> None:
     # Update ramp py 
     palette_cp(self)
     palette_hsv(self)
-
-    # SM
-    self.setParms({"sm": 0})
-    self.setParms({"smrot": 0})
     
-    # MB
-    self.setParms({"domb": 0})
-    self.setParms({"fps": 24})
-    self.setParms({"mbsamples": 16})
-    self.setParms({"shutter": 0.5})
-
     # IO
     self.setParms({"apofilepath": ""})
-    
-    #prefs
-    self.setParms({"showprefs": 1})
-    self.setParms({"xm": 0})
-    self.setParms({"camhandle": 0})
-    self.setParms({"camcull": 0})
-    self.setParms({"fcam": ""})
-    self.setParms({"cullamount": 0.99})
 
     #######################################################################
     
@@ -1506,7 +1517,7 @@ def flam3_default(self: hou.Node) -> None:
     #
     # shader
     self.setParms({f"{n.shader_color}_1": 0})
-    self.setParms({f"{n.shader_speed}_1": 0.75})
+    self.setParms({f"{n.shader_speed}_1": -0.5})
     # vars
     self.setParms({f"{n.prevar_type_1}_1": 0})
     self.setParms({f"{n.prevar_type_2}_1": 0})
@@ -1524,7 +1535,7 @@ def flam3_default(self: hou.Node) -> None:
     #
     # shader
     self.setParms({f"{n.shader_color}_2": 0.5})
-    self.setParms({f"{n.shader_speed}_2": 0.75})
+    self.setParms({f"{n.shader_speed}_2": -0.5})
     # vars
     self.setParms({f"{n.prevar_type_1}_2": 0})
     self.setParms({f"{n.prevar_type_2}_2": 0})
@@ -1542,7 +1553,7 @@ def flam3_default(self: hou.Node) -> None:
     #
     # shader
     self.setParms({f"{n.shader_color}_3": 1.0})
-    self.setParms({f"{n.shader_speed}_3": 0.75})
+    self.setParms({f"{n.shader_speed}_3": -0.5})
     # vars
     self.setParms({f"{n.prevar_type_1}_3": 0})
     self.setParms({f"{n.prevar_type_2}_3": 0})
@@ -2553,40 +2564,6 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
 
 
 
-
-
-def reset_SYS(self) -> None:
-    self.setParms({"ptcount": 500000})
-    self.setParms({"iter": 24})
-    self.setParms({"rip": 0})
-
-
-def reset_TM(self) -> None:
-    self.setParms({"dotm": 0})
-    self.setParms({"tmrt": 0})
-
-        
-def reset_SM(self) -> None:
-    self.setParms({"sm": 0})
-    self.setParms({"smrot": 0})
-
-    
-def reset_MB(self) -> None:
-    self.setParms({"domb": 0})
-    self.setParms({"fps": 24})
-    self.setParms({"mbsamples": 16})
-    self.setParms({"shutter": 0.5})
-
-    
-def reset_PREFS(self) -> None:
-    self.setParms({"showprefs": 1})
-    self.setParms({"xm": 0})
-    self.setParms({"camhandle": 0})
-    self.setParms({"camcull": 0})
-    self.setParms({"fcam": ""})
-    self.setParms({"cullamount": 0.99})
-
-
         
 def apo_to_flam3(self) -> None:
 
@@ -2600,7 +2577,7 @@ def apo_to_flam3(self) -> None:
         # Parse XML data
         apo_data = apo_flame_iter_data(xml, preset_id)
 
-        reset_SYS(self)
+        reset_SYS(self, 500000, 24, 0)
         reset_TM(self)
         reset_SM(self)
         reset_MB(self)
