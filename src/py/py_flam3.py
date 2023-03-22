@@ -4,7 +4,7 @@ from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
 import xml.etree.ElementTree as ET
-import os, hou, json, colorsys, webbrowser, inspect
+import os, hou, re, json, colorsys, webbrowser, inspect
 
 
 
@@ -1016,7 +1016,7 @@ def flam3_on_create(kwargs: dict) -> None:
     
     # Set about tab infos
     flam3_about_msg(node)
-    flam3_plugins_msg(node)
+    flam3_about_plugins_msg(node)
 
     # FLAM3 node and MultiParameter id for iterators
     #
@@ -1684,6 +1684,8 @@ OPACITY = "opacity"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 
+REGEX_PRE = "^(?:pre_)"
+REGEX_POST = "^(?:post_)"
 
 
 
@@ -2294,33 +2296,10 @@ class apo_flame_iter_data(apo_flame):
     def opacity(self):
         return self._opacity
     
-
-
-
-
-def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
-    """
-    Args:
-        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
-
-    Returns:
-        Union[tuple[list, list], tuple[None, None]]: [return a list of variation' names and their parametric parameter's names for each xform withou "pre" and "post" variations,  or None]
-    """    
-        
-    if xforms is not None:
-        vars_keys = []
-        vars_prm_keys = []
-        for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_APO, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
-            
-        return vars_keys
-    else:
-        return None
-
-
-
-
-
+    
+    
+    
+    
 ###############################################################################################
 # MENU - APO - build menu from flame file presets
 ###############################################################################################
@@ -2338,7 +2317,121 @@ def menu_apo_presets(kwargs: dict) -> list:
         return menu
     else:
         return menu
+    
+    
 
+
+
+def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+    if type(name) is str:
+        if re.search(REGEX_PRE, name) is not None: 
+            return re.sub(REGEX_PRE, '', name)
+        elif re.search(REGEX_POST, name) is not None:
+            return re.sub(REGEX_POST, '', name)
+        else:
+            return None
+    elif type(name) is list or tuple:
+        _names = [re.sub(REGEX_PRE, '', x) for x in name if re.search(REGEX_PRE, x) is not None]
+        if not _names:
+            _names = [re.sub(REGEX_POST, '', x) for x in name if re.search(REGEX_POST, x) is not None]
+        if not _names:
+            return None
+        else:
+            return _names
+        
+        # for n in name:
+        #     if re.search(REGEX_PRE, n) is not None: 
+        #         _names.append(re.sub(REGEX_PRE, '', n))
+        #     elif re.search(REGEX_POST, n) is not None:
+        #         _names.append(re.sub(REGEX_POST, '', n))
+        #     else:
+        #         return None
+        # return _names
+            
+
+
+def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+    if type(name) is str:
+        if re.search(REGEX_PRE, name) is None and re.search(REGEX_POST, name) is None:
+            return "pre_" + name
+    elif type(name) is list or tuple:
+        return ["pre_" + x for x in name if re.search(REGEX_PRE, x) is None and re.search(REGEX_POST, x) is None]
+    else:
+        return None
+
+
+def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str], tuple[str]], None]:
+    if type(name) is str:
+        if re.search(REGEX_PRE, name) is None and re.search(REGEX_POST, name) is None:
+            return "post_" + name
+    elif type(name) is list or tuple:
+        return ["post_" + x for x in name if re.search(REGEX_PRE, x) is None and re.search(REGEX_POST, x) is None]
+    else:
+        return None
+
+
+    
+
+
+def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
+    """
+    Args:
+        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+
+    Returns:
+        Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
+    """    
+        
+    if xforms is not None:
+        vars_keys = []
+        vars_prm_keys = []
+        for xf in xforms:
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_APO, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            
+        return vars_keys
+    else:
+        return None
+    
+    
+    
+# TO DO
+def apo_get_xforms_var_keys_PRE(xforms: tuple) -> Union[list[str], None]:
+    """
+    Args:
+        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+
+    Returns:
+        Union[tuple[list, list], tuple[None, None]]: [return a list of pre variation's names in each xform,  or None]
+    """    
+        
+    if xforms is not None:
+        vars_keys = []
+        for xf in xforms:
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_PRE(VARS_APO), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            
+        return vars_keys
+    else:
+        return None
+    
+    
+# TO DO
+def apo_get_xforms_var_keys_POST(xforms: tuple) -> Union[list[str], None]:
+    """
+    Args:
+        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+
+    Returns:
+        Union[tuple[list, list], tuple[None, None]]: [return a list of pre variation's names in each xform,  or None]
+    """    
+        
+    if xforms is not None:
+        vars_keys = []
+        for xf in xforms:
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_POST(VARS_APO), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            
+        return vars_keys
+    else:
+        return None
 
 
 
@@ -2416,98 +2509,6 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
 
 
 
-
-def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        v_type (int): [the current variation type index]
-        weight (float): [the current variation weight]
-        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in names:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            # This allow me to use "radial_blur" variation as everyone else
-            # only have "radial_blur_angle" and not "radial_blur_zoom".
-            if xform.get(n) is not None:
-                for k in xform.keys():
-                    if n in k:
-                        var_prm_vals.append(float(xform.get(k)))
-                        break
-            else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_APO[v_type]}\": parameter: \"{n}\"")
-                var_prm_vals.append(float(0))
-            
-        VAR.append(typemaker(var_prm_vals))
-
-    for idx, prm in enumerate(var_prm[1:-1]):
-        if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]})
-        else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
-
-    if mode:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
-    else:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
-
-    
-    
-
-
-def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        v_type (int): [Current variation type index]
-        weight (float): [Current variation weight]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-
-    if mode:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
-    else:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
-
-
-
-
-
-def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: tuple) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        pb_weights (tuple): [all iterators pre_blur weight values]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    if mode: pass
-    else:
-        if pb_weights[mp_idx]:
-            node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
-
-
-
-
-
 def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter_data, n: flam3_iterator_prm_names, mp_idx: int) -> None:
     """
     Args:
@@ -2567,6 +2568,93 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 
+def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        v_type (int): [the current variation type index]
+        weight (float): [the current variation weight]
+        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+
+    VAR: list = []
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in names:
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            # This allow me to use "radial_blur" variation as everyone else
+            # only have "radial_blur_angle" and not "radial_blur_zoom".
+            if xform.get(n) is not None:
+                for k in xform.keys():
+                    if n in k:
+                        var_prm_vals.append(float(xform.get(k)))
+                        break
+            else:
+                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_APO[v_type]}\": parameter: \"{n}\"")
+                var_prm_vals.append(float(0))
+            
+        VAR.append(typemaker(var_prm_vals))
+
+    for idx, prm in enumerate(var_prm[1:-1]):
+        if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]})
+        else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+
+    if mode:
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
+    else:
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
+
+
+
+
+def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        v_type (int): [Current variation type index]
+        weight (float): [Current variation weight]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+
+    if mode:
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
+    else:
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
+
+
+
+
+def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: tuple) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        pb_weights (tuple): [all iterators pre_blur weight values]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+    if mode: pass
+    else:
+        if pb_weights[mp_idx]:
+            node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
+
+
+
 
 def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -> None:
     """
@@ -2609,6 +2697,10 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
             else:
                 # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
+                
+        # TO DO
+        # 1 Possibly set PRE variations
+        # 2 Possibly set POST variations
         
         # Activate iterators, just in case
         if not mode:
@@ -2686,7 +2778,7 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
             
-        return sw + nnl + name + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nl + palette_count_format + nnl + var_used_heading + nl + vars_txt 
+        return sw + nnl + name + nl + palette_count_format + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nnl + var_used_heading + nl + vars_txt 
 
 
 
@@ -2697,24 +2789,29 @@ def flam3_about_msg(self):
     Authors = "FLAM3 authors: Scott Draves and Erick Reckase\n2002/2015"
     version = "Version: 0.9.4"
     Implementation_year = "2020/2023"
-    Implementation_build = f"Houdini implementation: Alessandro Nardini\n{version}\n{Implementation_year}"
+    Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX, Python\n{version}\n{Implementation_year}"
+    
+    code_copied = """Code references:
+flam3 :: (GPL v2)
+Apophysis :: (GPL)
+Fractorium :: (GPL v3)"""
     
     h_version = '.'.join(str(x) for x in hou.applicationVersion())
-    Houdini_version = f"Host: SideFX Houdini {h_version}"
+    Houdini_version = f"Host:\nSideFX Houdini {h_version}"
     license_type = str(hou.licenseCategory()).split(".")[-1]
     Houdini_license = f"License: {license_type}"
     Platform = f"Platform: {hou.applicationPlatformInfo()}"
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
     
-    about_msg_txt = Authors + nl + Implementation_build + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
+    about_msg_txt = Implementation_build + nnl + code_copied + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
     
     self.setParms({"flam3about_msg": about_msg_txt})
     
     
     
     
-def flam3_plugins_msg(self):
+def flam3_about_plugins_msg(self):
     
     vars_sorted = sorted(VARS_APO, key=lambda var: var) 
     n = 6
@@ -2781,6 +2878,32 @@ def apo_to_flam3(self: hou.Node) -> None:
 
 
 
-xml = "C:/Users/alexn/Desktop/mobTEST.flame"
-apo_data = apo_flame_iter_data(xml, 0)
-print(apo_data.opacity)
+# xml = "C:/Users/alexn/Desktop/bipolar_by_tatasz.flame"
+# apo_data = apo_flame_iter_data(xml, 0)
+# pre = apo_get_xforms_var_keys_PRE(apo_data.xforms)
+# print(pre)
+
+
+
+
+# def make_VAR(name: str) -> str:
+#     if "pre_" in name:
+#         return name.replace("pre_", "")
+#     elif "post_" in name:
+#         return name.replace("post_", "")
+
+
+
+
+
+
+
+# test = "mobius_re_a"
+# test_pre = "pre_mobius_re_a"
+# test_post = "post_mobius_re_a"
+# pre = make_PRE(VARS_APO)
+# print(pre)
+# post = make_POST(VARS_APO)
+# print(post)
+# var = make_VAR(test)
+# print(var)
