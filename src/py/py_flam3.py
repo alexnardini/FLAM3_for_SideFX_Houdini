@@ -2673,8 +2673,8 @@ def flam3_about_msg(self):
     
     nl = "\n"
     nnl = "\n\n"
-    Authors = "FLAM3 authors: SCOTT DRAVES and ERICK RECKASE 2002/2015"
-    Implementation = "Houdini implementation: ALESSANDRO NARDINI 2020/2023"
+    Authors = "FLAM3 authors: Scott Draves and Erick Reckase\n2002/2015"
+    Implementation = "Houdini implementation: Alessandro Nardini\n2020/2023"
     version = "Version: 0.9.4"
     h_version = '.'.join(str(x) for x in hou.applicationVersion())
     Houdini_version = f"Host: SideFX Houdini {h_version}"
