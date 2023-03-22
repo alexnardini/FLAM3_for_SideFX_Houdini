@@ -2674,8 +2674,10 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
     Authors = "FLAM3 authors: Scott Draves and Erick Reckase\n2002/2015"
-    Implementation = "Houdini implementation: Alessandro Nardini\n2020/2023"
     version = "Version: 0.9.4"
+    Implementation_year = "2020/2023"
+    Implementation_build = f"Houdini implementation: Alessandro Nardini\n{version}\n{Implementation_year}"
+    
     h_version = '.'.join(str(x) for x in hou.applicationVersion())
     Houdini_version = f"Host: SideFX Houdini {h_version}"
     license_type = str(hou.licenseCategory()).split(".")[-1]
@@ -2684,16 +2686,16 @@ def flam3_about_msg(self):
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
     
-    n = 6
-    vars = list(VARS_APO)
-    vars_sorted = sorted(vars, key=lambda var: var)
-    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-    _vars = []
-    for grp in vars_sorted_grp:
-        _vars.append(", ".join(grp) + "\n")
-    vars_txt = "".join(_vars)
+    # n = 6
+    # vars = list(VARS_APO)
+    # vars_sorted = sorted(vars, key=lambda var: var)
+    # vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+    # _vars = []
+    # for grp in vars_sorted_grp:
+    #     _vars.append(", ".join(grp) + "\n")
+    # vars_txt = "".join(_vars)
     
-    about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
+    about_msg_txt = Authors + nl + Implementation_build + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
     
     self.setParms({"flam3about_msg": about_msg_txt})
     
