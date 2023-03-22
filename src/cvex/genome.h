@@ -52,9 +52,13 @@ struct gem{
             clr = chf(concat("../clr_", idx));
             spd = chf(concat("../clrspeed_", idx));
             /*
-                fractorium->Source->ember->Xform.h ( code line: 561)
+                SOURCE: fractorium->Source->ember->Xform.h ( code line: 561)
+
                 m_OneMinusColorCache = (1 + m_ColorSpeed) / 2;
                 m_ColorSpeedCache = m_ColorX * (1 - m_ColorSpeed) / 2; //Apo style.
+
+                m_OneMinusColorCache = static_cast<T>(1) - m_ColorSpeed;
+                m_ColorSpeedCache = m_ColorSpeed * m_ColorX;//Flam3 style.
             */
             CLR[i] = clr * (1.0-spd)/2.0;
             OM[i]  = (1.0 + spd)/2.0;
