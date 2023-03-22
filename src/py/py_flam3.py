@@ -2686,15 +2686,6 @@ def flam3_about_msg(self):
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
     
-    # n = 6
-    # vars = list(VARS_APO)
-    # vars_sorted = sorted(vars, key=lambda var: var)
-    # vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-    # _vars = []
-    # for grp in vars_sorted_grp:
-    #     _vars.append(", ".join(grp) + "\n")
-    # vars_txt = "".join(_vars)
-    
     about_msg_txt = Authors + nl + Implementation_build + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
     
     self.setParms({"flam3about_msg": about_msg_txt})
@@ -2704,7 +2695,6 @@ def flam3_about_msg(self):
     
 def flam3_plugins_msg(self):
     
-    # nl = "\n"
     vars_sorted = sorted(VARS_APO, key=lambda var: var) 
     n = 6
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
