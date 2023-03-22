@@ -776,15 +776,21 @@ void V_PREBLUR(vector2 p; const float w){
 }
 // 66 ( parametric )
 void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
-    float xr, yr;
-    xr = 2*m[0]; yr = 2*m[1];
+    float xr=2*m[0]; float yr=2*m[1];
+
     if(_p[0] > m[0])
-        p[0] = w * (m[0] + fmod(_p[0] + m[0], xr));
-    else if(p[0] < m[0]) p[0] = w * (m[0] - fmod(m[0] + _p[0], xr));
-    else p[0] = w * _p[0];
-    if(_p[1] > m[1]) p[1] = w * (m[1] + fmod(_p[1] + m[1], yr));
-    else if(p[0] < m[0]) p[1] = w * (m[1] - fmod(m[1] + _p[1], yr));
-    else p[1] = w * _p[1];
+        p[0] = w * (-m[0] + fmod(_p[0] + m[0], xr));
+    else if(p[0] < -m[0])
+        p[0] = w * (m[0] - fmod(m[0] - _p[0], xr));
+    else
+        p[0] = w * _p[0];
+
+    if(_p[1] > m[1])
+        p[1] = w * (-m[1] + fmod(_p[1] + m[1], yr));
+    else if(p[1] < -m[1])
+        p[1] = w * (m[1] - fmod(m[1] - _p[1], yr));
+    else
+        p[1] = w * _p[1];
 }
 // 67 ( parametric )
 void V_OSCOPE(vector2 p; const vector2 _p; const float w, freq, amp, damp, sep){
