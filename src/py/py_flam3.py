@@ -139,20 +139,20 @@ class flam3_varsPRM:
                 (f"wedgesph{PRM}", ("wedgesph_", 1), 1), 
                 (f"whorl{PRM}", ("whorl_", 1), 1), 
                 (f"waves2{PRM}", ("waves2scalexyz_", 1), ("waves2freqxyz_", 1), 1), 
-                ("cothe exp", 0), 
-                ("cothe log", 0), 
-                ("cothe sin", 0), 
-                ("cothe cos", 0), 
-                ("cothe tan", 0), 
-                ("cothe sec", 0), 
-                ("cothe csc", 0), 
-                ("cothe cot", 0), 
-                ("cothe sinh", 0), 
-                ("cothe cosh", 0), 
-                ("cothe tanh", 0), 
-                ("cothe sech", 0), 
-                ("cothe csch", 0), 
-                ("cothe coth", 0), 
+                ("exp", 0), 
+                ("log", 0), 
+                ("sin", 0), 
+                ("cos", 0), 
+                ("tan", 0), 
+                ("sec", 0), 
+                ("csc", 0), 
+                ("cot", 0), 
+                ("sinh", 0), 
+                ("cosh", 0), 
+                ("tanh", 0), 
+                ("sech", 0), 
+                ("csch", 0), 
+                ("coth", 0), 
                 (f"auger{PRM}", ("auger_", 1), 1), 
                 (f"flux{PRM}", ("fluxspread_", 0), 1), 
                 (f"mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
@@ -1016,6 +1016,7 @@ def flam3_on_create(kwargs: dict) -> None:
     
     # Set about tab infos
     flam3_about_msg(node)
+    flam3_plugins_msg(node)
 
     # FLAM3 node and MultiParameter id for iterators
     #
@@ -1729,7 +1730,7 @@ VARS_APO = ("linear",
             "fan2",
             "rings2",
             "rectangles",
-            "***radial blur",
+            "radial blur",
             "pie",
             "arch",
             "tangent",
@@ -2664,15 +2665,11 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
             
-        return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nl + palette_count_format + nl + nnl + var_used_heading + nl + vars_txt 
+        return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nl + palette_count_format + nnl + var_used_heading + nl + vars_txt 
 
 
 
 def flam3_about_msg(self):
-
-    vars_sorted = sorted(VARS_APO, key=lambda var: var) 
-    n = 6
-    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     
     nl = "\n"
     nnl = "\n\n"
@@ -2686,8 +2683,8 @@ def flam3_about_msg(self):
     Platform = f"Platform: {hou.applicationPlatformInfo()}"
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
-    include_vars_heading = "Variations included:"
     
+    n = 6
     vars = list(VARS_APO)
     vars_sorted = sorted(vars, key=lambda var: var)
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
@@ -2696,10 +2693,28 @@ def flam3_about_msg(self):
         _vars.append(", ".join(grp) + "\n")
     vars_txt = "".join(_vars)
     
-    about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User + nnl + include_vars_heading + nl + vars_txt
+    about_msg_txt = Authors + nl + Implementation + nl + version + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
     
     self.setParms({"flam3about_msg": about_msg_txt})
-
+    
+    
+    
+    
+def flam3_plugins_msg(self):
+    
+    # nl = "\n"
+    vars_sorted = sorted(VARS_APO, key=lambda var: var) 
+    n = 6
+    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+    vars = list(VARS_APO)
+    vars_sorted = sorted(vars, key=lambda var: var)
+    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+    _vars = []
+    for grp in vars_sorted_grp:
+        _vars.append(", ".join(grp) + "\n")
+    vars_txt = "".join(_vars)
+    
+    self.setParms({"flam3plugins_msg": vars_txt})
 
 
 
@@ -2745,7 +2760,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         palette_cp(self)
         palette_hsv(self)
         
-        #Updated flame stats
+        #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
         
     else:
