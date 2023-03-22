@@ -1730,7 +1730,7 @@ VARS_APO = ("linear",
             "fan2",
             "rings2",
             "rectangles",
-            "radial blur",
+            "radial_blur",
             "pie",
             "arch",
             "tangent",
@@ -1827,6 +1827,9 @@ class flam3_varsPRM_APO:
     # Marked with: ************ -> are missing from my current Apophysis package, need to find them. They are however present in Fractorium.
     # Marked with: ******from Fractorium****** are taken from Fractorium app.
     
+    # Note:
+    # "radial_blur" parameter "radiual_blur_zoom" is not ued and always ZERO as everyone else only have "radiual_blur_angle"
+    
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
                 ("spherical", 0), 
@@ -1864,7 +1867,7 @@ class flam3_varsPRM_APO:
                 ("fan2", ("fan2_x", "fan2_y"), 1), 
                 ("rings2", ("rings2_val", ), 1), 
                 ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                ("******radial_blur", ("radialblur_"), 1), 
+                ("radial_blur", ("radial_blur_angle", "radial_blur_zoom"), 1), 
                 ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
                 ("arch", 0), 
                 ("tangent", 0), 
@@ -2433,10 +2436,19 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
         for n in names:
-            for k in xform.keys():
-                if n in k:
-                    var_prm_vals.append(float(xform.get(k)))
-                    break
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            # This allow me to use "radial_blur" variation as everyone else
+            # only have "radial_blur_angle" and not "radial_blur_zoom".
+            if xform.get(n) is not None:
+                for k in xform.keys():
+                    print(k)
+                    if n in k:
+                        var_prm_vals.append(float(xform.get(k)))
+                        break
+            else:
+                # If a variation parameter FLAM3 has is not found, set it to ZERO
+                var_prm_vals.append(float(0))
+            
         VAR.append(typemaker(var_prm_vals))
 
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -2758,3 +2770,8 @@ def apo_to_flam3(self: hou.Node) -> None:
     else:
         self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
 
+
+
+xml = "C:/Users/alexn/Desktop/mobTEST.flame"
+apo_data = apo_flame_iter_data(xml, 0)
+print(apo_data.xforms[3].get("pizza"))
