@@ -2441,12 +2441,12 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
             # only have "radial_blur_angle" and not "radial_blur_zoom".
             if xform.get(n) is not None:
                 for k in xform.keys():
-                    print(k)
                     if n in k:
                         var_prm_vals.append(float(xform.get(k)))
                         break
             else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO
+                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_APO[v_type]}\": parameter: \"{n}\"")
                 var_prm_vals.append(float(0))
             
         VAR.append(typemaker(var_prm_vals))
@@ -2634,15 +2634,18 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
             if item:
                 pb_bool = True
                 break
+        opacity_bool = "NO"
+        if min(apo_data.opacity) == 0.0:
+            opacity_bool = "YES"
         post_bool = "NO"
         if apo_data.post is not None:
             post_bool = "YES"
         xaos_bool = "NO"
         if apo_data.xaos is not None:
             xaos_bool = "YES"
-        ff_bool = "NO"
+        ff_bool = False
         if apo_data.finalxform is not None:
-            ff_bool = "YES"
+            ff_bool = True
         ff_post_bool = "NO"
         if apo_data.finalxform_post is not None:
             ff_post_bool = "YES"
@@ -2653,9 +2656,15 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         name = f"NAME: {apo_data.name[preset_id]}"
         iter_count = f"iterators count: {str(len(apo_data.xforms))}"
         post = f"post affine: {post_bool}"
+        opacity = f"opacity: {opacity_bool}"
         xaos = f"xaos: {xaos_bool}"
         ff = f"FF: {ff_bool}"
         ff_post = f"FF post affine: {ff_post_bool}"
+        ff_msg = ""
+        if ff_bool:
+            ff_msg = f"FF: YES\nFF post affine: {ff_post_bool}"
+        else:
+            ff_msg = f"FF: NO"
         palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
         var_used_heading = "Variations used:"
         
@@ -2677,7 +2686,7 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
             
-        return sw + nnl + name + nnl + iter_count + nl + post + nl + xaos + nl + ff + nl + ff_post + nl + palette_count_format + nnl + var_used_heading + nl + vars_txt 
+        return sw + nnl + name + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nl + palette_count_format + nnl + var_used_heading + nl + vars_txt 
 
 
 
@@ -2774,4 +2783,4 @@ def apo_to_flam3(self: hou.Node) -> None:
 
 xml = "C:/Users/alexn/Desktop/mobTEST.flame"
 apo_data = apo_flame_iter_data(xml, 0)
-print(apo_data.xforms[3].get("pizza"))
+print(apo_data.opacity)
