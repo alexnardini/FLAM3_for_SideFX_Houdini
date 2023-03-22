@@ -2764,5 +2764,5 @@ def apo_to_flam3(self: hou.Node) -> None:
         self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
         
     else:
-        self.setParms({"flamestats_msg": f"{str(self)}: Please load a valid *.flame file."})
+        self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
 
