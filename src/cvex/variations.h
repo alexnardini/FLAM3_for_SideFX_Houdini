@@ -700,14 +700,14 @@ void V_CPOW(vector2 p; const vector2 _p; const float w, power, pow_r, pow_i){
 // 58
 void V_EDISC(vector2 p; const vector2 _p; const float w){
     float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
-    tmp =SUMSQ(_p);
+    tmp =SUMSQ(_p) + 1;
     tmp2 = 2.0 * _p[0];
     rr1 = sqrt(tmp+tmp2);
     rr2 = sqrt(tmp-tmp2);
-    xmax = (rr1+rr2) * 0.5;
+    xmax = Zeps((rr1+rr2) * 0.5);
     aa1 = log(xmax + (sqrt(xmax - 1.0)));
     aa2 = -acos(_p[0]/xmax);
-    ww = w / 11.57034632;;
+    ww = w / 11.57034632;
     sincos(aa1, snv, csv);
     snhu = sinh(aa2);
     cshu = cosh(aa2);
