@@ -48,9 +48,6 @@ RAMP_SRC_NAME = "palette"
 RAMP_HSV_NAME = "palettehsv"
 RAMP_HSV_VAL_NAME = "hsv"
 
-MAX_ITER_VARS = 4
-MAX_FF_VARS = 3
-
 
 
 
@@ -1687,6 +1684,12 @@ XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed",
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
 
+MAX_ITER_VARS = 4
+MAX_FF_VARS = 3
+MAX_ITER_VARS_PRE = 2
+MAX_ITER_VARS_POST = 1
+MAX_FF_VARS_POST = 2
+
 
 
 # This is only as idx lookup table. Every variation name in this list
@@ -1935,6 +1938,8 @@ class flam3_varsPRM_APO:
                 ("hemisphere", 0), 
                 ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
 
+    # Fractorium has those parameter's names for Mobius variation
+    var_prm_mobius_fractorium = ("mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
 
 
 
@@ -2338,15 +2343,6 @@ def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[s
             return None
         else:
             return _names
-        
-        # for n in name:
-        #     if re.search(REGEX_PRE, n) is not None: 
-        #         _names.append(re.sub(REGEX_PRE, '', n))
-        #     elif re.search(REGEX_POST, n) is not None:
-        #         _names.append(re.sub(REGEX_POST, '', n))
-        #     else:
-        #         return None
-        # return _names
             
 
 
@@ -2582,6 +2578,10 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
         apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
     """
     prx, prx_prm = flam3_prx_mode(mode)
+    
+    mobius_ember = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    if v_type == 96:
+        apo_prm = mobius_ember
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -2612,6 +2612,115 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
     else:
         node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
+        
+        
+
+
+def v_parametric_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        v_type (int): [the current variation type index]
+        weight (float): [the current variation weight]
+        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+    
+    mobius_ember = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    if v_type == 96:
+        apo_prm = mobius_ember
+
+    VAR: list = []
+    
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in names:
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            # This allow me to use "radial_blur" variation as everyone else
+            # only have "radial_blur_angle" and not "radial_blur_zoom".
+            if xform.get(make_PRE(n)) is not None:
+                for k in xform.keys():
+                    if make_PRE(n) in k:
+                        var_prm_vals.append(float(xform.get(k)))
+                        break
+            else:
+                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_APO[v_type])}\": parameter: \"{make_PRE(n)}\"")
+                var_prm_vals.append(float(0))
+            
+        VAR.append(typemaker(var_prm_vals))
+        
+    for idx, prm in enumerate(var_prm[1:-1]):
+        if not mode:
+            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+
+    if not mode:
+        # Only on pre variations with parametric so:
+        # idx set by hand for now: flam3_iterator.sec_prevarsT[1] ... because in here we have a non parametric as first"
+        # idx set by hand for now: flam3_iterator.sec_prevarsW[2][0] ... because in here we have "pre_blur" and a non parametric as first"
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[1]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[2][0]}{str(mp_idx+1)}": v_weight})
+
+
+
+
+
+def v_parametric_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        v_type (int): [the current variation type index]
+        weight (float): [the current variation weight]
+        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+    
+    mobius_ember = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    if v_type == 96:
+        apo_prm = mobius_ember
+
+    VAR: list = []
+    
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in names:
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            # This allow me to use "radial_blur" variation as everyone else
+            # only have "radial_blur_angle" and not "radial_blur_zoom".
+            if xform.get(make_POST(n)) is not None:
+                for k in xform.keys():
+                    if make_POST(n) in k:
+                        var_prm_vals.append(float(xform.get(k)))
+                        break
+            else:
+                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_APO[v_type])}\": parameter: \"{make_PRE(n)}\"")
+                var_prm_vals.append(float(0))
+            
+        VAR.append(typemaker(var_prm_vals))
+        
+    for idx, prm in enumerate(var_prm[1:-1]):
+        if not mode:
+            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+
+    if not mode:
+        # Only on post variation with parametric so:
+        # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+        # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}": v_weight})
+
+
 
 
 
@@ -2634,6 +2743,48 @@ def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v
     else:
         node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
+        
+        
+        
+def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        v_type (int): [Current variation type index]
+        weight (float): [Current variation weight]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+
+    if not mode:
+        # Only on pre variations with no parametric so:
+        # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+        # idx set by hand for now: flam3_iterator.sec_prevarsW[1][0] ... because in here we have "pre_blur as first"
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[0]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1][0]}{str(mp_idx+1)}":v_weight})
+        
+        
+        
+def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        v_type (int): [Current variation type index]
+        weight (float): [Current variation weight]
+    """
+    prx, prx_prm = flam3_prx_mode(mode)
+
+    if not mode:
+        # Only on pre variations with no parametric so:
+        # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+        # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
 
 
 
@@ -2681,6 +2832,8 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
     vars_keys = apo_get_xforms_var_keys(xforms)
+    vars_keys_pre = apo_get_xforms_var_keys_PRE(xforms)
+    vars_keys_post = apo_get_xforms_var_keys_POST(xforms)
 
     # Set variations
     for mp_idx, xform in enumerate(xforms):
@@ -2697,10 +2850,35 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
             else:
                 # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
-                
+
         # TO DO
-        # 1 Possibly set PRE variations
+        # 1 Possibly set PRE variations... in progress
+        
+        # if there is some pre vars in this iterator
+        #
+        # For now the execution order will always be:
+        # -> First: non parametric.
+        # -> Second: parametric.
+        if vars_keys_pre[mp_idx]:
+            for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
+                v_type = apo_get_idx_by_key(make_VAR(key_name))
+                if v_type is not None:
+                    v_weight: float = float(xform.get(key_name))
+                    if apo_prm[v_type][-1]:
+                        v_parametric_PRE(mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                    else:
+                        v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
+        # TO DO
         # 2 Possibly set POST variations
+        if vars_keys_post[mp_idx]:
+            for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
+                v_type = apo_get_idx_by_key(make_VAR(key_name))
+                if v_type is not None:
+                    v_weight: float = float(xform.get(key_name))
+                    if apo_prm[v_type][-1]:
+                        v_parametric_POST(mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                    else:
+                        v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
         
         # Activate iterators, just in case
         if not mode:
@@ -2761,13 +2939,16 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         var_used_heading = "Variations used:"
         
         vars_keys = apo_get_xforms_var_keys(apo_data.xforms)
+        vars_keys_PRE = apo_get_xforms_var_keys_PRE(apo_data.xforms)
+        vars_keys_POST = apo_get_xforms_var_keys_POST(apo_data.xforms)
+        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST
         if pb_bool:
-            vars_keys += [["pre_blur"]]
+            vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
         vars_keys_FF = []
         if apo_data.finalxform is not None:
             vars_keys_FF = apo_get_xforms_var_keys(apo_data.finalxform)
-            vars_keys += vars_keys_FF
-        flatten = [item for sublist in vars_keys for item in sublist]
+            vars_all += vars_keys_FF
+        flatten = [item for sublist in vars_all for item in sublist]
         result = []
         [result.append(x) for x in flatten if x not in result]
         result_sorted = sorted(result, key=lambda var: var)
@@ -2876,34 +3057,3 @@ def apo_to_flam3(self: hou.Node) -> None:
     else:
         self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
 
-
-
-# xml = "C:/Users/alexn/Desktop/bipolar_by_tatasz.flame"
-# apo_data = apo_flame_iter_data(xml, 0)
-# pre = apo_get_xforms_var_keys_PRE(apo_data.xforms)
-# print(pre)
-
-
-
-
-# def make_VAR(name: str) -> str:
-#     if "pre_" in name:
-#         return name.replace("pre_", "")
-#     elif "post_" in name:
-#         return name.replace("post_", "")
-
-
-
-
-
-
-
-# test = "mobius_re_a"
-# test_pre = "pre_mobius_re_a"
-# test_post = "post_mobius_re_a"
-# pre = make_PRE(VARS_APO)
-# print(pre)
-# post = make_POST(VARS_APO)
-# print(post)
-# var = make_VAR(test)
-# print(var)
