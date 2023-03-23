@@ -2365,7 +2365,6 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
     else:
         return None
 
-
     
 
 
@@ -2431,7 +2430,6 @@ def apo_get_xforms_var_keys_POST(xforms: tuple) -> Union[list[str], None]:
 
 
 
-
 def isvalid_tree(xmlfile: str) -> bool:
 
     try:
@@ -2445,7 +2443,6 @@ def isvalid_tree(xmlfile: str) -> bool:
                 return False
     except:
         return False
-
 
 
 
@@ -2470,8 +2467,6 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
 
 
 
-
-
 def apo_get_idx_by_key(key: str) -> Union[int, None]:
     """
     Args:
@@ -2483,7 +2478,6 @@ def apo_get_idx_by_key(key: str) -> Union[int, None]:
     try: idx = VARS_APO.index(key)
     except: return None
     return idx
-
 
 
 
@@ -2501,7 +2495,6 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
         prx = PRX_FF_PRM
         prx_prm = PRX_FF_PRM + "_"
     return prx, prx_prm
-
 
 
 
@@ -2564,7 +2557,7 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 
-def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -2579,9 +2572,8 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    mobius_ember = flam3_varsPRM_APO.var_prm_mobius_fractorium
-    if v_type == 96:
-        apo_prm = mobius_ember
+    if v_type == 96 and "EMBER-" in app:
+        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -2616,7 +2608,7 @@ def v_parametric(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict
         
 
 
-def v_parametric_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -2631,9 +2623,8 @@ def v_parametric_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: 
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    mobius_ember = flam3_varsPRM_APO.var_prm_mobius_fractorium
-    if v_type == 96:
-        apo_prm = mobius_ember
+    if v_type == 96 and "EMBER-" in app:
+        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
     
@@ -2670,7 +2661,7 @@ def v_parametric_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: 
 
 
 
-def v_parametric_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -2685,9 +2676,8 @@ def v_parametric_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform:
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    mobius_ember = flam3_varsPRM_APO.var_prm_mobius_fractorium
-    if v_type == 96:
-        apo_prm = mobius_ember
+    if v_type == 96 and "EMBER-" in app:
+        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
     
@@ -2807,13 +2797,15 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: t
 
 
 
-def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -> None:
+def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
     """    
+
+    app = apo_data.apo_version[preset_id]
 
     use_color_symmetry = node.parm("usesymmetry").evalAsInt()
 
@@ -2842,7 +2834,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
             if v_type is not None:
                 v_weight: float = float(xform.get(key_name))
                 if apo_prm[v_type][-1]:
-                    v_parametric(mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                    v_parametric(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                 else:
                     v_pre_blur(mode, node, mp_idx, t_idx, apo_data.pre_blur)
                     v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
@@ -2865,7 +2857,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
                 if v_type is not None:
                     v_weight: float = float(xform.get(key_name))
                     if apo_prm[v_type][-1]:
-                        v_parametric_PRE(mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                        v_parametric_PRE(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                     else:
                         v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
         # TO DO
@@ -2876,7 +2868,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data) -
                 if v_type is not None:
                     v_weight: float = float(xform.get(key_name))
                     if apo_prm[v_type][-1]:
-                        v_parametric_POST(mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                        v_parametric_POST(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                     else:
                         v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
         
@@ -3033,11 +3025,11 @@ def apo_to_flam3(self: hou.Node) -> None:
             p.deleteAllKeyframes()
         self.setParms({"flamefunc":  len(apo_data.xforms)})
 
-        apo_set_iterator(0, self, apo_data)
+        apo_set_iterator(0, self, apo_data, preset_id)
         if apo_data.finalxform is not None:
             reset_FF(self)
             self.setParms({"doff": 1})
-            apo_set_iterator(1, self, apo_data)
+            apo_set_iterator(1, self, apo_data, preset_id)
         else:
             reset_FF(self)
             self.setParms({"doff": 0})
