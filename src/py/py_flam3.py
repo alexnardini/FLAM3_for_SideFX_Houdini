@@ -2990,6 +2990,16 @@ def iter_on_load_callback(self):
     
 
 
+
+def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
+    splt = preset_name.split("::")
+    try:
+        return int(splt[-1])
+    except:
+        return None
+    
+
+
 def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
@@ -2999,6 +3009,11 @@ def apo_to_flam3(self: hou.Node) -> None:
         iter_on_load = self.parm("iternumonload").eval()
         preset_id = int(self.parm('apopresets').eval())
         preset_name = self.parm('apopresets').menuLabels()[preset_id]
+
+        iter_on_load_preset = get_preset_name_iternum(preset_name)
+        if iter_on_load_preset is not None:
+            iter_on_load = iter_on_load_preset
+            self.setParms({"iternumonload": iter_on_load})
 
         apo_data = apo_flame_iter_data(xml, preset_id)
 
