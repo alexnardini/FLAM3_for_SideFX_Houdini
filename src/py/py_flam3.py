@@ -1681,8 +1681,6 @@ COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
-XML_PRM_EXCEPTIONS = ("radial_blur_zoom", "oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation")
-
 
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
@@ -1837,114 +1835,114 @@ class flam3_varsPRM_APO:
     # Note:
     # "radial_blur" parameter "radial_blur_zoom" is not ued and always ZERO as everyone else only have "radiual_blur_angle"
     
-    varsPRM = ( ("linear", 0), 
-                ("sinusoidal", 0), 
-                ("spherical", 0), 
-                ("swirl", 0), 
-                ("horseshoe", 0), 
-                ("polar", 0), 
-                ("handkerchief", 0), 
-                ("heart", 0), 
-                ("disc", 0), 
-                ("spiral", 0), 
-                ("hyperbolic", 0), 
-                ("diamond", 0), 
-                ("ex", 0), 
-                ("julia", 0), 
-                ("bent", 0), 
-                ("waves", 0), 
-                ("fisheye", 0), 
-                ("popcorn", 0), 
-                ("exponential", 0), 
-                ("power", 0), 
-                ("cosine", 0), 
-                ("rings", 0), 
-                ("fan", 0), 
-                ("bubble", 0), 
-                ("cylinder", 0), 
-                ("eyefish", 0), 
-                ("blur", 0), 
-                ("curl", ("curl_c1", "curl_c2"), 1), 
-                ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
-                ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("******from Fractorium******blob", ("blob_low", "blob_high", "blob_waves"), 1), 
-                ("juliaN", ("julian_power", "julian_dist"), 1), 
-                ("juliascope", ("juliascope_power", "juiascope_dist"), 1), 
-                ("gaussian", 0), 
-                ("fan2", ("fan2_x", "fan2_y"), 1), 
-                ("rings2", ("rings2_val", ), 1), 
-                ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                ("radial_blur", ("radial_blur_angle", "radial_blur_zoom"), 1), 
-                ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
-                ("arch", 0), 
-                ("tangent", 0), 
-                ("square", 0), 
-                ("rays", 0), 
-                ("blade", 0), 
-                ("secant2", 0), 
-                ("twintrian", 0), 
-                ("cross", 0), 
-                ("******from Fractorium******disc2", ("disc2_rot", "disc2_twist"), 1), 
-                ("******from Fractorium******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
-                ("******from Fractorium******flower", ("flower_petals", "flower_holes"), 1), 
-                ("******from Fractorium******conic", ("conic_eccentricity", "conic_holes"), 1), 
-                ("******from Fractorium******parabola", ("parabola_height", "parabola_width"), 1), 
-                ("bent2", ("bent2_x", "bent2_y"), 1), 
-                ("bipolar", ("bipolar_shift", ), 1),
-                ("boarders", 0),
-                ("butterfly", 0), 
-                ("cell", ("cell_size", ), 1), 
-                ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
-                ("edisc", 0), 
-                ("elliptic", 0), 
-                ("noise", 0), 
-                ("escher", ("escher_beta", ), 1), 
-                ("foci", 0), 
-                ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
-                ("loonie", 0), 
-                ("pre blur", 0), 
-                ("modulus", ("modulus_x", "modulus_y"), 1), 
-                ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
-                ("polar2", 0), 
-                ("popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
-                ("scry", 0), 
-                ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
-                ("split", ("split_xsize", "split_ysize"), 1), 
-                ("splits", ("splits_x", "splits_y"), 1), 
-                ("stripes", ("stripes_space", "stripes_warp"), 1), 
-                ("wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
-                ("******from Fractorium******wedge_julia", ("julia_power", "julia_angle", "julia_dist", "julia_count"), 1), 
-                ("******from Fractorium******wedgesph", ("sph_swirl", "sph_angle", "sph_hole", "sph_count"), 1), 
-                ("whorl", ("whorl_inside", "whorl_outside"), 1), 
-                ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
-                ("******cothe exp", 0), 
-                ("******cothe log", 0), 
-                ("******cothe sin", 0), 
-                ("******cothe cos", 0), 
-                ("******cothe tan", 0), 
-                ("******cothe sec", 0), 
-                ("******cothe csc", 0), 
-                ("******cothe cot", 0), 
-                ("******cothe sinh", 0), 
-                ("******cothe cosh", 0), 
-                ("******cothe tanh", 0), 
-                ("******cothe sech", 0), 
-                ("******cothe csch", 0), 
-                ("******cothe coth", 0), 
-                ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
-                ("flux", ("flux_spread", ), 1), 
-                ("mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
-                ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                ("******from Fractorium******persp", ("perspective_angle", "perspective_dist"), 1), 
-                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
-                ("hemisphere", 0), 
-                ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
+    varsPRM = ( ("00 linear", 0), 
+                ("01 sinusoidal", 0), 
+                ("02 spherical", 0), 
+                ("03 swirl", 0), 
+                ("04 horseshoe", 0), 
+                ("05 polar", 0), 
+                ("06 handkerchief", 0), 
+                ("07 heart", 0), 
+                ("08 disc", 0), 
+                ("09 spiral", 0), 
+                ("10 hyperbolic", 0), 
+                ("11 diamond", 0), 
+                ("12 ex", 0), 
+                ("13 julia", 0), 
+                ("14 bent", 0), 
+                ("15 waves", 0), 
+                ("16 fisheye", 0), 
+                ("17 popcorn", 0), 
+                ("18 exponential", 0), 
+                ("19 power", 0), 
+                ("20 cosine", 0), 
+                ("21 rings", 0), 
+                ("22 fan", 0), 
+                ("23 bubble", 0), 
+                ("24 cylinder", 0), 
+                ("25 eyefish", 0), 
+                ("26 blur", 0), 
+                ("27 curl", ("curl_c1", "curl_c2"), 1), 
+                ("28 ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
+                ("29 pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
+                ("30 ******from Fractorium******blob", ("blob_low", "blob_high", "blob_waves"), 1), 
+                ("31 juliaN", ("julian_power", "julian_dist"), 1), 
+                ("32 juliascope", ("juliascope_power", "juiascope_dist"), 1), 
+                ("33 gaussian", 0), 
+                ("34 fan2", ("fan2_x", "fan2_y"), 1), 
+                ("35 rings2", ("rings2_val", ), 1), 
+                ("36 rectangles", ("rectangles_x", "rectangles_y"), 1), 
+                ("37 radial_blur", ("radial_blur_angle", "radial_blur_zoom"), 1), 
+                ("38 pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
+                ("39 arch", 0), 
+                ("40 tangent", 0), 
+                ("41 square", 0), 
+                ("42 rays", 0), 
+                ("43 blade", 0), 
+                ("44 secant2", 0), 
+                ("45 twintrian", 0), 
+                ("46 cross", 0), 
+                ("47 ******from Fractorium******disc2", ("disc2_rot", "disc2_twist"), 1), 
+                ("48 ******from Fractorium******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                ("49 ******from Fractorium******flower", ("flower_petals", "flower_holes"), 1), 
+                ("50 ******from Fractorium******conic", ("conic_eccentricity", "conic_holes"), 1), 
+                ("51 ******from Fractorium******parabola", ("parabola_height", "parabola_width"), 1), 
+                ("52 bent2", ("bent2_x", "bent2_y"), 1), 
+                ("53 bipolar", ("bipolar_shift", ), 1),
+                ("54 boarders", 0),
+                ("55 butterfly", 0), 
+                ("56 cell", ("cell_size", ), 1), 
+                ("57 cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
+                ("58 edisc", 0), 
+                ("59 elliptic", 0), 
+                ("60 noise", 0), 
+                ("61 escher", ("escher_beta", ), 1), 
+                ("62 foci", 0), 
+                ("63 lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
+                ("64 loonie", 0), 
+                ("65 pre_blur", 0), 
+                ("66 modulus", ("modulus_x", "modulus_y"), 1), 
+                ("67 oscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
+                ("68 polar2", 0), 
+                ("69 popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
+                ("70 scry", 0), 
+                ("71 separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
+                ("72 split", ("split_xsize", "split_ysize"), 1), 
+                ("73 splits", ("splits_x", "splits_y"), 1), 
+                ("74 stripes", ("stripes_space", "stripes_warp"), 1), 
+                ("75 wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
+                ("76 ******from Fractorium******wedge_julia", ("julia_power", "julia_angle", "julia_dist", "julia_count"), 1), 
+                ("77 ******from Fractorium******wedgesph", ("sph_swirl", "sph_angle", "sph_hole", "sph_count"), 1), 
+                ("78 whorl", ("whorl_inside", "whorl_outside"), 1), 
+                ("79 waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
+                ("80 ******cothe exp", 0), 
+                ("81 ******cothe log", 0), 
+                ("82 ******cothe sin", 0), 
+                ("83 ******cothe cos", 0), 
+                ("84 ******cothe tan", 0), 
+                ("85 ******cothe sec", 0), 
+                ("86 ******cothe csc", 0), 
+                ("87 ******cothe cot", 0), 
+                ("88 ******cothe sinh", 0), 
+                ("89 ******cothe cosh", 0), 
+                ("90 ******cothe tanh", 0), 
+                ("91 ******cothe sech", 0), 
+                ("92 ******cothe csch", 0), 
+                ("93 ******cothe coth", 0), 
+                ("94 auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
+                ("95 flux", ("flux_spread", ), 1), 
+                ("96 mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
+                ("97 curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
+                ("98 ******from Fractorium******persp", ("perspective_angle", "perspective_dist"), 1), 
+                ("99 bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
+                ("100 hemisphere", 0), 
+                ("101 polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
 
 
-    # EXCEPTIONS
-    
-    # Fractorium has those parameter's names for Mobius variation
-    var_prm_mobius_fractorium = ("mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
+    # EXCEPTIONS: so I dnt go into regex...
+    # Update def prm_name_exceptions() if you add/find more
+    fractorium_96_var_prm_mobius = ("mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
+    fractorium_67_var_prm_oscope = ("oscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1), 
 
 
 
@@ -2563,6 +2561,14 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
             
 
 
+def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
+    if v_type == 96 and "EMBER-" in app:
+        return flam3_varsPRM_APO.fractorium_96_var_prm_mobius[0]
+    elif v_type == 67 and "EMBER-" in app:
+        return flam3_varsPRM_APO.fractorium_67_var_prm_oscope[0]
+    return apo_prm
+
+
 
 def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
@@ -2579,11 +2585,10 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
         apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
     """
     prx, prx_prm = flam3_prx_mode(mode)
-    
-    # Exceptions: check if this flame has been created with Fractorium
-    if v_type == 96 and "EMBER-" in app:
-        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
-
+    print(apo_prm)
+    # Exceptions: check if this flame need parameter substituions
+    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    print(apo_prm)
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
@@ -2634,9 +2639,8 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # Exceptions: check if this flame has been created with Fractorium
-    if v_type == 96 and "EMBER-" in app:
-        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    # Exceptions: check if this flame need parameter substituions
+    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -2687,9 +2691,8 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # Exceptions: check if this flame has been created with Fractorium
-    if v_type == 96 and "EMBER-" in app:
-        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    # Exceptions: check if this flame need parameter substituions
+    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -2739,9 +2742,8 @@ def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx
     """
     prx_ff_prm_post = "fp1_"
     
-    # Exceptions: check if this flame has been created with Fractorium
-    if v_type == 96 and "EMBER-" in app:
-        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    # Exceptions: check if this flame need parameter substituions
+    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -2981,15 +2983,6 @@ def iter_on_load_callback(self):
     
 
 
-def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
-    splt = preset_name.split("::")
-    try:
-        return int(splt[-1])
-    except:
-        return None
-    
-
-
 def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
@@ -3000,22 +2993,13 @@ def apo_to_flam3(self: hou.Node) -> None:
         preset_id = int(self.parm('apopresets').eval())
         preset_name = self.parm('apopresets').menuLabels()[preset_id]
 
-        iter_on_load_preset = get_preset_name_iternum(preset_name)
-        if iter_on_load_preset is not None:
-            iter_on_load = iter_on_load_preset
-            self.setParms({"iternumonload": iter_on_load})
+        apo_data = apo_flame_iter_data(xml, preset_id)
 
         reset_SYS(self, 500000, iter_on_load, 0)
         reset_TM(self)
         reset_SM(self)
         reset_MB(self)
         reset_PREFS(self)
-        
-        apo_data = apo_flame_iter_data(xml, preset_id)
-        if min(apo_data.opacity) == 0.0:
-            self.setParms({"rip": 1})
-        else:
-            self.setParms({"rip": 0})
 
         # iterators
         self.setParms({"flamefunc": 0})
@@ -3159,4 +3143,5 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
+
 
