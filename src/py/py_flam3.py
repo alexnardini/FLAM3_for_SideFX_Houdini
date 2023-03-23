@@ -2842,12 +2842,17 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
             else:
                 # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
+                
+        # TO DO
+        # POST parametrics for FF
+        if mode:
+            ...
 
-        # if there are some PRE vars in this iterator ( only the first two in "vars_keys_pre" will be kept )
-        # For now the execution order will always be:
-        # -> First: non parametric.
-        # -> Second: parametric.
-        if not mode:
+        else:
+            # PRE vars in this iterator ( only the first two in "vars_keys_pre" will be kept )
+            # For now the execution order will always be:
+            # -> First: non parametric.
+            # -> Second: parametric.
             if vars_keys_pre[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
@@ -2858,7 +2863,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                         else:
                             v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
                             
-            # # if there are some POST vars in this iterator ( only the first one in "vars_keys_post" will be kept )
+            # POST vars in this iterator ( only the first one in "vars_keys_post" will be kept )
             if vars_keys_post[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
@@ -2868,26 +2873,23 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                             v_parametric_POST(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
                             v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
-                        
-        # TO DO
-        # parametrics for FF
-        if mode:
-            ...
-        
-        # Activate iterators, just in case
-        if not mode:
+                            
+            # Activate iterator, just in case...
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
-        # Set the rest of the iterator
-        if use_color_symmetry:
-            apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
-        else:
-            apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
-        apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
-        apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
-        apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-        apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)        
-        apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+            # Set the rest of the iterator
+            if use_color_symmetry:
+                apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
+            else:
+                apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
+            apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
+            apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
+            apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
+            apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)        
+            apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+        
+        # Affine ( PRE and POST) for iterator and FF
         apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
+
 
 
 
