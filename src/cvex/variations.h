@@ -24,6 +24,26 @@
 #include <functions.h>
 
 
+/*
+    The following variations match  Apophysis and Fractorium
+    but not in Chaotica use different one.
+    Check Fractorium github repository to see both code versions.
+    
+    80 -> V_EXP()
+    81 -> V_LOG()
+    82 -> V_SIN()
+    83 -> V_COS()
+    84 -> V_TAN()
+    85 -> V_SEC()
+    86 -> V_CSC()
+    87 -> V_COT()
+    88 -> V_SINH()
+    89 -> V_COSH()
+    90 -> V_TANH()
+    91 -> V_SECH()
+    92 -> V_CSCH()
+    93 -> V_COTH()
+*/
 
 // VARIATIONS
 //
