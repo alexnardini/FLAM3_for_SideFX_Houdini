@@ -26,9 +26,9 @@
 
 /*
     The following variations match  Apophysis and Fractorium
-    but not in Chaotica use different one.
+    but not Chaotica as it use different one.
     Check Fractorium github repository to see both code versions.
-    
+
     80 -> V_EXP()
     81 -> V_LOG()
     82 -> V_SIN()
