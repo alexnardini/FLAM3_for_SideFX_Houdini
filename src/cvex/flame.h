@@ -102,7 +102,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; co
                 return p; }
             // *15 Waves ( dependent )
             else if(T==15){
-                V_WAVES(p, _p, w, o[0], x[1], y[1], o[1]);
+                V_WAVES(p, _p, w, x[1], y[0], o[0], o[1]);
                 return p; }
             // 16 Fisheye
             else if(T==16){

@@ -173,14 +173,20 @@ void V_BENT(vector2 p; const vector2 _p; const float w){
     p[1] = w * ny;
 }
 // 15
-void V_WAVES(vector2 p; const vector2 _p; const float w, d, e, f, h){
-    float dx2, dy2, nx, ny;
-    // precalc
-    dx2 = 1.0/(f*f + EPS);
-    dy2 = 1.0/(h*h + EPS);
+void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
 
-    nx = _p[0] + d * sin(_p[1] * dx2);
-    ny = _p[1] + e * sin(_p[0] * dy2);
+    // Precalc
+    float dx, dy, m_Dx2, m_Dy2;
+    dx = c;
+    dy = f;
+    m_Dx2 = 1 / Zeps(dx * dx);
+    m_Dy2 = 1 / Zeps(dy * dy);
+
+    float c10, c11, nx, ny;
+    c10 = b;
+    c11 = e;
+    nx = _p[0] + c10 * sin(_p[1] * m_Dx2);
+    ny = _p[1] + c11 * sin(_p[0] * m_Dy2);
     p[0] = w * nx;
     p[1] = w * ny;
 }
