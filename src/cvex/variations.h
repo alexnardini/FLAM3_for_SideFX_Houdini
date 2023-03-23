@@ -29,8 +29,6 @@
     but not Chaotica as it use different one.
     Check Fractorium github repository to see both code versions.
 
-    80 -> V_EXP()
-    81 -> V_LOG()
     82 -> V_SIN()
     83 -> V_COS()
     84 -> V_TAN()
@@ -1117,13 +1115,22 @@ void V_COTH(vector2 p; const vector2 _p; const float w){
 }
 // 94 ( parametric )
 void V_AUGER(vector2 p; const vector2 _p; const float w, freq, scale, sym, ww){
-    float  ss, tt, uu, dy, dx;
-    ss = sin(freq * _p[0]);
-    tt = sin(freq * _p[1]);
-    dx = _p[1] + ww*(scale*ss/2.0 + abs(_p[1])*ss);
-    dy = _p[0] + ww*(scale*tt/2.0 + abs(_p[0])*tt);
-    p[0] = w * (_p[0] + sym*(dx*_p[0]));
+    float  s, t, uu, dy, dx;
+    float m_HalfScale = scale/2.0;
+    s = sin(freq * _p[0]);
+    t = sin(freq * _p[1]);
+    dx = _p[0] + ww * (m_HalfScale + abs(_p[0]) * t);
+    dy = _p[1] + ww * (m_HalfScale + abs(_p[1]) * s);
+    p[0] = w * (_p[0] + sym * (dx - _p[0]));
     p[1] = w * dy;
+
+
+    // ss = sin(freq * _p[0]);
+    // tt = sin(freq * _p[1]);
+    // dx = _p[0] + ww*(scale*ss/2.0 + abs(_p[1])*ss);
+    // dy = _p[1] + ww*(scale*tt/2.0 + abs(_p[0])*tt);
+    // p[0] = w * (_p[0] + sym*(dx*_p[0]));
+    // p[1] = w * dy;
 }
 // 95 ( parametric )
 void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
@@ -1148,13 +1155,8 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
 }
 // 97 ( parametric )
 void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
-    float pc_xlen, pc_ylen;
-    pc_xlen = l[0]*l[0];
-    pc_ylen = l[1]*l[1];
-    if (pc_xlen<1E-20) pc_xlen = 1E-20;
-    if (pc_ylen<1E-20) pc_ylen = 1E-20;
-    p[0] = w * (_p[0] + a[0] * exp(_p[1]*_p[1]/l[0]));
-    p[1] = w * (_p[1] + a[1] * exp(_p[0]*_p[0]/l[1]));
+    p[0] = w * _p[0] + a[0] * exp(-_p[1] * _p[1] * l[0]);
+    p[1] = w * _p[1] + a[1] * exp(-_p[0] * _p[0] * l[1]);
 }
 // 98 ( parametric )
 void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
