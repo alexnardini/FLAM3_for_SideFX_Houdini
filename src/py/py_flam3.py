@@ -1,4 +1,5 @@
 from __future__ import division
+from platform import python_version
 from typing import Union
 from itertools import count as iter_count
 from itertools import islice as iter_islice
@@ -1813,7 +1814,6 @@ class flam3_varsPRM_APO:
     # Only exception so far are Mobius parameters in Fractorium:
     # In Apophysis: Re_A, Re_B, Re_C, Re_D, Im_A, Im_B, Im_C, Im_D
     # In Fractorium: Mobius_Re_A, Mobius_Re_B, Mobius_Re_C, Mobius_Re_D, Mobius_Im_A, Mobius_Im_B, Mobius_Im_C, Mobius_Im_D
-    # I handled this only case simply for now, see from code line 2396 to see how.
     #
     # They are gouped as follow and based on the FLAM3 Houdini node parametric parameters:
     #
@@ -1825,15 +1825,15 @@ class flam3_varsPRM_APO:
     #
     # -> (prm_1, ..., prm_4) accept a max of 4 entries (hou.Vector4) and based on the number of parameters
     # they are then automatically converted to the expeted v_type using the function: 
-    # typemaker((prm_1, ..., prm_4)) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+    # typemaker(list[]) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     #
     # The (("variation_name") entrie, is not used here but eventuallt I will.
 
     # Marked with: ************ -> are missing from my current Apophysis package, need to find them. They are however present in Fractorium.
-    # Marked with: ******from Fractorium****** are taken from Fractorium app.
+    # Marked with: ******from Fractorium****** are taken from Fractorium.
     
     # Note:
-    # "radial_blur" parameter "radiual_blur_zoom" is not ued and always ZERO as everyone else only have "radiual_blur_angle"
+    # "radial_blur" parameter "radial_blur_zoom" is not ued and always ZERO as everyone else only have "radiual_blur_angle"
     
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
@@ -2490,13 +2490,16 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
         mode (int): [0 for iterator and 1 for FF]
 
     Returns:
-        tuple[str, str]: [return parameter prefix based on mode: Iterator or FF]
+        tuple[str, str]: [return parameter prefix based on mode: Iterator, FF, FF POST]
     """
     prx = ""
     prx_prm = ""
-    if mode:
+    if mode == 1:
         prx = PRX_FF_PRM
         prx_prm = PRX_FF_PRM + "_"
+    if mode == 2:
+        prx = PRX_FF_PRM
+        prx_prm = PRX_FF_PRM_POST + "_"
     return prx, prx_prm
 
 
@@ -2559,10 +2562,10 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 
-
 def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
+        app (str): [What software were used to generate this flame preset]
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
@@ -2575,7 +2578,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # exceptions
+    # Exceptions: check if this flame has been created with Fractorium
     if v_type == 96 and "EMBER-" in app:
         apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
@@ -2592,9 +2595,10 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
                         var_prm_vals.append(float(xform.get(k)))
                         break
             else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_APO[v_type]}\": parameter: \"{n}\"")
                 var_prm_vals.append(float(0))
+                if "radial_blur_zoom" not in n:
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_APO[v_type]}\": parameter: \"{n}\"")
             
         VAR.append(typemaker(var_prm_vals))
 
@@ -2615,6 +2619,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
 def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
+        app (str): [What software were used to generate this flame preset]
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
@@ -2627,12 +2632,11 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # exceptions
+    # Exceptions: check if this flame has been created with Fractorium
     if v_type == 96 and "EMBER-" in app:
         apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
-    
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
         for n in names:
@@ -2645,9 +2649,10 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
                         var_prm_vals.append(float(xform.get(k)))
                         break
             else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_APO[v_type])}\": parameter: \"{make_PRE(n)}\"")
                 var_prm_vals.append(float(0))
+                if "radial_blur_zoom" not in n:
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_APO[v_type])}\": parameter: \"{make_PRE(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2667,6 +2672,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
 def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
+        app (str): [What software were used to generate this flame preset]
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
@@ -2679,12 +2685,11 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # exceptions
+    # Exceptions: check if this flame has been created with Fractorium
     if v_type == 96 and "EMBER-" in app:
         apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
-    
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
         for n in names:
@@ -2697,9 +2702,10 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
                         var_prm_vals.append(float(xform.get(k)))
                         break
             else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_APO[v_type])}\": parameter: \"{make_PRE(n)}\"")
                 var_prm_vals.append(float(0))
+                if "radial_blur_zoom" not in n:
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_APO[v_type])}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2711,8 +2717,58 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}": v_weight})
+    
+    
+    
+    
+def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+    """
+    Args:
+        app (str): [What software were used to generate this flame preset]
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        v_type (int): [the current variation type index]
+        weight (float): [the current variation weight]
+        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+    """
+    prx_ff_prm_post = "fp1_"
+    
+    # Exceptions: check if this flame has been created with Fractorium
+    if v_type == 96 and "EMBER-" in app:
+        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
+    VAR: list = []
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in names:
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            # This allow me to use "radial_blur" variation as everyone else
+            # only have "radial_blur_angle" and not "radial_blur_zoom".
+            if xform.get(make_POST(n)) is not None:
+                for k in xform.keys():
+                    if make_POST(n) in k:
+                        var_prm_vals.append(float(xform.get(k)))
+                        break
+            else:
+                var_prm_vals.append(float(0))
+                if "radial_blur_zoom" not in n:
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_APO[v_type])}\": parameter: \"{make_POST(n)}\"")
+            
+        VAR.append(typemaker(var_prm_vals))
+        
+    for idx, prm in enumerate(var_prm[1:-1]):
+        node.setParms({f"{prx_ff_prm_post}{prm[0][0:-1]}": VAR[idx]})
 
+    # Only on post variation with parametric so:
+    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight})
 
 
 
@@ -2756,8 +2812,8 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[0]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1][0]}{str(mp_idx+1)}":v_weight})
         
-        
-        
+    
+    
 def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
@@ -2775,6 +2831,22 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
+
+
+
+def v_generic_POST_FF(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        v_type (int): [Current variation type index]
+        weight (float): [Current variation weight]
+    """
+
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight})
 
 
 
@@ -2805,6 +2877,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
         apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
     """    
 
+    # What software were used to generate this flame preset
     app = apo_data.apo_version[preset_id]
 
     use_color_symmetry = node.parm("usesymmetry").evalAsInt()
@@ -2827,7 +2900,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
     vars_keys_pre = apo_get_xforms_var_keys_PRE(xforms)
     vars_keys_post = apo_get_xforms_var_keys_POST(xforms)
 
-    # Set variations
+    # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
         for t_idx, key_name in enumerate(vars_keys[mp_idx][:max_vars]):
             v_type = apo_get_idx_by_key(key_name)
@@ -2843,13 +2916,20 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
                 
-        # TO DO
-        # POST parametrics for FF
         if mode:
-            ...
-
+            # FF POST vars in this iterator ( only the first two in "vars_keys_post[mp_idx]" will be kept )
+            if vars_keys_post[mp_idx]:
+                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
+                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+                    if v_type is not None:
+                        v_weight: float = float(xform.get(key_name))
+                        if apo_prm[v_type][-1]:
+                            v_parametric_POST_FF(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                        else:
+                            v_generic_POST_FF(mode, node, mp_idx, t_idx, v_type, v_weight)
+                            
         else:
-            # PRE vars in this iterator ( only the first two in "vars_keys_pre" will be kept )
+            # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
             # For now the execution order will always be:
             # -> First: non parametric.
             # -> Second: parametric.
@@ -2863,7 +2943,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                         else:
                             v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
                             
-            # POST vars in this iterator ( only the first one in "vars_keys_post" will be kept )
+            # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
@@ -2889,6 +2969,63 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
         
         # Affine ( PRE and POST) for iterator and FF
         apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
+        
+
+
+
+def iter_on_load_callback(self):
+    iter_on_load = self.parm("iternumonload").eval()
+    self.setParms({"iter": iter_on_load})
+    
+
+
+def apo_to_flam3(self: hou.Node) -> None:
+
+    xml = self.parm('apofilepath').evalAsString()
+
+    if isvalid_tree(xml):
+        
+        iter_on_load = self.parm("iternumonload").eval()
+        preset_id = int(self.parm('apopresets').eval())
+        preset_name = self.parm('apopresets').menuLabels()[preset_id]
+
+        apo_data = apo_flame_iter_data(xml, preset_id)
+
+        reset_SYS(self, 500000, iter_on_load, 0)
+        reset_TM(self)
+        reset_SM(self)
+        reset_MB(self)
+        reset_PREFS(self)
+
+        # iterators
+        self.setParms({"flamefunc": 0})
+        for p in self.parms():
+            p.deleteAllKeyframes()
+        self.setParms({"flamefunc":  len(apo_data.xforms)})
+        apo_set_iterator(0, self, apo_data, preset_id)
+        # if FF
+        if apo_data.finalxform is not None:
+            reset_FF(self)
+            self.setParms({"doff": 1})
+            apo_set_iterator(1, self, apo_data, preset_id)
+        else:
+            reset_FF(self)
+            self.setParms({"doff": 0})
+
+        # CP
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
+        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        # Set XML palette data
+        ramp_parm.set(apo_data.palette[0])
+        palette_cp(self)
+        palette_hsv(self)
+        
+        #Updated flame stats 
+        self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
+        
+    else:
+        self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
 
 
 
@@ -2963,10 +3100,10 @@ def flam3_about_msg(self):
     
     nl = "\n"
     nnl = "\n\n"
-    Authors = "FLAM3 authors: Scott Draves and Erick Reckase\n2002/2015"
-    version = "Version: 0.9.4"
-    Implementation_year = "2020/2023"
-    Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX, Python\n{version}\n{Implementation_year}"
+
+    flam3_houdini_version = "Version: 0.9.4"
+    Implementation_years = "2020/2023"
+    Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
     code_copied = """Code references:
 flam3 :: (GPL v2)
@@ -3003,53 +3140,4 @@ def flam3_about_plugins_msg(self):
     
     self.setParms({"flam3plugins_msg": vars_txt})
 
-
-
-
-def apo_to_flam3(self: hou.Node) -> None:
-
-    xml = self.parm('apofilepath').evalAsString()
-
-    if isvalid_tree(xml):
-        
-        preset_id = int(self.parm('apopresets').eval())
-        preset_name = self.parm('apopresets').menuLabels()[preset_id]
-
-        apo_data = apo_flame_iter_data(xml, preset_id)
-
-        reset_SYS(self, 500000, 24, 0)
-        reset_TM(self)
-        reset_SM(self)
-        reset_MB(self)
-        reset_PREFS(self)
-
-        # iterators
-        self.setParms({"flamefunc": 0})
-        for p in self.parms():
-            p.deleteAllKeyframes()
-        self.setParms({"flamefunc":  len(apo_data.xforms)})
-
-        apo_set_iterator(0, self, apo_data, preset_id)
-        if apo_data.finalxform is not None:
-            reset_FF(self)
-            self.setParms({"doff": 1})
-            apo_set_iterator(1, self, apo_data, preset_id)
-        else:
-            reset_FF(self)
-            self.setParms({"doff": 0})
-
-        # CP
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
-        ramp_parm = self.parm(RAMP_SRC_NAME)
-        ramp_parm.deleteAllKeyframes()
-        # Set XML palette data
-        ramp_parm.set(apo_data.palette[0])
-        palette_cp(self)
-        palette_hsv(self)
-        
-        #Updated flame stats 
-        self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
-        
-    else:
-        self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
 
