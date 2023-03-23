@@ -1284,10 +1284,15 @@ void V_HEMISPHERE(vector2 p; const vector2 _p; const float w){
 // 101 ( parametric )
 void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow, lc, sc){
     float xp, yp;
-    xp = pow(w * abs(_p[0]), pow[0]);
-    yp = pow(w * abs(_p[1]), pow[1]);
-    p[0] = xp * sgn(_p[0]) + lc[0] * _p[0] * sc[0];
-    p[1] = yp * sgn(_p[1]) + lc[1] * _p[1] * sc[1];
+    xp = pow(abs(w) * abs(_p[0]), pow[0]);
+    yp = pow(abs(w) * abs(_p[1]), pow[1]);
+    p[0] = xp * sgn(_p[0]) + lc[0] * _p[0] + sc[0];
+    p[1] = yp * sgn(_p[1]) + lc[1] * _p[1] + sc[1];
+
+    // T xp = std::pow(std::abs(m_Weight) * std::abs(helper.In.x), m_Powx);//Original did not fabs.
+    // T yp = std::pow(std::abs(m_Weight) * std::abs(helper.In.y), m_Powy);
+    // helper.Out.x = xp * VarFuncs<T>::Sign(helper.In.x) + m_Lcx * helper.In.x + m_Scx;
+    // helper.Out.y = yp * VarFuncs<T>::Sign(helper.In.y) + m_Lcy * helper.In.y + m_Scy;
 }
 
 #endif
