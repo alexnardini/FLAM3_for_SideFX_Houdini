@@ -280,6 +280,9 @@ void V_BLUR(vector2 p; const float w){
 }
 // 27 ( parametric )
 void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
+
+    // From APOPHYSIS
+
     float re, im, rr;
     if(c1==0){
         if(c2==0){
@@ -310,6 +313,19 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
             p[1] = (_p[1]*re - _p[0]*im)*rr;
         }
     }
+
+/*  // CURL From Fractorium
+
+    float re, im, r, zeps;
+    re = 1 + c1 * _p[0] + c2 * (SQRT(_p));
+    im = c1 * _p[1] + (2*c2) * _p[0]*_p[1];
+    zeps = SQRT(set(re, im));
+    if (zeps == 0) zeps = EPS;
+    r = w / zeps;
+    p[0] = (_p[0] * re + _p[1] * im) + r;
+    p[1] = (_p[1] * re - _p[0] * im) + r;
+*/
+
 }
 // 28 ( parametric )
 void V_NGON(vector2 p; const vector2 _p; const float w, pow, sides, corners, circle){

@@ -38,6 +38,8 @@ float SUMSQ(const vector2 p){ return (p[0]*p[0] + p[1]*p[1]); }
 
 float SQRT(const vector2 p){ return sqrt(SUMSQ(p)); }
 
+float Zeps(const float val){ return (val==0) ? EPS : val; }
+
 float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
 float fmod(const float a, b){ return (a-floor(a/b)*b); }
