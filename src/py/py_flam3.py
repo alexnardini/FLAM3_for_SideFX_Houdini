@@ -1938,6 +1938,9 @@ class flam3_varsPRM_APO:
                 ("hemisphere", 0), 
                 ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
 
+
+    # EXCEPTIONS
+    
     # Fractorium has those parameter's names for Mobius variation
     var_prm_mobius_fractorium = ("mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
 
@@ -2572,6 +2575,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
+    # exceptions
     if v_type == 96 and "EMBER-" in app:
         apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
@@ -2623,6 +2627,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
+    # exceptions
     if v_type == 96 and "EMBER-" in app:
         apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
@@ -2674,6 +2679,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
+    # exceptions
     if v_type == 96 and "EMBER-" in app:
         apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
