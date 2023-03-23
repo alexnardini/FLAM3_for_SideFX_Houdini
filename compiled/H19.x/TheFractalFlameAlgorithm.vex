@@ -8285,10 +8285,8 @@ true:                                             ; preds = %__llvm_entry
   br label %end
 
 false:                                            ; preds = %__llvm_entry
-  %p26 = load <2 x double>, <2 x double>* %p
-  %return27 = call double @"getcomp@FUI"(<2 x double> %p26, i64 0)
   %return30 = call double @"neg@FF"(double %return)
-  %return31 = fcmp olt double %return27, %return30
+  %return31 = fcmp olt double %return6, %return30
   %w36 = load double, double* %w
   br i1 %return31, label %true33, label %false34
 
@@ -8315,7 +8313,8 @@ true33:                                           ; preds = %false
 
 false34:                                          ; preds = %false
   %output55 = fmul double %w36, %return6
-  %return57 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %p26, double %output55, i64 0)
+  %tmp56 = load <2 x double>, <2 x double>* %p
+  %return57 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp56, double %output55, i64 0)
   %output59 = extractvalue { double, <2 x double> } %return57, 1
   store <2 x double> %output59, <2 x double>* %p
   br label %end
@@ -8336,10 +8335,8 @@ true66:                                           ; preds = %end
   br label %end68
 
 false67:                                          ; preds = %end
-  %p86 = load <2 x double>, <2 x double>* %p
-  %return87 = call double @"getcomp@FUI"(<2 x double> %p86, i64 1)
   %return90 = call double @"neg@FF"(double %return63)
-  %return91 = fcmp olt double %return87, %return90
+  %return91 = fcmp olt double %return61, %return90
   %w96 = load double, double* %w
   br i1 %return91, label %true93, label %false94
 
@@ -8361,7 +8358,8 @@ true93:                                           ; preds = %false67
 
 false94:                                          ; preds = %false67
   %output115 = fmul double %w96, %return61
-  %return117 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %p86, double %output115, i64 1)
+  %tmp116 = load <2 x double>, <2 x double>* %p
+  %return117 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp116, double %output115, i64 1)
   %output119 = extractvalue { double, <2 x double> } %return117, 1
   store <2 x double> %output119, <2 x double>* %p
   br label %end68

@@ -813,14 +813,14 @@ void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
 
     if(_p[0] > m[0])
         p[0] = w * (-m[0] + fmod(_p[0] + m[0], xr));
-    else if(p[0] < -m[0])
+    else if(_p[0] < -m[0])
         p[0] = w * (m[0] - fmod(m[0] - _p[0], xr));
     else
         p[0] = w * _p[0];
 
     if(_p[1] > m[1])
         p[1] = w * (-m[1] + fmod(_p[1] + m[1], yr));
-    else if(p[1] < -m[1])
+    else if(_p[1] < -m[1])
         p[1] = w * (m[1] - fmod(m[1] - _p[1], yr));
     else
         p[1] = w * _p[1];
