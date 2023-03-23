@@ -29,6 +29,8 @@
 #define EPS     2.220446049250313e-016
 #define M_1_PI  0.318309886183790671538
 #define M_2_PI  0.636619772367581343076
+#define FLOAT_MAX_TAN 8388607.0f
+#define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
 float ATAN(const vector2 p){ return atan2(p[0], p[1]); }
 
@@ -38,7 +40,9 @@ float SUMSQ(const vector2 p){ return (p[0]*p[0] + p[1]*p[1]); }
 
 float SQRT(const vector2 p){ return sqrt(SUMSQ(p)); }
 
-float Zeps(const float val){ return (val==0) ? EPS : val; }
+float SafeTan(const float x){ return tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN)); }
+
+float Zeps(const float x){ return (x==0) ? EPS : x; }
 
 float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 

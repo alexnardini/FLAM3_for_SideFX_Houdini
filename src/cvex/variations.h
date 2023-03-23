@@ -846,9 +846,9 @@ void V_POLAR2(vector2 p; const vector2 _p; const float w){
     }
 // 69 ( parametric )
 void V_POPCORN2(vector2 p; const vector2 _p; const float w, pop2c; const vector2 pop2){
-    p[0] = w * (_p[0] + pop2[0] * sin(tan(_p[1]*pop2c)));
-    p[1] = w * (_p[1] + pop2[1] * sin(tan(_p[0]*pop2c)));
-    }
+    p[0] = w * (_p[0] + pop2[0] * sin(SafeTan(_p[1]*pop2c)));
+    p[1] = w * (_p[1] + pop2[1] * sin(SafeTan(_p[0]*pop2c)));
+}
 // 70 ( parametric )
 void V_SCRY(vector2 p; const vector2 _p; const float w){
     float tt, rr;
