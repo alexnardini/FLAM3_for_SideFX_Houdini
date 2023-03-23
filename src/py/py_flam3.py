@@ -1681,6 +1681,8 @@ COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
+XML_PRM_EXCEPTIONS = ("radial_blur_zoom", "oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation")
+
 
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
@@ -2979,6 +2981,15 @@ def iter_on_load_callback(self):
     
 
 
+def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
+    splt = preset_name.split("::")
+    try:
+        return int(splt[-1])
+    except:
+        return None
+    
+
+
 def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
@@ -2989,13 +3000,22 @@ def apo_to_flam3(self: hou.Node) -> None:
         preset_id = int(self.parm('apopresets').eval())
         preset_name = self.parm('apopresets').menuLabels()[preset_id]
 
-        apo_data = apo_flame_iter_data(xml, preset_id)
+        iter_on_load_preset = get_preset_name_iternum(preset_name)
+        if iter_on_load_preset is not None:
+            iter_on_load = iter_on_load_preset
+            self.setParms({"iternumonload": iter_on_load})
 
         reset_SYS(self, 500000, iter_on_load, 0)
         reset_TM(self)
         reset_SM(self)
         reset_MB(self)
         reset_PREFS(self)
+        
+        apo_data = apo_flame_iter_data(xml, preset_id)
+        if min(apo_data.opacity) == 0.0:
+            self.setParms({"rip": 1})
+        else:
+            self.setParms({"rip": 0})
 
         # iterators
         self.setParms({"flamefunc": 0})
@@ -3139,5 +3159,4 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
-
 
