@@ -43,20 +43,17 @@
     91 -> V_SECH()
     92 -> V_CSCH()
     93 -> V_COTH()
+
+    VARIATIONS
+    p = out position
+    _p = incoming position
+    VARs with precalc _p: 9, 10, 11, 19, 21, 30, 35
+    VARs with PRECALC: 47, 48, 76, 98, 99
+
+    00 LINEAR
+    hardcoded inside "flame.h", "flamepp.h", "flameff.h" header files.
 */
 
-// VARIATIONS
-//
-//  p = out position
-// _p = incoming position
-//
-// VARs with precalc _p: 9, 10, 11, 19, 21, 30, 35
-//
-// VARs with PRECALC: 47, 48, 76, 98, 99
-//
-// 00 LINEAR
-// hardcoded inside "flame.h", "flamepp.h", "flameff.h" header files.
-//
 // 01
 void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
     p[0] = w * sin(_p[0]);
