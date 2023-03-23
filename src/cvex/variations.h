@@ -987,10 +987,9 @@ void V_WAVES2(vector2 p; const vector2 _p; const float w; const vector2 scl, fre
 // 80
 void V_EXP(vector2 p; const vector2 _p; const float w){
     float expe, expz, expsin, expcos;
-    expe = exp(_p[0]);
-    sincos(p[1], expsin, expcos);
-    p[0] = w * expe * expcos;
-    p[1] = w * expe * expsin;
+    expe = w * exp(_p[0]);
+    p[0] = expe * cos(_p[1]);
+    p[1] = expe * sin(_p[1]);
 }
 // 81
 void V_LOG(vector2 p; const vector2 _p; const float w){
