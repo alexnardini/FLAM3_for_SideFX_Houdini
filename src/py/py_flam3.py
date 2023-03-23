@@ -2647,15 +2647,13 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        if not mode:
-            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
 
-    if not mode:
-        # Only on pre variations with parametric so:
-        # idx set by hand for now: flam3_iterator.sec_prevarsT[1] ... because in here we have a non parametric as first"
-        # idx set by hand for now: flam3_iterator.sec_prevarsW[2][0] ... because in here we have "pre_blur" and a non parametric as first"
-        node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[1]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[2][0]}{str(mp_idx+1)}": v_weight})
+    # Only on pre variations with parametric so:
+    # idx set by hand for now: flam3_iterator.sec_prevarsT[1] ... because in here we have a non parametric as first"
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[2][0] ... because in here we have "pre_blur" and a non parametric as first"
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[1]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[2][0]}{str(mp_idx+1)}": v_weight})
 
 
 
@@ -2700,15 +2698,13 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        if not mode:
-            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
 
-    if not mode:
-        # Only on post variation with parametric so:
-        # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-        # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
-        node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}": v_weight})
+    # Only on post variation with parametric so:
+    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}": v_weight})
 
 
 
@@ -2748,12 +2744,11 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     """
     prx, prx_prm = flam3_prx_mode(mode)
 
-    if not mode:
-        # Only on pre variations with no parametric so:
-        # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-        # idx set by hand for now: flam3_iterator.sec_prevarsW[1][0] ... because in here we have "pre_blur as first"
-        node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[0]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1][0]}{str(mp_idx+1)}":v_weight})
+    # Only pre variations with no parametric so:
+    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[1][0] ... because in here we have "pre_blur as first"
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[0]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1][0]}{str(mp_idx+1)}":v_weight})
         
         
         
@@ -2769,12 +2764,11 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     """
     prx, prx_prm = flam3_prx_mode(mode)
 
-    if not mode:
-        # Only on pre variations with no parametric so:
-        # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-        # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
-        node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
+    # Only post variation with no parametric so:
+    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
 
 
 
@@ -2843,34 +2837,36 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
 
-        # TO DO
-        # 1 Possibly set PRE variations... in progress
-        
-        # if there is some pre vars in this iterator
-        #
+        # if there are some PRE vars in this iterator ( only the first two in "vars_keys_pre" will be kept )
         # For now the execution order will always be:
         # -> First: non parametric.
         # -> Second: parametric.
-        if vars_keys_pre[mp_idx]:
-            for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
-                v_type = apo_get_idx_by_key(make_VAR(key_name))
-                if v_type is not None:
-                    v_weight: float = float(xform.get(key_name))
-                    if apo_prm[v_type][-1]:
-                        v_parametric_PRE(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
-                    else:
-                        v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
+        if not mode:
+            if vars_keys_pre[mp_idx]:
+                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
+                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+                    if v_type is not None:
+                        v_weight: float = float(xform.get(key_name))
+                        if apo_prm[v_type][-1]:
+                            v_parametric_PRE(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                        else:
+                            v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
+                            
+            # # if there are some POST vars in this iterator ( only the first one in "vars_keys_post" will be kept )
+            if vars_keys_post[mp_idx]:
+                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
+                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+                    if v_type is not None:
+                        v_weight: float = float(xform.get(key_name))
+                        if apo_prm[v_type][-1]:
+                            v_parametric_POST(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                        else:
+                            v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
+                        
         # TO DO
-        # 2 Possibly set POST variations
-        if vars_keys_post[mp_idx]:
-            for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
-                v_type = apo_get_idx_by_key(make_VAR(key_name))
-                if v_type is not None:
-                    v_weight: float = float(xform.get(key_name))
-                    if apo_prm[v_type][-1]:
-                        v_parametric_POST(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
-                    else:
-                        v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
+        # parametrics for FF
+        if mode:
+            ...
         
         # Activate iterators, just in case
         if not mode:
@@ -3033,7 +3029,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         else:
             reset_FF(self)
             self.setParms({"doff": 0})
-            
+
         # CP
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
         ramp_parm = self.parm(RAMP_SRC_NAME)
