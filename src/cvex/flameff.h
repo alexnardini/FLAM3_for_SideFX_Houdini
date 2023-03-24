@@ -181,7 +181,7 @@ vector2 FLAMEFF(const string prx; const int T; const vector2 pos, x, y, o; const
                 return p; }
             // 33 Gaussian
             else if(T==33){
-                V_GAUSSIAN(p, w);
+                V_GAUSSIAN_BLUR(p, w);
                 return p; }
             // 34 Fan2 ( parametric )
             else if(T==34){

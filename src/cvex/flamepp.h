@@ -153,7 +153,7 @@ vector2 FLAMEPP(const int T; const vector2 pos, x, y, o; const float w){
                 return p; }
             // 33 Gaussian
             else if(T==33){
-                V_GAUSSIAN(p, w);
+                V_GAUSSIAN_BLUR(p, w);
                 return p; }
             // 39 ARCH
             else if(T==39){

@@ -392,7 +392,7 @@ void V_JULIASCOPE(vector2 p; const vector2 _p; const float w, power, jdist){
     p[1] = rr * sina;
 }
 // 33
-void V_GAUSSIAN(vector2 p; const float w){
+void V_GAUSSIAN_BLUR(vector2 p; const float w){
     float ang, rr, sina, cosa;
     ang = nrandom('twister') * 2.0 * M_PI;
     rr = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);

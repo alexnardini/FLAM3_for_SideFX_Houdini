@@ -6547,7 +6547,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_GAUSSIAN@UF"(<2 x double>* %p, double* %w) #0 {
+define private void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %w) #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %output = fmul double %return, 2.000000e+00
@@ -10877,7 +10877,7 @@ false351:                                         ; preds = %false335
 true366:                                          ; preds = %false351
   %w369 = load double, double* %w
   store double %w369, double* %85
-  call void @"V_GAUSSIAN@UF"(<2 x double>* %p, double* %85)
+  call void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %85)
   %p370 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -12608,7 +12608,7 @@ false242:                                         ; preds = %false234
 true248:                                          ; preds = %false242
   %w251 = load double, double* %w
   store double %w251, double* %59
-  call void @"V_GAUSSIAN@UF"(<2 x double>* %p, double* %59)
+  call void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %59)
   %p252 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
@@ -13876,7 +13876,7 @@ false347:                                         ; preds = %false332
 true361:                                          ; preds = %false347
   %w364 = load double, double* %w
   store double %w364, double* %85
-  call void @"V_GAUSSIAN@UF"(<2 x double>* %p, double* %85)
+  call void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %85)
   %p365 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
