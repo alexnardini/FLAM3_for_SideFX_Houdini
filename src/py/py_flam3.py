@@ -1,4 +1,4 @@
-from __future__ import division
+from __future__ import division, annotations
 from platform import python_version
 from typing import Union
 from itertools import count as iter_count
@@ -3351,7 +3351,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                             
             # Activate iterator, just in case...
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
-            # Set the rest of the iterator
+            # Set the rest of the iterators
             apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
             apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
             apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
@@ -3584,5 +3584,7 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
+
+
 
 
