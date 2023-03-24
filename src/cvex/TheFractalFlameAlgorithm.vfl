@@ -32,7 +32,6 @@
 
 #include <xaos.h>
 #include <flame.h>
-#include <flamepp.h>
 #include <flameff.h>
 
 void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
