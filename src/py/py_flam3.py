@@ -3527,16 +3527,16 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     if vars_missing:
         vars_missing_msg = f"MISSING:\n{vars_missing}"
         
-    build = (sw, nnl,
-                name, nl,
-                palette_count_format, nnl,
-                iter_count, nl,
-                post, nl,
-                opacity, nl,
-                xaos, nl,
-                ff_msg, nnl,
-                vars_used_msg, nl,
-                vars_missing_msg)
+    build = ( sw, nnl,
+              name, nl,
+              palette_count_format, nnl,
+              iter_count, nl,
+              post, nl,
+              opacity, nl,
+              xaos, nl,
+              ff_msg, nnl,
+              vars_used_msg, nl,
+              vars_missing_msg )
     
     build_stats_msg = "".join(build)
 
