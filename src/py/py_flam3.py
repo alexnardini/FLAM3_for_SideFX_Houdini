@@ -1,6 +1,6 @@
 from __future__ import division
 from platform import python_version
-from typing import Union, Callable
+from typing import Union
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
