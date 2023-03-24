@@ -3482,8 +3482,6 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         post = f"post affine: {post_bool}"
         opacity = f"opacity: {opacity_bool}"
         xaos = f"xaos: {xaos_bool}"
-        ff = f"FF: {ff_bool}"
-        ff_post = f"FF post affine: {ff_post_bool}"
         ff_msg = ""
         if ff_bool:
             ff_msg = f"FF: YES\nFF post affine: {ff_post_bool}"
@@ -3538,7 +3536,6 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         if vars_missing:
             vars_missing_msg = f"MISSING:\n{vars_missing}"
             
-            
         build = (sw, nnl,
                  name, nl,
                  palette_count_format, nnl,
@@ -3551,7 +3548,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
                  vars_missing_msg)
         
         build_msg = "".join(build)
-            
+
+
         return build_msg
 
 
