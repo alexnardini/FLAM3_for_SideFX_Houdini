@@ -1700,109 +1700,531 @@ MAX_FF_VARS_POST = 2
 #
 # When you load a fractal flame, every variation name in the XML file
 # will look itself up inside this table, and if it find itself will proceed.
+VARS_FLAM3 = (  "linear", 
+                "sinusoidal",
+                "spherical",
+                "swirl",
+                "horseshoe",
+                "polar",
+                "handkerchief",
+                "heart",
+                "disc",
+                "spiral",
+                "hyperbolic",
+                "diamond",
+                "ex",
+                "julia",
+                "bent",
+                "waves",
+                "fisheye",
+                "popcorn",
+                "exponential",
+                "power",
+                "cosine",
+                "rings",
+                "fan",
+                "bubble",
+                "cylinder",
+                "eyefish",
+                "blur",
+                "curl",
+                "ngon",
+                "pdj",
+                "blob",
+                "julian",
+                "juliascope",
+                "gaussian_blur",
+                "fan2",
+                "rings2",
+                "rectangles",
+                "radial_blur",
+                "pie",
+                "arch",
+                "tangent",
+                "square",
+                "rays",
+                "blade",
+                "secant2",
+                "twintrian",
+                "cross",
+                "disc2",
+                "super_shape",
+                "flower",
+                "conic",
+                "parabola",
+                "bent2",
+                "bipolar",
+                "boarders",
+                "butterfly",
+                "cell",
+                "cpow",
+                "edisc",
+                "elliptic",
+                "noise",
+                "escher",
+                "foci",
+                "lazysusan",
+                "loonie",
+                "pre blur",
+                "modulus",
+                "oscilloscope",
+                "polar2",
+                "popcorn2",
+                "scry",
+                "separation",
+                "split",
+                "splits",
+                "stripes",
+                "wedge",
+                "wedge_julia",
+                "wedge_sph",
+                "whorl",
+                "waves2",
+                "exp",
+                "log",
+                "sin",
+                "cos",
+                "tan",
+                "sec",
+                "csc",
+                "cot",
+                "sinh",
+                "cosh",
+                "tanh",
+                "sech",
+                "csch",
+                "coth",
+                "auger",
+                "flux",
+                "mobius",
+                "curve",
+                "perspective",
+                "bwraps",
+                "hemisphere",
+                "polynomial")
 
-VARS_APO = ("linear", 
-            "sinusoidal",
-            "spherical",
-            "swirl",
-            "horseshoe",
-            "polar",
-            "handkerchief",
-            "heart",
-            "disc",
-            "spiral",
-            "hyperbolic",
-            "diamond",
-            "ex",
-            "julia",
-            "bent",
-            "waves",
-            "fisheye",
-            "popcorn",
-            "exponential",
-            "power",
-            "cosine",
-            "rings",
-            "fan",
-            "bubble",
-            "cylinder",
-            "eyefish",
-            "blur",
-            "curl",
-            "ngon",
-            "pdj",
-            "blob",
-            "julian",
-            "juliascope",
-            "gaussian_blur",
-            "fan2",
-            "rings2",
-            "rectangles",
-            "radial_blur",
-            "pie",
-            "arch",
-            "tangent",
-            "square",
-            "rays",
-            "blade",
-            "secant2",
-            "twintrian",
-            "cross",
-            "disc2",
-            "super_shape",
-            "flower",
-            "conic",
-            "parabola",
-            "bent2",
-            "bipolar",
-            "boarders",
-            "butterfly",
-            "cell",
-            "cpow",
-            "edisc",
-            "elliptic",
-            "noise",
-            "escher",
-            "foci",
-            "lazysusan",
-            "loonie",
-            "pre blur",
-            "modulus",
-            "oscilloscope",
-            "polar2",
-            "popcorn2",
-            "scry",
-            "separation",
-            "split",
-            "splits",
-            "stripes",
-            "wedge",
-            "wedge_julia",
-            "wedge_sph",
-            "whorl",
-            "waves2",
-            "exp",
-            "log",
-            "sin",
-            "cos",
-            "tan",
-            "sec",
-            "csc",
-            "cot",
-            "sinh",
-            "cosh",
-            "tanh",
-            "sech",
-            "csch",
-            "coth",
-            "auger",
-            "flux",
-            "mobius",
-            "curve",
-            "perspective",
-            "bwraps",
-            "hemisphere",
-            "polynomial")
+
+
+# Those are all variations included in Fractorium.
+# They are used to find missing variations from the flame file
+# we are trying to load in flam3_houdini.
+VARS_FRACTORIUM_ALL = ( "arch",
+                        "arcsech",
+                        "arcsech2",
+                        "arcsinh",
+                        "arctanh",
+                        "asteria",
+                        "auger",
+                        "barycentroid",
+                        "bcircle",
+                        "bcollide",
+                        "bent",
+                        "bent2",
+                        "bipolar",
+                        "bisplit",
+                        "blade",
+                        "blade3d",
+                        "blob",
+                        "blob2",
+                        "blob3d",
+                        "block",
+                        "blocky",
+                        "blur",
+                        "blur_circle",
+                        "blur_heart",
+                        "blur_linear",
+                        "blur_pixelize",
+                        "blur_square",
+                        "blur_zoom",
+                        "blur3d",
+                        "bmod",
+                        "boarders",
+                        "boarders2",
+                        "bswirl",
+                        "btransform",
+                        "bubble",
+                        "bubble2",
+                        "bubblet3d",
+                        "butterfly",
+                        "bwraps",
+                        "bwraps_rand",
+                        "cardioid",
+                        "cell",
+                        "checks",
+                        "circleblur",
+                        "circlecrop",
+                        "circlecrop2",
+                        "circlelinear",
+                        "circlerand",
+                        "circlesplit",
+                        "circletrans1",
+                        "circlize",
+                        "circlize2",
+                        "circus",
+                        "collideoscope",
+                        "concentric",
+                        "conic",
+                        "cos",
+                        "cos_wrap",
+                        "cosh",
+                        "coshq",
+                        "cosine",
+                        "cosq",
+                        "cot",
+                        "coth",
+                        "coth_spiral",
+                        "cothq",
+                        "cotq",
+                        "cpow",
+                        "cpow2",
+                        "cpow3",
+                        "crackle",
+                        "crackle2",
+                        "crescents",
+                        "crob",
+                        "crop",
+                        "cropn",
+                        "cross",
+                        "csc",
+                        "csch",
+                        "cschq",
+                        "cscq",
+                        "cubic3d",
+                        "cubic_lattice3d",
+                        "curl",
+                        "curl3d",
+                        "curl_sp",
+                        "curvature",
+                        "curve",
+                        "cylinder",
+                        "cylinder2",
+                        "delta_a",
+                        "depth",
+                        "depth_blur",
+                        "depth_blur2",
+                        "depth_gaussian",
+                        "depth_gaussian2",
+                        "depth_ngon",
+                        "depth_ngon2",
+                        "depth_sine",
+                        "depth_sine2",
+                        "diamond",
+                        "disc",
+                        "disc2",
+                        "disc3d",
+                        "dragonfire",
+                        "dust",
+                        "d_spherical",
+                        "eclipse",
+                        "ecollide",
+                        "edisc",
+                        "ejulia",
+                        "elliptic",
+                        "emod",
+                        "emotion",
+                        "ennepers",
+                        "epispiral",
+                        "epush",
+                        "erf",
+                        "erotate",
+                        "escale",
+                        "escher",
+                        "estiq",
+                        "eswirl",
+                        "ex",
+                        "excinis",
+                        "exp",
+                        "exp2",
+                        "expo",
+                        "exponential",
+                        "extrude",
+                        "eyefish",
+                        "falloff",
+                        "falloff2",
+                        "falloff3",
+                        "fan",
+                        "fan2",
+                        "farblur",
+                        "fdisc",
+                        "fibonacci",
+                        "fibonacci2",
+                        "fisheye",
+                        "flatten",
+                        "flip_circle",
+                        "flip_x",
+                        "flip_y",
+                        "flower",
+                        "flower_db",
+                        "flux",
+                        "foci",
+                        "foci3d",
+                        "foci_p",
+                        "fourth",
+                        "funnel",
+                        "gamma",
+                        "gaussian",
+                        "gaussian_blur",
+                        "gdoffs",
+                        "glynnia",
+                        "glynnia2",
+                        "glynnsim1",
+                        "glynnsim2",
+                        "glynnsim3",
+                        "glynnsim4",
+                        "glynnsim5",
+                        "gnarly",
+                        "gridout",
+                        "handkerchief",
+                        "heart",
+                        "heat",
+                        "helicoid",
+                        "helix",
+                        "hemisphere",
+                        "henon",
+                        "hexaplay3d",
+                        "hexcrop",
+                        "hexes",
+                        "hexnix3d",
+                        "hex_modulus",
+                        "hex_rand",
+                        "hex_truchet",
+                        "ho",
+                        "hole",
+                        "horseshoe",
+                        "hyperbolic",
+                        "hypercrop",
+                        "hypershift",
+                        "hypershift2",
+                        "hypertile",
+                        "hypertile1",
+                        "hypertile2",
+                        "hypertile3d",
+                        "hypertile3d1",
+                        "hypertile3d2",
+                        "idisc",
+                        "inkdrop",
+                        "interference2",
+                        "jac_cn",
+                        "jac_dn",
+                        "jac_sn",
+                        "julia",
+                        "julia3d",
+                        "julia3dq",
+                        "julia3dz",
+                        "juliac",
+                        "julian",
+                        "julian2",
+                        "julian3dx",
+                        "julianab",
+                        "juliaq",
+                        "juliascope",
+                        "kaleidoscope",
+                        "lazyjess",
+                        "lazysusan",
+                        "lazy_travis",
+                        "lens",
+                        "line",
+                        "linear",
+                        "linear_t",
+                        "linear_t3d",
+                        "linear_xz",
+                        "linear_yz",
+                        "linear3d",
+                        "lissajous",
+                        "log"	,
+                        "log_db",
+                        "loq"	,
+                        "loonie",
+                        "loonie2",
+                        "loonie3",
+                        "loonie3d",
+                        "lozi",
+                        "mask",
+                        "mcarpet",
+                        "mirror_x",
+                        "mirror_y",
+                        "mirror_z",
+                        "mobiq",
+                        "mobius",
+                        "mobius_strip",
+                        "mobiusn",
+                        "modulus",
+                        "modulusx",
+                        "modulusy",
+                        "murl",
+                        "murl2",
+                        "nblur",
+                        "ngon",
+                        "noise",
+                        "npolar",
+                        "octagon",
+                        "octapol",
+                        "ortho",
+                        "oscilloscope",
+                        "oscilloscope2",
+                        "ovoid",
+                        "ovoid3d",
+                        "panorama1",
+                        "panorama2",
+                        "parabola",
+                        "pdj",
+                        "perspective",
+                        "petal",
+                        "phoenix_julia",
+                        "pie",
+                        "pie3d",
+                        "pixel_flow",
+                        "poincare",
+                        "poincare2",
+                        "poincare3d",
+                        "point_symmetry",
+                        "polar",
+                        "polar2",
+                        "polynomial",
+                        "popcorn",
+                        "popcorn2",
+                        "popcorn23d",
+                        "pow_block",
+                        "power",
+                        "pressure_wave",
+                        "projective",
+                        "prose3d",
+                        "psphere",
+                        "pulse",
+                        "q_ode",
+                        "radial_blur",
+                        "radial_gaussian",
+                        "rand_cubes",
+                        "rational3",
+                        "rays",
+                        "rays1",
+                        "rays2",
+                        "rays3",
+                        "rblur",
+                        "rectangles",
+                        "rings",
+                        "rings2",
+                        "ripple",
+                        "rippled",
+                        "rotate",
+                        "rotate_x",
+                        "rotate_y",
+                        "rotate_z",
+                        "roundspher",
+                        "roundspher3d",
+                        "scry",
+                        "scry2",
+                        "scry3d",
+                        "sec",
+                        "secant2",
+                        "sech",
+                        "sechq",
+                        "secq",
+                        "separation",
+                        "shift",
+                        "shred_rad",
+                        "shred_lin",
+                        "sigmoid",
+                        "sin"	,
+                        "sineblur",
+                        "sinh",
+                        "sinhq",
+                        "sinq",
+                        "sintrange",
+                        "sinus_grid",
+                        "sinusoidal",
+                        "sinusoidal3d",
+                        "smartshape",
+                        "smartcrop",
+                        "spher",
+                        "sphereblur",
+                        "spherical",
+                        "spherical3d",
+                        "sphericaln",
+                        "spherivoid",
+                        "sphyp3d",
+                        "spiral",
+                        "spiral_wing",
+                        "spirograph",
+                        "split",
+                        "split_brdr",
+                        "splits",
+                        "splits3d",
+                        "square",
+                        "squares",
+                        "square3d",
+                        "squarize",
+                        "squirrel",
+                        "squish",
+                        "sschecks",
+                        "starblur",
+                        "starblur2",
+                        "stripes",
+                        "stwin",
+                        "super_shape",
+                        "super_shape3d",
+                        "svf"	,
+                        "swirl",
+                        "swirl3",
+                        "swirl3r",
+                        "synth",
+                        "tan",
+                        "tancos",
+                        "tangent",
+                        "tanh",
+                        "tanhq",
+                        "tanh_spiral",
+                        "tanq",
+                        "target",
+                        "target0",
+                        "target2",
+                        "taurus",
+                        "tile_hlp",
+                        "tile_log",
+                        "trade",
+                        "truchet",
+                        "truchet_fill",
+                        "truchet_hex_fill",
+                        "truchet_hex_crop",
+                        "truchet_glyph",
+                        "truchet_inv",
+                        "truchet_knot",
+                        "twintrian",
+                        "twoface",
+                        "unicorngaloshen",
+                        "unpolar",
+                        "vibration",
+                        "vibration2",
+                        "vignette",
+                        "voron",
+                        "w",
+                        "waffle",
+                        "waves",
+                        "waves2",
+                        "waves22",
+                        "waves23",
+                        "waves23d",
+                        "waves2b",
+                        "waves2_radial",
+                        "waves3",
+                        "waves4",
+                        "waves42",
+                        "wavesn",
+                        "wdisc",
+                        "wedge",
+                        "wedge_julia",
+                        "wedge_sph",
+                        "whorl",
+                        "x",
+                        "xerf",
+                        "xheart",
+                        "xtrb",
+                        "y",
+                        "z",
+                        "zblur",
+                        "zcone",
+                        "zscale",
+                        "ztranslate" )
 
 
 
@@ -2373,7 +2795,7 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
     
 
 
-def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple]) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2386,7 +2808,7 @@ def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
         vars_keys = []
         vars_prm_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_APO, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
@@ -2394,8 +2816,9 @@ def apo_get_xforms_var_keys(xforms: tuple) -> Union[list[str], None]:
     
     
     
+    
 # TO DO
-def apo_get_xforms_var_keys_PRE(xforms: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys_PRE(xforms: tuple, vars: Union[list, tuple]) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2407,7 +2830,7 @@ def apo_get_xforms_var_keys_PRE(xforms: tuple) -> Union[list[str], None]:
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_PRE(list(VARS_APO)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_PRE(list(vars)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
@@ -2415,7 +2838,7 @@ def apo_get_xforms_var_keys_PRE(xforms: tuple) -> Union[list[str], None]:
     
     
 # TO DO
-def apo_get_xforms_var_keys_POST(xforms: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys_POST(xforms: tuple, vars: Union[list, tuple]) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2427,12 +2850,31 @@ def apo_get_xforms_var_keys_POST(xforms: tuple) -> Union[list[str], None]:
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_POST(list(VARS_APO)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_POST(list(vars)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
         return None
 
+
+# def get_xforms_var_keys_FRACTORIUM(xforms: tuple) -> Union[list[str], None]:
+#     """
+#     Args:
+#         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+
+#     Returns:
+#         Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
+#     """    
+        
+#     if xforms is not None:
+#         vars_keys = []
+#         vars_prm_keys = []
+#         for xf in xforms:
+#             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_FRACTORIUM_ALL, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            
+#         return vars_keys
+#     else:
+#         return None
 
 
 def isvalid_tree(xmlfile: str) -> bool:
@@ -2481,7 +2923,7 @@ def apo_get_idx_by_key(key: str) -> Union[int, None]:
     Returns:
         Union[int, None]: [return variation idx from the tuple look up table]
     """
-    try: idx = VARS_APO.index(key)
+    try: idx = VARS_FLAM3.index(key)
     except: return None
     return idx
 
@@ -2611,7 +3053,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_APO[v_type]}\": parameter: \"{n}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_FLAM3[v_type]}\": parameter: \"{n}\"")
             
         VAR.append(typemaker(var_prm_vals))
 
@@ -2666,7 +3108,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_APO[v_type])}\": parameter: \"{make_PRE(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_FLAM3[v_type])}\": parameter: \"{make_PRE(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2720,7 +3162,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_APO[v_type])}\": parameter: \"{make_POST(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_FLAM3[v_type])}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2772,7 +3214,7 @@ def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_APO[v_type])}\": parameter: \"{make_POST(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_FLAM3[v_type])}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2911,9 +3353,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys: list = apo_get_xforms_var_keys(xforms)
-    vars_keys_pre = apo_get_xforms_var_keys_PRE(xforms)
-    vars_keys_post = apo_get_xforms_var_keys_POST(xforms)
+    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3)
+    vars_keys_pre = get_xforms_var_keys_PRE(xforms, VARS_FLAM3)
+    vars_keys_post = get_xforms_var_keys_POST(xforms, VARS_FLAM3)
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
@@ -3114,15 +3556,15 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
         var_used_heading = "Variations used:"
         
-        vars_keys = apo_get_xforms_var_keys(apo_data.xforms)
-        vars_keys_PRE = apo_get_xforms_var_keys_PRE(apo_data.xforms)
-        vars_keys_POST = apo_get_xforms_var_keys_POST(apo_data.xforms)
+        vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3)
+        vars_keys_PRE = get_xforms_var_keys_PRE(apo_data.xforms, VARS_FLAM3)
+        vars_keys_POST = get_xforms_var_keys_POST(apo_data.xforms, VARS_FLAM3)
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST
         if pb_bool:
             vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
         vars_keys_FF = []
         if apo_data.finalxform is not None:
-            vars_keys_FF = apo_get_xforms_var_keys(apo_data.finalxform)
+            vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3)
             vars_all += vars_keys_FF
         flatten = [item for sublist in vars_all for item in sublist]
         result = []
@@ -3134,8 +3576,32 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         for grp in result_grp:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
+        
+        # Build missing:
+        #
+        # Build all from fractorium list
+        vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_ALL)
+        vars_keys_from_fractorium_pre = get_xforms_var_keys_PRE(apo_data.xforms, VARS_FRACTORIUM_ALL)
+        vars_keys_from_fractorium_post = get_xforms_var_keys_POST(apo_data.xforms, VARS_FRACTORIUM_ALL)
+        vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post
+        flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
+        result_fractorium = []
+        [result_fractorium.append(x) for x in flatten_fractorium if x not in result_fractorium]
+        result_sorted_fractorium = sorted(result_fractorium, key=lambda var: var)
+        
+        # Compare and keep only missing
+        vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
+        result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
+        missing_vars = []
+        for grp in result_grp_fractorium:
+            missing_vars.append(", ".join(grp) + "\n")
+        vars_txt_missing = "".join(missing_vars)
+        
+        vars_txt_missing_msg = ""
+        if vars_missing:
+            vars_txt_missing_msg = f"\nMissing:\n{vars_txt_missing}"
             
-        return sw + nnl + name + nl + palette_count_format + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nnl + var_used_heading + nl + vars_txt 
+        return sw + nnl + name + nl + palette_count_format + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nnl + var_used_heading + nl + vars_txt + vars_txt_missing_msg
 
 
 
@@ -3170,10 +3636,10 @@ Fractorium :: (GPL v3)"""
     
 def flam3_about_plugins_msg(self):
     
-    vars_sorted = sorted(VARS_APO, key=lambda var: var) 
+    vars_sorted = sorted(VARS_FLAM3, key=lambda var: var) 
     n = 6
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-    vars = list(VARS_APO)
+    vars = list(VARS_FLAM3)
     vars_sorted = sorted(vars, key=lambda var: var)
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     _vars = []
