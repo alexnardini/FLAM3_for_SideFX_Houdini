@@ -19,7 +19,7 @@
  /
  /  Comment:    THIS IS NOT USED ANYMORE: I'll leave it as it may come handy again.
  /
- /              POST FLAM3 variation selection. Only non parametrics.
+ /              FLAM3 variation selection. Only non parametrics.
  /              Type 65 PRE BLUR is missing as it is hardcoded into the chaose game,
  /              so there is a jump from 64 to 68 directly.
 */
