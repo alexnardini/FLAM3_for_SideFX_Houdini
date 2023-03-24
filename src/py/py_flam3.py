@@ -3275,8 +3275,6 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
     # What software were used to generate this flame preset
     app = apo_data.apo_version[preset_id]
 
-    use_color_symmetry = node.parm("usesymmetry").evalAsInt()
-
     xforms = ()
     max_vars = 0
     if mode:
@@ -3294,6 +3292,8 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
     vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3)
     vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3))
     vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3))
+    # vars_keys_pre = get_xforms_var_keys_PRE(xforms, VARS_FLAM3)
+    # vars_keys_post = get_xforms_var_keys_POST(xforms, VARS_FLAM3)
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
@@ -3312,7 +3312,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
                 
         if mode:
-            # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
+            # FF POST vars in this iterator ( only the first two in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
@@ -3352,10 +3352,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
             # Activate iterator, just in case...
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
             # Set the rest of the iterator
-            if use_color_symmetry:
-                apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
-            else:
-                apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
+            apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
             apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
             apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
             apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
@@ -3515,7 +3512,6 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         for grp in result_grp:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
-        vars_used_msg = f"{var_used_heading}\n{vars_txt}"
         
         # Build missing:
         #
@@ -3539,21 +3535,10 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         
         vars_txt_missing_msg = ""
         if vars_missing:
-            vars_txt_missing_msg = f"MISSING:\n{vars_txt_missing}"
+            vars_txt_missing_msg = f"\nMISSING:\n{vars_txt_missing}"
             
-        build_stats = f"{sw}{nnl}
-                        {name}{nl}
-                        {palette_count_format}{nnl}
-                        {iter_count}{nl}
-                        {post}{nl}
-                        {opacity}{nl}
-                        {xaos}{nl}
-                        {ff_msg}{nnl}
-                        {vars_used_msg}{nl}
-                        {vars_txt_missing_msg}"
-        
-        return build_stats
-        
+        return sw + nnl + name + nl + palette_count_format + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nnl + var_used_heading + nl + vars_txt + vars_txt_missing_msg
+
 
 
 def flam3_about_msg(self):
