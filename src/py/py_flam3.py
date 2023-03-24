@@ -9,7 +9,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 
 
 
-
+# PYTHON v3.9.10
  
 #   Title:      SideFX Houdini FLAM3: 2D
 #   Author:     Alessandro Nardini
