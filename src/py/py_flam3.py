@@ -3575,7 +3575,7 @@ Fractorium :: (GPL v3)"""
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
     
-    example_flames = f"exmaple Flames:\nC-91, Gabor Timar, Golubaja, Pillemaster,\nPlangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg"
+    example_flames = f"examaple Flames:\nC-91, Gabor Timar, Golubaja, Pillemaster,\nPlangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg"
     
     build = (Implementation_build, nnl,
              code_copied, nnl,
