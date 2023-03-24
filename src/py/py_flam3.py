@@ -1682,6 +1682,8 @@ OPACITY = "opacity"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 
+ITER_ON_LOAD_DEFAULT = 64
+
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
 
@@ -2989,7 +2991,24 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 def iter_on_load_callback(self):
     iter_on_load = self.parm("iternumonload").eval()
     self.setParms({"iter": iter_on_load})
-    
+
+
+
+def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
+    iter_on_load = self.parm("iternumonload").eval()
+    use_iter_on_load = self.parm("useiteronload").eval()
+    preset_name = self.parm('apopresets').menuLabels()[preset_id]
+
+    iter_on_load_preset = get_preset_name_iternum(preset_name)
+    if iter_on_load_preset is not None:
+        iter_on_load = iter_on_load_preset
+        self.setParms({"iternumonload": iter_on_load})
+        self.setParms({"useiteronload": 0})
+    else:
+        if not use_iter_on_load:
+            iter_on_load = ITER_ON_LOAD_DEFAULT
+            self.setParms({"iternumonload": ITER_ON_LOAD_DEFAULT})
+    return iter_on_load    
 
 
 
@@ -3008,14 +3027,8 @@ def apo_to_flam3(self: hou.Node) -> None:
 
     if isvalid_tree(xml):
         
-        iter_on_load = self.parm("iternumonload").eval()
         preset_id = int(self.parm('apopresets').eval())
-        preset_name = self.parm('apopresets').menuLabels()[preset_id]
-
-        iter_on_load_preset = get_preset_name_iternum(preset_name)
-        if iter_on_load_preset is not None:
-            iter_on_load = iter_on_load_preset
-            self.setParms({"iternumonload": iter_on_load})
+        iter_on_load = set_iter_on_load(self, preset_id)
 
         reset_SYS(self, 500000, iter_on_load, 0)
         reset_TM(self)
