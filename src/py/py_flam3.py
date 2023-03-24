@@ -1,6 +1,6 @@
 from __future__ import division
 from platform import python_version
-from typing import Union
+from typing import Union, Callable
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
@@ -2806,75 +2806,13 @@ def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple]) -> Union[list[s
         
     if xforms is not None:
         vars_keys = []
-        vars_prm_keys = []
         for xf in xforms:
             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
         return None
-    
-    
-    
-    
-# TO DO
-def get_xforms_var_keys_PRE(xforms: tuple, vars: Union[list, tuple]) -> Union[list[str], None]:
-    """
-    Args:
-        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
 
-    Returns:
-        Union[tuple[list, list], tuple[None, None]]: [return a list of pre variation's names in each xform,  or None]
-    """    
-        
-    if xforms is not None:
-        vars_keys = []
-        for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_PRE(list(vars)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
-            
-        return vars_keys
-    else:
-        return None
-    
-    
-# TO DO
-def get_xforms_var_keys_POST(xforms: tuple, vars: Union[list, tuple]) -> Union[list[str], None]:
-    """
-    Args:
-        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
-
-    Returns:
-        Union[tuple[list, list], tuple[None, None]]: [return a list of pre variation's names in each xform,  or None]
-    """    
-        
-    if xforms is not None:
-        vars_keys = []
-        for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_POST(list(vars)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
-            
-        return vars_keys
-    else:
-        return None
-
-
-# def get_xforms_var_keys_FRACTORIUM(xforms: tuple) -> Union[list[str], None]:
-#     """
-#     Args:
-#         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
-
-#     Returns:
-#         Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
-#     """    
-        
-#     if xforms is not None:
-#         vars_keys = []
-#         vars_prm_keys = []
-#         for xf in xforms:
-#             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in VARS_FRACTORIUM_ALL, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
-            
-#         return vars_keys
-#     else:
-#         return None
 
 
 def isvalid_tree(xmlfile: str) -> bool:
@@ -3354,8 +3292,10 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
     vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3)
-    vars_keys_pre = get_xforms_var_keys_PRE(xforms, VARS_FLAM3)
-    vars_keys_post = get_xforms_var_keys_POST(xforms, VARS_FLAM3)
+    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3))
+    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3))
+    # vars_keys_pre = get_xforms_var_keys_PRE(xforms, VARS_FLAM3)
+    # vars_keys_post = get_xforms_var_keys_POST(xforms, VARS_FLAM3)
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
@@ -3557,8 +3497,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         var_used_heading = "Variations used:"
         
         vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3)
-        vars_keys_PRE = get_xforms_var_keys_PRE(apo_data.xforms, VARS_FLAM3)
-        vars_keys_POST = get_xforms_var_keys_POST(apo_data.xforms, VARS_FLAM3)
+        vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3))
+        vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3))
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST
         if pb_bool:
             vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
@@ -3581,8 +3521,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         #
         # Build all from fractorium list
         vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_ALL)
-        vars_keys_from_fractorium_pre = get_xforms_var_keys_PRE(apo_data.xforms, VARS_FRACTORIUM_ALL)
-        vars_keys_from_fractorium_post = get_xforms_var_keys_POST(apo_data.xforms, VARS_FRACTORIUM_ALL)
+        vars_keys_from_fractorium_pre = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FRACTORIUM_ALL))
+        vars_keys_from_fractorium_post = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FRACTORIUM_ALL))
         vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post
         flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
         result_fractorium = []
@@ -3599,7 +3539,7 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         
         vars_txt_missing_msg = ""
         if vars_missing:
-            vars_txt_missing_msg = f"\nMissing:\n{vars_txt_missing}"
+            vars_txt_missing_msg = f"\nMISSING:\n{vars_txt_missing}"
             
         return sw + nnl + name + nl + palette_count_format + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nnl + var_used_heading + nl + vars_txt + vars_txt_missing_msg
 
