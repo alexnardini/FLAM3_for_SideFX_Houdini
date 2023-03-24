@@ -2950,7 +2950,8 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
         return flam3_varsPRM_APO.fractorium_96_var_prm_mobius[0]
     elif v_type == 67 and "EMBER-" in app:
         return flam3_varsPRM_APO.fractorium_67_var_prm_oscope[0]
-    return apo_prm
+    else:
+        return apo_prm
 
 
 
@@ -2970,7 +2971,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # Exceptions: check if this flame need different parameters names based on selected exceptions
+    # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
     VAR: list = []
@@ -3023,10 +3024,8 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # Exceptions: check if this flame has been created with Fractorium
+    # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # if v_type == 96 and "EMBER-" in app:
-    #     apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3077,10 +3076,8 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # Exceptions: check if this flame need parameter substituions
+    # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # if v_type == 96 and "EMBER-" in app:
-    #     apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3130,9 +3127,8 @@ def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx
     """
     prx_ff_prm_post = "fp1_"
     
-    # Exceptions: check if this flame has been created with Fractorium
-    if v_type == 96 and "EMBER-" in app:
-        apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
+    # Exceptions: check if this flame need different parameters names based on detected exception
+    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3202,11 +3198,11 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     # Only pre variations with no parametric so:
     # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
     # idx set by hand for now: flam3_iterator.sec_prevarsW[1][0] ... because in here we have "pre_blur as first"
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[0]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1][0]}{str(mp_idx+1)}":v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[t_idx+1][0]}{str(mp_idx+1)}":v_weight})
         
     
-    
+
 def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
