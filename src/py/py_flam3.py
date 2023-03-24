@@ -1680,6 +1680,7 @@ SYMMETRY = "symmetry"
 COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 
+# Dnt really need this anumore but just in case.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 
 ITER_ON_LOAD_DEFAULT = 64
@@ -2969,11 +2970,8 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
     """
     prx, prx_prm = flam3_prx_mode(mode)
     
-    # Exceptions: check if this flame has been created with Fractorium
-    # Exceptions: check if this flame need parameter substituions
+    # Exceptions: check if this flame need different parameters names based on selected exceptions
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # if v_type == 96 and "EMBER-" in app:
-    #     apo_prm = flam3_varsPRM_APO.var_prm_mobius_fractorium
 
     VAR: list = []
     for names in apo_prm[1:-1]:
