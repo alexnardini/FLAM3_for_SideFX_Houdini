@@ -3544,7 +3544,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         build_stats = f"{sw}{nnl}
                         {name}{nl}
                         {palette_count_format}{nnl}
-                        {iter_count}{nl}{post}{nl}
+                        {iter_count}{nl}
+                        {post}{nl}
                         {opacity}{nl}
                         {xaos}{nl}
                         {ff_msg}{nnl}
