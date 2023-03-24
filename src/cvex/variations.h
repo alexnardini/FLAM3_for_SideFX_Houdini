@@ -1040,15 +1040,28 @@ void V_SEC(vector2 p; const vector2 _p; const float w){
     p[0] = w * secden * seccos * seccosh;
     p[1] = w * secden * secsin * secsinh;
 }
-// 86
+// 86 This somehow do not work as expected...
 void V_CSC(vector2 p; const vector2 _p; const float w){
-    float cscsin, csccos, cscsinh, csccosh, cscden;
-    sincos(p[0], cscsin, csccos);
-    cscsinh = sinh(_p[1]);
-    csccosh = cosh(_p[1]);
-    cscden = 2.0/(cosh(2.0*_p[1]) - cos(2.0*_p[0]));
-    p[0] = w * cscden * cscsin * csccosh;
-    p[1] = w * cscden * csccos * cscsinh;
+
+    float x = _p[0] * M_PI_2;
+    float y = _p[1] * M_PI_2;
+    float cscsin, csccos, cscsinh, csccosh, cscden, d;
+    sincos(x, cscsin, csccos);
+    cscsinh = sinh(y);
+    csccosh = cosh(y);
+    d = 1 + 2 * cscsinh * cscsinh - cos(2*x);
+    cscden = 2 * w / d;
+    p[0] = cscden * cscsin * csccosh;
+    p[1] = cscden * csccos * cscsinh;
+
+    // float cscsin, csccos, cscsinh, csccosh, cscden;
+    // sincos(p[0], cscsin, csccos);
+    // cscsinh = sinh(_p[1]);
+    // csccosh = cosh(_p[1]);
+    // cscden = 2 / Zeps(cosh(2 * _p[1]) - cos(2 * _p[0]));
+    // p[0] = w * cscden * cscsin * csccosh;
+    // p[1] = -(w * cscden * csccos * cscsinh);
+
 }
 // 87
 void V_COT(vector2 p; const vector2 _p; const float w){
@@ -1082,9 +1095,9 @@ void V_COSH(vector2 p; const vector2 _p; const float w){
 void V_TANH(vector2 p; const vector2 _p; const float w){
     float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden;
     sincos(2.0*_p[1], tanhsin, tanhcos);
-    tanhsinh = sinh(_p[0]);
-    tanhcosh = cosh(_p[0]);
-    tanhden = 1.0/(tanhcos + tanhcosh);
+    tanhsinh = sinh(2 * _p[0]);
+    tanhcosh = cosh(2 * _p[0]);
+    tanhden = 1 / Zeps(tanhcos + tanhcosh);
     p[0] = w * tanhden * tanhsinh;
     p[1] = w * tanhden * tanhsin;
 }
@@ -1094,9 +1107,9 @@ void V_SECH(vector2 p; const vector2 _p; const float w){
     sincos(_p[1], sechsin, sechcos);
     sechsinh = sinh(_p[0]);
     sechcosh = cosh(_p[0]);
-    sechden = 2.0/(cos(2.0*_p[1]) + cosh(2.0*_p[0]));
+    sechden = 2 / Zeps(cos(2 * _p[1]) + cosh(2 * _p[0]));
     p[0] = w * sechden * sechcos * sechcosh;
-    p[1] = w * sechden * sechsin * sechsinh;
+    p[1] = -(w * sechden * sechsin * sechsinh);
 }
 // 92
 void V_CSCH(vector2 p; const vector2 _p; const float w){
@@ -1104,9 +1117,9 @@ void V_CSCH(vector2 p; const vector2 _p; const float w){
     sincos(_p[1], cschsin, cschcos);
     cschsinh = sinh(_p[0]);
     cschcosh = cosh(_p[0]);
-    cschden = 2.0/(cosh(2.0*_p[0]) - cos(2.0*_p[1]));
+    cschden = 2 / Zeps(cosh(2*_p[0]) - cos(2*_p[1]));
     p[0] = w * cschden * cschsinh * cschcos;
-    p[1] = w * cschden * cschcosh * cschsin;
+    p[1] = -(w * cschden * cschcosh * cschsin);
 }
 // 93
 void V_COTH(vector2 p; const vector2 _p; const float w){
