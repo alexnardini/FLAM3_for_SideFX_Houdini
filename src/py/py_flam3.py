@@ -251,9 +251,6 @@ class flam3_iterator_prm_names:
 
 
 
-
-
-
 class flam3_iterator:
 
     n = flam3_iterator_prm_names
@@ -1696,11 +1693,13 @@ MAX_FF_VARS_POST = 2
 
 
 
-# This is only as idx lookup table. Every variation name in this list
+# The following VARS_FLAM3(str..., ) represent all the variations we do have inside FLAM3 for Houdini.
+
+# It is only to be used as an idx lookup table. Every variation's name in this list
 # is the same name as written by Apophysis or Fratorium inside the XML file during save.
 #
 # When you load a fractal flame, every variation name in the XML file
-# will look itself up inside this table, and if it find itself will proceed.
+# will look itself up inside this table, and if it find itself will be collected.
 VARS_FLAM3 = (  "linear", 
                 "sinusoidal",
                 "spherical",
@@ -1806,9 +1805,9 @@ VARS_FLAM3 = (  "linear",
 
 
 
-# Those are all variations included in Fractorium.
+# Those are all variations included in Fractorium. ( so many! )
 # They are used to find missing variations from the flame file
-# we are trying to load in flam3_houdini.
+# we are trying to load inside FLAM3 for Houdini.
 VARS_FRACTORIUM_ALL = ( "arch",
                         "arcsech",
                         "arcsech2",
@@ -2233,12 +2232,10 @@ VARS_FRACTORIUM_ALL = ( "arch",
 
 class flam3_varsPRM_APO:
     
-    # Those parameters matches the Apophysis/Fractorium parameter's names,
+    # The following parameters matches the Apophysis/Fractorium parameter's names,
     # so no need to regex for now as the strings names are matching already.
     #
-    # Only exception so far are Mobius parameters in Fractorium:
-    # In Apophysis: Re_A, Re_B, Re_C, Re_D, Im_A, Im_B, Im_C, Im_D
-    # In Fractorium: Mobius_Re_A, Mobius_Re_B, Mobius_Re_C, Mobius_Re_D, Mobius_Im_A, Mobius_Im_B, Mobius_Im_C, Mobius_Im_D
+    # There are a few exceptions so far witch I handled simply for now, but it work.
     #
     # They are gouped as follow and based on the FLAM3 Houdini node parametric parameters:
     #
@@ -2252,13 +2249,13 @@ class flam3_varsPRM_APO:
     # they are then automatically converted to the expeted v_type using the function: 
     # typemaker(list[]) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     #
-    # The (("variation_name") entrie, is not used here but eventuallt I will.
+    # The (("variation_name") entrie, is not used here and only for reference, especially the initial index number.
 
     # Marked with: ************ -> are missing from my current Apophysis package, need to find them. They are however present in Fractorium.
-    # Marked with: ******from Fractorium****** are taken from Fractorium.
+    # Marked with: ******from Fractorium****** are parameter's names taken from Fractorium github repository.
     
     # Note:
-    # "radial_blur" parameter "radial_blur_zoom" is not ued and always ZERO as everyone else only have "radiual_blur_angle"
+    # radial_blur's parameter "radial_blur_zoom" is not ued and always ZERO as everyone else only use "radiual_blur_angle".
     
     varsPRM = ( ("00 linear", 0), 
                 ("01 sinusoidal", 0), 
