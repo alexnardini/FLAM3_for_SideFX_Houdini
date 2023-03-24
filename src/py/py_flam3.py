@@ -3451,104 +3451,104 @@ def apo_to_flam3(self: hou.Node) -> None:
 
 def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
-        pb_bool = False
-        for item in apo_data.pre_blur:
-            if item:
-                pb_bool = True
-                break
-        opacity_bool = "NO"
-        if min(apo_data.opacity) == 0.0:
-            opacity_bool = "YES"
-        post_bool = "NO"
-        if apo_data.post is not None:
-            post_bool = "YES"
-        xaos_bool = "NO"
-        if apo_data.xaos is not None:
-            xaos_bool = "YES"
-        ff_bool = False
-        if apo_data.finalxform is not None:
-            ff_bool = True
-        ff_post_bool = "NO"
-        if apo_data.finalxform_post is not None:
-            ff_post_bool = "YES"
-            
-        nl = "\n"
-        nnl = "\n\n"
-        sw = f"Software: {apo_data.apo_version[preset_id]}"
-        name = f"NAME: {apo_data.name[preset_id]}"
-        iter_count = f"iterators count: {str(len(apo_data.xforms))}"
-        post = f"post affine: {post_bool}"
-        opacity = f"opacity: {opacity_bool}"
-        xaos = f"xaos: {xaos_bool}"
-        ff_msg = ""
-        if ff_bool:
-            ff_msg = f"FF: YES\nFF post affine: {ff_post_bool}"
-        else:
-            ff_msg = f"FF: NO"
-        palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
-        var_used_heading = "Variations used:"
+    pb_bool = False
+    for item in apo_data.pre_blur:
+        if item:
+            pb_bool = True
+            break
+    opacity_bool = "NO"
+    if min(apo_data.opacity) == 0.0:
+        opacity_bool = "YES"
+    post_bool = "NO"
+    if apo_data.post is not None:
+        post_bool = "YES"
+    xaos_bool = "NO"
+    if apo_data.xaos is not None:
+        xaos_bool = "YES"
+    ff_bool = False
+    if apo_data.finalxform is not None:
+        ff_bool = True
+    ff_post_bool = "NO"
+    if apo_data.finalxform_post is not None:
+        ff_post_bool = "YES"
         
-        vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3)
-        vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3))
-        vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3))
-        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST
-        if pb_bool:
-            vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
-        vars_keys_FF = []
-        if apo_data.finalxform is not None:
-            vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3)
-            vars_all += vars_keys_FF
-        flatten = [item for sublist in vars_all for item in sublist]
-        result = []
-        [result.append(x) for x in flatten if x not in result]
-        result_sorted = sorted(result, key=lambda var: var)
-        n = 5
-        result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-        vars = []
-        for grp in result_grp:
-            vars.append(", ".join(grp) + "\n")
-        vars_txt = "".join(vars)
-        vars_used_msg = f"{var_used_heading}\n{vars_txt}"
+    nl = "\n"
+    nnl = "\n\n"
+    sw = f"Software: {apo_data.apo_version[preset_id]}"
+    name = f"NAME: {apo_data.name[preset_id]}"
+    iter_count = f"iterators count: {str(len(apo_data.xforms))}"
+    post = f"post affine: {post_bool}"
+    opacity = f"opacity: {opacity_bool}"
+    xaos = f"xaos: {xaos_bool}"
+    ff_msg = ""
+    if ff_bool:
+        ff_msg = f"FF: YES\nFF post affine: {ff_post_bool}"
+    else:
+        ff_msg = f"FF: NO"
+    palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+    var_used_heading = "Variations used:"
+    
+    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3)
+    vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3))
+    vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3))
+    vars_all = vars_keys_PRE + vars_keys + vars_keys_POST
+    if pb_bool:
+        vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
+    vars_keys_FF = []
+    if apo_data.finalxform is not None:
+        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3)
+        vars_all += vars_keys_FF
+    flatten = [item for sublist in vars_all for item in sublist]
+    result = []
+    [result.append(x) for x in flatten if x not in result]
+    result_sorted = sorted(result, key=lambda var: var)
+    n = 5
+    result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
+    vars = []
+    for grp in result_grp:
+        vars.append(", ".join(grp) + "\n")
+    vars_txt = "".join(vars)
+    vars_used_msg = f"{var_used_heading}\n{vars_txt}"
+    
+    # Build missing:
+    #
+    # Build all from fractorium list
+    vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_ALL)
+    vars_keys_from_fractorium_pre = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FRACTORIUM_ALL))
+    vars_keys_from_fractorium_post = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FRACTORIUM_ALL))
+    vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post
+    flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
+    result_fractorium = []
+    [result_fractorium.append(x) for x in flatten_fractorium if x not in result_fractorium]
+    result_sorted_fractorium = sorted(result_fractorium, key=lambda var: var)
+    
+    # Compare and keep only missing
+    vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
+    result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
+    missing_vars = []
+    for grp in result_grp_fractorium:
+        missing_vars.append(", ".join(grp) + "\n")
+    vars_missing = "".join(missing_vars)
+    
+    vars_missing_msg = ""
+    if vars_missing:
+        vars_missing_msg = f"MISSING:\n{vars_missing}"
         
-        # Build missing:
-        #
-        # Build all from fractorium list
-        vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_ALL)
-        vars_keys_from_fractorium_pre = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FRACTORIUM_ALL))
-        vars_keys_from_fractorium_post = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FRACTORIUM_ALL))
-        vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post
-        flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
-        result_fractorium = []
-        [result_fractorium.append(x) for x in flatten_fractorium if x not in result_fractorium]
-        result_sorted_fractorium = sorted(result_fractorium, key=lambda var: var)
-        
-        # Compare and keep only missing
-        vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
-        result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
-        missing_vars = []
-        for grp in result_grp_fractorium:
-            missing_vars.append(", ".join(grp) + "\n")
-        vars_missing = "".join(missing_vars)
-        
-        vars_missing_msg = ""
-        if vars_missing:
-            vars_missing_msg = f"MISSING:\n{vars_missing}"
-            
-        build = (sw, nnl,
-                 name, nl,
-                 palette_count_format, nnl,
-                 iter_count, nl,
-                 post, nl,
-                 opacity, nl,
-                 xaos, nl,
-                 ff_msg, nnl,
-                 vars_used_msg, nl,
-                 vars_missing_msg)
-        
-        build_stats_msg = "".join(build)
+    build = (sw, nnl,
+                name, nl,
+                palette_count_format, nnl,
+                iter_count, nl,
+                post, nl,
+                opacity, nl,
+                xaos, nl,
+                ff_msg, nnl,
+                vars_used_msg, nl,
+                vars_missing_msg)
+    
+    build_stats_msg = "".join(build)
 
 
-        return build_stats_msg
+    return build_stats_msg
 
 
 def flam3_about_msg(self):
