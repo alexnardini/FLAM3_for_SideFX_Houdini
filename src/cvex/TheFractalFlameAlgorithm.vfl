@@ -62,7 +62,8 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     float   fv1w, fv2w, fv3w, fp1w, fp2w; /* CAST */ fv1w=GEM.fv1w; fv2w=GEM.fv2w; fv3w=GEM.fv3w; fp1w=GEM.fp1w; fp2w=GEM.fp2w;
     vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
-    gemPrm p2GMP, v1GMP, v2GMP, v3GMP, v4GMP, P1GMP;
+    gemPrm p1GMP, p2GMP, v1GMP, v2GMP, v3GMP, v4GMP, P1GMP;
+    p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
     p2GMP->gemPrmBuild(sIDX, res, p2t, p2w);
     v1GMP->gemPrmBuild(sIDX, res, v1t, v1w);
     v2GMP->gemPrmBuild(sIDX, res, v2t, v2w);
@@ -88,7 +89,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
         tmp=0;
         // Pre
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
-        if(p1w[idx] >0) mem  = FLAMEPP(p1t[idx], mem, X, Y, O, p1w[idx]);
+        if(p1w[idx] >0) mem  = FLAME(p1GMP, idx, p1t[idx], mem, X, Y, O, p1w[idx]);
         if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], mem, X, Y, O, p2w[idx]);
         // Var
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);

@@ -3050,8 +3050,8 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     # Only on pre variations with parametric so:
     # idx set by hand for now: flam3_iterator.sec_prevarsT[1] ... because in here we have a non parametric as first"
     # idx set by hand for now: flam3_iterator.sec_prevarsW[2][0] ... because in here we have "pre_blur" and a non parametric as first"
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[1]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[2][0]}{str(mp_idx+1)}": v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[t_idx+1][0]}{str(mp_idx+1)}": v_weight})
 
 
 
