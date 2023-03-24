@@ -3515,6 +3515,7 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         for grp in result_grp:
             vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(vars)
+        vars_used_msg = f"{var_used_heading}\n{vars_txt}"
         
         # Build missing:
         #
@@ -3538,10 +3539,20 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
         
         vars_txt_missing_msg = ""
         if vars_missing:
-            vars_txt_missing_msg = f"\nMISSING:\n{vars_txt_missing}"
+            vars_txt_missing_msg = f"MISSING:\n{vars_txt_missing}"
             
-        return sw + nnl + name + nl + palette_count_format + nnl + iter_count + nl + post + nl + opacity + nl + xaos + nl + ff_msg + nnl + var_used_heading + nl + vars_txt + vars_txt_missing_msg
-
+        build_stats = f"{sw}{nnl}
+                        {name}{nl}
+                        {palette_count_format}{nnl}
+                        {iter_count}{nl}{post}{nl}
+                        {opacity}{nl}
+                        {xaos}{nl}
+                        {ff_msg}{nnl}
+                        {vars_used_msg}{nl}
+                        {vars_txt_missing_msg}"
+        
+        return build_stats
+        
 
 
 def flam3_about_msg(self):
