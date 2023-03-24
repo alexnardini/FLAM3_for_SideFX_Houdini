@@ -27,8 +27,8 @@
 // GENOME
 struct gem{
 
-    int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], fv1t, fv2t, fv3t, fp1t, fp2t;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], pbw[], ppw[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w, fp2w;
+    int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fv1t, fv2t, fv3t, fp1t, fp2t;
+    float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w, fp2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
     
@@ -36,8 +36,8 @@ struct gem{
 
         // GENOME
         res = len(sIDX);
-        resize(v1t, res); v2t=v3t=v4t=p1t=p2t=ppt=PPL=v1t;
-        resize(v1w, res); v2w=v3w=v4w=p1w=p2w=pbw=ppw=CLR=OM=A=v1w;
+        resize(v1t, res); v2t=v3t=v4t=p1t=p2t=P1t=PPL=v1t;
+        resize(v1w, res); v2w=v3w=v4w=p1w=p2w=P1w=pbw=CLR=OM=A=v1w;
         resize(x,   res); y=o=px=py=po=x;
 
         float   _a, clr, spd, grt;
@@ -66,8 +66,8 @@ struct gem{
             // PRE BLUR
             pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
-            ppw[i] = chf(concat("../pre1weight_" , idx));
-            if(ppw[i] >0) ppt[i]=atoi(chs(concat("../pre1type_", idx)));
+            p1w[i] = chf(concat("../pre1weight_" , idx));
+            if(p1w[i] >0) p1t[i]=atoi(chs(concat("../pre1type_", idx)));
             // PRE VAR 02
             p2w[i] = chf(concat("../pre2weight_", idx));
             if(p2w[i] >0) p2t[i]=atoi(chs(concat("../pre2type_", idx)));
@@ -84,8 +84,8 @@ struct gem{
             v4w[i] = chf(concat("../v4weight_", idx));
             if(v4w[i]!=0) v4t[i]=atoi(chs(concat("../v4type_", idx)));
             // POST VAR 01
-            p1w[i] = chf(concat("../p1weight_", idx));
-            if(p1w[i] >0) p1t[i]=atoi(chs(concat("../p1type_", idx)));
+            P1w[i] = chf(concat("../p1weight_", idx));
+            if(P1w[i] >0) P1t[i]=atoi(chs(concat("../p1type_", idx)));
             // AFFINE
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));

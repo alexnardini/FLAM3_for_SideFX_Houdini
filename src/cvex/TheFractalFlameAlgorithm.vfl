@@ -52,8 +52,8 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(sIDX, TM, FF);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], ppt[], PPL[], res, PFF; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; ppt=GEM.ppt; PPL=GEM.PPL; PFF=GEM.PFF;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], pbw[], ppw[], _CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; pbw=GEM.pbw; ppw=GEM.ppw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res, PFF; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL; PFF=GEM.PFF;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], _CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast TM
     matrix2 TMm2=GEM.TMm2;
@@ -68,7 +68,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     v2GMP->gemPrmBuild(sIDX, res, v2t, v2w);
     v3GMP->gemPrmBuild(sIDX, res, v3t, v3w);
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
-    P1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
+    P1GMP->gemPrmBuild(sIDX, res, P1t, P1w);
     // CHAOS game
     vector2 mem=biunit();
     int XS=_bound_XS;
@@ -88,7 +88,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
         tmp=0;
         // Pre
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
-        if(ppw[idx] >0) mem  = FLAMEPP(ppt[idx], mem, X, Y, O, ppw[idx]);
+        if(p1w[idx] >0) mem  = FLAMEPP(p1t[idx], mem, X, Y, O, p1w[idx]);
         if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], mem, X, Y, O, p2w[idx]);
         // Var
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], mem, x[idx], y[idx], o[idx], v1w[idx]);
@@ -96,7 +96,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
         if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], mem, x[idx], y[idx], o[idx], v4w[idx]);
         // Post
-        if(p1w[idx] >0) tmp  = FLAME(P1GMP, idx, p1t[idx], tmp, X, Y, O, p1w[idx]);
+        if(P1w[idx] >0) tmp  = FLAME(P1GMP, idx, P1t[idx], tmp, X, Y, O, P1w[idx]);
         // Post affine
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
         // Post transformation
