@@ -3396,10 +3396,11 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
 
 def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
     splt = preset_name.split("::")
-    try:
-        return int(splt[-1])
-    except:
-        return None
+    if len(splt) > 1:
+        try:
+            return int(splt[-1])
+        except:
+            return None
     
 
 
