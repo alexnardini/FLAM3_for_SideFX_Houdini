@@ -1954,7 +1954,7 @@ class _xml_tree:
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
-        self._tree = None
+        #self._tree = None
         self._isvalidtree = False
         try:
             self._tree = ET.parse(xmlfile)
@@ -2003,6 +2003,7 @@ class _xml_tree:
     def __get_flame_count(self, flames: list) -> int:
         if self._isvalidtree:
             return len(flames)
+        return 0
 
 
 
@@ -2186,7 +2187,7 @@ class apo_flame(_xml_tree):
         if  self._isvalidtree:
             palette_hex = self._flame[idx].find(key).text
             palette_attrib = self._flame[idx].find(key).attrib
-            count = int(dict(palette_attrib).get(PALETTE_COUNT)) - 1
+            count = int(palette_attrib.get(PALETTE_COUNT)) - 1
             # optional
             format = dict(palette_attrib).get(PALETTE_FORMAT)
     
@@ -2203,8 +2204,8 @@ class apo_flame(_xml_tree):
     
             POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
             BASES = [hou.rampBasis.Linear] * (count + 1)
-    
-            return hou.Ramp(BASES, POS, RGB), (count+1), format
+            
+            return hou.Ramp(BASES, POS, RGB), (count+1), str(format)
         else:
             return None
 
@@ -2404,7 +2405,7 @@ def apo_get_xforms_var_keys_PRE(xforms: tuple) -> Union[list[str], None]:
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_PRE(VARS_APO), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_PRE(list(VARS_APO)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
@@ -2424,7 +2425,7 @@ def apo_get_xforms_var_keys_POST(xforms: tuple) -> Union[list[str], None]:
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_POST(VARS_APO), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in make_POST(list(VARS_APO)), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
             
         return vars_keys
     else:
@@ -2443,6 +2444,7 @@ def isvalid_tree(xmlfile: str) -> bool:
                 return True
             else:
                 return False
+        return False
     except:
         return False
 
@@ -2601,7 +2603,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
             if xform.get(n) is not None:
                 for k in xform.keys():
                     if n in k:
-                        var_prm_vals.append(float(xform.get(k)))
+                        var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
                 var_prm_vals.append(float(0))
@@ -2656,7 +2658,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
             if xform.get(make_PRE(n)) is not None:
                 for k in xform.keys():
                     if make_PRE(n) in k:
-                        var_prm_vals.append(float(xform.get(k)))
+                        var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
                 var_prm_vals.append(float(0))
@@ -2710,7 +2712,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
             if xform.get(make_POST(n)) is not None:
                 for k in xform.keys():
                     if make_POST(n) in k:
-                        var_prm_vals.append(float(xform.get(k)))
+                        var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
                 var_prm_vals.append(float(0))
@@ -2762,7 +2764,7 @@ def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx
             if xform.get(make_POST(n)) is not None:
                 for k in xform.keys():
                     if make_POST(n) in k:
-                        var_prm_vals.append(float(xform.get(k)))
+                        var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
                 var_prm_vals.append(float(0))
@@ -2907,7 +2909,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys = apo_get_xforms_var_keys(xforms)
+    vars_keys: list = apo_get_xforms_var_keys(xforms)
     vars_keys_pre = apo_get_xforms_var_keys_PRE(xforms)
     vars_keys_post = apo_get_xforms_var_keys_POST(xforms)
 
@@ -3015,13 +3017,15 @@ def apo_to_flam3(self: hou.Node) -> None:
             iter_on_load = iter_on_load_preset
             self.setParms({"iternumonload": iter_on_load})
 
-        apo_data = apo_flame_iter_data(xml, preset_id)
-
         reset_SYS(self, 500000, iter_on_load, 0)
         reset_TM(self)
         reset_SM(self)
         reset_MB(self)
         reset_PREFS(self)
+        
+        apo_data = apo_flame_iter_data(xml, preset_id)
+        if min(apo_data.opacity) == 0.0:
+            self.setParms({"rip": 1})
 
         # iterators
         self.setParms({"flamefunc": 0})
@@ -3127,7 +3131,7 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
-    flam3_houdini_version = "Version: 0.9.4"
+    flam3_houdini_version = "Version: 0.9.5"
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
