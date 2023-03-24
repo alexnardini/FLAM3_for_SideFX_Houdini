@@ -3547,10 +3547,10 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
                  vars_used_msg, nl,
                  vars_missing_msg)
         
-        build_msg = "".join(build)
+        build_stats_msg = "".join(build)
 
 
-        return build_msg
+        return build_stats_msg
 
 
 def flam3_about_msg(self):
@@ -3575,9 +3575,20 @@ Fractorium :: (GPL v3)"""
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
     
-    about_msg_txt = Implementation_build + nnl + code_copied + nnl + Houdini_version + nl + Houdini_license + nl + Platform + nl + PC_name + nl + User
+    example_flames = f"exmaple Flames:\nC-91, Gabor Timar, Golubaja, Pillemaster,\nPlangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg"
     
-    self.setParms({"flam3about_msg": about_msg_txt})
+    build = (Implementation_build, nnl,
+             code_copied, nnl,
+             example_flames, nnl,
+             Houdini_version, nl,
+             Houdini_license, nl,
+             Platform, nl,
+             PC_name, nl,
+             User, nnl)
+    
+    build_about_msg = "".join(build)
+    
+    self.setParms({"flam3about_msg": build_about_msg})
     
     
     
