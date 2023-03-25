@@ -1997,7 +1997,7 @@ class flam3_varsPRM_APO:
                 ("72 split", ("split_xsize", "split_ysize"), 1), 
                 ("73 splits", ("splits_x", "splits_y"), 1), 
                 ("74 stripes", ("stripes_space", "stripes_warp"), 1), 
-                ("75 wedge", ("wedge_angle", "wedge_hole", "wedge_count", "wedge_swirl"), 1), 
+                ("75 wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
                 ("76 ******from Fractorium******wedge_julia", ("julia_power", "julia_angle", "julia_dist", "julia_count"), 1), 
                 ("77 ******from Fractorium******wedgesph", ("sph_swirl", "sph_angle", "sph_hole", "sph_count"), 1), 
                 ("78 whorl", ("whorl_inside", "whorl_outside"), 1), 
@@ -2676,9 +2676,10 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
-            if xform.get(make_PRE(n)) is not None:
+            n_pre = make_PRE(n)
+            if xform.get(n_pre) is not None:
                 for k in xform.keys():
-                    if make_PRE(n) in k:
+                    if n_pre in k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -2728,9 +2729,10 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
-            if xform.get(make_POST(n)) is not None:
+            n_post = make_POST(n)
+            if xform.get(n_post) is not None:
                 for k in xform.keys():
-                    if make_POST(n) in k:
+                    if n_post in k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -2753,11 +2755,10 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     
     
     
-def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
-        mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
@@ -2779,9 +2780,10 @@ def v_parametric_POST_FF(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
-            if xform.get(make_POST(n)) is not None:
+            n_post = make_POST(n)
+            if xform.get(n_post) is not None:
                 for k in xform.keys():
-                    if make_POST(n) in k:
+                    if n_post in k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -2865,7 +2867,7 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
 
 
 
-def v_generic_POST_FF(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic_POST_FF(node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -2954,9 +2956,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                     if v_type is not None:
                         v_weight: float = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
-                            v_parametric_POST_FF(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                            v_parametric_POST_FF(app, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
-                            v_generic_POST_FF(mode, node, mp_idx, t_idx, v_type, v_weight)
+                            v_generic_POST_FF(node, mp_idx, t_idx, v_type, v_weight)
                             
         else:
             # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )

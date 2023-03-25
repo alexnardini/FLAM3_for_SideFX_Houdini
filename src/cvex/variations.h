@@ -895,16 +895,15 @@ void V_STRIPES(vector2 p; const vector2 _p; const float w, space, warp){
 }
 // 75 ( parametric )
 void V_WEDGE(vector2 p; const vector2 _p; const float w, swirl, angle, hole, count){
-    float rr, aa, cc, comp_fac, sa, ca;
-    rr = SQRT(_p);
-    aa = ATANYX(_p) + swirl * rr;
-    cc = floor( (count * aa + M_PI) * M_1_PI*0.5 );
-    comp_fac = 1 - angle*count*M_1_PI*0.5;
-    aa = aa * comp_fac + cc * angle;
-    sincos(aa, sa, ca);
-    rr = w * (rr + hole);
-    p[0] = rr*ca;
-    p[1] = rr*sa;
+    float r, a, c, m_CompFac;
+    m_CompFac = 1 - angle * count *M_1_PI * 0.5;
+    r = SUMSQ(_p);
+    a = ATANYX(_p) + swirl * r;
+    c = floor((count * a + M_PI) * M_1_PI * 0.5);
+    a = a * m_CompFac + c * angle;
+    r = w * (r + hole);
+    p[0] = r * cos(a);
+    p[1] = r * sin(a);
 }
 // 76 ( parametric ) // const vector precalc)
 void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist, count){ 

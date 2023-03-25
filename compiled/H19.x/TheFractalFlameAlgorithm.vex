@@ -8798,53 +8798,48 @@ __llvm_entry:
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_WEDGE@UUFFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %swirl, double* %angle, double* %hole, double* %count) #0 {
 __llvm_entry:
-  %sa = alloca double
-  %ca = alloca double
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
-  %2 = alloca double
-  store double 0.000000e+00, double* %sa, !vex-initializer-store !3
-  store double 0.000000e+00, double* %ca, !vex-initializer-store !3
-  %_p1 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p1, <2 x double>* %0
-  %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
-  %_p2 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p2, <2 x double>* %1
+  %angle1 = load double, double* %angle
+  %count2 = load double, double* %count
+  %output = fmul double %angle1, %count2
+  %output3 = fmul double %output, 0x3FD45F306DC9C883
+  %output4 = fmul double %output3, 5.000000e-01
+  %output5 = fsub double 1.000000e+00, %output4
+  %_p6 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p6, <2 x double>* %0
+  %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
+  %_p7 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p7, <2 x double>* %1
   %ATANYX = call double @"ATANYX@FU"(<2 x double>* %1)
-  %swirl3 = load double, double* %swirl
-  %output = fmul double %swirl3, %SQRT
-  %output5 = fadd double %ATANYX, %output
-  %count6 = load double, double* %count
-  %output8 = fmul double %count6, %output5
-  %output9 = fadd double %output8, 0x400921FB4D12D84A
-  %output10 = fmul double %output9, 0x3FD45F306DC9C883
-  %output11 = fmul double %output10, 5.000000e-01
-  %return = call double @"floor@FF"(double %output11)
-  %angle12 = load double, double* %angle
-  %output14 = fmul double %angle12, %count6
-  %output15 = fmul double %output14, 0x3FD45F306DC9C883
-  %output16 = fmul double %output15, 5.000000e-01
-  %output17 = fsub double 1.000000e+00, %output16
-  %output20 = fmul double %output5, %output17
-  %output23 = fmul double %return, %angle12
+  %swirl8 = load double, double* %swirl
+  %output10 = fmul double %swirl8, %SUMSQ
+  %output11 = fadd double %ATANYX, %output10
+  %count12 = load double, double* %count
+  %output14 = fmul double %count12, %output11
+  %output15 = fadd double %output14, 0x400921FB4D12D84A
+  %output16 = fmul double %output15, 0x3FD45F306DC9C883
+  %output17 = fmul double %output16, 5.000000e-01
+  %return = call double @"floor@FF"(double %output17)
+  %output20 = fmul double %output11, %output5
+  %angle22 = load double, double* %angle
+  %output23 = fmul double %return, %angle22
   %output24 = fadd double %output20, %output23
-  store double %output24, double* %2
-  call void @"sincos@FFF"(double* %2, double* %sa, double* %ca)
-  %w26 = load double, double* %w
-  %hole28 = load double, double* %hole
-  %output29 = fadd double %SQRT, %hole28
-  %output30 = fmul double %w26, %output29
-  %ca32 = load double, double* %ca
-  %output33 = fmul double %output30, %ca32
+  %w25 = load double, double* %w
+  %hole27 = load double, double* %hole
+  %output28 = fadd double %SUMSQ, %hole27
+  %output29 = fmul double %w25, %output28
+  %return32 = call double @"cos@FF"(double %output24)
+  %output33 = fmul double %output29, %return32
   %tmp = load <2 x double>, <2 x double>* %p
   %return34 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output33, i64 0)
   %output36 = extractvalue { double, <2 x double> } %return34, 1
   store <2 x double> %output36, <2 x double>* %p
-  %sa38 = load double, double* %sa
-  %output39 = fmul double %output30, %sa38
-  %return41 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output36, double %output39, i64 1)
-  %output43 = extractvalue { double, <2 x double> } %return41, 1
-  store <2 x double> %output43, <2 x double>* %p
+  %return39 = call double @"sin@FF"(double %output24)
+  %output40 = fmul double %output29, %return39
+  %return42 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output36, double %output40, i64 1)
+  %output44 = extractvalue { double, <2 x double> } %return42, 1
+  store <2 x double> %output44, <2 x double>* %p
   ret void
 }
 
