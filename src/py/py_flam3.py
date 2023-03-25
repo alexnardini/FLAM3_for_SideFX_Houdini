@@ -1662,6 +1662,48 @@ def web_TFFA() -> None:
 
 
 
+
+def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+    if type(name) is str:
+        if name.startswith(V_PRX_PRE):
+            return re.sub(REGEX_PRE, '', name)
+        elif name.startswith(V_PRX_POST):
+            return re.sub(REGEX_POST, '', name)
+        else:
+            return None
+    elif type(name) is list or tuple:
+        _names = [re.sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
+        if not _names:
+            _names = [re.sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
+        if not _names:
+            return None
+        else:
+            return _names
+    else:
+        return None
+
+def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+    if type(name) is str:
+        if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
+            return "pre_" + name
+    elif type(name) is list or tuple:
+        return ["pre_" + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
+    else:
+        return None
+
+def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+    if type(name) is str:
+        if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
+            return V_PRX_POST + name
+    elif type(name) is list or tuple:
+        return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
+    else:
+        return None
+
+def vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
+    return dict(zip(vars_dict.keys(), list(map(lambda x: func(x), vars_dict.values()))))
+
+
 # XML
 FLAME = "flame"
 NAME = "name"
@@ -1681,8 +1723,12 @@ SYMMETRY = "symmetry"
 COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 
-# Dnt really need this anymore but just in case.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
+# The prm names inside here are allowed to pass a check even if not found in the XML.
+# radial_blur_zoom is present into my implementation but not in Apo or Fractorium etc.
+# so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
+XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
+
 
 ITER_ON_LOAD_DEFAULT = 64
 
@@ -1842,6 +1888,8 @@ VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh
                         "z": ("z", "zblur", "zcone", "zscale","ztranslate") }
 
 
+VARS_FRACTORIUM_DICT_PRE  = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_PRE)
+VARS_FRACTORIUM_DICT_POST = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_POST)
 
 
 
@@ -2362,60 +2410,6 @@ def menu_apo_presets(kwargs: dict) -> list:
         return menu
     else:
         return menu
-    
-    
-
-
-
-def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
-    if type(name) is str:
-        if name.startswith(V_PRX_PRE):
-            return re.sub(REGEX_PRE, '', name)
-        elif name.startswith(V_PRX_POST):
-            return re.sub(REGEX_POST, '', name)
-        else:
-            return None
-    elif type(name) is list or tuple:
-        _names = [re.sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
-        if not _names:
-            _names = [re.sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
-        if not _names:
-            return None
-        else:
-            return _names
-    else:
-        return None
-
-
-
-    
-def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
-    if type(name) is str:
-        if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
-            return "pre_" + name
-    elif type(name) is list or tuple:
-        return ["pre_" + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
-    else:
-        return None
-
-
-
-
-def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
-    if type(name) is str:
-        if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
-            return V_PRX_POST + name
-    elif type(name) is list or tuple:
-        return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
-    else:
-        return None
-
-
-
-
-
-def vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
-    return dict(zip(vars_dict.keys(), list(map(lambda x: func(x), vars_dict.values()))))
 
 
 
@@ -2634,8 +2628,8 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
                         break
             else:
                 var_prm_vals.append(float(0))
-                if "radial_blur_zoom" not in n:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
+                # If a prm name is not found inside the XML, let us know unless is included in the exception tuple.
+                if n not in XML_XF_PRM_EXCEPTION:
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_FLAM3[v_type]}\": parameter: \"{n}\"")
             
         VAR.append(typemaker(var_prm_vals))
@@ -3158,8 +3152,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     #
     # Build all from fractorium list
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT)
-    vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_PRE), V_PRX_PRE)
-    vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_POST), V_PRX_POST)
+    vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE)
+    vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
 
     vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post
     flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
@@ -3234,7 +3228,6 @@ Fractorium :: (GPL v3)"""
     build_about_msg = "".join(build)
     
     self.setParms({"flam3about_msg": build_about_msg})
-    
     
     
     
