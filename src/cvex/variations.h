@@ -1013,12 +1013,8 @@ void V_SIN(vector2 p; const vector2 _p; const float w){
 }
 // 83
 void V_COS(vector2 p; const vector2 _p; const float w){
-    float cossin, coscos, cossinh, coscosh;
-    sincos(_p[0], cossin, coscos);
-    cossinh = sinh(_p[1]);
-    coscosh = cosh(_p[1]);
-    p[0] = w * coscos * coscosh;
-    p[1] = w * cossin * cossinh;
+    p[0] = w * cos(_p[0]) * cosh(_p[1]);
+    p[1] = -(w * sin(_p[0]) * sinh(_p[1]));
 }
 // 84
 void V_TAN(vector2 p; const vector2 _p; const float w){

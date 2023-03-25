@@ -9156,34 +9156,30 @@ __llvm_entry:
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_COS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
-  %coscos = alloca double
-  %0 = alloca double
-  %cossin = alloca double
-  store double 0.000000e+00, double* %cossin, !vex-initializer-store !3
-  store double 0.000000e+00, double* %coscos, !vex-initializer-store !3
-  %_p1 = load <2 x double>, <2 x double>* %_p
-  %return = call double @"getcomp@FUI"(<2 x double> %_p1, i64 0)
-  store double %return, double* %0
-  call void @"sincos@FFF"(double* %0, double* %cossin, double* %coscos)
+  %w1 = load double, double* %w
   %_p2 = load <2 x double>, <2 x double>* %_p
-  %return3 = call double @"getcomp@FUI"(<2 x double> %_p2, i64 1)
-  %return4 = call double @"sinh@FF"(double %return3)
-  %return7 = call double @"cosh@FF"(double %return3)
-  %w8 = load double, double* %w
-  %coscos9 = load double, double* %coscos
-  %output = fmul double %w8, %coscos9
-  %output11 = fmul double %output, %return7
+  %return = call double @"getcomp@FUI"(<2 x double> %_p2, i64 0)
+  %return3 = call double @"cos@FF"(double %return)
+  %output = fmul double %w1, %return3
+  %return5 = call double @"getcomp@FUI"(<2 x double> %_p2, i64 1)
+  %return6 = call double @"cosh@FF"(double %return5)
+  %output7 = fmul double %output, %return6
   %tmp = load <2 x double>, <2 x double>* %p
-  %return12 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output11, i64 0)
-  %output14 = extractvalue { double, <2 x double> } %return12, 1
-  store <2 x double> %output14, <2 x double>* %p
-  %w15 = load double, double* %w
-  %cossin16 = load double, double* %cossin
-  %output17 = fmul double %w15, %cossin16
-  %output19 = fmul double %output17, %return4
-  %return21 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output14, double %output19, i64 1)
-  %output23 = extractvalue { double, <2 x double> } %return21, 1
-  store <2 x double> %output23, <2 x double>* %p
+  %return8 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output7, i64 0)
+  %output10 = extractvalue { double, <2 x double> } %return8, 1
+  store <2 x double> %output10, <2 x double>* %p
+  %w11 = load double, double* %w
+  %_p12 = load <2 x double>, <2 x double>* %_p
+  %return13 = call double @"getcomp@FUI"(<2 x double> %_p12, i64 0)
+  %return14 = call double @"sin@FF"(double %return13)
+  %output15 = fmul double %w11, %return14
+  %return17 = call double @"getcomp@FUI"(<2 x double> %_p12, i64 1)
+  %return18 = call double @"sinh@FF"(double %return17)
+  %output19 = fmul double %output15, %return18
+  %return20 = call double @"neg@FF"(double %output19)
+  %return22 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output10, double %return20, i64 1)
+  %output24 = extractvalue { double, <2 x double> } %return22, 1
+  store <2 x double> %output24, <2 x double>* %p
   ret void
 }
 
