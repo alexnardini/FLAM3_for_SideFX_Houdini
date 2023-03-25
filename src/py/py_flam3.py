@@ -1855,7 +1855,7 @@ VARS_FLAM3 = (  "linear",
                 "polynomial")
 
 
-# This is used as a faster idx lookup table, so the order here matter.
+# This is used as a faster idx lookup table.
 # Every variation's name in this list is the same name
 # as written by Apophysis or Fratorium inside the XML file during save.
 # From the XML's xforms, each variations look itself up inside here to get
