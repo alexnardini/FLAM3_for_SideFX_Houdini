@@ -1703,11 +1703,12 @@ MAX_FF_VARS_POST = 2
 
 # The following VARS_FLAM3(str..., ) represent all the variations we do have inside FLAM3 for Houdini.
 
-# It is only to be used as an idx lookup table. Every variation's name in this list
-# is the same name as written by Apophysis or Fratorium inside the XML file during save.
+# It is only to be used as an idx lookup table. so the ordr here matter.
+# Every variation's name in this list is the same name
+# as written by Apophysis or Fratorium inside the XML file during save.
 #
-# When you load a fractal flame, every variation name in the XML file
-# will look itself up inside this table, and if it find itself will be collected.
+# When you load a fractal flame, every variation name in the XML flame's xforms
+# will look itself up inside this table, and if it find itself will save its idx and will be processed.
 VARS_FLAM3 = (  "linear", 
                 "sinusoidal",
                 "spherical",
