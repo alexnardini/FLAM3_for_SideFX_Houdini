@@ -1703,7 +1703,7 @@ MAX_FF_VARS_POST = 2
 
 # The following VARS_FLAM3(str..., ) represent all the variations we do have inside FLAM3 for Houdini.
 
-# It is only to be used as an idx lookup table. so the ordr here matter.
+# It is only to be used as an idx lookup table. so the order here matter.
 # Every variation's name in this list is the same name
 # as written by Apophysis or Fratorium inside the XML file during save.
 #
