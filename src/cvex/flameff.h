@@ -30,10 +30,10 @@ vector2 FLAMEFF(const string prx; const int T; const vector2 pos, x, y, o; const
 
     //  p = out position
     // _p = incoming position
-    vector2 p, _p; _p=pos;
+    vector2 p, _p;
     // pre affine
-    _p = set( x[0]*_p[0] + y[0]*_p[1] + o[0],
-              x[1]*_p[0] + y[1]*_p[1] + o[1] );
+    _p = set( x[0]*pos[0] + y[0]*pos[1] + o[0],
+              x[1]*pos[0] + y[1]*pos[1] + o[1] );
     
     // VARs with precalc pos: 9, 10, 11, 19, 21, 30, 35
 
