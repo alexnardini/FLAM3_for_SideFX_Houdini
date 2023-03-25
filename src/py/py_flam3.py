@@ -1989,7 +1989,7 @@ class flam3_varsPRM_APO:
                 ("64 loonie", 0), 
                 ("65 pre blur", 0), 
                 ("66 modulus", ("modulus_x", "modulus_y"), 1), 
-                ("67 oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
+                ("67 oscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
                 ("68 polar2", 0), 
                 ("69 popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
                 ("70 scry", 0), 
@@ -1998,8 +1998,8 @@ class flam3_varsPRM_APO:
                 ("73 splits", ("splits_x", "splits_y"), 1), 
                 ("74 stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("75 wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
-                ("76 ******from Fractorium******wedge_julia", ("julia_power", "julia_angle", "julia_dist", "julia_count"), 1), 
-                ("77 ******from Fractorium******wedgesph", ("sph_swirl", "sph_angle", "sph_hole", "sph_count"), 1), 
+                ("76 ******from Fractorium******wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                ("77 ******from Fractorium******wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
                 ("78 whorl", ("whorl_inside", "whorl_outside"), 1), 
                 ("79 waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
                 ("80 ******cothe exp", 0), 
@@ -2028,8 +2028,8 @@ class flam3_varsPRM_APO:
 
     # EXCEPTIONS: so I dnt go into regex...
     # Update def prm_name_exceptions() if you add/find more
-    fractorium_96_var_prm_mobius = ("mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1),
-    fractorium_67_var_prm_oscope = ("oscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1), 
+    fractorium_96_var_prm_mobius = ("96 mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1),
+    fractorium_67_var_prm_oscope = ("67 oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1), 
 
 
 
