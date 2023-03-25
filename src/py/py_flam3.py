@@ -1745,6 +1745,8 @@ MAX_ITER_VARS_PRE = 2
 MAX_ITER_VARS_POST = 1
 MAX_FF_VARS_POST = 2
 
+XML_APP_NAME_FRACTORIUM = "EMBER-"
+
 
 
 # The following VARS_FLAM3(str..., ) represent all the variations we do have inside FLAM3 for Houdini.
@@ -2586,9 +2588,9 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
-    if v_type == 96 and "EMBER-" in app:
+    if v_type == 96 and app.startswith(XML_APP_NAME_FRACTORIUM):
         return flam3_varsPRM_APO.fractorium_96_var_prm_mobius[0]
-    elif v_type == 67 and "EMBER-" in app:
+    elif v_type == 67 and app.startswith(XML_APP_NAME_FRACTORIUM) is True:
         return flam3_varsPRM_APO.fractorium_67_var_prm_oscope[0]
     else:
         return apo_prm
