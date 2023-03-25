@@ -5408,29 +5408,28 @@ __llvm_entry:
   %2 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
-  %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
   %_p2 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p2, <2 x double>* %1
   %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
-  %output = fmul double %SQRT, %ATAN
+  %output = fmul double %SUMSQ, %ATAN
+  %w3 = load double, double* %w
+  %_p4 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p4, <2 x double>* %2
+  %SUMSQ5 = call double @"SUMSQ@FU"(<2 x double>* %2)
+  %output6 = fmul double %w3, %SUMSQ5
   %return = call double @"sin@FF"(double %output)
-  %return5 = call double @"cos@FF"(double %output)
-  %w6 = load double, double* %w
-  %_p7 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p7, <2 x double>* %2
-  %SQRT8 = call double @"SQRT@FU"(<2 x double>* %2)
-  %output9 = fmul double %w6, %SQRT8
-  %output11 = fmul double %output9, %return
-  %output14 = fmul double %output11, %return
+  %output9 = fmul double %output6, %return
   %tmp = load <2 x double>, <2 x double>* %p
-  %return15 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output14, i64 0)
-  %output17 = extractvalue { double, <2 x double> } %return15, 1
-  store <2 x double> %output17, <2 x double>* %p
-  %return19 = call double @"neg@FF"(double %output11)
-  %output21 = fmul double %return19, %return5
-  %return23 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output17, double %output21, i64 1)
-  %output25 = extractvalue { double, <2 x double> } %return23, 1
-  store <2 x double> %output25, <2 x double>* %p
+  %return10 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output9, i64 0)
+  %output12 = extractvalue { double, <2 x double> } %return10, 1
+  store <2 x double> %output12, <2 x double>* %p
+  %return14 = call double @"neg@FF"(double %output6)
+  %return16 = call double @"cos@FF"(double %output)
+  %output17 = fmul double %return14, %return16
+  %return19 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output12, double %output17, i64 1)
+  %output21 = extractvalue { double, <2 x double> } %return19, 1
+  store <2 x double> %output21, <2 x double>* %p
   ret void
 }
 
