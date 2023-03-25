@@ -96,13 +96,11 @@ void V_HANDKERCHIEF(vector2 p; const vector2 _p; const float w){
 }
 // 07
 void V_HEART(vector2 p; const vector2 _p; const float w){
-    float aa, ca, sa, rr;
-    aa = SQRT(_p) * ATAN(_p);
-    sa = sin(aa);
-    ca = cos(aa);
-    rr = w * SQRT(_p) * sa;
-    p[0] = rr * sa;
-    p[1] = (-rr) * ca;
+    float a, r;
+    a = SUMSQ(_p) * ATAN(_p);
+    r = w * SUMSQ(_p);
+    p[0] = r * sin(a);
+    p[1] = (-r) * cos(a);
 }
 // 08
 void V_DISC(vector2 p; const vector2 _p; const float w){
