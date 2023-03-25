@@ -1009,6 +1009,9 @@ def flam3_on_create(kwargs: dict) -> None:
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
     
+    # Clear up stats if there already ( due to be stored into a houdini preset also )
+    node.setParms({"flamestats_msg": ""})
+    
     # Set about tab infos
     flam3_about_msg(node)
     flam3_about_plugins_msg(node)
@@ -1524,6 +1527,7 @@ def flam3_default(self: hou.Node) -> None:
     # IN
     self.setParms({"apofilepath": ""})
     self.setParms({"apopresets": str(0)})
+    self.setParms({"flamestats_msg": ""})
     
     # iterators
     n = flam3_iterator_prm_names
@@ -3437,7 +3441,10 @@ def apo_to_flam3(self: hou.Node) -> None:
         self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
         
     else:
-        self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+        if os.path.isfile(xml) and os.path.getsize(xml)>0:
+            self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+        else:
+            self.setParms({"flamestats_msg": ""})
 
 
 
