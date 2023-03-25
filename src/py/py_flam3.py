@@ -1748,15 +1748,9 @@ MAX_FF_VARS_POST = 2
 XML_APP_NAME_FRACTORIUM = "EMBER-"
 
 
-
-# The following VARS_FLAM3(str..., ) represent all the variations we do have inside FLAM3 for Houdini.
-
-# It is only to be used as an idx lookup table. so the order here matter.
+# This is used to rebuild PRE and POST var names.
 # Every variation's name in this list is the same name
 # as written by Apophysis or Fratorium inside the XML file during save.
-#
-# When you load a fractal flame, every variation name in the XML flame's xforms
-# will look itself up inside this table, and if it find itself will save its idx and will be processed.
 VARS_FLAM3 = (  "linear", 
                 "sinusoidal",
                 "spherical",
@@ -1859,6 +1853,117 @@ VARS_FLAM3 = (  "linear",
                 "bwraps",
                 "hemisphere",
                 "polynomial")
+
+
+# This is used as a faster idx lookup table, so the order here matter.
+# Every variation's name in this list is the same name
+# as written by Apophysis or Fratorium inside the XML file during save.
+# From the XML's xforms, each variations look itself up inside here to get
+# the corresponding FLAM3 for houdini var idx it is mapped to.
+VARS_FLAM3_DICT = { "linear": 0, 
+                    "sinusoidal": 1,
+                    "spherical": 2,
+                    "swirl": 3,
+                    "horseshoe": 4,
+                    "polar": 5,
+                    "handkerchief": 6,
+                    "heart": 7,
+                    "disc": 8,
+                    "spiral": 9,
+                    "hyperbolic": 10,
+                    "diamond": 11,
+                    "ex": 12,
+                    "julia": 13,
+                    "bent": 14,
+                    "waves": 15,
+                    "fisheye": 16,
+                    "popcorn": 17,
+                    "exponential": 18,
+                    "power": 19,
+                    "cosine": 20,
+                    "rings": 21,
+                    "fan": 22,
+                    "bubble": 23,
+                    "cylinder": 24,
+                    "eyefish": 25,
+                    "blur": 26,
+                    "curl": 27,
+                    "ngon": 28,
+                    "pdj": 29,
+                    "blob": 30,
+                    "julian": 31,
+                    "juliascope": 32,
+                    "gaussian_blur": 33,
+                    "fan2": 34,
+                    "rings2": 35,
+                    "rectangles": 36,
+                    "radial_blur": 37,
+                    "pie": 38,
+                    "arch": 39,
+                    "tangent": 40,
+                    "square": 41,
+                    "rays": 42,
+                    "blade": 43,
+                    "secant2": 44,
+                    "twintrian": 45,
+                    "cross": 46,
+                    "disc2": 47,
+                    "super_shape": 48,
+                    "flower": 49,
+                    "conic": 50,
+                    "parabola": 51,
+                    "bent2": 52,
+                    "bipolar": 53,
+                    "boarders": 54,
+                    "butterfly": 55,
+                    "cell": 56,
+                    "cpow": 57,
+                    "edisc": 58,
+                    "elliptic": 59,
+                    "noise": 60,
+                    "escher": 61,
+                    "foci": 62,
+                    "lazysusan": 63,
+                    "loonie": 64,
+                    "pre_blur": 65,
+                    "modulus": 66,
+                    "oscilloscope": 67,
+                    "polar2": 68,
+                    "popcorn2": 69,
+                    "scry": 70,
+                    "separation": 71,
+                    "split": 72,
+                    "splits": 73,
+                    "stripes": 74,
+                    "wedge": 75,
+                    "wedge_julia": 76,
+                    "wedge_sph": 77,
+                    "whorl": 78,
+                    "waves2": 79,
+                    "exp": 80,
+                    "log": 81,
+                    "sin": 82,
+                    "cos": 83,
+                    "tan": 84,
+                    "sec": 85,
+                    "csc": 86,
+                    "cot": 87,
+                    "sinh": 88,
+                    "cosh": 89,
+                    "tanh": 90,
+                    "sech": 91,
+                    "csch": 92,
+                    "coth": 93,
+                    "auger": 94,
+                    "flux": 95,
+                    "mobius": 96,
+                    "curve": 97,
+                    "perspective": 98,
+                    "bwraps": 99,
+                    "hemisphere": 100,
+                    "polynomial": 101 }
+
+
 
 
 # This dictionary for a faster look up table, Fractorium has so many variations! ;)
@@ -2504,7 +2609,7 @@ def apo_get_idx_by_key(key: str) -> Union[int, None]:
     Returns:
         Union[int, None]: [return variation idx from the tuple look up table]
     """
-    try: idx = VARS_FLAM3.index(key)
+    try: idx = VARS_FLAM3_DICT.get(key)
     except: return None
     return idx
 
@@ -2597,6 +2702,11 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
 
 
+def var_name_from_dict(mydict: dict, idx: int):
+    return list(mydict.keys())[list(mydict.values()).index(idx)]
+
+
+
 def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
@@ -2632,7 +2742,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
                 var_prm_vals.append(float(0))
                 # If a prm name is not found inside the XML, let us know unless is included in the exception tuple.
                 if n not in XML_XF_PRM_EXCEPTION:
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{VARS_FLAM3[v_type]}\": parameter: \"{n}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{var_name_from_dict(VARS_FLAM3_DICT, v_type)}\": parameter: \"{n}\"")
             
         VAR.append(typemaker(var_prm_vals))
 
@@ -2686,7 +2796,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(VARS_FLAM3[v_type])}\": parameter: \"{make_PRE(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT, v_type))}\": parameter: \"{make_PRE(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2739,7 +2849,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_FLAM3[v_type])}\": parameter: \"{make_POST(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT, v_type))}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2790,7 +2900,7 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
                 var_prm_vals.append(float(0))
                 if "radial_blur_zoom" not in n:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(VARS_FLAM3[v_type])}\": parameter: \"{make_POST(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT, v_type))}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -3203,7 +3313,6 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
     build_stats_msg = "".join(build)
 
-
     return build_stats_msg
 
 
@@ -3262,5 +3371,4 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
-
 
