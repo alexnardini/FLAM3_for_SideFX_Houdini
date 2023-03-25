@@ -2388,13 +2388,13 @@ def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[s
 
 
 
-
+    
 def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
     if type(name) is str:
-        if re.search(REGEX_PRE, name) is None and re.search(REGEX_POST, name) is None:
+        if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
             return "pre_" + name
     elif type(name) is list or tuple:
-        return ["pre_" + x for x in name if re.search(REGEX_PRE, x) is None and re.search(REGEX_POST, x) is None]
+        return ["pre_" + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
     else:
         return None
 
@@ -2409,6 +2409,7 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
         return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
     else:
         return None
+
 
 
 
