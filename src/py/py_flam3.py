@@ -1,6 +1,6 @@
 from __future__ import division, annotations
 from platform import python_version
-from typing import Union
+from typing import Union, Callable
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
@@ -1681,13 +1681,17 @@ SYMMETRY = "symmetry"
 COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 
-# Dnt really need this anumore but just in case.
+# Dnt really need this anymore but just in case.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 
 ITER_ON_LOAD_DEFAULT = 64
 
+# REGEX_ALL = "(?s:.*?)"
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
+
+V_PRX_PRE = "pre_"
+V_PRX_POST = "post_"
 
 MAX_ITER_VARS = 4
 MAX_FF_VARS = 3
@@ -1809,426 +1813,32 @@ VARS_FLAM3 = (  "linear",
 
 
 
-# Those are all variations included in Fractorium. ( so many! )
-# They are used to find missing variations from the flame file
-# we are trying to load inside FLAM3 for Houdini.
-VARS_FRACTORIUM_ALL = ( "arch",
-                        "arcsech",
-                        "arcsech2",
-                        "arcsinh",
-                        "arctanh",
-                        "asteria",
-                        "auger",
-                        "barycentroid",
-                        "bcircle",
-                        "bcollide",
-                        "bent",
-                        "bent2",
-                        "bipolar",
-                        "bisplit",
-                        "blade",
-                        "blade3d",
-                        "blob",
-                        "blob2",
-                        "blob3d",
-                        "block",
-                        "blocky",
-                        "blur",
-                        "blur_circle",
-                        "blur_heart",
-                        "blur_linear",
-                        "blur_pixelize",
-                        "blur_square",
-                        "blur_zoom",
-                        "blur3d",
-                        "bmod",
-                        "boarders",
-                        "boarders2",
-                        "bswirl",
-                        "btransform",
-                        "bubble",
-                        "bubble2",
-                        "bubblet3d",
-                        "butterfly",
-                        "bwraps",
-                        "bwraps_rand",
-                        "cardioid",
-                        "cell",
-                        "checks",
-                        "circleblur",
-                        "circlecrop",
-                        "circlecrop2",
-                        "circlelinear",
-                        "circlerand",
-                        "circlesplit",
-                        "circletrans1",
-                        "circlize",
-                        "circlize2",
-                        "circus",
-                        "collideoscope",
-                        "concentric",
-                        "conic",
-                        "cos",
-                        "cos_wrap",
-                        "cosh",
-                        "coshq",
-                        "cosine",
-                        "cosq",
-                        "cot",
-                        "coth",
-                        "coth_spiral",
-                        "cothq",
-                        "cotq",
-                        "cpow",
-                        "cpow2",
-                        "cpow3",
-                        "crackle",
-                        "crackle2",
-                        "crescents",
-                        "crob",
-                        "crop",
-                        "cropn",
-                        "cross",
-                        "csc",
-                        "csch",
-                        "cschq",
-                        "cscq",
-                        "cubic3d",
-                        "cubic_lattice3d",
-                        "curl",
-                        "curl3d",
-                        "curl_sp",
-                        "curvature",
-                        "curve",
-                        "cylinder",
-                        "cylinder2",
-                        "delta_a",
-                        "depth",
-                        "depth_blur",
-                        "depth_blur2",
-                        "depth_gaussian",
-                        "depth_gaussian2",
-                        "depth_ngon",
-                        "depth_ngon2",
-                        "depth_sine",
-                        "depth_sine2",
-                        "diamond",
-                        "disc",
-                        "disc2",
-                        "disc3d",
-                        "dragonfire",
-                        "dust",
-                        "d_spherical",
-                        "eclipse",
-                        "ecollide",
-                        "edisc",
-                        "ejulia",
-                        "elliptic",
-                        "emod",
-                        "emotion",
-                        "ennepers",
-                        "epispiral",
-                        "epush",
-                        "erf",
-                        "erotate",
-                        "escale",
-                        "escher",
-                        "estiq",
-                        "eswirl",
-                        "ex",
-                        "excinis",
-                        "exp",
-                        "exp2",
-                        "expo",
-                        "exponential",
-                        "extrude",
-                        "eyefish",
-                        "falloff",
-                        "falloff2",
-                        "falloff3",
-                        "fan",
-                        "fan2",
-                        "farblur",
-                        "fdisc",
-                        "fibonacci",
-                        "fibonacci2",
-                        "fisheye",
-                        "flatten",
-                        "flip_circle",
-                        "flip_x",
-                        "flip_y",
-                        "flower",
-                        "flower_db",
-                        "flux",
-                        "foci",
-                        "foci3d",
-                        "foci_p",
-                        "fourth",
-                        "funnel",
-                        "gamma",
-                        "gaussian",
-                        "gaussian_blur",
-                        "gdoffs",
-                        "glynnia",
-                        "glynnia2",
-                        "glynnsim1",
-                        "glynnsim2",
-                        "glynnsim3",
-                        "glynnsim4",
-                        "glynnsim5",
-                        "gnarly",
-                        "gridout",
-                        "handkerchief",
-                        "heart",
-                        "heat",
-                        "helicoid",
-                        "helix",
-                        "hemisphere",
-                        "henon",
-                        "hexaplay3d",
-                        "hexcrop",
-                        "hexes",
-                        "hexnix3d",
-                        "hex_modulus",
-                        "hex_rand",
-                        "hex_truchet",
-                        "ho",
-                        "hole",
-                        "horseshoe",
-                        "hyperbolic",
-                        "hypercrop",
-                        "hypershift",
-                        "hypershift2",
-                        "hypertile",
-                        "hypertile1",
-                        "hypertile2",
-                        "hypertile3d",
-                        "hypertile3d1",
-                        "hypertile3d2",
-                        "idisc",
-                        "inkdrop",
-                        "interference2",
-                        "jac_cn",
-                        "jac_dn",
-                        "jac_sn",
-                        "julia",
-                        "julia3d",
-                        "julia3dq",
-                        "julia3dz",
-                        "juliac",
-                        "julian",
-                        "julian2",
-                        "julian3dx",
-                        "julianab",
-                        "juliaq",
-                        "juliascope",
-                        "kaleidoscope",
-                        "lazyjess",
-                        "lazysusan",
-                        "lazy_travis",
-                        "lens",
-                        "line",
-                        "linear",
-                        "linear_t",
-                        "linear_t3d",
-                        "linear_xz",
-                        "linear_yz",
-                        "linear3d",
-                        "lissajous",
-                        "log"	,
-                        "log_db",
-                        "loq"	,
-                        "loonie",
-                        "loonie2",
-                        "loonie3",
-                        "loonie3d",
-                        "lozi",
-                        "mask",
-                        "mcarpet",
-                        "mirror_x",
-                        "mirror_y",
-                        "mirror_z",
-                        "mobiq",
-                        "mobius",
-                        "mobius_strip",
-                        "mobiusn",
-                        "modulus",
-                        "modulusx",
-                        "modulusy",
-                        "murl",
-                        "murl2",
-                        "nblur",
-                        "ngon",
-                        "noise",
-                        "npolar",
-                        "octagon",
-                        "octapol",
-                        "ortho",
-                        "oscilloscope",
-                        "oscilloscope2",
-                        "ovoid",
-                        "ovoid3d",
-                        "panorama1",
-                        "panorama2",
-                        "parabola",
-                        "pdj",
-                        "perspective",
-                        "petal",
-                        "phoenix_julia",
-                        "pie",
-                        "pie3d",
-                        "pixel_flow",
-                        "poincare",
-                        "poincare2",
-                        "poincare3d",
-                        "point_symmetry",
-                        "polar",
-                        "polar2",
-                        "polynomial",
-                        "popcorn",
-                        "popcorn2",
-                        "popcorn23d",
-                        "pow_block",
-                        "power",
-                        "pressure_wave",
-                        "projective",
-                        "prose3d",
-                        "psphere",
-                        "pulse",
-                        "q_ode",
-                        "radial_blur",
-                        "radial_gaussian",
-                        "rand_cubes",
-                        "rational3",
-                        "rays",
-                        "rays1",
-                        "rays2",
-                        "rays3",
-                        "rblur",
-                        "rectangles",
-                        "rings",
-                        "rings2",
-                        "ripple",
-                        "rippled",
-                        "rotate",
-                        "rotate_x",
-                        "rotate_y",
-                        "rotate_z",
-                        "roundspher",
-                        "roundspher3d",
-                        "scry",
-                        "scry2",
-                        "scry3d",
-                        "sec",
-                        "secant2",
-                        "sech",
-                        "sechq",
-                        "secq",
-                        "separation",
-                        "shift",
-                        "shred_rad",
-                        "shred_lin",
-                        "sigmoid",
-                        "sin"	,
-                        "sineblur",
-                        "sinh",
-                        "sinhq",
-                        "sinq",
-                        "sintrange",
-                        "sinus_grid",
-                        "sinusoidal",
-                        "sinusoidal3d",
-                        "smartshape",
-                        "smartcrop",
-                        "spher",
-                        "sphereblur",
-                        "spherical",
-                        "spherical3d",
-                        "sphericaln",
-                        "spherivoid",
-                        "sphyp3d",
-                        "spiral",
-                        "spiral_wing",
-                        "spirograph",
-                        "split",
-                        "split_brdr",
-                        "splits",
-                        "splits3d",
-                        "square",
-                        "squares",
-                        "square3d",
-                        "squarize",
-                        "squirrel",
-                        "squish",
-                        "sschecks",
-                        "starblur",
-                        "starblur2",
-                        "stripes",
-                        "stwin",
-                        "super_shape",
-                        "super_shape3d",
-                        "svf"	,
-                        "swirl",
-                        "swirl3",
-                        "swirl3r",
-                        "synth",
-                        "tan",
-                        "tancos",
-                        "tangent",
-                        "tanh",
-                        "tanhq",
-                        "tanh_spiral",
-                        "tanq",
-                        "target",
-                        "target0",
-                        "target2",
-                        "taurus",
-                        "tile_hlp",
-                        "tile_log",
-                        "trade",
-                        "truchet",
-                        "truchet_fill",
-                        "truchet_hex_fill",
-                        "truchet_hex_crop",
-                        "truchet_glyph",
-                        "truchet_inv",
-                        "truchet_knot",
-                        "twintrian",
-                        "twoface",
-                        "unicorngaloshen",
-                        "unpolar",
-                        "vibration",
-                        "vibration2",
-                        "vignette",
-                        "voron",
-                        "w",
-                        "waffle",
-                        "waves",
-                        "waves2",
-                        "waves22",
-                        "waves23",
-                        "waves23d",
-                        "waves2b",
-                        "waves2_radial",
-                        "waves3",
-                        "waves4",
-                        "waves42",
-                        "wavesn",
-                        "wdisc",
-                        "wedge",
-                        "wedge_julia",
-                        "wedge_sph",
-                        "whorl",
-                        "x",
-                        "xerf",
-                        "xheart",
-                        "xtrb",
-                        "y",
-                        "z",
-                        "zblur",
-                        "zcone",
-                        "zscale",
-                        "ztranslate" )
+VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"),
+                        "b": ( "barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"),
+                        "c": ( "cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"),
+                        "d": ("delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"),
+                        "e": ("eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"),
+                        "f": ("falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"),
+                        "g": ("gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"),
+                        "h": ("handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"),
+                        "i": ("idisc", "inkdrop", "interference2"),
+                        "j": ("jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"), 
+                        "k": ("kaleidoscope", ),
+                        "l": ("lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"),
+                        "m": ("mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"),
+                        "n": ("nblur", "ngon", "noise", "npolar"),
+                        "o": ("octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"),
+                        "p": ("panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"),
+                        "q": ("q_ode", ),
+                        "r": ("radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"),
+                        "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
+                        "t": ("tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"),
+                        "u": ("unicorngaloshen", "unpolar"),
+                        "v": ("vibration", "vibration2", "vignette", "voron"),
+                        "w": ("w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"),
+                        "x": ("x", "xerf", "xheart", "xtrb"),
+                        "y": ("y", ),
+                        "z": ("z", "zblur", "zcone", "zscale","ztranslate") }
 
 
 
@@ -2758,21 +2368,24 @@ def menu_apo_presets(kwargs: dict) -> list:
 
 def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
     if type(name) is str:
-        if re.search(REGEX_PRE, name) is not None: 
+        if name.startswith(V_PRX_PRE):
             return re.sub(REGEX_PRE, '', name)
-        elif re.search(REGEX_POST, name) is not None:
+        elif name.startswith(V_PRX_POST):
             return re.sub(REGEX_POST, '', name)
         else:
             return None
     elif type(name) is list or tuple:
-        _names = [re.sub(REGEX_PRE, '', x) for x in name if re.search(REGEX_PRE, x) is not None]
+        _names = [re.sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
         if not _names:
-            _names = [re.sub(REGEX_POST, '', x) for x in name if re.search(REGEX_POST, x) is not None]
+            _names = [re.sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
         if not _names:
             return None
         else:
             return _names
-            
+    else:
+        return None
+
+
 
 
 def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
@@ -2785,19 +2398,28 @@ def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[s
         return None
 
 
-def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str], tuple[str]], None]:
+
+
+def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
     if type(name) is str:
-        if re.search(REGEX_PRE, name) is None and re.search(REGEX_POST, name) is None:
-            return "post_" + name
+        if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
+            return V_PRX_POST + name
     elif type(name) is list or tuple:
-        return ["post_" + x for x in name if re.search(REGEX_PRE, x) is None and re.search(REGEX_POST, x) is None]
+        return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
     else:
         return None
 
-    
 
 
-def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple]) -> Union[list[str], None]:
+
+def vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
+    return dict(zip(vars_dict.keys(), list(map(lambda x: func(x), vars_dict.values()))))
+
+
+
+
+# Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
+def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict]) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2805,12 +2427,33 @@ def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple]) -> Union[list[s
     Returns:
         Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
     """    
-        
+    if xforms is not None:
+        vars_keys = []
+        if type(vars) is dict:
+            for xf in xforms:
+                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+        else:
+            for xf in xforms:
+                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+            
+        return vars_keys
+    else:
+        return None
+
+
+# to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
+def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[str], None]:
+    """
+    Args:
+        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+
+    Returns:
+        Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
+    """    
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
-            
+            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x.split("_")[1][0]), filter(lambda x: x.startswith(prx), xf.keys())))))
         return vars_keys
     else:
         return None
@@ -3287,8 +2930,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
     vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3)
     vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3))
     vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3))
-    # vars_keys_pre = get_xforms_var_keys_PRE(xforms, VARS_FLAM3)
-    # vars_keys_post = get_xforms_var_keys_POST(xforms, VARS_FLAM3)
+
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
@@ -3513,9 +3155,10 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     # Build missing:
     #
     # Build all from fractorium list
-    vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_ALL)
-    vars_keys_from_fractorium_pre = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FRACTORIUM_ALL))
-    vars_keys_from_fractorium_post = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FRACTORIUM_ALL))
+    vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT)
+    vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_PRE), V_PRX_PRE)
+    vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_POST), V_PRX_POST)
+
     vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post
     flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
     result_fractorium = []
@@ -3549,6 +3192,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
 
 
     return build_stats_msg
+
+
 
 
 def flam3_about_msg(self):
@@ -3605,7 +3250,5 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
-
-
 
 
