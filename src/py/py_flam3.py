@@ -2023,12 +2023,9 @@ class flam3_varsPRM_APO:
     # typemaker(list[]) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     #
     # The (("variation_name") entrie, is not used here and only for reference, especially the initial index number.
-
-    # Marked with: ************ -> are missing from my current Apophysis package, need to find them. They are however present in Fractorium.
-    # Marked with: ******from Fractorium****** are parameter's names taken from Fractorium github repository.
     
     # Note:
-    # radial_blur's parameter "radial_blur_zoom" is not ued and always ZERO as everyone else only use "radiual_blur_angle".
+    # radial_blur's parameter "radial_blur_zoom" is not used and always ZERO as everyone else only use "radiual_blur_angle".
     
     varsPRM = ( ("00 linear", 0), 
                 ("01 sinusoidal", 0), 
@@ -2060,7 +2057,7 @@ class flam3_varsPRM_APO:
                 ("27 curl", ("curl_c1", "curl_c2"), 1), 
                 ("28 ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
                 ("29 pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("30 ******from Fractorium******blob", ("blob_low", "blob_high", "blob_waves"), 1), 
+                ("30 blob", ("blob_low", "blob_high", "blob_waves"), 1), 
                 ("31 juliaN", ("julian_power", "julian_dist"), 1), 
                 ("32 juliascope", ("juliascope_power", "juiascope_dist"), 1), 
                 ("33 gaussian_blur", 0), 
@@ -2077,11 +2074,11 @@ class flam3_varsPRM_APO:
                 ("44 secant2", 0), 
                 ("45 twintrian", 0), 
                 ("46 cross", 0), 
-                ("47 ******from Fractorium******disc2", ("disc2_rot", "disc2_twist"), 1), 
-                ("48 ******from Fractorium******supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
-                ("49 ******from Fractorium******flower", ("flower_petals", "flower_holes"), 1), 
-                ("50 ******from Fractorium******conic", ("conic_eccentricity", "conic_holes"), 1), 
-                ("51 ******from Fractorium******parabola", ("parabola_height", "parabola_width"), 1), 
+                ("47 disc2", ("disc2_rot", "disc2_twist"), 1), 
+                ("48 supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                ("49 flower", ("flower_petals", "flower_holes"), 1), 
+                ("50 conic", ("conic_eccentricity", "conic_holes"), 1), 
+                ("51 parabola", ("parabola_height", "parabola_width"), 1), 
                 ("52 bent2", ("bent2_x", "bent2_y"), 1), 
                 ("53 bipolar", ("bipolar_shift", ), 1),
                 ("54 boarders", 0),
@@ -2106,29 +2103,29 @@ class flam3_varsPRM_APO:
                 ("73 splits", ("splits_x", "splits_y"), 1), 
                 ("74 stripes", ("stripes_space", "stripes_warp"), 1), 
                 ("75 wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
-                ("76 ******from Fractorium******wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
-                ("77 ******from Fractorium******wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
+                ("76 wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                ("77 wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
                 ("78 whorl", ("whorl_inside", "whorl_outside"), 1), 
                 ("79 waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
-                ("80 ******cothe exp", 0), 
-                ("81 ******cothe log", 0), 
-                ("82 ******cothe sin", 0), 
-                ("83 ******cothe cos", 0), 
-                ("84 ******cothe tan", 0), 
-                ("85 ******cothe sec", 0), 
-                ("86 ******cothe csc", 0), 
-                ("87 ******cothe cot", 0), 
-                ("88 ******cothe sinh", 0), 
-                ("89 ******cothe cosh", 0), 
-                ("90 ******cothe tanh", 0), 
-                ("91 ******cothe sech", 0), 
-                ("92 ******cothe csch", 0), 
-                ("93 ******cothe coth", 0), 
+                ("80 exp", 0), 
+                ("81 log", 0), 
+                ("82 sin", 0), 
+                ("83 cos", 0), 
+                ("84 tan", 0), 
+                ("85 sec", 0), 
+                ("86 csc", 0), 
+                ("87 cot", 0), 
+                ("88 sinh", 0), 
+                ("89 cosh", 0), 
+                ("90 tanh", 0), 
+                ("91 sech", 0), 
+                ("92 csch", 0), 
+                ("93 coth", 0), 
                 ("94 auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
                 ("95 flux", ("flux_spread", ), 1), 
                 ("96 mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
                 ("97 curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                ("98 ******from Fractorium******persp", ("perspective_angle", "perspective_dist"), 1), 
+                ("98 persp", ("perspective_angle", "perspective_dist"), 1), 
                 ("99 bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("100 hemisphere", 0), 
                 ("101 polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
@@ -2547,6 +2544,11 @@ def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict]) -> Union[
         return None
 
 
+def removeprefix(self: str, prefix: str) -> str:
+    if self.startswith(prefix):
+        return self[len(prefix):]
+    else:
+        return self[:]
 # to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
 def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[str], None]:
     """
@@ -2559,7 +2561,7 @@ def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[st
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
-            vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x.split("_")[1][0]), filter(lambda x: x.startswith(prx), xf.keys())))))
+             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), xf.keys())))))
         return vars_keys
     else:
         return None
