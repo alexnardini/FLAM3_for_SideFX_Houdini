@@ -1887,7 +1887,7 @@ VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh
                         "z": ("z", "zblur", "zcone", "zscale","ztranslate") }
 
 def vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
-    return dict(zip(vars_dict.keys(), list(map(lambda x: func(x), vars_dict.values()))))
+    return dict(map(lambda item: (item[0], func(item[1])), VARS_FRACTORIUM_DICT.items()))
 VARS_FRACTORIUM_DICT_PRE  = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_PRE)
 VARS_FRACTORIUM_DICT_POST = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_POST)
 
@@ -3264,4 +3264,5 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
+
 
