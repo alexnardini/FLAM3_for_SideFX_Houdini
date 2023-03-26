@@ -1746,6 +1746,7 @@ MAX_ITER_VARS_POST = 1
 MAX_FF_VARS_POST = 2
 
 XML_APP_NAME_FRACTORIUM = "EMBER-"
+XML_APP_NAME_APO = "Apophysis"
 
 
 # This is used to rebuild PRE and POST var names.
