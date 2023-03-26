@@ -29,11 +29,15 @@
     but not Chaotica as it use different one.
     Check Fractorium github repository to see both code versions.
 
+    Need to revise the following at some points
+    and add both compatible with flam3 and not.
+    ...for a dot release in the future...
+    
     82 -> V_SIN()
     83 -> V_COS()
     84 -> V_TAN()
     85 -> V_SEC()
-    86 -> V_CSC()
+    86 -> V_CSC() NO FLAM3 compatibility
     87 -> V_COT()
     88 -> V_SINH()
     89 -> V_COSH()
@@ -65,8 +69,8 @@ void V_SPHERICAL(vector2 p; const vector2 _p; const float w){
 }
 // 03
 void V_SWIRL(vector2 p; const vector2 _p; const float w){
-    float rr = SUMSQ(_p);
-    float c1, c2, nx, ny;
+    float rr, c1, c2, nx, ny;
+    rr = SUMSQ(_p);
     c1 = sin(rr);
     c2 = cos(rr);
     nx = c1 * _p[0] - c2 * _p[1];
@@ -1047,6 +1051,8 @@ void V_CSC(vector2 p; const vector2 _p; const float w){
     p[0] = cscden * cscsin * csccosh;
     p[1] = cscden * csccos * cscsinh;
 
+    // FLAM3 compatibility version
+    //
     // float cscsin, csccos, cscsinh, csccosh, cscden;
     // sincos(p[0], cscsin, csccos);
     // cscsinh = sinh(_p[1]);
