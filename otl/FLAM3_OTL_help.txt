@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3
-#version: 0.9.3c
+#version: 0.9.5
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -81,7 +81,7 @@ RIP:
     
 loaddef:
     #id: SYS
-    [Largeicon:opdef:.?iconDefPresetVG.svg]
+    [Largeicon:opdef:.?iconDefPresetSVG.svg]
     
     Load/reset to default Sierpinsky Triangle preset.
 
@@ -417,8 +417,7 @@ on:
 Rotational:
     #id: prefs
     Symmetry type and mode. Only rotational is allowed at the moment.
-    
-
+      
     
     
 ~~~
@@ -457,6 +456,54 @@ viz mb:
         Remember to turn this OFF when rendering so to not overimpose a darker color.
         
 
+            
+~~~
+:box:
+    #display: inverted teal
+
+    *IN:* _Load *.flame file created with Apophysis, Fractorium and other._
+
+FLAME file:
+    #id: IN
+    Load *.flame files created with Apophysis, Fractorium and other applications able to save in a flame format*. 
+    Only restrictions are: the flames contained in the file must use the same variations included inside FLAM3 for Houdini 
+    A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
+    ( for a total of 8 vars per iterator ). 
+    For FF ( FinalXForm ) you have 3 vars plus 1 POST var available.
+    
+Reload:
+    #id: IN
+    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    
+    Click this white *F* icon to reload the selected preset.
+    This is useful when you are working with for example Fractorium
+    while importing the same flame file also in FLAM3 for houdini. You can edit the flame in Fractorium,
+    save it and click this to reload and see the changes in Houdini.
+    
+Presets:
+    #id: IN
+    Every *.flame file can contain multiple flames.
+    This presets will populate with as many entries as the number of flames included in the file you are loading.
+    Each entry will show the name of each flame.
+    
+Use iterations on Load:
+    #id: IN
+    When loading *.flame files, FLAM3 for Houdini will load them in
+    and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
+    However, sometime you just want to be quick and you can override the iterations set on load using this value.
+    
+Iterations on Load:
+    #id: IN
+    Set a number of iterations to use every time you load a flame from a *.flame file.
+    This will override the internally default value of 64 iterations.
+    
+    
+    
+        
+        
+        
+        
+        
     
 ~~~
 :box:
@@ -530,107 +577,109 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v0.9.3c for SideFX Houdini:_
+_A list of all variations included with FLAM3 v0.9.5 for SideFX Houdini:_
 
-*_linear, 
-sinusoidal, 
-spherical, 
-swirl, 
-horseshoe, 
-polar, 
-handkerchief, 
-heart, 
-disc, 
-spiral, 
-hiperbolic, 
-diamond, 
-ex, 
-julia, 
-bent, 
-waves, 
-fisheye, 
-popcorn, 
-exponential, 
-power, 
-cosine, 
-rings, 
-fan, 
-bubble, 
-cylinder, 
-eyefish, 
-blur, 
-curl, 
-ngon, 
-pdj, 
-blob, 
-juliaN, 
-juliaScope, 
-gaussian, 
-fan2, 
-rings2, 
-rectangles, 
-radialblur, 
-pie, 
+*
 arch, 
-tangent, 
-square, 
-rays, 
-blade, 
-secant2, 
-twintrian, 
-cross, 
-disc2, 
-supershape, 
-flower, 
-conic, 
-parabola, 
+auger, 
+bent, 
 bent2, 
 bipolar, 
+blade, 
+blob, 
+blur, 
 boarders, 
+bubble, 
 butterfly, 
+bwraps, 
 cell, 
+conic, 
+cos, 
+cosh, 
+cosine, 
+cot, 
+coth, 
 cpow, 
+cross, 
+csc, 
+csch, 
+curl, 
+curve, 
+cylinder, 
+diamond, 
+disc, 
+disc2, 
 edisc, 
 elliptic, 
-noise, 
 escher, 
+ex, 
+exp, 
+exponential, 
+eyefish, 
+fan, 
+fan2, 
+fisheye, 
+flower, 
+flux, 
 foci, 
+gaussian_blur, 
+handkerchief, 
+heart, 
+hemisphere, 
+horseshoe, 
+hyperbolic, 
+julia, 
+juliaN, 
+juliascope, 
 lazysusan, 
+linear, 
+log, 
 loonie, 
-pre blur, 
+mobius, 
 modulus, 
+ngon, 
+noise, 
 oscope, 
+parabola, 
+pdj, 
+perspective, 
+pie, 
+polar, 
 polar2, 
+polynomial, 
+popcorn, 
 popcorn2, 
+power, 
+pre blur, 
+radialblur, 
+rays, 
+rectangles, 
+rings, 
+rings2, 
 scry, 
+sec, 
+secant2, 
+sech, 
 separation, 
+sin, 
+sinh, 
+sinusoidal, 
+spherical, 
+spiral, 
 split, 
 splits, 
+square, 
 stripes, 
-wedge, 
-wedge julia, 
-wedge sph, 
-whorl, 
+supershape, 
+swirl, 
+tan, 
+tangent, 
+tanh, 
+twintrian, 
+waves, 
 waves2, 
-cothe exp, 
-cothe log, 
-cothe sin, 
-cothe cos, 
-cothe tan, 
-cothe sec, 
-cothe csc, 
-cothe cot, 
-cothe sinh, 
-cothe cosh, 
-cothe tanh, 
-cothe sech, 
-cothe csch, 
-cothe coth, 
-auger, 
-flux, 
-mobius, 
-curve, 
-perspective, 
-bwraps, 
-hemisphere, 
-polynomial._*
+wedge, 
+wedgejulia, 
+wedgesph, 
+whorl
+*
