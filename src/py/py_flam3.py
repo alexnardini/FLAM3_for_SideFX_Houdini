@@ -1858,8 +1858,7 @@ VARS_FLAM3 = (  "linear",
 
 
 # This is used as a faster idx lookup table.
-# Every variation's name in this list is the same name
-# as written by Apophysis or Fratorium inside the XML file during save.
+# Names must match the ones coming from: VARS_FLAM3 gloabal var ( just above here ;) )
 # From the XML's xforms, each variations look itself up inside here to get
 # the corresponding FLAM3 for houdini var idx it is mapped to.
 VARS_FLAM3_DICT_IDX = { "linear": 0, 
@@ -1966,11 +1965,9 @@ VARS_FLAM3_DICT_IDX = { "linear": 0,
                         "polynomial": 101 }
 
 
-
-
 # This dictionary for a faster look up table, Fractorium has so many variations!
-# We are mostly using this to check for missing variations coming from the loaded flame file
-# as Fractorium seem to have them all. ;)
+# We are using this to check for missing variations coming from the loaded flame file
+# as Fractorium seem to have them all ;) and it is the app I am now comparing against for this data.
 VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"),
                         "b": ( "barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"),
                         "c": ( "cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"),
@@ -3260,10 +3257,7 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_FF + vars_keys_POST_FF
     if pb_bool:
         vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
-    vars_keys_FF = []
-    if apo_data.finalxform is not None:
-        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3)
-        vars_all += vars_keys_FF
+
     flatten = [item for sublist in vars_all for item in sublist]
     result = []
     [result.append(x) for x in flatten if x not in result]
