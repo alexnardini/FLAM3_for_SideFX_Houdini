@@ -30,8 +30,13 @@ it is a one to one match with it.
 8 vars per iterator. ( 3 pre variations, 4 variations plus 1 post variation each iterator )
 
 Many Apophysis fractal Flames are available for download on the web
-and you can copy all values into FLAM3 for houdini to get the same results.
-**Downolad Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
+and you can load them inside FLAM3 for houdini to get the same results.
+Only restrictions are when loading or authoring flames with Apo or Fractorium:
+the flames must use the same variations included inside FLAM3 for Houdini.
+A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed.
+( for a total of 8 vars per iterator ). For FF ( FinalXForm ) you have 3 vars plus 2 POST vars available.
+**Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
+**Download Fractorium here**: [**Fractorium download**](http://fractorium.com/)
 
 ## Viewport live point cloud
 `Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
