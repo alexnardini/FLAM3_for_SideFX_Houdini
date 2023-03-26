@@ -1725,7 +1725,7 @@ OPACITY = "opacity"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
-# radial_blur_zoom is present into my implementation but not in Apo or Fractorium etc.
+# "radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
 # so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
 XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
 
@@ -2709,9 +2709,6 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
 def var_name_from_dict(mydict: dict, idx: int):
     return list(mydict.keys())[list(mydict.values()).index(idx)]
-
-
-
 def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
@@ -2799,7 +2796,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
                         break
             else:
                 var_prm_vals.append(float(0))
-                if "radial_blur_zoom" not in n:
+                if n not in XML_XF_PRM_EXCEPTION:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
             
@@ -2852,7 +2849,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
                         break
             else:
                 var_prm_vals.append(float(0))
-                if "radial_blur_zoom" not in n:
+                if n not in XML_XF_PRM_EXCEPTION:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
             
@@ -2903,7 +2900,7 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
                         break
             else:
                 var_prm_vals.append(float(0))
-                if "radial_blur_zoom" not in n:
+                if n not in XML_XF_PRM_EXCEPTION:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO and let us know.
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
             
@@ -3123,6 +3120,20 @@ def iter_on_load_callback(self):
 
 
 
+
+def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
+    splt = preset_name.split("::")
+    if len(splt) > 1:
+        try:
+            return int(splt[-1])
+        except:
+            return None
+    else:
+        return None
+
+
+
+
 def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
     iter_on_load = self.parm("iternumonload").eval()
     use_iter_on_load = self.parm("useiteronload").eval()
@@ -3139,15 +3150,6 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
             self.setParms({"iternumonload": ITER_ON_LOAD_DEFAULT})
     return iter_on_load    
 
-
-
-def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
-    splt = preset_name.split("::")
-    if len(splt) > 1:
-        try:
-            return int(splt[-1])
-        except:
-            return None
     
 
 
@@ -3361,11 +3363,8 @@ Fractorium :: (GPL v3)"""
     
 def flam3_about_plugins_msg(self):
     
-    vars_sorted = sorted(VARS_FLAM3, key=lambda var: var) 
+    vars_sorted = sorted(VARS_FLAM3) 
     n = 6
-    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-    vars = list(VARS_FLAM3)
-    vars_sorted = sorted(vars, key=lambda var: var)
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     _vars = []
     for grp in vars_sorted_grp:
