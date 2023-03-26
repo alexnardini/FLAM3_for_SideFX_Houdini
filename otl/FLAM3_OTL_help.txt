@@ -466,10 +466,10 @@ viz mb:
 FLAME file:
     #id: IN
     Load *.flame files created with Apophysis, Fractorium and other applications able to save in a flame format*. 
-    Only restrictions are: the flames contained in the file must use the same variations included inside FLAM3 for Houdini 
+    Only restrictions are: the flames contained in the file must use the same variations included inside FLAM3 for Houdini. 
     A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
     ( for a total of 8 vars per iterator ). 
-    For FF ( FinalXForm ) you have 3 vars plus 1 POST var available.
+    For FF ( FinalXForm ) you have 3 vars plus 2 POST var available.
     
 Reload:
     #id: IN
