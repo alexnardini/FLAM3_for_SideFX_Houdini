@@ -1749,119 +1749,10 @@ XML_APP_NAME_FRACTORIUM = "EMBER-"
 XML_APP_NAME_APO = "Apophysis"
 
 
-# This is used to rebuild PRE and POST var names.
-# Every variation's name in this list is the same name
-# as written by Apophysis or Fratorium inside the XML file during save.
-VARS_FLAM3 = (  "linear", 
-                "sinusoidal",
-                "spherical",
-                "swirl",
-                "horseshoe",
-                "polar",
-                "handkerchief",
-                "heart",
-                "disc",
-                "spiral",
-                "hyperbolic",
-                "diamond",
-                "ex",
-                "julia",
-                "bent",
-                "waves",
-                "fisheye",
-                "popcorn",
-                "exponential",
-                "power",
-                "cosine",
-                "rings",
-                "fan",
-                "bubble",
-                "cylinder",
-                "eyefish",
-                "blur",
-                "curl",
-                "ngon",
-                "pdj",
-                "blob",
-                "julian",
-                "juliascope",
-                "gaussian_blur",
-                "fan2",
-                "rings2",
-                "rectangles",
-                "radial_blur",
-                "pie",
-                "arch",
-                "tangent",
-                "square",
-                "rays",
-                "blade",
-                "secant2",
-                "twintrian",
-                "cross",
-                "disc2",
-                "super_shape",
-                "flower",
-                "conic",
-                "parabola",
-                "bent2",
-                "bipolar",
-                "boarders",
-                "butterfly",
-                "cell",
-                "cpow",
-                "edisc",
-                "elliptic",
-                "noise",
-                "escher",
-                "foci",
-                "lazysusan",
-                "loonie",
-                "pre_blur",
-                "modulus",
-                "oscilloscope",
-                "polar2",
-                "popcorn2",
-                "scry",
-                "separation",
-                "split",
-                "splits",
-                "stripes",
-                "wedge",
-                "wedge_julia",
-                "wedge_sph",
-                "whorl",
-                "waves2",
-                "exp",
-                "log",
-                "sin",
-                "cos",
-                "tan",
-                "sec",
-                "csc",
-                "cot",
-                "sinh",
-                "cosh",
-                "tanh",
-                "sech",
-                "csch",
-                "coth",
-                "auger",
-                "flux",
-                "mobius",
-                "curve",
-                "perspective",
-                "bwraps",
-                "hemisphere",
-                "polynomial")
-
-
-
-
 # This is used as a faster idx lookup table.
-# Names must match the ones coming from: VARS_FLAM3 gloabal var ( just above here ;) )
 # From the XML's xforms, each variations look itself up inside here to get
 # the corresponding FLAM3 for houdini var idx it is mapped to.
+# The key names matter and must match the variation's names as known by other apps ( in my case: Apophysis and Fratorium )
 VARS_FLAM3_DICT_IDX = { "linear": 0, 
                         "sinusoidal": 1,
                         "spherical": 2,
@@ -3039,9 +2930,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3)
-    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3))
-    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3))
+    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys())
+    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
+    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
 
 
     # Set variations ( iterator and FF )
@@ -3247,15 +3138,15 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
     var_used_heading = "Variations used:"
     
-    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3)
-    vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3))
-    vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3))
+    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys())
+    vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
+    vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
     # FF
     vars_keys_FF = []
     vars_keys_POST_FF = []
     if ff_bool:
-        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3)
-        vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3))
+        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys())
+        vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()))
         
     vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_FF + vars_keys_POST_FF
     if pb_bool:
@@ -3363,7 +3254,7 @@ Fractorium :: (GPL v3)"""
     
 def flam3_about_plugins_msg(self):
     
-    vars_sorted = sorted(VARS_FLAM3) 
+    vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
     n = 6
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     _vars = []
