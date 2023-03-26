@@ -2452,6 +2452,8 @@ def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[st
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
+            # Note the: vars.get(removeprefix(x, prx)[0]
+            # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
              vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), xf.keys())))))
         return vars_keys
     else:
