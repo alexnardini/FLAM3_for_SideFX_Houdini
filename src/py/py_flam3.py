@@ -56,7 +56,7 @@ RAMP_HSV_VAL_NAME = "hsv"
 class flam3_varsPRM:
 
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
-    
+    # Those names are what it will appear inside each variation's menu.
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
                 ("spherical", 0), 
