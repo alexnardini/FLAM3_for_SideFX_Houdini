@@ -25,27 +25,6 @@
 
 
 /*
-    The following variations match  Apophysis and Fractorium
-    but not Chaotica as it use different one.
-    Check Fractorium github repository to see both code versions.
-
-    Need to revise the following at some points
-    and add both compatible with flam3 and not.
-    ...for a dot release in the future...
-    
-    82 -> V_SIN()
-    83 -> V_COS()
-    84 -> V_TAN()
-    85 -> V_SEC()
-    86 -> V_CSC() NO FLAM3 compatibility
-    87 -> V_COT()
-    88 -> V_SINH()
-    89 -> V_COSH()
-    90 -> V_TANH()
-    91 -> V_SECH()
-    92 -> V_CSCH()
-    93 -> V_COTH()
-
     VARIATIONS
     p = out position
     _p = incoming position
@@ -94,9 +73,9 @@ void V_POLAR(vector2 p; const vector2 _p; const float w){
 }
 // 06
 void V_HANDKERCHIEF(vector2 p; const vector2 _p; const float w){
-    float aa = ATAN(_p);
-    p[0] = w * SQRT(_p) * sin(aa+SQRT(_p));
-    p[1] = w * SQRT(_p) * cos(aa-SQRT(_p));
+    float a = ATAN(_p);
+    p[0] = w * SQRT(_p) * sin(a+SQRT(_p));
+    p[1] = w * SQRT(_p) * cos(a-SQRT(_p));
 }
 // 07
 void V_HEART(vector2 p; const vector2 _p; const float w){
@@ -108,12 +87,12 @@ void V_HEART(vector2 p; const vector2 _p; const float w){
 }
 // 08
 void V_DISC(vector2 p; const vector2 _p; const float w){
-    float aa, rr, sr, cr;
-    aa = ATAN(_p) * (1.0/M_PI);
-    rr = M_PI * SQRT(_p);
-    sincos(rr, sr,cr);
-    p[0] = w * sr * aa;
-    p[1] = w * cr * aa;
+    float a, r, sr, cr;
+    a = ATAN(_p) * (1.0/M_PI);
+    r = M_PI * SQRT(_p);
+    sincos(r, sr,cr);
+    p[0] = w * sr * a;
+    p[1] = w * cr * a;
 }
 // 09 (precalc _p)
 void V_SPIRAL(vector2 p; const vector2 _p; const float w){
@@ -127,8 +106,8 @@ void V_SPIRAL(vector2 p; const vector2 _p; const float w){
 }
 // 10 (precalc _p)
 void V_HIPERBOLIC(vector2 p; const vector2 _p; const float w){
-    vector2 precalc = (vector2)_p / SQRT(_p);
-    float rr = SQRT(_p) + EPS;
+    vector2 precalc = _p / SQRT(_p);
+    float rr = Zeps(SQRT(_p));
     p[0] = w * precalc[0] / rr;
     p[1] = w * precalc[1] * rr;
 }
@@ -143,26 +122,26 @@ void V_DIAMOND(vector2 p; const vector2 _p; const float w){
 }
 // 12
 void V_EX(vector2 p; const vector2 _p; const float w){
-    float aa, rr, n0, n1, m0, m1;
-    aa = ATAN(_p);
-    rr = SQRT(_p);
-    n0 = sin(aa+rr);
-    n1 = cos(aa-rr);
-    m0 = n0*n0*n0*rr;
-    m1 = n1*n1*n1*rr;
+    float a, r, n0, n1, m0, m1;
+    a = ATAN(_p);
+    r = SQRT(_p);
+    n0 = sin(a+r);
+    n1 = cos(a-r);
+    m0 = n0*n0*n0*r;
+    m1 = n1*n1*n1*r;
     p[0] = w * (m0 + m1);
     p[1] = w * (m0 - m1);
 }
 // 13
 void V_JULIA(vector2 p; const vector2 _p; const float w){
-    float rr, aa, sa, ca;
-    aa = 0.5 * ATAN(_p);
+    float r, a, sa, ca;
+    a = 0.5 * ATAN(_p);
     if(nrandom('twister')<0.5)
-        aa += M_PI;
-    rr = w * sqrt(SQRT(_p));
-    sincos(aa, sa, ca);
-    p[0] = rr * ca;
-    p[1] = rr * sa;
+        a += M_PI;
+    r = w * sqrt(SQRT(_p));
+    sincos(a, sa, ca);
+    p[0] = r * ca;
+    p[1] = r * sa;
 }
 // 14
 void V_BENT(vector2 p; const vector2 _p; const float w){
@@ -176,15 +155,12 @@ void V_BENT(vector2 p; const vector2 _p; const float w){
 }
 // 15
 void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
-
-    // Precalc
-    float dx, dy, m_Dx2, m_Dy2;
+    float dx, dy, m_Dx2, m_Dy2, c10, c11, nx, ny;
     dx = c;
     dy = f;
     m_Dx2 = 1 / Zeps(dx * dx);
     m_Dy2 = 1 / Zeps(dy * dy);
-
-    float c10, c11, nx, ny;
+    
     c10 = b;
     c11 = e;
     nx = _p[0] + c10 * sin(_p[1] * m_Dx2);
@@ -194,10 +170,10 @@ void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
 }
 // 16
 void V_FISHEYE(vector2 p; const vector2 _p; const float w){
-    float rr = SQRT(_p);
-    rr = 2 * w / (rr+1);
-    p[0] = rr * _p[1];
-    p[1] = rr * _p[0];
+    float r = SQRT(_p);
+    r = 2 * w / (r+1);
+    p[0] = r * _p[1];
+    p[1] = r * _p[0];
 }
 // 17
 void V_POPCORN(vector2 p; const vector2 _p; const float w, d, h){
@@ -221,15 +197,15 @@ void V_EXPONENTIAL(vector2 p; const vector2 _p; const float w){
 // 19 (precalc _p)
 void V_POWER(vector2 p; const vector2 _p; const float w){
     vector2 precalc = (vector2)_p / SQRT(_p);
-    float rr = w * pow(SQRT(_p), precalc[0]);
-    p[0] = rr * precalc[1];
-    p[1] = rr * precalc[0];
+    float r = w * pow(SQRT(_p), precalc[0]);
+    p[0] = r * precalc[1];
+    p[1] = r * precalc[0];
 }
 // 20
 void V_COSINE(vector2 p; const vector2 _p; const float w){
-    float aa, sa, ca, nx, ny;
-    aa = _p[0] * M_PI;
-    sincos(aa, sa, ca);
+    float a, sa, ca, nx, ny;
+    a = _p[0] * M_PI;
+    sincos(a, sa, ca);
     nx = ca * cosh(_p[1]);
     ny = -sa * sinh(_p[1]);
     p[0] = w * nx;
@@ -247,22 +223,22 @@ void V_RINGS(vector2 p; const vector2 _p; const float w, d){
 }
 // 22
 void V_FAN(vector2 p; const vector2 _p; const float w, d){
-    float dx, dx2, dy, aa, rr, sa, ca;
+    float dx, dx2, dy, a, r, sa, ca;
     dx = M_PI * (d*d + EPS);
     dy = d;
     dx2 = 0.5 * dx;
-    aa = ATAN(_p);
-    rr = w * SQRT(_p);
-    aa += (fmod(aa+dy,dx) > dx2) ? -dx2 : dx2;
-    sincos(aa, sa, ca);
-    p[0] = rr * ca;
-    p[1] = rr * sa;
+    a = ATAN(_p);
+    r = w * SQRT(_p);
+    a += (fmod(a+dy,dx) > dx2) ? -dx2 : dx2;
+    sincos(a, sa, ca);
+    p[0] = r * ca;
+    p[1] = r * sa;
 }
 // 23
 void V_BUBBLE(vector2 p; const vector2 _p; const float w){
-    float rr = w / (0.25 * SUMSQ(_p) + 1);
-    p[0] = rr * _p[0];
-    p[1] = rr * _p[1];
+    float r = w / (0.25 * SUMSQ(_p) + 1);
+    p[0] = r * _p[0];
+    p[1] = r * _p[1];
 }
 // 24
 void V_CYLINDER(vector2 p; const vector2 _p; const float w){
@@ -271,23 +247,23 @@ void V_CYLINDER(vector2 p; const vector2 _p; const float w){
 }
 // 25
 void V_EYEFISH(vector2 p; const vector2 _p; const float w){
-    float rr =  (w * 2.0) / (1.0 + SQRT(_p));
-    p[0] =  rr*_p[0];
-    p[1] =  rr*_p[1];
+    float r =  (w * 2.0) / (1.0 + SQRT(_p));
+    p[0] =  r*_p[0];
+    p[1] =  r*_p[1];
 }
 // 26
 void V_BLUR(vector2 p; const float w){
-    float tmpr, sinr, cosr, rr;
+    float tmpr, sinr, cosr, r;
     tmpr = nrandom("twister") * 2 * M_PI;
     sincos(tmpr, sinr, cosr);
-    rr = w * nrandom("twister");
-    p[0] = rr * cosr;
-    p[1] = rr * sinr;
+    r = w * nrandom("twister");
+    p[0] = r * cosr;
+    p[1] = r * sinr;
 }
 // 27 ( parametric )
 void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
     // From APOPHYSIS
-    float re, im, rr;
+    float re, im, r;
     if(c1==0){
         if(c2==0){
             p[0] = w * _p[0];
@@ -296,25 +272,25 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
         else{
             re = 1.0 + c2*(sqrt(_p[0]) - sqrt(_p[1]));
             im = c2*2.0*_p[0]*_p[1];
-            rr = w / (re*re + im*im);
-            p[0] = (_p[0] * re + _p[1] * im) * rr;
-            p[1] = (_p[1] * re - _p[0] * im) * rr;
+            r = w / (re*re + im*im);
+            p[0] = (_p[0] * re + _p[1] * im) * r;
+            p[1] = (_p[1] * re - _p[0] * im) * r;
         }
     }
     else{
         if(c2==0){
             re = 1.0 + c1*_p[0];
             im = c1*_p[1];
-            rr = w / (re*re + im*im);
-            p[0] = (_p[0] * re + _p[1] * im) * rr;
-            p[1] = (_p[1] * re - _p[0] * im) * rr;
+            r = w / (re*re + im*im);
+            p[0] = (_p[0] * re + _p[1] * im) * r;
+            p[1] = (_p[1] * re - _p[0] * im) * r;
         }
         else{
             re = 1.0 + c1*_p[0] + c2*(sqrt(_p[0]) - sqrt(_p[1]));
             im = c1*_p[1] + c2*2.0*_p[0]*_p[1];
-            rr = w / (re*re + im*im);
-            p[0] = (_p[0]*re + _p[1]*im)*rr;
-            p[1] = (_p[1]*re - _p[0]*im)*rr;
+            r = w / (re*re + im*im);
+            p[0] = (_p[0]*re + _p[1]*im)*r;
+            p[1] = (_p[1]*re - _p[0]*im)*r;
         }
     }
 }
