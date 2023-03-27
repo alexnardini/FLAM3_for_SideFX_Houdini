@@ -1718,6 +1718,7 @@ COLOR = "color"
 SYMMETRY = "symmetry"
 COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
+XML_VALID_FLAMES_ROOT_TAG = "flames"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
@@ -2037,7 +2038,7 @@ class _xml_tree:
             self._tree = ET.parse(xmlfile)
             if isinstance(self._tree, ET.ElementTree):
                 root = self._tree.getroot()
-                if "flames" in root.tag:
+                if XML_VALID_FLAMES_ROOT_TAG in root.tag:
                     self._isvalidtree = True
                 else:
                     self._isvalidtree = False
