@@ -1083,15 +1083,12 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     
     if "apopresets" in prm_name:
         xml = node.parm('apofilepath').evalAsString()
-        if not isvalid_tree(xml):
+        if not apo_flame(xml).isvalidtree:
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
         else:
             prm.set('0')
             apo_to_flam3(node)
         
-
-
-
 
 
 
@@ -1117,7 +1114,6 @@ def menu_ramp_presets(kwargs: dict) -> list:
         return menu
     else:
         return menu
-
 
 
 
@@ -2036,14 +2032,21 @@ class _xml_tree:
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
-        #self._tree = None
+        self._tree = None
         self._isvalidtree = False
         try:
             self._tree = ET.parse(xmlfile)
-            self._isvalidtree = isinstance(self._tree, ET.ElementTree)
+            if isinstance(self._tree, ET.ElementTree):
+                root = self._tree.getroot()
+                if "flames" in root.tag:
+                    self._isvalidtree = True
+                else:
+                    self._isvalidtree = False
+            else:
+                self._isvalidtree = False
         except:
-            pass
-
+            self._isvalidtree = False
+            
     
     @property
     def xmlfile(self):
@@ -2397,7 +2400,7 @@ def menu_apo_presets(kwargs: dict) -> list:
 
     xml = kwargs['node'].parm('apofilepath').evalAsString()
     menu=[]
-    if isvalid_tree(xml):
+    if apo_flame(xml).isvalidtree:
         apo = apo_flame(xml)
         names = apo.name
         for i, item in enumerate(apo.name):
@@ -2457,24 +2460,6 @@ def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[st
         return vars_keys
     else:
         return None
-
-
-
-def isvalid_tree(xmlfile: str) -> bool:
-
-    try:
-        tree = ET.parse(xmlfile)
-        isvalidtree = isinstance(tree, ET.ElementTree)
-        if isvalidtree:
-            root = tree.getroot()
-            if "flames" in root.tag:
-                return True
-            else:
-                return False
-        return False
-    except:
-        return False
-
 
 
 
@@ -3049,7 +3034,7 @@ def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm('apofilepath').evalAsString()
 
-    if isvalid_tree(xml):
+    if apo_flame(xml).isvalidtree:
         
         preset_id = int(self.parm('apopresets').eval())
         iter_on_load = set_iter_on_load(self, preset_id)
