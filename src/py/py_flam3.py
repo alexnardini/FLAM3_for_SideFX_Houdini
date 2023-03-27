@@ -3103,18 +3103,18 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
             pb_bool = True
             break
     opacity_bool = False
+    post_bool = False
+    xaos_bool = False
+    ff_bool = False
+    ff_post_bool = False
     if min(apo_data.opacity) == 0.0:
         opacity_bool = True
-    post_bool = False
     if apo_data.post is not None:
         post_bool = True
-    xaos_bool = False
     if apo_data.xaos is not None:
         xaos_bool = True
-    ff_bool = False
     if apo_data.finalxform is not None:
         ff_bool = True
-    ff_post_bool = False
     if apo_data.finalxform_post is not None:
         ff_post_bool = True
         
