@@ -49,23 +49,17 @@ So be smart in your choices and pick your battles.
 
 ## Viewport live point cloud
 `Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
-
-![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch_H19.jpg)
-
-![FLAM3 Houdini viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
-
+![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch_H19.jpg)
+![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
 Houdini Karma interactive render on the left and Fractorium render of the same flame file on the right.
 Note that those flames in Houdini ahve been pre generated. Intercative karma render after generation is real fast.
-
-![Fractorium to Houdini 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
-
-![Fractorium to Houdini 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
-
-![Fractorium to Houdini 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
+![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
+![Fractorium to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
+![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
 
 
 ## References
