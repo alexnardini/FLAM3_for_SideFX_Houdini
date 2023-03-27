@@ -1524,6 +1524,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({"apofilepath": ""})
     self.setParms({"apopresets": str(0)})
     self.setParms({"flamestats_msg": ""})
+    self.setParms({"descriptive_msg": ""})
     
     # iterators
     n = flam3_iterator_prm_names
@@ -2577,7 +2578,7 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
     if v_type == 96 and app.startswith(XML_APP_NAME_FRACTORIUM):
         return flam3_varsPRM_APO.fractorium_96_var_prm_mobius[0]
-    elif v_type == 67 and app.startswith(XML_APP_NAME_FRACTORIUM) is True:
+    elif v_type == 67 and app.startswith(XML_APP_NAME_FRACTORIUM):
         return flam3_varsPRM_APO.fractorium_67_var_prm_oscope[0]
     else:
         return apo_prm
@@ -3074,70 +3075,98 @@ def apo_to_flam3(self: hou.Node) -> None:
         palette_hsv(self)
         
         #Updated flame stats 
-        self.setParms({"flamestats_msg": apo_load_stats_msg(preset_id, apo_data)})
+        self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
         
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+            # The following do not work, not sure why
+            self.setParms({"descriptive_msg": ""})
         else:
             self.setParms({"flamestats_msg": ""})
+            # The following do not work, not sure why
+            self.setParms({"descriptive_msg": ""})
 
 
 
 
-def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
+def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
+    # spacers
+    nl = "\n"
+    nnl = "\n\n"
+    
+    # checks
     pb_bool = False
     for item in apo_data.pre_blur:
         if item:
             pb_bool = True
             break
-    opacity_bool = "NO"
+    opacity_bool = False
     if min(apo_data.opacity) == 0.0:
-        opacity_bool = "YES"
-    post_bool = "NO"
+        opacity_bool = True
+    post_bool = False
     if apo_data.post is not None:
-        post_bool = "YES"
-    xaos_bool = "NO"
+        post_bool = True
+    xaos_bool = False
     if apo_data.xaos is not None:
-        xaos_bool = "YES"
+        xaos_bool = True
     ff_bool = False
     if apo_data.finalxform is not None:
         ff_bool = True
-    ff_post_bool = "NO"
+    ff_post_bool = False
     if apo_data.finalxform_post is not None:
-        ff_post_bool = "YES"
+        ff_post_bool = True
         
-    nl = "\n"
-    nnl = "\n\n"
+    # checks msgs
+    opacity_bool_msg = "NO"
+    post_bool_msg = "NO"
+    xaos_bool_msg = "NO"
+    ff_post_bool_msg = "NO"
+    if opacity_bool:
+        opacity_bool_msg = "YES"
+    if post_bool:
+        post_bool_msg = "YES"
+    if xaos_bool:
+        xaos_bool_msg = "YES"
+    if ff_post_bool:
+        ff_post_bool_msg = "YES"
+        
+    # build msgs
     sw = f"Software: {apo_data.apo_version[preset_id]}"
     name = f"NAME: {apo_data.name[preset_id]}"
     iter_count = f"iterators count: {str(len(apo_data.xforms))}"
-    post = f"post affine: {post_bool}"
-    opacity = f"opacity: {opacity_bool}"
-    xaos = f"xaos: {xaos_bool}"
+    post = f"post affine: {post_bool_msg}"
+    opacity = f"opacity: {opacity_bool_msg}"
+    xaos = f"xaos: {xaos_bool_msg}"
     ff_msg = ""
     if ff_bool:
-        ff_msg = f"FF: YES\nFF post affine: {ff_post_bool}"
+        ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
     else:
         ff_msg = f"FF: NO"
     palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
     var_used_heading = "Variations used:"
     
+    # get all vars used
     vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys())
+    # get all pre vars used
     vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
+    # get all post vars used
     vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
     # FF
     vars_keys_FF = []
     vars_keys_POST_FF = []
     if ff_bool:
+        # get allFF vars used
         vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys())
+        # get all FF post vars used
         vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()))
-        
     vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_FF + vars_keys_POST_FF
+    # add pre_blur is used
     if pb_bool:
         vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
-
+        
+    # flatten, sort and build vars used msg
     flatten = [item for sublist in vars_all for item in sublist]
     result = []
     [result.append(x) for x in flatten if x not in result]
@@ -3150,37 +3179,49 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
     vars_txt = "".join(vars)
     vars_used_msg = f"{var_used_heading}\n{vars_txt}"
     
+    # Build and set descriptive parameter msg
+    preset_name = self.parm('apopresets').menuLabels()[preset_id]
+    descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
+                        f"{preset_name}", )
+    self.setParms({"descriptive_msg": "".join(descriptive_prm)})
+
+    
+    
     # Build missing:
-    #
-    # Build all from fractorium list
+
+    # get all vars
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT)
+    # get all pre vars
     vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE)
+    # get all post vars
     vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
-    # FF
+    # get all FF vars
     vars_keys_from_fractorium_FF = []
     vars_keys_from_fractorium_post_FF = []
     if ff_bool:
+        # get all FF vars
         vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT)
+        # get all FF post vars
         vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
-    
+    # flatten and sort all vars
     vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF
     flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
     result_fractorium = []
     [result_fractorium.append(x) for x in flatten_fractorium if x not in result_fractorium]
     result_sorted_fractorium = sorted(result_fractorium, key=lambda var: var)
     
-    # Compare and keep only missing
+    # Compare and keep and build missing vars msg
     vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
     result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
     missing_vars = []
     for grp in result_grp_fractorium:
         missing_vars.append(", ".join(grp) + "\n")
     vars_missing = "".join(missing_vars)
-    
     vars_missing_msg = ""
     if vars_missing:
         vars_missing_msg = f"MISSING:\n{vars_missing}"
         
+    # build full stats msg
     build = ( sw, nnl,
               name, nl,
               palette_count_format, nnl,
@@ -3191,9 +3232,8 @@ def apo_load_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
               ff_msg, nnl,
               vars_used_msg, nl,
               vars_missing_msg )
-    
     build_stats_msg = "".join(build)
-
+    
     return build_stats_msg
 
 

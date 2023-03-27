@@ -26,8 +26,10 @@
 #include <genome.h>
 #include <variations.h>
 
-
-vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; const float w){
+// From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
+// The behavior of the cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations are different in flam3/Apophysis versus Chaotica.
+// Checked: use the Apophysis behavior. Unchecked: use the Chaotica behavior.
+vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, o; const float w){
 
     //  p = out position
     // _p = incoming position
@@ -429,53 +431,53 @@ vector2 FLAME(const gemPrm GMP; const int idx, T; const vector2 pos, x, y, o; co
                 return p; }
             // 82 COTHE SIN
             else if(T==82){
-                V_SIN(p, _p, w);
+                V_SIN(f3c, p, _p, w);
                 return p; }
             // 83 COTHE COS
             else if(T==83){
-                V_COS(p, _p, w);
+                V_COS(f3c, p, _p, w);
                 return p; }
             // 84 COTHE TAN
             else if(T==84){
-                V_TAN(p, _p, w);
+                V_TAN(f3c, p, _p, w);
                 return p; }
             // 85 COTHE SEC
             else if(T==85){
-                V_SEC(p, _p, w);
+                V_SEC(f3c, p, _p, w);
                 return p; }
         }
         else{
             // 86 COTHE CSC
             if(T==86){
-                V_CSC(p, _p, w);
+                V_CSC(f3c, p, _p, w);
                 return p; }
             // 87 COTHE COT
             else if(T==87){
-                V_COT(p, _p, w);
+                V_COT(f3c, p, _p, w);
                 return p; }
             // 88 COTHE SINH
             else if(T==88){
-                V_SINH(p, _p, w);
+                V_SINH(f3c, p, _p, w);
                 return p; }
             // 89 COTHE COSH
             else if(T==89){
-                V_COSH(p, _p, w);
+                V_COSH(f3c, p, _p, w);
                 return p; }
             // 90 COTHE TANH
             else if(T==90){
-                V_TANH(p, _p, w);
+                V_TANH(f3c, p, _p, w);
                 return p; }
             // 91 COTHE SECH
             else if(T==91){
-                V_SECH(p, _p, w);
+                V_SECH(f3c, p, _p, w);
                 return p; }
             // 92 COTHE CSCH
             else if(T==92){
-                V_CSCH(p, _p, w);
+                V_CSCH(f3c, p, _p, w);
                 return p; }
             // 93 COTHE COTH
             else if(T==93){
-                V_COTH(p, _p, w);
+                V_COTH(f3c, p, _p, w);
                 return p; }
             // 94 AUGER ( parametric )
             else if(T==94){

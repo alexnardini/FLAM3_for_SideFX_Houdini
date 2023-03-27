@@ -286,9 +286,7 @@ void V_BLUR(vector2 p; const float w){
 }
 // 27 ( parametric )
 void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
-
     // From APOPHYSIS
-
     float re, im, rr;
     if(c1==0){
         if(c2==0){
@@ -319,19 +317,6 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
             p[1] = (_p[1]*re - _p[0]*im)*rr;
         }
     }
-
-/*  // CURL From Fractorium
-
-    float re, im, r, zeps;
-    re = 1 + c1 * _p[0] + c2 * (SQRT(_p));
-    im = c1 * _p[1] + (2*c2) * _p[0]*_p[1];
-    zeps = SQRT(set(re, im));
-    if (zeps == 0) zeps = EPS;
-    r = w / zeps;
-    p[0] = (_p[0] * re + _p[1] * im) + r;
-    p[1] = (_p[1] * re - _p[0] * im) + r;
-*/
-
 }
 // 28 ( parametric )
 void V_NGON(vector2 p; const vector2 _p; const float w, pow, sides, corners, circle){
@@ -1004,131 +989,251 @@ void V_LOG(vector2 p; const vector2 _p; const float w){
     p[1] = w * ATANYX(_p);
 }
 // 82
-void V_SIN(vector2 p; const vector2 _p; const float w){
-    float sinsin, sinacos, sinsinh, sincosh;
-    sincos(_p[0], sinsin, sinacos);
-    sinsinh = sinh(_p[1]);
-    sincosh = cosh(_p[1]);
-    p[0] = w * sinsin * sincosh;
-    p[1] = w * sinacos * sinsinh;
+void V_SIN(const int f3c; vector2 p; const vector2 _p; const float w){
+    if(f3c){
+        p[0] = w * sin(_p[0]) * cosh(_p[1]);
+        p[1] = w * cos(_p[0]) * sinh(_p[1]);  
+    }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        p[0] = w * sin(x) * cosh(y);
+        p[1] = w * cos(x) * sinh(y);
+    }
+
+
+    // float sinsin, sinacos, sinsinh, sincosh;
+    // sincos(_p[0], sinsin, sinacos);
+    // sinsinh = sinh(_p[1]);
+    // sincosh = cosh(_p[1]);
+    // p[0] = w * sinsin * sincosh;
+    // p[1] = w * sinacos * sinsinh;
 }
 // 83
-void V_COS(vector2 p; const vector2 _p; const float w){
-    p[0] = w * cos(_p[0]) * cosh(_p[1]);
-    p[1] = -(w * sin(_p[0]) * sinh(_p[1]));
+void V_COS(const int f3c; vector2 p; const vector2 _p; const float w){
+    if(f3c){
+        p[0] = w * cos(_p[0]) * cosh(_p[1]);
+        p[1] = -(w * sin(_p[0]) * sinh(_p[1])); }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        p[0] = w * cos(x) * cosh(y);
+        p[1] = w * -sin(x) * sinh(y); }
 }
 // 84
-void V_TAN(vector2 p; const vector2 _p; const float w){
+void V_TAN(const int f3c; vector2 p; const vector2 _p; const float w){
     float tansin, tancos, tansinh, tancosh, tanden;
-    sincos(2*_p[0], tansin, tancos);
-    tansinh = sinh(2.0*_p[1]);
-    tancosh = cosh(2.0*_p[1]);
-    tanden = 1.0/(tancos + tancosh);
-    p[0] = w * tanden * tansinh;
-    p[1] = w * tanden * tancosh;
+    if(f3c){
+        sincos(2 * _p[0], tansin, tancos);
+        tansinh = sinh(2 * _p[1]);
+        tancosh = cosh(2 * _p[1]);
+        tanden = 1 / Zeps(tancos + tancosh);
+        p[0] = w * tanden * tansin;
+        p[1] = w * tanden * tansinh;}
+    else{
+        float x, y, den;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        den = w / Zeps(cos(x) + cosh(y));
+        p[0] = sin(x) * den;
+        p[1] = sinh(y) * den;}
 }
 // 85
-void V_SEC(vector2 p; const vector2 _p; const float w){
+void V_SEC(const int f3c; vector2 p; const vector2 _p; const float w){
     float secsin, seccos, secsinh, seccosh, secden;
-    sincos(_p[0], secsin, seccos);
-    secsinh = sinh(_p[1]);
-    seccosh = cosh(_p[1]);
-    secden = 2.0/(cos(2.0*_p[0]) + cosh(2.0*_p[1]));
-    p[0] = w * secden * seccos * seccosh;
-    p[1] = w * secden * secsin * secsinh;
+    if(f3c){
+        sincos(_p[0], secsin, seccos);
+        secsinh = sinh(_p[1]);
+        seccosh = cosh(_p[1]);
+        secden = 2.0/(cos(2.0*_p[0]) + cosh(2.0*_p[1]));
+        p[0] = w * secden * seccos * seccosh;
+        p[1] = w * secden * secsin * secsinh;}
+    else{
+        float x, y;
+        x = _p[0] * M_PI;
+        y = _p[1] * M_PI;
+        sincos(x, secsin, seccos);
+        secsinh = sinh(y);
+        seccosh = cosh(y);
+        secden = w * (2 / Zeps(cos(2 * x) + cosh(2 * y)));
+        p[0] = secden * seccos * seccosh;
+        p[1] = secden * secsin * secsinh;  
+    }
 }
 // 86 This somehow do not work as expected...
-void V_CSC(vector2 p; const vector2 _p; const float w){
-
-    float x = _p[0] * M_PI_2;
-    float y = _p[1] * M_PI_2;
-    float cscsin, csccos, cscsinh, csccosh, cscden, d;
-    sincos(x, cscsin, csccos);
-    cscsinh = sinh(y);
-    csccosh = cosh(y);
-    d = 1 + 2 * cscsinh * cscsinh - cos(2*x);
-    cscden = 2 * w / d;
-    p[0] = cscden * cscsin * csccosh;
-    p[1] = cscden * csccos * cscsinh;
-
-    // FLAM3 compatibility version
-    //
-    // float cscsin, csccos, cscsinh, csccosh, cscden;
-    // sincos(p[0], cscsin, csccos);
-    // cscsinh = sinh(_p[1]);
-    // csccosh = cosh(_p[1]);
-    // cscden = 2 / Zeps(cosh(2 * _p[1]) - cos(2 * _p[0]));
-    // p[0] = w * cscden * cscsin * csccosh;
-    // p[1] = -(w * cscden * csccos * cscsinh);
-
+void V_CSC(const int f3c; vector2 p; const vector2 _p; const float w){
+    float cscsin, csccos, cscsinh, csccosh, cscden;
+    if(f3c){
+        sincos(_p[0], cscsin, csccos);
+        cscsinh = sinh(_p[1]);
+        csccosh = cosh(_p[1]);
+        cscden = 2 / Zeps(cosh(2 * _p[1]) - cos(2 * _p[0]));
+        p[0] = w * cscden * cscsin * csccosh;
+        p[1] = -(w * cscden * csccos * cscsinh);
+    }
+    else{
+        float x, y, d;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        sincos(x, cscsin, csccos);
+        cscsinh = sinh(y);
+        csccosh = cosh(y);
+        d = 1 + 2 * cscsinh * cscsinh - cos(2 * x);
+        cscden = 2 * w / d;
+        p[0] = cscden * cscsin * csccosh;
+        p[1] = cscden * csccos * cscsinh;}
 }
 // 87
-void V_COT(vector2 p; const vector2 _p; const float w){
+void V_COT(const int f3c; vector2 p; const vector2 _p; const float w){
     float cotsin, cotcos, cotsinh, cotcosh, cotden;
-    sincos(2.0*_p[0], cotsin, cotcos);
-    cotsinh = sinh(2.0*_p[1]);
-    cotcosh = cosh(2.0*_p[1]);
-    cotden = 1.0/(cotcosh - cotcos);
-    p[0] = w * cotden * cotsin;
-    p[1] = w * cotden * -1 * cotsinh;
+    if(f3c){
+        sincos(2.0*_p[0], cotsin, cotcos);
+        cotsinh = sinh(2.0*_p[1]);
+        cotcosh = cosh(2.0*_p[1]);
+        cotden = 1.0/(cotcosh - cotcos);
+        p[0] = w * cotden * cotsin;
+        p[1] = w * cotden * -1 * cotsinh;}
+    else{
+        float x, y;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        sincos(x, cotsin, cotcos);
+        cotsinh = sinh(y);
+        cotcosh = cosh(y);
+        cotden = w / Zeps(cotcosh - cotcos);
+        p[0] = cotden * cotsin;
+        p[1] = cotden * cotsinh;
+    }
 }
 // 88
-void V_SINH(vector2 p; const vector2 _p; const float w){
+void V_SINH(const int f3c; vector2 p; const vector2 _p; const float w){
     float sinhsin, sinhcos, sinhsinh, sinhcosh;
-    sincos(_p[1], sinhsin, sinhcos);
-    sinhsinh = sinh(_p[0]);
-    sinhcosh = cosh(_p[0]);
-    p[0] = w * sinhsinh * sinhcos;
-    p[1] = w * sinhcosh * sinhsin;
+    if(f3c){
+        sincos(_p[1], sinhsin, sinhcos);
+        sinhsinh = sinh(_p[0]);
+        sinhcosh = cosh(_p[0]);
+        p[0] = w * sinhsinh * sinhcos;
+        p[1] = w * sinhcosh * sinhsin; }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_4;
+        y = _p[1] * M_PI_4;
+        sincos(y, sinhsin, sinhcos);
+        sinhsinh = sinh(x);
+        sinhcosh = cosh(x);
+        p[0] = w * sinhsinh * sinhcos;
+        p[1] = w * sinhcosh * sinhsin;
+    }
 }
 // 89
-void V_COSH(vector2 p; const vector2 _p; const float w){
+void V_COSH(const int f3c; vector2 p; const vector2 _p; const float w){
     float coshsin, coshcos, coshsinh, coshcosh;
-    sincos(_p[1], coshsin, coshcos);
-    coshsinh = sinh(_p[0]);
-    coshcosh = cosh(_p[0]);
-    p[0] = w * coshcosh * coshcos;
-    p[1] = w * coshsinh * coshsin;
+    if(f3c){
+        sincos(_p[1], coshsin, coshcos);
+        coshsinh = sinh(_p[0]);
+        coshcosh = cosh(_p[0]);
+        p[0] = w * coshcosh * coshcos;
+        p[1] = w * coshsinh * coshsin; }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        sincos(y, coshsin, coshcos);
+        coshsinh = sinh(x);
+        coshcosh = cosh(x);
+        p[0] = w * coshcosh * coshcos;
+        p[1] = w * coshsinh * coshsin;
+    }
 }
 // 90
-void V_TANH(vector2 p; const vector2 _p; const float w){
+void V_TANH(const int f3c; vector2 p; const vector2 _p; const float w){
     float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden;
-    sincos(2.0*_p[1], tanhsin, tanhcos);
-    tanhsinh = sinh(2 * _p[0]);
-    tanhcosh = cosh(2 * _p[0]);
-    tanhden = 1 / Zeps(tanhcos + tanhcosh);
-    p[0] = w * tanhden * tanhsinh;
-    p[1] = w * tanhden * tanhsin;
+    if(f3c){
+        sincos(2.0*_p[1], tanhsin, tanhcos);
+        tanhsinh = sinh(2 * _p[0]);
+        tanhcosh = cosh(2 * _p[0]);
+        tanhden = 1 / Zeps(tanhcos + tanhcosh);
+        p[0] = w * tanhden * tanhsinh;
+        p[1] = w * tanhden * tanhsin;}
+    else{
+        float x, y;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        sincos(y, tanhsin, tanhcos);
+        tanhsinh = sinh(x);
+        tanhcosh = cosh(x);
+        tanhden = w / Zeps(tanhcos + tanhcosh);
+        p[0] = tanhden * tanhsinh;
+        p[1] = tanhden * tanhsin;
+    }
 }
 // 91
-void V_SECH(vector2 p; const vector2 _p; const float w){
+void V_SECH(const int f3c; vector2 p; const vector2 _p; const float w){
     float sechsin, sechcos, sechsinh, sechcosh, sechden;
-    sincos(_p[1], sechsin, sechcos);
-    sechsinh = sinh(_p[0]);
-    sechcosh = cosh(_p[0]);
-    sechden = 2 / Zeps(cos(2 * _p[1]) + cosh(2 * _p[0]));
-    p[0] = w * sechden * sechcos * sechcosh;
-    p[1] = -(w * sechden * sechsin * sechsinh);
+    if(f3c){
+        sincos(_p[1], sechsin, sechcos);
+        sechsinh = sinh(_p[0]);
+        sechcosh = cosh(_p[0]);
+        sechden = 2 / Zeps(cos(2 * _p[1]) + cosh(2 * _p[0]));
+        p[0] = w * sechden * sechcos * sechcosh;
+        p[1] = -(w * sechden * sechsin * sechsinh); }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_4;
+        y = _p[1] * M_PI_4;
+        sincos(y, sechsin, sechcos);
+        sechsinh = sinh(x);
+        sechcosh = cosh(x);
+        sechden = w * (2 / Zeps(cos(y * 2) + cosh(x * 2)));
+        p[0] = sechden * sechcos * sechcosh;
+        p[1] = sechden * sechsin * sechsinh;
+    }
 }
 // 92
-void V_CSCH(vector2 p; const vector2 _p; const float w){
+void V_CSCH(const int f3c; vector2 p; const vector2 _p; const float w){
     float cschsin, cschcos, cschsinh, cschcosh, cschden;
-    sincos(_p[1], cschsin, cschcos);
-    cschsinh = sinh(_p[0]);
-    cschcosh = cosh(_p[0]);
-    cschden = 2 / Zeps(cosh(2*_p[0]) - cos(2*_p[1]));
-    p[0] = w * cschden * cschsinh * cschcos;
-    p[1] = -(w * cschden * cschcosh * cschsin);
+    if(f3c){
+        sincos(_p[1], cschsin, cschcos);
+        cschsinh = sinh(_p[0]);
+        cschcosh = cosh(_p[0]);
+        cschden = 2 / Zeps(cosh(2 * _p[0]) - cos(2 * _p[1]));
+        p[0] = w * cschden * cschsinh * cschcos;
+        p[1] = -(w * cschden * cschcosh * cschsin);
+    }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_4;
+        y = _p[1] * M_PI_4;
+        sincos(y, cschsin, cschcos);
+        cschsinh = sinh(x);
+        cschcosh = cosh(x);
+        cschden = w * (2 / Zeps(cosh(2 * x) - cos(2 * y)));
+        p[0] = cschden * cschsinh * cschcos;
+        p[1] = cschden * cschcosh * cschsin; }
 }
 // 93
-void V_COTH(vector2 p; const vector2 _p; const float w){
+void V_COTH(const int f3c; vector2 p; const vector2 _p; const float w){
     float cothsin, cothcos, cothsinh, cothcosh, cothden;
-    sincos(2.0*_p[1], cothsin, cothcos);
-    cothsinh = sinh(2.0*_p[0]);
-    cothcosh = cosh(2.0*_p[0]);
-    cothden = 1.0/(cothcosh - cothcos);
-    p[0] = w * cothden * cothsinh;
-    p[1] = w * cothden * cothsin;
+    if(f3c){
+        sincos(2.0*_p[1], cothsin, cothcos);
+        cothsinh = sinh(2.0*_p[0]);
+        cothcosh = cosh(2.0*_p[0]);
+        cothden = 1.0/Zeps(cothcosh - cothcos);
+        p[0] = w * cothden * cothsinh;
+        p[1] = w * cothden * cothsin; }
+    else{
+        float x, y;
+        x = _p[0] * M_PI_2;
+        y = _p[1] * M_PI_2;
+        sincos(y, cothsin, cothcos);
+        cothsinh = sinh(x);
+        cothcosh = cosh(x);
+        cothden = w / Zeps(cothcosh - cothcos);
+        p[0] = cothden * cothsinh;
+        p[1] = cothden * cothsin;
+    }
 }
 // 94 ( parametric )
 void V_AUGER(vector2 p; const vector2 _p; const float w, freq, scale, sym, ww){
