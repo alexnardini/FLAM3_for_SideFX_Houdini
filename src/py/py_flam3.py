@@ -2032,7 +2032,6 @@ class _xml_tree:
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
-        self._tree = None
         self._isvalidtree = False
         try:
             self._tree = ET.parse(xmlfile)
