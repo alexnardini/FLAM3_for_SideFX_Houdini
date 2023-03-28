@@ -977,14 +977,6 @@ void V_SIN(const int f3c; vector2 p; const vector2 _p; const float w){
         p[0] = w * sin(x) * cosh(y);
         p[1] = w * cos(x) * sinh(y);
     }
-
-
-    // float sinsin, sinacos, sinsinh, sincosh;
-    // sincos(_p[0], sinsin, sinacos);
-    // sinsinh = sinh(_p[1]);
-    // sincosh = cosh(_p[1]);
-    // p[0] = w * sinsin * sincosh;
-    // p[1] = w * sinacos * sinsinh;
 }
 // 83
 void V_COS(const int f3c; vector2 p; const vector2 _p; const float w){
@@ -1221,14 +1213,6 @@ void V_AUGER(vector2 p; const vector2 _p; const float w, freq, scale, sym, ww){
     dy = _p[1] + ww * (m_HalfScale + abs(_p[1]) * s);
     p[0] = w * (_p[0] + sym * (dx - _p[0]));
     p[1] = w * dy;
-
-
-    // ss = sin(freq * _p[0]);
-    // tt = sin(freq * _p[1]);
-    // dx = _p[0] + ww*(scale*ss/2.0 + abs(_p[1])*ss);
-    // dy = _p[1] + ww*(scale*tt/2.0 + abs(_p[0])*tt);
-    // p[0] = w * (_p[0] + sym*(dx*_p[0]));
-    // p[1] = w * dy;
 }
 // 95 ( parametric )
 void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
@@ -1387,11 +1371,6 @@ void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow,
     yp = pow(abs(w) * abs(_p[1]), pow[1]);
     p[0] = xp * sgn(_p[0]) + lc[0] * _p[0] + sc[0];
     p[1] = yp * sgn(_p[1]) + lc[1] * _p[1] + sc[1];
-
-    // T xp = std::pow(std::abs(m_Weight) * std::abs(helper.In.x), m_Powx);//Original did not fabs.
-    // T yp = std::pow(std::abs(m_Weight) * std::abs(helper.In.y), m_Powy);
-    // helper.Out.x = xp * VarFuncs<T>::Sign(helper.In.x) + m_Lcx * helper.In.x + m_Scx;
-    // helper.Out.y = yp * VarFuncs<T>::Sign(helper.In.y) + m_Lcy * helper.In.y + m_Scy;
 }
 
 #endif
