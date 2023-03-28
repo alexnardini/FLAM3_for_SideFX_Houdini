@@ -1721,7 +1721,7 @@ COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
 XML_VALID_FLAMES_ROOT_TAG = "flames"
 
-XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "flatten", "pre_blur", "coefs", "post", "chaos", "opacity")
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
 # radial_blur var->"radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
 # so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
