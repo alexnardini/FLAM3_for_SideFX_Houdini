@@ -31,17 +31,6 @@ Many Apophysis fractal Flames are available for download on the web
 and you can load them inside FLAM3 for Houdini,
 or you can use Apophysis or Fractorium for example, to author your flames and load them back into FALM3 for Houdini.
 
-Only restrictions when authoring flames with external apps are:
-the flames must use the same variations included inside FLAM3 for Houdini.
-A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed.
-( for a total of 8 vars per iterator ).
-Each itertor's variations share the same parametric parameters.
-This mean that if inside iterator 2 you add 3 Mobius, they will all share the same "im:abcd" and "re:abcd" parameters insde the VARS Tab.
-Maybe in one of the next Houdini release SideFX will make the instantiaton of the parameter inside a multi parameter group much faster
-so that we can add different one for each variation of the same type.
-For FF ( FinalXForm ) you have 3 vars plus 2 POST vars available.
-So be wise in your choices and pick your battles.
-
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
 **Download Fractorium here**: [**Fractorium download**](http://fractorium.com/)
