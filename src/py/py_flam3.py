@@ -2684,8 +2684,6 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
         node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
 
     # Only on pre variations with parametric so:
-    # idx set by hand for now: flam3_iterator.sec_prevarsT[1] ... because in here we have a non parametric as first"
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[2][0] ... because in here we have "pre_blur" and a non parametric as first"
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[t_idx+1][0]}{str(mp_idx+1)}": v_weight})
 
@@ -2738,7 +2736,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
 
     # Only on post variation with parametric so:
     # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}": v_weight})
     
@@ -2788,8 +2786,6 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
         node.setParms({f"{prx_ff_prm_post}{prm[0][0:-1]}": VAR[idx]})
 
     # Only on post variation with parametric so:
-    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[0]
     node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
     node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight})
 
@@ -2830,8 +2826,8 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     prx, prx_prm = flam3_prx_mode(mode)
 
     # Only pre variations with no parametric so:
-    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[1][0] ... because in here we have "pre_blur as first"
+    # idx set by hand for now: flam3_iterator.sec_prevarsT[t_idx]
+    # idx set by hand for now: flam3_iterator.sec_prevarsW[t_idx+1][0] ... because in here we have "pre_blur as first"
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[t_idx+1][0]}{str(mp_idx+1)}":v_weight})
         
