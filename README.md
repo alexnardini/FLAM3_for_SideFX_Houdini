@@ -28,10 +28,10 @@ From there to the final image it is left to the users ( aka points rendering ).
 **Highly inspired by Apophysis software and its workflow design**,
 
 Many Apophysis fractal Flames are available for download on the web
-and you can load them inside FLAM3 for houdini to get the same results.
-Or you can use Apophysis or Fractorium to author your flames and load them back into FALM3 for Houdini.
+and you can load them inside FLAM3 for Houdini,
+or you can use Apophysis or Fractorium for example, to author your flames and load them back into FALM3 for Houdini.
 
-Only restrictions when authoring flames with Apo or Fractorium are:
+Only restrictions when authoring flames with external apps are:
 the flames must use the same variations included inside FLAM3 for Houdini.
 A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed.
 ( for a total of 8 vars per iterator ).
@@ -56,7 +56,7 @@ So be smart in your choices and pick your battles.
 Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
 Houdini Karma interactive render on the left and Fractorium render of the same flame file on the right.
-Note that those flames in Houdini ahve been pre generated. Intercative karma render after generation is real fast.
+Note that those flames in Houdini have been pre generated. Intercative karma render after generation is real fast.
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
 ![Fractorium to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
 ![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
