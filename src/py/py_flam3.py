@@ -2939,7 +2939,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
                 
         if mode:
-            # FF POST vars in this iterator ( only the first two in "vars_keys_post[mp_idx]" will be kept )
+            # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
@@ -2953,8 +2953,6 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
         else:
             # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
             # For now the execution order will always be:
-            # -> First: non parametric.
-            # -> Second: parametric.
             if vars_keys_pre[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
