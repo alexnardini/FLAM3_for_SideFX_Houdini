@@ -65,11 +65,11 @@ Note that those flames in Houdini have been pre generated. Intercative karma ren
 ## References
 Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
-Reference B: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
+Reference B: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
 
-Reference C: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
+Reference C: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
 
-Reference D: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
+Reference D: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
 
 
 ## Example videos
