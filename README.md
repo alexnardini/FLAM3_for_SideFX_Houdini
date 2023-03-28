@@ -40,7 +40,7 @@ This mean that if inside iterator 2 you add 3 Mobius, they will all share the sa
 Maybe in one of the next Houdini release SideFX will make the instantiaton of the parameter inside a multi parameter group much faster
 so that we can add different one for each variation of the same type.
 For FF ( FinalXForm ) you have 3 vars plus 2 POST vars available.
-So be smart in your choices and pick your battles.
+So be wise in your choices and pick your battles.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
