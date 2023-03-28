@@ -53,6 +53,7 @@ So be wise in your choices and pick your battles.
 ![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
+## Load Flames files authored with Apophysis, Fractorium, etc.
 Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
 Houdini Karma interactive render on the left and Fractorium render of the same flame file on the right.
