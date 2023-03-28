@@ -1885,7 +1885,7 @@ VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh
                         "z": ("z", "zblur", "zcone", "zscale","ztranslate") }
 
 def vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
-    return dict(map(lambda item: (item[0], func(item[1])), VARS_FRACTORIUM_DICT.items()))
+    return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 VARS_FRACTORIUM_DICT_PRE  = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_PRE)
 VARS_FRACTORIUM_DICT_POST = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_POST)
 
