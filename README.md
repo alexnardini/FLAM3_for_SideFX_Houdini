@@ -27,9 +27,8 @@ From there to the final image it is left to the users ( aka points rendering ).
 
 **Highly inspired by Apophysis software and its workflow design**,
 
-Many Apophysis fractal Flames are available for download on the web
-and you can load them inside FLAM3 for Houdini,
-or you can use Apophysis or Fractorium for example, to author your flames and load them back into FALM3 for Houdini.
+Many Apophysis fractal Flames are available for download on the web and you can load them inside FLAM3 for Houdini,
+or you can use Apophysis or Fractorium for to author your flames fitst and load them back into FALM3 for Houdini.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
