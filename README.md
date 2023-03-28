@@ -31,7 +31,7 @@ Many Apophysis fractal Flames are available for download on the web
 and you can load them inside FLAM3 for houdini to get the same results.
 Or you can use Apophysis or Fractorium to author your flames and load them back into FALM3 for Houdini.
 
-Only restrictions are when authoring flames with Apo or Fractorium:
+Only restrictions when authoring flames with Apo or Fractorium are:
 the flames must use the same variations included inside FLAM3 for Houdini.
 A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed.
 ( for a total of 8 vars per iterator ).
