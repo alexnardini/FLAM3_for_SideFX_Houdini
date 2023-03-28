@@ -3270,7 +3270,7 @@ Fractorium :: (GPL v3)"""
              Houdini_license, nl,
              Platform, nl,
              PC_name, nl,
-             User, nnl)
+             User)
     
     build_about_msg = "".join(build)
     
