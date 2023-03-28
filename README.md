@@ -56,7 +56,7 @@ So be wise in your choices and pick your battles.
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
-Houdini Karma interactive rendering of the flame poi t cloud on the left and Fractorium with same flame file on the right.
+Houdini Karma interactive rendering the generated flame's point cloud on the left and Fractorium with the same flame file on the right.
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
 ![Fractorium to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
 ![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_00.jpg)
