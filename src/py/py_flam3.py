@@ -1508,7 +1508,7 @@ def flam3_default(self: hou.Node) -> None:
 
     # CP
     self.setParms({"filepath": ""})
-    self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
+    self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
     # CP->ramp
     ramp_parm = self.parm(RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
@@ -3071,7 +3071,7 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"doff": 0})
 
         # CP
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((0.0, 1.0, 1.0))})
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data

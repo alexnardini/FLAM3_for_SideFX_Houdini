@@ -22,7 +22,7 @@ __llvm_entry:
   %_bound_Alpha5 = load double, double* %_bound_Alpha
   %return7 = call <3 x double> @"chramp@VSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @3, i64 0, i64 0), double %_bound_clr4)
   %return9 = call double @"getcomp@FVI"(<3 x double> %return, i64 0)
-  %return10 = fcmp one double %return9, 0.000000e+00
+  %return10 = fcmp one double %return9, 1.000000e+00
   %return11 = zext i1 %return10 to i64
   %return13 = call double @"getcomp@FVI"(<3 x double> %return, i64 1)
   %return14 = fcmp one double %return13, 1.000000e+00
