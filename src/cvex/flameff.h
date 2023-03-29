@@ -194,7 +194,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
         }
     }
     else if(T<70){
-        if(T<50){
+        if(T<52){
             // 35 Rings2 ( parametric )
             if(T==35){
                 float rings2val = chf(concat(prx, "rings2val"));
@@ -264,10 +264,8 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 vector2 flower = chu(concat(prx, "flower"));
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
-        }
-        else{
             // 50 CONIC ( parametric )
-            if(T==50){
+            else if(T==50){
                 vector2 conic =  chu(concat(prx, "conic"));
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
@@ -276,8 +274,10 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 vector2 parabola = chu(concat(prx, "parabola"));
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
+        }
+        else{
             // 52 BENT2 ( parametric )
-            else if(T==52){
+            if(T==52){
                 vector2 bent2 = chu(concat(prx, "bent2xy"));
                 V_BENT2(p, _p, w, bent2);
                 return p; }
@@ -363,8 +363,8 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
         }
     }
-    else if(T<102){
-        if(T<86){
+    else if(T<103){
+        if(T<87){
             // 70 SCRY ( parametric )
             if(T==70){
                 V_SCRY(p, _p, w);
@@ -442,14 +442,14 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             else if(T==85){
                 V_SEC(f3c, p, _p, w);
                 return p; }
-        }
-        else{
             // 86 COTHE CSC
-            if(T==86){
+            else if(T==86){
                 V_CSC(f3c, p, _p, w);
                 return p; }
+        }
+        else{
             // 87 COTHE COT
-            else if(T==87){
+            if(T==87){
                 V_COT(f3c, p, _p, w);
                 return p; }
             // 88 COTHE SINH
@@ -522,6 +522,14 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 lc = chu(concat(prx, "polynomiallc"));
                 sc = chu(concat(prx, "polynomialsc"));
                 V_POLYNOMIAL(p, _p, w, pow, lc, sc);
+                return p; }
+            // 102 CROP ( parametric )
+            else if(T==102){
+                vector4 ltrb;
+                vector2 az;
+                ltrb = chp(concat(prx, "cropltrb"));
+                az = chu(concat(prx, "cropaz"));
+                V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
                 return p; }
         }
     }

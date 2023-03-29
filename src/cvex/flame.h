@@ -194,7 +194,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
         }
     }
     else if(T<70){
-        if(T<50){
+        if(T<52){
             // 35 Rings2 ( parametric )
             if(T==35){
                 float rings2val = GMP.rings2_val[idx];
@@ -265,10 +265,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 vector2 flower = GMP.flower[idx];
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
-        }
-        else{
             // 50 CONIC ( parametric )
-            if(T==50){
+            else if(T==50){
                 vector2 conic = GMP.conic[idx];
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
@@ -277,8 +275,10 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 vector2 parabola = GMP.parabola[idx];
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
+        }
+        else{
             // 52 BENT2 ( parametric )
-            else if(T==52){
+            if(T==52){
                 vector2 bent2 = GMP.bent2[idx];
                 V_BENT2(p, _p, w, bent2);
                 return p; }
@@ -364,8 +364,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
         }
     }
-    else if(T<102){
-        if(T<86){
+    else if(T<103){
+        if(T<87){
             // 70 SCRY ( parametric )
             if(T==70){
                 V_SCRY(p, _p, w);
@@ -445,14 +445,14 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
             else if(T==85){
                 V_SEC(f3c, p, _p, w);
                 return p; }
-        }
-        else{
             // 86 COTHE CSC
-            if(T==86){
+            else if(T==86){
                 V_CSC(f3c, p, _p, w);
                 return p; }
+        }
+        else{
             // 87 COTHE COT
-            else if(T==87){
+            if(T==87){
                 V_COT(f3c, p, _p, w);
                 return p; }
             // 88 COTHE SINH
@@ -527,6 +527,14 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 lc = GMP.polynomial_lc[idx];
                 sc = GMP.polynomial_sc[idx];
                 V_POLYNOMIAL(p, _p, w, pow, lc, sc);
+                return p; }
+            // 102 CROP ( parametric )
+            else if(T==102){
+                vector4 ltrb;
+                vector2 az;
+                ltrb = GMP.crop_ltrb[idx];
+                az = GMP.crop_az[idx];
+                V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
                 return p; }
         }
     }

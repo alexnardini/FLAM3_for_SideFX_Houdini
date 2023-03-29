@@ -158,7 +158,9 @@ class flam3_varsPRM:
                 (f"perspective{PRM}", ("persp_", 1), 1), 
                 (f"bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
                 ("hemisphere", 0), 
-                (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1) )
+                (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
+                (f"crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1)
+                )
 
 
     def vars_all(self) -> list:
@@ -393,7 +395,9 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         (self.varsPRM[98][0], (f"{self.prx}_{self.varsPRM[98][1][0][:-1]}", 1), 1), 
                         (self.varsPRM[99][0], (f"{self.prx}_{self.varsPRM[99][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[99][2][0][:-1]}", 1), 1), 
                         (self.varsPRM[100][0], 0), 
-                        (self.varsPRM[101][0], (f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1), 1) )
+                        (self.varsPRM[101][0], (f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1), 1),
+                        (self.varsPRM[102][0], (f"{self.prx}_{self.varsPRM[102][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[102][2][0][:-1]}", 1), 1) 
+                        )
         
         return varsPRM_FF
 
@@ -1852,7 +1856,9 @@ VARS_FLAM3_DICT_IDX = { "linear": 0,
                         "perspective": 98,
                         "bwraps": 99,
                         "hemisphere": 100,
-                        "polynomial": 101 }
+                        "polynomial": 101,
+                        "crop": 102
+                        }
 
 
 # This dictionary for a faster look up table, Fractorium has so many variations!
@@ -2017,7 +2023,9 @@ class flam3_varsPRM_APO:
                 ("98 persp", ("perspective_angle", "perspective_dist"), 1), 
                 ("99 bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("100 hemisphere", 0), 
-                ("101 polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1) )
+                ("101 polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
+                ("102 crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1)
+                )
 
 
     # EXCEPTIONS: so I dnt go into regex...

@@ -1372,5 +1372,47 @@ void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow,
     p[0] = xp * sgn(_p[0]) + lc[0] * _p[0] + sc[0];
     p[1] = yp * sgn(_p[1]) + lc[1] * _p[1] + sc[1];
 }
+// 102 ( parametric )
+// const float left, top, right, bottom, area, zero(int) )
+void V_CROP(vector2 p; const vector2 _p; const float w, m_X0, m_Y0, m_X1, m_Y1, m_S, m_Z;){
+    // crop precalc
+    float m_W, m_H, m_X0_, m_Y0_, m_X1_, m_Y1_;
+    if (m_X0 < m_X1){
+        m_X0_ = m_X0;
+        m_X1_ = m_X1; }
+    else{
+        m_X0_ = m_X1;
+        m_X1_ = m_X0; }
+    if (m_Y0 < m_Y1){
+        m_Y0_ = m_Y0;
+        m_Y1_ = m_Y1; }
+    else{
+        m_Y0_ = m_Y1;
+        m_Y1_ = m_Y0; }
+    m_W = (m_X1_ - m_X0_) * 0.5 * m_S;
+    m_H = (m_Y1_ - m_Y0_) * 0.5 * m_S;
+
+    // crop compute
+    float x, y;
+    x = _p[0];
+    y = _p[1];
+    if (((x < m_X0_) || (x > m_X1_) || (y < m_Y0_) || (y > m_Y1_)) && m_Z != 0){
+        x = 0;
+        y = 0;
+    }
+    else{
+        if (x < m_X0_)
+            x = m_X0_ + nrandom('twister') * m_W;
+        else if (x > m_X1_)
+            x = m_X1_ - nrandom('twister') * m_W;
+
+        if (y < m_Y0_)
+            y = m_Y0_ + nrandom('twister') * m_H;
+        else if (y > m_Y1_)
+            y = m_Y1_ - nrandom('twister') * m_H;
+    }
+    p[0] = w * x;
+    p[1] = w * y;
+}
 
 #endif
