@@ -3249,7 +3249,7 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
-    flam3_houdini_version = "Version: 0.9.5"
+    flam3_houdini_version = "Version: 0.9.5.1"
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
