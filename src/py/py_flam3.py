@@ -3253,7 +3253,7 @@ def flam3_about_msg(self):
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
-    code_copied = """Code references:
+    code_references = """Code references:
 flam3 :: (GPL v2)
 Apophysis :: (GPL)
 Fractorium :: (GPL v3)"""
@@ -3269,7 +3269,7 @@ Fractorium :: (GPL v3)"""
     example_flames = f"example Flames:\nC-91, Gabor Timar, Golubaja, Pillemaster,\nPlangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg"
     
     build = (Implementation_build, nnl,
-             code_copied, nnl,
+             code_references, nnl,
              example_flames, nnl,
              Houdini_version, nl,
              Houdini_license, nl,
