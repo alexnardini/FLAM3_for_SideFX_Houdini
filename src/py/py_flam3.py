@@ -1727,6 +1727,7 @@ XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed",
 # so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
 XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
 
+POINT_COUNT_LOAD_DEFAULT = 500000
 ITER_ON_LOAD_DEFAULT = 64
 
 # REGEX_ALL = "(?s:.*?)"
@@ -2274,7 +2275,6 @@ class apo_flame(_xml_tree):
             palette_hex = self._flame[idx].find(key).text
             palette_attrib = self._flame[idx].find(key).attrib
             count = int(palette_attrib.get(PALETTE_COUNT)) - 1
-            # optional
             format = dict(palette_attrib).get(PALETTE_FORMAT)
     
             HEX = []
@@ -2282,16 +2282,27 @@ class apo_flame(_xml_tree):
                 cleandoc = inspect.cleandoc(line)
                 if(len(cleandoc)>1):
                     [HEX.append(hex) for hex in wrap(cleandoc, 6)]
-    
-            RGB = []
+
+            RGB_FROM_XML_PALETTE = []
             for hex in HEX:
                 x = self.hex_to_rgb(hex)
-                RGB.append((x[0]/(count + 0.0), x[1]/(count + 0.0), x[2]/(count + 0.0)))
+                RGB_FROM_XML_PALETTE.append((x[0]/(count + 0.0), x[1]/(count + 0.0), x[2]/(count + 0.0)))
+            
+            # Not sure why I need to do the following
+            # but if not, the converted hex_to_rgb colors are a bit washed out.
+            # Probably due to Density estimation plus vibrancy the algorithm apply on the image.
+            hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
+            RGB_COMPENSTAED = []
+            for item in hsv:
+                h = item[0] + 0.9925
+                s = item[1] * 1.5
+                v = item[2] * 1.5
+                RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
     
             POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
             BASES = [hou.rampBasis.Linear] * (count + 1)
             
-            return hou.Ramp(BASES, POS, RGB), (count+1), str(format)
+            return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
         else:
             return None
 
@@ -3034,7 +3045,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         preset_id = int(self.parm('apopresets').eval())
         iter_on_load = set_iter_on_load(self, preset_id)
 
-        reset_SYS(self, 500000, iter_on_load, 0)
+        reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, iter_on_load, 0)
         reset_TM(self)
         reset_SM(self)
         reset_MB(self)
