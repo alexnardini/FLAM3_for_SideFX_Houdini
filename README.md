@@ -48,8 +48,11 @@ Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's 
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
 Houdini Karma interactive rendering the generated flame's point cloud on the left and Fractorium with the same flame file on the right.
 
+`Mountain by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
+`Bipolar by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
+`Flipped disk. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 
