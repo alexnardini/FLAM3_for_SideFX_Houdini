@@ -191,8 +191,8 @@ struct gemPrm{
                 
                 T=TYPE[i]; idx=sIDX[i];
                 if(T<27 || w[i]==0) continue;
-                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57, 61} , T )>=0){
-                    if(T<38){
+                else if(find( {27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 47, 48, 49, 50, 51, 52, 53, 56, 57, 61, 63} , T )>=0){
+                    if(T<39){
                         // 27 CURL
                         if(T==27){ curl_c[i] = chu(concat("../curlc_", idx)); continue; }
                         // 28 NGON
@@ -213,12 +213,12 @@ struct gemPrm{
                         else if(T==36){ rectangles[i] = chu(concat("../rectangles_", idx)); continue; }
                         // 37 RADIAL BLUR
                         else if(T==37){ radialblur[i] = chu(concat("../radialblur_", idx)); continue; }
+                        // 38 PIE
+                        else if(T==38){ pie[i] = chv(concat("../pie_", idx)); continue; }
                     }
                     else{
-                        // 38 PIE
-                        if(T==38){ pie[i] = chv(concat("../pie_", idx)); continue; }
                         // 47 DISC2 ( This seem to be the only one to benefit from the precalc: 18% faster. )
-                        else if(T==47){
+                        if(T==47){
                             disc2[i] = chu(concat("../disc2_", idx));
                             float rot=disc2[i][0]; float twist=disc2[i][1];
                             vector calc; precalc_V_DISC2(calc, rot, twist);
@@ -244,16 +244,16 @@ struct gemPrm{
                         else if(T==57){ cpow[i] = chv(concat("../cpow_", idx)); continue; }
                         // 61 ESCHER
                         else if(T==61){ escher_beta[i] = chf(concat("../escherbeta_", idx)); continue; }
-                    }
-                }
-                else if(find( {63, 66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101, 102, 103} , T )>=0){
-                    if(T<78){
                         // 63 LAZYSUSAN
-                        if(T==63){
+                        else if(T==63){
                             lazysusanxyz[i] = chu(concat("../lazysusanxyz_", idx));
                             lazysusan[i]    = chv(concat("../lazysusan_", idx)); continue; }
+                    }
+                }
+                else if(find( {66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101, 102, 103} , T )>=0){
+                    if(T<78){
                         // 66 MODULUS
-                        else if(T==66){ modulus[i] = chu(concat("../modulusXYZ_", idx)); continue; }
+                        if(T==66){ modulus[i] = chu(concat("../modulusXYZ_", idx)); continue; }
                         // 67 OSCOPE
                         else if(T==67){ oscope[i] = chp(concat("../oscope_", idx)); continue; }
                         // 69 POPCORN2
