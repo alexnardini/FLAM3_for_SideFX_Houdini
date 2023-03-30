@@ -1374,6 +1374,7 @@ void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow,
 }
 // 102 ( parametric )
 // const float left, top, right, bottom, area, zero(int) )
+// prm "zero" need to only be different from Zero to do its job ;)
 void V_CROP(vector2 p; const vector2 _p; const float w, m_X0, m_Y0, m_X1, m_Y1, m_S, m_Z;){
     // crop precalc
     float m_W, m_H, m_X0_, m_Y0_, m_X1_, m_Y1_;
