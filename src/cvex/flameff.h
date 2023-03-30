@@ -525,10 +525,8 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // 102 CROP ( parametric )
             else if(T==102){
-                vector4 ltrb;
-                vector2 az;
-                ltrb = chp(concat(prx, "cropltrb"));
-                az = chu(concat(prx, "cropaz"));
+                vector4 ltrb = chp(concat(prx, "cropltrb"));
+                vector2 az = chu(concat(prx, "cropaz"));
                 V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
                 return p; }
         }

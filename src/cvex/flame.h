@@ -530,10 +530,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 102 CROP ( parametric )
             else if(T==102){
-                vector4 ltrb;
-                vector2 az;
-                ltrb = GMP.crop_ltrb[idx];
-                az = GMP.crop_az[idx];
+                vector4 ltrb = GMP.crop_ltrb[idx];
+                vector2 az = GMP.crop_az[idx];
                 V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
                 return p; }
         }
