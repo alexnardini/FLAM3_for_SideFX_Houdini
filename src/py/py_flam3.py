@@ -1954,7 +1954,7 @@ class flam3_varsPRM_APO:
                 ("29 pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
                 ("30 blob", ("blob_low", "blob_high", "blob_waves"), 1), 
                 ("31 juliaN", ("julian_power", "julian_dist"), 1), 
-                ("32 juliascope", ("juliascope_power", "juiascope_dist"), 1), 
+                ("32 juliascope", ("juliascope_power", "juliascope_dist"), 1), 
                 ("33 gaussian_blur", 0), 
                 ("34 fan2", ("fan2_x", "fan2_y"), 1), 
                 ("35 rings2", ("rings2_val", ), 1), 
