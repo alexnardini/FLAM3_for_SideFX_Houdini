@@ -363,7 +363,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
         }
     }
-    else if(T<103){
+    else if(T<105){
         if(T<87){
             // 70 SCRY ( parametric )
             if(T==70){
@@ -528,6 +528,14 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 vector4 ltrb = chp(concat(prx, "cropltrb"));
                 vector2 az = chu(concat(prx, "cropaz"));
                 V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
+                return p; }
+            // 103 UNPOLAR
+            else if(T==103){
+                V_UNPOLAR(p, _p, w);
+                return p; }
+            // 104 GLYNNIA
+            else if(T==104){
+                V_GLYNNIA(p, _p, w);
                 return p; }
         }
     }

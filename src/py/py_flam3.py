@@ -159,7 +159,9 @@ class flam3_varsPRM:
                 (f"bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
                 ("hemisphere", 0), 
                 (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
-                (f"crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1)
+                (f"crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1),
+                ("unpolar", 0), 
+                ("glynnia", 0)
                 )
 
 
@@ -396,7 +398,9 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         (self.varsPRM[99][0], (f"{self.prx}_{self.varsPRM[99][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[99][2][0][:-1]}", 1), 1), 
                         (self.varsPRM[100][0], 0), 
                         (self.varsPRM[101][0], (f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1), 1),
-                        (self.varsPRM[102][0], (f"{self.prx}_{self.varsPRM[102][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[102][2][0][:-1]}", 1), 1) 
+                        (self.varsPRM[102][0], (f"{self.prx}_{self.varsPRM[102][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[102][2][0][:-1]}", 1), 1), 
+                        (self.varsPRM[103][0], 0),
+                        (self.varsPRM[104][0], 0)  
                         )
         
         return varsPRM_FF
@@ -1857,7 +1861,9 @@ VARS_FLAM3_DICT_IDX = { "linear": 0,
                         "bwraps": 99,
                         "hemisphere": 100,
                         "polynomial": 101,
-                        "crop": 102
+                        "crop": 102,
+                        "unpolar": 103,
+                        "glynnia": 104
                         }
 
 
@@ -2024,7 +2030,9 @@ class flam3_varsPRM_APO:
                 ("99 bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
                 ("100 hemisphere", 0), 
                 ("101 polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
-                ("102 crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1)
+                ("102 crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
+                ("103 unpolar", 0), 
+                ("104 glynnia", 0)  
                 )
 
 

@@ -1415,5 +1415,48 @@ void V_CROP(vector2 p; const vector2 _p; const float w, m_X0, m_Y0, m_X1, m_Y1, 
     p[0] = w * x;
     p[1] = w * y;
 }
+// 103
+void V_UNPOLAR(vector2 p; const vector2 _p; const float w){
+    float m_Vvar2, r, s, c;
+    // precalc
+    m_Vvar2 = (w / M_PI) * 0.5;
+    // unpolar compute
+    r = exp(_p[1]);
+    sincos(_p[0], s, c);
+    p[0] = m_Vvar2 * r * s;
+    p[1] = m_Vvar2 * r * c;
+}
+// 104
+void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
+    float d, r, m_V2;
+    // precalc
+    m_V2 = w * sqrt(2) / 2;
+    // glynnia compute
+    r = SQRT(_p);
+    if (r > 1){
+        if (nrandom('twister')>0.5){
+            d = sqrt(r + _p[0]);
+            p[0] = m_V2 * d;
+            p[1] = -(m_V2 / d * _p[1]); }
+        else{
+            d = r + _p[0];
+            r = w / sqrt(r * ((_p[1]*_p[1]) + (d*d)));
+            p[0] = r * d;
+            p[1] = r * _p[1]; } 
+        }
+    else{
+        if (nrandom('twister')>0.5){
+            d = Zeps(sqrt(r + _p[0]));
+            p[0] = -(m_V2 * d);
+            p[1] = -(m_V2 / d * _p[1]); }
+        else{
+            d = r + _p[0];
+            r = w / Zeps(sqrt(r * ((_p[1]*_p[1]) + (d*d))));
+            p[0] = -(r * d);
+            p[1] = r * _p[1]; } 
+        }
+
+
+}
 
 #endif

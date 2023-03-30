@@ -129,7 +129,10 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
                     "perspective",
                     "bwraps",
                     "hemisphere",
-                    "polynomial" };
+                    "polynomial",
+                    "crop",
+                    "unpolar",
+                    "glynnia" };
 
 
     // SYS
