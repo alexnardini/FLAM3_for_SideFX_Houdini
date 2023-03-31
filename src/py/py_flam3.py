@@ -1746,9 +1746,10 @@ V_PRX_PRE = "pre_"
 V_PRX_POST = "post_"
 
 MAX_ITER_VARS = 4
-MAX_FF_VARS = 3
 MAX_ITER_VARS_PRE = 2
 MAX_ITER_VARS_POST = 1
+MAX_FF_VARS = 3
+MAX_FF_VARS_PRE = 1
 MAX_FF_VARS_POST = 2
 
 XML_APP_NAME_FRACTORIUM = "EMBER-"
@@ -2056,7 +2057,7 @@ class _xml_tree:
             self._tree = ET.parse(xmlfile)
             if isinstance(self._tree, ET.ElementTree):
                 root = self._tree.getroot()
-                if XML_VALID_FLAMES_ROOT_TAG in root.tag:
+                if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                     self._isvalidtree = True
                 else:
                     self._isvalidtree = False
@@ -2272,7 +2273,15 @@ class apo_flame(_xml_tree):
                         else:
                             keyvalues.append(float(xform.get(key)))
                     else:
-                        keyvalues.append([])
+                        # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
+                        # seem not to include those keys if not used or left at default values.
+                        # We set them here so we can use them inside FLAM3 for Houdini on load.
+                        if key in OPACITY:
+                            keyvalues.append(float(1.0))
+                        elif key in SYMMETRY:
+                            keyvalues.append(float(0.5))
+                        else:
+                            keyvalues.append([])
                 return tuple(keyvalues)
         else:
             return None
@@ -2306,7 +2315,6 @@ class apo_flame(_xml_tree):
             
             # Not sure why I need to do the following
             # but if not, the converted hex_to_rgb colors are a bit washed out.
-            # Probably due to Density estimation plus vibrancy the algorithm apply on the image.
             hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
             RGB_COMPENSTAED = []
             for item in hsv:
@@ -2702,7 +2710,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
             else:
                 var_prm_vals.append(float(0))
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know in not inside XML_XF_PRM_EXCEPTION
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
@@ -2753,7 +2761,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
             else:
                 var_prm_vals.append(float(0))
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know in not inside XML_XF_PRM_EXCEPTION
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
@@ -2804,7 +2812,7 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
             else:
                 var_prm_vals.append(float(0))
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know in not inside XML_XF_PRM_EXCEPTION
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
@@ -2873,8 +2881,7 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     prx, prx_prm = flam3_prx_mode(mode)
 
     # Only post variation with no parametric so:
-    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
+    # idx set by hand for now as there is only one POST var in each iterator.
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
 
@@ -3004,7 +3011,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
             apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
             apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
             apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-            apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)        
+            apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
             apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
         
         # Affine ( PRE and POST) for iterator and FF
@@ -3312,3 +3319,9 @@ def flam3_about_plugins_msg(self):
     self.setParms({"flam3plugins_msg": vars_txt})
 
 
+
+xml = "C:/Users/alexn/Desktop/CJ_Starter_Flame_Pack_V.flame"
+xml2 = "C:/Users/alexn/Desktop/Apophysis_00.flame"
+
+apo = apo_flame_iter_data(xml, 0)
+print(apo.opacity)
