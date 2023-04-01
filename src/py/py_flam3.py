@@ -2277,9 +2277,9 @@ class apo_flame(_xml_tree):
                         # seem not to include those keys if not used or left at default values.
                         # We set them here so we can use them inside FLAM3 for Houdini on load.
                         if key in OPACITY:
-                            keyvalues.append(float(1.0))
+                            keyvalues.append(float(1))
                         elif key in SYMMETRY:
-                            keyvalues.append(float(0.5))
+                            keyvalues.append(float(0))
                         else:
                             keyvalues.append([])
                 return tuple(keyvalues)
