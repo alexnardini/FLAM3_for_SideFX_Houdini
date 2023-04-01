@@ -1736,7 +1736,7 @@ XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed",
 XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
 
 POINT_COUNT_LOAD_DEFAULT = 500000
-ITER_ON_LOAD_DEFAULT = 64
+ITER_LOAD_DEFAULT = 64
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PRE = "^(?:pre_)"
@@ -3052,8 +3052,7 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
         self.setParms({"useiteronload": 0})
     else:
         if not use_iter_on_load:
-            iter_on_load = ITER_ON_LOAD_DEFAULT
-            self.setParms({"iternumonload": ITER_ON_LOAD_DEFAULT})
+            self.setParms({"iternumonload": ITER_LOAD_DEFAULT})
     return iter_on_load    
 
     
@@ -3319,9 +3318,3 @@ def flam3_about_plugins_msg(self):
     self.setParms({"flam3plugins_msg": vars_txt})
 
 
-
-xml = "C:/Users/alexn/Desktop/CJ_Starter_Flame_Pack_V.flame"
-xml2 = "C:/Users/alexn/Desktop/Apophysis_00.flame"
-
-apo = apo_flame_iter_data(xml, 0)
-print(apo.opacity)
