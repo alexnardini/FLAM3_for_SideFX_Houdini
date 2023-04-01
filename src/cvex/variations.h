@@ -1455,8 +1455,6 @@ void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
             p[0] = -(r * d);
             p[1] = r * _p[1]; } 
         }
-
-
 }
 
 #endif
