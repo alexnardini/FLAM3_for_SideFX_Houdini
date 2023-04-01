@@ -511,10 +511,10 @@
       848A9983869382838F817F8B7F7E897E7C887C7B87767886
    </palette>
 </flame>
-<flame version="EMBER-WIN-22.21.4.2" time="14" name="Stained_Glass::64" size="1500 1000" center="0.294 0.294" scale="125.25" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="1.05" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="linear rectangles flatten" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="19" color="0.191073" var_color="1" color_speed="0.305951" symmetry="0.388098" name="" animate="0" linear="0.902328" rectangles="-1" rectangles_x="3.17316" rectangles_y="3.6852" coefs="0.464771 0.124535 -0.124535 0.464771 -3.31672 -2.04069" chaos="1 0.5 1 " opacity="1"/>
-   <xform weight="1" color="0.393628" var_color="1" color_speed="0.436637" symmetry="0.126726" name="" animate="0" flatten="1" coefs="1 0 0 1 0 0" chaos="1 1 0 " opacity="0"/>
-   <xform weight="2" color="0.471602" var_color="1" color_speed="0.305951" symmetry="0.388098" name="" animate="0" linear="0.747226" flatten="1" coefs="0.440629 0.118066 -0.118066 0.440629 0.348265 5.14921" opacity="1"/>
+<flame name="Stained Glass" version="Apophysis 2.08 beta 2" size="450 450" center="0.294 0.294" scale="74.25" oversample="2" filter="0.5" quality="1" background="0 0 0" brightness="30" gamma="1.05" >
+   <xform weight="19" color="0.191072556423023" symmetry="0.388097900431603" linear="0.902328" rectangles="-1" coefs="0.464771 0.124535 -0.124535 0.464771 -3.31672 -2.040694" rectangles_x="3.17316" rectangles_y="3.6852" chaos="1 0.5 " />
+   <xform weight="1" color="0.393628286896273" symmetry="0.126726508140564" gaussian_blur="2" coefs="1 0 0 1 0 0" chaos="1 1 0 " plotmode="off" />
+   <xform weight="2" color="0.471602384932339" symmetry="0.388097900431603" linear="0.747225692449138" coefs="0.440629 0.118066 -0.118066 0.440629 0.348265 5.149213" />
    <palette count="256" format="RGB">
       162E521C335522395B2C486D3F5374516077736F6C95796E
       A08371A9837696756E7D6E716C746964696360616377614C
