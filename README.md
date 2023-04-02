@@ -63,11 +63,11 @@ using a variety of app like Apophysis and Fractorium among the most popular.
 
 Please be sure to check out their gallery:
 
-[tatasz](https://www.deviantart.com/tatasz/gallery)
-[plangkye](https://www.deviantart.com/plangkye/gallery)
-[Pillemaster](https://www.deviantart.com/pillemaster/gallery)
-[Triptychaos](https://www.deviantart.com/triptychaos/gallery)
-[TyranWave](https://www.deviantart.com/tyrantwave/gallery)
+[tatasz](https://www.deviantart.com/tatasz/gallery), 
+[plangkye](https://www.deviantart.com/plangkye/gallery), 
+[Pillemaster](https://www.deviantart.com/pillemaster/gallery), 
+[Triptychaos](https://www.deviantart.com/triptychaos/gallery), 
+[TyranWave](https://www.deviantart.com/tyrantwave/gallery), 
 [Zy0rg](https://www.deviantart.com/zy0rg/gallery)
 
 
