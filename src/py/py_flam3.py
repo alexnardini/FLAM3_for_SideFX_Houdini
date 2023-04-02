@@ -32,6 +32,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 
 
 
+FLAM3HOUDINI_version = "v0.9.5.2"
 
 DPT = "*"
 PRM = "..."
@@ -3271,7 +3272,7 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
-    flam3_houdini_version = "Version: 0.9.5.2"
+    flam3_houdini_version = f"Version: {FLAM3HOUDINI_version}"
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
@@ -3288,7 +3289,10 @@ Fractorium :: (GPL v3)"""
     PC_name = f"Machine name: {hou.machineName()}"
     User = f"User: {hou.userName()}"
     
-    example_flames = f"example Flames:\nC-91, Gabor Timar, Golubaja, Pillemaster,\nPlangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg\nSeph, Lucy, b33rheart, Neonrauschen"
+    example_flames = """example Flames:
+    C-91, Gabor Timar, Golubaja, Pillemaster,
+    Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
+    Seph, Lucy, b33rheart, Neonrauschen"""
     
     build = (Implementation_build, nnl,
              code_references, nnl,
