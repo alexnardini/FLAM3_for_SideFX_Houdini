@@ -46,6 +46,8 @@ SEC_VARS = ".vars"
 SEC_POSTVARS = ".post_vars"
 SEC_PREAFFINE = ".pre_affine"
 SEC_POSTAFFINE = ".post_affine"
+
+# Parameters at hand
 RAMP_SRC_NAME = "palette"
 RAMP_HSV_NAME = "palettehsv"
 RAMP_HSV_VAL_NAME = "hsv"
