@@ -1026,6 +1026,8 @@ def flam3_on_create(kwargs: dict) -> None:
     # Set about tab infos
     flam3_about_msg(node)
     flam3_about_plugins_msg(node)
+    # reset flame load stats ( just in case )
+    node.setParms({"flamestats_msg": ""})
 
     # FLAM3 node and MultiParameter id for iterators
     #
