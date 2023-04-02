@@ -3290,9 +3290,9 @@ Fractorium :: (GPL v3)"""
     User = f"User: {hou.userName()}"
     
     example_flames = """example Flames:
-    C-91, Gabor Timar, Golubaja, Pillemaster,
-    Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
-    Seph, Lucy, b33rheart, Neonrauschen"""
+C-91, Gabor Timar, Golubaja, Pillemaster,
+Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
+Seph, Lucy, b33rheart, Neonrauschen"""
     
     build = (Implementation_build, nnl,
              code_references, nnl,
