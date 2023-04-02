@@ -4,7 +4,7 @@ from typing import Union, Callable
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
-import xml.etree.cElementTree as ET
+import xml.etree.ElementTree as ET
 import os, hou, re, json, colorsys, webbrowser, inspect
 
 
