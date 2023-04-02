@@ -56,6 +56,18 @@ Houdini Karma interactive rendering the generated flame's point cloud on the lef
 ![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 
+Some of the example flame files I'm using as a proof of correctness are created/authored by some incredible fractal artists,
+using a variety of app like Apophysis, Fractorium and Chaotica among the most popular.
+
+Please be sure to check out their gallery:
+
+[tatasz](https://www.deviantart.com/tatasz/gallery)
+[plangkye](https://www.deviantart.com/plangkye/gallery)
+[Pillemaster](https://www.deviantart.com/pillemaster/gallery)
+[Triptychaos](https://www.deviantart.com/triptychaos/gallery)
+[TyranWave](https://www.deviantart.com/tyrantwave/gallery)
+[Zy0rg](https://www.deviantart.com/zy0rg/gallery)
+
 
 ## References
 Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
