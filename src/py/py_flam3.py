@@ -2324,7 +2324,7 @@ class apo_flame(_xml_tree):
             RGB_COMPENSTAED = []
             for item in hsv:
                 h = item[0] + 1.0
-                s = item[1] * 1.35
+                s = item[1] * 1.4
                 v = item[2] * 1.5
                 RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
     
