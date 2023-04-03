@@ -22,13 +22,14 @@ fast, ready to use functions like **creating and sampling a cdf**, a very robust
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
 
-Python has been used to enhance The user experience and to add functionalities like:
+Python has been used to enhance the user experience and to add functionalities like:
 copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications and much more.
 
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
+With Houdini integrated Karma render you will be able to render the generated fractal flames in nearly real time.
 
-**Highly inspired by Apophysis software and its workflow design**,
+**Highly inspired by Apophysis software and its workflow design.**
 
 Many Apophysis fractal Flames are available for download on the web and you can load them inside FLAM3 for Houdini,
 or you can use Apophysis or Fractorium to author your flames fitst and load them back into FALM3 for Houdini.
