@@ -22,6 +22,9 @@ fast, ready to use functions like **creating and sampling a cdf**, a very robust
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
 
+Python has been used to enhance The user experience and to add functionalities like:
+copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications and much more.
+
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
 
