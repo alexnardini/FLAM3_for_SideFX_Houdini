@@ -27,7 +27,7 @@ copy/paste iterators data, load/save palette's libraries, load flame files autho
 
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
-With Houdini integrated Karma render you will be able to render the generated fractal flames in nearly real time.
+With Houdini integrated Karma renderer you will be able to render the generated fractal flames in nearly real time.
 
 **Highly inspired by Apophysis software and its workflow design.**
 
