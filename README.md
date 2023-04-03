@@ -58,7 +58,7 @@ Houdini Karma interactive rendering the generated flame's point cloud on the lef
 
 
 ## Example flame files.
-Some of the example flame files I'm using as a proof of correctness are created/authored by some incredible fractal artists 
+Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists 
 using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
 
 Please be sure to check out their gallery:
