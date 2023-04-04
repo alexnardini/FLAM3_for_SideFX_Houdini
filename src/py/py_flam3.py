@@ -3463,6 +3463,7 @@ palette = ET.SubElement(flame, 'palette')
 palette.tag = 'palette'
 palette.set('count', '256')
 palette.set('format', 'RGB')
+# Here goes the hex colors
 palette.text = """
       ciao come ashjahs??
       sdjjs kdjskas asksas?
