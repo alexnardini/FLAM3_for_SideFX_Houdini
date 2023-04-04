@@ -3386,7 +3386,7 @@ def flam3_about_plugins_msg(self):
 
 
 
-isOS = platform.system().upper()
+myOS = platform.system().upper()
 
 flame_name = 'user_input'
 # image resolution
@@ -3412,40 +3412,41 @@ flame_curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 
 flame_overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
 flame_red_curve=flame_green_curve=flame_blue_curve=flame_overall_curve
 
-flame_property = {'version': f'FLAM3HOUDINI-{isOS}-{FLAM3HOUDINI_version}',
-                  'name': flame_name,
-                  'size': flame_size,
-                  'center': flame_center,
-                  'scale': flame_scale,
-                  'rotate': '0',
-                  'supersample': '2',
-                  'filter': '0.5',
-                  'quality': flame_quality,
-                  'background': '0 0 0',
-                  'brightness': flame_brightness,
-                  'gamma': flame_gamma,
-                  'gamma_threshold': "0.0423093658828749",
-                  'vibrancy': flame_vibrancy,
-                  'highlight_power': flame_highlight_power,
-                  'estimator_radius': '9',
-                  'estimator_minimum': '0',
-                  'estimator_curve': '0.4',
-                  'palette_mode': "linear",
-                  'interpolation': "linear",
-                  'interpolation_type': "log",
-                  'curves': flame_curves,
-                  'overall_curve': flame_overall_curve,
-                  'red_curve': flame_red_curve,
-                  'green_curve': flame_green_curve,
-                  'blue_curve': flame_blue_curve
-                  }
+
+OUT_FLAME_PROPERTIES = {'version': f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
+                        'name': flame_name,
+                        'size': flame_size,
+                        'center': flame_center,
+                        'scale': flame_scale,
+                        'rotate': '0',
+                        'supersample': '2',
+                        'filter': '0.5',
+                        'quality': flame_quality,
+                        'background': '0 0 0',
+                        'brightness': flame_brightness,
+                        'gamma': flame_gamma,
+                        'gamma_threshold': "0.0423093658828749",
+                        'vibrancy': flame_vibrancy,
+                        'highlight_power': flame_highlight_power,
+                        'estimator_radius': '9',
+                        'estimator_minimum': '0',
+                        'estimator_curve': '0.4',
+                        'palette_mode': "linear",
+                        'interpolation': "linear",
+                        'interpolation_type': "log",
+                        'curves': flame_curves,
+                        'overall_curve': flame_overall_curve,
+                        'red_curve': flame_red_curve,
+                        'green_curve': flame_green_curve,
+                        'blue_curve': flame_blue_curve
+                        }
 
 # Create initial tree root
 root = ET.Element("flames")
 # Add a flame to the tree and set its properties
 flame = ET.SubElement(root, 'flame')
 flame.tag = 'flame'
-for k, v in flame_property.items():
+for k, v in OUT_FLAME_PROPERTIES.items():
     flame.set(k, v)
 # Add xforms to the flame
 iterators_count = 4
