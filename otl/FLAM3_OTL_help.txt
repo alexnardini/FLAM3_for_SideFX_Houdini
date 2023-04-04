@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3
-#version: 0.9.5
+#version: 0.9.5.2
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -400,6 +400,8 @@ JSON file:
     
 Save:
     #id: PALETTE
+    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    
     click to add a new palette to the selected json file (append) or create a new one (override).
     
 
@@ -463,7 +465,7 @@ viz mb:
 
     *IN:* _Load *.flame file created with Apophysis, Fractorium and other._
 
-FLAME file:
+FLAME file ( Load ):
     #id: IN
     Load *.flame files created with Apophysis, Fractorium and other applications able to save in a flame format*. 
     Only restrictions are: the flames contained in the file must use the same variations included inside FLAM3 for Houdini. 
@@ -514,6 +516,17 @@ Iterations on Load:
 display prefs:
     #id: prefs
     Display preferences.
+    
+:box:
+    #display: round white
+    
+    *general*
+    
+flam3 compatibility (f3c):
+    #id: prefs
+    The behavior of the *cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan* and *tanh* variations are different in flam3/Apophysis versus Chaotica.
+    * *Checked*: use the Apophysis behavior.
+    * *Unchecked*: use the Chaotica behavior.
     
 :box:
     #display: rounded white
@@ -577,7 +590,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v0.9.5 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v0.9.5.2 for SideFX Houdini:_
 
 *
 arch, 
@@ -624,6 +637,7 @@ flower,
 flux, 
 foci, 
 gaussian_blur, 
+glynnia, 
 handkerchief, 
 heart, 
 hemisphere, 
@@ -677,6 +691,7 @@ tan,
 tangent, 
 tanh, 
 twintrian, 
+unpolar, 
 waves, 
 waves2, 
 wedge, 
