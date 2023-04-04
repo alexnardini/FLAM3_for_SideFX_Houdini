@@ -4,6 +4,8 @@ from typing import Union, Callable
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
+from xml.dom import minidom
+import platform
 import xml.etree.ElementTree as ET
 import os, hou, re, json, colorsys, webbrowser, inspect
 
@@ -32,7 +34,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 
 
 
-FLAM3HOUDINI_version = "v0.9.5.2"
+FLAM3HOUDINI_version = "0.9.5.2"
 
 DPT = "*"
 PRM = "..."
@@ -1469,6 +1471,24 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
 def reset_TM(self) -> None:
     self.setParms({"dotm": 0})
     self.setParms({"tmrt": 0})
+    
+    
+def reset_CP(self, mode=0) -> None:
+    # CP
+    self.setParms({"filepath": ""})
+    self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+    # CP->ramp
+    ramp_parm = self.parm(RAMP_SRC_NAME)
+    ramp_parm.deleteAllKeyframes()
+    color_bases = [hou.rampBasis.Linear] * 3
+    color_keys = [0.0, 0.5, 1.0]
+    color_values = [(1,0,0), (0,1,0), (0,0,1)]
+    if mode:
+        color_values = [(0,1,0), (0,1,1), (1,0,1)]
+    ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+    # Update ramp py 
+    palette_cp(self)
+    palette_hsv(self)
         
 
 def reset_SM(self) -> None:
@@ -1518,20 +1538,21 @@ def flam3_default(self: hou.Node) -> None:
     reset_SM(self)
     reset_MB(self)
     reset_PREFS(self)
+    reset_CP(self)
 
-    # CP
-    self.setParms({"filepath": ""})
-    self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-    # CP->ramp
-    ramp_parm = self.parm(RAMP_SRC_NAME)
-    ramp_parm.deleteAllKeyframes()
-    color_bases = [hou.rampBasis.Linear] * 3
-    color_keys = [0.0, 0.5, 1.0]
-    color_values = [(1,0,0), (0,1,0), (0,0,1)]
-    ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-    # Update ramp py 
-    palette_cp(self)
-    palette_hsv(self)
+    # # CP
+    # self.setParms({"filepath": ""})
+    # self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+    # # CP->ramp
+    # ramp_parm = self.parm(RAMP_SRC_NAME)
+    # ramp_parm.deleteAllKeyframes()
+    # color_bases = [hou.rampBasis.Linear] * 3
+    # color_keys = [0.0, 0.5, 1.0]
+    # color_values = [(1,0,0), (0,1,0), (0,0,1)]
+    # ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+    # # Update ramp py 
+    # palette_cp(self)
+    # palette_hsv(self)
     
     # IN
     self.setParms({"apofilepath": ""})
@@ -1732,6 +1753,7 @@ COLOR = "color"
 SYMMETRY = "symmetry"
 COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
+# For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
 
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
@@ -2302,36 +2324,43 @@ class apo_flame(_xml_tree):
             hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
         """        
         if  self._isvalidtree:
-            palette_hex = self._flame[idx].find(key).text
-            palette_attrib = self._flame[idx].find(key).attrib
-            count = int(palette_attrib.get(PALETTE_COUNT)) - 1
-            format = dict(palette_attrib).get(PALETTE_FORMAT)
-    
-            HEX = []
-            for line in palette_hex.splitlines():
-                cleandoc = inspect.cleandoc(line)
-                if(len(cleandoc)>1):
-                    [HEX.append(hex) for hex in wrap(cleandoc, 6)]
+            try:
+                palette_attrib = self._flame[idx].find(key).attrib
+            except:
+                palette_attrib = None
+            
+            if palette_attrib is not None:
+                palette_hex = self._flame[idx].find(key).text
+                count = int(palette_attrib.get(PALETTE_COUNT)) - 1
+                format = dict(palette_attrib).get(PALETTE_FORMAT)
+        
+                HEX = []
+                for line in palette_hex.splitlines():
+                    cleandoc = inspect.cleandoc(line)
+                    if(len(cleandoc)>1):
+                        [HEX.append(hex) for hex in wrap(cleandoc, 6)]
 
-            RGB_FROM_XML_PALETTE = []
-            for hex in HEX:
-                x = self.hex_to_rgb(hex)
-                RGB_FROM_XML_PALETTE.append((x[0]/(count + 0.0), x[1]/(count + 0.0), x[2]/(count + 0.0)))
-            
-            # Not sure why I need to do the following
-            # but if not, the converted hex_to_rgb colors are a bit washed out.
-            hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
-            RGB_COMPENSTAED = []
-            for item in hsv:
-                h = item[0] + 1.0
-                s = item[1] * 1.4
-                v = item[2] * 1.5
-                RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
-    
-            POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
-            BASES = [hou.rampBasis.Linear] * (count + 1)
-            
-            return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
+                RGB_FROM_XML_PALETTE = []
+                for hex in HEX:
+                    x = self.hex_to_rgb(hex)
+                    RGB_FROM_XML_PALETTE.append((x[0]/(count + 0.0), x[1]/(count + 0.0), x[2]/(count + 0.0)))
+                
+                # Not sure why I need to do the following
+                # but if not, the converted hex_to_rgb colors are a bit washed out.
+                hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
+                RGB_COMPENSTAED = []
+                for item in hsv:
+                    h = item[0] + 1.0
+                    s = item[1] * 1.4
+                    v = item[2] * 1.5
+                    RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
+        
+                POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
+                BASES = [hou.rampBasis.Linear] * (count + 1)
+                
+                return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
+            else:
+                return None
         else:
             return None
 
@@ -2359,6 +2388,7 @@ class apo_flame_iter_data(apo_flame):
         self._finalxform = self._apo_flame__get_xforms(self._idx, FF)
         self._finalxform_coefs = self._apo_flame__get_affine(self._finalxform, PRE_AFFINE)
         self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, POST_AFFINE)
+        self._finalxform_name = self._apo_flame__get_keyvalue(self._finalxform, XF_NAME)
         self._palette = self._apo_flame__get_palette(self._idx)
         self._color = self._apo_flame__get_keyvalue(self._xforms, COLOR)
         self._color_speed = self._apo_flame__get_keyvalue(self._xforms, COLOR_SPEED)
@@ -2379,16 +2409,20 @@ class apo_flame_iter_data(apo_flame):
         return self._xf_name
     
     @property
+    def finalxform(self):
+        return self._finalxform
+    
+    @property
+    def finalxform_name(self):
+        return self._finalxform_name
+    
+    @property
     def weight(self):
         return self._weight
     
     @property
     def pre_blur(self):
         return self._pre_blur
-    
-    @property
-    def finalxform(self):
-        return self._finalxform
          
     @property
     def xaos(self):
@@ -2974,6 +3008,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
                 
         if mode:
+            # Set finalxform name first if any
+            if apo_data.finalxform_name[0]:
+                node.setParms({f"{prx}note": apo_data.finalxform_name[0]})
             # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
@@ -3102,7 +3139,10 @@ def apo_to_flam3(self: hou.Node) -> None:
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
-        ramp_parm.set(apo_data.palette[0])
+        if apo_data.palette is not None:
+            ramp_parm.set(apo_data.palette[0])
+        else:
+            reset_CP(self, 1)
         palette_cp(self)
         palette_hsv(self)
         
@@ -3137,6 +3177,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     opacity_bool = False
     post_bool = False
     xaos_bool = False
+    palette_bool = False
     ff_bool = False
     ff_post_bool = False
     if min(apo_data.opacity) == 0.0:
@@ -3145,6 +3186,8 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         post_bool = True
     if apo_data.xaos is not None:
         xaos_bool = True
+    if apo_data.palette is not None:
+        palette_bool = True
     if apo_data.finalxform is not None:
         ff_bool = True
     if apo_data.finalxform_post is not None:
@@ -3176,7 +3219,10 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
     else:
         ff_msg = f"FF: NO"
-    palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+    if palette_bool:
+        palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+    else:
+        palette_count_format = f"Palette not found."
     var_used_heading = "Variations used:"
     
     # get all vars used
@@ -3194,7 +3240,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         # get all FF post vars used
         vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()))
     vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_FF + vars_keys_POST_FF
-    # add pre_blur is used
+    # add pre_blur if used
     if pb_bool:
         vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
         
@@ -3276,7 +3322,7 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
-    flam3_houdini_version = f"Version: {FLAM3HOUDINI_version}"
+    flam3_houdini_version = f"Version: v{FLAM3HOUDINI_version}"
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
@@ -3310,9 +3356,9 @@ Seph, Lucy, b33rheart, Neonrauschen"""
     build_about_msg = "".join(build)
     
     self.setParms({"flam3about_msg": build_about_msg})
-    
-    
-    
+
+
+
 def flam3_about_plugins_msg(self):
     
     vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
@@ -3326,3 +3372,121 @@ def flam3_about_plugins_msg(self):
     self.setParms({"flam3plugins_msg": vars_txt})
 
 
+
+
+
+
+
+
+
+# SAVE XML FILE start here
+
+
+
+
+
+
+isOS = platform.system().upper()
+
+flame_name = 'user_input'
+# image resolution
+flame_size = 'user_input'
+# (0, 0) center of the workd
+flame_center = 'user_input'
+# usually 300 or similar work
+flame_scale = 'user_input'
+# Fractorium has it at 1000 but probably better lower, like 512
+flame_quality = 'user_input'
+# maybe 10 but need some test
+flame_brightness = 'user_input'
+# between 2 and 5 usually good
+flame_gamma = 'user_input'
+# usually 1 is good
+flame_vibrancy = 'user_input'
+# usually 1 is good
+flame_highlight_power = 'user_input'
+
+# Fractorium curves
+# Probably can pack presets of those to be used at export time....just an idea
+flame_curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 "
+flame_overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
+flame_red_curve=flame_green_curve=flame_blue_curve=flame_overall_curve
+
+flame_property = {'version': f'FLAM3HOUDINI-{isOS}-{FLAM3HOUDINI_version}',
+                  'name': flame_name,
+                  'size': flame_size,
+                  'center': flame_center,
+                  'scale': flame_scale,
+                  'rotate': '0',
+                  'supersample': '2',
+                  'filter': '0.5',
+                  'quality': flame_quality,
+                  'background': '0 0 0',
+                  'brightness': flame_brightness,
+                  'gamma': flame_gamma,
+                  'gamma_threshold': "0.0423093658828749",
+                  'vibrancy': flame_vibrancy,
+                  'highlight_power': flame_highlight_power,
+                  'estimator_radius': '9',
+                  'estimator_minimum': '0',
+                  'estimator_curve': '0.4',
+                  'palette_mode': "linear",
+                  'interpolation': "linear",
+                  'interpolation_type': "log",
+                  'curves': flame_curves,
+                  'overall_curve': flame_overall_curve,
+                  'red_curve': flame_red_curve,
+                  'green_curve': flame_green_curve,
+                  'blue_curve': flame_blue_curve
+                  }
+
+# Create initial tree root
+root = ET.Element("flames")
+# Add a flame to the tree and set its properties
+flame = ET.SubElement(root, 'flame')
+flame.tag = 'flame'
+for k, v in flame_property.items():
+    flame.set(k, v)
+# Add xforms to the flame
+iterators_count = 4
+for iter in range(iterators_count):
+    xf = ET.SubElement(flame, 'xform')
+    xf.tag = 'xform'
+    xf.set('name',f'iter.{iter+1}')
+    xf.set('color', '0.9658')
+    xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
+# Add palette to the flame
+palette = ET.SubElement(flame, 'palette')
+palette.tag = 'palette'
+palette.set('count', '256')
+palette.set('format', 'RGB')
+palette.text = """
+      ciao come ashjahs??
+      sdjjs kdjskas asksas?
+      asknaj skjak dakskasn!
+    """
+
+
+# Adding another Flame to the same root as the one before
+flame2 = ET.SubElement(root, 'flame')
+flame2.tag = 'flame'
+for k, v in flame_property.items():
+    flame2.set(k, v)
+
+iterators_count = 4
+for iter in range(iterators_count):
+    xf = ET.SubElement(flame2, 'xform')
+    xf.tag = 'xform'
+    xf.set('name',f'iter.{iter+1}')
+    xf.set('color', '0.9658')
+    xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
+
+# Append new flame
+# ET.ElementTree(root)
+#root.append(root2)
+
+out = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
+
+xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
+tree = ET.ElementTree(ET.fromstring(xml_pretty))
+# tree.write(out)
