@@ -3395,6 +3395,8 @@ flame_size = 'user_input'
 flame_center = 'user_input'
 # usually 300 or similar work
 flame_scale = 'user_input'
+# rotate usually stay at zero for now
+flame_rotate = 'user_input'
 # Fractorium has it at 1000 but probably better lower, like 512
 flame_quality = 'user_input'
 # maybe 10 but need some test
@@ -3418,7 +3420,7 @@ OUT_FLAME_PROPERTIES = {'version': f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}'
                         'size': flame_size,
                         'center': flame_center,
                         'scale': flame_scale,
-                        'rotate': '0',
+                        'rotate': flame_rotate,
                         'supersample': '2',
                         'filter': '0.5',
                         'quality': flame_quality,
@@ -3471,7 +3473,7 @@ palette.text = """
 # Adding another Flame to the same root as the one before
 flame2 = ET.SubElement(root, 'flame')
 flame2.tag = 'flame'
-for k, v in flame_property.items():
+for k, v in OUT_FLAME_PROPERTIES.items():
     flame2.set(k, v)
 
 iterators_count = 4
