@@ -22,25 +22,17 @@ fast, ready to use functions like **creating and sampling a cdf**, a very robust
 Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
 
+Python has been used to enhance the user experience and to add functionalities like:
+copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications and much more.
+
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
+With Houdini integrated Karma renderer you will be able to render the generated fractal flames in nearly real time.
 
-**Highly inspired by Apophysis software and its workflow design**,
+**Highly inspired by Apophysis software and its workflow design.**
 
-Many Apophysis fractal Flames are available for download on the web
-and you can load them inside FLAM3 for Houdini,
-or you can use Apophysis or Fractorium for example, to author your flames and load them back into FALM3 for Houdini.
-
-Only restrictions when authoring flames with external apps are:
-the flames must use the same variations included inside FLAM3 for Houdini.
-A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed.
-( for a total of 8 vars per iterator ).
-Each itertor's variations share the same parametric parameters.
-This mean that if inside iterator 2 you add 3 Mobius, they will all share the same "im:abcd" and "re:abcd" parameters insde the VARS Tab.
-Maybe in one of the next Houdini release SideFX will make the instantiaton of the parameter inside a multi parameter group much faster
-so that we can add different one for each variation of the same type.
-For FF ( FinalXForm ) you have 3 vars plus 2 POST vars available.
-So be wise in your choices and pick your battles.
+Many Apophysis fractal Flames are available for download on the web and you can load them inside FLAM3 for Houdini,
+or you can use Apophysis or Fractorium to author your flames fitst and load them back into FLAM3 for Houdini.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
@@ -53,14 +45,34 @@ So be wise in your choices and pick your battles.
 ![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
+
+
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
-Houdini Karma interactive render on the left and Fractorium render of the same flame file on the right.
-Note that those flames in Houdini have been pre generated. Intercative karma render after generation is real fast.
+Houdini Karma interactive rendering the generated flame's point cloud on the left and Fractorium with the same flame file on the right.
+
+`Mountain by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
+`Bipolar by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
+`Flipped disk. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_00.jpg)
+
+
+
+## Example flame files.
+Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists 
+using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
+
+Please be sure to check out their gallery:
+
+[tatasz](https://www.deviantart.com/tatasz/gallery), 
+[plangkye](https://www.deviantart.com/plangkye/gallery), 
+[Pillemaster](https://www.deviantart.com/pillemaster/gallery), 
+[Triptychaos](https://www.deviantart.com/triptychaos/gallery), 
+[TyranWave](https://www.deviantart.com/tyrantwave/gallery), 
+[Zy0rg](https://www.deviantart.com/zy0rg/gallery)
 
 
 ## References
