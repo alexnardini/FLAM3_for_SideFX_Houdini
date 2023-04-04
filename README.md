@@ -48,9 +48,9 @@ or you can use Apophysis or Fractorium to author your flames fitst and load them
 
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
-Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
+Following some images showing FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
-Houdini Karma interactive rendering the generated flame's point cloud on the left and Fractorium with the same flame file on the right.
+Houdini Karma interactive on the left and Fractorium with the same flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
