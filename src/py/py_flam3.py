@@ -5,6 +5,7 @@ from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
 from xml.dom import minidom
+from datetime import datetime
 import platform
 import xml.etree.ElementTree as ET
 import os, hou, re, json, colorsys, webbrowser, inspect
@@ -1501,10 +1502,17 @@ def reset_MB(self) -> None:
     self.setParms({"fps": 24})
     self.setParms({"mbsamples": 16})
     self.setParms({"shutter": 0.5})
+    
+def reset_IN(self) -> None:
+    self.setParms({"apofilepath": ""})
+    self.setParms({"apopresets": str(0)})
+    self.setParms({"flamestats_msg": ""})
+    self.setParms({"descriptive_msg": ""})
 
 
 def reset_PREFS(self) -> None:
     self.setParms({"showprefs": 1})
+    self.setParms({"f3c": 1})
     self.setParms({"xm": 0})
     self.setParms({"camhandle": 0})
     self.setParms({"camcull": 0})
@@ -1535,30 +1543,11 @@ def flam3_default(self: hou.Node) -> None:
     reset_SYS(self, 500000, 10, 1)
     reset_TM(self)
     reset_FF(self)
+    reset_CP(self)
     reset_SM(self)
     reset_MB(self)
+    reset_IN(self)
     reset_PREFS(self)
-    reset_CP(self)
-
-    # # CP
-    # self.setParms({"filepath": ""})
-    # self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-    # # CP->ramp
-    # ramp_parm = self.parm(RAMP_SRC_NAME)
-    # ramp_parm.deleteAllKeyframes()
-    # color_bases = [hou.rampBasis.Linear] * 3
-    # color_keys = [0.0, 0.5, 1.0]
-    # color_values = [(1,0,0), (0,1,0), (0,0,1)]
-    # ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-    # # Update ramp py 
-    # palette_cp(self)
-    # palette_hsv(self)
-    
-    # IN
-    self.setParms({"apofilepath": ""})
-    self.setParms({"apopresets": str(0)})
-    self.setParms({"flamestats_msg": ""})
-    self.setParms({"descriptive_msg": ""})
     
     # iterators
     n = flam3_iterator_prm_names
@@ -1737,7 +1726,6 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
 
 # XML
 FLAME = "flame"
-NAME = "name"
 XF = "xform"
 XF_WEIGHT = "weight"
 XF_NAME = "name"
@@ -1753,6 +1741,49 @@ COLOR = "color"
 SYMMETRY = "symmetry"
 COLOR_SPEED = "color_speed"
 OPACITY = "opacity"
+# XML OUT render key data names
+OUT_XML_VERSION = 'version'
+OUT_XML_SIZE = 'size'
+OUT_XML_CENTER = 'center'
+OUT_XML_SCALE = 'scale'
+OUT_XML_ROTATE = 'rotate'
+OUT_XML_BG = 'background'
+OUT_XML_SUPERSAMPLE = 'supersample'
+OUT_XML_FILTER = 'filter'
+OUT_XML_QUALITY = 'quality'
+OUT_XML_BRIGHTNESS = 'brightness'
+OUT_XML_GAMMA = 'gamma'
+OUT_XML_GAMMA_THRESHOLD = 'threshold'
+OUT_XML_VIBRANCY = 'vibrancy'
+OUT_XML_HIGHLIGHT_POWER = 'highlight_power'
+OUT_XML_ESTIMATOR_RADIUS = 'estimator_radius'
+OUT_XML_ESTIMATOR_MINIMUM = 'estimator_minimum'
+OUT_XML_ESTIMATOR_CURVE = 'estimator_curve'
+OUT_XML_PALETTE_MODE = 'palette_mode'
+OUT_XML_INTERPOLATION = 'interpolation'
+OUT_XML_INTERPOLATION_TYPE = 'interpolation_type'
+OUT_XML_RENDER_CURVES = 'curves'
+OUT_XML_RENDER_CURVES_VAL = "0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 "
+OUT_XML_RENDER_OVERALL_CURVE = 'overall_curve'
+OUT_XML_RENDER_OVERALL_CURVE_VAL = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
+OUT_XML_RENDER_RED_CURVE = 'red_curve'
+OUT_XML_RENDER_GREEN_CURVE = 'green_curve'
+OUT_XML_RENDER_BLUE_CURVE = 'blue_curve'
+OUT_XML_RENDER_RED_CURVE_VAL=OUT_XML_RENDER_GREEN_CURVE_VAL=OUT_XML_RENDER_BLUE_CURVE_VAL=OUT_XML_RENDER_OVERALL_CURVE_VAL
+# XML OUT render key data prm names HOUDINI
+# for now make sense to expose those, I may add more in the future if needed
+OUT_XML_RENDER_HOUDIN_DICT = { XF_NAME: 'outname',
+                               OUT_XML_SIZE: 'outres',
+                               OUT_XML_CENTER: 'outcenter',
+                               OUT_XML_ROTATE: 'outrotate',
+                               OUT_XML_SCALE: 'outscale',
+                               OUT_XML_QUALITY: 'outquality',
+                               OUT_XML_BRIGHTNESS: 'outbrightness',
+                               OUT_XML_GAMMA: 'outgamma',
+                               OUT_XML_HIGHLIGHT_POWER: 'outhighlight',
+                               OUT_XML_VIBRANCY: 'outvibrancy'  
+}
+
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
 
@@ -1956,118 +1987,118 @@ class flam3_varsPRM_APO:
     # Note:
     # radial_blur's parameter "radial_blur_zoom" is not used and always ZERO as everyone else only use "radiual_blur_angle".
     
-    varsPRM = ( ("00 linear", 0), 
-                ("01 sinusoidal", 0), 
-                ("02 spherical", 0), 
-                ("03 swirl", 0), 
-                ("04 horseshoe", 0), 
-                ("05 polar", 0), 
-                ("06 handkerchief", 0), 
-                ("07 heart", 0), 
-                ("08 disc", 0), 
-                ("09 spiral", 0), 
-                ("10 hyperbolic", 0), 
-                ("11 diamond", 0), 
-                ("12 ex", 0), 
-                ("13 julia", 0), 
-                ("14 bent", 0), 
-                ("15 waves", 0), 
-                ("16 fisheye", 0), 
-                ("17 popcorn", 0), 
-                ("18 exponential", 0), 
-                ("19 power", 0), 
-                ("20 cosine", 0), 
-                ("21 rings", 0), 
-                ("22 fan", 0), 
-                ("23 bubble", 0), 
-                ("24 cylinder", 0), 
-                ("25 eyefish", 0), 
-                ("26 blur", 0), 
-                ("27 curl", ("curl_c1", "curl_c2"), 1), 
-                ("28 ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
-                ("29 pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                ("30 blob", ("blob_low", "blob_high", "blob_waves"), 1), 
-                ("31 juliaN", ("julian_power", "julian_dist"), 1), 
-                ("32 juliascope", ("juliascope_power", "juliascope_dist"), 1), 
-                ("33 gaussian_blur", 0), 
-                ("34 fan2", ("fan2_x", "fan2_y"), 1), 
-                ("35 rings2", ("rings2_val", ), 1), 
-                ("36 rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                ("37 radial_blur", ("radial_blur_angle", "radial_blur_zoom"), 1), 
-                ("38 pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
-                ("39 arch", 0), 
-                ("40 tangent", 0), 
-                ("41 square", 0), 
-                ("42 rays", 0), 
-                ("43 blade", 0), 
-                ("44 secant2", 0), 
-                ("45 twintrian", 0), 
-                ("46 cross", 0), 
-                ("47 disc2", ("disc2_rot", "disc2_twist"), 1), 
-                ("48 supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
-                ("49 flower", ("flower_petals", "flower_holes"), 1), 
-                ("50 conic", ("conic_eccentricity", "conic_holes"), 1), 
-                ("51 parabola", ("parabola_height", "parabola_width"), 1), 
-                ("52 bent2", ("bent2_x", "bent2_y"), 1), 
-                ("53 bipolar", ("bipolar_shift", ), 1),
-                ("54 boarders", 0),
-                ("55 butterfly", 0), 
-                ("56 cell", ("cell_size", ), 1), 
-                ("57 cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
-                ("58 edisc", 0), 
-                ("59 elliptic", 0), 
-                ("60 noise", 0), 
-                ("61 escher", ("escher_beta", ), 1), 
-                ("62 foci", 0), 
-                ("63 lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
-                ("64 loonie", 0), 
-                ("65 pre blur", 0), 
-                ("66 modulus", ("modulus_x", "modulus_y"), 1), 
-                ("67 oscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
-                ("68 polar2", 0), 
-                ("69 popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
-                ("70 scry", 0), 
-                ("71 separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
-                ("72 split", ("split_xsize", "split_ysize"), 1), 
-                ("73 splits", ("splits_x", "splits_y"), 1), 
-                ("74 stripes", ("stripes_space", "stripes_warp"), 1), 
-                ("75 wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
-                ("76 wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
-                ("77 wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
-                ("78 whorl", ("whorl_inside", "whorl_outside"), 1), 
-                ("79 waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
-                ("80 exp", 0), 
-                ("81 log", 0), 
-                ("82 sin", 0), 
-                ("83 cos", 0), 
-                ("84 tan", 0), 
-                ("85 sec", 0), 
-                ("86 csc", 0), 
-                ("87 cot", 0), 
-                ("88 sinh", 0), 
-                ("89 cosh", 0), 
-                ("90 tanh", 0), 
-                ("91 sech", 0), 
-                ("92 csch", 0), 
-                ("93 coth", 0), 
-                ("94 auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
-                ("95 flux", ("flux_spread", ), 1), 
-                ("96 mobius", ("re_a", "re_b", "re_c", "re_d"), ("im_a", "im_b", "im_c", "im_d"), 1),
-                ("97 curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                ("98 persp", ("perspective_angle", "perspective_dist"), 1), 
-                ("99 bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
-                ("100 hemisphere", 0), 
-                ("101 polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
-                ("102 crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
-                ("103 unpolar", 0), 
-                ("104 glynnia", 0)  
+    varsPRM = ( ("linear", 0), 
+                ("sinusoidal", 0), 
+                ("spherical", 0), 
+                ("swirl", 0), 
+                ("horseshoe", 0), 
+                ("polar", 0), 
+                ("handkerchief", 0), 
+                ("heart", 0), 
+                ("disc", 0), 
+                ("spiral", 0), 
+                ("hyperbolic", 0), 
+                ("diamond", 0), 
+                ("ex", 0), 
+                ("julia", 0), 
+                ("bent", 0), 
+                ("waves", 0), 
+                ("fisheye", 0), 
+                ("popcorn", 0), 
+                ("exponential", 0), 
+                ("power", 0), 
+                ("cosine", 0), 
+                ("rings", 0), 
+                ("fan", 0), 
+                ("bubble", 0), 
+                ("cylinder", 0), 
+                ("eyefish", 0), 
+                ("blur", 0), 
+                ("curl", ("curl_c1", "curl_c2"), 1), 
+                ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
+                ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
+                ("blob", ("blob_low", "blob_high", "blob_waves"), 1), 
+                ("juliaN", ("julian_power", "julian_dist"), 1), 
+                ("juliascope", ("juliascope_power", "juliascope_dist"), 1), 
+                ("gaussian_blur", 0), 
+                ("fan2", ("fan2_x", "fan2_y"), 1), 
+                ("rings2", ("rings2_val", ), 1), 
+                ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
+                ("radial_blur", ("radial_blur_angle", "radial_blur_zoom"), 1), 
+                ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
+                ("arch", 0), 
+                ("tangent", 0), 
+                ("square", 0), 
+                ("rays", 0), 
+                ("blade", 0), 
+                ("secant2", 0), 
+                ("twintrian", 0), 
+                ("cross", 0), 
+                ("disc2", ("disc2_rot", "disc2_twist"), 1), 
+                ("supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                ("flower", ("flower_petals", "flower_holes"), 1), 
+                ("conic", ("conic_eccentricity", "conic_holes"), 1), 
+                ("parabola", ("parabola_height", "parabola_width"), 1), 
+                ("bent2", ("bent2_x", "bent2_y"), 1), 
+                ("bipolar", ("bipolar_shift", ), 1),
+                ("boarders", 0),
+                ("butterfly", 0), 
+                ("cell", ("cell_size", ), 1), 
+                ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
+                ("edisc", 0), 
+                ("elliptic", 0), 
+                ("noise", 0), 
+                ("escher", ("escher_beta", ), 1), 
+                ("foci", 0), 
+                ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
+                ("loonie", 0), 
+                ("pre blur", 0), 
+                ("modulus", ("modulus_x", "modulus_y"), 1), 
+                ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
+                ("polar2", 0), 
+                ("popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
+                ("scry", 0), 
+                ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
+                ("split", ("split_xsize", "split_ysize"), 1), 
+                ("splits", ("splits_x", "splits_y"), 1), 
+                ("stripes", ("stripes_space", "stripes_warp"), 1), 
+                ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
+                ("wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                ("wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
+                ("whorl", ("whorl_inside", "whorl_outside"), 1), 
+                ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
+                ("exp", 0), 
+                ("log", 0), 
+                ("sin", 0), 
+                ("cos", 0), 
+                ("tan", 0), 
+                ("sec", 0), 
+                ("csc", 0), 
+                ("cot", 0), 
+                ("sinh", 0), 
+                ("cosh", 0), 
+                ("tanh", 0), 
+                ("sech", 0), 
+                ("csch", 0), 
+                ("coth", 0), 
+                ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
+                ("flux", ("flux_spread", ), 1), 
+                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
+                ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
+                ("persp", ("perspective_angle", "perspective_dist"), 1), 
+                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
+                ("hemisphere", 0), 
+                ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
+                ("crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
+                ("unpolar", 0), 
+                ("glynnia", 0)  
                 )
 
 
     # EXCEPTIONS: so I dnt go into regex...
     # Update this and def prm_name_exceptions() if you add/find more
-    varsPRM_FRACTORIUM_EXCEPTIONS = { 67: ("67 Fractorium oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
-                                      96: ("96 Fractorium mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
+    varsPRM_FRACTORIUM_EXCEPTIONS = { 67: ("oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
+                                      96: ("Mobius", ("Mobius_Re_A", "Mobius_Re_B", "Mobius_Re_C", "Mobius_Re_D"), ("Mobius_Im_A", "Mobius_Im_B", "Mobius_Im_C", "Mobius_Im_D"), 1)
                         }
 
 
@@ -2108,7 +2139,7 @@ class _xml_tree:
     
 
     
-    def __get_name(self, key=NAME) -> Union[tuple, None]:
+    def __get_name(self, key=XF_NAME) -> Union[tuple, None]:
         if self._isvalidtree:
             root = self._tree.getroot()
             names = []
@@ -2685,7 +2716,7 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
-        for n in names:
+        for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
@@ -2738,7 +2769,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
-        for n in names:
+        for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
@@ -2789,7 +2820,7 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
-        for n in names:
+        for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
@@ -2838,7 +2869,7 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
-        for n in names:
+        for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             # This allow me to use "radial_blur" variation as everyone else
             # only have "radial_blur_angle" and not "radial_blur_zoom".
@@ -3379,118 +3410,194 @@ def flam3_about_plugins_msg(self):
 
 
 
-# SAVE XML FILE start here
+# SAVE XML FLAME FILES start here
 
 
 
 
 
+class _out_utils():
+    
+    def __init__(self, node: hou.Node) -> None:
+        self._node = node
+        
+    @property
+    def node(self):
+        return self._node
+        
+    def __out_prm(self, prm_name='') -> str:
+        if prm_name:
+            prm_type = False
+            try:
+                prm = self._node.parmTuple(prm_name)
+                prm_type = True
+            except:
+                prm = self._node.parm(prm_name)
 
-myOS = platform.system().upper()
-
-flame_name = 'user_input'
-# image resolution
-flame_size = 'user_input'
-# (0, 0) center of the workd
-flame_center = 'user_input'
-# usually 300 or similar work
-flame_scale = 'user_input'
-# rotate usually stay at zero for now
-flame_rotate = 'user_input'
-# Fractorium has it at 1000 but probably better lower, like 512
-flame_quality = 'user_input'
-# maybe 10 but need some test
-flame_brightness = 'user_input'
-# between 2 and 5 usually good
-flame_gamma = 'user_input'
-# usually 1 is good
-flame_vibrancy = 'user_input'
-# usually 1 is good
-flame_highlight_power = 'user_input'
-
-# Fractorium curves
-# Probably can pack presets of those to be used at export time....just an idea
-flame_curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 "
-flame_overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
-flame_red_curve=flame_green_curve=flame_blue_curve=flame_overall_curve
+            if prm_type:
+                return ' '.join([str(x.eval()) for x in prm])
+            else:
+                if type(prm) is not str:
+                    return str(self._node.parm(prm_name).eval())
+                else:
+                    return self._node.parm(prm_name).eval()
+        else:
+            print(f"{str(self.node)}: Empty XML key name string. Please pass in a valid XML key name.")
+            return ''
 
 
-OUT_FLAME_PROPERTIES = {'version': f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
-                        'name': flame_name,
-                        'size': flame_size,
-                        'center': flame_center,
-                        'scale': flame_scale,
-                        'rotate': flame_rotate,
-                        'supersample': '2',
-                        'filter': '0.5',
-                        'quality': flame_quality,
-                        'background': '0 0 0',
-                        'brightness': flame_brightness,
-                        'gamma': flame_gamma,
-                        'gamma_threshold': "0.0423093658828749",
-                        'vibrancy': flame_vibrancy,
-                        'highlight_power': flame_highlight_power,
-                        'estimator_radius': '9',
-                        'estimator_minimum': '0',
-                        'estimator_curve': '0.4',
-                        'palette_mode': "linear",
-                        'interpolation': "linear",
-                        'interpolation_type': "log",
-                        'curves': flame_curves,
-                        'overall_curve': flame_overall_curve,
-                        'red_curve': flame_red_curve,
-                        'green_curve': flame_green_curve,
-                        'blue_curve': flame_blue_curve
-                        }
+    def __out_prm_name(self, prm_name=OUT_XML_RENDER_HOUDIN_DICT.get(XF_NAME)) -> str:
+        # If the name field is empty, build a name based on current date/time
+        if not self._node.parm(prm_name).eval():
+            now = datetime.now()
+            return now.strftime("Flame_%b-%d-%Y_%H:%M:%S")
+        else:
+            # otherwise get that name and use it
+            return self._node.parm(prm_name).eval()
+
+        
+class out_flame_properties(_out_utils):
+
+    def __init__(self, node: hou.Node) -> None:
+        super().__init__(node)
+        self.name = self._out_utils__out_prm_name()
+        self.size = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SIZE))
+        self.center = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_CENTER))
+        self.scale = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SCALE))
+        self.rotate = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_ROTATE))
+        self.quality = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_QUALITY))
+        self.brightness = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_BRIGHTNESS))
+        self.gamma = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_GAMMA))
+        self.vibrancy = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_VIBRANCY))
+        self.highlight = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_HIGHLIGHT_POWER))
+        self.render_curves = OUT_XML_RENDER_OVERALL_CURVE_VAL
+        self.overall_curve = OUT_XML_RENDER_OVERALL_CURVE_VAL
+        self.red_curve = OUT_XML_RENDER_RED_CURVE_VAL
+        self.green_curve = OUT_XML_RENDER_GREEN_CURVE_VAL
+        self.blue_curve = OUT_XML_RENDER_BLUE_CURVE_VAL
+        
+
+def out_flame_properties_build(self) -> dict:
+    
+    myOS = platform.system().upper()
+    rp = out_flame_properties(self)
+    return {OUT_XML_VERSION: f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
+            XF_NAME: rp.name,
+            OUT_XML_SIZE: rp.size,
+            OUT_XML_CENTER: rp.center,
+            OUT_XML_SCALE: rp.scale,
+            OUT_XML_ROTATE: rp.rotate,
+            OUT_XML_BG: '0 0 0',
+            OUT_XML_SUPERSAMPLE: '2',
+            OUT_XML_FILTER: '0.5',
+            OUT_XML_QUALITY: rp.quality,
+            OUT_XML_BRIGHTNESS: rp.brightness,
+            OUT_XML_GAMMA: rp.gamma,
+            OUT_XML_GAMMA_THRESHOLD: '0.0423093658828749',
+            OUT_XML_VIBRANCY: rp.vibrancy,
+            OUT_XML_HIGHLIGHT_POWER: rp.highlight,
+            OUT_XML_ESTIMATOR_RADIUS: '9',
+            OUT_XML_ESTIMATOR_MINIMUM: '0',
+            OUT_XML_ESTIMATOR_CURVE: '0.4',
+            OUT_XML_PALETTE_MODE: 'linear',
+            OUT_XML_INTERPOLATION: 'linear',
+            OUT_XML_INTERPOLATION_TYPE: 'log',
+            OUT_XML_RENDER_CURVES: rp.render_curves,
+            OUT_XML_RENDER_OVERALL_CURVE: rp.overall_curve,
+            OUT_XML_RENDER_RED_CURVE: rp.red_curve,
+            OUT_XML_RENDER_GREEN_CURVE: rp.green_curve,
+            OUT_XML_RENDER_BLUE_CURVE: rp.blue_curve 
+            }
+
+
+def out_build_XML(self, root: ET.Element) -> None:
+    
+    # Build Flame properties
+    flame = ET.SubElement(root, FLAME)
+    flame.tag = FLAME
+    for k, v in out_flame_properties_build(self).items():
+        flame.set(k, v)
+    
+    iterators_count = 4
+    for iter in range(iterators_count):
+        xf = ET.SubElement(flame, XF)
+        xf.tag = XF
+        xf.set(XF_NAME,f'iter.{iter+1}')
+        xf.set(COLOR, '0.9658')
+        xf.set(PRE_AFFINE, '0.2 0.5 0.6 1.2 2.5 0.3698')
+    # Add palette to the flame
+    palette = ET.SubElement(flame, PALETTE)
+    palette.tag = PALETTE
+    palette.set(PALETTE_COUNT, '256')
+    palette.set(PALETTE_FORMAT, 'RGB')
+    # Here goes the hex colors
+    palette.text = """
+        ciao come ashjahs??
+        sdjjs kdjskas asksas?
+        asknaj skjak dakskasn!
+        """
+        
+        
+def out_XML(self) -> None:
+    root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
+    out_build_XML(self, root)
+    
+    out_path = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
+
+    xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
+    tree = ET.ElementTree(ET.fromstring(xml_pretty))
+    tree.write(out_path)
 
 # Create initial tree root
-root = ET.Element("flames")
-# Add a flame to the tree and set its properties
-flame = ET.SubElement(root, 'flame')
-flame.tag = 'flame'
-for k, v in OUT_FLAME_PROPERTIES.items():
-    flame.set(k, v)
+
+
+# # Add a flame to the tree and set its properties
+# flame = ET.SubElement(root, 'flame')
+# flame.tag = 'flame'
+# for k, v in OUT_FLAME_PROPERTIES.items():
+#     flame.set(k, v)
 # Add xforms to the flame
-iterators_count = 4
-for iter in range(iterators_count):
-    xf = ET.SubElement(flame, 'xform')
-    xf.tag = 'xform'
-    xf.set('name',f'iter.{iter+1}')
-    xf.set('color', '0.9658')
-    xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
-# Add palette to the flame
-palette = ET.SubElement(flame, 'palette')
-palette.tag = 'palette'
-palette.set('count', '256')
-palette.set('format', 'RGB')
-# Here goes the hex colors
-palette.text = """
-      ciao come ashjahs??
-      sdjjs kdjskas asksas?
-      asknaj skjak dakskasn!
-    """
+# iterators_count = 4
+# for iter in range(iterators_count):
+#     xf = ET.SubElement(flame, 'xform')
+#     xf.tag = 'xform'
+#     xf.set('name',f'iter.{iter+1}')
+#     xf.set('color', '0.9658')
+#     xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
+# # Add palette to the flame
+# palette = ET.SubElement(flame, 'palette')
+# palette.tag = 'palette'
+# palette.set('count', '256')
+# palette.set('format', 'RGB')
+# # Here goes the hex colors
+# palette.text = """
+#       ciao come ashjahs??
+#       sdjjs kdjskas asksas?
+#       asknaj skjak dakskasn!
+#     """
 
 
 # Adding another Flame to the same root as the one before
-flame2 = ET.SubElement(root, 'flame')
-flame2.tag = 'flame'
-for k, v in OUT_FLAME_PROPERTIES.items():
-    flame2.set(k, v)
+# flame2 = ET.SubElement(root, 'flame')
+# flame2.tag = 'flame'
+# for k, v in OUT_FLAME_PROPERTIES.items():
+#     flame2.set(k, v)
 
-iterators_count = 4
-for iter in range(iterators_count):
-    xf = ET.SubElement(flame2, 'xform')
-    xf.tag = 'xform'
-    xf.set('name',f'iter.{iter+1}')
-    xf.set('color', '0.9658')
-    xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
+# iterators_count = 4
+# for iter in range(iterators_count):
+#     xf = ET.SubElement(flame2, 'xform')
+#     xf.tag = 'xform'
+#     xf.set('name',f'iter.{iter+1}')
+#     xf.set('color', '0.9658')
+#     xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
 
-# Append new flame
-# ET.ElementTree(root)
-#root.append(root2)
+# # Append new flame
+# # ET.ElementTree(root)
+# #root.append(root2)
 
-out = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
+# out = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
 
-xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
-tree = ET.ElementTree(ET.fromstring(xml_pretty))
-# tree.write(out)
+# xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
+# tree = ET.ElementTree(ET.fromstring(xml_pretty))
+# # tree.write(out)
+
