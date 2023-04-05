@@ -2832,8 +2832,6 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
         var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
         apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
     """
-    prx_ff_prm_post = "fp1_"
-    
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
@@ -2859,7 +2857,7 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{prx_ff_prm_post}{prm[0][0:-1]}": VAR[idx]})
+        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]})
 
     # Only on post variation with parametric so:
     node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
