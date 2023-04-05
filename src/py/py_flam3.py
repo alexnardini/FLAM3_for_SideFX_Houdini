@@ -2065,7 +2065,7 @@ class flam3_varsPRM_APO:
 
 
     # EXCEPTIONS: so I dnt go into regex...
-    # Update def prm_name_exceptions() if you add/find more
+    # Update this and def prm_name_exceptions() if you add/find more
     varsPRM_EXCEPTIONS = { 67: ("67 Fractorium oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
                            96: ("96 Fractorium mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
                         }
