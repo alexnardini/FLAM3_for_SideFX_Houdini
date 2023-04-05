@@ -2066,9 +2066,9 @@ class flam3_varsPRM_APO:
 
     # EXCEPTIONS: so I dnt go into regex...
     # Update def prm_name_exceptions() if you add/find more
-    fractorium_96_var_prm_mobius = ("96 mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1),
-    fractorium_67_var_prm_oscope = ("67 oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1), 
-
+    varsPRM_EXCEPTIONS = { 67: ("67 Fractorium oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
+                           96: ("96 Fractorium mobius", ("mobius_re_a", "mobius_re_b", "mobius_re_c", "mobius_re_d"), ("mobius_im_a", "mobius_im_b", "mobius_im_c", "mobius_im_d"), 1)
+                        }
 
 
 class _xml_tree:
@@ -2650,10 +2650,12 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
 
 
 def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
-    if v_type == 96 and app.startswith(XML_APP_NAME_FRACTORIUM):
-        return flam3_varsPRM_APO.fractorium_96_var_prm_mobius[0]
-    elif v_type == 67 and app.startswith(XML_APP_NAME_FRACTORIUM):
-        return flam3_varsPRM_APO.fractorium_67_var_prm_oscope[0]
+    if app.startswith(XML_APP_NAME_FRACTORIUM):
+        check = flam3_varsPRM_APO.varsPRM_EXCEPTIONS.get(v_type)
+        if check is not None:
+            return check
+        else:
+            return apo_prm
     else:
         return apo_prm
 
