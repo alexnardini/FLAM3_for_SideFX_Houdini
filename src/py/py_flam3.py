@@ -3538,9 +3538,9 @@ class _out_utils():
             collect = []
             for prm in self._flam3_iterator.sec_preAffine[:-1]:
                 collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
-            angle = self._node.parm(f"{self._flam3_iterator.sec_preAffine[-1][0]}{iter+1}").eval()
-            if angle:
-                flatten = [item for sublist in self.affine_rot(collect, angle) for item in sublist]
+            angleDeg = self._node.parm(f"{self._flam3_iterator.sec_preAffine[-1][0]}{iter+1}").eval()
+            if angleDeg:
+                flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
             else:
                 flatten = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten]) 
@@ -3555,9 +3555,9 @@ class _out_utils():
                 collect = []
                 for prm in self._flam3_iterator.sec_postAffine[1:-1]:
                     collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
-                angle = self._node.parm(f"{self._flam3_iterator.sec_postAffine[-1][0]}{iter+1}").eval()
-                if angle:
-                    flatten = [item for sublist in self.affine_rot(collect, angle) for item in sublist]
+                angleDeg = self._node.parm(f"{self._flam3_iterator.sec_postAffine[-1][0]}{iter+1}").eval()
+                if angleDeg:
+                    flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
                 else:
                     flatten = [item for sublist in collect for item in sublist]
                 val.append([str(x) for x in flatten])   
