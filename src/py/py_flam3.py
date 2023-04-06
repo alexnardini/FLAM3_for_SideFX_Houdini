@@ -37,6 +37,8 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 
 FLAM3HOUDINI_version = "0.9.5.2"
 
+FLAM3_ITERATORS_COUNT = "flamefunc"
+
 DPT = "*"
 PRM = "..."
 PRX_FF_PRM = "ff"
@@ -1531,12 +1533,12 @@ def flam3_default(self: hou.Node) -> None:
         self (hou.Node): [current hou.Node]
     """
     # Iterators reset
-    self.setParms({"flamefunc": 0})
+    self.setParms({FLAM3_ITERATORS_COUNT: 0})
     for p in self.parms():
         p.deleteAllKeyframes()
     # Add back iterators
     # This way all parameters will reset to their default values.
-    self.setParms({"flamefunc": 3})
+    self.setParms({FLAM3_ITERATORS_COUNT: 3})
 
     #
     # SYS
@@ -1620,7 +1622,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         self (hou.Node): [current hou.Node]
     """
 
-    if not self.parm("flamefunc").evalAsInt():
+    if not self.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
 
         # delete channel references
         for p in self.parms():
@@ -3151,10 +3153,10 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"rip": 1})
 
         # iterators
-        self.setParms({"flamefunc": 0})
+        self.setParms({FLAM3_ITERATORS_COUNT: 0})
         for p in self.parms():
             p.deleteAllKeyframes()
-        self.setParms({"flamefunc":  len(apo_data.xforms)})
+        self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)})
         apo_set_iterator(0, self, apo_data, preset_id)
         # if FF
         if apo_data.finalxform is not None:
@@ -3420,12 +3422,23 @@ class _out_utils():
     
     def __init__(self, node: hou.Node) -> None:
         self._node = node
+        self._prm_names = flam3_iterator_prm_names()
+        self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
         
     @property
     def node(self):
         return self._node
+    
+    @property
+    def prm_name(self):
+        return self._prm_names
+    
+    @property
+    def iter_count(self):
+        return self._iter_count
+    
         
-    def __out_prm(self, prm_name='') -> str:
+    def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
             prm_type = False
             try:
@@ -3433,7 +3446,6 @@ class _out_utils():
                 prm_type = True
             except:
                 prm = self._node.parm(prm_name)
-
             if prm_type:
                 return ' '.join([str(x.eval()) for x in prm])
             else:
@@ -3446,7 +3458,7 @@ class _out_utils():
             return ''
 
 
-    def __out_prm_name(self, prm_name=OUT_XML_RENDER_HOUDIN_DICT.get(XF_NAME)) -> str:
+    def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDIN_DICT.get(XF_NAME)) -> str:
         # If the name field is empty, build a name based on current date/time
         if not self._node.parm(prm_name).eval():
             now = datetime.now()
@@ -3454,31 +3466,72 @@ class _out_utils():
         else:
             # otherwise get that name and use it
             return self._node.parm(prm_name).eval()
+        
+    def __out_xf_data(self, prm_name: str) -> tuple[str]:
+        val = []
+        for iter in range(self._iter_count):
+            val.append(str(self._node.parm(f"{prm_name}_{iter+1}").eval()))
+        return tuple(val)
+    
+    def __out_xf_name(self) -> list[str]:
+        val = []
+        for iter in range(self._iter_count):
+            val.append(self._node.parm(f"{self._prm_names.main_note}_{iter+1}").eval())
+        return val
+    
+    def __out_xf_xaos(self, prm_name: str) -> tuple[str]:
+        val = []
+        for iter in range(self._iter_count):
+            iter_xaos = self._node.parm(f"{prm_name}_{iter+1}").eval()
+            if iter_xaos:
+                strip = iter_xaos.split(':')
+                if strip[0].lower() == self._prm_names.xaos:
+                    val.append(" ".join(strip[1:]))
+                else:
+                    val.append('')
+            else:
+                val.append('')
+        return tuple(val)
 
         
 class out_flame_properties(_out_utils):
 
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
-        self.name = self._out_utils__out_prm_name()
-        self.size = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SIZE))
-        self.center = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_CENTER))
-        self.scale = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SCALE))
-        self.rotate = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_ROTATE))
-        self.quality = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_QUALITY))
-        self.brightness = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_BRIGHTNESS))
-        self.gamma = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_GAMMA))
-        self.vibrancy = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_VIBRANCY))
-        self.highlight = self._out_utils__out_prm(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_HIGHLIGHT_POWER))
+        self.name = self._out_utils__out_flame_name()
+        self.size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SIZE))
+        self.center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_CENTER))
+        self.scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SCALE))
+        self.rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_ROTATE))
+        self.quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_QUALITY))
+        self.brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_BRIGHTNESS))
+        self.gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_GAMMA))
+        self.vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_VIBRANCY))
+        self.highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_HIGHLIGHT_POWER))
         self.render_curves = OUT_XML_RENDER_OVERALL_CURVE_VAL
         self.overall_curve = OUT_XML_RENDER_OVERALL_CURVE_VAL
         self.red_curve = OUT_XML_RENDER_RED_CURVE_VAL
         self.green_curve = OUT_XML_RENDER_GREEN_CURVE_VAL
         self.blue_curve = OUT_XML_RENDER_BLUE_CURVE_VAL
-        
+
+
+
+class out_flam3_data(_out_utils):
+    def __init__(self, node: hou.Node) -> None:
+        super().__init__(node)
+        # FLAM3 data
+        self.xf_name = self._out_utils__out_xf_name()
+        self.xf_vactive = self._out_utils__out_xf_data(self._prm_names.main_vactive)
+        self.xf_weight = self._out_utils__out_xf_data(self._prm_names.main_weight)
+        self.xf_xaos = self._out_utils__out_xf_xaos(self._prm_names.xaos)
+        self.xf_color = self._out_utils__out_xf_data(self._prm_names.shader_color)
+        self.xf_symmetry = self._out_utils__out_xf_data(self._prm_names.shader_speed)
+        self.xf_opacity = self._out_utils__out_xf_data(self._prm_names.shader_alpha)
+
+
 
 def out_flame_properties_build(self) -> dict:
-    
+
     myOS = platform.system().upper()
     rp = out_flame_properties(self)
     return {OUT_XML_VERSION: f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
@@ -3509,6 +3562,8 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_RENDER_BLUE_CURVE: rp.blue_curve 
             }
 
+    
+    
 
 def out_build_XML(self, root: ET.Element) -> None:
     
@@ -3518,13 +3573,19 @@ def out_build_XML(self, root: ET.Element) -> None:
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
     
-    iterators_count = 4
-    for iter in range(iterators_count):
-        xf = ET.SubElement(flame, XF)
-        xf.tag = XF
-        xf.set(XF_NAME,f'iter.{iter+1}')
-        xf.set(COLOR, '0.9658')
-        xf.set(PRE_AFFINE, '0.2 0.5 0.6 1.2 2.5 0.3698')
+    f3d = out_flam3_data(self)
+    for iter in range(f3d.iter_count):
+        if int(f3d.xf_vactive[iter]):
+            xf = ET.SubElement(flame, XF)
+            xf.tag = XF
+            xf.set(XF_NAME, f3d.xf_name[iter])
+            xf.set(XF_WEIGHT, f3d.xf_weight[iter])
+            xf.set(COLOR, f3d.xf_color[iter])
+            xf.set(SYMMETRY, f3d.xf_symmetry[iter])
+            xf.set(PRE_AFFINE, '0.2 0.5 0.6 1.2 2.5 0.3698')
+            if f3d.xf_xaos[iter]:
+                xf.set(XAOS, f3d.xf_xaos[iter])
+            xf.set(OPACITY, f3d.xf_opacity[iter])
     # Add palette to the flame
     palette = ET.SubElement(flame, PALETTE)
     palette.tag = PALETTE
@@ -3539,6 +3600,7 @@ def out_build_XML(self, root: ET.Element) -> None:
         
         
 def out_XML(self) -> None:
+    
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
     out_build_XML(self, root)
     
