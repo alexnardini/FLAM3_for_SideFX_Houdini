@@ -61,7 +61,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
                     "blob",
                     "juliaN",
                     "juliaScope",
-                    "gaussian",
+                    "gaussian_blur",
                     "fan2",
                     "rings2",
                     "rectangles",
