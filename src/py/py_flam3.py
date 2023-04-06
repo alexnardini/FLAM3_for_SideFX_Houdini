@@ -39,23 +39,26 @@ FLAM3HOUDINI_version = "0.9.5.2"
 
 FLAM3_ITERATORS_COUNT = "flamefunc"
 
-DPT = "*"
-PRM = "..."
-PRX_FF_PRM = "ff"
-PRX_FF_PRM_POST = "fp1"
-SEC_MAIN = ".main"
-SEC_XAOS = ".xaos"
-SEC_SHADER = ".shader"
-SEC_PREVARS = ".pre_vars"
-SEC_VARS = ".vars"
-SEC_POSTVARS = ".post_vars"
-SEC_PREAFFINE = ".pre_affine"
-SEC_POSTAFFINE = ".post_affine"
+DPT = '*'
+PRM = '...'
+PRX_FF_PRM = 'ff'
+PRX_FF_PRM_POST = 'fp1'
+SEC_MAIN = '.main'
+SEC_XAOS = '.xaos'
+SEC_SHADER = '.shader'
+SEC_PREVARS = '.pre_vars'
+SEC_VARS = '.vars'
+SEC_POSTVARS = '.post_vars'
+SEC_PREAFFINE = '.pre_affine'
+SEC_POSTAFFINE = '.post_affine'
 
 # Parameters at hand
-RAMP_SRC_NAME = "palette"
-RAMP_HSV_NAME = "palettehsv"
-RAMP_HSV_VAL_NAME = "hsv"
+IN_PATH = 'inpath'
+IN_PRESETS = 'inpresets'
+OUT_PATH = 'outpath'
+RAMP_SRC_NAME = 'palette'
+RAMP_HSV_NAME = 'palettehsv'
+RAMP_HSV_VAL_NAME = 'hsv'
 
 
 
@@ -1098,9 +1101,8 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     prm = node.parm(prm_name)
     prm.set('999999')
     
-    
-    if "apopresets" in prm_name:
-        xml = node.parm('apofilepath').evalAsString()
+    if IN_PRESETS in prm_name:
+        xml = node.parm(IN_PATH).evalAsString()
         if not apo_flame(xml).isvalidtree:
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
         else:
@@ -1506,8 +1508,8 @@ def reset_MB(self) -> None:
     self.setParms({"shutter": 0.5})
     
 def reset_IN(self) -> None:
-    self.setParms({"apofilepath": ""})
-    self.setParms({"apopresets": str(0)})
+    self.setParms({IN_PATH: ""})
+    self.setParms({IN_PRESETS: str(0)})
     self.setParms({"flamestats_msg": ""})
     self.setParms({"descriptive_msg": ""})
 
@@ -1520,6 +1522,21 @@ def reset_PREFS(self) -> None:
     self.setParms({"camcull": 0})
     self.setParms({"fcam": ""})
     self.setParms({"cullamount": 0.99})
+    
+def reset_OUT(self, mode=0) -> None:
+    self.setParms({"outedit": 0})
+    self.setParms({"outres": hou.Vector2((1920, 1080))})
+    self.setParms({"outcenter": hou.Vector2((0, 0))})
+    self.setParms({"outrotate": 0})
+    self.setParms({"outscale": 100})
+    self.setParms({"outquality": 1024})
+    self.setParms({"outbrightness": 10})
+    self.setParms({"outgamma": 2.5})
+    self.setParms({"outhighlight": 1})
+    self.setParms({"outvibrancy": 1})
+    if not mode:
+        self.setParms({OUT_PATH: ""})
+        self.setParms({"outname": ""})
 
 
 
@@ -1542,13 +1559,14 @@ def flam3_default(self: hou.Node) -> None:
 
     #
     # SYS
-    reset_SYS(self, 500000, 10, 1)
+    reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, 10, 1)
     reset_TM(self)
     reset_FF(self)
     reset_CP(self)
     reset_SM(self)
     reset_MB(self)
     reset_IN(self)
+    reset_OUT(self)
     reset_PREFS(self)
     
     # iterators
@@ -1631,25 +1649,15 @@ def iteratorCountZero(self: hou.Node) -> None:
         # SYS
         self.setParms({"doff": 0})
         self.setParms({"rip": 0})
-        
         # TM
-        self.setParms({"dotm": 0})
-        self.setParms({"tmrt": 0})
-        
+        reset_TM(self)
         # FF vars
         reset_FF(self)
-
         # SM
-        self.setParms({"sm": 0})
-        self.setParms({"smrot": 0})
-        
+        reset_SM(self)
         # MB
-        self.setParms({"domb": 0})
-        self.setParms({"fps": 24})
-        self.setParms({"mbsamples": 16})
-        self.setParms({"shutter": 0.5})
-        
-        #prefs
+        reset_MB(self)
+        # prefs
         self.setParms({"showprefs": 1})
         #self.setParms({"xm": 0})
         self.setParms({"camhandle": 0})
@@ -1683,7 +1691,7 @@ def web_TFFA() -> None:
 
 
 
-# LOAD XML XML_NAME FILES start here
+# LOAD XML FLAME FILES start here
 
 
 
@@ -1727,7 +1735,7 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
 
 
 # XML
-XML_NAME = "flame"
+XML_FLAME_NAME = "flame"
 XML_XF = "xform"
 XML_XF_WEIGHT = "weight"
 XML_XF_NAME = "name"
@@ -1774,7 +1782,7 @@ OUT_XML_RENDER_BLUE_CURVE = 'blue_curve'
 OUT_XML_RENDER_RED_CURVE_VAL=OUT_XML_RENDER_GREEN_CURVE_VAL=OUT_XML_RENDER_BLUE_CURVE_VAL=OUT_XML_RENDER_OVERALL_CURVE_VAL
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
-OUT_XML_RENDER_HOUDIN_DICT = { XML_XF_NAME: 'outname',
+OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: 'outname',
                                OUT_XML_SIZE: 'outres',
                                OUT_XML_CENTER: 'outcenter',
                                OUT_XML_ROTATE: 'outrotate',
@@ -2154,7 +2162,7 @@ class _xml_tree:
         else:
             return None
         
-    def __get_flame(self, key=XML_NAME) -> Union[tuple, None]:
+    def __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
         if self._isvalidtree:
             root = self._tree.getroot()
             flames = []    
@@ -2506,7 +2514,7 @@ class apo_flame_iter_data(apo_flame):
 ###############################################################################################
 def menu_apo_presets(kwargs: dict) -> list:
 
-    xml = kwargs['node'].parm('apofilepath').evalAsString()
+    xml = kwargs['node'].parm(IN_PATH).evalAsString()
     menu=[]
     if apo_flame(xml).isvalidtree:
         apo = apo_flame(xml)
@@ -3118,7 +3126,7 @@ def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
     iter_on_load = self.parm("iternumonload").eval()
     use_iter_on_load = self.parm("useiteronload").eval()
-    preset_name = self.parm('apopresets').menuLabels()[preset_id]
+    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
 
     iter_on_load_preset = get_preset_name_iternum(preset_name)
     if iter_on_load_preset is not None:
@@ -3135,11 +3143,11 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
 
 def apo_to_flam3(self: hou.Node) -> None:
 
-    xml = self.parm('apofilepath').evalAsString()
+    xml = self.parm(IN_PATH).evalAsString()
 
     if apo_flame(xml).isvalidtree:
         
-        preset_id = int(self.parm('apopresets').eval())
+        preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
 
         reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, iter_on_load, 0)
@@ -3290,7 +3298,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_used_msg = f"{var_used_heading}\n{vars_txt}"
     
     # Build and set descriptive parameter msg
-    preset_name = self.parm('apopresets').menuLabels()[preset_id]
+    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
                         f"{preset_name}", )
     self.setParms({"descriptive_msg": "".join(descriptive_prm)})
@@ -3457,7 +3465,7 @@ class _out_utils():
             return ''
 
 
-    def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDIN_DICT.get(XML_XF_NAME)) -> str:
+    def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         # If the name field is empty, build a name based on current date/time
         if not self._node.parm(prm_name).eval():
             now = datetime.now()
@@ -3471,13 +3479,15 @@ class _out_utils():
         for iter in range(self._iter_count):
             val.append(str(self._node.parm(f"{prm_name}_{iter+1}").eval()))
         return tuple(val)
-    
+
+
     def __out_xf_name(self) -> list[str]:
         val = []
         for iter in range(self._iter_count):
             val.append(self._node.parm(f"{self._prm_names.main_note}_{iter+1}").eval())
         return val
-    
+
+
     def __out_xf_xaos(self, prm_name: str) -> tuple[str]:
         val = []
         for iter in range(self._iter_count):
@@ -3497,21 +3507,21 @@ class out_flame_properties(_out_utils):
 
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
-        self.name = self._out_utils__out_flame_name()
-        self.size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SIZE))
-        self.center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_CENTER))
-        self.scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_SCALE))
-        self.rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_ROTATE))
-        self.quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_QUALITY))
-        self.brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_BRIGHTNESS))
-        self.gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_GAMMA))
-        self.vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_VIBRANCY))
-        self.highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDIN_DICT.get(OUT_XML_HIGHLIGHT_POWER))
-        self.render_curves = OUT_XML_RENDER_OVERALL_CURVE_VAL
-        self.overall_curve = OUT_XML_RENDER_OVERALL_CURVE_VAL
-        self.red_curve = OUT_XML_RENDER_RED_CURVE_VAL
-        self.green_curve = OUT_XML_RENDER_GREEN_CURVE_VAL
-        self.blue_curve = OUT_XML_RENDER_BLUE_CURVE_VAL
+        self.flame_name = self._out_utils__out_flame_name()
+        self.flame_size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_SIZE))
+        self.flame_center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_CENTER))
+        self.flame_scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_SCALE))
+        self.flame_rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_ROTATE))
+        self.flame_quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_QUALITY))
+        self.flame_brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_BRIGHTNESS))
+        self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_GAMMA))
+        self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_VIBRANCY))
+        self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_HIGHLIGHT_POWER))
+        self.flame_render_curves = OUT_XML_RENDER_OVERALL_CURVE_VAL
+        self.flame_overall_curve = OUT_XML_RENDER_OVERALL_CURVE_VAL
+        self.flame_red_curve = OUT_XML_RENDER_RED_CURVE_VAL
+        self.flame_green_curve = OUT_XML_RENDER_GREEN_CURVE_VAL
+        self.flame_blue_curve = OUT_XML_RENDER_BLUE_CURVE_VAL
 
 
 
@@ -3532,46 +3542,46 @@ class out_flam3_data(_out_utils):
 def out_flame_properties_build(self) -> dict:
 
     myOS = platform.system().upper()
-    rp = out_flame_properties(self)
+    f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
-            XML_XF_NAME: rp.name,
-            OUT_XML_SIZE: rp.size,
-            OUT_XML_CENTER: rp.center,
-            OUT_XML_SCALE: rp.scale,
-            OUT_XML_ROTATE: rp.rotate,
+            XML_XF_NAME: f3p.flame_name,
+            OUT_XML_SIZE: f3p.flame_size,
+            OUT_XML_CENTER: f3p.flame_center,
+            OUT_XML_SCALE: f3p.flame_scale,
+            OUT_XML_ROTATE: f3p.flame_rotate,
             OUT_XML_BG: '0 0 0',
             OUT_XML_SUPERSAMPLE: '2',
             OUT_XML_FILTER: '0.5',
-            OUT_XML_QUALITY: rp.quality,
-            OUT_XML_BRIGHTNESS: rp.brightness,
-            OUT_XML_GAMMA: rp.gamma,
+            OUT_XML_QUALITY: f3p.flame_quality,
+            OUT_XML_BRIGHTNESS: f3p.flame_brightness,
+            OUT_XML_GAMMA: f3p.flame_gamma,
             OUT_XML_GAMMA_THRESHOLD: '0.0423093658828749',
-            OUT_XML_VIBRANCY: rp.vibrancy,
-            OUT_XML_HIGHLIGHT_POWER: rp.highlight,
+            OUT_XML_VIBRANCY: f3p.flame_vibrancy,
+            OUT_XML_HIGHLIGHT_POWER: f3p.flame_highlight,
             OUT_XML_ESTIMATOR_RADIUS: '9',
             OUT_XML_ESTIMATOR_MINIMUM: '0',
             OUT_XML_ESTIMATOR_CURVE: '0.4',
             OUT_XML_PALETTE_MODE: 'linear',
             OUT_XML_INTERPOLATION: 'linear',
             OUT_XML_INTERPOLATION_TYPE: 'log',
-            OUT_XML_RENDER_CURVES: rp.render_curves,
-            OUT_XML_RENDER_OVERALL_CURVE: rp.overall_curve,
-            OUT_XML_RENDER_RED_CURVE: rp.red_curve,
-            OUT_XML_RENDER_GREEN_CURVE: rp.green_curve,
-            OUT_XML_RENDER_BLUE_CURVE: rp.blue_curve 
+            OUT_XML_RENDER_CURVES: f3p.flame_render_curves,
+            OUT_XML_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
+            OUT_XML_RENDER_RED_CURVE: f3p.flame_red_curve,
+            OUT_XML_RENDER_GREEN_CURVE: f3p.flame_green_curve,
+            OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
     
     
 
 def out_build_XML(self, root: ET.Element) -> None:
-    
+
     # Build Flame properties
-    flame = ET.SubElement(root, XML_NAME)
-    flame.tag = XML_NAME
+    flame = ET.SubElement(root, XML_FLAME_NAME)
+    flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
-    
+
     f3d = out_flam3_data(self)
     for iter in range(f3d.iter_count):
         if int(f3d.xf_vactive[iter]):
@@ -3596,18 +3606,20 @@ def out_build_XML(self, root: ET.Element) -> None:
         sdjjs kdjskas asksas?
         asknaj skjak dakskasn!
         """
-        
-        
+
+
 def out_XML(self) -> None:
-    
+
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
     out_build_XML(self, root)
-    
+
     out_path = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
 
     xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
     tree = ET.ElementTree(ET.fromstring(xml_pretty))
     tree.write(out_path)
+
+
 
 # Create initial tree root
 
