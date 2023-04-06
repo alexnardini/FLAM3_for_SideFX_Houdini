@@ -3432,6 +3432,13 @@ class _out_utils():
         self._prm_names = flam3_iterator_prm_names()
         self._flam3_iterator = flam3_iterator()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
+        
+    def affine_rot(self, affine: list[tuple], angle: float) -> list[tuple]:
+        angle = hou.hmath.degToRad(angle)
+        m2 = hou.Matrix2((affine[0], affine[1]))
+        rot = hou.Matrix2(((math.cos(angle), -(math.sin(angle))), (math.sin(angle), math.cos(angle))))
+        new = (m2 * rot).asTupleOfTuples()
+        return [new[0], new[1], affine[2]]
 
     @property
     def node(self):
@@ -3514,11 +3521,14 @@ class _out_utils():
             collect = []
             for prm in self._flam3_iterator.sec_preAffine[:-1]:
                 collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
-            # Here can do the transformation matrix using the angle parameter
-            # ...
-            flatten = [item for sublist in collect for item in sublist]
-            val.append([str(x) for x in flatten])
+            angle = self._node.parm(f"{self._flam3_iterator.sec_preAffine[-1][0]}{iter+1}").eval()
+            if angle:
+                flatten = [item for sublist in self.affine_rot(collect, angle) for item in sublist]
+            else:
+                flatten = [item for sublist in collect for item in sublist]
+            val.append([str(x) for x in flatten]) 
         return [" ".join(x) for x in val]
+    
     
     
     def __out_xf_postaffine(self) -> list[str]:
@@ -3528,10 +3538,12 @@ class _out_utils():
                 collect = []
                 for prm in self._flam3_iterator.sec_postAffine[1:-1]:
                     collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
-                # Here can do the transformation matrix using the angle parameter
-                # ...
-                flatten = [item for sublist in collect for item in sublist]
-                val.append([str(x) for x in flatten])
+                angle = self._node.parm(f"{self._flam3_iterator.sec_postAffine[-1][0]}{iter+1}").eval()
+                if angle:
+                    flatten = [item for sublist in self.affine_rot(collect, angle) for item in sublist]
+                else:
+                    flatten = [item for sublist in collect for item in sublist]
+                val.append([str(x) for x in flatten])   
             else:
                 val.append('')
         return [" ".join(x) for x in val]
@@ -3713,3 +3725,11 @@ def out_XML(self) -> None:
 # tree = ET.ElementTree(ET.fromstring(xml_pretty))
 # # tree.write(out)
 
+
+import math
+
+angle = hou.hmath.degToRad(30)
+affine = hou.Matrix2(((0.5, 0), (0, 0.5)))
+rot = hou.Matrix2(((math.cos(angle), -(math.sin(angle))), (math.sin(angle), math.cos(angle))))
+new = (affine * rot).asTupleOfTuples()
+print(new)
