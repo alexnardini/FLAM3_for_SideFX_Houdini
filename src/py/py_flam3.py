@@ -889,7 +889,7 @@ def prm_paste_sel(kwargs: dict) -> None:
             paste_from_list(flam3_iterator.sec_main, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_MAIN, node, flam3node, str(id), str(id_from))
 
-        # set XAOS
+        # set XML_XF_XAOS
         elif paste_sel == 2:
             paste_from_list(flam3_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_XAOS, node, flam3node, str(id), str(id_from))
@@ -1683,7 +1683,7 @@ def web_TFFA() -> None:
 
 
 
-# LOAD XML FLAME FILES start here
+# LOAD XML XML_NAME FILES start here
 
 
 
@@ -1727,22 +1727,22 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
 
 
 # XML
-FLAME = "flame"
-XF = "xform"
-XF_WEIGHT = "weight"
-XF_NAME = "name"
-PB = "pre_blur"
-FF = "finalxform"
-PRE_AFFINE = "coefs"
-POST_AFFINE = "post"
-XAOS = "chaos"
-PALETTE = "palette"
-PALETTE_COUNT = "count"
-PALETTE_FORMAT = "format"
-COLOR = "color"
-SYMMETRY = "symmetry"
-COLOR_SPEED = "color_speed"
-OPACITY = "opacity"
+XML_NAME = "flame"
+XML_XF = "xform"
+XML_XF_WEIGHT = "weight"
+XML_XF_NAME = "name"
+XML_XF_PB = "pre_blur"
+XML_FF = "finalxform"
+XML_PRE_AFFINE = "coefs"
+XML_POST_AFFINE = "post"
+XML_XF_XAOS = "chaos"
+XML_PALETTE = "palette"
+XML_PALETTE_COUNT = "count"
+XML_PALETTE_FORMAT = "format"
+XML_XF_COLOR = "color"
+XML_XF_SYMMETRY = "symmetry"
+XML_XF_COLOR_SPEED = "color_speed"
+XML_XF_OPACITY = "opacity"
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
 OUT_XML_SIZE = 'size'
@@ -1774,7 +1774,7 @@ OUT_XML_RENDER_BLUE_CURVE = 'blue_curve'
 OUT_XML_RENDER_RED_CURVE_VAL=OUT_XML_RENDER_GREEN_CURVE_VAL=OUT_XML_RENDER_BLUE_CURVE_VAL=OUT_XML_RENDER_OVERALL_CURVE_VAL
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
-OUT_XML_RENDER_HOUDIN_DICT = { XF_NAME: 'outname',
+OUT_XML_RENDER_HOUDIN_DICT = { XML_XF_NAME: 'outname',
                                OUT_XML_SIZE: 'outres',
                                OUT_XML_CENTER: 'outcenter',
                                OUT_XML_ROTATE: 'outrotate',
@@ -2141,7 +2141,7 @@ class _xml_tree:
     
 
     
-    def __get_name(self, key=XF_NAME) -> Union[tuple, None]:
+    def __get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
         if self._isvalidtree:
             root = self._tree.getroot()
             names = []
@@ -2154,7 +2154,7 @@ class _xml_tree:
         else:
             return None
         
-    def __get_flame(self, key=FLAME) -> Union[tuple, None]:
+    def __get_flame(self, key=XML_NAME) -> Union[tuple, None]:
         if self._isvalidtree:
             root = self._tree.getroot()
             flames = []    
@@ -2264,7 +2264,7 @@ class apo_flame(_xml_tree):
         else:
             return None
     
-    def __get_xaos(self, xforms: list, key=XAOS) -> Union[tuple, None]:
+    def __get_xaos(self, xforms: list, key=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
             tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
@@ -2328,7 +2328,7 @@ class apo_flame(_xml_tree):
                 keyvalues = []
                 for xform in xforms:
                     if xform.get(key) is not None:
-                        if key in XF_NAME:
+                        if key in XML_XF_NAME:
                             keyvalues.append(xform.get(key))
                         else:
                             keyvalues.append(float(xform.get(key)))
@@ -2336,9 +2336,9 @@ class apo_flame(_xml_tree):
                         # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                         # seem not to include those keys if not used or left at default values.
                         # We set them here so we can use them inside FLAM3 for Houdini on load.
-                        if key in OPACITY:
+                        if key in XML_XF_OPACITY:
                             keyvalues.append(float(1))
-                        elif key in SYMMETRY:
+                        elif key in XML_XF_SYMMETRY:
                             keyvalues.append(float(0))
                         else:
                             keyvalues.append([])
@@ -2347,7 +2347,7 @@ class apo_flame(_xml_tree):
             return None
 
         
-    def __get_palette(self, idx: int, key=PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
+    def __get_palette(self, idx: int, key=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
         """
         Args:
             tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
@@ -2364,8 +2364,8 @@ class apo_flame(_xml_tree):
             
             if palette_attrib is not None:
                 palette_hex = self._flame[idx].find(key).text
-                count = int(palette_attrib.get(PALETTE_COUNT)) - 1
-                format = dict(palette_attrib).get(PALETTE_FORMAT)
+                count = int(palette_attrib.get(XML_PALETTE_COUNT)) - 1
+                format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
         
                 HEX = []
                 for line in palette_hex.splitlines():
@@ -2411,22 +2411,22 @@ class apo_flame_iter_data(apo_flame):
         """        
         super().__init__(xmlfile)
         self._idx = self._apo_flame__is_valid_idx(idx)
-        self._xforms = self._apo_flame__get_xforms(self._idx, XF)
-        self._xf_name = self._apo_flame__get_keyvalue(self._xforms, XF_NAME)
-        self._weight = self._apo_flame__get_keyvalue(self._xforms, XF_WEIGHT)
-        self._pre_blur = self._apo_flame__get_keyvalue(self._xforms, PB)
+        self._xforms = self._apo_flame__get_xforms(self._idx, XML_XF)
+        self._xf_name = self._apo_flame__get_keyvalue(self._xforms, XML_XF_NAME)
+        self._weight = self._apo_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT)
+        self._pre_blur = self._apo_flame__get_keyvalue(self._xforms, XML_XF_PB)
         self._xaos  = self._apo_flame__get_xaos(self._xforms)
-        self._coefs = self._apo_flame__get_affine(self._xforms, PRE_AFFINE)
-        self._post  = self._apo_flame__get_affine(self._xforms, POST_AFFINE)
-        self._finalxform = self._apo_flame__get_xforms(self._idx, FF)
-        self._finalxform_coefs = self._apo_flame__get_affine(self._finalxform, PRE_AFFINE)
-        self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, POST_AFFINE)
-        self._finalxform_name = self._apo_flame__get_keyvalue(self._finalxform, XF_NAME)
+        self._coefs = self._apo_flame__get_affine(self._xforms, XML_PRE_AFFINE)
+        self._post  = self._apo_flame__get_affine(self._xforms, XML_POST_AFFINE)
+        self._finalxform = self._apo_flame__get_xforms(self._idx, XML_FF)
+        self._finalxform_coefs = self._apo_flame__get_affine(self._finalxform, XML_PRE_AFFINE)
+        self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, XML_POST_AFFINE)
+        self._finalxform_name = self._apo_flame__get_keyvalue(self._finalxform, XML_XF_NAME)
         self._palette = self._apo_flame__get_palette(self._idx)
-        self._color = self._apo_flame__get_keyvalue(self._xforms, COLOR)
-        self._color_speed = self._apo_flame__get_keyvalue(self._xforms, COLOR_SPEED)
-        self._symmetry = self._apo_flame__get_keyvalue(self._xforms, SYMMETRY)
-        self._opacity = self._apo_flame__get_keyvalue(self._xforms, OPACITY)
+        self._color = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR)
+        self._color_speed = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED)
+        self._symmetry = self._apo_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY)
+        self._opacity = self._apo_flame__get_keyvalue(self._xforms, XML_XF_OPACITY)
 
 
     @property
@@ -3178,10 +3178,9 @@ def apo_to_flam3(self: hou.Node) -> None:
             reset_CP(self, 1)
         palette_cp(self)
         palette_hsv(self)
-        
         #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
-        
+
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
@@ -3412,7 +3411,7 @@ def flam3_about_plugins_msg(self):
 
 
 
-# SAVE XML FLAME FILES start here
+# SAVE XML XML_NAME FILES start here
 
 
 
@@ -3458,7 +3457,7 @@ class _out_utils():
             return ''
 
 
-    def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDIN_DICT.get(XF_NAME)) -> str:
+    def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDIN_DICT.get(XML_XF_NAME)) -> str:
         # If the name field is empty, build a name based on current date/time
         if not self._node.parm(prm_name).eval():
             now = datetime.now()
@@ -3535,7 +3534,7 @@ def out_flame_properties_build(self) -> dict:
     myOS = platform.system().upper()
     rp = out_flame_properties(self)
     return {OUT_XML_VERSION: f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
-            XF_NAME: rp.name,
+            XML_XF_NAME: rp.name,
             OUT_XML_SIZE: rp.size,
             OUT_XML_CENTER: rp.center,
             OUT_XML_SCALE: rp.scale,
@@ -3568,29 +3567,29 @@ def out_flame_properties_build(self) -> dict:
 def out_build_XML(self, root: ET.Element) -> None:
     
     # Build Flame properties
-    flame = ET.SubElement(root, FLAME)
-    flame.tag = FLAME
+    flame = ET.SubElement(root, XML_NAME)
+    flame.tag = XML_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
     
     f3d = out_flam3_data(self)
     for iter in range(f3d.iter_count):
         if int(f3d.xf_vactive[iter]):
-            xf = ET.SubElement(flame, XF)
-            xf.tag = XF
-            xf.set(XF_NAME, f3d.xf_name[iter])
-            xf.set(XF_WEIGHT, f3d.xf_weight[iter])
-            xf.set(COLOR, f3d.xf_color[iter])
-            xf.set(SYMMETRY, f3d.xf_symmetry[iter])
-            xf.set(PRE_AFFINE, '0.2 0.5 0.6 1.2 2.5 0.3698')
+            xf = ET.SubElement(flame, XML_XF)
+            xf.tag = XML_XF
+            xf.set(XML_XF_NAME, f3d.xf_name[iter])
+            xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
+            xf.set(XML_XF_COLOR, f3d.xf_color[iter])
+            xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+            xf.set(XML_PRE_AFFINE, '0.2 0.5 0.6 1.2 2.5 0.3698')
             if f3d.xf_xaos[iter]:
-                xf.set(XAOS, f3d.xf_xaos[iter])
-            xf.set(OPACITY, f3d.xf_opacity[iter])
+                xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
+            xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
     # Add palette to the flame
-    palette = ET.SubElement(flame, PALETTE)
-    palette.tag = PALETTE
-    palette.set(PALETTE_COUNT, '256')
-    palette.set(PALETTE_FORMAT, 'RGB')
+    palette = ET.SubElement(flame, XML_PALETTE)
+    palette.tag = XML_PALETTE
+    palette.set(XML_PALETTE_COUNT, '256')
+    palette.set(XML_PALETTE_FORMAT, 'RGB')
     # Here goes the hex colors
     palette.text = """
         ciao come ashjahs??
