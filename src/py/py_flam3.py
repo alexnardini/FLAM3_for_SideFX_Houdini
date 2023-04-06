@@ -1767,7 +1767,7 @@ OUT_XML_FILTER = 'filter'
 OUT_XML_QUALITY = 'quality'
 OUT_XML_BRIGHTNESS = 'brightness'
 OUT_XML_GAMMA = 'gamma'
-OUT_XML_GAMMA_THRESHOLD = 'threshold'
+OUT_XML_GAMMA_THRESHOLD = 'gamma_threshold'
 OUT_XML_VIBRANCY = 'vibrancy'
 OUT_XML_HIGHLIGHT_POWER = 'highlight_power'
 OUT_XML_ESTIMATOR_RADIUS = 'estimator_radius'
@@ -3571,14 +3571,14 @@ class _out_utils():
         HEXs = []
         for p in POSs:
             HEXs.append(self.rgb_to_hex(self._palette.lookup(p)))
-            
         n = 8
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
         hex_join = []
         for grp in hex_grp:
+            # 6 tie \s
             hex_join.append("      " + "".join(grp) + "\n")
         print(hex_join)
-        
+        # 4 times \s
         return "\n" + "".join(hex_join) + "    "
 
         
