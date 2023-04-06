@@ -36,7 +36,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 
 
 
-FLAM3HOUDINI_version = "0.9.5.2"
+FLAM3HOUDINI_version = "1.0"
 
 FLAM3_ITERATORS_COUNT = "flamefunc"
 
@@ -53,7 +53,7 @@ SEC_POSTVARS = '.post_vars'
 SEC_PREAFFINE = '.pre_affine'
 SEC_POSTAFFINE = '.post_affine'
 
-PALETTE_COUNT = '256'
+PALETTE_COUNT_256 = '256'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
@@ -2388,7 +2388,7 @@ class apo_flame(_xml_tree):
                 RGB_FROM_XML_PALETTE = []
                 for hex in HEX:
                     x = self.hex_to_rgb(hex)
-                    RGB_FROM_XML_PALETTE.append((x[0]/(count + 0.0), x[1]/(count + 0.0), x[2]/(count + 0.0)))
+                    RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                 
                 # Not sure why I need to do the following
                 # but if not, the converted hex_to_rgb colors are a bit washed out.
@@ -3133,16 +3133,16 @@ def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
     iter_on_load = self.parm("iternumonload").eval()
     use_iter_on_load = self.parm("useiteronload").eval()
-    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
-
+    preset_name = self.parm('inpresets').menuLabels()[preset_id]
     iter_on_load_preset = get_preset_name_iternum(preset_name)
     if iter_on_load_preset is not None:
-        iter_on_load = iter_on_load_preset
-        self.setParms({"iternumonload": iter_on_load})
+        self.setParms({"iternumonload": iter_on_load_preset})
         self.setParms({"useiteronload": 0})
+        iter_on_load = iter_on_load_preset
     else:
         if not use_iter_on_load:
             self.setParms({"iternumonload": ITER_LOAD_DEFAULT})
+            iter_on_load = ITER_LOAD_DEFAULT
     return iter_on_load    
 
     
@@ -3150,13 +3150,12 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
 
 def apo_to_flam3(self: hou.Node) -> None:
 
-    xml = self.parm(IN_PATH).evalAsString()
+    xml = self.parm('inpath').evalAsString()
 
     if apo_flame(xml).isvalidtree:
         
-        preset_id = int(self.parm(IN_PRESETS).eval())
+        preset_id = int(self.parm('inpresets').eval())
         iter_on_load = set_iter_on_load(self, preset_id)
-
         reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, iter_on_load, 0)
         reset_TM(self)
         reset_SM(self)
@@ -3168,10 +3167,10 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"rip": 1})
 
         # iterators
-        self.setParms({FLAM3_ITERATORS_COUNT: 0})
+        self.setParms({"flamefunc": 0})
         for p in self.parms():
             p.deleteAllKeyframes()
-        self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)})
+        self.setParms({"flamefunc":  len(apo_data.xforms)})
         apo_set_iterator(0, self, apo_data, preset_id)
         # if FF
         if apo_data.finalxform is not None:
@@ -3187,15 +3186,13 @@ def apo_to_flam3(self: hou.Node) -> None:
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
-        if apo_data.palette is not None:
-            ramp_parm.set(apo_data.palette[0])
-        else:
-            reset_CP(self, 1)
+        ramp_parm.set(apo_data.palette[0])
         palette_cp(self)
         palette_hsv(self)
+        
         #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
-
+        
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
@@ -3205,6 +3202,7 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"flamestats_msg": ""})
             # The following do not work, not sure why
             self.setParms({"descriptive_msg": ""})
+
 
 
 
@@ -3369,7 +3367,7 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
-    flam3_houdini_version = f"Version: v{FLAM3HOUDINI_version}"
+    flam3_houdini_version = f"Version: {FLAM3HOUDINI_version}"
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
     
@@ -3498,7 +3496,7 @@ class _out_utils():
         # If the name field is empty, build a name based on current date/time
         if not self._node.parm(prm_name).eval():
             now = datetime.now()
-            return now.strftime("Flame_%b-%d-%Y_%H:%M:%S")
+            return now.strftime("Flame_%b-%d-%Y_%H%M%S")
         else:
             # otherwise get that name and use it
             return self._node.parm(prm_name).eval()
@@ -3539,7 +3537,7 @@ class _out_utils():
             for prm in self._flam3_iterator.sec_preAffine[:-1]:
                 collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
             angleDeg = self._node.parm(f"{self._flam3_iterator.sec_preAffine[-1][0]}{iter+1}").eval()
-            if angleDeg:
+            if angleDeg != 0.0:
                 flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
             else:
                 flatten = [item for sublist in collect for item in sublist]
@@ -3556,7 +3554,7 @@ class _out_utils():
                 for prm in self._flam3_iterator.sec_postAffine[1:-1]:
                     collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
                 angleDeg = self._node.parm(f"{self._flam3_iterator.sec_postAffine[-1][0]}{iter+1}").eval()
-                if angleDeg:
+                if angleDeg != 0.0:
                     flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
                 else:
                     flatten = [item for sublist in collect for item in sublist]
@@ -3567,7 +3565,7 @@ class _out_utils():
     
     
     def __out_palette_hex(self) -> str:
-        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT)-1)), int(PALETTE_COUNT)))
+        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = []
         for p in POSs:
             HEXs.append(self.rgb_to_hex(self._palette.lookup(p)))
@@ -3575,11 +3573,9 @@ class _out_utils():
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
         hex_join = []
         for grp in hex_grp:
-            # 6 tie \s
+            # 6 time \s
             hex_join.append("      " + "".join(grp) + "\n")
-        print(hex_join)
-        # 4 times \s
-        return "\n" + "".join(hex_join) + "    "
+        return "\n" + "".join(hex_join) + "    " # 4 times \s
 
         
 class out_flame_properties(_out_utils):
@@ -3661,9 +3657,9 @@ def out_build_XML(self, root: ET.Element) -> None:
     flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
+        
     # Build xforms
     f3d = out_flam3_data(self)
-    print(f3d.palette_hex)
     for iter in range(f3d.iter_count):
         if int(f3d.xf_vactive[iter]):
             xf = ET.SubElement(flame, XML_XF)
@@ -3678,20 +3674,14 @@ def out_build_XML(self, root: ET.Element) -> None:
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-
-    # Add palette to the flame
+            
+    # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
-    palette.set(XML_PALETTE_COUNT, PALETTE_COUNT)
+    palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
-    # Here goes the hex colors
     palette.text = f3d.palette_hex
-    
-    # palette.text = """
-    #     ciao come ashjahs??
-    #     sdjjs kdjskas asksas?
-    #     asknaj skjak dakskasn!
-    # """
+
 
 
 def out_XML(self) -> None:
@@ -3761,3 +3751,6 @@ def out_XML(self) -> None:
 # # tree.write(out)
 
 
+
+POSs = list(iter_islice(iter_count(0,1.0/(int(64)-1)), int(64)))
+print(POSs)
