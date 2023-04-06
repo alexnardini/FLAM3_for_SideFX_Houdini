@@ -3426,25 +3426,30 @@ def flam3_about_plugins_msg(self):
 
 
 class _out_utils():
-    
+
     def __init__(self, node: hou.Node) -> None:
         self._node = node
         self._prm_names = flam3_iterator_prm_names()
+        self._flam3_iterator = flam3_iterator()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
-        
+
     @property
     def node(self):
         return self._node
-    
+
     @property
     def prm_name(self):
         return self._prm_names
     
     @property
+    def flam3_iterator(self):
+        return self._flam3_iterator
+
+    @property
     def iter_count(self):
         return self._iter_count
-    
-        
+
+
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
             prm_type = False
@@ -3488,19 +3493,48 @@ class _out_utils():
         return val
 
 
-    def __out_xf_xaos(self, prm_name: str) -> tuple[str]:
+    def __out_xf_xaos(self) -> tuple[str]:
         val = []
         for iter in range(self._iter_count):
-            iter_xaos = self._node.parm(f"{prm_name}_{iter+1}").eval()
+            iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
             if iter_xaos:
                 strip = iter_xaos.split(':')
-                if strip[0].lower() == self._prm_names.xaos:
+                if strip[0].lower() == 'xaos':
                     val.append(" ".join(strip[1:]))
                 else:
                     val.append('')
             else:
                 val.append('')
         return tuple(val)
+
+
+    def __out_xf_preaffine(self) -> list[str]:
+        val = []
+        for iter in range(self._iter_count):
+            collect = []
+            for prm in self._flam3_iterator.sec_preAffine[:-1]:
+                collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
+            # Here can do the transformation matrix using the angle parameter
+            # ...
+            flatten = [item for sublist in collect for item in sublist]
+            val.append([str(x) for x in flatten])
+        return [" ".join(x) for x in val]
+    
+    
+    def __out_xf_postaffine(self) -> list[str]:
+        val = []
+        for iter in range(self._iter_count):
+            if self._node.parm(f"{self._prm_names.postaffine_do}_{iter+1}").eval():
+                collect = []
+                for prm in self._flam3_iterator.sec_postAffine[1:-1]:
+                    collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
+                # Here can do the transformation matrix using the angle parameter
+                # ...
+                flatten = [item for sublist in collect for item in sublist]
+                val.append([str(x) for x in flatten])
+            else:
+                val.append('')
+        return [" ".join(x) for x in val]
 
         
 class out_flame_properties(_out_utils):
@@ -3532,10 +3566,12 @@ class out_flam3_data(_out_utils):
         self.xf_name = self._out_utils__out_xf_name()
         self.xf_vactive = self._out_utils__out_xf_data(self._prm_names.main_vactive)
         self.xf_weight = self._out_utils__out_xf_data(self._prm_names.main_weight)
-        self.xf_xaos = self._out_utils__out_xf_xaos(self._prm_names.xaos)
+        self.xf_xaos = self._out_utils__out_xf_xaos()
         self.xf_color = self._out_utils__out_xf_data(self._prm_names.shader_color)
         self.xf_symmetry = self._out_utils__out_xf_data(self._prm_names.shader_speed)
         self.xf_opacity = self._out_utils__out_xf_data(self._prm_names.shader_alpha)
+        self.xf_preaffine = self._out_utils__out_xf_preaffine()
+        self.xf_postaffine = self._out_utils__out_xf_postaffine()
 
 
 
@@ -3571,8 +3607,8 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
-    
-    
+
+
 
 def out_build_XML(self, root: ET.Element) -> None:
 
@@ -3591,10 +3627,13 @@ def out_build_XML(self, root: ET.Element) -> None:
             xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
             xf.set(XML_XF_COLOR, f3d.xf_color[iter])
             xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
-            xf.set(XML_PRE_AFFINE, '0.2 0.5 0.6 1.2 2.5 0.3698')
+            xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
+            if f3d.xf_postaffine[iter]:
+                xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
+
     # Add palette to the flame
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
