@@ -6,6 +6,7 @@ from itertools import islice as iter_islice
 from textwrap import wrap
 from xml.dom import minidom
 from datetime import datetime
+from math import sin, cos
 import platform
 import xml.etree.ElementTree as ET
 import os, hou, re, json, colorsys, webbrowser, inspect
@@ -3433,10 +3434,10 @@ class _out_utils():
         self._flam3_iterator = flam3_iterator()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
         
-    def affine_rot(self, affine: list[tuple], angle: float) -> list[tuple]:
-        angle = hou.hmath.degToRad(angle)
+    def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
+        angleRad = hou.hmath.degToRad(angleDeg)
         m2 = hou.Matrix2((affine[0], affine[1]))
-        rot = hou.Matrix2(((math.cos(angle), -(math.sin(angle))), (math.sin(angle), math.cos(angle))))
+        rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
 
@@ -3726,10 +3727,3 @@ def out_XML(self) -> None:
 # # tree.write(out)
 
 
-import math
-
-angle = hou.hmath.degToRad(30)
-affine = hou.Matrix2(((0.5, 0), (0, 0.5)))
-rot = hou.Matrix2(((math.cos(angle), -(math.sin(angle))), (math.sin(angle), math.cos(angle))))
-new = (affine * rot).asTupleOfTuples()
-print(new)
