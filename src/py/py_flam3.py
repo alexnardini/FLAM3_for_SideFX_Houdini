@@ -53,6 +53,9 @@ SEC_POSTVARS = '.post_vars'
 SEC_PREAFFINE = '.pre_affine'
 SEC_POSTAFFINE = '.post_affine'
 
+PALETTE_COUNT = '256'
+PALETTE_FORMAT = 'RGB'
+
 # Parameters at hand
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
@@ -2389,18 +2392,21 @@ class apo_flame(_xml_tree):
                 
                 # Not sure why I need to do the following
                 # but if not, the converted hex_to_rgb colors are a bit washed out.
-                hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
-                RGB_COMPENSTAED = []
-                for item in hsv:
-                    h = item[0] + 1.0
-                    s = item[1] * 1.4
-                    v = item[2] * 1.5
-                    RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
-        
+                # I leave it out for now but need to investigate
+                #
+                # hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
+                # RGB_COMPENSTAED = []
+                # for item in hsv:
+                #     h = item[0] + 1.0
+                #     s = item[1] * 1.4
+                #     v = item[2] * 1.5
+                #     RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
+                    
                 POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
                 BASES = [hou.rampBasis.Linear] * (count + 1)
                 
-                return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
+                # return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
+                return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (count+1), str(format)
             else:
                 return None
         else:
@@ -3433,6 +3439,7 @@ class _out_utils():
         self._prm_names = flam3_iterator_prm_names()
         self._flam3_iterator = flam3_iterator()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
+        self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
         
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
         angleRad = hou.hmath.degToRad(angleDeg)
@@ -3440,6 +3447,11 @@ class _out_utils():
         rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
+    
+    def rgb_to_hex(self, rgb: tuple) -> str:
+        vals = [255*x for x in rgb]
+        return ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+
 
     @property
     def node(self):
@@ -3456,6 +3468,10 @@ class _out_utils():
     @property
     def iter_count(self):
         return self._iter_count
+
+    @property
+    def palette(self):
+        return self._palette
 
 
     def __out_flame_data(self, prm_name='') -> str:
@@ -3548,6 +3564,22 @@ class _out_utils():
             else:
                 val.append('')
         return [" ".join(x) for x in val]
+    
+    
+    def __out_palette_hex(self) -> str:
+        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT)-1)), int(PALETTE_COUNT)))
+        HEXs = []
+        for p in POSs:
+            HEXs.append(self.rgb_to_hex(self._palette.lookup(p)))
+            
+        n = 8
+        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
+        hex_join = []
+        for grp in hex_grp:
+            hex_join.append("      " + "".join(grp) + "\n")
+        print(hex_join)
+        
+        return "\n" + "".join(hex_join) + "    "
 
         
 class out_flame_properties(_out_utils):
@@ -3585,11 +3617,11 @@ class out_flam3_data(_out_utils):
         self.xf_opacity = self._out_utils__out_xf_data(self._prm_names.shader_alpha)
         self.xf_preaffine = self._out_utils__out_xf_preaffine()
         self.xf_postaffine = self._out_utils__out_xf_postaffine()
+        self.palette_hex = self._out_utils__out_palette_hex()
 
 
 
 def out_flame_properties_build(self) -> dict:
-
     myOS = platform.system().upper()
     f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
@@ -3624,14 +3656,14 @@ def out_flame_properties_build(self) -> dict:
 
 
 def out_build_XML(self, root: ET.Element) -> None:
-
     # Build Flame properties
     flame = ET.SubElement(root, XML_FLAME_NAME)
     flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
-
+    # Build xforms
     f3d = out_flam3_data(self)
+    print(f3d.palette_hex)
     for iter in range(f3d.iter_count):
         if int(f3d.xf_vactive[iter]):
             xf = ET.SubElement(flame, XML_XF)
@@ -3650,14 +3682,16 @@ def out_build_XML(self, root: ET.Element) -> None:
     # Add palette to the flame
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
-    palette.set(XML_PALETTE_COUNT, '256')
-    palette.set(XML_PALETTE_FORMAT, 'RGB')
+    palette.set(XML_PALETTE_COUNT, PALETTE_COUNT)
+    palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     # Here goes the hex colors
-    palette.text = """
-        ciao come ashjahs??
-        sdjjs kdjskas asksas?
-        asknaj skjak dakskasn!
-        """
+    palette.text = f3d.palette_hex
+    
+    # palette.text = """
+    #     ciao come ashjahs??
+    #     sdjjs kdjskas asksas?
+    #     asknaj skjak dakskasn!
+    # """
 
 
 def out_XML(self) -> None:
