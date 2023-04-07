@@ -3200,11 +3200,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
         
 
 
-
 def iter_on_load_callback(self):
     iter_on_load = self.parm("iternumonload").eval()
     self.setParms({"iter": iter_on_load})
-
 
 
 
@@ -3217,7 +3215,6 @@ def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
             return None
     else:
         return None
-
 
 
 
@@ -3236,7 +3233,6 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
             iter_on_load = ITER_LOAD_DEFAULT
     return iter_on_load    
 
-    
 
 
 def apo_to_flam3(self: hou.Node) -> None:
@@ -3293,8 +3289,6 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"flamestats_msg": ""})
             # The following do not work, not sure why
             self.setParms({"descriptive_msg": ""})
-
-
 
 
 
@@ -3449,7 +3443,6 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     build_stats_msg = "".join(build)
     
     return build_stats_msg
-
 
 
 
@@ -3725,7 +3718,8 @@ class _out_utils():
             hex_join.append("      " + "".join(grp) + "\n")
         return "\n" + "".join(hex_join) + "    " # 4 times \s
 
-        
+
+
 class out_flame_properties(_out_utils):
 
     def __init__(self, node: hou.Node) -> None:
@@ -3795,7 +3789,6 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_RENDER_GREEN_CURVE: f3p.flame_green_curve,
             OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
-
 
 
 
