@@ -27,8 +27,8 @@
 // GENOME
 struct gem{
 
-    int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fv1t, fv2t, fv3t, fp1t, fp2t;
-    float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fp1w, fp2w;
+    int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fv1t, fv2t, fv3t, fP1t, fP2t;
+    float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fv1w, fv2w, fv3w, fP1w, fP2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     matrix2 TMm2;
     
@@ -128,11 +128,11 @@ struct gem{
             fv3w = chf("../ffv3weight");
             if(fv3w!=0) fv3t = chi("../ffv3type");
             // // FF POST VAR 01
-            fp1w = chf("../ffp1weight");
-            if(fp1w >0) fp1t = chi("../ffp1type");
+            fP1w = chf("../ffp1weight");
+            if(fP1w >0) fP1t = chi("../ffp1type");
             // // FF POST VAR 02
-            fp2w = chf("../ffp2weight");
-            if(fp2w >0) fp2t = chi("../ffp2type");
+            fP2w = chf("../ffp2weight");
+            if(fP2w >0) fP2t = chi("../ffp2type");
             // FF AFFINE
             _x = chu("../ffx");
             _y = chu("../ffy");
