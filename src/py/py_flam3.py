@@ -3369,7 +3369,7 @@ def flam3_about_msg(self):
 
     flam3_houdini_version = f"Version: {FLAM3HOUDINI_version}"
     Implementation_years = "2020/2023"
-    Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python {python_version()}\n{flam3_houdini_version}\n{Implementation_years}"
+    Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
     
     code_references = """Code references:
 flam3 :: (GPL v2)
@@ -3378,6 +3378,7 @@ Fractorium :: (GPL v3)"""
     
     h_version = '.'.join(str(x) for x in hou.applicationVersion())
     Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+    Python_version = f"Python: {python_version()}"
     license_type = str(hou.licenseCategory()).split(".")[-1]
     Houdini_license = f"License: {license_type}"
     Platform = f"Platform: {hou.applicationPlatformInfo()}"
@@ -3394,12 +3395,13 @@ Seph, Lucy, b33rheart, Neonrauschen"""
              example_flames, nnl,
              Houdini_version, nl,
              Houdini_license, nl,
+             Python_version, nl,
              Platform, nl,
              PC_name, nl,
              User)
-    
+
     build_about_msg = "".join(build)
-    
+
     self.setParms({"flam3about_msg": build_about_msg})
 
 
