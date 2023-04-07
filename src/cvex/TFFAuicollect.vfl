@@ -147,7 +147,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     xaos_mode = chi("../xm");
 
     // UI collect
-    float ppw1, ppw2, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fw3, fpw1, fpw2;
+    float ppw1, ppw2, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fpw1, fPw1, fPw2;
     append(T, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XS");
     if(xaos_chk){
@@ -188,13 +188,13 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
             ppw2 = chf(concat("../pre2weight_" , _IDX));
             if(ppw2>0){ if(w_total != 0) append(PP, Ts[atoi(chs(concat("../pre2type_", _IDX)))]); }
             // Build pre vars tag string
-            string PP_build;
-            if(len(PP)==1) PP_build = concat( "[", PP[0], "]:");
-            else if(len(PP)>1) PP_build = concat( "[", join(PP, ", "), "]:");
-            else PP_build = "";
+            string p_build;
+            if(len(PP)==1) p_build = concat( "[ ", PP[0], " ]:");
+            else if(len(PP)>1) p_build = concat( "[ ", join(PP, ", "), " ]:");
+            else p_build = "";
             // Post var
             pw1 = chf(concat("../p1weight_", _IDX));
-            if(pw1>0) { if(w_total != 0) P1 = concat( "[", Ts[atoi(chs(concat("../p1type_", _IDX)))], "] "); }
+            if(pw1>0) { if(w_total != 0) P1 = concat( "[ ", Ts[atoi(chs(concat("../p1type_", _IDX)))], " ]:"); }
             // Iterator weight
             if(w_total != 0) W = sprintf( "%g", chf(concat("../iw_", _IDX))); else W = "";
             
@@ -207,7 +207,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
             }
             else out = SPLIT;
             W = join(out, ".");
-            VAR = concat(PB, PP_build, V1, V2, V3, V4, P1, W);
+            VAR = concat(PB, p_build, V1, V2, V3, V4, P1, W);
         }
         append(T, VAR);
         PP = {};
@@ -215,31 +215,34 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
     if(FF){
 
-        string VAR, FV1, FV2, FV3, FP[];
+        string VAR, FV1, FV2, Fp[], FP[];
         fw1 = chf("../ffv1weight");
         if(fw1!=0) FV1 = Ts[atoi(chs("../ffv1type"))]+":";
         else FV1 = ":";
         fw2 = chf("../ffv2weight");
         if(fw2!=0) FV2 = Ts[atoi(chs("../ffv2type"))]+":";
         else FV2 = ":";
-        fw3 = chf("../ffv3weight");
-        if(fw3!=0) FV3 = Ts[atoi(chs("../ffv3type"))];
-        else FV3 = ":";
-        float fw_total = fw1+fw2+fw3;
+        float fw_total = fw1+fw2;
 
+        fpw1 = chf("../ffpre1weight");
+        if(fpw1>0){ if(fw_total != 0) append(Fp, Ts[atoi(chs("../ffpre1type"))]); }
+        string Fp_build;
+        if(len(Fp)==1) Fp_build = concat( "[ ", Fp[0], " ]:");
+        else if(len(Fp)>1) Fp_build = concat( "[", join(Fp, ", "), "]:");
+        else Fp_build = "";
         // Post var 1
-        fpw1 = chf("../ffp1weight");
-        if(fpw1>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("../ffp1type"))]); }
+        fPw1 = chf("../ffp1weight");
+        if(fPw1>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("../ffp1type"))]); }
         // Post var 2
-        fpw2 = chf("../ffp2weight");
-        if(fpw2>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("../ffp2type"))]); }
+        fPw2 = chf("../ffp2weight");
+        if(fPw2>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("../ffp2type"))]); }
         // Build post vars tag string
         string FP_build;
-        if(len(FP)==1) FP_build = concat( ":[", FP[0], "]");
-        else if(len(FP)>1) FP_build = concat( ":[", join(FP, ", "), "]");
+        if(len(FP)==1) FP_build = concat( "[ ", FP[0], " ]");
+        else if(len(FP)>1) FP_build = concat( "[ ", join(FP, ", "), " ]");
         else FP_build = "";
 
-        VAR = concat(FV1, FV2, FV3, FP_build);
+        VAR = concat(Fp_build, FV1, FV2, FP_build);
         append(T, toupper(VAR));
         }
         
