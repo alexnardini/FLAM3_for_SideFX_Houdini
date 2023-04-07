@@ -525,10 +525,10 @@ def menu_copypaste(kwargs: dict) -> list:
         if node == flam3node and id==id_from:
             menuitems = ( "Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values", "" )
         elif node == flam3node:
-            menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
+            menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
         else:
             flam3nodeIter = f"{str(flam3node)}.iter."
-            menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
+            menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: Post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
@@ -585,7 +585,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
             menuitems = ( "FF copied. Select a different FLAM3 node to paste those FF values.", "" )
         else:
             flam3nodeFF = f"{str(flam3node_FF)}.FF"
-            menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
+            menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: Post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
@@ -2820,7 +2820,7 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
 
     # Only on pre variations with parametric so:
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[t_idx+1][0]}{str(mp_idx+1)}": v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight})
 
 
 
@@ -3006,7 +3006,7 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     # idx set by hand for now: flam3_iterator.sec_prevarsT[t_idx]
     # idx set by hand for now: flam3_iterator.sec_prevarsW[t_idx+1][0] ... because in here we have "pre_blur as first"
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[t_idx+1][0]}{str(mp_idx+1)}":v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight})
         
     
 
@@ -3831,5 +3831,5 @@ def out_XML(self) -> None:
 
 
 
-POSs = list(iter_islice(iter_count(0,1.0/(int(64)-1)), int(64)))
-print(POSs)
+
+
