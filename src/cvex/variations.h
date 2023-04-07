@@ -622,33 +622,33 @@ void V_BUTTERFLY(vector2 p; const vector2 _p; const float w){
 // 56 ( parametric )
 void V_CELL(vector2 p; const vector2 _p; const float w, size){
     float inv_cell_size, x, y, dx, dy;
-    inv_cell_size = 1.0/size;
-    x = floor(_p[0]*inv_cell_size);
-    y = floor(_p[1]*inv_cell_size);
-    dx = _p[0] - x*size;
-    dy = _p[1] - y*size;
-    if(y>=0){
-        if(x>=0){
+    inv_cell_size = 1 / size;
+    x = floor(_p[0] * inv_cell_size);
+    y = floor(_p[1] * inv_cell_size);
+    dx = _p[0] - x * size;
+    dy = _p[1] - y * size;
+    if(y >= 0){
+        if(x >= 0){
             y *= 2;
             x *= 2;
         }
         else{
             y *= 2;
-            x = -(2*x+1);
+            x = -(2 * x + 1);
         }
     }
     else{
-        if(x>=0){
-            y = -(2*y+1);
+        if(x >= 0){
+            y = -(2 * y + 1);
             x *= 2;
         }
         else{
-            y = -(2*y+1);
-            x = -(2*x+1);
+            y = -(2 * y + 1);
+            x = -(2 * x + 1);
         }
     }
-    p[0] = (dx + x*size);
-    p[1] = -(dy + y*size);
+    p[0] = w * (dx + x * size);
+    p[1] = -(w * (dy + y * size));
 }
 // 57 ( parametric )
 void V_CPOW(vector2 p; const vector2 _p; const float w, power, pow_r, pow_i){
