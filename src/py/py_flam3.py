@@ -3511,16 +3511,7 @@ def flam3_about_plugins_msg(self):
 
 
 
-
-
-
-
-
-
 # SAVE XML XML_NAME FILES start here
-
-
-
 
 
 class _out_utils():
@@ -3605,7 +3596,7 @@ class _out_utils():
         for i, item in enumerate(val):
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
-        # remove floating Zero if it is an integer value
+        # remove floating Zero if it is an integer value ( from '1.0' to '1' )
         round = []
         for item in t:
             collect = []
@@ -3842,7 +3833,6 @@ def out_build_XML(self, root: ET.Element) -> None:
 
 
 def out_XML(self) -> None:
-
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
     out_build_XML(self, root)
 
