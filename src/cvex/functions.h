@@ -111,17 +111,34 @@ int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
     return 0;
 }
 
-void V_SYM(vector2 p; const int num){
+
+// void V_SYM_NEW(vector2 p){
+//     vector _p = p;
+//     float m_Order = chf("../smrotnew");
+//     vector2 origin = chu("../symori");
+//     float angle, dx, dy, sina, cosa, m_TwoPiDivOrder;
+//     m_TwoPiDivOrder = (M_PI*2) / Zeps(m_Order);
+//     angle = floor(nrandom("twister") * m_Order) * m_TwoPiDivOrder;
+//     dx = (_p[0] - origin[0]); // * w
+//     dy = (_p[1] - origin[1]); // * w
+//     sincos(angle, sina, cosa);
+//     // T cosa = std::cos(angle);
+//     // T sina = std::sin(angle);
+//     p[0] = origin[0] + dx * cosa + dy * sina;
+//     p[1] = origin[1] + dy * cosa - dx * sina;
+// }
+
+void V_SYM(vector2 p; const int m_Order){
     float ang = 0;
     // 3-way
-    if(!num){
+    if(!m_Order){
         if(nrandom('twister')>(1.0/3.0)){
             ang = 120;
             if(nrandom('twister')>0.5) ang = 240;
         }
     }
     // 5-way
-    else if(num){
+    else if(m_Order){
         if(nrandom('twister')>=0.2){
             float sym = nrandom('twister');
             if(0.2 < sym <= 0.4)        ang =  72;
