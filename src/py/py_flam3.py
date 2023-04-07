@@ -3532,18 +3532,18 @@ class _out_utils():
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
         self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
-        
+
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
         angleRad = hou.hmath.degToRad(angleDeg)
         m2 = hou.Matrix2((affine[0], affine[1]))
         rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
-    
+
     def rgb_to_hex(self, rgb: tuple) -> str:
         vals = [255*x for x in rgb]
         return ''.join(['{:02X}'.format(int(round(x))) for x in vals])
-    
+
     def out_xf_xaos_to(self) -> tuple[str]:
         val = []
         for iter in range(self._iter_count):
@@ -3557,7 +3557,7 @@ class _out_utils():
             else:
                 val.append('')
         return tuple(val)
-    
+
     def out_xf_xaos_from(self) -> tuple[str]:
         val = []
         for iter in range(self._iter_count):
@@ -3570,14 +3570,25 @@ class _out_utils():
                     val.append([])
             else:
                 val.append([])
-        # Transpose and export
+        # Transpose
         iter_count = self._iter_count
         fill = []
         for i, item in enumerate(val):
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
+        # remove floating Zero if it is an integer value
+        round = []
+        for item in t:
+            collect = []
+            for i in item:
+                if float(i).is_integer():
+                    collect.append(str(int(float(i))))
+                else:
+                    collect.append(i)
+            round.append(collect)
+        # export
         transposed = []
-        for idx, item in enumerate(t):
+        for idx, item in enumerate(round):
             transposed.append(" ".join(list(map(lambda x: str(x), item))))
         return tuple(transposed)
 
@@ -3867,3 +3878,17 @@ def out_XML(self) -> None:
 # tree = ET.ElementTree(ET.fromstring(xml_pretty))
 # # tree.write(out)
 
+
+a = [ [1.0, 1.0, 2.0], [0.9, 1.1, 2.0] ]
+new = []
+for item in a:
+    collect = []
+    for i in item:
+        if float(i).is_integer():
+            collect.append(str(int(i)))
+        else:
+            collect.append(i)
+    new.append(collect)
+    
+print(a)
+print(new)
