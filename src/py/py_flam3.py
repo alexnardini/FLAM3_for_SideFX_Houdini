@@ -436,8 +436,10 @@ class flam3_iterator_FF:
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-    sec_varsT_FF = ( f"{PRX_FF_PRM}{n.var_type_1}", f"{PRX_FF_PRM}{n.var_type_2}", f"{PRX_FF_PRM}{n.var_type_3}" )
-    sec_varsW_FF = ( (f"{PRX_FF_PRM}{n.var_weight_1}", 0), (f"{PRX_FF_PRM}{n.var_weight_2}", 0), (f"{PRX_FF_PRM}{n.var_weight_3}", 0) )
+    sec_prevarsT_FF = ( f"{PRX_FF_PRM}{n.prevar_type_1}", )
+    sec_prevarsW_FF = ( (f"{PRX_FF_PRM}{n.prevar_weight_1}", 0), )
+    sec_varsT_FF = ( f"{PRX_FF_PRM}{n.var_type_1}", f"{PRX_FF_PRM}{n.var_type_2}" )
+    sec_varsW_FF = ( (f"{PRX_FF_PRM}{n.var_weight_1}", 0), (f"{PRX_FF_PRM}{n.var_weight_2}", 0) )
     sec_postvarsT_FF = ( f"{PRX_FF_PRM}{n.postvar_type_1}", f"{PRX_FF_PRM}{n.postvar_type_2}" )
     sec_postvarsW_FF = ( (f"{PRX_FF_PRM}{n.postvar_weight_1}", 0), (f"{PRX_FF_PRM}{n.postvar_weight_2}", 0) )
     sec_preAffine_FF = ( (f"{PRX_FF_PRM}{n.preaffine_x}", 1), (f"{PRX_FF_PRM}{n.preaffine_y}", 1), (f"{PRX_FF_PRM}{n.preaffine_o}", 1), (f"{PRX_FF_PRM}{n.preaffine_ang}", 0) )
@@ -447,7 +449,7 @@ class flam3_iterator_FF:
     # ALL method lists
     # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
     # so I need to handle them one by one inside: def prm_paste_FF() and def prm_paste_sel_FF()
-    allMisc_FF = sec_varsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
+    allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
 
@@ -583,7 +585,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
             menuitems = ( "FF copied. Select a different FLAM3 node to paste those FF values.", "" )
         else:
             flam3nodeFF = f"{str(flam3node_FF)}.FF"
-            menuitems = ( "", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
+            menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
@@ -833,6 +835,7 @@ def prm_paste_FF(kwargs: dict) -> None:
             if node==flam3node_FF:
                 print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
             else:
+                pastePRM_T_from_list(flam3_iterator_FF.sec_prevarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
                 pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
                 pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
                 paste_from_list(flam3_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
@@ -981,26 +984,32 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         
         # Get user selection of paste methods
         ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
+        
+        # set FF PRE VARS
+        if ff_paste_sel == 1:
+            pastePRM_T_from_list(flam3_iterator_FF.sec_prevarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
+            paste_from_list(flam3_iterator_FF.sec_prevarsW_FF, node, flam3node_FF, "", "")
+            paste_set_note(2, SEC_PREVARS, node, flam3node_FF, "", "")
 
         # set FF VARS
-        if ff_paste_sel == 1:
+        elif ff_paste_sel == 2:
             pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
         
         # set FF POST VARS
-        elif ff_paste_sel == 2:
+        elif ff_paste_sel == 3:
             pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
 
         # set FF PRE AFFINE
-        elif ff_paste_sel == 3:
+        elif ff_paste_sel == 4:
             paste_from_list(flam3_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_PREAFFINE, node, flam3node_FF, "", "")
         
         # set FF POST AFFINE
-        elif ff_paste_sel == 4:
+        elif ff_paste_sel == 5:
             paste_from_list(flam3_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_POSTAFFINE, node, flam3node_FF, "", "")
 
@@ -1437,12 +1446,14 @@ def reset_FF(self: hou.Node) -> None:
     n = flam3_iterator_prm_names
 
     self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
+    # FF pre
+    self.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0})
+    # FF var
     self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
     self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_3}": 0})
     self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
     self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_3}": 0})
     # FF post
     self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
     self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
@@ -1820,7 +1831,7 @@ V_PRX_POST = "post_"
 MAX_ITER_VARS = 4
 MAX_ITER_VARS_PRE = 2
 MAX_ITER_VARS_POST = 1
-MAX_FF_VARS = 3
+MAX_FF_VARS = 2
 MAX_FF_VARS_PRE = 1
 MAX_FF_VARS_POST = 2
 
@@ -2866,7 +2877,52 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     
     
     
-    
+def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+    """
+    Args:
+        app (str): [What software were used to generate this flame preset]
+        node (hou.Node): [Current FLAM3 houdini node]
+        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        v_type (int): [the current variation type index]
+        weight (float): [the current variation weight]
+        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+    """
+    # Exceptions: check if this flame need different parameters names based on detected exception
+    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+
+    VAR: list = []
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in [x.lower() for x in names]:
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            # This allow me to use "radial_blur" variation as everyone else
+            # only have "radial_blur_angle" and not "radial_blur_zoom".
+            n_post = make_PRE(n)
+            if xform.get(n_post) is not None:
+                for k in xform.keys():
+                    if n_post in k:
+                        var_prm_vals.append(float(str(xform.get(k))))
+                        break
+            else:
+                var_prm_vals.append(float(0))
+                if n not in XML_XF_PRM_EXCEPTION:
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                    print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
+            
+        VAR.append(typemaker(var_prm_vals))
+        
+    for idx, prm in enumerate(var_prm[1:-1]):
+        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]})
+
+    # Only on post variation with parametric so:
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type})
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight})
+
+
+
+
 def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
@@ -2972,6 +3028,20 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
 
 
+def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
+    """
+    Args:
+        mode (int): [0 for iterator. 1 for FF]
+        node (hou.Node): [Current FLAM3 houdini node]
+        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+        v_type (int): [Current variation type index]
+        weight (float): [Current variation weight]
+    """
+
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type})
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight})
+
+
 
 def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
     """
@@ -3057,6 +3127,16 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
             # Set finalxform name first if any
             if apo_data.finalxform_name[0]:
                 node.setParms({f"{prx}note": apo_data.finalxform_name[0]})
+            # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
+            if vars_keys_pre[mp_idx]:
+                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
+                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+                    if v_type is not None:
+                        v_weight: float = float(xform.get(key_name))
+                        if apo_prm[v_type][-1]:
+                            v_parametric_PRE_FF(app, node, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                        else:
+                            v_generic_PRE_FF(node, t_idx, v_type, v_weight)
             # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
