@@ -2720,6 +2720,22 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
 
 
+
+# I should merge all those v_parametric*() and v_generic*() into one for each
+# but it is actually easier for me to debug those and make tests.
+# Perhaps something for me to do in the future to make the code cleaner and slimmer.
+#
+# v_parametric()
+# v_parametric_PRE()
+# v_parametric_POST()
+# v_parametric_PRE_FF()
+# v_parametric_POST_FF()
+# v_generic()
+# v_generic_PRE()
+# v_generic_POST()
+# v_generic_PRE_FF()
+# v_generic_POST_FF()
+
 def var_name_from_dict(mydict: dict, idx: int):
     return list(mydict.keys())[list(mydict.values()).index(idx)]
 def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -2870,10 +2886,8 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
         node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
 
     # Only on post variation with parametric so:
-    # idx set by hand for now: flam3_iterator.sec_prevarsT[0]
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[0][0]
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}": v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
     
     
     
@@ -3023,9 +3037,8 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     prx, prx_prm = flam3_prx_mode(mode)
 
     # Only post variation with no parametric so:
-    # idx set by hand for now as there is only one POST var in each iterator.
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[0]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[0][0]}{str(mp_idx+1)}":v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
 
 
 def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
