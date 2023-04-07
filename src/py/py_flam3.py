@@ -3089,12 +3089,12 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
     app = apo_data.apo_version[preset_id]
 
     xforms = ()
-    max_vars = 0
+    MAX_VARS_MODE = 0
     if mode:
-        max_vars = MAX_FF_VARS
+        MAX_VARS_MODE = MAX_FF_VARS
         xforms = apo_data.finalxform
     else:
-        max_vars = MAX_ITER_VARS
+        MAX_VARS_MODE = MAX_ITER_VARS
         xforms = apo_data.xforms
 
     iterator_names = flam3_iterator_prm_names()
@@ -3109,10 +3109,10 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
-        for t_idx, key_name in enumerate(vars_keys[mp_idx][:max_vars]):
+        for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]):
             v_type = apo_get_idx_by_key(key_name)
             if v_type is not None:
-                v_weight: float = float(xform.get(key_name))
+                v_weight = float(xform.get(key_name))
                 if apo_prm[v_type][-1]:
                     v_parametric(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                 else:
@@ -3132,7 +3132,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
                     if v_type is not None:
-                        v_weight: float = float(xform.get(key_name))
+                        v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
                             v_parametric_PRE_FF(app, node, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
@@ -3142,7 +3142,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
                     if v_type is not None:
-                        v_weight: float = float(xform.get(key_name))
+                        v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
                             v_parametric_POST_FF(app, node, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
@@ -3150,12 +3150,11 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                             
         else:
             # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
-            # For now the execution order will always be:
             if vars_keys_pre[mp_idx]:
                 for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
                     if v_type is not None:
-                        v_weight: float = float(xform.get(key_name))
+                        v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
                             v_parametric_PRE(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
@@ -3166,7 +3165,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name))
                     if v_type is not None:
-                        v_weight: float = float(xform.get(key_name))
+                        v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
                             v_parametric_POST(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
