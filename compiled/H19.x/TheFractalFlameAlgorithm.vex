@@ -167,8 +167,8 @@ source_filename = "FLAM3"
 @159 = private constant [9 x i8] c"cropltrb\00"
 @160 = private constant [7 x i8] c"cropaz\00"
 @161 = private constant [0 x i8*] zeroinitializer
-@162 = private constant [7 x i8] c"../ff_\00"
-@163 = private constant [8 x i8] c"../fp1_\00"
+@162 = private constant [8 x i8] c"../fp1_\00"
+@163 = private constant [7 x i8] c"../ff_\00"
 @164 = private constant [11 x i8] c"Tstep_mult\00"
 @165 = private constant [7 x i8] c"mb_mod\00"
 @166 = private constant [4 x i8] c"set\00"
@@ -18477,7 +18477,7 @@ end372:                                           ; preds = %end435, %end149
   br i1 %152, label %true446, label %false447
 
 true377:                                          ; preds = %true371
-  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @162, i64 0, i64 0), i8** %103
+  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @162, i64 0, i64 0), i8** %103
   store i64 %GEM19.fca.10.load, i64* %104
   store i64 %return13, i64* %105
   %mem381 = load <2 x double>, <2 x double>* %mem
@@ -18496,7 +18496,7 @@ end378:                                           ; preds = %true377, %true371
 
 true386:                                          ; preds = %end378
   %tmp388 = load <2 x double>, <2 x double>* %tmp
-  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @162, i64 0, i64 0), i8** %111
+  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @163, i64 0, i64 0), i8** %111
   store i64 %GEM19.fca.11.load, i64* %112
   store i64 %return13, i64* %113
   %mem391 = load <2 x double>, <2 x double>* %mem
@@ -18516,7 +18516,7 @@ end387:                                           ; preds = %true386, %end378
 
 true401:                                          ; preds = %end387
   %tmp403 = load <2 x double>, <2 x double>* %tmp
-  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @162, i64 0, i64 0), i8** %119
+  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @163, i64 0, i64 0), i8** %119
   store i64 %GEM19.fca.12.load, i64* %120
   store i64 %return13, i64* %121
   %mem406 = load <2 x double>, <2 x double>* %mem
@@ -18535,7 +18535,7 @@ end402:                                           ; preds = %true401, %end387
   br i1 %return414, label %true416, label %end417
 
 true416:                                          ; preds = %end402
-  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @163, i64 0, i64 0), i8** %127
+  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @162, i64 0, i64 0), i8** %127
   store i64 %GEM19.fca.13.load, i64* %128
   store i64 %return13, i64* %129
   %tmp420 = load <2 x double>, <2 x double>* %tmp
@@ -18553,7 +18553,7 @@ end417:                                           ; preds = %true416, %end402
   br i1 %return424, label %true426, label %end427
 
 true426:                                          ; preds = %end417
-  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @163, i64 0, i64 0), i8** %135
+  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @162, i64 0, i64 0), i8** %135
   store i64 %GEM19.fca.14.load, i64* %136
   store i64 %return13, i64* %137
   %tmp430 = load <2 x double>, <2 x double>* %tmp
