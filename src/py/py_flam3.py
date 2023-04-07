@@ -2867,12 +2867,11 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     
     
     
-def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
         node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
         xform (dict): [current xform we are processing to the relative key names and values for the iterator]
         v_type (int): [the current variation type index]
@@ -2900,7 +2899,7 @@ def v_parametric_POST_FF(app: str, node: hou.Node, mp_idx: int, t_idx: int, xfor
                 var_prm_vals.append(float(0))
                 if n not in XML_XF_PRM_EXCEPTION:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
+                    print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
             
         VAR.append(typemaker(var_prm_vals))
         
@@ -2974,12 +2973,11 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
 
 
 
-def v_generic_POST_FF(node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
         v_type (int): [Current variation type index]
         weight (float): [Current variation weight]
@@ -3066,9 +3064,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                     if v_type is not None:
                         v_weight: float = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
-                            v_parametric_POST_FF(app, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                            v_parametric_POST_FF(app, node, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                         else:
-                            v_generic_POST_FF(node, mp_idx, t_idx, v_type, v_weight)
+                            v_generic_POST_FF(node, t_idx, v_type, v_weight)
                             
         else:
             # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
