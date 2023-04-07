@@ -7,6 +7,7 @@ from textwrap import wrap
 from xml.dom import minidom
 from datetime import datetime
 from math import sin, cos
+import numpy as np
 import platform
 import xml.etree.ElementTree as ET
 import os, hou, re, json, colorsys, webbrowser, inspect
@@ -38,8 +39,6 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 
 FLAM3HOUDINI_version = "1.0"
 
-FLAM3_ITERATORS_COUNT = "flamefunc"
-
 DPT = '*'
 PRM = '...'
 PRX_FF_PRM = 'ff'
@@ -57,9 +56,11 @@ PALETTE_COUNT_256 = '256'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
+FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
 OUT_PATH = 'outpath'
+XAOS_MODE = 'xm'
 RAMP_SRC_NAME = 'palette'
 RAMP_HSV_NAME = 'palettehsv'
 RAMP_HSV_VAL_NAME = 'hsv'
@@ -3530,6 +3531,7 @@ class _out_utils():
         self._flam3_iterator = flam3_iterator()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
         self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
+        self._xm = self._node.parm(XAOS_MODE).eval()
         
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
         angleRad = hou.hmath.degToRad(angleDeg)
@@ -3541,6 +3543,43 @@ class _out_utils():
     def rgb_to_hex(self, rgb: tuple) -> str:
         vals = [255*x for x in rgb]
         return ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+    
+    def out_xf_xaos_to(self) -> tuple[str]:
+        val = []
+        for iter in range(self._iter_count):
+            iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
+            if iter_xaos:
+                strip = iter_xaos.split(':')
+                if strip[0].lower() == 'xaos':
+                    val.append(" ".join(strip[1:]))
+                else:
+                    val.append('')
+            else:
+                val.append('')
+        return tuple(val)
+    
+    def out_xf_xaos_from(self) -> tuple[str]:
+        val = []
+        for iter in range(self._iter_count):
+            iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
+            if iter_xaos:
+                strip = iter_xaos.split(':')
+                if strip[0].lower() == 'xaos':
+                    val.append(strip[1:])
+                else:
+                    val.append([])
+            else:
+                val.append([])
+        # Transpose and export
+        iter_count = self._iter_count
+        fill = []
+        for i, item in enumerate(val):
+            fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
+        t = np.transpose(np.resize(fill, (iter_count, iter_count)))
+        transposed = []
+        for idx, item in enumerate(t):
+            transposed.append(" ".join(list(map(lambda x: str(x), item))))
+        return tuple(transposed)
 
 
     @property
@@ -3583,7 +3622,6 @@ class _out_utils():
             print(f"{str(self.node)}: Empty XML key name string. Please pass in a valid XML key name.")
             return ''
 
-
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         # If the name field is empty, build a name based on current date/time
         if not self._node.parm(prm_name).eval():
@@ -3606,21 +3644,11 @@ class _out_utils():
             val.append(self._node.parm(f"{self._prm_names.main_note}_{iter+1}").eval())
         return val
 
-
     def __out_xf_xaos(self) -> tuple[str]:
-        val = []
-        for iter in range(self._iter_count):
-            iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
-            if iter_xaos:
-                strip = iter_xaos.split(':')
-                if strip[0].lower() == 'xaos':
-                    val.append(" ".join(strip[1:]))
-                else:
-                    val.append('')
-            else:
-                val.append('')
-        return tuple(val)
-
+        if self._xm:
+            return self.out_xf_xaos_from()
+        else:
+            return self.out_xf_xaos_to()
 
     def __out_xf_preaffine(self) -> list[str]:
         val = []
@@ -3635,8 +3663,6 @@ class _out_utils():
                 flatten = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten]) 
         return [" ".join(x) for x in val]
-    
-    
     
     def __out_xf_postaffine(self) -> list[str]:
         val = []
@@ -3654,7 +3680,6 @@ class _out_utils():
             else:
                 val.append('')
         return [" ".join(x) for x in val]
-    
     
     def __out_palette_hex(self) -> str:
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
@@ -3841,8 +3866,4 @@ def out_XML(self) -> None:
 # xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
 # tree = ET.ElementTree(ET.fromstring(xml_pretty))
 # # tree.write(out)
-
-
-
-
 
