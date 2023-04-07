@@ -3534,6 +3534,17 @@ class _out_utils():
         self._xm = self._node.parm(XAOS_MODE).eval()
 
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
+        """Every affine has an Angle parameter with rotate the affine values internally.
+        When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
+        and export the resulting values out so we can get the same result once we load it back.
+
+        Args:
+            affine (list[tuple]): X, Y, O afffine component
+            angleDeg (float): a float value that represent the angle in degrees ( The iterator.affine's angle parameter )
+
+        Returns:
+            list[tuple]: A new affine list of tuples ( (X), (Y), (O) ) rotated by the angle amount.
+        """        
         angleRad = hou.hmath.degToRad(angleDeg)
         m2 = hou.Matrix2((affine[0], affine[1]))
         rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
@@ -3541,10 +3552,23 @@ class _out_utils():
         return [new[0], new[1], affine[2]]
 
     def rgb_to_hex(self, rgb: tuple) -> str:
+        """Convert a tuple of RGB values into HEX value
+
+        Args:
+            rgb (tuple): A tuple ( hou.Vector3((r,g,b)) )
+
+        Returns:
+            str: The HEX value of the passsed RGB color
+        """        
         vals = [255*x for x in rgb]
         return ''.join(['{:02X}'.format(int(round(x))) for x in vals])
 
     def out_xf_xaos_to(self) -> tuple[str]:
+        """Export in a list[str] the xaos TO values to write out
+
+        Returns:
+            tuple[str]: the xaos TO values to write out.
+        """        
         val = []
         for iter in range(self._iter_count):
             iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
@@ -3559,6 +3583,11 @@ class _out_utils():
         return tuple(val)
 
     def out_xf_xaos_from(self) -> tuple[str]:
+        """Export in a list[str] the xaos FROM values to write out
+
+        Returns:
+            tuple[str]: the xaos FROM values transposed inot xaos TO values to write out.
+        """        
         val = []
         for iter in range(self._iter_count):
             iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
@@ -3878,17 +3907,3 @@ def out_XML(self) -> None:
 # tree = ET.ElementTree(ET.fromstring(xml_pretty))
 # # tree.write(out)
 
-
-a = [ [1.0, 1.0, 2.0], [0.9, 1.1, 2.0] ]
-new = []
-for item in a:
-    collect = []
-    for i in item:
-        if float(i).is_integer():
-            collect.append(str(int(i)))
-        else:
-            collect.append(i)
-    new.append(collect)
-    
-print(a)
-print(new)
