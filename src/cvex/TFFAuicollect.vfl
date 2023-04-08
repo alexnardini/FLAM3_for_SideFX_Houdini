@@ -132,7 +132,8 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
                     "polynomial",
                     "crop",
                     "unpolar",
-                    "glynnia" };
+                    "glynnia",
+                    "point_symmetry" };
 
 
     // SYS
