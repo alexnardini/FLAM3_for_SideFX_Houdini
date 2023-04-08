@@ -3812,12 +3812,12 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_ESTIMATOR_CURVE: '0.4',
             OUT_XML_PALETTE_MODE: 'linear',
             OUT_XML_INTERPOLATION: 'linear',
-            OUT_XML_INTERPOLATION_TYPE: 'log',
-            OUT_XML_RENDER_CURVES: f3p.flame_render_curves,
-            OUT_XML_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
-            OUT_XML_RENDER_RED_CURVE: f3p.flame_red_curve,
-            OUT_XML_RENDER_GREEN_CURVE: f3p.flame_green_curve,
-            OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
+            OUT_XML_INTERPOLATION_TYPE: 'log'
+            # OUT_XML_RENDER_CURVES: f3p.flame_render_curves,
+            # OUT_XML_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
+            # OUT_XML_RENDER_RED_CURVE: f3p.flame_red_curve,
+            # OUT_XML_RENDER_GREEN_CURVE: f3p.flame_green_curve,
+            # OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
 
@@ -3888,7 +3888,7 @@ def out_build_XML(self, root: ET.Element) -> None:
         xf = ET.SubElement(flame, XML_FF)
         xf.tag = XML_FF   
     
-            
+
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
