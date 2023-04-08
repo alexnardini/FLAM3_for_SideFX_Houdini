@@ -3555,6 +3555,20 @@ class _out_utils():
             else:
                 val.append('')
         return tuple(val)
+    
+    def out_round_floats(self, VAL_LIST) -> list[str]:
+        # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
+        round = []
+        for item in VAL_LIST:
+            collect = []
+            for i in item:
+                if float(i).is_integer():
+                    collect.append(str(int(float(i))))
+                else:
+                    collect.append(i)
+            round.append(collect)
+            
+        return round
 
     def out_xf_xaos_from(self) -> tuple[str]:
         """Export in a list[str] the xaos FROM values to write out
@@ -3580,15 +3594,16 @@ class _out_utils():
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
-        round = []
-        for item in t:
-            collect = []
-            for i in item:
-                if float(i).is_integer():
-                    collect.append(str(int(float(i))))
-                else:
-                    collect.append(i)
-            round.append(collect)
+        # round = []
+        # for item in t:
+        #     collect = []
+        #     for i in item:
+        #         if float(i).is_integer():
+        #             collect.append(str(int(float(i))))
+        #         else:
+        #             collect.append(i)
+        #     round.append(collect)
+        round = self.out_round_floats(t)
         # export
         transposed = []
         for idx, item in enumerate(round):
@@ -3685,8 +3700,9 @@ class _out_utils():
                 flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
             else:
                 flatten = [item for sublist in collect for item in sublist]
-            val.append([str(x) for x in flatten]) 
-        return [" ".join(x) for x in val]
+            val.append([str(x) for x in flatten])
+        round = self.out_round_floats(val)
+        return [" ".join(x) for x in round]
     
     def __out_xf_postaffine(self) -> list[str]:
         val = []
@@ -3702,8 +3718,9 @@ class _out_utils():
                     flatten = [item for sublist in collect for item in sublist]
                 val.append([str(x) for x in flatten])   
             else:
-                val.append('')
-        return [" ".join(x) for x in val]
+                val.append([])
+        round = self.out_round_floats(val)
+        return [" ".join(x) for x in round]
     
     def __out_palette_hex(self) -> str:
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
@@ -3793,12 +3810,11 @@ def out_flame_properties_build(self) -> dict:
 
 
 
-def out_populate_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, ITER_COUNT: int, FUNC: Callable) -> None:
-    
+def out_populate_xform_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: int, FUNC: Callable) -> None:
     for idx, prm in enumerate(WEIGHTS_tuple):
-        prm_w = self.parm(f"{prm[0]}{ITER_COUNT}").eval()
+        prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
         if prm_w != 0:
-            v_type = self.parm(f"{TYPES_tuple[idx]}{ITER_COUNT}").eval()
+            v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
             XFORM.set(FUNC(v_name), str(prm_w))
             # get vars prm to check if parametric
@@ -3809,10 +3825,10 @@ def out_populate_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tup
                 for id, p in enumerate(apo_prm):
                     if f3_prm[id][-1]:
                         for i, n in enumerate(p):
-                            vals = self.parmTuple(f"{f3_prm[id][0]}{ITER_COUNT}").eval()
+                            vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
                             XFORM.set(FUNC(p[i]), str(vals[i]))
                     else:
-                        val = self.parm(f"{f3_prm[id][0]}{ITER_COUNT}").eval()
+                        val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
                         XFORM.set(FUNC(p[0]), str(val))
 
 
@@ -3844,11 +3860,11 @@ def out_build_XML(self, root: ET.Element) -> None:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
             # xform VARS to XML
-            out_populate_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, iter_var, make_VAR)
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, iter_var, make_VAR)
             # xform PRE VARS to XML
-            out_populate_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, iter_var, make_PRE)
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, iter_var, make_PRE)
             # xform POST VARS to XML
-            out_populate_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, iter_var, make_POST)
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, iter_var, make_POST)
             
     # Build finalxform
     ...
