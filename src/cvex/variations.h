@@ -1456,5 +1456,19 @@ void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
             p[1] = r * _p[1]; } 
         }
 }
+// 105 ( parametric )
+void V_POINT_SYMMETRY(vector2 p; const vector2 _p; const float w, m_Order, m_X, m_Y){
+    float angle, dx, dy, cosa, sina, m_TwoPiDivOrder;
+    // precalc
+    m_TwoPiDivOrder = M_2PI / Zeps(m_Order);
+    // compute
+    angle = floor(nrandom("twister") * m_Order) * m_TwoPiDivOrder;
+    dx = (_p[0] - m_X) * w;
+    dy = (_p[1] - m_Y) * w;
+    cosa = cos(angle);
+    sina = sin(angle);
+    p[0] = m_X + dx * cosa + dy * sina;
+    p[1] = m_Y + dy * cosa - dx * sina;
+}
 
 #endif

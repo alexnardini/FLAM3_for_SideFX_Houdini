@@ -27,6 +27,7 @@
 
 #define LIMIT   1000
 #define EPS     2.220446049250313e-016
+#define M_2PI   PI*2
 #define M_1_PI  0.318309886183790671538
 #define M_2_PI  0.636619772367581343076
 
@@ -111,45 +112,6 @@ int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
     return 0;
 }
 
-
-// void V_SYM_NEW(vector2 p){
-//     vector _p = p;
-//     float m_Order = chf("../smrotnew");
-//     vector2 origin = chu("../symori");
-//     float angle, dx, dy, sina, cosa, m_TwoPiDivOrder;
-//     m_TwoPiDivOrder = (M_PI*2) / Zeps(m_Order);
-//     angle = floor(nrandom("twister") * m_Order) * m_TwoPiDivOrder;
-//     dx = (_p[0] - origin[0]); // * w
-//     dy = (_p[1] - origin[1]); // * w
-//     sincos(angle, sina, cosa);
-//     // T cosa = std::cos(angle);
-//     // T sina = std::sin(angle);
-//     p[0] = origin[0] + dx * cosa + dy * sina;
-//     p[1] = origin[1] + dy * cosa - dx * sina;
-// }
-
-void V_SYM(vector2 p; const int m_Order){
-    float ang = 0;
-    // 3-way
-    if(!m_Order){
-        if(nrandom('twister')>(1.0/3.0)){
-            ang = 120;
-            if(nrandom('twister')>0.5) ang = 240;
-        }
-    }
-    // 5-way
-    else if(m_Order){
-        if(nrandom('twister')>=0.2){
-            float sym = nrandom('twister');
-            if(0.2 < sym <= 0.4)        ang =  72;
-            else if(0.4 < sym <= 0.6)   ang = 144;
-            else if(0.6 < sym <= 0.8)   ang = 216;
-            else if(0.8 < sym <= 1.0)   ang = 288;
-        }
-    }
-    p *= (matrix2)maketransform(0, set(0, 0, ang));
-}
-
 // Hardcoded inside "flam*.h" files, earned 7kb in final compile file size.
 // Used for post affine operation inside the chaos game.
 void affine(vector2 p; const vector2 x, y, o){
@@ -162,18 +124,6 @@ void affineRot(matrix2 m2; const vector2 x, y; const float ang){
     rotate(m2, ang);
 }
 
-/*
- / Not needed for now as I use string data.
-
-void XAOS_transpose(const float XAOS[]; float T[]; const int size){
-    for(int i=0; i<size; i++){
-        for(int j=0; j<size; j++){
-            int idx = j*size+i;
-            append(T, XAOS[idx]);
-        }
-    }
-}
-*/
 
 void XAOS_transpose_s(const string XAOS[]; string T[]; const int size){
     for(int i=0; i<size; i++){

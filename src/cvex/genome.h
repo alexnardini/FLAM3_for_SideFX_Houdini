@@ -160,7 +160,7 @@ struct gem{
 struct gemPrm{
 
     float   rings2_val[], bipolar_shift[], cell_size[], escher_beta[], popcorn2_c[], flux_spread[];
-    vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[];
+    vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[], point_symmetry[];
     vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[], crop_az[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[], crop_ltrb[];
     vector  pc_DISC2[]; // pc_BWRAPS[], pc_WEDGEJULIA[];
@@ -174,7 +174,7 @@ struct gemPrm{
             // float
             resize(rings2_val, res); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // vector
-            resize(blob, res); pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=blob;
+            resize(blob, res); pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=bwraps=point_symmetry=blob;
             // vector2
             resize(curl_c, res); parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=crop_az=curl_c;
             // vector4
@@ -243,8 +243,8 @@ struct gemPrm{
                             lazysusan[i]    = chv(concat("../lazysusan_", idx)); continue; }
                     }
                 }
-                else if(find( {66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101, 102, 103} , T )>=0){
-                    if(T<78){
+                else if(find( {66, 67, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 94, 95, 96, 97, 98, 99, 101, 102, 103, 105} , T )>=0){
+                    if(T<79){
                         // 66 MODULUS
                         if(T==66){ modulus[i] = chu(concat("../modulusXYZ_", idx)); continue; }
                         // 67 OSCOPE
@@ -274,12 +274,12 @@ struct gemPrm{
                             continue; }
                         // 77 WEDGE SPH
                         else if(T==77){ wedgesph[i] = chp(concat("../wedgesph_", idx)); continue; }
+                        // 78 WHORL
+                        else if(T==78){ whorl[i]  = chu(concat("../whorl_", idx)); continue; }
                     }
                     else{
-                        // 78 WHORL
-                        if(T==78){ whorl[i]  = chu(concat("../whorl_", idx)); continue; }
                         // 79 WAVES2
-                        else if(T==79){
+                        if(T==79){
                             waves2_scale[i] = chu(concat("../waves2scalexyz_", idx));
                             waves2_freq[i]  = chu(concat("../waves2freqxyz_", idx)); continue; }
                         // 94 AUGER
@@ -314,6 +314,8 @@ struct gemPrm{
                         else if(T==102){
                             crop_ltrb[i] = chp(concat("../cropltrb_", idx));
                             crop_az[i] = chu(concat("../cropaz_", idx)); continue; }
+                        // 105 POINT SYMMETRY
+                        else if(T==105){ point_symmetry[i] = chv(concat("../ptsym_", idx)); continue; }
                     }
                 }
             }

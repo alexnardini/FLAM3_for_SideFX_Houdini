@@ -177,7 +177,8 @@ class flam3_varsPRM:
                 (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
                 (f"crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1),
                 ("unpolar", 0), 
-                ("glynnia", 0)
+                ("glynnia", 0),
+                (f"pt_symmetry{PRM}", ("ptsym_", 1), 1)
                 )
 
 
@@ -416,7 +417,8 @@ class flam3_varsPRM_FF(flam3_varsPRM):
                         (self.varsPRM[101][0], (f"{self.prx}_{self.varsPRM[101][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][2][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[101][3][0][:-1]}", 1), 1),
                         (self.varsPRM[102][0], (f"{self.prx}_{self.varsPRM[102][1][0][:-1]}", 1), (f"{self.prx}_{self.varsPRM[102][2][0][:-1]}", 1), 1), 
                         (self.varsPRM[103][0], 0),
-                        (self.varsPRM[104][0], 0)  
+                        (self.varsPRM[104][0], 0), 
+                        (self.varsPRM[105][0], (f"{self.prx}_{self.varsPRM[105][1][0][:-1]}", 1), 1)
                         )
         
         return varsPRM_FF
@@ -1936,7 +1938,8 @@ VARS_FLAM3_DICT_IDX = { "linear": 0,
                         "polynomial": 101,
                         "crop": 102,
                         "unpolar": 103,
-                        "glynnia": 104
+                        "glynnia": 104, 
+                        "point_symmetry": 105
                         }
 
 
@@ -2105,7 +2108,8 @@ class flam3_varsPRM_APO:
                 ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
                 ("crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
                 ("unpolar", 0), 
-                ("glynnia", 0)  
+                ("glynnia", 0), 
+                ("point_symmetry", ("point_symmetry_order", "point_symmetry_centre_x", "point_symmetry_centre_y"), 1)
                 )
 
 
@@ -3504,7 +3508,7 @@ class _out_utils():
         self._xm = self._node.parm(XAOS_MODE).eval()
 
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
-        """Every affine has an Angle parameter with rotate the affine values internally.
+        """Every affine has an Angle parameter wotch rotate the affine values internally.
         When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
         and export the resulting values out so we can get the same result once we load it back.
 

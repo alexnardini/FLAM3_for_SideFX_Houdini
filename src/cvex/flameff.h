@@ -363,8 +363,8 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
         }
     }
-    else if(T<105){
-        if(T<87){
+    else{
+        if(T<88){
             // 70 SCRY ( parametric )
             if(T==70){
                 V_SCRY(p, _p, w);
@@ -446,14 +446,14 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             else if(T==86){
                 V_CSC(f3c, p, _p, w);
                 return p; }
-        }
-        else{
             // 87 COTHE COT
-            if(T==87){
+            else if(T==87){
                 V_COT(f3c, p, _p, w);
                 return p; }
+        }
+        else{
             // 88 COTHE SINH
-            else if(T==88){
+            if(T==88){
                 V_SINH(f3c, p, _p, w);
                 return p; }
             // 89 COTHE COSH
@@ -536,6 +536,11 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 104 GLYNNIA
             else if(T==104){
                 V_GLYNNIA(p, _p, w);
+                return p; }
+            // 105 POINT_SYMMETRY ( parametric )
+            else if(T==105){
+                vector ptsym = chv(concat(prx, "ptsym"));
+                V_POINT_SYMMETRY(p, _p, w, ptsym[0], ptsym[1], ptsym[2]);
                 return p; }
         }
     }
