@@ -1535,7 +1535,7 @@ def reset_IN(self) -> None:
 def reset_PREFS(self) -> None:
     self.setParms({"showprefs": 1})
     self.setParms({"f3c": 1})
-    self.setParms({"xm": 0})
+    self.setParms({XAOS_MODE: 0})
     self.setParms({"camhandle": 0})
     self.setParms({"camcull": 0})
     self.setParms({"fcam": ""})
@@ -1548,10 +1548,10 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({"outrotate": 0})
     self.setParms({"outscale": 100})
     self.setParms({"outquality": 1024})
-    self.setParms({"outbrightness": 10})
+    self.setParms({"outbrightness": 5})
     self.setParms({"outgamma": 2.5})
     self.setParms({"outhighlight": 1})
-    self.setParms({"outvibrancy": 1})
+    self.setParms({"outvibrancy": 0.333333})
     if not mode:
         self.setParms({OUT_PATH: ""})
         self.setParms({"outname": ""})
@@ -1671,7 +1671,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         reset_MB(self)
         # prefs
         self.setParms({"showprefs": 1})
-        #self.setParms({"xm": 0})
+        #self.setParms({XAOS_MODE: 0})
         self.setParms({"camhandle": 0})
         self.setParms({"camcull": 0})
         #self.setParms({"fcam": ""})
@@ -3500,7 +3500,7 @@ def flam3_about_plugins_msg(self):
 
 
 
-# SAVE XML XML_NAME FILES start here
+# SAVE XML FILES start here
 
 
 class _out_utils():
