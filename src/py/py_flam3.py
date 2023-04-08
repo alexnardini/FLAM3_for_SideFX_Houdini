@@ -56,6 +56,12 @@ PALETTE_COUNT_256 = '256'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
+SYS_PT_COUNT = "ptcount"
+SYS_ITERATIONS = "iter"
+SYS_DO_FF = 'doff'
+SYS_TAG = "tag"
+SYS_TAG_SIZE = "tagsize"
+SYS_RIP = "rip"
 FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
@@ -1482,13 +1488,13 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
         mode (int): 0: skip "doff" 1: reset "doff"
     """    
     
-    self.setParms({"ptcount": density})
-    self.setParms({"iter": iter})
+    self.setParms({SYS_PT_COUNT: density})
+    self.setParms({SYS_ITERATIONS: iter})
     if mode:
-        self.setParms({"doff": 0})
-    self.setParms({"tag": 1})
-    self.setParms({"tagsize": 0})
-    self.setParms({"rip": 0})
+        self.setParms({SYS_DO_FF: 0})
+    self.setParms({SYS_TAG: 1})
+    self.setParms({SYS_TAG_SIZE: 0})
+    self.setParms({SYS_RIP: 0})
 
 
 # def reset_TM(self) -> None:
@@ -1657,8 +1663,8 @@ def iteratorCountZero(self: hou.Node) -> None:
             p.deleteAllKeyframes()
 
         # SYS
-        self.setParms({"doff": 0})
-        self.setParms({"rip": 0})
+        self.setParms({SYS_DO_FF: 0})
+        self.setParms({SYS_RIP: 0})
         # FF vars
         reset_FF(self)
         # MB
@@ -3194,7 +3200,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
 def iter_on_load_callback(self):
     iter_on_load = self.parm("iternumonload").eval()
-    self.setParms({"iter": iter_on_load})
+    self.setParms({SYS_ITERATIONS: iter_on_load})
 
 
 
@@ -3241,22 +3247,22 @@ def apo_to_flam3(self: hou.Node) -> None:
         
         apo_data = apo_flame_iter_data(xml, preset_id)
         if min(apo_data.opacity) == 0.0:
-            self.setParms({"rip": 1})
+            self.setParms({SYS_RIP: 1})
 
         # iterators
-        self.setParms({"flamefunc": 0})
+        self.setParms({FLAM3_ITERATORS_COUNT: 0})
         for p in self.parms():
             p.deleteAllKeyframes()
-        self.setParms({"flamefunc":  len(apo_data.xforms)})
+        self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)})
         apo_set_iterator(0, self, apo_data, preset_id)
         # if FF
         if apo_data.finalxform is not None:
             reset_FF(self)
-            self.setParms({"doff": 1})
+            self.setParms({SYS_DO_FF: 1})
             apo_set_iterator(1, self, apo_data, preset_id)
         else:
             reset_FF(self)
-            self.setParms({"doff": 0})
+            self.setParms({SYS_DO_FF: 0})
 
         # CP
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
@@ -3503,6 +3509,8 @@ class _out_utils():
         self._node = node
         self._prm_names = flam3_iterator_prm_names()
         self._flam3_iterator = flam3_iterator()
+        self._flam3_iterator_FF = flam3_iterator_FF()
+        self._flam3_do_FF = self._node.parm(SYS_DO_FF).eval()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
         self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
@@ -3622,6 +3630,10 @@ class _out_utils():
     @property
     def flam3_iterator(self):
         return self._flam3_iterator
+    
+    @property
+    def flam3_do_FF(self):
+        return self._flam3_do_FF
 
     @property
     def iter_count(self):
@@ -3810,7 +3822,7 @@ def out_flame_properties_build(self) -> dict:
 
 
 
-def out_populate_xform_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: int, FUNC: Callable) -> None:
+def out_populate_xform_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
         if prm_w != 0:
@@ -3851,23 +3863,30 @@ def out_build_XML(self, root: ET.Element) -> None:
             xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
             xf.set(XML_XF_COLOR, f3d.xf_color[iter])
             xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+            # pre_blur
             if f3d.xf_pre_blur[iter]:
                 xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
+            # xform PRE VARS to XML
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
+            # pre affine
             xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
+            # xform VARS to XML
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
+            # post affine
             if f3d.xf_postaffine[iter]:
                 xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
+            # xform POST VARS to XML
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
+            # xaos
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
+            # opacity
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-            # xform VARS to XML
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, iter_var, make_VAR)
-            # xform PRE VARS to XML
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, iter_var, make_PRE)
-            # xform POST VARS to XML
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, iter_var, make_POST)
-            
+    
     # Build finalxform
-    ...
+    if f3d.flam3_do_FF:
+        xf = ET.SubElement(flame, XML_FF)
+        xf.tag = XML_FF   
     
             
     # Build palette
