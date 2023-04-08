@@ -1746,9 +1746,13 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
 
 
 
-# XML
+
+# It happen that Houdini sometime round value to many, many decimals.
+# I am limit this to max 8 decimals on export so not to have the xml file explode with trailing floats...
+# Increase this if for some reason you need more precision.
 ROUND_DECIMAL_COUNT = 8
 
+# XML
 XML_FLAME_NAME = "flame"
 XML_XF = "xform"
 XML_XF_WEIGHT = "weight"
