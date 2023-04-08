@@ -1747,6 +1747,8 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
 
 
 # XML
+ROUND_DECIMAL_COUNT = 8
+
 XML_FLAME_NAME = "flame"
 XML_XF = "xform"
 XML_XF_WEIGHT = "weight"
@@ -3566,17 +3568,17 @@ class _out_utils():
     
     def out_round_floats(self, VAL_LIST) -> list[str]:
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
-        round = []
+        ROUND = []
         for item in VAL_LIST:
             collect = []
             for i in item:
                 if float(i).is_integer():
                     collect.append(str(int(float(i))))
                 else:
-                    collect.append(i)
-            round.append(collect)
+                    collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
+            ROUND.append(collect)
             
-        return round
+        return ROUND
 
     def out_xf_xaos_from(self) -> tuple[str]:
         """Export in a list[str] the xaos FROM values to write out
@@ -3601,9 +3603,9 @@ class _out_utils():
         for i, item in enumerate(val):
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
-        round = self.out_round_floats(t)
+        ROUND = self.out_round_floats(t)
         transposed = []
-        for idx, item in enumerate(round):
+        for idx, item in enumerate(ROUND):
             transposed.append(" ".join(list(map(lambda x: str(x), item))))
         return tuple(transposed)
 
@@ -3702,8 +3704,8 @@ class _out_utils():
             else:
                 flatten = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
-        round = self.out_round_floats(val)
-        return [" ".join(x) for x in round]
+        ROUND = self.out_round_floats(val)
+        return [" ".join(x) for x in ROUND]
     
     def __out_xf_postaffine(self) -> list[str]:
         val = []
@@ -3720,8 +3722,8 @@ class _out_utils():
                 val.append([str(x) for x in flatten])   
             else:
                 val.append([])
-        round = self.out_round_floats(val)
-        return [" ".join(x) for x in round]
+        ROUND = self.out_round_floats(val)
+        return [" ".join(x) for x in ROUND]
     
     def __out_palette_hex(self) -> str:
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
