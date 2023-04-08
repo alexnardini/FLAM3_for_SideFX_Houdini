@@ -3850,6 +3850,10 @@ def out_build_XML(self, root: ET.Element) -> None:
             # xform POST VARS to XML
             out_populate_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, iter_var, make_POST)
             
+    # Build finalxform
+    ...
+    
+            
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
