@@ -3800,9 +3800,13 @@ def out_build_XML(self, root: ET.Element) -> None:
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
         
+    varsT = flam3_iterator.sec_varsT
+    varsW = flam3_iterator.sec_varsW
+    
     # Build xforms
     f3d = out_flam3_data(self)
     for iter in range(f3d.iter_count):
+        iter_var = iter + 1
         if int(f3d.xf_vactive[iter]):
             xf = ET.SubElement(flame, XML_XF)
             xf.tag = XML_XF
@@ -3818,6 +3822,29 @@ def out_build_XML(self, root: ET.Element) -> None:
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
+            
+            # VARS
+            for idx, prm in enumerate(varsW):
+                prm_w = self.parm(f"{prm[0]}{iter_var}").eval()
+                if prm_w != 0:
+                    v_type = self.parm(f"{varsT[idx]}{iter_var}").eval()
+                    v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                    xf.set(v_name, str(prm_w))
+                    # get vars prm to check if parametric
+                    vars_prm = flam3_varsPRM.varsPRM[v_type]
+                    if vars_prm[-1]:
+                        f3_prm = flam3_varsPRM.varsPRM[v_type][1:-1]
+                        apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
+                        for id, p in enumerate(apo_prm):
+                            if f3_prm[id][-1]:
+                                for i, n in enumerate(p):
+                                    vals = self.parmTuple(f"{f3_prm[id][0]}{iter_var}").eval()
+                                    xf.set(p[i], str(vals[i]))
+                            else:
+                                val = self.parm(f"{f3_prm[id][0]}{iter_var}").eval()
+                                xf.set(p[0], str(val))
+                            
+                    
             
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
