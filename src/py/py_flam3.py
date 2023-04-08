@@ -1708,11 +1708,11 @@ def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[s
         elif name.startswith(V_PRX_POST):
             return re.sub(REGEX_POST, '', name)
         else:
-            return None
+            return name
     elif type(name) is list or tuple:
         _names = [re.sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
         if not _names:
-            _names = [re.sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
+            _names = [re.sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_POST) is True]
         if not _names:
             return None
         else:
@@ -3793,14 +3793,14 @@ def out_flame_properties_build(self) -> dict:
 
 
 
-def out_populate_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, xf: ET.Element, iter_var: int, func: Callable) -> None:
+def out_populate_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, ITER_COUNT: int, FUNC: Callable) -> None:
     
     for idx, prm in enumerate(WEIGHTS_tuple):
-        prm_w = self.parm(f"{prm[0]}{iter_var}").eval()
+        prm_w = self.parm(f"{prm[0]}{ITER_COUNT}").eval()
         if prm_w != 0:
-            v_type = self.parm(f"{TYPES_tuple[idx]}{iter_var}").eval()
+            v_type = self.parm(f"{TYPES_tuple[idx]}{ITER_COUNT}").eval()
             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-            xf.set(func(v_name), str(prm_w))
+            XFORM.set(FUNC(v_name), str(prm_w))
             # get vars prm to check if parametric
             vars_prm = flam3_varsPRM.varsPRM[v_type]
             if vars_prm[-1]:
@@ -3809,11 +3809,11 @@ def out_populate_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tup
                 for id, p in enumerate(apo_prm):
                     if f3_prm[id][-1]:
                         for i, n in enumerate(p):
-                            vals = self.parmTuple(f"{f3_prm[id][0]}{iter_var}").eval()
-                            xf.set(func(p[i]), str(vals[i]))
+                            vals = self.parmTuple(f"{f3_prm[id][0]}{ITER_COUNT}").eval()
+                            XFORM.set(FUNC(p[i]), str(vals[i]))
                     else:
-                        val = self.parm(f"{f3_prm[id][0]}{iter_var}").eval()
-                        xf.set(func(p[0]), str(val))
+                        val = self.parm(f"{f3_prm[id][0]}{ITER_COUNT}").eval()
+                        XFORM.set(FUNC(p[0]), str(val))
 
 
 
@@ -3843,9 +3843,11 @@ def out_build_XML(self, root: ET.Element) -> None:
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-            
+            # xform VARS to XML
             out_populate_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, iter_var, make_VAR)
+            # xform PRE VARS to XML
             out_populate_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, iter_var, make_PRE)
+            # xform POST VARS to XML
             out_populate_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, iter_var, make_POST)
             
     # Build palette
