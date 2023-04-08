@@ -3601,18 +3601,7 @@ class _out_utils():
         for i, item in enumerate(val):
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
-        # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
-        # round = []
-        # for item in t:
-        #     collect = []
-        #     for i in item:
-        #         if float(i).is_integer():
-        #             collect.append(str(int(float(i))))
-        #         else:
-        #             collect.append(i)
-        #     round.append(collect)
         round = self.out_round_floats(t)
-        # export
         transposed = []
         for idx, item in enumerate(round):
             transposed.append(" ".join(list(map(lambda x: str(x), item))))
