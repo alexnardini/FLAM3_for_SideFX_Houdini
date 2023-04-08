@@ -114,7 +114,7 @@ struct gem{
         }
         // Build TM
         if(TM){
-            grt = chf("../tmrt");
+            grt = -chf("../tmrt");
             TMm2 = (matrix2)maketransform(0, set(0, 0, grt));
         }
         if(FF){
