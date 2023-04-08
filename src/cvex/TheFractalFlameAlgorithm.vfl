@@ -37,26 +37,22 @@
 void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
-    int idx, TM, FF, RIP, SM, iter, smm, MB, f3c;
+    int idx, TM, FF, RIP, iter, MB, f3c;
     float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp;
     // SYS
-    TM   = _bound_SYS[0];
-    FF   = _bound_SYS[1];
-    RIP  = _bound_SYS[2];
-    SM   = _bound_SYS[3];
-    MB   = _bound_SYS[4];
-    iter = _bound_SYS[5];
-    f3c  = _bound_SYS[7];
+    FF   = _bound_SYS[0];
+    RIP  = _bound_SYS[1];
+    MB   = _bound_SYS[2];
+    iter = _bound_SYS[3];
+    f3c  = _bound_SYS[4];
     // Build genomes
     string sIDX[]=_bound_sIDX;
-    gem GEM; GEM->gemBuild(sIDX, TM, FF);
+    gem GEM; GEM->gemBuild(sIDX, FF);
     // cast FLAME
     int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res, PFF; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL; PFF=GEM.PFF;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], _CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
-    // cast TM
-    matrix2 TMm2=GEM.TMm2;
     // cast FF
     int     fp1t, fv1t, fv2t, fP1t, fP2t; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t;
     float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
@@ -100,11 +96,8 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
         if(P1w[idx] >0) tmp  = FLAME(P1GMP, idx, P1t[idx], f3c, tmp, X, Y, O, P1w[idx]);
         // Post affine
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
-        // Post transformation
-        if(TM) tmp*=TMm2;
         // Clr
         prv_clr=clr=_CLR[idx]+(OM[idx]*prv_clr);
-        //prv_clr=clr;
         // Out
         mem=tmp;
     }
@@ -130,7 +123,6 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     else{
         
         pscl*=a;
-        if(SM) V_SYM(mem, _bound_SYS[6]);
         if(MB){ mbm=detail(1, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
         // OUT
         _bound_P=(vector)mem;

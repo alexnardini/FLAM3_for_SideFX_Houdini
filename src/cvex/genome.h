@@ -30,17 +30,15 @@ struct gem{
     int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fp1t, fv1t, fv2t, fP1t, fP2t;
     float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fp1w, fv1w, fv2w, fP1w, fP2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
-    matrix2 TMm2;
     
-    void gemBuild(const string sIDX[]; const int TM, FF){
+    void gemBuild(const string sIDX[]; const int FF){
 
         // GENOME
         res = len(sIDX);
         resize(v1t, res); v2t=v3t=v4t=p1t=p2t=P1t=PPL=v1t;
         resize(v1w, res); v2w=v3w=v4w=p1w=p2w=P1w=pbw=CLR=OM=A=v1w;
         resize(x,   res); y=o=px=py=po=x;
-
-        float   _a, clr, spd, grt;
+        float   _a, clr, spd;
         vector2 _x, _y;
         matrix2 _m2;
         string  idx;
@@ -111,11 +109,6 @@ struct gem{
                 px[i] = _x; py[i] = _y;
                 po[i] = chu(concat("../po_", idx));
             }
-        }
-        // Build TM
-        if(TM){
-            grt = -chf("../tmrt");
-            TMm2 = (matrix2)maketransform(0, set(0, 0, grt));
         }
         if(FF){
             // FF PRE 01
