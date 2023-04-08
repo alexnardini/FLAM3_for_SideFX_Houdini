@@ -3570,7 +3570,7 @@ class _out_utils():
         """Export in a list[str] the xaos FROM values to write out
 
         Returns:
-            tuple[str]: the xaos FROM values transposed inot xaos TO values to write out.
+            tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """        
         val = []
         for iter in range(self._iter_count):
@@ -3589,7 +3589,7 @@ class _out_utils():
         for i, item in enumerate(val):
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
-        # remove floating Zero if it is an integer value ( from '1.0' to '1' )
+        # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
         round = []
         for item in t:
             collect = []
@@ -3666,6 +3666,16 @@ class _out_utils():
         val = []
         for iter in range(self._iter_count):
             val.append(self._node.parm(f"{self._prm_names.main_note}_{iter+1}").eval())
+        return val
+    
+    def __out_xf_pre_blur(self) -> list[str]:
+        val = []
+        for iter in range(self._iter_count):
+            value = self._node.parm(f"{self._prm_names.prevar_weight_blur}_{iter+1}").eval()
+            if value > 0.0:
+                val.append(str(self._node.parm(f"{self._prm_names.prevar_weight_blur}_{iter+1}").eval()))
+            else:
+                val.append('')
         return val
 
     def __out_xf_xaos(self) -> tuple[str]:
@@ -3750,6 +3760,7 @@ class out_flam3_data(_out_utils):
         self.xf_vactive = self._out_utils__out_xf_data(self._prm_names.main_vactive)
         self.xf_weight = self._out_utils__out_xf_data(self._prm_names.main_weight)
         self.xf_xaos = self._out_utils__out_xf_xaos()
+        self.xf_pre_blur = self._out_utils__out_xf_pre_blur()
         self.xf_color = self._out_utils__out_xf_data(self._prm_names.shader_color)
         self.xf_symmetry = self._out_utils__out_xf_data(self._prm_names.shader_speed)
         self.xf_opacity = self._out_utils__out_xf_data(self._prm_names.shader_alpha)
@@ -3809,6 +3820,8 @@ def out_build_XML(self, root: ET.Element) -> None:
             xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
             xf.set(XML_XF_COLOR, f3d.xf_color[iter])
             xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+            if f3d.xf_pre_blur[iter]:
+                xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
             xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
             if f3d.xf_postaffine[iter]:
                 xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
