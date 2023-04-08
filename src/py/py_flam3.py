@@ -1548,7 +1548,7 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({"outrotate": 0})
     self.setParms({"outscale": 100})
     self.setParms({"outquality": 1024})
-    self.setParms({"outbrightness": 5})
+    self.setParms({"outbrightness": 1})
     self.setParms({"outgamma": 2.5})
     self.setParms({"outhighlight": 1})
     self.setParms({"outvibrancy": 0.333333})
