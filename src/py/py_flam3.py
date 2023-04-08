@@ -1489,9 +1489,9 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     self.setParms({"rip": 0})
 
 
-def reset_TM(self) -> None:
-    self.setParms({"dotm": 0})
-    self.setParms({"tmrt": 0})
+# def reset_TM(self) -> None:
+#     self.setParms({"dotm": 0})
+#     self.setParms({"tmrt": 0})
     
     
 def reset_CP(self, mode=0) -> None:
@@ -1510,12 +1510,6 @@ def reset_CP(self, mode=0) -> None:
     # Update ramp py 
     palette_cp(self)
     palette_hsv(self)
-        
-
-def reset_SM(self) -> None:
-    self.setParms({"sm": 0})
-    self.setParms({"smrot": 0})
-
 
 def reset_MB(self) -> None:
     self.setParms({"domb": 0})
@@ -1576,10 +1570,8 @@ def flam3_default(self: hou.Node) -> None:
     #
     # SYS
     reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, 10, 1)
-    reset_TM(self)
     reset_FF(self)
     reset_CP(self)
-    reset_SM(self)
     reset_MB(self)
     reset_IN(self)
     reset_OUT(self)
@@ -1665,12 +1657,8 @@ def iteratorCountZero(self: hou.Node) -> None:
         # SYS
         self.setParms({"doff": 0})
         self.setParms({"rip": 0})
-        # TM
-        reset_TM(self)
         # FF vars
         reset_FF(self)
-        # SM
-        reset_SM(self)
         # MB
         reset_MB(self)
         # prefs
@@ -3244,8 +3232,6 @@ def apo_to_flam3(self: hou.Node) -> None:
         preset_id = int(self.parm('inpresets').eval())
         iter_on_load = set_iter_on_load(self, preset_id)
         reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, iter_on_load, 0)
-        reset_TM(self)
-        reset_SM(self)
         reset_MB(self)
         reset_PREFS(self)
         
