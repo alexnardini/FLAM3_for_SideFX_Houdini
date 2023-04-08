@@ -3823,11 +3823,11 @@ def out_build_XML(self, root: ET.Element) -> None:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
             
-            # VARS
-            for idx, prm in enumerate(varsW):
+            # VARS to XML
+            for idx, prm in enumerate(flam3_iterator.sec_varsW):
                 prm_w = self.parm(f"{prm[0]}{iter_var}").eval()
                 if prm_w != 0:
-                    v_type = self.parm(f"{varsT[idx]}{iter_var}").eval()
+                    v_type = self.parm(f"{flam3_iterator.sec_varsT[idx]}{iter_var}").eval()
                     v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
                     xf.set(v_name, str(prm_w))
                     # get vars prm to check if parametric
@@ -3843,6 +3843,48 @@ def out_build_XML(self, root: ET.Element) -> None:
                             else:
                                 val = self.parm(f"{f3_prm[id][0]}{iter_var}").eval()
                                 xf.set(p[0], str(val))
+                                
+            # PRE VARS to XML
+            for idx, prm in enumerate(flam3_iterator.sec_prevarsW[1:]):
+                prm_w = self.parm(f"{prm[0]}{iter_var}").eval()
+                if prm_w != 0:
+                    v_type = self.parm(f"{flam3_iterator.sec_prevarsT[idx]}{iter_var}").eval()
+                    v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                    xf.set(make_PRE(v_name), str(prm_w))
+                    # get vars prm to check if parametric
+                    vars_prm = flam3_varsPRM.varsPRM[v_type]
+                    if vars_prm[-1]:
+                        f3_prm = flam3_varsPRM.varsPRM[v_type][1:-1]
+                        apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
+                        for id, p in enumerate(apo_prm):
+                            if f3_prm[id][-1]:
+                                for i, n in enumerate(p):
+                                    vals = self.parmTuple(f"{f3_prm[id][0]}{iter_var}").eval()
+                                    xf.set(make_PRE(p[i]), str(vals[i]))
+                            else:
+                                val = self.parm(f"{f3_prm[id][0]}{iter_var}").eval()
+                                xf.set(make_PRE(p[0]), str(val))
+                                
+            # POST VARS to XML
+            for idx, prm in enumerate(flam3_iterator.sec_postvarsW):
+                prm_w = self.parm(f"{prm[0]}{iter_var}").eval()
+                if prm_w != 0:
+                    v_type = self.parm(f"{flam3_iterator.sec_postvarsT[idx]}{iter_var}").eval()
+                    v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                    xf.set(make_POST(v_name), str(prm_w))
+                    # get vars prm to check if parametric
+                    vars_prm = flam3_varsPRM.varsPRM[v_type]
+                    if vars_prm[-1]:
+                        f3_prm = flam3_varsPRM.varsPRM[v_type][1:-1]
+                        apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
+                        for id, p in enumerate(apo_prm):
+                            if f3_prm[id][-1]:
+                                for i, n in enumerate(p):
+                                    vals = self.parmTuple(f"{f3_prm[id][0]}{iter_var}").eval()
+                                    xf.set(make_POST(p[i]), str(vals[i]))
+                            else:
+                                val = self.parm(f"{f3_prm[id][0]}{iter_var}").eval()
+                                xf.set(make_POST(p[0]), str(val))
                             
                     
             
