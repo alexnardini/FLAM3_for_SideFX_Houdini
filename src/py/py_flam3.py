@@ -2222,8 +2222,11 @@ class apo_flame(_xml_tree):
 
         Returns:
             [v_type]: [rgb value]
-        """        
-        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+        """   
+        try:
+            return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+        except:
+            raise Exception("Sorry, hex values not valid ( possibly some negative values in it. ).\nYou can fix this by assigning a brand new palette before saving it out again.")     
     
     def affine_coupling(self, affine: list) -> list:
         """
@@ -2403,7 +2406,10 @@ class apo_flame(_xml_tree):
 
                 RGB_FROM_XML_PALETTE = []
                 for hex in HEX:
-                    x = self.hex_to_rgb(hex)
+                    try:
+                        x = self.hex_to_rgb(hex)
+                    except:
+                        raise Exception("Sorry, hex values not valid ( possibly some negative values in it. ).\nYou can fix this by assigning a brand new palette before saving it out again.")
                     RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                 
                 # Not sure why I need to do the following
@@ -3858,32 +3864,23 @@ def out_build_XML(self, root: ET.Element) -> None:
             xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
             xf.set(XML_XF_COLOR, f3d.xf_color[iter])
             xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
-            # pre_blur
             if f3d.xf_pre_blur[iter]:
                 xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
-            # xform PRE VARS to XML
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
-            # pre affine
             xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
-            # xform VARS to XML
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
-            # post affine
             if f3d.xf_postaffine[iter]:
                 xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
-            # xform POST VARS to XML
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
-            # xaos
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
-            # opacity
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
+            out_populate_xform_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
     
     # Build finalxform
     if f3d.flam3_do_FF:
         xf = ET.SubElement(flame, XML_FF)
         xf.tag = XML_FF   
     
-
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
