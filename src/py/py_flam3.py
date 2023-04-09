@@ -1129,6 +1129,8 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         xml = node.parm(IN_PATH).evalAsString()
         if not apo_flame(xml).isvalidtree:
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+            node.setParms({"flamerender_msg": ""})
+            self.setParms({"descriptive_msg": ""})
         else:
             prm.set('0')
             apo_to_flam3(node)
@@ -4051,9 +4053,9 @@ def out_build_XML(self, root: ET.Element) -> None:
         finalxf = ET.SubElement(flame, XML_FF)
         finalxf.tag = XML_FF
         finalxf.set(XML_XF_COLOR, '0')
-        finalxf.set(XML_XF_VAR_COLOR, '0')
+        finalxf.set(XML_XF_VAR_COLOR, '1')
         finalxf.set(XML_XF_COLOR_SPEED, '0')
-        finalxf.set(XML_XF_SYMMETRY, '0')
+        finalxf.set(XML_XF_SYMMETRY, '1')
         finalxf.set(XML_XF_NAME, f3d.finalxf_name)
         finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
         if f3d.finalxf_postaffine:
