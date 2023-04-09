@@ -3575,6 +3575,7 @@ class _out_utils():
             else:
                 val.append('')
         return tuple(val)
+
     
     def out_round_floats(self, VAL_LIST) -> list[str]:
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
@@ -3587,7 +3588,6 @@ class _out_utils():
                 else:
                     collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
             ROUND.append(collect)
-            
         return ROUND
 
     def out_xf_xaos_from(self) -> tuple[str]:
@@ -3664,6 +3664,7 @@ class _out_utils():
             print(f"{str(self.node)}: Empty XML key name string. Please pass in a valid XML key name.")
             return ''
 
+
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         # If the name field is empty, build a name based on current date/time
         if not self._node.parm(prm_name).eval():
@@ -3672,6 +3673,7 @@ class _out_utils():
         else:
             # otherwise get that name and use it
             return self._node.parm(prm_name).eval()
+        
         
     def __out_xf_data(self, prm_name: str) -> tuple[str]:
         val = []
@@ -3686,6 +3688,10 @@ class _out_utils():
             val.append(self._node.parm(f"{self._prm_names.main_note}_{iter+1}").eval())
         return val
     
+    def __out_finalxf_name(self) -> list[str]:
+        return self._node.parm(f"{PRX_FF_PRM}{self._prm_names.main_note}").eval()
+
+    
     def __out_xf_pre_blur(self) -> list[str]:
         val = []
         for iter in range(self._iter_count):
@@ -3696,11 +3702,13 @@ class _out_utils():
                 val.append('')
         return val
 
+
     def __out_xf_xaos(self) -> tuple[str]:
         if self._xm:
             return self.out_xf_xaos_from()
         else:
             return self.out_xf_xaos_to()
+
 
     def __out_xf_preaffine(self) -> list[str]:
         val = []
@@ -3714,8 +3722,8 @@ class _out_utils():
             else:
                 flatten = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
-        ROUND = self.out_round_floats(val)
-        return [" ".join(x) for x in ROUND]
+        return [" ".join(x) for x in self.out_round_floats(val)]
+    
     
     def __out_xf_postaffine(self) -> list[str]:
         val = []
@@ -3732,8 +3740,8 @@ class _out_utils():
                 val.append([str(x) for x in flatten])   
             else:
                 val.append([])
-        ROUND = self.out_round_floats(val)
-        return [" ".join(x) for x in ROUND]
+        return [" ".join(x) for x in self.out_round_floats(val)]
+    
     
     def __out_palette_hex(self) -> str:
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
@@ -3760,6 +3768,7 @@ class _out_utils():
             affine = self.out_round_floats(collect)
         flatten = [item for sublist in affine for item in sublist]
         return " ".join(flatten)
+    
     
     def __out_finalxf_postaffine(self) -> str:
         if self._node.parm(f"{PRX_FF_PRM}{self._prm_names.postaffine_do}").eval():
@@ -3815,6 +3824,7 @@ class out_flam3_data(_out_utils):
         self.xf_preaffine = self._out_utils__out_xf_preaffine()
         self.xf_postaffine = self._out_utils__out_xf_postaffine()
         self.palette_hex = self._out_utils__out_palette_hex()
+        self.finalxf_name = self._out_utils__out_finalxf_name()
         self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine()
         self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine()
 
@@ -3853,26 +3863,55 @@ def out_flame_properties_build(self) -> dict:
 
 
 
-def out_populate_xform_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
+# def out_populate_xform_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
+#     for idx, prm in enumerate(WEIGHTS_tuple):
+#         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
+#         if prm_w != 0:
+#             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
+#             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+#             XFORM.set(FUNC(v_name), str(prm_w))
+#             # get vars prm to check if parametric
+#             vars_prm = flam3_varsPRM.varsPRM[v_type]
+#             if vars_prm[-1]:
+#                 f3_prm = flam3_varsPRM.varsPRM[v_type][1:-1]
+#                 apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
+#                 for id, p in enumerate(apo_prm):
+#                     if f3_prm[id][-1]:
+#                         for i, n in enumerate(p):
+#                             vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
+#                             XFORM.set(FUNC(p[i]), str(vals[i]))
+#                     else:
+#                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
+#                         XFORM.set(FUNC(p[0]), str(val))
+
+
+def out_round_float(VAL) -> str:
+    if float(VAL).is_integer():
+        return str(int(float(VAL)))
+    else:
+        return str(round(float(VAL), ROUND_DECIMAL_COUNT))
+def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
         if prm_w != 0:
             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-            XFORM.set(FUNC(v_name), str(prm_w))
+            XFORM.set(FUNC(v_name), out_round_float(prm_w))
             # get vars prm to check if parametric
-            vars_prm = flam3_varsPRM.varsPRM[v_type]
+            vars_prm = varsPRM[v_type]
             if vars_prm[-1]:
-                f3_prm = flam3_varsPRM.varsPRM[v_type][1:-1]
+                f3_prm = varsPRM[v_type][1:-1]
+                print(f3_prm)
                 apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
                 for id, p in enumerate(apo_prm):
                     if f3_prm[id][-1]:
                         for i, n in enumerate(p):
                             vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                            XFORM.set(FUNC(p[i]), str(vals[i]))
+                            print(FUNC(p[i]))
+                            XFORM.set(FUNC(p[i]), out_round_float(vals[i]))
                     else:
                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                        XFORM.set(FUNC(p[0]), str(val))
+                        XFORM.set(FUNC(p[0]), out_round_float(val))
 
 
 
@@ -3902,25 +3941,28 @@ def out_build_XML(self, root: ET.Element) -> None:
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
-            out_populate_xform_vars_XML(self, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
+            out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
+            out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
+            out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
     
     # Build finalxform
     if f3d.flam3_do_FF:
         finalxf = ET.SubElement(flame, XML_FF)
         finalxf.tag = XML_FF
+        finalxf.set(XML_XF_NAME, f3d.finalxf_name)
         finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
         if f3d.finalxf_postaffine:
             finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
-    
+        out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_VAR)
+        out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
+        out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
+
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
-
 
 
 def out_XML(self) -> None:
