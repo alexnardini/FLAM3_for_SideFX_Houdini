@@ -1052,12 +1052,14 @@ def flam3_on_create(kwargs: dict) -> None:
     
     # Clear up stats if there already ( due to be stored into a houdini preset also )
     node.setParms({"flamestats_msg": ""})
+    node.setParms({"flamerender_msg": ""})
     
     # Set about tab infos
     flam3_about_msg(node)
     flam3_about_plugins_msg(node)
     # reset flame load stats ( just in case )
     node.setParms({"flamestats_msg": ""})
+    node.setParms({"flamerender_msg": ""})
 
     # FLAM3 node and MultiParameter id for iterators
     #
@@ -1529,6 +1531,7 @@ def reset_IN(self) -> None:
     self.setParms({IN_PATH: ""})
     self.setParms({IN_PRESETS: str(0)})
     self.setParms({"flamestats_msg": ""})
+    self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
 
 
@@ -1766,6 +1769,7 @@ XML_PALETTE = "palette"
 XML_PALETTE_COUNT = "count"
 XML_PALETTE_FORMAT = "format"
 XML_XF_COLOR = "color"
+XML_XF_VAR_COLOR = "var_color"
 XML_XF_SYMMETRY = "symmetry"
 XML_XF_COLOR_SPEED = "color_speed"
 XML_XF_OPACITY = "opacity"
@@ -1773,8 +1777,8 @@ XML_XF_OPACITY = "opacity"
 OUT_XML_VERSION = 'version'
 OUT_XML_SIZE = 'size'
 OUT_XML_CENTER = 'center'
-OUT_XML_SCALE = 'scale'
 OUT_XML_ROTATE = 'rotate'
+OUT_XML_SCALE = 'scale'
 OUT_XML_BG = 'background'
 OUT_XML_SUPERSAMPLE = 'supersample'
 OUT_XML_FILTER = 'filter'
@@ -2213,6 +2217,16 @@ class apo_flame(_xml_tree):
         self._apo_version = self._xml_tree__get_name("version")
         self._flame = self._xml_tree__get_flame()
         self._flame_count = self._xml_tree__get_flame_count(self._flame)
+        # render properties
+        self._out_size = self._xml_tree__get_name(OUT_XML_SIZE)
+        self._out_center = self._xml_tree__get_name(OUT_XML_CENTER)
+        self._out_rotate = self._xml_tree__get_name(OUT_XML_ROTATE)
+        self._out_scale = self._xml_tree__get_name(OUT_XML_SCALE)
+        self._out_quality = self._xml_tree__get_name(OUT_XML_QUALITY)
+        self._out_brightness = self._xml_tree__get_name(OUT_XML_BRIGHTNESS)
+        self._out_gamma = self._xml_tree__get_name(OUT_XML_GAMMA)
+        self._out_vibrancy = self._xml_tree__get_name(OUT_XML_VIBRANCY)
+        
         
 
     def hex_to_rgb(self, hex: str):
@@ -2254,6 +2268,38 @@ class apo_flame(_xml_tree):
     @property
     def flame_count(self):
         return self._flame_count
+    
+    @property
+    def out_size(self):
+        return self._out_size
+    
+    @property
+    def out_center(self):
+        return self._out_center
+    
+    @property
+    def out_rotate(self):
+        return self._out_rotate
+    
+    @property
+    def out_scale(self):
+        return self._out_scale
+    
+    @property
+    def out_quality(self):
+        return self._out_quality
+
+    @property
+    def out_brightness(self):
+        return self._out_brightness
+    
+    @property
+    def out_gamma(self):
+        return self._out_gamma
+    
+    @property
+    def out_vibrancy(self):
+        return self._out_vibrancy
 
 
     def __is_valid_idx(self, idx: int) -> int:
@@ -3287,14 +3333,18 @@ def apo_to_flam3(self: hou.Node) -> None:
         
         #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
+        self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)})
+        
         
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+            self.setParms({"flamerender_msg": ""})
             # The following do not work, not sure why
             self.setParms({"descriptive_msg": ""})
         else:
             self.setParms({"flamestats_msg": ""})
+            self.setParms({"flamerender_msg": ""})
             # The following do not work, not sure why
             self.setParms({"descriptive_msg": ""})
 
@@ -3452,6 +3502,57 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     
     return build_stats_msg
 
+
+
+def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
+    
+    # spacers
+    nl = "\n"
+    nnl = "\n\n"
+    size = 'Size: n/a'
+    if apo_data.out_size[preset_id]:
+        size = f"Size: {apo_data.out_size[preset_id]}"
+        
+    center = 'Center: n/a'
+    if apo_data.out_center[preset_id]:
+        center = f"Center: {apo_data.out_center[preset_id]}"
+        
+    rotate = 'Rotate: n/a'
+    if apo_data.out_rotate[preset_id]:
+        rotate = f"Rotate: {apo_data.out_rotate[preset_id]}"
+
+    scale = 'Scale: n/a'
+    if apo_data.out_scale[preset_id]:
+        scale = f"Scale: {apo_data.out_scale[preset_id]}"
+    
+    quality = 'Quality: n/a'
+    if apo_data.out_quality[preset_id]:
+        quality = f"Quality: {apo_data.out_quality[preset_id]}"
+
+    brightness = 'Brightness: n/a'
+    if apo_data.out_brightness[preset_id]:
+        brightness = f"Brightness: {apo_data.out_brightness[preset_id]}"
+        
+    gamma = 'Gamma: n/a'
+    if apo_data.out_gamma[preset_id]:
+        gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
+        
+    vibrancy = 'Vibrancy: n/a'
+    if apo_data.out_vibrancy[preset_id]:
+        vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
+    
+    build = (size, nl,
+             center, nl,
+             rotate, nl,
+             scale, nl,
+             quality, nl,
+             brightness, nl,
+             gamma, nl,
+             vibrancy
+            )
+    
+    build_render_stats_msg = "".join(build)
+    return build_render_stats_msg
 
 
 def flam3_about_msg(self):
@@ -3949,7 +4050,9 @@ def out_build_XML(self, root: ET.Element) -> None:
     if f3d.flam3_do_FF:
         finalxf = ET.SubElement(flame, XML_FF)
         finalxf.tag = XML_FF
-        finalxf.set(XML_XF_COLOR, '1')
+        finalxf.set(XML_XF_COLOR, '0')
+        finalxf.set(XML_XF_VAR_COLOR, '0')
+        finalxf.set(XML_XF_COLOR_SPEED, '0')
         finalxf.set(XML_XF_SYMMETRY, '0')
         finalxf.set(XML_XF_NAME, f3d.finalxf_name)
         finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
