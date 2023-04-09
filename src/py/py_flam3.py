@@ -3295,7 +3295,7 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
 
 def apo_to_flam3(self: hou.Node) -> None:
 
-    xml = self.parm('inpath').evalAsString()
+    xml = self.parm(IN_PATH).evalAsString()
 
     if apo_flame(xml).isvalidtree:
         
@@ -3682,7 +3682,7 @@ class _out_utils():
     
     def out_round_floats(self, VAL_LIST) -> list[str]:
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
-        ROUND = []
+        v_ROUND = []
         for item in VAL_LIST:
             collect = []
             for i in item:
@@ -3690,8 +3690,8 @@ class _out_utils():
                     collect.append(str(int(float(i))))
                 else:
                     collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
-            ROUND.append(collect)
-        return ROUND
+            v_ROUND.append(collect)
+        return v_ROUND
 
     def out_xf_xaos_from(self) -> tuple[str]:
         """Export in a list[str] the xaos FROM values to write out
@@ -3716,9 +3716,9 @@ class _out_utils():
         for i, item in enumerate(val):
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
-        ROUND = self.out_round_floats(t)
+        v_ROUND = self.out_round_floats(t)
         transposed = []
-        for idx, item in enumerate(ROUND):
+        for idx, item in enumerate(v_ROUND):
             transposed.append(" ".join(list(map(lambda x: str(x), item))))
         return tuple(transposed)
 
@@ -3957,6 +3957,7 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_PALETTE_MODE: 'linear',
             OUT_XML_INTERPOLATION: 'linear',
             OUT_XML_INTERPOLATION_TYPE: 'log'
+            # The following are not really needed
             # OUT_XML_RENDER_CURVES: f3p.flame_render_curves,
             # OUT_XML_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
             # OUT_XML_RENDER_RED_CURVE: f3p.flame_red_curve,
@@ -3964,28 +3965,6 @@ def out_flame_properties_build(self) -> dict:
             # OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
-
-
-# def out_populate_xform_vars_XML(self: hou.Node, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
-#     for idx, prm in enumerate(WEIGHTS_tuple):
-#         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
-#         if prm_w != 0:
-#             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-#             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-#             XFORM.set(FUNC(v_name), str(prm_w))
-#             # get vars prm to check if parametric
-#             vars_prm = flam3_varsPRM.varsPRM[v_type]
-#             if vars_prm[-1]:
-#                 f3_prm = flam3_varsPRM.varsPRM[v_type][1:-1]
-#                 apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
-#                 for id, p in enumerate(apo_prm):
-#                     if f3_prm[id][-1]:
-#                         for i, n in enumerate(p):
-#                             vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-#                             XFORM.set(FUNC(p[i]), str(vals[i]))
-#                     else:
-#                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
-#                         XFORM.set(FUNC(p[0]), str(val))
 
 
 def out_round_float(VAL) -> str:
@@ -4000,23 +3979,33 @@ def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tup
             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
             XFORM.set(FUNC(v_name), out_round_float(prm_w))
-            # get vars prm to check if parametric
             vars_prm = varsPRM[v_type]
             if vars_prm[-1]:
                 f3_prm = varsPRM[v_type][1:-1]
-                print(f3_prm)
                 apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
                 for id, p in enumerate(apo_prm):
                     if f3_prm[id][-1]:
                         for i, n in enumerate(p):
                             vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                            print(FUNC(p[i]))
                             XFORM.set(FUNC(p[i]), out_round_float(vals[i]))
                     else:
                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
                         XFORM.set(FUNC(p[0]), out_round_float(val))
 
 
+# From stack overflow, as minidom messup spaces when appending
+# and prettify an already indented XML. This solution works great and its nice to be lazy for once ;)
+def _pretty_print(current, parent=None, index=-1, depth=0):
+    for i, node in enumerate(current):
+        _pretty_print(node, current, i, depth + 1)
+    if parent is not None:
+        if index == 0:
+            parent.text = '\n' + ('  ' * depth)
+        else:
+            parent[index - 1].tail = '\n' + ('  ' * depth)
+        if index == len(parent) - 1:
+            current.tail = '\n' + ('  ' * (depth - 1))
+            
 
 def out_build_XML(self, root: ET.Element) -> None:
     # Build Flame properties
@@ -4047,7 +4036,6 @@ def out_build_XML(self, root: ET.Element) -> None:
             out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
             out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
             out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
-    
     # Build finalxform
     if f3d.flam3_do_FF:
         finalxf = ET.SubElement(flame, XML_FF)
@@ -4063,77 +4051,30 @@ def out_build_XML(self, root: ET.Element) -> None:
         out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_VAR)
         out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
         out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
-
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
+            
 
-
-def out_XML(self) -> None:
+def out_XML(self: hou.Node, outpath: str) -> None:
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
     out_build_XML(self, root)
-
-    out_path = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
-
     xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
     tree = ET.ElementTree(ET.fromstring(xml_pretty))
-    tree.write(out_path)
+    tree.write(outpath)
 
-
-
-# Create initial tree root
-
-
-# # Add a flame to the tree and set its properties
-# flame = ET.SubElement(root, 'flame')
-# flame.tag = 'flame'
-# for k, v in OUT_FLAME_PROPERTIES.items():
-#     flame.set(k, v)
-# Add xforms to the flame
-# iterators_count = 4
-# for iter in range(iterators_count):
-#     xf = ET.SubElement(flame, 'xform')
-#     xf.tag = 'xform'
-#     xf.set('name',f'iter.{iter+1}')
-#     xf.set('color', '0.9658')
-#     xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
-# # Add palette to the flame
-# palette = ET.SubElement(flame, 'palette')
-# palette.tag = 'palette'
-# palette.set('count', '256')
-# palette.set('format', 'RGB')
-# # Here goes the hex colors
-# palette.text = """
-#       ciao come ashjahs??
-#       sdjjs kdjskas asksas?
-#       asknaj skjak dakskasn!
-#     """
-
-
-# Adding another Flame to the same root as the one before
-# flame2 = ET.SubElement(root, 'flame')
-# flame2.tag = 'flame'
-# for k, v in OUT_FLAME_PROPERTIES.items():
-#     flame2.set(k, v)
-
-# iterators_count = 4
-# for iter in range(iterators_count):
-#     xf = ET.SubElement(flame2, 'xform')
-#     xf.tag = 'xform'
-#     xf.set('name',f'iter.{iter+1}')
-#     xf.set('color', '0.9658')
-#     xf.set('coefs', '0.2 0.5 0.6 1.2 2.5 0.3698')
-
-# # Append new flame
-# # ET.ElementTree(root)
-# #root.append(root2)
-
-# out = "C:/Users/alexn/Desktop/testAV_PIZZA.flame"
-
-# xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
-# tree = ET.ElementTree(ET.fromstring(xml_pretty))
-# # tree.write(out)
+def out_append_XML(self: hou.Node) -> None:
+    out_path = self.parm(OUT_PATH).evalAsString()
+    apo_data = apo_flame(out_path)
+    if apo_data.isvalidtree:
+        root = apo_data.tree.getroot()
+        out_build_XML(self, root)
+        _pretty_print(root)
+        tree = ET.ElementTree(root)
+        tree.write(out_path)
+    else:
+        out_XML(self, out_path)
 
