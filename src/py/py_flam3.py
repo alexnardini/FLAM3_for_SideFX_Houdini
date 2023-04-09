@@ -3749,6 +3749,34 @@ class _out_utils():
         return "\n" + "".join(hex_join) + "    " # 4 times \s
 
 
+    def __out_finalxf_preaffine(self) -> str:
+        collect = []
+        for prm in self._flam3_iterator_FF.sec_preAffine_FF[:-1]:
+            collect.append(self._node.parmTuple(f"{prm[0]}").eval())
+        angleDeg = self._node.parm(f"{self._flam3_iterator_FF.sec_preAffine_FF[-1][0]}").eval()
+        if angleDeg != 0.0:
+            affine = self.out_round_floats(self.affine_rot(collect, angleDeg))
+        else:
+            affine = self.out_round_floats(collect)
+        flatten = [item for sublist in affine for item in sublist]
+        return " ".join(flatten)
+    
+    def __out_finalxf_postaffine(self) -> str:
+        if self._node.parm(f"{PRX_FF_PRM}{self._prm_names.postaffine_do}").eval():
+            collect = []
+            for prm in self._flam3_iterator_FF.sec_postAffine_FF[1:-1]:
+                collect.append(self._node.parmTuple(f"{prm[0]}").eval())
+            angleDeg = self._node.parm(f"{self._flam3_iterator_FF.sec_postAffine_FF[-1][0]}").eval()
+            if angleDeg != 0.0:
+                affine = self.out_round_floats(self.affine_rot(collect, angleDeg))
+            else:
+                affine = self.out_round_floats(collect)
+            flatten = [item for sublist in affine for item in sublist]
+            return " ".join(flatten)
+        else:
+            return ''
+
+
 
 class out_flame_properties(_out_utils):
 
@@ -3787,6 +3815,8 @@ class out_flam3_data(_out_utils):
         self.xf_preaffine = self._out_utils__out_xf_preaffine()
         self.xf_postaffine = self._out_utils__out_xf_postaffine()
         self.palette_hex = self._out_utils__out_palette_hex()
+        self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine()
+        self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine()
 
 
 
@@ -3878,8 +3908,11 @@ def out_build_XML(self, root: ET.Element) -> None:
     
     # Build finalxform
     if f3d.flam3_do_FF:
-        xf = ET.SubElement(flame, XML_FF)
-        xf.tag = XML_FF   
+        finalxf = ET.SubElement(flame, XML_FF)
+        finalxf.tag = XML_FF
+        finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
+        if f3d.finalxf_postaffine:
+            finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
     
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
