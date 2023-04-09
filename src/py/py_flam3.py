@@ -1130,7 +1130,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         if not apo_flame(xml).isvalidtree:
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
             node.setParms({"flamerender_msg": ""})
-            self.setParms({"descriptive_msg": ""})
+            node.setParms({"descriptive_msg": ""})
         else:
             prm.set('0')
             apo_to_flam3(node)
