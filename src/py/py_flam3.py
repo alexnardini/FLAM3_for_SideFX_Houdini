@@ -3949,6 +3949,8 @@ def out_build_XML(self, root: ET.Element) -> None:
     if f3d.flam3_do_FF:
         finalxf = ET.SubElement(flame, XML_FF)
         finalxf.tag = XML_FF
+        finalxf.set(XML_XF_COLOR, '1')
+        finalxf.set(XML_XF_SYMMETRY, '0')
         finalxf.set(XML_XF_NAME, f3d.finalxf_name)
         finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
         if f3d.finalxf_postaffine:
