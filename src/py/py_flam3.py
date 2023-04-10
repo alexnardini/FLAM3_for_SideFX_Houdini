@@ -1125,7 +1125,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     """    
     node = kwargs['node']
     prm = node.parm(prm_name)
-    prm.set('999999')
+    prm.set('-1')
     
     if IN_PRESETS in prm_name:
         xml = node.parm(IN_PATH).evalAsString()
@@ -1542,7 +1542,7 @@ def reset_MB(self) -> None:
     
 def reset_IN(self) -> None:
     self.setParms({IN_PATH: ""})
-    self.setParms({IN_PRESETS: str(0)})
+    self.setParms({IN_PRESETS: str(-1)})
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
