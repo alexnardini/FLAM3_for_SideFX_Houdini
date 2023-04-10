@@ -1441,10 +1441,12 @@ def viewportParticleDisplay(self: hou.Node) -> None:
 ###############################################################################################
 def viewportParticleSize(self: hou.Node) -> None:
 
+    Points = hou.viewportParticleDisplay.Points
     ptsize = self.parm("vpptsize").evalAsFloat()
 
     for view in getSceneViewers():
         settings = view.curViewport().settings()
+        settings.particleDisplayType(Points)
         settings.particlePointSize(ptsize)
 
 
@@ -4014,7 +4016,6 @@ def out_build_XML(self, root: ET.Element) -> None:
     flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
-
     # Build xforms
     f3d = out_flam3_data(self)
     for iter in range(f3d.iter_count):
