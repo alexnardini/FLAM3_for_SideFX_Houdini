@@ -4110,6 +4110,43 @@ def out_check_duplicate_bool(names_VARS, bool_VARS) -> None:
             else: break
 
 
+# Check for FLAM3 compatibility and let the user know.
+def flam3_compatibility_msg(self, names_VARS, names_VARS_PRE, flam3_do_FF, names_VARS_FF, names_VARS_POST_FF) -> bool:
+    bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
+    for n in names_VARS:
+        if n:
+            if bool_VARS is False: bool_VARS = out_check_duplicate(n)
+            else: break
+    for n in names_VARS_PRE:
+        if n:
+            if bool_VARS_PRE is False: bool_VARS_PRE = out_check_duplicate(n)
+            else: break
+    if flam3_do_FF:
+        bool_VARS_FF = out_check_duplicate(names_VARS_FF)
+        bool_VARS_POST_FF = out_check_duplicate(names_VARS_POST_FF)
+        
+    ui_text = "Multiple variations of the same type not allowed"
+    ALL_msg = f"Node: {str(self)}\nType: Warning:\n\n"
+    VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside one of the iterator VAR section.\n"
+    VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same variation multiple times inside one of the iterator PRE section.\n"
+    VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
+    VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\n"
+    HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+    if bool_VARS:
+        ALL_msg += VARS_msg
+    if bool_VARS_PRE:
+        ALL_msg += "\n" + VARS_PRE_msg
+    if bool_VARS_FF:
+       ALL_msg += "\n" + VARS_FF_msg
+    if bool_VARS_POST_FF:
+        ALL_msg += "\n" + VARS_POST_FF_msg
+    if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
+        ALL_msg += HELP_msg
+        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True)
+        return False
+    else:
+        return True
+
 
 def out_build_XML(self, root: ET.Element) -> bool:
     # Build Flame properties
@@ -4167,43 +4204,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
     
-    # Check for FLAM3 compatibility.
-    # Check for multiple instance of the same variation type...
-    bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
-    for n in names_VARS:
-        if n:
-            if bool_VARS is False: bool_VARS = out_check_duplicate(n)
-            else: break
-    for n in names_VARS_PRE:
-        if n:
-            if bool_VARS_PRE is False: bool_VARS_PRE = out_check_duplicate(n)
-            else: break
-    if f3d.flam3_do_FF:
-        bool_VARS_FF = out_check_duplicate(names_VARS_FF)
-        bool_VARS_POST_FF = out_check_duplicate(names_VARS_POST_FF)
-        
-    # ...and let the user know if something wrong is happening.
-    ui_text = "Multiple variations of the same type not allowed"
-    ALL_msg = f"Node: {str(self)}\nType: Warning:\n\n"
-    VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside one of the iterator VAR section.\n"
-    VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same variation multiple times inside one of the iterator PRE section.\n"
-    VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
-    VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\n"
-    HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
-    if bool_VARS:
-        ALL_msg += VARS_msg
-    if bool_VARS_PRE:
-        ALL_msg += "\n" + VARS_PRE_msg
-    if bool_VARS_FF:
-       ALL_msg += "\n" + VARS_FF_msg
-    if bool_VARS_POST_FF:
-        ALL_msg += "\n" + VARS_POST_FF_msg
-    if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
-        ALL_msg += HELP_msg
-        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True)
-        return False
-    else:
-        return True
+    return flam3_compatibility_msg(self, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
 
 ###############################################################################################
 # MENU - OUT - build menu from output flame file
