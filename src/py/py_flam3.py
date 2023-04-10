@@ -1570,6 +1570,7 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
     if not mode:
         self.setParms({OUT_PATH: ""})
+        self.setParms({OUT_PRESETS: "-1"})
         self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
