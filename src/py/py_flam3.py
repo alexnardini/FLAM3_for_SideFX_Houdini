@@ -1131,11 +1131,12 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         xml = node.parm(IN_PATH).evalAsString()
         apo = apo_flame(xml)
         if not apo.isvalidtree:
+            prm.set('-1')
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
         else:
-            prm.set('-1')
+            prm.set('0')
             apo_to_flam3(node)
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
@@ -4110,7 +4111,7 @@ def out_check_duplicate_bool(names_VARS, bool_VARS) -> None:
 
 
 
-def out_build_XML(self, root: ET.Element) -> None:
+def out_build_XML(self, root: ET.Element) -> bool:
     # Build Flame properties
     flame = ET.SubElement(root, XML_FLAME_NAME)
     flame.tag = XML_FLAME_NAME
@@ -4200,7 +4201,9 @@ def out_build_XML(self, root: ET.Element) -> None:
     if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
         ALL_msg += HELP_msg
         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True)
-
+        return False
+    else:
+        return True
 
 ###############################################################################################
 # MENU - OUT - build menu from output flame file
@@ -4243,18 +4246,18 @@ def out_check_outpath(self, infile: str) -> Union[str, bool]:
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
-    out_build_XML(self, root)
-    xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
-    tree = ET.ElementTree(ET.fromstring(xml_pretty))
-    tree.write(outpath)
+    if out_build_XML(self, root):
+        xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
+        tree = ET.ElementTree(ET.fromstring(xml_pretty))
+        tree.write(outpath)
 
 
 def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
     root = apo_data.tree.getroot()
-    out_build_XML(self, root)
-    _pretty_print(root)
-    tree = ET.ElementTree(root)
-    tree.write(out_path)
+    if out_build_XML(self, root):
+        _pretty_print(root)
+        tree = ET.ElementTree(root)
+        tree.write(out_path)
 
 
 def out_XML(kwargs: dict) -> None:
