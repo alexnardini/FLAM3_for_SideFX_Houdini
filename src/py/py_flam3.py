@@ -1136,13 +1136,13 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         else:
             prm.set('0')
             apo_to_flam3(node)
-            
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
-        if apo_flame(xml).isvalidtree:
-            prm.set('0')
-        
-        
+        apo = apo_flame(xml)
+        if apo.isvalidtree:
+            prm.set(f'{len(apo.name)-1}')
+        else:
+            prm.set('-1')
 
 
 
