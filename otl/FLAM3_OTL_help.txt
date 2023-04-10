@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3
-#version: 0.9.5.2
+#version: 1.0
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -106,7 +106,7 @@ note:
     
 copy/paste:
     #id: FLAME
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
     Click to COPY this iterator vaues. "CTRL"+CLICK to PASTE the copied values into another iterator.
     It will copy everything, parametric variation's parameters included but not XAOS.
@@ -189,7 +189,6 @@ opacity:
 pre:
     #id: FLAME
     Enable PRE Variations for the selected iterator.
-    For speed purpose only one non parametrics and one parametric are allowed at the moment.
     
     NOTE:
         When using PRE variations, the affine values used are their identity matrix. ( *X(1, 0), Y(0, 1), O(0, 0)* )
@@ -267,19 +266,6 @@ VARS Tab:
     If a parametric variation is selected, its parameters will populate this Tab.
     
     
-    
-    
-~~~
-:box:
-    #display: inverted teal
-
-    *TM:* _Global post affine transformations applied to all the variations at once._
-
-TM:
-    #id: TM
-    Enable global Transformations. Those transformations will get applyed to all Iterator's variations.
-    This is being added as its handy for animation.
-    
 
     
 ~~~
@@ -294,7 +280,7 @@ note:
     
 copy/paste:
     #id: FF
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
     Click to COPY this FF vaues. "CTRL"+CLICK on another FLAM3 node to PASTE the copied FF values.
     It will copy everything, parametric variation's parameters included.
@@ -400,25 +386,10 @@ JSON file:
     
 Save:
     #id: PALETTE
-    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
     click to add a new palette to the selected json file (append) or create a new one (override).
     
-
-    
-~~~
-:box:
-    #display: inverted teal
-
-    *SM:* _Flame fractal rotational symmetry._
-
-on:
-    #id: prefs
-    Enable symmetry.
-    
-Rotational:
-    #id: prefs
-    Symmetry type and mode. Only rotational is allowed at the moment.
       
     
     
@@ -499,12 +470,102 @@ Iterations on Load:
     Set a number of iterations to use every time you load a flame from a *.flame file.
     This will override the internally default value of 64 iterations.
     
+infos:
+    #id: IN
+    Display information about the Flame preset loaded.
     
+Render infos:
+    #id: IN
+    Display informations about the render properties of the loaded Flame preset.
+    Those properties are specific of the renderer of the application the loaded Flame has been created/saved from.
+    Some of the properties are specific to Fractorium application, witch has been my reference for this.
     
+Copy/Paste render properties:
+    #id: IN
+    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    
+    Clicking this icon will copy those render properties and paste them inside the OUT tab render properties.
+    This way you can be sure your Flame will match the visual quality of the flame you just loaded, and perhaps modified.
         
         
-        
-        
+~~~
+:box:
+    #display: inverted teal
+
+    *OUT:* _Save *.flame file type to be loaded back inside Apophysis, Fractorium and others._
+    
+OUT file:
+    #id: OUT
+    Select a file name to save your flame into.
+    If the selected file do not exist, it will be created.
+    
+Save Flame:
+    #id: OUT
+    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    
+    Click this icon to save the current flame into the selecte OUT file.
+    If the selected file do not exist, it will be created.
+    If the selected file already contain slome flames, it will append the current one.
+    
+Flame name:
+    #id: OUT
+    Write a name to give to the selected flame when saving it out.
+    If no name is provided, an automated name composed of today's date and current time will be used instead.
+    
+OUT render properties:
+    #id: OUT
+    Those properties are specific of the renderer of the application you will load the saved Flame into.
+    Some of the properties are specific to Fractorium application, witch has been my reference for this.
+    
+Edit render properties:
+    #id: OUT
+    Allow the editing of the render properties.
+    
+Reset render properties:
+    #id: OUT
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Click this icon to reset all OUT render properties.
+    
+Resolution:
+    #id: OUT
+    The image resolution.
+    
+Center:
+    #id: OUT
+    Where the flame is centered, think of this as the look at camera point.
+    
+Rotate:
+    #id: OUT
+    The camera rotation.
+    
+Scale:
+    #id: OUT
+    The camera zoom.
+    
+Quality:
+    #id: OUT
+    The render quality. Think of this as how many points are used inside Fractorium to render the final image. The more the more cleaner the final image.
+    
+Brightness:
+    #id: OUT
+    The flame render setting: brightness.
+    
+Gamma:
+    #id: OUT
+    The flame render setting: gamma.
+    
+Highlight power:
+    #id: OUT
+    The flame render setting: highlight power.
+    
+Logscale K2:
+    #id: OUT
+    The flame render setting: Logscale K2.
+    
+Vibrancy:
+    #id: OUT
+    The flame render setting: vibrancy.
         
     
 ~~~
@@ -590,7 +651,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v0.9.5.2 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0 for SideFX Houdini:_
 
 *
 arch, 
@@ -659,6 +720,7 @@ parabola,
 pdj, 
 perspective, 
 pie, 
+point_symmetry, 
 polar, 
 polar2, 
 polynomial, 
