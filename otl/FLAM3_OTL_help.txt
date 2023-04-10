@@ -508,10 +508,17 @@ Save Flame:
     If the selected file already contain slome flames, it will append the current one.
     CTRL + CLICK to erase the content of the file and save only the current Flame in it.
     
+    NOTE:
+        When saving Flame out remember you are not allowed to use the same variation more than once in any of the availabe var's sections. 
+        While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST )
+        and you wont be able to save out the same result.
+        Save the hip file instead.
+    
 Flame name:
     #id: OUT
     Write a name to give to the selected flame when saving it out.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
+
     
 OUT render properties:
     #id: OUT
