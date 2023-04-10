@@ -66,6 +66,7 @@ FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
 OUT_PATH = 'outpath'
+OUT_FLAME_PRESET_NAME = 'outname'
 XAOS_MODE = 'xm'
 RAMP_SRC_NAME = 'palette'
 RAMP_HSV_NAME = 'palettehsv'
@@ -1550,18 +1551,18 @@ def reset_PREFS(self) -> None:
     
 def reset_OUT(self, mode=0) -> None:
     self.setParms({"outedit": 0})
-    self.setParms({"outres": hou.Vector2((1920, 1080))})
-    self.setParms({"outcenter": hou.Vector2((0, 0))})
-    self.setParms({"outrotate": 0})
-    self.setParms({"outscale": 100})
-    self.setParms({"outquality": 1024})
-    self.setParms({"outbrightness": 1})
-    self.setParms({"outgamma": 2.5})
-    self.setParms({"outhighlight": 1})
-    self.setParms({"outvibrancy": 0.333333})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 100})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
     if not mode:
         self.setParms({OUT_PATH: ""})
-        self.setParms({"outname": ""})
+        self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
 
@@ -1779,45 +1780,45 @@ XML_XF_COLOR_SPEED = "color_speed"
 XML_XF_OPACITY = "opacity"
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
-OUT_XML_SIZE = 'size'
-OUT_XML_CENTER = 'center'
-OUT_XML_ROTATE = 'rotate'
-OUT_XML_SCALE = 'scale'
-OUT_XML_BG = 'background'
-OUT_XML_SUPERSAMPLE = 'supersample'
-OUT_XML_FILTER = 'filter'
-OUT_XML_QUALITY = 'quality'
-OUT_XML_BRIGHTNESS = 'brightness'
-OUT_XML_GAMMA = 'gamma'
-OUT_XML_GAMMA_THRESHOLD = 'gamma_threshold'
-OUT_XML_VIBRANCY = 'vibrancy'
-OUT_XML_HIGHLIGHT_POWER = 'highlight_power'
-OUT_XML_ESTIMATOR_RADIUS = 'estimator_radius'
-OUT_XML_ESTIMATOR_MINIMUM = 'estimator_minimum'
-OUT_XML_ESTIMATOR_CURVE = 'estimator_curve'
-OUT_XML_PALETTE_MODE = 'palette_mode'
-OUT_XML_INTERPOLATION = 'interpolation'
-OUT_XML_INTERPOLATION_TYPE = 'interpolation_type'
-OUT_XML_RENDER_CURVES = 'curves'
-OUT_XML_RENDER_CURVES_VAL = "0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 "
-OUT_XML_RENDER_OVERALL_CURVE = 'overall_curve'
-OUT_XML_RENDER_OVERALL_CURVE_VAL = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
-OUT_XML_RENDER_RED_CURVE = 'red_curve'
-OUT_XML_RENDER_GREEN_CURVE = 'green_curve'
-OUT_XML_RENDER_BLUE_CURVE = 'blue_curve'
-OUT_XML_RENDER_RED_CURVE_VAL=OUT_XML_RENDER_GREEN_CURVE_VAL=OUT_XML_RENDER_BLUE_CURVE_VAL=OUT_XML_RENDER_OVERALL_CURVE_VAL
+OUT_XML_FLAME_SIZE = 'size'
+OUT_XML_FLAME_CENTER = 'center'
+OUT_XML_FLAME_ROTATE = 'rotate'
+OUT_XML_FLAME_SCALE = 'scale'
+OUT_XML_FLAME_BG = 'background'
+OUT_XML_FLAME_SUPERSAMPLE = 'supersample'
+OUT_XML_FLAME_FILTER = 'filter'
+OUT_XML_FLAME_QUALITY = 'quality'
+OUT_XML_FLAME_BRIGHTNESS = 'brightness'
+OUT_XML_FLAME_GAMMA = 'gamma'
+OUT_XML_FLAME_GAMMA_THRESHOLD = 'gamma_threshold'
+OUT_XML_FLAME_VIBRANCY = 'vibrancy'
+OUT_XML_FLAME_POWER = 'highlight_power'
+OUT_XML_FLAME_RADIUS = 'estimator_radius'
+OUT_XML_FLAME_ESTIMATOR_MINIMUM = 'estimator_minimum'
+OUT_XML_FLAME_ESTIMATOR_CURVE = 'estimator_curve'
+OUT_XML_FLAME_PALETTE_MODE = 'palette_mode'
+OUT_XML_FLAME_INTERPOLATION = 'interpolation'
+OUT_XML_FLAME_INTERPOLATION_TYPE = 'interpolation_type'
+OUT_XML_FLAME_RENDER_CURVES = 'curves'
+OUT_XML_FLAME_RENDER_CURVES_VAL = "0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 "
+OUT_XML_FLAME_RENDER_OVERALL_CURVE = 'overall_curve'
+OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
+OUT_XML_FLAME_RENDER_RED_CURVE = 'red_curve'
+OUT_XML_FLAME_RENDER_GREEN_CURVE = 'green_curve'
+OUT_XML_FLAME_RENDER_BLUE_CURVE = 'blue_curve'
+OUT_XML_FLAME_RENDER_RED_CURVE_VAL=OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL=OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL=OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
-OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: 'outname',
-                               OUT_XML_SIZE: 'outres',
-                               OUT_XML_CENTER: 'outcenter',
-                               OUT_XML_ROTATE: 'outrotate',
-                               OUT_XML_SCALE: 'outscale',
-                               OUT_XML_QUALITY: 'outquality',
-                               OUT_XML_BRIGHTNESS: 'outbrightness',
-                               OUT_XML_GAMMA: 'outgamma',
-                               OUT_XML_HIGHLIGHT_POWER: 'outhighlight',
-                               OUT_XML_VIBRANCY: 'outvibrancy'  
+OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
+                               OUT_XML_FLAME_SIZE: 'outres',
+                               OUT_XML_FLAME_CENTER: 'outcenter',
+                               OUT_XML_FLAME_ROTATE: 'outrotate',
+                               OUT_XML_FLAME_SCALE: 'outscale',
+                               OUT_XML_FLAME_QUALITY: 'outquality',
+                               OUT_XML_FLAME_BRIGHTNESS: 'outbrightness',
+                               OUT_XML_FLAME_GAMMA: 'outgamma',
+                               OUT_XML_FLAME_POWER: 'outhighlight',
+                               OUT_XML_FLAME_VIBRANCY: 'outvibrancy'  
 }
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
@@ -2222,14 +2223,14 @@ class apo_flame(_xml_tree):
         self._flame = self._xml_tree__get_flame()
         self._flame_count = self._xml_tree__get_flame_count(self._flame)
         # render properties
-        self._out_size = self._xml_tree__get_name(OUT_XML_SIZE)
-        self._out_center = self._xml_tree__get_name(OUT_XML_CENTER)
-        self._out_rotate = self._xml_tree__get_name(OUT_XML_ROTATE)
-        self._out_scale = self._xml_tree__get_name(OUT_XML_SCALE)
-        self._out_quality = self._xml_tree__get_name(OUT_XML_QUALITY)
-        self._out_brightness = self._xml_tree__get_name(OUT_XML_BRIGHTNESS)
-        self._out_gamma = self._xml_tree__get_name(OUT_XML_GAMMA)
-        self._out_vibrancy = self._xml_tree__get_name(OUT_XML_VIBRANCY)
+        self._out_size = self._xml_tree__get_name(OUT_XML_FLAME_SIZE)
+        self._out_center = self._xml_tree__get_name(OUT_XML_FLAME_CENTER)
+        self._out_rotate = self._xml_tree__get_name(OUT_XML_FLAME_ROTATE)
+        self._out_scale = self._xml_tree__get_name(OUT_XML_FLAME_SCALE)
+        self._out_quality = self._xml_tree__get_name(OUT_XML_FLAME_QUALITY)
+        self._out_brightness = self._xml_tree__get_name(OUT_XML_FLAME_BRIGHTNESS)
+        self._out_gamma = self._xml_tree__get_name(OUT_XML_FLAME_GAMMA)
+        self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY)
         
         
 
@@ -3303,7 +3304,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         
         preset_id = int(self.parm('inpresets').eval())
         iter_on_load = set_iter_on_load(self, preset_id)
-        reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, iter_on_load, 0)
+        reset_SYS(self, 1, iter_on_load, 0)
         reset_MB(self)
         reset_PREFS(self)
         
@@ -3334,6 +3335,8 @@ def apo_to_flam3(self: hou.Node) -> None:
         ramp_parm.set(apo_data.palette[0])
         palette_cp(self)
         palette_hsv(self)
+        # Set density back to default on load
+        self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT})
         
         #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
@@ -3897,15 +3900,15 @@ class out_flame_properties(_out_utils):
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
         self.flame_name = self._out_utils__out_flame_name()
-        self.flame_size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_SIZE))
-        self.flame_center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_CENTER))
-        self.flame_scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_SCALE))
-        self.flame_rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_ROTATE))
-        self.flame_quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_QUALITY))
-        self.flame_brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_BRIGHTNESS))
-        self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_GAMMA))
-        self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_VIBRANCY))
-        self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_HIGHLIGHT_POWER))
+        self.flame_size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE))
+        self.flame_center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER))
+        self.flame_scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE))
+        self.flame_rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE))
+        self.flame_quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY))
+        self.flame_brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS))
+        self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA))
+        self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY))
+        self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER))
         self.flame_render_curves = OUT_XML_RENDER_OVERALL_CURVE_VAL
         self.flame_overall_curve = OUT_XML_RENDER_OVERALL_CURVE_VAL
         self.flame_red_curve = OUT_XML_RENDER_RED_CURVE_VAL
@@ -3940,31 +3943,31 @@ def out_flame_properties_build(self) -> dict:
     f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'FLAM3HOUDINI-{myOS}-{FLAM3HOUDINI_version}',
             XML_XF_NAME: f3p.flame_name,
-            OUT_XML_SIZE: f3p.flame_size,
-            OUT_XML_CENTER: f3p.flame_center,
-            OUT_XML_SCALE: f3p.flame_scale,
-            OUT_XML_ROTATE: f3p.flame_rotate,
-            OUT_XML_BG: '0 0 0',
-            OUT_XML_SUPERSAMPLE: '2',
-            OUT_XML_FILTER: '0.5',
-            OUT_XML_QUALITY: f3p.flame_quality,
-            OUT_XML_BRIGHTNESS: f3p.flame_brightness,
-            OUT_XML_GAMMA: f3p.flame_gamma,
-            OUT_XML_GAMMA_THRESHOLD: '0.0423093658828749',
-            OUT_XML_VIBRANCY: f3p.flame_vibrancy,
-            OUT_XML_HIGHLIGHT_POWER: f3p.flame_highlight,
-            OUT_XML_ESTIMATOR_RADIUS: '9',
-            OUT_XML_ESTIMATOR_MINIMUM: '0',
-            OUT_XML_ESTIMATOR_CURVE: '0.4',
-            OUT_XML_PALETTE_MODE: 'linear',
-            OUT_XML_INTERPOLATION: 'linear',
-            OUT_XML_INTERPOLATION_TYPE: 'log'
+            OUT_XML_FLAME_SIZE: f3p.flame_size,
+            OUT_XML_FLAME_CENTER: f3p.flame_center,
+            OUT_XML_FLAME_SCALE: f3p.flame_scale,
+            OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
+            OUT_XML_FLAME_BG: '0 0 0',
+            OUT_XML_FLAME_SUPERSAMPLE: '2',
+            OUT_XML_FLAME_FILTER: '0.5',
+            OUT_XML_FLAME_QUALITY: f3p.flame_quality,
+            OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
+            OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
+            OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
+            OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
+            OUT_XML_FLAME_POWER: f3p.flame_highlight,
+            OUT_XML_FLAME_RADIUS: '9',
+            OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
+            OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
+            OUT_XML_FLAME_PALETTE_MODE: 'linear',
+            OUT_XML_FLAME_INTERPOLATION: 'linear',
+            OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
             # The following are not really needed
-            # OUT_XML_RENDER_CURVES: f3p.flame_render_curves,
-            # OUT_XML_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
-            # OUT_XML_RENDER_RED_CURVE: f3p.flame_red_curve,
-            # OUT_XML_RENDER_GREEN_CURVE: f3p.flame_green_curve,
-            # OUT_XML_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
+            # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
+            # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
+            # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
+            # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
+            # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
 
