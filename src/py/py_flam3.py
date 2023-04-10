@@ -3694,7 +3694,10 @@ class _out_utils():
         self._flam3_iterator_FF = flam3_iterator_FF()
         self._flam3_do_FF = self._node.parm(SYS_DO_FF).eval()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
-        self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
+        # Update hsv ramp before storing it.
+        palette_cp(self._node)
+        palette_hsv(self._node)
+        self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
 
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
@@ -3719,7 +3722,7 @@ class _out_utils():
         """Convert a tuple of RGB values into HEX value
 
         Args:
-            rgb (tuple): A tuple ( hou.Vector3((r,g,b)) )
+            rgb (tuple): A RGB tuple ( hou.Vector3((r,g,b)) )
 
         Returns:
             str: The HEX value of the passsed RGB color
