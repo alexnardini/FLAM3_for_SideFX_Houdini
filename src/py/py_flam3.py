@@ -65,6 +65,7 @@ SYS_RIP = "rip"
 FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
+OUT_PRESETS = 'outpresets'
 OUT_PATH = 'outpath'
 OUT_FLAME_PRESET_NAME = 'outname'
 XAOS_MODE = 'xm'
@@ -1135,6 +1136,12 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         else:
             prm.set('0')
             apo_to_flam3(node)
+            
+    elif OUT_PRESETS in prm_name:
+        xml = node.parm(OUT_PATH).evalAsString()
+        if apo_flame(xml).isvalidtree:
+            prm.set('0')
+        
         
 
 
@@ -4169,20 +4176,43 @@ def out_build_XML(self, root: ET.Element) -> None:
         print(f"{str(self)} Warning:\nFF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
 
 
+
+###############################################################################################
+# MENU - OUT - build menu from output flame file
+###############################################################################################
+def menu_out_contents_presets(kwargs: dict) -> list:
+    xml = kwargs['node'].parm(OUT_PATH).evalAsString()
+    menu=[]
+    if apo_flame(xml).isvalidtree:
+        apo = apo_flame(xml)
+        for i, item in enumerate(apo.name):
+            menu.append(i)
+            menu.append(item)
+        return menu
+    else:
+        menu.append(-1)
+        menu.append('Empty')
+        return menu
+
+
 def out_check_outpath(self, infile: str) -> Union[str, bool]:
     file = os.path.expandvars(infile)
     file_s = os.path.split(file)
-    filename_s = os.path.splitext(file_s[-1])
-    if filename_s[-1] == OUT_FLAM3_FILE_EXT:
-        return file
-    elif not filename_s[-1] and filename_s[0]:
-        return "/".join(file_s) + OUT_FLAM3_FILE_EXT
-    elif not filename_s[-1] and not filename_s[0]:
-        now = datetime.now()
-        new_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
-        return "/".join(file_s) + new_name + OUT_FLAM3_FILE_EXT
+    if os.path.isdir(file_s[0]):
+        filename_s = os.path.splitext(file_s[-1])
+        if filename_s[-1] == OUT_FLAM3_FILE_EXT:
+            return file
+        elif not filename_s[-1] and filename_s[0]:
+            return "/".join(file_s) + OUT_FLAM3_FILE_EXT
+        elif not filename_s[-1] and not filename_s[0]:
+            now = datetime.now()
+            new_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+            return "/".join(file_s) + new_name + OUT_FLAM3_FILE_EXT
+        else:
+            print(f"{str(self)}: You selected an OUT file that is not a FLAM3 file type.")
+            return False
     else:
-        print(f"{str(self)}: You selected an OUT file that is not a FLAM3 file type.")
+        print(f"{str(self)}: Select a valid output directory location.")
         return False
 
 
@@ -4220,5 +4250,6 @@ def out_XML(kwargs: dict) -> None:
             else:
                 out_new_XML(node, str(out_path_checked))
                 node.setParms({OUT_FLAME_PRESET_NAME: ''})
+        init_presets(kwargs, OUT_PRESETS)
 
 
