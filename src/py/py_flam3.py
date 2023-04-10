@@ -4030,12 +4030,34 @@ def out_round_float(VAL) -> str:
         return str(int(float(VAL)))
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
-def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
+# def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
+#     for idx, prm in enumerate(WEIGHTS_tuple):
+#         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
+#         if prm_w != 0:
+#             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
+#             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+#             XFORM.set(FUNC(v_name), out_round_float(prm_w))
+#             vars_prm = varsPRM[v_type]
+#             if vars_prm[-1]:
+#                 f3_prm = varsPRM[v_type][1:-1]
+#                 apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
+#                 for id, p in enumerate(apo_prm):
+#                     if f3_prm[id][-1]:
+#                         for i, n in enumerate(p):
+#                             vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
+#                             XFORM.set(FUNC(p[i]), out_round_float(vals[i]))
+#                     else:
+#                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
+#                         XFORM.set(FUNC(p[0]), out_round_float(val))
+                        
+def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> list[str]:
+    names = []
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
         if prm_w != 0:
             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+            names.append(v_name)
             XFORM.set(FUNC(v_name), out_round_float(prm_w))
             vars_prm = varsPRM[v_type]
             if vars_prm[-1]:
@@ -4049,6 +4071,7 @@ def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tup
                     else:
                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
                         XFORM.set(FUNC(p[0]), out_round_float(val))
+    return names
 
 
 # From stack overflow, as minidom messup spaces when appending
@@ -4065,6 +4088,20 @@ def _pretty_print(current, parent=None, index=-1, depth=0):
         if index == len(parent) - 1:
             current.tail = '\n' + ('  ' * (depth - 1))
             
+            
+def out_check_duplicate(vars: list) -> bool:
+    result = []
+    [result.append(x) for x in vars if x not in result]
+    if(len(vars) != len(result)):
+        return True
+    return False
+
+def out_check_duplicate_bool(names_VARS, bool_VARS) -> None:
+    for n in names_VARS:
+        if n:
+            if bool_VARS is False: bool_VARS = out_check_duplicate(n)
+            else: break
+
 
 def out_build_XML(self, root: ET.Element) -> None:
     # Build Flame properties
@@ -4073,6 +4110,9 @@ def out_build_XML(self, root: ET.Element) -> None:
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
     # Build xforms
+    names_VARS = []
+    names_VARS_PRE = []
+    names_VARS_POST = []
     f3d = out_flam3_data(self)
     for iter in range(f3d.iter_count):
         iter_var = iter + 1
@@ -4091,10 +4131,13 @@ def out_build_XML(self, root: ET.Element) -> None:
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-            out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR)
-            out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE)
-            out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST)
+            names_VARS.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR))
+            names_VARS_PRE.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE))
+            names_VARS_POST.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST))
     # Build finalxform
+    names_VARS_FF = []
+    names_VARS_PRE_FF = []
+    names_VARS_POST_FF = []
     if f3d.flam3_do_FF:
         finalxf = ET.SubElement(flame, XML_FF)
         finalxf.tag = XML_FF
@@ -4106,15 +4149,39 @@ def out_build_XML(self, root: ET.Element) -> None:
         finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
         if f3d.finalxf_postaffine:
             finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
-        out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_VAR)
-        out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
-        out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
+        names_VARS_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_VAR)
+        names_VARS_PRE_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
+        names_VARS_POST_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
     # Build palette
     palette = ET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
+    
+    # Check for multiple instance of the same variation type
+    bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
+    for n in names_VARS:
+        if n:
+            if bool_VARS is False: bool_VARS = out_check_duplicate(n)
+            else: break
+    for n in names_VARS_PRE:
+        if n:
+            if bool_VARS_PRE is False: bool_VARS_PRE = out_check_duplicate(n)
+            else: break
+    if f3d.flam3_do_FF:
+        bool_VARS_FF = out_check_duplicate(names_VARS_FF)
+        bool_VARS_POST_FF = out_check_duplicate(names_VARS_POST_FF)
+        
+    if bool_VARS:
+        print(f"{str(self)} Warning:\nVars:\nYou are using the same variation multiple times inside one of the iterator VAR section. While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result. Save the hip file instead.\n")
+    if bool_VARS_PRE:
+        print(f"{str(self)} Warning:\nPRE Vars:\nYou are using the same variation multiple times inside one of the iterator PRE section. While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result. Save the hip file instead.\n")
+    if bool_VARS_FF:
+        print(f"{str(self)} Warning:\nVars FF:\nYou are using the same variation multiple times inside the FF VAR section. While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result. Save the hip file instead.\n")
+    if bool_VARS_POST_FF:
+        print(f"{str(self)} Warning:\nPOST Vars FF:\nYou are using the same variation multiple times inside the FF POST section. While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result. Save the hip file instead.\n")
+
 
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
