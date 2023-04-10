@@ -4066,8 +4066,13 @@ def out_XML(self: hou.Node, outpath: str) -> None:
     tree = ET.ElementTree(ET.fromstring(xml_pretty))
     tree.write(outpath)
 
+
 def out_append_XML(self: hou.Node) -> None:
     out_path = self.parm(OUT_PATH).evalAsString()
+    # TO DO
+    # make checks for out path file like:
+    # does it have the right extension?
+    # ... and more
     apo_data = apo_flame(out_path)
     if apo_data.isvalidtree:
         root = apo_data.tree.getroot()
