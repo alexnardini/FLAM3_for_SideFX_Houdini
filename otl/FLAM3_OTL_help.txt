@@ -506,6 +506,7 @@ Save Flame:
     Click this icon to save the current flame into the selecte OUT file.
     If the selected file do not exist, it will be created.
     If the selected file already contain slome flames, it will append the current one.
+    CTRL + CLICK to erase the content of the file and save only the current Flame in it.
     
 Flame name:
     #id: OUT
