@@ -3353,6 +3353,15 @@ def apo_to_flam3(self: hou.Node) -> None:
 
 
 
+def apo_join_vars_grp(groups: list) -> str:
+    vars = []
+    for id, grp in enumerate(groups):
+        if id < len(groups)-1:
+            vars.append(", ".join(grp) + "\n")
+        else:
+            vars.append(", ".join(grp))
+    return ''.join(vars)
+
 def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
     # spacers
@@ -3442,10 +3451,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     result_sorted = sorted(result, key=lambda var: var)
     n = 5
     result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-    vars = []
-    for grp in result_grp:
-        vars.append(", ".join(grp) + "\n")
-    vars_txt = "".join(vars)
+    vars_txt = apo_join_vars_grp(result_grp)
     vars_used_msg = f"{var_used_heading}\n{vars_txt}"
     
     # Build and set descriptive parameter msg
@@ -3479,13 +3485,10 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     # Compare and keep and build missing vars msg
     vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
     result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
-    missing_vars = []
-    for grp in result_grp_fractorium:
-        missing_vars.append(", ".join(grp) + "\n")
-    vars_missing = "".join(missing_vars)
+    vars_missing = apo_join_vars_grp(result_grp_fractorium)
     vars_missing_msg = ""
     if vars_missing:
-        vars_missing_msg = f"MISSING:\n{vars_missing}"
+        vars_missing_msg = f"{nnl}MISSING:\n{vars_missing}"
         
     # build full stats msg
     build = ( sw, nnl,
@@ -3496,7 +3499,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
               opacity, nl,
               xaos, nl,
               ff_msg, nnl,
-              vars_used_msg, nl,
+              vars_used_msg,
               vars_missing_msg )
     build_stats_msg = "".join(build)
     
