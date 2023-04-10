@@ -1835,6 +1835,7 @@ XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
 
 POINT_COUNT_LOAD_DEFAULT = 500000
 ITER_LOAD_DEFAULT = 64
+OUT_FLAM3_FILE_EXT = '.flame'
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PRE = "^(?:pre_)"
@@ -4030,25 +4031,7 @@ def out_round_float(VAL) -> str:
         return str(int(float(VAL)))
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
-# def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> None:
-#     for idx, prm in enumerate(WEIGHTS_tuple):
-#         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
-#         if prm_w != 0:
-#             v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-#             v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-#             XFORM.set(FUNC(v_name), out_round_float(prm_w))
-#             vars_prm = varsPRM[v_type]
-#             if vars_prm[-1]:
-#                 f3_prm = varsPRM[v_type][1:-1]
-#                 apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
-#                 for id, p in enumerate(apo_prm):
-#                     if f3_prm[id][-1]:
-#                         for i, n in enumerate(p):
-#                             vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-#                             XFORM.set(FUNC(p[i]), out_round_float(vals[i]))
-#                     else:
-#                         val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
-#                         XFORM.set(FUNC(p[0]), out_round_float(val))
+
                         
 def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> list[str]:
     names = []
@@ -4096,11 +4079,14 @@ def out_check_duplicate(vars: list) -> bool:
         return True
     return False
 
+
+
 def out_check_duplicate_bool(names_VARS, bool_VARS) -> None:
     for n in names_VARS:
         if n:
             if bool_VARS is False: bool_VARS = out_check_duplicate(n)
             else: break
+
 
 
 def out_build_XML(self, root: ET.Element) -> None:
@@ -4183,6 +4169,22 @@ def out_build_XML(self, root: ET.Element) -> None:
         print(f"{str(self)} Warning:\nFF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
 
 
+def out_check_outpath(self, infile: str) -> Union[str, bool]:
+    file = os.path.expandvars(infile)
+    file_s = os.path.split(file)
+    filename_s = os.path.splitext(file_s[-1])
+    if filename_s[-1] == OUT_FLAM3_FILE_EXT:
+        return file
+    elif not filename_s[-1] and filename_s[0]:
+        return "/".join(file_s) + OUT_FLAM3_FILE_EXT
+    elif not filename_s[-1] and not filename_s[0]:
+        now = datetime.now()
+        new_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+        return "/".join(file_s) + new_name + OUT_FLAM3_FILE_EXT
+    else:
+        print(f"{str(self)}: You selected an OUT file that is not a FLAM3 file type.")
+        return False
+
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
@@ -4203,12 +4205,20 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
 def out_XML(kwargs: dict) -> None:
     node = kwargs['node']
     out_path = node.parm(OUT_PATH).evalAsString()
-    apo_data = apo_flame(out_path)
-    if kwargs["ctrl"]:
-        out_new_XML(node, out_path)
-    else:
-        if apo_data.isvalidtree:
-            out_append_XML(node, apo_data, out_path)
+    out_path_checked = out_check_outpath(node, out_path)
+    if out_path_checked is not False:
+        apo_data = apo_flame(str(out_path_checked))
+        if kwargs["ctrl"]:
+            node.setParms({OUT_PATH: str(out_path_checked)})
+            out_new_XML(node, str(out_path_checked))
+            node.setParms({OUT_FLAME_PRESET_NAME: ''})
         else:
-            out_new_XML(node, out_path)
+            node.setParms({OUT_PATH: str(out_path_checked)})
+            if apo_data.isvalidtree:
+                out_append_XML(node, apo_data, str(out_path_checked))
+                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+            else:
+                out_new_XML(node, str(out_path_checked))
+                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+
 
