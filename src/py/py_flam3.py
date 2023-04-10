@@ -3311,7 +3311,6 @@ def apo_to_flam3(self: hou.Node) -> None:
         apo_data = apo_flame_iter_data(xml, preset_id)
         if min(apo_data.opacity) == 0.0:
             self.setParms({SYS_RIP: 1})
-
         # iterators
         self.setParms({FLAM3_ITERATORS_COUNT: 0})
         for p in self.parms():
@@ -3337,12 +3336,9 @@ def apo_to_flam3(self: hou.Node) -> None:
         palette_hsv(self)
         # Set density back to default on load
         self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT})
-        
         #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
         self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)})
-        
-        
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
@@ -3458,8 +3454,6 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
                         f"{preset_name}", )
     self.setParms({"descriptive_msg": "".join(descriptive_prm)})
 
-    
-    
     # Build missing:
 
     # get all vars
@@ -3482,7 +3476,6 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     result_fractorium = []
     [result_fractorium.append(x) for x in flatten_fractorium if x not in result_fractorium]
     result_sorted_fractorium = sorted(result_fractorium, key=lambda var: var)
-    
     # Compare and keep and build missing vars msg
     vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
     result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
