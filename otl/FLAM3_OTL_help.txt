@@ -503,22 +503,33 @@ Save Flame:
     #id: OUT
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
-    Click this icon to save the current flame into the selecte OUT file.
+    Click this icon to save the current flame into the selected OUT file.
     If the selected file do not exist, it will be created.
-    If the selected file already contain slome flames, it will append the current one.
-    CTRL + CLICK to erase the content of the file and save only the current Flame in it.
+    If the selected file exist and already contain some Flames in it, it will append the current one.
+    
+    CTRL + CLICK to erase the content of the file and overwrite it with only the current Flame.
+    
+    If the selected file is not a valid Flame file type, nothing will happen.
+    
+    TIP:
+        If you type a location and a filename without extension, it will automaticalli add the _*.flame*_ extension to it.
+        
+        If you do not provide a file name at all, it will generate one for you based out of today's date and current time.
     
     NOTE:
-        When saving Flame out remember you are not allowed to use the same variation more than once in any of the availabe var's sections. 
+        When saving Flames out, remember you are not allowed to use the same variation more than once in any of the availabe var's sections. 
         While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST )
         and you wont be able to save out the same result.
         Save the hip file instead.
+        
+        This is true also for applications like Apophysis and Fractorium.
         
 OUT file contents:
     #id: OUT
     This menu is only for information purpose.
     It will show the Flames contained in the selected output file if any are presents.
     Once you append a new Flame in it, this menu will update too.
+    It will always be set to the last Flame's name you saved.
     
 Flame name:
     #id: OUT
