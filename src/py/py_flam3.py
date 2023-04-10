@@ -3903,11 +3903,11 @@ class out_flame_properties(_out_utils):
         self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA))
         self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY))
         self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER))
-        self.flame_render_curves = OUT_XML_RENDER_OVERALL_CURVE_VAL
-        self.flame_overall_curve = OUT_XML_RENDER_OVERALL_CURVE_VAL
-        self.flame_red_curve = OUT_XML_RENDER_RED_CURVE_VAL
-        self.flame_green_curve = OUT_XML_RENDER_GREEN_CURVE_VAL
-        self.flame_blue_curve = OUT_XML_RENDER_BLUE_CURVE_VAL
+        self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        self.flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
+        self.flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
+        self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
 
 
 
@@ -4058,27 +4058,26 @@ def out_build_XML(self, root: ET.Element) -> None:
     palette.text = f3d.palette_hex
             
 
-def out_XML(self: hou.Node, outpath: str) -> None:
+def out_new_XML(self: hou.Node, outpath: str) -> None:
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
     out_build_XML(self, root)
     xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
     tree = ET.ElementTree(ET.fromstring(xml_pretty))
     tree.write(outpath)
+    
+def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
+    root = apo_data.tree.getroot()
+    out_build_XML(self, root)
+    _pretty_print(root)
+    tree = ET.ElementTree(root)
+    tree.write(out_path)
 
 
-def out_append_XML(self: hou.Node) -> None:
+def out_XML(self: hou.Node) -> None:
     out_path = self.parm(OUT_PATH).evalAsString()
-    # TO DO
-    # make checks for out path file like:
-    # does it have the right extension?
-    # ... and more
     apo_data = apo_flame(out_path)
     if apo_data.isvalidtree:
-        root = apo_data.tree.getroot()
-        out_build_XML(self, root)
-        _pretty_print(root)
-        tree = ET.ElementTree(root)
-        tree.write(out_path)
+        out_append_XML(self, apo_data, out_path)
     else:
-        out_XML(self, out_path)
+        out_new_XML(self, out_path)
 
