@@ -4174,13 +4174,13 @@ def out_build_XML(self, root: ET.Element) -> None:
         bool_VARS_POST_FF = out_check_duplicate(names_VARS_POST_FF)
         
     if bool_VARS:
-        print(f"{str(self)} Warning:\nVars:\nYou are using the same variation multiple times inside one of the iterator VAR section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
+        print(f"{str(self)} Warning:\nIterators Vars:\nYou are using the same variation multiple times inside one of the iterator VAR section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
     if bool_VARS_PRE:
-        print(f"{str(self)} Warning:\nPRE Vars:\nYou are using the same variation multiple times inside one of the iterator PRE section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
+        print(f"{str(self)} Warning:\nIterators PRE Vars:\nYou are using the same variation multiple times inside one of the iterator PRE section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
     if bool_VARS_FF:
-        print(f"{str(self)} Warning:\nVars FF:\nYou are using the same variation multiple times inside the FF VAR section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
+        print(f"{str(self)} Warning:\nFF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
     if bool_VARS_POST_FF:
-        print(f"{str(self)} Warning:\nPOST Vars FF:\nYou are using the same variation multiple times inside the FF POST section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
+        print(f"{str(self)} Warning:\nFF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\nWhile this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST ) and you wont be able to save out the same result.\nSave the hip file instead.\n")
 
 
 
