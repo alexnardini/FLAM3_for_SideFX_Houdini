@@ -4200,11 +4200,15 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
     tree.write(out_path)
 
 
-def out_XML(self: hou.Node) -> None:
-    out_path = self.parm(OUT_PATH).evalAsString()
+def out_XML(kwargs: dict) -> None:
+    node = kwargs['node']
+    out_path = node.parm(OUT_PATH).evalAsString()
     apo_data = apo_flame(out_path)
-    if apo_data.isvalidtree:
-        out_append_XML(self, apo_data, out_path)
+    if kwargs["ctrl"]:
+        out_new_XML(node, out_path)
     else:
-        out_new_XML(self, out_path)
+        if apo_data.isvalidtree:
+            out_append_XML(node, apo_data, out_path)
+        else:
+            out_new_XML(node, out_path)
 
