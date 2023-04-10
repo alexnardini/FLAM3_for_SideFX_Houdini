@@ -3451,8 +3451,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     result_sorted = sorted(result, key=lambda var: var)
     n = 5
     result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-    vars_txt = apo_join_vars_grp(result_grp)
-    vars_used_msg = f"{var_used_heading}\n{vars_txt}"
+    vars_used_msg = f"{var_used_heading}\n{apo_join_vars_grp(result_grp)}"
     
     # Build and set descriptive parameter msg
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
@@ -3485,10 +3484,9 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     # Compare and keep and build missing vars msg
     vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
     result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
-    vars_missing = apo_join_vars_grp(result_grp_fractorium)
     vars_missing_msg = ""
     if vars_missing:
-        vars_missing_msg = f"{nnl}MISSING:\n{vars_missing}"
+        vars_missing_msg = f"{nnl}MISSING:\n{apo_join_vars_grp(result_grp_fractorium)}"
         
     # build full stats msg
     build = ( sw, nnl,
