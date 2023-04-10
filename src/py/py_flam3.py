@@ -1570,6 +1570,7 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
     if not mode:
         self.setParms({OUT_PATH: ""})
+        self.setParms({OUT_HSV_PALETTE_DO: 0})
         self.setParms({OUT_PRESETS: "-1"})
         self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
@@ -1844,6 +1845,7 @@ XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
 POINT_COUNT_LOAD_DEFAULT = 500000
 ITER_LOAD_DEFAULT = 64
 OUT_FLAM3_FILE_EXT = '.flame'
+OUT_HSV_PALETTE_DO = 'outpalette'
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PRE = "^(?:pre_)"
@@ -3695,9 +3697,12 @@ class _out_utils():
         self._flam3_do_FF = self._node.parm(SYS_DO_FF).eval()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
         # Update hsv ramp before storing it.
-        palette_cp(self._node)
-        palette_hsv(self._node)
-        self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
+        self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
+        self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
+        if self._palette_hsv_do:
+            palette_cp(self._node)
+            palette_hsv(self._node)
+            self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
 
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
@@ -3816,6 +3821,10 @@ class _out_utils():
     @property
     def palette(self):
         return self._palette
+    
+    @property
+    def palette_hsv_do(self):
+        return self._palette_hsv_do
 
 
     def __out_flame_data(self, prm_name='') -> str:
