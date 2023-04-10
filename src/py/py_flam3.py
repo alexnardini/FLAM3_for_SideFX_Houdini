@@ -2230,6 +2230,7 @@ class apo_flame(_xml_tree):
         self._out_quality = self._xml_tree__get_name(OUT_XML_FLAME_QUALITY)
         self._out_brightness = self._xml_tree__get_name(OUT_XML_FLAME_BRIGHTNESS)
         self._out_gamma = self._xml_tree__get_name(OUT_XML_FLAME_GAMMA)
+        self._out_highlight_power = self._xml_tree__get_name(OUT_XML_FLAME_POWER)
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY)
         
         
@@ -2301,6 +2302,10 @@ class apo_flame(_xml_tree):
     @property
     def out_gamma(self):
         return self._out_gamma
+    
+    @property
+    def out_highlight_power(self):
+        return self._out_highlight_power
     
     @property
     def out_vibrancy(self):
@@ -3282,7 +3287,7 @@ def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
     iter_on_load = self.parm("iternumonload").eval()
     use_iter_on_load = self.parm("useiteronload").eval()
-    preset_name = self.parm('inpresets').menuLabels()[preset_id]
+    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     iter_on_load_preset = get_preset_name_iternum(preset_name)
     if iter_on_load_preset is not None:
         self.setParms({"iternumonload": iter_on_load_preset})
@@ -3302,7 +3307,7 @@ def apo_to_flam3(self: hou.Node) -> None:
 
     if apo_flame(xml).isvalidtree:
         
-        preset_id = int(self.parm('inpresets').eval())
+        preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
         reset_SYS(self, 1, iter_on_load, 0)
         reset_MB(self)
@@ -3510,6 +3515,7 @@ def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flam
     # spacers
     nl = "\n"
     nnl = "\n\n"
+    
     size = 'Size: n/a'
     if apo_data.out_size[preset_id]:
         size = f"Size: {apo_data.out_size[preset_id]}"
@@ -3538,6 +3544,10 @@ def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flam
     if apo_data.out_gamma[preset_id]:
         gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
         
+    highlight = 'Highlight: n/a'
+    if apo_data.out_highlight_power[preset_id]:
+        highlight = f"Highlight: {apo_data.out_highlight_power[preset_id]}"
+        
     vibrancy = 'Vibrancy: n/a'
     if apo_data.out_vibrancy[preset_id]:
         vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
@@ -3549,11 +3559,50 @@ def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flam
              quality, nl,
              brightness, nl,
              gamma, nl,
+             highlight, nl,
              vibrancy
             )
     
     build_render_stats_msg = "".join(build)
     return build_render_stats_msg
+
+
+def apo_copy_render_stats_msg(self: hou.Node) -> None:
+    
+    xml = self.parm(IN_PATH).evalAsString()
+    preset_id = int(self.parm(IN_PRESETS).eval())
+    f3r = apo_flame_iter_data(xml, preset_id)
+    if f3r.isvalidtree:
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): int(f3r.out_rotate[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): int(f3r.out_scale[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])})
+        except:
+            pass
+        self.setParms({"outedit": 1})
+    else:
+        pass
 
 
 def flam3_about_msg(self):
@@ -4056,7 +4105,7 @@ def out_build_XML(self, root: ET.Element) -> None:
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
-            
+
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
@@ -4064,7 +4113,8 @@ def out_new_XML(self: hou.Node, outpath: str) -> None:
     xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
     tree = ET.ElementTree(ET.fromstring(xml_pretty))
     tree.write(outpath)
-    
+
+
 def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
     root = apo_data.tree.getroot()
     out_build_XML(self, root)
