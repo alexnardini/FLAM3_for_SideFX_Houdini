@@ -494,7 +494,7 @@ Copy/Paste render properties:
 
     *OUT:* _Save *.flame file type to be loaded back inside Apophysis, Fractorium and others._
     
-OUT file:
+OUT file ( *.flame type ):
     #id: OUT
     Select a file name to save your flame into.
     If the selected file do not exist, it will be created.
@@ -524,17 +524,21 @@ Save Flame:
         
         This is true also for applications like Apophysis and Fractorium.
         
-OUT file contents:
+OUT file contents ( info ):
     #id: OUT
     This menu is only for information purpose.
     It will show the Flames contained in the selected output file if any are presents.
     Once you append a new Flame in it, this menu will update too.
     It will always be set to the last Flame's name you saved.
     
-Flame name:
+Flame name ( preset ):
     #id: OUT
     Write a name to give to the selected flame when saving it out.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
+    
+Use palette HSV (cc):
+    #id: OUT
+    If checked, the Flame's palette will be saved out using the HSV ramp so to carry out any color correction the user may have done if he like so.
 
     
 OUT render properties:
