@@ -3983,6 +3983,7 @@ class out_flame_properties(_out_utils):
         self.flame_quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY))
         self.flame_brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS))
         self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA))
+        self.flame_k2 = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2))
         self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY))
         self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER))
         self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
@@ -4030,6 +4031,7 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
             OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
             OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
+            OUT_XML_FLAME_K2: f3p.flame_k2,
             OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
             OUT_XML_FLAME_POWER: f3p.flame_highlight,
             OUT_XML_FLAME_RADIUS: '9',
