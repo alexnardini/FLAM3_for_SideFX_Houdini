@@ -1129,12 +1129,13 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     
     if IN_PRESETS in prm_name:
         xml = node.parm(IN_PATH).evalAsString()
-        if not apo_flame(xml).isvalidtree:
+        apo = apo_flame(xml)
+        if not apo.isvalidtree:
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
         else:
-            prm.set('0')
+            prm.set('-1')
             apo_to_flam3(node)
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
@@ -2614,17 +2615,17 @@ def menu_apo_presets(kwargs: dict) -> list:
 
     xml = kwargs['node'].parm(IN_PATH).evalAsString()
     menu=[]
-    if apo_flame(xml).isvalidtree:
-        apo = apo_flame(xml)
+    apo = apo_flame(xml)
+    if apo.isvalidtree:
         names = apo.name
         for i, item in enumerate(apo.name):
             menu.append(i)
             menu.append(item)
-            
         return menu
     else:
+        menu.append(-1)
+        menu.append('Empty')
         return menu
-
 
 
 
