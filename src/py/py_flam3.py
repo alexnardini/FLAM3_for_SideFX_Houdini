@@ -1559,6 +1559,7 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
+    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
     if not mode:
         self.setParms({OUT_PATH: ""})
@@ -1793,6 +1794,7 @@ OUT_XML_FLAME_GAMMA = 'gamma'
 OUT_XML_FLAME_GAMMA_THRESHOLD = 'gamma_threshold'
 OUT_XML_FLAME_VIBRANCY = 'vibrancy'
 OUT_XML_FLAME_POWER = 'highlight_power'
+OUT_XML_FLAME_K2 = 'logscale_k2'
 OUT_XML_FLAME_RADIUS = 'estimator_radius'
 OUT_XML_FLAME_ESTIMATOR_MINIMUM = 'estimator_minimum'
 OUT_XML_FLAME_ESTIMATOR_CURVE = 'estimator_curve'
@@ -1818,6 +1820,7 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
                                OUT_XML_FLAME_BRIGHTNESS: 'outbrightness',
                                OUT_XML_FLAME_GAMMA: 'outgamma',
                                OUT_XML_FLAME_POWER: 'outhighlight',
+                               OUT_XML_FLAME_K2: 'outk2',
                                OUT_XML_FLAME_VIBRANCY: 'outvibrancy'  
 }
 
@@ -2208,8 +2211,6 @@ class _xml_tree:
 
 
 
-
-
 class apo_flame(_xml_tree):
 
     def __init__(self, xmlfile: str) -> None:
@@ -2231,9 +2232,10 @@ class apo_flame(_xml_tree):
         self._out_brightness = self._xml_tree__get_name(OUT_XML_FLAME_BRIGHTNESS)
         self._out_gamma = self._xml_tree__get_name(OUT_XML_FLAME_GAMMA)
         self._out_highlight_power = self._xml_tree__get_name(OUT_XML_FLAME_POWER)
+        self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2)
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY)
-        
-        
+
+
 
     def hex_to_rgb(self, hex: str):
         """
@@ -3544,9 +3546,13 @@ def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flam
     if apo_data.out_gamma[preset_id]:
         gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
         
-    highlight = 'Highlight: n/a'
+    highlight = 'Highlight power: n/a'
     if apo_data.out_highlight_power[preset_id]:
-        highlight = f"Highlight: {apo_data.out_highlight_power[preset_id]}"
+        highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
+        
+    K2 = 'Logscale K2: n/a'
+    if apo_data._out_logscale_k2[preset_id]:
+        K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
         
     vibrancy = 'Vibrancy: n/a'
     if apo_data.out_vibrancy[preset_id]:
@@ -3560,6 +3566,7 @@ def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flam
              brightness, nl,
              gamma, nl,
              highlight, nl,
+             K2, nl,
              vibrancy
             )
     
@@ -3595,6 +3602,9 @@ def apo_copy_render_stats_msg(self: hou.Node) -> None:
         except:
             pass
         try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])})
+        except:
+            pass
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])})
         except:
             pass
         try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])})
