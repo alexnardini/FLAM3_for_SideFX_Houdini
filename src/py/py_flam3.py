@@ -31,7 +31,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
-#   Comment:    WIP - Python classes and definitions for tool's user experience.
+#   Comment:    Python classes and definitions for tool's user experience.
 #               Everything is then glued together inside Houdini.
 
 
@@ -4015,7 +4015,7 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_FLAME_PALETTE_MODE: 'linear',
             OUT_XML_FLAME_INTERPOLATION: 'linear',
             OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
-            # The following are not really needed
+            # The following are not really needed for our purpose and we assume all curves are defaults.
             # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
             # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
             # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
