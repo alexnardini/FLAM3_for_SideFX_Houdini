@@ -4105,15 +4105,8 @@ def out_check_duplicate(vars: list) -> bool:
 
 
 
-def out_check_duplicate_bool(names_VARS, bool_VARS) -> None:
-    for n in names_VARS:
-        if n:
-            if bool_VARS is False: bool_VARS = out_check_duplicate(n)
-            else: break
-
-
 # Check for FLAM3 compatibility and let the user know.
-def flam3_compatibility_msg(self, names_VARS, names_VARS_PRE, flam3_do_FF, names_VARS_FF, names_VARS_POST_FF) -> bool:
+def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do_FF, names_VARS_FF, names_VARS_POST_FF) -> bool:
     bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
     for n in names_VARS:
         if n:
@@ -4206,7 +4199,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
     
-    return flam3_compatibility_msg(self, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
+    return flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
 
 ###############################################################################################
 # MENU - OUT - build menu from output flame file
