@@ -513,6 +513,12 @@ Save Flame:
         While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST )
         and you wont be able to save out the same result.
         Save the hip file instead.
+        
+OUT file contents:
+    #id: OUT
+    This menu is only for information purpose.
+    It will show the Flames contained in the selected output file if any are presents.
+    Once you append a new Flame in it, this menu will update too.
     
 Flame name:
     #id: OUT
