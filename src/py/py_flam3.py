@@ -1247,9 +1247,9 @@ def ramp_save(kwargs: dict) -> None:
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = []
         for p in POSs:
-            clr = ramp.lookup(p)
+            clr = tuple(ramp.lookup(p))
             HEXs.append(rgb_to_hex(clr))
-        dict = { presetname: {'hex_values': ''.join(HEXs)} }
+        dict = { presetname: {'hex': ''.join(HEXs)} }
         json_data = json.dumps(dict, indent=4)
 
         if is_JSON:
@@ -1287,7 +1287,6 @@ def ramp_save(kwargs: dict) -> None:
 ###############################################################################################
 def hex_to_rgb(hex: str): 
     return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
-
 def json_to_ramp(kwargs: dict) -> None:
     """
     Args:
@@ -1308,7 +1307,7 @@ def json_to_ramp(kwargs: dict) -> None:
         HEX = []
         with open(filepath) as f:
             data = json.load(f)[preset]
-            hex_values = data['hex_values']
+            hex_values = data['hex']
             [HEX.append(hex) for hex in wrap(hex_values, 6)]
             
         RGB_FROM_XML_PALETTE = []
@@ -2296,20 +2295,6 @@ class apo_flame(_xml_tree):
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY)
 
 
-
-    def hex_to_rgb(self, hex: str):
-        """
-        Args:
-            hex ([v_type]): [hex value to be converted into rgb value]
-
-        Returns:
-            [v_type]: [rgb value]
-        """   
-        try:
-            return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
-        except:
-            raise Exception("Sorry, hex values not valid ( possibly some negative values in it. ).\nYou can fix this by assigning a brand new palette before saving it out again.")     
-    
     def affine_coupling(self, affine: list) -> list:
         """
         Args:
@@ -2524,7 +2509,7 @@ class apo_flame(_xml_tree):
                 try:
                     RGB_FROM_XML_PALETTE = []
                     for hex in HEX:
-                        x = self.hex_to_rgb(hex)
+                        x = hex_to_rgb(hex)
                         RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                     
                     POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
@@ -3385,8 +3370,8 @@ def apo_to_flam3(self: hou.Node) -> None:
 
         # CP
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-        self.setParms({PALETTE_LIB_PATH: ""})
-        self.setParms({PALETTE_PRESETS: "-1"})
+        # self.setParms({PALETTE_LIB_PATH: ""})
+        # self.setParms({PALETTE_PRESETS: "-1"})
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
@@ -3764,18 +3749,6 @@ class _out_utils():
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
 
-    def rgb_to_hex(self, rgb: tuple) -> str:
-        """Convert a tuple of RGB values into HEX value
-
-        Args:
-            rgb (tuple): A RGB tuple ( hou.Vector3((r,g,b)) )
-
-        Returns:
-            str: The HEX value of the passsed RGB color
-        """        
-        vals = [clamp(255*x) for x in rgb]
-        return ''.join(['{:02X}'.format(int(round(x))) for x in vals])
-    
 
     def out_xf_xaos_to(self) -> tuple[str]:
         """Export in a list[str] the xaos TO values to write out
@@ -3971,7 +3944,7 @@ class _out_utils():
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = []
         for p in POSs:
-            HEXs.append(self.rgb_to_hex(self._palette.lookup(p)))
+            HEXs.append(rgb_to_hex(tuple(self._palette.lookup(p))))
         n = 8
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
         hex_join = []
