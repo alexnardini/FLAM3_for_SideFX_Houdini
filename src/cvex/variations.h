@@ -1209,8 +1209,8 @@ void V_AUGER(vector2 p; const vector2 _p; const float w, freq, scale, sym, ww){
     float m_HalfScale = scale/2.0;
     s = sin(freq * _p[0]);
     t = sin(freq * _p[1]);
-    dx = _p[0] + ww * (m_HalfScale + t + abs(_p[0]) * t);
-    dy = _p[1] + ww * (m_HalfScale + s + abs(_p[1]) * s);
+    dx = _p[0] + ww * (m_HalfScale * t + abs(_p[0]) * t);
+    dy = _p[1] + ww * (m_HalfScale * s + abs(_p[1]) * s);
     p[0] = w * (_p[0] + sym * (dx - _p[0]));
     p[1] = w * dy;
 }

@@ -10047,7 +10047,7 @@ __llvm_entry:
   %output9 = fmul double %freq2, %return8
   %return10 = call double @"sin@FF"(double %output9)
   %ww13 = load double, double* %ww
-  %output16 = fadd double %output, %return10
+  %output16 = fmul double %output, %return10
   %return19 = call double @"abs@FF"(double %return)
   %output21 = fmul double %return19, %return10
   %output22 = fadd double %output16, %output21
@@ -10056,7 +10056,7 @@ __llvm_entry:
   %_p25 = load <2 x double>, <2 x double>* %_p
   %return26 = call double @"getcomp@FUI"(<2 x double> %_p25, i64 1)
   %ww27 = load double, double* %ww
-  %output30 = fadd double %output, %return5
+  %output30 = fmul double %output, %return5
   %return33 = call double @"abs@FF"(double %return26)
   %output35 = fmul double %return33, %return5
   %output36 = fadd double %output30, %output35
