@@ -2463,43 +2463,34 @@ class apo_flame(_xml_tree):
                 palette_attrib = self._flame[idx].find(key).attrib
             except:
                 palette_attrib = None
-            
+                
             if palette_attrib is not None:
                 palette_hex = self._flame[idx].find(key).text
                 count = int(palette_attrib.get(XML_PALETTE_COUNT)) - 1
                 format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
-        
                 HEX = []
                 for line in palette_hex.splitlines():
                     cleandoc = inspect.cleandoc(line)
                     if(len(cleandoc)>1):
                         [HEX.append(hex) for hex in wrap(cleandoc, 6)]
-
-                RGB_FROM_XML_PALETTE = []
-                for hex in HEX:
-                    try:
+                try:
+                    RGB_FROM_XML_PALETTE = []
+                    for hex in HEX:
                         x = self.hex_to_rgb(hex)
-                    except:
-                        raise Exception("Sorry, hex values not valid ( possibly some negative values in it. ).\nYou can fix this by assigning a brand new palette before saving it out again.")
-                    RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
-                
-                # Not sure why I need to do the following
-                # but if not, the converted hex_to_rgb colors are a bit washed out.
-                # I leave it out for now but need to investigate
-                #
-                # hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), RGB_FROM_XML_PALETTE))
-                # RGB_COMPENSTAED = []
-                # for item in hsv:
-                #     h = item[0] + 1.0
-                #     s = item[1] * 1.4
-                #     v = item[2] * 1.5
-                #     RGB_COMPENSTAED.append(colorsys.hsv_to_rgb(h, s, v))
+                        RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                     
-                POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
-                BASES = [hou.rampBasis.Linear] * (count + 1)
+                    POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
+                    BASES = [hou.rampBasis.Linear] * (count + 1)
+                    
+                    # return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
+                    return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (count+1), str(format)
                 
-                # return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
-                return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (count+1), str(format)
+                except:
+                    hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
+                    ui_text = "Flame's Palette hex values not valid."
+                    palette_warning_msg = f"PALETTE Error:\nPossibly some negative values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
+                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True)
+                    return None
             else:
                 return None
         else:
