@@ -226,8 +226,6 @@ class flam3_varsPRM:
 
 
 
-
-
 class flam3_iterator_prm_names:
 
     '''
@@ -282,8 +280,6 @@ class flam3_iterator_prm_names:
     postaffine_ang = "pang"
 
 
-
-
 class flam3_iterator:
 
     n = flam3_iterator_prm_names
@@ -306,9 +302,6 @@ class flam3_iterator:
     # ALL method lists
     allT = sec_prevarsT + sec_varsT + sec_postvarsT
     allMisc = sec_main + sec_shader + sec_prevarsW + sec_varsW + sec_postvarsW + sec_preAffine + sec_postAffine
-
-
-
 
 
 class flam3_varsPRM_FF(flam3_varsPRM):
@@ -436,9 +429,6 @@ class flam3_varsPRM_FF(flam3_varsPRM):
         return varsPRM_FF
 
 
-
-
-
 class flam3_iterator_FF:
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
@@ -467,9 +457,6 @@ class flam3_iterator_FF:
     allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
-
-
-
 ###############################################################################################
 # MENU - Build vars type menus
 ###############################################################################################
@@ -494,9 +481,6 @@ def menu_T(int_mode: int) -> list:
             menu.append(item.capitalize())
         
     return menu
-
-
-
 
 
 ###############################################################################################
@@ -558,9 +542,6 @@ def menu_copypaste(kwargs: dict) -> list:
         return menu
 
 
-
-
-
 ###############################################################################################
 # MENU - Build FF copy paste menu
 ###############################################################################################
@@ -615,9 +596,6 @@ def menu_copypaste_FF(kwargs: dict) -> list:
         return menu
 
 
-
-
-
 ###############################################################################################
 # FLAM3 paste list of parms
 ###############################################################################################
@@ -653,9 +631,6 @@ def paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: st
                 prm_to.set(prm_from.eval())
 
 
-
-
-
 ###############################################################################################
 # FLAM3 (*T)Types-> paste parametric parms if any are found in the list of var types passed in
 ###############################################################################################
@@ -678,9 +653,6 @@ def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3
         if(varsPRM[v_type][-1]):
             
             paste_from_list(varsPRM[v_type][1:-1], node, flam3node, id, id_from)
-
-
-
 
 
 ###############################################################################################
@@ -710,9 +682,6 @@ def paste_save_note(_note: str) -> str:
         note = "(" + _note[_note.find("(")+1:_note.find(")")] + ")" + " "
 
     return note
-
-
-
 
 
 ###############################################################################################
@@ -766,9 +735,6 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
             print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
 
 
-
-
-
 ###############################################################################################
 # Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
 ###############################################################################################
@@ -818,9 +784,6 @@ def prm_paste(kwargs: dict) -> None:
         print(f"{str(kwargs['node'])}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}")
 
 
-
-
-
 ###############################################################################################
 # FF - Copy paste all FF's values from one FLAM3 node to another FLAM3 node
 ###############################################################################################
@@ -867,9 +830,6 @@ def prm_paste_FF(kwargs: dict) -> None:
         hou.session.flam3node_FF_check = 1
         hou.session.flam3node_FF = kwargs['node']
         print(f"{str(kwargs['node'])}: Copied FF: {str(hou.session.flam3node_FF)}->FF")
-
-
-
 
 
 ###############################################################################################
@@ -963,9 +923,6 @@ def prm_paste_sel(kwargs: dict) -> None:
         print(f"{str(node)}: Please copy an iterator first")
 
 
-
-
-
 ###############################################################################################
 # FF paste sections of FF's values from one FLAM3 node to another FLAM3 node
 ###############################################################################################
@@ -1037,9 +994,6 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
                 
     else:
         print(f"{str(node)}: Please copy the FF first.")
-
-
-
 
 
 ###############################################################################################
@@ -1118,7 +1072,6 @@ def flam3_on_create(kwargs: dict) -> None:
         hou.session.flam3_CS = []
 
 
-
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid json/flame file
 ###############################################################################################
@@ -1167,7 +1120,6 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             prm.set('-1')
         
 
-
 ###############################################################################################
 # MENU - Palette presets
 ###############################################################################################
@@ -1199,7 +1151,6 @@ def menu_ramp_presets(kwargs: dict) -> list:
         menu.append('Empty')
         
     return menu
-
 
 
 ###############################################################################################
@@ -1281,7 +1232,6 @@ def ramp_save(kwargs: dict) -> None:
             node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
 
 
-
 ###############################################################################################
 # Set ramp value from a json file
 ###############################################################################################
@@ -1327,8 +1277,6 @@ def json_to_ramp(kwargs: dict) -> None:
         palette_hsv(node)
         
 
-
-
 ###############################################################################################
 # palette copy values to paletteHSV
 ###############################################################################################
@@ -1343,8 +1291,6 @@ def palette_cp(self: hou.Node) -> None:
     # Apply HSV if any is currently set
     palette_hsv(self)
     
-
-
 
 ###############################################################################################
 # palette apply HSV values
@@ -1369,9 +1315,6 @@ def palette_hsv(self: hou.Node) -> None:
     rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
 
 
-
-
-
 ###############################################################################################
 # palette lock ( Lock the color corrected palette from user input )
 ###############################################################################################
@@ -1382,9 +1325,6 @@ def palette_lock(self: hou.Node) -> None:
     """    
     palette_cp(self)
     palette_hsv(self)
-
-
-
 
 
 ###############################################################################################
@@ -1401,9 +1341,6 @@ def getSceneViewers() -> list:
         if isinstance(v, hou.SceneViewer):
             viewers.append(v)
     return viewers
-
-
-
 
 
 ###############################################################################################
@@ -1465,8 +1402,6 @@ def colorSchemeDark(self: hou.Node) -> None:
 
 
 
-
-
 ###############################################################################################
 # set viewport particle display. ( Points or Pixels )
 ###############################################################################################
@@ -1485,9 +1420,6 @@ def viewportParticleDisplay(self: hou.Node) -> None:
             settings.particleDisplayType(Pixels)
 
 
-
-
-
 ###############################################################################################
 # set viewport particle size. ( Points or Pixels )
 ###############################################################################################
@@ -1500,9 +1432,6 @@ def viewportParticleSize(self: hou.Node) -> None:
         settings = view.curViewport().settings()
         settings.particleDisplayType(Points)
         settings.particlePointSize(ptsize)
-
-
-
 
 
 ###############################################################################################
