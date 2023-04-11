@@ -1580,6 +1580,8 @@ def reset_MB(self) -> None:
 def reset_IN(self) -> None:
     self.setParms({IN_PATH: ""})
     self.setParms({IN_PRESETS: str(-1)})
+    self.setParms({"iternumonload": 64})
+    self.setParms({"useiteronload": 0})
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
