@@ -1553,18 +1553,12 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     self.setParms({SYS_TAG: 1})
     self.setParms({SYS_TAG_SIZE: 0})
     self.setParms({SYS_RIP: 0})
-
-
-# def reset_TM(self) -> None:
-#     self.setParms({"dotm": 0})
-#     self.setParms({"tmrt": 0})
-    
     
 def reset_CP(self, mode=0) -> None:
     # CP
     self.setParms({PALETTE_LIB_PATH: ""})
-    self.setParms({PALETTE_PRESETS: "-1"})
     self.setParms({PALETTE_OUT_PRESET_NAME: ""})
+    self.setParms({PALETTE_PRESETS: "-1"})
     self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
     # CP->ramp
     ramp_parm = self.parm(RAMP_SRC_NAME)
@@ -1593,16 +1587,6 @@ def reset_IN(self) -> None:
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
-
-
-def reset_PREFS(self) -> None:
-    self.setParms({"showprefs": 1})
-    self.setParms({"f3c": 1})
-    self.setParms({XAOS_MODE: 0})
-    self.setParms({"camhandle": 0})
-    self.setParms({"camcull": 0})
-    self.setParms({"fcam": ""})
-    self.setParms({"cullamount": 0.99})
     
 def reset_OUT(self, mode=0) -> None:
     self.setParms({"outedit": 0})
@@ -1622,7 +1606,14 @@ def reset_OUT(self, mode=0) -> None:
         self.setParms({OUT_PRESETS: "-1"})
         self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
-
+def reset_PREFS(self) -> None:
+    self.setParms({"showprefs": 1})
+    self.setParms({"f3c": 1})
+    self.setParms({XAOS_MODE: 0})
+    self.setParms({"camhandle": 0})
+    self.setParms({"camcull": 0})
+    self.setParms({"fcam": ""})
+    self.setParms({"cullamount": 0.99})
 
 
 ###############################################################################################
