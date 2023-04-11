@@ -2473,6 +2473,7 @@ class apo_flame(_xml_tree):
                     cleandoc = inspect.cleandoc(line)
                     if(len(cleandoc)>1):
                         [HEX.append(hex) for hex in wrap(cleandoc, 6)]
+
                 try:
                     RGB_FROM_XML_PALETTE = []
                     for hex in HEX:
@@ -2481,8 +2482,6 @@ class apo_flame(_xml_tree):
                     
                     POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
                     BASES = [hou.rampBasis.Linear] * (count + 1)
-                    
-                    # return hou.Ramp(BASES, POS, RGB_COMPENSTAED), (count+1), str(format)
                     return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (count+1), str(format)
                 
                 except:
