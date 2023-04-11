@@ -1239,6 +1239,7 @@ def ramp_save(kwargs: dict) -> None:
             # otherwise get that name and use it
             presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
 
+        # Updated HSV ramp before getting it
         palette_hsv(node)
         palette_cp(node)
         ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
@@ -1248,9 +1249,7 @@ def ramp_save(kwargs: dict) -> None:
         for p in POSs:
             clr = ramp.lookup(p)
             HEXs.append(rgb_to_hex(clr))
-
         dict = { presetname: {'hex_values': ''.join(HEXs)} }
-        # dict = { presetname: {'hex_values': HEXs} }
         json_data = json.dumps(dict, indent=4)
 
         if is_JSON:
@@ -1300,9 +1299,8 @@ def json_to_ramp(kwargs: dict) -> None:
     ramp_parm = node.parm(RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
     
-    #read from json and set ramp values
     filepath = node.parm(PALETTE_LIB_PATH).evalAsString()
-    #get current preset
+    # get current preset
     preset_id = int(node.parm(PALETTE_PRESETS).eval())
     preset = node.parm(PALETTE_PRESETS).menuLabels()[preset_id]
     
@@ -1320,11 +1318,11 @@ def json_to_ramp(kwargs: dict) -> None:
         
         # Initialize new ramp.
         POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-        BASES = [hou.rampBasis.Linear] * int(PALETTE_COUNT_256)
-        ramp = hou.Ramp(BASES, POSs, RGB_FROM_XML_PALETTE)
+        BASEs = [hou.rampBasis.Linear] * int(PALETTE_COUNT_256)
+        ramp = hou.Ramp(BASEs, POSs, RGB_FROM_XML_PALETTE)
         ramp_parm.set(ramp)
 
-        # Load palette and reset HSV after load
+        # reset HSV after load
         node.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
         palette_cp(node)
         palette_hsv(node)
