@@ -1167,6 +1167,9 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         
 
 
+###############################################################################################
+# MENU - Palette presets
+###############################################################################################
 def menu_ramp_presets(kwargs: dict) -> list:
 
     node = kwargs['node']
@@ -1208,7 +1211,7 @@ def ramp_save(kwargs: dict) -> None:
     node = kwargs['node']
     palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
     out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
-    print(out_path_checked)
+
     if out_path_checked is not False:
 
         is_JSON = False
