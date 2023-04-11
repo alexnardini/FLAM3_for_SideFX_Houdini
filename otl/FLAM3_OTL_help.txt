@@ -84,6 +84,15 @@ loaddef:
     [Largeicon:opdef:.?iconDefPresetSVG.svg]
     
     Load/reset to default Sierpinsky Triangle preset.
+    
+IN Reload:
+    #id: SYS
+    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    
+    Click to reload the selected IN preset if any.
+    This has been added to quickly updated a preset you are loading inside the IN Tab while editing it inside Fractorium for example, 
+    always saving the Flame over the same flame file you are loading in. 
+    Just quickly click this icon to update it in Houdini without the hustle to go inside the IN Tab, click the F reload icon and back to where you were.
 
 
 
