@@ -3664,8 +3664,9 @@ Seph, Lucy, b33rheart, Neonrauschen"""
              Python_version, nl,
              Platform, nl,
              PC_name, nl,
-             User)
-
+             User
+             )
+    
     build_about_msg = "".join(build)
 
     self.setParms({"flam3about_msg": build_about_msg})
@@ -3688,7 +3689,6 @@ def flam3_about_plugins_msg(self):
 
 # SAVE XML FILES start here
 
-
 class _out_utils():
 
     def __init__(self, node: hou.Node) -> None:
@@ -3698,10 +3698,10 @@ class _out_utils():
         self._flam3_iterator_FF = flam3_iterator_FF()
         self._flam3_do_FF = self._node.parm(SYS_DO_FF).eval()
         self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
-        # Update hsv ramp before storing it.
         self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
         if self._palette_hsv_do:
+            # Update hsv ramp before storing it.
             palette_cp(self._node)
             palette_hsv(self._node)
             self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
