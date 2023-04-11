@@ -1155,7 +1155,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         is_JSON = False
         try:
             with open(str(palettepath),'r') as r:
-                prevdata = json.load(r)
+                data_check = json.load(r)
                 node.setParms({PALETTE_LIB_PATH: str(palettepath)})
                 is_JSON = True
         except:
