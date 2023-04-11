@@ -4104,7 +4104,6 @@ def out_check_duplicate(vars: list) -> bool:
     return False
 
 
-
 # Check for FLAM3 compatibility and let the user know.
 def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do_FF, names_VARS_FF, names_VARS_POST_FF) -> bool:
     bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
@@ -4201,6 +4200,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
     
     return flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
 
+
 ###############################################################################################
 # MENU - OUT - build menu from output flame file
 ###############################################################################################
@@ -4219,19 +4219,19 @@ def menu_out_contents_presets(kwargs: dict) -> list:
         return menu
 
 
-def out_check_outpath(self, infile: str) -> Union[str, bool]:
+def out_check_outpath(self, infile: str, file_ext: str) -> Union[str, bool]:
     file = os.path.expandvars(infile)
     file_s = os.path.split(file)
     if os.path.isdir(file_s[0]):
         filename_s = os.path.splitext(file_s[-1])
-        if filename_s[-1] == OUT_FLAM3_FILE_EXT:
+        if filename_s[-1] == file_ext:
             return file
         elif not filename_s[-1] and filename_s[0]:
-            return "/".join(file_s) + OUT_FLAM3_FILE_EXT
+            return "/".join(file_s) + file_ext
         elif not filename_s[-1] and not filename_s[0]:
             now = datetime.now()
             new_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
-            return "/".join(file_s) + new_name + OUT_FLAM3_FILE_EXT
+            return "/".join(file_s) + new_name + file_ext
         else:
             print(f"{str(self)}: You selected an OUT file that is not a FLAM3 file type.")
             return False
@@ -4259,7 +4259,7 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
 def out_XML(kwargs: dict) -> None:
     node = kwargs['node']
     out_path = node.parm(OUT_PATH).evalAsString()
-    out_path_checked = out_check_outpath(node, out_path)
+    out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT)
     if out_path_checked is not False:
         apo_data = apo_flame(str(out_path_checked))
         if kwargs["ctrl"]:
