@@ -1244,7 +1244,7 @@ def ramp_save(kwargs: dict) -> None:
         palette_cp(node)
         ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
         
-        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = []
         for p in POSs:
             clr = tuple(ramp.lookup(p))
@@ -1316,7 +1316,7 @@ def json_to_ramp(kwargs: dict) -> None:
             RGB_FROM_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
         
         # Initialize new ramp.
-        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         BASEs = [hou.rampBasis.Linear] * int(PALETTE_COUNT_256)
         ramp = hou.Ramp(BASEs, POSs, RGB_FROM_XML_PALETTE)
         ramp_parm.set(ramp)
@@ -1618,7 +1618,7 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
     if not mode:
         self.setParms({OUT_PATH: ""})
-        self.setParms({OUT_HSV_PALETTE_DO: 0})
+        self.setParms({OUT_HSV_PALETTE_DO: 1})
         self.setParms({OUT_PRESETS: "-1"})
         self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
@@ -2512,7 +2512,7 @@ class apo_flame(_xml_tree):
                         x = hex_to_rgb(hex)
                         RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                     
-                    POS = list(iter_islice(iter_count(0,1.0/count), (count+1)))
+                    POS = list(iter_islice(iter_count(0, 1.0/count), (count+1)))
                     BASES = [hou.rampBasis.Linear] * (count + 1)
                     return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (count+1), str(format)
                 
@@ -3941,7 +3941,7 @@ class _out_utils():
     
     
     def __out_palette_hex(self) -> str:
-        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = []
         for p in POSs:
             HEXs.append(rgb_to_hex(tuple(self._palette.lookup(p))))
