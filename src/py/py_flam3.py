@@ -1205,6 +1205,12 @@ def menu_ramp_presets(kwargs: dict) -> list:
 ###############################################################################################
 # Save current ramp to a json file
 ###############################################################################################
+def clamp(x): 
+  return max(0, min(x, 255))
+def rgb_to_hex(rgb: tuple) -> str:
+    vals = [clamp(255*x) for x in rgb]
+    hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+    return hex
 def ramp_save(kwargs: dict) -> None:
     """
     Args:
@@ -1233,22 +1239,18 @@ def ramp_save(kwargs: dict) -> None:
             # otherwise get that name and use it
             presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
 
-        # Update ramp before storing it.
-        palette_cp(node)
         palette_hsv(node)
+        palette_cp(node)
         ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
         
-        interplookup = [hou.rampBasis.Constant, hou.rampBasis.Linear, hou.rampBasis.CatmullRom, hou.rampBasis.MonotoneCubic, hou.rampBasis.Bezier, hou.rampBasis.BSpline, hou.rampBasis.Hermite]
-        
-        keylist = []
-        for i,key in enumerate(ramp.keys()):
-            data = { 'posindex': i,
-                        'pos' : key,   
-                        'value': ramp.values()[i],
-                        'interp': interplookup.index(ramp.basis()[i])}    
-            keylist.append(data)
-        
-        dict = { presetname: keylist }
+        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+        HEXs = []
+        for p in POSs:
+            clr = ramp.lookup(p)
+            HEXs.append(rgb_to_hex(clr))
+
+        dict = { presetname: {'hex_values': ''.join(HEXs)} }
+        # dict = { presetname: {'hex_values': HEXs} }
         json_data = json.dumps(dict, indent=4)
 
         if is_JSON:
@@ -1284,6 +1286,9 @@ def ramp_save(kwargs: dict) -> None:
 ###############################################################################################
 # Set ramp value from a json file
 ###############################################################################################
+def hex_to_rgb(hex: str): 
+    return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+
 def json_to_ramp(kwargs: dict) -> None:
     """
     Args:
@@ -1302,20 +1307,21 @@ def json_to_ramp(kwargs: dict) -> None:
     preset = node.parm(PALETTE_PRESETS).menuLabels()[preset_id]
     
     if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-
+        HEX = []
         with open(filepath) as f:
             data = json.load(f)[preset]
-            keys = []
-            values = []
-            bases = []
-            interplookup = [hou.rampBasis.Constant, hou.rampBasis.Linear, hou.rampBasis.CatmullRom, hou.rampBasis.MonotoneCubic, hou.rampBasis.Bezier, hou.rampBasis.BSpline, hou.rampBasis.Hermite]
-            for i in data:
-                keys.append(i['pos'])
-                values.append(i['value'])
-                bases.append(interplookup[i['interp']])
-       
+            hex_values = data['hex_values']
+            [HEX.append(hex) for hex in wrap(hex_values, 6)]
+            
+        RGB_FROM_XML_PALETTE = []
+        for hex in HEX:
+            x = hex_to_rgb(hex)
+            RGB_FROM_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+        
         # Initialize new ramp.
-        ramp = hou.Ramp(bases, keys, values)
+        POSs = list(iter_islice(iter_count(0,1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+        BASES = [hou.rampBasis.Linear] * int(PALETTE_COUNT_256)
+        ramp = hou.Ramp(BASES, POSs, RGB_FROM_XML_PALETTE)
         ramp_parm.set(ramp)
 
         # Load palette and reset HSV after load
@@ -3769,8 +3775,9 @@ class _out_utils():
         Returns:
             str: The HEX value of the passsed RGB color
         """        
-        vals = [255*x for x in rgb]
+        vals = [clamp(255*x) for x in rgb]
         return ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+    
 
     def out_xf_xaos_to(self) -> tuple[str]:
         """Export in a list[str] the xaos TO values to write out
@@ -4268,10 +4275,10 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
             new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
             return "/".join(file_s) + new_name + file_ext
         else:
-            print(f"{str(self)}: You selected an OUT file that is not a FLAM3 file type.")
+            print(f"{str(self)}: You selected an OUT file that is not a {prx} file type.")
             return False
     else:
-        print(f"{str(self)}: Select a valid output directory location.")
+        print(f"{str(self)}.{prx}: Select a valid output directory location.")
         return False
 
 
@@ -4310,5 +4317,4 @@ def out_XML(kwargs: dict) -> None:
                 out_new_XML(node, str(out_path_checked))
                 node.setParms({OUT_FLAME_PRESET_NAME: ''})
         init_presets(kwargs, OUT_PRESETS)
-
 
