@@ -1740,6 +1740,8 @@ ROUND_DECIMAL_COUNT = 8
 
 # XML
 XML_FLAME_NAME = "flame"
+XML_FLAME_PLUGINS = 'plugins'
+XML_FLAME_NEW_LINEAR = 'new_linear'
 XML_XF = "xform"
 XML_XF_WEIGHT = "weight"
 XML_XF_NAME = "name"
@@ -4074,6 +4076,12 @@ def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do
     else:
         return True
 
+def out_vars_flatten_unique_sorted(VARS_list: list[list], func: Callable) -> list:
+    flatten = [item for sublist in VARS_list for item in sublist]
+    result = []
+    [result.append(x) for x in flatten if x not in result]
+    sort = sorted(result, key=lambda var: var)
+    return [func(x) for x in sort]
 
 def out_build_XML(self, root: ET.Element) -> bool:
     # Build Flame properties
@@ -4130,6 +4138,14 @@ def out_build_XML(self, root: ET.Element) -> bool:
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
     palette.text = f3d.palette_hex
+
+    # Get unique plugins used
+    names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_VAR)
+    names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE)
+    names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
+    # Set unique plugins used and 'new linear' as last
+    flame.set(XML_FLAME_PLUGINS, " ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique))
+    flame.set(XML_FLAME_NEW_LINEAR, '1')
     
     return flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
 
