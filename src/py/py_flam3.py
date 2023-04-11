@@ -1158,6 +1158,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 data_check = json.load(r)
                 node.setParms({PALETTE_LIB_PATH: str(palettepath)})
                 is_JSON = True
+                del data_check
         except:
             pass
         if is_JSON:
@@ -1179,9 +1180,10 @@ def menu_ramp_presets(kwargs: dict) -> list:
     is_JSON = False
     try:
         with open(str(filepath),'r') as r:
-            json.load(r)
+            data_check = json.load(r)
             node.setParms({PALETTE_LIB_PATH: str(filepath)})
             is_JSON = True
+            del data_check
     except:
         pass
     
@@ -1217,9 +1219,10 @@ def ramp_save(kwargs: dict) -> None:
         is_JSON = False
         try:
             with open(str(out_path_checked),'r') as r:
-                json.load(r)
+                data_check = json.load(r)
                 node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
                 is_JSON = True
+                del data_check
         except:
             pass
         
@@ -1265,6 +1268,7 @@ def ramp_save(kwargs: dict) -> None:
                 data = json.load(f)
                 node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
                 node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+                del data
         else:
             with open(out_path_checked,'w') as f:
                 f.write(json_data)
@@ -1272,6 +1276,7 @@ def ramp_save(kwargs: dict) -> None:
                 data = json.load(f)
                 node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
                 node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+                del data
             node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
 
 
@@ -3353,6 +3358,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
         reset_SYS(self, 1, iter_on_load, 0)
+        reset_CP(self)
         reset_MB(self)
         reset_PREFS(self)
         
