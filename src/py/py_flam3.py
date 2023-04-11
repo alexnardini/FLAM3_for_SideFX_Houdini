@@ -1310,9 +1310,11 @@ def json_to_ramp(kwargs: dict) -> None:
         ramp = hou.Ramp(bases, keys, values)
         ramp_parm.set(ramp)
 
-        # Apply HSV if any is currently set
+        # Load palette and reset HSV after load
+        node.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+        palette_cp(node)
         palette_hsv(node)
-
+        
 
 
 
