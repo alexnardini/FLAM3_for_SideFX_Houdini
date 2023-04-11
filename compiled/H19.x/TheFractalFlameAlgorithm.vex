@@ -10047,36 +10047,38 @@ __llvm_entry:
   %output9 = fmul double %freq2, %return8
   %return10 = call double @"sin@FF"(double %output9)
   %ww13 = load double, double* %ww
-  %return17 = call double @"abs@FF"(double %return)
-  %output19 = fmul double %return17, %return10
-  %output20 = fadd double %output, %output19
-  %output21 = fmul double %ww13, %output20
-  %output22 = fadd double %return, %output21
-  %_p23 = load <2 x double>, <2 x double>* %_p
-  %return24 = call double @"getcomp@FUI"(<2 x double> %_p23, i64 1)
-  %ww25 = load double, double* %ww
-  %return29 = call double @"abs@FF"(double %return24)
-  %output31 = fmul double %return29, %return5
-  %output32 = fadd double %output, %output31
-  %output33 = fmul double %ww25, %output32
-  %output34 = fadd double %return24, %output33
-  %w35 = load double, double* %w
-  %_p36 = load <2 x double>, <2 x double>* %_p
-  %return37 = call double @"getcomp@FUI"(<2 x double> %_p36, i64 0)
-  %sym38 = load double, double* %sym
-  %output42 = fsub double %output22, %return37
-  %output43 = fmul double %sym38, %output42
-  %output44 = fadd double %return37, %output43
-  %output45 = fmul double %w35, %output44
+  %output16 = fadd double %output, %return10
+  %return19 = call double @"abs@FF"(double %return)
+  %output21 = fmul double %return19, %return10
+  %output22 = fadd double %output16, %output21
+  %output23 = fmul double %ww13, %output22
+  %output24 = fadd double %return, %output23
+  %_p25 = load <2 x double>, <2 x double>* %_p
+  %return26 = call double @"getcomp@FUI"(<2 x double> %_p25, i64 1)
+  %ww27 = load double, double* %ww
+  %output30 = fadd double %output, %return5
+  %return33 = call double @"abs@FF"(double %return26)
+  %output35 = fmul double %return33, %return5
+  %output36 = fadd double %output30, %output35
+  %output37 = fmul double %ww27, %output36
+  %output38 = fadd double %return26, %output37
+  %w39 = load double, double* %w
+  %_p40 = load <2 x double>, <2 x double>* %_p
+  %return41 = call double @"getcomp@FUI"(<2 x double> %_p40, i64 0)
+  %sym42 = load double, double* %sym
+  %output46 = fsub double %output24, %return41
+  %output47 = fmul double %sym42, %output46
+  %output48 = fadd double %return41, %output47
+  %output49 = fmul double %w39, %output48
   %tmp = load <2 x double>, <2 x double>* %p
-  %return46 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output45, i64 0)
-  %output48 = extractvalue { double, <2 x double> } %return46, 1
-  store <2 x double> %output48, <2 x double>* %p
-  %w49 = load double, double* %w
-  %output51 = fmul double %w49, %output34
-  %return53 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output48, double %output51, i64 1)
-  %output55 = extractvalue { double, <2 x double> } %return53, 1
-  store <2 x double> %output55, <2 x double>* %p
+  %return50 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output49, i64 0)
+  %output52 = extractvalue { double, <2 x double> } %return50, 1
+  store <2 x double> %output52, <2 x double>* %p
+  %w53 = load double, double* %w
+  %output55 = fmul double %w53, %output38
+  %return57 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output52, double %output55, i64 1)
+  %output59 = extractvalue { double, <2 x double> } %return57, 1
+  store <2 x double> %output59, <2 x double>* %p
   ret void
 }
 
