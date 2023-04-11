@@ -1207,7 +1207,7 @@ def ramp_save(kwargs: dict) -> None:
     """
     node = kwargs['node']
     palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
-    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT)
+    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
     print(out_path_checked)
     if out_path_checked is not False:
 
@@ -4240,7 +4240,7 @@ def menu_out_contents_presets(kwargs: dict) -> list:
         return menu
 
 
-def out_check_outpath(self, infile: str, file_ext: str) -> Union[str, bool]:
+def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
     file = os.path.expandvars(infile)
     file_s = os.path.split(file)
     if os.path.isdir(file_s[0]):
@@ -4251,7 +4251,7 @@ def out_check_outpath(self, infile: str, file_ext: str) -> Union[str, bool]:
             return "/".join(file_s) + file_ext
         elif not filename_s[-1] and not filename_s[0]:
             now = datetime.now()
-            new_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+            new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
             return "/".join(file_s) + new_name + file_ext
         else:
             print(f"{str(self)}: You selected an OUT file that is not a FLAM3 file type.")
@@ -4280,7 +4280,7 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
 def out_XML(kwargs: dict) -> None:
     node = kwargs['node']
     out_path = node.parm(OUT_PATH).evalAsString()
-    out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT)
+    out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
     if out_path_checked is not False:
         apo_data = apo_flame(str(out_path_checked))
         if kwargs["ctrl"]:
