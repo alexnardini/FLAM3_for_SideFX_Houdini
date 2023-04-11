@@ -3358,7 +3358,6 @@ def apo_to_flam3(self: hou.Node) -> None:
         preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
         reset_SYS(self, 1, iter_on_load, 0)
-        reset_CP(self)
         reset_MB(self)
         reset_PREFS(self)
         
@@ -3382,6 +3381,8 @@ def apo_to_flam3(self: hou.Node) -> None:
 
         # CP
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        self.setParms({PALETTE_LIB_PATH: ""})
+        self.setParms({PALETTE_PRESETS: "-1"})
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         # Set XML palette data
