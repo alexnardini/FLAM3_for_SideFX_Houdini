@@ -65,10 +65,14 @@ SYS_RIP = "rip"
 FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
-OUT_PRESETS = 'outpresets'
 OUT_PATH = 'outpath'
+OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 XAOS_MODE = 'xm'
+PALETTE_LIB_PATH = 'palettefile'
+PALETTE_OUT_PRESET_NAME = 'palettename'
+PALETTE_PRESETS = 'palettepresets'
+OUT_PALETTE_FILE_EXT = '.json'
 RAMP_SRC_NAME = 'palette'
 RAMP_HSV_NAME = 'palettehsv'
 RAMP_HSV_VAL_NAME = 'hsv'
@@ -1145,32 +1149,51 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             prm.set(f'{len(apo.name)-1}')
         else:
             prm.set('-1')
+            
+    elif PALETTE_PRESETS in prm_name:
+        palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
+        is_JSON = False
+        try:
+            with open(str(palettepath),'r') as r:
+                prevdata = json.load(r)
+                node.setParms({PALETTE_LIB_PATH: str(palettepath)})
+                is_JSON = True
+        except:
+            pass
+        if is_JSON:
+            prm.set('0')
+        else:
+            prm.set('-1')
+        
 
 
-
-###############################################################################################
-# MENU - JSON - build menu from ramp presets file
-###############################################################################################
 def menu_ramp_presets(kwargs: dict) -> list:
 
-    filepath = kwargs['node'].parm('filepath').evalAsString()
+    node = kwargs['node']
+    filepath = node.parm(PALETTE_LIB_PATH).evalAsString()
 
     menu=[]
-    if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-
+    is_JSON = False
+    try:
+        with open(str(filepath),'r') as r:
+            json.load(r)
+            node.setParms({PALETTE_LIB_PATH: str(filepath)})
+            is_JSON = True
+    except:
+        pass
+    
+    if is_JSON:
         with open(filepath) as f:
             data = json.load(f)
-        
         menuitems = data.keys()
-
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
-            
-        return menu
     else:
-        return menu
-
+        menu.append(-1)
+        menu.append('Empty')
+        
+    return menu
 
 
 
@@ -1181,64 +1204,72 @@ def ramp_save(kwargs: dict) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
-    """    
-    filepath = kwargs['node'].parm('filepath').evalAsString()
-    path = os.path.dirname(filepath)
-    if not os.path.exists(path):
-        os.makedirs(path)
-        print('Created Directory')
+    """
+    node = kwargs['node']
+    palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
+    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT)
+    print(out_path_checked)
+    if out_path_checked is not False:
+
+        is_JSON = False
+        try:
+            with open(str(out_path_checked),'r') as r:
+                json.load(r)
+                node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
+                is_JSON = True
+        except:
+            pass
         
-    #pop up window - enter preset name for json file entries
-    uitext = hou.ui.readInput('Write the name of your preset', buttons=('OK', 'Cancel'), severity=hou.severityType.Message, 
-    default_choice=0, close_choice=-1, help=None, title='Preset Name', initial_contents=None)
-    if uitext[0]==1:
-        pass
-    else:
-        presetname = uitext[1]
-    
-        #get ramp parameters to a dictionary
-        node=kwargs['node']
-        parm = node.parm(RAMP_SRC_NAME)
-        ramp = parm.evalAsRamp()
+        if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
+            now = datetime.now()
+            presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
+        else:
+            # otherwise get that name and use it
+            presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+
+        # Update ramp before storing it.
+        palette_cp(node)
+        palette_hsv(node)
+        ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+        
         interplookup = [hou.rampBasis.Constant, hou.rampBasis.Linear, hou.rampBasis.CatmullRom, hou.rampBasis.MonotoneCubic, hou.rampBasis.Bezier, hou.rampBasis.BSpline, hou.rampBasis.Hermite]
         
         keylist = []
         for i,key in enumerate(ramp.keys()):
             data = { 'posindex': i,
-                     'pos' : key,   
-                     'value': ramp.values()[i],
-                     'interp': interplookup.index(ramp.basis()[i])}    
+                        'pos' : key,   
+                        'value': ramp.values()[i],
+                        'interp': interplookup.index(ramp.basis()[i])}    
             keylist.append(data)
         
-        dict = { presetname: keylist } #we use the preset name from the pop up window
-        
-        #convert dict to json
+        dict = { presetname: keylist }
         json_data = json.dumps(dict, indent=4)
-        
-        #write - overwrite or append json to disk
-        if os.path.isfile(filepath) and os.path.getsize(filepath)>0: #if file exists and is not zero bytes
-            
-            user = hou.ui.displayMessage('This file already exist: "Append" this palette to the current file or "Override" the current file with this palette.', buttons=('Append','Overwrite','Cancel')) 
-            if user==0:#append mode
-                with open(filepath,'r') as r:
+
+        if is_JSON:
+            if kwargs["ctrl"]:
+                os.remove(str(out_path_checked))
+                with open(str(out_path_checked),'w') as f:
+                    f.write(json_data)
+            else:
+                with open(str(out_path_checked),'r') as r:
                     prevdata = json.load(r)
-                with open(filepath, 'w') as w:
+                with open(str(out_path_checked), 'w') as w:
                     newdata = dict
                     prevdata.update(newdata)
                     data = json.dumps(prevdata,indent = 4)
                     w.write(data)
-        
-            if user==1:#write mode
-                os.remove(filepath)
-                with open(filepath,'w') as f:
-                    f.write(json_data)
-            if user==2:
-                pass
+            with open(out_path_checked) as f:
+                data = json.load(f)
+                node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
+                node.setParms({PALETTE_OUT_PRESET_NAME: ''})
         else:
-            with open(filepath,'w') as f:
+            with open(out_path_checked,'w') as f:
                 f.write(json_data)
-
-
+            with open(out_path_checked) as f:
+                data = json.load(f)
+                node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
+                node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+            node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
 
 
 
@@ -1257,10 +1288,10 @@ def json_to_ramp(kwargs: dict) -> None:
     ramp_parm.deleteAllKeyframes()
     
     #read from json and set ramp values
-    filepath = node.parm('filepath').evalAsString()
+    filepath = node.parm(PALETTE_LIB_PATH).evalAsString()
     #get current preset
-    preset_id = int(node.parm('presets').eval())
-    preset = node.parm('presets').menuLabels()[preset_id]
+    preset_id = int(node.parm(PALETTE_PRESETS).eval())
+    preset = node.parm(PALETTE_PRESETS).menuLabels()[preset_id]
     
     if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
 
@@ -1285,7 +1316,6 @@ def json_to_ramp(kwargs: dict) -> None:
 
 
 
-
 ###############################################################################################
 # palette copy values to paletteHSV
 ###############################################################################################
@@ -1300,7 +1330,6 @@ def palette_cp(self: hou.Node) -> None:
     # Apply HSV if any is currently set
     palette_hsv(self)
     
-
 
 
 
@@ -1520,7 +1549,9 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     
 def reset_CP(self, mode=0) -> None:
     # CP
-    self.setParms({"filepath": ""})
+    self.setParms({PALETTE_LIB_PATH: ""})
+    self.setParms({PALETTE_PRESETS: "-1"})
+    self.setParms({PALETTE_OUT_PRESET_NAME: ""})
     self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
     # CP->ramp
     ramp_parm = self.parm(RAMP_SRC_NAME)
