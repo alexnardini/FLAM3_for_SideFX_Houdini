@@ -367,11 +367,6 @@ POST VARS Tab:
 
     *CP:* _Flame fractal color palette._
     
-LIB:
-    #id: PALETTE LIBRARY
-    When you load a json palette file,
-    click this menu to display all the palette included in the loaded file and select one to load
-    
 HSV:
     #id: PALETTE
     Hue/Saturation/Value of the palette's colors.
@@ -380,18 +375,44 @@ palette:
     #id: PALETTE
     the actual color palette.
     
+Palette name ( preset ):
+    #id: PALETTE
+    Write a name to give to the selected Palette when saving it out.
+    If no name is provided, an automated name composed of today's date and current time will be used instead.
+    
+Force reload preset:
+    #id: PALETTE
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Click this icon to force reload the currently selected palette preset.
+    
 JSON file:
     #id: PALETTE
     Load an already created json palette lib file or select the name of a new one to create.
     
-Save:
+Save Palette:
     #id: PALETTE
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
-    click to add a new palette to the selected json file (append) or create a new one (override).
+    Click this icon to save the current Palette into the selected OUT file.
+    If the selected file do not exist, it will be created.
+    If the selected file exist and already contain some Palette in it, it will append the current one.
     
-      
+    CTRL + CLICK to erase the content of the file and overwrite it with only the current Flame.
     
+    If the selected file is not a valid Palette JSON file type, nothing will happen.
+    
+    TIP:
+        If you type a location and a filename without extension, it will automaticalli add the _*.json*_ extension to it.
+        
+        If you do not provide a file name at all, it will generate one for you based out of today's date and current time.
+    
+LIB contents ( presets ):
+    #id: PALETTE
+    When you load a json palette file,
+    Use menu to display all the palette included in the loaded file and select one to load.
+    
+
     
 ~~~
 :box:
