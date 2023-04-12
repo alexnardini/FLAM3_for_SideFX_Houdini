@@ -1630,7 +1630,7 @@ def flam3_default(self: hou.Node) -> None:
 
     #
     # SYS
-    reset_SYS(self, POINT_COUNT_LOAD_DEFAULT, 10, 1)
+    reset_SYS(self, 1, 10, 1)
     reset_FF(self)
     reset_CP(self)
     reset_MB(self)
@@ -1694,6 +1694,8 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))})
     self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))})
     self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))})
+    
+    self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT})
 
 
 ###############################################################################################
