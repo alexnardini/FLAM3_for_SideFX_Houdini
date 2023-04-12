@@ -39,7 +39,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 #               In python version prior to 3.8 this is not happening, from the official python documentation ( and from my tests ):
 #
 #               https://docs.python.org/3/library/xml.etree.elementtree.html
-#               "Changed in version 3.8: The tostring() function now preserves the attribute order specified by the user.""
+#               "Changed in version 3.8: The tostring() function now preserves the attribute order specified by the user."
 #
 #               You can still use the tool with Houdini 19.x but saving out flames will produce incorrect results
 #               as the order of those keys is essential to produce the correct result when a flame has pre or post variations.
