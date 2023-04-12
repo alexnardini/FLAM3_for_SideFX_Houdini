@@ -2,7 +2,7 @@
 #type: node
 #context: sop
 #namespace: FLAM3
-#internal: FLAM3
+#internal: FLAM3H
 #version: 1.0
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
@@ -24,7 +24,7 @@ _*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Ho
 
     
     
-[Image:opdef:.?FLAM3_HDA_intro.svg] 
+[Image:opdef:.?FLAM3_HDA_intro.jpg] 
 
 @parameters
 
@@ -399,6 +399,11 @@ JSON file:
     #id: PALETTE
     Load an already created json palette lib file or select the name of a new one to create.
     
+    TIP:
+        Once you are happy with a palette library you built, you can rename the file to start with: "*PALETTE_LIB_LOCK*"
+        to prevent any further modifications to it. for example if you have a lib file call: "*my_rainbows_colors.json*"
+        you can rename it to: "*PALETTE_LIB_LOCK_my_rainbows_colors.json*" to keep it safe.
+    
 Save Palette:
     #id: PALETTE
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
@@ -528,6 +533,11 @@ OUT file ( *.flame type ):
     #id: OUT
     Select a file name to save your flame into.
     If the selected file do not exist, it will be created.
+    
+    TIP:
+        Once you are happy with a FLAM3 library you built, you can rename the file to start with: "*FLAM3_LIB_LOCK*"
+        to prevent any further modifications to it. for example if you have a lib file call: "*my_julia_flames.flame*"
+        you can rename it to: "*FLAM3_LIB_LOCK_my_julia_flames.flame*" to keep it safe.
     
 Save Flame:
     #id: OUT
