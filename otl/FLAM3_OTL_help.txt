@@ -30,9 +30,9 @@ _*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Ho
 @parameters
 
 NOTE:
-    Unfortunately, the Save out to flame file format only work properly in Houdini 19.5.x and higher with python v3.9.10 and higher.
+    Unfortunately, the OUT Tab to save flame file format only work properly in Houdini 19.5.x and higher with python v3.9.10 and higher.
     This is becasue it is important to maintain the order of the XML keys as I create them.
-    In python version prior to 3.8 this is not happening with ET.ElementTree module, from the official python documentation ( and from my tests ).
+    _*In python version prior to 3.8 this is not happening with `xml.etree.ElementTree` python module*_, from the official python documentation ( and from my tests ).
     
     You can still use the tool with Houdini 19.x but saving out flames will produce wrong results
     as the order of those keys is essential to produce the correct result when a flame has pre or post variations.
