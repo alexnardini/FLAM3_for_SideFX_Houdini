@@ -4,7 +4,6 @@ from typing import Union, Callable
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
-from xml.dom import minidom
 from datetime import datetime
 from math import sin, cos
 import numpy as np
@@ -36,10 +35,7 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 #
 #               Unfortunately, the Save out to flame file type only work properly in Houdini 19.5.x with python v3.9.10.
 #               This is becasue it is important to maintain the order of the XML keys as I create them
-#               In python version prior to 3.8 this is not happening, from the official python documentation ( and from my tests ):
-#
-#               https://docs.python.org/3/library/xml.etree.elementtree.html
-#               "Changed in version 3.8: The tostring() function now preserves the attribute order specified by the user."
+#               In python version prior to 3.8 this is not happening, from the official python documentation ( and from my tests ).
 #
 #               You can still use the tool with Houdini 19.x but saving out flames will produce incorrect results
 #               as the order of those keys is essential to produce the correct result when a flame has pre or post variations.
@@ -4275,8 +4271,8 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
     root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
     if out_build_XML(self, root):
-        xml_pretty = minidom.parseString(ET.tostring(root)).toprettyxml(indent = "  ")
-        tree = ET.ElementTree(ET.fromstring(xml_pretty))
+        _pretty_print(root)
+        tree = ET.ElementTree(root)
         tree.write(outpath)
 
 
