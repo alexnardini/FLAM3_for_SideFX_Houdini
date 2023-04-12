@@ -4080,7 +4080,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
             if f3d.xf_xaos[iter]:
                 xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
             xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-            names_VARS.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_VAR))
+            names_VARS.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_NULL))
             names_VARS_PRE.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE))
             names_VARS_POST.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST))
     # Build finalxform
@@ -4098,7 +4098,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
         finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
         if f3d.finalxf_postaffine:
             finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
-        names_VARS_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_VAR)
+        names_VARS_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_NULL)
         names_VARS_PRE_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
         names_VARS_POST_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
     # Build palette
@@ -4109,7 +4109,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
     palette.text = f3d.palette_hex
 
     # Get unique plugins used
-    names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_VAR)
+    names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
     names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE)
     names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
     # Set unique 'plugins' used and 'new linear' as last
