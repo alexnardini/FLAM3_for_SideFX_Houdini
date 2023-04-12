@@ -1772,8 +1772,9 @@ ROUND_DECIMAL_COUNT = 8
 
 # XML
 XML_FLAME_NAME = "flame"
-XML_FLAME_PLUGINS = 'plugins'
-XML_FLAME_NEW_LINEAR = 'new_linear'
+XML_FLAME_VERSION = "version"
+XML_FLAME_PLUGINS = "plugins"
+XML_FLAME_NEW_LINEAR = "new_linear"
 XML_XF = "xform"
 XML_XF_WEIGHT = "weight"
 XML_XF_NAME = "name"
@@ -2233,9 +2234,10 @@ class apo_flame(_xml_tree):
         """        
         super().__init__(xmlfile)
         self._name = self._xml_tree__get_name()
-        self._apo_version = self._xml_tree__get_name("version")
+        self._apo_version = self._xml_tree__get_name(XML_FLAME_VERSION)
         self._flame = self._xml_tree__get_flame()
         self._flame_count = self._xml_tree__get_flame_count(self._flame)
+        self._flame_plugins = self._xml_tree__get_name(XML_FLAME_PLUGINS)
         # render properties
         self._out_size = self._xml_tree__get_name(OUT_XML_FLAME_SIZE)
         self._out_center = self._xml_tree__get_name(OUT_XML_FLAME_CENTER)
@@ -2275,6 +2277,10 @@ class apo_flame(_xml_tree):
     @property
     def flame_count(self):
         return self._flame_count
+    
+    @property
+    def flame_plugins(self):
+        return self._flame_plugins
     
     @property
     def out_size(self):
@@ -3429,7 +3435,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     else:
         palette_count_format = f"Palette not found."
     var_used_heading = "Variations used:"
-    
+
     vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys())
     vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
     vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
