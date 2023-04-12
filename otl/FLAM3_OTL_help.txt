@@ -24,7 +24,7 @@ _*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Ho
 
     
     
-[Image:opdef:.?FLAM3_HDA_intro.jpg] 
+[Image:opdef:.?FLAM3_HDA_intro_2k.jpg] 
 
 @parameters
 
@@ -588,7 +588,8 @@ OUT render properties:
     
 Edit render properties:
     #id: OUT
-    Allow the editing of the render properties.
+    Allow the editing of the render properties of the host application of the save flame files.
+    Fractorium being the suggested one followed by Apophysis 7x.
     
 Reset render properties:
     #id: OUT
