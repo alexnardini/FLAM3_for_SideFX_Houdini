@@ -1401,7 +1401,6 @@ def colorSchemeDark(self: hou.Node) -> None:
     hou.session.flam3_CS = viewers_col
 
 
-
 ###############################################################################################
 # set viewport particle display. ( Points or Pixels )
 ###############################################################################################
@@ -1629,10 +1628,6 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))})
 
 
-
-
-
-
 ###############################################################################################
 # Parameters reset if iterators count is set to ZERO.
 ###############################################################################################
@@ -1663,20 +1658,12 @@ def iteratorCountZero(self: hou.Node) -> None:
         #self.setParms({"fcam": ""})
         #self.setParms({"cullamount": 0.99})
 
-
-
-
-
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website
 ###############################################################################################
 def web_flame3hda() -> None:
     page = "https://alexnardini.net/flame-home/"
     webbrowser.open(page)
-
-
-
-
 
 ###############################################################################################
 # Open web browser to the FractalFlame Algorithm paper
@@ -1690,8 +1677,6 @@ def web_TFFA() -> None:
 
 
 # LOAD XML FLAME FILES start here
-
-
 
 def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
     if type(name) is str:
