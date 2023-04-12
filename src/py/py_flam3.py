@@ -33,6 +33,16 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 #
 #   Comment:    Python classes and definitions for tool's user experience.
 #               Everything is then glued together inside Houdini.
+#
+#               Unfortunately, the Save out to flame file type only work properly in Houdini 19.5.x with python v3.9.10.
+#               This is becasue it is important to maintain the order of the XML keys as I create them
+#               In python version prior to 3.8 this is not happening, from the official python documentation ( and from my tests ):
+#
+#               https://docs.python.org/3/library/xml.etree.elementtree.html
+#               "Changed in version 3.8: The tostring() function now preserves the attribute order specified by the user.""
+#
+#               You can still use the tool with Houdini 19.x but saving out flames will produce incorrect results
+#               as the order of those keys is essential to produce the correct result when a flame has pre or post variations.
 
 
 
@@ -1602,14 +1612,15 @@ def reset_OUT(self, mode=0) -> None:
         self.setParms({OUT_PRESETS: "-1"})
         self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
-def reset_PREFS(self) -> None:
+def reset_PREFS(self: hou.Node, mode=0) -> None:
     self.setParms({"showprefs": 1})
-    self.setParms({"f3c": 1})
     self.setParms({XAOS_MODE: 0})
     self.setParms({"camhandle": 0})
     self.setParms({"camcull": 0})
     self.setParms({"fcam": ""})
     self.setParms({"cullamount": 0.99})
+    if mode:
+        self.setParms({"f3c": 1})
 
 
 ###############################################################################################
