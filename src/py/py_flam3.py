@@ -69,7 +69,7 @@ OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 XAOS_MODE = 'xm'
-PALETTE_LIB_LOCK = 'PALETTE_LIB_LOCK_'
+PALETTE_LIB_LOCK = 'PALETTE_LIB_LOCK'
 PALETTE_LIB_PATH = 'palettefile'
 PALETTE_OUT_PRESET_NAME = 'palettename'
 PALETTE_PRESETS = 'palettepresets'
@@ -1175,7 +1175,7 @@ def ramp_save(kwargs: dict) -> None:
     if out_path_checked is not False:
 
         is_LOCKED = False
-        if PALETTE_LIB_LOCK in os.path.split(str(out_path_checked))[-1]:
+        if os.path.split(str(out_path_checked))[-1].startswith(PALETTE_LIB_LOCK):
             is_LOCKED = True
             
         if is_LOCKED:
@@ -1861,6 +1861,7 @@ OUT_FLAM3_FILE_EXT = '.flame'
 OUT_HSV_PALETTE_DO = 'outpalette'
 
 # REGEX_ALL = "(?s:.*?)"
+REGEX_PALETTE_LIB_LOCK = "^(?:PALETTE_LIB_LOCK)"
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
 
