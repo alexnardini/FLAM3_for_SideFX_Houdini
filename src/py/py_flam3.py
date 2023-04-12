@@ -1727,6 +1727,13 @@ def web_flame3hda() -> None:
 def web_flame3github() -> None:
     page = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
     webbrowser.open(page)
+    
+###############################################################################################
+# Open web browser to the FLAM3 for Houdini github
+###############################################################################################
+def web_flame3insta() -> None:
+    page = "https://www.instagram.com/alexnardini/"
+    webbrowser.open(page)
 
 ###############################################################################################
 # Open web browser to the FractalFlame Algorithm paper
