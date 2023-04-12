@@ -33,12 +33,15 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 #   Comment:    Python classes and definitions for tool's user experience.
 #               Everything is then glued together inside Houdini.
 #
-#               Unfortunately, the Save out to flame file type only work properly in Houdini 19.5.x with python v3.9.10.
+#               Unfortunately, the Save out to flame file format only work properly in Houdini 19.5.x with python v3.9.10.
 #               This is becasue it is important to maintain the order of the XML keys as I create them
-#               In python version prior to 3.8 this is not happening, from the official python documentation ( and from my tests ).
+#               In python version prior to 3.8 this is not happening with xml.etree.ElementTree,
+#               from the official python documentation ( and from my tests ).
 #
-#               You can still use the tool with Houdini 19.x but saving out flames will produce incorrect results
+#               You can still use the tool with Houdini 19.x but saving out flames will produce wrong results
 #               as the order of those keys is essential to produce the correct result when a flame has pre or post variations.
+#
+#               However, everything else work well in Houdini 19.x.
 
 
 
