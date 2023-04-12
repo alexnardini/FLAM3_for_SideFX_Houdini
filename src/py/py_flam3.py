@@ -1007,8 +1007,6 @@ def flam3_on_create(kwargs: dict) -> None:
     Args:
         kwargs (dict): [kwargs[] dictionary]
     """
-    
-    
     # Set initial node color
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
@@ -1042,8 +1040,6 @@ def flam3_on_create(kwargs: dict) -> None:
         hou.session.flam3node.type()
     except:
         hou.session.flam3node_mp_id = -1
-
-
 
     # FLAM3 node for FF.
     #
