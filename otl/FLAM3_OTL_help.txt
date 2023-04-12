@@ -136,6 +136,10 @@ A:
     #id: FLAME
     Enable/Disable this iterator.
     
+    TIP:
+        If an iterator is disabled, it wont be included when saving the flame out into a Flame file.
+        In case you still want to include the inactive iterator into the file, set its Weight to Zero instead.
+    
 W:
     #id: FLAME
     The iterator weight. Define the probability this iterator is choosen during the chaos game.
@@ -554,15 +558,17 @@ Save Flame:
     TIP:
         If you type a location and a filename without extension, it will automaticalli add the _*.flame*_ extension to it.
         
-        If you do not provide a file name at all, it will generate one for you based out of today's date and current time.
+        If you do not provide a file name at all, it will generate one for you based out of today's date and current time assume you have a valid location selected.
     
+        If nothing is selected (ex: OUT file is empty or invalid ), nothing will happen.
+        
     NOTE:
         When saving Flames out, remember you are not allowed to use the same variation more than once in any of the availabe var's sections. 
         While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST )
-        and you wont be able to save out the same result.
+        or you wont be able to save out the same result.
         Save the hip file instead.
         
-        This is true also for applications like Apophysis and Fractorium.
+        This is true also for applications like Apophysis and Fractorium as they obey the same rule.
         
 OUT file contents ( info ):
     #id: OUT
@@ -576,6 +582,16 @@ Flame name ( preset ):
     Write a name to give to the selected flame when saving it out.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
     
+    TIP:
+        When choosing a name for your fractal flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+        For example if you call a flame: "*My_Awesome_GrandJulia.flame*" it will be loaded with a default 64 iterations.
+        But if you append the iteration number after a double colons like so: "*My_Awesome_GrandJulia::16.flame*" it will override all settings
+        and it will be loaded using 16 as iteration numbers.
+        
+        So make some tests before you save it out and pick the optimal iteration number to bake into its name.
+        
+        Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
+    
 Use palette HSV (cc):
     #id: OUT
     If checked, the Flame's palette will be saved out using the HSV ramp so to carry out any color correction the user may have done if he like so.
@@ -588,7 +604,7 @@ OUT render properties:
     
 Edit render properties:
     #id: OUT
-    Allow the editing of the render properties of the host application of the save flame files.
+    Allow the editing of the render properties for the host application you will load the saved flame file into.
     Fractorium being the suggested one followed by Apophysis 7x.
     
 Reset render properties:
