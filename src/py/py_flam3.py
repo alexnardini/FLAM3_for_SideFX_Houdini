@@ -1013,16 +1013,10 @@ def flam3_on_create(kwargs: dict) -> None:
     node = kwargs['node']
     node.setColor(hou.Color((0.825,0.825,0.825)))
     
-    # Clear up stats if there already ( due to be stored into a houdini preset also )
-    node.setParms({"flamestats_msg": ""})
-    node.setParms({"flamerender_msg": ""})
-    node.setParms({"palettemsg": ''})
-    node.setParms({"outmsg": ''})
-    
     # Set about tab infos
     flam3_about_msg(node)
     flam3_about_plugins_msg(node)
-    # reset flame load stats ( just in case )
+    # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
     node.setParms({"flamestats_msg": ""})
     node.setParms({"flamerender_msg": ""})
     node.setParms({"palettemsg": ''})
