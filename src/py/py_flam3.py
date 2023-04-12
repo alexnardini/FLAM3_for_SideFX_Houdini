@@ -1720,6 +1720,13 @@ def iteratorCountZero(self: hou.Node) -> None:
 def web_flame3hda() -> None:
     page = "https://alexnardini.net/flame-home/"
     webbrowser.open(page)
+    
+###############################################################################################
+# Open web browser to the FLAM3 for Houdini github
+###############################################################################################
+def web_flame3github() -> None:
+    page = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
+    webbrowser.open(page)
 
 ###############################################################################################
 # Open web browser to the FractalFlame Algorithm paper
@@ -1727,7 +1734,13 @@ def web_flame3hda() -> None:
 def web_TFFA() -> None:
     page = "https://flam3.com/flame_draves.pdf"
     webbrowser.open(page)
-
+    
+###############################################################################################
+# Open web browser to the FractalFlame Algorithm FLAM3 Github
+###############################################################################################
+def web_FLAM3github() -> None:
+    page = "https://github.com/scottdraves/flam3"
+    webbrowser.open(page)
 
 
 
@@ -3620,7 +3633,7 @@ def flam3_about_msg(self):
 
     flam3_houdini_version = f"Version: {FLAM3HOUDINI_version}"
     Implementation_years = "2020/2023"
-    Implementation_build = f"Author: Alessandro Nardini\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
+    Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
     
     code_references = """Code references:
 flam3 :: (GPL v2)
