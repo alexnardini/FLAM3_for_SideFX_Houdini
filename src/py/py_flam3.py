@@ -69,7 +69,6 @@ OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 XAOS_MODE = 'xm'
-PALETTE_LIB_LOCK = 'PALETTE_LIB_LOCK'
 PALETTE_LIB_PATH = 'palettefile'
 PALETTE_OUT_PRESET_NAME = 'palettename'
 PALETTE_PRESETS = 'palettepresets'
@@ -77,6 +76,9 @@ OUT_PALETTE_FILE_EXT = '.json'
 RAMP_SRC_NAME = 'palette'
 RAMP_HSV_NAME = 'palettehsv'
 RAMP_HSV_VAL_NAME = 'hsv'
+
+FLAM3_LIB_LOCK = 'FLAM3_LIB_LOCK'
+PALETTE_LIB_LOCK = 'PALETTE_LIB_LOCK'
 
 
 
@@ -1180,7 +1182,7 @@ def ramp_save(kwargs: dict) -> None:
             
         if is_LOCKED:
             ui_text = f"This Palette library is Locked."
-            ALL_msg = f"This palette library is Locked and you can not modify this file.\n\nTo Lock a Palete file just rename it using:\n\"{PALETTE_LIB_LOCK}\" as the start of the filename."
+            ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{PALETTE_LIB_LOCK}\" as the start of the filename."
             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False)
         else:
             is_JSON = False
@@ -4240,19 +4242,30 @@ def out_XML(kwargs: dict) -> None:
     node = kwargs['node']
     out_path = node.parm(OUT_PATH).evalAsString()
     out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+    
     if out_path_checked is not False:
-        apo_data = apo_flame(str(out_path_checked))
-        if kwargs["ctrl"]:
-            node.setParms({OUT_PATH: str(out_path_checked)})
-            out_new_XML(node, str(out_path_checked))
-            node.setParms({OUT_FLAME_PRESET_NAME: ''})
+        
+        is_LOCKED = False
+        if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+            is_LOCKED = True
+            
+        if is_LOCKED:
+            ui_text = f"This Flam3 library is Locked."
+            ALL_msg = f"This Flam3 library is Locked and you can not modify this file.\n\nTo Lock a Flam3 lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename."
+            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False)
         else:
-            node.setParms({OUT_PATH: str(out_path_checked)})
-            if apo_data.isvalidtree:
-                out_append_XML(node, apo_data, str(out_path_checked))
-                node.setParms({OUT_FLAME_PRESET_NAME: ''})
-            else:
+            apo_data = apo_flame(str(out_path_checked))
+            if kwargs["ctrl"]:
+                node.setParms({OUT_PATH: str(out_path_checked)})
                 out_new_XML(node, str(out_path_checked))
                 node.setParms({OUT_FLAME_PRESET_NAME: ''})
-        init_presets(kwargs, OUT_PRESETS)
+            else:
+                node.setParms({OUT_PATH: str(out_path_checked)})
+                if apo_data.isvalidtree:
+                    out_append_XML(node, apo_data, str(out_path_checked))
+                    node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                else:
+                    out_new_XML(node, str(out_path_checked))
+                    node.setParms({OUT_FLAME_PRESET_NAME: ''})
+            init_presets(kwargs, OUT_PRESETS)
 
