@@ -1116,6 +1116,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 node.setParms({"outmsg": ''})
         else:
             prm.set('-1')
+            node.setParms({"outmsg": ''})
             
     elif PALETTE_PRESETS in prm_name:
         palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
