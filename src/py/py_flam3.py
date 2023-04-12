@@ -1016,6 +1016,8 @@ def flam3_on_create(kwargs: dict) -> None:
     # Clear up stats if there already ( due to be stored into a houdini preset also )
     node.setParms({"flamestats_msg": ""})
     node.setParms({"flamerender_msg": ""})
+    node.setParms({"palettemsg": ''})
+    node.setParms({"outmsg": ''})
     
     # Set about tab infos
     flam3_about_msg(node)
@@ -1023,6 +1025,8 @@ def flam3_on_create(kwargs: dict) -> None:
     # reset flame load stats ( just in case )
     node.setParms({"flamestats_msg": ""})
     node.setParms({"flamerender_msg": ""})
+    node.setParms({"palettemsg": ''})
+    node.setParms({"outmsg": ''})
 
     # FLAM3 node and MultiParameter id for iterators
     #
@@ -1103,6 +1107,13 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         apo = apo_flame(xml)
         if apo.isvalidtree:
             prm.set(f'{len(apo.name)-1}')
+            # check if the selected Flame file is locked
+            out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+            if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                flame_lib_locked = f"\nflame lib file: LOCKED"
+                node.setParms({"outmsg": flame_lib_locked})
+            else:
+                node.setParms({"outmsg": ''})
         else:
             prm.set('-1')
             
@@ -1119,8 +1130,17 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             pass
         if is_JSON:
             prm.set('0')
+            # check if the selected Flame file is locked
+            palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
+            out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+            if os.path.split(str(out_path_checked))[-1].startswith(PALETTE_LIB_LOCK):
+                palette_lib_locked = f"\npalette lib file: LOCKED"
+                node.setParms({"palettemsg": palette_lib_locked})
+            else:
+                node.setParms({"palettemsg": ''})
         else:
             prm.set('-1')
+            node.setParms({"palettemsg": ''})
         
 
 ###############################################################################################
@@ -1556,6 +1576,7 @@ def reset_CP(self, mode=0) -> None:
         # Update ramp py 
         palette_cp(self)
         palette_hsv(self)
+        self.setParms({"palettemsg": ''})
 
 def reset_MB(self) -> None:
     self.setParms({"domb": 0})
@@ -1574,6 +1595,7 @@ def reset_IN(self) -> None:
     
 def reset_OUT(self, mode=0) -> None:
     self.setParms({"outedit": 0})
+    self.setParms({"outmsg": ''})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
@@ -3512,11 +3534,16 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_missing_msg = ""
     if vars_missing:
         vars_missing_msg = f"{nnl}MISSING:\n{apo_join_vars_grp(result_grp_fractorium)}"
-        
+    # Check if the loaded Flame file is locked.
+    in_path = self.parm(IN_PATH).evalAsString()
+    in_path_checked = out_check_outpath(self, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+    if os.path.split(str(in_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+        flame_lib_locked = f"\nflame lib file: LOCKED"
+    else: flame_lib_locked = ''
     # build full stats msg
     build = ( sw, nnl,
               name, nl,
-              palette_count_format, nnl,
+              palette_count_format, flame_lib_locked, nnl,
               iter_count, nl,
               post, nl,
               opacity, nl,
