@@ -1678,6 +1678,9 @@ def web_TFFA() -> None:
 
 # LOAD XML FLAME FILES start here
 
+def make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
+    return name
+
 def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
     if type(name) is str:
         if name.startswith(V_PRX_PRE):
@@ -3313,6 +3316,13 @@ def apo_join_vars_grp(groups: list) -> str:
             vars.append(", ".join(grp))
     return ''.join(vars)
 
+def out_vars_flatten_unique_sorted(VARS_list: list[list], func: Callable) -> list:
+    flatten = [item for sublist in VARS_list for item in sublist]
+    result = []
+    [result.append(x) for x in flatten if x not in result]
+    sort = sorted(result, key=lambda var: var)
+    return [func(x) for x in sort]
+
 def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
     # spacers
@@ -3376,30 +3386,20 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         palette_count_format = f"Palette not found."
     var_used_heading = "Variations used:"
     
-    # get all vars used
     vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys())
-    # get all pre vars used
     vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
-    # get all post vars used
     vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
     # FF
     vars_keys_FF = []
     vars_keys_POST_FF = []
     if ff_bool:
-        # get allFF vars used
         vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys())
-        # get all FF post vars used
         vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()))
     vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_FF + vars_keys_POST_FF
-    # add pre_blur if used
     if pb_bool:
         vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
-        
-    # flatten, sort and build vars used msg
-    flatten = [item for sublist in vars_all for item in sublist]
-    result = []
-    [result.append(x) for x in flatten if x not in result]
-    result_sorted = sorted(result, key=lambda var: var)
+    result_sorted = out_vars_flatten_unique_sorted(vars_all, make_NULL)
+    
     n = 5
     result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
     vars_used_msg = f"{var_used_heading}\n{apo_join_vars_grp(result_grp)}"
@@ -3411,27 +3411,17 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     self.setParms({"descriptive_msg": "".join(descriptive_prm)})
 
     # Build missing:
-
-    # get all vars
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT)
-    # get all pre vars
     vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE)
-    # get all post vars
     vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
-    # get all FF vars
     vars_keys_from_fractorium_FF = []
     vars_keys_from_fractorium_post_FF = []
     if ff_bool:
-        # get all FF vars
         vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT)
-        # get all FF post vars
         vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
-    # flatten and sort all vars
     vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF
-    flatten_fractorium = [item for sublist in vars_keys_from_fractorium_all for item in sublist]
-    result_fractorium = []
-    [result_fractorium.append(x) for x in flatten_fractorium if x not in result_fractorium]
-    result_sorted_fractorium = sorted(result_fractorium, key=lambda var: var)
+    result_sorted_fractorium = out_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, make_NULL)
+    
     # Compare and keep and build missing vars msg
     vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
     result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
@@ -4061,12 +4051,6 @@ def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do
     else:
         return True
 
-def out_vars_flatten_unique_sorted(VARS_list: list[list], func: Callable) -> list:
-    flatten = [item for sublist in VARS_list for item in sublist]
-    result = []
-    [result.append(x) for x in flatten if x not in result]
-    sort = sorted(result, key=lambda var: var)
-    return [func(x) for x in sort]
 
 def out_build_XML(self, root: ET.Element) -> bool:
     # Build Flame properties
