@@ -1483,23 +1483,26 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     self.setParms({SYS_RIP: 0})
     
 def reset_CP(self, mode=0) -> None:
-    # CP
-    self.setParms({PALETTE_LIB_PATH: ""})
-    self.setParms({PALETTE_OUT_PRESET_NAME: ""})
-    self.setParms({PALETTE_PRESETS: "-1"})
-    self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-    # CP->ramp
-    ramp_parm = self.parm(RAMP_SRC_NAME)
-    ramp_parm.deleteAllKeyframes()
-    color_bases = [hou.rampBasis.Linear] * 3
-    color_keys = [0.0, 0.5, 1.0]
-    color_values = [(1,0,0), (0,1,0), (0,0,1)]
-    if mode:
-        color_values = [(0,1,0), (0,1,1), (1,0,1)]
-    ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-    # Update ramp py 
-    palette_cp(self)
-    palette_hsv(self)
+    if mode == 2:
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+    else:
+        # CP
+        self.setParms({PALETTE_LIB_PATH: ""})
+        self.setParms({PALETTE_OUT_PRESET_NAME: ""})
+        self.setParms({PALETTE_PRESETS: "-1"})
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        # CP->ramp
+        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        color_bases = [hou.rampBasis.Linear] * 3
+        color_keys = [0.0, 0.5, 1.0]
+        color_values = [(1,0,0), (0,1,0), (0,0,1)]
+        if mode==1:
+            color_values = [(0,1,0), (0,1,1), (1,0,1)]
+        ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+        # Update ramp py 
+        palette_cp(self)
+        palette_hsv(self)
 
 def reset_MB(self) -> None:
     self.setParms({"domb": 0})
