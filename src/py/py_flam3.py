@@ -3541,9 +3541,9 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         flame_lib_locked = f"\nflame lib file: LOCKED"
     else: flame_lib_locked = ''
     # build full stats msg
-    build = ( sw, nnl,
+    build = ( sw, flame_lib_locked, nnl,
               name, nl,
-              palette_count_format, flame_lib_locked, nnl,
+              palette_count_format, nnl,
               iter_count, nl,
               post, nl,
               opacity, nl,
