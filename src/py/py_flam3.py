@@ -2441,7 +2441,7 @@ class apo_flame(_xml_tree):
                 except:
                     hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
                     ui_text = "Flame's Palette hex values not valid."
-                    palette_warning_msg = f"PALETTE Error:\nPossibly some negative values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
+                    palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True)
                     return None
             else:
