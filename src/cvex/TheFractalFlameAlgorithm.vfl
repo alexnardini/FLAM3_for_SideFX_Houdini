@@ -39,7 +39,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     
     int idx, TM, FF, RIP, iter, MB, f3c;
     float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
-    vector2 tmp;
+    vector2 tmp, pre;
     // SYS
     FF   = _bound_SYS[0];
     RIP  = _bound_SYS[1];
@@ -82,18 +82,21 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
         if(XS){ idx=XAOS(idx, res, _bound_XST); }
         else idx=sample_cdf((float[])_bound_IW, nrandom("twister"));
 
-        tmp=0;
+        // affine
+        affine(mem, x[idx], y[idx], o[idx]);
         // pre
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
-        if(p1w[idx] >0) mem  = FLAME(p1GMP, idx, p1t[idx], f3c, mem, X, Y, O, p1w[idx]);
-        if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], f3c, mem, X, Y, O, p2w[idx]);
+        if(p1w[idx] >0) mem  = FLAME(p1GMP, idx, p1t[idx], f3c, mem, x[idx], y[idx], o[idx], p1w[idx]);
+        if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], f3c, mem, x[idx], y[idx], o[idx], p2w[idx]);
+        pre = mem;
         // Var
-        if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], f3c, mem, x[idx], y[idx], o[idx], v1w[idx]);
-        if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], f3c, mem, x[idx], y[idx], o[idx], v2w[idx]);
-        if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], f3c, mem, x[idx], y[idx], o[idx], v3w[idx]);
-        if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], f3c, mem, x[idx], y[idx], o[idx], v4w[idx]);
+        tmp=0;
+        if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], f3c, pre, x[idx], y[idx], o[idx], v1w[idx]);
+        if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], f3c, pre, x[idx], y[idx], o[idx], v2w[idx]);
+        if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], f3c, pre, x[idx], y[idx], o[idx], v3w[idx]);
+        if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], f3c, pre, x[idx], y[idx], o[idx], v4w[idx]);
         // Post
-        if(P1w[idx] >0) tmp  = FLAME(P1GMP, idx, P1t[idx], f3c, tmp, X, Y, O, P1w[idx]);
+        if(P1w[idx] >0) tmp  = FLAME(P1GMP, idx, P1t[idx], f3c, tmp, x[idx], y[idx], o[idx], P1w[idx]);
         // Post affine
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
         // Clr
@@ -104,12 +107,15 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum
     // FF
     if(FF){
 
-        tmp=0;
+        // affine
+        affine(mem, fx, fy, fo);
         // FF pre
-        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, f3c, mem, X, Y, O, fp1w);
+        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, f3c, mem, fx, fy, fo, fp1w);
+        pre = mem;
         // FF Var
-        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, f3c, mem, fx, fy, fo, fv1w);
-        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, f3c, mem, fx, fy, fo, fv2w);
+        tmp=0;
+        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, f3c, pre, fx, fy, fo, fv1w);
+        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, f3c, pre, fx, fy, fo, fv2w);
         // FF Post
         if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, f3c, tmp, X, Y, O, fP1w);
         if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, f3c, tmp, X, Y, O, fP2w);
