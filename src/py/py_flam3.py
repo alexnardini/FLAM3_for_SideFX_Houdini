@@ -6,13 +6,13 @@ from itertools import islice as iter_islice
 from textwrap import wrap
 from datetime import datetime
 from math import sin, cos
+from re import sub as re_sub
 from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
 import platform
 import os
 import hou
-import re
 import json
 import colorsys
 import webbrowser
@@ -1780,15 +1780,15 @@ def make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], 
 def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
     if type(name) is str:
         if name.startswith(V_PRX_PRE):
-            return re.sub(REGEX_PRE, '', name)
+            return re_sub(REGEX_PRE, '', name)
         elif name.startswith(V_PRX_POST):
-            return re.sub(REGEX_POST, '', name)
+            return re_sub(REGEX_POST, '', name)
         else:
             return name
     elif type(name) is list or tuple:
-        _names = [re.sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
+        _names = [re_sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
         if not _names:
-            _names = [re.sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_POST) is True]
+            _names = [re_sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_POST) is True]
         if not _names:
             return None
         else:
