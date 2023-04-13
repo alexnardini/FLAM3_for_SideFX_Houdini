@@ -3248,11 +3248,10 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                     v_parametric(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                 else:
                     v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
-                v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
-
             else:
                 # if this variation is not found, set it to Linear and its weight to ZERO
                 v_generic(mode, node, mp_idx, t_idx, 0, 0)
+        v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
                 
         if mode:
             # Set finalxform name first if any
