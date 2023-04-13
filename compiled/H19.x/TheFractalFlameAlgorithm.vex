@@ -18497,16 +18497,16 @@ true394:                                          ; preds = %end142
   %return400 = fcmp ogt double %GEM14.fca.26.load, 0.000000e+00
   br i1 %return400, label %true402, label %end403
 
-end395:                                           ; preds = %end464, %end142
-  %idx470 = load i64, i64* %idx
-  %return471 = call double @"getcomp@F[FI"(double* %GEM14.fca.25.load, i64 %idx470)
+end395:                                           ; preds = %end470, %end142
+  %idx476 = load i64, i64* %idx
+  %return477 = call double @"getcomp@F[FI"(double* %GEM14.fca.25.load, i64 %idx476)
   store i64 %return3, i64* %105
-  %mem473 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem473, <2 x double>* %106
-  store double %return471, double* %107
+  %mem479 = load <2 x double>, <2 x double>* %mem
+  store <2 x double> %mem479, <2 x double>* %106
+  store double %return477, double* %107
   %chkPT = call i64 @"chkPT@IIUF"(i64* %105, <2 x double>* %106, double* %107)
   %155 = icmp ne i64 %chkPT, 0
-  br i1 %155, label %true475, label %false476
+  br i1 %155, label %true481, label %false482
 
 true402:                                          ; preds = %true394
   store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @163, i64 0, i64 0), i8** %108
@@ -18573,77 +18573,77 @@ true445:                                          ; preds = %end431
   store i64 %return9, i64* %134
   %tmp449 = load <2 x double>, <2 x double>* %tmp
   store <2 x double> %tmp449, <2 x double>* %135
-  store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %136
-  store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %137
-  store <2 x double> zeroinitializer, <2 x double>* %138
+  store <2 x double> %GEM14.fca.37.load, <2 x double>* %136
+  store <2 x double> %GEM14.fca.38.load, <2 x double>* %137
+  store <2 x double> %GEM14.fca.39.load, <2 x double>* %138
   store double %GEM14.fca.29.load, double* %139
-  %FLAMEFF451 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %132, i64* %133, i64* %134, <2 x double>* %135, <2 x double>* %136, <2 x double>* %137, <2 x double>* %138, double* %139)
-  store <2 x double> %FLAMEFF451, <2 x double>* %tmp
+  %FLAMEFF454 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %132, i64* %133, i64* %134, <2 x double>* %135, <2 x double>* %136, <2 x double>* %137, <2 x double>* %138, double* %139)
+  store <2 x double> %FLAMEFF454, <2 x double>* %tmp
   br label %end446
 
 end446:                                           ; preds = %true445, %end431
-  %return453 = fcmp ogt double %GEM14.fca.30.load, 0.000000e+00
-  br i1 %return453, label %true455, label %end456
+  %return456 = fcmp ogt double %GEM14.fca.30.load, 0.000000e+00
+  br i1 %return456, label %true458, label %end459
 
-true455:                                          ; preds = %end446
+true458:                                          ; preds = %end446
   store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @163, i64 0, i64 0), i8** %140
   store i64 %GEM14.fca.14.load, i64* %141
   store i64 %return9, i64* %142
-  %tmp459 = load <2 x double>, <2 x double>* %tmp
-  store <2 x double> %tmp459, <2 x double>* %143
-  store <2 x double> <double 1.000000e+00, double 0.000000e+00>, <2 x double>* %144
-  store <2 x double> <double 0.000000e+00, double 1.000000e+00>, <2 x double>* %145
-  store <2 x double> zeroinitializer, <2 x double>* %146
+  %tmp462 = load <2 x double>, <2 x double>* %tmp
+  store <2 x double> %tmp462, <2 x double>* %143
+  store <2 x double> %GEM14.fca.37.load, <2 x double>* %144
+  store <2 x double> %GEM14.fca.38.load, <2 x double>* %145
+  store <2 x double> %GEM14.fca.39.load, <2 x double>* %146
   store double %GEM14.fca.30.load, double* %147
-  %FLAMEFF461 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %140, i64* %141, i64* %142, <2 x double>* %143, <2 x double>* %144, <2 x double>* %145, <2 x double>* %146, double* %147)
-  store <2 x double> %FLAMEFF461, <2 x double>* %tmp
-  br label %end456
+  %FLAMEFF467 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %140, i64* %141, i64* %142, <2 x double>* %143, <2 x double>* %144, <2 x double>* %145, <2 x double>* %146, double* %147)
+  store <2 x double> %FLAMEFF467, <2 x double>* %tmp
+  br label %end459
 
-end456:                                           ; preds = %true455, %end446
+end459:                                           ; preds = %true458, %end446
   %156 = icmp ne i64 %GEM14.fca.0.load, 0
-  br i1 %156, label %true463, label %end464
+  br i1 %156, label %true469, label %end470
 
-true463:                                          ; preds = %end456
+true469:                                          ; preds = %end459
   store <2 x double> %GEM14.fca.40.load, <2 x double>* %148
   store <2 x double> %GEM14.fca.41.load, <2 x double>* %149
   store <2 x double> %GEM14.fca.42.load, <2 x double>* %150
   call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %148, <2 x double>* %149, <2 x double>* %150)
-  br label %end464
+  br label %end470
 
-end464:                                           ; preds = %true463, %end456
-  %tmp468 = load <2 x double>, <2 x double>* %tmp
-  store <2 x double> %tmp468, <2 x double>* %mem
+end470:                                           ; preds = %true469, %end459
+  %tmp474 = load <2 x double>, <2 x double>* %tmp
+  store <2 x double> %tmp474, <2 x double>* %mem
   br label %end395
 
-true475:                                          ; preds = %end395
-  %_bound_ptnum478 = load i64, i64* %_bound_ptnum
-  %return479 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum478)
-  br label %end477
+true481:                                          ; preds = %end395
+  %_bound_ptnum484 = load i64, i64* %_bound_ptnum
+  %return485 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum484)
+  br label %end483
 
-false476:                                         ; preds = %end395
-  %output482 = fmul double 1.000000e-03, %return471
+false482:                                         ; preds = %end395
+  %output488 = fmul double 1.000000e-03, %return477
   %157 = icmp ne i64 %return5, 0
-  br i1 %157, label %true484, label %end485
+  br i1 %157, label %true490, label %end491
 
-end477:                                           ; preds = %end485, %true475
+end483:                                           ; preds = %end491, %true481
   ret void
 
-true484:                                          ; preds = %false476
-  %return486 = call double @"detail@FISI"(i64 1, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @165, i64 0, i64 0), i64 0)
-  %output489 = fmul double %output482, %return486
-  %_bound_ptnum490 = load i64, i64* %_bound_ptnum
-  %return492 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @166, i64 0, i64 0), i64 %_bound_ptnum490, double %return486, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @167, i64 0, i64 0))
-  br label %end485
+true490:                                          ; preds = %false482
+  %return492 = call double @"detail@FISI"(i64 1, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @165, i64 0, i64 0), i64 0)
+  %output495 = fmul double %output488, %return492
+  %_bound_ptnum496 = load i64, i64* %_bound_ptnum
+  %return498 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @166, i64 0, i64 0), i64 %_bound_ptnum496, double %return492, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @167, i64 0, i64 0))
+  br label %end491
 
-end485:                                           ; preds = %true484, %false476
-  %pscl.0 = phi double [ %output489, %true484 ], [ %output482, %false476 ]
-  %mem493 = load <2 x double>, <2 x double>* %mem
-  %cast494 = call <3 x double> @"set@VU"(<2 x double> %mem493)
-  store <3 x double> %cast494, <3 x double>* %_bound_P
+end491:                                           ; preds = %true490, %false482
+  %pscl.0 = phi double [ %output495, %true490 ], [ %output488, %false482 ]
+  %mem499 = load <2 x double>, <2 x double>* %mem
+  %cast500 = call <3 x double> @"set@VU"(<2 x double> %mem499)
+  store <3 x double> %cast500, <3 x double>* %_bound_P
   store double %clr.0, double* %_bound_clr
   store double %pscl.0, double* %_bound_pscale
-  store double %return471, double* %_bound_Alpha
-  br label %end477
+  store double %return477, double* %_bound_Alpha
+  br label %end483
 }
 
 ; Function Attrs: nounwind readnone
