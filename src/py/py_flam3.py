@@ -4276,8 +4276,13 @@ def out_new_XML(self: hou.Node, outpath: str) -> None:
 
 
 def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
+    # with ET
+    # root = apo_data.tree.getroot()
+    
+    # with lxmlET
     tree = lxmlET.parse(apo_data.xmlfile)
     root = tree.getroot()
+    
     if out_build_XML(self, root):
         _pretty_print(root)
         tree = lxmlET.ElementTree(root)
