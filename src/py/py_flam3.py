@@ -3881,7 +3881,7 @@ class _out_utils():
     def __out_xf_data(self, prm_name: str) -> tuple[str]:
         val = []
         for iter in range(self._iter_count):
-            val.append(str(self._node.parm(f"{prm_name}_{iter+1}").eval()))
+            val.append(str(out_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
         return tuple(val)
 
 
