@@ -4166,6 +4166,8 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
     # Build xforms
+    is_PRE_BLUR = False
+    name_PRE_BLUR = ''
     names_VARS = []
     names_VARS_PRE = []
     names_VARS_POST = []
@@ -4180,6 +4182,7 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
             xf.set(XML_XF_COLOR, f3d.xf_color[iter])
             xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
             if f3d.xf_pre_blur[iter]:
+                is_PRE_BLUR =True
                 xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
             xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
             if f3d.xf_postaffine[iter]:
@@ -4216,8 +4219,9 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
     palette.text = f3d.palette_hex
 
     # Get unique plugins used
+    if is_PRE_BLUR: name_PRE_BLUR = 'pre_blur'
     names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
-    names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE)
+    names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE) + [name_PRE_BLUR]
     names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
     # Set unique 'plugins' used and 'new linear' as last
     flame.set(XML_FLAME_PLUGINS, " ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique))
