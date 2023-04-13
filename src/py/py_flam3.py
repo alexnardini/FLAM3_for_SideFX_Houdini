@@ -3190,7 +3190,7 @@ def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) 
 
 
 
-def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: tuple) -> None:
+def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3202,7 +3202,9 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, t_idx: int, pb_weights: t
     prx, prx_prm = flam3_prx_mode(mode)
     if mode: pass
     else:
+        print(pb_weights)
         if pb_weights[mp_idx]:
+            print("pizza")
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
 
 
@@ -3247,8 +3249,8 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                 if apo_prm[v_type][-1]:
                     v_parametric(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
                 else:
-                    v_pre_blur(mode, node, mp_idx, t_idx, apo_data.pre_blur)
                     v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
+                v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
 
             else:
                 # if this variation is not found, set it to Linear and its weight to ZERO
