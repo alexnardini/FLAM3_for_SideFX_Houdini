@@ -3202,9 +3202,7 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> Non
     prx, prx_prm = flam3_prx_mode(mode)
     if mode: pass
     else:
-        print(pb_weights)
         if pb_weights[mp_idx]:
-            print("pizza")
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
 
 
