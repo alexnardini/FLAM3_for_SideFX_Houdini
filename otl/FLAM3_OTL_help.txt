@@ -504,16 +504,22 @@ Presets:
     This presets will populate with as many entries as the number of flames included in the file you are loading.
     Each entry will show the name of each flame.
     
+Iterations on Load:
+    #id: IN
+    Set a number of iterations to use every time you load a flame from a *.flame file.
+    This will override the internally default value of 64 iterations.
+    
+    TIP:
+        Every .flame file, if you open it manually for editing has its name stored into the "*flame -> name*" attribute in the XML tree.
+        You can edit it yourself and add the iteration number youd like it to use on load addding a double colon *::* followed by the iteration numner.
+        
+        For example if a flame name is "*my_beautiful_juliascope*", you can change it to "*my_beautiful_juliascope::24*" so it will set automatically the iteration number to 24 once loaded overriding any other settings.
+    
 Use iterations on Load:
     #id: IN
     When loading *.flame files, FLAM3 for Houdini will load them in
     and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
     However, sometime you just want to be quick and you can override the iterations set on load using this value.
-    
-Iterations on Load:
-    #id: IN
-    Set a number of iterations to use every time you load a flame from a *.flame file.
-    This will override the internally default value of 64 iterations.
     
 infos:
     #id: IN
@@ -530,7 +536,7 @@ Copy/Paste render properties:
     [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
     Clicking this icon will copy those render properties and paste them inside the OUT tab render properties.
-    This way you can be sure your Flame will match the visual quality of the flame you just loaded, and perhaps modified.
+    This way you can be sure your Flame will match the visual quality of the flame you just loaded once you save it out and load it back in Fractorium for example.
         
         
 ~~~
