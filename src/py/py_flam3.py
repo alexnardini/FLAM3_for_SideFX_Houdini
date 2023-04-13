@@ -6,10 +6,17 @@ from itertools import islice as iter_islice
 from textwrap import wrap
 from datetime import datetime
 from math import sin, cos
+from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7 will keep the XML keys ordered as I create them.
+import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
 import platform
-import xml.etree.ElementTree as ET
-import os, hou, re, json, colorsys, webbrowser, inspect
+import os
+import hou
+import re
+import json
+import colorsys
+import webbrowser
+import inspect
 
 
 
@@ -32,17 +39,6 @@ import os, hou, re, json, colorsys, webbrowser, inspect
 #
 #   Comment:    Python classes and definitions for tool's user experience.
 #               Everything is then glued together inside Houdini.
-#
-#               Unfortunately, the Save out to flame file format only work properly in Houdini 19.5.x with python v3.9.10.
-#               This is becasue it is important to maintain the order of the XML keys as I create them
-#               In python version prior to 3.8 this is not happening with xml.etree.ElementTree,
-#               from the official python documentation ( and from my tests ).
-#
-#               You can still use the tool with Houdini 19.x but saving out flames will produce wrong results
-#               as the order of those keys is essential to produce the correct result when a flame has pre or post variations.
-#
-#               However, everything else work well in Houdini 19.x.
-
 
 
 
@@ -4080,7 +4076,7 @@ def out_round_float(VAL) -> str:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
 
                         
-def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: ET.Element, MP_IDX: str, FUNC: Callable) -> list[str]:
+def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]:
     names = []
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
@@ -4165,9 +4161,9 @@ def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do
         return True
 
 
-def out_build_XML(self, root: ET.Element) -> bool:
+def out_build_XML(self, root: lxmlET.Element) -> bool:
     # Build Flame properties
-    flame = ET.SubElement(root, XML_FLAME_NAME)
+    flame = lxmlET.SubElement(root, XML_FLAME_NAME)
     flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
@@ -4179,7 +4175,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
     for iter in range(f3d.iter_count):
         iter_var = iter + 1
         if int(f3d.xf_vactive[iter]):
-            xf = ET.SubElement(flame, XML_XF)
+            xf = lxmlET.SubElement(flame, XML_XF)
             xf.tag = XML_XF
             xf.set(XML_XF_NAME, f3d.xf_name[iter])
             xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
@@ -4201,7 +4197,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
     names_VARS_PRE_FF = []
     names_VARS_POST_FF = []
     if f3d.flam3_do_FF:
-        finalxf = ET.SubElement(flame, XML_FF)
+        finalxf = lxmlET.SubElement(flame, XML_FF)
         finalxf.tag = XML_FF
         finalxf.set(XML_XF_COLOR, '0')
         finalxf.set(XML_XF_VAR_COLOR, '1')
@@ -4215,7 +4211,7 @@ def out_build_XML(self, root: ET.Element) -> bool:
         names_VARS_PRE_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
         names_VARS_POST_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
     # Build palette
-    palette = ET.SubElement(flame, XML_PALETTE)
+    palette = lxmlET.SubElement(flame, XML_PALETTE)
     palette.tag = XML_PALETTE
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
@@ -4272,18 +4268,19 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
 
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
-    root = ET.Element(XML_VALID_FLAMES_ROOT_TAG)
+    root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG)
     if out_build_XML(self, root):
         _pretty_print(root)
-        tree = ET.ElementTree(root)
+        tree = lxmlET.ElementTree(root)
         tree.write(outpath)
 
 
 def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
-    root = apo_data.tree.getroot()
+    tree = lxmlET.parse(apo_data.xmlfile)
+    root = tree.getroot()
     if out_build_XML(self, root):
         _pretty_print(root)
-        tree = ET.ElementTree(root)
+        tree = lxmlET.ElementTree(root)
         tree.write(out_path)
 
 
