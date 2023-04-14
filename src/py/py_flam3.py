@@ -9,7 +9,7 @@ from math import sin, cos
 from re import sub as re_sub
 from sys import platform as sys_platform
 from subprocess import call as sp_call
-from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7 will keep the XML keys ordered as I create them.
+from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
 import platform
