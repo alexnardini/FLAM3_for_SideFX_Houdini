@@ -1,5 +1,5 @@
 # The Fractal Flame Algorithm
-![FLAM3 Houdini LazySwirl image](https://github.com/alexnardini/FLAM3/blob/main/img/JulianSwirlsKarma.jpg)
+![FLAM3 Houdini LazySwirl image](https://github.com/alexnardini/FLAM3/blob/main/img/GITHUB_intro_img.jpg)
 
 `The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
