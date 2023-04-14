@@ -25,7 +25,7 @@ _*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
 _*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
 
     
-[Image:opdef:.?FLAM3_HDA_intro_2k_1x.jpg] 
+[Image:opdef:.?FLAM3H_DOC_intro_banner.jpg] 
 
 @parameters
 
