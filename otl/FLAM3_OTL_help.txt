@@ -704,7 +704,7 @@ xaos modes:
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
     NOTE:
-    When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
     
 :box:
     #display: rounded white
