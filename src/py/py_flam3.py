@@ -1209,27 +1209,28 @@ def ramp_save(kwargs: dict) -> None:
             except:
                 pass
             
-            if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
-                now = datetime.now()
-                presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
-            else:
-                # otherwise get that name and use it
-                presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
-
-            # Updated HSV ramp before getting it
-            palette_hsv(node)
-            palette_cp(node)
-            ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
-            
-            POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-            HEXs = []
-            for p in POSs:
-                clr = tuple(ramp.lookup(p))
-                HEXs.append(rgb_to_hex(clr))
-            dict = { presetname: {'hex': ''.join(HEXs)} }
-            json_data = json.dumps(dict, indent=4)
-
+            json_data = ''
             if is_JSON:
+                if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
+                    now = datetime.now()
+                    presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
+                else:
+                    # otherwise get that name and use it
+                    presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+
+                # Updated HSV ramp before getting it
+                palette_hsv(node)
+                palette_cp(node)
+                ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                
+                POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+                HEXs = []
+                for p in POSs:
+                    clr = tuple(ramp.lookup(p))
+                    HEXs.append(rgb_to_hex(clr))
+                dict = { presetname: {'hex': ''.join(HEXs)} }
+                json_data = json.dumps(dict, indent=4)
+
                 if kwargs["ctrl"]:
                     os.remove(str(out_path_checked))
                     with open(str(out_path_checked),'w') as f:
