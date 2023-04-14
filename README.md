@@ -56,7 +56,7 @@ With Houdini integrated Karma renderer you will be able to render the generated 
 **Highly inspired by Apophysis software and its workflow design.**
 
 Many Apophysis fractal Flames are available for download on the web and you can load them inside FLAM3 for Houdini,
-or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3 for Houdini. But also the other way around, create your flame in Houdini and render them inside other application...you've got choises.
+or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3 for Houdini. But also the other way around, create your flame in Houdini and render them inside other applications...you've got choises.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
