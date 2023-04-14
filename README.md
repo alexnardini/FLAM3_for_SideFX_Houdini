@@ -28,6 +28,9 @@
 
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
+
+It is also a very conservative implementation, it has everything but with some limits, read the OTL documentation to find out more.
+
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
 fast, ready to use functions like **creating and sampling a cdf**, a very robust **random number generator** and more.
