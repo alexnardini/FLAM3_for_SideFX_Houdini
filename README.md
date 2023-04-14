@@ -14,7 +14,7 @@
 **_His c++ code is beyound awesome, clean and packed with useful comments all over the place._**
 **_In the last months its been crucial for me to refine and complete this implementation._**
 
-**_Fractorium is also really impressive!._**
+**_Fractorium is really impressive._**
 
 
 **_Matt, if you will ever read this, thank you!_**
