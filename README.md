@@ -13,6 +13,9 @@
 
 **[FLAM3HOUDINI instagram](https://www.instagram.com/alexnardini/)**
 
+`Compact UI Tabs to acces all functionalities in one unified interface.`
+![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
+
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
@@ -41,8 +44,8 @@ or you can use Apophysis or Fractorium to author your flames fitst and load them
 
 ## Viewport live point cloud
 `Imagine the possibilities using Houdini procedural paradigm to control all aspect of your Flame.`
-![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_ChaoticaMatch_H19.jpg)
-![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3_Hviewport_H19.jpg)
+![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_01_H19.jpg)
+![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_02_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 
