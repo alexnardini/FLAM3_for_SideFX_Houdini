@@ -12,7 +12,7 @@
 **_I really want to make a special honorable mention to Matt Feemster, the Developer of Fractorium._**
 
 **_His c++ code is beyound awesome, clean and packed with useful comments all over the place._**
-**_In the last months its been crucial for me to refine and complete this implementation._**
+**_In the last months its been the only reference for me to refine and complete this implementation._**
 
 **_Fractorium is really impressive._**
 
