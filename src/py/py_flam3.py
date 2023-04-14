@@ -1502,7 +1502,6 @@ def reset_postaffine(kwargs: dict) -> None:
         node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
         node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
         node.setParms({f"{n.postaffine_ang}_{str(id)}": 0})
-        node.setParms({f"{n.postaffine_do}_{str(id)}": 0})
     
 def reset_preaffine_FF(kwargs: dict) -> None:
     node = kwargs['node']
@@ -1524,7 +1523,6 @@ def reset_postaffine_FF(kwargs: dict) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
     
 
 def reset_FF(self: hou.Node) -> None:
