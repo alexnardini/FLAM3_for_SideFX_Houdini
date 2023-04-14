@@ -298,7 +298,7 @@ copy/paste:
 
     *Final Flame transform*
     
-FF Post variation:
+FF Pre variation:
     #id: FF
     PRE variation to be used. This is applyed before the variations. It is the very first transformation when used.
     * PRE variation act the same way as the Final Flame variations does. It take the combined result of everything you do inside FLAME Tab and transform it using a selected variation.
