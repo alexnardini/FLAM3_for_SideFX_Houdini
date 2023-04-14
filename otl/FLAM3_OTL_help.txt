@@ -25,7 +25,8 @@ _*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
 _*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
 
     
-[Image:opdef:.?FLAM3H_DOC_intro_banner.jpg] 
+[Image:opdef:.?FLAM3H_DOC_intro_banner.jpg]
+_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
 @parameters
 
