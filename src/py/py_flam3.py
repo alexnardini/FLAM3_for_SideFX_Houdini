@@ -87,9 +87,6 @@ RAMP_HSV_VAL_NAME = 'hsv'
 FLAM3_LIB_LOCK = 'F3H_LOCK'
 
 
-
-
-
 class flam3_varsPRM:
 
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
@@ -232,7 +229,6 @@ class flam3_varsPRM:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
         """   
         return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
-
 
 
 class flam3_iterator_prm_names:
@@ -882,46 +878,38 @@ def prm_paste_sel(kwargs: dict) -> None:
         if paste_sel == 1:
             paste_from_list(flam3_iterator.sec_main, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_MAIN, node, flam3node, str(id), str(id_from))
-
         # set XML_XF_XAOS
         elif paste_sel == 2:
             paste_from_list(flam3_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_XAOS, node, flam3node, str(id), str(id_from))
-
         # set SHADER 
         elif paste_sel == 3:
             paste_from_list(flam3_iterator.sec_shader, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_SHADER, node, flam3node, str(id), str(id_from))
-        
         # set PRE VARS
         elif paste_sel == 4:
             pastePRM_T_from_list(flam3_iterator.sec_prevarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_prevarsW, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_PREVARS, node, flam3node, str(id), str(id_from))
-
         # set VARS
         elif paste_sel == 5:
             pastePRM_T_from_list(flam3_iterator.sec_varsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_varsW, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_VARS, node, flam3node, str(id), str(id_from))
-
         # set POST VARS
         elif paste_sel == 6:
             pastePRM_T_from_list(flam3_iterator.sec_postvarsT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
             paste_from_list(flam3_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_POSTVARS, node, flam3node, str(id), str(id_from))
-                
         # set PRE AFFINE
         elif paste_sel == 7:
             paste_from_list(flam3_iterator.sec_preAffine, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_PREAFFINE, node, flam3node, str(id), str(id_from))
-        
         # set POST AFFINE
         elif paste_sel == 8:
             paste_from_list(flam3_iterator.sec_postAffine, node, flam3node, str(id), str(id_from))
             paste_set_note(0, SEC_POSTAFFINE, node, flam3node, str(id), str(id_from))
      
-
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
         #
@@ -971,29 +959,24 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
             pastePRM_T_from_list(flam3_iterator_FF.sec_prevarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_prevarsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_PREVARS, node, flam3node_FF, "", "")
-
         # set FF VARS
         elif ff_paste_sel == 2:
             pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
-        
         # set FF POST VARS
         elif ff_paste_sel == 3:
             pastePRM_T_from_list(flam3_iterator_FF.sec_postvarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
             paste_from_list(flam3_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
-
         # set FF PRE AFFINE
         elif ff_paste_sel == 4:
             paste_from_list(flam3_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_PREAFFINE, node, flam3node_FF, "", "")
-        
         # set FF POST AFFINE
         elif ff_paste_sel == 5:
             paste_from_list(flam3_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
             paste_set_note(2, SEC_POSTAFFINE, node, flam3node_FF, "", "")
-
 
         # Set it to a null value ( first in the menu array idx in this case )
         # so that we can paste the same section again, if we want to.
@@ -1749,7 +1732,6 @@ def iteratorCountZero(self: hou.Node) -> None:
         # delete channel references
         for p in self.parms():
             p.deleteAllKeyframes()
-
         # SYS
         self.setParms({SYS_DO_FF: 0})
         self.setParms({SYS_RIP: 0})
@@ -1846,13 +1828,10 @@ def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[
         return None
 
 
-
-
 # It happen that Houdini sometime round value to many, many decimals.
 # I am limit this to max 8 decimals on export so not to have the xml file explode with trailing floats...
 # Increase this if for some reason you need more precision.
 ROUND_DECIMAL_COUNT = 8
-
 # XML
 XML_FLAME_NAME = "flame"
 XML_FLAME_VERSION = "version"
@@ -1921,7 +1900,7 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
-
+# Since we get the folowing keys in a separate actione, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
 # radial_blur var->"radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
@@ -1951,7 +1930,6 @@ MAX_FF_VARS_POST = 2
 XML_APP_NAME_FLAM3HOUDINI = "FLAM3HOUDINI"
 XML_APP_NAME_FRACTORIUM = "EMBER-"
 XML_APP_NAME_APO = "Apophysis"
-
 
 # This is used as a faster idx lookup table.
 # From the XML's xforms, each variations look itself up inside here to get
@@ -2065,7 +2043,6 @@ VARS_FLAM3_DICT_IDX = { "linear": 0,
                         "point_symmetry": 105
                         }
 
-
 # This dictionary for a faster look up table, Fractorium has so many variations!
 # We are using this to check for missing variations coming from the loaded flame file
 # as Fractorium seem to have them all ;) and it is the app I am now comparing against for this data.
@@ -2100,7 +2077,6 @@ def vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
     return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 VARS_FRACTORIUM_DICT_PRE  = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_PRE)
 VARS_FRACTORIUM_DICT_POST = vars_dict_type_maker(VARS_FRACTORIUM_DICT, make_POST)
-
 
 
 class flam3_varsPRM_APO:
@@ -2307,7 +2283,6 @@ class _xml_tree:
         if self._isvalidtree:
             return len(flames)
         return 0
-
 
 
 class apo_flame(_xml_tree):
@@ -2573,9 +2548,6 @@ class apo_flame(_xml_tree):
             return None
 
 
-
-
-
 class apo_flame_iter_data(apo_flame):
 
     def __init__(self, xmlfile: str, idx=0) -> None:
@@ -2673,9 +2645,6 @@ class apo_flame_iter_data(apo_flame):
         return self._opacity
     
     
-    
-    
-    
 ###############################################################################################
 # MENU - APO - build menu from flame file presets
 ###############################################################################################
@@ -2694,7 +2663,6 @@ def menu_apo_presets(kwargs: dict) -> list:
         menu.append(-1)
         menu.append('Empty')
         return menu
-
 
 
 # Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
@@ -2745,7 +2713,6 @@ def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[st
         return None
 
 
-
 def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     """
     Args:
@@ -2765,7 +2732,6 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
     return data
 
 
-
 def apo_get_idx_by_key(key: str) -> Union[int, None]:
     """
     Args:
@@ -2777,7 +2743,6 @@ def apo_get_idx_by_key(key: str) -> Union[int, None]:
     try: idx = VARS_FLAM3_DICT_IDX.get(key)
     except: return None
     return idx
-
 
 
 def flam3_prx_mode(mode: int) -> tuple[str, str]:
@@ -2797,7 +2762,6 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
         prx = PRX_FF_PRM
         prx_prm = PRX_FF_PRM_POST + "_"
     return prx, prx_prm
-
 
 
 def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter_data, n: flam3_iterator_prm_names, mp_idx: int) -> None:
@@ -2829,8 +2793,6 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
                 node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]})
                 node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]})
                 node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]})
-
-
 
 
 
@@ -2866,8 +2828,6 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
             return apo_prm
     else:
         return apo_prm
-
-
 
 
 # I should merge all those v_parametric*() and v_generic*() into one for each
@@ -2938,8 +2898,6 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
         
         
-
-
 def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
@@ -2986,9 +2944,6 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     # Only on pre variations with parametric so:
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight})
-
-
-
 
 
 def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -3039,7 +2994,6 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
     
     
-    
 def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
     """
     Args:
@@ -3082,8 +3036,6 @@ def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_typ
     # Only on post variation with parametric so:
     node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type})
     node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight})
-
-
 
 
 def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -3130,8 +3082,6 @@ def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_ty
     node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight})
 
 
-
-
 def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
@@ -3152,7 +3102,6 @@ def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
         
         
-        
 def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
@@ -3171,7 +3120,6 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight})
         
-    
 
 def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
     """
@@ -3204,7 +3152,6 @@ def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -
     node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight})
 
 
-
 def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
     """
     Args:
@@ -3217,8 +3164,6 @@ def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) 
 
     node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
     node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight})
-
-
 
 
 def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> None:
@@ -3235,8 +3180,6 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> Non
     else:
         if pb_weights[mp_idx]:
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
-
-
 
 
 def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int) -> None:
@@ -3346,11 +3289,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
         apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
         
 
-
 def iter_on_load_callback(self):
     iter_on_load = self.parm("iternumonload").eval()
     self.setParms({SYS_ITERATIONS: iter_on_load})
-
 
 
 def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
@@ -3362,7 +3303,6 @@ def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
             return None
     else:
         return None
-
 
 
 def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
@@ -3379,7 +3319,6 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
             self.setParms({"iternumonload": ITER_LOAD_DEFAULT})
             iter_on_load = ITER_LOAD_DEFAULT
     return iter_on_load    
-
 
 
 def apo_to_flam3(self: hou.Node) -> None:
@@ -3438,7 +3377,6 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"flamerender_msg": ""})
             # The following do not work, not sure why
             self.setParms({"descriptive_msg": ""})
-
 
 
 def apo_join_vars_grp(groups: list) -> str:
@@ -3582,7 +3520,6 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     build_stats_msg = "".join(build)
     
     return build_stats_msg
-
 
 
 def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
@@ -3732,7 +3669,6 @@ Seph, Lucy, b33rheart, Neonrauschen"""
     self.setParms({"flam3about_msg": build_about_msg})
 
 
-
 def flam3_about_plugins_msg(self):
     
     vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
@@ -3744,7 +3680,6 @@ def flam3_about_plugins_msg(self):
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
-
 
 
 # SAVE XML FILES start here
@@ -4019,7 +3954,6 @@ class _out_utils():
             return ''
 
 
-
 class out_flame_properties(_out_utils):
 
     def __init__(self, node: hou.Node) -> None:
@@ -4042,7 +3976,6 @@ class out_flame_properties(_out_utils):
         self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
 
 
-
 class out_flam3_data(_out_utils):
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
@@ -4061,7 +3994,6 @@ class out_flam3_data(_out_utils):
         self.finalxf_name = self._out_utils__out_finalxf_name()
         self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine()
         self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine()
-
 
 
 def out_flame_properties_build(self) -> dict:
@@ -4096,7 +4028,6 @@ def out_flame_properties_build(self) -> dict:
             # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
             # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
-
 
 
 def out_round_float(VAL) -> str:
