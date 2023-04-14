@@ -7,6 +7,8 @@ from textwrap import wrap
 from datetime import datetime
 from math import sin, cos
 from re import sub as re_sub
+from sys import platform as sys_platform
+from subprocess import call as sp_call
 from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
@@ -1138,6 +1140,20 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         
 
 ###############################################################################################
+# OPEN FILE EXPLORER - Open a file explorer to the file location
+###############################################################################################
+def open_explorer_file(filename):
+    path = os.path.dirname(filename)
+    if os.path.isdir(path):
+        if sys_platform == "win32":
+            os.startfile(path)
+        else:
+            opener ="open" if sys_platform == "darwin" else "xdg-open"
+            sp_call([opener, path])
+    else:
+        pass
+        
+###############################################################################################
 # MENU - Palette presets
 ###############################################################################################
 def menu_ramp_presets(kwargs: dict) -> list:
@@ -1189,74 +1205,77 @@ def ramp_save(kwargs: dict) -> None:
     out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
     if out_path_checked is not False:
-
-        is_LOCKED = False
-        if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
-            is_LOCKED = True
-            
-        if is_LOCKED:
-            ui_text = f"This Palette library is Locked."
-            ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
-            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False)
+        
+        if kwargs['shift']:
+            open_explorer_file(out_path_checked)
         else:
-            is_JSON = False
-            try:
-                with open(str(out_path_checked),'r') as r:
-                    data_check = json.load(r)
-                    node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
-                    is_JSON = True
-                    del data_check
-            except:
-                pass
-            
-            json_data = ''
-            if is_JSON:
-                if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
-                    now = datetime.now()
-                    presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
-                else:
-                    # otherwise get that name and use it
-                    presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
-
-                # Updated HSV ramp before getting it
-                palette_hsv(node)
-                palette_cp(node)
-                ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+            is_LOCKED = False
+            if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                is_LOCKED = True
                 
-                POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-                HEXs = []
-                for p in POSs:
-                    clr = tuple(ramp.lookup(p))
-                    HEXs.append(rgb_to_hex(clr))
-                dict = { presetname: {'hex': ''.join(HEXs)} }
-                json_data = json.dumps(dict, indent=4)
-
-                if kwargs["ctrl"]:
-                    os.remove(str(out_path_checked))
-                    with open(str(out_path_checked),'w') as f:
-                        f.write(json_data)
-                else:
-                    with open(str(out_path_checked),'r') as r:
-                        prevdata = json.load(r)
-                    with open(str(out_path_checked), 'w') as w:
-                        newdata = dict
-                        prevdata.update(newdata)
-                        data = json.dumps(prevdata,indent = 4)
-                        w.write(data)
-                with open(out_path_checked) as f:
-                    data = json.load(f)
-                    node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
-                    node.setParms({PALETTE_OUT_PRESET_NAME: ''})
-                    del data
+            if is_LOCKED:
+                ui_text = f"This Palette library is Locked."
+                ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False)
             else:
-                with open(out_path_checked,'w') as f:
-                    f.write(json_data)
-                with open(out_path_checked) as f:
-                    data = json.load(f)
-                    node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
-                    node.setParms({PALETTE_OUT_PRESET_NAME: ''})
-                    del data
-                node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
+                is_JSON = False
+                try:
+                    with open(str(out_path_checked),'r') as r:
+                        data_check = json.load(r)
+                        node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
+                        is_JSON = True
+                        del data_check
+                except:
+                    pass
+                
+                json_data = ''
+                if is_JSON:
+                    if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
+                        now = datetime.now()
+                        presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
+                    else:
+                        # otherwise get that name and use it
+                        presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+
+                    # Updated HSV ramp before getting it
+                    palette_hsv(node)
+                    palette_cp(node)
+                    ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                    
+                    POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+                    HEXs = []
+                    for p in POSs:
+                        clr = tuple(ramp.lookup(p))
+                        HEXs.append(rgb_to_hex(clr))
+                    dict = { presetname: {'hex': ''.join(HEXs)} }
+                    json_data = json.dumps(dict, indent=4)
+
+                    if kwargs["ctrl"]:
+                        os.remove(str(out_path_checked))
+                        with open(str(out_path_checked),'w') as f:
+                            f.write(json_data)
+                    else:
+                        with open(str(out_path_checked),'r') as r:
+                            prevdata = json.load(r)
+                        with open(str(out_path_checked), 'w') as w:
+                            newdata = dict
+                            prevdata.update(newdata)
+                            data = json.dumps(prevdata,indent = 4)
+                            w.write(data)
+                    with open(out_path_checked) as f:
+                        data = json.load(f)
+                        node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
+                        node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+                        del data
+                else:
+                    with open(out_path_checked,'w') as f:
+                        f.write(json_data)
+                    with open(out_path_checked) as f:
+                        data = json.load(f)
+                        node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
+                        node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+                        del data
+                    node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
 
 
 ###############################################################################################
@@ -4277,7 +4296,7 @@ def out_new_XML(self: hou.Node, outpath: str) -> None:
 
 
 def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
-    # with ET
+    # with ET since I have the XML tree already stored using its Element type
     # root = apo_data.tree.getroot()
     
     # with lxmlET
@@ -4296,28 +4315,30 @@ def out_XML(kwargs: dict) -> None:
     out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
     
     if out_path_checked is not False:
-        
-        is_LOCKED = False
-        if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
-            is_LOCKED = True
-            
-        if is_LOCKED:
-            ui_text = f"This Flam3 library is Locked."
-            ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False)
+        if kwargs['shift']:
+            open_explorer_file(out_path_checked)
         else:
-            apo_data = apo_flame(str(out_path_checked))
-            if kwargs["ctrl"]:
-                node.setParms({OUT_PATH: str(out_path_checked)})
-                out_new_XML(node, str(out_path_checked))
-                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+            is_LOCKED = False
+            if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                is_LOCKED = True
+                
+            if is_LOCKED:
+                ui_text = f"This Flam3 library is Locked."
+                ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False)
             else:
-                node.setParms({OUT_PATH: str(out_path_checked)})
-                if apo_data.isvalidtree:
-                    out_append_XML(node, apo_data, str(out_path_checked))
-                    node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                else:
+                apo_data = apo_flame(str(out_path_checked))
+                if kwargs["ctrl"]:
+                    node.setParms({OUT_PATH: str(out_path_checked)})
                     out_new_XML(node, str(out_path_checked))
                     node.setParms({OUT_FLAME_PRESET_NAME: ''})
-            init_presets(kwargs, OUT_PRESETS)
+                else:
+                    node.setParms({OUT_PATH: str(out_path_checked)})
+                    if apo_data.isvalidtree:
+                        out_append_XML(node, apo_data, str(out_path_checked))
+                        node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                    else:
+                        out_new_XML(node, str(out_path_checked))
+                        node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                init_presets(kwargs, OUT_PRESETS)
 

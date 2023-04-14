@@ -16,7 +16,7 @@
 
 _*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]*_
 
-_*Github repository I used a lot as reference "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
+_*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
 
 _*[FLAM3 for Houdini - website|https://www.alexnardini.net/flame-home/]*_
 
@@ -76,7 +76,7 @@ TAG size:
                 
 RIP:
     #id: SYS
-    Remove Invalid Points. *INF*, *NAN*, *Zero Alpha* and *out of bounds* points.
+    Remove Invalid Points. *INF*, *NAN*, *Zero Opacity* and *out of bounds* points.
     * It can happen that some points shoot to infinity after being transformed by the algorithm.
     Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
     
@@ -405,13 +405,13 @@ JSON file:
     Load an already created json palette lib file or select the name of a new one to create.
     
     TIP:
-        Once you are happy with a palette library you built, you can rename the file to start with: "*PALETTE_LIB_LOCK*"
+        Once you are happy with a palette library you built, you can rename the file to start with: "*F3H_LOCK*"
         to prevent any further modifications to it. for example if you have a lib file call: "*my_rainbows_colors.json*"
-        you can rename it to: "*PALETTE_LIB_LOCK_my_rainbows_colors.json*" to keep it safe.
+        you can rename it to: "*F3H_LOCK_my_rainbows_colors.json*" to keep it safe.
         
         _Not as elegant as using chmod in python but it's simple, effective and it has a visual msg ( the filename itself )._
         
-        _And the advantage in my humble opinion of acting as locked only within FLAM3 for Houdini_
+        _And the advantage is also of acting as locked only within FLAM3 for Houdini_
         _so that if you'd like to manually edit and change some preset names yoursef, you can._
     
 Save Palette:
@@ -419,22 +419,30 @@ Save Palette:
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
     Click this icon to save the current Palette into the selected OUT file.
-    If the selected file do not exist, it will be created.
-    If the selected file exist and already contain some Palette in it, it will append the current one.
     
-    CTRL + CLICK to erase the content of the file and overwrite it with only the current Flame.
+    - If the selected file do not exist, it will be created.
     
-    If the selected file is not a valid Palette JSON file type, nothing will happen.
+    - If the selected file exist and already contain some Palette in it, it will append the current one.
+    
+    - *CTRL* + CLICK to erase the content of the file and overwrite it with only the current Palette.
+    
+    - *SHIFT* + CLICK will open the file explorer to the file location.
+    
+    _If the selected file is not a valid Palette JSON file type, nothing will happen._
     
     TIP:
-        If you type a location and a filename without extension, it will automaticalli add the _*.json*_ extension to it.
+        *Once you click save*:
         
-        If you do not provide a file name at all, it will generate one for you based out of today's date and current time.
+        - If you selected a location and a filename without extension, it will automatically add the _*.json*_ extension to it.
+        
+        - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
+    
+        - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
     
 LIB contents ( presets ):
     #id: PALETTE
     When you load a json palette file,
-    Use menu to display all the palette included in the loaded file and select one to load.
+    Use this menu to display all the palette included in the loaded file and select one to load.
     
 
     
@@ -504,7 +512,7 @@ Presets:
     This presets will populate with as many entries as the number of flames included in the file you are loading.
     Each entry will show the name of each flame.
     
-Iterations on Load:
+Iterations on Load (int):
     #id: IN
     Set a number of iterations to use every time you load a flame from a *.flame file.
     This will override the internally default value of 64 iterations.
@@ -551,13 +559,13 @@ OUT file ( *.flame type ):
     If the selected file do not exist, it will be created.
     
     TIP:
-        Once you are happy with a FLAM3 library you built, you can rename the file to start with: "*FLAM3_LIB_LOCK*"
+        Once you are happy with a FLAM3 library you built, you can rename the file to start with: "*F3H_LOCK*"
         to prevent any further modifications to it. for example if you have a lib file call: "*my_grandJulia.flame*"
-        you can rename it to: "*FLAM3_LIB_LOCK_my_grandJulia.flame*" to keep it safe.
+        you can rename it to: "*F3H_LOCK_my_grandJulia.flame*" to keep it safe.
         
         _Not as elegant as using chmod in python but it's simple, effective and it has a visual msg ( the filename itself )._
         
-        _And the advantage in my humble opinion of acting as locked only within FLAM3 for Houdini_
+        _And the advantage is also of acting as locked only within FLAM3 for Houdini_
         _so that if you'd like to manually edit and change some preset names yoursef, you can._
     
 Save Flame:
@@ -565,19 +573,26 @@ Save Flame:
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
     Click this icon to save the current flame into the selected OUT file.
-    If the selected file do not exist, it will be created.
-    If the selected file exist and already contain some Flames in it, it will append the current one.
     
-    CTRL + CLICK to erase the content of the file and overwrite it with only the current Flame.
+    - If the selected file do not exist, it will be created.
     
-    If the selected file is not a valid Flame file type, nothing will happen.
+    - If the selected file exist and already contain some Flames in it, it will append the current one.
+    
+    - *CTRL* + CLICK to erase the content of the file and overwrite it with only the current Flame.
+    
+    - *SHIFT* + CLICK will open the file explorer to the file location.
+    
+    _If the selected file is not a valid Flame file type, nothing will happen._
+    
     
     TIP:
-        If you type a location and a filename without extension, it will automaticalli add the _*.flame*_ extension to it.
+        *Once you click save*:
         
-        If you do not provide a file name at all, it will generate one for you based out of today's date and current time assume you have a valid location selected.
+        - If you selected a location and a filename without extension, it will automatically add the _*.flame*_ extension to it.
+        
+        - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
     
-        If nothing is selected (ex: OUT file is empty or invalid ), nothing will happen.
+        - If nothing is selected (ex: OUT file empty or invalid ), nothing will happen.
         
     NOTE:
         When saving Flames out, remember you are not allowed to use the same variation more than once in any of the availabe var's sections. 
