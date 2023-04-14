@@ -106,7 +106,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
      / Xaos FROM - if selected and Xaos is active
      /
      / The following code becasue I need to start from a string
-     / and reformat/reconvert due to an array slice bug in Houdini.
+     / and reformat/reconvert due to a bug in Houdini.
      / [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
     */
     

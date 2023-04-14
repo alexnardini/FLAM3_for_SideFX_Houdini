@@ -34,7 +34,7 @@
 void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[]; int _bound_ptnum; const int _bound_XS; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
-    int idx, TM, FF, RIP, iter, MB, f3c;
+    int idx, TM, FF, RIP, MB, iter, f3c;
     float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp;
     // SYS
