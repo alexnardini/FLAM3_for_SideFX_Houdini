@@ -118,9 +118,10 @@ copy/paste:
     #id: FLAME
     [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
-    Click to COPY this iterator vaues. "CTRL"+CLICK to PASTE the copied values into another iterator.
-    It will copy everything, parametric variation's parameters included but not XAOS.
-    "CTRL"+SHIFT will delete the stored data.
+    ((LMB)) to COPY this iterator vaues. 
+    
+    - ((CTRL)) + ((LMB)) to PASTE the copied values into another iterator. It will copy everything, parametric variation's parameters included but not XAOS.
+    - ((SHIFT)) + ((LMB)) will delete the stored data.
     
     It will work also between different FLAM3 nodes.
     
@@ -159,18 +160,10 @@ xaos:
     
     The default mode is *xaos TO*. You can change it to use *xaos FROM* mode instead in the preferences tab.
     
-    To set XAOS for a flame with 4 iterators, use the *xaos* keyword followed by each iterator weights values
-    separated by a colon: *xaos:1:2:3:4* ( *xaos* keyword can be uppercase too if you prefer. )
-    
-    If no set or when using a short descriptive note,
-    FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
-    
-    If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0.
-    *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
-    
-    When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values
-    to account for missing iterator so you wont need to remove values from the command string,
-    *unless you delete an iterator in witch case you will require to modify the "XAOS:" string*.
+    - To set XAOS for a flame with 4 iterators, use the *xaos* keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4* ( *xaos* keyword can be uppercase too if you prefer. )
+    - If no set or when using a short descriptive note, FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
+    - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
+    - When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator so you wont need to remove values from the command string, *unless you delete an iterator in witch case you will require to modify the "XAOS:" string*.
     
     TIP:
         #display: orange
@@ -211,8 +204,8 @@ var:
     #id: FLAME
     List of variations to choose from.
         
-    * Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
-    * Each iterators allow up to 8 variations ( pre-blur var, 2 pre var, 4 vars plus 1 post var) to be used. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    - Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    - Each iterators allow up to 8 variations ( pre-blur var, 2 pre var, 4 vars plus 1 post var) to be used. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     
     TIP:
@@ -296,9 +289,10 @@ copy/paste:
     #id: FF
     [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
-    Click to COPY this FF vaues. "CTRL"+CLICK on another FLAM3 node to PASTE the copied FF values.
-    It will copy everything, parametric variation's parameters included.
-    "CTRL"+SHIFT will delete the stored data.
+    ((LMB)) to COPY this FF vaues. 
+    
+    - ((CTRL)) + ((LMB)) on another FLAM3 node to PASTE the copied FF values. It will copy everything, parametric variation's parameters included.
+    - ((SHIFT)) + ((LMB)) will delete the stored data.
     
     It will only work between different FLAM3 nodes.
     
@@ -418,25 +412,20 @@ Save Palette:
     #id: PALETTE
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
-    Click this icon to save the current Palette into the selected OUT file.
+    ((LMB)) to save the current Palette into the selected OUT file.
     
     - If the selected file do not exist, it will be created.
-    
     - If the selected file exist and already contain some Palette in it, it will append the current one.
-    
-    - *CTRL* + CLICK to erase the content of the file and overwrite it with only the current Palette.
-    
-    - *SHIFT* + CLICK will open the file explorer to the file location.
-    
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Palette.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+
     _If the selected file is not a valid Palette JSON file type, nothing will happen._
     
     TIP:
         *Once you click save*:
         
         - If you selected a location and a filename without extension, it will automatically add the _*.json*_ extension to it.
-        
         - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
-    
         - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
     
 LIB contents ( presets ):
@@ -572,15 +561,12 @@ Save Flame:
     #id: OUT
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
-    Click this icon to save the current flame into the selected OUT file.
+    ((LMB)) to save the current flame into the selected OUT file.
     
     - If the selected file do not exist, it will be created.
-    
     - If the selected file exist and already contain some Flames in it, it will append the current one.
-    
-    - *CTRL* + CLICK to erase the content of the file and overwrite it with only the current Flame.
-    
-    - *SHIFT* + CLICK will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     
     _If the selected file is not a valid Flame file type, nothing will happen._
     
@@ -589,9 +575,7 @@ Save Flame:
         *Once you click save*:
         
         - If you selected a location and a filename without extension, it will automatically add the _*.flame*_ extension to it.
-        
         - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
-    
         - If nothing is selected (ex: OUT file empty or invalid ), nothing will happen.
         
     NOTE:
