@@ -27,7 +27,7 @@
 """py_flam3.py loaded inside the Extra Files section. Renamed as py_flam3"""
 
 """First inside the OTL->type_properties->Scripts->PythonModule
-we create the FLAM3 sub_module out of the py_flam3 file."""
+the FLAM3 module is created out of the py_flam3 file inside the Extra Files section"""
 import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
@@ -165,9 +165,4 @@ return menu
 
 'Edit render properties' 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
-
-
-
-
-
 
