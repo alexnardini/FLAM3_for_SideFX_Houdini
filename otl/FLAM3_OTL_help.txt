@@ -266,8 +266,7 @@ post affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
     * See above affine description for more informations.
-        
-    
+
 VARS Tab:
     #id: FLAME
     If a parametric variation is selected, its parameters will populate this Tab.
@@ -444,6 +443,10 @@ LIB contents ( presets ):
 on:
     #id: MB
     Enable motion blur.
+    
+    NOTE:
+        When saving Flames out using the OUT tab, motion blur settings are not saved with it
+        but will use whatever Motion Blur settings are preset in the host application you will load the saved flame file in.
     
     TIP:
         #display: orange
