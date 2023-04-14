@@ -27,13 +27,13 @@ _Matt, if you will ever read this, thank you!_
 
 One of the main mission, was to pack the entire algorithm and functionalities I desired inside a tool
 using only Houdini out of the box. No HDK ( Houdini Developers Kit - c++ ).
-As a result, it become a very conservative implementation, it has everything but with some limits as I needed to cut corners everywhere wich has been a daunting process to put into balance.
+As a result, it become a very conservative implementation, it has everything but with some limits as I needed to cut corners everywhere wich became a daunting process to put into balance.
 
 There are more functionalities I'd love to add, but this v1.x is happily out as it is.
 
-A big commitment I needed to honor was to learn how to do fractal art, and actually do lots of fractal art with this tool while I was developing it and...fractal art is hard to do!
-Building a fractal art tool without knowing what a fractal artis need and feel while doing it is kind of pointless.
-While I didnt become a Pro in doing it, it was crucial to shape and steer this tool in the right direction.
+A big commitment I needed to honor was to learn how to do fractal art, and actually do lots of fractal art with this tool while I was developing it and...fractal art is hard to do.
+Building a fractal art tool without knowing what a fractal artis need and feel while doing it is kind of pointless. And so I did so much fractal art that I inhevitably fell in love with it.
+It was crucial so I could shape and steer this tool in the right direction.
 
 ### Description
 
@@ -48,7 +48,7 @@ Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
 
 Python has been used to enhance the user experience and to add functionalities like:
-copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications, save flame files to load inside other applications and much more.
+copy/paste iterators data, load/save palette's libraries, load/save flame's file format, response to user actions and much more.
 
 `Compact UI Tabs to acces all functionalities within one simple and coherent interface.`
 ![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
