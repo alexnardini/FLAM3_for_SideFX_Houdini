@@ -4,20 +4,20 @@
 `The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
 ## FLAM3 for SideFX Houdini
-_A huge and special thank you to my family who keep up with me for so long while I was inside the fractal Flame bubble!_
+**_A huge and special thank you to my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
   <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
 </p>
 
-**_I really want to make a special honorable mention to Matt Feemster, the Developer of Fractorium._**
+_I really want to make a special honorable mention to Matt Feemster, the Developer of Fractorium._
 
-**_His c++ code is beyound awesome, clean and packed with useful comments all over the place._**
-**_In the last months its been the only reference for me to refine and complete this implementation._**
+_His c++ code is beyound awesome, clean and packed with useful comments all over the place._
+_In the last months its been the only reference for me to refine and complete this implementation._
 
-**_Fractorium is really impressive._**
+_Fractorium is really impressive._
 
-**_Matt, if you will ever read this, thank you!_**
+_Matt, if you will ever read this, thank you!_
 
 **[FLAM3HOUDINI website](https://www.alexnardini.net/)**
 
