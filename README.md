@@ -23,9 +23,6 @@ _Matt, if you will ever read this, thank you!_
 
 **[FLAM3HOUDINI instagram](https://www.instagram.com/alexnardini/)**
 
-`Compact UI Tabs to acces all functionalities in one unified interface.`
-![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
-
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
 
@@ -40,6 +37,9 @@ like attribute binding, UI building, parameters creations, their visibility cond
 
 Python has been used to enhance the user experience and to add functionalities like:
 copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications, save flame files to load inside other applications and much more.
+
+`Compact UI Tabs to acces all functionalities in one unified interface.`
+![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
 
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
