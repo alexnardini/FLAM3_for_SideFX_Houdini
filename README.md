@@ -3,7 +3,7 @@
 
 `The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
-## FLAM3 for SideFX Houdini
+## FLAM3 for SideFX Houdini v1.x
 **_A huge and special thank you to my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
@@ -38,7 +38,7 @@ like attribute binding, UI building, parameters creations, their visibility cond
 Python has been used to enhance the user experience and to add functionalities like:
 copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications, save flame files to load inside other applications and much more.
 
-`Compact UI Tabs to acces all functionalities in one unified interface.`
+`Compact UI Tabs to acces all functionalities within one simple interface.`
 ![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
 
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
