@@ -14,7 +14,10 @@
 **_His c++ code is beyound awesome, clean and packed with useful comments all over the place._**
 **_In the last months its been crucial for me to refine and complete this implementation._**
 
-**_Matt, if you will ever read this, thank you!!!_**
+**_Fractorium is also really impressive!._**
+
+
+**_Matt, if you will ever read this, thank you!_**
 
 **[FLAM3HOUDINI website](https://www.alexnardini.net/)**
 
@@ -33,7 +36,7 @@ Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
 
 Python has been used to enhance the user experience and to add functionalities like:
-copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications and much more.
+copy/paste iterators data, load/save palette's libraries, load flame files authored with other applications, save flame files to load inside other applications and much more.
 
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
@@ -58,9 +61,9 @@ or you can use Apophysis or Fractorium to author your flames first and load them
 
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
-Below some comparison with FLAM3 for Houdini rendering some of the Fractorium's example flame files.
+Following some images showing FLAM3 for Houdini rendering some of the Fractorium's example flame files.
 Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
-Houdini Karma interactive rendering the generated flame's point cloud on the left and Fractorium with the same flame file on the right.
+Houdini Karma interactive on the left and Fractorium with the same flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
@@ -72,6 +75,9 @@ Houdini Karma interactive rendering the generated flame's point cloud on the lef
 ![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 
+## List of all available variations/plugins:
+
+_`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubble` `butterfly` `bwraps` `cell` `conic` `cos` `cosh` `cosine` `cot` `coth` `cpow` `crop` `cross` `csc` `csch` `curl` `curve` `cylinder` `diamond` `disc` `disc2` `edisc` `elliptic` `escher` `ex` `exp` `exponential` `eyefish` `fan` `fan2` `fisheye` `flower` `flux` `foci` `gaussian_blur` `glynnia` `handkerchief` `heart` `hemisphere` `horseshoe` `hyperbolic` `julia` `juliaN` `juliascope` `lazysusan` `linear` `log` `loonie` `mobius` `modulus` `ngon` `noise` `oscope` `parabola` `pdj` `perspective` `pie` `point_symmetry` `polar` `polar2` `polynomial` `popcorn` `popcorn2` `power` `pre_blur` `radialblur` `rays` `rectangles` `rings` `rings2` `scry` `sec` `secant2` `sech` `separation` `sin` `sinh` `sinusoidal` `spherical` `spiral` `split` `splits` `square` `stripes` `supershape` `swirl` `tan` `tangent` `tanh` `twintrian` `unpolar` `waves` `waves2` `wedge` `wedgejulia` `wedgesph` `whorl`_
 
 ## Example flame files.
 Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
