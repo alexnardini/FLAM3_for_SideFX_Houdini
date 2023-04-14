@@ -27,6 +27,8 @@ _Matt, if you will ever read this, thank you!_
 
 One of the main mission, was to pack the entire algorithm and functionalities I desired inside a tool
 using only Houdini out of the box. No HDK ( Houdini Developers Kit - c++ ).
+As a result, it become a very conservative implementation, it has everything but with some limits as I needed to cut corners everywhere wich has been a daunting process to put into balance.
+
 There are more functionalities I'd love to add, but this v1.x is happily out as it is.
 
 A big commitment I needed to honor was to learn how to do fractal art, and actually do lots of fractal art with this tool while I was developing it and...fractal art is hard to do!
@@ -35,10 +37,8 @@ While I didnt become a Pro in doing it, it was crucial to shape and steer this t
 
 ### Description
 
-An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
+An implementation of FLAM3 inside SideFX Houdini software using Houdini's CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
-
-It is also a very conservative implementation, it has everything but with some limits as I needed to cut corners everywhere. Read the OTL documentation to find out more.
 
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
