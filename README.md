@@ -4,7 +4,7 @@
 `The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
 ## FLAM3 for SideFX Houdini v1.x
-**_A huge and special thank you to my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
+**_A huge and special thank you and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
   <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
