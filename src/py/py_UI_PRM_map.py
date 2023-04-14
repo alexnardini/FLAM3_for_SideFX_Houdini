@@ -163,6 +163,6 @@ kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
 return menu
 
-'Edit render properties' 'Action Button'
+'outedit' 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 
