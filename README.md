@@ -76,6 +76,7 @@ Houdini Karma interactive on the left and Fractorium with the same flame file on
 
 
 ## List of all available variations/plugins:
+_Note that all the followings, are also available as PRE_ and/or POST_ variations.
 
 _`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubble` `butterfly` `bwraps` `cell` `conic` `cos` `cosh` `cosine` `cot` `coth` `cpow` `crop` `cross` `csc` `csch` `curl` `curve` `cylinder` `diamond` `disc` `disc2` `edisc` `elliptic` `escher` `ex` `exp` `exponential` `eyefish` `fan` `fan2` `fisheye` `flower` `flux` `foci` `gaussian_blur` `glynnia` `handkerchief` `heart` `hemisphere` `horseshoe` `hyperbolic` `julia` `juliaN` `juliascope` `lazysusan` `linear` `log` `loonie` `mobius` `modulus` `ngon` `noise` `oscope` `parabola` `pdj` `perspective` `pie` `point_symmetry` `polar` `polar2` `polynomial` `popcorn` `popcorn2` `power` `pre_blur` `radialblur` `rays` `rectangles` `rings` `rings2` `scry` `sec` `secant2` `sech` `separation` `sin` `sinh` `sinusoidal` `spherical` `spiral` `split` `splits` `square` `stripes` `supershape` `swirl` `tan` `tangent` `tanh` `twintrian` `unpolar` `waves` `waves2` `wedge` `wedgejulia` `wedgesph` `whorl`_
 
