@@ -82,8 +82,7 @@ RAMP_SRC_NAME = 'palette'
 RAMP_HSV_NAME = 'palettehsv'
 RAMP_HSV_VAL_NAME = 'hsv'
 
-FLAM3_LIB_LOCK = 'FLAM3_LIB_LOCK'
-PALETTE_LIB_LOCK = 'PALETTE_LIB_LOCK'
+FLAM3_LIB_LOCK = 'F3H_LOCK'
 
 
 
@@ -1128,7 +1127,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             prm.set('0')
             # check if the selected Flame file is locked
             out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
-            if os.path.split(str(out_path_checked))[-1].startswith(PALETTE_LIB_LOCK):
+            if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
                 palette_lib_locked = f"\npalette lib file: LOCKED"
                 node.setParms({"palettemsg": palette_lib_locked})
             else:
@@ -1192,12 +1191,12 @@ def ramp_save(kwargs: dict) -> None:
     if out_path_checked is not False:
 
         is_LOCKED = False
-        if os.path.split(str(out_path_checked))[-1].startswith(PALETTE_LIB_LOCK):
+        if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
             is_LOCKED = True
             
         if is_LOCKED:
             ui_text = f"This Palette library is Locked."
-            ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{PALETTE_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"PALETTE_LIB_LOCK\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"PALETTE_LIB_LOCK_my_rainbows_colors.json\" to keep it safe."
+            ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False)
         else:
             is_JSON = False
@@ -4074,7 +4073,6 @@ def out_round_float(VAL) -> str:
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
 
-                        
 def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]:
     names = []
     for idx, prm in enumerate(WEIGHTS_tuple):
@@ -4304,7 +4302,7 @@ def out_XML(kwargs: dict) -> None:
             
         if is_LOCKED:
             ui_text = f"This Flam3 library is Locked."
-            ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"FLAM3_LIB_LOCK\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"FLAM3_LIB_LOCK_my_grandJulia.flame\" to keep it safe."
+            ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False)
         else:
             apo_data = apo_flame(str(out_path_checked))
