@@ -29,6 +29,10 @@ One of the main mission, was to pack the entire algorithm and functionalities I 
 using only Houdini out of the box. No HDK ( Houdini Developers Kit - c++ ).
 There are more functionalities I'd love to add, but this v1.x is happily out as it is.
 
+A big commitment I needed to honor was to learn how to do fractal art, and actually do lots of fractal art with this tool while I was developing it and...fractal art is hard to do!
+Building a fractal art tool without knowing what a fractal artis need and feel while doing it is kind of pointless.
+While I didnt become a Pro in doing it, it was crucial to shape and steer this tool in the right direction.
+
 ### Description
 
 An implementation of FLAM3 inside SideFX Houdini software using CVEX programming language.
