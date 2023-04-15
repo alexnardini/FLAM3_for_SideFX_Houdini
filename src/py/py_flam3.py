@@ -64,7 +64,6 @@ SEC_POSTAFFINE = '.post_affine'
 PALETTE_COUNT_64 = '64'
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
-PALETTE_COUNT_512 = '512'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
@@ -1185,8 +1184,6 @@ def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         return PALETTE_COUNT_128
     elif keys_count <= 256:
         return PALETTE_COUNT_256
-    elif keys_count <=512:
-        return PALETTE_COUNT_512
     else:
         print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
         return PALETTE_COUNT_256
