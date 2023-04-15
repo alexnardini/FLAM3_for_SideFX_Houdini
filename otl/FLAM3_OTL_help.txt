@@ -119,10 +119,10 @@ copy/paste:
     #id: FLAME
     [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
-    ((LMB)) to COPY this iterator vaues. 
+    ((LMB)) to mark this iterator for being copied. 
     
     - ((CTRL)) + ((LMB)) to PASTE the copied values into another iterator. It will copy everything, parametric variation's parameters included but not XAOS.
-    - ((SHIFT)) + ((LMB)) will delete the stored data.
+    - ((SHIFT)) + ((LMB)) will unmark this iterator for being copied.
     
     It will work also between different FLAM3 nodes.
     
@@ -283,15 +283,15 @@ copy/paste:
     #id: FF
     [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
-    ((LMB)) to COPY this FF vaues. 
+    ((LMB)) to mark this FF for being copied. 
     
     - ((CTRL)) + ((LMB)) on another FLAM3 node to PASTE the copied FF values. It will copy everything, parametric variation's parameters included.
-    - ((SHIFT)) + ((LMB)) will delete the stored data.
+    - ((SHIFT)) + ((LMB)) will unmark the FF for being copied.
     
     It will only work between different FLAM3 nodes.
     
     Once you copy the FF, on another FLAM3 node you can have access to the arrow icon menu next to the *F* icon.
-    From this menu you will be able to paste specific sections from the copied FF.
+    From this menu you will be able to paste specific sections from the marked FF.
 
     
 :box:
