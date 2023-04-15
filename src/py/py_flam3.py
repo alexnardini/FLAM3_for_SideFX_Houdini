@@ -40,6 +40,7 @@ import inspect
 #   Name:       PY_FLAM3 "PYTHON"
 #
 #   Comment:    Python classes and definitions for:
+#               - Menus builder
 #               - Copy/Paste iterator's data
 #               - Load/Save flame files
 #               - Load/Save palettes
