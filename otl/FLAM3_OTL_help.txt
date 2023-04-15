@@ -246,17 +246,23 @@ post:
     
 pre affine:
     #id: FLAME
-    Affine coefficients for the current variations. Those are applied before the variations.
-    With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
-    They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
-    The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    Affine coefficients for the current iterator ( xform ).
+
+    Each iterator( xform ) has an affine transform that is always applied on every iteration.
+    This is known as the pre affine becasue it is applied before the variations.
+    
+    
+    - With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
+    - They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
+    - The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    
     There are two ways you can use the affine:
-    * One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
-    * and the other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
-    * Note that the resulting affine coefficients after rotation are not updated in the UI but passed directly internally to the algorithm so that
-    if you are copying values from Apophysis, then the rotation must be set to ZERO to match or you will apply a double transformation otherwise.
-         
-    * For Apophysis users: every Coefficent has the name of the axis it represent to match what Apophysis transformation's name look like inside the world editor.
+    - One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
+    - The other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    
+    NOTE:
+        The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
+        
       
 post affine:
     #id: FLAME
@@ -342,18 +348,23 @@ post:
     
 pre affine:
     #id: FF
-    Affine coefficients for the current variations. Those are applied before the variations.
-    With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
-    They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
-    The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
-    There are two ways you can use the affine:
-    * One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
-    * and the other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
-    * Note that the resulting affine coefficients after rotation are not updated in the UI but passed directly internally to the algorithm so that
-    if you are copying values from Apophysis, then the rotation must be set to ZERO to match or you will apply a double transformation otherwise.
-        
-    * For Apophysis users: every Coefficent has the name of the axis it represent to match what Apophysis transformation's name look like inside the world editor.
+    Affine coefficients for the current FF iterator ( FF - finalxform ).
 
+    Each iterator( xform ) has an affine transform that is always applied on every iteration.
+    This is known as the pre affine becasue it is applied before the variations.
+    
+    
+    - With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
+    - They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
+    - The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    
+    There are two ways you can use the affine:
+    - One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
+    - The other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    
+    NOTE:
+        The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
+        
 post affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
