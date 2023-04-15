@@ -2544,14 +2544,14 @@ class apo_flame(_xml_tree):
                         [HEX.append(hex) for hex in wrap(cleandoc, 6)]
 
                 try:
-                    RGB_FROM_XML_PALETTE = []
+                    rgb_from_XML_PALETTE = []
                     for hex in HEX:
                         x = hex_to_rgb(hex)
-                        RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
-                    ramp_keys_count = len(RGB_FROM_XML_PALETTE)
+                        rgb_from_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
+                    ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POS = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASES = [hou.rampBasis.Linear] * (ramp_keys_count)
-                    return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (ramp_keys_count), str(format)
+                    return hou.Ramp(BASES, POS, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
                 
                 except:
                     hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
