@@ -3814,11 +3814,10 @@ class _out_utils():
             else:
                 val.append([])
         # Transpose
-        iter_count = self._iter_count
         fill = []
         for item in val:
-            fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
-        t = np.transpose(np.resize(fill, (iter_count, iter_count)))
+            fill.append(np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
+        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
         v_ROUND = self.out_round_floats(t)
         transposed = []
         for item in v_ROUND:
