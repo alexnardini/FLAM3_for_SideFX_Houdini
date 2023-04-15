@@ -39,7 +39,12 @@ import inspect
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
-#   Comment:    Python classes and definitions for tool's user experience.
+#   Comment:    Python classes and definitions for:
+#               - Copy/Paste iterator's data
+#               - Load/Save flame files
+#               - Load/Save palettes
+#               - Tool's user experience
+#               
 #               Everything is then glued together inside Houdini.
 
 
