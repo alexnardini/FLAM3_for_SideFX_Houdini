@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0
+#version: 1.0.0
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -713,6 +713,9 @@ flam3 compatibility (f3c):
     The behavior of the *cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan* and *tanh* variations are different in flam3/Apophysis versus Chaotica.
     * *Checked*: use the Apophysis behavior.
     * *Unchecked*: use the Chaotica behavior.
+    
+    TIP:
+        In Fractorium you can go to "Options" to find the exact same checkbox.
     
 :box:
     #display: rounded white
