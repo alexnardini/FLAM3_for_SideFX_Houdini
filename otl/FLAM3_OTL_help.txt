@@ -18,11 +18,12 @@ _*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://g
 
 _*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
 
+
+_*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
+
 _*[FLAM3 for Houdini - website|https://www.alexnardini.net/flame-home/]*_
 
 _*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
-
-_*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
 
     
 [Image:opdef:.?FLAM3H_DOC_intro_banner.jpg]
@@ -362,9 +363,9 @@ VARS Tab:
     #id: FF
     If a parametric variation is selected, its parameters will populate this Tab.
     
-POST VARS Tab:
+PP VARS Tab:
     #id: FF
-    If a post parametric variation is selected, its parameters will populate this Tab.
+    If a FF_PRE or FF_POST parametric variation is selected, its parameters will populate this Tab.
     
 
     
@@ -447,7 +448,7 @@ on:
     
     NOTE:
         When saving Flames out using the OUT tab, motion blur settings are not saved with it
-        but will use whatever Motion Blur settings are preset in the host application you will load the saved flame file in.
+        but will use whatever Motion Blur settings are present in the host application you will load the saved flame file in.
     
     TIP:
         #display: orange
@@ -480,24 +481,27 @@ viz mb:
 :box:
     #display: inverted teal
 
-    *IN:* _Load *.flame file created with Apophysis, Fractorium and other._
+    *IN: Load *.flame file created with Apophysis, Fractorium and other.
 
-FLAME file ( Load ):
+IN file ( *.flame type ):
     #id: IN
-    Load *.flame files created with Apophysis, Fractorium and other applications able to save in a flame format*. 
-    Only restrictions are: the flames contained in the file must use the same variations included inside FLAM3 for Houdini. 
-    A maximum of 4 variations plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
+    Load *.flame files authored with Apophysis, Fractorium and other flam3 compatile aplications.
+    
+    Only restrictions are:
+    
+    - The flames contained in the file must use the same variations included inside FLAM3 for Houdini. 
+    - A maximum of 4 VARS plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
     ( for a total of 8 vars per iterator ). 
-    For FF ( FinalXForm ) you have 3 vars plus 2 POST var available.
+    - For FF ( FinalXForm ) you have 1 PRE, 2 VARS plus 2 POST available.
     
 Reload:
     #id: IN
     [Largeicon:opdef:.?iconWhiteSVG.svg]
     
-    Click this white *F* icon to reload the selected preset.
+    ((LMB)) to reload the selected preset.
     This is useful when you are working with for example Fractorium
-    while importing the same flame file also in FLAM3 for houdini. You can edit the flame in Fractorium,
-    save it and click this to reload and see the changes in Houdini.
+    while importing the same flame file also in FLAM3 for houdini.
+    - You can edit the flame in Fractorium, save it and click this to reload and see the changes in Houdini.
     
 Presets:
     #id: IN
