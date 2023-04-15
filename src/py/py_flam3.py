@@ -1308,21 +1308,21 @@ def json_to_ramp(kwargs: dict) -> None:
     preset = node.parm(PALETTE_PRESETS).menuLabels()[preset_id]
     
     if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-        HEX = []
+        HEXs = []
         with open(filepath) as f:
             data = json.load(f)[preset]
             hex_values = data['hex']
-            [HEX.append(hex) for hex in wrap(hex_values, 6)]
-            
-        RGB_FROM_XML_PALETTE = []
-        for hex in HEX:
+            [HEXs.append(hex) for hex in wrap(hex_values, 6)]
+
+        rgb_from_XML_PALETTE = []
+        for hex in HEXs:
             x = hex_to_rgb(hex)
-            RGB_FROM_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+            rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
         
         # Initialize new ramp.
-        POSs = list(iter_islice(iter_count(0, 1.0/(len(RGB_FROM_XML_PALETTE)-1)), len(RGB_FROM_XML_PALETTE)))
-        BASEs = [hou.rampBasis.Linear] * len(RGB_FROM_XML_PALETTE)
-        ramp = hou.Ramp(BASEs, POSs, RGB_FROM_XML_PALETTE)
+        POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE)
+        ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
         ramp_parm.set(ramp)
 
         # reset HSV after load
