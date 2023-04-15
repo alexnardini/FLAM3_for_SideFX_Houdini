@@ -3740,13 +3740,26 @@ class _out_utils():
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
 
-
+    def xaos_cleanup(self, xaos: list[list[str]]) -> list[list[str]]:
+        xaos_cleaned = []
+        for x in xaos:
+            invert = x[::-1]
+            trace = 0
+            for idx, item in enumerate(x):
+                if invert[idx-trace] == '1':
+                    invert.pop(idx-trace)
+                    trace = trace + 1
+                else:
+                    break
+            xaos_cleaned.append(invert[::-1])
+        return xaos_cleaned
+    
     def out_xf_xaos_to(self) -> tuple[str]:
         """Export in a list[str] the xaos TO values to write out
 
         Returns:
             tuple[str]: the xaos TO values to write out.
-        """        
+        """
         val = []
         for iter in range(self._iter_count):
             iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
@@ -3754,7 +3767,7 @@ class _out_utils():
                 strip = iter_xaos.split(':')
                 if strip[0].lower() == 'xaos':
                     # cleanup what we dnt need
-                    build = strip[1:]
+                    build = strip[1:self._iter_count+1]
                     build_f = [float(x) for x in build]
                     if min(build_f) == max(build_f):
                         val.append('')
@@ -3764,10 +3777,13 @@ class _out_utils():
                     val.append('')
             else:
                 val.append('')
-        return tuple(val)
+        val_split = [x.split(" ") for x in val]
+        # cleanup trailing 1's if any
+        cleanup_xaos = self.xaos_cleanup(val_split)
 
-    
-    def out_round_floats(self, VAL_LIST) -> list[str]:
+        return tuple([" ".join(x) for x in cleanup_xaos])
+
+    def out_round_floats(self, VAL_LIST) -> list[list[str]]:
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
         v_ROUND = []
         for item in VAL_LIST:
@@ -3779,7 +3795,7 @@ class _out_utils():
                     collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
             v_ROUND.append(collect)
         return v_ROUND
-
+    
     def out_xf_xaos_from(self) -> tuple[str]:
         """Export in a list[str] the xaos FROM values to write out
 
@@ -3792,7 +3808,7 @@ class _out_utils():
             if iter_xaos:
                 strip = iter_xaos.split(':')
                 if strip[0].lower() == 'xaos':
-                    val.append(strip[1:])
+                    val.append(strip[1:self._iter_count+1])
                 else:
                     val.append([])
             else:
@@ -3807,15 +3823,10 @@ class _out_utils():
         transposed = []
         for item in v_ROUND:
             transposed.append(" ".join(list(map(lambda x: str(x), item))))
-        # cleanup what we dnt need
-        cleanup_xaos_from = []
-        for t in transposed:
-            t_f = [float(x) for x in t.split(' ')]
-            if min(t_f) != max(t_f):
-                cleanup_xaos_from.append(t)
-            else:
-                cleanup_xaos_from.append('')
-        return tuple(cleanup_xaos_from)
+        # cleanup trailing 1's if any
+        cleanup_xaos = self.xaos_cleanup(v_ROUND)
+
+        return tuple([" ".join(x) for x in cleanup_xaos])
 
 
     @property
@@ -4328,5 +4339,4 @@ def out_XML(kwargs: dict) -> None:
                         out_new_XML(node, str(out_path_checked))
                         node.setParms({OUT_FLAME_PRESET_NAME: ''})
                 init_presets(kwargs, OUT_PRESETS)
-
 
