@@ -4199,7 +4199,7 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
     # Get unique plugins used
     if is_PRE_BLUR: name_PRE_BLUR = 'pre_blur'
     names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
-    names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE) + [name_PRE_BLUR]
+    names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+[[make_VAR(name_PRE_BLUR)]], make_PRE)
     names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
     # Set unique 'plugins' used and 'new linear' as last
     flame.set(XML_FLAME_PLUGINS, " ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique))
