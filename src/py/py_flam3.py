@@ -501,6 +501,8 @@ def menu_T(int_mode: int) -> list:
 ###############################################################################################
 # MENU - Build iterator copy paste menu
 ###############################################################################################
+MARK_ITER_MSG = "Please mark an iterator first"
+MARK_FF_MSG = "Please mark the FF first"
 def menu_copypaste(kwargs: dict) -> list:
     """
     Args:
@@ -549,7 +551,7 @@ def menu_copypaste(kwargs: dict) -> list:
 
         return menu
     else:
-        menuitems = ( "Please copy an iterator first", "" )
+        menuitems = ( MARK_ITER_MSG, "" )
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
@@ -603,7 +605,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
 
         return menu
     else:
-        menuitems = ( "Please copy the FF first", "" )
+        menuitems = ( MARK_FF_MSG, "" )
         for i, item in enumerate(menuitems):
             menu.append(i-1)
             menu.append(item)
@@ -787,7 +789,7 @@ def prm_paste(kwargs: dict) -> None:
                 paste_set_note(0, "", node, flam3node, str(id), str(id_from))
 
         else:
-            print(f"{str(node)}: Please copy an iterator first.")
+            print(f"{str(node)}: {MARK_ITER_MSG}.")
 
     elif kwargs["shift"]:
         del hou.session.flam3node_mp_id
@@ -835,7 +837,7 @@ def prm_paste_FF(kwargs: dict) -> None:
                 paste_set_note(1, "", node, flam3node_FF, "", "")
 
         else:
-            print(f"{str(node)}: Please copy FF first.")
+            print(f"{str(node)}: {MARK_FF_MSG}.")
 
     elif kwargs["shift"]:
         del hou.session.flam3node_FF_check
@@ -927,7 +929,7 @@ def prm_paste_sel(kwargs: dict) -> None:
         node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
     
     else:
-        print(f"{str(node)}: Please copy an iterator first")
+        print(f"{str(node)}: {MARK_ITER_MSG}")
 
 
 ###############################################################################################
@@ -995,7 +997,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
                 
     else:
-        print(f"{str(node)}: Please copy the FF first.")
+        print(f"{str(node)}: {MARK_FF_MSG}.")
 
 
 ###############################################################################################
