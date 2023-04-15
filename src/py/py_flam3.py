@@ -3785,11 +3785,8 @@ class _out_utils():
                     val.append('')
             else:
                 val.append('')
-        val_split = [x.split(" ") for x in val]
-        # cleanup trailing 1's if any
-        cleanup_xaos = self.xaos_cleanup(val_split)
 
-        return tuple([" ".join(x) for x in cleanup_xaos])
+        return tuple([" ".join(x) for x in self.xaos_cleanup([s.split(" ") for s in val])])
 
     def out_round_floats(self, VAL_LIST) -> list[list[str]]:
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
@@ -3826,14 +3823,10 @@ class _out_utils():
         for item in val:
             fill.append(np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
+        
         v_ROUND = self.out_round_floats(t)
-        transposed = []
-        for item in v_ROUND:
-            transposed.append(" ".join(list(map(lambda x: str(x), item))))
-        # cleanup trailing 1's if any
-        cleanup_xaos = self.xaos_cleanup(v_ROUND)
 
-        return tuple([" ".join(x) for x in cleanup_xaos])
+        return tuple([" ".join(x) for x in self.xaos_cleanup(v_ROUND)])
 
 
     @property
