@@ -1537,7 +1537,7 @@ def reset_FF(self: hou.Node) -> None:
 
     n = flam3_iterator_prm_names
 
-    self.setParms({f"{PRX_FF_PRM}{n.main_note}": ""})
+    self.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
     # FF pre
     self.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}": 0})
     self.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0})
