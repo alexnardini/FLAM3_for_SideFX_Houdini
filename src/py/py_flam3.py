@@ -59,7 +59,12 @@ SEC_POSTVARS = '.post_vars'
 SEC_PREAFFINE = '.pre_affine'
 SEC_POSTAFFINE = '.post_affine'
 
+# Saving flames out will always use the standard PALETTE_COUNT_256
+# but saving palette out will downsample if possible to save some data.
+PALETTE_COUNT_64 = '64'
+PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
+PALETTE_COUNT_512 = '512'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
@@ -1172,6 +1177,20 @@ def menu_ramp_presets(kwargs: dict) -> list:
 ###############################################################################################
 # Save current ramp to a json file
 ###############################################################################################
+def get_ramp_keys_count(ramp: hou.Ramp) -> str:
+    keys_count = len(ramp.keys())
+    if keys_count <= 32:
+        return PALETTE_COUNT_64
+    elif keys_count <= 128:
+        return PALETTE_COUNT_128
+    elif keys_count <= 256:
+        return PALETTE_COUNT_256
+    elif keys_count <=512:
+        return PALETTE_COUNT_512
+    else:
+        print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
+        return PALETTE_COUNT_256
+
 def clamp(x): 
   return max(0, min(x, 255))
 def rgb_to_hex(rgb: tuple) -> str:
@@ -1224,8 +1243,9 @@ def ramp_save(kwargs: dict) -> None:
                     palette_hsv(node)
                     palette_cp(node)
                     ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                    keys_count = get_ramp_keys_count(ramp)
                     
-                    POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+                    POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
                     HEXs = []
                     for p in POSs:
                         clr = tuple(ramp.lookup(p))
@@ -1295,8 +1315,8 @@ def json_to_ramp(kwargs: dict) -> None:
             RGB_FROM_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
         
         # Initialize new ramp.
-        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-        BASEs = [hou.rampBasis.Linear] * int(PALETTE_COUNT_256)
+        POSs = list(iter_islice(iter_count(0, 1.0/(len(RGB_FROM_XML_PALETTE)-1)), len(RGB_FROM_XML_PALETTE)))
+        BASEs = [hou.rampBasis.Linear] * len(RGB_FROM_XML_PALETTE)
         ramp = hou.Ramp(BASEs, POSs, RGB_FROM_XML_PALETTE)
         ramp_parm.set(ramp)
 
@@ -2531,10 +2551,10 @@ class apo_flame(_xml_tree):
                     for hex in HEX:
                         x = hex_to_rgb(hex)
                         RGB_FROM_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
-                    
-                    POS = list(iter_islice(iter_count(0, 1.0/count), (count+1)))
-                    BASES = [hou.rampBasis.Linear] * (count + 1)
-                    return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (count+1), str(format)
+                    ramp_keys_count = len(RGB_FROM_XML_PALETTE)
+                    POS = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                    BASES = [hou.rampBasis.Linear] * (ramp_keys_count)
+                    return hou.Ramp(BASES, POS, RGB_FROM_XML_PALETTE), (ramp_keys_count), str(format)
                 
                 except:
                     hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
