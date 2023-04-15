@@ -439,6 +439,10 @@ Save Palette:
         - If you selected a location and a filename without extension, it will automatically add the _*.json*_ extension to it.
         - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
         - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
+        
+    NOTE:
+        - When saving out a palette file, it will try to downsample the usual 256 color count standard.
+        - However, when saving out flames files, it will always sample the palette as a 256 colors palette standard.
     
 LIB contents ( presets ):
     #id: PALETTE
