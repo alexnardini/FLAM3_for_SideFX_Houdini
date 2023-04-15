@@ -3723,7 +3723,7 @@ class _out_utils():
         self._xm = self._node.parm(XAOS_MODE).eval()
 
     def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
-        """Every affine has an Angle parameter wotch rotate the affine values internally.
+        """Every affine has an Angle parameter wich rotate the affine values internally.
         When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
         and export the resulting values out so we can get the same result once we load it back.
 
@@ -3753,7 +3753,13 @@ class _out_utils():
             if iter_xaos:
                 strip = iter_xaos.split(':')
                 if strip[0].lower() == 'xaos':
-                    val.append(" ".join(strip[1:]))
+                    # cleanup what we dnt need
+                    build = strip[1:]
+                    build_f = [float(x) for x in build]
+                    if min(build_f) == max(build_f):
+                        val.append('')
+                    else:
+                        val.append(" ".join(build))
                 else:
                     val.append('')
             else:
@@ -3794,14 +3800,22 @@ class _out_utils():
         # Transpose
         iter_count = self._iter_count
         fill = []
-        for i, item in enumerate(val):
+        for item in val:
             fill.append(np.pad(item, (0,iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
         t = np.transpose(np.resize(fill, (iter_count, iter_count)))
         v_ROUND = self.out_round_floats(t)
         transposed = []
-        for idx, item in enumerate(v_ROUND):
+        for item in v_ROUND:
             transposed.append(" ".join(list(map(lambda x: str(x), item))))
-        return tuple(transposed)
+        # cleanup what we dnt need
+        cleanup_xaos_from = []
+        for t in transposed:
+            t_f = [float(x) for x in t.split(' ')]
+            if min(t_f) != max(t_f):
+                cleanup_xaos_from.append(t)
+            else:
+                cleanup_xaos_from.append('')
+        return tuple(cleanup_xaos_from)
 
 
     @property
@@ -4314,4 +4328,5 @@ def out_XML(kwargs: dict) -> None:
                         out_new_XML(node, str(out_path_checked))
                         node.setParms({OUT_FLAME_PRESET_NAME: ''})
                 init_presets(kwargs, OUT_PRESETS)
+
 
