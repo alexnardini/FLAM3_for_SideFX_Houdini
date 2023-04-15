@@ -12,6 +12,7 @@ from subprocess import call as sp_call
 from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
+import platform
 import os
 import hou
 import json
@@ -4014,11 +4015,21 @@ class out_flam3_data(_out_utils):
         self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine()
         self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine()
 
-
+def my_system() -> str:
+    mysys = platform.system()
+    if mysys == 'Windows':
+        return 'WIN'
+    elif mysys == 'Linux':
+        return 'LNX'
+    elif mysys == 'Darwin':
+        return 'MAC'
+    elif mysys == 'Java':
+        return 'JAVA'
+    else:
+        return 'UNKNW'
 def out_flame_properties_build(self) -> dict:
-    myPlatform = sys_platform.upper()
     f3p = out_flame_properties(self)
-    return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{myPlatform}-{FLAM3HOUDINI_version}',
+    return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_version}',
             XML_XF_NAME: f3p.flame_name,
             OUT_XML_FLAME_SIZE: f3p.flame_size,
             OUT_XML_FLAME_CENTER: f3p.flame_center,
