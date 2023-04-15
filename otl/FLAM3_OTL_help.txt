@@ -154,7 +154,7 @@ xaos:
     
     NOTE:
         *When using XAOS, you are allowed to use up to 20 iterators max.*
-        Using more than 20 iterators with XAOS enabled will give you incorrect results.
+        Using more than 20 iterators will disable the algorithm.
         
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
