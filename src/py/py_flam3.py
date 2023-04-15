@@ -3691,8 +3691,11 @@ def flam3_about_plugins_msg(self):
     n = 6
     vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
     _vars = []
-    for grp in vars_sorted_grp:
-        _vars.append(", ".join(grp) + "\n")
+    for idx, grp in enumerate(vars_sorted_grp):
+        if idx == (len(vars_sorted_grp)-1):
+            _vars.append(", ".join(grp))
+        else:
+            _vars.append(", ".join(grp) + "\n")
     vars_txt = "".join(_vars)
     
     self.setParms({"flam3plugins_msg": vars_txt})
