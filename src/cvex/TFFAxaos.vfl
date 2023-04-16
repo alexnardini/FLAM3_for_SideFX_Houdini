@@ -44,8 +44,6 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     // Output all SYS
     _bound_SYS = array(FF, RIP, MB, iter, F3C);
 
-    
-    
     int inum = chi("../flamefunc");
     int va[];
     float IW[];
@@ -82,9 +80,9 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
         }
 
         int isDigit = 1;
-        foreach( string x; varxaos_strip[1:]){
-            string new_x = join(split(x, "."), "");
-            if(!isdigit(new_x)) isDigit = 0;
+        foreach( string vxs; varxaos_strip[1:]){
+            string new_vxs = join(split(vxs, "."), "");
+            if(!isdigit(new_vxs)){ isDigit = 0; break; }
         }
 
         if(toupper(varxaos_strip[0])=="XAOS" && isDigit){
@@ -133,7 +131,6 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             append(XAOS_TO, create_cdf((float[])IW_xaos));
         }
     }
-
     // OUT
     _bound_sIDX = sIDX;
     _bound_IW = create_cdf(IW);

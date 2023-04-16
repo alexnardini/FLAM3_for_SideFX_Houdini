@@ -259,7 +259,6 @@ end74:                                            ; preds = %cond69
   br label %cond88
 
 cond88:                                           ; preds = %end106, %end74
-  %isDigit.0 = phi i64 [ 1, %end74 ], [ %isDigit.1, %end106 ]
   %__impl_foreach_index_1.0 = phi i64 [ 0, %end74 ], [ %output108, %end106 ]
   %return92 = call i64 @"lt@III"(i64 %__impl_foreach_index_1.0, i64 %return87)
   %7 = icmp ne i64 %return92, 0
@@ -275,7 +274,8 @@ body89:                                           ; preds = %cond88
   %8 = icmp ne i64 %return104, 0
   br i1 %8, label %true105, label %end106
 
-end93:                                            ; preds = %cond88
+end93:                                            ; preds = %true105, %cond88
+  %isDigit.0 = phi i64 [ 0, %true105 ], [ 1, %cond88 ]
   %return110 = call i8* @"getcomp@S[SI"(i8** %varxaos_strip.0, i64 0)
   %return111 = call i8* @"toupper@SS"(i8* %return110)
   %return112 = call i64 @"eq@ISS"(i8* %return111, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @15, i64 0, i64 0))
@@ -284,10 +284,9 @@ end93:                                            ; preds = %cond88
   br i1 %9, label %true115, label %false
 
 true105:                                          ; preds = %body89
-  br label %end106
+  br label %end93
 
-end106:                                           ; preds = %true105, %body89
-  %isDigit.1 = phi i64 [ 0, %true105 ], [ %isDigit.0, %body89 ]
+end106:                                           ; preds = %body89
   %output108 = add i64 %__impl_foreach_index_1.0, 1
   br label %cond88
 
