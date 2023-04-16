@@ -49,9 +49,11 @@ density:
 iterations:
     #id: GLOBAL
     Number of iterations to use.
-    * You dnt need many iterations to get some good Fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
-    However, if you increase an iterator weight, use xaos to build containers or use some kind of variations you will require higher number to resolve and show you the proper result.
-    Almost all of the fractal flame showcased inside FLAM3 for Houdini website/instagram account use less than 64 iterations with a few exceptions reaching 96 and in rare cases 128/256.
+    - You dnt need many iterations to get some good Fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
+    - If you increase an iterator weight, use xaos to build containers or use some kind of variations you will require higher number to resolve and show you the proper result.
+    
+    Almost all of the fractal flame showcased inside FLAM3 for Houdini website/instagram account
+    use a maximun of 64 iterations with a few exceptions reaching 96 and in rare cases 128/256.
 
     
     
