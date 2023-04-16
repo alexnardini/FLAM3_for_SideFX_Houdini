@@ -75,27 +75,40 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
         string varnote = chs(concat("../varnote_", sIDX[i]));
         string varxaos[] = split(varnote, ":");
         float xaos[];
-        if(toupper(varxaos[0])=="XAOS"){
-            pop(varxaos, 0);
-            foreach(string n; varxaos) append(xaos, max(atof(n), 0));
+
+        string varxaos_strip[] = {};
+        foreach(string vx; varxaos){
+            append(varxaos_strip, strip(vx));
+        }
+
+        int isDigit = 1;
+        foreach( string x; varxaos_strip[1:]){
+            string new_x = join(split(x, "."), "");
+            if(!isdigit(new_x)) isDigit = 0;
+        }
+
+        if(toupper(varxaos_strip[0])=="XAOS" && isDigit){
+            pop(varxaos_strip, 0);
+            foreach(string n; varxaos_strip) append(xaos, max(atof(n), 0));
             resize(xaos, inum, 1.0);
             // For "xaos FROM" string
-            resize(varxaos, inum, "1");
+            resize(varxaos_strip, inum, "1");
         }
         else{
             resize(xaos, inum, 1.0);
             // For "xaos FROM" string
-            resize(varxaos, inum, "1");
+            resize(varxaos_strip, 0);
+            resize(varxaos_strip, inum, "1");
             }
         for(int j=0; j<inum; ++j){
             if(!va[j]){ 
                 pop(xaos, j);
                 // For "xaos FROM" string
-                pop(varxaos, j);
+                pop(varxaos_strip, j);
             }
         }
         // For "xaos FROM" string
-        append(xaos_tos, varxaos);
+        append(xaos_tos, varxaos_strip);
         // For "xaos TO"
         float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
         if(min(xaos)==max(xaos)) append(XAOS_TO, (float[])create_cdf(IW));
@@ -109,7 +122,6 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
      / and reformat/reconvert due to a bug in Houdini.
      / [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
     */
-    
     int xm = chi("../xm");
     if(xm && x_chk){
         XAOS_transpose_s(xaos_tos, xaos_tos_t, res);
