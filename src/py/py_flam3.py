@@ -539,7 +539,7 @@ def menu_copypaste(kwargs: dict) -> list:
         flam3node = hou.session.flam3node
         
         if node == flam3node and id==id_from:
-            menuitems = ( "Iterator copied. Select a different iterator number or a different FLAM3 node to paste those values", "" )
+            menuitems = ( "Iterator marked. Select a different iterator number or a different FLAM3 node to paste those values", "" )
         elif node == flam3node:
             menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
         else:
@@ -595,7 +595,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
         flam3node_FF = hou.session.flam3node_FF
         
         if node == flam3node_FF:
-            menuitems = ( "FF copied. Select a different FLAM3 node to paste those FF values.", "" )
+            menuitems = ( "FF marked. Select a different FLAM3 node to paste those FF values.", "" )
         else:
             flam3nodeFF = f"{str(flam3node_FF)}.FF"
             menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: Post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
@@ -782,7 +782,7 @@ def prm_paste(kwargs: dict) -> None:
         # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from != -1:
             if node==flam3node and id==id_from:
-                print(f"{str(node)}: Iterator copied. Select a different iterator number to paste those values.")
+                print(f"{str(node)}: Iterator marked. Select a different iterator number to paste those values.")
             else:
                 pastePRM_T_from_list(flam3_iterator.allT, flam3_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
                 paste_from_list(flam3_iterator.allMisc, node, flam3node, str(id), str(id_from))
@@ -828,7 +828,7 @@ def prm_paste_FF(kwargs: dict) -> None:
         # If we ever copied an FF from a currently existing FLAM3 node
         if flam3node_FF_check != -1:
             if node==flam3node_FF:
-                print(f"{str(node)}: FF copied. Select a different FLAM3 node to paste those FF values.")
+                print(f"{str(node)}: FF marked. Select a different FLAM3 node to paste those FF values.")
             else:
                 pastePRM_T_from_list(flam3_iterator_FF.sec_prevarsT_FF, flam3_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
                 pastePRM_T_from_list(flam3_iterator_FF.sec_varsT_FF, flam3_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
