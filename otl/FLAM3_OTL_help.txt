@@ -176,6 +176,9 @@ xaos:
     
         XAOS is OFF by default and FLAM3 will activate it automatically
         only when needed. (ex: when one of its weights is set to a value different than the others, ex: *xaos:3:3:3:2.9* ).
+        
+    NOTE:
+        When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
     
 :box:
     #display: rounded white
