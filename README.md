@@ -12,8 +12,8 @@
 
 _I really want to make a special honorable mention to Matt Feemster, the Developer of Fractorium._
 
-_His c++ code is beyound awesome, clean and packed with useful comments all over the place._
-_In the last months its been my only reference to refine, cleanup and complete this implementation._
+_His Fractorium c++ code is beyound awesome, clean and packed with useful comments all over the place._
+_In the last months its been my only reference to refine, cleanup and finally complete this implementation._
 
 _Fractorium is really impressive._
 
@@ -31,9 +31,9 @@ As a result, it become a very conservative implementation, it has everything but
 
 There are more functionalities I'd love to add, but this v1.x is happily out as it is.
 
-A big commitment I needed to honor was to learn how to do fractal art, and actually I did lots of fractal art with this tool while I was developing it and learned that fractal art is hard to do.
-Building a fractal art tool without knowing what a fractal artis need and feel while doing it is kind of pointless. And so I did so much fractal art that I inhevitably fell in love with it.
-It was crucial so I could shape and steer this tool in the right direction.
+A big commitment I needed to honor was to learn how to do fractal art. 
+Building a fractal art tool without knowing what a fractal artis need and feel while doing it is kind of pointless. And so I did so much fractal art with this tool while developing it that I inhevitably fell in love with the discipline.
+It was important so I could shape and steer this tool in the right direction.
 
 ### Description
 
