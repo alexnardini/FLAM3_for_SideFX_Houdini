@@ -548,10 +548,14 @@ Iterations on Load (int):
     This will override the internally default value of 64 iterations.
     
     TIP:
-        Every .flame file, if you open it manually for editing has its name stored into the "*flame -> name*" attribute in the XML tree.
-        You can edit it yourself and add the iteration number youd like it to use on load addding a double colon *::* followed by the iteration numner.
+        When choosing a preset name for your fractal flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+        For example if you name a flame preset: "*My_Awesome_GrandJulia*" it will be loaded with a default 64 iterations.
+        But if you append the iteration number after a double colons to the preset name like so: "*My_Awesome_GrandJulia::16*" it will override all settings
+        and load it using 16 as iteration numbers.
         
-        For example if a flame name is "*my_beautiful_juliascope*", you can change it to "*my_beautiful_juliascope::24*" so it will set automatically the iteration number to 24 once loaded overriding any other settings.
+        So make some tests before you save it out and pick the optimal iteration number to bake into its preset name.
+        
+        Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
     
 Use iterations on Load:
     #id: IN
@@ -640,12 +644,12 @@ Flame name ( preset ):
     If no name is provided, an automated name composed of today's date and current time will be used instead.
     
     TIP:
-        When choosing a name for your fractal flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
-        For example if you call a flame: "*My_Awesome_GrandJulia.flame*" it will be loaded with a default 64 iterations.
-        But if you append the iteration number after a double colons like so: "*My_Awesome_GrandJulia::16.flame*" it will override all settings
-        and it will be loaded using 16 as iteration numbers.
+        When choosing a preset name for your fractal flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+        For example if you name a flame preset: "*My_Awesome_GrandJulia*" it will be loaded with a default 64 iterations.
+        But if you append the iteration number after a double colons to the preset name like so: "*My_Awesome_GrandJulia::16*" it will override all settings
+        and load it using 16 as iteration numbers.
         
-        So make some tests before you save it out and pick the optimal iteration number to bake into its name.
+        So make some tests before you save it out and pick the optimal iteration number to bake into its preset name.
         
         Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
     
