@@ -48,7 +48,7 @@ Part of the work is done inside the HDA within the Houdini environment
 like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
 
 Python has been used to enhance the user experience and to add functionalities like:
-copy/paste iterators data, load/save palette's libraries, load/save flame's file format, response to user actions and much more.
+copy/paste iterators data, load/save palette's libraries, load/save flame's file format, responses/automations to user actions and much more.
 
 `Compact UI Tabs to acces all functionalities within one simple and coherent interface.`
 ![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
