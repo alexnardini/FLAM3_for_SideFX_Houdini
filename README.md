@@ -10,15 +10,6 @@
   <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
 </p>
 
-_I really want to make a special honorable mention to Matt Feemster, the Developer of Fractorium._
-
-_His Fractorium c++ code is beyound awesome, clean and packed with useful comments all over the place._
-_In the last months its been my only reference to refine, cleanup and finally complete this implementation._
-
-_Fractorium is really impressive._
-
-_Matt, if you will ever read this, thank you!_
-
 **[FLAM3HOUDINI website](https://www.alexnardini.net/)**
 
 **[FLAM3HOUDINI instagram](https://www.instagram.com/alexnardini/)**
