@@ -48,6 +48,9 @@ FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being 
 From there to the final image it is left to the users ( aka points rendering ).
 With Houdini integrated Karma renderer you will be able to render the generated fractal flames in nearly real time.
 
+`Karma interactive rendering in the Houdini's viewport.`
+![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
+
 **Highly inspired by Apophysis software and its workflow design.**
 
 Many Apophysis fractal Flames are available for download on the web and you can load them inside FLAM3 for Houdini,
