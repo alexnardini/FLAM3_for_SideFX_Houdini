@@ -97,14 +97,6 @@ RAMP_HSV_VAL_NAME = 'hsv'
 FLAM3_LIB_LOCK = 'F3H_LOCK'
 
 
-def check_houdini_version() -> bool:
-    hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:2]))
-    if hou_version < 190:
-        hou.ui.displayMessage("Sorry, you need at least Houdini 19.0 to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
-        return False
-    else:
-        return True
-
 
 class flam3_varsPRM:
 
@@ -1017,68 +1009,67 @@ def flam3_on_create(kwargs: dict) -> None:
     Args:
         kwargs (dict): [kwargs[] dictionary]
     """
-    if check_houdini_version():
-        
-        # Set initial node color
-        node = kwargs['node']
-        node.setColor(hou.Color((0.825,0.825,0.825)))
-        
-        # Set about tab infos
-        flam3_about_msg(node)
-        flam3_about_plugins_msg(node)
-        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-        node.setParms({"flamestats_msg": ""})
-        node.setParms({"flamerender_msg": ""})
-        node.setParms({"palettemsg": ''})
-        node.setParms({"outmsg": ''})
+    
+    # Set initial node color
+    node = kwargs['node']
+    node.setColor(hou.Color((0.825,0.825,0.825)))
+    
+    # Set about tab infos
+    flam3_about_msg(node)
+    flam3_about_plugins_msg(node)
+    # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
+    node.setParms({"flamestats_msg": ""})
+    node.setParms({"flamerender_msg": ""})
+    node.setParms({"palettemsg": ''})
+    node.setParms({"outmsg": ''})
 
-        # FLAM3 node and MultiParameter id for iterators
-        #
-        # If there were already a FLAM3 node in the scene
-        # and we copied already an iterator's values, lets keep whats stored,
-        # otherwise initialize those values.
-        try:
-            hou.session.flam3node
-        except:
-            hou.session.flam3node = node
-        try:
-            hou.session.flam3node_mp_id
-        except:
-            hou.session.flam3node_mp_id = -1
+    # FLAM3 node and MultiParameter id for iterators
+    #
+    # If there were already a FLAM3 node in the scene
+    # and we copied already an iterator's values, lets keep whats stored,
+    # otherwise initialize those values.
+    try:
+        hou.session.flam3node
+    except:
+        hou.session.flam3node = node
+    try:
+        hou.session.flam3node_mp_id
+    except:
+        hou.session.flam3node_mp_id = -1
 
-        # If an iterator was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
-        try:
-            hou.session.flam3node.type()
-        except:
-            hou.session.flam3node_mp_id = -1
+    # If an iterator was copied from a node that has been deleted
+    # revert to -1 so that we are forced to copy an iterator again.
+    try:
+        hou.session.flam3node.type()
+    except:
+        hou.session.flam3node_mp_id = -1
 
-        # FLAM3 node for FF.
-        #
-        # If there were already a FLAM3 node in the scene
-        # and we copied already FF's values, lets keep whats stored,
-        # otherwise initialize those values.
-        try:
-            hou.session.flam3node_FF
-        except:
-            hou.session.flam3node_FF = node
-        try:
-            hou.session.flam3node_FF_check
-        except:
-            hou.session.flam3node_FF_check = -1
+    # FLAM3 node for FF.
+    #
+    # If there were already a FLAM3 node in the scene
+    # and we copied already FF's values, lets keep whats stored,
+    # otherwise initialize those values.
+    try:
+        hou.session.flam3node_FF
+    except:
+        hou.session.flam3node_FF = node
+    try:
+        hou.session.flam3node_FF_check
+    except:
+        hou.session.flam3node_FF_check = -1
 
-        # If the FF was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy the FF again.
-        try:
-            hou.session.flam3node_FF.type()
-        except:
-            hou.session.flam3node_FF_check = -1
+    # If the FF was copied from a node that has been deleted
+    # revert to -1 so that we are forced to copy the FF again.
+    try:
+        hou.session.flam3node_FF.type()
+    except:
+        hou.session.flam3node_FF_check = -1
 
-        # Initialize flam3 viewport Color Scheme
-        try:
-            hou.session.flam3_CS
-        except:
-            hou.session.flam3_CS = []
+    # Initialize flam3 viewport Color Scheme
+    try:
+        hou.session.flam3_CS
+    except:
+        hou.session.flam3_CS = []
 
 
 ###############################################################################################
