@@ -300,6 +300,16 @@ VARS Tab:
     #display: inverted teal
 
     *FF:* _Final Flame transform._
+    
+    NOTE:
+        This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
+        
+        When saving a flame out from Fractorium with a finalxform remember to set the Fractorim Final xform color to:
+        - Color -> 0.0
+        - Color Speed -> 0.0
+        - Direct Color -> 1.0
+        
+        This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
 
 note:
     #id: FF
