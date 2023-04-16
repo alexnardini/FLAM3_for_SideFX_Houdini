@@ -3790,7 +3790,6 @@ class _out_utils():
                 strip = iter_xaos.split(':')
                 if strip[0].lower().strip() == 'xaos':
                     try:
-                        # cleanup what we dnt need
                         build = [x.strip() for x in strip[1:self._iter_count+1] if x]
                         build_f = [float(x.strip()) for x in build if x]
                         if min(build_f) == max(build_f):
