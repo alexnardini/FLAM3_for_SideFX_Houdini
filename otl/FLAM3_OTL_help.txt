@@ -804,7 +804,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.0 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 
