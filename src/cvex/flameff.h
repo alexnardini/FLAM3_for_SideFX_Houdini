@@ -131,7 +131,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // *22 FAN ( dependent )
             else if(T==22){
-                V_FAN(p, _p, w, o[0]);
+                V_FAN(p, _p, w, o[0], o[1]);
                 return p; }
             // 23 BUBBLE
             else if(T==23){

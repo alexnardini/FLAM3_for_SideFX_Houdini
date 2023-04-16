@@ -113,12 +113,10 @@ void V_HIPERBOLIC(vector2 p; const vector2 _p; const float w){
 }
 // 11 (precalc _p)
 void V_DIAMOND(vector2 p; const vector2 _p; const float w){
-    vector2 precalc = (vector2)_p / SQRT(_p);
-    float rr, sr, cr;
-    rr = SQRT(_p);
-    sincos(rr, sr, cr);
-    p[0] = w * (precalc[0] * cr);
-    p[1] = w * (precalc[1] * sr);
+    float a = atan2(_p[0], _p[1]);
+    float r = sqrt(_p[0]*_p[0] + _p[1]*_p[1]);
+    p[0] = w * sin(a) * cos(r);
+    p[1] = w * cos(a) * sin(r);
 }
 // 12
 void V_EX(vector2 p; const vector2 _p; const float w){
@@ -176,12 +174,12 @@ void V_FISHEYE(vector2 p; const vector2 _p; const float w){
     p[1] = r * _p[0];
 }
 // 17
-void V_POPCORN(vector2 p; const vector2 _p; const float w, d, h){
+void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
     float dx, dy, nx, ny;
     dx = tan(3*_p[1]);
     dy = tan(3*_p[0]);
-    nx = _p[0] + d * sin(dx);
-    ny = _p[1] + h * sin(dy);
+    nx = _p[0] + c * sin(dx);
+    ny = _p[1] + f * sin(dy);
     p[0] = w * nx;
     p[1] = w * ny;
 }
@@ -222,10 +220,10 @@ void V_RINGS(vector2 p; const vector2 _p; const float w, d){
     p[1] = rr * precalc[0];
 }
 // 22
-void V_FAN(vector2 p; const vector2 _p; const float w, d){
+void V_FAN(vector2 p; const vector2 _p; const float w, c, f){
     float dx, dx2, dy, a, r, sa, ca;
-    dx = M_PI * (d*d + EPS);
-    dy = d;
+    dx = M_PI * (c*c + EPS);
+    dy = f;
     dx2 = 0.5 * dx;
     a = ATAN(_p);
     r = w * SQRT(_p);
