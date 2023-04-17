@@ -165,7 +165,7 @@ xaos:
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
     [Image:opdef:.?xaosIteratorsSVG.svg]
-    _The above image shows 5 iterators and how they are connected to each others through an hipotetical xaos setting._
+    _The above image shows 5 iterators with one variation each and how they are connected to each others through an hipotetical xaos setting._
         
 
     
@@ -320,9 +320,9 @@ VARS Tab:
     NOTE:
         This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
         
-        When saving a flame out from Fractorium with a finalxform remember to set the Fractorium Final xform color to:
+        When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
         - Color -> 0.0
-        - Color Speed -> 0.0
+        - Color Speed -> 0.0 ( _this is the most important_ )
         - Direct Color -> 1.0
         
         This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
