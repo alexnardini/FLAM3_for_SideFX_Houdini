@@ -93,7 +93,7 @@ Almost all fractal flame images on my website and instagram use an average of 64
 some much less and some a bit more. A few exceptions went above 128 and up to 256. 
 
 Some flames require truly an high amount of iterations to resolve properly.
-Below some presets chaotica ship with ported inside FLAM3 for Houdini. Those presets
+Below some presets Chaotica software ship with ported inside FLAM3 for Houdini. Those presets
 require hundreds of iteration to show you the proper results, some of them require thousands.
 
 Lets start with a gnarl preset:
@@ -108,13 +108,13 @@ THe next two are a bit more speedy:
 ![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 You'll find other scenarios where your iterations number will quickly need to rise up,
-especially when rely heavily on containers and such, so pick your battles.
+especially when relying heavily on containers and such, so pick your battles.
 
 However from all my tests, betweem 16 and 96 will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my webiste and instagram!
 
 As a final though, Houdini as a tool maker went beyound my expectations on this personal project. I was able to do everything I wanted, and on top of that I produced hundreds of flame's images I love.
 
-I cold add a lots more nice functionalities but this project consumed me for a very long time. Every aspect of this algorithm is a challenge, its been quite a crazy ride to pack everyhting in it. I was able to squeeze in 105 variations that are automatically used both in PRE and POST mode, XAOS, loading and save in flame file format and a lots of other features through python to make the tool smarter and useful. Anyway, is time for me to put an end to this but I really, really loved the long journey on this topic, and I will for ever love fractal flame as a whole, they are awesome!
+I cold add a lots more nice functionalities but this project consumed me for a very long time. Every aspect of this algorithm is a challenge, its been quite a crazy ride to pack everyhting in it. I was able to squeeze in 105 variations that are automatically used both in PRE and POST mode, XAOS, load and save in flame file format and a lots of other features through python to make the tool smarter and useful. Anyway, is time for me to put an end to this but I really, really loved the long journey on this topic, and I will for ever love fractal flames as a whole, they are awesome!
 
 ## Example flame files.
 Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
