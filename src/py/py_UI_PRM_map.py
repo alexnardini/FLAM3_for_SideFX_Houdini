@@ -40,9 +40,6 @@ kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
 
 # SYS
 
-'flamefunc' 'Callback Script'
-hou.pwd().hdaModule().flam3.iteratorCountZero(kwargs['node'])
-
 'loaddef' 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
 
@@ -52,6 +49,9 @@ hou.pwd().hdaModule().flam3.apo_to_flam3(kwargs['node'])
 
 
 # PARAMETERS ITERATORS ( FLAME Tab )
+
+'flamefunc' 'Callback Script'
+hou.pwd().hdaModule().flam3.iteratorCountZero(kwargs['node'])
 
 'activetip_#' 'Callback Script'
 hou.pwd().hdaModule().flam3.ui_active_iterator_infos()
