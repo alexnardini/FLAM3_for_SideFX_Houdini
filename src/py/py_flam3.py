@@ -4147,7 +4147,7 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_FLAME_PALETTE_MODE: 'linear',
             OUT_XML_FLAME_INTERPOLATION: 'linear',
             OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
-            # The following are not really needed for our purpose and we assume all curves are defaults.
+            # The following are not really needed for our purpose and we assume all curves are defaults to start with.
             # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
             # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
             # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
