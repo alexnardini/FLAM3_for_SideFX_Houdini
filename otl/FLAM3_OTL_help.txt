@@ -781,6 +781,14 @@ xaos modes:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
+    _*xaos TO* and *xaos FROM* are at their core each other reflection. This mean they are the same data but one is the transpose of the other._
+    
+    _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
+    
+    *Looking from an iterator point of view*:
+    - When in *xaos_TO mode*, you will think like: what iterator number am I allowed to send points I just executed?
+    - When in *xaos_FROM mode*, you will think like: from wich iterator am I allowed to receive points before I execute them myself?
+    
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
     
