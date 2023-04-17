@@ -581,6 +581,13 @@ Use iterations on Load:
     and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
     However, sometime you just want to be quick and you can override the iterations set on load using this value.
     
+Use Fractorium Color Speed ( coloring ):
+    #id: IN
+    Use the XML/Flame file "color_speed" key values instead of the standard "symmetry" value.
+    In some cases you get different coloring, just try it out if you dnt get the colors you expect.
+    
+    *It's OFF by default as it should not be used most of the time.*
+    
 infos:
     #id: IN
     Display information about the Flame preset loaded.
