@@ -1811,7 +1811,26 @@ def web_FLAM3github() -> None:
     page = "https://github.com/scottdraves/flam3"
     webbrowser.open(page)
 
+###############################################################################################
+# XAOS usage infos. Show a portion of the xaos documentation as an info window
+###############################################################################################
+def ui_xaos_infos() -> None:
+    ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
+To set XAOS for a flame with 4 iterators,
+use the "xaos:" keyword followed by each iterator weights values separated by a colon:
+\"xaos:1:2:3:4\" ( xaos keyword can be uppercase too if you prefer. )
+
+If no set or when using a short descriptive note,
+FLAM3 will assume all XAOS values are 1.0, the equivalent of: \"xaos:1:1:1:1\"
+
+If you set only iterator 1 and iterator 2,
+FLAM3 will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be interpreted as \"xaos:0:0:1:1\"
+
+When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator
+so you wont need to remove values from the command string,
+unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
+    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False)
 
 
 # LOAD XML FLAME FILES start here
