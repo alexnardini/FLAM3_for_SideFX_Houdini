@@ -27,7 +27,7 @@
 """py_flam3.py loaded inside the Extra Files section. Renamed as py_flam3"""
 
 """First inside the OTL->type_properties->Scripts->PythonModule
-the FLAM3 module is created out of the py_flam3 file inside the Extra Files section"""
+the FLAM3 module is created out of the py_flam3 renamed file inside the Extra Files section"""
 import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
