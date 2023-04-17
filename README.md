@@ -85,7 +85,7 @@ _`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubbl
 
 ## Considerations
 Fractal flames are really expensive to compute, no wonder GPUs made miracles in this field.
-FLAM3 for Houdini use CVEX programming language, it work inside the Houdini ecosystem and it deal with 3D points ( its flat on the XY plane but still ) instead of pixels so the speed is not even close to what you are used from fractal flame applications that rely heavily on GPU or written exclusively in c++.
+FLAM3 for Houdini use CVEX programming language, it work within the Houdini ecosystem and it deal with 3D points ( its flat on the XY plane but still ) instead of pixels so the speed is not even close to what you are used from fractal flame applications that rely heavily on GPU or written exclusively in c++.
 
 However, being inside Houdini has its majot advantage and the speed once you understand how to create your flames properly isnt that bad at all and on a modern workstation you'll do
 pretty much all the fractals flames you'll think of, not in real time but within minutes depending of the resolution. ( the higher the resolution and the more points you'll need to get a cleaner image ). You start with low setting anfd work your way up, as everything in Houdini.
