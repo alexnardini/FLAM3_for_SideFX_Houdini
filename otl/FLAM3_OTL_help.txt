@@ -164,8 +164,8 @@ xaos:
         
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
-    [Image:opdef:.?xaosDiagramSVG.svg]
-    _The above image show 5 iterators and how they are connected to each other through an hipotetical xaos setting._
+    [Image:opdef:.?xaosIteratorsSVG.svg]
+    _The above image shows 5 iterators and how they are connected to each others through an hipotetical xaos setting._
         
 
     
