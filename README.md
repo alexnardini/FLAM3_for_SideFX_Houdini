@@ -41,9 +41,6 @@ like attribute binding, UI building, parameters creations, their visibility cond
 Python has been used to enhance the user experience and to add functionalities like:
 copy/paste iterators data, load/save palette's libraries, load/save flame's file format, responses/automations to user actions and much more.
 
-`Compact UI Tabs to acces all functionalities within one simple and coherent interface.`
-![FLAM3HOUDINI UI Tabs](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_UI_Tabs.jpg)
-
 FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
 From there to the final image it is left to the users ( aka points rendering ).
 With Houdini integrated Karma renderer you will be able to render the generated fractal flames in nearly real time.
@@ -85,6 +82,36 @@ Houdini Karma interactive on the left and Fractorium with the same flame file on
 _Note that all the followings, are also available as PRE__ _and/or POST__ _variations._
 
 _`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubble` `butterfly` `bwraps` `cell` `conic` `cos` `cosh` `cosine` `cot` `coth` `cpow` `crop` `cross` `csc` `csch` `curl` `curve` `cylinder` `diamond` `disc` `disc2` `edisc` `elliptic` `escher` `ex` `exp` `exponential` `eyefish` `fan` `fan2` `fisheye` `flower` `flux` `foci` `gaussian_blur` `glynnia` `handkerchief` `heart` `hemisphere` `horseshoe` `hyperbolic` `julia` `juliaN` `juliascope` `lazysusan` `linear` `log` `loonie` `mobius` `modulus` `ngon` `noise` `oscope` `parabola` `pdj` `perspective` `pie` `point_symmetry` `polar` `polar2` `polynomial` `popcorn` `popcorn2` `power` `pre_blur` `radialblur` `rays` `rectangles` `rings` `rings2` `scry` `sec` `secant2` `sech` `separation` `sin` `sinh` `sinusoidal` `spherical` `spiral` `split` `splits` `square` `stripes` `supershape` `swirl` `tan` `tangent` `tanh` `twintrian` `unpolar` `waves` `waves2` `wedge` `wedgejulia` `wedgesph` `whorl`_
+
+## Considerations
+Fractal flames are really expensive to compute, no wonder GPUs made miracles in this field.
+FLAM3 for Houdini use CVEX programming language, it work inside the Houdini ecosystem and it deal with 3D points ( its flat on the XY plane but still ) instead of pixels so the speed is not even close to what you are used from fractal flame applications that rely heavily on GPU or written exclusively in c++.
+
+However, being inside Houdini has its majot advantage and the speed once you understand how to create your flames properly isnt that bad at all and on a modern workstation you'll do
+pretty much all the fractals flames you'll think of, not in real time but within minutes depending of the resolution. ( the higher the resolution and the more points you'll need to get a cleaner image )
+
+Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
+some much less and some a bit more. A few exceptions went above 128 and up to 256. 
+
+Some flames require truly an high amount of iterations to resolve properly.
+Below some presets chaotica ship with ported inside FLAM3 for Houdini. Those presets
+require hundreds of iteration to show you the proper results, some of them require thousands.
+
+Lets start with a gnarl preset:
+
+`Iterations needed in FLAM3 for Houdini to resolve: 1280`
+![Chaotica to FLAM3HOUDINI 00](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
+
+THe next two are a bit more speedy:
+
+`Iterations needed in FLAM3 for Houdini to resolve: 512`
+![Chaotica to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
+![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
+
+You'll find other scenarios where your iterations number will quickly need to rise up,
+especially when rely heavily on containers and such, so pick your battles.
+
+However from all my tests, betweem 16 and 96 will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flame with just 6 iterations, I have a few of them on my webiste and instagram!
 
 ## Example flame files.
 Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
