@@ -2334,7 +2334,6 @@ class _xml_tree:
         return self._isvalidtree
     
 
-    
     def __get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
         if self._isvalidtree:
             root = self._tree.getroot()
@@ -2389,8 +2388,8 @@ class apo_flame(_xml_tree):
         self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2)
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY)
 
-
-    def affine_coupling(self, affine: list) -> list:
+    @staticmethod
+    def affine_coupling(affine: list) -> list:
         """
         Args:
             affine (list): [affine values from the xml]
@@ -3783,8 +3782,9 @@ class _out_utils():
             palette_hsv(self._node)
             self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
-
-    def affine_rot(self, affine: list[tuple], angleDeg: float) -> list[tuple]:
+    
+    @staticmethod
+    def affine_rot(affine: list[tuple], angleDeg: float) -> list[tuple]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
         When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
         and export the resulting values out so we can get the same result once we load it back.
@@ -3802,7 +3802,8 @@ class _out_utils():
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
     
-    def out_round_floats(self, VAL_LIST) -> list[list[str]]:
+    @staticmethod
+    def out_round_floats(VAL_LIST) -> list[list[str]]:
         # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
         v_ROUND = []
         for item in VAL_LIST:
@@ -3815,7 +3816,8 @@ class _out_utils():
             v_ROUND.append(collect)
         return v_ROUND
 
-    def xaos_cleanup(self, xaos: list[list[str]]) -> list[list[str]]:
+    @staticmethod
+    def xaos_cleanup(xaos: list[list[str]]) -> list[list[str]]:
         xaos_cleaned = []
         for x in xaos:
             invert = x[::-1]
