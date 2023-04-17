@@ -164,7 +164,7 @@ xaos:
         
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
-    [Image:opdef:.?xaosIteratorsSVG.svg]
+    [Image:opdef:.?xaosPathsSVG.svg]
     _The above image shows 5 iterators with one variation each and how they are connected to each others through an hipotetical xaos setting._
         
 
@@ -176,7 +176,7 @@ xaos:
     _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
     
     *Looking from an iterator point of view*:
-    - When in *xaos_TO mode*, you will think like: *to* which iterator am I allowed to send points I just executed?
+    - When in *xaos_TO mode*, you will think like: *to* wich iterator am I allowed to send points I just executed?
     - When in *xaos_FROM mode*, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
     - _Note that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself?_
     
