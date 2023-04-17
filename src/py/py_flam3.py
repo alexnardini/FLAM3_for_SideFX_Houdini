@@ -2840,7 +2840,7 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
     else:
         if apo_data is not None:
             n = flam3_iterator_prm_names
-            if prm_name not in n.shader_alpha:
+            if prm_name not in [n.shader_alpha, n.main_weight]:
                 if apo_data[mp_idx]:
                     node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]})
             else:
