@@ -224,7 +224,10 @@ var:
     While PRE and POST variations act as an assignment, variations are cumulative.
         
     - Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
-    - Each iterators allow up to 8 variations ( pre-blur var, 2 pre var, 4 vars plus 1 post var) to be used. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    - Each iterators allow up to 8 variations ( pre-blur var, 2 PRE vars, 4 VARS plus 1 POST var) to be used.
+    
+    NOTE:
+        When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     TIP:
         #display: orange
@@ -304,7 +307,7 @@ VARS Tab:
     NOTE:
         This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
         
-        When saving a flame out from Fractorium with a finalxform remember to set the Fractorim Final xform color to:
+        When saving a flame out from Fractorium with a finalxform remember to set the Fractorium Final xform color to:
         - Color -> 0.0
         - Color Speed -> 0.0
         - Direct Color -> 1.0
@@ -601,6 +604,21 @@ Copy/Paste render properties:
     #display: inverted teal
 
     *OUT:* _Save *.flame file type to be loaded back inside Apophysis, Fractorium and others._
+    
+    NOTE:
+        FLAM3 for Houdini allow you to save out your flames in the standard *.flame file format 
+        so that you can load them back inside any other applications like Fractorium, Apophysis and others.
+        
+        The original flame file format impose you some rules you must obey.
+        
+        The most important to remember is not to use multiple instances of the same variation in any of the available sections ( PRE, VAR, POST ).
+        
+        For example you can not use 2 Mobius variations inside the PRE section of an iterator, neither inside the VAR section.
+        You can however use 1 Mobius inside the PRE vars, 1 Mobius inside the VAR and 1 Mobius inside the POST.
+        
+        FLAM3 for Houdini, by design will allow you to be more flexible with your flame construction choises and allow
+        you to bend this rule enabling the use of the same variation multiple time within the same section ( Chaotica style ), but you wont be able to save out
+        the result in the standard flame file format. *Save the hip file instead in those cases*.
     
 OUT file ( *.flame type ):
     #id: OUT
