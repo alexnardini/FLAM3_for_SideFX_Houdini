@@ -617,7 +617,7 @@ Copy/Paste render properties:
         You can however use 1 Mobius inside the PRE vars, 1 Mobius inside the VAR and 1 Mobius inside the POST.
         
         FLAM3 for Houdini, by design will allow you to be more flexible with your flame construction choises and allow
-        you to bend this rule enabling the use of the same variation multiple time within the same section ( Chaotica style ), but you wont be able to save out
+        you to bend this rule enabling the use of the same variation multiple time within the same section ( _Chaotica style_ ), but you wont be able to save out
         the result in the standard flame file format. *Save the hip file instead in those cases*.
     
 OUT file ( *.flame type ):
