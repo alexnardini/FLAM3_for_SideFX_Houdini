@@ -1832,6 +1832,22 @@ so you wont need to remove values from the command string,
 unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
     hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False)
 
+###############################################################################################
+# OUT Presets name infos.
+###############################################################################################
+def ui_OUT_presets_name_infos() -> None:
+    ALL_msg = """When choosing a preset name for your fractal flame,
+you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+
+For example if you name a flame preset: \"My_Awesome_GrandJulia\" it will be loaded with a default 64 iterations.
+But if you append the iteration number after a double colons to the preset name like so: \"My_Awesome_GrandJulia::16\"
+it will override all settings and load it using 16 as iteration numbers.
+
+Optionally, you can manually edit the saved XML/Flame file
+and modify the flame → \"name\" key yourself after the fact if you desire so."""
+    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False)
+
+
 
 # LOAD XML FLAME FILES start here
 
