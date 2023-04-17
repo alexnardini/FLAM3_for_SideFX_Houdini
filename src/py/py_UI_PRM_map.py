@@ -38,7 +38,7 @@ kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
 
 
 
-# PARAMETERS ITERATORS ( FLAME Tab )
+# SYS
 
 'flamefunc' 'Callback Script'
 hou.pwd().hdaModule().flam3.iteratorCountZero(kwargs['node'])
@@ -49,6 +49,13 @@ hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
 'sysaporeload' 'Callback Script'
 hou.pwd().hdaModule().flam3.apo_to_flam3(kwargs['node'])
 
+
+
+# PARAMETERS ITERATORS ( FLAME Tab )
+
+'activetip_#' 'Callback Script'
+hou.pwd().hdaModule().flam3.ui_active_iterator_infos()
+
 'prmpastesel_#'
 'Callback Script'
 hou.pwd().hdaModule().flam3.prm_paste_sel(kwargs)
@@ -57,6 +64,9 @@ menu = kwargs['node'].hdaModule().flam3.menu_copypaste(kwargs)
 return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.prm_paste(kwargs)
+
+'varnote_#' 'Action Button'
+kwargs['node'].hdaModule().flam3.ui_xaos_infos()
 
 'All ITERATORS variations type parameters'
 "pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#"
@@ -73,6 +83,7 @@ kwargs['node'].hdaModule().flam3.reset_postaffine(kwargs)
 
 # PARAMETERS FINAL FLAME ( FF Tab )
 
+
 'ffprmpastesel'
 'Callback Script'
 hou.pwd().hdaModule().flam3.prm_paste_sel_FF(kwargs)
@@ -81,6 +92,8 @@ menu = kwargs['node'].hdaModule().flam3.menu_copypaste_FF(kwargs)
 return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.prm_paste_FF(kwargs)
+
+
 
 'All FF variations type parameters'
 "ffpre1type, ffv1type, ffv2type, ffp1type, ffp2type"
@@ -149,6 +162,9 @@ hou.pwd().hdaModule().flam3.init_presets(kwargs, "inpresets")
 'iternumonload' 'Callback Script'
 hou.pwd().hdaModule().flam3.iter_on_load_callback(kwargs['node'])
 
+'useiteronload' 'Callback Script'
+hou.pwd().hdaModule().flam3.use_iter_on_load_callback(kwargs['node'])
+
 
 
 # PARAMETERS SAVE FLAMES ( OUT Tab )
@@ -162,6 +178,9 @@ kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 'outpresets' 'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
 return menu
+
+'outname' 'Action Button'
+kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 
 'outedit' 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
