@@ -1635,6 +1635,7 @@ def reset_IN(self) -> None:
 def reset_OUT(self, mode=0) -> None:
     self.setParms({"outedit": 0})
     self.setParms({"outmsg": ''})
+    self.setParms({USE_FRACTORIUM_COLOR_SPEED: 0})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
@@ -3372,6 +3373,14 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 def iter_on_load_callback(self):
     iter_on_load = self.parm("iternumonload").eval()
     self.setParms({SYS_ITERATIONS: iter_on_load})
+    
+def use_iter_on_load_callback(self):
+    useiteronload = self.parm("useiteronload").eval()
+    if useiteronload:
+        iternumonload = self.parm("iternumonload").eval()
+        iter = self.parm(SYS_ITERATIONS).eval()
+        if iter != iternumonload:
+            self.setParms({SYS_ITERATIONS: iternumonload})
 
 
 def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
