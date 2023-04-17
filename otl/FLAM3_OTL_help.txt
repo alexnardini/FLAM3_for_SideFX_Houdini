@@ -164,10 +164,23 @@ xaos:
         
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
-    Set XAOS weights or add a extra short descriptive note about this iterator.
+    [Image:opdef:.?xaosDiagramSVG.svg]
+    _The above image show 5 iterators and how they are connected to each other through an hipotetical xaos setting._
+        
+
     
     The default mode is *xaos TO*. You can change it to use *xaos FROM* mode instead in the preferences tab.
     
+    _*xaos TO* and *xaos FROM* are at their core each other reflection. This mean they are the same data but one is the transpose of the other._
+    
+    _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
+    
+    *Looking from an iterator point of view*:
+    - When in *xaos_TO mode*, you will think like: *to* which iterator am I allowed to send points I just executed?
+    - When in *xaos_FROM mode*, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
+    - _Note that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself?_
+    
+    *How to set xaos in FLAM3 for Houdini:*
     - To set XAOS for a flame with 4 iterators, use the *xaos* keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4* ( *xaos* keyword can be uppercase too if you prefer. )
     - If no set or when using a short descriptive note, FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
     - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
@@ -583,10 +596,10 @@ Use iterations on Load:
     
 Use Fractorium Color Speed ( coloring ):
     #id: IN
-    Use the XML/Flame file "color_speed" key values from Fractorium instead of the standard "symmetry" value.
+    Use the XML/Flame file "color_speed" key values instead of the standard "symmetry" value.
     In some cases you get different coloring, just try it out if you dnt get the colors you expect.
     
-    *It's OFF by default as it should not be used.*
+    *It's OFF by default as it should not be used most of the time.*
     
 infos:
     #id: IN
@@ -787,14 +800,6 @@ flam3 compatibility (f3c):
 xaos modes:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
-    
-    _*xaos TO* and *xaos FROM* are at their core each other reflection. This mean they are the same data but one is the transpose of the other._
-    
-    _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
-    
-    *Looking from an iterator point of view*:
-    - When in *xaos_TO mode*, you will think like: *to* which iterator am I allowed to send points I just executed?
-    - When in *xaos_FROM mode*, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
     
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
