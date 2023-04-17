@@ -1812,6 +1812,26 @@ def web_FLAM3github() -> None:
     webbrowser.open(page)
 
 ###############################################################################################
+# FIRST TIME
+###############################################################################################
+def flam3_first_time() -> None:
+    ALL_msg = """This is the first time you create a FLAM3H node
+in this Houdini session.
+
+It will take about a minute for Houdini to digest all the CVEX code
+and compile it into its internal FLAM3H CVEX module.
+
+After this, subsequent node creations will be instantaneous
+until you close the current Houdini session ( quit the application ).
+"""
+    try:
+        hou.session.flam3h_first_time
+    except:
+        hou.session.flam3h_first_time = 0
+        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False)
+
+
+###############################################################################################
 # XAOS usage infos. Show a portion of the xaos documentation as an info window
 ###############################################################################################
 def ui_xaos_infos() -> None:
