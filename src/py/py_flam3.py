@@ -1793,7 +1793,7 @@ def web_flame3github() -> None:
     webbrowser.open(page)
     
 ###############################################################################################
-# Open web browser to the FLAM3 for Houdini github
+# Open web browser to the FLAM3 for Houdini instagram
 ###############################################################################################
 def web_flame3insta() -> None:
     page = "https://www.instagram.com/alexnardini/"
@@ -1981,7 +1981,7 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
-# Since we get the folowing keys in a separate actione, we exclude them for later variation's names searches to help speed up a little.
+# Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
 # radial_blur var->"radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
@@ -2167,7 +2167,7 @@ class flam3_varsPRM_APO:
     #
     # There are a few exceptions so far witch I handled simply for now, but it work.
     #
-    # They are gouped as follow and based on the FLAM3 Houdini node parametric parameters:
+    # They are grouped as follow and based on the FLAM3 Houdini node parametric parameters:
     #
     # for generic variation:
     # ("variation name", bool: (parametric or not parametric)),
@@ -2734,7 +2734,6 @@ def menu_apo_presets(kwargs: dict) -> list:
     menu=[]
     apo = apo_flame(xml)
     if apo.isvalidtree:
-        names = apo.name
         for i, item in enumerate(apo.name):
             menu.append(i)
             menu.append(item)
@@ -3886,8 +3885,7 @@ class _out_utils():
                 strip = iter_xaos.split(':')
                 if strip[0].lower().strip() == 'xaos':
                     try:
-                        build = strip[1:self._iter_count+1]
-                        build_strip = [x.strip() for x in build if x]
+                        build_strip = [x.strip() for x in strip[1:self._iter_count+1] if x]
                         build_f = [float(x.strip()) for x in build_strip]
                         if min(build_f) == max(build_f):
                             if min(build_f) != 0:
@@ -4197,7 +4195,7 @@ def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tup
     return names
 
 
-# This solution works great and its nice to be lazy for once ;)
+# This solution works great and its nice to be lazy for once
 # https://stackoverflow.com/questions/28813876/how-do-i-get-pythons-elementtree-to-pretty-print-to-an-xml-file
 def _pretty_print(current, parent=None, index=-1, depth=0):
     for i, node in enumerate(current):
