@@ -32,7 +32,7 @@ import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
 """Inside: OTL->type_properties->Scripts->OnCreated
-We initialize what the tool need when you create its node in the network editor."""
+initialize what the tool need when you create its node in the network editor."""
 kwargs["node"].hdaModule().flam3.flam3_default(kwargs["node"])
 kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
 
