@@ -85,10 +85,9 @@ _`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubbl
 
 ## Considerations
 Fractal flames are really expensive to compute, no wonder GPUs made miracles in this field.
-FLAM3 for Houdini use CVEX programming language, it work within the Houdini ecosystem and it deal with 3D points ( its flat on the XY plane but still ) instead of pixels so the speed is not even close to what you are used from fractal flame applications that rely heavily on GPU or written exclusively in c++.
+FLAM3 for Houdini use CVEX programming language, it work within the Houdini ecosystem and it deal with 3D points ( its flat on the XY plane but still ) instead of pixels so the speed is not even close to what you are used from fractal flame applications that rely heavily on GPU or written exclusively in c++ without the burder of an host application to run within.
 
-However, being inside Houdini has its majot advantage and the speed once you understand how to create your flames properly isnt that bad at all and on a modern workstation you'll do
-pretty much all the fractals flames you'll think of, not in real time but within minutes depending of the resolution. ( the higher the resolution and the more points you'll need to get a cleaner image ). You start with low setting anfd work your way up, as everything in Houdini.
+However, being inside Houdini has its majot advantage and the speed if you know how to create your flames isnt really that bad at all and on a modern workstation you'll do pretty much all the fractals flames you'll think of, not in real time but within minutes for HD images. ( the higher the resolution and the more points you'll need to get a cleaner image ). You start with low setting and work your way up, as everything in Houdini.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 some much less and some a bit more. A few exceptions went above 128 and up to 256. 
@@ -111,7 +110,11 @@ THe next two are a bit more speedy:
 You'll find other scenarios where your iterations number will quickly need to rise up,
 especially when rely heavily on containers and such, so pick your battles.
 
-However from all my tests, betweem 16 and 96 will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flame with just 6 iterations, I have a few of them on my webiste and instagram!
+However from all my tests, betweem 16 and 96 will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my webiste and instagram!
+
+As a final though, Houdini as a tool maker went beyound my expectations on this personal project. I was able to do everything I wanted, and on top of that I produced hundreds of flame's images I love.
+
+I cold add a lots more nice functionalities but this project consumed me for a very long time. Every aspect of this algorithm is a challenge, its been quite a crazy ride to pack everyhting in it. I was able to squeeze in 105 variations that are automatically used both in PRE and POST mode, XAOS, loading and save in flame file format and a lots of other features through python to make the tool smarter and useful. Anyway, is time for me to put an end to this but I really, really loved the long journey on this topic, and I will for ever love fractal flame as a whole, they are awesome!
 
 ## Example flame files.
 Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
