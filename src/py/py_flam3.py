@@ -1844,8 +1844,22 @@ But if you append the iteration number after a double colons to the preset name 
 it will override all settings and load it using 16 as iteration numbers.
 
 Optionally, you can manually edit the saved XML/Flame file
-and modify the flame → \"name\" key yourself after the fact if you desire so."""
+and modify the flame → \"name\" key yourself after the fact if you desire so.
+
+If no name is provided,
+an automated name composed of today’s date and current time will be used instead."""
     hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False)
+
+###############################################################################################
+# Disabled iterator save out info.
+###############################################################################################
+def ui_active_iterator_infos() -> None:
+    ALL_msg = """If an iterator is disabled,
+it wont be included when saving the flame out into a Flame file.
+
+In case you still want to include the inactive iterator into the file,
+set its Weight to Zero instead."""
+    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False)
 
 
 
