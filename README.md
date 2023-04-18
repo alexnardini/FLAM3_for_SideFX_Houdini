@@ -90,7 +90,9 @@ _`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubbl
 
 Fractal flames are really expensive to compute, no wonder GPUs made miracles in this field too.
 
-Being inside Houdini has its major advantages and the speed if you know how to create your flames isnt bad at all and on a modern workstation you'll do pretty much all the fractals flames you'll think of, not in real time but within minutes for HD images. ( the higher the resolution and the more points you'll need to get a cleaner image ). You start with default settings and work your way up, as everything in Houdini. Karma with Nvidia Optix denoiser is a great combo to produce your fractal images.
+Being inside Houdini has its major advantages and the speed if you know how to create your flames isnt bad at all and on a modern workstation you'll do pretty much all the fractals flames you'll think of, not in real time but within minutes for HD images. ( the higher the resolution and the more points you'll need to get a cleaner image ). You start with default settings and work your way up, as everything in Houdini.
+
+Karma with the integrated Nvidia Optix denoiser is a great combo to produce your fractal images.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 some much less and some a bit more. A few exceptions went above 128 and up to 256/512. 
@@ -124,7 +126,7 @@ especially when relying heavily on containers and such.
 However from all my tests, betweem 16 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my webiste and instagram.
 
 I could add a lot more functionalities but this project consumed me for a very long time.
-Every aspect of this algorithm is a challenge on its own It has been quite a crazy ride to pack everyhting in it.
+Every aspect of this algorithm is a challenge on its own. It has been quite a crazy ride to pack everyhting inside this implementation.
 
 It is time for me to put this project to rest but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome!
 
