@@ -92,7 +92,7 @@ Fractal flames are really expensive to compute, no wonder GPUs made miracles in 
 
 Being inside Houdini has its major advantages. Only think at the possibilities you have to animate those flames using Houdini's procedural paradigm and toolsets, endless! Useless to say the ability to create a pipeline around this tool easily using Houdini's Python HOM libraries.
 
-The speed if you know how to create your flames isnt bad at all. On a modern workstation you'll do pretty much all the fractals flames you'll think of, not in real time but within minutes for HD images. ( the higher the resolution and the more points you'll need to get a cleaner image ). You start with default settings and work your way up, as everything in Houdini.
+If you know how to create your flames the speed isnt bad at all. On a modern workstation you'll do pretty much all the fractals flames you can think of within minutes for ~HD images. ( the higher the resolution and the more points you'll need to get a cleaner image, and some flames are tougher than others ). You start with default settings and work your way up, as everything in Houdini.
 
 Karma with the integrated Nvidia Optix denoiser is a great combo to produce your fractal images.
 
@@ -122,15 +122,22 @@ The next two are a bit more speedy:
 `meckie lazyswirls`
 ![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
-You'll find other scenarios where your iterations number will quickly need to rise up,
+The last one is quick and beautiful:
+
+`Iterations needed in FLAM3 for Houdini to resolve: 64`
+
+`tatasz majestic`
+![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
+
+You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
 However from all my tests, betweem 16 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my webiste and instagram.
 
 I could add a lot more functionalities but this project consumed me for a very long time.
-Every aspect of this algorithm is a challenge on its own. It has been quite a crazy ride to pack everyhting inside this implementation.
+Every aspects of this algorithm, once understood, look somehow simple at first but they are all a challenge on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
 
-It is time to put this project to rest but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome!
+It is time to park this project for a little bit but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome!
 
 ## Example flame files.
 
