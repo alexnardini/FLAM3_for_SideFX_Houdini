@@ -101,9 +101,9 @@ some much less and some a bit more. A few exceptions went above 128 and up to 25
 
 Some flames require truly an high amount of iterations to resolve properly.
 Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
-They have been choosen becasue they use variations I have implemented too and becasue they are really expensive to solve.
+They have been choosen becasue they use variations I have implemented too and becasue some are really expensive to solve.
 
-Those presets require hundreds of iterations to show you the proper results, some of them require thousands.
+Some require hundreds of iterations to show you the proper results, some of them require thousands and some others are really quick.
 
 Lets start with this gnarl preset:
 
