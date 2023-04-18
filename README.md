@@ -90,14 +90,12 @@ _`arch` `auger` `bent` `bent2` `bipolar` `blade` `blob` `blur` `boarders` `bubbl
 
 Fractal flames are really expensive to compute, no wonder GPUs made miracles in this field too.
 
-Being inside Houdini has its major advantages. Only think at the possibilities you have to animate those flames using Houdini's procedural paradigm and toolsets, endless! Useless to say the ability to create a pipeline around this tool easily using Houdini's Python HOM libraries.
+Being inside Houdini has its major advantages. Only think at the possibilities you have to animate those flames using Houdini's procedural paradigm and toolsets. And the ability to create a pipeline around this tool easily using Houdini's Python HOM libraries.
 
-If you know how to create your flames the speed isnt bad at all. On a modern workstation you'll do pretty much all the fractals flames you can think of within minutes for ~HD images. ( the higher the resolution and the more points you'll need to get a cleaner image, and some flames are tougher than others ). You start with default settings and work your way up, as everything in Houdini.
-
-Karma with the integrated Nvidia Optix denoiser is a great combo to produce your fractal images.
+Karma with the integrated Nvidia Optix denoiser is a great combo to render your fractal images.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
-some much less and some a bit more. A few exceptions went above 128 and up to 256/512. 
+some use less and some a bit more. A few exceptions went above 128 and up to 256/512. 
 
 Some flames require truly an high amount of iterations to resolve properly.
 Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
