@@ -140,10 +140,10 @@ End the last one:
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
-However from all my tests, betweem 16 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my webiste and instagram.
+However from all my tests, betweem 16 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my website and instagram.
 
 I could add a lot more functionalities but this project consumed me for a very long time.
-Every aspects of this algorithm, once understood, look somehow simple at first but they are all a challenge on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
+Every aspects of this algorithm, once understood, look simple on the surface but they all present challenges on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
 
 It is time to park this project for a little bit but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome!
 
@@ -162,6 +162,7 @@ Please be sure to check out their gallery:
 
 
 ## References
+
 Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
 Reference B: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
@@ -172,5 +173,6 @@ Reference D: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.co
 
 
 ## Example videos
+
 **[FLAM3HOUDINI vimeo](https://vimeo.com/alexnardini)**
 
