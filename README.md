@@ -119,15 +119,23 @@ The next two are a bit more speedy:
 
 `tatasz blue modulus`
 ![Chaotica to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
+
 `meckie lazyswirls`
 ![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
-The last one is quick and beautiful:
+This one is quick and beautiful:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 64`
 
 `tatasz majestic`
 ![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
+
+End the last one:
+
+`Iterations needed in FLAM3 for Houdini to resolve: 32`
+
+`tatasz blurry splits`
+![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
