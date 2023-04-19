@@ -104,6 +104,10 @@ They have been choosen becasue they use variations I have implemented too and be
 
 Some require hundreds of iterations to show you the proper results, some of them require thousands and some others are really quick.
 
+### Note:
+
+`that the Karma viewport renders do not use any density estimator neither any final color corrections that instead are present in other applications. It does brighten the high density areas instead ( more points, more bright ). A custom shader would help in this for sure, it's in the to do list.`
+
 Lets start with this gnarl preset:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 1280`
