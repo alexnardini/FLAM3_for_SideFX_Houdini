@@ -106,16 +106,16 @@ Some require thousands of iterations to show you the proper results, some of the
 
 ### Karma render Note:
 
-`Karma viewport renders do not use any density estimator neither any final color corrections that instead are present in other applications. It does brighten the high density areas instead ( more points, more bright ). A custom shader would help in this for sure.`
+Karma viewport renders do not use any density estimator neither any final color corrections that instead are present in other applications. It does brighten the high density areas instead ( more points, more bright ). A custom shader would help in this for sure.
 
-Lets start with this gnarl preset:
+### Lets start with this gnarl preset:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 1280`
 
 `zuek ieddaka gnarl`
 ![Chaotica to FLAM3HOUDINI 00](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
-The next two are a bit more speedy:
+### The next two are a bit more speedy:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 512`
 `( potentially a bit less are needed for those but just in case. )`
@@ -126,14 +126,14 @@ The next two are a bit more speedy:
 `meckie lazyswirls`
 ![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
-This one is quick and beautiful:
+### This one is quick and beautiful:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 64`
 
 `tatasz majestic`
 ![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
-And the last one:
+### And the last one:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 32`
 
