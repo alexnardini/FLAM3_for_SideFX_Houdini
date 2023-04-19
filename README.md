@@ -139,7 +139,7 @@ And the last one:
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
-However from all my tests, betweem 16 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have plenty of them on my website and instagram.
+However from all my tests, betweem 10 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have some of them on my website and instagram.
 
 I could add a lot more functionalities but this project consumed me for a very long time.
 Every aspects of this algorithm, once understood, look simple on the surface but they all present challenges on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
