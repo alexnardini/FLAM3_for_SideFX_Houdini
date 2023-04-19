@@ -106,7 +106,7 @@ Some require thousands of iterations to show you the proper results, some of the
 
 ### Karma render Note:
 
-Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while usig the raw color comeing from the palette the flame is currently using.
+Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while usig the raw color coming from the palette the flame is currently using.
 
 A custom shader in theory could implement a log density display and some form of density estimator.
 
