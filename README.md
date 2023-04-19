@@ -93,7 +93,7 @@ Being inside Houdini has its major advantages. Only think at the possibilities y
 
 Karma with the integrated Nvidia Optix denoiser is a great combo to render your fractal images.
 
-CVEX langage doesnt have a switch/case constructor, neither any form of pointer functions and such. To get to the selected variation I chained hundreds of if/else if statements. Even tho I partitioned them in the best way I could, this part become a bit of a bottle neck of the entire implementation.
+CVEX langage doesnt have a switch/case constructor, neither any form of pointer functions and such. To get to the selected variation I chained hundreds of `if`/`else if` statements. Even tho I partitioned them in the best way I could, this part become a bit of a bottle neck of the entire implementation.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 some use less and some a bit more. A few exceptions went above 128 and up to 256/512. 
@@ -108,7 +108,7 @@ Some require thousands of iterations to show you the proper results, some of the
 
 Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while usig the raw color coming from the palette the flame is currently using.
 
-A custom shader in theory could implement a log density display and some form of density estimator.
+A custom shader could in theory implement a log density display and some form of density estimator.
 
 ### Lets start with this gnarl preset:
 
@@ -150,7 +150,7 @@ However from all my tests, betweem 10 and 96 iterations will get you covered on 
 I could add a lot more functionalities but this project consumed me for a very long time.
 Every aspects of this algorithm, once understood, look simple on the surface but they all present challenges on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
 
-It is time to park this project for a little bit but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome!
+It is time to park this project for a little bit but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome  ( and addictive )!
 
 ## Example flame files.
 
