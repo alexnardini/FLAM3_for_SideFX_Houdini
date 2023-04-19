@@ -16,8 +16,7 @@
 
 ### Premise
 
-One of the main mission, was to pack the entire algorithm and functionalities I desired inside a tool
-using only Houdini out of the box. No HDK.
+One of the main mission, was to pack the entire algorithm and functionalities I desired inside a tool using only Houdini out of the box. No HDK.
 As a result, it become a somewhat conservative implementation, it has everything but with some limits as I needed to cut corners everywhere wich became a daunting process to put into balance.
 
 There are more functionalities I'd love to add, but this v1.x is happily out as it is.
