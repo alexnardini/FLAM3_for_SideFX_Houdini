@@ -112,12 +112,12 @@ int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
     return 0;
 }
 
-// Hardcoded inside "flam*.h" files, earned 7kb in final compile file size.
-// Used for post affine operation inside the chaos game.
+
 void affine(vector2 p; const vector2 x, y, o){
     p = set( x[0]*p[0] + y[0]*p[1] + o[0],
              x[1]*p[0] + y[1]*p[1] + o[1]);
 }
+
 
 void affineRot(matrix2 m2; const vector2 x, y; const float ang){
     m2 = set(x, y);
