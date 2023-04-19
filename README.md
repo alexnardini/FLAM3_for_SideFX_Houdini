@@ -106,7 +106,7 @@ Some require thousands of iterations to show you the proper results, some of the
 
 ### Karma render Note:
 
-Karma viewport renders do not use any density estimator neither any final color corrections that instead are present in other applications. It does brighten the high density areas instead ( more points, more bright ). A custom shader would help in this for sure.
+Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ). A custom shader in theory could implement a log density display and some form of density estimator.
 
 ### Lets start with this gnarl preset:
 
