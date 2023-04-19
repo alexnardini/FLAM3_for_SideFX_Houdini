@@ -2612,9 +2612,9 @@ class apo_flame(_xml_tree):
                         x = hex_to_rgb(hex)
                         rgb_from_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
-                    POS = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
-                    BASES = [hou.rampBasis.Linear] * (ramp_keys_count)
-                    return hou.Ramp(BASES, POS, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
+                    POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                    BASESs = [hou.rampBasis.Linear] * (ramp_keys_count)
+                    return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
                 
                 except:
                     hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
@@ -2808,7 +2808,8 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
         return hou.Vector3((data))
     elif len(data) == 4:
         return hou.Vector4((data))
-    return data
+    else:
+        return data
 
 
 def apo_get_idx_by_key(key: str) -> Union[int, None]:
