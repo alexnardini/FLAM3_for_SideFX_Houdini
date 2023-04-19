@@ -3900,13 +3900,11 @@ class _out_utils():
                     val.append([])
             else:
                 val.append([])
-        fill = []
-        for item in val:
-            fill.append(np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))))
-        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
-        v_ROUND = self.out_round_floats(t)
 
-        return tuple([" ".join(x) for x in self.xaos_cleanup(v_ROUND)])
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
+
+        return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(t))])
 
 
     @property
