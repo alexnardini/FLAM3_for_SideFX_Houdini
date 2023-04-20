@@ -28,7 +28,7 @@ It was important so I could shape and steer this tool in the right direction.
 ### Description
 
 An implementation of FLAM3 inside SideFX Houdini software using Houdini's CVEX programming language.
-Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it should be fun.
+Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it will be lots of fun.
 
 The code went up and down and finally settled for the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
