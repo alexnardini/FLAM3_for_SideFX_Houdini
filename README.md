@@ -105,6 +105,7 @@ Almost all fractal flame images on my website and instagram use an average of 64
 some use less and some a bit more. A few exceptions went above 128 and up to 256/512. 
 
 Some flames require truly an high amount of iterations to resolve properly.
+
 **Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
 They have been choosen becasue they use variations I have implemented too and becasue some are really expensive to solve**.
 
