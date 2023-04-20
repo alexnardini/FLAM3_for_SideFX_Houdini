@@ -44,6 +44,12 @@ FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being 
 From there to the final image it is left to the users ( aka points rendering ).
 With Houdini integrated Karma renderer you will be able to render the generated fractal flames in nearly real time.
 
+### Karma render Note:
+
+Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while using the raw color coming from the palette the flame is currently using.
+
+A custom shader could in theory implement a log density display and some form of density estimator.
+
 `Karma interactive rendering in the Houdini's viewport.`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
 
@@ -104,17 +110,11 @@ They have been choosen becasue they use variations I have implemented too and be
 
 Some require thousands of iterations to show you the proper results, some of them require hundreds and some others are really quick.
 
-### Karma render Note:
-
-Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while using the raw color coming from the palette the flame is currently using.
-
-A custom shader could in theory implement a log density display and some form of density estimator.
-
 ### Lets start with this gnarl preset:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 1280`
 
-`zuek ieddaka gnarl`
+`ieddaka gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 ### The next two are a bit more speedy:
@@ -122,24 +122,24 @@ A custom shader could in theory implement a log density display and some form of
 `Iterations needed in FLAM3 for Houdini to resolve: 512`
 `( potentially a bit less are needed for those but just in case. )`
 
-`tatasz blue modulus`
+`blue modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
-`meckie lazyswirls`
+`lazyswirls. Author: meckie`
 ![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 ### This one is quick and beautiful:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 64`
 
-`tatasz majestic`
+`majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 ### And the last one:
 
 `Iterations needed in FLAM3 for Houdini to resolve: 32`
 
-`tatasz blurry splits`
+`blurry splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 You'll find other scenarios where your iterations number will need to rise up,
