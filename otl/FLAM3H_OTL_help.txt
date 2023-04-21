@@ -801,6 +801,8 @@ xaos modes:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
+    - Switching between xaos modes will convert and re-set the xaos: string values inside each iterator so that you can see how the new weights changed to accomodate the new mode.
+    
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
     

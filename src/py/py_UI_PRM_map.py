@@ -185,3 +185,10 @@ kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 'outedit' 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 
+
+# PREFERENCES ( prefs Tab )
+
+'xm' 'Callback Script'
+hou.pwd().hdaModule().flam3.flam3_xaos_convert(kwargs['node'])
+
+

@@ -1492,6 +1492,25 @@ def viewportParticleSize(self: hou.Node) -> None:
         settings.particlePointSize(ptsize)
 
 
+
+###############################################################################################
+# Convert and set "xaos:"" command strings between modes from the preferences xaos mode menu
+###############################################################################################
+def flam3_xaos_convert(self) -> None:
+    """Here I am using a class function call from: out_flam3_data class.out_xf_xaos_from()
+       down below inside the save XML/FLAME file section of this file.
+       The class function: out_flam3_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
+    """    
+    f3d = out_flam3_data(self)
+    xaos_new = f3d.out_xf_xaos_from()
+    for iter in range(f3d.iter_count):
+        if xaos_new[iter]:
+            xs = "xaos:" + ":".join(xaos_new[iter].split(" "))
+            self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": xs})
+        else:
+            self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": "xaos:"})
+
+
 ###############################################################################################
 # Parameters resets... 
 ###############################################################################################
@@ -1994,7 +2013,7 @@ OUT_FLAM3_FILE_EXT = '.flame'
 OUT_HSV_PALETTE_DO = 'outpalette'
 
 # REGEX_ALL = "(?s:.*?)"
-REGEX_PALETTE_LIB_LOCK = "^(?:PALETTE_LIB_LOCK)"
+REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
 
