@@ -3581,10 +3581,11 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_keys_POST_FF = []
     if ff_bool:
         vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys())
+        vars_keys_PRE_FF = get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
         vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()))
-    vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_FF + vars_keys_POST_FF
+    vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF
     if pb_bool:
-        vars_all += [["pre_blur"]] + vars_keys_PRE + vars_keys_POST
+        vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
     result_sorted = out_vars_flatten_unique_sorted(vars_all, make_NULL)
     
     n = 5
@@ -3605,8 +3606,9 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_keys_from_fractorium_post_FF = []
     if ff_bool:
         vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT)
+        vars_keys_from_fractorium_pre_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE)
         vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
-    vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF
+    vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF
     result_sorted_fractorium = out_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, make_NULL)
     
     # Compare and keep and build missing vars msg
