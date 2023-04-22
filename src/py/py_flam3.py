@@ -50,7 +50,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_version = "1.0.1"
+FLAM3HOUDINI_VERSION = "1.0.1"
 
 DPT = '*'
 PRM = '...'
@@ -3749,7 +3749,7 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
-    flam3_houdini_version = f"Version: {FLAM3HOUDINI_version}"
+    flam3_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
     Implementation_years = "2020/2023"
     Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
     
@@ -4163,7 +4163,7 @@ def my_system() -> str:
         return 'UNKNW'
 def out_flame_properties_build(self) -> dict:
     f3p = out_flame_properties(self)
-    return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_version}',
+    return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
             XML_XF_NAME: f3p.flame_name,
             OUT_XML_FLAME_SIZE: f3p.flame_size,
             OUT_XML_FLAME_CENTER: f3p.flame_center,
