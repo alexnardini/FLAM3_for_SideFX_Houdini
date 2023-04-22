@@ -792,20 +792,14 @@ flam3 compatibility (f3c):
     TIP:
         In Fractorium you can go to "Options" to find the exact same checkbox.
     
-:box:
-    #display: rounded white
-
-    *cvex precision*
-    
-precision modes:
+cvex precision modes:
     #id: prefs
-    Switch between the default Single Precision ( 32bit ) or Double Precision (64bit).
+    Switch between the default Single Precision ( 32-bit ) or Double Precision (64-bit).
     
     NOTE:
-        64bit Double Precision will be much much slower, in the order of *6x slower*.
-        Always use 32bit unless you notice truly major artifacts.
+        64-bit Double Precision will be really really slow, I'll repeat: *really really slow*.
+        Always use 32-bit unless you notice truly major artifacts and you truly love the fractal flame you are working on.
     
-        
 :box:
     #display: rounded white
 
