@@ -2003,7 +2003,8 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
-XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
+# Note that "pre_gaussian_blur" has been added to this tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini.
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
 # radial_blur var->"radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
 # so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
@@ -2588,10 +2589,14 @@ class apo_flame(_xml_tree):
                         else:
                             keyvalues.append(float(xform.get(key)))
                     else:
+                        # Fractorium always remap pre_blur to pre_gaussian_blur when you load a flame in.
+                        # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
+                        if xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))) is not None:
+                            keyvalues.append(float(xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))))
                         # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                         # seem not to include those keys if not used or left at default values.
                         # We set them here so we can use them inside FLAM3 for Houdini on load.
-                        if key in XML_XF_OPACITY:
+                        elif key in XML_XF_OPACITY:
                             keyvalues.append(float(1))
                         elif key in XML_XF_SYMMETRY:
                             keyvalues.append(float(0))
