@@ -3578,6 +3578,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
     # FF
     vars_keys_FF = []
+    vars_keys_PRE_FF = []
     vars_keys_POST_FF = []
     if ff_bool:
         vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys())
@@ -3603,6 +3604,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE)
     vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
     vars_keys_from_fractorium_FF = []
+    vars_keys_from_fractorium_pre_FF = []
     vars_keys_from_fractorium_post_FF = []
     if ff_bool:
         vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT)
