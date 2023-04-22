@@ -2589,7 +2589,7 @@ class apo_flame(_xml_tree):
                         else:
                             keyvalues.append(float(xform.get(key)))
                     else:
-                        # Fractorium always remap pre_blur to pre_gaussian_blur when you load a flame in.
+                        # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
                         if xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))) is not None:
                             keyvalues.append(float(xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))))
