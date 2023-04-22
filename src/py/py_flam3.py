@@ -2812,7 +2812,7 @@ def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[st
         for xf in xforms:
             # Note the: vars.get(removeprefix(x, prx)[0]
             # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
-             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), xf.keys())))))
+             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys()))))))
         return vars_keys
     else:
         return None
