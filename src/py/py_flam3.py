@@ -50,7 +50,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_version = "1.0.0"
+FLAM3HOUDINI_version = "1.0.1"
 
 DPT = '*'
 PRM = '...'
