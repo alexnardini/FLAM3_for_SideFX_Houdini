@@ -1625,6 +1625,8 @@ def reset_CP(self, mode=0) -> None:
         self.setParms({"palettemsg": ''})
     elif mode == 2:
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        palette_cp(self)
+        palette_hsv(self)
     elif mode == 3:
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
