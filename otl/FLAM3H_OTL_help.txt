@@ -795,6 +795,20 @@ flam3 compatibility (f3c):
 :box:
     #display: rounded white
 
+    *cvex precision*
+    
+precision modes:
+    #id: prefs
+    Switch between the default Single Precision ( 32bit ) or Double Precision (64bit).
+    
+    NOTE:
+        64bit Double Precision will be much much slower, in the order of *6x slower*.
+        Always use 32bit unless you notice truly major artifacts.
+    
+        
+:box:
+    #display: rounded white
+
     *xaos*
     
 xaos modes:
