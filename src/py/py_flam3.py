@@ -4226,7 +4226,7 @@ def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tup
 
 # This solution works great and its nice to be lazy for once
 # https://stackoverflow.com/questions/28813876/how-do-i-get-pythons-elementtree-to-pretty-print-to-an-xml-file
-def _pretty_print(current, parent=None, index=-1, depth=0):
+def _pretty_print(current, parent=None, index=-1, depth=0) -> None:
     for i, node in enumerate(current):
         _pretty_print(node, current, i, depth + 1)
     if parent is not None:
