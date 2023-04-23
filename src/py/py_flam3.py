@@ -4402,7 +4402,7 @@ def out_new_XML(self: hou.Node, outpath: str) -> None:
         tree.write(outpath)
 
 
-def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str):
+def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str) -> None:
     # with ET since I have the XML tree already stored using its Element type
     # root = apo_data.tree.getroot()
     
