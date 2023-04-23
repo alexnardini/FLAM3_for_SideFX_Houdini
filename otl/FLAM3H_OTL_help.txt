@@ -224,8 +224,11 @@ pre_blur:
     
     TIP:
         When authoring your flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3 for Houdini
-        *always use pre_blur instead of pre_gaussian_blur variation*. They are eesentially the same variation
-        with the difference that in FLAM3 for Houdini pre_blur will be mapped and executed directly.
+        *always use "pre_blur" instead of "pre_gaussian_blur" variation*. They are essentially the same variation
+        with the difference that in FLAM3 for Houdini "pre_blur" will be mapped and executed directly.
+        
+    NOTE:
+        Since FLAM3 for Houdini v1.0.1, "pre_gaussian_blur" variation will be automatically mapped to "pre_blur" variation on flame load.
     
 pre:
     #id: FLAME
