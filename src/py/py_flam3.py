@@ -3447,7 +3447,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         reset_SYS(self, 1, iter_on_load, 0)
         reset_MB(self)
         reset_PREFS(self)
-        
+
         apo_data = apo_flame_iter_data(xml, preset_id)
         if min(apo_data.opacity) == 0.0:
             self.setParms({SYS_RIP: 1})
