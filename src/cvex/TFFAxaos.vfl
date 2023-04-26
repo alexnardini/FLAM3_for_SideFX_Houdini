@@ -111,7 +111,10 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
         append(xaos_tos, varxaos_strip);
         // For "xaos TO"
         float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
-        if(min(xaos)==max(xaos)) append(XAOS_TO, (float[])create_cdf(IW));
+        if(min(xaos)==max(xaos)){
+            if(min(xaos) == 1) append(XAOS_TO, (float[])create_cdf(IW));
+            else{ append(XAOS_TO, create_cdf((float[])IW_xaos)); if(!x_chk) x_chk=1; }
+        }
         else{ append(XAOS_TO, create_cdf((float[])IW_xaos)); if(!x_chk) x_chk=1; }
     }
 
