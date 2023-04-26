@@ -3921,7 +3921,7 @@ class _out_utils():
     def out_xf_xaos_from(self, mode=0) -> tuple[str]:   
         """Export in a list[str] the xaos FROM values to write out
         Args:
-            mode (int, optional): mode=1 is for writing out while the default mode=0 is for converting between xaos modes
+            mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
         Returns:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """        
