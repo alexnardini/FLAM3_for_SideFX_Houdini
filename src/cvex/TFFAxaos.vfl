@@ -98,11 +98,13 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             resize(varxaos_strip, 0);
             resize(varxaos_strip, inum, "1");
             }
+        int trace = 0;
         for(int j=0; j<inum; ++j){
             if(!va[j]){ 
-                pop(xaos, j);
+                pop(xaos, j-trace);
                 // For "xaos FROM" string
-                pop(varxaos_strip, j);
+                pop(varxaos_strip, j-trace);
+                trace++;
             }
         }
         // For "xaos FROM" string
