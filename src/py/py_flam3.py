@@ -2591,8 +2591,9 @@ class apo_flame(_xml_tree):
                     else:
                         # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
-                        if xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))) is not None:
-                            keyvalues.append(float(xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))))
+                        pre_gaussian_blur = xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
+                        if pre_gaussian_blur is not None:
+                            keyvalues.append(float(pre_gaussian_blur))
                         # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                         # seem not to include those keys if not used or left at default values.
                         # We set them here so we can use them inside FLAM3 for Houdini on load.
