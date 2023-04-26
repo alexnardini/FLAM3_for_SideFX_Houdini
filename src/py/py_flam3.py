@@ -2278,7 +2278,7 @@ class flam3_varsPRM_APO:
                 ("modulus", ("modulus_x", "modulus_y"), 1), 
                 ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
                 ("polar2", 0), 
-                ("popcorn2", ("popcorn2_c", "popcorn2_x"), ("popcorn2_y"), 1), 
+                ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c", ), 1), 
                 ("scry", 0), 
                 ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
                 ("split", ("split_xsize", "split_ysize"), 1), 
