@@ -1087,7 +1087,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     
     if IN_PRESETS in prm_name:
         xml = node.parm(IN_PATH).evalAsString()
-        apo = apo_flame(xml)
+        apo = apo_flame(kwargs['node'], xml)
         if not apo.isvalidtree:
             prm.set('-1')
             node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
@@ -1098,7 +1098,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             apo_to_flam3(node)
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
-        apo = apo_flame(xml)
+        apo = apo_flame(kwargs['node'], xml)
         if apo.isvalidtree:
             prm.set(f'{len(apo.name)-1}')
             # check if the selected Flame file is locked
@@ -2003,8 +2003,10 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
-# Note that "pre_gaussian_blur" has been added to this tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini.
-XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
+# Note that "pre_gaussian_blur" has been added to this tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini
+# if "remap "pre_gaussian_blur" to pre_blur" preference option is checked (ON by default)
+XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
 # The prm names inside here are allowed to pass a check even if not found in the XML.
 # radial_blur var->"radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
 # so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
@@ -2389,12 +2391,13 @@ class _xml_tree:
 
 class apo_flame(_xml_tree):
 
-    def __init__(self, xmlfile: str) -> None:
+    def __init__(self, node: hou.Node, xmlfile: str) -> None:
         """
         Args:
             xmlfile (str): [xml *.flame v_type file to load]
         """        
         super().__init__(xmlfile)
+        self._node = node
         self._name = self._xml_tree__get_name()
         self._apo_version = self._xml_tree__get_name(XML_FLAME_VERSION)
         self._flame = self._xml_tree__get_flame()
@@ -2424,6 +2427,10 @@ class apo_flame(_xml_tree):
         return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
     
 
+    @property
+    def node(self):
+        return self._node
+    
     @property
     def name(self):
         return self._name
@@ -2586,23 +2593,34 @@ class apo_flame(_xml_tree):
                     if xform.get(key) is not None:
                         if key in XML_XF_NAME:
                             keyvalues.append(xform.get(key))
+                            continue
                         else:
                             keyvalues.append(float(xform.get(key)))
+                            continue
                     else:
                         # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
+                        # if key in XML_XF_PB:
                         pre_gaussian_blur = xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
-                            keyvalues.append(float(pre_gaussian_blur))
+                            if self._node.parm("remappgb").eval():
+                                keyvalues.append(float(pre_gaussian_blur))
+                                continue
+                            else:
+                                keyvalues.append(float(0))
+                                continue
                         # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                         # seem not to include those keys if not used or left at default values.
                         # We set them here so we can use them inside FLAM3 for Houdini on load.
                         elif key in XML_XF_OPACITY:
                             keyvalues.append(float(1))
+                            continue
                         elif key in XML_XF_SYMMETRY:
                             keyvalues.append(float(0))
+                            continue
                         else:
                             keyvalues.append([])
+                            continue
                 return tuple(keyvalues)
         else:
             return None
@@ -2657,13 +2675,13 @@ class apo_flame(_xml_tree):
 
 class apo_flame_iter_data(apo_flame):
 
-    def __init__(self, xmlfile: str, idx=0) -> None:
+    def __init__(self, node: hou.Node, xmlfile: str, idx=0) -> None:
         """
         Args:
             xmlfile (str): xmlfile (str): [xml flame v_type file to load]
             idx (int, optional): [flame idx out of all flames included in the loaded flame file]. Defaults to 0.
         """        
-        super().__init__(xmlfile)
+        super().__init__(node, xmlfile)
         self._idx = self._apo_flame__is_valid_idx(idx)
         self._xforms = self._apo_flame__get_xforms(self._idx, XML_XF)
         self._xf_name = self._apo_flame__get_keyvalue(self._xforms, XML_XF_NAME)
@@ -2759,7 +2777,7 @@ def menu_apo_presets(kwargs: dict) -> list:
 
     xml = kwargs['node'].parm(IN_PATH).evalAsString()
     menu=[]
-    apo = apo_flame(xml)
+    apo = apo_flame(kwargs['node'], xml)
     if apo.isvalidtree:
         for i, item in enumerate(apo.name):
             menu.append(i)
@@ -2772,7 +2790,7 @@ def menu_apo_presets(kwargs: dict) -> list:
 
 
 # Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
-def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict]) -> Union[list[str], None]:
+def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict], exclude_keys: list[str]) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2784,11 +2802,11 @@ def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict]) -> Union[
         vars_keys = []
         if type(vars) is dict:
             for xf in xforms:
-                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
+                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))))
         else:
             for xf in xforms:
-                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys())))))
-            
+                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))))
+
         return vars_keys
     else:
         return None
@@ -2800,7 +2818,7 @@ def removeprefix(self: str, prefix: str) -> str:
     else:
         return self[:]
 # to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
-def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[str], None]:
+def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str, exclude_keys: list[str]) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2813,7 +2831,7 @@ def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str) -> Union[list[st
         for xf in xforms:
             # Note the: vars.get(removeprefix(x, prx)[0]
             # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
-             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xf.keys()))))))
+             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))))
         return vars_keys
     else:
         return None
@@ -3289,7 +3307,7 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> Non
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
 
 
-def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int) -> None:
+def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int, exclude_keys: list[str]) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3314,9 +3332,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys())
-    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
-    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
+    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
 
 
     # Set variations ( iterator and FF )
@@ -3441,7 +3459,7 @@ def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm(IN_PATH).evalAsString()
 
-    if apo_flame(xml).isvalidtree:
+    if apo_flame(self, xml).isvalidtree:
         
         preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
@@ -3449,7 +3467,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         reset_MB(self)
         reset_PREFS(self)
 
-        apo_data = apo_flame_iter_data(xml, preset_id)
+        apo_data = apo_flame_iter_data(self, xml, preset_id)
         if min(apo_data.opacity) == 0.0:
             self.setParms({SYS_RIP: 1})
         # iterators
@@ -3457,12 +3475,15 @@ def apo_to_flam3(self: hou.Node) -> None:
         for p in self.parms():
             p.deleteAllKeyframes()
         self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)})
-        apo_set_iterator(0, self, apo_data, preset_id)
+        exclude_keys = XML_XF_KEY_EXCLUDE
+        if self.parm("remappgb").eval():
+            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+        apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
         # if FF
         if apo_data.finalxform is not None:
             reset_FF(self)
             self.setParms({SYS_DO_FF: 1})
-            apo_set_iterator(1, self, apo_data, preset_id)
+            apo_set_iterator(1, self, apo_data, preset_id, exclude_keys)
         else:
             reset_FF(self)
             self.setParms({SYS_DO_FF: 0})
@@ -3573,18 +3594,21 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     else:
         palette_count_format = f"Palette not found."
     var_used_heading = "Variations used:"
-
-    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys())
-    vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
-    vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()))
+    
+    exclude_keys = XML_XF_KEY_EXCLUDE
+    if self.parm("remappgb").eval():
+        exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+    vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+    vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
     # FF
     vars_keys_FF = []
     vars_keys_PRE_FF = []
     vars_keys_POST_FF = []
     if ff_bool:
-        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys())
-        vars_keys_PRE_FF = get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()))
-        vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()))
+        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+        vars_keys_PRE_FF = get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
     vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF
     if pb_bool:
         vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
@@ -3601,16 +3625,16 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     self.setParms({"descriptive_msg": "".join(descriptive_prm)})
 
     # Build missing:
-    vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT)
-    vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE)
-    vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
+    vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
+    vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
+    vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
     vars_keys_from_fractorium_FF = []
     vars_keys_from_fractorium_pre_FF = []
     vars_keys_from_fractorium_post_FF = []
     if ff_bool:
-        vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT)
-        vars_keys_from_fractorium_pre_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE)
-        vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST)
+        vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
+        vars_keys_from_fractorium_pre_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
+        vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
     vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF
     result_sorted_fractorium = out_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, make_NULL)
     
@@ -3708,7 +3732,7 @@ def apo_copy_render_stats_msg(self: hou.Node) -> None:
     
     xml = self.parm(IN_PATH).evalAsString()
     preset_id = int(self.parm(IN_PRESETS).eval())
-    f3r = apo_flame_iter_data(xml, preset_id)
+    f3r = apo_flame_iter_data(self, xml, preset_id)
     if f3r.isvalidtree:
         try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))})
         except:
@@ -3918,13 +3942,13 @@ class _out_utils():
         xaos_vactive = self.xaos_collect_vactive(self._node, fill, self._prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
 
-    def out_xf_xaos_from(self, mode=0) -> tuple[str]:   
+    def out_xf_xaos_from(self, mode=0) -> tuple[str]:
         """Export in a list[str] the xaos FROM values to write out
         Args:
             mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
         Returns:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
-        """        
+        """
         val = self.xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
@@ -4358,8 +4382,8 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
 def menu_out_contents_presets(kwargs: dict) -> list:
     xml = kwargs['node'].parm(OUT_PATH).evalAsString()
     menu=[]
-    if apo_flame(xml).isvalidtree:
-        apo = apo_flame(xml)
+    if apo_flame(kwargs['node'], xml).isvalidtree:
+        apo = apo_flame(kwargs['node'], xml)
         for i, item in enumerate(apo.name):
             menu.append(i)
             menu.append(item)
@@ -4431,7 +4455,7 @@ def out_XML(kwargs: dict) -> None:
                 ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                 hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False)
             else:
-                apo_data = apo_flame(str(out_path_checked))
+                apo_data = apo_flame(kwargs['node'], str(out_path_checked))
                 if kwargs["ctrl"]:
                     node.setParms({OUT_PATH: str(out_path_checked)})
                     out_new_XML(node, str(out_path_checked))
