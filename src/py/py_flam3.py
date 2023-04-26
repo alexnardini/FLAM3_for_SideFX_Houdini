@@ -3906,7 +3906,7 @@ class _out_utils():
             else:
                 xaos_no_vactive.append([])
         return xaos_no_vactive
-    
+
     def out_xf_xaos_to(self) -> tuple[str]:
         """Export in a list[str] the xaos TO values to write out
         Returns:
@@ -3916,9 +3916,11 @@ class _out_utils():
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
         xaos_vactive = self.xaos_collect_vactive(self._node, fill, self._prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
-    
-    def out_xf_xaos_from(self, mode=0) -> tuple[str]:
+
+    def out_xf_xaos_from(self, mode=0) -> tuple[str]:   
         """Export in a list[str] the xaos FROM values to write out
+        Args:
+            mode (int, optional): mode=1 is for writing out while the default mode=0 is for converting between xaos modes
         Returns:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """        
@@ -3926,7 +3928,6 @@ class _out_utils():
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
         if mode:
-            # mode=1 is for writing out while the default mode=0 is for converting between xaos modes
             xaos_vactive = self.xaos_collect_vactive(self._node, t, self._prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
         else:
