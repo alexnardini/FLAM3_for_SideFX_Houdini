@@ -1502,7 +1502,7 @@ def flam3_xaos_convert(self) -> None:
        The class function: out_flam3_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
     """    
     f3d = out_flam3_data(self)
-    xaos_new = f3d.out_xf_xaos_from()
+    xaos_new = f3d.out_xf_xaos_from(0)
     for iter in range(f3d.iter_count):
         if xaos_new[iter]:
             xs = "xaos:" + ":".join(xaos_new[iter].split(" "))
@@ -3872,70 +3872,65 @@ class _out_utils():
             xaos_cleaned.append(invert[::-1])
         return xaos_cleaned
     
-    def out_xf_xaos_to(self) -> tuple[str]:
-        """Export in a list[str] the xaos TO values to write out
-
-        Returns:
-            tuple[str]: the xaos TO values to write out.
-        """
+    @staticmethod
+    def xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
         val = []
-        for iter in range(self._iter_count):
-            iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
+        for iter in range(iter_count):
+            iter_xaos = node.parm(f"{prm}_{iter+1}").eval()
             if iter_xaos:
                 strip = iter_xaos.split(':')
                 if strip[0].lower().strip() == 'xaos':
                     try:
-                        build = [x.strip() for x in strip[1:self._iter_count+1] if x]
-                        build_f = [float(x.strip()) for x in build if x]
-                        if min(build_f) == max(build_f):
-                            if min(build_f) != 0:
-                                val.append('')
-                            else:
-                                val.append(" ".join(build))
-                        else:
-                            val.append(" ".join(build))
-                    except:
-                        val.append('')
-                else:
-                    val.append('')
-            else:
-                val.append('')
-
-        return tuple([" ".join(x) for x in self.xaos_cleanup([s.split(" ") for s in val])])
-    
-    def out_xf_xaos_from(self) -> tuple[str]:
-        """Export in a list[str] the xaos FROM values to write out
-
-        Returns:
-            tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
-        """        
-        val = []
-        for iter in range(self._iter_count):
-            iter_xaos = self._node.parm(f"{self._prm_names.xaos}_{iter+1}").eval()
-            if iter_xaos:
-                strip = iter_xaos.split(':')
-                if strip[0].lower().strip() == 'xaos':
-                    try:
-                        build_strip = [x.strip() for x in strip[1:self._iter_count+1] if x]
-                        build_f = [float(x.strip()) for x in build_strip]
-                        if min(build_f) == max(build_f):
-                            if min(build_f) != 0:
-                                val.append([])
-                            else:
-                                val.append(build_strip)
-                        else:
-                            val.append(build_strip)
+                        build_strip = [x.strip() for x in strip[1:iter_count+1] if x]
+                        val.append(build_strip)
                     except:
                         val.append([])
                 else:
                     val.append([])
             else:
                 val.append([])
-
+        return val
+    
+    @staticmethod
+    def xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
+        xaos_no_vactive = []
+        for x in fill:
+            collect = []
+            for idx, item in enumerate(x):
+                if node.parm(f"{prm}_{idx+1}").eval():
+                    collect.append(str(item))
+                else:
+                    continue
+            if collect:
+                xaos_no_vactive.append(collect)
+            else:
+                xaos_no_vactive.append([])
+        return xaos_no_vactive
+    
+    def out_xf_xaos_to(self) -> tuple[str]:
+        """Export in a list[str] the xaos TO values to write out
+        Returns:
+            tuple[str]: the xaos TO values to write out.
+        """
+        val = self.xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+        xaos_vactive = self.xaos_collect_vactive(self._node, fill, self._prm_names.main_vactive)
+        return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
+    
+    def out_xf_xaos_from(self, mode=0) -> tuple[str]:
+        """Export in a list[str] the xaos FROM values to write out
+        Returns:
+            tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
+        """        
+        val = self.xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
-
-        return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(t))])
+        if mode:
+            # mode=1 is for writing out while the default mode=0 is for converting between xaos modes
+            xaos_vactive = self.xaos_collect_vactive(self._node, t, self._prm_names.main_vactive)
+            return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
+        else:
+            return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(t))])
 
 
     @property
@@ -4027,7 +4022,7 @@ class _out_utils():
 
     def __out_xf_xaos(self) -> tuple[str]:
         if self._xm:
-            return self.out_xf_xaos_from()
+            return self.out_xf_xaos_from(1)
         else:
             return self.out_xf_xaos_to()
 
