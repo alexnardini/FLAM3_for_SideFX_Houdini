@@ -80,8 +80,8 @@ void V_HANDKERCHIEF(vector2 p; const vector2 _p; const float w){
 // 07
 void V_HEART(vector2 p; const vector2 _p; const float w){
     float a, r;
-    a = SUMSQ(_p) * ATAN(_p);
-    r = w * SUMSQ(_p);
+    a = SQRT(_p) * ATAN(_p);
+    r = w * SQRT(_p);
     p[0] = r * sin(a);
     p[1] = (-r) * cos(a);
 }
@@ -859,8 +859,8 @@ void V_STRIPES(vector2 p; const vector2 _p; const float w, space, warp){
 // 75 ( parametric )
 void V_WEDGE(vector2 p; const vector2 _p; const float w, swirl, angle, hole, count){
     float r, a, c, m_CompFac;
-    m_CompFac = 1 - angle * count *M_1_PI * 0.5;
-    r = SUMSQ(_p);
+    m_CompFac = 1 - angle * count * M_1_PI * 0.5;
+    r = SQRT(_p);
     a = ATANYX(_p) + swirl * r;
     c = floor((count * a + M_PI) * M_1_PI * 0.5);
     a = a * m_CompFac + c * angle;

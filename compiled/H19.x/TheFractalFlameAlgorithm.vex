@@ -5352,16 +5352,16 @@ __llvm_entry:
   %2 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
-  %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
+  %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
   %_p2 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p2, <2 x double>* %1
   %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
-  %output = fmul double %SUMSQ, %ATAN
+  %output = fmul double %SQRT, %ATAN
   %w3 = load double, double* %w
   %_p4 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p4, <2 x double>* %2
-  %SUMSQ5 = call double @"SUMSQ@FU"(<2 x double>* %2)
-  %output6 = fmul double %w3, %SUMSQ5
+  %SQRT5 = call double @"SQRT@FU"(<2 x double>* %2)
+  %output6 = fmul double %w3, %SQRT5
   %return = call double @"sin@FF"(double %output)
   %output9 = fmul double %output6, %return
   %tmp = load <2 x double>, <2 x double>* %p
@@ -8750,12 +8750,12 @@ __llvm_entry:
   %output5 = fsub double 1.000000e+00, %output4
   %_p6 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p6, <2 x double>* %0
-  %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
+  %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
   %_p7 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p7, <2 x double>* %1
   %ATANYX = call double @"ATANYX@FU"(<2 x double>* %1)
   %swirl8 = load double, double* %swirl
-  %output10 = fmul double %swirl8, %SUMSQ
+  %output10 = fmul double %swirl8, %SQRT
   %output11 = fadd double %ATANYX, %output10
   %count12 = load double, double* %count
   %output14 = fmul double %count12, %output11
@@ -8769,7 +8769,7 @@ __llvm_entry:
   %output24 = fadd double %output20, %output23
   %w25 = load double, double* %w
   %hole27 = load double, double* %hole
-  %output28 = fadd double %SUMSQ, %hole27
+  %output28 = fadd double %SQRT, %hole27
   %output29 = fmul double %w25, %output28
   %return32 = call double @"cos@FF"(double %output24)
   %output33 = fmul double %output29, %return32
