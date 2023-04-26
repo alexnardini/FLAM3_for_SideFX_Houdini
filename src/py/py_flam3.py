@@ -2790,7 +2790,7 @@ def menu_apo_presets(kwargs: dict) -> list:
 
 
 # Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
-def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict], exclude_keys: list[str]) -> Union[list[str], None]:
+def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict], exclude_keys: tuple) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2818,7 +2818,7 @@ def removeprefix(self: str, prefix: str) -> str:
     else:
         return self[:]
 # to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
-def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str, exclude_keys: list[str]) -> Union[list[str], None]:
+def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str, exclude_keys: tuple) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -3307,7 +3307,7 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> Non
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
 
 
-def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int, exclude_keys: list[str]) -> None:
+def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int, exclude_keys: tuple) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3475,9 +3475,12 @@ def apo_to_flam3(self: hou.Node) -> None:
         for p in self.parms():
             p.deleteAllKeyframes()
         self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)})
+        
+        # get keys to exclude
         exclude_keys = XML_XF_KEY_EXCLUDE
         if self.parm("remappgb").eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+
         apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
         # if FF
         if apo_data.finalxform is not None:

@@ -794,6 +794,14 @@ flam3 compatibility (f3c):
     
     TIP:
         In Fractorium you can go to "Options" to find the exact same checkbox.
+        
+remap "pre_gaussian_blur" to "pre_blur" variation:
+    #id: prefs
+    Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
+    ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
+    Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
+    
+    *You need to reload the current Flame preset for this change to take effect*.
     
 cvex precision modes:
     #id: prefs
