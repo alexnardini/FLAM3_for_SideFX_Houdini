@@ -86,6 +86,7 @@ OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 XAOS_MODE = 'xm'
+REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 PALETTE_LIB_PATH = 'palettefile'
 PALETTE_OUT_PRESET_NAME = 'palettename'
 PALETTE_PRESETS = 'palettepresets'
@@ -2603,7 +2604,7 @@ class apo_flame(_xml_tree):
                         # if key in XML_XF_PB:
                         pre_gaussian_blur = xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
-                            if self._node.parm("remappgb").eval():
+                            if self._node.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
                                 keyvalues.append(float(pre_gaussian_blur))
                                 continue
                             else:
@@ -3478,7 +3479,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         
         # get keys to exclude
         exclude_keys = XML_XF_KEY_EXCLUDE
-        if self.parm("remappgb").eval():
+        if self.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
         apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
@@ -3599,7 +3600,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     var_used_heading = "Variations used:"
     
     exclude_keys = XML_XF_KEY_EXCLUDE
-    if self.parm("remappgb").eval():
+    if self.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
         exclude_keys = XML_XF_KEY_EXCLUDE_PGB
     vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
     vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
