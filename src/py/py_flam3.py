@@ -1103,7 +1103,6 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         apo = apo_flame(kwargs['node'], xml)
         if apo.isvalidtree:
             prm.set(f'{len(apo.name)-1}')
-            
             # Load OUT preset stats infos
             preset_id = int(prm.eval())
             apo_data = apo_flame_iter_data(node, xml, preset_id)
@@ -4439,13 +4438,18 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
 # MENU - OUT - build menu from output flame file
 ###############################################################################################
 def menu_out_contents_presets(kwargs: dict) -> list:
-    xml = kwargs['node'].parm(OUT_PATH).evalAsString()
+    node = kwargs['node']
+    xml = node.parm(OUT_PATH).evalAsString()
     menu=[]
-    if apo_flame(kwargs['node'], xml).isvalidtree:
-        apo = apo_flame(kwargs['node'], xml)
+    if apo_flame(node, xml).isvalidtree:
+        apo = apo_flame(node, xml)
         for i, item in enumerate(apo.name):
             menu.append(i)
             menu.append(item)
+        # Load OUT preset stats infos for the flame we just saved
+        preset_id = int(node.parm(OUT_PRESETS).eval())
+        apo_data = apo_flame_iter_data(node, xml, preset_id)
+        node.setParms({"flamestatsOUT_msg": apo_load_stats_msg(node, preset_id, apo_data, 1)})
         return menu
     else:
         menu.append(-1)
