@@ -3877,8 +3877,15 @@ class _out_utils():
         return [new[0], new[1], affine[2]]
     
     @staticmethod
-    def out_round_floats(VAL_LIST) -> list[list[str]]:
-        # remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
+    def out_round_floats(VAL_LIST: list[list[str]]) -> list[list[str]]:
+        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
+
+        Args:
+            VAL_LIST (list[list[str]]): A list of list[str] of values to rounds
+
+        Returns:
+            list[list[str]]: A list of list[str] with the rounded values if any
+        """    
         v_ROUND = []
         for item in VAL_LIST:
             collect = []
@@ -3907,6 +3914,16 @@ class _out_utils():
     
     @staticmethod
     def xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
+        """Collect all xaos command string weights.
+
+        Args:
+            node (hou.Node): FLAM3H node
+            iter_count (int): Iterator's count
+            prm (str): xaos varnote parameter
+
+        Returns:
+            list[list[str]]: A list of xaos list[str] of values
+        """        
         val = []
         for iter in range(iter_count):
             iter_xaos = node.parm(f"{prm}_{iter+1}").eval()
@@ -3915,6 +3932,9 @@ class _out_utils():
                 if strip[0].lower().strip() == 'xaos':
                     try:
                         build_strip = [x.strip() for x in strip[1:iter_count+1] if x]
+                        # The following is only used to check if any of the xaos weights is not a legit number.
+                        # If not it will raise an exception and the entire xaos weight string will be filled with a value of '1'
+                        build_f = [float(x.strip()) for x in build_strip]
                         val.append(build_strip)
                     except:
                         val.append([])
@@ -3923,9 +3943,19 @@ class _out_utils():
             else:
                 val.append([])
         return val
-    
+
     @staticmethod
     def xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
+        """Check for any NO-active iterators and account for those.
+
+        Args:
+            node (hou.Node): FLAM3H node
+            fill (list[np.array]): List of [np.array] representing all xaos weights.
+            prm (str): iterator vactive parameter.
+
+        Returns:
+            list[list[str]]: return a list of list[str] with the NO-active iterators taken into consideration.
+        """    
         xaos_no_vactive = []
         for x in fill:
             collect = []
