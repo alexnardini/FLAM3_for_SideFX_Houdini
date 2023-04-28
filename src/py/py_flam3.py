@@ -1103,6 +1103,12 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
         apo = apo_flame(kwargs['node'], xml)
         if apo.isvalidtree:
             prm.set(f'{len(apo.name)-1}')
+            
+            # Load OUT preset stats infos
+            preset_id = int(prm.eval())
+            apo_data = apo_flame_iter_data(node, xml, preset_id)
+            node.setParms({"flamestatsOUT_msg": apo_load_stats_msg(node, preset_id, apo_data, 1)})
+        
             # check if the selected Flame file is locked
             out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
             if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
@@ -1110,9 +1116,11 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 node.setParms({"outmsg": flame_lib_locked})
             else:
                 node.setParms({"outmsg": ''})
+                node.setParms({"flamestatsOUT_msg": ''})
         else:
             prm.set('-1')
             node.setParms({"outmsg": ''})
+            node.setParms({"flamestatsOUT_msg": ''})
             
     elif PALETTE_PRESETS in prm_name:
         palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
@@ -3521,6 +3529,19 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({"flamerender_msg": ""})
             # The following do not work, not sure why
             self.setParms({"descriptive_msg": ""})
+            
+            
+def apo_to_flam3_OUT_STATS(self: hou.Node) -> None:
+
+    xml = self.parm(OUT_PATH).evalAsString()
+
+    if apo_flame(self, xml).isvalidtree:
+        preset_id = int(self.parm(OUT_PRESETS).eval())
+        apo_data = apo_flame_iter_data(self, xml, preset_id)
+        self.setParms({"flamestatsOUT_msg": apo_load_stats_msg(self, preset_id, apo_data, 1)})
+    # else:
+    #     if os.path.isfile(xml) and os.path.getsize(xml)>0:
+    #         ...
 
 
 def apo_join_vars_grp(groups: list) -> str:
@@ -3539,7 +3560,7 @@ def out_vars_flatten_unique_sorted(VARS_list: list[list], func: Callable) -> lis
     sort = sorted(result, key=lambda var: var)
     return [func(x) for x in sort]
 
-def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
+def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data, mode=0) -> str:
     
     # spacers
     nl = "\n"
@@ -3629,7 +3650,8 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
                         f"{preset_name}", )
-    self.setParms({"descriptive_msg": "".join(descriptive_prm)})
+    if not mode:
+        self.setParms({"descriptive_msg": "".join(descriptive_prm)})
 
     # Build missing:
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
