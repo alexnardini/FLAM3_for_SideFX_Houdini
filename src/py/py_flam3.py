@@ -82,6 +82,7 @@ SYS_RIP = "rip"
 FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
+IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
@@ -1650,6 +1651,7 @@ def reset_IN(self) -> None:
     self.setParms({IN_PRESETS: str(-1)})
     self.setParms({"iternumonload": 64})
     self.setParms({"useiteronload": 0})
+    self.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
@@ -2601,7 +2603,6 @@ class apo_flame(_xml_tree):
                     else:
                         # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
-                        # if key in XML_XF_PB:
                         pre_gaussian_blur = xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
                             if self._node.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
@@ -3502,6 +3503,9 @@ def apo_to_flam3(self: hou.Node) -> None:
         ramp_parm.set(apo_data.palette[0])
         palette_cp(self)
         palette_hsv(self)
+        # if "copy render properties on Load" is checked
+        if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+            apo_copy_render_stats_msg(self)
         # Set density back to default on load
         self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT})
         #Updated flame stats 
