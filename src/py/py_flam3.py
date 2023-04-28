@@ -3675,11 +3675,13 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     # Check if the loaded Flame file is locked.
     in_path = self.parm(IN_PATH).evalAsString()
     in_path_checked = out_check_outpath(self, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+    # Add flame lib Locked msg to stats only when IN Presets are used
     if not mode:
         if os.path.split(str(in_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
             flame_lib_locked = f"\nflame lib file: LOCKED"
         else: flame_lib_locked = ''
     else:
+        # For OUT Presets stats we have a dedicated parameter to signal a locked lib
         flame_lib_locked = ''
     # build full stats msg
     build = ( sw, flame_lib_locked, nnl,
