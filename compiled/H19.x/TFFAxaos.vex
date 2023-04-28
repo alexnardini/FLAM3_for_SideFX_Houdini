@@ -18,7 +18,7 @@ source_filename = "TFFAxaos"
 @13 = private constant [2 x i8] c":\00"
 @14 = private constant [2 x i8] c".\00"
 @15 = private constant [5 x i8] c"XAOS\00"
-@16 = private constant [140 x i8] c"Non digit values in one or more of the iterator's xaos command string. The iterators affected will be reset to a default xaos value of 1's.\00"
+@16 = private constant [133 x i8] c"Non digit values in one or more iterator's xaos command string. The iterators affected will be reset to a default xaos value of 1's.\00"
 @17 = private constant [2 x i8] c"1\00"
 @18 = private constant [6 x i8] c"../xm\00"
 @sIDX = external global i8**
@@ -296,7 +296,7 @@ end106:                                           ; preds = %true105, %body89
   br label %cond88
 
 true111:                                          ; preds = %true105
-  call void @"warning@S"(i8* getelementptr inbounds ([140 x i8], [140 x i8]* @16, i64 0, i64 0))
+  call void @"warning@S"(i8* getelementptr inbounds ([133 x i8], [133 x i8]* @16, i64 0, i64 0))
   br label %end93
 
 true121:                                          ; preds = %end93
