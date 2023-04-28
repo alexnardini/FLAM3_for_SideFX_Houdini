@@ -604,6 +604,10 @@ Use Fractorium Color Speed ( coloring ):
     
     *It's OFF by default as it should not be used most of the time.*
     
+Copy render properties on Load ( OFF by default ):
+    #id: IN
+    OFF by default. If ON it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
+    
 infos:
     #id: IN
     Display information about the Flame preset loaded.
