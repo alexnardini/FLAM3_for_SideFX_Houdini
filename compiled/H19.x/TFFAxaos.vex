@@ -17,19 +17,20 @@ source_filename = "TFFAxaos"
 @12 = private constant [12 x i8] c"../varnote_\00"
 @13 = private constant [2 x i8] c":\00"
 @14 = private constant [2 x i8] c".\00"
-@15 = private constant [5 x i8] c"XAOS\00"
-@16 = private constant [2 x i8] c"1\00"
-@17 = private constant [6 x i8] c"../xm\00"
+@15 = private constant [140 x i8] c"Non digit values in one or more of the iterator's xaos command string. The iterators affected will be reset to a default xaos value of 1's.\00"
+@16 = private constant [5 x i8] c"XAOS\00"
+@17 = private constant [2 x i8] c"1\00"
+@18 = private constant [6 x i8] c"../xm\00"
 @sIDX = external global i8**
 @SYS = external global i64*
 @XS = external global i64
 @IW = external global double*
 @XST = external global double*
-@18 = private constant [5 x i8] c"sIDX\00"
-@19 = private constant [4 x i8] c"SYS\00"
-@20 = private constant [3 x i8] c"XS\00"
-@21 = private constant [3 x i8] c"IW\00"
-@22 = private constant [4 x i8] c"XST\00"
+@19 = private constant [5 x i8] c"sIDX\00"
+@20 = private constant [4 x i8] c"SYS\00"
+@21 = private constant [3 x i8] c"XS\00"
+@22 = private constant [3 x i8] c"IW\00"
+@23 = private constant [4 x i8] c"XST\00"
 
 ; Function Attrs: nounwind readnone
 declare double @"getcomp@FUI"(<2 x double>, i64) #0
@@ -234,7 +235,7 @@ body54:                                           ; preds = %cond53
   br label %cond69
 
 end58:                                            ; preds = %cond53
-  %return249 = call i64 @"chi@IS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @17, i64 0, i64 0))
+  %return249 = call i64 @"chi@IS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @18, i64 0, i64 0))
   %return252 = call i64 @"and@III"(i64 %return249, i64 %x_chk.0)
   %5 = icmp ne i64 %return252, 0
   br i1 %5, label %true253, label %end254
@@ -278,12 +279,13 @@ end93:                                            ; preds = %true105, %cond88
   %isDigit.0 = phi i64 [ 0, %true105 ], [ 1, %cond88 ]
   %return110 = call i8* @"getcomp@S[SI"(i8** %varxaos_strip.0, i64 0)
   %return111 = call i8* @"toupper@SS"(i8* %return110)
-  %return112 = call i64 @"eq@ISS"(i8* %return111, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @15, i64 0, i64 0))
+  %return112 = call i64 @"eq@ISS"(i8* %return111, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0))
   %return114 = call i64 @"and@III"(i64 %return112, i64 %isDigit.0)
   %9 = icmp ne i64 %return114, 0
   br i1 %9, label %true115, label %false
 
 true105:                                          ; preds = %body89
+  call void @"warning@S"(i8* getelementptr inbounds ([140 x i8], [140 x i8]* @15, i64 0, i64 0))
   br label %end93
 
 end106:                                           ; preds = %body89
@@ -299,7 +301,7 @@ true115:                                          ; preds = %end93
 false:                                            ; preds = %end93
   %output148 = call double* @"resize@[FIF"(double* getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), i64 %return11, double 1.000000e+00)
   %output150 = call i8** @"resize@[SI"(i8** %varxaos_strip.0, i64 0)
-  %output153 = call i8** @"resize@[SIS"(i8** %output150, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @16, i64 0, i64 0))
+  %output153 = call i8** @"resize@[SIS"(i8** %output150, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @17, i64 0, i64 0))
   br label %end116
 
 end116:                                           ; preds = %false, %end128
@@ -324,7 +326,7 @@ body124:                                          ; preds = %cond123
 
 end128:                                           ; preds = %cond123
   %output142 = call double* @"resize@[FIF"(double* %xaos.1, i64 %return11, double 1.000000e+00)
-  %output145 = call i8** @"resize@[SIS"(i8** %output120, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @16, i64 0, i64 0))
+  %output145 = call i8** @"resize@[SIS"(i8** %output120, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @17, i64 0, i64 0))
   br label %end116
 
 cond154:                                          ; preds = %end166, %end116
@@ -550,6 +552,9 @@ declare i8* @"join@S[SS"(i8**, i8*) #0
 declare i64 @"isdigit@IS"(i8*) #1
 
 ; Function Attrs: nounwind
+declare void @"warning@S"(i8*) #1
+
+; Function Attrs: nounwind
 declare i8* @"toupper@SS"(i8*) #1
 
 ; Function Attrs: nounwind readnone
@@ -615,15 +620,15 @@ __llvm_entry:
   store double* %XST, double** %"<XST>"
   call void @"_TFFAxaos@[S[II[F[F"(i8*** %"<sIDX>", i64** %"<SYS>", i64* %"<XS>", double** %"<IW>", double** %"<XST>")
   %evalue = load i8**, i8*** %"<sIDX>"
-  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @18, i64 0, i64 0), i8** %evalue) #3
+  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @19, i64 0, i64 0), i8** %evalue) #3
   %evalue1 = load i64*, i64** %"<SYS>"
-  %gvalue2 = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @19, i64 0, i64 0), i64* %evalue1) #3
+  %gvalue2 = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @20, i64 0, i64 0), i64* %evalue1) #3
   %evalue3 = load i64, i64* %"<XS>"
-  %gvalue4 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @20, i64 0, i64 0), i64 %evalue3) #3
+  %gvalue4 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @21, i64 0, i64 0), i64 %evalue3) #3
   %evalue5 = load double*, double** %"<IW>"
-  %gvalue6 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @21, i64 0, i64 0), double* %evalue5) #3
+  %gvalue6 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @22, i64 0, i64 0), double* %evalue5) #3
   %evalue7 = load double*, double** %"<XST>"
-  %gvalue8 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @22, i64 0, i64 0), double* %evalue7) #3
+  %gvalue8 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @23, i64 0, i64 0), double* %evalue7) #3
   store i8** %gvalue, i8*** @sIDX
   store i64* %gvalue2, i64** @SYS
   store i64 %gvalue4, i64* @XS
