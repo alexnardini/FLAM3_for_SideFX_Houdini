@@ -1608,9 +1608,6 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
 def reset_CP(self, mode=0) -> None:
     if not mode:
         # CP
-        self.setParms({PALETTE_LIB_PATH: ""})
-        self.setParms({PALETTE_OUT_PRESET_NAME: ""})
-        self.setParms({PALETTE_PRESETS: "-1"})
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
         # CP->ramp
         ramp_parm = self.parm(RAMP_SRC_NAME)
@@ -1619,12 +1616,14 @@ def reset_CP(self, mode=0) -> None:
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
         if mode==1:
-            color_values = [(0,1,0), (0,1,1), (1,0,1)]
+            self.setParms({PALETTE_LIB_PATH: ""})
+            self.setParms({PALETTE_OUT_PRESET_NAME: ""})
+            self.setParms({PALETTE_PRESETS: "-1"})
+            self.setParms({"palettemsg": ''})
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
         # Update ramp py 
         palette_cp(self)
         palette_hsv(self)
-        self.setParms({"palettemsg": ''})
     elif mode == 2:
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
         palette_cp(self)
@@ -1671,7 +1670,7 @@ def reset_OUT(self, mode=0) -> None:
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
-    if not mode:
+    if mode:
         self.setParms({OUT_PATH: ""})
         self.setParms({OUT_HSV_PALETTE_DO: 1})
         self.setParms({OUT_PRESETS: "-1"})
@@ -1784,7 +1783,6 @@ def iteratorCountZero(self: hou.Node) -> None:
     """
 
     if not self.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
-
         # delete channel references
         for p in self.parms():
             p.deleteAllKeyframes()
