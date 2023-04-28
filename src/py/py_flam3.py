@@ -1646,15 +1646,16 @@ def reset_MB(self) -> None:
     self.setParms({"mbsamples": 16})
     self.setParms({"shutter": 0.5})
     
-def reset_IN(self) -> None:
-    self.setParms({IN_PATH: ""})
-    self.setParms({IN_PRESETS: str(-1)})
-    self.setParms({"iternumonload": 64})
-    self.setParms({"useiteronload": 0})
-    self.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
+def reset_IN(self, mode=0) -> None:
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
+    if mode:
+        self.setParms({IN_PATH: ""})
+        self.setParms({IN_PRESETS: str(-1)})
+        self.setParms({"iternumonload": 64})
+        self.setParms({"useiteronload": 0})
+        self.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
     
 def reset_OUT(self, mode=0) -> None:
     self.setParms({"outedit": 0})
