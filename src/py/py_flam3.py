@@ -3933,7 +3933,7 @@ class _out_utils():
                     try:
                         build_strip = [x.strip() for x in strip[1:iter_count+1] if x]
                         # The following is only used to check if any of the xaos weights is not a legit number.
-                        # If not it will raise an exception and the entire xaos weight string will be filled with a value of '1'
+                        # If not it will raise an exception and the entire xaos weight string for this iterator will be filled with a value of '1'
                         build_f = [float(x.strip()) for x in build_strip]
                         val.append(build_strip)
                     except:
