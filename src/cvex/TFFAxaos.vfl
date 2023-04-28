@@ -78,13 +78,13 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
         foreach(string vx; varxaos){
             append(varxaos_strip, strip(vx));
         }
-
+        int isXAOS = 0; if(toupper(varxaos_strip[0])=="XAOS") isXAOS = 1;
         int isDigit = 1;
         foreach( string vxs; varxaos_strip[1:]){
             string new_vxs = join(split(vxs, "."), "");
             if(!isdigit(new_vxs)){
                 // If it's meant to be a valid xaos: command string
-                if(toupper(varxaos_strip[0])=="XAOS"){
+                if(isXAOS){
                     isDigit = 0;
                     warning("Non digit values in one or more iterator's xaos command string. The iterators affected will be reset to a default xaos value of 1's.");
                     break;
@@ -92,7 +92,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             }
         }
 
-        if(toupper(varxaos_strip[0])=="XAOS" && isDigit){
+        if(isXAOS && isDigit){
             pop(varxaos_strip, 0);
             foreach(string n; varxaos_strip) append(xaos, max(atof(n), 0));
             resize(xaos, inum, 1.0);
