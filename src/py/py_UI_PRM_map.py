@@ -175,7 +175,10 @@ hou.pwd().hdaModule().flam3.init_presets(kwargs, "outpresets")
 'Action Button'
 kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 
-'outpresets' 'Menu Script'
+'outpresets'
+'Callback Script'
+hou.pwd().hdaModule().flam3.apo_to_flam3_OUT_STATS(kwargs['node'])
+'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
 return menu
 
