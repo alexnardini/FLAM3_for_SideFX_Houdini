@@ -3645,11 +3645,11 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
     vars_used_msg = f"{var_used_heading}\n{apo_join_vars_grp(result_grp)}"
     
-    # Build and set descriptive parameter msg
-    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
-    descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
-                        f"{preset_name}", )
+    # Build and set descriptive parameter msg only when IN Presets are used
     if not mode:
+        preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
+        descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
+                            f"{preset_name}", )
         self.setParms({"descriptive_msg": "".join(descriptive_prm)})
 
     # Build missing:
