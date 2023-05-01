@@ -3002,11 +3002,12 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
-                var_prm_vals.append(float(0))
                 # If a prm name is not found inside the XML, let us know unless is included in the exception tuple.
                 if n not in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)}\": parameter: \"{n}\"")
-            
+                elif 'radial_blur_zoom' in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
 
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3054,11 +3055,12 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
-                var_prm_vals.append(float(0))
+                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                    var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
-            
+                elif 'radial_blur_zoom' in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3102,11 +3104,12 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
-                var_prm_vals.append(float(0))
+                 # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                    var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
-            
+                elif 'radial_blur_zoom' in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3146,11 +3149,12 @@ def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_typ
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
-                var_prm_vals.append(float(0))
+                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                    var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
-            
+                elif 'radial_blur_zoom' in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3190,11 +3194,12 @@ def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_ty
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
-                var_prm_vals.append(float(0))
+                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
-                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                    var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
-            
+                elif 'radial_blur_zoom' in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
