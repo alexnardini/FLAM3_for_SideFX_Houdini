@@ -1,6 +1,6 @@
 from __future__ import division, annotations
 from platform import python_version
-from typing import Union, Callable
+from typing import Union, Callable, KeysView
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
@@ -520,16 +520,16 @@ def menu_copypaste(kwargs: dict) -> list:
 
     # Check if we copied an iterator
     try:
-        hou.session.flam3node_mp_id
+        hou.session.flam3node_mp_id # type: ignore
     except:
-        hou.session.flam3node_mp_id = -1
+        hou.session.flam3node_mp_id = -1 # type: ignore
 
-    id_from = hou.session.flam3node_mp_id
+    id_from = hou.session.flam3node_mp_id # type: ignore
 
     # If an iterator has been copied on a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
-        hou.session.flam3node.type()
+        hou.session.flam3node.type() # type: ignore
     except:
         id_from = -1
 
@@ -540,7 +540,7 @@ def menu_copypaste(kwargs: dict) -> list:
         id = kwargs['script_multiparm_index']
 
         node=kwargs['node']
-        flam3node = hou.session.flam3node
+        flam3node = hou.session.flam3node # type: ignore
         
         if node == flam3node and id==id_from:
             menuitems = ( "Iterator marked. Select a different iterator number or a different FLAM3 node to paste those values", "" )
@@ -579,16 +579,16 @@ def menu_copypaste_FF(kwargs: dict) -> list:
 
     # Check if we copied an iterator
     try:
-        hou.session.flam3node_FF_check
+        hou.session.flam3node_FF_check # type: ignore
     except:
-        hou.session.flam3node_FF_check = -1
+        hou.session.flam3node_FF_check = -1 # type: ignore
 
-    flam3node_FF_check = hou.session.flam3node_FF_check
+    flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
 
     # If the FF has been copied on a node that has been deleted
     # revert to -1 so that we are forced to copy an FF again.
     try:
-        hou.session.flam3node_FF.type()
+        hou.session.flam3node_FF.type() # type: ignore
     except:
         flam3node_FF_check = -1
 
@@ -596,7 +596,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
     if flam3node_FF_check != -1:
 
         node=kwargs['node']
-        flam3node_FF = hou.session.flam3node_FF
+        flam3node_FF = hou.session.flam3node_FF # type: ignore
         
         if node == flam3node_FF:
             menuitems = ( "FF marked. Select a different FLAM3 node to paste those FF values.", "" )
@@ -668,7 +668,7 @@ def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3
     for prm in prmT_list:
 
         prm_from = flam3node.parm(f"{prm}{id_from}").eval()
-        node.setParms({f"{prm}{id}": prm_from})
+        node.setParms({f"{prm}{id}": prm_from}) # type: ignore
         # Check if this var is a parametric or not
         v_type = int(prm_from)
         if(varsPRM[v_type][-1]):
@@ -731,28 +731,28 @@ def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: h
         # If on the same FLAM3 node
         if node == flam3node:
             if len(_current_note) == 0:
-                node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
             else:
-                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
         else:
             if len(_current_note) == 0:
-                node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
             else:
-                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"})
+                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
             print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section} to: {str(node)}.iter.{id}{str_section}")
     elif int_mode == 1:
         if node != flam3node:
             if len(_current_note_FF) == 0:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
             else:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
             print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF to: {str(node)}.FF")
     elif int_mode == 2:
         if node != flam3node:
             if len(_current_note_FF) == 0:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
             else:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"})
+                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
             print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
 
 
@@ -773,8 +773,8 @@ def prm_paste(kwargs: dict) -> None:
         id = kwargs['script_multiparm_index']
 
         # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3node
-        id_from = hou.session.flam3node_mp_id
+        flam3node = hou.session.flam3node # type: ignore
+        id_from = hou.session.flam3node_mp_id # type: ignore
 
         # If an iterator was copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
@@ -796,13 +796,13 @@ def prm_paste(kwargs: dict) -> None:
             print(f"{str(node)}: {MARK_ITER_MSG}.")
 
     elif kwargs["shift"]:
-        del hou.session.flam3node_mp_id
-        del hou.session.flam3node
+        del hou.session.flam3node_mp_id # type: ignore
+        del hou.session.flam3node # type: ignore
 
     else:
-        hou.session.flam3node_mp_id = kwargs['script_multiparm_index']
-        hou.session.flam3node = kwargs['node']
-        print(f"{str(kwargs['node'])}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}")
+        hou.session.flam3node_mp_id = kwargs['script_multiparm_index'] # type: ignore
+        hou.session.flam3node = kwargs['node'] # type: ignore
+        print(f"{str(kwargs['node'])}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}") # type: ignore
 
 
 ###############################################################################################
@@ -819,8 +819,8 @@ def prm_paste_FF(kwargs: dict) -> None:
         node=kwargs['node']
 
         # FLAM3 node and its state we just copied
-        flam3node_FF = hou.session.flam3node_FF
-        flam3node_FF_check = hou.session.flam3node_FF_check
+        flam3node_FF = hou.session.flam3node_FF # type: ignore
+        flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
 
         # If the FF was copied from a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
@@ -844,13 +844,13 @@ def prm_paste_FF(kwargs: dict) -> None:
             print(f"{str(node)}: {MARK_FF_MSG}.")
 
     elif kwargs["shift"]:
-        del hou.session.flam3node_FF_check
-        del hou.session.flam3node_FF
+        del hou.session.flam3node_FF_check # type: ignore
+        del hou.session.flam3node_FF # type: ignore
 
     else:
-        hou.session.flam3node_FF_check = 1
-        hou.session.flam3node_FF = kwargs['node']
-        print(f"{str(kwargs['node'])}: Copied FF: {str(hou.session.flam3node_FF)}->FF")
+        hou.session.flam3node_FF_check = 1 # type: ignore
+        hou.session.flam3node_FF = kwargs['node'] # type: ignore
+        print(f"{str(kwargs['node'])}: Copied FF: {str(hou.session.flam3node_FF)}->FF") # type: ignore
 
 
 ###############################################################################################
@@ -868,8 +868,8 @@ def prm_paste_sel(kwargs: dict) -> None:
     id = kwargs['script_multiparm_index']
 
     # FLAM3 node and Iterator we just copied
-    flam3node = hou.session.flam3node
-    id_from = hou.session.flam3node_mp_id
+    flam3node = hou.session.flam3node # type: ignore
+    id_from = hou.session.flam3node_mp_id # type: ignore
 
     # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
     #
@@ -948,8 +948,8 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     node=kwargs['node']
 
     # FLAM3 node and its state we just copied
-    flam3node_FF = hou.session.flam3node_FF
-    flam3node_FF_check = hou.session.flam3node_FF_check
+    flam3node_FF = hou.session.flam3node_FF # type: ignore
+    flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
 
     # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
     #
@@ -1032,20 +1032,20 @@ def flam3_on_create(kwargs: dict) -> None:
     # and we copied already an iterator's values, lets keep whats stored,
     # otherwise initialize those values.
     try:
-        hou.session.flam3node
+        hou.session.flam3node # type: ignore
     except:
-        hou.session.flam3node = node
+        hou.session.flam3node = node # type: ignore
     try:
-        hou.session.flam3node_mp_id
+        hou.session.flam3node_mp_id # type: ignore
     except:
-        hou.session.flam3node_mp_id = -1
+        hou.session.flam3node_mp_id = -1 # type: ignore
 
     # If an iterator was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
-        hou.session.flam3node.type()
+        hou.session.flam3node.type() # type: ignore
     except:
-        hou.session.flam3node_mp_id = -1
+        hou.session.flam3node_mp_id = -1 # type: ignore
 
     # FLAM3 node for FF.
     #
@@ -1053,26 +1053,26 @@ def flam3_on_create(kwargs: dict) -> None:
     # and we copied already FF's values, lets keep whats stored,
     # otherwise initialize those values.
     try:
-        hou.session.flam3node_FF
+        hou.session.flam3node_FF # type: ignore
     except:
-        hou.session.flam3node_FF = node
+        hou.session.flam3node_FF = node # type: ignore
     try:
-        hou.session.flam3node_FF_check
+        hou.session.flam3node_FF_check # type: ignore
     except:
-        hou.session.flam3node_FF_check = -1
+        hou.session.flam3node_FF_check = -1 # type: ignore
 
     # If the FF was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy the FF again.
     try:
-        hou.session.flam3node_FF.type()
+        hou.session.flam3node_FF.type() # type: ignore
     except:
-        hou.session.flam3node_FF_check = -1
+        hou.session.flam3node_FF_check = -1 # type: ignore
 
     # Initialize flam3 viewport Color Scheme
     try:
-        hou.session.flam3_CS
+        hou.session.flam3_CS # type: ignore
     except:
-        hou.session.flam3_CS = []
+        hou.session.flam3_CS = [] # type: ignore
 
 
 ###############################################################################################
@@ -1230,7 +1230,7 @@ def ramp_save(kwargs: dict) -> None:
             if is_LOCKED:
                 ui_text = f"This Palette library is Locked."
                 ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
-                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False)
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             else:
                 is_JSON = False
                 try:
@@ -1328,7 +1328,7 @@ def json_to_ramp(kwargs: dict) -> None:
         
         # Initialize new ramp.
         POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE)
+        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
         ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
         ramp_parm.set(ramp)
 
@@ -1396,7 +1396,7 @@ def getSceneViewers() -> list:
     Returns:
         list: [return a list of open scene viewers]
     """    
-    views = hou.ui.paneTabs()
+    views = hou.ui.paneTabs() # type: ignore
     viewers = []
     for v in views:
         if isinstance(v, hou.SceneViewer):
@@ -1410,17 +1410,17 @@ def getSceneViewers() -> list:
 def colorSchemeDark(self: hou.Node) -> None:
 
     try:
-        module_test = hou.session.flam3_CS;
+        module_test = hou.session.flam3_CS # type: ignore
     except:
-        hou.session.flam3_CS = []
+        hou.session.flam3_CS = [] # type: ignore
 
     count = 0
     viewers_col = []
 
     setprm = self.parm("setdark").eval()
-    Light = hou.viewportColorScheme.Light
-    Grey  = hou.viewportColorScheme.Grey
-    Dark  = hou.viewportColorScheme.Dark
+    Light = hou.viewportColorScheme.Light # type: ignore
+    Grey  = hou.viewportColorScheme.Grey # type: ignore
+    Dark  = hou.viewportColorScheme.Dark # type: ignore
 
     for view in getSceneViewers():
 
@@ -1428,38 +1428,38 @@ def colorSchemeDark(self: hou.Node) -> None:
         col = settings.colorScheme()
         viewers_col.append(col)
         try:
-            idx_test = hou.session.flam3_CS[count]
+            idx_test = hou.session.flam3_CS[count] # type: ignore
         except:
-            if len(hou.session.flam3_CS) > 0:
-                hou.session.flam3_CS.append(viewers_col)
+            if len(hou.session.flam3_CS) > 0: # type: ignore
+                hou.session.flam3_CS.append(viewers_col) # type: ignore
             else:
-                hou.session.flam3_CS = [];
-                hou.session.flam3_CS.append(viewers_col)
+                hou.session.flam3_CS = [] # type: ignore
+                hou.session.flam3_CS.append(viewers_col) # type: ignore
 
         if setprm:
-            if len(hou.session.flam3_CS) == 0:
+            if len(hou.session.flam3_CS) == 0: # type: ignore
                 if col == Light or col == Grey:
                     settings.setColorScheme(Dark)
             else:
                 if col == Light or col == Grey:
                     settings.setColorScheme(Dark)
-                elif col == Dark and hou.session.flam3_CS[count] != Dark:
-                    if hou.session.flam3_CS[count] == Light:
+                elif col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
+                    if hou.session.flam3_CS[count] == Light: # type: ignore
                         settings.setColorScheme(Light)
-                    elif hou.session.flam3_CS[count] == Grey:
+                    elif hou.session.flam3_CS[count] == Grey: # type: ignore
                         settings.setColorScheme(Grey)
 
         else:
-            if col == Dark and hou.session.flam3_CS[count] != Dark:
-                if hou.session.flam3_CS[count] == Light:
+            if col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
+                if hou.session.flam3_CS[count] == Light: # type: ignore
                     settings.setColorScheme(Light)
-                elif hou.session.flam3_CS[count] == Grey:
+                elif hou.session.flam3_CS[count] == Grey: # type: ignore
                     settings.setColorScheme(Grey)
         count += 1
     
     # Update history
-    hou.session.flam3_CS = []
-    hou.session.flam3_CS = viewers_col
+    hou.session.flam3_CS = [] # type: ignore
+    hou.session.flam3_CS = viewers_col # type: ignore
 
 
 ###############################################################################################
@@ -1469,8 +1469,8 @@ def viewportParticleDisplay(self: hou.Node) -> None:
 
     pttype = self.parm("vptype").evalAsInt()
 
-    Points = hou.viewportParticleDisplay.Points
-    Pixels = hou.viewportParticleDisplay.Pixels
+    Points = hou.viewportParticleDisplay.Points # type: ignore
+    Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
 
     for view in getSceneViewers():
         settings = view.curViewport().settings()
@@ -1485,7 +1485,7 @@ def viewportParticleDisplay(self: hou.Node) -> None:
 ###############################################################################################
 def viewportParticleSize(self: hou.Node) -> None:
 
-    Points = hou.viewportParticleDisplay.Points
+    Points = hou.viewportParticleDisplay.Points # type: ignore
     ptsize = self.parm("vpptsize").evalAsFloat()
 
     for view in getSceneViewers():
@@ -1563,30 +1563,30 @@ def reset_FF(self: hou.Node) -> None:
 
     n = flam3_iterator_prm_names
 
-    self.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
+    self.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"}) # type: ignore
     # FF pre
-    self.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}":  0}) # type: ignore 
+    self.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0}) # type: ignore
     # FF var
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1})
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0}) # type: ignore
     # FF post
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0}) # type: ignore
     # FF affine
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
+    self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0}) # type: ignore
 
 
 def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
@@ -1597,13 +1597,13 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
         mode (int): 0: skip "doff" 1: reset "doff"
     """    
     
-    self.setParms({SYS_PT_COUNT: density})
-    self.setParms({SYS_ITERATIONS: iter})
+    self.setParms({SYS_PT_COUNT: density}) # type: ignore
+    self.setParms({SYS_ITERATIONS: iter}) # type: ignore
     if mode:
-        self.setParms({SYS_DO_FF: 0})
-    self.setParms({SYS_TAG: 1})
-    self.setParms({SYS_TAG_SIZE: 0})
-    self.setParms({SYS_RIP: 0})
+        self.setParms({SYS_DO_FF: 0}) # type: ignore
+    self.setParms({SYS_TAG: 1}) # type: ignore
+    self.setParms({SYS_TAG_SIZE: 0}) # type: ignore
+    self.setParms({SYS_RIP: 0}) # type: ignore
     
 def reset_CP(self, mode=0) -> None:
     if not mode:
@@ -1612,7 +1612,7 @@ def reset_CP(self, mode=0) -> None:
         # CP->ramp
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
-        color_bases = [hou.rampBasis.Linear] * 3
+        color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
         if mode==1:
@@ -1631,7 +1631,7 @@ def reset_CP(self, mode=0) -> None:
     elif mode == 3:
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
-        color_bases = [hou.rampBasis.Linear] * 3
+        color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
@@ -1677,14 +1677,14 @@ def reset_OUT(self, mode=0) -> None:
         self.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 def reset_PREFS(self: hou.Node, mode=0) -> None:
-    self.setParms({"showprefs": 1})
-    self.setParms({XAOS_MODE: 0})
-    self.setParms({"camhandle": 0})
-    self.setParms({"camcull": 0})
-    self.setParms({"fcam": ""})
-    self.setParms({"cullamount": 0.99})
+    self.setParms({"showprefs": 1}) # type: ignore
+    self.setParms({XAOS_MODE: 0}) # type: ignore
+    self.setParms({"camhandle": 0}) # type: ignore
+    self.setParms({"camcull": 0}) # type: ignore
+    self.setParms({"fcam": ""}) # type: ignore
+    self.setParms({"cullamount": 0.99}) # type: ignore
     if mode:
-        self.setParms({"f3c": 1})
+        self.setParms({"f3c": 1}) # type: ignore
 
 
 ###############################################################################################
@@ -1696,12 +1696,12 @@ def flam3_default(self: hou.Node) -> None:
         self (hou.Node): [current hou.Node]
     """
     # Iterators reset
-    self.setParms({FLAM3_ITERATORS_COUNT: 0})
+    self.setParms({FLAM3_ITERATORS_COUNT: 0}) # type: ignore
     for p in self.parms():
         p.deleteAllKeyframes()
     # Add back iterators
     # This way all parameters will reset to their default values.
-    self.setParms({FLAM3_ITERATORS_COUNT: 3})
+    self.setParms({FLAM3_ITERATORS_COUNT: 3}) # type: ignore
 
     #
     # SYS
@@ -1719,58 +1719,58 @@ def flam3_default(self: hou.Node) -> None:
     # iter 1
     #
     # shader
-    self.setParms({f"{n.shader_color}_1": 0})
-    self.setParms({f"{n.shader_speed}_1": -0.5})
+    self.setParms({f"{n.shader_color}_1": 0}) # type: ignore
+    self.setParms({f"{n.shader_speed}_1": -0.5}) # type: ignore
     # vars
-    self.setParms({f"{n.prevar_type_1}_1": 0})
-    self.setParms({f"{n.prevar_type_2}_1": 0})
-    self.setParms({f"{n.var_type_1}_1": 0})
-    self.setParms({f"{n.var_type_2}_1": 0})
-    self.setParms({f"{n.var_type_3}_1": 0})
-    self.setParms({f"{n.var_type_4}_1": 0})
-    self.setParms({f"{n.postvar_type_1}_1": 0})
+    self.setParms({f"{n.prevar_type_1}_1": 0}) # type: ignore
+    self.setParms({f"{n.prevar_type_2}_1": 0}) # type: ignore
+    self.setParms({f"{n.var_type_1}_1": 0}) # type: ignore
+    self.setParms({f"{n.var_type_2}_1": 0}) # type: ignore
+    self.setParms({f"{n.var_type_3}_1": 0}) # type: ignore
+    self.setParms({f"{n.var_type_4}_1": 0}) # type: ignore
+    self.setParms({f"{n.postvar_type_1}_1": 0}) # type: ignore
     # pre affine
-    self.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))})
+    self.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))}) # type: ignore
+    self.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))}) # type: ignore
+    self.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))}) # type: ignore
 
     # iter 2
     #
     # shader
-    self.setParms({f"{n.shader_color}_2": 0.5})
-    self.setParms({f"{n.shader_speed}_2": -0.5})
+    self.setParms({f"{n.shader_color}_2": 0.5}) # type: ignore
+    self.setParms({f"{n.shader_speed}_2": -0.5}) # type: ignore
     # vars
-    self.setParms({f"{n.prevar_type_1}_2": 0})
-    self.setParms({f"{n.prevar_type_2}_2": 0})
-    self.setParms({f"{n.var_type_1}_2": 0})
-    self.setParms({f"{n.var_type_2}_2": 0})
-    self.setParms({f"{n.var_type_3}_2": 0})
-    self.setParms({f"{n.var_type_4}_2": 0})
-    self.setParms({f"{n.postvar_type_1}_2": 0})
+    self.setParms({f"{n.prevar_type_1}_2": 0}) # type: ignore
+    self.setParms({f"{n.prevar_type_2}_2": 0}) # type: ignore
+    self.setParms({f"{n.var_type_1}_2": 0}) # type: ignore
+    self.setParms({f"{n.var_type_2}_2": 0}) # type: ignore
+    self.setParms({f"{n.var_type_3}_2": 0}) # type: ignore
+    self.setParms({f"{n.var_type_4}_2": 0}) # type: ignore
+    self.setParms({f"{n.postvar_type_1}_2": 0}) # type: ignore
     # pre affine
-    self.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))})
+    self.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))}) # type: ignore
+    self.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))}) # type: ignore
+    self.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))}) # type: ignore
 
     # iter 3
     #
     # shader
-    self.setParms({f"{n.shader_color}_3": 1.0})
-    self.setParms({f"{n.shader_speed}_3": -0.5})
+    self.setParms({f"{n.shader_color}_3": 1.0}) # type: ignore
+    self.setParms({f"{n.shader_speed}_3": -0.5}) # type: ignore
     # vars
-    self.setParms({f"{n.prevar_type_1}_3": 0})
-    self.setParms({f"{n.prevar_type_2}_3": 0})
-    self.setParms({f"{n.var_type_1}_3": 0})
-    self.setParms({f"{n.var_type_2}_3": 0})
-    self.setParms({f"{n.var_type_3}_3": 0})
-    self.setParms({f"{n.var_type_4}_3": 0})
-    self.setParms({f"{n.postvar_type_1}_3": 0})
+    self.setParms({f"{n.prevar_type_1}_3": 0}) # type: ignore
+    self.setParms({f"{n.prevar_type_2}_3": 0}) # type: ignore
+    self.setParms({f"{n.var_type_1}_3": 0}) # type: ignore
+    self.setParms({f"{n.var_type_2}_3": 0}) # type: ignore
+    self.setParms({f"{n.var_type_3}_3": 0}) # type: ignore
+    self.setParms({f"{n.var_type_4}_3": 0}) # type: ignore
+    self.setParms({f"{n.postvar_type_1}_3": 0}) # type: ignore
     # pre affine
-    self.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))})
-    self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))})
-    self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))})
+    self.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))}) # type: ignore
+    self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
+    self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
     
-    self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT})
+    self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
 
 
 ###############################################################################################
@@ -1787,17 +1787,17 @@ def iteratorCountZero(self: hou.Node) -> None:
         for p in self.parms():
             p.deleteAllKeyframes()
         # SYS
-        self.setParms({SYS_DO_FF: 0})
-        self.setParms({SYS_RIP: 0})
+        self.setParms({SYS_DO_FF: 0}) # type: ignore
+        self.setParms({SYS_RIP: 0}) # type: ignore
         # FF vars
         reset_FF(self)
         # MB
         reset_MB(self)
         # prefs
-        self.setParms({"showprefs": 1})
+        self.setParms({"showprefs": 1}) # type: ignore
         #self.setParms({XAOS_MODE: 0})
-        self.setParms({"camhandle": 0})
-        self.setParms({"camcull": 0})
+        self.setParms({"camhandle": 0}) # type: ignore
+        self.setParms({"camcull": 0}) # type: ignore
         #self.setParms({"fcam": ""})
         #self.setParms({"cullamount": 0.99})
 
@@ -1856,7 +1856,7 @@ FLAM3 will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be int
 When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator
 so you wont need to remove values from the command string,
 unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
-    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False)
+    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 ###############################################################################################
 # OUT Presets name infos.
@@ -1874,7 +1874,7 @@ and modify the flame → \"name\" key yourself after the fact if you desire so.
 
 If no name is provided,
 an automated name composed of today’s date and current time will be used instead."""
-    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False)
+    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 ###############################################################################################
 # Disabled iterator save out info.
@@ -1885,7 +1885,7 @@ it wont be included when saving the flame out into a Flame file.
 
 In case you still want to include the inactive iterator into the file,
 set its Weight to Zero instead."""
-    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False)
+    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
 
@@ -1913,7 +1913,7 @@ def make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[s
     else:
         return None
 
-def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+def make_PRE(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
     if type(name) is str:
         if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
             return "pre_" + name
@@ -1922,7 +1922,7 @@ def make_PRE(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[s
     else:
         return None
 
-def make_POST(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+def make_POST(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
     if type(name) is str:
         if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
             return V_PRX_POST + name
@@ -2400,22 +2400,22 @@ class apo_flame(_xml_tree):
         """        
         super().__init__(xmlfile)
         self._node = node
-        self._name = self._xml_tree__get_name()
-        self._apo_version = self._xml_tree__get_name(XML_FLAME_VERSION)
-        self._flame = self._xml_tree__get_flame()
-        self._flame_count = self._xml_tree__get_flame_count(self._flame)
-        self._flame_plugins = self._xml_tree__get_name(XML_FLAME_PLUGINS)
+        self._name = self._xml_tree__get_name() # type: ignore
+        self._apo_version = self._xml_tree__get_name(XML_FLAME_VERSION) # type: ignore
+        self._flame = self._xml_tree__get_flame() # type: ignore
+        self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
+        self._flame_plugins = self._xml_tree__get_name(XML_FLAME_PLUGINS) # type: ignore
         # render properties
-        self._out_size = self._xml_tree__get_name(OUT_XML_FLAME_SIZE)
-        self._out_center = self._xml_tree__get_name(OUT_XML_FLAME_CENTER)
-        self._out_rotate = self._xml_tree__get_name(OUT_XML_FLAME_ROTATE)
-        self._out_scale = self._xml_tree__get_name(OUT_XML_FLAME_SCALE)
-        self._out_quality = self._xml_tree__get_name(OUT_XML_FLAME_QUALITY)
-        self._out_brightness = self._xml_tree__get_name(OUT_XML_FLAME_BRIGHTNESS)
-        self._out_gamma = self._xml_tree__get_name(OUT_XML_FLAME_GAMMA)
-        self._out_highlight_power = self._xml_tree__get_name(OUT_XML_FLAME_POWER)
-        self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2)
-        self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY)
+        self._out_size = self._xml_tree__get_name(OUT_XML_FLAME_SIZE) # type: ignore
+        self._out_center = self._xml_tree__get_name(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_rotate = self._xml_tree__get_name(OUT_XML_FLAME_ROTATE) # type: ignore
+        self._out_scale = self._xml_tree__get_name(OUT_XML_FLAME_SCALE) # type: ignore
+        self._out_quality = self._xml_tree__get_name(OUT_XML_FLAME_QUALITY) # type: ignore
+        self._out_brightness = self._xml_tree__get_name(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
+        self._out_gamma = self._xml_tree__get_name(OUT_XML_FLAME_GAMMA) # type: ignore
+        self._out_highlight_power = self._xml_tree__get_name(OUT_XML_FLAME_POWER) # type: ignore
+        self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2) # type: ignore
+        self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
 
     @staticmethod
     def affine_coupling(affine: list) -> list:
@@ -2659,14 +2659,14 @@ class apo_flame(_xml_tree):
                         rgb_from_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
-                    BASESs = [hou.rampBasis.Linear] * (ramp_keys_count)
+                    BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
                 
                 except:
                     hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
                     ui_text = "Flame's Palette hex values not valid."
                     palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
-                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True)
+                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
                     return None
             else:
                 return None
@@ -2683,23 +2683,23 @@ class apo_flame_iter_data(apo_flame):
             idx (int, optional): [flame idx out of all flames included in the loaded flame file]. Defaults to 0.
         """        
         super().__init__(node, xmlfile)
-        self._idx = self._apo_flame__is_valid_idx(idx)
-        self._xforms = self._apo_flame__get_xforms(self._idx, XML_XF)
-        self._xf_name = self._apo_flame__get_keyvalue(self._xforms, XML_XF_NAME)
-        self._weight = self._apo_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT)
-        self._pre_blur = self._apo_flame__get_keyvalue(self._xforms, XML_XF_PB)
-        self._xaos  = self._apo_flame__get_xaos(self._xforms)
-        self._coefs = self._apo_flame__get_affine(self._xforms, XML_PRE_AFFINE)
-        self._post  = self._apo_flame__get_affine(self._xforms, XML_POST_AFFINE)
-        self._finalxform = self._apo_flame__get_xforms(self._idx, XML_FF)
-        self._finalxform_coefs = self._apo_flame__get_affine(self._finalxform, XML_PRE_AFFINE)
-        self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, XML_POST_AFFINE)
-        self._finalxform_name = self._apo_flame__get_keyvalue(self._finalxform, XML_XF_NAME)
-        self._palette = self._apo_flame__get_palette(self._idx)
-        self._color = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR)
-        self._color_speed = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED)
-        self._symmetry = self._apo_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY)
-        self._opacity = self._apo_flame__get_keyvalue(self._xforms, XML_XF_OPACITY)
+        self._idx = self._apo_flame__is_valid_idx(idx) # type: ignore
+        self._xforms = self._apo_flame__get_xforms(self._idx, XML_XF) # type: ignore
+        self._xf_name = self._apo_flame__get_keyvalue(self._xforms, XML_XF_NAME) # type: ignore
+        self._weight = self._apo_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT) # type: ignore
+        self._pre_blur = self._apo_flame__get_keyvalue(self._xforms, XML_XF_PB) # type: ignore
+        self._xaos  = self._apo_flame__get_xaos(self._xforms) # type: ignore
+        self._coefs = self._apo_flame__get_affine(self._xforms, XML_PRE_AFFINE) # type: ignore
+        self._post  = self._apo_flame__get_affine(self._xforms, XML_POST_AFFINE) # type: ignore
+        self._finalxform = self._apo_flame__get_xforms(self._idx, XML_FF) # type: ignore
+        self._finalxform_coefs = self._apo_flame__get_affine(self._finalxform, XML_PRE_AFFINE) # type: ignore
+        self._finalxform_post  = self._apo_flame__get_affine(self._finalxform, XML_POST_AFFINE) # type: ignore
+        self._finalxform_name = self._apo_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
+        self._palette = self._apo_flame__get_palette(self._idx) # type: ignore
+        self._color = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
+        self._color_speed = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
+        self._symmetry = self._apo_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
+        self._opacity = self._apo_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
 
 
     @property
@@ -2791,7 +2791,7 @@ def menu_apo_presets(kwargs: dict) -> list:
 
 
 # Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
-def get_xforms_var_keys(xforms: tuple, vars: Union[list, tuple, dict], exclude_keys: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys(xforms: Union[tuple, None], vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], exclude_keys: tuple) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2819,7 +2819,7 @@ def removeprefix(self: str, prefix: str) -> str:
     else:
         return self[:]
 # to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
-def get_xforms_var_keys_PP(xforms: tuple, vars: dict, prx: str, exclude_keys: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys_PP(xforms: Union[tuple, None], vars: dict, prx: str, exclude_keys: tuple) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2901,24 +2901,24 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
         mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
     """
     if mode:
-        node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]})
-        node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]})
-        node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]})
+        node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
+        node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
+        node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]}) # type: ignore
         if apo_data.finalxform_post is not None:
-            node.setParms({f"{prx}{n.postaffine_do}": 1})
-            node.setParms({f"{prx}{n.postaffine_x}": apo_data.finalxform_post[mp_idx][0]})
-            node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]})
-            node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]})
+            node.setParms({f"{prx}{n.postaffine_do}": 1}) # type: ignore
+            node.setParms({f"{prx}{n.postaffine_x}": apo_data.finalxform_post[mp_idx][0]}) # type: ignore
+            node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
+            node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
     else:
-        node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]})
-        node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]})
-        node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]})
+        node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]}) # type: ignore
+        node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]}) # type: ignore
+        node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]}) # type: ignore
         if apo_data.post is not None:
             if apo_data.post[mp_idx]:
-                node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1})
-                node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]})
-                node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]})
-                node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]})
+                node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1}) # type: ignore
+                node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]}) # type: ignore
+                node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
+                node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
 
 
 
@@ -2939,9 +2939,9 @@ def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: 
             n = flam3_iterator_prm_names
             if prm_name not in [n.shader_alpha, n.main_weight]:
                 if apo_data[mp_idx]:
-                    node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]})
+                    node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
             else:
-                node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]})
+                node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
             
 
 
@@ -3013,15 +3013,15 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
         VAR.append(typemaker(var_prm_vals))
 
     for idx, prm in enumerate(var_prm[1:-1]):
-        if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]})
-        else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+        if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) # type: ignore
+        else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
 
     if mode:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
     else:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
         
         
 def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -3065,11 +3065,11 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
 
     # Only on pre variations with parametric so:
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
 
 
 def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -3113,11 +3113,11 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]})
+        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
 
     # Only on post variation with parametric so:
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
     
     
 def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -3157,11 +3157,11 @@ def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_typ
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]})
+        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
 
     # Only on post variation with parametric so:
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type})
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight})
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
 
 def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
@@ -3201,11 +3201,11 @@ def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_ty
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]})
+        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
 
     # Only on post variation with parametric so:
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight})
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
 
 def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
@@ -3221,11 +3221,11 @@ def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v
     prx, prx_prm = flam3_prx_mode(mode)
 
     if mode:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
     else:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type})
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
+        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
         
         
 def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
@@ -3243,8 +3243,8 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     # Only pre variations with no parametric so:
     # idx set by hand for now: flam3_iterator.sec_prevarsT[t_idx]
     # idx set by hand for now: flam3_iterator.sec_prevarsW[t_idx+1][0] ... because in here we have "pre_blur as first"
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
         
 
 def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
@@ -3260,8 +3260,8 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     prx, prx_prm = flam3_prx_mode(mode)
 
     # Only post variation with no parametric so:
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type})
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight})
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
 
 def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
@@ -3274,8 +3274,8 @@ def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -
         weight (float): [Current variation weight]
     """
 
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type})
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight})
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
+    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
 
 def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
@@ -3288,8 +3288,8 @@ def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) 
         weight (float): [Current variation weight]
     """
 
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type})
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight})
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
+    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
 
 def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> None:
@@ -3305,7 +3305,7 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> Non
     if mode: pass
     else:
         if pb_weights[mp_idx]:
-            node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]})
+            node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
 
 
 def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int, exclude_keys: tuple) -> None:
@@ -3333,14 +3333,14 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
-    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) # type: ignore
+    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys) # type: ignore
+    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys) # type: ignore
 
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
-        for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]):
+        for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]): # type: ignore
             v_type = apo_get_idx_by_key(key_name)
             if v_type is not None:
                 v_weight = float(xform.get(key_name))
@@ -3356,11 +3356,11 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
         if mode:
             # Set finalxform name first if any
             if apo_data.finalxform_name[0]:
-                node.setParms({f"{prx}note": apo_data.finalxform_name[0]})
+                node.setParms({f"{prx}note": apo_data.finalxform_name[0]}) # type: ignore
             # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
-            if vars_keys_pre[mp_idx]:
-                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+            if vars_keys_pre[mp_idx]: # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]): # type: ignore
+                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
@@ -3368,9 +3368,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                         else:
                             v_generic_PRE_FF(node, t_idx, v_type, v_weight)
             # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
-            if vars_keys_post[mp_idx]:
-                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+            if vars_keys_post[mp_idx]: # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]): # type: ignore
+                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
@@ -3380,9 +3380,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                             
         else:
             # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
-            if vars_keys_pre[mp_idx]:
-                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+            if vars_keys_pre[mp_idx]: # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]): # type: ignore
+                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
@@ -3391,9 +3391,9 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                             v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
                             
             # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
-            if vars_keys_post[mp_idx]:
-                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name))
+            if vars_keys_post[mp_idx]: # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]): # type: ignore
+                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
@@ -3402,7 +3402,7 @@ def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, p
                             v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
                             
             # Activate iterator, just in case...
-            node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1})
+            node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
             # Set the rest of the iterators
             if node.parm(USE_FRACTORIUM_COLOR_SPEED).eval(): apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
             else: apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
@@ -3446,12 +3446,12 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     iter_on_load_preset = get_preset_name_iternum(preset_name)
     if iter_on_load_preset is not None:
-        self.setParms({"iternumonload": iter_on_load_preset})
-        self.setParms({"useiteronload": 0})
+        self.setParms({"iternumonload": iter_on_load_preset}) # type: ignore
+        self.setParms({"useiteronload": 0}) # type: ignore
         iter_on_load = iter_on_load_preset
     else:
         if not use_iter_on_load:
-            self.setParms({"iternumonload": ITER_LOAD_DEFAULT})
+            self.setParms({"iternumonload": ITER_LOAD_DEFAULT}) # type: ignore
             iter_on_load = ITER_LOAD_DEFAULT
     return iter_on_load    
 
@@ -3470,12 +3470,12 @@ def apo_to_flam3(self: hou.Node) -> None:
 
         apo_data = apo_flame_iter_data(self, xml, preset_id)
         if min(apo_data.opacity) == 0.0:
-            self.setParms({SYS_RIP: 1})
+            self.setParms({SYS_RIP: 1}) # type: ignore
         # iterators
-        self.setParms({FLAM3_ITERATORS_COUNT: 0})
+        self.setParms({FLAM3_ITERATORS_COUNT: 0}) # type: ignore
         for p in self.parms():
             p.deleteAllKeyframes()
-        self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)})
+        self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
         
         # get keys to exclude
         exclude_keys = XML_XF_KEY_EXCLUDE
@@ -3486,14 +3486,14 @@ def apo_to_flam3(self: hou.Node) -> None:
         # if FF
         if apo_data.finalxform is not None:
             reset_FF(self)
-            self.setParms({SYS_DO_FF: 1})
+            self.setParms({SYS_DO_FF: 1}) # type: ignore
             apo_set_iterator(1, self, apo_data, preset_id, exclude_keys)
         else:
             reset_FF(self)
-            self.setParms({SYS_DO_FF: 0})
+            self.setParms({SYS_DO_FF: 0}) # type: ignore
 
         # CP
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
         # self.setParms({PALETTE_LIB_PATH: ""})
         # self.setParms({PALETTE_PRESETS: "-1"})
         ramp_parm = self.parm(RAMP_SRC_NAME)
@@ -3506,21 +3506,21 @@ def apo_to_flam3(self: hou.Node) -> None:
         if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
             apo_copy_render_stats_msg(self)
         # Set density back to default on load
-        self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT})
+        self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
         #Updated flame stats 
-        self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)})
-        self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)})
+        self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
+        self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
-            self.setParms({"flamestats_msg": "Please load a valid *.flame file."})
-            self.setParms({"flamerender_msg": ""})
+            self.setParms({"flamestats_msg": "Please load a valid *.flame file."}) # type: ignore
+            self.setParms({"flamerender_msg": ""}) # type: ignore
             # The following do not work, not sure why
-            self.setParms({"descriptive_msg": ""})
+            self.setParms({"descriptive_msg": ""}) # type: ignore
         else:
-            self.setParms({"flamestats_msg": ""})
-            self.setParms({"flamerender_msg": ""})
+            self.setParms({"flamestats_msg": ""}) # type: ignore
+            self.setParms({"flamerender_msg": ""}) # type: ignore
             # The following do not work, not sure why
-            self.setParms({"descriptive_msg": ""})
+            self.setParms({"descriptive_msg": ""}) # type: ignore
 
 
 def apo_join_vars_grp(groups: list) -> str:
@@ -3532,7 +3532,7 @@ def apo_join_vars_grp(groups: list) -> str:
             vars.append(", ".join(grp))
     return ''.join(vars)
 
-def out_vars_flatten_unique_sorted(VARS_list: list[list], func: Callable) -> list:
+def out_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
     flatten = [item for sublist in VARS_list for item in sublist]
     result = []
     [result.append(x) for x in flatten if x not in result]
@@ -3605,9 +3605,10 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     exclude_keys = XML_XF_KEY_EXCLUDE
     if self.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
         exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
     vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
     vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+
     # FF
     vars_keys_FF = []
     vars_keys_PRE_FF = []
@@ -3616,10 +3617,10 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
         vars_keys_PRE_FF = get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
         vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-    vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF
+    vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
     if pb_bool:
         vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
-    result_sorted = out_vars_flatten_unique_sorted(vars_all, make_NULL)
+    result_sorted = out_vars_flatten_unique_sorted(vars_all, make_NULL) # type: ignore
     
     n = 5
     result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
@@ -3629,7 +3630,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
                         f"{preset_name}", )
-    self.setParms({"descriptive_msg": "".join(descriptive_prm)})
+    self.setParms({"descriptive_msg": "".join(descriptive_prm)}) # type: ignore
 
     # Build missing:
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
@@ -3642,7 +3643,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
         vars_keys_from_fractorium_pre_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
         vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
-    vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF
+    vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
     result_sorted_fractorium = out_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, make_NULL)
     
     # Compare and keep and build missing vars msg
@@ -3741,37 +3742,37 @@ def apo_copy_render_stats_msg(self: hou.Node) -> None:
     preset_id = int(self.parm(IN_PRESETS).eval())
     f3r = apo_flame_iter_data(self, xml, preset_id)
     if f3r.isvalidtree:
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): int(f3r.out_rotate[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): int(f3r.out_rotate[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): int(f3r.out_scale[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): int(f3r.out_scale[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
         except:
             pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])})
+        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
         except:
             pass
-        self.setParms({"outedit": 1})
+        self.setParms({"outedit": 1}) # type: ignore
     else:
         pass
 
@@ -3857,7 +3858,7 @@ class _out_utils():
         self._xm = self._node.parm(XAOS_MODE).eval()
     
     @staticmethod
-    def affine_rot(affine: list[tuple], angleDeg: float) -> list[tuple]:
+    def affine_rot(affine: list[tuple[str]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
         When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
         and export the resulting values out so we can get the same result once we load it back.
@@ -3869,14 +3870,14 @@ class _out_utils():
         Returns:
             list[tuple]: A new affine list of tuples ( (X), (Y), (O) ) rotated by the angle amount.
         """        
-        angleRad = hou.hmath.degToRad(angleDeg)
+        angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
         m2 = hou.Matrix2((affine[0], affine[1]))
         rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
         new = (m2 * rot).asTupleOfTuples()
         return [new[0], new[1], affine[2]]
     
     @staticmethod
-    def out_round_floats(VAL_LIST: list[list[str]]) -> list[list[str]]:
+    def out_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
@@ -3897,14 +3898,14 @@ class _out_utils():
         return v_ROUND
 
     @staticmethod
-    def xaos_cleanup(xaos: list[list[str]]) -> list[list[str]]:
+    def xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
         xaos_cleaned = []
         for x in xaos:
             invert = x[::-1]
             trace = 0
             for idx, item in enumerate(x):
                 if invert[idx-trace] == '1':
-                    invert.pop(idx-trace)
+                    invert.pop(idx-trace) # type: ignore
                     trace = trace + 1
                 else:
                     break
@@ -4024,7 +4025,6 @@ class _out_utils():
     def palette_hsv_do(self):
         return self._palette_hsv_do
 
-
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
             prm_type = False
@@ -4143,7 +4143,7 @@ class _out_utils():
             collect.append(self._node.parmTuple(f"{prm[0]}").eval())
         angleDeg = self._node.parm(f"{self._flam3_iterator_FF.sec_preAffine_FF[-1][0]}").eval()
         if angleDeg != 0.0:
-            affine = self.out_round_floats(self.affine_rot(collect, angleDeg))
+            affine = self.out_round_floats(self.affine_rot(collect, angleDeg)) # type: ignore
         else:
             affine = self.out_round_floats(collect)
         flatten = [item for sublist in affine for item in sublist]
@@ -4157,7 +4157,7 @@ class _out_utils():
                 collect.append(self._node.parmTuple(f"{prm[0]}").eval())
             angleDeg = self._node.parm(f"{self._flam3_iterator_FF.sec_postAffine_FF[-1][0]}").eval()
             if angleDeg != 0.0:
-                affine = self.out_round_floats(self.affine_rot(collect, angleDeg))
+                affine = self.out_round_floats(self.affine_rot(collect, angleDeg)) # type: ignore
             else:
                 affine = self.out_round_floats(collect)
             flatten = [item for sublist in affine for item in sublist]
@@ -4170,17 +4170,17 @@ class out_flame_properties(_out_utils):
 
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
-        self.flame_name = self._out_utils__out_flame_name()
-        self.flame_size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE))
-        self.flame_center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER))
-        self.flame_scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE))
-        self.flame_rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE))
-        self.flame_quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY))
-        self.flame_brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS))
-        self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA))
-        self.flame_k2 = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2))
-        self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY))
-        self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER))
+        self.flame_name = self._out_utils__out_flame_name() # type: ignore
+        self.flame_size = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)) # type: ignore
+        self.flame_center = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)) # type: ignore
+        self.flame_scale = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)) # type: ignore
+        self.flame_rotate = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)) # type: ignore
+        self.flame_quality = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)) # type: ignore
+        self.flame_brightness = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)) # type: ignore
+        self.flame_gamma = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)) # type: ignore
+        self.flame_k2 = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)) # type: ignore
+        self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
+        self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
         self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
         self.flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
         self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
@@ -4192,20 +4192,20 @@ class out_flam3_data(_out_utils):
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
         # FLAM3 data
-        self.xf_name = self._out_utils__out_xf_name()
-        self.xf_vactive = self._out_utils__out_xf_data(self._prm_names.main_vactive)
-        self.xf_weight = self._out_utils__out_xf_data(self._prm_names.main_weight)
-        self.xf_xaos = self._out_utils__out_xf_xaos()
-        self.xf_pre_blur = self._out_utils__out_xf_pre_blur()
-        self.xf_color = self._out_utils__out_xf_data(self._prm_names.shader_color)
-        self.xf_symmetry = self._out_utils__out_xf_data(self._prm_names.shader_speed)
-        self.xf_opacity = self._out_utils__out_xf_data(self._prm_names.shader_alpha)
-        self.xf_preaffine = self._out_utils__out_xf_preaffine()
-        self.xf_postaffine = self._out_utils__out_xf_postaffine()
-        self.palette_hex = self._out_utils__out_palette_hex()
-        self.finalxf_name = self._out_utils__out_finalxf_name()
-        self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine()
-        self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine()
+        self.xf_name = self._out_utils__out_xf_name() # type: ignore
+        self.xf_vactive = self._out_utils__out_xf_data(self._prm_names.main_vactive) # type: ignore
+        self.xf_weight = self._out_utils__out_xf_data(self._prm_names.main_weight) # type: ignore
+        self.xf_xaos = self._out_utils__out_xf_xaos() # type: ignore
+        self.xf_pre_blur = self._out_utils__out_xf_pre_blur() # type: ignore
+        self.xf_color = self._out_utils__out_xf_data(self._prm_names.shader_color) # type: ignore
+        self.xf_symmetry = self._out_utils__out_xf_data(self._prm_names.shader_speed) # type: ignore
+        self.xf_opacity = self._out_utils__out_xf_data(self._prm_names.shader_alpha) # type: ignore
+        self.xf_preaffine = self._out_utils__out_xf_preaffine() # type: ignore
+        self.xf_postaffine = self._out_utils__out_xf_postaffine() # type: ignore
+        self.palette_hex = self._out_utils__out_palette_hex() # type: ignore
+        self.finalxf_name = self._out_utils__out_finalxf_name() # type: ignore
+        self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine() # type: ignore
+        self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine() # type: ignore
 
 def my_system() -> str:
     mysys = platform.system()
@@ -4258,7 +4258,7 @@ def out_round_float(VAL) -> str:
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
 
-def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]:
+def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]: 
     names = []
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
@@ -4336,15 +4336,15 @@ def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do
         ALL_msg += "\n" + VARS_POST_FF_msg
     if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
         ALL_msg += HELP_msg
-        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True)
+        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
         return False
     else:
         return True
 
 
-def out_build_XML(self, root: lxmlET.Element) -> bool:
+def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
     # Build Flame properties
-    flame = lxmlET.SubElement(root, XML_FLAME_NAME)
+    flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
     flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
         flame.set(k, v)
@@ -4358,7 +4358,7 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
     for iter in range(f3d.iter_count):
         iter_var = iter + 1
         if int(f3d.xf_vactive[iter]):
-            xf = lxmlET.SubElement(flame, XML_XF)
+            xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
             xf.tag = XML_XF
             xf.set(XML_XF_NAME, f3d.xf_name[iter])
             xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
@@ -4381,7 +4381,7 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
     names_VARS_PRE_FF = []
     names_VARS_POST_FF = []
     if f3d.flam3_do_FF:
-        finalxf = lxmlET.SubElement(flame, XML_FF)
+        finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
         finalxf.tag = XML_FF
         finalxf.set(XML_XF_COLOR, '0')
         finalxf.set(XML_XF_VAR_COLOR, '1')
@@ -4395,7 +4395,7 @@ def out_build_XML(self, root: lxmlET.Element) -> bool:
         names_VARS_PRE_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
         names_VARS_POST_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
     # Build palette
-    palette = lxmlET.SubElement(flame, XML_PALETTE)
+    palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
     palette.tag = XML_PALETTE
     palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
     palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
@@ -4453,7 +4453,7 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
 
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
-    root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG)
+    root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
     if out_build_XML(self, root):
         _pretty_print(root)
         tree = lxmlET.ElementTree(root)
@@ -4465,7 +4465,7 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str) -> None:
     # root = apo_data.tree.getroot()
     
     # with lxmlET
-    tree = lxmlET.parse(apo_data.xmlfile)
+    tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
     root = tree.getroot()
     
     if out_build_XML(self, root):
@@ -4490,7 +4490,7 @@ def out_XML(kwargs: dict) -> None:
             if is_LOCKED:
                 ui_text = f"This Flam3 library is Locked."
                 ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False)
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             else:
                 apo_data = apo_flame(kwargs['node'], str(out_path_checked))
                 if kwargs["ctrl"]:
