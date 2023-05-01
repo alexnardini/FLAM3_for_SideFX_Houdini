@@ -1559,7 +1559,7 @@ def reset_postaffine_FF(kwargs: dict) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
-    
+
 
 def reset_FF(self: hou.Node) -> None:
 
@@ -1623,13 +1623,8 @@ def reset_CP(self, mode=0) -> None:
             self.setParms({PALETTE_PRESETS: "-1"})
             self.setParms({"palettemsg": ''})
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-        # Update ramp py 
-        palette_cp(self)
-        palette_hsv(self)
     elif mode == 2:
         self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-        palette_cp(self)
-        palette_hsv(self)
     elif mode == 3:
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
@@ -1637,9 +1632,9 @@ def reset_CP(self, mode=0) -> None:
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-        # Update ramp py 
-        palette_cp(self)
-        palette_hsv(self)
+    # Update ramp py 
+    palette_cp(self)
+    palette_hsv(self)
 
 def reset_MB(self) -> None:
     self.setParms({"domb": 0})
