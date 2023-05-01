@@ -2887,7 +2887,13 @@ def flam3_prx_mode(mode: int) -> tuple[str, str]:
     return prx, prx_prm
 
 
-def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter_data, n: flam3_iterator_prm_names, mp_idx: int) -> None:
+def apo_set_affine(mode: int, 
+                   node: hou.Node, 
+                   prx: str, 
+                   apo_data: apo_flame_iter_data, 
+                   n: flam3_iterator_prm_names, 
+                   mp_idx: int
+                   ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -2919,7 +2925,13 @@ def apo_set_affine(mode: int, node: hou.Node, prx: str, apo_data: apo_flame_iter
 
 
 
-def apo_set_data(mode: int, node: hou.Node, prx: str, apo_data: list, prm_name: str, mp_idx: int) -> None:
+def apo_set_data(mode: int, 
+                 node: hou.Node, 
+                 prx: str, 
+                 apo_data: list, 
+                 prm_name: str, 
+                 mp_idx: int
+                 ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3304,8 +3316,6 @@ def v_generic_PRE(mode: int,
         weight (float): [Current variation weight]
     """
     prx, prx_prm = flam3_prx_mode(mode)
-
-    # Only pre variations with no parametric so:
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
@@ -3327,8 +3337,6 @@ def v_generic_POST(mode: int,
         weight (float): [Current variation weight]
     """
     prx, prx_prm = flam3_prx_mode(mode)
-
-    # Only post variation with no parametric so:
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
@@ -3346,7 +3354,6 @@ def v_generic_PRE_FF(node: hou.Node,
         v_type (int): [Current variation type index]
         weight (float): [Current variation weight]
     """
-
     node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
     node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
@@ -3364,7 +3371,6 @@ def v_generic_POST_FF(node: hou.Node,
         v_type (int): [Current variation type index]
         weight (float): [Current variation weight]
     """
-
     node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
     node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
@@ -3401,7 +3407,6 @@ def apo_set_iterator(mode: int,
         node (hou.Node): [Current FLAM3 houdini node]
         apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
     """    
-
     # What software were used to generate this flame preset
     app = apo_data.apo_version[preset_id]
 
