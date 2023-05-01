@@ -2970,7 +2970,17 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
 def var_name_from_dict(mydict: dict, idx: int):
     return list(mydict.keys())[list(mydict.values()).index(idx)]
-def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric(app: str, 
+                 mode: int, 
+                 node: hou.Node, 
+                 mp_idx: int, 
+                 t_idx: int, 
+                 xform: dict, 
+                 v_type: int, 
+                 v_weight: float, 
+                 var_prm: tuple, 
+                 apo_prm: tuple
+                 ) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
@@ -3409,14 +3419,17 @@ def apo_set_iterator(mode: int,
 
     var_prm: tuple = flam3_varsPRM.varsPRM
     apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) # type: ignore
-    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys) # type: ignore
-    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys) # type: ignore
-
+    
+    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+    assert vars_keys is not None
+    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+    assert vars_keys_pre is not None
+    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+    assert vars_keys_post is not None
 
     # Set variations ( iterator and FF )
     for mp_idx, xform in enumerate(xforms):
-        for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]): # type: ignore
+        for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]):
             v_type = apo_get_idx_by_key(key_name)
             if v_type is not None:
                 v_weight = float(xform.get(key_name))
@@ -3435,7 +3448,7 @@ def apo_set_iterator(mode: int,
                 node.setParms({f"{prx}note": apo_data.finalxform_name[0]}) # type: ignore
             # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
             if vars_keys_pre[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]): # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
@@ -3445,7 +3458,7 @@ def apo_set_iterator(mode: int,
                             v_generic_PRE_FF(node, t_idx, v_type, v_weight)
             # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]): # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
@@ -3457,7 +3470,7 @@ def apo_set_iterator(mode: int,
         else:
             # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
             if vars_keys_pre[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]): # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
@@ -3468,7 +3481,7 @@ def apo_set_iterator(mode: int,
                             
             # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
             if vars_keys_post[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]): # type: ignore
+                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
