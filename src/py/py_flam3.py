@@ -2788,7 +2788,10 @@ def menu_apo_presets(kwargs: dict) -> list:
 
 
 # Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
-def get_xforms_var_keys(xforms: Union[tuple, None], vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], exclude_keys: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys(xforms: Union[tuple, None], 
+                        vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
+                        exclude_keys: tuple
+                        ) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -2816,7 +2819,11 @@ def removeprefix(self: str, prefix: str) -> str:
     else:
         return self[:]
 # to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
-def get_xforms_var_keys_PP(xforms: Union[tuple, None], vars: dict, prx: str, exclude_keys: tuple) -> Union[list[str], None]:
+def get_xforms_var_keys_PP(xforms: Union[tuple, None], 
+                           vars: dict, 
+                           prx: str, 
+                           exclude_keys: tuple
+                           ) -> Union[list[str], None]:
     """
     Args:
         xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -3439,7 +3446,17 @@ def apo_set_iterator(mode: int,
             if v_type is not None:
                 v_weight = float(xform.get(key_name))
                 if apo_prm[v_type][-1]:
-                    v_parametric(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                    v_parametric(app, 
+                                 mode, 
+                                 node, 
+                                 mp_idx, 
+                                 t_idx, 
+                                 xform, 
+                                 v_type, 
+                                 v_weight, 
+                                 var_prm[v_type], 
+                                 apo_prm[v_type]
+                                 )
                 else:
                     v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
             else:
@@ -3458,7 +3475,15 @@ def apo_set_iterator(mode: int,
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
-                            v_parametric_PRE_FF(app, node, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                            v_parametric_PRE_FF(app, 
+                                                node, 
+                                                t_idx, 
+                                                xform, 
+                                                v_type, 
+                                                v_weight, 
+                                                var_prm[v_type], 
+                                                apo_prm[v_type]
+                                                )
                         else:
                             v_generic_PRE_FF(node, t_idx, v_type, v_weight)
             # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
@@ -3468,7 +3493,15 @@ def apo_set_iterator(mode: int,
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
-                            v_parametric_POST_FF(app, node, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                            v_parametric_POST_FF(app, 
+                                                 node, 
+                                                 t_idx, 
+                                                 xform, 
+                                                 v_type, 
+                                                 v_weight, 
+                                                 var_prm[v_type], 
+                                                 apo_prm[v_type]
+                                                 )
                         else:
                             v_generic_POST_FF(node, t_idx, v_type, v_weight)
                             
@@ -3480,7 +3513,17 @@ def apo_set_iterator(mode: int,
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
-                            v_parametric_PRE(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                            v_parametric_PRE(app, 
+                                             mode, 
+                                             node, 
+                                             mp_idx, 
+                                             t_idx, 
+                                             xform, 
+                                             v_type, 
+                                             v_weight, 
+                                             var_prm[v_type], 
+                                             apo_prm[v_type]
+                                             )
                         else:
                             v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
                             
@@ -3491,7 +3534,17 @@ def apo_set_iterator(mode: int,
                     if v_type is not None:
                         v_weight = float(xform.get(key_name))
                         if apo_prm[v_type][-1]:
-                            v_parametric_POST(app, mode, node, mp_idx, t_idx, xform, v_type, v_weight, var_prm[v_type], apo_prm[v_type])
+                            v_parametric_POST(app, 
+                                              mode, 
+                                              node, 
+                                              mp_idx, 
+                                              t_idx, 
+                                              xform, 
+                                              v_type, 
+                                              v_weight, 
+                                              var_prm[v_type], 
+                                              apo_prm[v_type]
+                                              )
                         else:
                             v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
                             
