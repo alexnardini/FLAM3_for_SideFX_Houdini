@@ -3243,8 +3243,6 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     prx, prx_prm = flam3_prx_mode(mode)
 
     # Only pre variations with no parametric so:
-    # idx set by hand for now: flam3_iterator.sec_prevarsT[t_idx]
-    # idx set by hand for now: flam3_iterator.sec_prevarsW[t_idx+1][0] ... because in here we have "pre_blur as first"
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
         
