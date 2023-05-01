@@ -3023,7 +3023,17 @@ def v_parametric(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, x
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
         
         
-def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_PRE(app: str, 
+                     mode: int, 
+                     node: hou.Node, 
+                     mp_idx: int, 
+                     t_idx: int, 
+                     xform: dict, 
+                     v_type: int, 
+                     v_weight: float, 
+                     var_prm: tuple, 
+                     apo_prm: tuple
+                     ) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
@@ -3073,7 +3083,17 @@ def v_parametric_PRE(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: in
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
 
 
-def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_POST(app: str, 
+                      mode: int, 
+                      node: hou.Node, 
+                      mp_idx: int, 
+                      t_idx: int, 
+                      xform: dict, 
+                      v_type: int, 
+                      v_weight: float, 
+                      var_prm: tuple, 
+                      apo_prm: tuple
+                      ) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
@@ -3123,7 +3143,15 @@ def v_parametric_POST(app: str, mode: int, node: hou.Node, mp_idx: int, t_idx: i
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
     
     
-def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_PRE_FF(app: str, 
+                        node: hou.Node, 
+                        t_idx: int, 
+                        xform: dict, 
+                        v_type: int, 
+                        v_weight: float, 
+                        var_prm: tuple, 
+                        apo_prm: tuple
+                        ) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
@@ -3158,7 +3186,7 @@ def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_typ
                     print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
                 else:
                     if n in 'radial_blur_zoom':
-                        var_prm_vals.append(float(1))
+                        var_prm_vals.append(float(1)) 
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3169,7 +3197,15 @@ def v_parametric_PRE_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_typ
     node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
 
-def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_type: int, v_weight: float, var_prm: tuple, apo_prm: tuple) -> None:
+def v_parametric_POST_FF(app: str, 
+                         node: hou.Node, 
+                         t_idx: int, 
+                         xform: dict, 
+                         v_type: int, 
+                         v_weight: float, 
+                         var_prm: tuple, 
+                         apo_prm: tuple
+                         ) -> None:
     """
     Args:
         app (str): [What software were used to generate this flame preset]
@@ -3215,7 +3251,13 @@ def v_parametric_POST_FF(app: str, node: hou.Node, t_idx: int, xform: dict, v_ty
     node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
 
-def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic(mode: int, 
+              node: hou.Node, 
+              mp_idx: int, 
+              t_idx: int, 
+              v_type: int, 
+              v_weight: float
+              ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3235,7 +3277,13 @@ def v_generic(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
 
-def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic_PRE(mode: int, 
+                  node: hou.Node, 
+                  mp_idx: int, 
+                  t_idx: int, 
+                  v_type: int, 
+                  v_weight: float
+                  ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3252,7 +3300,13 @@ def v_generic_PRE(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: in
     node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
 
-def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic_POST(mode: int, 
+                   node: hou.Node, 
+                   mp_idx: int, 
+                   t_idx: int, 
+                   v_type: int, 
+                   v_weight: float
+                   ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3269,7 +3323,11 @@ def v_generic_POST(mode: int, node: hou.Node, mp_idx: int, t_idx: int, v_type: i
     node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
 
-def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic_PRE_FF(node: hou.Node, 
+                     t_idx: int, 
+                     v_type: int, 
+                     v_weight: float
+                     ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3283,7 +3341,11 @@ def v_generic_PRE_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -
     node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
 
-def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) -> None:
+def v_generic_POST_FF(node: hou.Node, 
+                      t_idx: int, 
+                      v_type: int, 
+                      v_weight: float
+                      ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3297,7 +3359,11 @@ def v_generic_POST_FF(node: hou.Node, t_idx: int, v_type: int, v_weight: float) 
     node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
 
-def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> None:
+def v_pre_blur(mode: int, 
+               node: hou.Node, 
+               mp_idx: int, 
+               pb_weights: tuple
+               ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
@@ -3313,7 +3379,12 @@ def v_pre_blur(mode: int, node: hou.Node, mp_idx: int, pb_weights: tuple) -> Non
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
 
 
-def apo_set_iterator(mode: int, node: hou.Node, apo_data: apo_flame_iter_data, preset_id: int, exclude_keys: tuple) -> None:
+def apo_set_iterator(mode: int, 
+                     node: hou.Node, 
+                     apo_data: apo_flame_iter_data, 
+                     preset_id: int, 
+                     exclude_keys: tuple
+                     ) -> None:
     """
     Args:
         mode (int): [0 for iterator. 1 for FF]
