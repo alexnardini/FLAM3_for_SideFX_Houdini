@@ -4258,7 +4258,7 @@ def out_round_float(VAL) -> str:
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
 
-def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]: 
+def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]: # type: ignore
     names = []
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
