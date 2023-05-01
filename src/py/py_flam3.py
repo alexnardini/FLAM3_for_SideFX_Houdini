@@ -931,7 +931,8 @@ def prm_paste_sel(kwargs: dict) -> None:
         #
         # please check the def->menu_copypaste() to know its size.
         node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
-    
+        node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
+        
     else:
         print(f"{str(node)}: {MARK_ITER_MSG}")
 
@@ -999,6 +1000,7 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
         #
         # please check def->menu_copypaste_FF() to know its size.
         node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
+        node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
                 
     else:
         print(f"{str(node)}: {MARK_FF_MSG}.")
