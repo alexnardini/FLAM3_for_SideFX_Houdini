@@ -101,7 +101,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // *15 Waves ( dependent )
             else if(T==15){
-                V_WAVES(p, _p, w, x[1], y[0], o[0], o[1]);
+                V_WAVES(p, _p, w, y[0], o[0], y[1], o[1]);
                 return p; }
             // 16 Fisheye
             else if(T==16){

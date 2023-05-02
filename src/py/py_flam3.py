@@ -3401,7 +3401,11 @@ def v_pre_blur(mode: int,
         if pb_weights[mp_idx]:
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
 
-
+def check_negative_weight(self: hou.Node, w: float, v_type_name: str) -> float:
+    if w < 0:
+        print(f"{str(self)} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
+        return abs(w)
+    else: return w
 def apo_set_iterator(mode: int, 
                      node: hou.Node, 
                      apo_data: apo_flame_iter_data, 
@@ -3473,7 +3477,8 @@ def apo_set_iterator(mode: int,
                 for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
-                        v_weight = float(xform.get(key_name))
+                        w = float(xform.get(key_name))
+                        v_weight = check_negative_weight(node, w, make_PRE(var_prm[v_type][0])) # type: ignore
                         if apo_prm[v_type][-1]:
                             v_parametric_PRE_FF(app, 
                                                 node, 
@@ -3491,7 +3496,8 @@ def apo_set_iterator(mode: int,
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
-                        v_weight = float(xform.get(key_name))
+                        w = float(xform.get(key_name))
+                        v_weight = check_negative_weight(node, w, make_POST(var_prm[v_type][0])) # type: ignore
                         if apo_prm[v_type][-1]:
                             v_parametric_POST_FF(app, 
                                                  node, 
@@ -3511,7 +3517,8 @@ def apo_set_iterator(mode: int,
                 for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
-                        v_weight = float(xform.get(key_name))
+                        w = float(xform.get(key_name))
+                        v_weight = check_negative_weight(node, w, make_PRE(var_prm[v_type][0])) # type: ignore
                         if apo_prm[v_type][-1]:
                             v_parametric_PRE(app, 
                                              mode, 
@@ -3532,7 +3539,8 @@ def apo_set_iterator(mode: int,
                 for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
                     v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
                     if v_type is not None:
-                        v_weight = float(xform.get(key_name))
+                        w = float(xform.get(key_name))
+                        v_weight = check_negative_weight(node, w, make_POST(var_prm[v_type][0])) # type: ignore
                         if apo_prm[v_type][-1]:
                             v_parametric_POST(app, 
                                               mode, 
@@ -3561,7 +3569,7 @@ def apo_set_iterator(mode: int,
         
         # Affine ( PRE and POST) for iterator and FF
         apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
-        
+
 
 def iter_on_load_callback(self):
     iter_on_load = self.parm("iternumonload").eval()
