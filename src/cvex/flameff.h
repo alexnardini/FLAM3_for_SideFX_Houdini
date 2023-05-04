@@ -273,8 +273,12 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
         }
         else{
+            // 59 ELLIPTIC
+            if(T==59){
+                V_ELLIPTIC(p, _p, w);
+                return p; }
             // 52 BENT2 ( parametric )
-            if(T==52){
+            else if(T==52){
                 vector2 bent2 = chu(concat(prx, "bent2xy"));
                 V_BENT2(p, _p, w, bent2);
                 return p; }
@@ -304,10 +308,6 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 58 EDISC
             else if(T==58){
                 V_EDISC(p, _p, w);
-                return p; }
-            // 59 ELLIPTIC
-            else if(T==59){
-                V_ELLIPTIC(p, _p, w);
                 return p; }
             // 60 NOISE
             else if(T==60){
@@ -362,8 +362,13 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
     }
     else{
         if(T<88){
+            // 73 SPLITS ( parametric )
+            if(T==73){
+                vector2 splits = chu(concat(prx, "splitsxyz"));
+                V_SPLITS(p, _p, w, splits);
+                return p; }
             // 70 SCRY ( parametric )
-            if(T==70){
+            else if(T==70){
                 V_SCRY(p, _p, w);
                 return p; }
             // 71 SEPARATION ( parametric )
@@ -377,11 +382,6 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             else if(T==72){
                 vector2 split = chu(concat(prx, "splitxyz"));
                 V_SPLIT(p, _p, w, split);
-                return p; }
-            // 73 SPLITS ( parametric )
-            else if(T==73){
-                vector2 splits = chu(concat(prx, "splitsxyz"));
-                V_SPLITS(p, _p, w, splits);
                 return p; }
             // 74 STRIPES ( parametric )
             else if(T==74){
