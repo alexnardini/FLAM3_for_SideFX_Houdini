@@ -204,8 +204,8 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // 37 Radial Blur ( parametric )
             else if(T==37){
-                vector2 radialblur = chu(concat(prx, "radialblur"));
-                V_RADIALBLUR(p, _p, w, radialblur[0], radialblur[1]);
+                float radialblur = chf(concat(prx, "radialblur"));
+                V_RADIALBLUR(p, _p, w, radialblur);
                 return p; }
             // 38 PIE ( parametric )
             else if(T==38){

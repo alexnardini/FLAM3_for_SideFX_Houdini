@@ -159,9 +159,9 @@ struct gem{
 // GENOME PARAMETRICS
 struct gemPrm{
 
-    float   rings2_val[], bipolar_shift[], cell_size[], escher_beta[], popcorn2_c[], flux_spread[];
+    float   rings2_val[], bipolar_shift[], cell_size[], radialblur[], escher_beta[], popcorn2_c[], flux_spread[];
     vector  blob[], pie[], supershape[], supershape_n[], cpow[], lazysusan[], bwraps[], point_symmetry[];
-    vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], radialblur[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[], crop_az[];
+    vector2 curl_c[], parabola[], fan2[], rectangles[], bent2[], lazysusanxyz[], modulus[], popcorn2[], separation[], separation_inside[], split[], splits[], waves2_scale[], waves2_freq[], curve_lenght[], curve_amp[], polynomial_pow[], polynomial_lc[], polynomial_sc[], julian[], juliascope[], disc2[], flower[], conic[], stripes[], whorl[], persp[], bwrapstwist[], crop_az[];
     vector4 ngon[], pdj_w[], oscope[], wedge[], wedgejulia[], wedgesph[], auger[], mobius_re[], mobius_im[], crop_ltrb[];
     vector  pc_DISC2[]; // pc_BWRAPS[], pc_WEDGEJULIA[];
 
@@ -172,11 +172,11 @@ struct gemPrm{
             int T;
             string idx;
             // float
-            resize(rings2_val, res); bipolar_shift=cell_size=escher_beta=popcorn2_c=flux_spread=rings2_val;
+            resize(rings2_val, res); bipolar_shift=cell_size=radialblur=escher_beta=popcorn2_c=flux_spread=rings2_val;
             // vector
             resize(blob, res); pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=bwraps=point_symmetry=blob;
             // vector2
-            resize(curl_c, res); parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=radialblur=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=crop_az=curl_c;
+            resize(curl_c, res); parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=crop_az=curl_c;
             // vector4
             resize(ngon, res); pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=crop_ltrb=mobius_im=ngon;
 
@@ -205,7 +205,7 @@ struct gemPrm{
                         // 36 RECTANGLES
                         else if(T==36){ rectangles[i] = chu(concat("../rectangles_", idx)); continue; }
                         // 37 RADIAL BLUR
-                        else if(T==37){ radialblur[i] = chu(concat("../radialblur_", idx)); continue; }
+                        else if(T==37){ radialblur[i] = chf(concat("../radialblur_", idx)); continue; }
                         // 38 PIE
                         else if(T==38){ pie[i] = chv(concat("../pie_", idx)); continue; }
                     }

@@ -204,8 +204,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 37 Radial Blur ( parametric )
             else if(T==37){
-                vector2 radialblur = GMP.radialblur[idx];
-                V_RADIALBLUR(p, _p, w, radialblur[0], radialblur[1]);
+                float radialblur = GMP.radialblur[idx];
+                V_RADIALBLUR(p, _p, w, radialblur);
                 return p; }
             // 38 PIE ( parametric )
             else if(T==38){

@@ -142,7 +142,7 @@ class flam3_varsPRM:
                 (f"fan2{PRM}", ("fan2_", 1), 1), 
                 (f"rings2{PRM}", ("rings2val_", 0), 1), 
                 (f"rectangles{PRM}", ("rectangles_", 1), 1), 
-                (f"radialblur{PRM}", ("radialblur_", 1), 1), 
+                (f"radialblur{PRM}", ("radialblur_", 0), 1), 
                 (f"pie{PRM}", ("pie_", 1), 1), 
                 ("arch", 0), 
                 ("tangent", 0), 
@@ -2006,10 +2006,10 @@ XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed",
 # Note that "pre_gaussian_blur" has been added to this tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini
 # if "remap "pre_gaussian_blur" to pre_blur" preference option is checked (ON by default)
 XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
-# The prm names inside here are allowed to pass a check even if not found in the XML.
-# radial_blur var->"radial_blur_zoom" parameter is present into my implementation but not in Apo or Fractorium etc.
-# so we allow it to pass anyway and set its value to zero inside FLAM3 for Houdini on load.
-XML_XF_PRM_EXCEPTION = ("radial_blur_zoom", )
+
+# This has been fixed and now radial_blur variation matches all the other apps
+# but I leave it here just in case other variation will need it.
+XML_XF_PRM_EXCEPTION = ("None", )
 
 POINT_COUNT_LOAD_DEFAULT = 500000
 ITER_LOAD_DEFAULT = 64
@@ -2244,7 +2244,7 @@ class flam3_varsPRM_APO:
                 ("fan2", ("fan2_x", "fan2_y"), 1), 
                 ("rings2", ("rings2_val", ), 1), 
                 ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                ("radial_blur", ("radial_blur_angle", "radial_blur_zoom"), 1), 
+                ("radial_blur", ("radial_blur_angle", ), 1), 
                 ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
                 ("arch", 0), 
                 ("tangent", 0), 
@@ -3035,9 +3035,6 @@ def v_parametric(app: str,
                 if n not in XML_XF_PRM_EXCEPTION:
                     var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)}\": parameter: \"{n}\"")
-                else:
-                    if n in 'radial_blur_zoom':
-                        var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
 
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3099,9 +3096,6 @@ def v_parametric_PRE(app: str,
                 if n not in XML_XF_PRM_EXCEPTION:
                     var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
-                else:
-                    if n in 'radial_blur_zoom':
-                        var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3159,9 +3153,6 @@ def v_parametric_POST(app: str,
                 if n not in XML_XF_PRM_EXCEPTION:
                     var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
-                else:
-                    if n in 'radial_blur_zoom':
-                        var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3213,9 +3204,6 @@ def v_parametric_PRE_FF(app: str,
                 if n not in XML_XF_PRM_EXCEPTION:
                     var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
-                else:
-                    if n in 'radial_blur_zoom':
-                        var_prm_vals.append(float(1)) 
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):
@@ -3267,9 +3255,6 @@ def v_parametric_POST_FF(app: str,
                 if n not in XML_XF_PRM_EXCEPTION:
                     var_prm_vals.append(float(0))
                     print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
-                else:
-                    if n in 'radial_blur_zoom':
-                        var_prm_vals.append(float(1))
         VAR.append(typemaker(var_prm_vals))
         
     for idx, prm in enumerate(var_prm[1:-1]):

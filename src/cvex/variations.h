@@ -390,13 +390,14 @@ void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect
     else p[1] = w * ((2 * floor(_p[1] / rect[1]) + 1) * rect[1] - _p[1]);
 }
 // 37 ( parametric )
-void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, spin, zoom){
-    float rndG, tmpa, ra, rz, sa, ca;
+void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
+    float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom;
+    sincos(angle * M_PI / 2, m_spin, m_zoom);
     rndG = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
     ra = SQRT(_p);
-    tmpa = ATANYX(_p) + spin*rndG;
+    tmpa = ATANYX(_p) + m_spin*rndG;
     sincos(tmpa, sa, ca);
-    rz = zoom * rndG - 1;
+    rz = m_zoom * rndG - 1;
     p[0] = ra * ca + rz * _p[0];
     p[1] = ra * sa + rz * _p[1];
 }
