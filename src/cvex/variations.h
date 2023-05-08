@@ -392,7 +392,9 @@ void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect
 // 37 ( parametric )
 void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
     float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom;
+    // precalc ( this probably better done inside the genome.h )
     sincos(angle * M_PI / 2, m_spin, m_zoom);
+    // compute
     rndG = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
     ra = SQRT(_p);
     tmpa = ATANYX(_p) + m_spin*rndG;
