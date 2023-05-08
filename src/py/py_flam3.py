@@ -3023,8 +3023,6 @@ def v_parametric(app: str,
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            # This allow me to use "radial_blur" variation as everyone else
-            # only have "radial_blur_angle" and not "radial_blur_zoom".
             if xform.get(n) is not None:
                 for k in xform.keys():
                     if n in k:
@@ -3083,8 +3081,6 @@ def v_parametric_PRE(app: str,
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            # This allow me to use "radial_blur" variation as everyone else
-            # only have "radial_blur_angle" and not "radial_blur_zoom".
             n_pre = make_PRE(n)
             if xform.get(n_pre) is not None:
                 for k in xform.keys():
@@ -3140,8 +3136,6 @@ def v_parametric_POST(app: str,
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            # This allow me to use "radial_blur" variation as everyone else
-            # only have "radial_blur_angle" and not "radial_blur_zoom".
             n_post = make_POST(n)
             if xform.get(n_post) is not None:
                 for k in xform.keys():
@@ -3191,8 +3185,6 @@ def v_parametric_PRE_FF(app: str,
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            # This allow me to use "radial_blur" variation as everyone else
-            # only have "radial_blur_angle" and not "radial_blur_zoom".
             n_post = make_PRE(n)
             if xform.get(n_post) is not None:
                 for k in xform.keys():
@@ -3242,8 +3234,6 @@ def v_parametric_POST_FF(app: str,
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            # This allow me to use "radial_blur" variation as everyone else
-            # only have "radial_blur_angle" and not "radial_blur_zoom".
             n_post = make_POST(n)
             if xform.get(n_post) is not None:
                 for k in xform.keys():
