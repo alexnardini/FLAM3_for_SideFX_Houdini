@@ -603,8 +603,6 @@ remap "pre_gaussian_blur" to "pre_blur" variation:
     ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
     Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
     
-    *You need to reload the current Flame preset for this change to take effect*.
-    
 Use Fractorium Color Speed ( coloring ):
     #id: IN
     Use the XML/Flame file "color_speed" key values instead of the standard "symmetry" value.
