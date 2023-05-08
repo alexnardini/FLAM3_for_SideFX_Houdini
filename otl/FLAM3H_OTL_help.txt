@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.3
+#version: 1.0.4
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -597,6 +597,14 @@ Use iterations on Load:
     and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
     However, sometime you just want to be quick and you can override the iterations set on load using this value.
     
+remap "pre_gaussian_blur" to "pre_blur" variation:
+    #id: prefs
+    Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
+    ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
+    Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
+    
+    *You need to reload the current Flame preset for this change to take effect*.
+    
 Use Fractorium Color Speed ( coloring ):
     #id: IN
     Use the XML/Flame file "color_speed" key values instead of the standard "symmetry" value.
@@ -798,14 +806,6 @@ flam3 compatibility (f3c):
     
     TIP:
         In Fractorium you can go to "Options" to find the exact same checkbox.
-        
-remap "pre_gaussian_blur" to "pre_blur" variation:
-    #id: prefs
-    Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
-    ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
-    Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
-    
-    *You need to reload the current Flame preset for this change to take effect*.
     
 cvex precision modes:
     #id: prefs
@@ -882,7 +882,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.3 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.4 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 
