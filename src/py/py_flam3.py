@@ -2204,9 +2204,6 @@ class flam3_varsPRM_APO:
     #
     # The (("variation_name") entrie, is not used here and only for reference, especially the initial index number.
     
-    # Note:
-    # radial_blur's parameter "radial_blur_zoom" is not used and always ZERO as everyone else only use "radiual_blur_angle".
-    
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
                 ("spherical", 0), 
