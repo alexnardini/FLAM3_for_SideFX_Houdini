@@ -602,6 +602,8 @@ remap "pre_gaussian_blur" to "pre_blur" variation:
     Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
     ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
     Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
+
+    *You need to reload the current Flame preset for this change to take effect.*
     
 Use Fractorium Color Speed ( coloring ):
     #id: IN
@@ -609,6 +611,8 @@ Use Fractorium Color Speed ( coloring ):
     In some cases you get different coloring, just try it out if you dnt get the colors you expect.
     
     *It's OFF by default as it should not be used most of the time.*
+
+    *You need to reload the current Flame preset for this change to take effect.*
     
 Copy render properties on Load ( OFF by default ):
     #id: IN
