@@ -3373,6 +3373,7 @@ def v_pre_blur(mode: int,
         if pb_weights[mp_idx]:
             node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
 
+# To be used only with PRE and POST variations
 def check_negative_weight(self: hou.Node, w: float, v_type_name: str) -> float:
     if w < 0:
         print(f"{str(self)} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
