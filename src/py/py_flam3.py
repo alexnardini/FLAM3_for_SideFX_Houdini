@@ -2036,8 +2036,7 @@ XML_APP_NAME_FRACTORIUM = "EMBER-"
 XML_APP_NAME_APO = "Apophysis"
 
 # This is used as a faster idx lookup table.
-# From the XML's xforms, each variations look itself up inside here to get
-# the corresponding FLAM3 for houdini var idx it is mapped to.
+# From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3 for houdini var idx it is mapped to.
 # The key names matter and must match the variation's names as known by other apps ( in my case: Apophysis and Fratorium )
 VARS_FLAM3_DICT_IDX = { "linear": 0, 
                         "sinusoidal": 1,
