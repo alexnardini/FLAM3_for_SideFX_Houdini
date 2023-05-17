@@ -2637,14 +2637,12 @@ class apo_flame(_xml_tree):
                 
             if palette_attrib is not None:
                 palette_hex = self._flame[idx].find(key).text
-                count = int(palette_attrib.get(XML_PALETTE_COUNT)) - 1
                 format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                 HEX = []
                 for line in palette_hex.splitlines():
                     cleandoc = inspect.cleandoc(line)
                     if(len(cleandoc)>1):
                         [HEX.append(hex) for hex in wrap(cleandoc, 6)]
-
                 try:
                     rgb_from_XML_PALETTE = []
                     for hex in HEX:
@@ -2654,7 +2652,6 @@ class apo_flame(_xml_tree):
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
-                
                 except:
                     hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
                     ui_text = "Flame's Palette hex values not valid."
