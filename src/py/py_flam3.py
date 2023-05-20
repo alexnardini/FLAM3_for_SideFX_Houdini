@@ -95,6 +95,8 @@ OUT_PALETTE_FILE_EXT = '.json'
 USE_FRACTORIUM_COLOR_SPEED = 'fcs'
 RAMP_SRC_NAME = 'palette'
 RAMP_HSV_NAME = 'palettehsv'
+RAMP_SAVE_HSV = 'savehsv'
+RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 RAMP_HSV_VAL_NAME = 'hsv'
 
 FLAM3_LIB_LOCK = 'F3H_LOCK'
@@ -1256,7 +1258,13 @@ def ramp_save(kwargs: dict) -> None:
                     # Updated HSV ramp before getting it
                     palette_hsv(node)
                     palette_cp(node)
-                    ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                    
+                    ramp = hou.Ramp()
+                    if node.parm(RAMP_SAVE_HSV).eval():
+                        ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                    else:
+                        ramp = node.parm(RAMP_SRC_NAME).evalAsRamp()
+                        
                     keys_count = get_ramp_keys_count(ramp)
                     
                     POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
@@ -1334,8 +1342,9 @@ def json_to_ramp(kwargs: dict) -> None:
         ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
         ramp_parm.set(ramp)
 
-        # reset HSV after load
-        node.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+        # reset HSV after load ?
+        if node.parm(RAMP_HSV_RESET_ON_LOAD).eval():
+            node.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
         palette_cp(node)
         palette_hsv(node)
         
