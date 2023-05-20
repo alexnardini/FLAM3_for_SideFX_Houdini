@@ -501,7 +501,15 @@ LIB contents ( presets ):
     When you load a json palette file,
     Use this menu to display all the palette included in the loaded file and select one to load.
     
-
+save HSV palette ( options ):
+    #id: PALETTE
+    ON by default. When saving out a palette, uses the color corrected HSV palette.
+    Uncheck this option to save the non color corrected palette instead.
+    
+reset HSV on Load ( options ):
+    #id: PALETTE
+    ON by default. Every time you load a palette the HSV values will reset to their default values to show the raw palette colors as they were saved.
+    Uncheck this option to keep the HSV values after a palette preset load.
     
 ~~~
 :box:
@@ -602,8 +610,8 @@ remap "pre_gaussian_blur" to "pre_blur" variation:
     Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
     ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
     Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
-
-    *You need to reload the current Flame preset for this change to take effect.*
+    
+    *You need to reload the current Flame preset for this change to take effect*.
     
 Use Fractorium Color Speed ( coloring ):
     #id: IN
@@ -611,8 +619,8 @@ Use Fractorium Color Speed ( coloring ):
     In some cases you get different coloring, just try it out if you dnt get the colors you expect.
     
     *It's OFF by default as it should not be used most of the time.*
-
-    *You need to reload the current Flame preset for this change to take effect.*
+    
+    *You need to reload the current Flame preset for this change to take effect*.
     
 Copy render properties on Load ( OFF by default ):
     #id: IN
