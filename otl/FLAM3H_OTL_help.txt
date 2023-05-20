@@ -605,7 +605,7 @@ Use iterations on Load:
     and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
     However, sometime you just want to be quick and you can override the iterations set on load using this value.
     
-remap "pre_gaussian_blur" to "pre_blur" variation:
+remap "pre_gaussian_blur" ( options ):
     #id: prefs
     Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
     ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
@@ -613,7 +613,7 @@ remap "pre_gaussian_blur" to "pre_blur" variation:
     
     *You need to reload the current Flame preset for this change to take effect*.
     
-Use Fractorium Color Speed ( coloring ):
+Use Fractorium Color Speed  ( options ):
     #id: IN
     Use the XML/Flame file "color_speed" key values instead of the standard "symmetry" value.
     In some cases you get different coloring, just try it out if you dnt get the colors you expect.
@@ -622,7 +622,7 @@ Use Fractorium Color Speed ( coloring ):
     
     *You need to reload the current Flame preset for this change to take effect*.
     
-Copy render properties on Load ( OFF by default ):
+Copy render properties on Load  ( options ):
     #id: IN
     OFF by default. If ON it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
     
