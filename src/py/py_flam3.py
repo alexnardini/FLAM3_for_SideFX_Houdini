@@ -3803,44 +3803,45 @@ def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flam
     # spacers
     nl = "\n"
     nnl = "\n\n"
+    na = 'n/a'
     
-    size = 'Size: n/a'
+    size = f'Size: {na}'
     if apo_data.out_size[preset_id]:
         size = f"Size: {apo_data.out_size[preset_id]}"
         
-    center = 'Center: n/a'
+    center = f'Center: {na}'
     if apo_data.out_center[preset_id]:
         center = f"Center: {apo_data.out_center[preset_id]}"
         
-    rotate = 'Rotate: n/a'
+    rotate = f'Rotate: {na}'
     if apo_data.out_rotate[preset_id]:
         rotate = f"Rotate: {apo_data.out_rotate[preset_id]}"
 
-    scale = 'Scale: n/a'
+    scale = f'Scale: {na}'
     if apo_data.out_scale[preset_id]:
         scale = f"Scale: {apo_data.out_scale[preset_id]}"
     
-    quality = 'Quality: n/a'
+    quality = f'Quality: {na}'
     if apo_data.out_quality[preset_id]:
         quality = f"Quality: {apo_data.out_quality[preset_id]}"
 
-    brightness = 'Brightness: n/a'
+    brightness = f'Brightness: {na}'
     if apo_data.out_brightness[preset_id]:
         brightness = f"Brightness: {apo_data.out_brightness[preset_id]}"
         
-    gamma = 'Gamma: n/a'
+    gamma = f'Gamma: {na}'
     if apo_data.out_gamma[preset_id]:
         gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
         
-    highlight = 'Highlight power: n/a'
+    highlight = f'Highlight power: {na}'
     if apo_data.out_highlight_power[preset_id]:
         highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
         
-    K2 = 'Logscale K2: n/a'
+    K2 = f'Logscale K2: {na}'
     if apo_data._out_logscale_k2[preset_id]:
         K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
         
-    vibrancy = 'Vibrancy: n/a'
+    vibrancy = f'Vibrancy: {na}'
     if apo_data.out_vibrancy[preset_id]:
         vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
     
