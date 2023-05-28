@@ -4315,11 +4315,12 @@ class out_flame_properties(_out_utils):
         self.flame_k2 = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)) # type: ignore
         self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
         self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
-        self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        self.flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
-        self.flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
-        self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
+        # The following are not really needed for our purpose and we assume all curves are defaults to start with.
+        # self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        # self.flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        # self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
+        # self.flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
+        # self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
 
 
 class out_flam3_data(_out_utils):
