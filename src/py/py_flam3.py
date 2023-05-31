@@ -4583,7 +4583,7 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
             print(f"{str(self)}: You selected an OUT file that is not a {prx} file type.")
             return False
     else:
-        print(f"{str(self)}.{prx}: Select a valid output directory location.")
+        print(f"{str(self)}.{prx}: Select a valid Flame OUT directory location.")
         return False
 
 
