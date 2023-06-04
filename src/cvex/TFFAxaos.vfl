@@ -38,7 +38,9 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     MB   = chi("../domb");
     iter = chi("../iter");
     // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
-    // The behavior of the cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations are different in flam3/Apophysis versus Chaotica.
+    // The behavior of the:
+    // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
+    // are different in flam3/Apophysis versus Chaotica.
     // Checked: use the Apophysis behavior. Unchecked: use the Chaotica behavior.
     F3C = chi("../f3c");
     // Output all SYS
