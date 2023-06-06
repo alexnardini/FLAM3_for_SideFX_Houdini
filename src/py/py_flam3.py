@@ -2210,7 +2210,7 @@ class flam3_varsPRM_APO:
     # they are then automatically converted to the expeted v_type using the function: 
     # typemaker(list[]) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
     #
-    # The (("variation_name") entrie, is not used here and only for reference, especially the initial index number.
+    # The (("variation_name") entrie, is not used here and only for reference.
     
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
