@@ -4393,7 +4393,13 @@ def out_round_float(VAL) -> str:
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
 
-def out_populate_xform_vars_XML(self: hou.Node, varsPRM: tuple, TYPES_tuple: tuple, WEIGHTS_tuple: tuple, XFORM: lxmlET.Element, MP_IDX: str, FUNC: Callable) -> list[str]: # type: ignore
+def out_populate_xform_vars_XML(self: hou.Node, 
+                                varsPRM: tuple, 
+                                TYPES_tuple: tuple, 
+                                WEIGHTS_tuple: tuple, 
+                                XFORM: lxmlET.Element, # type: ignore
+                                MP_IDX: str, 
+                                FUNC: Callable) -> list[str]:
     names = []
     for idx, prm in enumerate(WEIGHTS_tuple):
         prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
@@ -4440,7 +4446,13 @@ def out_check_duplicate(vars: list) -> bool:
 
 
 # Check for FLAM3 compatibility and let the user know.
-def flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, flam3_do_FF, names_VARS_FF, names_VARS_POST_FF) -> bool:
+def flam3_compatibility_check_and_msg(self: hou.Node, 
+                                      names_VARS: list, 
+                                      names_VARS_PRE: list, 
+                                      flam3_do_FF: list, 
+                                      names_VARS_FF: list, 
+                                      names_VARS_POST_FF: list) -> bool:
+    
     bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
     for n in names_VARS:
         if n:
