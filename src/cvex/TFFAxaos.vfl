@@ -41,7 +41,8 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     // The behavior of the:
     // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
     // are different in flam3/Apophysis versus Chaotica.
-    // Checked: use the Apophysis behavior. Unchecked: use the Chaotica behavior.
+    //      Checked:    use the Apophysis behavior.
+    //      Unchecked:  use the Chaotica behavior.
     F3C = chi("../f3c");
     // Output all SYS
     _bound_SYS = array(FF, RIP, MB, iter, F3C);
