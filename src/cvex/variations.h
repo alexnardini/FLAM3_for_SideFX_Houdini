@@ -257,37 +257,45 @@ void V_BLUR(vector2 p; const float w){
 }
 // 27 ( parametric )
 void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
-    // From APOPHYSIS
+    
     float re, im, r;
-    if(c1==0){
-        if(c2==0){
-            p[0] = w * _p[0];
-            p[1] = w * _p[1];
-        }
-        else{
-            re = 1.0 + c2*(sqrt(_p[0]) - sqrt(_p[1]));
-            im = c2*2.0*_p[0]*_p[1];
-            r = w / (re*re + im*im);
-            p[0] = (_p[0] * re + _p[1] * im) * r;
-            p[1] = (_p[1] * re - _p[0] * im) * r;
-        }
-    }
-    else{
-        if(c2==0){
-            re = 1.0 + c1*_p[0];
-            im = c1*_p[1];
-            r = w / (re*re + im*im);
-            p[0] = (_p[0] * re + _p[1] * im) * r;
-            p[1] = (_p[1] * re - _p[0] * im) * r;
-        }
-        else{
-            re = 1.0 + c1*_p[0] + c2*(sqrt(_p[0]) - sqrt(_p[1]));
-            im = c1*_p[1] + c2*2.0*_p[0]*_p[1];
-            r = w / (re*re + im*im);
-            p[0] = (_p[0]*re + _p[1]*im)*r;
-            p[1] = (_p[1]*re - _p[0]*im)*r;
-        }
-    }
+    // From FRACTORIUM
+    re = 1.0 + c1 * _p[0] + c2 * ((_p[0]*_p[0]) - (_p[1]*_p[1]));
+    im = c1 * _p[1] + (2.0*c2) *  _p[0] * _p[1];
+    r = w / Zeps((re*re) + (im*im));
+    p[0] = (_p[0] * re + _p[1] * im) * r;
+    p[1] = (_p[1] * re - _p[0] * im) * r;
+
+    // From APOPHYSIS
+    // if(c1==0){
+    //     if(c2==0){
+    //         p[0] = w * _p[0];
+    //         p[1] = w * _p[1];
+    //     }
+    //     else{
+    //         re = 1.0 + c2*(sqrt(_p[0]) - sqrt(_p[1]));
+    //         im = c2*2.0*_p[0]*_p[1];
+    //         r = w / (re*re + im*im);
+    //         p[0] = (_p[0] * re + _p[1] * im) * r;
+    //         p[1] = (_p[1] * re - _p[0] * im) * r;
+    //     }
+    // }
+    // else{
+    //     if(c2==0){
+    //         re = 1.0 + c1*_p[0];
+    //         im = c1*_p[1];
+    //         r = w / (re*re + im*im);
+    //         p[0] = (_p[0] * re + _p[1] * im) * r;
+    //         p[1] = (_p[1] * re - _p[0] * im) * r;
+    //     }
+    //     else{
+    //         re = 1.0 + c1*_p[0] + c2*(sqrt(_p[0]) - sqrt(_p[1]));
+    //         im = c1*_p[1] + c2*2.0*_p[0]*_p[1];
+    //         r = w / (re*re + im*im);
+    //         p[0] = (_p[0]*re + _p[1]*im)*r;
+    //         p[1] = (_p[1]*re - _p[0]*im)*r;
+    //     }
+    // }
 }
 // 28 ( parametric )
 void V_NGON(vector2 p; const vector2 _p; const float w, pow, sides, corners, circle){
