@@ -273,7 +273,7 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
     //         p[1] = w * _p[1];
     //     }
     //     else{
-    //         re = 1.0 + c2*(sqrt(_p[0]) - sqrt(_p[1]));
+    //         re = 1.0 + c2 * ((_p[0]*_p[0]) - (_p[1]*_p[1]));
     //         im = c2*2.0*_p[0]*_p[1];
     //         r = w / (re*re + im*im);
     //         p[0] = (_p[0] * re + _p[1] * im) * r;
@@ -289,7 +289,7 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
     //         p[1] = (_p[1] * re - _p[0] * im) * r;
     //     }
     //     else{
-    //         re = 1.0 + c1*_p[0] + c2*(sqrt(_p[0]) - sqrt(_p[1]));
+    //         re = 1.0 + c1*_p[0] + c2 * ((_p[0]*_p[0]) - (_p[1]*_p[1]));
     //         im = c1*_p[1] + c2*2.0*_p[0]*_p[1];
     //         r = w / (re*re + im*im);
     //         p[0] = (_p[0]*re + _p[1]*im)*r;
