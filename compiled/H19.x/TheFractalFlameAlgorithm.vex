@@ -16581,19 +16581,18 @@ true145:                                          ; preds = %body
   %_bound_XST148 = load double*, double** %_bound_XST
   store double* %_bound_XST148, double** %31
   %XAOS = call i64 @"XAOS@IIF[F"(i64* %idx, double* %30, double** %31)
-  store i64 %XAOS, i64* %idx
   br label %end146
 
 false:                                            ; preds = %body
   %_bound_IW149 = load double*, double** %_bound_IW
   %return150 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %return151 = call i64 @"sample_cdf@[FFI"(double* %_bound_IW149, double %return150)
-  store i64 %return151, i64* %idx
   br label %end146
 
 end146:                                           ; preds = %false, %true145
-  %idx153 = load i64, i64* %idx
-  %return154 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM14.fca.31.load, i64 %idx153)
+  %phi = phi i64 [ %XAOS, %true145 ], [ %return151, %false ]
+  store i64 %phi, i64* %idx
+  %return154 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM14.fca.31.load, i64 %phi)
   store <2 x double> %return154, <2 x double>* %32
   %idx156 = load i64, i64* %idx
   %return157 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM14.fca.32.load, i64 %idx156)

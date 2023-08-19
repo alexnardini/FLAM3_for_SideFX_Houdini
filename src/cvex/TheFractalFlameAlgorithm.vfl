@@ -71,13 +71,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
 
     for(int i=0; i<iter; ++i){
 
-        // Xoas ( old )
-        // this do not always work: [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
-        // if(XS){ int sl=idx*res; idx=sample_cdf((float[])_bound_XST[sl:sl+res], nrandom('twister')); }
-        //
-        // XAOS ( new )
-        if(XS){ idx=XAOS(idx, res, _bound_XST); }
-        else idx=sample_cdf((float[])_bound_IW, nrandom("twister"));
+        idx = (XS) ? XAOS(idx, res, _bound_XST) : sample_cdf((float[])_bound_IW, nrandom("twister"));
 
         // affine
         affine(mem, x[idx], y[idx], o[idx]);
