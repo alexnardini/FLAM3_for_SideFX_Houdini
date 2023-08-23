@@ -729,11 +729,11 @@ void V_ESCHER(vector2 p; const vector2 _p; const float w, beta){
 }
 // 62
 void V_FOCI(vector2 p; const vector2 _p; const float w){
-    float expx, expnx, sn, cn, tmp, tmpz;
+    float expx, expnx, sn, cn, tmp;
     expx = exp(_p[0]) * 0.5;
-    expnx = 0.25 / expx;
+    expnx = 0.25 / Zeps(expx);
     sincos(_p[1], sn, cn);
-    tmp = w/(expx + expnx - cn);
+    tmp = w / Zeps(expx + expnx - cn);
     p[0] = tmp * (expx - expnx);
     p[1] = tmp * sn;
 }
