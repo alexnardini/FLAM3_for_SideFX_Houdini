@@ -111,18 +111,15 @@ int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
     return 0;
 }
 
-
 void affine(vector2 p; const vector2 x, y, o){
     p = set( x[0]*p[0] + y[0]*p[1] + o[0],
              x[1]*p[0] + y[1]*p[1] + o[1]);
 }
 
-
 void affineRot(matrix2 m2; const vector2 x, y; const float ang){
     m2 = set(x, y);
     rotate(m2, ang);
 }
-
 
 void XAOS_transpose_s(const string XAOS[]; string T[]; const int size){
     for(int i=0; i<size; i++){
