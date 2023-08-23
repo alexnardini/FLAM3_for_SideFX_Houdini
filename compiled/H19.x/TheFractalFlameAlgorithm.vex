@@ -7918,32 +7918,39 @@ __llvm_entry:
   %sn = alloca double
   %cn = alloca double
   %0 = alloca double
+  %1 = alloca double
+  %2 = alloca double
   store double 0.000000e+00, double* %sn, !vex-initializer-store !3
   store double 0.000000e+00, double* %cn, !vex-initializer-store !3
   %_p1 = load <2 x double>, <2 x double>* %_p
   %return = call double @"getcomp@FUI"(<2 x double> %_p1, i64 0)
   %return2 = call double @"exp@FF"(double %return)
   %output = fmul double %return2, 5.000000e-01
-  %output4 = call double @"div@FF"(double 2.500000e-01, double %output)
-  %return6 = call double @"getcomp@FUI"(<2 x double> %_p1, i64 1)
-  store double %return6, double* %0
-  call void @"sincos@FFF"(double* %0, double* %sn, double* %cn)
+  store double %output, double* %0
+  %Zeps = call double @"Zeps@FF"(double* %0)
+  %output4 = call double @"div@FF"(double 2.500000e-01, double %Zeps)
+  %_p5 = load <2 x double>, <2 x double>* %_p
+  %return6 = call double @"getcomp@FUI"(<2 x double> %_p5, i64 1)
+  store double %return6, double* %1
+  call void @"sincos@FFF"(double* %1, double* %sn, double* %cn)
   %w7 = load double, double* %w
   %output10 = fadd double %output, %output4
   %cn11 = load double, double* %cn
   %output12 = fsub double %output10, %cn11
-  %output13 = call double @"div@FF"(double %w7, double %output12)
-  %output17 = fsub double %output, %output4
-  %output18 = fmul double %output13, %output17
-  %tmp19 = load <2 x double>, <2 x double>* %p
-  %return20 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp19, double %output18, i64 0)
-  %output22 = extractvalue { double, <2 x double> } %return20, 1
-  store <2 x double> %output22, <2 x double>* %p
-  %sn24 = load double, double* %sn
-  %output25 = fmul double %output13, %sn24
-  %return27 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output22, double %output25, i64 1)
-  %output29 = extractvalue { double, <2 x double> } %return27, 1
-  store <2 x double> %output29, <2 x double>* %p
+  store double %output12, double* %2
+  %Zeps13 = call double @"Zeps@FF"(double* %2)
+  %output14 = call double @"div@FF"(double %w7, double %Zeps13)
+  %output18 = fsub double %output, %output4
+  %output19 = fmul double %output14, %output18
+  %tmp20 = load <2 x double>, <2 x double>* %p
+  %return21 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp20, double %output19, i64 0)
+  %output23 = extractvalue { double, <2 x double> } %return21, 1
+  store <2 x double> %output23, <2 x double>* %p
+  %sn25 = load double, double* %sn
+  %output26 = fmul double %output14, %sn25
+  %return28 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output23, double %output26, i64 1)
+  %output30 = extractvalue { double, <2 x double> } %return28, 1
+  store <2 x double> %output30, <2 x double>* %p
   ret void
 }
 
