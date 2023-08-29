@@ -10,8 +10,6 @@
   <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
 </p>
 
-**[FLAM3HOUDINI website](https://www.alexnardini.net/)**
-
 **[FLAM3HOUDINI instagram](https://www.instagram.com/alexnardini/)**
 
 ### Premise
