@@ -3605,7 +3605,7 @@ def sys_apo_to_flam3(self: hou.Node) -> None:
     if apo_flame(self, xml).isvalidtree:
         
         preset_id = self.parm("sys_inpresets").eval()
-        self.setParms({IN_PRESETS:preset_id}) # type: ignore
+        self.setParms({IN_PRESETS: preset_id}) # type: ignore
         apo_to_flam3(self)
 '''
     The following is the actual load preset/flame function to be used.
@@ -3664,6 +3664,8 @@ def apo_to_flam3(self: hou.Node) -> None:
         #Updated flame stats 
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
         self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
+        # Updated SYS inpresets parameter
+        self.setParms({"sys_inpresets": self.parm(IN_PRESETS).eval()}) # type: ignore
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."}) # type: ignore
