@@ -1,11 +1,15 @@
-from __future__ import division, annotations
+from __future__ import division
+from __future__ import annotations
 from platform import python_version
-from typing import Union, Callable, KeysView
+from typing import Union
+from typing import Callable
+from typing import KeysView
 from itertools import count as iter_count
 from itertools import islice as iter_islice
 from textwrap import wrap
 from datetime import datetime
-from math import sin, cos
+from math import sin
+from math import cos
 from re import sub as re_sub
 from sys import platform as sys_platform
 from subprocess import call as sp_call
@@ -3589,6 +3593,23 @@ def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
     return iter_on_load    
 
 
+'''
+    The following function is just a shortcut to set and load
+    a new preset from the IN Tab IN_PRESETS parameter,
+    It works like a hook to then set and evaluate it from the SYS Tab.
+'''
+def sys_apo_to_flam3(self: hou.Node) -> None:
+
+    xml = self.parm(IN_PATH).evalAsString()
+
+    if apo_flame(self, xml).isvalidtree:
+        
+        preset_id = self.parm("sys_inpresets").eval()
+        self.setParms({IN_PRESETS:preset_id}) # type: ignore
+        apo_to_flam3(self)
+'''
+    The following is the actual load preset/flame function to be used.
+'''
 def apo_to_flam3(self: hou.Node) -> None:
 
     xml = self.parm(IN_PATH).evalAsString()
