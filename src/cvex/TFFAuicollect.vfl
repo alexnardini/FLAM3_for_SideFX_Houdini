@@ -137,7 +137,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
 
     // SYS
-    int FF, TM, SM, MB, inum, iter, smm, xaos_mode;
+    int FF, MB, inum, iter, xaos_mode;
     FF   = chi("../doff");
     MB   = chi("../domb");
     inum = chi("../flamefunc");
@@ -149,8 +149,8 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     append(T, concat("[", itoa(iter), "]"));
     int xaos_chk = detail(1, "XS");
     if(xaos_chk){
-        if(!xaos_mode) append(T, concat("[", "Xt", "]"));
-        else append(T, concat("[", "Xf", "]"));
+        if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
+        else append(T, concat("[", "Xf", "]"));             // xaos FROM
     }
     if(MB) append(T, "MB");
 
@@ -219,7 +219,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         if(fw2!=0) FV2 = Ts[atoi(chs("../ffv2type"))]+":";
         else FV2 = ":";
         float fw_total = fw1+fw2;
-
+        // Pre var 01
         fpw1 = chf("../ffpre1weight");
         if(fpw1>0){ if(fw_total != 0) append(Fp, Ts[atoi(chs("../ffpre1type"))]); }
         string Fp_build;
