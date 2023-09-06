@@ -3704,17 +3704,11 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     nnl = "\n\n"
     
     # checks
-    pb_bool = False
+    pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = False
     for item in apo_data.pre_blur:
         if item:
             pb_bool = True
             break
-    opacity_bool = False
-    post_bool = False
-    xaos_bool = False
-    palette_bool = False
-    ff_bool = False
-    ff_post_bool = False
     if min(apo_data.opacity) == 0.0:
         opacity_bool = True
     if apo_data.post is not None:
@@ -3729,10 +3723,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         ff_post_bool = True
         
     # checks msgs
-    opacity_bool_msg = "NO"
-    post_bool_msg = "NO"
-    xaos_bool_msg = "NO"
-    ff_post_bool_msg = "NO"
+    opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
     if opacity_bool:
         opacity_bool_msg = "YES"
     if post_bool:
@@ -3768,9 +3759,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
 
     # FF
-    vars_keys_FF = []
-    vars_keys_PRE_FF = []
-    vars_keys_POST_FF = []
+    vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
     if ff_bool:
         vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
         vars_keys_PRE_FF = get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
@@ -3794,9 +3783,8 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
     vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
     vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
-    vars_keys_from_fractorium_FF = []
-    vars_keys_from_fractorium_pre_FF = []
-    vars_keys_from_fractorium_post_FF = []
+    
+    vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
     if ff_bool:
         vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
         vars_keys_from_fractorium_pre_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
