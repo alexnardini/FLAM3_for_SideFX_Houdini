@@ -3541,8 +3541,21 @@ def apo_set_iterator(mode: int,
             # Activate iterator, just in case...
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
             # Set the rest of the iterators
-            if node.parm(USE_FRACTORIUM_COLOR_SPEED).eval(): apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
-            else: apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
+            if node.parm(USE_FRACTORIUM_COLOR_SPEED).eval():
+                apo_set_data(mode, 
+                             node, 
+                             prx, 
+                             apo_data.color_speed, 
+                             iterator_names.shader_speed, 
+                             mp_idx)
+                
+            else: 
+                apo_set_data(mode, 
+                             node, 
+                             prx, 
+                             apo_data.symmetry, 
+                             iterator_names.shader_speed, 
+                             mp_idx)
             apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
             apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
             apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
