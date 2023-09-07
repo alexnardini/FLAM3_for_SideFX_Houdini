@@ -43,9 +43,21 @@ kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
 'loaddef' 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
 
-'sysaporeload' 'Callback Script'
-hou.pwd().hdaModule().flam3.apo_to_flam3(kwargs['node'])
+'sys_inpresets'
+'Callback Script'
+hou.pwd().hdaModule().flam3.sys_apo_to_flam3(kwargs['node'])
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
+return menu
+'Action Button'
+kwargs['node'].hdaModule().flam3.apo_to_flam3(kwargs['node'])
 
+'sys_outpresets'
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
+return menu
+'Action Button'
+kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 
 
 # PARAMETERS ITERATORS ( FLAME Tab )
@@ -146,15 +158,14 @@ kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
 
 # PARAMETERS LOAD FLAMES ( IN Tab )
 
-'aporeload' 'Callback Script'
-hou.pwd().hdaModule().flam3.apo_to_flam3(kwargs['node'])
-
 'inpresets'
 'Callback Script'
 hou.pwd().hdaModule().flam3.apo_to_flam3(kwargs['node'])
 'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
 return menu
+'Action Button'
+kwargs['node'].hdaModule().flam3.apo_to_flam3(kwargs['node'])
 
 'inpath' 'Callback Script'
 hou.pwd().hdaModule().flam3.init_presets(kwargs, "inpresets")
