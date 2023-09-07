@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.5
+#version: 1.0.6
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -88,6 +88,15 @@ loaddef:
     
     Load/reset to default Sierpinsky Triangle preset.
     
+IN Presets mini menu:
+    #id: SYS
+    Load one of the presets inside the IN Tab Flame file currently loaded.
+    This is being added as it is handy to change preset without the need to go inside the IN Tab all the time.
+    
+    TIP:
+        You *MUST* first load a valid flame file from inside the IN Tab first for this menu
+        to populate with its contents.
+    
 IN Reload:
     #id: SYS
     [Largeicon:opdef:.?iconWhiteSVG.svg]
@@ -97,7 +106,30 @@ IN Reload:
     always saving the Flame over the same flame file you are loading in. 
     Just quickly click this icon to update it in Houdini without the hustle to go inside the IN Tab, click the F reload icon and back to where you were.
 
-
+OUT Presets mini menu:
+    #id: SYS
+    This menu is only for information purpose.
+    It will show the Flames contained in the selected output file if any are presents.
+    Once you append a new Flame in it, this menu will update too.
+    It will always be set to the last Flame’s name you saved.
+    
+    TIP:
+        You *MUST* first select a valid output location and/or filename first inside the OUT Tab
+        for this menu to populate and update with its contents.
+        
+    NOTE:
+        Saving Flames from this icon, will always use a default name that use current date and time.
+        In case you'd like to give your flames a proper name, you can do so from inside the OUT Tab.
+    
+OUT Save:
+    #id: SYS
+    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    
+    Click to Save this flame inside the selected OUT file if any.
+    If the file doesn't exit yet it will create it. If the file contain already some flames, it will append it.
+    CTRL + CLICK to erase the content of the file and save only the current Flame in it.
+    SHIFT + CLICK will open the file explorer to the file location.
+    If the selected file is not a valid Flame file type, nothing will happen.
 
 ~~~
 :box:
@@ -817,7 +849,7 @@ flam3 compatibility (f3c):
     
 cvex precision modes:
     #id: prefs
-    Switch between the default Single Precision ( 32-bit ) or Double Precision (64-bit).
+    Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
     
     NOTE:
         64-bit Double Precision will be really really slow, I'll repeat: *really really slow*.
@@ -890,7 +922,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.5 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.6 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 
