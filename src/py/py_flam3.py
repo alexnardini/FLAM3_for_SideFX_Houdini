@@ -4662,4 +4662,3 @@ def out_XML(kwargs: dict) -> None:
                         out_new_XML(node, str(out_path_checked))
                         node.setParms({OUT_FLAME_PRESET_NAME: ''})
                 init_presets(kwargs, OUT_PRESETS)
-
