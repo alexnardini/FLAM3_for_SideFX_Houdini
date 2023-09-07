@@ -18,8 +18,8 @@
 #   Comment:    List of all UI parameters wired with a python definition
 #               and the command string they actually run and from where.
 #
-#               This is only informative and for easy find instead of
-#               navigating the parameters inside the OTL type properties window.
+#               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
+#               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 
 
 
