@@ -37,8 +37,9 @@ kwargs["node"].hdaModule().flam3.flam3_default(kwargs["node"])
 kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
 
 
-
-# SYS
+#######################################################
+# SYS Tab
+#######################################################
 
 'loaddef' 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
@@ -59,8 +60,9 @@ return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 
-
+#######################################################
 # PARAMETERS ITERATORS ( FLAME Tab )
+#######################################################
 
 'flamefunc' 'Callback Script'
 hou.pwd().hdaModule().flam3.iteratorCountZero(kwargs['node'])
@@ -92,8 +94,9 @@ kwargs['node'].hdaModule().flam3.reset_preaffine(kwargs)
 kwargs['node'].hdaModule().flam3.reset_postaffine(kwargs)
 
 
-
+#######################################################
 # PARAMETERS FINAL FLAME ( FF Tab )
+#######################################################
 
 
 'ffprmpastesel'
@@ -119,7 +122,9 @@ kwargs['node'].hdaModule().flam3.reset_preaffine_FF(kwargs)
 kwargs['node'].hdaModule().flam3.reset_postaffine_FF(kwargs)
 
 
+#######################################################
 # PARAMETRS COLOR PALETTE ( CP Tab )
+#######################################################
 
 'hsv'
 'Callback Script'
@@ -155,8 +160,10 @@ return menu
 kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
 
 
-
+#######################################################
 # PARAMETERS LOAD FLAMES ( IN Tab )
+#######################################################
+
 
 'inpresets'
 'Callback Script'
@@ -177,8 +184,10 @@ hou.pwd().hdaModule().flam3.iter_on_load_callback(kwargs['node'])
 hou.pwd().hdaModule().flam3.use_iter_on_load_callback(kwargs['node'])
 
 
-
+#######################################################
 # PARAMETERS SAVE FLAMES ( OUT Tab )
+#######################################################
+
 
 'outpath'
 'Callback Script'
@@ -196,8 +205,9 @@ kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 'outedit' 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 
-
+#######################################################
 # PREFERENCES ( prefs Tab )
+#######################################################
 
 'xm' 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_xaos_convert(kwargs['node'])
