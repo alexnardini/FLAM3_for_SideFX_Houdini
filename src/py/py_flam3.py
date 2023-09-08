@@ -4508,7 +4508,9 @@ def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
     # Build xforms
     is_PRE_BLUR = False
     name_PRE_BLUR = ''
-    names_VARS = names_VARS_PRE = names_VARS_POST = []
+    names_VARS = []
+    names_VARS_PRE = []
+    names_VARS_POST = []
     f3d = out_flam3_data(self)
     for iter in range(f3d.iter_count):
         iter_var = iter + 1
@@ -4532,7 +4534,9 @@ def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
             names_VARS_PRE.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE))
             names_VARS_POST.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST))
     # Build finalxform
-    names_VARS_FF = names_VARS_PRE_FF = names_VARS_POST_FF = []
+    names_VARS_FF = []
+    names_VARS_PRE_FF = []
+    names_VARS_POST_FF = []
     if f3d.flam3_do_FF:
         finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
         finalxf.tag = XML_FF
