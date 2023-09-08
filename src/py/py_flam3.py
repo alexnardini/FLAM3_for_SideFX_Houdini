@@ -4005,7 +4005,7 @@ class _out_utils():
         self._xm = self._node.parm(XAOS_MODE).eval()
     
     @staticmethod
-    def affine_rot(affine: list[tuple[str]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
+    def affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
         When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
         and export the resulting values out so we can get the same result once we load it back.
@@ -4016,12 +4016,15 @@ class _out_utils():
 
         Returns:
             list[tuple]: A new affine list of tuples ( (X), (Y), (O) ) rotated by the angle amount.
-        """        
-        angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
-        m2 = hou.Matrix2((affine[0], affine[1]))
-        rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
-        new = (m2 * rot).asTupleOfTuples()
-        return [new[0], new[1], affine[2]]
+        """
+        if angleDeg != 0.0:      
+            angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
+            m2 = hou.Matrix2((affine[0], affine[1]))
+            rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
+            new = (m2 * rot).asTupleOfTuples()
+            return [new[0], new[1], affine[2]]
+        else:
+            return affine
     
     @staticmethod
     def out_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
@@ -4244,10 +4247,7 @@ class _out_utils():
             for prm in self._flam3_iterator.sec_preAffine[:-1]:
                 collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
             angleDeg = self._node.parm(f"{self._flam3_iterator.sec_preAffine[-1][0]}{iter+1}").eval()
-            if angleDeg != 0.0:
-                flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
-            else:
-                flatten = [item for sublist in collect for item in sublist]
+            flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
             val.append([str(x) for x in flatten])
         return [" ".join(x) for x in self.out_round_floats(val)]
     
@@ -4260,11 +4260,8 @@ class _out_utils():
                 for prm in self._flam3_iterator.sec_postAffine[1:-1]:
                     collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
                 angleDeg = self._node.parm(f"{self._flam3_iterator.sec_postAffine[-1][0]}{iter+1}").eval()
-                if angleDeg != 0.0:
-                    flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
-                else:
-                    flatten = [item for sublist in collect for item in sublist]
-                val.append([str(x) for x in flatten])   
+                flatten = [item for sublist in self.affine_rot(collect, angleDeg) for item in sublist]
+                val.append([str(x) for x in flatten])
             else:
                 val.append([])
         return [" ".join(x) for x in self.out_round_floats(val)]
