@@ -97,7 +97,7 @@ IN Presets mini menu:
         You *MUST* first load a valid flame file from inside the IN Tab first for this menu
         to populate with its contents.
     
-IN Reload:
+IN Preset reload:
     #id: SYS
     [Largeicon:opdef:.?iconWhiteSVG.svg]
     
@@ -587,6 +587,71 @@ viz mb:
     #display: inverted teal
 
     *IN: Load *.flame file created with Apophysis, Fractorium and other.
+    
+    A *flame file is an XML format type of file.
+        
+    NOTE:
+        To be valid to be loaded inside Flame3 for Houdini, a *.flame file must obey this rule:
+        
+        _the XML file need to start with: <*flames*> and end with: </*flames*>._
+        
+        All the different flames ( if multiple flames are present in the file ) will be inbetween those keys.
+        
+        When you use Apophysis or Fractorium and copy a flame to the clipboard
+        the above keys are missing so to be able to load it inside Flame3 for Houdini
+        just add those yourself.
+        
+        Also some of the flames you find online have those keys missing.
+        
+        Everything will be correctly set when saving flames out of Apophysis and Fractorium when using the File->Save menu option as well as saving flames out with Flam3 for Houdini.
+        
+_The following is an example of what the Sierpinsky triangle preset look like once saved out with the above keys correctly set:_
+    
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.0.6" name="Sierpinsky Triangle" size="1920 1080" center="0.0 0.0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0.0" vibrancy="0.333333" highlight_power="1.0" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
+      FF0000FD0200FB0400F90600F70800F50A00F30C00F10E00
+      EF1000ED1200EB1400E91600E71800E51A00E31C00E11E00
+      DF2000DD2200DB2400D92600D72800D52A00D32C00D12E00
+      CF3000CD3200CB3400C93600C73800C53A00C33C00C13E00
+      BF4000BD4200BB4400B94600B74800B54A00B34C00B14E00
+      AF5000AD5200AB5400A95600A75800A55A00A35C00A15E00
+      9F60009D62009B6400996600976800956A00936C00916E00
+      8F70008D72008B7400897600877800857A00837C00817E00
+      7F80007D82007B8400798600778800758A00738C00718E00
+      6F90006D92006B9400699600679800659A00639C00619E00
+      5FA0005DA2005BA40059A60057A80055AA0053AC0051AE00
+      4FB0004DB2004BB40049B60047B80045BA0043BC0041BE00
+      3FC0003DC2003BC40039C60037C80035CA0033CC0031CE00
+      2FD0002DD2002BD40029D60027D80025DA0023DC0021DE00
+      1FE0001DE2001BE40019E60017E80015EA0013EC0011EE00
+      0FF0000DF2000BF40009F60007F80005FA0003FC0001FE00
+      00FE0100FC0300FA0500F80700F60900F40B00F20D00F00F
+      00EE1100EC1300EA1500E81700E61900E41B00E21D00E01F
+      00DE2100DC2300DA2500D82700D62900D42B00D22D00D02F
+      00CE3100CC3300CA3500C83700C63900C43B00C23D00C03F
+      00BE4100BC4300BA4500B84700B64900B44B00B24D00B04F
+      00AE5100AC5300AA5500A85700A65900A45B00A25D00A05F
+      009E61009C63009A6500986700966900946B00926D00906F
+      008E71008C73008A7500887700867900847B00827D00807F
+      007E81007C83007A8500788700768900748B00728D00708F
+      006E91006C93006A9500689700669900649B00629D00609F
+      005EA1005CA3005AA50058A70056A90054AB0052AD0050AF
+      004EB1004CB3004AB50048B70046B90044BB0042BD0040BF
+      003EC1003CC3003AC50038C70036C90034CB0032CD0030CF
+      002ED1002CD3002AD50028D70026D90024DB0022DD0020DF
+      001EE1001CE3001AE50018E70016E90014EB0012ED0010EF
+      000EF1000CF3000AF50008F70006F90004FB0002FD0000FF
+    </palette>
+  </flame>
+</flames>
+}}}
+
 
 IN file ( *.flame type ):
     #id: IN
