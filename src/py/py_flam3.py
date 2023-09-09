@@ -636,7 +636,7 @@ def menu_density() -> list:
         list: [return menu list]
     """
     menu=[]
-    menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "1 Bilion", "" )
+    menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "1 Billion", "" )
     for i, item in enumerate(menuitems):
         menu.append(i)
         menu.append(item)
