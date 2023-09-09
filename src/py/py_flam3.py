@@ -1150,54 +1150,68 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     
     if IN_PRESETS in prm_name:
         xml = node.parm(IN_PATH).evalAsString()
-        apo = apo_flame(kwargs['node'], xml)
-        if not apo.isvalidtree:
+        if os.path.exists(xml) is True:
+            apo = apo_flame(node, xml)
+            if not apo.isvalidtree:
+                prm.set('-1')
+                node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+                node.setParms({"flamerender_msg": ""})
+                node.setParms({"descriptive_msg": ""})
+            else:
+                prm.set('0')
+                node.setParms({"isvalidfile": 1})
+                apo_to_flam3(node)
+        else:
             prm.set('-1')
-            node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
+            node.setParms({"flamestats_msg": ""})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
-        else:
-            prm.set('0')
-            apo_to_flam3(node)
+            node.setParms({"isvalidfile": 0})
+            print(f'{str(node)}.IN: please select a valid file location.')
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
-        apo = apo_flame(kwargs['node'], xml)
-        if apo.isvalidtree:
-            prm.set(f'{len(apo.name)-1}')
-            # check if the selected Flame file is locked
-            out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
-            if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
-                flame_lib_locked = f"\nflame lib file: LOCKED"
-                node.setParms({"outmsg": flame_lib_locked})
+        if os.path.exists(xml) is True:
+            apo = apo_flame(node, xml)
+            if apo.isvalidtree:
+                prm.set(f'{len(apo.name)-1}')
+                # check if the selected Flame file is locked
+                out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+                if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                    flame_lib_locked = f"\nflame lib file: LOCKED"
+                    node.setParms({"outmsg": flame_lib_locked})
+                else:
+                    node.setParms({"outmsg": ''})
             else:
+                prm.set('-1')
                 node.setParms({"outmsg": ''})
         else:
-            prm.set('-1')
-            node.setParms({"outmsg": ''})
-            
+              print(f'{str(node)}.OUT: please select a valid file location.')
     elif PALETTE_PRESETS in prm_name:
         palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
-        is_JSON = False
-        try:
-            with open(str(palettepath),'r') as r:
-                data_check = json.load(r)
-                node.setParms({PALETTE_LIB_PATH: str(palettepath)})
-                is_JSON = True
-                del data_check
-        except:
-            pass
-        if is_JSON:
-            prm.set('0')
-            # check if the selected Flame file is locked
-            out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
-            if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
-                palette_lib_locked = f"\npalette lib file: LOCKED"
-                node.setParms({"palettemsg": palette_lib_locked})
+        if os.path.exists(palettepath) is True:
+            is_JSON = False
+            try:
+                with open(str(palettepath),'r') as r:
+                    data_check = json.load(r)
+                    node.setParms({PALETTE_LIB_PATH: str(palettepath)})
+                    is_JSON = True
+                    del data_check
+            except:
+                pass
+            if is_JSON:
+                prm.set('0')
+                # check if the selected Flame file is locked
+                out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+                if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                    palette_lib_locked = f"\npalette lib file: LOCKED"
+                    node.setParms({"palettemsg": palette_lib_locked})
+                else:
+                    node.setParms({"palettemsg": ''})
             else:
+                prm.set('-1')
                 node.setParms({"palettemsg": ''})
         else:
-            prm.set('-1')
-            node.setParms({"palettemsg": ''})
+              print(f'{str(node)}.palette: please select a valid file location.')
         
 
 ###############################################################################################
@@ -1710,6 +1724,7 @@ def reset_MB(self) -> None:
     self.setParms({"shutter": 0.5})
     
 def reset_IN(self, mode=0) -> None:
+    self.setParms({"isvalidfile": 0})
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
@@ -3671,6 +3686,8 @@ def apo_to_flam3(self: hou.Node) -> None:
     xml = self.parm(IN_PATH).evalAsString()
 
     if apo_flame(self, xml).isvalidtree:
+        
+        self.setParms({"isvalidfile": 1}) #type: ignore
         
         preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
