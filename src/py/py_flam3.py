@@ -1154,9 +1154,9 @@ def flam3_on_loaded(kwargs: dict) -> None:
         kwargs (dict): [kwargs[] dictionary]
     """
     # Check for left over JSON, IN and OUT file paths and init_presets accordingly
-    init_presets(kwargs, "palettepresets")
-    init_presets(kwargs, "inpresets")
-    init_presets(kwargs, "outpresets")
+    init_presets(kwargs, PALETTE_PRESETS)
+    init_presets(kwargs, IN_PRESETS)
+    init_presets(kwargs, OUT_PRESETS)
 
 
 
