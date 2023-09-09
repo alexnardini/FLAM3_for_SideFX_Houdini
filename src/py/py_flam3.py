@@ -1191,6 +1191,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             node.setParms({"flamestats_msg": ""})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
+            # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{str(node)}.IN: please select a valid file location.')
     elif OUT_PRESETS in prm_name:
@@ -1210,6 +1211,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 prm.set('-1')
                 node.setParms({"outmsg": ''})
         else:
+            # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{str(node)}.OUT: please select a valid file location.')
     elif PALETTE_PRESETS in prm_name:
@@ -1237,6 +1239,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 prm.set('-1')
                 node.setParms({"palettemsg": ''})
         else:
+            # We do not want to print if the file path parameter is empty
             if palettepath:
                 print(f'{str(node)}.palette: please select a valid file location.')
         
