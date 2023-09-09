@@ -27,8 +27,11 @@
 #include <variations.h>
 
 // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
-// The behavior of the cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations are different in flam3/Apophysis versus Chaotica.
-// Checked: use the Apophysis behavior. Unchecked: use the Chaotica behavior.
+// The behavior of the:
+// cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
+// are different in flam3/Apophysis versus Chaotica.
+//      Checked:    use the Apophysis behavior.
+//      Unchecked:  use the Chaotica behavior.
 vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, o; const float w){
 
     //  p = out position
