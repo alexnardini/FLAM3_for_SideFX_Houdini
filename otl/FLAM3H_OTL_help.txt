@@ -44,6 +44,23 @@ density:
     Number of points to use. For high qualty fractals start from 20M up to 500M and more depending the type of Fractal Flame you are ending up with. As a general rule, the more the better.
     * Must find the sweet spot between quality and processing time.
     
+density presets mini menu:
+    #id: GLOBAL
+    Will allow you to select a density value quicky out of some presets.
+    
+    TIP:
+        You can keep FLAM3H node live, without the need to bake the processed point cloud while rendering
+        and just change density values to go from low/quick renders to high/slow render times. Adjust the point size ( *`@pscale`* ) accordingly.
+    
+        When using Karma renderer:
+    
+        - With *64gb of physical memory* you will be able to render *500M points* without weigth much on virtual memory.
+        
+        - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
+        
+        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a `*.bgeo.sc` files first.
+        
+    
 iterations:
     #id: GLOBAL
     Number of iterations to use.
