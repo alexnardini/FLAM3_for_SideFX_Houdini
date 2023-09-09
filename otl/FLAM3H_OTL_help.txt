@@ -7,12 +7,21 @@
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
+_*A bit of history* ( from wikipedia )_:
+
 [Scott Draves|Wp:Scott_Draves]
 [The Fractal Flame Algorithm|Wp:Fractal_Flame]
 [Electric Sheep|Wp:Electric_Sheep]
 [IFS|Wp:Iterated_function_system]
 [Fractal Art|Wp:Fractal_art]
 [Apophysis|Wp:Apophysis_(software)]
+
+
+
+== Welcome to FLAM3 for SideFX Houdini ==
+
+[Image:opdef:.?FLAM3H_DOC_intro_banner.jpg]
+_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
 _*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]*_
 
@@ -23,9 +32,7 @@ _*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Ho
 
 _*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
 
-    
-[Image:opdef:.?FLAM3H_DOC_intro_banner.jpg]
-_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
+
 
 @parameters
 
@@ -34,6 +41,12 @@ NOTE:
     Use the upstream geometry node point size multiplier or a wrangle to adjust it as needed.
     When importing FLAM3 into Stage/Solaris remember that *`@pscale`* will become *`@widths`*.
 
+    
+    
+    
+    
+== Global parameters == (GLOBAL)
+    
 :box:
     #display: inverted teal
 
@@ -43,6 +56,7 @@ density:
     #id: GLOBAL
     Number of points to use. For high qualty fractals start from 20M up to 500M and more depending the type of Fractal Flame you are ending up with. As a general rule, the more the better.
     * Must find the sweet spot between quality and processing time.
+
     
 density presets mini menu:
     #id: GLOBAL
@@ -78,8 +92,8 @@ iterations:
         
         
 
-    
-    
+== System utilities == (SYS)
+
 ~~~
 :box:
     #display: inverted teal
@@ -161,6 +175,10 @@ OUT Save:
     
     _If the selected file is not a valid Flame file type, nothing will happen._
 
+    
+
+== FLAME: iterators parameters == (FLAME)
+    
 ~~~
 :box:
     #display: inverted teal
@@ -373,6 +391,7 @@ VARS Tab:
     
     
 
+== FF: finalXform parameters == (FF)
     
 ~~~
 :box:
@@ -492,6 +511,7 @@ PP VARS Tab:
     
 
     
+== Color palette: parameters == (CP)
     
 ~~~
 :box:
@@ -571,6 +591,10 @@ reset HSV on Load ( options ):
     ON by default. Every time you load a palette the HSV values will reset to their default values to show the raw palette colors as they were saved.
     Uncheck this option to keep the HSV values after a palette preset load.
     
+    
+    
+== Motion Blur: parameters == (MB)
+    
 ~~~
 :box:
     #display: inverted teal
@@ -611,6 +635,8 @@ viz mb:
         Remember to turn this OFF when rendering so to not overimpose a darker color.
         
 
+        
+== IN: input parameters == (IN)
             
 ~~~
 :box:
@@ -768,7 +794,11 @@ Copy/Paste render properties:
     Clicking this icon will copy those render properties and paste them inside the OUT tab render properties.
     This way you can be sure your Flame will match the visual quality of the flame you just loaded once you save it out and load it back in Fractorium for example.
         
-        
+
+    
+    
+== OUT: output parameters == (OUT)
+    
 ~~~
 :box:
     #display: inverted teal
@@ -918,6 +948,10 @@ Vibrancy:
     The flame render setting: vibrancy.
         
     
+    
+    
+== Preferences == (PREFS)
+    
 ~~~
 :box:
     #display: inverted teal
@@ -1005,7 +1039,10 @@ size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
         
-== Variations infos ==
+    
+    
+
+== Variations infos == (VARSINFO)
 
 _Dependant variation's affine coefficients:_
 
