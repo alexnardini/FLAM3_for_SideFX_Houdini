@@ -627,7 +627,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
 ###############################################################################################
 # MENU - Density presets
 ###############################################################################################
-def menu_density() -> list:
+def menu_density(self: hou.Node) -> list:
     """
     Args:
         int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
@@ -635,8 +635,14 @@ def menu_density() -> list:
     Returns:
         list: [return menu list]
     """
+    
+    iterators = self.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
     menu=[]
-    menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "1 Billion", "" )
+    menuitems = ()
+    if iterators:
+        menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
+    else:
+        menuitems = ("", "Please, add at least one iterator.")
     for i, item in enumerate(menuitems):
         menu.append(i)
         menu.append(item)
@@ -670,6 +676,8 @@ def menu_density_set(self: hou.Node) -> None:
     elif sel == 11:
         self.setParms({SYS_PT_COUNT: 500000000}) # type: ignore
     elif sel == 12:
+        self.setParms({SYS_PT_COUNT: 750000000}) # type: ignore
+    elif sel == 13:
         self.setParms({SYS_PT_COUNT: 1000000000}) # type: ignore
 
     # reset to null value so we can set the same preset again
@@ -1866,6 +1874,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         for p in self.parms():
             p.deleteAllKeyframes()
         # SYS
+        self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
         self.setParms({SYS_DO_FF: 0}) # type: ignore
         self.setParms({SYS_RIP: 0}) # type: ignore
         # FF vars
