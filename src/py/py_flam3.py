@@ -649,27 +649,27 @@ def menu_density_set(self: hou.Node) -> None:
     
     if sel == 1:
         self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
-    if sel == 2:
+    elif sel == 2:
         self.setParms({SYS_PT_COUNT: 1000000}) # type: ignore
-    if sel == 3:
+    elif sel == 3:
         self.setParms({SYS_PT_COUNT: 2000000}) # type: ignore
-    if sel == 4:
+    elif sel == 4:
         self.setParms({SYS_PT_COUNT: 5000000}) # type: ignore
-    if sel == 5:
+    elif sel == 5:
         self.setParms({SYS_PT_COUNT: 15000000}) # type: ignore
-    if sel == 6:
+    elif sel == 6:
         self.setParms({SYS_PT_COUNT: 25000000}) # type: ignore
-    if sel == 7:
+    elif sel == 7:
         self.setParms({SYS_PT_COUNT: 50000000}) # type: ignore
-    if sel == 8:
+    elif sel == 8:
         self.setParms({SYS_PT_COUNT: 100000000}) # type: ignore
-    if sel == 9:
+    elif sel == 9:
         self.setParms({SYS_PT_COUNT: 150000000}) # type: ignore
-    if sel == 10:
+    elif sel == 10:
         self.setParms({SYS_PT_COUNT: 250000000}) # type: ignore
-    if sel == 11:
+    elif sel == 11:
         self.setParms({SYS_PT_COUNT: 500000000}) # type: ignore
-    if sel == 12:
+    elif sel == 12:
         self.setParms({SYS_PT_COUNT: 1000000000}) # type: ignore
 
     # reset to null value so we can set the same preset again
