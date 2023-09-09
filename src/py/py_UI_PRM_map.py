@@ -38,6 +38,17 @@ kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
 
 
 #######################################################
+# GLOBAL Tab
+#######################################################
+'ptcount_presets'
+'callback script'
+hou.pwd().hdaModule().flam3.menu_density_set(kwargs['node'])
+'Menu script'
+menu = kwargs['node'].hdaModule().flam3.menu_density(kwargs['node'])
+return menu
+
+
+#######################################################
 # SYS Tab
 #######################################################
 
