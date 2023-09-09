@@ -50,7 +50,7 @@ density presets mini menu:
     
     TIP:
         You can keep FLAM3H node live, without the need to bake the processed point cloud while rendering
-        and just change density values to go from low/quick renders to high/slow render times. Adjust the point size ( *`@pscale`* ) accordingly.
+        and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( in Solaris: *`@widths`* ) accordingly.
     
         When using Karma renderer:
     
@@ -58,7 +58,7 @@ density presets mini menu:
         
         - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
         
-        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a `*.bgeo.sc` files first.
+        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a *`*.bgeo.sc`* files first.
         
     
 iterations:
