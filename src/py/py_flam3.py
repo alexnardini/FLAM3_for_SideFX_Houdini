@@ -636,7 +636,7 @@ def menu_density() -> list:
         list: [return menu list]
     """
     menu=[]
-    menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "" )
+    menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "1 Bilion", "" )
     for i, item in enumerate(menuitems):
         menu.append(i)
         menu.append(item)
@@ -669,6 +669,8 @@ def menu_density_set(self: hou.Node) -> None:
         self.setParms({SYS_PT_COUNT: 250000000}) # type: ignore
     if sel == 11:
         self.setParms({SYS_PT_COUNT: 500000000}) # type: ignore
+    if sel == 12:
+        self.setParms({SYS_PT_COUNT: 1000000000}) # type: ignore
 
     # reset to null value so we can set the same preset again
     self.setParms({SYS_PT_COUNT_PRESETS: 0}) # type: ignore
