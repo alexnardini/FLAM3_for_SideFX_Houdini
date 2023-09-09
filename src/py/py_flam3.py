@@ -1094,7 +1094,7 @@ def flam3_on_create(kwargs: dict) -> None:
     node.setParms({"flamerender_msg": ""})
     node.setParms({"palettemsg": ''})
     node.setParms({"outmsg": ''})
-
+    
     # FLAM3 node and MultiParameter id for iterators
     #
     # If there were already a FLAM3 node in the scene
@@ -1144,6 +1144,22 @@ def flam3_on_create(kwargs: dict) -> None:
         hou.session.flam3_CS = [] # type: ignore
 
 
+
+###############################################################################################
+# FLAM3 on Loaded init
+###############################################################################################
+def flam3_on_loaded(kwargs: dict) -> None:
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """
+    # Check for left over JSON, IN and OUT file paths and init_presets accordingly
+    init_presets(kwargs, "palettepresets")
+    init_presets(kwargs, "inpresets")
+    init_presets(kwargs, "outpresets")
+
+
+
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid json/flame file
 ###############################################################################################
@@ -1175,7 +1191,8 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             node.setParms({"flamestats_msg": ""})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
-            print(f'{str(node)}.IN: please select a valid file location.')
+            if xml:
+                print(f'{str(node)}.IN: please select a valid file location.')
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
         if os.path.exists(xml) is True:
@@ -1193,7 +1210,8 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 prm.set('-1')
                 node.setParms({"outmsg": ''})
         else:
-              print(f'{str(node)}.OUT: please select a valid file location.')
+            if xml:
+                print(f'{str(node)}.OUT: please select a valid file location.')
     elif PALETTE_PRESETS in prm_name:
         palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
         if os.path.exists(palettepath) is True:
@@ -1219,7 +1237,8 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 prm.set('-1')
                 node.setParms({"palettemsg": ''})
         else:
-              print(f'{str(node)}.palette: please select a valid file location.')
+            if palettepath:
+                print(f'{str(node)}.palette: please select a valid file location.')
         
 
 ###############################################################################################
