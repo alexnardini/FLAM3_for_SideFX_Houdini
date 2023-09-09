@@ -1150,7 +1150,7 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
     
     if IN_PRESETS in prm_name:
         xml = node.parm(IN_PATH).evalAsString()
-        if os.path.exists(xml) is True:
+        if os.path.isfile(xml) is True:
             apo = apo_flame(node, xml)
             if not apo.isvalidtree:
                 prm.set('-1')
@@ -1163,10 +1163,10 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 apo_to_flam3(node)
         else:
             prm.set('-1')
+            node.setParms({"isvalidfile": 0})
             node.setParms({"flamestats_msg": ""})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
-            node.setParms({"isvalidfile": 0})
             print(f'{str(node)}.IN: please select a valid file location.')
     elif OUT_PRESETS in prm_name:
         xml = node.parm(OUT_PATH).evalAsString()
