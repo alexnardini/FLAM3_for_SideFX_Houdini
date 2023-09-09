@@ -31,10 +31,23 @@ the FLAM3 module is created out of the py_flam3 renamed file inside the Extra Fi
 import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
+
+"""Inside: OTL->type_properties->Scripts->PreFirstCreate
+Check Houdini version and let us know."""
+def flam3_first_time() -> None:
+    hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:2]))
+    if hou_version < 190:
+        hou.ui.displayMessage("Sorry, you need at least Houdini 19.0 to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+flam3_first_time()
+
 """Inside: OTL->type_properties->Scripts->OnCreated
 initialize what the tool need when you create its node in the network editor."""
 kwargs["node"].hdaModule().flam3.flam3_default(kwargs["node"])
 kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
+
+"""Inside: OTL->type_properties->Scripts->OnLoaded
+When loading a hip file with a FLAM3H node in it do some checks."""
+kwargs["node"].hdaModule().flam3.flam3_on_loaded(kwargs)
 
 
 #######################################################
