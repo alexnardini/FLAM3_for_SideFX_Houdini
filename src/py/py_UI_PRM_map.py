@@ -52,7 +52,8 @@ return menu
 # SYS Tab
 #######################################################
 
-'loaddef' 'Callback Script'
+'loaddef'
+'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
 
 'sys_inpresets'
@@ -75,10 +76,12 @@ kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 # PARAMETERS ITERATORS ( FLAME Tab )
 #######################################################
 
-'flamefunc' 'Callback Script'
+'flamefunc'
+'Callback Script'
 hou.pwd().hdaModule().flam3.iteratorCountZero(kwargs['node'])
 
-'activetip_#' 'Callback Script'
+'activetip_#'
+'Callback Script'
 hou.pwd().hdaModule().flam3.ui_active_iterator_infos()
 
 'prmpastesel_#'
@@ -90,7 +93,8 @@ return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.prm_paste(kwargs)
 
-'varnote_#' 'Action Button'
+'varnote_#'
+'Action Button'
 kwargs['node'].hdaModule().flam3.ui_xaos_infos()
 
 'All ITERATORS variations type parameters'
@@ -98,10 +102,12 @@ kwargs['node'].hdaModule().flam3.ui_xaos_infos()
 menu = kwargs['node'].hdaModule().flam3.menu_T(0)
 return menu
 
-'ang_#' 'Action Button'
+'ang_#'
+'Action Button'
 kwargs['node'].hdaModule().flam3.reset_preaffine(kwargs)
 
-'pang_#' 'Action Button'
+'pang_#'
+'Action Button'
 kwargs['node'].hdaModule().flam3.reset_postaffine(kwargs)
 
 
@@ -126,10 +132,12 @@ kwargs['node'].hdaModule().flam3.prm_paste_FF(kwargs)
 menu = kwargs['node'].hdaModule().flam3.menu_T(0)
 return menu
 
-'ffang' 'Action Button'
+'ffang'
+'Action Button'
 kwargs['node'].hdaModule().flam3.reset_preaffine_FF(kwargs)
 
-'ffpang' 'Action Button'
+'ffpang'
+'Action Button'
 kwargs['node'].hdaModule().flam3.reset_postaffine_FF(kwargs)
 
 
@@ -185,13 +193,16 @@ return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.apo_to_flam3(kwargs['node'])
 
-'inpath' 'Callback Script'
+'inpath'
+'Callback Script'
 hou.pwd().hdaModule().flam3.init_presets(kwargs, "inpresets")
 
-'iternumonload' 'Callback Script'
+'iternumonload'
+'Callback Script'
 hou.pwd().hdaModule().flam3.iter_on_load_callback(kwargs['node'])
 
-'useiteronload' 'Callback Script'
+'useiteronload'
+'Callback Script'
 hou.pwd().hdaModule().flam3.use_iter_on_load_callback(kwargs['node'])
 
 
@@ -206,21 +217,25 @@ hou.pwd().hdaModule().flam3.init_presets(kwargs, "outpresets")
 'Action Button'
 kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 
-'outpresets' 'Menu Script'
+'outpresets'
+'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
 return menu
 
-'outname' 'Action Button'
+'outname'
+'Action Button'
 kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 
-'outedit' 'Action Button'
+'outedit'
+'Action Button'
 kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 
 #######################################################
 # PREFERENCES ( prefs Tab )
 #######################################################
 
-'xm' 'Callback Script'
+'xm'
+'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_xaos_convert(kwargs['node'])
 
 
