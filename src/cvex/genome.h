@@ -58,8 +58,10 @@ struct gem{
                 m_OneMinusColorCache = static_cast<T>(1) - m_ColorSpeed;
                 m_ColorSpeedCache = m_ColorSpeed * m_ColorX;//Flam3 style.
             */
+            // Color: Use Apo style
             CLR[i] = clr * (1.0-spd)/2.0;
             OM[i]  = (1.0 + spd)/2.0;
+            // Alpha
             A[i]   = chf(concat("../alpha_", idx));
             // PRE BLUR
             pbw[i] = chf(concat("../preblurweight_" , idx));
