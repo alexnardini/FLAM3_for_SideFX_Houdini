@@ -78,6 +78,7 @@ PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
 SYS_PT_COUNT = "ptcount"
+SYS_PT_COUNT_PRESETS = "ptcount_presets"
 SYS_ITERATIONS = "iter"
 SYS_DO_FF = 'doff'
 SYS_TAG = "tag"
@@ -621,6 +622,56 @@ def menu_copypaste_FF(kwargs: dict) -> list:
             menu.append(item)
 
         return menu
+
+
+###############################################################################################
+# MENU - Density presets
+###############################################################################################
+def menu_density() -> list:
+    """
+    Args:
+        int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
+
+    Returns:
+        list: [return menu list]
+    """
+    menu=[]
+    menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "" )
+    for i, item in enumerate(menuitems):
+        menu.append(i)
+        menu.append(item)
+    return menu
+
+# Set menu_density() Menu
+def menu_density_set(self: hou.Node) -> None:
+    
+    sel = self.parm(SYS_PT_COUNT_PRESETS).evalAsInt()
+    
+    if sel == 1:
+        self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
+    if sel == 2:
+        self.setParms({SYS_PT_COUNT: 1000000}) # type: ignore
+    if sel == 3:
+        self.setParms({SYS_PT_COUNT: 2000000}) # type: ignore
+    if sel == 4:
+        self.setParms({SYS_PT_COUNT: 5000000}) # type: ignore
+    if sel == 5:
+        self.setParms({SYS_PT_COUNT: 15000000}) # type: ignore
+    if sel == 6:
+        self.setParms({SYS_PT_COUNT: 25000000}) # type: ignore
+    if sel == 7:
+        self.setParms({SYS_PT_COUNT: 50000000}) # type: ignore
+    if sel == 8:
+        self.setParms({SYS_PT_COUNT: 100000000}) # type: ignore
+    if sel == 9:
+        self.setParms({SYS_PT_COUNT: 150000000}) # type: ignore
+    if sel == 10:
+        self.setParms({SYS_PT_COUNT: 250000000}) # type: ignore
+    if sel == 11:
+        self.setParms({SYS_PT_COUNT: 500000000}) # type: ignore
+
+    # reset to null value so we can set the same preset again
+    self.setParms({SYS_PT_COUNT_PRESETS: 0}) # type: ignore
 
 
 ###############################################################################################
@@ -1613,6 +1664,7 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     """    
     
     self.setParms({SYS_PT_COUNT: density}) # type: ignore
+    self.setParms({SYS_PT_COUNT_PRESETS: 0}) # type: ignore
     self.setParms({SYS_ITERATIONS: iter}) # type: ignore
     if mode:
         self.setParms({SYS_DO_FF: 0}) # type: ignore
