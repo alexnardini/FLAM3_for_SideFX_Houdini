@@ -1888,6 +1888,9 @@ def iteratorCountZero(self: hou.Node) -> None:
         self.setParms({"camcull": 0}) # type: ignore
         #self.setParms({"fcam": ""})
         #self.setParms({"cullamount": 0.99})
+        
+        # descriptive message parameter
+        self.setParms({"descriptive_msg": ""}) # type: ignore
 
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website
