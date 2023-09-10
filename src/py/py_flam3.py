@@ -87,6 +87,7 @@ SYS_RIP = "rip"
 FLAM3_ITERATORS_COUNT = "flamefunc"
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
+SYS_IN_PRESETS = 'sys_inpresets'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
@@ -1160,6 +1161,12 @@ def flam3_on_loaded(kwargs: dict) -> None:
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
     init_presets(kwargs, IN_PRESETS, 0)
     init_presets(kwargs, OUT_PRESETS)
+    
+    # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
+    # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
+    # Need to investigate why.
+    node = kwargs['node']
+    node.setParms({IN_PRESETS: node.parm(SYS_IN_PRESETS).eval()}) # type: ignore
 
 
 
@@ -3717,7 +3724,7 @@ def sys_apo_to_flam3(self: hou.Node) -> None:
 
     if apo_flame(self, xml).isvalidtree:
         
-        preset_id = self.parm("sys_inpresets").eval()
+        preset_id = self.parm(SYS_IN_PRESETS).eval()
         self.setParms({IN_PRESETS: preset_id}) # type: ignore
         apo_to_flam3(self)
 '''
@@ -3780,7 +3787,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
         self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
         # Updated SYS inpresets parameter
-        self.setParms({"sys_inpresets": self.parm(IN_PRESETS).eval()}) # type: ignore
+        self.setParms({SYS_IN_PRESETS: self.parm(IN_PRESETS).eval()}) # type: ignore
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({"flamestats_msg": "Please load a valid *.flame file."}) # type: ignore
