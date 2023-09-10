@@ -1165,7 +1165,7 @@ def flam3_on_loaded(kwargs: dict) -> None:
     
     # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
     # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
-    # Need to investigate why.
+    # Need to investigate why. the SYS_IN_PRESETS menu parameter is set inside the apo_to_flam3()
     node = kwargs['node']
     node.setParms({IN_PRESETS: node.parm(SYS_IN_PRESETS).eval()}) # type: ignore
     # Same goes for the palette preset entrie, and some time goes also out of range
