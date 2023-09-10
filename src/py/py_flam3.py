@@ -97,6 +97,7 @@ REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 PALETTE_LIB_PATH = 'palettefile'
 PALETTE_OUT_PRESET_NAME = 'palettename'
 PALETTE_PRESETS = 'palettepresets'
+MEM_PALETTE_PRESETS = 'mem_palettepresets'
 OUT_PALETTE_FILE_EXT = '.json'
 USE_FRACTORIUM_COLOR_SPEED = 'fcs'
 RAMP_SRC_NAME = 'palette'
@@ -1167,6 +1168,10 @@ def flam3_on_loaded(kwargs: dict) -> None:
     # Need to investigate why.
     node = kwargs['node']
     node.setParms({IN_PRESETS: node.parm(SYS_IN_PRESETS).eval()}) # type: ignore
+    # Same goes for the palette preset entrie, and some time goes also out of range
+    # so we store the selction first inside a mem menu parameter first inside json_to_ramp() first
+    # and call it back here. Seem it is working
+    node.setParms({PALETTE_PRESETS: node.parm(MEM_PALETTE_PRESETS).eval()}) # type: ignore
 
 
 
@@ -1463,6 +1468,9 @@ def json_to_ramp(kwargs: dict) -> None:
             node.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
         palette_cp(node)
         palette_hsv(node)
+        
+        # Store selection into mem preset menu
+        node.setParms({MEM_PALETTE_PRESETS: node.parm(PALETTE_PRESETS).eval()}) # type: ignore
         
 
 ###############################################################################################
