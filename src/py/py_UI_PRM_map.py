@@ -191,6 +191,11 @@ return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
 
+'mem_palettepresets'
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
+return menu
+
 
 #######################################################
 # PARAMETERS LOAD FLAMES ( IN Tab )
