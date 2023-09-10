@@ -54,7 +54,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = "1.0.6"
+FLAM3HOUDINI_VERSION = "1.0.7"
 
 DPT = '*'
 PRM = '...'
@@ -1233,13 +1233,13 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
             if xml:
                 print(f'{str(node)}.OUT: please select a valid file location.')
     elif PALETTE_PRESETS in prm_name:
-        palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
-        if os.path.exists(palettepath) is True:
+        json = node.parm(PALETTE_LIB_PATH).evalAsString()
+        if os.path.exists(json) is True:
             is_JSON = False
             try:
-                with open(str(palettepath),'r') as r:
+                with open(str(json),'r') as r:
                     data_check = json.load(r)
-                    node.setParms({PALETTE_LIB_PATH: str(palettepath)})
+                    node.setParms({PALETTE_LIB_PATH: str(json)})
                     is_JSON = True
                     del data_check
             except:
@@ -1249,7 +1249,7 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 if mode:
                     prm.set('0')
                     # check if the selected Flame file is locked
-                    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+                    out_path_checked = out_check_outpath(node, json, OUT_PALETTE_FILE_EXT, 'Palette')
                     if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({"palettemsg": palette_lib_locked})
@@ -1260,7 +1260,7 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 node.setParms({"palettemsg": ''})
         else:
             # We do not want to print if the file path parameter is empty
-            if palettepath:
+            if json:
                 print(f'{str(node)}.palette: please select a valid file location.')
         
 
