@@ -1154,8 +1154,11 @@ def flam3_on_loaded(kwargs: dict) -> None:
         kwargs (dict): [kwargs[] dictionary]
     """
     # Check for left over JSON, IN and OUT file paths no longer valid and init_presets accordingly
-    init_presets(kwargs, PALETTE_PRESETS)
-    init_presets(kwargs, IN_PRESETS)
+    
+    #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+    init_presets(kwargs, PALETTE_PRESETS, 0)
+    #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+    init_presets(kwargs, IN_PRESETS, 0)
     init_presets(kwargs, OUT_PRESETS)
 
 
@@ -1163,10 +1166,11 @@ def flam3_on_loaded(kwargs: dict) -> None:
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid json/flame file
 ###############################################################################################
-def init_presets(kwargs: dict, prm_name: str) -> None:
+def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
+        mode (int): To be used to prevent to load a left over preset when loading back a hip file.
     """    
     node = kwargs['node']
     prm = node.parm(prm_name)
@@ -1182,9 +1186,11 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
                 node.setParms({"flamerender_msg": ""})
                 node.setParms({"descriptive_msg": ""})
             else:
-                prm.set('0')
-                node.setParms({"isvalidfile": 1})
-                apo_to_flam3(node)
+                # Only set when NOT on an: onLoaded python script
+                if mode:
+                    prm.set('0')
+                    node.setParms({"isvalidfile": 1})
+                    apo_to_flam3(node)
         else:
             prm.set('-1')
             node.setParms({"isvalidfile": 0})
@@ -1227,14 +1233,16 @@ def init_presets(kwargs: dict, prm_name: str) -> None:
             except:
                 pass
             if is_JSON:
-                prm.set('0')
-                # check if the selected Flame file is locked
-                out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
-                if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
-                    palette_lib_locked = f"\npalette lib file: LOCKED"
-                    node.setParms({"palettemsg": palette_lib_locked})
-                else:
-                    node.setParms({"palettemsg": ''})
+                # Only set when NOT on an: onLoaded python script
+                if mode:
+                    prm.set('0')
+                    # check if the selected Flame file is locked
+                    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+                    if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                        palette_lib_locked = f"\npalette lib file: LOCKED"
+                        node.setParms({"palettemsg": palette_lib_locked})
+                    else:
+                        node.setParms({"palettemsg": ''})
             else:
                 prm.set('-1')
                 node.setParms({"palettemsg": ''})
