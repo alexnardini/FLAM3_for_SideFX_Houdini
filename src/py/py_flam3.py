@@ -1162,8 +1162,11 @@ def flam3_on_loaded(kwargs: dict) -> None:
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
     init_presets(kwargs, IN_PRESETS, 0)
     init_presets(kwargs, OUT_PRESETS)
-    
+
     node = kwargs['node']
+    # update about tab just in case
+    flam3_about_msg(node)
+    flam3_about_plugins_msg(node)
     # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
     # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
     # Need to investigate why. the SYS_IN_PRESETS menu parameter is set inside the apo_to_flam3()
