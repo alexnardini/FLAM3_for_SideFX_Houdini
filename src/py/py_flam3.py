@@ -488,7 +488,7 @@ class flam3_iterator_FF:
 ###############################################################################################
 # MENU - Build vars type menus
 ###############################################################################################
-def menu_T(int_mode: int) -> list:
+def menu_T(mode: int) -> list:
     """
     Args:
         int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
@@ -497,7 +497,7 @@ def menu_T(int_mode: int) -> list:
         list: [return menu list]
     """
     menu=[]
-    if int_mode:
+    if mode:
         # build menu without parametrics
         for i, item in flam3_varsPRM().menu_vars_no_PRM():
             menu.append(i)
@@ -1677,7 +1677,6 @@ def reset_postaffine(kwargs: dict) -> None:
     
 def reset_preaffine_FF(kwargs: dict) -> None:
     node = kwargs['node']
-    id = kwargs['script_multiparm_index']
     n = flam3_iterator_prm_names
     # pre affine
     node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
@@ -1687,7 +1686,6 @@ def reset_preaffine_FF(kwargs: dict) -> None:
     
 def reset_postaffine_FF(kwargs: dict) -> None:
     node = kwargs['node']
-    id = kwargs['script_multiparm_index']
     n = flam3_iterator_prm_names
     # post affine
     if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval():
