@@ -1169,8 +1169,8 @@ def flam3_on_loaded(kwargs: dict) -> None:
     node = kwargs['node']
     node.setParms({IN_PRESETS: node.parm(SYS_IN_PRESETS).eval()}) # type: ignore
     # Same goes for the palette preset entrie, and some time goes also out of range
-    # so we store the selction first inside a mem menu parameter first inside json_to_ramp() first
-    # and call it back here. Seem it is working
+    # so we store the selection first inside a mem menu parameter first inside json_to_ramp()
+    # and call it back here.
     node.setParms({PALETTE_PRESETS: node.parm(MEM_PALETTE_PRESETS).eval()}) # type: ignore
 
 
