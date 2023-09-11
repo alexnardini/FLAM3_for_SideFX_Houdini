@@ -69,6 +69,15 @@ return menu
 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
 
+'sys_palettepresets'
+'Callback Script'
+hou.pwd().hdaModule().flam3.sys_json_to_ramp(kwargs)
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
+return menu
+'Action Script'
+kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
+
 'sys_inpresets'
 'Callback Script'
 hou.pwd().hdaModule().flam3.sys_apo_to_flam3(kwargs['node'])
