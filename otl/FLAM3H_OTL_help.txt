@@ -123,7 +123,7 @@ RIP:
     
 loaddef:
     #id: SYS
-    [Largeicon:opdef:.?iconDefPresetSVG.svg]
+    [Largeicon:opdef:.?iconSierpinskyDefSVG.svg]
     
     Load/reset to default Sierpinsky Triangle preset.
     
