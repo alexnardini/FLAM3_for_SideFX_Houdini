@@ -1258,8 +1258,9 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 node.setParms({"palettemsg": ''})
         else:
             # We do not want to print if the file path parameter is empty
-            if  json_path:
+            if json_path:
                 print(f'{str(node)}.palette: please select a valid file location.')
+            node.setParms({"palettemsg": ''})
         
 
 ###############################################################################################
