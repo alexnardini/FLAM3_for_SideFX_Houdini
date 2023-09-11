@@ -1432,6 +1432,13 @@ def ramp_save(kwargs: dict) -> None:
 ###############################################################################################
 def hex_to_rgb(hex: str): 
     return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+
+def sys_json_to_ramp(kwargs: dict) -> None:
+    node = kwargs['node']
+    preset_id = node.parm(MEM_PALETTE_PRESETS).eval()
+    node.setParms({PALETTE_PRESETS: preset_id}) # type: ignore
+    json_to_ramp(kwargs)
+    
 def json_to_ramp(kwargs: dict) -> None:
     """
     Args:

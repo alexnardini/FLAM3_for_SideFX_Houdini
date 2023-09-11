@@ -127,6 +127,17 @@ loaddef:
     
     Load/reset to default Sierpinsky Triangle preset.
     
+CP Presets mini menu:
+    #id: SYS
+    Load one of the presets inside the CP Tab JSON file currently loaded.
+    This is being added as it is handy to change preset without the need to go inside the CP Tab all the time.
+    
+CP Preset reload:
+    #id: SYS
+    [Largeicon:opdef:.?iconPrideSVG.svg]
+    
+    Reload the selected CP palette preset. To populate this menu, load a palette *.json file first inside the CP Tab. 
+    
 IN Presets mini menu:
     #id: SYS
     Load one of the presets inside the IN Tab Flame file currently loaded.
