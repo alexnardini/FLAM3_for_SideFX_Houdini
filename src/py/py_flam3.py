@@ -1224,7 +1224,7 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 prm.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
                 out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
-                if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                if isLock(out_path_checked, FLAM3_LIB_LOCK):
                     flame_lib_locked = f"\nflame lib file: LOCKED"
                     node.setParms({"outmsg": flame_lib_locked})
                 else:
@@ -1249,7 +1249,7 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                     prm.set('0')
                     # check if the selected palette file is locked
                     out_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
-                    if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+                    if isLock(out_path_checked, FLAM3_LIB_LOCK):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({"palettemsg": palette_lib_locked})
                     else:
