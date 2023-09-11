@@ -3006,13 +3006,14 @@ def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Ve
     Returns:
         Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [Based on how many element in the passed list return the proper type of data]
     """
-    if len(data) == 1:
+    len_data = len(data)
+    if len_data == 1:
         return float(data[0])
-    elif len(data) == 2:
+    elif len_data == 2:
         return hou.Vector2((data))
-    elif len(data) == 3:
+    elif len_data == 3:
         return hou.Vector3((data))
-    elif len(data) == 4:
+    elif len_data == 4:
         return hou.Vector4((data))
     else:
         return data
