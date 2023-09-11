@@ -1342,6 +1342,20 @@ def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
         return PALETTE_COUNT_256
 
+
+def isJSON(node: hou.Node, filepath: Union[str, bool]) -> bool:
+    if filepath is not False:
+        try:
+            with open(str(filepath),'r') as r:
+                data_check = json.load(r)
+                node.setParms({PALETTE_LIB_PATH: str(filepath)}) #type: ignore
+                del data_check
+                return True
+        except:
+            return False
+    else:
+        return False
+
 def clamp(x): 
   return max(0, min(x, 255))
 def rgb_to_hex(rgb: tuple) -> str:
@@ -1371,50 +1385,43 @@ def ramp_save(kwargs: dict) -> None:
                 ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                 hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             else:
-                is_JSON = False
-                try:
-                    with open(str(out_path_checked),'r') as r:
-                        data_check = json.load(r)
-                        node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
-                        is_JSON = True
-                        del data_check
-                except:
-                    pass
+                # get user's preset name or build an automated one
+                if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
+                    now = datetime.now()
+                    presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
+                else:
+                    # otherwise get that name and use it
+                    presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+
+                # Updated HSV ramp before getting it
+                palette_hsv(node)
+                palette_cp(node)
+
+                ramp = hou.Ramp()
                 
+                if node.parm(RAMP_SAVE_HSV).eval():
+                    ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                else:
+                    ramp = node.parm(RAMP_SRC_NAME).evalAsRamp()
+                    
+                keys_count = get_ramp_keys_count(ramp)
+                
+                POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+                HEXs = []
                 json_data = ''
-                if is_JSON:
-                    if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
-                        now = datetime.now()
-                        presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
-                    else:
-                        # otherwise get that name and use it
-                        presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+                for p in POSs:
+                    clr = tuple(ramp.lookup(p))
+                    HEXs.append(rgb_to_hex(clr))
+                dict = { presetname: {'hex': ''.join(HEXs)} }
+                json_data = json.dumps(dict, indent=4)
 
-                    # Updated HSV ramp before getting it
-                    palette_hsv(node)
-                    palette_cp(node)
-                    
-                    ramp = hou.Ramp()
-                    if node.parm(RAMP_SAVE_HSV).eval():
-                        ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
-                    else:
-                        ramp = node.parm(RAMP_SRC_NAME).evalAsRamp()
-                        
-                    keys_count = get_ramp_keys_count(ramp)
-                    
-                    POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-                    HEXs = []
-                    for p in POSs:
-                        clr = tuple(ramp.lookup(p))
-                        HEXs.append(rgb_to_hex(clr))
-                    dict = { presetname: {'hex': ''.join(HEXs)} }
-                    json_data = json.dumps(dict, indent=4)
-
-                    if kwargs["ctrl"]:
-                        os.remove(str(out_path_checked))
-                        with open(str(out_path_checked),'w') as f:
-                            f.write(json_data)
-                    else:
+                if kwargs["ctrl"]:
+                    os.remove(str(out_path_checked))
+                    with open(str(out_path_checked),'w') as w:
+                        w.write(json_data)
+                else:
+                    # if the file exist and is a valid JSON file
+                    if isJSON(node, out_path_checked):
                         with open(str(out_path_checked),'r') as r:
                             prevdata = json.load(r)
                         with open(str(out_path_checked), 'w') as w:
@@ -1422,20 +1429,25 @@ def ramp_save(kwargs: dict) -> None:
                             prevdata.update(newdata)
                             data = json.dumps(prevdata,indent = 4)
                             w.write(data)
-                    with open(out_path_checked) as f:
-                        data = json.load(f)
-                        node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
-                        node.setParms({PALETTE_OUT_PRESET_NAME: ''})
-                        del data
-                else:
-                    with open(out_path_checked,'w') as f:
-                        f.write(json_data)
-                    with open(out_path_checked) as f:
-                        data = json.load(f)
-                        node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
-                        node.setParms({PALETTE_OUT_PRESET_NAME: ''})
-                        del data
-                    node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
+                    # Otherwise mean it is either empty or not exist,
+                    # just create one with the current ramp in it
+                    #
+                    # Note that we already checked for a proper file extension with:
+                    # def out_check_outpath(...)
+                    # so to not override something else by accident
+                    else:
+                        with open(str(out_path_checked),'w') as w:
+                            w.write(json_data)
+
+                # Set some parameters
+                with open(out_path_checked) as f:
+                    data = json.load(f)
+                    node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
+                    node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+                    del data
+                    
+                # Set the file path to the corrected one
+                node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
 
 
 ###############################################################################################
