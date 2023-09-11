@@ -1286,17 +1286,8 @@ def menu_ramp_presets(kwargs: dict) -> list:
     filepath = node.parm(PALETTE_LIB_PATH).evalAsString()
 
     menu=[]
-    is_JSON = False
-    try:
-        with open(str(filepath),'r') as r:
-            data_check = json.load(r)
-            node.setParms({PALETTE_LIB_PATH: str(filepath)})
-            is_JSON = True
-            del data_check
-    except:
-        pass
     
-    if is_JSON:
+    if isJSON(node, filepath, PALETTE_LIB_PATH):
         if node.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
             with open(filepath) as f:
                 data = json.load(f)
