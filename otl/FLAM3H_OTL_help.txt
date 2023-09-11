@@ -583,7 +583,8 @@ LIB contents ( presets ):
     
 Reload preset ( presets ):
     #id: PALETTE
-    iconPrideSVG.svg
+    [Largeicon:opdef:.?iconPrideSVG.svg]
+    
     Reload the selected palette preset.
     
 save HSV palette ( options ):
