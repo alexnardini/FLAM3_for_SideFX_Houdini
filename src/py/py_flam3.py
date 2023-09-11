@@ -1301,16 +1301,27 @@ def menu_ramp_presets(kwargs: dict) -> list:
         pass
     
     if is_JSON:
-        with open(filepath) as f:
-            data = json.load(f)
-        menuitems = data.keys()
-        for i, item in enumerate(menuitems):
-            menu.append(i)
-            menu.append(item)
+        if node.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
+            with open(filepath) as f:
+                data = json.load(f)
+            menuitems = data.keys()
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+        else:
+            menuitems = ("Please, add at least one iterator", "")
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
     else:
-        menu.append(-1)
-        menu.append('Empty')
-        
+        if node.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
+            menu.append(-1)
+            menu.append('Empty')
+        else:
+            menuitems = ("Please, add at least one iterator", "")
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
     return menu
 
 
