@@ -1235,24 +1235,20 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
             # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{str(node)}.OUT: please select a valid file location.')
+                
     elif PALETTE_PRESETS in prm_name:
-        json = node.parm(PALETTE_LIB_PATH).evalAsString()
-        if os.path.exists(json) is True:
-            is_JSON = False
-            try:
-                with open(str(json),'r') as r:
-                    data_check = json.load(r)
-                    node.setParms({PALETTE_LIB_PATH: str(json)})
-                    is_JSON = True
-                    del data_check
-            except:
-                pass
-            if is_JSON:
+        
+        _json = node.parm(PALETTE_LIB_PATH).evalAsString()
+        
+        if os.path.exists( _json) is True:
+            
+            if isJSON(node, _json, PALETTE_LIB_PATH):
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
-                    # check if the selected Flame file is locked
-                    out_path_checked = out_check_outpath(node, json, OUT_PALETTE_FILE_EXT, 'Palette')
+                    # check if the selected palette file is locked
+                    out_path_checked = out_check_outpath(node,  _json, OUT_PALETTE_FILE_EXT, 'Palette')
+                    print(out_path_checked)
                     if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({"palettemsg": palette_lib_locked})
@@ -1263,7 +1259,7 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 node.setParms({"palettemsg": ''})
         else:
             # We do not want to print if the file path parameter is empty
-            if json:
+            if  _json:
                 print(f'{str(node)}.palette: please select a valid file location.')
         
 
@@ -1343,12 +1339,12 @@ def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         return PALETTE_COUNT_256
 
 
-def isJSON(node: hou.Node, filepath: Union[str, bool]) -> bool:
+def isJSON(node: hou.Node, filepath: Union[str, bool], prm: str) -> bool:
     if filepath is not False:
         try:
             with open(str(filepath),'r') as r:
                 data_check = json.load(r)
-                node.setParms({PALETTE_LIB_PATH: str(filepath)}) #type: ignore
+                node.setParms({prm: str(filepath)}) #type: ignore
                 del data_check
                 return True
         except:
@@ -1421,7 +1417,7 @@ def ramp_save(kwargs: dict) -> None:
                         w.write(json_data)
                 else:
                     # if the file exist and is a valid JSON file
-                    if isJSON(node, out_path_checked):
+                    if isJSON(node, out_path_checked, PALETTE_LIB_PATH):
                         with open(str(out_path_checked),'r') as r:
                             prevdata = json.load(r)
                         with open(str(out_path_checked), 'w') as w:
