@@ -85,6 +85,7 @@ SYS_TAG = "tag"
 SYS_TAG_SIZE = "tagsize"
 SYS_RIP = "rip"
 FLAM3_ITERATORS_COUNT = "flamefunc"
+IN_ISVALID_FILE = 'isvalidfile'
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
 SYS_IN_PRESETS = 'sys_inpresets'
@@ -1204,11 +1205,11 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
-                    node.setParms({"isvalidfile": 1})
+                    node.setParms({IN_ISVALID_FILE: 1})
                     apo_to_flam3(node)
         else:
             prm.set('-1')
-            node.setParms({"isvalidfile": 0})
+            node.setParms({IN_ISVALID_FILE: 0})
             node.setParms({"flamestats_msg": ""})
             node.setParms({"flamerender_msg": ""})
             node.setParms({"descriptive_msg": ""})
@@ -1801,7 +1802,7 @@ def reset_MB(self) -> None:
     self.setParms({"shutter": 0.5})
     
 def reset_IN(self, mode=0) -> None:
-    self.setParms({"isvalidfile": 0})
+    self.setParms({IN_ISVALID_FILE: 0})
     self.setParms({"flamestats_msg": ""})
     self.setParms({"flamerender_msg": ""})
     self.setParms({"descriptive_msg": ""})
@@ -3769,7 +3770,7 @@ def apo_to_flam3(self: hou.Node) -> None:
 
     if apo_flame(self, xml).isvalidtree:
         
-        self.setParms({"isvalidfile": 1}) #type: ignore
+        self.setParms({IN_ISVALID_FILE: 1}) #type: ignore
         
         preset_id = int(self.parm(IN_PRESETS).eval())
         iter_on_load = set_iter_on_load(self, preset_id)
