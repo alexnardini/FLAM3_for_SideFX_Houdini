@@ -53,10 +53,10 @@ struct gem{
                 From Fractorium->Source->ember->Xform.h ( code line: 561)
 
                 m_OneMinusColorCache = (1 + m_ColorSpeed) / 2;
-                m_ColorSpeedCache = m_ColorX * (1 - m_ColorSpeed) / 2; //Apo style.
+                m_ColorSpeedCache = m_ColorX * (1 - m_ColorSpeed) / 2;  //Apo style.
 
                 m_OneMinusColorCache = static_cast<T>(1) - m_ColorSpeed;
-                m_ColorSpeedCache = m_ColorSpeed * m_ColorX;//Flam3 style.
+                m_ColorSpeedCache = m_ColorSpeed * m_ColorX;            //Flam3 style.
             */
             // Color: Use Apo style
             CLR[i] = clr * (1.0-spd)/2.0;
