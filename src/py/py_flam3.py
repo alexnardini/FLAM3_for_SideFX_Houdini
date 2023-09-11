@@ -1238,16 +1238,16 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 
     elif PALETTE_PRESETS in prm_name:
         
-        _json = node.parm(PALETTE_LIB_PATH).evalAsString()
+        json_path = node.parm(PALETTE_LIB_PATH).evalAsString()
         
-        if os.path.exists( _json) is True:
+        if os.path.exists(json_path) is True:
             
-            if isJSON(node, _json, PALETTE_LIB_PATH):
+            if isJSON(node, json_path, PALETTE_LIB_PATH):
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
                     # check if the selected palette file is locked
-                    out_path_checked = out_check_outpath(node,  _json, OUT_PALETTE_FILE_EXT, 'Palette')
+                    out_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
                     if os.path.split(str(out_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({"palettemsg": palette_lib_locked})
@@ -1258,7 +1258,7 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 node.setParms({"palettemsg": ''})
         else:
             # We do not want to print if the file path parameter is empty
-            if  _json:
+            if  json_path:
                 print(f'{str(node)}.palette: please select a valid file location.')
         
 
