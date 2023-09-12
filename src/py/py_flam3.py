@@ -3184,8 +3184,6 @@ def v_parametric(app: str,
     
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # Cleanup unwanted, especially the 'pre_blur'.
-    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
     
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3193,12 +3191,7 @@ def v_parametric(app: str,
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             if xform.get(n) is not None:
-
-                for k in xform_keys_cleaned:
-                    # something to improve eventually...
-                    if n == k:
-                        var_prm_vals.append(float(str(xform.get(k))))
-                        break
+                var_prm_vals.append(float(str(xform.get(n))))
             else:
                 # If a prm name is not found inside the XML, let us know unless is included in the exception tuple.
                 if n not in XML_XF_PRM_EXCEPTION:
@@ -3246,8 +3239,6 @@ def v_parametric_PRE(app: str,
     
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # Cleanup unwanted, especially the 'pre_blur'.
-    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
     
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3256,12 +3247,7 @@ def v_parametric_PRE(app: str,
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             n_pre = make_PRE(n)
             if xform.get(n_pre) is not None:
-
-                for k in xform_keys_cleaned:
-                    # something to improve eventually...
-                    if n_pre == k:
-                        var_prm_vals.append(float(str(xform.get(k))))
-                        break
+                var_prm_vals.append(float(str(xform.get(n_pre))))
             else:
                 # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
@@ -3305,8 +3291,6 @@ def v_parametric_POST(app: str,
     
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # Cleanup unwanted, especially the 'pre_blur'.
-    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3315,12 +3299,7 @@ def v_parametric_POST(app: str,
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             n_post = make_POST(n)
             if xform.get(n_post) is not None:
-                xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
-                for k in xform_keys_cleaned:
-                    # something to improve eventually...
-                    if n_post == k:
-                        var_prm_vals.append(float(str(xform.get(k))))
-                        break
+                var_prm_vals.append(float(str(xform.get(n_post))))
             else:
                  # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
@@ -3358,21 +3337,15 @@ def v_parametric_PRE_FF(app: str,
     """
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # Cleanup unwanted, especially the 'pre_blur'.
-    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
 
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            n_post = make_PRE(n)
-            if xform.get(n_post) is not None:
-                for k in xform.keys():
-                    # something to improve eventually...
-                    if n_post == k:
-                        var_prm_vals.append(float(str(xform.get(k))))
-                        break
+            n_pre = make_PRE(n)
+            if xform.get(n_pre) is not None:
+                var_prm_vals.append(float(str(xform.get(n_pre))))
             else:
                 # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
@@ -3410,8 +3383,6 @@ def v_parametric_POST_FF(app: str,
     """
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-    # Cleanup unwanted, especially the 'pre_blur'.
-    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3420,11 +3391,7 @@ def v_parametric_POST_FF(app: str,
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             n_post = make_POST(n)
             if xform.get(n_post) is not None:
-                for k in xform.keys():
-                    # something to improve eventually...
-                    if n_post == k:
-                        var_prm_vals.append(float(str(xform.get(k))))
-                        break
+                var_prm_vals.append(float(str(xform.get(n_post))))
             else:
                 # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                 if n not in XML_XF_PRM_EXCEPTION:
