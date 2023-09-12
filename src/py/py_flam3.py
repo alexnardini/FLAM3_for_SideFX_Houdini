@@ -3164,6 +3164,16 @@ def v_parametric_var_collect(node: hou.Node,
                              mp_idx: int, 
                              v_type: int, 
                              func: Callable) -> list:
+    """
+    Args:
+        node (hou.Node): [Current FLAM3 houdini node]
+        mode (int): [0 for iterator. 1 for FF]
+        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        v_type (int): [the current variation type index]
+        func (Callable): [function to change variation name between var, pre_var and post_var]
+    """
     
     iter_type = f"Iterator.{mp_idx+1}:"
     if mode:
