@@ -106,7 +106,16 @@ RAMP_HSV_NAME = 'palettehsv'
 RAMP_SAVE_HSV = 'savehsv'
 RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 RAMP_HSV_VAL_NAME = 'hsv'
+# Messages parameters
+MSG_FLAMESTATS = 'flamestats_msg'
+MSG_FLAMERENDER = 'flamerender_msg'
+MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
+MSG_PALETTE = 'palettemsg'
+MSG_OUT = 'outmsg'
+MSG_FLAM3ABOUT = 'flam3about_msg'
+MSG_FLAM3PLUGINS = 'flam3plugins_msg'
 
+# File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
 
 
@@ -1093,8 +1102,8 @@ def flam3_on_create(kwargs: dict) -> None:
     flam3_about_msg(node)
     flam3_about_plugins_msg(node)
     # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-    node.setParms({"flamestats_msg": ""})
-    node.setParms({"flamerender_msg": ""})
+    node.setParms({MSG_FLAMESTATS: ""})
+    node.setParms({MSG_FLAMERENDER: ""})
     node.setParms({"palettemsg": ''})
     node.setParms({"outmsg": ''})
     
@@ -1198,9 +1207,9 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
             apo = apo_flame(node, xml)
             if not apo.isvalidtree:
                 prm.set('-1')
-                node.setParms({"flamestats_msg": "Please load a valid *.flame file."})
-                node.setParms({"flamerender_msg": ""})
-                node.setParms({"descriptive_msg": ""})
+                node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
+                node.setParms({MSG_FLAMERENDER: ""})
+                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
             else:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
@@ -1210,9 +1219,9 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
         else:
             prm.set('-1')
             node.setParms({IN_ISVALID_FILE: 0})
-            node.setParms({"flamestats_msg": ""})
-            node.setParms({"flamerender_msg": ""})
-            node.setParms({"descriptive_msg": ""})
+            node.setParms({MSG_FLAMESTATS: ""})
+            node.setParms({MSG_FLAMERENDER: ""})
+            node.setParms({MSG_DESCRIPTIVE_PRM: ""})
             # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{str(node)}.IN: please select a valid file location.')
@@ -1803,9 +1812,9 @@ def reset_MB(self) -> None:
     
 def reset_IN(self, mode=0) -> None:
     self.setParms({IN_ISVALID_FILE: 0})
-    self.setParms({"flamestats_msg": ""})
-    self.setParms({"flamerender_msg": ""})
-    self.setParms({"descriptive_msg": ""})
+    self.setParms({MSG_FLAMESTATS: ""})
+    self.setParms({MSG_FLAMERENDER: ""})
+    self.setParms({MSG_DESCRIPTIVE_PRM: ""})
     if mode:
         self.setParms({IN_PATH: ""})
         self.setParms({IN_PRESETS: str(-1)})
@@ -1960,7 +1969,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         #self.setParms({"cullamount": 0.99})
         
         # descriptive message parameter
-        self.setParms({"descriptive_msg": ""}) # type: ignore
+        self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
 
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website
@@ -2817,7 +2826,7 @@ class apo_flame(_xml_tree):
                     BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
                 except:
-                    hou.pwd().setParms({"descriptive_msg": "Error: IN->PALETTE\nHEX values not valid."})
+                    hou.pwd().setParms({MSG_DESCRIPTIVE_PRM: "Error: IN->PALETTE\nHEX values not valid."})
                     ui_text = "Flame's Palette hex values not valid."
                     palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
@@ -3818,21 +3827,21 @@ def apo_to_flam3(self: hou.Node) -> None:
         # Set density back to default on load
         self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
         #Updated flame stats 
-        self.setParms({"flamestats_msg": apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
-        self.setParms({"flamerender_msg": apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
+        self.setParms({MSG_FLAMESTATS: apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
+        self.setParms({MSG_FLAMERENDER: apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
         # Updated SYS inpresets parameter
         self.setParms({SYS_IN_PRESETS: self.parm(IN_PRESETS).eval()}) # type: ignore
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
-            self.setParms({"flamestats_msg": "Please load a valid *.flame file."}) # type: ignore
-            self.setParms({"flamerender_msg": ""}) # type: ignore
+            self.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
+            self.setParms({MSG_FLAMERENDER: ""}) # type: ignore
             # The following do not work, not sure why
-            self.setParms({"descriptive_msg": ""}) # type: ignore
+            self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
         else:
-            self.setParms({"flamestats_msg": ""}) # type: ignore
-            self.setParms({"flamerender_msg": ""}) # type: ignore
+            self.setParms({MSG_FLAMESTATS: ""}) # type: ignore
+            self.setParms({MSG_FLAMERENDER: ""}) # type: ignore
             # The following do not work, not sure why
-            self.setParms({"descriptive_msg": ""}) # type: ignore
+            self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
 
 
 def apo_join_vars_grp(groups: list) -> str:
@@ -3931,7 +3940,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
                         f"{preset_name}", )
-    self.setParms({"descriptive_msg": "".join(descriptive_prm)}) # type: ignore
+    self.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
     # Build missing:
     vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
@@ -4119,7 +4128,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
     
     build_about_msg = "".join(build)
 
-    self.setParms({"flam3about_msg": build_about_msg})
+    self.setParms({MSG_FLAM3ABOUT: build_about_msg})
 
 
 def flam3_about_plugins_msg(self):
@@ -4135,7 +4144,7 @@ def flam3_about_plugins_msg(self):
             _vars.append(", ".join(grp) + "\n")
     vars_txt = "".join(_vars)
     
-    self.setParms({"flam3plugins_msg": vars_txt})
+    self.setParms({MSG_FLAM3PLUGINS: vars_txt})
 
 
 # SAVE XML FILES start here
