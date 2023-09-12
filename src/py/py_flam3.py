@@ -3156,6 +3156,35 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
 def var_name_from_dict(mydict: dict, idx: int):
     return list(mydict.keys())[list(mydict.values()).index(idx)]
+
+def v_parametric_var_collect(node: hou.Node, 
+                             mode: int, 
+                             apo_prm: tuple, 
+                             xform: dict, 
+                             mp_idx: int, 
+                             v_type: int, 
+                             func: Callable) -> list:
+    
+    iter_type = f"Iterator.{mp_idx+1}:"
+    if mode:
+        iter_type = 'FF:'
+    
+    VAR: list = []
+    for names in apo_prm[1:-1]:
+        var_prm_vals: list = []
+        for n in [x.lower() for x in names]:
+            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+            n = func(n)
+            if xform.get(n) is not None:
+                var_prm_vals.append(float(str(xform.get(n))))
+            else:
+                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                if n not in XML_XF_PRM_EXCEPTION:
+                    var_prm_vals.append(float(0))
+                    print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+        VAR.append(typemaker(var_prm_vals))
+    return VAR
+
 def v_parametric(app: str, 
                  mode: int, 
                  node: hou.Node, 
@@ -3185,19 +3214,13 @@ def v_parametric(app: str,
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
     
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in [x.lower() for x in names]:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            if xform.get(n) is not None:
-                var_prm_vals.append(float(str(xform.get(n))))
-            else:
-                # If a prm name is not found inside the XML, let us know unless is included in the exception tuple.
-                if n not in XML_XF_PRM_EXCEPTION:
-                    var_prm_vals.append(float(0))
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)}\": parameter: \"{n}\"")
-        VAR.append(typemaker(var_prm_vals))
+    VAR = v_parametric_var_collect(node, 
+                                   mode, 
+                                   apo_prm, 
+                                   xform, 
+                                   mp_idx, 
+                                   v_type, 
+                                   make_NULL)
 
     for idx, prm in enumerate(var_prm[1:-1]):
         if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) # type: ignore
@@ -3240,20 +3263,13 @@ def v_parametric_PRE(app: str,
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
     
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in [x.lower() for x in names]:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            n_pre = make_PRE(n)
-            if xform.get(n_pre) is not None:
-                var_prm_vals.append(float(str(xform.get(n_pre))))
-            else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
-                if n not in XML_XF_PRM_EXCEPTION:
-                    var_prm_vals.append(float(0))
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
-        VAR.append(typemaker(var_prm_vals))
+    VAR = v_parametric_var_collect(node, 
+                                   mode, 
+                                   apo_prm, 
+                                   xform, 
+                                   mp_idx, 
+                                   v_type, 
+                                   make_PRE)
         
     for idx, prm in enumerate(var_prm[1:-1]):
         node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
@@ -3292,20 +3308,13 @@ def v_parametric_POST(app: str,
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in [x.lower() for x in names]:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            n_post = make_POST(n)
-            if xform.get(n_post) is not None:
-                var_prm_vals.append(float(str(xform.get(n_post))))
-            else:
-                 # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
-                if n not in XML_XF_PRM_EXCEPTION:
-                    var_prm_vals.append(float(0))
-                    print(f"{str(node)}: PARAMETER NOT FOUND: Iterator.{mp_idx+1}: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
-        VAR.append(typemaker(var_prm_vals))
+    VAR = v_parametric_var_collect(node, 
+                                   mode, 
+                                   apo_prm, 
+                                   xform, 
+                                   mp_idx, 
+                                   v_type, 
+                                   make_POST)
         
     for idx, prm in enumerate(var_prm[1:-1]):
         node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
@@ -3338,20 +3347,13 @@ def v_parametric_PRE_FF(app: str,
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in [x.lower() for x in names]:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            n_pre = make_PRE(n)
-            if xform.get(n_pre) is not None:
-                var_prm_vals.append(float(str(xform.get(n_pre))))
-            else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
-                if n not in XML_XF_PRM_EXCEPTION:
-                    var_prm_vals.append(float(0))
-                    print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_PRE(n)}\"")
-        VAR.append(typemaker(var_prm_vals))
+    VAR = v_parametric_var_collect(node, 
+                                   0, 
+                                   apo_prm, 
+                                   xform, 
+                                   0, 
+                                   v_type, 
+                                   make_PRE)
         
     for idx, prm in enumerate(var_prm[1:-1]):
         node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
@@ -3384,20 +3386,13 @@ def v_parametric_POST_FF(app: str,
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
 
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in [x.lower() for x in names]:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            n_post = make_POST(n)
-            if xform.get(n_post) is not None:
-                var_prm_vals.append(float(str(xform.get(n_post))))
-            else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
-                if n not in XML_XF_PRM_EXCEPTION:
-                    var_prm_vals.append(float(0))
-                    print(f"{str(node)}: PARAMETER NOT FOUND: FF: variation: \"{make_POST(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{make_POST(n)}\"")
-        VAR.append(typemaker(var_prm_vals))
+    VAR = v_parametric_var_collect(node, 
+                                   0, 
+                                   apo_prm, 
+                                   xform, 
+                                   0, 
+                                   v_type, 
+                                   make_POST)
         
     for idx, prm in enumerate(var_prm[1:-1]):
         node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
