@@ -106,7 +106,7 @@ RAMP_HSV_NAME = 'palettehsv'
 RAMP_SAVE_HSV = 'savehsv'
 RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 RAMP_HSV_VAL_NAME = 'hsv'
-# Messages parameters
+# Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
 MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
@@ -1104,8 +1104,8 @@ def flam3_on_create(kwargs: dict) -> None:
     # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
     node.setParms({MSG_FLAMESTATS: ""})
     node.setParms({MSG_FLAMERENDER: ""})
-    node.setParms({"palettemsg": ''})
-    node.setParms({"outmsg": ''})
+    node.setParms({MSG_PALETTE: ''})
+    node.setParms({MSG_OUT: ''})
     
     # FLAM3 node and MultiParameter id for iterators
     #
@@ -1235,12 +1235,12 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                 out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
                 if isLock(out_path_checked, FLAM3_LIB_LOCK):
                     flame_lib_locked = f"\nflame lib file: LOCKED"
-                    node.setParms({"outmsg": flame_lib_locked})
+                    node.setParms({MSG_OUT: flame_lib_locked})
                 else:
-                    node.setParms({"outmsg": ''})
+                    node.setParms({MSG_OUT: ''})
             else:
                 prm.set('-1')
-                node.setParms({"outmsg": ''})
+                node.setParms({MSG_OUT: ''})
         else:
             # We do not want to print if the file path parameter is empty
             if xml:
@@ -1260,17 +1260,17 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
                     out_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
                     if isLock(out_path_checked, FLAM3_LIB_LOCK):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
-                        node.setParms({"palettemsg": palette_lib_locked})
+                        node.setParms({MSG_PALETTE: palette_lib_locked})
                     else:
-                        node.setParms({"palettemsg": ''})
+                        node.setParms({MSG_PALETTE: ''})
             else:
                 prm.set('-1')
-                node.setParms({"palettemsg": ''})
+                node.setParms({MSG_PALETTE: ''})
         else:
             # We do not want to print if the file path parameter is empty
             if json_path:
                 print(f'{str(node)}.palette: please select a valid file location.')
-            node.setParms({"palettemsg": ''})
+            node.setParms({MSG_PALETTE: ''})
         
 
 ###############################################################################################
