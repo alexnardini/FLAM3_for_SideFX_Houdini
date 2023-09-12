@@ -54,7 +54,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = "1.0.10"
+FLAM3HOUDINI_VERSION = "1.0.11"
 
 DPT = '*'
 PRM = '...'
@@ -3184,15 +3184,19 @@ def v_parametric(app: str,
     
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-
+    # Cleanup unwanted, especially the 'pre_blur'.
+    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
+    
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
         for n in [x.lower() for x in names]:
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             if xform.get(n) is not None:
-                for k in xform.keys():
-                    if n in k:
+
+                for k in xform_keys_cleaned:
+                    # something to improve eventually...
+                    if n == k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -3213,7 +3217,7 @@ def v_parametric(app: str,
         node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
         
-        
+
 def v_parametric_PRE(app: str, 
                      mode: int, 
                      node: hou.Node, 
@@ -3242,7 +3246,9 @@ def v_parametric_PRE(app: str,
     
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
-
+    # Cleanup unwanted, especially the 'pre_blur'.
+    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
+    
     VAR: list = []
     for names in apo_prm[1:-1]:
         var_prm_vals: list = []
@@ -3250,8 +3256,10 @@ def v_parametric_PRE(app: str,
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             n_pre = make_PRE(n)
             if xform.get(n_pre) is not None:
-                for k in xform.keys():
-                    if n_pre in k:
+
+                for k in xform_keys_cleaned:
+                    # something to improve eventually...
+                    if n_pre == k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -3297,6 +3305,8 @@ def v_parametric_POST(app: str,
     
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    # Cleanup unwanted, especially the 'pre_blur'.
+    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3305,8 +3315,10 @@ def v_parametric_POST(app: str,
             # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
             n_post = make_POST(n)
             if xform.get(n_post) is not None:
-                for k in xform.keys():
-                    if n_post in k:
+                xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
+                for k in xform_keys_cleaned:
+                    # something to improve eventually...
+                    if n_post == k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -3346,6 +3358,8 @@ def v_parametric_PRE_FF(app: str,
     """
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    # Cleanup unwanted, especially the 'pre_blur'.
+    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3355,7 +3369,8 @@ def v_parametric_PRE_FF(app: str,
             n_post = make_PRE(n)
             if xform.get(n_post) is not None:
                 for k in xform.keys():
-                    if n_post in k:
+                    # something to improve eventually...
+                    if n_post == k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -3395,6 +3410,8 @@ def v_parametric_POST_FF(app: str,
     """
     # Exceptions: check if this flame need different parameters names based on detected exception
     apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    # Cleanup unwanted, especially the 'pre_blur'.
+    xform_keys_cleaned = list(map(lambda x: x, filter(lambda x: x not in XML_XF_KEY_EXCLUDE, xform.keys())))
 
     VAR: list = []
     for names in apo_prm[1:-1]:
@@ -3404,7 +3421,8 @@ def v_parametric_POST_FF(app: str,
             n_post = make_POST(n)
             if xform.get(n_post) is not None:
                 for k in xform.keys():
-                    if n_post in k:
+                    # something to improve eventually...
+                    if n_post == k:
                         var_prm_vals.append(float(str(xform.get(k))))
                         break
             else:
@@ -3497,7 +3515,6 @@ def v_generic_PRE_FF(node: hou.Node,
                      ) -> None:
     """
     Args:
-        mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
         v_type (int): [Current variation type index]
@@ -3514,7 +3531,6 @@ def v_generic_POST_FF(node: hou.Node,
                       ) -> None:
     """
     Args:
-        mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
         v_type (int): [Current variation type index]
@@ -3534,7 +3550,6 @@ def v_pre_blur(mode: int,
         mode (int): [0 for iterator. 1 for FF]
         node (hou.Node): [Current FLAM3 houdini node]
         mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
         pb_weights (tuple): [all iterators pre_blur weight values]
     """
     prx, prx_prm = flam3_prx_mode(mode)
