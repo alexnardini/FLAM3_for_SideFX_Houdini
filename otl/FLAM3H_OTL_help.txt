@@ -1193,3 +1193,97 @@ wedgejulia,
 wedgesph, 
 whorl
 *
+
+
+@Limitations
+    
+_The following are limitations to keep in mind when authoring your flame in Fractorium or Apophysis to be then loaded inside FLAM3 for Houdini. All those limitations are in place to keep performance acceptable within the CVEX language limits._
+
+== FLAME: Number of iterators ==
+
+Iterator's count:
+    #id: Limitations
+    
+    FLAM3 for Houdini allow you to create as many iteratos as you wish, however when using XAOS you are allowed to create max 20 iterators.
+
+== FLAME: xform's PRE, VAR and POST variations ==
+
+PRE variations:
+    #id: Limitations
+    
+    Every iterator is capabable of 3 PRE variations, with one ( the first one to always be executed ) being: pre_blur, followed by the other two.
+    
+    It is really pre_blur + 2 variations of your choice.
+    
+    NOTE:
+        _*The weight of the PRE variations can not be negative*_ in FLAM3 for Houdini.
+
+VAR variations:
+    #id: Limitations
+    
+    Every iterator is capable of 4 variations.
+    
+POST variations:
+    #id: Limitations
+    
+    Every iterator is capable of 1 POST variations
+    
+    NOTE:
+        _*The weight of the POST variation can not be negative*_ in FLAM3 for Houdini.
+        
+Parametric variation parameters:
+    #id: Limitations
+    
+    Each iterator has only one set of parametric variation parameters shared with PRE, VAR and POST variations.
+    This mean if you use 2 PRE_Mobius, 4 Mobius and 1 POST_Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    
+    
+    
+== FF: finalxform's PRE, VAR and POST variations ==
+
+FF PRE variations:
+    #id: Limitations
+    
+    FF iterator is capabable of 1 PRE variations, with one ( the first one to always be executed ) being: pre_blur, followed by the other two.
+    
+    NOTE:
+        _*The weight of the FF PRE variations can not be negative*_ in FLAM3 for Houdini.
+
+FF VAR variations:
+    #id: Limitations
+    
+    FF iterator is capable of 2 variations.
+    
+FF POST variations:
+    #id: Limitations
+    
+    FF iterator is capable of 2 POST variations.
+    
+    NOTE:
+        _*The weight of the FF POST variation can not be negative*_ in FLAM3 for Houdini.
+        
+FF Parametric variation parameters:
+    #id: Limitations
+    
+    FF iterator has two sets of parametric variation parameters.
+    One is shared with VAR variations.
+    The second is shared with PRE and POST variations.
+    
+    This mean if you use 4 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one,
+    
+    but if you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two.
+    
+== FF: Shader ==
+
+FF Shader:
+    #id: Limitations
+    
+    This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
+
+    NOTE:
+        When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
+        - Color -> 0.0
+        - Color Speed -> 0.0 ( _this is the most important_ )
+        - Direct Color -> 1.0
+        
+        This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
