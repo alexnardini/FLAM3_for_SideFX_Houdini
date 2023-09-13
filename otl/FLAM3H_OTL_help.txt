@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.7
+#version: 1.0.11
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -231,6 +231,12 @@ copy/paste:
 
     *iterator:#*
     
+A tip:
+    #id: FLAME
+    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    
+    Show active iterator informations and tips.
+    
 A:
     #id: FLAME
     Enable/Disable this iterator.
@@ -283,7 +289,13 @@ xaos:
         
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        
+Xaos tip:
+    #id: FLAME
+    [Largeicon:opdef:.?iconBluStarSVG.svg]
     
+    Show Xaos informations and tips.
+ 
 :box:
     #display: rounded white
 
@@ -872,13 +884,6 @@ Save Flame:
         Save the hip file instead.
         
         This is true also for applications like Apophysis and Fractorium as they obey the same rule.
-        
-OUT file contents ( info ):
-    #id: OUT
-    This menu is only for information purpose.
-    It will show the Flames contained in the selected output file if any are presents.
-    Once you append a new Flame in it, this menu will update too.
-    It will always be set to the last Flame's name you saved.
     
 Flame name ( preset ):
     #id: OUT
@@ -895,6 +900,19 @@ Flame name ( preset ):
         
         Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
     
+Flame name tip:
+    #id: OUT
+    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    
+    Show Flame name's informations and tips.
+    
+OUT file contents ( info ):
+    #id: OUT
+    This menu is only for information purpose.
+    It will show the Flames contained in the selected output file if any are presents.
+    Once you append a new Flame in it, this menu will update too.
+    It will always be set to the last Flame's name you saved.
+        
 Use palette HSV (cc):
     #id: OUT
     If checked, the Flame's palette will be saved out using the HSV ramp so to carry out any color correction the user may have done if he like so.
@@ -1063,7 +1081,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.7 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.11 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 
