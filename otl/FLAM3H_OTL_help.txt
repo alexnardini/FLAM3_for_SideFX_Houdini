@@ -1230,7 +1230,7 @@ VAR variations:
 POST variations:
     #id: Limitations
     
-    Every iterator is capable of 1 POST variations
+    Every iterator is capable of 1 POST variation.
     
     NOTE:
         _*The weight of the POST variation can not be negative*_ in FLAM3 for Houdini.
@@ -1248,7 +1248,7 @@ Parametric variation parameters:
 FF PRE variations:
     #id: Limitations
     
-    FF iterator is capabable of 1 PRE variations, with one ( the first one to always be executed ) being: pre_blur, followed by the other two.
+    FF iterator is capabable of 1 PRE variation.
     
     NOTE:
         _*The weight of the FF PRE variations can not be negative*_ in FLAM3 for Houdini.
