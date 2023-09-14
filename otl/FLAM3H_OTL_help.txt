@@ -1003,7 +1003,7 @@ flam3 compatibility (f3c):
     TIP:
         In Fractorium you can go to "Options" to find the exact same checkbox.
         
-Auto correct output paths ( ON by default )
+Auto correct output paths:
     #id: prefs
     ON by default. This is a simple auto correction of the input output file paths for the CP and OUT Tabs.
     
