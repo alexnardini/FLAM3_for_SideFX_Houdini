@@ -54,7 +54,9 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = "1.0.11"
+FLAM3HOUDINI_VERSION = "1.0.15"
+
+CHARACTERS_ALLOWED = "_-().:"
 
 DPT = '*'
 PRM = '...'
@@ -106,6 +108,7 @@ RAMP_HSV_NAME = 'palettehsv'
 RAMP_SAVE_HSV = 'savehsv'
 RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 RAMP_HSV_VAL_NAME = 'hsv'
+AUTO_PATH_CORRECTION = 'autopath'
 # Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
@@ -1191,17 +1194,17 @@ def flam3_on_loaded(kwargs: dict) -> None:
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid json/flame file
 ###############################################################################################
-def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
+def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
         mode (int): To be used to prevent to load a left over preset when loading back a hip file.
     """    
     node = kwargs['node']
-    prm = node.parm(prm_name)
+    prm = node.parm(prm_presets_name)
     prm.set('-1')
     
-    if IN_PRESETS in prm_name:
+    if IN_PRESETS in prm_presets_name:
         xml = node.parm(IN_PATH).evalAsString()
         if os.path.isfile(xml) is True:
             apo = apo_flame(node, xml)
@@ -1225,15 +1228,17 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
             # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{str(node)}.IN: please select a valid file location.')
-    elif OUT_PRESETS in prm_name:
+                
+    elif OUT_PRESETS in prm_presets_name:
         xml = node.parm(OUT_PATH).evalAsString()
-        if os.path.exists(xml) is True:
-            apo = apo_flame(node, xml)
+        xml_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+        if xml_checked is not False:
+            node.setParms({OUT_PATH: xml_checked}) 
+            apo = apo_flame(node, xml_checked) #type: ignore
             if apo.isvalidtree:
                 prm.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
-                out_path_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
-                if isLock(out_path_checked, FLAM3_LIB_LOCK):
+                if isLock(xml_checked, FLAM3_LIB_LOCK):
                     flame_lib_locked = f"\nflame lib file: LOCKED"
                     node.setParms({MSG_OUT: flame_lib_locked})
                 else:
@@ -1246,23 +1251,22 @@ def init_presets(kwargs: dict, prm_name: str, mode=1) -> None:
             if xml:
                 print(f'{str(node)}.OUT: please select a valid file location.')
                 
-    elif PALETTE_PRESETS in prm_name:
-        
+    elif PALETTE_PRESETS in prm_presets_name:
         json_path = node.parm(PALETTE_LIB_PATH).evalAsString()
-        
-        if os.path.exists(json_path) is True:
-            
+        json_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
+        if json_path_checked is not False:
+            node.setParms({PALETTE_LIB_PATH: json_path_checked})
             if isJSON(node, json_path, PALETTE_LIB_PATH):
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
                     # check if the selected palette file is locked
-                    out_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
-                    if isLock(out_path_checked, FLAM3_LIB_LOCK):
+                    if isLock(json_path_checked, FLAM3_LIB_LOCK):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({MSG_PALETTE: palette_lib_locked})
                     else:
                         node.setParms({MSG_PALETTE: ''})
+                        
             else:
                 prm.set('-1')
                 node.setParms({MSG_PALETTE: ''})
@@ -3899,7 +3903,6 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
     else:
         palette_count_format = f"Palette not found."
-    var_used_heading = "Variations used:"
     
     exclude_keys = XML_XF_KEY_EXCLUDE
     if self.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
@@ -3920,8 +3923,9 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     result_sorted = out_vars_flatten_unique_sorted(vars_all, make_NULL) # type: ignore
     
     n = 5
+    var_used_heading = "Variations used:"
     result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-    vars_used_msg = f"{var_used_heading}\n{apo_join_vars_grp(result_grp)}"
+    vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{apo_join_vars_grp(result_grp)}"
     
     # Build and set descriptive parameter msg
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
@@ -4546,6 +4550,22 @@ def out_flame_properties_build(self) -> dict:
             # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
+'''
+# wip
+
+def out_preset_name_add_iteration_number(self: hou.Node) -> None:
+    iter_div = '::'
+    iterations = self.parm(SYS_ITERATIONS).evalAsString()
+    out_preset_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
+    out_preset_name_iter = ''
+    if out_preset_name:
+        if get_preset_name_iternum(out_preset_name) == 0:
+            out_preset_name_iter = out_preset_name + iterations
+            self.setParms({OUT_FLAME_PRESET_NAME: out_preset_name_iter})
+        elif get_preset_name_iternum(out_preset_name) is None:
+            out_preset_name_iter = out_preset_name + iter_div + iterations
+            self.setParms({OUT_FLAME_PRESET_NAME: out_preset_name_iter})
+'''
 
 def out_round_float(VAL) -> str:
     if float(VAL).is_integer():
@@ -4738,25 +4758,82 @@ def menu_out_contents_presets(kwargs: dict) -> list:
         return menu
 
 
+
+def out_check_build_file(file_split: tuple[str, str], file_name: str, file_ext: str) -> str:
+    build_f = "/".join(file_split) + file_ext
+    build_f_s = os.path.split(build_f)[0].split("/")
+    build_f_s[:] = [item for item in build_f_s if item]
+    build_f_s_cleaned = []
+    # clean location directories
+    for item in build_f_s:
+        item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED)
+        build_f_s_cleaned.append(item_cleaned)
+    # append cleaned file_name
+    build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
+    # the file_ext start with a dot so its added as last
+    return "/".join(build_f_s_cleaned) + file_ext
 def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+    
     file = os.path.expandvars(infile)
     file_s = os.path.split(file)
-    if os.path.isdir(file_s[0]):
-        filename_s = os.path.splitext(file_s[-1])
-        if filename_s[-1] == file_ext:
-            return file
-        elif not filename_s[-1] and filename_s[0]:
-            return "/".join(file_s) + file_ext
-        elif not filename_s[-1] and not filename_s[0]:
-            now = datetime.now()
-            new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
-            return "/".join(file_s) + new_name + file_ext
+    
+    autopath = self.parm(AUTO_PATH_CORRECTION).evalAsInt()
+
+    if autopath:
+        
+        if os.path.isdir(file_s[0]):
+
+            filename_s = os.path.splitext(file_s[-1])
+            
+            if filename_s[-1] == file_ext:
+                build_f_s = file.split("/")
+                build_f_s[:] = [item for item in build_f_s if item]
+                build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
+                return "/".join(build_f_s)
+            
+            elif not filename_s[-1] and filename_s[0]:
+                return out_check_build_file(file_s, file_s[-1], file_ext)
+            
+            elif not filename_s[-1] and not filename_s[0]:
+                now = datetime.now()
+                new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+                return out_check_build_file(file_s, new_name, file_ext)
+            
+            # this as last for now
+            #
+            # If there is an extension and it match part of the file_ext string.
+            # This will execute only if the string match at the beginning of the file extension
+            # otherwise the above if/elif statements would have executed already.
+            elif len(filename_s) > 1 and filename_s[-1] in file_ext:
+                return out_check_build_file(file_s, filename_s[0], file_ext)
+            else:
+                # Print out proper msg based on file extension
+                if ".flame" == file_ext:
+                    print(f"{str(self)}.OUT: You selected an OUT file that is not a {prx} file type.")
+                elif ".json" == file_ext:
+                    print(f"{str(self)}.Palette: You selected an OUT file that is not a {prx} file type.")
+                return False
         else:
-            print(f"{str(self)}: You selected an OUT file that is not a {prx} file type.")
+            # If the path string is empty we do not want to print out
+            if file:
+                if ".flame" == file_ext:
+                    print(f"{str(self)}.OUT: Select a valid OUT directory location.")
+                elif ".json" == file_ext:
+                    print(f"{str(self)}.Palette: Select a valid OUT directory location.")
             return False
     else:
-        print(f"{str(self)}.{prx}: Select a valid OUT directory location.")
-        return False
+        # just check if the user input is a valid file
+        if os.path.isfile(file_s[0]):
+            return infile
+        else:
+            # If the path string is empty we do not want to print out
+            if file:
+                if ".flame" == file_ext:
+                    print(f"{str(self)}.OUT: Select a valid OUT directory location.")
+                elif ".json" == file_ext:
+                    print(f"{str(self)}.Palette: Select a valid OUT directory location.")
+            return False
+
 
 
 def out_new_XML(self: hou.Node, outpath: str) -> None:
