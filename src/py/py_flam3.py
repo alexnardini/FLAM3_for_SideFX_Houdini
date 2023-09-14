@@ -4774,6 +4774,9 @@ def out_check_build_file(file_split: tuple[str, str], file_name: str, file_ext: 
     return "/".join(build_f_s_cleaned) + file_ext
 def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
     
+    now = datetime.now()
+    new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+    
     file = os.path.expandvars(infile)
     file_s = os.path.split(file)
     
@@ -4786,17 +4789,20 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
             filename_s = os.path.splitext(file_s[-1])
             
             if filename_s[-1] == file_ext:
+                
                 build_f_s = file.split("/")
                 build_f_s[:] = [item for item in build_f_s if item]
                 build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
                 return "/".join(build_f_s)
             
             elif not filename_s[-1] and filename_s[0]:
-                return out_check_build_file(file_s, file_s[-1], file_ext)
+                # this is done in case only the extension is left in the prm field
+                if file_s[-1] in file_ext or file_s[-1][0] == ".":
+                    return out_check_build_file(file_s, new_name, file_ext)
+                else:
+                    return out_check_build_file(file_s, file_s[-1], file_ext)
             
             elif not filename_s[-1] and not filename_s[0]:
-                now = datetime.now()
-                new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
                 return out_check_build_file(file_s, new_name, file_ext)
             
             # this as last for now
