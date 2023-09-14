@@ -4550,22 +4550,6 @@ def out_flame_properties_build(self) -> dict:
             # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
             }
 
-'''
-# wip
-
-def out_preset_name_add_iteration_number(self: hou.Node) -> None:
-    iter_div = '::'
-    iterations = self.parm(SYS_ITERATIONS).evalAsString()
-    out_preset_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
-    out_preset_name_iter = ''
-    if out_preset_name:
-        if get_preset_name_iternum(out_preset_name) == 0:
-            out_preset_name_iter = out_preset_name + iterations
-            self.setParms({OUT_FLAME_PRESET_NAME: out_preset_name_iter})
-        elif get_preset_name_iternum(out_preset_name) is None:
-            out_preset_name_iter = out_preset_name + iter_div + iterations
-            self.setParms({OUT_FLAME_PRESET_NAME: out_preset_name_iter})
-'''
 
 def out_round_float(VAL) -> str:
     if float(VAL).is_integer():
@@ -4760,6 +4744,16 @@ def menu_out_contents_presets(kwargs: dict) -> list:
 
 
 def out_check_build_file(file_split: tuple[str, str], file_name: str, file_ext: str) -> str:
+    """_summary_
+
+    Args:
+        file_split (tuple[str, str]): Returns tuple "(head, tail)" where "tail" is everything after the final slash. Either part may be empty
+        file_name (str): The input filename to be checked
+        file_ext (str): the desired filename extension
+
+    Returns:
+        str: A corrected file path
+    """    
     build_f = "/".join(file_split) + file_ext
     build_f_s = os.path.split(build_f)[0].split("/")
     build_f_s[:] = [item for item in build_f_s if item]
@@ -4784,12 +4778,12 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
 
     if autopath:
         
+        # Just in case lets check is a valid location
         if os.path.isdir(file_s[0]):
 
             filename_s = os.path.splitext(file_s[-1])
             
             if filename_s[-1] == file_ext:
-                
                 build_f_s = file.split("/")
                 build_f_s[:] = [item for item in build_f_s if item]
                 build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
@@ -4807,7 +4801,8 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
             
             # this as last for now
             #
-            # If there is an extension and it match part of the file_ext string.
+            # If there is a file extension and it match part or all of the file_ext string.
+            #
             # This will execute only if the string match at the beginning of the file extension
             # otherwise the above if/elif statements would have executed already.
             elif len(filename_s) > 1 and filename_s[-1] in file_ext:
