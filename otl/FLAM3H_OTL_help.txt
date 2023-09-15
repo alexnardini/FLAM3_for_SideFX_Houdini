@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.15
+#version: 1.0.2
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
 
@@ -913,9 +913,14 @@ OUT file contents ( info ):
     Once you append a new Flame in it, this menu will update too.
     It will always be set to the last Flame's name you saved.
         
-Use palette HSV (cc):
+Save palette HSV (cc):
     #id: OUT
-    If checked, the Flame's palette will be saved out using the HSV ramp so to carry out any color correction the user may have done if he like so.
+    OFF by default as FLAM3 for Houdini will save out the HSV values into the XML file
+    so to set those once you load it back.
+    If checked, the Flame's palette will be saved out using the HSV Ramp
+    so to carry out any color corrections you may have done.
+    This is useful if you plan to load the saved Flame into an other application
+    like Fractorium and Apophisis and keep the color corrected palette with it.
 
     
 OUT render properties:
@@ -1085,7 +1090,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.15 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.2 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 

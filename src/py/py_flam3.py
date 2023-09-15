@@ -10,6 +10,7 @@ from textwrap import wrap
 from datetime import datetime
 from math import sin
 from math import cos
+from math import fsum
 from re import sub as re_sub
 from sys import platform as sys_platform
 from subprocess import call as sp_call
@@ -54,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = "1.0.15"
+FLAM3HOUDINI_VERSION = "1.0.2"
 
 CHARACTERS_ALLOWED = "_-().:"
 
@@ -2133,6 +2134,7 @@ XML_XF_COLOR_SPEED = "color_speed"
 XML_XF_OPACITY = "opacity"
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
+OUT_XML_FLAME_HSV = 'flam3h_hsv'
 OUT_XML_FLAME_SIZE = 'size'
 OUT_XML_FLAME_CENTER = 'center'
 OUT_XML_FLAME_ROTATE = 'rotate'
@@ -2586,6 +2588,8 @@ class apo_flame(_xml_tree):
         self._out_highlight_power = self._xml_tree__get_name(OUT_XML_FLAME_POWER) # type: ignore
         self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2) # type: ignore
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
+        # custom to FLAM3H only
+        self._flam3h_hsv = self._xml_tree__get_name(OUT_XML_FLAME_HSV) # type: ignore
 
     @staticmethod
     def affine_coupling(affine: list) -> list:
@@ -2658,6 +2662,13 @@ class apo_flame(_xml_tree):
     @property
     def out_vibrancy(self):
         return self._out_vibrancy
+    
+    # custom to FLAM3H only
+
+    @property
+    def flam3h_hsv(self):
+        return self._flam3h_hsv
+
 
 
     def __is_valid_idx(self, idx: int) -> int:
@@ -2839,6 +2850,28 @@ class apo_flame(_xml_tree):
                 return None
         else:
             return None
+    
+    
+    # custom to FLAM3H only
+    
+    def __get_palette_flam3h_hsv(self, idx: int, key=OUT_XML_FLAME_HSV) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
+        """
+        Args:
+            idx (int): [flame idx out of all flames included in the loaded flame file]
+
+        Returns:
+            hou.Vector3 or False: [a hou.Vector3 of HSV vals or False]
+        """   
+        if self._isvalidtree:
+            palette_hsv_xml_list = self._flam3h_hsv[idx]
+            if palette_hsv_xml_list:
+                palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
+                return typemaker(list(map(lambda x: float(x), palette_hsv_xml_s)))
+            else:
+                return False
+        else:
+            return False
+
 
 
 class apo_flame_iter_data(apo_flame):
@@ -2867,6 +2900,8 @@ class apo_flame_iter_data(apo_flame):
         self._color_speed = self._apo_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
         self._symmetry = self._apo_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
         self._opacity = self._apo_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
+        # custom to FLAM3H only
+        self._palette_flam3h_hsv = self._apo_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
 
 
     @property
@@ -2936,6 +2971,13 @@ class apo_flame_iter_data(apo_flame):
     @property
     def opacity(self):
         return self._opacity
+    
+    # custom to FLAM3H only
+    
+    @property
+    def palette_flam3h_hsv(self):
+        return self._palette_flam3h_hsv
+    
     
     
 ###############################################################################################
@@ -3801,9 +3843,14 @@ def apo_to_flam3(self: hou.Node) -> None:
         else:
             reset_FF(self)
             self.setParms({SYS_DO_FF: 0}) # type: ignore
-
-        # CP
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
+        
+        # CP HSV vals
+        if apo_data.palette_flam3h_hsv is not False:
+            self.setParms({RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
+        else:
+        # CP HSV default vals
+            self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
+            
         # self.setParms({PALETTE_LIB_PATH: ""})
         # self.setParms({PALETTE_PRESETS: "-1"})
         ramp_parm = self.parm(RAMP_SRC_NAME)
@@ -3900,7 +3947,11 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     else:
         ff_msg = f"FF: NO"
     if palette_bool:
-        palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+        if apo_data.palette_flam3h_hsv is not False:
+            # custom to FLAM3H only
+            palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} ( -> HSV )"
+        else:
+            palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
     else:
         palette_count_format = f"Palette not found."
     
@@ -4338,14 +4389,14 @@ class _out_utils():
             except:
                 prm = self._node.parm(prm_name)
             if prm_type:
-                return ' '.join([str(x.eval()) for x in prm])
+                return ' '.join([str(out_round_float(x.eval())) for x in prm])
             else:
                 if type(prm) is not str:
                     return str(self._node.parm(prm_name).eval())
                 else:
-                    return self._node.parm(prm_name).eval()
+                    return out_round_float(self._node.parm(prm_name).eval())
         else:
-            print(f"{str(self.node)}: Empty XML key name string. Please pass in a valid XML key name.")
+            print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H parameter name.")
             return ''
 
 
@@ -4462,6 +4513,27 @@ class _out_utils():
             return " ".join(flatten)
         else:
             return ''
+        
+    # custom to FLAM3H only
+    
+    def __out_flame_data_flam3h_hsv(self, prm_name='') -> Union[str, bool, None]:
+        if prm_name:
+            # This is only for OUT ramp HSV vals.
+            # If we are saving out a flame with the HSV ramp, 
+            # we do not want to export the HSV values in the XML file anymore
+            # so to not overimpose a color correction once we load it back.
+            if prm_name == RAMP_HSV_VAL_NAME and self.palette_hsv_do:
+                return False
+            else:
+                prm = self._node.parmTuple(prm_name).eval()
+                # If the HSV values are at their defaults, do not export them into the XML file
+                if fsum(prm) == 3:
+                    return False
+                else:
+                    return ' '.join([str(out_round_float(x)) for x in prm])
+        else:
+            print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H parameter name.")
+            return ''
 
 
 class out_flame_properties(_out_utils):
@@ -4485,6 +4557,9 @@ class out_flame_properties(_out_utils):
         # self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
         # self.flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
         # self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
+        
+        # custom to FLAM3H only
+        self.flam3h_hsv = self._out_utils__out_flame_data_flam3h_hsv(RAMP_HSV_VAL_NAME) # type: ignore
 
 
 class out_flam3_data(_out_utils):
@@ -4522,6 +4597,7 @@ def out_flame_properties_build(self) -> dict:
     f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
             XML_XF_NAME: f3p.flame_name,
+            OUT_XML_FLAME_HSV: f3p.flam3h_hsv, # custom to FLAM3H only
             OUT_XML_FLAME_SIZE: f3p.flame_size,
             OUT_XML_FLAME_CENTER: f3p.flame_center,
             OUT_XML_FLAME_SCALE: f3p.flame_scale,
@@ -4658,7 +4734,8 @@ def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
     flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
     flame.tag = XML_FLAME_NAME
     for k, v in out_flame_properties_build(self).items():
-        flame.set(k, v)
+        if v is not False:
+            flame.set(k, v)
     # Build xforms
     is_PRE_BLUR = False
     name_PRE_BLUR = ''
