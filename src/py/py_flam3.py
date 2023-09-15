@@ -1816,10 +1816,10 @@ def reset_CP(self, mode=0) -> None:
     palette_hsv(self)
 
 def reset_MB(self) -> None:
-    self.setParms({"domb": 0})
-    self.setParms({"fps": 24})
-    self.setParms({"mbsamples": 16})
-    self.setParms({"shutter": 0.5})
+    self.setParms({OUT_MB_DO: 0})
+    self.setParms({OUT_MB_FPS: 24})
+    self.setParms({OUT_MB_SAMPLES: 16})
+    self.setParms({OUT_MB_SHUTTER: 0.5})
     
 def reset_IN(self, mode=0) -> None:
     self.setParms({IN_ISVALID_FILE: 0})
@@ -2599,6 +2599,12 @@ class apo_flame(_xml_tree):
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
         # custom to FLAM3H only
         self._flam3h_hsv = self._xml_tree__get_name(OUT_XML_FLAM3H_HSV) # type: ignore
+        # just check any of the MB val and if exist mean there is MB data to be set.
+        # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
+        self._flam3h_mb = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._flam3h_mb_samples = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._flam3h_mb_shutter = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+    
 
     @staticmethod
     def affine_coupling(affine: list) -> list:
@@ -2677,6 +2683,20 @@ class apo_flame(_xml_tree):
     @property
     def flam3h_hsv(self):
         return self._flam3h_hsv
+    
+    @property
+    def flam3h_mb(self):
+        return self._flam3h_mb
+    
+    @property
+    def flam3h_mb_samples(self):
+        return self._flam3h_mb_samples
+    
+    @property
+    def flam3h_mb_shutter(self):
+        return self._flam3h_mb_shutter
+    
+
 
 
 
@@ -2863,7 +2883,7 @@ class apo_flame(_xml_tree):
     
     # custom to FLAM3H only
     
-    def __get_palette_flam3h_hsv(self, idx: int, key=OUT_XML_FLAM3H_HSV) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
+    def __get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
         """
         Args:
             idx (int): [flame idx out of all flames included in the loaded flame file]
@@ -2876,6 +2896,30 @@ class apo_flame(_xml_tree):
             if palette_hsv_xml_list:
                 palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
                 return typemaker(list(map(lambda x: float(x), palette_hsv_xml_s)))
+            else:
+                return False
+        else:
+            return False
+        
+    def __get_mb_flam3h_mb(self, idx: int, key='') -> Union[int, float, bool, None]:
+        """
+        Args:
+            idx (int): [flame idx out of all flames included in the loaded flame file]
+
+        Returns:
+            hou.Vector3 or False: [a hou.Vector3 of HSV vals or False]
+        """   
+        if self._isvalidtree:
+            mb_do = self._flam3h_mb[idx]
+            if mb_do is not None:
+                if key == OUT_XML_FLMA3H_MB_FPS:
+                    return int(mb_do)
+                elif key == OUT_XML_FLMA3H_MB_SAMPLES:
+                    return int(self._flam3h_mb_samples[idx])
+                elif key == OUT_XML_FLMA3H_MB_SHUTTER:
+                    return float(self._flam3h_mb_samples[idx])
+                else:
+                    return False
             else:
                 return False
         else:
@@ -2911,6 +2955,9 @@ class apo_flame_iter_data(apo_flame):
         self._opacity = self._apo_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
         # custom to FLAM3H only
         self._palette_flam3h_hsv = self._apo_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
+        self._mb_flam3h_mb_fps = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._mb_flam3h_mb_samples= self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._mb_flam3h_mb_shutter = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
 
 
     @property
@@ -2986,6 +3033,18 @@ class apo_flame_iter_data(apo_flame):
     @property
     def palette_flam3h_hsv(self):
         return self._palette_flam3h_hsv
+    
+    @property
+    def mb_flam3h_fps(self):
+        return self._mb_flam3h_mb_fps
+    
+    @property
+    def mb_flam3h_samples(self):
+        return self._mb_flam3h_mb_samples
+    
+    @property
+    def mb_flam3h_shutter(self):
+        return self._mb_flam3h_mb_shutter
     
     
     
@@ -3844,6 +3903,7 @@ def apo_to_flam3(self: hou.Node) -> None:
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
         apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
+        
         # if FF
         if apo_data.finalxform is not None:
             reset_FF(self)
@@ -3853,7 +3913,17 @@ def apo_to_flam3(self: hou.Node) -> None:
             reset_FF(self)
             self.setParms({SYS_DO_FF: 0}) # type: ignore
         
-        # CP HSV vals
+        # if MB
+        if apo_data.mb_flam3h_fps is not False:
+            self.setParms({OUT_MB_DO: 1}) # type: ignore
+            self.setParms({OUT_MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
+            self.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
+            self.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
+        else:
+            reset_MB(self)
+            
+        
+        # if CP HSV vals
         if apo_data.palette_flam3h_hsv is not False:
             self.setParms({RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
         else:
@@ -3914,7 +3984,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     nnl = "\n\n"
     
     # checks
-    pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = False
+    pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
     for item in apo_data.pre_blur:
         if item:
             pb_bool = True
@@ -3931,9 +4001,12 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         ff_bool = True
     if apo_data.finalxform_post is not None:
         ff_post_bool = True
+    # custom to FLAM3H only
+    if apo_data.mb_flam3h_fps is not False:
+        flam3h_mb_bool = True
         
     # checks msgs
-    opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
+    opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = flam3h_mb_bool_msg = "NO"
     if opacity_bool:
         opacity_bool_msg = "YES"
     if post_bool:
@@ -3942,6 +4015,8 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         xaos_bool_msg = "YES"
     if ff_post_bool:
         ff_post_bool_msg = "YES"
+    if flam3h_mb_bool:
+        flam3h_mb_bool_msg = "YES"
         
     # build msgs
     sw = f"Software: {apo_data.apo_version[preset_id]}"
@@ -3950,11 +4025,14 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     post = f"post affine: {post_bool_msg}"
     opacity = f"opacity: {opacity_bool_msg}"
     xaos = f"xaos: {xaos_bool_msg}"
+    mb = f"motion blur: {flam3h_mb_bool_msg}"
+    
     ff_msg = ""
     if ff_bool:
         ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
     else:
         ff_msg = f"FF: NO"
+        
     if palette_bool:
         if apo_data.palette_flam3h_hsv is not False:
             # custom to FLAM3H only
@@ -4027,6 +4105,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
               opacity, nl,
               xaos, nl,
               ff_msg, nnl,
+              mb, nnl,
               vars_used_msg,
               vars_missing_msg )
     build_stats_msg = "".join(build)
@@ -4217,6 +4296,8 @@ class _out_utils():
             palette_hsv(self._node)
             self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
+        # custom to FLAM3H only
+        self._flam3h_mb_do = self._node.parm(OUT_MB_DO).eval()
     
     @staticmethod
     def affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
@@ -4388,6 +4469,13 @@ class _out_utils():
     @property
     def palette_hsv_do(self):
         return self._palette_hsv_do
+    
+    # custom to FLAM3H only
+    
+    @property
+    def flam3h_mb_do(self):
+        return self._flam3h_mb_do
+    
 
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
@@ -4523,26 +4611,40 @@ class _out_utils():
         else:
             return ''
         
-    # custom to FLAM3H only
     
+    # custom to FLAM3H only
     def __out_flame_data_flam3h_hsv(self, prm_name='') -> Union[str, bool, None]:
-        if prm_name:
+
+        if prm_name == RAMP_HSV_VAL_NAME:
             # This is only for OUT ramp HSV vals.
             # If we are saving out a flame with the HSV ramp, 
             # we do not want to export the HSV values in the XML file anymore
             # so to not overimpose a color correction once we load it back.
-            if prm_name == RAMP_HSV_VAL_NAME and self.palette_hsv_do:
+            if self._palette_hsv_do:
                 return False
             else:
+                # Here we go ahead since we know the prm 'RAMP_HSV_VAL_NAME' is a tuple
                 prm = self._node.parmTuple(prm_name).eval()
                 # If the HSV values are at their defaults, do not export them into the XML file
                 if fsum(prm) == 3:
                     return False
                 else:
-                    return ' '.join([str(out_round_float(x)) for x in prm])
+                    return ' '.join([out_round_float(x) for x in prm])
         else:
-            print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H parameter name.")
+            print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
             return ''
+        
+    # custom to FLAM3H only
+    def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
+
+        if self._flam3h_mb_do:
+            try:
+                return out_round_float(self._node.parm(prm_name).eval())
+            except:
+                print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H val parameter name.")
+                return False
+        else:
+            return False
 
 
 class out_flame_properties(_out_utils):
@@ -4561,6 +4663,7 @@ class out_flame_properties(_out_utils):
         self.flame_vibrancy = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
         self.flame_highlight = self._out_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
         # The following are not really needed for our purpose and we assume all curves are defaults to start with.
+        #
         # self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
         # self.flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
         # self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
@@ -4569,6 +4672,9 @@ class out_flame_properties(_out_utils):
         
         # custom to FLAM3H only
         self.flam3h_hsv = self._out_utils__out_flame_data_flam3h_hsv(RAMP_HSV_VAL_NAME) # type: ignore
+        self.flam3h_mb_fps = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
+        self.flam3h_mb_samples = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
+        self.flam3h_mb_shutter = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
 
 
 class out_flam3_data(_out_utils):
@@ -4607,6 +4713,9 @@ def out_flame_properties_build(self) -> dict:
     return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
             XML_XF_NAME: f3p.flame_name,
             OUT_XML_FLAM3H_HSV: f3p.flam3h_hsv, # custom to FLAM3H only
+            OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
+            OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
+            OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
             OUT_XML_FLAME_SIZE: f3p.flame_size,
             OUT_XML_FLAME_CENTER: f3p.flame_center,
             OUT_XML_FLAME_SCALE: f3p.flame_scale,
@@ -4742,9 +4851,9 @@ def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
     # Build Flame properties
     flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
     flame.tag = XML_FLAME_NAME
-    for k, v in out_flame_properties_build(self).items():
-        if v is not False:
-            flame.set(k, v)
+    for key, value in out_flame_properties_build(self).items():
+        if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
+            flame.set(key, value)
     # Build xforms
     is_PRE_BLUR = False
     name_PRE_BLUR = ''
