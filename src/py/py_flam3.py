@@ -4952,7 +4952,6 @@ def out_auto_add_iter_num(self: hou.Node) -> None:
         
         if flame_name:
             splt = ':'
-            div = '::'
             rp = flame_name.split(splt)
             rp[:] = [item for item in rp if item]
 
@@ -4963,6 +4962,7 @@ def out_auto_add_iter_num(self: hou.Node) -> None:
                 is_int = False
                 
             if is_int is False:
+                div = '::'
                 rp_clean = []
                 for item in rp:
                     item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
@@ -4980,7 +4980,6 @@ def out_auto_change_iter_num(self: hou.Node) -> None:
         flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
         
         if flame_name:
-            prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
             div = '::'
             rp = str(flame_name).rpartition(div)
 
@@ -4992,6 +4991,7 @@ def out_auto_change_iter_num(self: hou.Node) -> None:
                 pass
             
             if is_int:
+                prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
                 flame_name_changed = ''.join(rp[:-1]) + str(prm_iter_num)
                 self.setParms({OUT_FLAME_PRESET_NAME: flame_name_changed}) #type: ignore
             else:
