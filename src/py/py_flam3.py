@@ -3978,6 +3978,7 @@ def out_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]],
     sort = sorted(result, key=lambda var: var)
     return [func(x) for x in sort]
 
+
 def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
     
     # spacers
@@ -4007,7 +4008,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         flam3h_mb_bool = True
         
     # checks msgs
-    opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = flam3h_mb_bool_msg = "NO"
+    opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
     if opacity_bool:
         opacity_bool_msg = "YES"
     if post_bool:
@@ -4016,8 +4017,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         xaos_bool_msg = "YES"
     if ff_post_bool:
         ff_post_bool_msg = "YES"
-    if flam3h_mb_bool:
-        flam3h_mb_bool_msg = "YES"
+
         
     # build msgs
     sw = f"Software: {apo_data.apo_version[preset_id]}"
@@ -4026,7 +4026,10 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     post = f"post affine: {post_bool_msg}"
     opacity = f"opacity: {opacity_bool_msg}"
     xaos = f"xaos: {xaos_bool_msg}"
-    mb = f"motion blur: {flam3h_mb_bool_msg}"
+    if flam3h_mb_bool:
+        mb = f"Motion blur{nnl}"
+    else:
+        mb = nnl
     
     ff_msg = ""
     if ff_bool:
@@ -4100,13 +4103,13 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     # build full stats msg
     build = ( sw, flame_lib_locked, nnl,
               name, nl,
-              palette_count_format, nnl,
+              palette_count_format, nl,
+              mb,
               iter_count, nl,
               post, nl,
               opacity, nl,
               xaos, nl,
               ff_msg, nnl,
-              mb, nnl,
               vars_used_msg,
               vars_missing_msg )
     build_stats_msg = "".join(build)
