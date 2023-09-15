@@ -250,6 +250,8 @@ menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
 return menu
 
 'outname'
+'Callback Script'
+hou.pwd().hdaModule().flam3.out_auto_add_iter_num(kwargs['node'])
 'Action Button'
 kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 
