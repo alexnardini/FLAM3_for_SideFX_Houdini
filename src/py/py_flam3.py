@@ -2134,7 +2134,6 @@ XML_XF_COLOR_SPEED = "color_speed"
 XML_XF_OPACITY = "opacity"
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
-OUT_XML_FLAME_HSV = 'flam3h_hsv'
 OUT_XML_FLAME_SIZE = 'size'
 OUT_XML_FLAME_CENTER = 'center'
 OUT_XML_FLAME_ROTATE = 'rotate'
@@ -2177,6 +2176,8 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
                                OUT_XML_FLAME_K2: 'outk2',
                                OUT_XML_FLAME_VIBRANCY: 'outvibrancy'  
 }
+# custom to FLAM3H only
+OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
@@ -2589,7 +2590,7 @@ class apo_flame(_xml_tree):
         self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2) # type: ignore
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
         # custom to FLAM3H only
-        self._flam3h_hsv = self._xml_tree__get_name(OUT_XML_FLAME_HSV) # type: ignore
+        self._flam3h_hsv = self._xml_tree__get_name(OUT_XML_FLAM3H_HSV) # type: ignore
 
     @staticmethod
     def affine_coupling(affine: list) -> list:
@@ -2854,7 +2855,7 @@ class apo_flame(_xml_tree):
     
     # custom to FLAM3H only
     
-    def __get_palette_flam3h_hsv(self, idx: int, key=OUT_XML_FLAME_HSV) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
+    def __get_palette_flam3h_hsv(self, idx: int, key=OUT_XML_FLAM3H_HSV) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
         """
         Args:
             idx (int): [flame idx out of all flames included in the loaded flame file]
@@ -4597,7 +4598,7 @@ def out_flame_properties_build(self) -> dict:
     f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
             XML_XF_NAME: f3p.flame_name,
-            OUT_XML_FLAME_HSV: f3p.flam3h_hsv, # custom to FLAM3H only
+            OUT_XML_FLAM3H_HSV: f3p.flam3h_hsv, # custom to FLAM3H only
             OUT_XML_FLAME_SIZE: f3p.flame_size,
             OUT_XML_FLAME_CENTER: f3p.flame_center,
             OUT_XML_FLAME_SCALE: f3p.flame_scale,
