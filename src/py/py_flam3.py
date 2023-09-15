@@ -58,6 +58,7 @@ import inspect
 FLAM3HOUDINI_VERSION = "1.0.2"
 
 CHARACTERS_ALLOWED = "_-().:"
+CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+*().: "
 
 DPT = '*'
 PRM = '...'
@@ -96,6 +97,7 @@ IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
+OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 XAOS_MODE = 'xm'
 REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 PALETTE_LIB_PATH = 'palettefile'
@@ -4939,6 +4941,33 @@ def menu_out_contents_presets(kwargs: dict) -> list:
         menu.append(-1)
         menu.append('Empty')
         return menu
+
+
+def out_auto_add_iter_num(self: hou.Node) -> None:
+    
+    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+    if autoadd:
+        div = '::'
+        flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
+        rp = flame_name.rpartition(div)
+        
+        is_int = True
+        try:
+            int(rp[-1])
+        except:
+            is_int = False
+            
+        if is_int is False:
+            rp_clean = []
+            for item in rp:
+                if item is not div:
+                    item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
+                    rp_clean.append(item_cleaned)
+                else:
+                    rp_clean.append(' ')
+            prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+            flame_name_new = ''.join(rp_clean) + div + str(prm_iter_num)
+            self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
 
