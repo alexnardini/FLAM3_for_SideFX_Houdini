@@ -2911,7 +2911,8 @@ class apo_flame(_xml_tree):
         """   
         if self._isvalidtree:
             mb_do = self._flam3h_mb[idx]
-            if mb_do is not None:
+            # self._flam3h_mb[idx] can also be an empty list, hence the double check
+            if mb_do is not None and mb_do:
                 if key == OUT_XML_FLMA3H_MB_FPS:
                     return int(mb_do)
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
