@@ -4946,12 +4946,13 @@ def menu_out_contents_presets(kwargs: dict) -> list:
 def out_auto_add_iter_num(self: hou.Node) -> None:
     
     autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+    
     if autoadd:
-        splt = ':'
-        div = '::'
         flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
         
         if flame_name:
+            splt = ':'
+            div = '::'
             rp = flame_name.split(splt)
             rp[:] = [item for item in rp if item]
 
@@ -4970,6 +4971,31 @@ def out_auto_add_iter_num(self: hou.Node) -> None:
                 prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
                 flame_name_new = ' '.join(rp_clean) + div + str(prm_iter_num)
                 self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+
+def out_auto_change_iter_num(self: hou.Node) -> None:
+    
+    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+    
+    if autoadd:
+        flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
+        
+        if flame_name:
+            prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+            div = '::'
+            rp = str(flame_name).rpartition(div)
+
+            is_int = False
+            try:
+                int(rp[-1])
+                is_int = True
+            except:
+                pass
+            
+            if is_int:
+                flame_name_changed = ''.join(rp[:-1]) + str(prm_iter_num)
+                self.setParms({OUT_FLAME_PRESET_NAME: flame_name_changed}) #type: ignore
+            else:
+                out_auto_add_iter_num(self)
 
 
 
