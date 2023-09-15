@@ -102,6 +102,7 @@ PALETTE_LIB_PATH = 'palettefile'
 PALETTE_OUT_PRESET_NAME = 'palettename'
 PALETTE_PRESETS = 'palettepresets'
 SYS_PALETTE_PRESETS = 'sys_palettepresets'
+OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 USE_FRACTORIUM_COLOR_SPEED = 'fcs'
 RAMP_SRC_NAME = 'palette'
@@ -110,6 +111,11 @@ RAMP_SAVE_HSV = 'savehsv'
 RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 RAMP_HSV_VAL_NAME = 'hsv'
 AUTO_PATH_CORRECTION = 'autopath'
+# Motion blur
+OUT_MB_DO = 'domb'
+OUT_MB_FPS = 'fps'
+OUT_MB_SAMPLES = 'mbsamples'
+OUT_MB_SHUTTER = 'shutter'
 # Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
@@ -2132,6 +2138,11 @@ XML_XF_VAR_COLOR = "var_color"
 XML_XF_SYMMETRY = "symmetry"
 XML_XF_COLOR_SPEED = "color_speed"
 XML_XF_OPACITY = "opacity"
+# custom to FLAM3H only
+OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
+OUT_XML_FLMA3H_MB_FPS = 'flam3h_fps'
+OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mbsamples'
+OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_shutter'
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
 OUT_XML_FLAME_SIZE = 'size'
@@ -2176,8 +2187,6 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
                                OUT_XML_FLAME_K2: 'outk2',
                                OUT_XML_FLAME_VIBRANCY: 'outvibrancy'  
 }
-# custom to FLAM3H only
-OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = "flames"
@@ -2194,7 +2203,6 @@ XML_XF_PRM_EXCEPTION = ("None", )
 POINT_COUNT_LOAD_DEFAULT = 500000
 ITER_LOAD_DEFAULT = 64
 OUT_FLAM3_FILE_EXT = '.flame'
-OUT_HSV_PALETTE_DO = 'outpalette'
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
@@ -4836,7 +4844,9 @@ def out_check_build_file(file_split: tuple[str, str], file_name: str, file_ext: 
     build_f_s = os.path.split(build_f)[0].split("/")
     build_f_s[:] = [item for item in build_f_s if item]
     build_f_s_cleaned = []
-    # clean location directories
+    # Clean location directories.
+    # Probably not needed as I check for the validity of the parent directory eitherway
+    # but i leave it here and remove it if causing any trouble down the line.
     for item in build_f_s:
         item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED)
         build_f_s_cleaned.append(item_cleaned)
