@@ -60,6 +60,10 @@ hou.pwd().hdaModule().flam3.menu_density_set(kwargs['node'])
 menu = kwargs['node'].hdaModule().flam3.menu_density(kwargs['node'])
 return menu
 
+'iter'
+'Callback Script'
+hou.pwd().hdaModule().flam3.out_auto_change_iter_num(kwargs['node'])
+
 
 #######################################################
 # SYS Tab
