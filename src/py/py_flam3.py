@@ -664,7 +664,7 @@ def menu_density(self: hou.Node) -> list:
     menu=[]
     menuitems = ()
     if iterators:
-        menuitems = ( "", "default", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
+        menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
     else:
         menuitems = ("Please, add at least one iterator", "")
     for i, item in enumerate(menuitems):
@@ -678,35 +678,36 @@ def menu_density_set(self: hou.Node) -> None:
     sel = self.parm(SYS_PT_COUNT_PRESETS).evalAsInt()
     
     if sel == 1:
-        self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
-    elif sel == 2:
         self.setParms({SYS_PT_COUNT: 1000000}) # type: ignore
-    elif sel == 3:
+    elif sel == 2:
         self.setParms({SYS_PT_COUNT: 2000000}) # type: ignore
-    elif sel == 4:
+    elif sel == 3:
         self.setParms({SYS_PT_COUNT: 5000000}) # type: ignore
-    elif sel == 5:
+    elif sel == 4:
         self.setParms({SYS_PT_COUNT: 15000000}) # type: ignore
-    elif sel == 6:
+    elif sel == 5:
         self.setParms({SYS_PT_COUNT: 25000000}) # type: ignore
-    elif sel == 7:
+    elif sel == 6:
         self.setParms({SYS_PT_COUNT: 50000000}) # type: ignore
-    elif sel == 8:
+    elif sel == 7:
         self.setParms({SYS_PT_COUNT: 100000000}) # type: ignore
-    elif sel == 9:
+    elif sel == 8:
         self.setParms({SYS_PT_COUNT: 150000000}) # type: ignore
-    elif sel == 10:
+    elif sel == 9:
         self.setParms({SYS_PT_COUNT: 250000000}) # type: ignore
-    elif sel == 11:
+    elif sel == 10:
         self.setParms({SYS_PT_COUNT: 500000000}) # type: ignore
-    elif sel == 12:
+    elif sel == 11:
         self.setParms({SYS_PT_COUNT: 750000000}) # type: ignore
-    elif sel == 13:
+    elif sel == 12:
         self.setParms({SYS_PT_COUNT: 1000000000}) # type: ignore
 
     # reset to null value so we can set the same preset again
     self.setParms({SYS_PT_COUNT_PRESETS: 0}) # type: ignore
 
+# Set menu_density() Menu
+def menu_density_set_default(self: hou.Node) -> None:
+    self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
 
 ###############################################################################################
 # FLAM3 paste list of parms
