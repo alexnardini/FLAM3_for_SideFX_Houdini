@@ -74,6 +74,12 @@ density presets mini menu:
         
         When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a *`*.bgeo.sc`* files first.
         
+Reset density:
+    #id: Global
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Reset density to its default: 500k
+        
     
 iterations:
     #id: GLOBAL
