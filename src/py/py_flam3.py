@@ -58,7 +58,7 @@ import inspect
 FLAM3HOUDINI_VERSION = "1.0.2"
 
 CHARACTERS_ALLOWED = "_-().:"
-CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+*().: "
+CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
 DPT = '*'
 PRM = '...'
@@ -1402,12 +1402,13 @@ def ramp_save(kwargs: dict) -> None:
                 hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             else:
                 # get user's preset name or build an automated one
-                if not node.parm(PALETTE_OUT_PRESET_NAME).eval():
+                name = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+                if not name:
                     now = datetime.now()
                     presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
                 else:
                     # otherwise get that name and use it
-                    presetname = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+                    presetname = name
 
                 # Updated HSV ramp before getting it
                 palette_hsv(node)
@@ -4505,12 +4506,13 @@ class _out_utils():
 
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         # If the name field is empty, build a name based on current date/time
-        if not self._node.parm(prm_name).eval():
+        name = self._node.parm(prm_name).eval()
+        if not name:
             now = datetime.now()
             return now.strftime("Flame_%b-%d-%Y_%H%M%S")
         else:
             # otherwise get that name and use it
-            return self._node.parm(prm_name).eval()
+            return name
         
         
     def __out_xf_data(self, prm_name: str) -> tuple[str]:
