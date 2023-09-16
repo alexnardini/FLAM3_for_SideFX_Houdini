@@ -34,11 +34,13 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
 """Inside: OTL->type_properties->Scripts->PreFirstCreate
 Check Houdini version and let us know."""
+# Check Houdini version
 def flam3_first_time() -> None:
-    hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:2]))
-    if hou_version < 190:
-        hou.ui.displayMessage("Sorry, you need at least Houdini 19.0 to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+    hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+    if hou_version != 19:
+        hou.ui.displayMessage("Sorry, you need Houdini 19 or 19.5 to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
 flam3_first_time()
+
 
 """Inside: OTL->type_properties->Scripts->OnCreated
 initialize what the tool need when you create its node in the network editor."""
