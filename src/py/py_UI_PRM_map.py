@@ -271,4 +271,15 @@ kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_xaos_convert(kwargs['node'])
 
+'setdark'
+'Callback Script'
+hou.pwd().hdaModule().flam3.colorSchemeDark(kwargs['node'])
+
+'vptype'
+'Callback Script'
+hou.pwd().hdaModule().flam3.viewportParticleDisplay(kwargs['node'])
+
+'vpptsize'
+'Callback Script'
+hou.pwd().hdaModule().flam3.viewportParticleDisplay(kwargs['node'])
 
