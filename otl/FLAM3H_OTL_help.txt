@@ -872,7 +872,7 @@ Copy/Paste render properties:
     Inside here, you can export your fractal flame out into an XML format. ( standard *.flame file format )
     and re load it in inside FLAM3H or inside Apophysis, Fractorium and others.
     
-    The flame file format do not support animations, but only stati frames so to speak.
+    The flame file format do not support animations, but only static frames so to speak.
     If you animted your fractal flame, save the hip file from Houdini instead.
     
     NOTE:
