@@ -5092,24 +5092,23 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
     else:
         return flame_name
     
+# Get data needed
+def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
+    iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+    flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
+    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+    return iter_num, flame_name, autoadd
+
 # Callback script
 def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
-    
-    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
-    flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
-    iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+    iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
     flame_name_new = out_auto_add_iter_num(iter_num, flame_name, autoadd)
-    
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 # Callback script
 def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
-    
-    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
-    flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
-    iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+    iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
     flame_name_new = out_auto_change_iter_num(iter_num, flame_name, autoadd)
-    
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
