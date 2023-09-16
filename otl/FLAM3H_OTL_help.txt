@@ -921,6 +921,13 @@ Save palette HSV (cc):
     so to carry out any color corrections you may have done.
     This is useful if you plan to load the saved Flame into an other application
     like Fractorium and Apophisis and keep the color corrected palette with it.
+    
+Auto add iter num to Flame name:
+    #id: OUT
+    ON by default. It will automatically append the iteration number to the Flame name you enter.
+    
+    TIP:
+        When on, and once you type in a flame name, changing the iteration number will update the Flame name too.
 
     
 OUT render properties:
