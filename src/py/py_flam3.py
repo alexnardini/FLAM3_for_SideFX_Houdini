@@ -4506,7 +4506,7 @@ class _out_utils():
 
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         
-        # If the name field is empty, build a name based on current date/time
+        now = datetime.now()
         flame_name = self._node.parm(prm_name).eval()
         autoadd = self._node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
         
@@ -4519,7 +4519,6 @@ class _out_utils():
         # lets give it a default name
         if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
             
-            now = datetime.now()
             flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
             iter_num = self._node.parm(SYS_ITERATIONS).evalAsInt()
             return out_auto_add_iter_num(iter_num, flame_name, autoadd)
@@ -4527,7 +4526,6 @@ class _out_utils():
         # lets give it a default name
         elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
             
-            now = datetime.now()
             flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
             iter_num = self._node.parm(SYS_ITERATIONS).evalAsInt()
             return out_auto_add_iter_num(iter_num, flame_name, autoadd)
@@ -4535,7 +4533,6 @@ class _out_utils():
             
             if not flame_name:
                 
-                now = datetime.now()
                 flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
                 iter_num = self._node.parm(SYS_ITERATIONS).evalAsInt()
                 return out_auto_add_iter_num(iter_num, flame_name, autoadd)
