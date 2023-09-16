@@ -5,7 +5,7 @@
 #internal: FLAM3H
 #version: 1.0.2
 
-"""The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.0.622 )"""
+"""The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
 _*A bit of history* ( from wikipedia )_:
 
