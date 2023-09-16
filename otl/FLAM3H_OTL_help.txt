@@ -205,7 +205,7 @@ OUT Save:
 :box:
     #display: inverted teal
 
-    *FLAME:* _Flame variations/iterators._
+    *FLAME:* _Flame xforms/iterators._
     
     This is, with FF, the part where you will spend most of your time.
     
