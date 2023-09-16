@@ -788,6 +788,10 @@ IN file ( *.flame type ):
     ( for a total of 8 vars per iterator ). 
     - For FF ( FinalXForm ) you have 1 PRE, 2 VARS plus 2 POST available.
     
+    NOTE:
+        FLAM3 for Houdini do not deal with any image color correction curves that are present inside Fractorium for example.
+        Every time you load a flame authored with Fractorium, those curve's values will be discarded and internally re-set at their default values. ( no color correction at all )
+    
 Reload:
     #id: IN
     [Largeicon:opdef:.?iconWhiteSVG.svg]
@@ -864,6 +868,12 @@ Copy/Paste render properties:
     #display: inverted teal
 
     *OUT:* _Save *.flame file type to be loaded back inside Apophysis, Fractorium and others._
+    
+    Inside here, you can export your fractal flame out into an XML format. ( standard *.flame file format )
+    and re load it in inside FLAM3H or inside Apophysis, Fractorium and others.
+    
+    The flame file format do not support animations, but only stati frames so to speak.
+    If you animted your fractal flame, save the hip file from Houdini instead.
     
     NOTE:
         FLAM3 for Houdini allow you to save out your flames in the standard *.flame file format 
@@ -977,7 +987,16 @@ OUT render properties:
 Edit render properties:
     #id: OUT
     Allow the editing of the render properties for the host application you will load the saved flame file into.
-    Fractorium being the suggested one followed by Apophysis 7x.
+    Fractorium being the suggested one followed by Apophysis.
+    
+    Changing those values, will change how the saved flame will render inside thos applications.
+    
+    NOTE:
+        FLAM3 for Houdini do not deal with any image color correction curves that are present inside Fractorium for example.
+        Every time you save a flame out from FLAM3 for Houdini, those curves will be re-written with their default values. ( no color correction at all )
+        
+        This mean that if you load a flame authored with Fractorium that uses its color correction curves, they will be lost once you save the flame out again from FLAM3 for Houdini.
+        
     
 Reset render properties:
     #id: OUT
