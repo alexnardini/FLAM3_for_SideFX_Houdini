@@ -394,7 +394,17 @@ post:
     
 pre affine:
     #id: FLAME
-    Affine coefficients for the current iterator ( xform ).
+    Affine transformation's coefficients for the current iterator ( xform ).
+    
+    NOTE:
+        A linear transformation cannot be used to translate a set of points. 
+        
+        To translate a set of points, we need to use an *_affine transformation_*. 
+        An *_affine transformation_* multiplies a vector by a matrix, just as in a linear transformation, 
+        and then adds a vector to the result ( the *O*._xy_ `vector2` component ). 
+        This added vector carries out the translation. 
+        By applying an affine transformation to an image on the screen we can do everything a linear transformation can do, 
+        and also have the ability to move the image up or down and left or right.
 
     Each iterator( xform ) has an affine transform that is always applied on every iteration.
     This is known as the pre affine becasue it is applied before the variations.
