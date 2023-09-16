@@ -4990,26 +4990,24 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
         
         if flame_name:
             
-            now = datetime.now()
             splt = ':'
             div = '::'
+            now = datetime.now()
+            flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+            
             rp = flame_name.split(splt)
             rp[:] = [item for item in rp if item]
             
             # Lets make some name checks first
-
+            #
             # if the filename start with either a ':' or '::' followed by a valid integer
             # lets give it a default name
             if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
-                
-                flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
                 rp = flame_name_new.split(splt)
                 rp[:] = [item for item in rp if item]
             # else if the filename end with either a ':' or '::' preceded by a valid integer
             # lets give it a default name
             elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
-                
-                flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
                 rp = flame_name_new.split(splt)
                 rp[:] = [item for item in rp if item]
             
@@ -5058,23 +5056,23 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
         
         if flame_name:
             
-            now = datetime.now()
             splt = ':'
             div = '::'
+            now = datetime.now()
+            flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+            
             rp = str(flame_name).rpartition(div)
             
             # Lets make some name checks first
-
+            #
             # if the filename start with either a ':' or '::' followed by a valid integer
             # lets give it a default name
             if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
-                flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
                 rp = flame_name_new.split(splt)
                 rp[:] = [item for item in rp if item]
             # else if the filename end with either a ':' or '::' preceded by a valid integer
             # lets give it a default name
             elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
-                flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
                 rp = flame_name_new.split(splt)
                 rp[:] = [item for item in rp if item]
 
