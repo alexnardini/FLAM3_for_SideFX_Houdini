@@ -109,8 +109,6 @@ iterations:
 
     *SYS:* _System options._
 
-[Image:opdef:.?FLAM3H_DOC_SYS_ui.jpg]
-
     
 FF:
     #id: SYS
