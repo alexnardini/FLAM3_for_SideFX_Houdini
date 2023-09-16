@@ -3260,24 +3260,9 @@ def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
         return apo_prm
 
 
-# I should merge all those v_parametric*() and v_generic*() into one for each
-# but it is actually easier for me to debug those and make tests.
-# Perhaps something for me to do in the future to make the code cleaner and slimmer.
-#
-# v_parametric()
-# v_parametric_PRE()
-# v_parametric_POST()
-# v_parametric_PRE_FF()
-# v_parametric_POST_FF()
-# v_generic()
-# v_generic_PRE()
-# v_generic_POST()
-# v_generic_PRE_FF()
-# v_generic_POST_FF()
 
 def var_name_from_dict(mydict: dict, idx: int):
     return list(mydict.keys())[list(mydict.values()).index(idx)]
-
 def v_parametric_var_collect(node: hou.Node, 
                              mode: int, 
                              apo_prm: tuple, 
@@ -3899,8 +3884,11 @@ def apo_to_flam3(self: hou.Node) -> None:
         reset_PREFS(self)
 
         apo_data = apo_flame_iter_data(self, xml, preset_id)
+        
+        # RIP
         if min(apo_data.opacity) == 0.0:
             self.setParms({SYS_RIP: 1}) # type: ignore
+            
         # iterators
         self.setParms({FLAM3_ITERATORS_COUNT: 0}) # type: ignore
         for p in self.parms():
@@ -3932,7 +3920,6 @@ def apo_to_flam3(self: hou.Node) -> None:
         else:
             reset_MB(self)
             
-        
         # if CP HSV vals
         if apo_data.palette_flam3h_hsv is not False:
             self.setParms({RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
@@ -3940,11 +3927,9 @@ def apo_to_flam3(self: hou.Node) -> None:
         # CP HSV default vals
             self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
             
-        # self.setParms({PALETTE_LIB_PATH: ""})
-        # self.setParms({PALETTE_PRESETS: "-1"})
+        # Set XML palette data
         ramp_parm = self.parm(RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
-        # Set XML palette data
         ramp_parm.set(apo_data.palette[0])
         palette_cp(self)
         palette_hsv(self)
@@ -3971,6 +3956,7 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
 
 
+# This is used to avoid an empty extra line at the end
 def apo_join_vars_grp(groups: list) -> str:
     vars = []
     for id, grp in enumerate(groups):
@@ -5000,12 +4986,12 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
             
             # Lets make some name checks first
             #
-            # if the filename start with either a ':' or '::' followed by a valid integer
+            # if the filename start with either ':' or '::' FOLLOWED by a valid integer
             # lets give it a default name
             if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
                 rp = flame_name_new.split(splt)
                 rp[:] = [item for item in rp if item]
-            # else if the filename end with either a ':' or '::' preceded by a valid integer
+            # else if the filename end with either ':' or '::' PRECEDED by a valid integer
             # lets give it a default name
             elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
                 rp = flame_name_new.split(splt)
