@@ -4968,6 +4968,7 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
             rp = flame_name.split(splt)
             rp[:] = [item for item in rp if item]
             
+            # Lets make some name checks first
             try:
                 # if the filename start with either a ':' or '::' followed by a valid integer
                 # lets give it a default name
@@ -5034,6 +5035,7 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
             div = '::'
             rp = str(flame_name).rpartition(div)
             
+            # Lets make some name checks first
             try:
                 # if the filename start with either a ':' or '::' followed by a valid integer
                 # lets give it a default name
