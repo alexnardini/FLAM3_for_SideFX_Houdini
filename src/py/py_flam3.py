@@ -94,6 +94,8 @@ IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
 SYS_IN_PRESETS = 'sys_inpresets'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
+IN_USE_ITER_ON_LOAD = 'useiteronload'
+IN_ITER_NUM_ON_LOAD = 'iternumonload'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
@@ -1833,8 +1835,8 @@ def reset_IN(self, mode=0) -> None:
     if mode:
         self.setParms({IN_PATH: ""})
         self.setParms({IN_PRESETS: str(-1)})
-        self.setParms({"iternumonload": 64})
-        self.setParms({"useiteronload": 0})
+        self.setParms({IN_ITER_NUM_ON_LOAD: 64})
+        self.setParms({IN_USE_ITER_ON_LOAD: 0})
         self.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
     
 def reset_OUT(self, mode=0) -> None:
@@ -3823,15 +3825,18 @@ def apo_set_iterator(mode: int,
 
 
 def iter_on_load_callback(self):
-    iter_on_load = self.parm("iternumonload").eval()
+    iter_on_load = self.parm(IN_ITER_NUM_ON_LOAD).eval()
     self.setParms({SYS_ITERATIONS: iter_on_load})
     
 def use_iter_on_load_callback(self):
-    useiteronload = self.parm("useiteronload").eval()
+    useiteronload = self.parm(IN_USE_ITER_ON_LOAD).eval()
     if useiteronload:
-        iternumonload = self.parm("iternumonload").eval()
+        iternumonload = self.parm(IN_ITER_NUM_ON_LOAD).eval()
         iter = self.parm(SYS_ITERATIONS).eval()
-        if iter != iternumonload:
+        if iternumonload > iter:
+            self.setParms({SYS_ITERATIONS: iter})
+            self.setParms({IN_ITER_NUM_ON_LOAD: iter})
+        else:
             self.setParms({SYS_ITERATIONS: iternumonload})
 
 
@@ -3847,17 +3852,17 @@ def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 
 
 def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
-    iter_on_load = self.parm("iternumonload").eval()
-    use_iter_on_load = self.parm("useiteronload").eval()
+    iter_on_load = self.parm(IN_ITER_NUM_ON_LOAD).eval()
+    use_iter_on_load = self.parm(IN_USE_ITER_ON_LOAD).eval()
     preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
     iter_on_load_preset = get_preset_name_iternum(preset_name)
     if iter_on_load_preset is not None:
-        self.setParms({"iternumonload": iter_on_load_preset}) # type: ignore
-        self.setParms({"useiteronload": 0}) # type: ignore
+        self.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
+        self.setParms({IN_USE_ITER_ON_LOAD: 0}) # type: ignore
         iter_on_load = iter_on_load_preset
     else:
         if not use_iter_on_load:
-            self.setParms({"iternumonload": ITER_LOAD_DEFAULT}) # type: ignore
+            self.setParms({IN_ITER_NUM_ON_LOAD: ITER_LOAD_DEFAULT}) # type: ignore
             iter_on_load = ITER_LOAD_DEFAULT
     return iter_on_load    
 
