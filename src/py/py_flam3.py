@@ -4513,7 +4513,6 @@ class _out_utils():
 
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         
-        #now = datetime.now()
         flame_name = self._node.parm(prm_name).eval()
         autoadd = self._node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
         
