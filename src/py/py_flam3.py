@@ -5092,7 +5092,7 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
     else:
         return flame_name
     
-    
+# Callback script
 def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
     
     autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
@@ -5102,7 +5102,7 @@ def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
     
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
-
+# Callback script
 def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
     
     autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
