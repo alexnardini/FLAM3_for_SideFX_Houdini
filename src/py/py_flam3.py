@@ -4964,9 +4964,28 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
         
         if flame_name:
             splt = ':'
+            div = '::'
             rp = flame_name.split(splt)
             rp[:] = [item for item in rp if item]
-
+            
+            try:
+                # if the filename start with either a ':' or '::' followed by a valid integer
+                # lets give it a default name
+                if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
+                    now = datetime.now()
+                    flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+                    rp = flame_name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+                # else if the filename end with either a ':' or '::' preceded by a valid integer
+                # lets give it a default name
+                elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
+                    now = datetime.now()
+                    flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+                    rp = flame_name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+            except:
+                pass
+            
             is_int = True
             try:
                 # if the name is a number, we want to still add the iteration num to it
@@ -4979,7 +4998,6 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
                 is_int = False
                 
             if is_int is False:
-                div = '::'
                 rp_clean = []
                 for item in rp:
                     item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
@@ -5012,8 +5030,27 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
     if autoadd:
         
         if flame_name:
+            splt = ':'
             div = '::'
             rp = str(flame_name).rpartition(div)
+            
+            try:
+                # if the filename start with either a ':' or '::' followed by a valid integer
+                # lets give it a default name
+                if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
+                    now = datetime.now()
+                    flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+                    rp = flame_name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+                # else if the filename end with either a ':' or '::' preceded by a valid integer
+                # lets give it a default name
+                elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
+                    now = datetime.now()
+                    flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+                    rp = flame_name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+            except:
+                pass
 
             is_int = False
             try:
