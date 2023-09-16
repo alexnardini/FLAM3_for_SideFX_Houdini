@@ -109,10 +109,18 @@ iterations:
 
     *SYS:* _System options._
 
+[Image:opdef:.?FLAM3H_SYS_ui.jpg]
+
     
 FF:
     #id: SYS
     Enable Final Flame variation's transform.
+    
+RIP:
+    #id: SYS
+    Remove Invalid Points. *INF*, *NAN*, *Zero Opacity* and *out of bounds* points.
+    * It can happen that some points shoot to infinity after being transformed by the algorithm.
+    Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
         
 TAG:
     #id: SYS
@@ -123,12 +131,6 @@ TAG size:
     #id: SYS
     Set different viewport TAG sizes.
     
-                
-RIP:
-    #id: SYS
-    Remove Invalid Points. *INF*, *NAN*, *Zero Opacity* and *out of bounds* points.
-    * It can happen that some points shoot to infinity after being transformed by the algorithm.
-    Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
     
 loaddef:
     #id: SYS
@@ -204,6 +206,13 @@ OUT Save:
     #display: inverted teal
 
     *FLAME:* _Flame variations/iterators._
+    
+    This is, with FF, the part where you will spend most of your time.
+    
+    Inside here you will build your fractal flame logic.
+    If you have ever used Apophysis, Fractorium or other fractal flame editors, you will find almost at home
+    as every parameter carry on the same name inside here. The logic you will operate with will be the same.
+    
 
 iterators:
     #id: FLAME
@@ -441,6 +450,10 @@ VARS Tab:
 
     *FF:* _Final Flame transform._
     
+    Final Flame ( FF ) or finalXform iterator act like camera lenses.
+    It will take the combined result of all the iterators inside the FLAME Tab
+    and apply extra transformations to that result, allowing for a lot of creative exploration.
+    
     NOTE:
         This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
         
@@ -561,6 +574,11 @@ PP VARS Tab:
 
     *CP:* _Flame fractal color palette._
     
+    Palette colors are a very important aspect for a succesful fractal flame.
+    Not only will be essential to play with each iterator shader speed and location
+    but experimenting with different palette can make a difference
+    and turn a fractal flame into something really special.
+    
 HSV:
     #id: PALETTE
     Hue/Saturation/Value of the palette's colors.
@@ -648,6 +666,8 @@ reset HSV on Load ( options ):
     #display: inverted teal
 
     *MB:* _Flame fractal moton blur._
+    
+    When animating your fractal flame, turning this ON will compute a proper temporal Motion Blur.
 
 on:
     #id: MB
@@ -690,9 +710,9 @@ viz mb:
 :box:
     #display: inverted teal
 
-    *IN: Load *.flame file created with Apophysis, Fractorium and other.
+    *IN: Load* *.flame file created with Apophysis, Fractorium and other.
     
-    A *flame file is an XML format type of file.
+    A *.flame file is an XML format type of file.
         
     NOTE:
         To be valid to be loaded inside Flame3 for Houdini, a *.flame file must obey this rule:
