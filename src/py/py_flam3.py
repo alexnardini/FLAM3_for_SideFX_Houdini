@@ -4509,12 +4509,15 @@ class _out_utils():
         name = self._node.parm(prm_name).eval()
         if not name:
             now = datetime.now()
-            return now.strftime("Flame_%b-%d-%Y_%H%M%S")
+            flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+            autoadd = self._node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+            iter_num = self._node.parm(SYS_ITERATIONS).evalAsInt()
+            return out_auto_add_iter_num(iter_num, flame_name, autoadd)
         else:
             # otherwise get that name and use it
             return name
-        
-        
+
+
     def __out_xf_data(self, prm_name: str) -> tuple[str]:
         val = []
         for iter in range(self._iter_count):
@@ -4945,12 +4948,9 @@ def menu_out_contents_presets(kwargs: dict) -> list:
         return menu
 
 
-def out_auto_add_iter_num(self: hou.Node) -> None:
-    
-    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
     
     if autoadd:
-        flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
         
         if flame_name:
             splt = ':'
@@ -4970,16 +4970,19 @@ def out_auto_add_iter_num(self: hou.Node) -> None:
                     item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
                     rp_clean.append(item_cleaned)
                     
-                prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
-                flame_name_new = ' '.join(rp_clean) + div + str(prm_iter_num)
-                self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+                flame_name_new = ' '.join(rp_clean) + div + str(iter_num)
+                return flame_name_new
+            else:
+                return flame_name
+        else:
+            return flame_name
+    else:
+        return flame_name    
 
-def out_auto_change_iter_num(self: hou.Node) -> None:
-    
-    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+
+def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
     
     if autoadd:
-        flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
         
         if flame_name:
             div = '::'
@@ -4993,11 +4996,34 @@ def out_auto_change_iter_num(self: hou.Node) -> None:
                 pass
             
             if is_int:
-                prm_iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
-                flame_name_changed = ''.join(rp[:-1]) + str(prm_iter_num)
-                self.setParms({OUT_FLAME_PRESET_NAME: flame_name_changed}) #type: ignore
+                flame_name_changed = ''.join(rp[:-1]) + str(iter_num)
+                return flame_name_changed
             else:
-                out_auto_add_iter_num(self)
+                return out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        else:
+            return flame_name
+    else:
+        return flame_name
+    
+    
+def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
+    
+    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+    flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
+    iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+    flame_name_new = out_auto_add_iter_num(iter_num, flame_name, autoadd)
+    
+    self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+
+
+def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
+    
+    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+    flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
+    iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+    flame_name_new = out_auto_change_iter_num(iter_num, flame_name, autoadd)
+    
+    self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
 
