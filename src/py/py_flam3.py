@@ -4535,7 +4535,6 @@ class _out_utils():
             
             if not flame_name:
                 
-                print("AAAAAA")
                 now = datetime.now()
                 flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
                 iter_num = self._node.parm(SYS_ITERATIONS).evalAsInt()
