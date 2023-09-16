@@ -89,6 +89,9 @@ iterations:
         
         _*[Knot clusters: 6 iterations|https://user-images.githubusercontent.com/42110232/234943476-5a6cb25e-d842-4080-ba52-b75d9a4d915e.jpg]*_
         
+    TIP:
+        When: *Auto add iter num to Flame name* toggle is ON inside the OUT Tab,
+        changing iteration will updated the Flame name if any have been typed.
         
         
 
