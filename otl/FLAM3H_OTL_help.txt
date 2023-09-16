@@ -989,7 +989,7 @@ Edit render properties:
     Allow the editing of the render properties for the host application you will load the saved flame file into.
     Fractorium being the suggested one followed by Apophysis.
     
-    Changing those values, will change how the saved flame will render inside thos applications.
+    Changing those values, will change how the saved flame will render inside those applications.
     
     NOTE:
         FLAM3 for Houdini do not deal with any image color correction curves that are present inside Fractorium for example.
