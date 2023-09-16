@@ -113,8 +113,8 @@ OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
-XAOS_MODE = 'xm'
-AUTO_PATH_CORRECTION = 'autopath'
+PREFS_XAOS_MODE = 'xm'
+PREFS_AUTO_PATH_CORRECTION = 'autopath'
 # Motion blur
 OUT_MB_DO = 'domb'
 OUT_MB_FPS = 'fps'
@@ -1861,7 +1861,7 @@ def reset_OUT(self, mode=0) -> None:
 
 def reset_PREFS(self: hou.Node, mode=0) -> None:
     self.setParms({"showprefs": 1}) # type: ignore
-    self.setParms({XAOS_MODE: 0}) # type: ignore
+    self.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
     self.setParms({"camhandle": 0}) # type: ignore
     self.setParms({"camcull": 0}) # type: ignore
     self.setParms({"fcam": ""}) # type: ignore
@@ -1979,7 +1979,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         reset_MB(self)
         # prefs
         self.setParms({"showprefs": 1}) # type: ignore
-        #self.setParms({XAOS_MODE: 0})
+        #self.setParms({PREFS_XAOS_MODE: 0})
         self.setParms({"camhandle": 0}) # type: ignore
         self.setParms({"camcull": 0}) # type: ignore
         #self.setParms({"fcam": ""})
@@ -4294,7 +4294,7 @@ class _out_utils():
             palette_cp(self._node)
             palette_hsv(self._node)
             self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
-        self._xm = self._node.parm(XAOS_MODE).eval()
+        self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
         self._flam3h_mb_do = self._node.parm(OUT_MB_DO).eval()
         
@@ -5136,7 +5136,7 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
     file = os.path.expandvars(infile)
     file_s = os.path.split(file)
     
-    autopath = self.parm(AUTO_PATH_CORRECTION).evalAsInt()
+    autopath = self.parm(PREFS_AUTO_PATH_CORRECTION).evalAsInt()
 
     if autopath:
         
