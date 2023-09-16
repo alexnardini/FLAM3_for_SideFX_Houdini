@@ -60,6 +60,8 @@ FLAM3HOUDINI_VERSION = "1.0.2"
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
+DENSITY_LOAD_DEFAULT = 500000
+
 DPT = '*'
 PRM = '...'
 PRX_FF_PRM = 'ff'
@@ -709,7 +711,7 @@ def menu_density_set(self: hou.Node) -> None:
 
 # Set menu_density() Menu
 def menu_density_set_default(self: hou.Node) -> None:
-    self.setParms({GLB_DENSITY: 500000}) # type: ignore
+    self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
 
 ###############################################################################################
 # FLAM3 paste list of parms
@@ -1953,7 +1955,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
     self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
     
-    self.setParms({GLB_DENSITY: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
+    self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
 
 
 ###############################################################################################
@@ -1970,7 +1972,7 @@ def iteratorCountZero(self: hou.Node) -> None:
         for p in self.parms():
             p.deleteAllKeyframes()
         # SYS
-        self.setParms({GLB_DENSITY: 500000}) # type: ignore
+        self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
         self.setParms({SYS_DO_FF: 0}) # type: ignore
         self.setParms({SYS_RIP: 0}) # type: ignore
         # FF vars
@@ -1979,11 +1981,8 @@ def iteratorCountZero(self: hou.Node) -> None:
         reset_MB(self)
         # prefs
         self.setParms({"showprefs": 1}) # type: ignore
-        #self.setParms({PREFS_XAOS_MODE: 0})
         self.setParms({"camhandle": 0}) # type: ignore
         self.setParms({"camcull": 0}) # type: ignore
-        #self.setParms({"fcam": ""})
-        #self.setParms({"cullamount": 0.99})
         
         # descriptive message parameter
         self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
@@ -2206,7 +2205,6 @@ XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_spe
 # but I leave it here just in case other variation will need it.
 XML_XF_PRM_EXCEPTION = ("None", )
 
-POINT_COUNT_LOAD_DEFAULT = 500000
 ITER_LOAD_DEFAULT = 64
 OUT_FLAM3_FILE_EXT = '.flame'
 
@@ -2691,7 +2689,7 @@ class apo_flame(_xml_tree):
         return self._flam3h_hsv
     
     @property
-    def flam3h_mb(self):
+    def flam3h_mb(self): # motion blur fps ( frames per second )
         return self._flam3h_mb
     
     @property
@@ -3937,7 +3935,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
             apo_copy_render_stats_msg(self)
         # Set density back to default on load
-        self.setParms({GLB_DENSITY: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
+        self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
         #Updated flame stats 
         self.setParms({MSG_FLAMESTATS: apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
         self.setParms({MSG_FLAMERENDER: apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
