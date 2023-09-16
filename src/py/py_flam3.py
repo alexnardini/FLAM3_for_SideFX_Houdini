@@ -81,39 +81,39 @@ PALETTE_COUNT_256 = '256'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
-SYS_PT_COUNT = "ptcount"
-SYS_PT_COUNT_PRESETS = "ptcount_presets"
-SYS_ITERATIONS = "iter"
+GLB_DENSITY = "ptcount"
+GLB_DENSITY_PRESETS = "ptcount_presets"
+GLB_ITERATIONS = "iter"
 SYS_DO_FF = 'doff'
+SYS_RIP = "rip"
 SYS_TAG = "tag"
 SYS_TAG_SIZE = "tagsize"
-SYS_RIP = "rip"
-FLAM3_ITERATORS_COUNT = "flamefunc"
+SYS_CP_PALETTE_PRESETS = 'sys_palettepresets'
+SYS_IN_PRESETS = 'sys_inpresets'
+FLAME_ITERATORS_COUNT = "flamefunc"
+CP_PALETTE_LIB_PATH = 'palettefile'
+CP_PALETTE_OUT_PRESET_NAME = 'palettename'
+CP_PALETTE_PRESETS = 'palettepresets'
+CP_RAMP_SRC_NAME = 'palette'
+CP_RAMP_HSV_NAME = 'palettehsv'
+CP_RAMP_SAVE_HSV = 'savehsv'
+CP_RAMP_HSV_RESET_ON_LOAD = 'resethsv'
+CP_RAMP_HSV_VAL_NAME = 'hsv'
 IN_ISVALID_FILE = 'isvalidfile'
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
-SYS_IN_PRESETS = 'sys_inpresets'
-IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 IN_USE_ITER_ON_LOAD = 'useiteronload'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
+IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
+IN_USE_FRACTORIUM_COLOR_SPEED = 'fcs'
+IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
-XAOS_MODE = 'xm'
-REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
-PALETTE_LIB_PATH = 'palettefile'
-PALETTE_OUT_PRESET_NAME = 'palettename'
-PALETTE_PRESETS = 'palettepresets'
-SYS_PALETTE_PRESETS = 'sys_palettepresets'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
-USE_FRACTORIUM_COLOR_SPEED = 'fcs'
-RAMP_SRC_NAME = 'palette'
-RAMP_HSV_NAME = 'palettehsv'
-RAMP_SAVE_HSV = 'savehsv'
-RAMP_HSV_RESET_ON_LOAD = 'resethsv'
-RAMP_HSV_VAL_NAME = 'hsv'
+XAOS_MODE = 'xm'
 AUTO_PATH_CORRECTION = 'autopath'
 # Motion blur
 OUT_MB_DO = 'domb'
@@ -662,7 +662,7 @@ def menu_density(self: hou.Node) -> list:
         list: [return menu list]
     """
     
-    iterators = self.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
+    iterators = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
     menu=[]
     menuitems = ()
     if iterators:
@@ -677,39 +677,39 @@ def menu_density(self: hou.Node) -> list:
 # Set menu_density() Menu
 def menu_density_set(self: hou.Node) -> None:
     
-    sel = self.parm(SYS_PT_COUNT_PRESETS).evalAsInt()
+    sel = self.parm(GLB_DENSITY_PRESETS).evalAsInt()
     
     if sel == 1:
-        self.setParms({SYS_PT_COUNT: 1000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 1000000}) # type: ignore
     elif sel == 2:
-        self.setParms({SYS_PT_COUNT: 2000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 2000000}) # type: ignore
     elif sel == 3:
-        self.setParms({SYS_PT_COUNT: 5000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 5000000}) # type: ignore
     elif sel == 4:
-        self.setParms({SYS_PT_COUNT: 15000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 15000000}) # type: ignore
     elif sel == 5:
-        self.setParms({SYS_PT_COUNT: 25000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 25000000}) # type: ignore
     elif sel == 6:
-        self.setParms({SYS_PT_COUNT: 50000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 50000000}) # type: ignore
     elif sel == 7:
-        self.setParms({SYS_PT_COUNT: 100000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 100000000}) # type: ignore
     elif sel == 8:
-        self.setParms({SYS_PT_COUNT: 150000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 150000000}) # type: ignore
     elif sel == 9:
-        self.setParms({SYS_PT_COUNT: 250000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 250000000}) # type: ignore
     elif sel == 10:
-        self.setParms({SYS_PT_COUNT: 500000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 500000000}) # type: ignore
     elif sel == 11:
-        self.setParms({SYS_PT_COUNT: 750000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 750000000}) # type: ignore
     elif sel == 12:
-        self.setParms({SYS_PT_COUNT: 1000000000}) # type: ignore
+        self.setParms({GLB_DENSITY: 1000000000}) # type: ignore
 
     # reset to null value so we can set the same preset again
-    self.setParms({SYS_PT_COUNT_PRESETS: 0}) # type: ignore
+    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
 
 # Set menu_density() Menu
 def menu_density_set_default(self: hou.Node) -> None:
-    self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
+    self.setParms({GLB_DENSITY: 500000}) # type: ignore
 
 ###############################################################################################
 # FLAM3 paste list of parms
@@ -1183,7 +1183,7 @@ def flam3_on_loaded(kwargs: dict) -> None:
     # Check for left over JSON, IN and OUT file paths no longer valid and init_presets accordingly
     
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    init_presets(kwargs, PALETTE_PRESETS, 0)
+    init_presets(kwargs, CP_PALETTE_PRESETS, 0)
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
     init_presets(kwargs, IN_PRESETS, 0)
     init_presets(kwargs, OUT_PRESETS)
@@ -1199,7 +1199,7 @@ def flam3_on_loaded(kwargs: dict) -> None:
     # Same goes for the palette preset entrie, and some time goes also out of range
     # so we store the selection first inside a mem menu parameter first inside json_to_ramp()
     # and call it back here.
-    node.setParms({PALETTE_PRESETS: node.parm(SYS_PALETTE_PRESETS).eval()}) # type: ignore
+    node.setParms({CP_PALETTE_PRESETS: node.parm(SYS_CP_PALETTE_PRESETS).eval()}) # type: ignore
 
 
 
@@ -1263,12 +1263,12 @@ def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
             if xml:
                 print(f'{str(node)}.OUT: please select a valid file location.')
                 
-    elif PALETTE_PRESETS in prm_presets_name:
-        json_path = node.parm(PALETTE_LIB_PATH).evalAsString()
+    elif CP_PALETTE_PRESETS in prm_presets_name:
+        json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
         json_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
         if json_path_checked is not False:
-            node.setParms({PALETTE_LIB_PATH: json_path_checked})
-            if isJSON(node, json_path, PALETTE_LIB_PATH):
+            node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
+            if isJSON(node, json_path, CP_PALETTE_LIB_PATH):
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
@@ -1309,12 +1309,12 @@ def open_explorer_file(filename):
 def menu_ramp_presets(kwargs: dict) -> list:
 
     node = kwargs['node']
-    filepath = node.parm(PALETTE_LIB_PATH).evalAsString()
+    filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
 
     menu=[]
     
-    if isJSON(node, filepath, PALETTE_LIB_PATH):
-        if node.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
+    if isJSON(node, filepath, CP_PALETTE_LIB_PATH):
+        if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
             with open(filepath) as f:
                 data = json.load(f)
             menuitems = data.keys()
@@ -1327,7 +1327,7 @@ def menu_ramp_presets(kwargs: dict) -> list:
                 menu.append(i)
                 menu.append(item)
     else:
-        if node.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
+        if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
             menu.append(-1)
             menu.append('Empty')
         else:
@@ -1390,7 +1390,7 @@ def ramp_save(kwargs: dict) -> None:
         kwargs (dict): [kwargs[] dictionary]
     """
     node = kwargs['node']
-    palettepath = node.parm(PALETTE_LIB_PATH).evalAsString()
+    palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
     out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
     if out_path_checked is not False:
@@ -1405,7 +1405,7 @@ def ramp_save(kwargs: dict) -> None:
                 hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             else:
                 # get user's preset name or build an automated one
-                name = node.parm(PALETTE_OUT_PRESET_NAME).eval()
+                name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
                 if not name:
                     now = datetime.now()
                     presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
@@ -1419,10 +1419,10 @@ def ramp_save(kwargs: dict) -> None:
 
                 ramp = hou.Ramp()
                 
-                if node.parm(RAMP_SAVE_HSV).eval():
-                    ramp = node.parm(RAMP_HSV_NAME).evalAsRamp()
+                if node.parm(CP_RAMP_SAVE_HSV).eval():
+                    ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
                 else:
-                    ramp = node.parm(RAMP_SRC_NAME).evalAsRamp()
+                    ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
                     
                 keys_count = get_ramp_keys_count(ramp)
                 
@@ -1441,7 +1441,7 @@ def ramp_save(kwargs: dict) -> None:
                         w.write(json_data)
                 else:
                     # if the file exist and is a valid JSON file
-                    if isJSON(node, out_path_checked, PALETTE_LIB_PATH):
+                    if isJSON(node, out_path_checked, CP_PALETTE_LIB_PATH):
                         with open(str(out_path_checked),'r') as r:
                             prevdata = json.load(r)
                         with open(str(out_path_checked), 'w') as w:
@@ -1462,12 +1462,12 @@ def ramp_save(kwargs: dict) -> None:
                 # Set some parameters
                 with open(out_path_checked) as f:
                     data = json.load(f)
-                    node.setParms({PALETTE_PRESETS: str(len(data.keys())-1) })
-                    node.setParms({PALETTE_OUT_PRESET_NAME: ''})
+                    node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
+                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
                     del data
                     
                 # Set the file path to the corrected one
-                node.setParms({PALETTE_LIB_PATH: str(out_path_checked)})
+                node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
 
 
 ###############################################################################################
@@ -1478,8 +1478,8 @@ def hex_to_rgb(hex: str):
 
 def sys_json_to_ramp(kwargs: dict) -> None:
     node = kwargs['node']
-    preset_id = node.parm(SYS_PALETTE_PRESETS).eval()
-    node.setParms({PALETTE_PRESETS: preset_id}) # type: ignore
+    preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
+    node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
     json_to_ramp(kwargs)
     
 def json_to_ramp(kwargs: dict) -> None:
@@ -1490,13 +1490,13 @@ def json_to_ramp(kwargs: dict) -> None:
     node = kwargs['node']
     
     #get ramp parm
-    ramp_parm = node.parm(RAMP_SRC_NAME)
+    ramp_parm = node.parm(CP_RAMP_SRC_NAME)
     ramp_parm.deleteAllKeyframes()
     
-    filepath = node.parm(PALETTE_LIB_PATH).evalAsString()
+    filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
     # get current preset
-    preset_id = int(node.parm(PALETTE_PRESETS).eval())
-    preset = node.parm(PALETTE_PRESETS).menuLabels()[preset_id]
+    preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+    preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
     
     if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
         HEXs = []
@@ -1517,13 +1517,13 @@ def json_to_ramp(kwargs: dict) -> None:
         ramp_parm.set(ramp)
 
         # reset HSV after load ?
-        if node.parm(RAMP_HSV_RESET_ON_LOAD).eval():
-            node.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+        if node.parm(CP_RAMP_HSV_RESET_ON_LOAD).eval():
+            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
         palette_cp(node)
         palette_hsv(node)
         
         # Store selection into mem preset menu
-        node.setParms({SYS_PALETTE_PRESETS: node.parm(PALETTE_PRESETS).eval()}) # type: ignore
+        node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
         
 
 ###############################################################################################
@@ -1534,8 +1534,8 @@ def palette_cp(self: hou.Node) -> None:
     Args:
         self (hou.Node): [current hou.Node]
     """    
-    rmphsv = self.parm(RAMP_HSV_NAME)
-    rmpsrc = self.parm(RAMP_SRC_NAME)
+    rmphsv = self.parm(CP_RAMP_HSV_NAME)
+    rmpsrc = self.parm(CP_RAMP_SRC_NAME)
     rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
     # Apply HSV if any is currently set
     palette_hsv(self)
@@ -1549,9 +1549,9 @@ def palette_hsv(self: hou.Node) -> None:
     Args:
         self (hou.Node): [current hou.Node]
     """    
-    rmphsv = self.parm(RAMP_HSV_NAME)
-    rmpsrc = self.parm(RAMP_SRC_NAME)
-    hsvprm = self.parmTuple(RAMP_HSV_VAL_NAME)
+    rmphsv = self.parm(CP_RAMP_HSV_NAME)
+    rmpsrc = self.parm(CP_RAMP_SRC_NAME)
+    hsvprm = self.parmTuple(CP_RAMP_HSV_VAL_NAME)
     hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
     
     rgb = []
@@ -1783,9 +1783,9 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
         mode (int): 0: skip "doff" 1: reset "doff"
     """    
     
-    self.setParms({SYS_PT_COUNT: density}) # type: ignore
-    self.setParms({SYS_PT_COUNT_PRESETS: 0}) # type: ignore
-    self.setParms({SYS_ITERATIONS: iter}) # type: ignore
+    self.setParms({GLB_DENSITY: density}) # type: ignore
+    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
+    self.setParms({GLB_ITERATIONS: iter}) # type: ignore
     if mode:
         self.setParms({SYS_DO_FF: 0}) # type: ignore
     self.setParms({SYS_TAG: 1}) # type: ignore
@@ -1795,23 +1795,23 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
 def reset_CP(self, mode=0) -> None:
     if not mode:
         # CP
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
         # CP->ramp
-        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm = self.parm(CP_RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
         if mode==1:
-            self.setParms({PALETTE_LIB_PATH: ""})
-            self.setParms({PALETTE_OUT_PRESET_NAME: ""})
-            self.setParms({PALETTE_PRESETS: "-1"})
+            self.setParms({CP_PALETTE_LIB_PATH: ""})
+            self.setParms({CP_PALETTE_OUT_PRESET_NAME: ""})
+            self.setParms({CP_PALETTE_PRESETS: "-1"})
             self.setParms({"palettemsg": ''})
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
     elif mode == 2:
-        self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
     elif mode == 3:
-        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm = self.parm(CP_RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
         color_keys = [0.0, 0.5, 1.0]
@@ -1842,7 +1842,7 @@ def reset_IN(self, mode=0) -> None:
 def reset_OUT(self, mode=0) -> None:
     self.setParms({"outedit": 0})
     self.setParms({"outmsg": ''})
-    self.setParms({USE_FRACTORIUM_COLOR_SPEED: 0})
+    self.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
     self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
@@ -1879,12 +1879,12 @@ def flam3_default(self: hou.Node) -> None:
         self (hou.Node): [current hou.Node]
     """
     # Iterators reset
-    self.setParms({FLAM3_ITERATORS_COUNT: 0}) # type: ignore
+    self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
     for p in self.parms():
         p.deleteAllKeyframes()
     # Add back iterators
     # This way all parameters will reset to their default values.
-    self.setParms({FLAM3_ITERATORS_COUNT: 3}) # type: ignore
+    self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
 
     #
     # SYS
@@ -1953,7 +1953,7 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
     self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
     
-    self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
+    self.setParms({GLB_DENSITY: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
 
 
 ###############################################################################################
@@ -1965,12 +1965,12 @@ def iteratorCountZero(self: hou.Node) -> None:
         self (hou.Node): [current hou.Node]
     """
 
-    if not self.parm(FLAM3_ITERATORS_COUNT).evalAsInt():
+    if not self.parm(FLAME_ITERATORS_COUNT).evalAsInt():
         # delete channel references
         for p in self.parms():
             p.deleteAllKeyframes()
         # SYS
-        self.setParms({SYS_PT_COUNT: 500000}) # type: ignore
+        self.setParms({GLB_DENSITY: 500000}) # type: ignore
         self.setParms({SYS_DO_FF: 0}) # type: ignore
         self.setParms({SYS_RIP: 0}) # type: ignore
         # FF vars
@@ -2820,7 +2820,7 @@ class apo_flame(_xml_tree):
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
                         pre_gaussian_blur = xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
-                            if self._node.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
+                            if self._node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                                 keyvalues.append(float(pre_gaussian_blur))
                                 continue
                             else:
@@ -3795,7 +3795,7 @@ def apo_set_iterator(mode: int,
             # Activate iterator, just in case...
             node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
             # Set the rest of the iterators
-            if node.parm(USE_FRACTORIUM_COLOR_SPEED).eval():
+            if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
                 apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
             else: 
                 apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
@@ -3811,18 +3811,18 @@ def apo_set_iterator(mode: int,
 
 def iter_on_load_callback(self):
     iter_on_load = self.parm(IN_ITER_NUM_ON_LOAD).eval()
-    self.setParms({SYS_ITERATIONS: iter_on_load})
+    self.setParms({GLB_ITERATIONS: iter_on_load})
     
 def use_iter_on_load_callback(self):
     useiteronload = self.parm(IN_USE_ITER_ON_LOAD).eval()
     if useiteronload:
         iternumonload = self.parm(IN_ITER_NUM_ON_LOAD).eval()
-        iter = self.parm(SYS_ITERATIONS).eval()
+        iter = self.parm(GLB_ITERATIONS).eval()
         if iternumonload > iter:
-            self.setParms({SYS_ITERATIONS: iter})
+            self.setParms({GLB_ITERATIONS: iter})
             self.setParms({IN_ITER_NUM_ON_LOAD: iter})
         else:
-            self.setParms({SYS_ITERATIONS: iternumonload})
+            self.setParms({GLB_ITERATIONS: iternumonload})
 
 
 def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
@@ -3890,14 +3890,14 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({SYS_RIP: 1}) # type: ignore
             
         # iterators
-        self.setParms({FLAM3_ITERATORS_COUNT: 0}) # type: ignore
+        self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
         for p in self.parms():
             p.deleteAllKeyframes()
-        self.setParms({FLAM3_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
+        self.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
         
         # get keys to exclude
         exclude_keys = XML_XF_KEY_EXCLUDE
-        if self.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
+        if self.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
         apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
@@ -3922,13 +3922,13 @@ def apo_to_flam3(self: hou.Node) -> None:
             
         # if CP HSV vals
         if apo_data.palette_flam3h_hsv is not False:
-            self.setParms({RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
+            self.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
         else:
         # CP HSV default vals
-            self.setParms({RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
+            self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
             
         # Set XML palette data
-        ramp_parm = self.parm(RAMP_SRC_NAME)
+        ramp_parm = self.parm(CP_RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         ramp_parm.set(apo_data.palette[0])
         palette_cp(self)
@@ -3937,7 +3937,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
             apo_copy_render_stats_msg(self)
         # Set density back to default on load
-        self.setParms({SYS_PT_COUNT: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
+        self.setParms({GLB_DENSITY: POINT_COUNT_LOAD_DEFAULT}) # type: ignore
         #Updated flame stats 
         self.setParms({MSG_FLAMESTATS: apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
         self.setParms({MSG_FLAMERENDER: apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
@@ -4042,7 +4042,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         palette_count_format = f"Palette not found."
     
     exclude_keys = XML_XF_KEY_EXCLUDE
-    if self.parm(REMAP_PRE_GAUSSIAN_BLUR).eval():
+    if self.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
         exclude_keys = XML_XF_KEY_EXCLUDE_PGB
     vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
     vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
@@ -4286,14 +4286,14 @@ class _out_utils():
         self._flam3_iterator = flam3_iterator()
         self._flam3_iterator_FF = flam3_iterator_FF()
         self._flam3_do_FF = self._node.parm(SYS_DO_FF).eval()
-        self._iter_count = self._node.parm(FLAM3_ITERATORS_COUNT).evalAsInt()
-        self._palette = self._node.parm(RAMP_SRC_NAME).evalAsRamp()
+        self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        self._palette = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
             palette_cp(self._node)
             palette_hsv(self._node)
-            self._palette = self._node.parm(RAMP_HSV_NAME).evalAsRamp()
+            self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(XAOS_MODE).eval()
         # custom to FLAM3H only
         self._flam3h_mb_do = self._node.parm(OUT_MB_DO).eval()
@@ -4302,7 +4302,7 @@ class _out_utils():
     def flame_default_name(node: hou.Node, autoadd: int) -> str:
         now = datetime.now()
         flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
-        iter_num = node.parm(SYS_ITERATIONS).evalAsInt()
+        iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
         return out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
     @staticmethod
@@ -4526,7 +4526,7 @@ class _out_utils():
                 return self.flame_default_name(self._node, autoadd)
             else:
                 # otherwise get that name and use it
-                iter_num = self._node.parm(SYS_ITERATIONS).evalAsInt()
+                iter_num = self._node.parm(GLB_ITERATIONS).evalAsInt()
                 return out_auto_add_iter_num(iter_num, flame_name, autoadd)
 
 
@@ -4638,7 +4638,7 @@ class _out_utils():
     # custom to FLAM3H only
     def __out_flame_data_flam3h_hsv(self, prm_name='') -> Union[str, bool, None]:
 
-        if prm_name == RAMP_HSV_VAL_NAME:
+        if prm_name == CP_RAMP_HSV_VAL_NAME:
             # This is only for OUT ramp HSV vals.
             # If we are saving out a flame with the HSV ramp, 
             # we do not want to export the HSV values in the XML file anymore
@@ -4646,7 +4646,7 @@ class _out_utils():
             if self._palette_hsv_do:
                 return False
             else:
-                # Here we go ahead since we know the prm 'RAMP_HSV_VAL_NAME' is a tuple
+                # Here we go ahead since we know the prm CP_RAMP_HSV_VAL_NAME is a tuple
                 prm = self._node.parmTuple(prm_name).eval()
                 # If the HSV values are at their defaults, do not export them into the XML file
                 if fsum(prm) == 3:
@@ -4694,7 +4694,7 @@ class out_flame_properties(_out_utils):
         # self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
         
         # custom to FLAM3H only
-        self.flam3h_hsv = self._out_utils__out_flame_data_flam3h_hsv(RAMP_HSV_VAL_NAME) # type: ignore
+        self.flam3h_hsv = self._out_utils__out_flame_data_flam3h_hsv(CP_RAMP_HSV_VAL_NAME) # type: ignore
         self.flam3h_mb_fps = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
         self.flam3h_mb_samples = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
         self.flam3h_mb_shutter = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
@@ -5084,7 +5084,7 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
     
 # Get data needed
 def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
-    iter_num = self.parm(SYS_ITERATIONS).evalAsInt()
+    iter_num = self.parm(GLB_ITERATIONS).evalAsInt()
     flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
     autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
     return iter_num, flame_name, autoadd
