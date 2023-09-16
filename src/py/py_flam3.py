@@ -4524,17 +4524,13 @@ class _out_utils():
         # if the filename start with either a ':' or '::' followed by a valid integer
         # lets give it a default name
         if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
-            print("AAAA")
             return self.flame_default_name(self._node, autoadd)
         # else if the filename end with either a ':' or '::' preceded by a valid integer
         # lets give it a default name
         elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
-            print("BBBB")
             return self.flame_default_name(self._node, autoadd)
         else:
-            
             if not flame_name:
-                print("CCCC")
                 return self.flame_default_name(self._node, autoadd)
             else:
                 # otherwise get that name and use it
