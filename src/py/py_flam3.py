@@ -4959,7 +4959,12 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
             is_int = True
             try:
-                int(rp[-1])
+                # if the name is a number, we want to still add the iteration num to it
+                # and not evaluate this as integer
+                if rp[-1] != flame_name:
+                    int(rp[-1])
+                else:
+                    is_int = False
             except:
                 is_int = False
                 
@@ -4990,8 +4995,11 @@ def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> st
 
             is_int = False
             try:
-                int(rp[-1])
-                is_int = True
+                if rp[-1] != flame_name:
+                    int(rp[-1])
+                    is_int = True
+                else:
+                    pass
             except:
                 pass
             
