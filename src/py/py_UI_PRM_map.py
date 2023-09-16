@@ -62,7 +62,7 @@ return menu
 
 'iter'
 'Callback Script'
-hou.pwd().hdaModule().flam3.out_auto_change_iter_num(kwargs['node'])
+hou.pwd().hdaModule().flam3.out_auto_change_iter_num_to_prm(kwargs['node'])
 
 
 #######################################################
@@ -255,7 +255,7 @@ return menu
 
 'outname'
 'Callback Script'
-hou.pwd().hdaModule().flam3.out_auto_add_iter_num(kwargs['node'])
+hou.pwd().hdaModule().flam3.out_auto_add_iter_num_to_prm(kwargs['node'])
 'Action Button'
 kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 
