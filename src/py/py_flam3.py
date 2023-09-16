@@ -4949,7 +4949,17 @@ def menu_out_contents_presets(kwargs: dict) -> list:
 
 
 def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-    
+    """It will check the passed Flame name 
+    and add the iteration number to it if needed.
+
+    Args:
+        iter_num (int): the current iteration's number
+        flame_name (str): The Flame name to check
+        autoadd (int): Auto add iter num toggle value
+
+    Returns:
+        str: A new Flame name with the iter num added if needed.
+    """
     if autoadd:
         
         if flame_name:
@@ -4986,7 +4996,19 @@ def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
 
 def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-    
+    """It will check the passed Flame name 
+    and update the iteration number when changing iterations.
+    If not iteration number is present in the passed Flame name
+    it will add it to the end of the Flame name.
+
+    Args:
+        iter_num (int): the current iteration's number
+        flame_name (str): The Flame name to check
+        autoadd (int): Auto add iter num toggle value
+
+    Returns:
+        str: A new Flame name with the iter num updated/added if needed.
+    """
     if autoadd:
         
         if flame_name:
