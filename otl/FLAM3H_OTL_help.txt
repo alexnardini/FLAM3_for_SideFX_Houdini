@@ -60,7 +60,7 @@ density:
     
 density presets mini menu:
     #id: GLOBAL
-    Will allow you to select a density value quicky out of some presets.
+    Will allow you to select a density value quickly out of some presets.
     
     TIP:
         You can keep FLAM3H node live, without the need to bake the processed point cloud while rendering
@@ -119,6 +119,11 @@ RIP:
     Remove Invalid Points. *INF*, *NAN*, *Zero Opacity* and *out of bounds* points.
     * It can happen that some points shoot to infinity after being transformed by the algorithm.
     Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
+    
+    NOTE:
+        If you notice some unusual slowness while rendering a flame,
+        it's probably because some points endup being far far away from the ZERO world.
+        Turning this option ON will get rid of those points.
         
 TAG:
     #id: SYS
@@ -141,11 +146,14 @@ CP Presets mini menu:
     Load one of the presets inside the CP Tab JSON file currently loaded.
     This is being added as it is handy to change preset without the need to go inside the CP Tab all the time.
     
+    TIP:
+        To populate this menu, load a palette *.json file first inside the *CP* Tab.
+    
 CP Preset reload:
     #id: SYS
     [Largeicon:opdef:.?iconPrideSVG.svg]
     
-    Reload the selected CP palette preset. To populate this menu, load a palette *.json file first inside the CP Tab. 
+    Reload the selected CP palette preset. 
     
 IN Presets mini menu:
     #id: SYS
@@ -153,8 +161,7 @@ IN Presets mini menu:
     This is being added as it is handy to change preset without the need to go inside the IN Tab all the time.
     
     TIP:
-        You *MUST* first load a valid flame file from inside the IN Tab first for this menu
-        to populate with its contents.
+        To populate this menu, load a valid *.flame file first inside the *IN* Tab.
     
 IN Preset reload:
     #id: SYS
@@ -173,8 +180,7 @@ OUT Presets mini menu:
     It will always be set to the last Flame’s name you saved.
     
     TIP:
-        You *MUST* first select a valid output location and/or filename first inside the OUT Tab
-        for this menu to populate and update with its contents.
+        To populate this menu, load a valid *.flame file first inside the *OUT* Tab.
         
     NOTE:
         Saving Flames from this icon, will always use a default name that use current date and time.
@@ -217,7 +223,10 @@ iterators:
     Number of iterators to use.
     * This is equivalent to the number of triangle handles you have inside popular fractal flame editors out there.
     
-~~~
+:box:
+    #display: rounded white
+
+    *iterator*
 
 note:
     #id: FLAME
@@ -240,12 +249,6 @@ copy/paste:
     
     Once you copy an iterator you can have access to the arrow icon menu next to the *F* icon.
     From this menu you will be able to paste specific sections from the copied iterator, xaos incuded.
-
-
-:box:
-    #display: rounded white
-
-    *iterator:#*
     
 A tip:
     #id: FLAME
@@ -265,6 +268,11 @@ W:
     #id: FLAME
     The iterator weight. Define the probability this iterator is choosen during the chaos game.
     The higher an iterator weight is compared to the others and the more iterations you may need to properly resolve the Fractal Flame's shapes you are working on..
+    
+:box:
+    #display: rounded white
+
+    *iterator: xaos*
     
 xaos:
     #id: FLAME
@@ -315,7 +323,7 @@ Xaos tip:
 :box:
     #display: rounded white
 
-    *F#: shader*
+    *iterator: shader*
 
 location:
     #id: FLAME
@@ -332,7 +340,7 @@ opacity:
 :box:
     #display: rounded white
 
-    *F#: variation*
+    *iterator: variations*
      
 pre_blur:
     #id: FLAME
@@ -384,15 +392,12 @@ w:
         #display: orange
         
         It is better to set a variation weight to ZERO instead of keeping it at a very low values if their contribution isnt noticable to reduce the cost of the computation. At ZERO the variation will be completely ignored.
-    
-post:
-    #id: FLAME
-    Enable post affine.
+
 
 :box:
     #display: rounded white
 
-    *F#: affine*
+    *iterator: affine*
     
         
 post:
@@ -433,6 +438,11 @@ post affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
     * See above affine description for more informations.
+    
+:box:
+    #display: rounded white
+
+    *iterator: parametric's variables Tab*
 
 VARS Tab:
     #id: FLAME
@@ -462,6 +472,11 @@ VARS Tab:
         
         This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
 
+:box:
+    #display: rounded white
+
+    *FF*
+        
 note:
     #id: FF
     A name for this FF iterator.
@@ -488,7 +503,7 @@ copy/paste:
 :box:
     #display: rounded white
 
-    *Final Flame transform*
+    *FF: variations*
     
 FF Pre variation:
     #id: FF
@@ -554,13 +569,18 @@ post affine:
     Post affine coefficients for the current variations. Those are applied after the variations.
     * See above affine description for more informations.
         
+:box:
+    #display: rounded white
+
+    *FF: parametric's variables Tabs*
+    
 VARS Tab:
     #id: FF
     If a parametric variation is selected, its parameters will populate this Tab.
     
 PP VARS Tab:
     #id: FF
-    If a FF_PRE or FF_POST parametric variation is selected, its parameters will populate this Tab.
+    If a *PRE* or *POST* parametric variation is selected, its parameters will populate this Tab.
     
 
     
@@ -644,6 +664,11 @@ Reload preset ( presets ):
     [Largeicon:opdef:.?iconPrideSVG.svg]
     
     Reload the selected palette preset.
+    
+:box:
+    #display: rounded white
+
+    *CP options*
     
 save HSV palette ( options ):
     #id: PALETTE
@@ -788,7 +813,7 @@ IN file ( *.flame type ):
     
     NOTE:
         FLAM3 for Houdini do not deal with any image color correction curves that are present inside Fractorium for example.
-        Every time you load a flame authored with Fractorium, those curve's values will be discarded and internally re-set at their default values. ( no color correction at all )
+        Every time you load a flame authored with Fractorium, those curve's values will be discarded and internally re-set to their default values. ( no color correction at all )
     
 Reload:
     #id: IN
@@ -820,13 +845,18 @@ Iterations on Load (int):
         
         Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
     
-Use iterations on Load:
+Force iterations on Load:
     #id: IN
     When loading *.flame files, FLAM3 for Houdini will load them in
     and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
     However, sometime you just want to be quick and you can override the iterations set on load using this value.
     
-remap "pre_gaussian_blur" ( options ):
+:box:
+    #display: rounded white
+
+    *IN: options*
+    
+remap "pre_gaussian_blur":
     #id: prefs
     Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
     ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
@@ -835,13 +865,23 @@ remap "pre_gaussian_blur" ( options ):
     *You need to reload the current Flame preset for this change to take effect*.
 
     
-Copy render properties on Load  ( options ):
+Copy render properties on Load:
     #id: IN
     OFF by default. If ON it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
     
-infos:
+:box:
+    #display: rounded white
+
+    *IN: infos*
+    
+infos Tab:
     #id: IN
-    Display information about the Flame preset loaded.
+    Display information about the loaded Flame preset.
+    
+:box:
+    #display: rounded white
+
+    *IN: Render properties*
     
 Render infos:
     #id: IN
@@ -959,6 +999,11 @@ OUT file contents ( info ):
     It will show the Flames contained in the selected output file if any are presents.
     Once you append a new Flame in it, this menu will update too.
     It will always be set to the last Flame's name you saved.
+    
+:box:
+    #display: rounded white
+
+    *OUT: options*
         
 Save palette HSV (cc):
     #id: OUT
@@ -977,6 +1022,18 @@ Auto add iter num to Flame name:
         When on, and once you type in a flame name, changing the iteration number will update the Flame name too.
 
     
+:box:
+    #display: rounded white
+
+    *OUT: Render properties*
+    
+    NOTE:
+        Those properties will control how the saved fractal flame will render
+        inside other applications like Fractorium and Apophysis.
+        
+        They are their renderer settings and they will be exported into the XML file.
+    
+
 OUT render properties:
     #id: OUT
     Those properties are specific of the renderer of the application you will load the saved Flame into.
