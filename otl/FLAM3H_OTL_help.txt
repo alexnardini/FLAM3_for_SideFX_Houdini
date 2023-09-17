@@ -1027,17 +1027,17 @@ Auto add iter num to Flame name:
 
     *OUT: Render properties*
     
-    NOTE:
-        Those properties will control how the saved fractal flame will render
-        inside other applications like Fractorium and Apophysis.
-        
-        They are their renderer settings and they will be exported into the XML file.
-    
 
 OUT render properties:
     #id: OUT
     Those properties are specific of the renderer of the application you will load the saved Flame into.
     Some of the properties are specific to Fractorium application, witch has been my reference for this.
+    
+    NOTE:
+        Those properties will control how the saved fractal flame will render
+        inside other applications like Fractorium and Apophysis.
+        
+        They are their renderer settings and they will be exported into the XML file.
     
 Edit render properties:
     #id: OUT
