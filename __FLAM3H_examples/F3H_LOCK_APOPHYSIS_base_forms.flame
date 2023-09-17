@@ -1,5 +1,5 @@
 ﻿<flames name="APO">
-<flame name="gas energy::24" version="Apophysis 7x" size="707 948" center="0.16594759130539 -0.425092140029938" scale="169.558590003564" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.01" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear cylinder sinusoidal spherical diamond" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
+<flame name="gas energy::16" version="Apophysis 7x" size="707 948" center="0.16594759130539 -0.425092140029938" scale="169.558590003564" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.01" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear cylinder sinusoidal spherical diamond" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
    <xform weight="0.333333333333333" color="0" linear="0.506670268485323" cylinder="0.493329731514677" coefs="0.57102 0.808037 -0.808037 0.571016 0.49929 -0.344342" opacity="1" />
    <xform weight="0.333333333333333" color="0.5" sinusoidal="0.734994997037575" spherical="0.265005002962425" coefs="0.21585 -0.15003 0.073517 0.201084 0.290278 -0.16254" opacity="1" />
    <xform weight="0.333333333333333" color="1" linear="0.769712301436812" diamond="0.230287698563188" coefs="-0.277117 0.315701 -0.232966 -0.176558 -0.914584 -0.529592" opacity="1" />
@@ -78,7 +78,7 @@
       9698B69A95B99E92BCA28EBFA68BC2AA88C6AE84C9B281CC
    </palette>
 </flame>
-<flame name="color eggs::24" version="Apophysis 7x" size="576 432" center="0.0941709507095749 -0.70527845139191" scale="126" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="bubble flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
+<flame name="color eggs::16" version="Apophysis 7x" size="576 432" center="0.0941709507095749 -0.70527845139191" scale="126" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="bubble flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
    <xform weight="0.601566744519944" color="0" bubble="1" coefs="0.816864 -0.106363 -0.082784 0.76553 -0.010196 0.172821" opacity="1" />
    <xform weight="0.398433255480056" color="1" flatten="1" spherical="1" coefs="0.161586 -0.490091 0.494186 0.038791 0.567197 -0.288567" opacity="1" />
    <palette count="256" format="RGB">
@@ -116,7 +116,7 @@
       B48261C68366CC8B65CD835ED38264E68D65F58B7DE9BFA6
    </palette>
 </flame>
-<flame name="CJ-StarterFlame-08::24" version="Apophysis 7x" size="576 432" center="0.512592361435657 -0.302459949337286" scale="75.4506121903404" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="1.5" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="bubble linear flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
+<flame name="CJ-StarterFlame-08::16" version="Apophysis 7x" size="576 432" center="0.512592361435657 -0.302459949337286" scale="75.4506121903404" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="1.5" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="bubble linear flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
    <xform weight="0.499686439185375" color="0" bubble="1" coefs="-0.037489 0.719176 -0.719176 -0.037489 0.39622 -0.830498" opacity="1" />
    <xform weight="0.500313560814625" color="1" linear="0.410244635073468" flatten="1" spherical="0.589755364926532" coefs="-0.584923 -0.113948 -0.087518 0.66365 0.807981 0.069493" opacity="1" />
    <palette count="256" format="RGB">
@@ -154,7 +154,7 @@
       C2A890BBAA91B5AC939EA598929B94869290818B8A7C8584
    </palette>
 </flame>
-<flame name="CJ-StarterFlame-06::24" version="Apophysis 7x" size="576 432" center="-0.405323223190647 -0.478014368048916" scale="88.6693859649123" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="5" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear bubble flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
+<flame name="CJ-StarterFlame-06::16" version="Apophysis 7x" size="576 432" center="-0.405323223190647 -0.478014368048916" scale="88.6693859649123" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="5" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear bubble flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
    <xform weight="0.550053456525368" color="0" linear="0.952651900239289" bubble="0.0473480997607112" coefs="0.913787 0.119505 -0.251774 0.993358 -0.680828 -0.134281" opacity="1" />
    <xform weight="0.449946543474632" color="1" linear="0.551687766797841" flatten="1" spherical="0.448312233202159" coefs="0.092492 1.0942 -1.07564 -0.37157 0.593315 -1.216939" opacity="1" />
    <palette count="256" format="RGB">
@@ -192,7 +192,7 @@
       241F1629261E302A2739322E3E3732443C374A423951493B
    </palette>
 </flame>
-<flame name="CJ-Starter08::24" version="Apophysis 7x" size="576 432" center="-0.699633369253716 -0.136867061862678" scale="216" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear bubble flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
+<flame name="CJ-Starter08::16" version="Apophysis 7x" size="576 432" center="-0.699633369253716 -0.136867061862678" scale="216" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear bubble flatten spherical" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
    <xform weight="0.415635020579093" color="0" linear="0.490477384068072" bubble="0.509522615931928" coefs="-0.457246 0.410055 -0.410055 -0.457246 -0.630692 -0.131405" opacity="1" />
    <xform weight="0.584364979420907" color="1" linear="0.170422146562487" flatten="1" spherical="0.829577853437513" coefs="0.863087 -0.027141 -0.027141 -0.863087 -0.294895 -0.37756" opacity="1" />
    <palette count="256" format="RGB">
@@ -309,7 +309,7 @@
       2E264D1D3C73194B6E134D96126FAA1372B60D67A612509D
    </palette>
 </flame>
-<flame name="CJ-StarterFlame-01::24" version="Apophysis 7x" size="576 432" center="0.244714960465278 -0.334458638831051" scale="162" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear flatten spherical bubble" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
+<flame name="CJ-StarterFlame-01::16" version="Apophysis 7x" size="576 432" center="0.244714960465278 -0.334458638831051" scale="162" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="3" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" enable_de="0" plugins="linear flatten spherical bubble" new_linear="1" curves="0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1 0 0 1 0 0 1 1 1 1 1 1 1" >
    <xform weight="0.480943008463735" color="0" symmetry="0.69" linear="0.265492342645302" flatten="1" spherical="0.734507657354698" coefs="0.15283 -0.450221 0.680488 -0.049819 0.606607 -0.531101" opacity="1" />
    <xform weight="0.519056991536265" color="1" symmetry="0.384" bubble="1" coefs="0.78069 -0.013583 0.190888 -0.749501 -0.131884 -0.347733" opacity="1" />
    <palette count="256" format="RGB">
