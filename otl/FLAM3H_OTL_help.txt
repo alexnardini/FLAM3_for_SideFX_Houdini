@@ -73,7 +73,7 @@ density presets mini menu:
         
         - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
         
-        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a *`*.bgeo.sc`* files first.
+        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in which case you must bake those points out in a *`*.bgeo.sc`* files first.
         
 Reset density:
     #id: Global
@@ -314,8 +314,8 @@ xaos:
     _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
     
     *Looking from an iterator point of view*:
-    - When in *xaos_TO mode*, you will think like: *to* wich iterator am I allowed to send points I just executed?
-    - When in *xaos_FROM mode*, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
+    - When in *xaos_TO mode*, you will think like: *to* which iterator am I allowed to send points I just executed?
+    - When in *xaos_FROM mode*, you will think like: *from* which iterator am I allowed to receive points before I execute them myself?
     - _Note that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the iterator with the Curl variation in the above image. )_
     
     *How to set xaos in FLAM3 for Houdini:*
@@ -1182,7 +1182,7 @@ auto set xaos ( experimental ):
     NOTE:
         Always remove iterators from the end.
         If you have 5 iterators and remove iterator 2, the autoset xaos wont work mainly becasue 
-        as far as I know I have no way to catch wich iterator have been removed if not the very last one.
+        as far as I know I have no way to catch which iterator have been removed if not the very last one.
         
         If you really dnt need iterator 2 just disable it and FLAM3H will internally account for that missing iterator 
         during the xaos computation without the need of you changing all iterator's xaos string yourself.
@@ -1483,7 +1483,7 @@ Why:
     
     It become my anchor to mental sanity while the city was in lockdown and the Montreal winter hiting minus 40 degree outside.
     
-    After awhile, my interest to this subject grew and started to learn softwares like Apophysis and Fractorium wich they are open source
+    After awhile, my interest to this subject grew and started to learn softwares like Apophysis and Fractorium as they are open source
     and I slowly convinced mysef I could actually port the entire algorithm inside Houdini using only out of the box tools, no HDK. 
     Also, the idea to implement an algorithm that will allow infinite combinations of outcomes became very appealing to me.
     
