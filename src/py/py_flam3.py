@@ -1493,43 +1493,46 @@ def json_to_ramp(kwargs: dict) -> None:
         kwargs (dict): [kwargs[] dictionary]
     """    
     node = kwargs['node']
+    iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
     
-    #get ramp parm
-    ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-    ramp_parm.deleteAllKeyframes()
-    
-    filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-    # get current preset
-    preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-    preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
-    
-    if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-        HEXs = []
-        with open(filepath) as f:
-            data = json.load(f)[preset]
-            hex_values = data['hex']
-            [HEXs.append(hex) for hex in wrap(hex_values, 6)]
+    if iterators_num:
+        
+        #get ramp parm
+        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        
+        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        # get current preset
+        preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+        preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
+        
+        if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+            HEXs = []
+            with open(filepath) as f:
+                data = json.load(f)[preset]
+                hex_values = data['hex']
+                [HEXs.append(hex) for hex in wrap(hex_values, 6)]
 
-        rgb_from_XML_PALETTE = []
-        for hex in HEXs:
-            x = hex_to_rgb(hex)
-            rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
-        
-        # Initialize new ramp.
-        POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-        ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-        ramp_parm.set(ramp)
+            rgb_from_XML_PALETTE = []
+            for hex in HEXs:
+                x = hex_to_rgb(hex)
+                rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+            
+            # Initialize new ramp.
+            POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+            BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+            ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+            ramp_parm.set(ramp)
 
-        # reset HSV after load ?
-        if node.parm(CP_RAMP_HSV_RESET_ON_LOAD).eval():
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
-        palette_cp(node)
-        palette_hsv(node)
-        
-        # Store selection into mem preset menu
-        node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
-        
+            # reset HSV after load ?
+            if node.parm(CP_RAMP_HSV_RESET_ON_LOAD).eval():
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+            palette_cp(node)
+            palette_hsv(node)
+            
+            # Store selection into mem preset menu
+            node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
+            
 
 ###############################################################################################
 # palette copy values to paletteHSV
@@ -4946,17 +4949,26 @@ def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
 # MENU - OUT - build menu from output flame file
 ###############################################################################################
 def menu_out_contents_presets(kwargs: dict) -> list:
-    xml = kwargs['node'].parm(OUT_PATH).evalAsString()
     menu=[]
-    if apo_flame(kwargs['node'], xml).isvalidtree:
-        apo = apo_flame(kwargs['node'], xml)
-        for i, item in enumerate(apo.name):
+    node = kwargs['node']
+    iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+    if iterators_num:
+        xml = node.parm(OUT_PATH).evalAsString()
+        if apo_flame(kwargs['node'], xml).isvalidtree:
+            apo = apo_flame(kwargs['node'], xml)
+            for i, item in enumerate(apo.name):
+                menu.append(i)
+                menu.append(item)
+            return menu
+        else:
+            menu.append(-1)
+            menu.append('Empty')
+            return menu
+    else:
+        menuitems = ("Please, add at least one iterator", "")
+        for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
-        return menu
-    else:
-        menu.append(-1)
-        menu.append('Empty')
         return menu
 
 
@@ -5223,30 +5235,35 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str) -> None:
 
 def out_XML(kwargs: dict) -> None:
     node = kwargs['node']
-    out_path = node.parm(OUT_PATH).evalAsString()
-    out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+    iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
     
-    if out_path_checked is not False:
-        if kwargs['shift']:
-            open_explorer_file(out_path_checked)
-        else:
-
-            if isLock(out_path_checked, FLAM3_LIB_LOCK):
-                ui_text = f"This Flam3 library is Locked."
-                ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+    # if there is at least one iterator
+    if iterators_num:
+        
+        out_path = node.parm(OUT_PATH).evalAsString()
+        out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+        # if the output path is valid
+        if out_path_checked is not False:
+            if kwargs['shift']:
+                open_explorer_file(out_path_checked)
             else:
-                apo_data = apo_flame(kwargs['node'], str(out_path_checked))
-                if kwargs["ctrl"]:
-                    node.setParms({OUT_PATH: str(out_path_checked)})
-                    out_new_XML(node, str(out_path_checked))
-                    node.setParms({OUT_FLAME_PRESET_NAME: ''})
+
+                if isLock(out_path_checked, FLAM3_LIB_LOCK):
+                    ui_text = f"This Flam3 library is Locked."
+                    ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                 else:
-                    node.setParms({OUT_PATH: str(out_path_checked)})
-                    if apo_data.isvalidtree:
-                        out_append_XML(node, apo_data, str(out_path_checked))
-                        node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                    else:
+                    apo_data = apo_flame(kwargs['node'], str(out_path_checked))
+                    if kwargs["ctrl"]:
+                        node.setParms({OUT_PATH: str(out_path_checked)})
                         out_new_XML(node, str(out_path_checked))
                         node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                init_presets(kwargs, OUT_PRESETS)
+                    else:
+                        node.setParms({OUT_PATH: str(out_path_checked)})
+                        if apo_data.isvalidtree:
+                            out_append_XML(node, apo_data, str(out_path_checked))
+                            node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                        else:
+                            out_new_XML(node, str(out_path_checked))
+                            node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                    init_presets(kwargs, OUT_PRESETS)
