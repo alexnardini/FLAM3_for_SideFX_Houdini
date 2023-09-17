@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = "1.0.2"
+FLAM3HOUDINI_VERSION = '1.0.2'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -85,13 +85,13 @@ PALETTE_COUNT_256 = '256'
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
-GLB_DENSITY = "ptcount"
-GLB_DENSITY_PRESETS = "ptcount_presets"
-GLB_ITERATIONS = "iter"
+GLB_DENSITY = 'ptcount'
+GLB_DENSITY_PRESETS = 'ptcount_presets'
+GLB_ITERATIONS = 'iter'
 SYS_DO_FF = 'doff'
-SYS_RIP = "rip"
-SYS_TAG = "tag"
-SYS_TAG_SIZE = "tagsize"
+SYS_RIP = 'rip'
+SYS_TAG = 'tag'
+SYS_TAG_SIZE = 'tagsize'
 SYS_CP_PALETTE_PRESETS = 'sys_palettepresets'
 SYS_IN_PRESETS = 'sys_inpresets'
 FLAME_ITERATORS_COUNT = "flamefunc"
@@ -117,6 +117,7 @@ OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
+OUT_FLAM3_FILE_EXT = '.flame'
 PREFS_XAOS_MODE = 'xm'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
 # Motion blur
@@ -2125,26 +2126,26 @@ def make_POST(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union
 # Increase this if for some reason you need more precision.
 ROUND_DECIMAL_COUNT = 8
 # XML
-XML_FLAME_NAME = "flame"
-XML_FLAME_VERSION = "version"
-XML_FLAME_PLUGINS = "plugins"
-XML_FLAME_NEW_LINEAR = "new_linear"
-XML_XF = "xform"
-XML_XF_WEIGHT = "weight"
-XML_XF_NAME = "name"
-XML_XF_PB = "pre_blur"
-XML_FF = "finalxform"
-XML_PRE_AFFINE = "coefs"
-XML_POST_AFFINE = "post"
-XML_XF_XAOS = "chaos"
-XML_PALETTE = "palette"
-XML_PALETTE_COUNT = "count"
-XML_PALETTE_FORMAT = "format"
-XML_XF_COLOR = "color"
-XML_XF_VAR_COLOR = "var_color"
-XML_XF_SYMMETRY = "symmetry"
-XML_XF_COLOR_SPEED = "color_speed"
-XML_XF_OPACITY = "opacity"
+XML_FLAME_NAME = 'flame'
+XML_FLAME_VERSION = 'version'
+XML_FLAME_PLUGINS = 'plugins'
+XML_FLAME_NEW_LINEAR = 'new_linear'
+XML_XF = 'xform'
+XML_XF_WEIGHT = 'weight'
+XML_XF_NAME = 'name'
+XML_XF_PB = 'pre_blur'
+XML_FF = 'finalxform'
+XML_PRE_AFFINE = 'coefs'
+XML_POST_AFFINE = 'post'
+XML_XF_XAOS = 'chaos'
+XML_PALETTE = 'palette'
+XML_PALETTE_COUNT = 'count'
+XML_PALETTE_FORMAT = 'format'
+XML_XF_COLOR = 'color'
+XML_XF_VAR_COLOR = 'var_color'
+XML_XF_SYMMETRY = 'symmetry'
+XML_XF_COLOR_SPEED = 'color_speed'
+XML_XF_OPACITY = 'opacity'
 # custom to FLAM3H only
 OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 OUT_XML_FLMA3H_MB_FPS = 'flam3h_fps'
@@ -2196,7 +2197,7 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 }
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
-XML_VALID_FLAMES_ROOT_TAG = "flames"
+XML_VALID_FLAMES_ROOT_TAG = 'flames'
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
 # Note that "pre_gaussian_blur" has been added to this tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini
@@ -2208,7 +2209,6 @@ XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_spe
 XML_XF_PRM_EXCEPTION = ("None", )
 
 ITER_LOAD_DEFAULT = 64
-OUT_FLAM3_FILE_EXT = '.flame'
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
@@ -2225,9 +2225,9 @@ MAX_FF_VARS = 2
 MAX_FF_VARS_PRE = 1
 MAX_FF_VARS_POST = 2
 
-XML_APP_NAME_FLAM3HOUDINI = "FLAM3H"
-XML_APP_NAME_FRACTORIUM = "EMBER-"
-XML_APP_NAME_APO = "Apophysis"
+XML_APP_NAME_FLAM3HOUDINI = 'FLAM3H'
+XML_APP_NAME_FRACTORIUM = 'EMBER-'
+XML_APP_NAME_APO = 'Apophysis'
 
 # This is used as a faster idx lookup table.
 # From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3 for houdini var idx it is mapped to.
@@ -5171,17 +5171,17 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
                 return out_check_build_file(file_s, filename_s[0], file_ext)
             else:
                 # Print out proper msg based on file extension
-                if ".flame" == file_ext:
+                if OUT_FLAM3_FILE_EXT == file_ext:
                     print(f"{str(self)}.OUT: You selected an OUT file that is not a {prx} file type.")
-                elif ".json" == file_ext:
+                elif OUT_PALETTE_FILE_EXT == file_ext:
                     print(f"{str(self)}.Palette: You selected an OUT file that is not a {prx} file type.")
                 return False
         else:
             # If the path string is empty we do not want to print out
             if file:
-                if ".flame" == file_ext:
+                if OUT_FLAM3_FILE_EXT == file_ext:
                     print(f"{str(self)}.OUT: Select a valid OUT directory location.")
-                elif ".json" == file_ext:
+                elif OUT_PALETTE_FILE_EXT == file_ext:
                     print(f"{str(self)}.Palette: Select a valid OUT directory location.")
             return False
     else:
@@ -5191,9 +5191,9 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
         else:
             # If the path string is empty we do not want to print out
             if file:
-                if ".flame" == file_ext:
+                if OUT_FLAM3_FILE_EXT == file_ext:
                     print(f"{str(self)}.OUT: Select a valid OUT directory location.")
-                elif ".json" == file_ext:
+                elif OUT_PALETTE_FILE_EXT == file_ext:
                     print(f"{str(self)}.Palette: Select a valid OUT directory location.")
             return False
 
