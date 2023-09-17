@@ -1896,9 +1896,9 @@ def flam3_default(self: hou.Node) -> None:
     # This way all parameters will reset to their default values.
     self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
     # set xaos
-    auto_set_xaos(self, 3)
+    autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
+    auto_set_xaos(self, 3, autoset)
 
-    #
     # SYS
     reset_SYS(self, 1, 10, 1)
     reset_FF(self)
@@ -1908,7 +1908,7 @@ def flam3_default(self: hou.Node) -> None:
     reset_OUT(self)
     reset_PREFS(self)
     
-    # iterators
+    # iterator prm names
     n = flam3_iterator_prm_names
 
     # iter 1
@@ -1969,7 +1969,7 @@ def flam3_default(self: hou.Node) -> None:
 
 
 
-def auto_set_xaos(self: hou.Node, iterators_count: int) -> None:
+def auto_set_xaos(self: hou.Node, iterators_count: int, autoset: int) -> None:
     """Set iterator's xaos values every time an iterator is added or removed.
     It will keep the existing xaos weights and only add/remove the necessary one. In case of add, they will have a value of 1.
 
@@ -1977,21 +1977,22 @@ def auto_set_xaos(self: hou.Node, iterators_count: int) -> None:
         self (hou.Node): FLAM3H node
         iterators_count (int): number of iterators
     """
-    iterator_names = flam3_iterator_prm_names()
-    val = out_flame_properties.xaos_collect(self, iterators_count, "varnote")
-    fill = [np.pad(item, (0, iterators_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
-    
-    xaos_str = []
-    for x in fill:
-        collect = []
-        for idx, item in enumerate(x):
-            collect.append(str(item))
-        xaos_str.append(collect)
+    if autoset:
         
-    xaos_str_round_floats = tuple([":".join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
-    for mp_idx, xaos in enumerate(xaos_str_round_floats):
-        xaos_set = 'xaos:' + xaos
-        self.setParms({f"{iterator_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
+        val = out_flame_properties.xaos_collect(self, iterators_count, "varnote")
+        fill = [np.pad(item, (0, iterators_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+        
+        xaos_str = []
+        for x in fill:
+            collect = []
+            for item in x:
+                collect.append(str(item))
+            xaos_str.append(collect)
+            
+        xaos_str_round_floats = tuple([":".join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
+        for mp_idx, xaos in enumerate(xaos_str_round_floats):
+            xaos_set = 'xaos:' + xaos
+            self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
         
 def iteratorCountZero(self: hou.Node) -> None:
     """
@@ -2025,9 +2026,9 @@ def iteratorCountZero(self: hou.Node) -> None:
         self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
         
     else:
-        if self.parm(PREFS_XAOS_AUTO_SET).evalAsInt():
-            # set xaos every time an iterator is added or removed
-            auto_set_xaos(self, iterators_count)
+        autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
+        # set xaos every time an iterator is added or removed
+        auto_set_xaos(self, iterators_count, autoset)
 
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website

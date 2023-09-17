@@ -1162,7 +1162,7 @@ cvex precision modes:
     #display: rounded white
 
     *xaos*
-    
+        
 xaos modes:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
@@ -1171,6 +1171,12 @@ xaos modes:
     
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        
+auto set xaos:
+    #id: prefs
+    ON by default. Set iterator's xaos values every time an iterator is added or removed. 
+    It will keep the existing xaos weights and only add/remove the necessary one. 
+    In case of add, they will have a value of 1.
     
 :box:
     #display: rounded white
