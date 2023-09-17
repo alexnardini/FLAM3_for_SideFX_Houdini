@@ -20,6 +20,7 @@ _*A bit of history* ( from wikipedia )_:
 
 == Welcome to FLAM3 for SideFX Houdini ==
 
+_Houdini 19 only_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
@@ -1474,6 +1475,3 @@ Why:
     
     Once I completed my engagemnet, at the end of 2020, I returned to italy and kept working on this, but also fell in love with fractal art as a discipline
     and produced ( and still producing ) countles of fractal flame images using this tool as I develope it, something important as I could/can steer this tool in the right direction.
-
-    
-    
