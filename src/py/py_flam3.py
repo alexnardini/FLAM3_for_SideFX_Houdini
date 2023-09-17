@@ -5234,6 +5234,7 @@ def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str) -> None:
 
 
 def out_XML(kwargs: dict) -> None:
+    
     node = kwargs['node']
     iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
     
@@ -5244,6 +5245,7 @@ def out_XML(kwargs: dict) -> None:
         out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
         # if the output path is valid
         if out_path_checked is not False:
+            
             if kwargs['shift']:
                 open_explorer_file(out_path_checked)
             else:
