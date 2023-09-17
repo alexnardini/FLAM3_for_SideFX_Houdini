@@ -61,6 +61,7 @@ CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
 DENSITY_LOAD_DEFAULT = 500000
+ITERATIONS_LOAD_DEFAULT = 10
 
 DPT = '*'
 PRM = '...'
@@ -119,6 +120,7 @@ OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 PREFS_XAOS_MODE = 'xm'
+PREFS_XAOS_AUTO_SET = 'autoxaos'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
 # Motion blur
 OUT_MB_DO = 'domb'
@@ -1893,6 +1895,8 @@ def flam3_default(self: hou.Node) -> None:
     # Add back iterators
     # This way all parameters will reset to their default values.
     self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
+    # set xaos
+    auto_set_xaos(self, 3)
 
     #
     # SYS
@@ -1964,21 +1968,48 @@ def flam3_default(self: hou.Node) -> None:
     self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
 
 
-###############################################################################################
-# Parameters reset if iterators count is set to ZERO.
-###############################################################################################
+
+def auto_set_xaos(self: hou.Node, iterators_count: int) -> None:
+    """Set iterator's xaos values every time an iterator is added or removed.
+    It will keep the existing xaos weights and only add/remove the necessary one. In case of add, they will have a value of 1.
+
+    Args:
+        self (hou.Node): FLAM3H node
+        iterators_count (int): number of iterators
+    """
+    iterator_names = flam3_iterator_prm_names()
+    val = out_flame_properties.xaos_collect(self, iterators_count, "varnote")
+    fill = [np.pad(item, (0, iterators_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+    
+    xaos_str = []
+    for x in fill:
+        collect = []
+        for idx, item in enumerate(x):
+            collect.append(str(item))
+        xaos_str.append(collect)
+        
+    xaos_str_round_floats = tuple([":".join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
+    for mp_idx, xaos in enumerate(xaos_str_round_floats):
+        xaos_set = 'xaos:' + xaos
+        self.setParms({f"{iterator_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
+        
 def iteratorCountZero(self: hou.Node) -> None:
     """
     Args:
         self (hou.Node): [current hou.Node]
     """
 
-    if not self.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+    iterators_count = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+    
+    if not iterators_count:
         # delete channel references
         for p in self.parms():
             p.deleteAllKeyframes()
-        # SYS
+            
+        # GLOBAL
         self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+        self.setParms({GLB_ITERATIONS: ITERATIONS_LOAD_DEFAULT}) # type: ignore
+        # SYS
         self.setParms({SYS_DO_FF: 0}) # type: ignore
         self.setParms({SYS_RIP: 0}) # type: ignore
         # FF vars
@@ -1989,9 +2020,14 @@ def iteratorCountZero(self: hou.Node) -> None:
         self.setParms({"showprefs": 1}) # type: ignore
         self.setParms({"camhandle": 0}) # type: ignore
         self.setParms({"camcull": 0}) # type: ignore
-        
+
         # descriptive message parameter
         self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+        
+    else:
+        if self.parm(PREFS_XAOS_AUTO_SET).evalAsInt():
+            # set xaos every time an iterator is added or removed
+            auto_set_xaos(self, iterators_count)
 
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website
