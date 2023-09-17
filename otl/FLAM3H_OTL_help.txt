@@ -1179,6 +1179,11 @@ auto set xaos:
     It will keep the existing xaos weights and only add/remove the necessary one. 
     In case of add, they will have a value of 1.
     
+    NOTE:
+        If you have 5 iterators and remove iterator 2, the autoset xaos wont work.
+        Always remove iterators from the end. If you really dnt need iterator 2 like in the preview example,
+        just disable it and FLAM3H will internally account for that missing iterator during the xaos computation without the need of you changing all iterator's xaos string yourself.
+    
 :box:
     #display: rounded white
 
