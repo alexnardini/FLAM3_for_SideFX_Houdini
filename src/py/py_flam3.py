@@ -80,6 +80,8 @@ SEC_POSTAFFINE = '.post_affine'
 PALETTE_COUNT_64 = '64'
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
+# The following will always be used for now
+# even tho we check for the XML palette format on load.
 PALETTE_FORMAT = 'RGB'
 
 # Parameters at hand
