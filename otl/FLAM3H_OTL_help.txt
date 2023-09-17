@@ -1441,29 +1441,6 @@ FF Shader:
         
         This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
         
-
-@Why
-
-= _Reasons for this tool to exist_ =
-
-Why:
-    #id: Why
-    
-    At the beginning of 2020 I relocated to Montreal to work on an Streaming episodic series, when Covid hit.
-    I was new to the city and by myself and Montreal kept being in lock down for the entire year.
-    
-    I started to look into IFS by a pure coincidence, how they are done and what could have been possible to produce with it, I was blown.
-    
-    It become my anchor to mental sanity while the city was in lockdown and the Montreal winter hiting minus 40 degree outside.
-    
-    After awhile, my interest to this subject grew and started to learn softwares like Apophysis and Fractorium wich they are open source
-    and I slowly convinced mysef I could actually port the entire algorithm inside Houdini using only out of the box tools, no HDK. 
-    Also, the idea to implement an algorithm that will allow infinite combinations of outcomes became very appealing to me.
-    
-    This is the result of that thought.
-    
-    Once I completed my engagemnet, at the end of 2020, I returned to italy and kept working on this, but also fell in love with fractal art as a discipline
-    and produced ( and still producing ) countles of fractal flame images using this tool as I develope it, something important as I could/can steer this tool in the right direction.
         
 
 @Author
@@ -1476,5 +1453,27 @@ Mini bio:
     Alessandro Nardini is an Italian artist whos spent most of his career serving the entertainment industry.
     He served many different branches of entertainment post production,
     spanning from feature films, games, TV/commercials, episodic series and streaming.
+    
+@Why
+
+= _Reasons for this tool to exist_ =
+
+Why:
+    #id: Why
+    
+    At the beginning of 2020 I relocated to Montreal to work on an episodic series for streaming, when Covid hit.
+    I was new to the city and by myself and Montreal kept being in lock down for the entire year.
+    
+    I started to look into IFS by a pure coincidence, how they are done and what could have been possible to produce with it, I was hooked.
+    
+    It become my anchor to mental sanity while the city was in lockdown and the Montreal winter hiting minus 40 degree outside.
+    
+    After awhile, my interest to this subject grew and started to learn softwares like Apophysis and Fractorium wich they are open source
+    and I slowly convinced mysef I could actually port the entire algorithm inside Houdini using only out of the box tools, no HDK. 
+    Also, the idea to implement an algorithm that will allow infinite combinations of outcomes became very appealing to me.
+    
+    Once I completed my engagemnet, at the end of 2020, I returned to italy and kept working on this, but also fell in love with fractal art as a discipline
+    and produced ( and still producing ) countles of fractal flame images using this tool as I develope it, something important as I could/can steer this tool in the right direction.
+
     
     
