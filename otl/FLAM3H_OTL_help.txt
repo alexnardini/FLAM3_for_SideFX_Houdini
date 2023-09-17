@@ -1173,16 +1173,25 @@ xaos modes:
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
         
-auto set xaos:
+auto set xaos ( experimental ):
     #id: prefs
     ON by default. Set iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary one. 
     In case of add, they will have a value of 1.
     
     NOTE:
-        If you have 5 iterators and remove iterator 2, the autoset xaos wont work.
-        Always remove iterators from the end. If you really dnt need iterator 2 like in the preview example,
-        just disable it and FLAM3H will internally account for that missing iterator during the xaos computation without the need of you changing all iterator's xaos string yourself.
+        Always remove iterators from the end.
+        If you have 5 iterators and remove iterator 2, the autoset xaos wont work mainly becasue 
+        as far as I know I have no way to catch wich iterator have been removed if not the very last one.
+        
+        If you really dnt need iterator 2 just disable it and FLAM3H will internally account for that missing iterator 
+        during the xaos computation without the need of you changing all iterator's xaos string yourself.
+        
+    TIP:
+        Following the NOTE example about the 5 iterators and you remove iterator 2:
+        
+        If you disable iterator 2 and then save out the flame, all xaos values will be reset correctly once you load it back
+        as iterator 2 wont be included inside the flame XML file.
     
 :box:
     #display: rounded white
