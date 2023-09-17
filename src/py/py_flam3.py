@@ -1972,6 +1972,7 @@ def flam3_default(self: hou.Node) -> None:
 def auto_set_xaos(self: hou.Node, iterators_count: int, autoset: int) -> None:
     """Set iterator's xaos values every time an iterator is added or removed.
     It will keep the existing xaos weights and only add/remove the necessary one. In case of add, they will have a value of 1.
+    In case of removing iterators, this will work if you always remove an iterator from the end ( always the last ).
 
     Args:
         self (hou.Node): FLAM3H node
@@ -1979,7 +1980,7 @@ def auto_set_xaos(self: hou.Node, iterators_count: int, autoset: int) -> None:
     """
     if autoset:
         
-        val = out_flame_properties.xaos_collect(self, iterators_count, "varnote")
+        val = out_flame_properties.xaos_collect(self, iterators_count, flam3_iterator_prm_names.xaos)
         fill = [np.pad(item, (0, iterators_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
         
         xaos_str = []
