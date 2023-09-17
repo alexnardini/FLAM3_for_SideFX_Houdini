@@ -88,7 +88,25 @@ iterations:
     - If you increase an iterator weight, use xaos to build containers or use some kind of variations you will require higher number to resolve and show you the proper result.
     
     Almost all of the fractal flame showcased inside FLAM3 for Houdini website/instagram account
-    use a maximun of 64 iterations with a few exceptions reaching 96 and in rare cases 128/256.
+    use a maximun of 64 iterations with a few exceptions reaching 96 and in rare cases 128/256 and more.
+    
+    Some flames require truly an high amount of iterations to resolve properly.
+
+    Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
+    They have been choosen because they use variations I have implemented too and because some are really expensive to solve.
+
+    Some require thousands of iterations to show you the proper results, 
+    some of them require hundreds and some others are really quick.
+    
+    _*[ieddaka gnarl: 1280 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg]*_
+    
+    _*[blue modulus: 512 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg]*_
+    
+    _*[lazyswirls: 512 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg]*_
+    
+    _*[majestic: 64 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg]*_
+    
+    
     
     TIP:
         You can create some beautiful fractal flames with just 6 iterations, below an example I did myself:
