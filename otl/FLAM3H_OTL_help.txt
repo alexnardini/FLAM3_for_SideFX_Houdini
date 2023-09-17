@@ -1473,5 +1473,5 @@ Why:
     and I slowly convinced mysef I could actually port the entire algorithm inside Houdini using only out of the box tools, no HDK. 
     Also, the idea to implement an algorithm that will allow infinite combinations of outcomes became very appealing to me.
     
-    Once I completed my engagemnet, at the end of 2020, I returned to italy and kept working on this, but also fell in love with fractal art as a discipline
+    Once I completed my engagemnet, at the end of 2020, I returned to Italy and kept working on this, but also fell in love with fractal art as a discipline
     and produced ( and still producing ) countles of fractal flame images using this tool as I develope it, something important as I could/can steer this tool in the right direction.
