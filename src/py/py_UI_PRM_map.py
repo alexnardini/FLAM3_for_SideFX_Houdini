@@ -106,7 +106,7 @@ kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 
 'flamefunc'
 'Callback Script'
-hou.pwd().hdaModule().flam3.iteratorCountZero(kwargs['node'])
+hou.pwd().hdaModule().flam3.iterator_count(kwargs['node'])
 
 'activetip_#'
 'Callback Script'

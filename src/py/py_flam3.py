@@ -1996,7 +1996,7 @@ def auto_set_xaos(self: hou.Node, iterators_count: int, autoset: int) -> None:
             xaos_set = 'xaos:' + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
         
-def iteratorCountZero(self: hou.Node) -> None:
+def iterator_count(self: hou.Node) -> None:
     """
     Args:
         self (hou.Node): [current hou.Node]
