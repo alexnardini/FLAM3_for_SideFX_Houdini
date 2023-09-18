@@ -247,8 +247,9 @@ iterators:
     * This is equivalent to the number of triangle handles you have inside popular fractal flame editors out there.
     
     NOTE:
-        The order of the iterators do not matter at all and for this reason 
-        you should always create them using the plus button in the parameter name: "*iterators*", never inbetween but always one after the other.
+        The order of the iterators do not matter at all,
+        for this reason it is much more handy to create them one after the other sequentially
+        and will make your life easier when it come the time to set the xaos's weights.
         
         This will ensure that the *Auto set xaos* option in the preferences Tab will always work correctly.
         
@@ -1188,22 +1189,13 @@ auto set xaos:
     #id: prefs
     ON by default. Set iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary one. 
-    In case of add, they will have a value of 1.
-    
+    In case of add, new xaos weights will have a value of 1.
+
     NOTE:
-        Always remove iterators from the end.
-        If you have 5 iterators and remove iterator 2, the autoset xaos wont work mainly becasue 
-        as far as I know I have no way to catch which iterator have been removed if not the very last one.
-        
-        If you really dnt need iterator 2 just disable it and FLAM3H will internally account for that missing iterator 
-        during the xaos computation without the need of you changing all iterator's xaos string yourself.
-        
-    TIP:
-        Following the NOTE example about the 5 iterators and you remove iterator 2:
-        
-        If you disable iterator 2 and then save out the flame, all xaos values will be reset correctly once you load it back
-        as iterator 2 wont be included inside the flame XML file.
-    
+        In this version this function is experimental and will work correctly when only one FLAM3H node is in the scene.
+
+        _*With multiple FLAM3H nodes it will messup.*_
+
 :box:
     #display: rounded white
 
