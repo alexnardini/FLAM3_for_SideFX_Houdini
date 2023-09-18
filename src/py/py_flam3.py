@@ -4340,11 +4340,132 @@ class _out_utils():
         self._flam3h_mb_do = self._node.parm(OUT_MB_DO).eval()
         
     @staticmethod
+    def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+        """It will check the passed Flame name 
+        and add the iteration number to it if needed.
+
+        Args:
+            iter_num (int): the current iteration's number
+            flame_name (str): The Flame name to check
+            autoadd (int): Auto add iter num toggle value
+
+        Returns:
+            str: A new Flame name with the iter num added if needed.
+        """
+        if autoadd:
+            
+            flame_name = flame_name.strip()
+            if flame_name:
+                
+                splt = ':'
+                div = '::'
+                now = datetime.now()
+                flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+                
+                rp = flame_name.split(splt)
+                rp[:] = [item for item in rp if item]
+                
+                # Lets make some name checks first
+                #
+                # if it start with a special character
+                if not flame_name[0].isalnum():
+                    rp = flame_name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+                # if it end with special character
+                elif not flame_name[-1].isalnum():
+                    rp = flame_name.split(splt)
+                    if len(rp)==1 and len(rp[0]):
+                        item_cleaned =''.join(letter for letter in rp[0].strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
+                        rp = [item_cleaned]
+                    elif len(rp)>1:
+                        flame_name_new = ' '.join(rp[:-1])
+                        rp = flame_name_new.split(splt)
+                        rp[:] = [item for item in rp if item]
+                    else:
+                        rp = flame_name_new.split(splt)
+                        rp[:] = [item for item in rp if item]
+                
+                is_int = True
+                try:
+                    # if the name is a number, we want to still add the iteration num to it
+                    # and not evaluate this as integer
+                    if rp[-1] != flame_name:
+                        int(rp[-1].strip())
+                    else:
+                        is_int = False
+                except:
+                    is_int = False
+                    
+                if is_int is False:
+                    rp_clean = []
+                    for item in rp:
+                        item_cleaned = ''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
+                        rp_clean.append(item_cleaned)
+                        
+                    flame_name_new = ' '.join(rp_clean) + div + str(iter_num)
+                    return flame_name_new.strip()
+                else:
+                    _rp = str(flame_name).rpartition(div)
+                    if _rp[-1] != rp[-1].strip():
+                        return ''.join([item.strip() for item in _rp[:-1]]) + str(iter_num)
+                    else:
+                        return flame_name
+            else:
+                return flame_name
+        else:
+            return flame_name
+    
+    @staticmethod 
+    def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+        """It will check the passed Flame name 
+        and update the iteration number when changing iterations.
+        If not iteration number is present in the passed Flame name
+        it will add it to the end of the Flame name.
+
+        Args:
+            iter_num (int): the current iteration's number
+            flame_name (str): The Flame name to check
+            autoadd (int): Auto add iter num toggle value
+
+        Returns:
+            str: A new Flame name with the iter num updated/added if needed.
+        """
+        if autoadd:
+            
+            flame_name = flame_name.strip()
+            if flame_name:
+                
+                div = '::'
+                flame_name = out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                rp = str(flame_name).rpartition(div)
+
+                is_int = False
+                try:
+                    if rp[-1] != flame_name:
+                        int(rp[-1])
+                        is_int = True
+                    else:
+                        pass
+                except:
+                    pass
+                
+                if is_int:
+                    flame_name_changed = ''.join(rp[:-1]) + str(iter_num)
+                    return flame_name_changed
+                else:
+                    return flame_name
+            else:
+                return flame_name
+        else:
+            return flame_name
+        
+        
+    @staticmethod
     def flame_default_name(node: hou.Node, autoadd: int) -> str:
         now = datetime.now()
         flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
-        return out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        return out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
     @staticmethod
     def affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
@@ -5008,129 +5129,6 @@ def menu_out_contents_presets(kwargs: dict) -> list:
             menu.append(i)
             menu.append(item)
         return menu
-
-
-def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-    """It will check the passed Flame name 
-    and add the iteration number to it if needed.
-
-    Args:
-        iter_num (int): the current iteration's number
-        flame_name (str): The Flame name to check
-        autoadd (int): Auto add iter num toggle value
-
-    Returns:
-        str: A new Flame name with the iter num added if needed.
-    """
-    if autoadd:
-        
-        if flame_name:
-            
-            splt = ':'
-            div = '::'
-            now = datetime.now()
-            flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
-            
-            rp = flame_name.split(splt)
-            rp[:] = [item for item in rp if item]
-            
-            # Lets make some name checks first
-            #
-            # if the filename start with either ':' or '::' FOLLOWED by a valid integer
-            # lets give it a default name
-            if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
-                rp = flame_name_new.split(splt)
-                rp[:] = [item for item in rp if item]
-            # else if the filename end with either ':' or '::' PRECEDED by a valid integer
-            # lets give it a default name
-            elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
-                rp = flame_name_new.split(splt)
-                rp[:] = [item for item in rp if item]
-            
-            is_int = True
-            try:
-                # if the name is a number, we want to still add the iteration num to it
-                # and not evaluate this as integer
-                if rp[-1] != flame_name:
-                    int(rp[-1])
-                else:
-                    is_int = False
-            except:
-                is_int = False
-                
-            if is_int is False:
-                rp_clean = []
-                for item in rp:
-                    item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
-                    rp_clean.append(item_cleaned)
-                    
-                flame_name_new = ' '.join(rp_clean) + div + str(iter_num)
-                return flame_name_new
-            else:
-                return flame_name
-        else:
-            return flame_name
-    else:
-        return flame_name    
-
-
-def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-    """It will check the passed Flame name 
-    and update the iteration number when changing iterations.
-    If not iteration number is present in the passed Flame name
-    it will add it to the end of the Flame name.
-
-    Args:
-        iter_num (int): the current iteration's number
-        flame_name (str): The Flame name to check
-        autoadd (int): Auto add iter num toggle value
-
-    Returns:
-        str: A new Flame name with the iter num updated/added if needed.
-    """
-    if autoadd:
-        
-        if flame_name:
-            
-            splt = ':'
-            div = '::'
-            now = datetime.now()
-            flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
-            
-            rp = str(flame_name).rpartition(div)
-            
-            # Lets make some name checks first
-            #
-            # if the filename start with either a ':' or '::' followed by a valid integer
-            # lets give it a default name
-            if (flame_name[0:1] == splt or flame_name[0:2] == div) and isinstance(int(rp[-1]), int):
-                rp = flame_name_new.split(splt)
-                rp[:] = [item for item in rp if item]
-            # else if the filename end with either a ':' or '::' preceded by a valid integer
-            # lets give it a default name
-            elif (flame_name[-1:] == splt or flame_name[-2:] == div) and isinstance(int(rp[0]), int):
-                rp = flame_name_new.split(splt)
-                rp[:] = [item for item in rp if item]
-
-            is_int = False
-            try:
-                if rp[-1] != flame_name:
-                    int(rp[-1])
-                    is_int = True
-                else:
-                    pass
-            except:
-                pass
-            
-            if is_int:
-                flame_name_changed = ''.join(rp[:-1]) + str(iter_num)
-                return flame_name_changed
-            else:
-                return out_auto_add_iter_num(iter_num, flame_name, autoadd)
-        else:
-            return flame_name
-    else:
-        return flame_name
     
 # Get data needed
 def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
@@ -5142,13 +5140,13 @@ def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
 # Callback script
 def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
     iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
-    flame_name_new = out_auto_add_iter_num(iter_num, flame_name, autoadd)
+    flame_name_new = out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 # Callback script
 def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
     iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
-    flame_name_new = out_auto_change_iter_num(iter_num, flame_name, autoadd)
+    flame_name_new = out_flame_properties.out_auto_change_iter_num(iter_num, flame_name, autoadd)
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
@@ -5178,6 +5176,7 @@ def out_check_build_file(file_split: tuple[str, str], file_name: str, file_ext: 
     build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
     # the file_ext start with a dot so its added as last
     return "/".join(build_f_s_cleaned) + file_ext
+
 def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
     
     now = datetime.now()
@@ -5193,7 +5192,7 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
         # Just in case lets check is a valid location
         if os.path.isdir(file_s[0]):
 
-            filename_s = os.path.splitext(file_s[-1])
+            filename_s = os.path.splitext(file_s[-1].strip())
             
             if filename_s[-1] == file_ext:
                 build_f_s = file.split("/")
@@ -5203,10 +5202,13 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
             
             elif not filename_s[-1] and filename_s[0]:
                 # this is done in case only the extension is left in the prm field
-                if file_s[-1] in file_ext or file_s[-1][0] == ".":
+                if file_s[-1] in file_ext and file_s[-1][0] == ".":
                     return out_check_build_file(file_s, new_name, file_ext)
                 else:
-                    return out_check_build_file(file_s, file_s[-1], file_ext)
+                    if not file_s[-1][0].isalnum():
+                        return out_check_build_file(file_s, new_name, file_ext)
+                    else:
+                        return out_check_build_file(file_s, file_s[-1], file_ext)
             
             elif not filename_s[-1] and not filename_s[0]:
                 return out_check_build_file(file_s, new_name, file_ext)
