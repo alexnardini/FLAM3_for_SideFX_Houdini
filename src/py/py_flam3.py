@@ -4689,7 +4689,7 @@ class _out_utils():
             else:
                 # otherwise get that name and use it
                 iter_num = self._node.parm(GLB_ITERATIONS).evalAsInt()
-                return out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                return out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
 
 
     def __out_xf_data(self, prm_name: str) -> tuple[str]:
