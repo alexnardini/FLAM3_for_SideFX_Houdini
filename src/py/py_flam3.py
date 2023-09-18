@@ -300,7 +300,7 @@ class flam3_iterator_prm_names:
     main_vactive = "vactive"
     main_weight = "iw"
     # Xaos
-    xaos = "varnote"
+    xaos = "xaos"
     # Shader
     shader_color = "clr"
     shader_speed = "clrspeed"
