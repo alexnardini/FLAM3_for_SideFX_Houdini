@@ -14,7 +14,7 @@ source_filename = "TFFAxaos"
 @9 = private constant [1 x i8] zeroinitializer
 @10 = private constant [12 x i8] c"../vactive_\00"
 @11 = private constant [7 x i8] c"../iw_\00"
-@12 = private constant [12 x i8] c"../varnote_\00"
+@12 = private constant [9 x i8] c"../xaos_\00"
 @13 = private constant [2 x i8] c":\00"
 @14 = private constant [5 x i8] c"XAOS\00"
 @15 = private constant [2 x i8] c".\00"
@@ -228,7 +228,7 @@ cond53:                                           ; preds = %end226, %end
 
 body54:                                           ; preds = %cond53
   %return62 = call i8* @"getcomp@S[SI"(i8** %sIDX.0, i64 %i52.0)
-  %return63 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @12, i64 0, i64 0), i8* %return62)
+  %return63 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @12, i64 0, i64 0), i8* %return62)
   %return64 = call i8* @"chs@SS"(i8* %return63)
   %return66 = call i8** @"split@[SSS"(i8* %return64, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @13, i64 0, i64 0))
   %return68 = call i64 @"len@I[S"(i8** %return66)

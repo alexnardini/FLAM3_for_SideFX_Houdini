@@ -73,7 +73,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
 
     for(int i=0; i<res; ++i){
 
-        string varnote = chs(concat("../varnote_", sIDX[i]));
+        string varnote = chs(concat("../xaos_", sIDX[i]));
         string varxaos[] = split(varnote, ":");
         float xaos[];
 
