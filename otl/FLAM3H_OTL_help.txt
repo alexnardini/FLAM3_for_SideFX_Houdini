@@ -242,6 +242,13 @@ iterators:
     Number of iterators to use.
     * This is equivalent to the number of triangle handles you have inside popular fractal flame editors out there.
     
+    NOTE:
+        The order of the iterators do not matter at all and for this reason 
+        you should always create them using the plus button in the parameter name: "*iterators*", never inbetween but always one after the other.
+        
+        This will ensure that the *Auto set xaos* option in the preferences Tab will always work correctly.
+        
+    
 :box:
     #display: rounded white
 
@@ -1127,7 +1134,7 @@ Vibrancy:
 :box:
     #display: inverted teal
 
-    *PREFS:* _Tool's preferences._
+    *prefs:* _Tool's preferences._
 
 display prefs:
     #id: prefs
@@ -1136,7 +1143,7 @@ display prefs:
 :box:
     #display: round white
     
-    *general*
+    *prefs: general*
     
 flam3 compatibility (f3c):
     #id: prefs
@@ -1162,7 +1169,7 @@ cvex precision modes:
 :box:
     #display: rounded white
 
-    *xaos*
+    *prefs: xaos*
         
 xaos modes:
     #id: prefs
@@ -1196,7 +1203,7 @@ auto set xaos:
 :box:
     #display: rounded white
 
-    *camera*
+    *prefs: camera*
             
 handle:
     #id: prefs
@@ -1219,6 +1226,11 @@ cam:
 amount:
     #id: prefs
     Culling amount.
+    
+:box:
+    #display: rounded white
+
+    *prefs: viewport*
     
 dark:
     #id: prefs
