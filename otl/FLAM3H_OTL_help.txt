@@ -52,6 +52,8 @@ NOTE:
     #display: inverted teal
 
     *GLOBAL*
+    
+    Here you will define the quality of the fractal flame algorithm solution.
 
 density:
     #id: GLOBAL
@@ -127,6 +129,8 @@ iterations:
     #display: inverted teal
 
     *SYS:* _System options._
+    
+    Utilities at hand to help improve and speed up the workflow.
 
     
 FF:
@@ -230,7 +234,7 @@ OUT Save:
 
     *FLAME:* _Flame xforms/iterators._
     
-    This is, with FF, the part where you will spend most of your time.
+    This is, together with the *FF* Tab, the place where you will spend most of your time.
     
     Inside here you will build your fractal flame logic.
     If you have ever used Apophysis, Fractorium or other fractal flame editors, you will find almost at home
