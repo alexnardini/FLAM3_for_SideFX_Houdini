@@ -96,7 +96,6 @@ SYS_TAG_SIZE = 'tagsize'
 SYS_CP_PALETTE_PRESETS = 'sys_palettepresets'
 SYS_IN_PRESETS = 'sys_inpresets'
 FLAME_ITERATORS_COUNT = "flamefunc"
-FLAME_ITERATORS_MP_MEM = 'mpmem'
 CP_PALETTE_LIB_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
@@ -296,6 +295,7 @@ class flam3_iterator_prm_names:
     # ITERATOR
     #
     # Main
+    main_mpmem = 'mpmem'
     main_note = 'note'
     main_prmpastesel = 'prmpastesel'
     main_vactive = 'vactive'
@@ -1897,8 +1897,7 @@ def flam3_default(self: hou.Node) -> None:
     # This way all parameters will reset to their default values.
     self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
     # set xaos
-    autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
-    auto_set_xaos(self, 3, autoset)
+    auto_set_xaos(self)
 
     # SYS
     reset_SYS(self, 1, 10, 1)
@@ -1970,32 +1969,106 @@ def flam3_default(self: hou.Node) -> None:
 
 
 
-def auto_set_xaos(self: hou.Node, iterators_count: int, autoset: int) -> None:
+def auto_set_xaos(self: hou.Node) -> None:
     """Set iterator's xaos values every time an iterator is added or removed.
-    It will keep the existing xaos weights and only add/remove the necessary one. In case of add, they will have a value of 1.
-    In case of removing iterators, this will work if you always remove an iterator from the end ( always the last ).
 
     Args:
         self (hou.Node): FLAM3H node
         iterators_count (int): number of iterators
     """
+    autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
     if autoset:
         
-        val = out_flame_properties.xaos_collect(self, iterators_count, flam3_iterator_prm_names.xaos)
-        fill = [np.pad(item, (0, iterators_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+        # init indexes
+        idx_del_inbetween = -1
+        idx_add_inbetween = -1
         
+        mpmem = []
+        mpmem_hou_get = []
+        xaos_str_hou_get = []
+        
+        # get mpmem parms now
+        iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        [mpmem.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+        
+        # get hou.session data
+        try:
+            mpmem_hou_get = hou.session.mpmem # type: ignore
+        except:
+            mpmem_hou_get = mpmem
+        
+        # collect all xaos
+        val = out_flame_properties.xaos_collect(self, iter_num, flam3_iterator_prm_names.xaos)
+        # fill missing weights if any
+        fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1) for item in val]
+        
+        # convert all xaos into array of strings
         xaos_str = []
-        for x in fill:
+        for xaos in fill_all_xaos:
             collect = []
-            for item in x:
+            for item in xaos:
                 collect.append(str(item))
             xaos_str.append(collect)
             
+        # get hou.session data
+        try:
+            xaos_str_hou_get = hou.session.xaos_str # type: ignore
+        except:
+            xaos_str_hou_get = xaos_str
+            
+        # DEL INBETWEEN idx
+        s_current = set(mpmem)
+        s_history = set(mpmem_hou_get)
+        _idx = list(set(s_history - s_current))
+        if _idx: idx_del_inbetween = int(_idx[0]) - 1
+        #print(idx_del_inbetween)
+        # ADD INBETWEEN idx
+        if idx_add_inbetween is -1:
+            for mp in range(iter_num-1):
+                if mpmem[mp] == mpmem[mp + 1]:
+                    idx_add_inbetween = mp
+                    break
+        
+        # remove
+        # print(idx_del_inbetween)
+        if idx_del_inbetween is not -1 and idx_del_inbetween < iter_num:
+            xaos_str = xaos_str_hou_get
+            del xaos_str[idx_del_inbetween]
+            # hou.session.xaos_str = xaos_str # type: ignore
+            for x in xaos_str:
+                del x[idx_del_inbetween]
+            # updated hou.session data
+            hou.session.xaos_str = xaos_str # type: ignore
+        # otherwise add
+        # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
+        elif idx_add_inbetween is not -1:
+            for xidx, x in enumerate(xaos_str):
+                if xidx != idx_add_inbetween:
+                    x.insert(idx_add_inbetween, '999.0')
+                    # x already had the new iterator weight added at the end
+                    # so lets remove the last as it is not needed anymore
+                    del x[-1]
+            # updated hou.session data
+            hou.session.xaos_str = xaos_str # type: ignore
+        else:
+            # updated hou.session data
+            hou.session.xaos_str = xaos_str # type: ignore
+            
+        # set all multi parms xaos strings
         xaos_str_round_floats = tuple([":".join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
         for mp_idx, xaos in enumerate(xaos_str_round_floats):
             xaos_set = 'xaos:' + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
-        
+            
+        # reset iterator's mpmem
+        [self.setParms({f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
+        # updated mpmem
+        mpmem_hou = []
+        [mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+        # export mpmem into the hou.session.mpmem for later use
+        hou.session.mpmem = mpmem_hou # type: ignore
+
+
 def iterator_count(self: hou.Node) -> None:
     """
     Args:
@@ -2028,9 +2101,8 @@ def iterator_count(self: hou.Node) -> None:
         self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
         
     else:
-        autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
         # set xaos every time an iterator is added or removed
-        auto_set_xaos(self, iterators_count, autoset)
+        auto_set_xaos(self)
 
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini website
@@ -3985,6 +4057,9 @@ def apo_to_flam3(self: hou.Node) -> None:
         self.setParms({MSG_FLAMERENDER: apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
         # Updated SYS inpresets parameter
         self.setParms({SYS_IN_PRESETS: self.parm(IN_PRESETS).eval()}) # type: ignore
+        # updated xaos:
+        auto_set_xaos(self)
+        
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
             self.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
