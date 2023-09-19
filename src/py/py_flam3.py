@@ -2040,7 +2040,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         elif idx_add_inbetween is not -1:
             for xidx, x in enumerate(xaos_str):
                 if xidx != idx_add_inbetween:
-                    x.insert(idx_add_inbetween, '999.0')
+                    x.insert(idx_add_inbetween, '1.0')
                     # x already had the new iterator weight added to the end of it
                     # so lets remove the last element as it is not longer needed
                     del x[-1]
