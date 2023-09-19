@@ -1991,7 +1991,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         [mpmem.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
-        __mpmem_hou_get = self.cachedUserData("mpmem")
+        __mpmem_hou_get = self.cachedUserData("flam3h_xaos_mpmem")
         if __mpmem_hou_get is None:
             mpmem_hou_get = mpmem
         else:
@@ -2010,7 +2010,7 @@ def auto_set_xaos(self: hou.Node) -> None:
                 collect.append(str(item))
             xaos_str.append(collect)
             
-        __xaos_str_hou_get = self.cachedUserData("xaos_str")
+        __xaos_str_hou_get = self.cachedUserData("flam3h_xaos_iterators_prev")
         if __xaos_str_hou_get is None:
             xaos_str_hou_get = xaos_str
         else:
@@ -2034,7 +2034,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             for x in xaos_str:
                 del x[idx_del_inbetween]
             # updated hou.session data
-            self.setCachedUserData("xaos_str", tuple(xaos_str))
+            self.setCachedUserData("flam3h_xaos_iterators_prev", tuple(xaos_str))
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
         elif idx_add_inbetween is not -1:
@@ -2045,10 +2045,10 @@ def auto_set_xaos(self: hou.Node) -> None:
                     # so lets remove the last element as it is not longer needed
                     del x[-1]
             # updated hou.session data
-            self.setCachedUserData("xaos_str", tuple(xaos_str))
+            self.setCachedUserData("flam3h_xaos_iterators_prev", tuple(xaos_str))
         else:
             # updated hou.session data
-            self.setCachedUserData("xaos_str", tuple(xaos_str))
+            self.setCachedUserData("flam3h_xaos_iterators_prev", tuple(xaos_str))
             
         # set all multi parms xaos strings parms
         xaos_str_round_floats = tuple([":".join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
@@ -2062,7 +2062,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         __mpmem_hou = []
         [__mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         # export mpmem into the hou.session.mpmem
-        self.setCachedUserData("mpmem", tuple(__mpmem_hou))
+        self.setCachedUserData("flam3h_xaos_mpmem", tuple(__mpmem_hou))
 
 
 def iterator_count(self: hou.Node) -> None:
