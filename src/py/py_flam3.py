@@ -2057,7 +2057,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
             
     # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
-    # and pick it up again once we turn it ON again.
+    # and pick it up again once we turn it back ON.
     #
     # reset iterator's mpmem prm
     [self.setParms({f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
