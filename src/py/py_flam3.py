@@ -1706,15 +1706,22 @@ def flam3_xaos_convert(self) -> None:
     """Here I am using a class function call from: out_flam3_data class.out_xf_xaos_from()
        down below inside the save XML/FLAME file section of this file.
        The class function: out_flam3_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
-    """    
+    """
+    autodiv = self.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
+    div_xaos = 'xaos:'
+    div_weight = ':'
+    if autodiv:
+        div_xaos = 'xaos :'
+        div_weight = ' :'
+    
     f3d = out_flam3_data(self)
     xaos_new = f3d.out_xf_xaos_from(0)
     for iter in range(f3d.iter_count):
         if xaos_new[iter]:
-            xs = "xaos:" + ":".join(xaos_new[iter].split(" "))
+            xs = div_xaos + div_weight.join(xaos_new[iter].split(" "))
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": xs})
         else:
-            self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": "xaos:"})
+            self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": div_xaos})
 
 
 ###############################################################################################
