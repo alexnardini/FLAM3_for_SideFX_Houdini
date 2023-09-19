@@ -2043,7 +2043,7 @@ def auto_set_xaos(self: hou.Node) -> None:
                 if xidx != idx_add_inbetween:
                     x.insert(idx_add_inbetween, '999.0')
                     # x already had the new iterator weight added to the end of it
-                    # so lets remove the last element as it is not needed anymore
+                    # so lets remove the last element as it is not longer needed
                     del x[-1]
             # updated hou.session data
             self.setCachedUserData("xaos_str", tuple(xaos_str))
@@ -2057,7 +2057,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             xaos_set = 'xaos:' + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
             
-        # reset iterator's mpmem
+        # reset iterator's mpmem prm
         [self.setParms({f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
         # updated mpmem
         __mpmem_hou = []
