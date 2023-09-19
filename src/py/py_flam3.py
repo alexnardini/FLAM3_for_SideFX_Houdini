@@ -1975,6 +1975,7 @@ def auto_set_xaos(self: hou.Node) -> None:
     Args:
         self (hou.Node): FLAM3H node
     """
+    iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
     autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
     
     if autoset:
@@ -1988,7 +1989,6 @@ def auto_set_xaos(self: hou.Node) -> None:
         xaos_str_hou_get = []
         
         # get mpmem parms now
-        iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         [mpmem.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
         __mpmem_hou_get = self.cachedUserData("flam3h_xaos_mpmem")
@@ -2056,13 +2056,16 @@ def auto_set_xaos(self: hou.Node) -> None:
             xaos_set = 'xaos:' + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
             
-        # reset iterator's mpmem prm
-        [self.setParms({f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
-        # updated mpmem
-        __mpmem_hou = []
-        [__mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
-        # export mpmem into the hou.session.mpmem
-        self.setCachedUserData("flam3h_xaos_mpmem", tuple(__mpmem_hou))
+    # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
+    # and pick it up again once we turn it ON again.
+    #
+    # reset iterator's mpmem prm
+    [self.setParms({f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
+    # updated mpmem
+    __mpmem_hou = []
+    [__mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+    # export mpmem into the hou.session.mpmem
+    self.setCachedUserData("flam3h_xaos_mpmem", tuple(__mpmem_hou))
 
 
 def iterator_count(self: hou.Node) -> None:
@@ -4655,7 +4658,7 @@ class _out_utils():
                 xaos_no_vactive.append([])
         return xaos_no_vactive
 
-    def out_xf_xaos_to(self) -> tuple[str]:
+    def out_xf_xaos_to(self) -> tuple:
         """Export in a list[str] the xaos TO values to write out
         Returns:
             tuple[str]: the xaos TO values to write out.
@@ -4665,7 +4668,7 @@ class _out_utils():
         xaos_vactive = self.xaos_collect_vactive(self._node, fill, self._prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
 
-    def out_xf_xaos_from(self, mode=0) -> tuple[str]:
+    def out_xf_xaos_from(self, mode=0) -> tuple:
         """Export in a list[str] the xaos FROM values to write out
         Args:
             mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
@@ -4764,7 +4767,7 @@ class _out_utils():
                 return out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
 
 
-    def __out_xf_data(self, prm_name: str) -> tuple[str]:
+    def __out_xf_data(self, prm_name: str) -> tuple:
         val = []
         for iter in range(self._iter_count):
             val.append(str(out_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
@@ -4792,7 +4795,7 @@ class _out_utils():
         return val
 
 
-    def __out_xf_xaos(self) -> tuple[str]:
+    def __out_xf_xaos(self) -> tuple:
         if self._xm:
             return self.out_xf_xaos_from(1)
         else:
