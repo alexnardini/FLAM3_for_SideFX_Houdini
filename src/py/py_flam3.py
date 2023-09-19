@@ -1974,9 +1974,9 @@ def auto_set_xaos(self: hou.Node) -> None:
 
     Args:
         self (hou.Node): FLAM3H node
-        iterators_count (int): number of iterators
     """
     autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
+    
     if autoset:
         
         # init indexes
@@ -2016,30 +2016,27 @@ def auto_set_xaos(self: hou.Node) -> None:
         except:
             xaos_str_hou_get = xaos_str
             
-        # DEL INBETWEEN idx
+        # DEL INBETWEEN index: try
         s_current = set(mpmem)
         s_history = set(mpmem_hou_get)
         _idx = list(set(s_history - s_current))
         if _idx: idx_del_inbetween = int(_idx[0]) - 1
-        #print(idx_del_inbetween)
-        # ADD INBETWEEN idx
+        # ADD INBETWEEN index : try
         if idx_add_inbetween is -1:
             for mp in range(iter_num-1):
                 if mpmem[mp] == mpmem[mp + 1]:
                     idx_add_inbetween = mp
                     break
         
-        # remove
-        # print(idx_del_inbetween)
+        # DEL
         if idx_del_inbetween is not -1 and idx_del_inbetween < iter_num:
             xaos_str = xaos_str_hou_get
             del xaos_str[idx_del_inbetween]
-            # hou.session.xaos_str = xaos_str # type: ignore
             for x in xaos_str:
                 del x[idx_del_inbetween]
             # updated hou.session data
             hou.session.xaos_str = xaos_str # type: ignore
-        # otherwise add
+        # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
         elif idx_add_inbetween is not -1:
             for xidx, x in enumerate(xaos_str):
@@ -2065,7 +2062,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         # updated mpmem
         mpmem_hou = []
         [mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
-        # export mpmem into the hou.session.mpmem for later use
+        # export mpmem into the hou.session.mpmem
         hou.session.mpmem = mpmem_hou # type: ignore
 
 
