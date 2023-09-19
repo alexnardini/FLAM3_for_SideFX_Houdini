@@ -46,10 +46,14 @@ flam3_first_time()
 initialize what the tool need when you create its node in the network editor."""
 kwargs["node"].hdaModule().flam3.flam3_default(kwargs["node"])
 kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
+kwargs["node"].hdaModule().flam3.auto_set_xaos(kwargs["node"])
+
 
 """Inside: OTL->type_properties->Scripts->OnLoaded
 When loading a hip file with a FLAM3H node in it do some checks."""
 kwargs["node"].hdaModule().flam3.flam3_on_loaded(kwargs)
+kwargs["node"].hdaModule().flam3.auto_set_xaos(kwargs["node"])
+
 
 
 #######################################################
@@ -121,9 +125,9 @@ return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.prm_paste(kwargs)
 
-'varnote_#'
+'xaos_#'
 'Action Button'
-kwargs['node'].hdaModule().flam3.ui_xaos_infos()
+kwargs['node'].hdaModule().flam3.ui_xaos_infos(kwargs)
 
 'All ITERATORS variations type parameters'
 "pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#"
