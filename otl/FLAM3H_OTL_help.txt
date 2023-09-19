@@ -248,11 +248,7 @@ iterators:
     
     NOTE:
         The order of the iterators do not matter at all,
-        for this reason it is much more handy to create them one after the other sequentially
-        and will make your life easier when it come the time to set the xaos's weights.
-        
-        This will ensure that the *Auto set xaos* option in the preferences Tab will always work correctly.
-        
+        for this reason it is suggested to create them one after the other sequentially.
     
 :box:
     #display: rounded white
@@ -1199,9 +1195,9 @@ auto set xaos:
         This functionality do not support Houdini's Undo Stack.
         
         If you perform any operation like removing or adding iterators,
-        as soon as you Undo those operations the xaos cached data needed to keep working will be obsolete.
+        as soon as you Undo those operations the xaos cached data needed to keep working correctly will be obsolete.
         
-        To fix this, force xaos to evaluate once after the Undo by either adding a xaos weight in one of the iterators
+        To fix this, force xaos to evaluate once after the Undo by either adding a colon "*:*" at the end of one of the iterators xaos string parameter
         or turning "*auto set xaos*" OFF and ON once so that it will update the data needed.
 
 
