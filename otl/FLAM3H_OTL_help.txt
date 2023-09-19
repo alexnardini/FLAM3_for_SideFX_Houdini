@@ -1194,6 +1194,16 @@ auto set xaos:
     ON by default. Set iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary one. 
     In case of ADD, the new xaos weights will have a value of 1.
+    
+    NOTE:
+        This functionality do not support Houdini's Undo Stack.
+        
+        If you perform any operation like removing or adding iterators,
+        as soon as you Undo those operations the xaos cached data needed to keep working will be obsolete.
+        
+        To fix this, force xaos to evaluate once after the Undo by either adding a xaos weight in one of the iterators
+        or turning "*auto set xaos*" OFF and ON once so that it will update the data needed.
+
 
 auto space xaos weights:
     #id: prefs
