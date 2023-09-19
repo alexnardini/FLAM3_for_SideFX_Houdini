@@ -121,6 +121,7 @@ OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 PREFS_XAOS_MODE = 'xm'
 PREFS_XAOS_AUTO_SET = 'autoxaos'
+PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
 # Motion blur
 OUT_MB_DO = 'domb'
@@ -138,6 +139,10 @@ MSG_FLAM3PLUGINS = 'flam3plugins_msg'
 
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
+
+# self cached user data
+FLAM3H_XAOS_MP_MEM = 'flam3h_xaos_mpmem'
+FLAM3H_XAOS_ITERATOR_PREV = 'flam3h_xaos_iterators_prev'
 
 
 
@@ -1896,7 +1901,7 @@ def flam3_default(self: hou.Node) -> None:
     # Add back iterators
     # This way all parameters will reset to their default values.
     self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
-    # set xaos
+    # update xaos
     auto_set_xaos(self)
 
     # SYS
@@ -1977,6 +1982,12 @@ def auto_set_xaos(self: hou.Node) -> None:
     """
     iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
     autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
+    autodiv = self.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
+    div_xaos = 'xaos:'
+    div_weight = ':'
+    if autodiv:
+        div_xaos = 'xaos :'
+        div_weight = ' :'
     
     if autoset:
         
@@ -1991,7 +2002,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         # get mpmem parms now
         [mpmem.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
-        __mpmem_hou_get = self.cachedUserData("flam3h_xaos_mpmem")
+        __mpmem_hou_get = self.cachedUserData(FLAM3H_XAOS_MP_MEM)
         if __mpmem_hou_get is None:
             mpmem_hou_get = mpmem
         else:
@@ -2010,7 +2021,7 @@ def auto_set_xaos(self: hou.Node) -> None:
                 collect.append(str(item))
             xaos_str.append(collect)
             
-        __xaos_str_hou_get = self.cachedUserData("flam3h_xaos_iterators_prev")
+        __xaos_str_hou_get = self.cachedUserData(FLAM3H_XAOS_ITERATOR_PREV)
         if __xaos_str_hou_get is None:
             xaos_str_hou_get = xaos_str
         else:
@@ -2033,8 +2044,8 @@ def auto_set_xaos(self: hou.Node) -> None:
             del xaos_str[idx_del_inbetween]
             for x in xaos_str:
                 del x[idx_del_inbetween]
-            # updated hou.session data
-            self.setCachedUserData("flam3h_xaos_iterators_prev", tuple(xaos_str))
+            # updated CachedUserData: flam3h_xaos_iterators_prev
+            self.setCachedUserData(FLAM3H_XAOS_ITERATOR_PREV, tuple(xaos_str))
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
         elif idx_add_inbetween is not -1:
@@ -2044,28 +2055,28 @@ def auto_set_xaos(self: hou.Node) -> None:
                     # x already had the new iterator weight added to the end of it
                     # so lets remove the last element as it is not longer needed
                     del x[-1]
-            # updated hou.session data
-            self.setCachedUserData("flam3h_xaos_iterators_prev", tuple(xaos_str))
+            # updated CachedUserData: flam3h_xaos_iterators_prev
+            self.setCachedUserData(FLAM3H_XAOS_ITERATOR_PREV, tuple(xaos_str))
         else:
-            # updated hou.session data
-            self.setCachedUserData("flam3h_xaos_iterators_prev", tuple(xaos_str))
+            # updated CachedUserData: flam3h_xaos_iterators_prev
+            self.setCachedUserData(FLAM3H_XAOS_ITERATOR_PREV, tuple(xaos_str))
             
         # set all multi parms xaos strings parms
-        xaos_str_round_floats = tuple([":".join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
+        xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
         for mp_idx, xaos in enumerate(xaos_str_round_floats):
-            xaos_set = 'xaos:' + xaos
+            xaos_set = div_xaos + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
             
     # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
-    # and pick it up again once we turn it back ON.
+    # and pick up the updated values once we turn it back ON.
     #
     # reset iterator's mpmem prm
     [self.setParms({f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
-    # updated mpmem
+    # update flam3h_xaos_mpmem
     __mpmem_hou = []
     [__mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
-    # export mpmem into the hou.session.mpmem
-    self.setCachedUserData("flam3h_xaos_mpmem", tuple(__mpmem_hou))
+    # export mpmem into CachedUserData
+    self.setCachedUserData(FLAM3H_XAOS_MP_MEM, tuple(__mpmem_hou))
 
 
 def iterator_count(self: hou.Node) -> None:
@@ -4664,7 +4675,7 @@ class _out_utils():
             tuple[str]: the xaos TO values to write out.
         """
         val = self.xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
         xaos_vactive = self.xaos_collect_vactive(self._node, fill, self._prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
 
@@ -4676,7 +4687,7 @@ class _out_utils():
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """
         val = self.xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=(str(int(1)))) for item in val]
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
         if mode:
             xaos_vactive = self.xaos_collect_vactive(self._node, t, self._prm_names.main_vactive)

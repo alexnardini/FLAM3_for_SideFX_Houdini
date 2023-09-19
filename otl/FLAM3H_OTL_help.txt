@@ -331,10 +331,12 @@ xaos:
     - _Note that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the iterator with the Curl variation in the above image. )_
     
     *How to set xaos in FLAM3 for Houdini:*
-    - To set XAOS for a flame with 4 iterators, use the *xaos* keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4* ( *xaos* keyword can be uppercase too if you prefer. )
+    - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4*.
+    - When *auto space xaos weights* preference option is ON ( it is by default ), the xaos keyword will look like so: "*xaos :*". The important information here is that you always need a semicolon "*:*" after the word "*xaos*" to make it work.
     - If no set or when using a short descriptive note, FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
     - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
     - When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator so you wont need to remove values from the command string, *unless you delete an iterator in witch case you will require to modify the "XAOS:" string*.
+    - If you type a non numeric character in any of the xaos's weights or miss to add a semicolon "*:*" after the word *xaos*, the entire xaos string will be re-set with all weights of value *1.0*.
     
     TIP:
         #display: orange
@@ -1048,6 +1050,7 @@ Save palette HSV (cc):
 Auto add iter num to Flame name:
     #id: OUT
     ON by default. It will automatically append the iteration number to the Flame name you enter.
+    It will also auto correct the Flame name string based on internally defined rules.
     
     TIP:
         When on, and once you type in a flame name, changing the iteration number will update the Flame name too.
@@ -1169,7 +1172,7 @@ cvex precision modes:
     
     NOTE:
         64-bit Double Precision will be really really slow, I'll repeat: *really really slow*.
-        Always use 32-bit unless you notice truly major artifacts and you truly love the fractal flame you are working on.
+        Always use 32-bit unless you notice some major artifacts and you truly love the fractal flame you are working on.
     
 :box:
     #display: rounded white
@@ -1187,10 +1190,16 @@ xaos modes:
         
 auto set xaos:
     #id: prefs
+    
     ON by default. Set iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary one. 
     In case of ADD, the new xaos weights will have a value of 1.
 
+auto space xaos weights:
+    #id: prefs
+    
+    Will space the xaos weights for easy read and count.
+    
 
 :box:
     #display: rounded white
@@ -1450,7 +1459,7 @@ FF Parametric variation parameters:
 FF Shader:
     #id: Limitations
     
-    This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
+    This finalxform ( FF ) do not posses any color's parameters in this implementation ( Chaotica style ).
 
     NOTE:
         When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
