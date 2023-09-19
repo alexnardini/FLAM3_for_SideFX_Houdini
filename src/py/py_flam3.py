@@ -2016,12 +2016,12 @@ def auto_set_xaos(self: hou.Node) -> None:
         else:
             xaos_str_hou_get = list(__xaos_str_hou_get)
             
-        # DEL INBETWEEN index: try
+        # DEL: INBETWEEN get index: try
         s_current = set(mpmem)
         s_history = set(mpmem_hou_get)
         _idx = list(set(s_history - s_current))
         if _idx: idx_del_inbetween = int(_idx[0]) - 1
-        # ADD INBETWEEN index : try
+        # ADD: INBETWEEN get index : try
         if idx_add_inbetween is -1:
             for mp in range(iter_num-1):
                 if mpmem[mp] == mpmem[mp + 1]:
