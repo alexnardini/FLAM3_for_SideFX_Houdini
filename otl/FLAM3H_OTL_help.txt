@@ -345,9 +345,11 @@ xaos:
         
 Xaos tip:
     #id: FLAME
-    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    [Largeicon:opdef:.?iconBlueStarRedSVG.svg]
     
-    Show Xaos informations and tips.
+    - ((LMB)) to updated the auot set Xaos data, a must do after you *Undo* to keep auto set xaos working correctly.
+    
+    - ((CTRL)) + ((LMB)) to show Xaos informations and tips.
  
 :box:
     #display: rounded white
@@ -1192,13 +1194,20 @@ auto set xaos:
     In case of ADD, the new xaos weights will have a value of 1.
     
     NOTE:
-        This functionality do not support Houdini's Undo Stack.
+        *This functionality do not support Houdini's Undo Stack.*
         
-        If you perform any operation like removing or adding iterators,
-        as soon as you Undo those operations the xaos cached data needed to keep working correctly will be obsolete.
+        If you perform any operation that will affect Xaos ( adding/removing iterators, changing xaos weights... ),
+        and then Undo those operations, the xaos cached data needed to keep working correctly will become obsolete.
         
-        To fix this, force xaos to evaluate once after the Undo by either adding a colon "*:*" at the end of one of the iterators xaos string parameter
-        or turning "*auto set xaos*" OFF and ON once so that it will update the data needed.
+        To fix this, force xaos to evaluate once by clicking the blue *F* icon with a red star  [Smallicon:opdef:.?iconBlueStarRedSVG.svg]  at the right of the xaos string parameter.
+        
+        or,
+        never Undo when "auto set xaos" is ON.. ;)
+        
+        Alternatively,
+        you can disable the iterator instead, and remove it when you are sure you dnt need it.
+        
+        *Disabling iterators is internally the same as deleting them, just not from the UI yet.*
 
 
 auto space xaos weights:

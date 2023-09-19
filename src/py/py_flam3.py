@@ -2160,8 +2160,11 @@ def web_FLAM3github() -> None:
 ###############################################################################################
 # XAOS usage infos. Show a portion of the xaos documentation as an info window
 ###############################################################################################
-def ui_xaos_infos() -> None:
-    ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
+def ui_xaos_infos(kwargs) -> None:
+    
+    if kwargs["ctrl"]:
+        
+        ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
 To set XAOS for a flame with 4 iterators,
 use the "xaos:" keyword followed by each iterator weights values separated by a colon:
@@ -2176,8 +2179,13 @@ FLAM3 will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be int
 When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator
 so you wont need to remove values from the command string,
 unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
-    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
+    else:
+        # current node
+        node=kwargs['node']
+        auto_set_xaos(node)
+        
 ###############################################################################################
 # OUT Presets name infos.
 ###############################################################################################
@@ -5402,3 +5410,4 @@ def out_XML(kwargs: dict) -> None:
                             out_new_XML(node, str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''})
                     init_presets(kwargs, OUT_PRESETS)
+
