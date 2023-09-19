@@ -1199,15 +1199,10 @@ auto set xaos:
         If you perform any operation that will affect Xaos ( adding/removing iterators, changing xaos weights... ),
         and then Undo those operations, the xaos cached data needed to keep working correctly will become obsolete.
         
-        To fix this, force xaos to evaluate once by clicking the blue *F* icon with a red star  [Smallicon:opdef:.?iconBlueStarRedSVG.svg]  at the right of the xaos string parameter.
+        To fix this, force xaos to evaluate once after the Undo by clicking the blue *F* icon with a red star  [Smallicon:opdef:.?iconBlueStarRedSVG.svg]  at the right of the xaos string parameter.
         
         or,
         never Undo when "auto set xaos" is ON.. ;)
-        
-        Alternatively,
-        you can disable the iterator instead, and remove it when you are sure you dnt need it.
-        
-        *Disabling iterators is internally the same as deleting them, just not from the UI yet.*
 
 
 auto space xaos weights:
