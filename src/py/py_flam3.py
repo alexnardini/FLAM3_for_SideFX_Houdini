@@ -2022,11 +2022,10 @@ def auto_set_xaos(self: hou.Node) -> None:
         _idx = list(set(s_history - s_current))
         if _idx: idx_del_inbetween = int(_idx[0]) - 1
         # ADD: INBETWEEN get index : try
-        if idx_add_inbetween is -1:
-            for mp in range(iter_num-1):
-                if mpmem[mp] == mpmem[mp + 1]:
-                    idx_add_inbetween = mp
-                    break
+        for mp in range(iter_num-1):
+            if mpmem[mp] == mpmem[mp + 1]:
+                idx_add_inbetween = mp
+                break
         
         # DEL
         if idx_del_inbetween is not -1 and idx_del_inbetween < iter_num:
