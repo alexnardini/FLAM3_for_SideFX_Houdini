@@ -3957,7 +3957,9 @@ def use_iter_on_load_callback(self):
     if useiteronload:
         iternumonload = self.parm(IN_ITER_NUM_ON_LOAD).eval()
         iter = self.parm(GLB_ITERATIONS).eval()
-        if iternumonload > iter:
+        if iternumonload == iter:
+            pass
+        elif iternumonload > iter:
             self.setParms({GLB_ITERATIONS: iter})
             self.setParms({IN_ITER_NUM_ON_LOAD: iter})
         else:
