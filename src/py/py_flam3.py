@@ -1988,7 +1988,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         self (hou.Node): FLAM3H node
     """
     iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
+    
     autodiv = self.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
     div_xaos = 'xaos:'
     div_weight = ':'
@@ -1996,6 +1996,7 @@ def auto_set_xaos(self: hou.Node) -> None:
         div_xaos = 'xaos :'
         div_weight = ' :'
     
+    autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
     if autoset:
         
         # init indexes
