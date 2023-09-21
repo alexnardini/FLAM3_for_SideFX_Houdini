@@ -277,6 +277,10 @@ kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 'Callback Script'
 hou.pwd().hdaModule().flam3.flam3_xaos_convert(kwargs['node'])
 
+'autoxaos'
+'allback Script'
+hou.pwd().hdaModule().flam3.auto_set_xaos(kwargs['node'])
+
 'setdark'
 'Callback Script'
 hou.pwd().hdaModule().flam3.colorSchemeDark(kwargs['node'])

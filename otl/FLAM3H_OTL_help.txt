@@ -3,7 +3,1488 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.2
+#version: 1.0.2#icon: opdef:.?iconBlackSVG.svg
+#type: node
+#context: sop
+#namespace: FLAM3
+#internal: FLAM3H
+#version: 1.0.22
+
+"""The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
+
+_*A bit of history* ( from wikipedia )_:
+
+[Scott Draves|Wp:Scott_Draves]
+[The Fractal Flame Algorithm|Wp:Fractal_Flame]
+[Electric Sheep|Wp:Electric_Sheep]
+[IFS|Wp:Iterated_function_system]
+[Fractal Art|Wp:Fractal_art]
+[Apophysis|Wp:Apophysis_(software)]
+
+
+
+== Welcome to FLAM3 for SideFX Houdini ==
+
+_Houdini 19 only_
+[Image:opdef:.?FLAM3H_DOC_intro.jpg]
+_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
+
+_*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]*_
+
+_*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
+
+
+_*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
+
+_*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
+
+
+
+@parameters
+
+NOTE:
+    FLAM3 for Houdini set all *`@pscale`* to a value of *`0.001`* for convenience.
+    Use the upstream geometry node point size multiplier or a wrangle to adjust it as needed.
+    When importing FLAM3 into Stage/Solaris remember that *`@pscale`* will become *`@widths`*.
+
+    
+    
+    
+    
+== Global parameters == (GLOBAL)
+    
+:box:
+    #display: inverted teal
+
+    *GLOBAL*
+    
+    Here you will define the quality of the fractal flame algorithm solution.
+
+density:
+    #id: GLOBAL
+    Number of points to use. For high qualty fractals start from 20M up to 500M and more depending the type of Fractal Flame you are ending up with. As a general rule, the more the better.
+    * Must find the sweet spot between quality and processing time.
+
+    
+density presets mini menu:
+    #id: GLOBAL
+    Will allow you to select a density value quickly out of some presets.
+    
+    TIP:
+        You can keep FLAM3H node live, without the need to bake the processed point cloud while rendering
+        and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( in Solaris: *`@widths`* ) accordingly.
+    
+        When using Karma renderer:
+    
+        - With *64gb of physical memory* you will be able to render *500M points* without weigth much on virtual memory.
+        
+        - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
+        
+        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in which case you must bake those points out in a *`*.bgeo.sc`* files first.
+        
+Reset density:
+    #id: Global
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Reset density to its default: 500k
+        
+    
+iterations:
+    #id: GLOBAL
+    Number of iterations to use.
+    - You dnt need many iterations to get some good Fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
+    - If you increase an iterator weight, use xaos to build containers or use some kind of variations you will require higher number to resolve and show you the proper result.
+    
+    Almost all of the fractal flame showcased inside FLAM3 for Houdini website/instagram account
+    use a maximun of 64 iterations with a few exceptions reaching 96 and in rare cases 128/256 and more.
+    
+    Some flames require truly an high amount of iterations to resolve properly.
+
+    Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
+    They have been choosen because they use variations I have implemented too and because some are really expensive to solve.
+
+    Some require thousands of iterations to show you the proper results, 
+    some of them require hundreds and some others are really quick.
+    
+    _*[ieddaka gnarl: 1280 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg]*_
+    
+    _*[blue modulus: 512 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg]*_
+    
+    _*[lazyswirls: 512 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg]*_
+    
+    _*[majestic: 64 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg]*_
+    
+    
+    
+    TIP:
+        You can create some beautiful fractal flames with just 6 iterations, below an example I did myself:
+        
+        _*[Knot clusters: 6 iterations|https://user-images.githubusercontent.com/42110232/234943476-5a6cb25e-d842-4080-ba52-b75d9a4d915e.jpg]*_
+        
+    TIP:
+        When: *Auto add iter num to Flame name* toggle is ON inside the OUT Tab,
+        changing iteration will updated the Flame name if any have been typed.
+        
+        
+
+== System utilities == (SYS)
+
+~~~
+:box:
+    #display: inverted teal
+
+    *SYS:* _System options._
+    
+    Utilities at hand to help improve and speed up the workflow.
+
+    
+FF:
+    #id: SYS
+    Enable Final Flame variation's transform.
+    
+RIP:
+    #id: SYS
+    Remove Invalid Points. *INF*, *NAN*, *Zero Opacity* and *out of bounds* points.
+    * It can happen that some points shoot to infinity after being transformed by the algorithm.
+    Set this ON when rendering ( especially for a sequence ) to fix black/failed frames if you encounter any.
+    
+    NOTE:
+        If you notice some unusual slowness while rendering a flame,
+        it's probably because some points endup being far far away from the ZERO world.
+        Turning this option ON will get rid of those points.
+        
+TAG:
+    #id: SYS
+    Enable vieport TAG infos.
+    * This shoud always be On as it is useful to review the Flame fractal being worked on. The iterator weight is displayed also per each iterator.
+         
+TAG size:
+    #id: SYS
+    Set different viewport TAG sizes.
+    
+    
+loaddef:
+    #id: SYS
+    [Largeicon:opdef:.?iconSierpinskyDefSVG.svg]
+    
+    Load/reset to default Sierpinsky Triangle preset.
+    
+CP Presets mini menu:
+    #id: SYS
+    Load one of the presets inside the CP Tab JSON file currently loaded.
+    This is being added as it is handy to change preset without the need to go inside the CP Tab all the time.
+    
+    TIP:
+        To populate this menu, load a palette *.json file first inside the *CP* Tab.
+    
+CP Preset reload:
+    #id: SYS
+    [Largeicon:opdef:.?iconPrideSVG.svg]
+    
+    Reload the selected CP palette preset. 
+    
+IN Presets mini menu:
+    #id: SYS
+    Load one of the presets inside the IN Tab Flame file currently loaded.
+    This is being added as it is handy to change preset without the need to go inside the IN Tab all the time.
+    
+    TIP:
+        To populate this menu, load a valid *.flame file first inside the *IN* Tab.
+    
+IN Preset reload:
+    #id: SYS
+    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    
+    Click to reload the selected IN preset if any.
+    This has been added to quickly updated a preset you are loading inside the IN Tab while editing it inside Fractorium for example, 
+    always saving the Flame over the same flame file you are loading in. 
+    Just quickly click this icon to update it in Houdini without the hustle to go inside the IN Tab, click the F reload icon and back to where you were.
+
+OUT Presets mini menu:
+    #id: SYS
+    This menu is only for information purpose.
+    It will show the Flames contained in the selected output file if any are presents.
+    Once you append a new Flame in it, this menu will update too.
+    It will always be set to the last Flame’s name you saved.
+    
+    TIP:
+        To populate this menu, load a valid *.flame file first inside the *OUT* Tab.
+        
+    NOTE:
+        Saving Flames from this icon, will always use a default name that use current date and time.
+        In case you'd like to give your flames a proper name, you can do so from inside the OUT Tab.
+    
+OUT Save:
+    #id: SYS
+    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    
+    Click to Save this flame inside the selected OUT file if any.
+    
+    ((LMB)) to save the current flame into the selected OUT file.
+    
+    - If the selected file do not exist, it will be created.
+    - If the selected file exist and already contain some Flames in it, it will append the current one.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    
+    _If the selected file is not a valid Flame file type, nothing will happen._
+
+    
+
+== FLAME: iterators parameters == (FLAME)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAME:* _Flame xforms/iterators._
+    
+    This is, together with the *FF* Tab, the place where you will spend most of your time.
+    
+    Inside here you will build your fractal flame logic.
+    If you have ever used Apophysis, Fractorium or other fractal flame editors, you will find almost at home
+    as every parameter carry on the same name inside here. The logic you will operate with will be the same.
+    
+
+iterators:
+    #id: FLAME
+    Number of iterators to use.
+    * This is equivalent to the number of triangle handles you have inside popular fractal flame editors out there.
+    
+    NOTE:
+        The order of the iterators do not matter at all,
+        for this reason it is suggested to create them one after the other sequentially.
+    
+:box:
+    #display: rounded white
+
+    *iterator*
+
+note:
+    #id: FLAME
+    A name for this iterator.
+    
+    NOTE:
+        The text you'll enter here, will be saved with the flame file and will show up
+        as the iterator's name inside Apophysis and Fractorium as well.
+    
+copy/paste:
+    #id: FLAME
+    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    
+    ((LMB)) to mark this iterator for being copied. 
+    
+    - ((CTRL)) + ((LMB)) to PASTE the copied values into another iterator. It will copy everything, parametric variation's parameters included but not XAOS.
+    - ((SHIFT)) + ((LMB)) will unmark this iterator for being copied.
+    
+    It will work also between different FLAM3 nodes.
+    
+    Once you copy an iterator you can have access to the arrow icon menu next to the *F* icon.
+    From this menu you will be able to paste specific sections from the copied iterator, xaos incuded.
+    
+A tip:
+    #id: FLAME
+    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    
+    Show active iterator informations and tips.
+    
+A:
+    #id: FLAME
+    Enable/Disable this iterator.
+    
+    TIP:
+        If an iterator is disabled, it wont be included when saving the flame out into a Flame file.
+        In case you still want to include the inactive iterator into the file, set its Weight to Zero instead.
+    
+W:
+    #id: FLAME
+    The iterator weight. Define the probability this iterator is choosen during the chaos game.
+    The higher an iterator weight is compared to the others and the more iterations you may need to properly resolve the Fractal Flame's shapes you are working on..
+    
+:box:
+    #display: rounded white
+
+    *iterator: xaos*
+    
+xaos:
+    #id: FLAME
+    
+    NOTE:
+        *When using XAOS, you are allowed to use up to 20 iterators max.*
+        Using more than 20 iterators will disable the algorithm.
+        
+        This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
+    
+    [Image:opdef:.?xaosSVG.svg]
+    _The above image shows 5 iterators with one variation each and how they are connected to each others through an hipotetical xaos setting._
+        
+
+    
+    The default mode is *xaos TO*. You can change it to use *xaos FROM* mode instead in the preferences tab.
+    
+    _*xaos TO* and *xaos FROM* are at their core each other reflection. This mean they are the same data but one is the transpose of the other._
+    
+    _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
+    
+    *Looking from an iterator point of view*:
+    - When in *xaos_TO mode*, you will think like: *to* which iterator am I allowed to send points I just executed?
+    - When in *xaos_FROM mode*, you will think like: *from* which iterator am I allowed to receive points before I execute them myself?
+    - _Note that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the iterator with the Curl variation in the above image. )_
+    
+    *How to set xaos in FLAM3 for Houdini:*
+    - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4*.
+    - When *auto space xaos weights* option is ON ( it is OFF by default ), the xaos keyword will look like so: "*xaos :*". The important information here is that you always need a semicolon "*:*" after the word "*xaos*" to make it work.
+    - If no set or when using a short descriptive note, FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
+    - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
+    - When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator so you wont need to remove values from the command string, *unless you delete an iterator in witch case you will require to modify the "XAOS:" string*.
+    - If you type a non numeric character in any of the xaos's weights or miss to add a semicolon "*:*" after the word *xaos*, the entire xaos string will be re-set with all weights of value *1.0*.
+    
+    TIP:
+        #display: orange
+    
+        XAOS is OFF by default and FLAM3 will activate it automatically
+        only when needed. (ex: when one of its weights is set to a value different than the others, ex: *xaos:3:3:3:2.9* ).
+        
+    NOTE:
+        When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        
+Xaos tip:
+    #id: FLAME
+    [Largeicon:opdef:.?iconBlueStarRedSVG.svg]
+    
+    When "*auto set xaos*" preference option is *ON*:
+    
+    - ((LMB)) Will space the xaos weights for easy read and count ( ON/OFF )
+    
+    - ((CTRL)) + ((LMB)) to show Xaos informations and tips.
+    
+    When "*auto set xaos*" preference option is *OFF*:
+    
+    - ((LMB)) It will just display the xaos informations/tips infos.
+ 
+:box:
+    #display: rounded white
+
+    *iterator: shader*
+
+location:
+    #id: FLAME
+    The color location in the ramp *{0:1}*.
+    
+speed:
+    #id: FLAME
+    Speed of color blending between iterations. Values above ZERO attract the selected color while values below ZERO will repel it.
+    
+opacity:
+    #id: FLAME
+    The opacity of the current transform. Opacity 0 means it will be entirely transparent, and opacity 1, entirely opaque. It can be used also to fine tune your fractal, making parts of it more or less prominent in addition to the iterator's weight.
+    
+:box:
+    #display: rounded white
+
+    *iterator: variations*
+     
+pre_blur:
+    #id: FLAME
+    *Enable pre_blur*. Pre_blur variation in this implementaion is hard coded inside the chaos game to be as fast as it can possibly be.
+    It will always be the FIRST pre variation the algorithm will run.
+    
+    TIP:
+        When authoring your flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3 for Houdini
+        *always use "pre_blur" instead of "pre_gaussian_blur" variation*. They are essentially the same variation
+        with the difference that in FLAM3 for Houdini "pre_blur" will be mapped and executed directly.
+        
+    NOTE:
+        Since FLAM3 for Houdini v1.0.1, "pre_gaussian_blur" variation will be automatically mapped to "pre_blur" variation on flame load.
+    
+pre:
+    #id: FLAME
+    Enable PRE Variations for the selected iterator.
+    
+var:
+    #id: FLAME
+    List of variations to choose from.
+    While PRE and POST variations act as an assignment, variations are cumulative.
+        
+    - Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    - Each iterators allow up to 8 variations ( pre-blur var, 2 PRE vars, 4 VARS plus 1 POST var) to be used.
+    
+    NOTE:
+        When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    
+    TIP:
+        #display: orange
+    
+        A good way to try out the variations, is to laydown a fresh FLAM3 node
+        and while using the default Siepinsky triangle activate the Final Flame transform (*FF*)
+        and change variations there to see the result. ( remember to play a bit with the AFFINE coefficents to check the results )    
+
+post:
+    #id: FLAME
+    Enable POST Variation for the selected iterator.
+    For speed purpose only one parametric is allowed at the moment.
+        
+w:
+    #id: FLAME
+    The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
+    Can be set higher than 1 and negative too.
+    * If more than one variation is active, remember that as a general rule it is suggested ( not mandatory ) to have the sum of all weights equal to 1.
+    
+    TIP:
+        #display: orange
+        
+        It is better to set a variation weight to ZERO instead of keeping it at a very low values if their contribution isnt noticable to reduce the cost of the computation. At ZERO the variation will be completely ignored.
+
+
+:box:
+    #display: rounded white
+
+    *iterator: affine*
+    
+        
+post:
+    #id: FLAME
+    Enable post affine.
+    
+pre affine:
+    #id: FLAME
+    Affine transformation's coefficients for the current iterator ( xform ).
+    
+    NOTE:
+        A linear transformation cannot be used to translate a set of points. 
+        
+        To translate a set of points, we need to use an *_affine transformation_*. 
+        An *_affine transformation_* multiplies a vector by a matrix, just as in a linear transformation, 
+        and then adds a vector to the result ( the *O*._xy_ `vector2` component ). 
+        This added vector carries out the translation. 
+        By applying an affine transformation to an image on the screen we can do everything a linear transformation can do, 
+        and also have the ability to move the image up or down and left or right.
+
+    Each iterator( xform ) has an affine transform that is always applied on every iteration.
+    This is known as the pre affine becasue it is applied before the variations.
+    
+    
+    - With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
+    - They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
+    - The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    
+    There are two ways you can use the affine:
+    - One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
+    - The other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    
+    NOTE:
+        The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
+        
+      
+post affine:
+    #id: FLAME
+    Post affine coefficients for the current variations. Those are applied after the variations.
+    * See above affine description for more informations.
+    
+:box:
+    #display: rounded white
+
+    *iterator: parametric's variables Tab*
+
+VARS Tab:
+    #id: FLAME
+    If a parametric variation is selected, its parameters will populate this Tab.
+    
+    
+
+== FF: finalXform parameters == (FF)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FF:* _Final Flame transform._
+    
+    Final Flame ( FF ) or finalXform iterator act like camera lenses.
+    It will take the combined result of all the iterators inside the FLAME Tab
+    and apply extra transformations to that result, allowing for a lot of creative exploration.
+    
+    NOTE:
+        This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
+        
+        When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
+        - Color -> 0.0
+        - Color Speed -> 0.0 ( _this is the most important_ )
+        - Direct Color -> 1.0
+        
+        This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
+
+:box:
+    #display: rounded white
+
+    *FF*
+        
+note:
+    #id: FF
+    A name for this FF iterator.
+    
+    NOTE:
+        The text you'll enter here, will be saved with the flame file and will show up
+        as the finalxform iterator's name inside Apophysis and Fractorium as well.
+    
+copy/paste:
+    #id: FF
+    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    
+    ((LMB)) to mark this FF for being copied. 
+    
+    - ((CTRL)) + ((LMB)) on another FLAM3 node to PASTE the copied FF values. It will copy everything, parametric variation's parameters included.
+    - ((SHIFT)) + ((LMB)) will unmark the FF for being copied.
+    
+    It will only work between different FLAM3 nodes.
+    
+    Once you copy the FF, on another FLAM3 node you can have access to the arrow icon menu next to the *F* icon.
+    From this menu you will be able to paste specific sections from the marked FF.
+
+    
+:box:
+    #display: rounded white
+
+    *FF: variations*
+    
+FF Pre variation:
+    #id: FF
+    PRE variation to be used. This is applyed before the variations. It is the very first transformation when used.
+    * PRE variation act the same way as the Final Flame variations does. It take the combined result of everything you do inside FLAME Tab and transform it using a selected variation.
+    * When using parametric variations, its parameters will populate the *PP VARS* Tab.
+    
+    
+FF variations:
+    #id: FF
+    List of variations to choose from. It take the combined result of everything you do inside FLAME Tab, FF PRE variation, and transform it using those variations.
+    While PRE and POST variations act as an assignment, variations are cumulative.
+        
+    * Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
+    * Final Flame allow up to 3 variations. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 3 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    
+FF Post variations:
+    #id: FF
+    POST variations to be used. This is applyed after the variations. It is the very last transformation.
+    * POST variation act the same way as the Final Flame variations does. It take the combined result of everything you do inside FLAME Tab plus everything you do inside FF Tab and transform it one more time using a selected variation.
+    * When using parametric variations, its parameters will populate the *PP VARS* Tab.
+
+    
+w:
+    #id: FF
+    The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
+    Can be set higher than 1 and negative too.
+    
+    TIP:
+        #display: orange
+        Its better to set a variation weight to ZERO instead of keeping it at a very low values if their contribution isnt noticable to reduce the cost of the computation. At ZERO the variation will be completely ignored.
+    
+:box:
+    #display: rounded white
+
+    *FF: affine*
+        
+post:
+    #id: FF
+    Enable post affine.
+    
+pre affine:
+    #id: FF
+    Affine coefficients for the current FF iterator ( FF - finalxform ).
+
+    Each iterator( xform ) has an affine transform that is always applied on every iteration.
+    This is known as the pre affine becasue it is applied before the variations.
+    
+    
+    - With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
+    - They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
+    - The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+    
+    There are two ways you can use the affine:
+    - One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
+    - The other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    
+    NOTE:
+        The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
+        
+post affine:
+    #id: FF
+    Post affine coefficients for the current variations. Those are applied after the variations.
+    * See above affine description for more informations.
+        
+:box:
+    #display: rounded white
+
+    *FF: parametric's variables Tabs*
+    
+VARS Tab:
+    #id: FF
+    If a parametric variation is selected, its parameters will populate this Tab.
+    
+PP VARS Tab:
+    #id: FF
+    If a *PRE* or *POST* parametric variation is selected, its parameters will populate this Tab.
+    
+
+    
+== CP: Color palette parameters == (CP)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *CP:* _Flame fractal color palette._
+    
+    Palette colors are a very important aspect for a succesful fractal flame.
+    Not only will be essential to play with each iterator shader speed and location
+    but experimenting with different palette can make a difference
+    and turn a fractal flame into something really special.
+    
+HSV:
+    #id: PALETTE
+    Hue/Saturation/Value of the palette's colors.
+    
+palette:
+    #id: PALETTE
+    the actual color palette.
+    
+Palette name ( preset ):
+    #id: PALETTE
+    Write a name to give to the selected Palette when saving it out.
+    If no name is provided, an automated name composed of today's date and current time will be used instead.
+    
+Force reload preset:
+    #id: PALETTE
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Click this icon to force reload the currently selected palette preset.
+    
+JSON file:
+    #id: PALETTE
+    Load an already created json palette lib file or select the name of a new one to create.
+    
+    TIP:
+        Once you are happy with a palette library you built, you can rename the file to start with: "*F3H_LOCK*"
+        to prevent any further modifications to it. for example if you have a lib file call: "*my_rainbows_colors.json*"
+        you can rename it to: "*F3H_LOCK_my_rainbows_colors.json*" to keep it safe.
+        
+        _Not as elegant as using chmod in python but it's simple, effective and it has a visual msg ( the filename itself )._
+        
+        _And the advantage is also of acting as locked only within FLAM3 for Houdini_
+        _so that if you'd like to manually edit and change some preset names yoursef, you can._
+    
+Save Palette:
+    #id: PALETTE
+    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    
+    ((LMB)) to save the current Palette into the selected OUT file.
+    
+    - If the selected file do not exist, it will be created.
+    - If the selected file exist and already contain some Palette in it, it will append the current one.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Palette.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+
+    _If the selected file is not a valid Palette JSON file type, nothing will happen._
+    
+    TIP:
+        *Once you click save*:
+        
+        - If you selected a location and a filename without extension, it will automatically add the _*.json*_ extension to it.
+        - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
+        - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
+        
+    NOTE:
+        - When saving out a palette file, it will try to downsample the usual 256 color count standard.
+        - However, when saving out flames files, it will always sample the palette as a 256 colors palette standard.
+    
+LIB contents ( presets ):
+    #id: PALETTE
+    When you load a json palette file,
+    Use this menu to display all the palette included in the loaded file and select one to load.
+    
+Reload preset ( presets ):
+    #id: PALETTE
+    [Largeicon:opdef:.?iconPrideSVG.svg]
+    
+    Reload the selected palette preset.
+    
+:box:
+    #display: rounded white
+
+    *CP options*
+    
+save HSV palette ( options ):
+    #id: PALETTE
+    ON by default. When saving out a palette, uses the color corrected HSV palette.
+    Uncheck this option to save the non color corrected palette instead.
+    
+reset HSV on Load ( options ):
+    #id: PALETTE
+    ON by default. Every time you load a palette the HSV values will reset to their default values to show the raw palette colors as they were saved.
+    Uncheck this option to keep the HSV values after a palette preset load.
+    
+    
+    
+== MB: Motion Blur parameters == (MB)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *MB:* _Flame fractal moton blur._
+    
+    When animating your fractal flame, turning this ON will compute a proper temporal Motion Blur.
+
+on:
+    #id: MB
+    Enable motion blur.
+    
+    NOTE:
+        When saving Flames out using the OUT tab, motion blur settings are not saved with it
+        but will use whatever Motion Blur settings are present in the host application you will load the saved flame file in.
+    
+    TIP:
+        #display: orange
+        
+        If you animate any of the available parameters using expresions,
+        remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.
+
+fps:
+    #id: MB
+    desired Frames per second.
+    
+samples:
+    #id: MB
+    Motion blur samples.
+    
+shutter offset:
+    #id: MB
+    Shutter time.
+    
+viz mb:
+    #id: MB
+    Visualize Motion Blur using color. ( Set viewport background to black for better viewing )
+    
+    NOTE:
+        Remember to turn this OFF when rendering so to not overimpose a darker color.
+        
+
+        
+== IN: input parameters == (IN)
+            
+~~~
+:box:
+    #display: inverted teal
+
+    *IN: Load* *.flame file created with Apophysis, Fractorium and other.
+    
+    A *.flame file is an XML format type of file.
+        
+    NOTE:
+        To be valid to be loaded inside Flame3 for Houdini, a *.flame file must obey this rule:
+        
+        _the XML file need to start with: <*flames*> and end with: </*flames*>._
+        
+        All the different flames ( if multiple flames are present in the file ) will be inbetween those keys.
+        
+        When you use Apophysis or Fractorium and copy a flame to the clipboard
+        the above keys are missing so to be able to load it inside Flame3 for Houdini
+        just add those yourself.
+        
+        Also some of the flames you find online have those keys missing.
+        
+        Everything will be correctly set when saving flames out of Apophysis and Fractorium when using the File->Save menu option as well as saving flames out with Flam3 for Houdini.
+        
+_The following is an example of what the Sierpinsky triangle preset look like once saved out with the above keys correctly set:_
+    
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.0.6" name="Sierpinsky Triangle" size="1920 1080" center="0.0 0.0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0.0" vibrancy="0.333333" highlight_power="1.0" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
+      FF0000FD0200FB0400F90600F70800F50A00F30C00F10E00
+      EF1000ED1200EB1400E91600E71800E51A00E31C00E11E00
+      DF2000DD2200DB2400D92600D72800D52A00D32C00D12E00
+      CF3000CD3200CB3400C93600C73800C53A00C33C00C13E00
+      BF4000BD4200BB4400B94600B74800B54A00B34C00B14E00
+      AF5000AD5200AB5400A95600A75800A55A00A35C00A15E00
+      9F60009D62009B6400996600976800956A00936C00916E00
+      8F70008D72008B7400897600877800857A00837C00817E00
+      7F80007D82007B8400798600778800758A00738C00718E00
+      6F90006D92006B9400699600679800659A00639C00619E00
+      5FA0005DA2005BA40059A60057A80055AA0053AC0051AE00
+      4FB0004DB2004BB40049B60047B80045BA0043BC0041BE00
+      3FC0003DC2003BC40039C60037C80035CA0033CC0031CE00
+      2FD0002DD2002BD40029D60027D80025DA0023DC0021DE00
+      1FE0001DE2001BE40019E60017E80015EA0013EC0011EE00
+      0FF0000DF2000BF40009F60007F80005FA0003FC0001FE00
+      00FE0100FC0300FA0500F80700F60900F40B00F20D00F00F
+      00EE1100EC1300EA1500E81700E61900E41B00E21D00E01F
+      00DE2100DC2300DA2500D82700D62900D42B00D22D00D02F
+      00CE3100CC3300CA3500C83700C63900C43B00C23D00C03F
+      00BE4100BC4300BA4500B84700B64900B44B00B24D00B04F
+      00AE5100AC5300AA5500A85700A65900A45B00A25D00A05F
+      009E61009C63009A6500986700966900946B00926D00906F
+      008E71008C73008A7500887700867900847B00827D00807F
+      007E81007C83007A8500788700768900748B00728D00708F
+      006E91006C93006A9500689700669900649B00629D00609F
+      005EA1005CA3005AA50058A70056A90054AB0052AD0050AF
+      004EB1004CB3004AB50048B70046B90044BB0042BD0040BF
+      003EC1003CC3003AC50038C70036C90034CB0032CD0030CF
+      002ED1002CD3002AD50028D70026D90024DB0022DD0020DF
+      001EE1001CE3001AE50018E70016E90014EB0012ED0010EF
+      000EF1000CF3000AF50008F70006F90004FB0002FD0000FF
+    </palette>
+  </flame>
+</flames>
+}}}
+
+
+IN file ( *.flame type ):
+    #id: IN
+    Load *.flame files authored with Apophysis, Fractorium and other flam3 compatile aplications.
+    
+    Only restrictions are:
+    
+    - The flames contained in the file must use the same variations included inside FLAM3 for Houdini. 
+    - A maximum of 4 VARS plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
+    ( for a total of 8 vars per iterator ). 
+    - For FF ( FinalXForm ) you have 1 PRE, 2 VARS plus 2 POST available.
+    
+    NOTE:
+        FLAM3 for Houdini do not deal with any image color correction curves that are present inside Fractorium for example.
+        Every time you load a flame authored with Fractorium, those curve's values will be discarded and internally re-set to their default values. ( no color correction at all )
+    
+Reload:
+    #id: IN
+    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    
+    ((LMB)) to reload the selected preset.
+    This is useful when you are working with for example Fractorium
+    while importing the same flame file also in FLAM3 for houdini.
+    - You can edit the flame in Fractorium, save it and click this to reload and see the changes in Houdini.
+    
+Presets:
+    #id: IN
+    Every *.flame file can contain multiple flames.
+    This presets will populate with as many entries as the number of flames included in the file you are loading.
+    Each entry will show the name of each flame.
+    
+Iterations on Load (int):
+    #id: IN
+    Set a number of iterations to use every time you load a flame from a *.flame file.
+    This will override the internally default value of 64 iterations.
+    
+    TIP:
+        When choosing a preset name for your fractal flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+        For example if you name a flame preset: "*My_Awesome_GrandJulia*" it will be loaded with a default 64 iterations.
+        But if you append the iteration number after a double colons to the preset name like so: "*My_Awesome_GrandJulia::16*" it will override all settings
+        and load it using 16 as iteration numbers.
+        
+        So make some tests before you save it out and pick the optimal iteration number to bake into its preset name.
+        
+        Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
+    
+Force iterations on Load:
+    #id: IN
+    When loading *.flame files, FLAM3 for Houdini will load them in
+    and automatically set the iterations number to 64, witch seem a fair amount to resolve most of them fairly well.
+    However, sometime you just want to be quick and you can override the iterations set on load using this value.
+    
+:box:
+    #display: rounded white
+
+    *IN: options*
+    
+remap "pre_gaussian_blur":
+    #id: prefs
+    Will remap "pre_gaussian_blur" variation to "pre_blur" variation on flame load.
+    ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
+    Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
+    
+    *You need to reload the current Flame preset for this change to take effect*.
+
+    
+Copy render properties on Load:
+    #id: IN
+    OFF by default. If ON it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
+    
+:box:
+    #display: rounded white
+
+    *IN: infos*
+    
+infos Tab:
+    #id: IN
+    Display information about the loaded Flame preset.
+    
+:box:
+    #display: rounded white
+
+    *IN: Render properties*
+    
+Render infos:
+    #id: IN
+    Display informations about the render properties of the loaded Flame preset.
+    Those properties are specific of the renderer of the application the loaded Flame has been created/saved from.
+    Some of the properties are specific to Fractorium application, witch has been my reference for this.
+    
+Copy/Paste render properties:
+    #id: IN
+    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    
+    Clicking this icon will copy those render properties and paste them inside the OUT tab render properties.
+    This way you can be sure your Flame will match the visual quality of the flame you just loaded once you save it out and load it back in Fractorium for example.
+        
+
+    
+    
+== OUT: output parameters == (OUT)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *OUT:* _Save *.flame file type to be loaded back inside Apophysis, Fractorium and others._
+    
+    Inside here, you can export your fractal flame out into an XML format. ( standard *.flame file format )
+    and re load it in inside FLAM3H or inside Apophysis, Fractorium and others.
+    
+    The flame file format do not support animations, but only static frames so to speak.
+    If you animted your fractal flame, save the hip file from Houdini instead.
+    
+    NOTE:
+        FLAM3 for Houdini allow you to save out your flames in the standard *.flame file format 
+        so that you can load them back inside any other applications like Fractorium, Apophysis and others.
+        
+        The original flame file format impose you some rules you must obey.
+        
+        The most important to remember is not to use multiple instances of the same variation in any of the available sections ( PRE, VAR, POST ).
+        
+        For example you can not use 2 Mobius variations inside the PRE section of an iterator, neither inside the VAR section.
+        You can however use 1 Mobius inside the PRE vars, 1 Mobius inside the VAR and 1 Mobius inside the POST.
+        
+        FLAM3 for Houdini, by design will allow you to be more flexible with your flame construction choises and allow
+        you to bend this rule enabling the use of the same variation multiple time within the same section ( _Chaotica style_ ), but you wont be able to save out
+        the result in the standard flame file format. *Save the hip file instead in those cases*.
+    
+OUT file ( *.flame type ):
+    #id: OUT
+    Select a file name to save your flame into.
+    If the selected file do not exist, it will be created.
+    
+    TIP:
+        Once you are happy with a FLAM3 library you built, you can rename the file to start with: "*F3H_LOCK*"
+        to prevent any further modifications to it. for example if you have a lib file call: "*my_grandJulia.flame*"
+        you can rename it to: "*F3H_LOCK_my_grandJulia.flame*" to keep it safe.
+        
+        _Not as elegant as using chmod in python but it's simple, effective and it has a visual msg ( the filename itself )._
+        
+        _And the advantage is also of acting as locked only within FLAM3 for Houdini_
+        _so that if you'd like to manually edit and change some preset names yoursef, you can._
+    
+Save Flame:
+    #id: OUT
+    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    
+    ((LMB)) to save the current flame into the selected OUT file.
+    
+    - If the selected file do not exist, it will be created.
+    - If the selected file exist and already contain some Flames in it, it will append the current one.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    
+    _If the selected file is not a valid Flame file type, nothing will happen._
+    
+    
+    TIP:
+        *Once you click save*:
+        
+        - If you selected a location and a filename without extension, it will automatically add the _*.flame*_ extension to it.
+        - If you do not provide a file name at all, it will generate one for you based out of today's date and current time assuming you have a valid location selected.
+        - If nothing is selected (ex: OUT file empty or invalid ), nothing will happen.
+        
+    NOTE:
+        When saving Flames out, remember you are not allowed to use the same variation more than once in any of the availabe var's sections. 
+        While this is doable within the tool, it is not compatible with FLAM3 file format as it require that a variation is used only once per type ( PRE, VAR, POST )
+        or you wont be able to save out the same result.
+        Save the hip file instead.
+        
+        This is true also for applications like Apophysis and Fractorium as they obey the same rule.
+    
+Flame name ( preset ):
+    #id: OUT
+    Write a name to give to the selected flame when saving it out.
+    If no name is provided, an automated name composed of today's date and current time will be used instead.
+    
+    TIP:
+        When choosing a preset name for your fractal flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+        For example if you name a flame preset: "*My_Awesome_GrandJulia*" it will be loaded with a default 64 iterations.
+        But if you append the iteration number after a double colons to the preset name like so: "*My_Awesome_GrandJulia::16*" it will override all settings
+        and load it using 16 as iteration numbers.
+        
+        So make some tests before you save it out and pick the optimal iteration number to bake into its preset name.
+        
+        Optionally, you can manually edit the generated XML/Flame file and modify the *flame-> "name"* key yourself after the fact if you desire so.
+    
+Flame name tip:
+    #id: OUT
+    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    
+    Show Flame name's informations and tips.
+    
+OUT file contents ( info ):
+    #id: OUT
+    This menu is only for information purpose.
+    It will show the Flames contained in the selected output file if any are presents.
+    Once you append a new Flame in it, this menu will update too.
+    It will always be set to the last Flame's name you saved.
+    
+:box:
+    #display: rounded white
+
+    *OUT: options*
+        
+Save palette HSV (cc):
+    #id: OUT
+    OFF by default as FLAM3 for Houdini will save out the HSV values into the XML file
+    so to set those once you load it back.
+    If checked, the Flame's palette will be saved out using the HSV Ramp
+    so to carry out any color corrections you may have done.
+    This is useful if you plan to load the saved Flame into an other application
+    like Fractorium and Apophisis and keep the color corrected palette with it.
+    
+Auto add iter num to Flame name:
+    #id: OUT
+    ON by default. It will automatically append the iteration number to the Flame name you enter.
+    It will also auto correct the Flame name string based on internally defined rules.
+    
+    TIP:
+        When on, and once you type in a flame name, changing the iteration number will update the Flame name too.
+
+    
+:box:
+    #display: rounded white
+
+    *OUT: Render properties*
+    
+
+OUT render properties:
+    #id: OUT
+    Those properties are specific of the renderer of the application you will load the saved Flame into.
+    Some of the properties are specific to Fractorium application, witch has been my reference for this.
+    
+    NOTE:
+        Those properties will control how the saved fractal flame will render
+        inside other applications like Fractorium and Apophysis.
+        
+        They are their renderer settings and they will be exported into the XML file.
+    
+Edit render properties:
+    #id: OUT
+    Allow the editing of the render properties for the host application you will load the saved flame file into.
+    Fractorium being the suggested one followed by Apophysis.
+    
+    Changing those values, will change how the saved flame will render inside those applications.
+    
+    NOTE:
+        FLAM3 for Houdini do not deal with any image color correction curves that are present inside Fractorium for example.
+        Every time you save a flame out from FLAM3 for Houdini, those curves will be re-written with their default values. ( no color correction at all )
+        
+        This mean that if you load a flame authored with Fractorium that uses its color correction curves, they will be lost once you save the flame out again from FLAM3 for Houdini.
+        
+    
+Reset render properties:
+    #id: OUT
+    [Largeicon:opdef:.?iconBlackSVG.svg]
+    
+    Click this icon to reset all OUT render properties.
+    
+Resolution:
+    #id: OUT
+    The image resolution.
+    
+Center:
+    #id: OUT
+    Where the flame is centered, think of this as the look at camera point.
+    
+Rotate:
+    #id: OUT
+    The camera rotation.
+    
+Scale:
+    #id: OUT
+    The camera zoom.
+    
+Quality:
+    #id: OUT
+    The render quality. Think of this as how many points are used inside Fractorium to render the final image. The more the more cleaner the final image.
+    
+Brightness:
+    #id: OUT
+    The flame render setting: brightness.
+    
+Gamma:
+    #id: OUT
+    The flame render setting: gamma.
+    
+Highlight power:
+    #id: OUT
+    The flame render setting: highlight power.
+    
+Logscale K2:
+    #id: OUT
+    The flame render setting: Logscale K2.
+    
+Vibrancy:
+    #id: OUT
+    The flame render setting: vibrancy.
+        
+    
+    
+    
+== Preferences == (PREFS)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *prefs:* _Tool's preferences._
+
+display prefs:
+    #id: prefs
+    Display preferences.
+    
+:box:
+    #display: round white
+    
+    *prefs: general*
+    
+flam3 compatibility (f3c):
+    #id: prefs
+    The behavior of the *cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan* and *tanh* variations are different in flam3/Apophysis versus Chaotica.
+    * *Checked*: use the Apophysis behavior.
+    * *Unchecked*: use the Chaotica behavior.
+    
+    TIP:
+        In Fractorium you can go to "Options" to find the exact same checkbox.
+        
+Auto correct output paths:
+    #id: prefs
+    ON by default. This is a simple auto correction of the input output file paths for the CP and OUT Tabs.
+    
+cvex precision modes:
+    #id: prefs
+    Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
+    
+    NOTE:
+        64-bit Double Precision will be really really slow, I'll repeat: *really really slow*.
+        Always use 32-bit unless you notice some major artifacts and you truly love the fractal flame you are working on.
+    
+:box:
+    #display: rounded white
+
+    *prefs: xaos*
+        
+xaos modes:
+    #id: prefs
+    Select to use xaos in either *xaos TO* or *xaos FROM* mode.
+    
+    - Switching between xaos modes will convert and re-set the xaos: string values inside each iterator so that you can see how the new weights changed to accomodate the new mode.
+    
+    NOTE:
+        When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        
+auto set xaos:
+    #id: prefs
+    
+    ON by default. Auto set iterator's xaos values every time an iterator is added or removed. 
+    It will keep the existing xaos weights and only add/remove the necessary one. 
+    In case of ADD, the new xaos weight will be of value: 1.
+
+:box:
+    #display: rounded white
+
+    *prefs: camera*
+            
+handle:
+    #id: prefs
+    Display viewport camera handle to help frame/center your fractal Flame.
+    On the left you will have the FLAM3 node name and on the right the selected camera name.
+    
+    :box:
+        #display: inverted red
+    
+        *TURN THIS OFF WHEN RENDERING.*
+    
+camera cull:
+    #id: prefs
+    Enable culling based on camera view.
+    
+cam:
+    #id: prefs
+    Pick a camera to use for either the handle or the culling.
+    
+amount:
+    #id: prefs
+    Culling amount.
+    
+:box:
+    #display: rounded white
+
+    *prefs: viewport*
+    
+dark:
+    #id: prefs
+    Set viewports color scheme to dark if not already.
+    It will remember the color scheme of all the viewports and revert back to it if unchecked.
+    If a viewport is already using a dark color scheme, checking this option will do nothing.
+    
+type:
+    #id: prefs
+    Set viewports particle display mode to either Points or Pixels.
+    
+size:
+    #id: prefs
+    When viewport particle display is set to Points, this will control their size in the viewport.
+        
+    
+    
+
+== Variations infos == (VARSINFO)
+
+_Dependant variation's affine coefficients:_
+
+*_WAVES_*: `O[0] X[1]   Y[1] O[1]`
+
+*_POPCORN_*: `O[0]  O[1]`
+
+*_RINGS_*: `O[0]`
+
+*_FAN_*: `O[0]`
+
+_A list of all variations included with FLAM3 v1.0.22 for SideFX Houdini:_
+
+- _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
+
+*
+arch, 
+auger, 
+bent, 
+bent2, 
+bipolar, 
+blade, 
+blob, 
+blur, 
+boarders, 
+bubble, 
+butterfly, 
+bwraps, 
+cell, 
+conic, 
+cos, 
+cosh, 
+cosine, 
+cot, 
+coth, 
+cpow, 
+crop, 
+cross, 
+csc, 
+csch, 
+curl, 
+curve, 
+cylinder, 
+diamond, 
+disc, 
+disc2, 
+edisc, 
+elliptic, 
+escher, 
+ex, 
+exp, 
+exponential, 
+eyefish, 
+fan, 
+fan2, 
+fisheye, 
+flower, 
+flux, 
+foci, 
+gaussian_blur, 
+glynnia, 
+handkerchief, 
+heart, 
+hemisphere, 
+horseshoe, 
+hyperbolic, 
+julia, 
+juliaN, 
+juliascope, 
+lazysusan, 
+linear, 
+log, 
+loonie, 
+mobius, 
+modulus, 
+ngon, 
+noise, 
+oscope, 
+parabola, 
+pdj, 
+perspective, 
+pie, 
+point_symmetry, 
+polar, 
+polar2, 
+polynomial, 
+popcorn, 
+popcorn2, 
+power, 
+pre blur, 
+radialblur, 
+rays, 
+rectangles, 
+rings, 
+rings2, 
+scry, 
+sec, 
+secant2, 
+sech, 
+separation, 
+sin, 
+sinh, 
+sinusoidal, 
+spherical, 
+spiral, 
+split, 
+splits, 
+square, 
+stripes, 
+supershape, 
+swirl, 
+tan, 
+tangent, 
+tanh, 
+twintrian, 
+unpolar, 
+waves, 
+waves2, 
+wedge, 
+wedgejulia, 
+wedgesph, 
+whorl
+*
+
+
+@Limitations
+    
+_The following are limitations to keep in mind when authoring your flame in Fractorium or Apophysis to be then loaded inside FLAM3 for Houdini. All those limitations are in place to keep performance acceptable within the CVEX language limits._
+
+== FLAME: Number of iterators ==
+
+Iterator's count:
+    #id: Limitations
+    
+    FLAM3 for Houdini allow you to create as many iteratos as you wish, however when using XAOS you are allowed to create max 20 iterators.
+
+== FLAME: xform's PRE, VAR and POST variations ==
+
+PRE variations:
+    #id: Limitations
+    
+    Every iterator is capabable of 3 PRE variations, with one ( the first one to always be executed ) being: pre_blur, followed by the other two.
+    
+    It is really pre_blur + 2 variations of your choice.
+    
+    NOTE:
+        _*The weight of the PRE variations can not be negative*_ in FLAM3 for Houdini.
+
+VAR variations:
+    #id: Limitations
+    
+    Every iterator is capable of 4 variations.
+    
+POST variations:
+    #id: Limitations
+    
+    Every iterator is capable of 1 POST variation.
+    
+    NOTE:
+        _*The weight of the POST variation can not be negative*_ in FLAM3 for Houdini.
+        
+Parametric variation parameters:
+    #id: Limitations
+    
+    Each iterator has only one set of parametric variation parameters shared with PRE, VAR and POST variations.
+    This mean if you use 2 PRE_Mobius, 4 Mobius and 1 POST_Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    
+    
+    
+== FF: finalxform's PRE, VAR and POST variations ==
+
+FF PRE variations:
+    #id: Limitations
+    
+    FF iterator is capabable of 1 PRE variation.
+    
+    NOTE:
+        _*The weight of the FF PRE variations can not be negative*_ in FLAM3 for Houdini.
+
+FF VAR variations:
+    #id: Limitations
+    
+    FF iterator is capable of 2 variations.
+    
+FF POST variations:
+    #id: Limitations
+    
+    FF iterator is capable of 2 POST variations.
+    
+    NOTE:
+        _*The weight of the FF POST variation can not be negative*_ in FLAM3 for Houdini.
+        
+FF Parametric variation parameters:
+    #id: Limitations
+    
+    FF iterator has two sets of parametric variation parameters.
+    One is shared with VAR variations.
+    The second is shared with PRE and POST variations.
+    
+    This mean if you use 4 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one,
+    
+    but if you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two.
+    
+== FF: Shader ==
+
+FF Shader:
+    #id: Limitations
+    
+    This finalxform ( FF ) do not posses any color's parameters in this implementation ( Chaotica style ).
+
+    NOTE:
+        When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
+        - Color -> 0.0
+        - Color Speed -> 0.0 ( _this is the most important_ )
+        - Direct Color -> 1.0
+        
+        This way you wont mix in a color to the flame that FLAM3 for Houdini wont be able to match.
+        
+        
+
+@Author
+
+= _Alessandro Nardini_ =
+
+Mini bio:
+    #id: Author
+    
+    Alessandro Nardini is an Italian artist whos spent most of his career serving the entertainment industry.
+    He served many different branches of entertainment post production,
+    spanning from feature films, games, TV/commercials, episodic series and streaming.
+
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -347,7 +1828,7 @@ Xaos tip:
     #id: FLAME
     [Largeicon:opdef:.?iconBlueStarRedSVG.svg]
     
-    - ((LMB)) to updated the auot set Xaos data, a must do after you *Undo* to keep auto set xaos working correctly.
+    - ((LMB)) Will space the xaos weights for easy read and count ( ON/OFF )
     
     - ((CTRL)) + ((LMB)) to show Xaos informations and tips.
  
@@ -1189,27 +2670,9 @@ xaos modes:
 auto set xaos:
     #id: prefs
     
-    ON by default. Set iterator's xaos values every time an iterator is added or removed. 
+    ON by default. Auto set iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary one. 
-    In case of ADD, the new xaos weights will have a value of 1.
-    
-    NOTE:
-        *This functionality do not support Houdini's Undo Stack.*
-        
-        If you perform any operation that will affect Xaos ( adding/removing iterators, changing xaos weights... ),
-        and then Undo those operations, the xaos cached data needed to keep working correctly will become obsolete.
-        
-        To fix this, force xaos to evaluate once after the Undo by clicking the blue *F* icon with a red star  [Smallicon:opdef:.?iconBlueStarRedSVG.svg]  at the right of the xaos string parameter.
-        
-        or,
-        never Undo when "auto set xaos" is ON.. ;)
-
-
-auto space xaos weights:
-    #id: prefs
-    
-    Will space the xaos weights for easy read and count.
-    
+    In case of ADD, the new xaos weight will be of value: 1.
 
 :box:
     #display: rounded white

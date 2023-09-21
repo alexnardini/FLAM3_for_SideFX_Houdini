@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.0.2'
+FLAM3HOUDINI_VERSION = '1.0.22'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -140,10 +140,9 @@ MSG_FLAM3PLUGINS = 'flam3plugins_msg'
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
 
-# self cached user data
-FLAM3H_XAOS_MP_MEM = 'flam3h_xaos_mpmem'
-FLAM3H_XAOS_ITERATOR_PREV = 'flam3h_xaos_iterators_prev'
-
+# self prm names for user data
+FLAM3H_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
+FLAM3H_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
 
 
 class flam3_varsPRM:
@@ -300,7 +299,7 @@ class flam3_iterator_prm_names:
     # ITERATOR
     #
     # Main
-    main_mpmem = 'mpmem'
+    main_mpmem = 'mpmem' # auto set xaos: custom data
     main_note = 'note'
     main_prmpastesel = 'prmpastesel'
     main_vactive = 'vactive'
@@ -1981,6 +1980,39 @@ def flam3_default(self: hou.Node) -> None:
 
 
 
+
+def auto_set_xaos_data_get(self: hou.Node, data_name: str) -> list:
+    
+    if data_name == FLAM3H_PRM_XAOS_MP_MEM:
+        get_prm = self.parm(FLAM3H_PRM_XAOS_MP_MEM).eval()
+        if get_prm:
+            return [int(x) for x in get_prm.split(' ')]
+        else:
+            return None
+    elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
+        get_prm = self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).eval()
+        if get_prm:
+            return [x.split(' ') for x in get_prm.split(':')]
+        else:
+            return None
+    else:
+        return None
+
+def auto_set_xaos_data_set(self: hou.Node, data_name: str, data: list) -> None:
+
+    if data_name == FLAM3H_PRM_XAOS_MP_MEM:
+        data_to_prm = ' '.join([str(x) for x in data])
+        self.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
+    elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
+        # to prm
+        collect = []
+        for xaos in data:
+            collect.append(' '.join(xaos))
+        data_to_prm = ':'.join(collect)
+        self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+        
+    # self.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
+    
 def auto_set_xaos(self: hou.Node) -> None:
     """Set iterator's xaos values every time an iterator is added or removed.
 
@@ -2010,7 +2042,8 @@ def auto_set_xaos(self: hou.Node) -> None:
         # get mpmem parms now
         [mpmem.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
-        __mpmem_hou_get = self.cachedUserData(FLAM3H_XAOS_MP_MEM)
+        # get mpmem from CachedUserData
+        __mpmem_hou_get = auto_set_xaos_data_get(self, FLAM3H_PRM_XAOS_MP_MEM)
         if __mpmem_hou_get is None:
             mpmem_hou_get = mpmem
         else:
@@ -2029,7 +2062,8 @@ def auto_set_xaos(self: hou.Node) -> None:
                 collect.append(str(item))
             xaos_str.append(collect)
             
-        __xaos_str_hou_get = self.cachedUserData(FLAM3H_XAOS_ITERATOR_PREV)
+        # get xaos from CachedUserData
+        __xaos_str_hou_get = auto_set_xaos_data_get(self, FLAM3H_PRM_XAOS_ITERATOR_PREV)
         if __xaos_str_hou_get is None:
             xaos_str_hou_get = xaos_str
         else:
@@ -2053,7 +2087,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             for x in xaos_str:
                 del x[idx_del_inbetween]
             # updated CachedUserData: flam3h_xaos_iterators_prev
-            self.setCachedUserData(FLAM3H_XAOS_ITERATOR_PREV, tuple(xaos_str))
+            auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
         elif idx_add_inbetween is not -1:
@@ -2064,10 +2098,10 @@ def auto_set_xaos(self: hou.Node) -> None:
                     # so lets remove the last element as it is not longer needed
                     del x[-1]
             # updated CachedUserData: flam3h_xaos_iterators_prev
-            self.setCachedUserData(FLAM3H_XAOS_ITERATOR_PREV, tuple(xaos_str))
+            auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
         else:
             # updated CachedUserData: flam3h_xaos_iterators_prev
-            self.setCachedUserData(FLAM3H_XAOS_ITERATOR_PREV, tuple(xaos_str))
+            auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
             
         # set all multi parms xaos strings parms
         xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
@@ -2084,7 +2118,7 @@ def auto_set_xaos(self: hou.Node) -> None:
     __mpmem_hou = []
     [__mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
     # export mpmem into CachedUserData
-    self.setCachedUserData(FLAM3H_XAOS_MP_MEM, tuple(__mpmem_hou))
+    auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
 
 
 def iterator_count(self: hou.Node) -> None:
@@ -2163,9 +2197,7 @@ def web_FLAM3github() -> None:
 ###############################################################################################
 def ui_xaos_infos(kwargs) -> None:
     
-    if kwargs["ctrl"]:
-        
-        ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
+    ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
 To set XAOS for a flame with 4 iterators,
 use the "xaos:" keyword followed by each iterator weights values separated by a colon:
@@ -2180,12 +2212,27 @@ FLAM3 will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be int
 When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator
 so you wont need to remove values from the command string,
 unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
+    
+    node=kwargs['node']
+    autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
+    
+    if autoset:
+        if kwargs["ctrl"]:
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+
+        else:
+            # current node
+            autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).eval()
+            if autodiv:
+                node.setParms({PREFS_XAOS_AUTO_SPACE: 0})
+                auto_set_xaos(node)
+                
+            else:
+                node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
+                auto_set_xaos(node)
+    else:
         hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
-    else:
-        # current node
-        node=kwargs['node']
-        auto_set_xaos(node)
         
 ###############################################################################################
 # OUT Presets name infos.
@@ -5255,7 +5302,7 @@ def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
 
 
 
-def out_check_build_file(file_split: tuple[str, str], file_name: str, file_ext: str) -> str:
+def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
     """_summary_
 
     Args:
