@@ -57,7 +57,7 @@ NOTE:
 
 density:
     #id: GLOBAL
-    Number of points to use. For high qualty fractals start from 20M up to 500M and more depending the type of Fractal Flame you are ending up with. As a general rule, the more the better.
+    Number of points to use. For high quality fractals start from 20M up to 500M and more depending of the type of Fractal Flame you are ending up with. As a general rule, the more the better.
     * Must find the sweet spot between quality and processing time.
 
     
@@ -87,13 +87,13 @@ Reset density:
 iterations:
     #id: GLOBAL
     Number of iterations to use.
-    - You dnt need many iterations to get some good Fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
+    - You do not need many iterations to get some good fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
     - If you increase an iterator weight, use xaos to build containers or use some kind of variations you will require higher number to resolve and show you the proper result.
     
-    Almost all of the fractal flame showcased inside FLAM3 for Houdini website/instagram account
+    Almost all of the fractal Flames showcased inside FLAM3 for Houdini instagram account
     use a maximun of 64 iterations with a few exceptions reaching 96 and in rare cases 128/256 and more.
     
-    Some flames require truly an high amount of iterations to resolve properly.
+    Some Flames require truly an high amount of iterations to resolve properly.
 
     Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
     They have been choosen because they use variations I have implemented too and because some are really expensive to solve.
@@ -112,13 +112,13 @@ iterations:
     
     
     TIP:
-        You can create some beautiful fractal flames with just 6 iterations, below an example I did myself:
+        You can create some beautiful fractal Flames with just 6 iterations, below an example I did myself:
         
         _*[Knot clusters: 6 iterations|https://user-images.githubusercontent.com/42110232/234943476-5a6cb25e-d842-4080-ba52-b75d9a4d915e.jpg]*_
         
     TIP:
         When: *Auto add iter num to Flame name* toggle is ON inside the OUT Tab,
-        changing iteration will updated the Flame name if any have been typed.
+        changing the iterations parameter will updated the Flame name if any have been typed.
         
         
 
@@ -128,14 +128,14 @@ iterations:
 :box:
     #display: inverted teal
 
-    *SYS:* _System options._
+    *SYS:* _System utilities._
     
     Utilities at hand to help improve and speed up the workflow.
 
     
 FF:
     #id: SYS
-    Enable Final Flame variation's transform.
+    Enable finalXform transform/iterator.
     
 RIP:
     #id: SYS
@@ -151,7 +151,7 @@ RIP:
 TAG:
     #id: SYS
     Enable vieport TAG infos.
-    * This shoud always be On as it is useful to review the Flame fractal being worked on. The iterator weight is displayed also per each iterator.
+    * This shoud always be On as it is useful to review the fractal Flame being worked on. The iterator weight is displayed also per each iterator.
          
 TAG size:
     #id: SYS
@@ -236,15 +236,16 @@ OUT Save:
     
     This is, together with the *FF* Tab, the place where you will spend most of your time.
     
-    Inside here you will build your fractal flame logic.
-    If you have ever used Apophysis, Fractorium or other fractal flame editors, you will find almost at home
+    Inside here you will build your fractal Flame logic.
+    If you have ever used Apophysis, Fractorium or other fractal Flame editors, you will find almost at home
     as every parameter carry on the same name inside here. The logic you will operate with will be the same.
     
 
 iterators:
     #id: FLAME
     Number of iterators to use.
-    * This is equivalent to the number of triangle handles you have inside popular fractal flame editors out there.
+    * This is equivalent to the number of triangle handles you have inside popular fractal Flame editors out there.
+    * Every iterator act as a container of functions, the algorithm will them mix/shuffle them based on your logic.
     
     NOTE:
         The order of the iterators do not matter at all,
@@ -269,10 +270,10 @@ copy/paste:
     
     ((LMB)) to mark this iterator for being copied. 
     
-    - ((CTRL)) + ((LMB)) to PASTE the copied values into another iterator. It will copy everything, parametric variation's parameters included but not XAOS.
+    - ((CTRL)) + ((LMB)) to PASTE the copied values into another iterator. It will copy everything, parametric variation's parameters included but not XAOS. To copy XAOS, use the copy/paste mini menu
     - ((SHIFT)) + ((LMB)) will unmark this iterator for being copied.
     
-    It will work also between different FLAM3 nodes.
+    It will work also between different FLAM3H nodes.
     
     Once you copy an iterator you can have access to the arrow icon menu next to the *F* icon.
     From this menu you will be able to paste specific sections from the copied iterator, xaos incuded.
@@ -288,13 +289,13 @@ A:
     Enable/Disable this iterator.
     
     TIP:
-        If an iterator is disabled, it wont be included when saving the flame out into a Flame file.
+        If an iterator is disabled, it wont be included when saving the Flame out into a flame file.
         In case you still want to include the inactive iterator into the file, set its Weight to Zero instead.
     
 W:
     #id: FLAME
     The iterator weight. Define the probability this iterator is choosen during the chaos game.
-    The higher an iterator weight is compared to the others and the more iterations you may need to properly resolve the Fractal Flame's shapes you are working on..
+    The higher an iterator weight is compared to the others and the more iterations you may need to properly resolve the fractal Flame's shapes you are working on..
     
 :box:
     #display: rounded white
@@ -322,8 +323,8 @@ xaos:
     _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
     
     *Looking from an iterator point of view*:
-    - When in *xaos_TO mode*, you will think like: *to* which iterator am I allowed to send points I just executed?
-    - When in *xaos_FROM mode*, you will think like: *from* which iterator am I allowed to receive points before I execute them myself?
+    - When in *xaos_TO* mode, you will think like: *to* which iterator am I allowed to send points I just executed?
+    - When in *xaos_FROM* mode, you will think like: *from* which iterator am I allowed to receive points before I execute them myself?
     - _Note that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the iterator with the Curl variation in the above image. )_
     
     *How to set xaos in FLAM3 for Houdini:*
