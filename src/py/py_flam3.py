@@ -4772,7 +4772,7 @@ class _out_utils():
             xaos_vactive = self.xaos_collect_vactive(self._node, t, self._prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
         else:
-            return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(t))])
+            return tuple([" ".join(x) for x in self.out_round_floats(t)])
 
 
     @property
