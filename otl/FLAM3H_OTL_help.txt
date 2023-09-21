@@ -873,7 +873,7 @@ Iterations on Load (int):
     This will override the internally default value of 64 iterations.
     
     TIP:
-        If "auto add iter num to Flame name" OUT Tab option is *OFF*:
+        If "*auto add iter num to Flame name*" OUT Tab option is *OFF*:
     
         When choosing a preset name for your fractal Flame, you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
         For example if you name a Flame preset: "*My_Awesome_GrandJulia*" it will be loaded with a default 64 iterations.
@@ -901,12 +901,16 @@ remap "pre_gaussian_blur":
     ON by default as "pre_blur" variation is hard coded into the chaos game in this implementation to be as fast as it can be.
     Turn it OFF if you desire to use "pre_gaussian_blur" instead and behave as a pre variation ( not cumulative/additive ).
     
-    *You need to reload the current Flame preset for this change to take effect*.
+    NOTE:
+        *You need to reload the current Flame preset for this change to take place*.
 
     
 Copy render properties on Load:
     #id: IN
     OFF by default. If ON it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
+    
+    NOTE:
+        *You need to reload the current Flame preset for this change to take place*.
     
 :box:
     #display: rounded white
