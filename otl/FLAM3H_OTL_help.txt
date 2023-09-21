@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.22
+#version: 1.0.23
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -150,8 +150,25 @@ RIP:
         
 TAG:
     #id: SYS
+    
     Enable vieport TAG infos.
-    * This shoud always be On as it is useful to review the fractal Flame being worked on. The iterator weight is displayed also per each iterator.
+    
+    _This shoud always be On as it is useful to review the fractal Flame being worked on. The iterator weight is displayed also per each iterator._
+    
+    * Iterations number will be the very first number inside square brackets.
+    * Xaos will be next inside square brackets only when Xaos is active. ( read the Xaos documentation to know when. )
+    * Xaos TO will be: *Xt*
+    * Xaos FROM wil be: *Xf*
+    * Iterator's variations are lowercase.
+    * FF will be UPPER CASE.
+    * "*pre_blur*" will be indicated witn an asterisk * at the beginning of each iterator.
+    * PRE variations will be inside square brackets at the beginning of each iterator or FF.
+    * POST variations will be inside square brackets at the end of each iterator or FF
+    * The iterator's Weight value will be last in each iterator.
+    
+    TIP:
+        - When "*auto set xaos*" is *OFF*, the Tag icon will be: ( [Smallicon:opdef:.?iconRedSVG.svg] ) .
+        - When "*auto set xaos*" is *ON* , the Tag icon will be: ( [Smallicon:opdef:.?iconBlueStarRedSVG.svg] ) .
          
 TAG size:
     #id: SYS
@@ -1271,7 +1288,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.22 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.23 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 
