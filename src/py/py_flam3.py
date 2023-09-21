@@ -1981,7 +1981,16 @@ def flam3_default(self: hou.Node) -> None:
 
 
 def auto_set_xaos_data_get(self: hou.Node, data_name: str) -> Union[list, None]:
-    
+    """Retrieve the desire data from FLAM3H data srting parameters
+and reconvert it back to usable types.
+
+    Args:
+        self (hou.Node): FLAM3H node
+        data_name (str): The FLAM3H parameter name you desire to get.
+
+    Returns:
+        Union[list, None]: A valid data type of the same data retrieved to be used inside: auto_set_xaos()
+    """
     if data_name == FLAM3H_PRM_XAOS_MP_MEM:
         get_prm = self.parm(FLAM3H_PRM_XAOS_MP_MEM).eval()
         if get_prm:
@@ -1998,7 +2007,14 @@ def auto_set_xaos_data_get(self: hou.Node, data_name: str) -> Union[list, None]:
         return None
 
 def auto_set_xaos_data_set(self: hou.Node, data_name: str, data: list) -> None:
+    """Set the data_name data into FLAM3H data parameters.
+Note that all the data will be of type: string.
 
+    Args:
+        self (hou.Node): FLAM3H node
+        data_name (str): The parameter name you desire to swt.
+        data (list): The data to se
+    """
     if data_name == FLAM3H_PRM_XAOS_MP_MEM:
         data_to_prm = ' '.join([str(x) for x in data])
         self.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
@@ -2009,8 +2025,7 @@ def auto_set_xaos_data_set(self: hou.Node, data_name: str, data: list) -> None:
             collect.append(' '.join(xaos))
         data_to_prm = ':'.join(collect)
         self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
-        
-    # self.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
+
     
 def auto_set_xaos(self: hou.Node) -> None:
     """Set iterator's xaos values every time an iterator is added or removed.
