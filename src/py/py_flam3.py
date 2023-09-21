@@ -5287,7 +5287,7 @@ def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, 
     new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
     
     file = os.path.expandvars(infile)
-    file_s = os.path.split(file)
+    file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
     
     autopath = self.parm(PREFS_AUTO_PATH_CORRECTION).evalAsInt()
 
