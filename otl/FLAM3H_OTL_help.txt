@@ -159,16 +159,18 @@ TAG:
     * Xaos will be next inside square brackets only when Xaos is active. ( read the Xaos documentation to know when. )
     * Xaos TO will be: *Xt*
     * Xaos FROM wil be: *Xf*
-    * Iterator's variations are lowercase.
-    * FF will be UPPER CASE.
-    * "*pre_blur*" will be indicated witn an asterisk * at the beginning of each iterator.
+    * Iterator variations are lowercase.
+    * FF variations are UPPER CASE.
+    * "*pre_blur*" will be indicated witn an asterisk * at the beginning of each iterator and before all variations.
     * PRE variations will be inside square brackets at the beginning of each iterator or FF.
     * POST variations will be inside square brackets at the end of each iterator or FF
     * The iterator's Weight value will be last in each iterator.
     
+    * The colons *:* indicate how many variations slots are still available ( 4 in case of an iterator VAR section ).
+    
     TIP:
-        - When "*auto set xaos*" is *OFF*, the Tag icon will be: ( [Smallicon:opdef:.?iconRedSVG.svg] ) .
-        - When "*auto set xaos*" is *ON* , the Tag icon will be: ( [Smallicon:opdef:.?iconBlueStarRedSVG.svg] ) .
+        - When "*auto set xaos*" is *ON* , the Tag icon will be: [Smallicon:opdef:.?iconBlueStarRedSVG.svg] 
+        - When "*auto set xaos*" is *OFF*, the Tag icon will be: [Smallicon:opdef:.?iconRedSVG.svg] 
          
 TAG size:
     #id: SYS
