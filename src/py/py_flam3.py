@@ -1980,8 +1980,7 @@ def flam3_default(self: hou.Node) -> None:
 
 
 
-
-def auto_set_xaos_data_get(self: hou.Node, data_name: str) -> list:
+def auto_set_xaos_data_get(self: hou.Node, data_name: str) -> Union[list, None]:
     
     if data_name == FLAM3H_PRM_XAOS_MP_MEM:
         get_prm = self.parm(FLAM3H_PRM_XAOS_MP_MEM).eval()
