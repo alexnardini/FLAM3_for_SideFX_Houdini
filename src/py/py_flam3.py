@@ -2046,8 +2046,8 @@ def auto_set_xaos(self: hou.Node) -> None:
     if autoset:
         
         # init indexes
-        idx_del_inbetween = -1
-        idx_add_inbetween = -1
+        idx_del_inbetween = None
+        idx_add_inbetween = None
         
         mpmem = []
         mpmem_hou_get = []
@@ -2095,7 +2095,7 @@ def auto_set_xaos(self: hou.Node) -> None:
                 break
         
         # DEL
-        if idx_del_inbetween is not -1 and idx_del_inbetween < iter_num:
+        if idx_del_inbetween is not None and idx_del_inbetween < iter_num:
             xaos_str = xaos_str_hou_get
             del xaos_str[idx_del_inbetween]
             for x in xaos_str:
@@ -2104,7 +2104,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
-        elif idx_add_inbetween is not -1:
+        elif idx_add_inbetween is not None:
             for xidx, x in enumerate(xaos_str):
                 if xidx != idx_add_inbetween:
                     x.insert(idx_add_inbetween, '1.0')
