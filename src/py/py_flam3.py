@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.0.22'
+FLAM3HOUDINI_VERSION = '1.0.23'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1713,13 +1713,19 @@ def flam3_xaos_convert(self) -> None:
         div_xaos = 'xaos :'
         div_weight = ' :'
     
+    # Get xaos
     f3d = out_flam3_data(self)
+    # Convert xaos
     xaos_new = f3d.out_xf_xaos_from(0)
+    # updated CachedUserData: flam3h_xaos_iterators_prev
+    auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_new)
+    
     for iter in range(f3d.iter_count):
         if xaos_new[iter]:
             xs = div_xaos + div_weight.join(xaos_new[iter].split(" "))
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": xs})
         else:
+            # I dnt think this is needed anymore but i leave it here.
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(iter+1)}": div_xaos})
 
 
@@ -2006,25 +2012,29 @@ and reconvert it back to usable types.
     else:
         return None
 
-def auto_set_xaos_data_set(self: hou.Node, data_name: str, data: list) -> None:
+def auto_set_xaos_data_set(self: hou.Node, data_name: str, data: Union[list, tuple]) -> None:
     """Set the data_name data into FLAM3H data parameters.
 Note that all the data will be of type: string.
 
     Args:
         self (hou.Node): FLAM3H node
         data_name (str): The parameter name you desire to swt.
-        data (list): The data to se
+        data (list): The data to set. A tuple can only come from: out_flam3_data(self).out_xf_xaos_from(mode)
     """
     if data_name == FLAM3H_PRM_XAOS_MP_MEM:
         data_to_prm = ' '.join([str(x) for x in data])
         self.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
     elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
-        # to prm
-        collect = []
-        for xaos in data:
-            collect.append(' '.join(xaos))
-        data_to_prm = ':'.join(collect)
-        self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+        # to prm from: flam3_xaos_convert()
+        if isinstance(data, tuple):
+            data_to_prm = ':'.join(data)
+            self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+        else:
+            collect = []
+            for xaos in data:
+                collect.append(' '.join(xaos))
+            data_to_prm = ':'.join(collect)
+            self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
 
     
 def auto_set_xaos(self: hou.Node) -> None:
