@@ -633,7 +633,7 @@ PP VARS Tab:
 
     *CP:* _Flame fractal color palette._
     
-    Palette colors are a very important aspect for a succesful fractal flame.
+    Palette colors are a very important aspect for a succesful fractal Flame.
     Not only will be essential to play with each iterator's shader parameters
     but experimenting with different palette can make a difference
     and turn a fractal Flame into something really special.
@@ -1206,6 +1206,9 @@ auto set xaos:
     ON by default. Auto set iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary one. 
     In case of ADD, the new xaos weights will be of value: 1.
+    
+    TIP:
+        The FLAM3H viewport Tag icon will turn to red ( [Smallicon:opdef:.?iconRedSVG.svg] ) when OFF.
 
 :box:
     #display: rounded white
