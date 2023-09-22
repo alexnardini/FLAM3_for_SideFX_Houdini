@@ -24,10 +24,10 @@ Building a fractal art tool without knowing what a fractal artist need and feel 
 It was important so I could shape and steer this tool in the right direction.
 
 
+### Description
+
 `FLAM3H node OTL documentation.`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_OTL_documentation_H19.jpg)
-
-### Description
 
 An implementation of FLAM3 inside SideFX Houdini software using Houdini's CVEX programming language.
 Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it will be lots of fun.
