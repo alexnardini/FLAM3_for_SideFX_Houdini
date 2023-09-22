@@ -67,7 +67,7 @@ or you can use Apophysis or Fractorium to author your flames first and load them
 
 ## Viewport live point cloud
 
-`Imagine the possibilities using Houdini procedural paradigm and toolsets to control all aspect of your Flame.`
+`Imagine the possibilities using Houdini procedural paradigm and toolsets to control all aspects of your Flame.`
 ![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_01_H19.jpg)
 ![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_02_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
