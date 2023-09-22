@@ -50,7 +50,7 @@ With Houdini integrated Karma renderer you will be able to render the generated 
 
 Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while using the raw color coming from the palette the flame is currently using.
 
-A custom shader could in theory implement a log density display and some form of density estimator. However, the beauty of outputting fractal flame images in a 16bit or 32bit exr format will give joy when color correcting them, something us, in VFX takes it for granted.
+A custom shader could in theory implement a log density display and some form of density estimator. However, the beauty of outputting fractal flame images in a 16bit or 32bit exr format will give joy when color correcting them, something us, in VFX, takes it for granted.
 
 `Karma interactive rendering in the Houdini's viewport.`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
