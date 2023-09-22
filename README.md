@@ -118,15 +118,15 @@ Some require thousands of iterations to show you the proper results, some of the
 
 ### Lets start with this gnarl preset:
 
-`Iterations needed in FLAM3 for Houdini to resolve: 1280`
+Iterations needed in FLAM3 for Houdini to resolve: **1280**
 
 `ieddaka gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 ### The next two are a bit more speedy:
 
-`Iterations needed in FLAM3 for Houdini to resolve: 512`
-`( potentially a bit less are needed for those but just in case. )`
+Iterations needed in FLAM3 for Houdini to resolve: **512**
+( potentially a bit less are needed for those but just in case. )
 
 `blue modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
@@ -136,21 +136,21 @@ Some require thousands of iterations to show you the proper results, some of the
 
 ### This one is quick and beautiful:
 
-`Iterations needed in FLAM3 for Houdini to resolve: 64`
+Iterations needed in FLAM3 for Houdini to resolve: **64**
 
 `majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 ### And the last one:
 
-`Iterations needed in FLAM3 for Houdini to resolve: 32`
+Iterations needed in FLAM3 for Houdini to resolve: **32**
 
 `blurry splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 The following is another preset Chaotica software ship with I truly loved ported inside FLAM3 for Houdini and rendered with Karma renderer.
 
-`Iterations needed in FLAM3 for Houdini to resolve: 64`
+Iterations needed in FLAM3 for Houdini to resolve: **64**
 
 `Golden Dragon - Author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
@@ -158,7 +158,12 @@ The following is another preset Chaotica software ship with I truly loved ported
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
-However from all my tests, betweem 10 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, I have some of them on my website and instagram.
+However from all my tests, betweem 10 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, here is one I did:
+
+Iterations needed in FLAM3 for Houdini to resolve: **6**
+
+`Knot clusters - Author: Alessandro Nardini`
+![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
 I could add a lot more functionalities but this project consumed me for a very long time.
 Every aspects of this algorithm, once understood, look simple on the surface but they all present challenges on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
