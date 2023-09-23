@@ -1416,28 +1416,39 @@ whorl
 Compile CVEX:
     #id: CVEX
     
+:box:
+    #display: rounded white
+    
     *SideFX made this part very easy*:
     
     * Open a Houdini 19.x Command line Tools shell
     * Navigate into the directory where the cvex source files are located
     * To compile any of the available cvex source files, run this command:
     
-    _*vcc -c cvex filename.vfl -o filename.vex*_
+    {{{
+    #!vex
+    vcc -c cvex sourceFile.vfl -o outputFile.vex
+    }}}
     
     - *vcc* is the name of the Houdini's cvex/vex compiler
     - *-c* to specify a Houdini context, in this case the context is: *cvex*
     - *-o* to specify an output filename ( *.vex* extension )
     
-    *filename.vfl* is the source file, and *filename.vex* is the output cvex compiled file.
-    
     The FLAM3H source files are already named as expected.
     
-    - The output filename must be the same as the input filename ( only the file extension will be different, of course ).
-
+    - For FLAM3H, the output file name must be the same as the input source file name ( only the file extension will be different, of course ).
+    
+        - Source: _*TheFractalFlameAlgorithm.vfl*_ 
+    
+        - Output: _*TheFractalFlameAlgorithm.vex*_
+    
 == Cvex: How to update FLAM3H node == (UPDATE)
 
 Reload CVEX:
     #id: CVEX
+    
+:box:
+    #display: rounded white
     
     Inside FLAM3H node, you will find many wrangle core nodes running a compiled cvex file.
     
