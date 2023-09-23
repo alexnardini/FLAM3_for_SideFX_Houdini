@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.0.23'
+FLAM3HOUDINI_VERSION = '1.0.33'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -567,7 +567,7 @@ def menu_copypaste(kwargs: dict) -> list:
     try:
         hou.session.flam3node_mp_id # type: ignore
     except:
-        hou.session.flam3node_mp_id = -1 # type: ignore
+        hou.session.flam3node_mp_id = None # type: ignore
 
     id_from = hou.session.flam3node_mp_id # type: ignore
 
@@ -576,10 +576,10 @@ def menu_copypaste(kwargs: dict) -> list:
     try:
         hou.session.flam3node.type() # type: ignore
     except:
-        id_from = -1
+        id_from = None
 
     # If we did and the FLAM3 node still exist
-    if id_from != -1:
+    if id_from is not None:
 
         # current id
         id = kwargs['script_multiparm_index']
@@ -626,7 +626,7 @@ def menu_copypaste_FF(kwargs: dict) -> list:
     try:
         hou.session.flam3node_FF_check # type: ignore
     except:
-        hou.session.flam3node_FF_check = -1 # type: ignore
+        hou.session.flam3node_FF_check = None # type: ignore
 
     flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
 
@@ -635,10 +635,10 @@ def menu_copypaste_FF(kwargs: dict) -> list:
     try:
         hou.session.flam3node_FF.type() # type: ignore
     except:
-        flam3node_FF_check = -1
+        flam3node_FF_check = None
 
     # If we did and the FLAM3 node still exist
-    if flam3node_FF_check != -1:
+    if flam3node_FF_check is not None:
 
         node=kwargs['node']
         flam3node_FF = hou.session.flam3node_FF # type: ignore
@@ -887,10 +887,10 @@ def prm_paste(kwargs: dict) -> None:
         try:
             flam3node.type()
         except:
-            id_from = -1
+            id_from = None
 
         # If we ever copied an iterator from a currently existing FLAM3 node
-        if id_from != -1:
+        if id_from is not None:
             if node==flam3node and id==id_from:
                 print(f"{str(node)}: Iterator marked. Select a different iterator number to paste those values.")
             else:
@@ -933,10 +933,10 @@ def prm_paste_FF(kwargs: dict) -> None:
         try:
             flam3node_FF.type()
         except:
-            flam3node_FF_check = -1
+            flam3node_FF_check = None
 
         # If we ever copied an FF from a currently existing FLAM3 node
-        if flam3node_FF_check != -1:
+        if flam3node_FF_check is not None:
             if node==flam3node_FF:
                 print(f"{str(node)}: FF marked. Select a different FLAM3 node to paste those FF values.")
             else:
@@ -985,11 +985,11 @@ def prm_paste_sel(kwargs: dict) -> None:
     try:
         flam3node.type()
     except:
-        id_from = -1
+        id_from = None
     '''
 
     # If we ever copied an iterator from a currently existing FLAM3 node
-    if id_from != -1:
+    if id_from is not None:
 
         n = flam3_iterator_prm_names
         
@@ -1066,11 +1066,11 @@ def prm_paste_sel_FF(kwargs: dict) -> None:
     try:
         flam3node_FF.type()
     except:
-        flam3node_FF_check = -1
+        flam3node_FF_check = None
     '''
 
     # If we ever copied an FF from a currently existing FLAM3 node
-    if flam3node_FF_check != -1:
+    if flam3node_FF_check is not None:
 
         n = flam3_iterator_prm_names
         
@@ -1146,14 +1146,14 @@ def flam3_on_create(kwargs: dict) -> None:
     try:
         hou.session.flam3node_mp_id # type: ignore
     except:
-        hou.session.flam3node_mp_id = -1 # type: ignore
+        hou.session.flam3node_mp_id = None # type: ignore
 
     # If an iterator was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy an iterator again.
     try:
         hou.session.flam3node.type() # type: ignore
     except:
-        hou.session.flam3node_mp_id = -1 # type: ignore
+        hou.session.flam3node_mp_id = None # type: ignore
 
     # FLAM3 node for FF.
     #
@@ -1167,14 +1167,14 @@ def flam3_on_create(kwargs: dict) -> None:
     try:
         hou.session.flam3node_FF_check # type: ignore
     except:
-        hou.session.flam3node_FF_check = -1 # type: ignore
+        hou.session.flam3node_FF_check = None # type: ignore
 
     # If the FF was copied from a node that has been deleted
     # revert to -1 so that we are forced to copy the FF again.
     try:
         hou.session.flam3node_FF.type() # type: ignore
     except:
-        hou.session.flam3node_FF_check = -1 # type: ignore
+        hou.session.flam3node_FF_check = None # type: ignore
 
     # Initialize flam3 viewport Color Scheme
     try:
@@ -2180,13 +2180,7 @@ def iterator_count(self: hou.Node) -> None:
         # set xaos every time an iterator is added or removed
         auto_set_xaos(self)
 
-###############################################################################################
-# Open web browser to the FLAM3 for Houdini website
-###############################################################################################
-def web_flame3hda() -> None:
-    page = "https://alexnardini.net/flame-home/"
-    webbrowser.open(page)
-    
+
 ###############################################################################################
 # Open web browser to the FLAM3 for Houdini github
 ###############################################################################################
@@ -3098,8 +3092,8 @@ class apo_flame(_xml_tree):
             return None
     
     
-    # custom to FLAM3H only
     
+    # custom to FLAM3H only
     def __get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
         """
         Args:
@@ -3117,14 +3111,15 @@ class apo_flame(_xml_tree):
                 return False
         else:
             return False
-        
+    
+    # custom to FLAM3H only
     def __get_mb_flam3h_mb(self, idx: int, key='') -> Union[int, float, bool, None]:
         """
         Args:
             idx (int): [flame idx out of all flames included in the loaded flame file]
 
         Returns:
-            hou.Vector3 or False: [a hou.Vector3 of HSV vals or False]
+            Union[int, float, bool, None]: [FLAM3H motion blur parameter's values.]
         """   
         if self._isvalidtree:
             mb_do = self._flam3h_mb[idx]
@@ -3311,24 +3306,38 @@ def get_xforms_var_keys(xforms: Union[tuple, None],
         return None
 
 
-def removeprefix(self: str, prefix: str) -> str:
-    if self.startswith(prefix):
-        return self[len(prefix):]
+def removeprefix(var_name: str, prefix: str) -> str:
+    """Remove any prefix, if a prefix is present, from a variation name.
+ex: from: pre_linear to: linear
+ex: from post_mobius to: mobius
+    Args:
+        var_name (str): the variation name to remove the prefix from
+        prefix (str): the prefix to check
+
+    Returns:
+        str: a variation name without the prefix, or the original variation name if it did not have any prefix. 
+    """
+    if var_name.startswith(prefix):
+        return var_name[len(prefix):]
     else:
-        return self[:]
+        return var_name[:]
 # to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
 def get_xforms_var_keys_PP(xforms: Union[tuple, None], 
                            vars: dict, 
                            prx: str, 
                            exclude_keys: tuple
                            ) -> Union[list[str], None]:
-    """
+    """find a PRE or POST variation inside the currently processed xform/iterator
+
     Args:
-        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+        xforms (Union[tuple, None]): the current xform/iterator to search in
+        vars (dict): the variations we are searching for
+        prx (str): the current type of the variation expressed as a prefix: "pre" or "post"
+        exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
 
     Returns:
-        Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
-    """    
+        Union[list[str], None]: return the a list of variations found using the prefix criteria
+    """  
     if xforms is not None:
         vars_keys = []
         for xf in xforms:
@@ -3859,12 +3868,17 @@ def apo_set_iterator(mode: int,
                      preset_id: int, 
                      exclude_keys: tuple
                      ) -> None:
-    """
+    """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
+    
+The collection of XML data happen inside: class: apo_flame_iter_data()
+
     Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
-    """    
+        mode (int): iterator or FF
+        node (hou.Node): FLAM3H node
+        apo_data (apo_flame_iter_data): Flames data from the flame file loaded in: class: apo_flame_iter_data()
+        preset_id (int): the flame preset we are loading out of all the presets included in the flame file
+        exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+    """ 
     # What software were used to generate this flame preset
     app = apo_data.apo_version[preset_id]
 
