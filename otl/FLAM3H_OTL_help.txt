@@ -75,7 +75,7 @@ density presets mini menu:
         
         - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
         
-        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in which case you must bake those points out in a *`*.bgeo.sc`* files first.
+        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a *`*.bgeo.sc`* files first.
         
 Reset density:
     #id: Global
@@ -344,8 +344,8 @@ xaos:
     _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite point of views._
     
     *Looking from an iterator point of view*:
-    - When in *xaos_TO* mode, you will think like: *to* which iterator am I allowed to send points I just executed?
-    - When in *xaos_FROM* mode, you will think like: *from* which iterator am I allowed to receive points before I execute them myself?
+    - When in *xaos_TO* mode, you will think like: *to* wich iterator am I allowed to send points I just executed?
+    - When in *xaos_FROM* mode, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
     - _*Note* that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the iterator with the Curl variation in the above image. )_
     
     *How to set xaos in FLAM3 for Houdini:*
@@ -752,7 +752,7 @@ reset HSV on Load ( options ):
 
     *MB:* _Flame fractal moton blur._
     
-    When animating your fractal flame, turning this ON will compute a proper temporal Motion Blur.
+    When animating your fractal Flame, turning this ON will compute a proper temporal Motion Blur.
 
 on:
     #id: MB
