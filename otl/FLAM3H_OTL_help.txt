@@ -1,4 +1,4 @@
-#icon: opdef:.?iconBlackSVG.svg
+#icon: opdef:.?iconFcvexSVG.svg
 #type: node
 #context: sop
 #namespace: FLAM3
