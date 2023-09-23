@@ -17,8 +17,6 @@
 One of the main mission, was to pack the entire algorithm and functionalities I desired inside a tool using only Houdini out of the box. No HDK.
 As a result, it become a somewhat conservative implementation, it has everything but with some limits as I needed to cut corners everywhere wich became a daunting process to put into balance.
 
-There are more functionalities I'd love to add, but this v1.x is happily out as it is.
-
 A big commitment I needed to honor was to learn how to do fractal art. 
 Building a fractal art tool without knowing what a fractal artist need and feel while doing it is kind of pointless. And so I did so much fractal art with this tool while developing it that I inhevitably fell in love with the discipline.
 It was important so I could shape and steer this tool in the right direction.
