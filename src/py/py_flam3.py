@@ -2113,7 +2113,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             # updated CachedUserData: flam3h_xaos_iterators_prev
             auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
         # otherwise ADD
-        # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not '-1' ) lets add the new weight at index
+        # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
         elif idx_add_inbetween is not None:
             for xidx, x in enumerate(xaos_str):
                 if xidx != idx_add_inbetween:
