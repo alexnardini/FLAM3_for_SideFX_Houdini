@@ -20,7 +20,7 @@ _*A bit of history* ( from wikipedia )_:
 
 == Welcome to FLAM3 for SideFX Houdini ==
 
-_Houdini 19 only_
+_Houdini 19.x only_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
