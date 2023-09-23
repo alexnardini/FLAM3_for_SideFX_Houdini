@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.23
+#version: 1.0.33
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -169,8 +169,10 @@ TAG:
     * The colons *:* indicate how many variations slots are still available ( 4 in case of an iterator VAR section ).
     
     TIP:
-        - When "*auto set xaos*" is *ON* , the Tag icon will be: [Smallicon:opdef:.?iconBlueStarRedSVG.svg] 
-        - When "*auto set xaos*" is *OFF*, the Tag icon will be: [Smallicon:opdef:.?iconRedSVG.svg] 
+        The Tag icon will change when:
+        
+        - [Largeicon:opdef:.?iconBlueStarRedSVG.svg]: when "*auto set xaos*" is *ON* 
+        - [Largeicon:opdef:.?iconRedSVG.svg]: when "*auto set xaos*" is *OFF*
          
 TAG size:
     #id: SYS
@@ -1290,7 +1292,7 @@ _Dependant variation's affine coefficients:_
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.23 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.33 for SideFX Houdini:_
 
 - _Note that all the followings, are also available as PRE_ _and/or POST_ _variations._
 
@@ -1402,6 +1404,51 @@ wedgejulia,
 wedgesph, 
 whorl
 *
+
+
+@CVEX
+
+== Cvex: How to compile == (COMPILE)
+
+Compile CVEX:
+    #id: CVEX
+    
+    *SideFX made this part very easy*:
+    
+    * Open a Houdini 19.x Command line Tools shell
+    * Navigate into the directory where the cvex source files are located
+    * To compile any of the available cvex source files, run this command:
+    
+    _*vcc -c cvex filename.vfl -o filename.vex*_
+    
+    - *vcc* is the name of the Houdini's cvex/vex compiler
+    - *-c* to specify a Houdini context, in this case the context is: *cvex*
+    - *-o* to specify an output filename ( *.vex* extension )
+    
+    *filename.vfl* is the source file, and *filename.vex* is the output cvex compiled file.
+    
+    The FLAM3H source files are already named as expected.
+    
+    - The output filename must be the same as the input filename ( only the file extension will be different, of course ).
+
+== Cvex: How to update FLAM3H node == (UPDATE)
+
+Reload CVEX:
+    #id: CVEX
+    
+    Inside FLAM3H node, you will find many wrangle core nodes running a compiled cvex file.
+    
+    If you end up updating the cvex code yourself by extending it, once you load the compiled cvex files back inside *FLAM3H*->*Type properties*->*extra files* section,
+    just go inside the FLAM3H node and on any of the wrangle cores nodes click the: Reload CVEX icon:
+    
+    [Largeicon:opdef:.?iconFcvexSVG.svg]
+    
+    You just need to click it once, and it will reload all the compiled cvex code files included.
+    
+    Every file you update must keep the same filename and remember to remove the "*.vex*" extension to each one after you place them back inside the extra file section of the OTL:
+    
+    ex: From: _*TheFractalFlameAlgorithm.vex*_ To: _*TheFractalFlameAlgorithm*_
+
 
 
 @Limitations
