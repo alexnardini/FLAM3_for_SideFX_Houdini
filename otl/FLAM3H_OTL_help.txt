@@ -401,6 +401,9 @@ opacity:
     The opacity of the current transform/iterator. Opacity 0 means it will be entirely transparent, and opacity 1, entirely opaque.
     It can be used also to fine tune your fractal Flame, making parts of it more or less prominent in addition to the iterator's weight.
     
+    TIP:
+        When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore.)
+    
 :box:
     #display: rounded white
 
