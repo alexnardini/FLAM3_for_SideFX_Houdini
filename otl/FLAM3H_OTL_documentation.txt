@@ -38,7 +38,7 @@ _*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
 @intro
 
 FLAM3H, as the name suggest, is the implementation of the "fractal Flame algorithm" inside SideFX Houdini 19.x.
-There have been many revisions of the same algorithm in the past years, this is the implementation of: *FLAM3*.
+There have been different revisions of the same algorithm in the past years, this is the implementation of: *FLAM3*.
 
 Fractal Art is not easy, at all. For this reason it is suggested that you posses prior experience with this Art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there.
 This implementation took inspiration, especially in the fast/quick workflow, from Apophysis, but also it has been biased in its underlying code toward Fractorium.
@@ -46,10 +46,26 @@ This implementation took inspiration, especially in the fast/quick workflow, fro
 There is a very big, kind and talented fractal Art community out there where you can tap into and gather lots of informations for you to learn.
 
 As a general rule, and following my own learning process, every tutorial you can find for any of the available fractal Flame editor out there can be accomplished using FLAM3H.
-The vast majority of available tutorials you'll find are for Apophysis, mostly because it was the very first, if ever, implementation with a graphical GUI of the algorithm.
+The vast majority of available tutorials you'll find are for Apophysis, mostly because it was the very first implementation with a graphical GUI of the algorithm.
 It became, probably, the most popular fractal Flame editor ever created and will always hold a special place in the history of fractal art.
 
-A lot of time has been spent in making sure that, assuming you are using the same variations available inside FLAM3H and stay within its limits, you will get a one to one match result.
+Here a few at hand:
+
+_*[DevianArt - Apophysis tutorial: Splits Elliptic|https://www.deviantart.com/satania/art/Tutorial-Splits-elliptic-150422119]*_
+
+_*[DevianArt - Apophysis tutorial: Spherical bubbles|https://www.deviantart.com/fiery-fire/art/Apo-Tuto-Spherical-Bubbles-127911026]*_
+
+_*[DevianArt - Apophysis tutorial: Bipolar shapes|https://www.deviantart.com/satania/art/Tutorial-Bipolar-Shapes-213391274]*_
+
+_*[DevianArt - Apophysis tutorial: Double wedge|https://www.deviantart.com/teundenouden/art/Double-Wedge-Tutorial-810709969]*_
+
+_*[DevianArt - Apophysis tutorial: Hemispherical|https://www.deviantart.com/c-91/art/Hemispherical-Apophysis-Tutorial-663954258]*_
+
+
+A lot of time has been spent in making sure that, assuming you are using the same variations available inside FLAM3H and stay within its limits, you will always get a one to one match result.
+
+Being inside Houdini has its major advantages, only think at the possibilities of leveraging Houdini's procedural paradigm and tool sets to animate your fractal Flames.
+It also make it very easy to build a pipeline around this tool using Houdini's python HOM libraries.
 
 
 
