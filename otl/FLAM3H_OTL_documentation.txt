@@ -45,9 +45,11 @@ This implementation took inspiration, especially in the fast/quick workflow, fro
 
 There is a very big, kind and talented fractal Art community out there where you can tap into and gather lots of informations for you to learn.
 
-As a general rule, and following my own learning process, every tutorial you can find for any of the available fractal Falme editor out there can be accomplished using FLAM3H.
+As a general rule, and following my own learning process, every tutorial you can find for any of the available fractal Flame editor out there can be accomplished using FLAM3H.
+The vast majority of available tutorials you'll find are for Apophysis, mostly because it was the very first, if ever, implementation with a graphical GUI of the algorithm.
+It became, probably, the most popular fractal Flame editor ever created and will always hold a special place in the history of fractal art.
 
-A lot of time has been spent in making sure that, assuming you are using the same variations available inside FLAM3H, you will get a one to one match result.
+A lot of time has been spent in making sure that, assuming you are using the same variations available inside FLAM3H and stay within its limits, you will get a one to one match result.
 
 
 
