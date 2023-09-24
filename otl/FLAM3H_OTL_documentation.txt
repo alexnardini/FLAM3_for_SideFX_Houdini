@@ -35,25 +35,35 @@ _*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
 
 
 
-@parameters
+@intro
 
-NOTE:
-    FLAM3 for Houdini set all *`@pscale`* to a value of *`0.001`* for convenience.
-    Use the upstream geometry node point size multiplier or a wrangle to adjust it as needed.
-    When importing FLAM3 into Stage/Solaris remember that *`@pscale`* will become *`@widths`*.
+FLAM3H, as the name suggest, is the implementation of the "fractal Flame algorithm" inside SideFX Houdini 19.x.
+There have been many revisions of the same algorithm in the past years, this is the implementation of: *FLAM3*.
 
-    
-    
-    
+Fractal Art is not easy, at all. For this reason it is suggested that you posses prior experience with this Art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there.
+This implementation took inspiration, especially in the fast/quick workflow, from Apophysis, but also it has been biased in its underlying code toward Fractorium.
+
+There is a very big, kind and talented fractal Art community out there where you can tap into and gather lots of informations for you to learn.
+
+As a general rule, and following my own learning process, every tutorial you can find for any of the available fractal Falme editor out there can be accomplished using FLAM3H.
+
+A lot of time has been spent in making sure that, assuming you are using the same variations available inside FLAM3H, you will get a one to one match result.
+
+
+
+
+@parameters FLAM3H Tabs parameters
+
     
 == Global parameters == (GLOBAL)
     
+~~~
 :box:
     #display: inverted teal
 
     *GLOBAL*
     
-    Here you will define the quality of the fractal flame algorithm solution.
+    Here you will define the quality of the fractal Flame algorithm solution.
 
 density:
     #id: GLOBAL
@@ -65,18 +75,6 @@ density presets mini menu:
     #id: GLOBAL
     Will allow you to select a density value quickly out of some presets.
     
-    TIP:
-        You can keep FLAM3H node live, without the need to bake the processed point cloud while rendering
-        and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( in Solaris: *`@widths`* ) accordingly.
-    
-        When using Karma renderer:
-    
-        - With *64gb of physical memory* you will be able to render *500M points* without weigth much on virtual memory.
-        
-        - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
-        
-        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a *`*.bgeo.sc`* files first.
-        
 Reset density:
     #id: Global
     [Largeicon:opdef:.?iconBlackSVG.svg]
@@ -122,7 +120,11 @@ iterations:
         
         
 
-== System utilities == (SYS)
+
+:box:
+    #display: rounded white
+
+== SYS parameters == (SYS)
 
 ~~~
 :box:
@@ -131,6 +133,10 @@ iterations:
     *SYS:* _System utilities._
     
     Utilities at hand to help improve and speed up the workflow.
+    
+    TIP:
+        Once properly setup, from this Tab you will be able to do almost everything without never leave the main FLAME or FF Tabs
+        while building your fractal Flame logic and look.
 
     
 FF:
@@ -246,6 +252,10 @@ OUT Save:
     _If the selected file is not a valid Flame file type, nothing will happen._
 
     
+
+
+:box:
+    #display: rounded white
 
 == FLAME: iterators parameters == (FLAME)
     
@@ -515,6 +525,11 @@ VARS Tab:
     
     
 
+
+
+:box:
+    #display: rounded white
+
 == FF: finalXform parameters == (FF)
     
 ~~~
@@ -527,7 +542,7 @@ VARS Tab:
     It will take the combined result of all the iterators inside the FLAME Tab
     and apply extra transformations to that result, allowing for a lot of creative exploration.
     
-    NOTE:
+    TIP:
         This finalxform ( FF ) do not posses any color's parameters in this implementation for speed purpose.
         
         When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
@@ -612,27 +627,15 @@ post:
     
 pre affine:
     #id: FF
-    Affine coefficients for the current FF iterator ( FF - finalxform ).
+    Affine coefficients for the current FF iterator ( FF - finalxform ). Those are applied before the variations.
 
-    Each iterator( xform ) has an affine transform that is always applied on every iteration.
-    This is known as the pre affine becasue it is applied before the variations.
+    - *See above iterator's affine description for more informations*.
     
-    
-    - With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
-    - They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
-    - The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
-    
-    There are two ways you can use the affine:
-    - One is using *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ) 
-    - The other is to use the rotation parameter and use *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
-    
-    NOTE:
-        The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
-        
 post affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
-    * See above affine description for more informations.
+    
+    - *See above iterator's affine description for more informations*.
         
 :box:
     #display: rounded white
@@ -648,7 +651,12 @@ PP VARS Tab:
     If a *PRE* or *POST* parametric variation is selected, its parameters will populate this Tab.
     
 
-    
+
+
+
+:box:
+    #display: rounded white
+
 == CP: Color palette parameters == (CP)
     
 ~~~
@@ -746,7 +754,12 @@ reset HSV on Load ( options ):
     Uncheck this option to keep the HSV values after a palette preset load.
     
     
-    
+
+
+
+:box:
+    #display: rounded white
+
 == MB: Motion Blur parameters == (MB)
     
 ~~~
@@ -787,7 +800,12 @@ viz mb:
         Remember to turn this OFF when rendering so to not overimpose a darker color.
         
 
-        
+
+
+
+:box:
+    #display: rounded white
+
 == IN: input parameters == (IN)
             
 ~~~
@@ -965,7 +983,11 @@ Copy/Paste render properties:
         
 
     
-    
+
+
+:box:
+    #display: rounded white
+
 == OUT: output parameters == (OUT)
     
 ~~~
@@ -980,7 +1002,7 @@ Copy/Paste render properties:
     The flame file format do not support animations, but only static frames so to speak.
     If you animated your fractal Flame, save the hip file from Houdini instead.
     
-    NOTE:
+    TIP:
         FLAM3 for Houdini allow you to save out your Flames in the standard *.flame file format 
         so that you can load them back inside any other applications like Fractorium, Apophysis and others.
         
@@ -1171,7 +1193,12 @@ Vibrancy:
         
     
     
-    
+
+
+
+:box:
+    #display: rounded white
+
 == Preferences == (PREFS)
     
 ~~~
@@ -1283,7 +1310,18 @@ size:
     
     
 
+
+
+:box:
+    #display: rounded white
+    
 == Variations infos == (VARSINFO)
+
+~~~
+:box:
+    #display: inverted teal
+
+    *Variations informations.* _Here you will find informations about some special cases and a complete list of available variations/plugins currently implemented._
 
 _Dependant variation's affine coefficients:_
 
@@ -1409,7 +1447,81 @@ whorl
 *
 
 
-@CVEX
+
+:box:
+    #display: rounded white
+
+@rendering Rendering tips
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H Rendering tips*. A few small tips to render your fractal Flame images.
+
+
+== Rendering: workflow tips == (REND)
+
+Workflow tips:
+    #id: rendering
+    
+    You can keep FLAM3H node live, without the need to bake the processed point cloud while rendering
+    and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( in Solaris: *`@widths`* ) accordingly.
+
+    When using Karma renderer:
+
+    - With *64gb of physical memory* you will be able to render *500M points* without weigth much on virtual memory.
+    
+    - With *128gb of physical memory* you will be able to render *1 bilions points* without weigth much on virtual memory.
+    
+    TIP:
+        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render in wich case you must bake those points out in a *`*.bgeo.sc`* files first.
+
+
+== Rendering: Point size == (REND)
+
+Point size:
+    #id: rendering
+    
+    FLAM3 for Houdini set all *`@pscale`* to a value of *`0.001`* for convenience.
+    Use the upstream geometry node point size multiplier or a wrangle to adjust it as needed.
+    When importing FLAM3 into Stage/Solaris remember that *`@pscale`* will become *`@widths`*.
+    
+    TIP:
+        As a general rule, the more points the smaller the *`@pscale`* or *`@widths`* values need to be.
+
+
+== Rendering: Helpful settings == (REND)
+
+Karma/Mantra tips:
+    #id: Karma/Mantra tips
+    
+    - *When rendering with Karma*, remember to thick ON "*Simplified lighting*"/"*Disable lighting*" option to be sure to render the points with their full color values.
+    
+    - *When rendering with Mantra*, just create a constant shader that use the *`@Cd`* attribute.
+    
+    Playing with the CP Ramp HSV values will be very important, especially the "*S*"( Saturation ) and most importantly the "*V*"( Value ).
+    Increasing the Value in the HSV from the default 1.0, will help making the more dense areas of the Flame brighters, giving it something closer to the usual fractal Flame look.
+
+
+
+
+:box:
+    #display: rounded white
+
+@Cvex
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H Cvex: How to compile and updated*. In this section you will find informations on how to compile and then aupdated FLAM3H CVEX code in case you'd like to modify/extend its core functionalities.
+    For example you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 ).
+    
+    Extending the Cvex code base, most likely will require you to update/extend the Python code base as well since both goes hand in hand in many of the core algorithm functionalities.
+    
+    NOTE:
+        The current form of the cvex code base has been reduced to the very possible minimum in favor of speed, it is the least amount of code needed to implement the whole algorithm.
+        If you add anything, be as conservative as you can possibly be.
+
 
 == Cvex: How to compile == (COMPILE)
 
@@ -1452,22 +1564,33 @@ Reload CVEX:
     
     Inside FLAM3H node, you will find many wrangle core nodes running a compiled cvex file.
     
-    If you end up updating the cvex code yourself by extending it, once you load the compiled cvex files back inside *FLAM3H*->*Type properties*->*extra files* section,
-    just go inside the FLAM3H node and on any of the wrangle cores nodes click the: Reload CVEX icon:
+    If you end up updating the cvex code yourself by extending it: 
+    
+    - Updated the sourceFile.*vfl* with all the changes/additions you desire, follow the above steps on *How to: Compile CVEX*.
+    - Once you are ready, remove the old compiled cvex file from: *FLAM3H*->*Type properties*->*extra files*.
+    - Locate the new compiled cvex file and load it back inside *FLAM3H*->*Type properties*->*extra files* section.
+    - Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
+        - ex: From: _*TheFractalFlameAlgorithm.vex*_ To: _*TheFractalFlameAlgorithm*_
+    - Click *Apply* or *Accept* to confirm your changes.
+    - Go inside the FLAM3H node and on any of the wrangle cores nodes click the: Reload CVEX icon:
     
     [Largeicon:opdef:.?iconFcvexSVG.svg]
     
-    You just need to click it once, and it will reload all the compiled cvex code files included.
-    
-    Every file you update must keep the same filename and remember to remove the "*.vex*" extension to each one after you place them back inside the extra file section of the OTL:
-    
-    ex: From: _*TheFractalFlameAlgorithm.vex*_ To: _*TheFractalFlameAlgorithm*_
+    You just need to click it once, and it will reload all the compiled cvex code files included, the wrangleCore node you click the icon from is not important.
 
 
+
+
+:box:
+    #display: rounded white
 
 @Limitations
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H: Limitations*. The following are limitations to keep in mind when authoring your Flame in Fractorium or Apophysis to be then loaded inside FLAM3 for Houdini. All those limitations are in place to keep performance acceptable within the CVEX language limits.
     
-_The following are limitations to keep in mind when authoring your Flame in Fractorium or Apophysis to be then loaded inside FLAM3 for Houdini. All those limitations are in place to keep performance acceptable within the CVEX language limits._
 
 == FLAME: Number of iterators ==
 
@@ -1559,6 +1682,14 @@ FF Shader:
         This way you wont mix in a color to the Flame that FLAM3 for Houdini wont be able to match.
         
         
+
+
+
+:box:
+    #display: rounded white
+    
+:box:
+    #display: rounded white
 
 @Author
 
