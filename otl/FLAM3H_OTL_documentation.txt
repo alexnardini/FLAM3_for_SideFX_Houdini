@@ -1680,7 +1680,7 @@ FF Parametric variation parameters:
     One is shared with VAR variations.
     The second is shared within PRE and POST variations.
     
-    This mean if you use 4 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ),
+    This mean if you use 2 Mobius in the FF VAR section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ),
     
     but if you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
     
