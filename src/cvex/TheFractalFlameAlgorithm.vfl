@@ -104,7 +104,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     // FF
     if(FF){
 
-        // affine
+        // FF affine
         affine(mem, fx, fy, fo);
         // FF pre
         if(fp1w >0) mem  = FLAMEFF(FP, fp1t, f3c, mem, fx, fy, fo, fp1w);
