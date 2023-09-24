@@ -332,7 +332,7 @@ xaos:
         
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
-    [Image:opdef:.?xaosSVG.svg]
+    [Image:opdef:.?FLAM3H_DOC_xaosSVG.svg]
     _The above image shows 5 iterators with one variation each and how they are connected to each others through an hipotetical xaos setting._
         
 
