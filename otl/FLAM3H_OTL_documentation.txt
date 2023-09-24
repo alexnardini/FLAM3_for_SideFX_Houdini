@@ -45,7 +45,7 @@ This implementation took inspiration, especially in the fast/quick workflow, fro
 
 There is a very big, kind and talented fractal Art community out there where you can tap into and gather lots of informations for you to learn.
 
-As a general rule, and following my own learning process, every tutorial you can find for any of the available fractal Flame editor out there can be accomplished using FLAM3H.
+As a general rule, and following my own learning experience, every tutorial you can find for any of the available fractal Flame editor out there can be accomplished using FLAM3H.
 The vast majority of available tutorials you'll find are for Apophysis, mostly because it was the very first implementation with a graphical GUI of the algorithm.
 It became, probably, the most popular fractal Flame editor ever created and will always hold a special place in the history of fractal art.
 
@@ -830,7 +830,7 @@ viz mb:
 :box:
     #display: inverted teal
 
-    *IN: Load* *.flame file created with Apophysis, Fractorium and other.
+    *IN: Load* _*.flame file created with Apophysis, Fractorium and other._
     
     A *.flame file is an XML format type of file.
         
@@ -1012,8 +1012,8 @@ Copy/Paste render properties:
 :box:
     #display: inverted teal
 
-    *OUT:* _Save *.flame file type to be loaded back inside Apophysis, Fractorium and others._
-    
+    *OUT: Save* _*.flame file type to be loaded back inside Apophysis, Fractorium and others._
+ 
     Inside here, you can export your fractal Flame out into an XML format. ( standard *.flame file format )
     and re load it in inside FLAM3H or inside Apophysis, Fractorium and others.
     
@@ -1474,7 +1474,7 @@ whorl
 :box:
     #display: inverted pink
 
-    *FLAM3H Rendering tips*. A few small tips to render your fractal Flame images.
+    *FLAM3H Rendering tips*. _A few small tips to render your fractal Flame images._
 
 
 == Rendering: workflow tips == (REND)
@@ -1531,13 +1531,15 @@ Karma/Mantra tips:
 :box:
     #display: inverted pink
 
-    *FLAM3H Cvex: How to compile and updated*. In this section you will find informations on how to compile and then aupdate FLAM3H CVEX code in case you'd like to modify/extend its core functionalities.
-    For example you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 ).
+    *FLAM3H Cvex*: _How to compile and updated_.
+    
+    In this section you will find informations on how to compile and then aupdate FLAM3H Cvex code in case you'd like to modify/extend its core functionalities.
+    For example you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 implemented ).
     
     Extending the Cvex code base, most likely will require you to update/extend the Python code base as well since both goes hand in hand in many of the core algorithm functionalities.
     
     NOTE:
-        The current form of the cvex code base has been reduced to the very possible minimum in favor of speed, it is the least amount of code needed to implement the whole algorithm.
+        The current form of the Cvex code base has been reduced to the very possible minimum in favor of speed, it is the least amount of code needed to implement the whole algorithm.
         If you add anything, be as conservative as you can possibly be.
 
 
@@ -1607,7 +1609,10 @@ Reload CVEX:
 :box:
     #display: inverted pink
 
-    *FLAM3H: Limitations*. The following are limitations to keep in mind when authoring your Flame in Fractorium or Apophysis to be then loaded inside FLAM3 for Houdini. All those limitations are in place to keep performance acceptable within the CVEX language limits.
+    *FLAM3H: Limitations*.
+    
+    The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be then loaded inside FLAM3 for Houdini.
+    All those limitations are in place to keep performance acceptable within the CVEX language limits.
     
 
 == FLAME: Number of iterators ==
