@@ -1531,7 +1531,7 @@ Karma/Mantra tips:
 :box:
     #display: inverted pink
 
-    *FLAM3H Cvex: How to compile and updated*. In this section you will find informations on how to compile and then aupdated FLAM3H CVEX code in case you'd like to modify/extend its core functionalities.
+    *FLAM3H Cvex: How to compile and updated*. In this section you will find informations on how to compile and then aupdate FLAM3H CVEX code in case you'd like to modify/extend its core functionalities.
     For example you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 ).
     
     Extending the Cvex code base, most likely will require you to update/extend the Python code base as well since both goes hand in hand in many of the core algorithm functionalities.
