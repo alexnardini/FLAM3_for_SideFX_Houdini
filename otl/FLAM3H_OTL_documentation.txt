@@ -382,7 +382,7 @@ xaos:
         The following rules apply only if "*auto set xaos*" preferences option is *OFF*.
         
     - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4*.
-    - When *auto space xaos weights* option is ON ( it is OFF by default ), the xaos keyword will look like so: "*xaos :*". The important information here is that you always need a semicolon "*:*" after the word "*xaos*" to make it work.
+    - When *auto space xaos weights* option is ON ( it is OFF by default ), the xaos keyword will look like so: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work.
     - If no set or when using a short descriptive note, FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
     - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
     - When turning iterators OFF and ON, FLAM3H will internally remove and reformat XAOS values to account for missing iterators so you wont need to remove values from the command string, *unless you delete an iterator in witch case you will require to modify the "XAOS:" string*.
@@ -527,7 +527,7 @@ pre affine:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
         
       
-post affine:
+POST affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
     * See above affine description for more informations.
@@ -575,7 +575,7 @@ VARS Tab:
 
     *FF*
         
-note:
+FF: note:
     #id: FF
     A name for this FF iterator.
     
@@ -583,7 +583,7 @@ note:
         The text you'll enter here, will be saved with the flame file and will show up
         as the finalxform iterator's name inside Apophysis and Fractorium as well.
     
-copy/paste:
+FF: copy/paste:
     #id: FF
     [Largeicon:opdef:.?iconBlackStarSVG.svg]
     
@@ -603,14 +603,14 @@ copy/paste:
 
     *FF: variations*
     
-FF Pre variation:
+FF: Pre variation:
     #id: FF
     PRE variation to be used. This is applyed before the variations. It is the very first transformation when used.
     * PRE variation act the same way as the Final Flame variations does. It take the combined result of everything you do inside FLAME Tab and transform it using a selected variation.
     * When using parametric variations, its parameters will populate the *PP VARS* Tab.
     
     
-FF variations:
+FF: variations:
     #id: FF
     List of variations to choose from. It take the combined result of everything you do inside FLAME Tab, FF PRE variation, and transform it using those variations.
     While PRE and POST variations act as an assignment, variations are cumulative.
@@ -618,14 +618,14 @@ FF variations:
     * Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric. When a parametric variation is selected, its parameters will populate the *VARS* Tab.
     * Final Flame allow up to 3 variations. When using parametric variations, their parameters in the VAR Tab will be shared between all of them. This mean if you use 3 Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
-FF Post variations:
+FF: Post variations:
     #id: FF
     POST variations to be used. This is applyed after the variations. It is the very last transformation.
     * POST variation act the same way as the Final Flame variations does. It take the combined result of everything you do inside FLAME Tab plus everything you do inside FF Tab and transform it one more time using a selected variation.
     * When using parametric variations, its parameters will populate the *PP VARS* Tab.
 
     
-w:
+FF: w:
     #id: FF
     The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
     Can be set higher than 1 and negative too.
@@ -639,17 +639,17 @@ w:
 
     *FF: affine*
         
-post:
+FF: post:
     #id: FF
     Enable post affine.
     
-pre affine:
+FF: pre affine:
     #id: FF
     Affine coefficients for the current FF iterator ( FF - finalxform ). Those are applied before the variations.
 
     - *See above iterator's affine description for more informations*.
     
-post affine:
+FF: POST affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
     
@@ -660,11 +660,11 @@ post affine:
 
     *FF: parametric's variables Tabs*
     
-VARS Tab:
+FF: VARS Tab:
     #id: FF
     If a parametric variation is selected, its parameters will populate this Tab.
     
-PP VARS Tab:
+FF: PP VARS Tab:
     #id: FF
     If a *PRE* or *POST* parametric variation is selected, its parameters will populate this Tab.
     
@@ -1287,7 +1287,7 @@ auto set xaos:
 handle:
     #id: prefs
     Display viewport camera handle to help frame/center your fractal Flame.
-    On the left you will have the FLAM3 node name and on the right the selected camera name.
+    On the left you will have the FLAM3H node name and on the right the selected camera name.
     
     :box:
         #display: inverted red
