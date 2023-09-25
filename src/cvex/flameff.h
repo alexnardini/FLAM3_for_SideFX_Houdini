@@ -273,7 +273,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
         }
         else{
-            // 59 ELLIPTIC
+            // 59 ELLIPTIC      # This has been moved at the top of this partition to make it a little faster
             if(T==59){
                 V_ELLIPTIC(p, _p, w);
                 return p; }
@@ -362,7 +362,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
     }
     else{
         if(T<88){
-            // 73 SPLITS ( parametric )
+            // 73 SPLITS ( parametric )     # This has been moved at the top of this partition to make it a little faster
             if(T==73){
                 vector2 splits = chu(concat(prx, "splitsxyz"));
                 V_SPLITS(p, _p, w, splits);

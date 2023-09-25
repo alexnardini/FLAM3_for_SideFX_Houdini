@@ -277,7 +277,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
         }
         else{
-            // 59 ELLIPTIC
+            // 59 ELLIPTIC      # This has been moved at the top of this partition to make it a little faster
             if(T==59){
                 V_ELLIPTIC(p, _p, w);
                 return p; }
@@ -366,7 +366,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
     }
     else{
         if(T<88){
-            // 73 SPLITS ( parametric )
+            // 73 SPLITS ( parametric )     # This has been moved at the top of this partition to make it a little faster
             if(T==73){ 
                 vector2 splits = GMP.splits[idx];
                 V_SPLITS(p, _p, w, splits);
