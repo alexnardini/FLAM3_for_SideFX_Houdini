@@ -1129,7 +1129,7 @@ Save palette HSV (cc):
     If checked, the Flame's palette will be saved out using the HSV Ramp
     so to store any color corrections you may have done.
     This is useful if you plan to load the saved Flame into an other application
-    like Fractorium and Apophisis and keep the color corrected palette with it.
+    like Fractorium or Apophysis and keep the color corrected palette with it.
     
 Auto add iter num to Flame name:
     #id: OUT
