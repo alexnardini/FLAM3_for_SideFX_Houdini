@@ -360,7 +360,7 @@ xaos:
         
         This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
-    [Image:opdef:.?FLAM3H_DOC_xaosSVG.svg]
+    [Image:opdef:.?FLAM3H_DOC_xaos_pathsSVG.svg]
     _The above image shows 5 iterators with one variation each and how they are connected to each others through an hipotetical xaos setting._
         
 
@@ -374,7 +374,7 @@ xaos:
     *Looking from an iterator point of view*:
     - When in *xaos_TO* mode, you will think like: *to* wich iterator am I allowed to send points I just executed?
     - When in *xaos_FROM* mode, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
-    - _*Note* that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the iterator with the Curl variation in the above image. )_
+    - _*Note* that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *Curl* variation in the above diagram/image. )_
     
     *How to set xaos in FLAM3 for Houdini:*
     
