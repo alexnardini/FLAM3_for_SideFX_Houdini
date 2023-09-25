@@ -3130,7 +3130,7 @@ class apo_flame(_xml_tree):
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
                     return int(self._flam3h_mb_samples[idx])
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
-                    return float(self._flam3h_mb_samples[idx])
+                    return float(self._flam3h_mb_shutter[idx])
                 else:
                     return False
             else:
