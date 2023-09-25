@@ -95,7 +95,7 @@ density presets mini menu:
     
 Reset density:
     #id: Global
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconBlackSVG.svg]
     
     Reset density to its default: 500k
         
@@ -195,8 +195,8 @@ TAG:
     TIP:
         The Tag icon will change when:
         
-        - [Largeicon:opdef:.?iconBlueStarRedSVG.svg]: when "*auto set xaos*" is *ON* 
-        - [Largeicon:opdef:.?iconRedSVG.svg]: when "*auto set xaos*" is *OFF*
+        - [Smallicon:opdef:.?iconBlueStarRedSVG.svg]: when "*auto set xaos*" is *ON* 
+        - [Smallicon:opdef:.?iconRedSVG.svg]: when "*auto set xaos*" is *OFF*
          
 TAG size:
     #id: SYS
@@ -205,7 +205,7 @@ TAG size:
     
 loaddef:
     #id: SYS
-    [Largeicon:opdef:.?iconSierpinskyDefSVG.svg]
+    [Smallicon:opdef:.?iconSierpinskyDefSVG.svg]
     
     Load/reset to default Sierpinsky Triangle preset.
     
@@ -219,7 +219,7 @@ CP Presets mini menu:
     
 CP Preset reload:
     #id: SYS
-    [Largeicon:opdef:.?iconPrideSVG.svg]
+    [Smallicon:opdef:.?iconPrideSVG.svg]
     
     Reload the selected CP palette preset. 
     
@@ -233,7 +233,7 @@ IN Presets mini menu:
     
 IN Preset reload:
     #id: SYS
-    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     Click to reload the selected IN preset if any.
     This has been added to quickly updated a preset you are loading inside the IN Tab while editing it inside Fractorium for example, 
@@ -256,7 +256,7 @@ OUT Presets mini menu:
     
 OUT Save:
     #id: SYS
-    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     Click to Save this flame inside the selected OUT file if any.
     
@@ -315,7 +315,7 @@ note:
     
 copy/paste:
     #id: FLAME
-    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconBlackStarSVG.svg]
     
     ((LMB)) to mark this iterator for being copied. 
     
@@ -329,7 +329,7 @@ copy/paste:
     
 A tip:
     #id: FLAME
-    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    [Smallicon:opdef:.?iconBluStarSVG.svg]
     
     Show active iterator informations and tips.
     
@@ -354,11 +354,20 @@ W:
 xaos:
     #id: FLAME
     
-    NOTE:
-        *When using XAOS, you are allowed to use up to 20 iterators max.*
-        Using more than 20 iterators will disable the algorithm.
+    _From Fractorium help page._
+    
+    *What is Xaos ?*
+    
+    Xaos provides more fine grained control over the selection of xforms on each iteration.
+    It is expressed as a probability modifier for each xform in relation to every other xform.
+
+    The default state is for all elements to have a value of 1, which means that xaos is not used.
+    When any element is changed to something other than 1, xaos is in effect.
+
+    Xaos specifies how likely an xform is to be chosen based on the previous xform that was chosen.
+    Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
+    These two methods of stating xaos are known as “from” and “to”.
         
-        This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*
     
     [Image:opdef:.?FLAM3H_DOC_xaos_pathsSVG.svg]
     _The above image shows 5 iterators with one variation each and how they are connected to each others through an hipotetical xaos setting._
@@ -376,10 +385,9 @@ xaos:
     - When in *xaos_FROM* mode, you will think like: *from* wich iterator am I allowed to receive points before I execute them myself?
     - _*Note* that the same concept apply also for the iterator itself, this mean the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *Curl* variation in the above diagram/image. )_
     
-    *How to set xaos in FLAM3 for Houdini:*
-    
-    NOTE:
-        The following rules apply only if "*auto set xaos*" preferences option is *OFF*.
+
+        
+    *How to set xaos in FLAM3H:* ( _if "auto set xaos" is OFF_ )
         
     - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator weights values separated by a colon: *xaos:1:2:3:4*.
     - When *auto space xaos weights* option is ON ( it is OFF by default ), the xaos keyword will look like so: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work.
@@ -399,7 +407,7 @@ xaos:
         
 auto space xaos weights / Xaos information tips:
     #id: FLAME
-    [Largeicon:opdef:.?iconBlueStarRedSVG.svg]
+    [Smallicon:opdef:.?iconBlueStarRedSVG.svg]
     
     When "*auto set xaos*" preferences option is *ON*:
     
@@ -585,7 +593,7 @@ FF: note:
     
 FF: copy/paste:
     #id: FF
-    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconBlackStarSVG.svg]
     
     ((LMB)) to mark this FF for being copied. 
     
@@ -703,7 +711,7 @@ Palette name ( preset ):
     
 Force reload preset:
     #id: PALETTE
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconBlackSVG.svg]
     
     Click this icon to force reload the currently selected palette preset.
     
@@ -723,7 +731,7 @@ JSON file:
     
 Save Palette:
     #id: PALETTE
-    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     ((LMB)) to save the current Palette into the selected OUT file.
     
@@ -752,7 +760,7 @@ LIB contents ( presets ):
     
 Reload preset ( presets ):
     #id: PALETTE
-    [Largeicon:opdef:.?iconPrideSVG.svg]
+    [Smallicon:opdef:.?iconPrideSVG.svg]
     
     Reload the selected palette preset.
     
@@ -914,7 +922,7 @@ IN file ( *.flame type ):
     
 Reload:
     #id: IN
-    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     ((LMB)) to reload the selected preset.
     This is useful when you are working with for example Fractorium
@@ -994,7 +1002,7 @@ Render infos:
     
 Copy/Paste render properties:
     #id: IN
-    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconBlackStarSVG.svg]
     
     Clicking this icon will copy those render properties and paste them inside the OUT tab render properties.
     This way you can be sure your Flame will match the visual settings of the Flame you just loaded once you save it out and load it back in Fractorium for example.
@@ -1052,7 +1060,7 @@ OUT file ( *.flame type ):
     
 Save Flame:
     #id: OUT
-    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     ((LMB)) to save the current Flame into the selected OUT file.
     
@@ -1098,7 +1106,7 @@ Flame name ( preset ):
     
 Flame name tip:
     #id: OUT
-    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    [Smallicon:opdef:.?iconBluStarSVG.svg]
     
     Show Flame name's informations and tips.
     
@@ -1165,7 +1173,7 @@ Edit render properties:
     
 Reset render properties:
     #id: OUT
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconBlackSVG.svg]
     
     Click this icon to reset all OUT render properties.
     
@@ -1621,6 +1629,8 @@ Iterator's count:
     #id: Limitations
     
     FLAM3 for Houdini allow you to create as many iterators as you wish, however when using XAOS you are allowed to create max 20 iterators.
+    
+    _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
 == FLAME: xform's PRE, VAR and POST variations ==
 
