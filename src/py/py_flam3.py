@@ -2353,9 +2353,9 @@ XML_XF_COLOR_SPEED = 'color_speed'
 XML_XF_OPACITY = 'opacity'
 # custom to FLAM3H only
 OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
-OUT_XML_FLMA3H_MB_FPS = 'flam3h_fps'
-OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mbsamples'
-OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_shutter'
+OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
+OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mb_samples'
+OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_mb_shutter'
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
 OUT_XML_FLAME_SIZE = 'size'
