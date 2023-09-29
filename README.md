@@ -14,12 +14,12 @@
 
 ### Premise
 
-One of the main mission, was to pack the entire algorithm and functionalities I desired inside a tool using only Houdini out of the box. No HDK.
-As a result, it become a somewhat conservative implementation, it has everything but with some limits as I needed to cut corners everywhere wich became a daunting process to put into balance.
+One of the main missions was to pack the entire algorithm and functionalities I desired inside a tool using only Houdini out of the box. No HDK.
+As a result, it became a somewhat conservative implementation, it has everything but also some limits as I needed to cut corners everywhere, which became a daunting process to put into balance.
 
 A big commitment I needed to honor was to learn how to do fractal art. 
-Building a fractal art tool without knowing what a fractal artist need and feel while doing it is kind of pointless. And so I did so much fractal art with this tool while developing it that I inhevitably fell in love with the discipline.
-It was important so I could shape and steer this tool in the right direction.
+Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of pointless. And so I did so much fractal art with this tool while developing it that I inevitably fell in love with the discipline.
+It was important, so I could shape and steer this tool in the right direction.
 
 
 ### Description
@@ -28,27 +28,27 @@ It was important so I could shape and steer this tool in the right direction.
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_OTL_documentation_H19.jpg)
 
 An implementation of FLAM3 inside SideFX Houdini software using Houdini's CVEX programming language.
-Not a real-time thing but If you have a beefy CPU (dual beefy CPU even better) it will be lots of fun.
+It's not a real-time thing, but if you have a beefy CPU (dual beefy CPUs are even better), it will be lots of fun.
 
-The code went up and down and finally settled for the most minimalistic version in favor of performance.
-The language allowed me to take many shortcuts. He is dealing with execution threading, memory management, and offered me
-fast, ready to use functions like **creating and sampling a cdf**, a very robust **random number generator** and more.
+The code went up and down and finally settled on the most minimalistic version in favor of performance.
+The language allowed me to take many shortcuts. He is dealing with execution threading and memory management and has offered me
+fast, ready-to-use functions like **creating and sampling a cdf**, a very robust **random number generator**, and more.
 
-Part of the work is done inside the HDA within the Houdini environment
-like attribute binding, UI building, parameters creations, their visibility conditions, final compile and much more.
+Part of the work is done inside the HDA in the Houdini environment
+like attribute binding, UI building, parameter creations, their visibility conditions, the final compile and much more.
 
-Python has been used to enhance the user experience and to add functionalities like:
-copy/paste iterators data, load/save palette's libraries, load/save flame's file format, responses/automations to user actions and much more.
+Python has been used to enhance the user experience and add functionalities like:
+copy/paste iterator data, load/save palette's libraries, load/save flame's file format, responses/automations to user actions, and much more.
 
-FLAM3 for SideFX Houdini generate a live point cloud of the fractal Flame being worked on, witch is the actual render.
-From there to the final image it is left to the users ( aka points rendering ).
-With Houdini integrated Karma renderer you will be able to render the generated fractal flames in nearly real time.
+FLAM3 for SideFX Houdini generates a live point cloud of the fractal flame being worked on, which is the actual render.
+From there to the final image, it is left to the users ( aka points rendering ).
+With Houdini integrated Karma renderer, you will be able to render the generated fractal flames in nearly real time.
 
 ### Karma render Note:
 
-Karma viewport renders do not use any density estimator neither any log density display ( a form of tone mapping ) that instead are present in other applications. It does brighten up the high density areas instead ( more points, more bright ) while using the raw color coming from the palette the flame is currently using.
+Karma viewport renders do not use any density estimator, or log density display ( a form of tone mapping ) that is instead present in other applications. It does brighten up the high-density areas instead ( more points, more bright ) while using the raw color coming from the palette the flame is currently using.
 
-A custom shader could in theory implement a log density display and some form of density estimator. However, the beauty of outputting fractal flame images in a 16bit or 32bit exr format will give joy when color correcting them, something us, in VFX, takes it for granted.
+A custom shader could, in theory, implement a log density display and some form of density estimator. However, the beauty of outputting fractal flame images in a 16bit or 32bit exr format will give joy when color correcting them, something we, in VFX, take for granted.
 
 `Karma interactive rendering in the Houdini's viewport.`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
@@ -56,8 +56,8 @@ A custom shader could in theory implement a log density display and some form of
 
 **Highly inspired by Apophysis software and its workflow design.**
 
-Many Apophysis fractal Flames are available for download on the web and you can load them inside FLAM3 for Houdini,
-or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3 for Houdini. But also the other way around, create your flame in Houdini and render them inside other applications...you've got choises.
+Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3 for Houdini.
+Or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3 for Houdini. But also the other way around, create your flames in Houdini and render them inside other applications. You've got choices.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
@@ -72,9 +72,9 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
-Following some images showing FLAM3 for Houdini rendering some of the Fractorium's example flame files.
-Some have been modified to fit within FLAM3 for Houdini available variations. The screenshots shows
-Houdini Karma interactive on the left and Fractorium with the same flame file on the right.
+Following are some images showing FLAM3 for Houdini rendering some of the Fractorium's example flame files.
+Some have been modified to fit within FLAM3 for Houdini's available variations. The screenshots show
+Houdini Karma interactive on the left, and Fractorium with the same flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
@@ -97,23 +97,23 @@ _They are 106, if you were wondering..._
 
 ## Considerations
 
-Fractal flames are really expensive to compute, no wonder GPUs made miracles in this field too.
+Fractal flames are really expensive to compute, no wonder GPUs have made miracles in this field too.
 
-Being inside Houdini has its major advantages. Only think at the possibilities you have to animate those flames using Houdini's procedural paradigm and toolsets. And the ability to create a pipeline around this tool easily using Houdini's Python HOM libraries.
+Being inside Houdini has its major advantages. Only think of the possibilities you have to animate those flames using Houdini's procedural paradigm and toolsets. And the ability to create a pipeline around this tool using Houdini's Python HOM libraries.
 
 Karma with the integrated Nvidia Optix denoiser is a great combo to render your fractal images.
 
-CVEX language doesnt have a switch/case constructor, neither any form of pointer functions and such. To get to the selected variation I chained hundreds of `if`/`else if` statements. Even tho I partitioned them in the best way I could, this part become a bit of a bottle neck of the entire implementation.
+CVEX language doesn't have a switch/case constructor, nor any form of pointer functions and such. To get to the selected variation, I chained hundreds of `if`/`else if` statements. Even though I partitioned them in the best way I could, this part became a bit of a bottleneck of the entire implementation.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
-some use less and some a bit more. A few exceptions went above 128 and up to 256/512. 
+Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
-Some flames require truly an high amount of iterations to resolve properly.
+Some flames require a truly high number of iterations to resolve properly.
 
-**Below are some presets that Chaotica software ship with, ported inside FLAM3 for Houdini.
-They have been choosen because they use variations I have implemented too and because some are really expensive to solve**.
+**Below are some presets that Chaotica software ships with, ported inside FLAM3 for Houdini.
+They have been chosen because they use variations I have implemented and because some are really expensive to solve**.
 
-Some require thousands of iterations to show you the proper results, some of them require hundreds and some others are really quick.
+Some require thousands of iterations to show you the proper results; some of them require hundreds, and some others are really quick.
 
 ### Lets start with this gnarl preset:
 
@@ -157,21 +157,21 @@ Iterations needed in FLAM3 for Houdini to resolve: **64**
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
-However from all my tests, betweem 10 and 96 iterations will get you covered on almost all your needs. And dnt forget you can create some beautiful fractal flames with just 6 iterations, here is one I did:
+However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal flames with just six iterations. Here is one I did:
 
 Iterations needed in FLAM3 for Houdini to resolve: **6**
 
 `Knot clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
-I could add a lot more functionalities but this project consumed me for a very long time.
-Every aspects of this algorithm, once understood, look simple on the surface but they all present challenges on their own. It has been quite a crazy ride to pack everyhting inside this implementation.
+I could add a lot more functionalities, but this project consumed me for a very long time.
+Every aspect of this algorithm, once understood, looks simple on the surface, but they all present challenges on their own. It has been quite a crazy ride to pack everything into this implementation.
 
-It is time to park this project for a little bit but I really, really loved the long journey on this topic and I will now for ever love fractal flames as a whole, they are awesome  ( and addictive )!
+It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal flames as a whole, they are awesome  ( and addictive )!
 
 ## Example flame files.
 
-Some of the example flame files I'm using as a proof of correctness and shipped with this implementation are created/authored by some incredible fractal artists using a variety of open source / free apps like Apophysis and Fractorium among the most popular.
+Some of the example flame files I'm using as a proof of correctness and shipped with this implementation were created or authored by some incredible fractal artists using a variety of open source and free apps like Apophysis and Fractorium among the most popular.
 
 Please be sure to check out their gallery:
 
