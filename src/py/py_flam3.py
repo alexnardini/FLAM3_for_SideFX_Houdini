@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.0.25'
+FLAM3HOUDINI_VERSION = '1.0.27'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -2256,18 +2256,17 @@ unless you delete an iterator in wich case you will require to modify the “xao
 # OUT Presets name infos.
 ###############################################################################################
 def ui_OUT_presets_name_infos() -> None:
-    ALL_msg = """When choosing a preset name for your fractal flame,
-you can bake into it the iteration number you want it to use once you load it back into FLAM3 for Houdini.
+    ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini can be baked into the preset name you choose for it. 
 
-For example if you name a flame preset: \"My_Awesome_GrandJulia\" it will be loaded with a default 64 iterations.
-But if you append the iteration number after a double colons to the preset name like so: \"My_Awesome_GrandJulia::16\"
-it will override all settings and load it using 16 as iteration numbers.
+For instance, the Flame preset “My_Awesome_GrandJulia” will be loaded with 64 iterations by default. However, if the iteration number is added to the preset name after a double colon, as in “My_Awesome_GrandJulia::16,” it will override all settings and load the preset with 16 as the iteration numbers.
 
-Optionally, you can manually edit the saved XML/Flame file
-and modify the flame → \"name\" key yourself after the fact if you desire so.
+Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
 
-If no name is provided,
-an automated name composed of today’s date and current time will be used instead."""
+If you like, you can manually edit the created XML/Flame file and change the flame → “name” key afterwards.
+    
+"""
+
+
     hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 ###############################################################################################
