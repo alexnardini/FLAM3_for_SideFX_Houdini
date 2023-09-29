@@ -18,7 +18,7 @@ One of the main missions was to pack the entire algorithm and functionalities I 
 As a result, it became a somewhat conservative implementation, it has everything but also some limits as I needed to cut corners everywhere, which became a daunting process to put into balance.
 
 A big commitment I needed to honor was to learn how to do fractal art. 
-Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of pointless. And so I did so much fractal art with this tool while developing it that I inevitably fell in love with the discipline.
+Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of meaningless. And thus, while creating this tool, I engaged in so much fractal art that I unavoidably developed a love for the field.
 It was important, so I could shape and steer this tool in the right direction.
 
 
@@ -97,18 +97,18 @@ _They are 106, if you were wondering..._
 
 ## Considerations
 
-Fractal flames are really expensive to compute, no wonder GPUs have made miracles in this field too.
+Given how expensive it is to compute fractal flames, it is not surprising that GPUs have performed wonders in this area as well.
 
-Being inside Houdini has its major advantages. Only think of the possibilities you have to animate those flames using Houdini's procedural paradigm and toolsets. And the ability to create a pipeline around this tool using Houdini's Python HOM libraries.
+The main benefits of being inside Houdini are numerous. Consider the options available to you while animating those flames with Houdini's procedural approach and toolsets. Additionally, the Python HOM libraries for Houdini can be used to build a pipeline around this tool.
 
-Karma with the integrated Nvidia Optix denoiser is a great combo to render your fractal images.
+Karma and the built-in Nvidia Optix denoiser make a fantastic combination for rendering fractal flame images.
 
-CVEX language doesn't have a switch/case constructor, nor any form of pointer functions and such. To get to the selected variation, I chained hundreds of `if`/`else if` statements. Even though I partitioned them in the best way I could, this part became a bit of a bottleneck of the entire implementation.
+There are no switch/case constructors or other types of pointer functions in the CVEX language. I connected thousands of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
-Some flames require a truly high number of iterations to resolve properly.
+Some flames need a disproportionately large number of iterations to be resolved correctly.
 
 **Below are some presets that Chaotica software ships with, ported inside FLAM3 for Houdini.
 They have been chosen because they use variations I have implemented and because some are really expensive to solve**.
