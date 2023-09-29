@@ -105,7 +105,7 @@ The main benefits of being inside Houdini are numerous. Consider the options ava
 
 Karma and the built-in Nvidia Optix denoiser make a fantastic combination for rendering fractal flame images.
 
-There are no switch/case constructors or other types of pointer functions in the CVEX language. I connected thousands of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
+There are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
