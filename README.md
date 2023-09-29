@@ -27,8 +27,8 @@ It was important, so I could shape and steer this tool in the right direction.
 `FLAM3H node OTL documentation.`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_OTL_documentation_H19.jpg)
 
-An implementation of FLAM3 inside SideFX Houdini software using Houdini's CVEX programming language.
-It's not a real-time thing, but if you have a beefy CPU (dual beefy CPUs are even better), it will be lots of fun.
+CVEX has been used to implement the algorithm in its entirety.
+Although it's not a real-time thing, it will be a lot of fun if you have a powerful CPU (two powerful CPUs are even better).
 
 The code went up and down and finally settled on the most minimalistic version in favor of performance.
 The language allowed me to take many shortcuts. He is dealing with execution threading and memory management and has offered me
