@@ -1,0 +1,94 @@
+#icon: opdef:.?iconBlackSVG.svg
+#type: node
+#context: lop
+#namespace: FLAM3HUSD
+#internal: FLAM3HUSD
+#version: 0.0.2
+
+"""Simple utility node to quickly setup fractal flames point clouds in Solaris."""
+
+== Welcome to FLAM3HUSD for SideFX Houdini ==
+
+A simple utility node that will make it easier to render FLAM3H fractal flames in Solaris for previews.
+It offers the very fundamental functionalities to setup your fractal flame point cloud so you can start rendering with Karma within a few clicks.
+
+
+@parameters FLAM3HUSD Tabs parameters
+
+    
+== FLAM3HUSD import == (IMPORT)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAM3HUSD import*
+
+FLAM3H SOP path:
+    #id: IMPORT
+    Path to the FLAM3H node to be imported inside Solaris.
+    A default path is already provided to import the default first FLAM3H node name. Change this as needed.
+    
+widths:
+    #id: IMPORT
+    The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
+    This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
+    
+    
+== Prefs == (PREFS)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAM3HUSD preferences*
+    
+:box:
+    #display: rounded white
+    
+    == Options == (OPTIONS)
+    
+dark:
+    #id: PREFS
+    If it isn't already, change the viewport's color scheme to dark.
+    If unchecked, it will remember the color scheme for every viewport and fall back on it.
+    Checking this box has no effect if the color scheme in a viewport is already dark.
+    
+renderer:
+    #id: PREFS
+    Select from a variety of Hydra renderers.
+    
+:box:
+    #display: rounded white
+    
+    == Options: GL == (OPTIONSGL)
+    
+display:
+    #id: prefs
+    Set the viewport particle display mode to either points or pixels.
+    
+size:
+    #id: prefs
+    When viewport particle display is set to Points, this will control their size in the viewport.
+    
+:box:
+    #display: rounded white
+    
+    == Options: Karma == (OPTIONSKARMA)
+    
+NOTE:
+    Karma should only be used for previews while you are interactively perfecting your fractal flame.
+    All the settings are already fine tuned for fractal flames previews ( _simplified lighting_ is ON ).
+    
+    As soon as you're satisfied, set up your own Karma renderer nodes to output the finished pictures.
+    
+Pixel samples:
+    #id: prefs
+    When Karma renderer is selected, this will set the render samples.
+    
+Denoiser:
+    #id: prefs
+    When Karma renderer is selected, allow you to select between the available denoiser.
+    
+
+    
