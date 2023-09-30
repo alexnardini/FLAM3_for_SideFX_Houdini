@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.0.27'
+FLAM3HOUDINI_VERSION = '1.0.28'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1909,7 +1909,8 @@ def flam3_default(self: hou.Node) -> None:
     # Iterators reset
     self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
     for p in self.parms():
-        p.deleteAllKeyframes()
+        if not p.isLocked():
+            p.deleteAllKeyframes()
     # Add back iterators
     # This way all parameters will reset to their default values.
     self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
@@ -2023,18 +2024,28 @@ Note that all the data will be of type: string.
     """
     if data_name == FLAM3H_PRM_XAOS_MP_MEM:
         data_to_prm = ' '.join([str(x) for x in data])
+        # unlock
+        self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
         self.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
+        # lock
+        self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
     elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
+        # unlock
+        self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
         # to prm from: flam3_xaos_convert()
         if isinstance(data, tuple):
             data_to_prm = ':'.join(data)
             self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+            # lock
+            self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
         else:
             collect = []
             for xaos in data:
                 collect.append(' '.join(xaos))
             data_to_prm = ':'.join(collect)
             self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+            # lock
+            self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
 
     
 def auto_set_xaos(self: hou.Node) -> None:
@@ -2052,8 +2063,14 @@ def auto_set_xaos(self: hou.Node) -> None:
         div_xaos = 'xaos :'
         div_weight = ' :'
     
+    # unlock
+    self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
+    
     autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
     if autoset:
+        
+        # unlock
+        self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
         
         # init indexes
         idx_del_inbetween = None
@@ -2133,6 +2150,9 @@ def auto_set_xaos(self: hou.Node) -> None:
             xaos_set = div_xaos + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
             
+        # lock
+        self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+        
     # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
     # and pick up the updated values once we turn it back ON.
     #
@@ -2141,8 +2161,12 @@ def auto_set_xaos(self: hou.Node) -> None:
     # update flam3h_xaos_mpmem
     __mpmem_hou = []
     [__mpmem_hou.append(int(self.parm(f"{flam3_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+    
     # export mpmem into CachedUserData
     auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
+    # lock
+    self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
+
 
 
 def iterator_count(self: hou.Node) -> None:
@@ -2156,7 +2180,8 @@ def iterator_count(self: hou.Node) -> None:
     if not iterators_count:
         # delete channel references
         for p in self.parms():
-            p.deleteAllKeyframes()
+            if not p.isLocked():
+                p.deleteAllKeyframes()
             
         # GLOBAL
         self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
@@ -4118,7 +4143,8 @@ def apo_to_flam3(self: hou.Node) -> None:
         # iterators
         self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
         for p in self.parms():
-            p.deleteAllKeyframes()
+            if not p.isLocked():
+                p.deleteAllKeyframes()
         self.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
         
         # get keys to exclude
