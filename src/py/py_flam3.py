@@ -4476,8 +4476,9 @@ def flam3_about_msg(self):
     nl = "\n"
     nnl = "\n\n"
 
+    year = datetime.now().strftime("%Y")
     flam3_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
-    Implementation_years = "2020/2023"
+    Implementation_years = f"2020/{year}"
     Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
     
     code_references = """Code references:
