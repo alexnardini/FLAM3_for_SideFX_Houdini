@@ -147,8 +147,7 @@ kwargs['node'].hdaModule().flam3.reset_postaffine(kwargs)
 # PARAMETERS FINAL FLAME ( FF Tab )
 #######################################################
 
-
-'ffprmpastesel'
+'ffprmpastesel_#'
 'Callback Script'
 hou.pwd().hdaModule().flam3.prm_paste_sel_FF(kwargs)
 'Menu Script'
@@ -157,20 +156,25 @@ return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.prm_paste_FF(kwargs)
 
-
+'xaos_#'
+'Callback Script'
+hou.pwd().hdaModule().flam3.auto_set_xaos(kwargs['node'])
+'Action Button'
+kwargs['node'].hdaModule().flam3.ui_xaos_infos(kwargs)
 
 'All FF variations type parameters'
-"ffpre1type, ffv1type, ffv2type, ffp1type, ffp2type"
+"ffpre1type_#, ffv1type_#, ffv2type_#, ffp1type_#, ffp2type_#"
 menu = kwargs['node'].hdaModule().flam3.menu_T(0)
 return menu
 
-'ffang'
+'ffang_#'
 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_preaffine_FF(kwargs)
 
-'ffpang'
+'ffpang_#'
 'Action Button'
 kwargs['node'].hdaModule().flam3.reset_postaffine_FF(kwargs)
+
 
 
 #######################################################
