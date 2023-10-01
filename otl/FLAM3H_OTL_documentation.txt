@@ -89,7 +89,7 @@ density presets mini menu:
     
 Reset density:
     #id: Global
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconBlackSVG.svg]
     
     Reset density to its default: 500k
         
@@ -199,8 +199,8 @@ TAG:
     TIP:
         The Tag icon will change when:
         
-        - [Largeicon:opdef:.?iconBlueStarRedSVG.svg]: when "*auto set xaos*" is *ON* 
-        - [Largeicon:opdef:.?iconRedSVG.svg]: when "*auto set xaos*" is *OFF*
+        - [Smallicon:opdef:.?iconBlueStarRedSVG.svg]: when "*auto set xaos*" is *ON* 
+        - [Smallicon:opdef:.?iconRedSVG.svg]: when "*auto set xaos*" is *OFF*
          
 TAG size:
     #id: SYS
@@ -209,7 +209,7 @@ TAG size:
     
 loaddef:
     #id: SYS
-    [Largeicon:opdef:.?iconSierpinskyDefSVG.svg]
+    [Smallicon:opdef:.?iconSierpinskyDefSVG.svg]
     
     Load/reset to default Sierpiński triangle preset.
     
@@ -228,7 +228,7 @@ CP Presets mini menu:
     
 CP Preset reload:
     #id: SYS
-    [Largeicon:opdef:.?iconPrideSVG.svg]
+    [Smallicon:opdef:.?iconPrideSVG.svg]
     
     Reload the selected CP palette preset. 
     
@@ -247,7 +247,7 @@ IN Presets mini menu:
     
 IN Preset reload:
     #id: SYS
-    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     If there is a selected IN preset, click to reload it.
     By constantly saving the Flame over the same flame file that you are loading in, this feature allows you to swiftly update a preset that you are loading inside the IN Tab while changing it, for example, in Fractorium. 
@@ -274,7 +274,7 @@ OUT Presets mini menu:
     
 OUT Save:
     #id: SYS
-    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     Click to save this flame inside the selected OUT file, if any.
     
@@ -337,7 +337,7 @@ note:
     
 copy/paste:
     #id: FLAME
-    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconBlackStarSVG.svg]
     
     ((LMB)) to mark this iterator for being copied. 
     
@@ -351,7 +351,7 @@ copy/paste:
     
 A tip:
     #id: FLAME
-    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    [Smallicon:opdef:.?iconBluStarSVG.svg]
     
     Show active iterator informations and tips.
     
@@ -432,7 +432,7 @@ xaos:
         
 auto space xaos weights / xaos information tips:
     #id: FLAME
-    [Largeicon:opdef:.?iconBlueStarRedSVG.svg]
+    [Smallicon:opdef:.?iconBlueStarRedSVG.svg]
     
     When the "*auto set xaos*" preferences option is *ON*:
     
@@ -610,7 +610,7 @@ FF: note:
     
 FF: copy/paste:
     #id: FF
-    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconBlackStarSVG.svg]
     
     ((LMB)) to mark this FF for being copied. 
     
@@ -757,7 +757,7 @@ JSON file:
 Save Palette:
     #id: PALETTE
     
-    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     ((LMB)) to save the current palette into the selected OUT file.
     
@@ -795,7 +795,7 @@ LIB contents ( presets ):
     
 Reload preset ( presets ):
     #id: PALETTE
-    [Largeicon:opdef:.?iconPrideSVG.svg]
+    [Smallicon:opdef:.?iconPrideSVG.svg]
     
     Reload the selected palette preset.
     
@@ -962,7 +962,7 @@ IN file ( *.flame type ):
     
 Reload:
     #id: IN
-    [Largeicon:opdef:.?iconWhiteSVG.svg]
+    [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     ((LMB)) to reload the selected preset.
     This is helpful when using Fractorium, for instance, and importing the same flame file into FLAM3 for Houdini.
@@ -1040,7 +1040,7 @@ Render infos:
     
 Copy/Paste render properties:
     #id: IN
-    [Largeicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconBlackStarSVG.svg]
     
     When you click this icon, those render properties will be copied and pasted into the render properties of the OUT tab.
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
@@ -1104,7 +1104,7 @@ OUT file ( *.flame type ):
     
 Save Flame:
     #id: OUT
-    [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     ((LMB)) to save the current flame into the selected OUT file.
     
@@ -1149,7 +1149,7 @@ Flame name ( preset ):
     
 Flame name tip:
     #id: OUT
-    [Largeicon:opdef:.?iconBluStarSVG.svg]
+    [Smallicon:opdef:.?iconBluStarSVG.svg]
     
     Show Flame name's informations and tips.
     
@@ -1211,7 +1211,7 @@ Edit render properties:
     
 Reset render properties:
     #id: OUT
-    [Largeicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconBlackSVG.svg]
     
     Click this icon to reset all OUT render properties.
     
@@ -1323,7 +1323,7 @@ auto set xaos:
     In case of ADD, the new xaos weights will be of value: 1.
     
     TIP:
-        The FLAM3H viewport Tag icon will turn red ( [Largeicon:opdef:.?iconRedSVG.svg] ) when OFF.
+        The FLAM3H viewport Tag icon will turn red ( [Smallicon:opdef:.?iconRedSVG.svg] ) when OFF.
 
 :box:
     #display: rounded white
@@ -1647,7 +1647,7 @@ Reload CVEX:
     - Click *Apply* or *Accept* to confirm your changes.
     - Go inside the FLAM3H node and on any of the wrangle core nodes, click the:
     
-        * "Reload CVEX" icon: [Largeicon:opdef:.?FLAM3H_DOC_icon.svg]
+        * "Reload CVEX" icon: [Smallicon:opdef:.?FLAM3H_DOC_icon.svg]
     
     You just need to click it once, and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
 
