@@ -199,3 +199,7 @@ Reference D: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.co
 
 **[FLAM3HOUDINI vimeo](https://vimeo.com/alexnardini)**
 
+
+## Copyrights
+
+_All images and logos copyright © Alessandro Nardini 2020-2023._
