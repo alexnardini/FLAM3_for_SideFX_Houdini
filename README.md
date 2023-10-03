@@ -1,7 +1,7 @@
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](https://github.com/alexnardini/FLAM3/blob/main/img/GITHUB_intro_img.jpg)
 
-`The above image consist of 400M points and rendered with Houdini internal Karma renderer.`
+`The fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
 ## FLAM3 for SideFX Houdini v1.x
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
