@@ -1555,7 +1555,7 @@ Point size:
     
     For simplicity, FLAM3 for Houdini sets all *'@pscale'* to a value of *'0.001'*.
     Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
-    It's important to keep in mind that *'@pscale' will become *'@widths' when importing FLAM3H into Stage/Solaris.
+    It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     
     TIP:
         As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
