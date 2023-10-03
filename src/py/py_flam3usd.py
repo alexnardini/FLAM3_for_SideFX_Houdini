@@ -13,11 +13,9 @@ import hou
 #
 #   Comment:    Simple utility node to quickly setup
 #               fractal flames point clouds in Solaris for previews.
-#
-#               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.0.2'
+FLAM3HUSD_VERSION = '0.0.3'
 
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 

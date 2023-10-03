@@ -1,16 +1,16 @@
-#icon: opdef:.?iconBlackSVG.svg
+#icon: opdef:.?FLAM3H_DOC_icon.svg
 #type: node
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.0.2
+#version: 0.0.3
 
 """Simple utility node to quickly setup fractal flames point clouds in Solaris."""
 
 == Welcome to FLAM3HUSD for SideFX Houdini ==
 
 A simple utility node that will make it easier to render FLAM3H fractal flames in Solaris for previews.
-It offers the very fundamental functionalities to setup your fractal flame point cloud so you can start rendering with Karma within a few clicks.
+It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
 
 
 @parameters FLAM3HUSD Tabs parameters
@@ -65,11 +65,11 @@ renderer:
     
 display:
     #id: prefs
-    Set the viewport particle display mode to either points or pixels.
+    Either points or pixels should be selected for the viewport particle display mode.
     
 size:
     #id: prefs
-    When viewport particle display is set to Points, this will control their size in the viewport.
+    The setting for viewport particle display Points. Define how big the particles appear in the viewport.
     
 :box:
     #display: rounded white
@@ -82,13 +82,19 @@ NOTE:
     
     As soon as you're satisfied, set up your own Karma renderer nodes to output the finished pictures.
     
-Pixel samples:
+rendering engine:
     #id: prefs
-    When Karma renderer is selected, this will set the render samples.
+    Allow switching between CPU and XPU engines when Karma renderer is selected.
+    Due to the very high number of points that could result in a fractal Flame, CPU should be preferable.
+    However, if you have a highly expensive GPU, why not XPU ?
     
-Denoiser:
+pixel samples:
     #id: prefs
-    When Karma renderer is selected, allow you to select between the available denoiser.
+    This will set the render samples when the Karma renderer is chosen.
+    
+denoiser:
+    #id: prefs
+    Give you the option to choose from the available denoisers when the Karma renderer is selected.
     
 
     
