@@ -20,7 +20,7 @@ One of the main missions was to pack the entire algorithm and functionalities I 
 As a result, it became a somewhat conservative implementation, it has everything but also some limits as I needed to cut corners everywhere, which became a daunting process to put into balance.
 
 A big commitment I needed to honor was to learn how to do fractal art. 
-Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of meaningless. And thus, while creating this tool, I engaged in so much fractal art that I unavoidably developed a love for the field.
+Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of meaningless. And thus, while creating this tool, I engaged in so much fractal art with it that I unavoidably developed a love for the field.
 It was important, so I could shape and steer this tool in the right direction.
 
 
