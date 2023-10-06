@@ -56,6 +56,9 @@ A custom shader could, in theory, implement a log density display and some form 
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
 `Just a bunch of dancing stars - Author: Alessandro Nardini`
 
+![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_02_Karma_H19.jpg)
+`Broccoli and gems - Author: Alessandro Nardini`
+
 **Highly inspired by Apophysis software and its workflow design.**
 
 Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3 for Houdini.
