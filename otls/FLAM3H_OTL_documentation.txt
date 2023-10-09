@@ -20,6 +20,12 @@ _*A bit of history* ( from wikipedia )_:
 
 == Welcome to FLAM3 for SideFX Houdini ==
 
+Individuals and fractal flames are alike. Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today.
+Consider the various formulas that make up fractal flames as different brushes or life event brushes.
+Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole.
+This is akin to a person's genome, or DNA.
+Together, all of these variables contribute to the interesting nature of the fractal flame discipline, with its seemingly endless possibilities, effects, and patterns.
+
 _Houdini 19.x only_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
