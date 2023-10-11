@@ -4718,7 +4718,7 @@ class _out_utils():
         for item in VAL_LIST:
             collect = []
             for i in item:
-                if float(i).is_integer():
+                if float(i).is_integer():  # type: ignore - float.is_integer() is a valid method for a float
                     collect.append(str(int(float(i))))
                 else:
                     collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
@@ -5132,7 +5132,7 @@ def out_flame_properties_build(self) -> dict:
 
 
 def out_round_float(VAL) -> str:
-    if float(VAL).is_integer():
+    if float(VAL).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
         return str(int(float(VAL)))
     else:
         return str(round(float(VAL), ROUND_DECIMAL_COUNT))
