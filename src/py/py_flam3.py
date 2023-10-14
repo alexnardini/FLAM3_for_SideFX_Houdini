@@ -3214,7 +3214,7 @@ class apo_flame_iter_data(apo_flame):
         self._mb_flam3h_mb_fps = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._prefs_flam3h_prefs_f3c = self._apo_flame__get_prefs_flam3h_f3c(self._idx) # type: ignore
+        self._prefs_flam3h_f3c = self._apo_flame__get_prefs_flam3h_f3c(self._idx) # type: ignore
 
 
     @property
@@ -3304,8 +3304,8 @@ class apo_flame_iter_data(apo_flame):
         return self._mb_flam3h_mb_shutter
     
     @property
-    def prefs_flam3h_prefs_f3c(self):
-        return self._prefs_flam3h_prefs_f3c
+    def prefs_flam3h_f3c(self):
+        return self._prefs_flam3h_f3c
     
     
     
@@ -4197,8 +4197,8 @@ def apo_to_flam3(self: hou.Node) -> None:
             reset_MB(self)
             
         # F3C ( the if statement is for backward compatibility )
-        if apo_data.prefs_flam3h_prefs_f3c is not None:
-            self.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_prefs_f3c}) # type: ignore
+        if apo_data.prefs_flam3h_f3c is not None:
+            self.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
         
         # if CP HSV vals
         if apo_data.palette_flam3h_hsv is not False:
