@@ -128,6 +128,8 @@ OUT_MB_DO = 'domb'
 OUT_MB_FPS = 'fps'
 OUT_MB_SAMPLES = 'mbsamples'
 OUT_MB_SHUTTER = 'shutter'
+# Prefs
+OUT_PREFS_F3C = 'f3c'
 # Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
@@ -2380,6 +2382,7 @@ OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
 OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mb_samples'
 OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_mb_shutter'
+OUT_XML_FLAM3H_PREFS_F3C = 'flam3h_f3c'
 # XML OUT render key data names
 OUT_XML_VERSION = 'version'
 OUT_XML_FLAME_SIZE = 'size'
@@ -2839,6 +2842,7 @@ class apo_flame(_xml_tree):
         self._flam3h_mb = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._flam3h_mb_samples = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._flam3h_mb_shutter = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._flam3h_prefs_f3c = self._xml_tree__get_name(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
     
 
     @staticmethod
@@ -2930,6 +2934,10 @@ class apo_flame(_xml_tree):
     @property
     def flam3h_mb_shutter(self):
         return self._flam3h_mb_shutter
+    
+    @property
+    def flam3h_prefs_f3c(self):
+        return self._flam3h_prefs_f3c
     
 
 
@@ -3161,8 +3169,19 @@ class apo_flame(_xml_tree):
                 return False
         else:
             return False
+        
+    # custom to FLAM3H only
+    def __get_prefs_flam3h_f3c(self, idx: int, key=OUT_XML_FLAM3H_PREFS_F3C) -> Union[int, None]:
 
-
+        if self._isvalidtree:
+            f3c = self._flam3h_prefs_f3c[idx]
+            # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
+            if f3c is not None and f3c:
+                return int(f3c)
+            else:
+                return None
+        else:
+            return None
 
 class apo_flame_iter_data(apo_flame):
 
@@ -3195,6 +3214,7 @@ class apo_flame_iter_data(apo_flame):
         self._mb_flam3h_mb_fps = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._prefs_flam3h_prefs_f3c = self._apo_flame__get_prefs_flam3h_f3c(self._idx) # type: ignore
 
 
     @property
@@ -3282,6 +3302,10 @@ class apo_flame_iter_data(apo_flame):
     @property
     def mb_flam3h_shutter(self):
         return self._mb_flam3h_mb_shutter
+    
+    @property
+    def prefs_flam3h_prefs_f3c(self):
+        return self._prefs_flam3h_prefs_f3c
     
     
     
@@ -4172,6 +4196,10 @@ def apo_to_flam3(self: hou.Node) -> None:
         else:
             reset_MB(self)
             
+        # F3C ( the if statement is for backward compatibility )
+        if apo_data.prefs_flam3h_prefs_f3c is not None:
+            self.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_prefs_f3c}) # type: ignore
+        
         # if CP HSV vals
         if apo_data.palette_flam3h_hsv is not False:
             self.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
@@ -4552,7 +4580,8 @@ class _out_utils():
             self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
-        self._flam3h_mb_do = self._node.parm(OUT_MB_DO).eval()
+        self._flam3h_mb_do = self._node.parm(OUT_MB_DO).evalAsInt()
+        self._flam3h_f3c = self._node.parm(OUT_PREFS_F3C).evalAsInt()
         
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -4859,6 +4888,10 @@ class _out_utils():
     def flam3h_mb_do(self):
         return self._flam3h_mb_do
     
+    @property
+    def flam3h_f3c(self):
+        return self._flam3h_f3c
+    
 
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
@@ -5031,6 +5064,10 @@ class _out_utils():
                 return False
         else:
             return False
+        
+    # custom to FLAM3H only
+    def __out_flame_data_flam3h_f3c(self) -> Union[str, None]:
+        return str(self._flam3h_f3c)
 
 
 class out_flame_properties(_out_utils):
@@ -5061,6 +5098,7 @@ class out_flame_properties(_out_utils):
         self.flam3h_mb_fps = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
         self.flam3h_mb_samples = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
         self.flam3h_mb_shutter = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
+        self.flam3h_prefs_f3c = self._out_utils__out_flame_data_flam3h_f3c() # type: ignore
 
 
 class out_flam3_data(_out_utils):
@@ -5102,7 +5140,8 @@ def out_flame_properties_build(self) -> dict:
             OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
-            OUT_XML_FLAME_SIZE: f3p.flame_size,
+            OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, 
+            OUT_XML_FLAME_SIZE: f3p.flame_size, # custom to FLAM3H only
             OUT_XML_FLAME_CENTER: f3p.flame_center,
             OUT_XML_FLAME_SCALE: f3p.flame_scale,
             OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
