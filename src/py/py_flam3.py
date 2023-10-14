@@ -2936,7 +2936,7 @@ class apo_flame(_xml_tree):
         return self._flam3h_mb_shutter
     
     @property
-    def flam3h_prefs_f3c(self):
+    def flam3h_prefs_f3c(self): # flam3 compatibility preferences option
         return self._flam3h_prefs_f3c
     
 
