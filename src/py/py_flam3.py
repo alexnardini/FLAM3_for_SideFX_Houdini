@@ -1264,7 +1264,7 @@ def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
             if apo.isvalidtree:
                 prm.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
-                if isLock(xml_checked, FLAM3_LIB_LOCK):
+                if isLOCK(xml_checked):
                     flame_lib_locked = f"\nflame lib file: LOCKED"
                     node.setParms({MSG_OUT: flame_lib_locked})
                 else:
@@ -1282,12 +1282,12 @@ def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
         json_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
-            if isJSON(node, json_path, CP_PALETTE_LIB_PATH):
+            if isJSON(node, json_path):
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
                     # check if the selected palette file is locked
-                    if isLock(json_path_checked, FLAM3_LIB_LOCK):
+                    if isLOCK(json_path_checked):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({MSG_PALETTE: palette_lib_locked})
                     else:
@@ -1327,7 +1327,7 @@ def menu_ramp_presets(kwargs: dict) -> list:
 
     menu=[]
     
-    if isJSON(node, filepath, CP_PALETTE_LIB_PATH):
+    if isJSON(node, filepath):
         if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
             with open(filepath) as f:
                 data = json.load(f)
@@ -1370,12 +1370,12 @@ def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         return PALETTE_COUNT_256
 
 
-def isJSON(node: hou.Node, filepath: Union[str, bool], prm: str) -> bool:
+def isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
     if filepath is not False:
         try:
             with open(str(filepath),'r') as r:
                 data_check = json.load(r)
-                node.setParms({prm: str(filepath)}) #type: ignore
+                node.setParms({parm_path_name: str(filepath)}) #type: ignore
                 del data_check
                 return True
         except:
@@ -1383,9 +1383,9 @@ def isJSON(node: hou.Node, filepath: Union[str, bool], prm: str) -> bool:
     else:
         return False
     
-def isLock(filepath: Union[str, bool], prefix: str) -> bool:
+def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
     if filepath is not False:
-        if os.path.split(str(filepath))[-1].startswith(prefix):
+        if os.path.split(str(filepath))[-1].startswith(prx):
             return True
         else:
             return False
@@ -1413,7 +1413,7 @@ def ramp_save(kwargs: dict) -> None:
             open_explorer_file(out_path_checked)
         else:
                 
-            if isLock(out_path_checked, FLAM3_LIB_LOCK):
+            if isLOCK(out_path_checked):
                 ui_text = f"This Palette library is Locked."
                 ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                 hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -1455,7 +1455,7 @@ def ramp_save(kwargs: dict) -> None:
                         w.write(json_data)
                 else:
                     # if the file exist and is a valid JSON file
-                    if isJSON(node, out_path_checked, CP_PALETTE_LIB_PATH):
+                    if isJSON(node, out_path_checked):
                         with open(str(out_path_checked),'r') as r:
                             prevdata = json.load(r)
                         with open(str(out_path_checked), 'w') as w:
@@ -1832,11 +1832,11 @@ def reset_CP(self, mode=0) -> None:
         color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
-        if mode==1:
-            self.setParms({CP_PALETTE_LIB_PATH: ""})
-            self.setParms({CP_PALETTE_OUT_PRESET_NAME: ""})
-            self.setParms({CP_PALETTE_PRESETS: "-1"})
-            self.setParms({"palettemsg": ''})
+        # if mode==1:
+        #     self.setParms({CP_PALETTE_LIB_PATH: ""})
+        #     self.setParms({CP_PALETTE_OUT_PRESET_NAME: ""})
+        #     self.setParms({CP_PALETTE_PRESETS: "-1"})
+        #     self.setParms({"palettemsg": ''})
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
     elif mode == 2:
         self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
@@ -4375,7 +4375,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
     # Check if the loaded Flame file is locked.
     in_path = self.parm(IN_PATH).evalAsString()
     in_path_checked = out_check_outpath(self, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
-    if os.path.split(str(in_path_checked))[-1].startswith(FLAM3_LIB_LOCK):
+    if isLOCK(in_path_checked):
         flame_lib_locked = f"\nflame lib file: LOCKED"
     else: flame_lib_locked = ''
     # build full stats msg
@@ -5530,7 +5530,7 @@ def out_XML(kwargs: dict) -> None:
                 open_explorer_file(out_path_checked)
             else:
 
-                if isLock(out_path_checked, FLAM3_LIB_LOCK):
+                if isLOCK(out_path_checked):
                     ui_text = f"This Flam3 library is Locked."
                     ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
