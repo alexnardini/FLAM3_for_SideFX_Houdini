@@ -2459,8 +2459,8 @@ MAX_FF_VARS_PRE = 1
 MAX_FF_VARS_POST = 2
 
 XML_APP_NAME_FLAM3HOUDINI = 'FLAM3H'
-XML_APP_NAME_FRACTORIUM = 'EMBER-'
-XML_APP_NAME_APO = 'Apophysis'
+XML_APP_NAME_FRACTORIUM = 'EMBER'
+# XML_APP_NAME_APO = 'Apophysis'
 
 # This is used as a faster idx lookup table.
 # From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3 for houdini var idx it is mapped to.
@@ -3613,7 +3613,7 @@ def v_parametric(app: str,
     prx, prx_prm = flam3_prx_mode(mode)
     
     # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
     
     VAR = v_parametric_var_collect(node, 
                                    mode, 
@@ -3662,7 +3662,7 @@ def v_parametric_PRE(app: str,
     prx, prx_prm = flam3_prx_mode(mode)
     
     # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
     
     VAR = v_parametric_var_collect(node, 
                                    mode, 
@@ -3707,7 +3707,7 @@ def v_parametric_POST(app: str,
     prx, prx_prm = flam3_prx_mode(mode)
     
     # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
 
     VAR = v_parametric_var_collect(node, 
                                    mode, 
@@ -3746,7 +3746,7 @@ def v_parametric_PRE_FF(app: str,
         apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
     """
     # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
 
     VAR = v_parametric_var_collect(node, 
                                    0, 
@@ -3785,7 +3785,7 @@ def v_parametric_POST_FF(app: str,
         apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
     """
     # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app, apo_prm)
+    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
 
     VAR = v_parametric_var_collect(node, 
                                    0, 
