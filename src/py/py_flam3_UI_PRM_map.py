@@ -81,12 +81,12 @@ hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
 
 'sys_palettepresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.sys_json_to_ramp(kwargs)
+hou.pwd().hdaModule().flam3.palette_utils().sys_json_to_ramp()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.palette_utils().menu_ramp_presets()
 return menu
 'Action Script'
-kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
+kwargs['node'].hdaModule().flam3.palette_utils().json_to_ramp()
 
 'sys_inpresets'
 'Callback Script'
@@ -183,41 +183,36 @@ kwargs['node'].hdaModule().flam3.reset_postaffine_FF(kwargs)
 
 'hsv'
 'Callback Script'
-hou.pwd().hdaModule().flam3.palette_hsv(kwargs['node'])
+hou.pwd().hdaModule().flam3.palette_utils().palette_hsv()
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_CP(kwargs['node'], 2)
+kwargs['node'].hdaModule().flam3.palette_utils().reset_CP(2)
 
 'palettehsv'
 'Callback Script'
-hou.pwd().hdaModule().flam3.palette_lock(kwargs['node'])
+hou.pwd().hdaModule().flam3.palette_utils().palette_lock()
 'Action Button'
-kwargs['node'].hdaModule().flam3.palette_cp(kwargs['node'])
+kwargs['node'].hdaModule().flam3.palette_utils().palette_cp()
 
 'palette'
 'Callback Script'
-hou.pwd().hdaModule().flam3.palette_cp(kwargs['node'])
+hou.pwd().hdaModule().flam3.palette_utils().palette_cp()
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_CP(kwargs['node'], 3)
+kwargs['node'].hdaModule().flam3.palette_utils().reset_CP(3)
 
 'palettefile'
 'Callbac Script'
 hou.pwd().hdaModule().flam3.init_presets(kwargs, "palettepresets")
 'Action Button'
-kwargs['node'].hdaModule().flam3.ramp_save(kwargs)
+kwargs['node'].hdaModule().flam3.palette_utils(kwargs).ramp_save()
 
 'palettepresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.json_to_ramp(kwargs)
+hou.pwd().hdaModule().flam3.palette_utils().json_to_ramp()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.palette_utils().menu_ramp_presets()
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
-
-'mem_palettepresets'
-'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
-return menu
+kwargs['node'].hdaModule().flam3.palette_utils().json_to_ramp()
 
 
 #######################################################
