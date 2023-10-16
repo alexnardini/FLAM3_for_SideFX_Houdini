@@ -2378,6 +2378,7 @@ XML_XF_SYMMETRY = 'symmetry'
 XML_XF_COLOR_SPEED = 'color_speed'
 XML_XF_OPACITY = 'opacity'
 # custom to FLAM3H only
+OUT_XML_FLAM3H_SYS_RIP = 'flam3h_rip'
 OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
 OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mb_samples'
@@ -2836,6 +2837,7 @@ class apo_flame(_xml_tree):
         self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2) # type: ignore
         self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
         # custom to FLAM3H only
+        self._flam3h_sys_rip = self._xml_tree__get_name(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
         self._flam3h_hsv = self._xml_tree__get_name(OUT_XML_FLAM3H_HSV) # type: ignore
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
@@ -2938,6 +2940,10 @@ class apo_flame(_xml_tree):
     @property
     def flam3h_prefs_f3c(self): # flam3 compatibility preferences option
         return self._flam3h_prefs_f3c
+    
+    @property
+    def flame3h_sys_rip(self):
+        return self._flam3h_sys_rip
     
 
 
@@ -3158,7 +3164,10 @@ class apo_flame(_xml_tree):
             # self._flam3h_mb[idx] can also be an empty list, hence the double check
             if mb_do is not None and mb_do:
                 if key == OUT_XML_FLMA3H_MB_FPS:
-                    return int(mb_do)
+                    try:
+                        return int(mb_do)
+                    except:
+                        return False
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
                     return int(self._flam3h_mb_samples[idx])
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
@@ -3171,13 +3180,16 @@ class apo_flame(_xml_tree):
             return False
         
     # custom to FLAM3H only
-    def __get_prefs_flam3h_f3c(self, idx: int, key=OUT_XML_FLAM3H_PREFS_F3C) -> Union[int, None]:
+    def __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
         if self._isvalidtree:
-            f3c = self._flam3h_prefs_f3c[idx]
+            # f3c = self._flam3h_prefs_f3c[idx]
             # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
-            if f3c is not None and f3c:
-                return int(f3c)
+            if toggle is not None and toggle:
+                try:
+                    return int(toggle)
+                except:
+                    return None
             else:
                 return None
         else:
@@ -3210,11 +3222,12 @@ class apo_flame_iter_data(apo_flame):
         self._symmetry = self._apo_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
         self._opacity = self._apo_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
         # custom to FLAM3H only
+        self._sys_flam3h_rip = self._apo_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
         self._palette_flam3h_hsv = self._apo_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
         self._mb_flam3h_mb_fps = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._apo_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._prefs_flam3h_f3c = self._apo_flame__get_prefs_flam3h_f3c(self._idx) # type: ignore
+        self._prefs_flam3h_f3c = self._apo_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
 
     @property
@@ -3306,6 +3319,10 @@ class apo_flame_iter_data(apo_flame):
     @property
     def prefs_flam3h_f3c(self):
         return self._prefs_flam3h_f3c
+    
+    @property
+    def sys_flam3h_rip(self):
+        return self._sys_flam3h_rip
     
     
     
@@ -4161,8 +4178,13 @@ def apo_to_flam3(self: hou.Node) -> None:
         apo_data = apo_flame_iter_data(self, xml, preset_id)
         
         # RIP
+        # if there are ZERO opacities, always turn RIP toggle ON
         if min(apo_data.opacity) == 0.0:
             self.setParms({SYS_RIP: 1}) # type: ignore
+        else:
+            # Otherwise set RIP toggle accordingly from the XML data if any
+            if apo_data.sys_flam3h_rip is not None:
+                self.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
             
         # iterators
         self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
@@ -4580,6 +4602,7 @@ class _out_utils():
             self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
+        self._flam3h_sys_rip = self._node.parm(SYS_RIP).evalAsInt()
         self._flam3h_mb_do = self._node.parm(OUT_MB_DO).evalAsInt()
         self._flam3h_f3c = self._node.parm(OUT_PREFS_F3C).evalAsInt()
         
@@ -4892,6 +4915,10 @@ class _out_utils():
     def flam3h_f3c(self):
         return self._flam3h_f3c
     
+    @property
+    def flam3h_sys_rip(self):
+        return self._flam3h_sys_rip
+    
 
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
@@ -5066,8 +5093,8 @@ class _out_utils():
             return False
         
     # custom to FLAM3H only
-    def __out_flame_data_flam3h_f3c(self) -> Union[str, None]:
-        return str(self._flam3h_f3c)
+    def __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
+        return str(toggle)
 
 
 class out_flame_properties(_out_utils):
@@ -5094,11 +5121,12 @@ class out_flame_properties(_out_utils):
         # self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
         
         # custom to FLAM3H only
+        self.flam3h_rip = self._out_utils__out_flame_data_flam3h_toggle(self._flam3h_sys_rip) # type: ignore
         self.flam3h_hsv = self._out_utils__out_flame_data_flam3h_hsv(CP_RAMP_HSV_VAL_NAME) # type: ignore
         self.flam3h_mb_fps = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
         self.flam3h_mb_samples = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
         self.flam3h_mb_shutter = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
-        self.flam3h_prefs_f3c = self._out_utils__out_flame_data_flam3h_f3c() # type: ignore
+        self.flam3h_prefs_f3c = self._out_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
 
 
 class out_flam3_data(_out_utils):
@@ -5136,6 +5164,7 @@ def out_flame_properties_build(self) -> dict:
     f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
             XML_XF_NAME: f3p.flame_name,
+            OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_rip, # custom to FLAM3H only
             OUT_XML_FLAM3H_HSV: f3p.flam3h_hsv, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
