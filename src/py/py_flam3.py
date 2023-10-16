@@ -4828,7 +4828,7 @@ class _out_utils():
         return xaos_no_vactive
 
     def out_xf_xaos_to(self) -> tuple:
-        """Export in a list[str] the xaos TO values to write out
+        """Export in a tuple[str] the xaos TO values to write out
         Returns:
             tuple[str]: the xaos TO values to write out.
         """
@@ -4838,7 +4838,7 @@ class _out_utils():
         return tuple([" ".join(x) for x in self.xaos_cleanup(self.out_round_floats(xaos_vactive))])
 
     def out_xf_xaos_from(self, mode=0) -> tuple:
-        """Export in a list[str] the xaos FROM values to write out
+        """Export in a tuple[str] the xaos FROM values to write out
         Args:
             mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
         Returns:
@@ -5236,35 +5236,58 @@ def flam3_compatibility_check_and_msg(self: hou.Node,
                                       names_VARS_FF: list, 
                                       names_VARS_POST_FF: list) -> bool:
     
+    # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
+    # just in case in the future I add more. Will need to update this definition arguments if i endup doing so.
     bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
-    for n in names_VARS:
+    
+    # ITERATORS dublicate vars check
+    pre_vars_duplicate_idx = []
+    vars_duplicate_idx = []
+    for idx, n in enumerate(names_VARS):
         if n:
-            if bool_VARS is False: bool_VARS = out_check_duplicate(n)
-            else: break
-    for n in names_VARS_PRE:
+            # if bool_VARS is False:
+            bool_VARS = out_check_duplicate(n)
+            if bool_VARS:
+                vars_duplicate_idx.append(str(idx+1))
+                bool_VARS = False
+            # else: break
+    for idx, n in enumerate(names_VARS_PRE):
         if n:
-            if bool_VARS_PRE is False: bool_VARS_PRE = out_check_duplicate(n)
-            else: break
+            # if bool_VARS_PRE is False:
+            bool_VARS_PRE = out_check_duplicate(n)
+            if bool_VARS_PRE:
+                pre_vars_duplicate_idx.append(str(idx+1))
+                bool_VARS_PRE = False
+            # else: break
+    if pre_vars_duplicate_idx:
+        bool_VARS_PRE = True
+    if vars_duplicate_idx:
+        bool_VARS = True
+    # FF dublicate vars check
     if flam3_do_FF:
         bool_VARS_FF = out_check_duplicate(names_VARS_FF)
         bool_VARS_POST_FF = out_check_duplicate(names_VARS_POST_FF)
         
-    ui_text = "Multiple variations of the same type not allowed"
-    ALL_msg = f"Node: {str(self)}\nType: Warning:\n\n"
-    VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside one of the iterator VAR section.\n"
-    VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same variation multiple times inside one of the iterator PRE section.\n"
-    VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
-    VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\n"
-    HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
-    if bool_VARS:
-        ALL_msg += VARS_msg
-    if bool_VARS_PRE:
-        ALL_msg += "\n" + VARS_PRE_msg
-    if bool_VARS_FF:
-       ALL_msg += "\n" + VARS_FF_msg
-    if bool_VARS_POST_FF:
-        ALL_msg += "\n" + VARS_POST_FF_msg
+    # Build messages accordinlgy
     if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
+        
+        ui_text = "Multiple variations of the same type not allowed"
+        ALL_msg = f"Node: {str(self)}\nType: Warning:\n\n"
+        VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside iterator:\n{', '.join(vars_duplicate_idx)}\n"
+        VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same PRE variation multiple times inside iterator:\n{', '.join(pre_vars_duplicate_idx)}\n"
+        VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
+        VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same variation multiple times inside the FF POST section.\n"
+        HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+        
+        if bool_VARS:
+            ALL_msg += VARS_msg
+        if bool_VARS_PRE:
+            ALL_msg += "\n" + VARS_PRE_msg
+        if bool_VARS_FF:
+            ALL_msg += "\n" + VARS_FF_msg
+        if bool_VARS_POST_FF:
+            ALL_msg += "\n" + VARS_POST_FF_msg
+        
         ALL_msg += HELP_msg
         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
         return False
