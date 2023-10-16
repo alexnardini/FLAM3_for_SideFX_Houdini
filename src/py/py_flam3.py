@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.0.28'
+FLAM3HOUDINI_VERSION = '1.0.30'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -4602,7 +4602,7 @@ class _out_utils():
             self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
-        self._flam3h_sys_rip = self._node.parm(SYS_RIP).evalAsInt()
+        self._flam3h_rip = self._node.parm(SYS_RIP).evalAsInt()
         self._flam3h_mb_do = self._node.parm(OUT_MB_DO).evalAsInt()
         self._flam3h_f3c = self._node.parm(OUT_PREFS_F3C).evalAsInt()
         
@@ -4916,8 +4916,8 @@ class _out_utils():
         return self._flam3h_f3c
     
     @property
-    def flam3h_sys_rip(self):
-        return self._flam3h_sys_rip
+    def flam3h_rip(self):
+        return self._flam3h_rip
     
 
     def __out_flame_data(self, prm_name='') -> str:
@@ -5121,8 +5121,8 @@ class out_flame_properties(_out_utils):
         # self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
         
         # custom to FLAM3H only
-        self.flam3h_rip = self._out_utils__out_flame_data_flam3h_toggle(self._flam3h_sys_rip) # type: ignore
-        self.flam3h_hsv = self._out_utils__out_flame_data_flam3h_hsv(CP_RAMP_HSV_VAL_NAME) # type: ignore
+        self.flam3h_sys_rip = self._out_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
+        self.flam3h_palette_hsv = self._out_utils__out_flame_data_flam3h_hsv(CP_RAMP_HSV_VAL_NAME) # type: ignore
         self.flam3h_mb_fps = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
         self.flam3h_mb_samples = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
         self.flam3h_mb_shutter = self._out_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
@@ -5164,8 +5164,8 @@ def out_flame_properties_build(self) -> dict:
     f3p = out_flame_properties(self)
     return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
             XML_XF_NAME: f3p.flame_name,
-            OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_rip, # custom to FLAM3H only
-            OUT_XML_FLAM3H_HSV: f3p.flam3h_hsv, # custom to FLAM3H only
+            OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
+            OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
             OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
