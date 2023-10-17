@@ -138,6 +138,9 @@ MSG_PALETTE = 'palettemsg'
 MSG_OUT = 'outmsg'
 MSG_FLAM3ABOUT = 'flam3about_msg'
 MSG_FLAM3PLUGINS = 'flam3plugins_msg'
+# Copy/Paste mark iterator's messages
+MARK_ITER_MSG = "Please mark an iterator first"
+MARK_FF_MSG = "Please mark the FF first"
 
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
@@ -552,8 +555,6 @@ def menu_T(mode: int) -> list:
 ###############################################################################################
 # MENU - Build iterator copy paste menu
 ###############################################################################################
-MARK_ITER_MSG = "Please mark an iterator first"
-MARK_FF_MSG = "Please mark the FF first"
 def menu_copypaste(kwargs: dict) -> list:
     """
     Args:
