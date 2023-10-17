@@ -523,6 +523,69 @@ class flam3_iterator_FF:
     allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
         
 
+
+###############################################################################################
+# MENU - GLOBAL Density presets
+###############################################################################################
+def menu_density(self: hou.Node) -> list:
+    """
+    Args:
+        int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
+
+    Returns:
+        list: [return menu list]
+    """
+    
+    iterators = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+    menu=[]
+    menuitems = ()
+    if iterators:
+        menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
+    else:
+        menuitems = ("Please, add at least one iterator", "")
+    for i, item in enumerate(menuitems):
+        menu.append(i)
+        menu.append(item)
+    return menu
+
+# Set menu_density() Menu
+def menu_density_set(self: hou.Node) -> None:
+    
+    sel = self.parm(GLB_DENSITY_PRESETS).evalAsInt()
+    
+    if sel == 1:
+        self.setParms({GLB_DENSITY: 1000000}) # type: ignore
+    elif sel == 2:
+        self.setParms({GLB_DENSITY: 2000000}) # type: ignore
+    elif sel == 3:
+        self.setParms({GLB_DENSITY: 5000000}) # type: ignore
+    elif sel == 4:
+        self.setParms({GLB_DENSITY: 15000000}) # type: ignore
+    elif sel == 5:
+        self.setParms({GLB_DENSITY: 25000000}) # type: ignore
+    elif sel == 6:
+        self.setParms({GLB_DENSITY: 50000000}) # type: ignore
+    elif sel == 7:
+        self.setParms({GLB_DENSITY: 100000000}) # type: ignore
+    elif sel == 8:
+        self.setParms({GLB_DENSITY: 150000000}) # type: ignore
+    elif sel == 9:
+        self.setParms({GLB_DENSITY: 250000000}) # type: ignore
+    elif sel == 10:
+        self.setParms({GLB_DENSITY: 500000000}) # type: ignore
+    elif sel == 11:
+        self.setParms({GLB_DENSITY: 750000000}) # type: ignore
+    elif sel == 12:
+        self.setParms({GLB_DENSITY: 1000000000}) # type: ignore
+
+    # reset to null value so we can set the same preset again
+    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
+
+# Set menu_density() Menu
+def menu_density_set_default(self: hou.Node) -> None:
+    self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+
+
 ###############################################################################################
 # MENU - Build vars type menus
 ###############################################################################################
@@ -664,66 +727,6 @@ def menu_copypaste_FF(kwargs: dict) -> list:
         return menu
 
 
-###############################################################################################
-# MENU - Density presets
-###############################################################################################
-def menu_density(self: hou.Node) -> list:
-    """
-    Args:
-        int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
-
-    Returns:
-        list: [return menu list]
-    """
-    
-    iterators = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    menu=[]
-    menuitems = ()
-    if iterators:
-        menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
-    else:
-        menuitems = ("Please, add at least one iterator", "")
-    for i, item in enumerate(menuitems):
-        menu.append(i)
-        menu.append(item)
-    return menu
-
-# Set menu_density() Menu
-def menu_density_set(self: hou.Node) -> None:
-    
-    sel = self.parm(GLB_DENSITY_PRESETS).evalAsInt()
-    
-    if sel == 1:
-        self.setParms({GLB_DENSITY: 1000000}) # type: ignore
-    elif sel == 2:
-        self.setParms({GLB_DENSITY: 2000000}) # type: ignore
-    elif sel == 3:
-        self.setParms({GLB_DENSITY: 5000000}) # type: ignore
-    elif sel == 4:
-        self.setParms({GLB_DENSITY: 15000000}) # type: ignore
-    elif sel == 5:
-        self.setParms({GLB_DENSITY: 25000000}) # type: ignore
-    elif sel == 6:
-        self.setParms({GLB_DENSITY: 50000000}) # type: ignore
-    elif sel == 7:
-        self.setParms({GLB_DENSITY: 100000000}) # type: ignore
-    elif sel == 8:
-        self.setParms({GLB_DENSITY: 150000000}) # type: ignore
-    elif sel == 9:
-        self.setParms({GLB_DENSITY: 250000000}) # type: ignore
-    elif sel == 10:
-        self.setParms({GLB_DENSITY: 500000000}) # type: ignore
-    elif sel == 11:
-        self.setParms({GLB_DENSITY: 750000000}) # type: ignore
-    elif sel == 12:
-        self.setParms({GLB_DENSITY: 1000000000}) # type: ignore
-
-    # reset to null value so we can set the same preset again
-    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
-
-# Set menu_density() Menu
-def menu_density_set_default(self: hou.Node) -> None:
-    self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
 
 ###############################################################################################
 # FLAM3 paste list of parms
@@ -1432,21 +1435,27 @@ def ramp_save(kwargs: dict) -> None:
                 palette_cp(node)
 
                 ramp = hou.Ramp()
-                
+                hsv_vals = []
+                hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
                 if node.parm(CP_RAMP_SAVE_HSV).eval():
                     ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+                    hsv_vals_prm = [1.0, 1.0, 1.0]
                 else:
                     ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
                     
-                keys_count = get_ramp_keys_count(ramp)
-                
-                POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+                dict = {}
                 HEXs = []
-                json_data = ''
+                keys_count = get_ramp_keys_count(ramp)
+                POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
                 for p in POSs:
                     clr = tuple(ramp.lookup(p))
                     HEXs.append(rgb_to_hex(clr))
-                dict = { presetname: {'hex': ''.join(HEXs)} }
+                
+                if min(hsv_vals_prm)==max(hsv_vals_prm)==1.0:
+                    dict = { presetname: {'hex': ''.join(HEXs) } }
+                else:
+                    hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
+                    dict = { presetname: {'hex': ''.join(HEXs), 'hsv': hsv_vals} }
                 json_data = json.dumps(dict, indent=4)
 
                 if kwargs["ctrl"]:
@@ -1489,7 +1498,6 @@ def ramp_save(kwargs: dict) -> None:
 ###############################################################################################
 def hex_to_rgb(hex: str): 
     return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
-
 def sys_json_to_ramp(kwargs: dict) -> None:
     node = kwargs['node']
     preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
@@ -1517,9 +1525,17 @@ def json_to_ramp(kwargs: dict) -> None:
         
         if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
             HEXs = []
+            hsv_vals = []
+            # The following 'hsv_check' is for backward compatibility
+            hsv_check = False
             with open(filepath) as f:
                 data = json.load(f)[preset]
                 hex_values = data['hex']
+                try:
+                    [hsv_vals.append(float(x)) for x in data['hsv'].split(' ')]
+                    hsv_check = True
+                except:
+                    pass
                 [HEXs.append(hex) for hex in wrap(hex_values, 6)]
 
             rgb_from_XML_PALETTE = []
@@ -1533,9 +1549,12 @@ def json_to_ramp(kwargs: dict) -> None:
             ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
             ramp_parm.set(ramp)
 
-            # reset HSV after load ?
-            if node.parm(CP_RAMP_HSV_RESET_ON_LOAD).eval():
+            if hsv_check:
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+            else:
+                # This is for backward compatibility ( when the hsv data wasn't being exported yet )
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+
             palette_cp(node)
             palette_hsv(node)
             
@@ -1832,11 +1851,6 @@ def reset_CP(self, mode=0) -> None:
         color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
         color_keys = [0.0, 0.5, 1.0]
         color_values = [(1,0,0), (0,1,0), (0,0,1)]
-        # if mode==1:
-        #     self.setParms({CP_PALETTE_LIB_PATH: ""})
-        #     self.setParms({CP_PALETTE_OUT_PRESET_NAME: ""})
-        #     self.setParms({CP_PALETTE_PRESETS: "-1"})
-        #     self.setParms({"palettemsg": ''})
         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
     elif mode == 2:
         self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
@@ -4734,6 +4748,7 @@ class _out_utils():
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
         return out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
+    
     @staticmethod
     def affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
@@ -5319,7 +5334,7 @@ def flam3_compatibility_check_and_msg(self: hou.Node,
         return True
 
 
-def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
+def out_build_XML(self: hou.Node, root: lxmlET.Element) -> bool: # type: ignore
     # Build Flame properties
     flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
     flame.tag = XML_FLAME_NAME
