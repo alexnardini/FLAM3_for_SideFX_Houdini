@@ -4408,9 +4408,9 @@ class apo_flame_utils:
         Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
         
         code_references = """Code references:
-    flam3 :: (GPL v2)
-    Apophysis :: (GPL)
-    Fractorium :: (GPL v3)"""
+flam3 :: (GPL v2)
+Apophysis :: (GPL)
+Fractorium :: (GPL v3)"""
         
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
         Houdini_version = f"Host:\nSideFX Houdini {h_version}"
@@ -4422,9 +4422,9 @@ class apo_flame_utils:
         User = f"User: {hou.userName()}"
         
         example_flames = """example Flames:
-    C-91, Gabor Timar, Golubaja, Pillemaster,
-    Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
-    Seph, Lucy, b33rheart, Neonrauschen"""
+C-91, Gabor Timar, Golubaja, Pillemaster,
+Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
+Seph, Lucy, b33rheart, Neonrauschen"""
         
         build = (Implementation_build, nnl,
                 code_references, nnl,
