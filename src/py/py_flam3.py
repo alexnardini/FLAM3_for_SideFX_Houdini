@@ -31,7 +31,7 @@ import inspect
  
 #   Title:      SideFX Houdini FLAM3: 2D
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised September 2023
+#   date:       January 2023, Last revised October 2023
 #
 #   info:       Based on the original: "The Fractal Flame Algorithm"
 #   Authors:    Scott Draves, Erik Reckase
@@ -138,9 +138,6 @@ MSG_PALETTE = 'palettemsg'
 MSG_OUT = 'outmsg'
 MSG_FLAM3ABOUT = 'flam3about_msg'
 MSG_FLAM3PLUGINS = 'flam3plugins_msg'
-# Copy/Paste mark iterator's messages
-MARK_ITER_MSG = "Please mark an iterator first"
-MARK_FF_MSG = "Please mark the FF first"
 
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
@@ -555,6 +552,8 @@ def menu_T(mode: int) -> list:
 ###############################################################################################
 # MENU - Build iterator copy paste menu
 ###############################################################################################
+MARK_ITER_MSG = "Please mark an iterator first"
+MARK_FF_MSG = "Please mark the FF first"
 def menu_copypaste(kwargs: dict) -> list:
     """
     Args:
@@ -1317,6 +1316,58 @@ def open_explorer_file(filename):
             sp_call([opener, path])
     else:
         pass
+        
+###############################################################################################
+# MENU - Palette presets
+###############################################################################################
+def menu_ramp_presets(kwargs: dict) -> list:
+
+    node = kwargs['node']
+    filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+
+    menu=[]
+    
+    if isJSON(node, filepath):
+        if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+            with open(filepath) as f:
+                data = json.load(f)
+            menuitems = data.keys()
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+        else:
+            menuitems = ("Please, add at least one iterator", "")
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+    else:
+        if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+            menu.append(-1)
+            menu.append('Empty')
+        else:
+            menuitems = ("Please, add at least one iterator", "")
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+    return menu
+
+
+###############################################################################################
+# Save current ramp to a json file
+###############################################################################################
+def get_ramp_keys_count(ramp: hou.Ramp) -> str:
+    keys_count = len(ramp.keys())
+    if keys_count <= 32:
+        return PALETTE_COUNT_64
+    elif keys_count == 64:
+        return PALETTE_COUNT_64
+    elif keys_count <= 128:
+        return PALETTE_COUNT_128
+    elif keys_count <= 256:
+        return PALETTE_COUNT_256
+    else:
+        print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
+        return PALETTE_COUNT_256
 
 
 def isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
@@ -1341,278 +1392,205 @@ def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
     else:
         return False
 
+def clamp(x): 
+  return max(0, min(x, 255))
+def rgb_to_hex(rgb: tuple) -> str:
+    vals = [clamp(255*x) for x in rgb]
+    hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+    return hex
+def ramp_save(kwargs: dict) -> None:
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """
+    node = kwargs['node']
+    palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
-#######################################################################
-# CLASS: palette_utils
-#######################################################################
-class palette_utils:
-    
-    def __init__(self, kwargs=dict(), node=hou.pwd()) -> None:
-        """Palette utilities
-
-        Args:
-            node (hou.Node): flam3h node
-            kawargs (dict): Houdini's kwargs or an empty dict when kwargs are not needed
-        """
-        self._node = node
-        self._kwargs = kwargs
+    if out_path_checked is not False:
         
-    @staticmethod
-    def clamp(x): 
-        return max(0, min(x, 255))
-    
-    @staticmethod
-    def rgb_to_hex(rgb: tuple) -> str:
-        vals = [palette_utils.clamp(255*x) for x in rgb]
-        hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
-        return hex
-        
-    @staticmethod
-    def hex_to_rgb(hex: str): 
-        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
-    
-    @staticmethod
-    def get_ramp_keys_count(ramp: hou.Ramp) -> str:
-        keys_count = len(ramp.keys())
-        if keys_count <= 32:
-            return PALETTE_COUNT_64
-        elif keys_count == 64:
-            return PALETTE_COUNT_64
-        elif keys_count <= 128:
-            return PALETTE_COUNT_128
-        elif keys_count <= 256:
-            return PALETTE_COUNT_256
+        if kwargs['shift']:
+            open_explorer_file(out_path_checked)
         else:
-            print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
-            return PALETTE_COUNT_256
-        
-        
-    @property
-    def node(self):
-        return self._node
-    
-    @property
-    def kwargs(self):
-        return self._kwargs
-    
-    
-    def menu_ramp_presets(self) -> list:
-        # use kwargs to get the node otherwise it complain
-        node = self.kwargs['node']
-        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-        menu=[]
-        
-        if isJSON(node, filepath):
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                with open(filepath) as f:
-                    data = json.load(f)
-                menuitems = data.keys()
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
+                
+            if isLOCK(out_path_checked):
+                ui_text = f"This Palette library is Locked."
+                ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             else:
-                menuitems = ("Please, add at least one iterator", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
-        else:
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                menu.append(-1)
-                menu.append('Empty')
-            else:
-                menuitems = ("Please, add at least one iterator", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
-        return menu
-        
-        
-    def ramp_save(self) -> None:
-        """
-        require houdini's kwargs as calss argument
-        """
-        node = self.node
-        palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-        out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
-
-        if out_path_checked is not False:
-            
-            if self.kwargs['shift']:
-                open_explorer_file(out_path_checked)
-            else:
-                    
-                if isLOCK(out_path_checked):
-                    ui_text = f"This Palette library is Locked."
-                    ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
-                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                # get user's preset name or build an automated one
+                name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
+                if not name:
+                    now = datetime.now()
+                    presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
                 else:
-                    # get user's preset name or build an automated one
-                    name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
-                    if not name:
-                        now = datetime.now()
-                        presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
-                    else:
-                        # otherwise get that name and use it
-                        presetname = name
+                    # otherwise get that name and use it
+                    presetname = name
 
-                    # Updated HSV ramp before getting it
-                    self.palette_hsv()
-                    self.palette_cp()
+                # Updated HSV ramp before getting it
+                palette_hsv(node)
+                palette_cp(node)
 
-                    ramp = hou.Ramp()
+                ramp = hou.Ramp()
+                
+                if node.parm(CP_RAMP_SAVE_HSV).eval():
+                    ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+                else:
+                    ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
                     
-                    if node.parm(CP_RAMP_SAVE_HSV).eval():
-                        ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
-                    else:
-                        ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
-                        
-                    keys_count = self.get_ramp_keys_count(ramp)
-                    
-                    POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-                    HEXs = []
-                    json_data = ''
-                    for p in POSs:
-                        clr = tuple(ramp.lookup(p))
-                        HEXs.append(self.rgb_to_hex(clr))
-                    dict = { presetname: {'hex': ''.join(HEXs)} }
-                    json_data = json.dumps(dict, indent=4)
+                keys_count = get_ramp_keys_count(ramp)
+                
+                POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+                HEXs = []
+                json_data = ''
+                for p in POSs:
+                    clr = tuple(ramp.lookup(p))
+                    HEXs.append(rgb_to_hex(clr))
+                dict = { presetname: {'hex': ''.join(HEXs)} }
+                json_data = json.dumps(dict, indent=4)
 
-                    if self.kwargs["ctrl"]:
-                        os.remove(str(out_path_checked))
+                if kwargs["ctrl"]:
+                    os.remove(str(out_path_checked))
+                    with open(str(out_path_checked),'w') as w:
+                        w.write(json_data)
+                else:
+                    # if the file exist and is a valid JSON file
+                    if isJSON(node, out_path_checked):
+                        with open(str(out_path_checked),'r') as r:
+                            prevdata = json.load(r)
+                        with open(str(out_path_checked), 'w') as w:
+                            newdata = dict
+                            prevdata.update(newdata)
+                            data = json.dumps(prevdata,indent = 4)
+                            w.write(data)
+                    # Otherwise mean it is either empty or not exist,
+                    # just create one with the current ramp in it
+                    #
+                    # Note that we already checked for a proper file extension with:
+                    # def out_check_outpath(...)
+                    # so to not override something else by accident
+                    else:
                         with open(str(out_path_checked),'w') as w:
                             w.write(json_data)
-                    else:
-                        # if the file exist and is a valid JSON file
-                        if isJSON(node, out_path_checked):
-                            with open(str(out_path_checked),'r') as r:
-                                prevdata = json.load(r)
-                            with open(str(out_path_checked), 'w') as w:
-                                newdata = dict
-                                prevdata.update(newdata)
-                                data = json.dumps(prevdata,indent = 4)
-                                w.write(data)
-                        # Otherwise mean it is either empty or not exist,
-                        # just create one with the current ramp in it
-                        #
-                        # Note that we already checked for a proper file extension with:
-                        # def out_check_outpath(...)
-                        # so to not override something else by accident
-                        else:
-                            with open(str(out_path_checked),'w') as w:
-                                w.write(json_data)
 
-                    # Set some parameters
-                    with open(out_path_checked) as f:
-                        data = json.load(f)
-                        node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
-                        node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
-                        del data
-                        
-                    # Set the file path to the corrected one
-                    node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
+                # Set some parameters
+                with open(out_path_checked) as f:
+                    data = json.load(f)
+                    node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
+                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+                    del data
+                    
+                # Set the file path to the corrected one
+                node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
 
-    def sys_json_to_ramp(self) -> None:
-        preset_id = self.node.parm(SYS_CP_PALETTE_PRESETS).eval()
-        self.node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
-        self.json_to_ramp()
-        
+
+###############################################################################################
+# Set ramp value from a json file
+###############################################################################################
+def hex_to_rgb(hex: str): 
+    return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+
+def sys_json_to_ramp(kwargs: dict) -> None:
+    node = kwargs['node']
+    preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
+    node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
+    json_to_ramp(kwargs)
     
-    def json_to_ramp(self) -> None:
-        node = self.node
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+def json_to_ramp(kwargs: dict) -> None:
+    """
+    Args:
+        kwargs (dict): [kwargs[] dictionary]
+    """    
+    node = kwargs['node']
+    iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+    
+    if iterators_num:
         
-        if iterators_num:
-            
-            #get ramp parm
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            
-            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-            # get current preset
-            preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-            preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
-            
-            if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-                HEXs = []
-                with open(filepath) as f:
-                    data = json.load(f)[preset]
-                    hex_values = data['hex']
-                    [HEXs.append(hex) for hex in wrap(hex_values, 6)]
+        #get ramp parm
+        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        
+        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        # get current preset
+        preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+        preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
+        
+        if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+            HEXs = []
+            with open(filepath) as f:
+                data = json.load(f)[preset]
+                hex_values = data['hex']
+                [HEXs.append(hex) for hex in wrap(hex_values, 6)]
 
-                rgb_from_XML_PALETTE = []
-                for hex in HEXs:
-                    x = self.hex_to_rgb(hex)
-                    rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
-                
-                # Initialize new ramp.
-                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-                ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-                ramp_parm.set(ramp)
-
-                # reset HSV after load ?
-                if node.parm(CP_RAMP_HSV_RESET_ON_LOAD).eval():
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
-                self.palette_cp()
-                self.palette_hsv()
-                
-                # Store selection into mem preset menu
-                node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
-                
-    def palette_cp(self) -> None:
-        node = self.node
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
-        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
-        # Apply HSV if any is currently set
-        self.palette_hsv()
-        
-    def palette_hsv(self) -> None:
-        node = self.node  
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
-        hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
-        hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
-        
-        rgb = []
-        for item in hsv:
-            h = item[0] + hsvprm[0].eval()
-            s = item[1] * hsvprm[1].eval()
-            v = item[2] * hsvprm[2].eval()
-            rgb.append(colorsys.hsv_to_rgb(h, s, v))
-        
-        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
-
-    def palette_lock(self) -> None:  
-        self.palette_cp()
-        self.palette_hsv()
-        
-    def reset_CP(self, mode=0) -> None:
-        node = self.node
-        if not mode:
-            # CP
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-            # CP->ramp
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-            color_keys = [0.0, 0.5, 1.0]
-            color_values = [(1,0,0), (0,1,0), (0,0,1)]
-            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+            rgb_from_XML_PALETTE = []
+            for hex in HEXs:
+                x = hex_to_rgb(hex)
+                rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
             
-        elif mode == 2:
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+            # Initialize new ramp.
+            POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+            BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+            ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+            ramp_parm.set(ramp)
+
+            # reset HSV after load ?
+            if node.parm(CP_RAMP_HSV_RESET_ON_LOAD).eval():
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+            palette_cp(node)
+            palette_hsv(node)
             
-        elif mode == 3:
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-            color_keys = [0.0, 0.5, 1.0]
-            color_values = [(1,0,0), (0,1,0), (0,0,1)]
-            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-        # Update ramp py 
-        self.palette_cp()
-        self.palette_hsv()
+            # Store selection into mem preset menu
+            node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
+            
+
+###############################################################################################
+# palette copy values to paletteHSV
+###############################################################################################
+def palette_cp(self: hou.Node) -> None:
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
+    rmphsv = self.parm(CP_RAMP_HSV_NAME)
+    rmpsrc = self.parm(CP_RAMP_SRC_NAME)
+    rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
+    # Apply HSV if any is currently set
+    palette_hsv(self)
+    
+
+###############################################################################################
+# palette apply HSV values
+###############################################################################################
+def palette_hsv(self: hou.Node) -> None:
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
+    rmphsv = self.parm(CP_RAMP_HSV_NAME)
+    rmpsrc = self.parm(CP_RAMP_SRC_NAME)
+    hsvprm = self.parmTuple(CP_RAMP_HSV_VAL_NAME)
+    hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
+    
+    rgb = []
+    for item in hsv:
+        h = item[0] + hsvprm[0].eval()
+        s = item[1] * hsvprm[1].eval()
+        v = item[2] * hsvprm[2].eval()
+        rgb.append(colorsys.hsv_to_rgb(h, s, v))
+    
+    rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
+
+
+###############################################################################################
+# palette lock ( Lock the color corrected palette from user input )
+###############################################################################################
+def palette_lock(self: hou.Node) -> None:
+    """
+    Args:
+        self (hou.Node): [current hou.Node]
+    """    
+    palette_cp(self)
+    palette_hsv(self)
 
 
 ###############################################################################################
@@ -1843,6 +1821,35 @@ def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     self.setParms({SYS_TAG: 1}) # type: ignore
     self.setParms({SYS_TAG_SIZE: 0}) # type: ignore
     self.setParms({SYS_RIP: 0}) # type: ignore
+    
+def reset_CP(self, mode=0) -> None:
+    if not mode:
+        # CP
+        self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        # CP->ramp
+        ramp_parm = self.parm(CP_RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
+        color_keys = [0.0, 0.5, 1.0]
+        color_values = [(1,0,0), (0,1,0), (0,0,1)]
+        # if mode==1:
+        #     self.setParms({CP_PALETTE_LIB_PATH: ""})
+        #     self.setParms({CP_PALETTE_OUT_PRESET_NAME: ""})
+        #     self.setParms({CP_PALETTE_PRESETS: "-1"})
+        #     self.setParms({"palettemsg": ''})
+        ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+    elif mode == 2:
+        self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+    elif mode == 3:
+        ramp_parm = self.parm(CP_RAMP_SRC_NAME)
+        ramp_parm.deleteAllKeyframes()
+        color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
+        color_keys = [0.0, 0.5, 1.0]
+        color_values = [(1,0,0), (0,1,0), (0,0,1)]
+        ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+    # Update ramp py 
+    palette_cp(self)
+    palette_hsv(self)
 
 def reset_MB(self) -> None:
     self.setParms({OUT_MB_DO: 0})
@@ -1915,7 +1922,7 @@ def flam3_default(self: hou.Node) -> None:
     # SYS
     reset_SYS(self, 1, 10, 1)
     reset_FF(self)
-    palette_utils().reset_CP()
+    reset_CP(self)
     reset_MB(self)
     reset_IN(self)
     reset_OUT(self)
@@ -3105,7 +3112,7 @@ class apo_flame(_xml_tree):
                 try:
                     rgb_from_XML_PALETTE = []
                     for hex in HEX:
-                        x = palette_utils.hex_to_rgb(hex)
+                        x = hex_to_rgb(hex)
                         rgb_from_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
@@ -4226,9 +4233,8 @@ def apo_to_flam3(self: hou.Node) -> None:
         ramp_parm = self.parm(CP_RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         ramp_parm.set(apo_data.palette[0])
-        palette_utils().palette_cp()
-        palette_utils().palette_hsv()
-        
+        palette_cp(self)
+        palette_hsv(self)
         # if "copy render properties on Load" is checked
         if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
             apo_copy_render_stats_msg(self)
@@ -4591,8 +4597,8 @@ class _out_utils():
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
-            palette_utils().palette_cp()
-            palette_utils().palette_hsv()
+            palette_cp(self._node)
+            palette_hsv(self._node)
             self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
@@ -5013,7 +5019,7 @@ class _out_utils():
         POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = []
         for p in POSs:
-            HEXs.append(palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))))
+            HEXs.append(rgb_to_hex(tuple(self._palette.lookup(p))))
         n = 8
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
         hex_join = []
