@@ -209,7 +209,7 @@ kwargs['node'].hdaModule().flam3.palette_utils(kwargs).ramp_save()
 'Callback Script'
 hou.pwd().hdaModule().flam3.palette_utils().json_to_ramp()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.palette_utils().menu_ramp_presets()
+menu = kwargs['node'].hdaModule().flam3.palette_utils(kwargs).menu_ramp_presets()
 return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.palette_utils().json_to_ramp()

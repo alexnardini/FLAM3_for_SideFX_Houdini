@@ -1397,7 +1397,8 @@ class palette_utils:
     
     
     def menu_ramp_presets(self) -> list:
-        node = self.node
+        # use kwargs to get the node otherwise it complain
+        node = self.kwargs['node']
         filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
         menu=[]
         
