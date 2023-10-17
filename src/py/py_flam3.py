@@ -1260,7 +1260,7 @@ def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
                 
     elif OUT_PRESETS in prm_presets_name:
         xml = node.parm(OUT_PATH).evalAsString()
-        xml_checked = out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+        xml_checked = _out_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
         if xml_checked is not False:
             node.setParms({OUT_PATH: xml_checked}) 
             apo = apo_flame(node, xml_checked) #type: ignore
@@ -1282,7 +1282,7 @@ def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
                 
     elif CP_PALETTE_PRESETS in prm_presets_name:
         json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-        json_path_checked = out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
+        json_path_checked = _out_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             if isJSON(node, json_path):
@@ -1408,7 +1408,7 @@ def ramp_save(kwargs: dict) -> None:
     """
     node = kwargs['node']
     palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-    out_path_checked = out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+    out_path_checked = _out_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
     if out_path_checked is not False:
         
@@ -2107,7 +2107,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             mpmem_hou_get = list(__mpmem_hou_get)
         
         # collect all xaos
-        val = out_flame_properties.xaos_collect(self, iter_num, flam3_iterator_prm_names.xaos)
+        val = _out_utils.xaos_collect(self, iter_num, flam3_iterator_prm_names.xaos)
         # fill missing weights if any
         fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1) for item in val]
         
@@ -2161,7 +2161,7 @@ def auto_set_xaos(self: hou.Node) -> None:
             auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
             
         # set all multi parms xaos strings parms
-        xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_properties.out_round_floats(xaos_str)])
+        xaos_str_round_floats = tuple([div_weight.join(x) for x in _out_utils.out_round_floats(xaos_str)])
         for mp_idx, xaos in enumerate(xaos_str_round_floats):
             xaos_set = div_xaos + xaos
             self.setParms({f"{flam3_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
@@ -4410,7 +4410,7 @@ def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_
         vars_missing_msg = f"{nnl}MISSING:\n{apo_join_vars_grp(result_grp_fractorium)}"
     # Check if the loaded Flame file is locked.
     in_path = self.parm(IN_PATH).evalAsString()
-    in_path_checked = out_check_outpath(self, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+    in_path_checked = _out_utils.out_check_outpath(self, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
     if isLOCK(in_path_checked):
         flame_lib_locked = f"\nflame lib file: LOCKED"
     else: flame_lib_locked = ''
@@ -4717,7 +4717,7 @@ class _out_utils():
             if flame_name:
                 
                 div = '::'
-                flame_name = out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                flame_name = _out_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                 rp = str(flame_name).rpartition(div)
 
                 is_int = False
@@ -4746,9 +4746,376 @@ class _out_utils():
         now = datetime.now()
         flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
-        return out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        return _out_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
+    @staticmethod
+    def out_round_float(VAL) -> str:
+        if float(VAL).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
+            return str(int(float(VAL)))
+        else:
+            return str(round(float(VAL), ROUND_DECIMAL_COUNT))
     
+    @staticmethod    
+    def out_populate_xform_vars_XML(node: hou.Node, 
+                                    varsPRM: tuple, 
+                                    TYPES_tuple: tuple, 
+                                    WEIGHTS_tuple: tuple, 
+                                    XFORM: lxmlET.Element, # type: ignore
+                                    MP_IDX: str, 
+                                    FUNC: Callable) -> list[str]:
+        names = []
+        for idx, prm in enumerate(WEIGHTS_tuple):
+            prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
+            if prm_w != 0:
+                v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
+                v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                names.append(v_name)
+                XFORM.set(FUNC(v_name), _out_utils.out_round_float(prm_w))
+                vars_prm = varsPRM[v_type]
+                if vars_prm[-1]:
+                    f3_prm = varsPRM[v_type][1:-1]
+                    apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
+                    for id, p in enumerate(apo_prm):
+                        if f3_prm[id][-1]:
+                            for i, n in enumerate(p):
+                                vals = node.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
+                                XFORM.set(FUNC(p[i]), _out_utils.out_round_float(vals[i]))
+                        else:
+                            val = node.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
+                            XFORM.set(FUNC(p[0]), _out_utils.out_round_float(val))
+        return names
+    
+    @staticmethod
+    def _pretty_print(current, parent=None, index=-1, depth=0) -> None:
+        for i, node in enumerate(current):
+            _out_utils._pretty_print(node, current, i, depth + 1)
+        if parent is not None:
+            if index == 0:
+                parent.text = '\n' + ('  ' * depth)
+            else:
+                parent[index - 1].tail = '\n' + ('  ' * depth)
+            if index == len(parent) - 1:
+                current.tail = '\n' + ('  ' * (depth - 1))
+           
+    @staticmethod  
+    def out_check_duplicate(vars: list) -> bool:
+        result = []
+        [result.append(x) for x in vars if x not in result]
+        if(len(vars) != len(result)):
+            return True
+        return False
+    
+    # Check for FLAM3 compatibility and let the user know.
+    @staticmethod
+    def flam3_compatibility_check_and_msg(node: hou.Node, 
+                                        names_VARS: list, 
+                                        names_VARS_PRE: list, 
+                                        flam3_do_FF: list, 
+                                        names_VARS_FF: list, 
+                                        names_VARS_POST_FF: list) -> bool:
+        
+        # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
+        # just in case in the future I add more. Will need to update this definition arguments if i endup doing so.
+        bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
+        
+        # ITERATORS dublicate vars check
+        pre_vars_duplicate_idx = []
+        vars_duplicate_idx = []
+        for idx, n in enumerate(names_VARS):
+            if n:
+                check = _out_utils.out_check_duplicate(n)
+                if check:
+                    vars_duplicate_idx.append(str(idx+1))
+                    if bool_VARS is False:
+                        bool_VARS = True
+        for idx, n in enumerate(names_VARS_PRE):
+            if n:
+                check = _out_utils.out_check_duplicate(n)
+                if check:
+                    pre_vars_duplicate_idx.append(str(idx+1))
+                    if bool_VARS_PRE is False:
+                        bool_VARS_PRE = True
+
+        # FF dublicate vars check
+        if flam3_do_FF:
+            bool_VARS_FF = _out_utils.out_check_duplicate(names_VARS_FF)
+            bool_VARS_POST_FF = _out_utils.out_check_duplicate(names_VARS_POST_FF)
+            
+        # Build messages accordinlgy
+        if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
+            
+            ui_text = "Multiple variations of the same type not allowed"
+            ALL_msg = f"Node: {str(node)}\nType: Warning:\n\n"
+            VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside iterator:\n{', '.join(vars_duplicate_idx)}\n"
+            VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same PRE variation multiple times inside iterator:\n{', '.join(pre_vars_duplicate_idx)}\n"
+            VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
+            VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same POST variation multiple times inside the FF POST section.\n"
+            HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+            
+            if bool_VARS:
+                ALL_msg += VARS_msg
+            if bool_VARS_PRE:
+                ALL_msg += "\n" + VARS_PRE_msg
+            if bool_VARS_FF:
+                ALL_msg += "\n" + VARS_FF_msg
+            if bool_VARS_POST_FF:
+                ALL_msg += "\n" + VARS_POST_FF_msg
+            
+            ALL_msg += HELP_msg
+            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
+            return False
+        else:
+            return True
+        
+    @staticmethod
+    def my_system() -> str:
+        mysys = platform.system()
+        if mysys == 'Windows':
+            return 'WIN'
+        elif mysys == 'Linux':
+            return 'LNX'
+        elif mysys == 'Darwin':
+            return 'MAC'
+        elif mysys == 'Java':
+            return 'JAVA'
+        else:
+            return 'UNKNW'
+    @staticmethod
+    def out_flame_properties_build(node: hou.Node) -> dict:
+        f3p = out_flame_properties(node)
+        return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{_out_utils.my_system()}-{FLAM3HOUDINI_VERSION}',
+                XML_XF_NAME: f3p.flame_name,
+                OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
+                OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
+                OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, 
+                OUT_XML_FLAME_SIZE: f3p.flame_size, # custom to FLAM3H only
+                OUT_XML_FLAME_CENTER: f3p.flame_center,
+                OUT_XML_FLAME_SCALE: f3p.flame_scale,
+                OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
+                OUT_XML_FLAME_BG: '0 0 0',
+                OUT_XML_FLAME_SUPERSAMPLE: '2',
+                OUT_XML_FLAME_FILTER: '0.5',
+                OUT_XML_FLAME_QUALITY: f3p.flame_quality,
+                OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
+                OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
+                OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
+                OUT_XML_FLAME_K2: f3p.flame_k2,
+                OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
+                OUT_XML_FLAME_POWER: f3p.flame_highlight,
+                OUT_XML_FLAME_RADIUS: '9',
+                OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
+                OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
+                OUT_XML_FLAME_PALETTE_MODE: 'linear',
+                OUT_XML_FLAME_INTERPOLATION: 'linear',
+                OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
+                # The following are not really needed for our purpose and we assume all curves are defaults to start with.
+                # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
+                # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
+                # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
+                # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
+                # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
+                }
+        
+    @staticmethod
+    def out_build_XML(node: hou.Node, root: lxmlET.Element) -> bool: # type: ignore
+        # Build Flame properties
+        flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
+        flame.tag = XML_FLAME_NAME
+        for key, value in _out_utils.out_flame_properties_build(node).items():
+            if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
+                flame.set(key, value)
+        # Build xforms
+        is_PRE_BLUR = False
+        name_PRE_BLUR = ''
+        names_VARS = []
+        names_VARS_PRE = []
+        names_VARS_POST = []
+        f3d = out_flam3_data(node)
+        for iter in range(f3d.iter_count):
+            iter_var = iter + 1
+            if int(f3d.xf_vactive[iter]):
+                xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
+                xf.tag = XML_XF
+                xf.set(XML_XF_NAME, f3d.xf_name[iter])
+                xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
+                xf.set(XML_XF_COLOR, f3d.xf_color[iter])
+                xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+                if f3d.xf_pre_blur[iter]:
+                    is_PRE_BLUR =True
+                    xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
+                xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
+                if f3d.xf_postaffine[iter]:
+                    xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
+                if f3d.xf_xaos[iter]:
+                    xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
+                xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
+                names_VARS.append(_out_utils.out_populate_xform_vars_XML(node, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_NULL))
+                names_VARS_PRE.append(_out_utils.out_populate_xform_vars_XML(node, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE))
+                names_VARS_POST.append(_out_utils.out_populate_xform_vars_XML(node, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST))
+        # Build finalxform
+        names_VARS_FF = []
+        names_VARS_PRE_FF = []
+        names_VARS_POST_FF = []
+        if f3d.flam3_do_FF:
+            finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
+            finalxf.tag = XML_FF
+            finalxf.set(XML_XF_COLOR, '0')
+            finalxf.set(XML_XF_VAR_COLOR, '1')
+            finalxf.set(XML_XF_COLOR_SPEED, '0')
+            finalxf.set(XML_XF_SYMMETRY, '1')
+            finalxf.set(XML_XF_NAME, f3d.finalxf_name)
+            finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
+            if f3d.finalxf_postaffine:
+                finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
+            names_VARS_FF = _out_utils.out_populate_xform_vars_XML(node, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_NULL)
+            names_VARS_PRE_FF = _out_utils.out_populate_xform_vars_XML(node, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
+            names_VARS_POST_FF = _out_utils.out_populate_xform_vars_XML(node, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
+        # Build palette
+        palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
+        palette.tag = XML_PALETTE
+        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
+        palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
+        palette.text = f3d.palette_hex
+
+        # Get unique plugins used
+        if is_PRE_BLUR: name_PRE_BLUR = XML_XF_PB
+        names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
+        names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE) + [name_PRE_BLUR]
+        names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
+        # Set unique 'plugins' used and 'new linear' as last
+        flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
+        flame.set(XML_FLAME_NEW_LINEAR, '1')
+        
+        return _out_utils.flam3_compatibility_check_and_msg(node, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
+
+    @staticmethod
+    def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
+        """_summary_
+
+        Args:
+            file_split (tuple[str, str]): Returns tuple "(head, tail)" where "tail" is everything after the final slash. Either part may be empty
+            file_name (str): The input filename to be checked
+            file_ext (str): the desired filename extension
+
+        Returns:
+            str: A corrected file path
+        """    
+        build_f = "/".join(file_split) + file_ext
+        build_f_s = os.path.split(build_f)[0].split("/")
+        build_f_s[:] = [item for item in build_f_s if item]
+        build_f_s_cleaned = []
+        # Clean location directories.
+        # Probably not needed as I check for the validity of the parent directory eitherway
+        # but i leave it here and remove it if causing any trouble down the line.
+        for item in build_f_s:
+            item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED)
+            build_f_s_cleaned.append(item_cleaned)
+        # append cleaned file_name
+        build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
+        # the file_ext start with a dot so its added as last
+        return "/".join(build_f_s_cleaned) + file_ext
+    
+    @staticmethod
+    def out_check_outpath(node: hou.Node, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+        
+        now = datetime.now()
+        new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+        
+        file = os.path.expandvars(infile)
+        file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
+        
+        autopath = node.parm(PREFS_AUTO_PATH_CORRECTION).evalAsInt()
+
+        if autopath:
+            
+            # Just in case lets check is a valid location
+            if os.path.isdir(file_s[0]):
+
+                filename_s = os.path.splitext(file_s[-1].strip())
+                
+                if filename_s[-1] == file_ext:
+                    build_f_s = file.split("/")
+                    build_f_s[:] = [item for item in build_f_s if item]
+                    build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
+                    return "/".join(build_f_s)
+                
+                elif not filename_s[-1] and filename_s[0]:
+                    # this is done in case only the extension is left in the prm field
+                    if file_s[-1] in file_ext and file_s[-1][0] == ".":
+                        return _out_utils.out_check_build_file(file_s, new_name, file_ext)
+                    else:
+                        if not file_s[-1][0].isalnum():
+                            return _out_utils.out_check_build_file(file_s, new_name, file_ext)
+                        else:
+                            return _out_utils.out_check_build_file(file_s, file_s[-1], file_ext)
+                
+                elif not filename_s[-1] and not filename_s[0]:
+                    return _out_utils.out_check_build_file(file_s, new_name, file_ext)
+                
+                # this as last for now
+                #
+                # If there is a file extension and it match part or all of the file_ext string.
+                #
+                # This will execute only if the string match at the beginning of the file extension
+                # otherwise the above if/elif statements would have executed already.
+                elif len(filename_s) > 1 and filename_s[-1] in file_ext:
+                    return _out_utils.out_check_build_file(file_s, filename_s[0], file_ext)
+                else:
+                    # Print out proper msg based on file extension
+                    if OUT_FLAM3_FILE_EXT == file_ext:
+                        print(f"{str(node)}.OUT: You selected an OUT file that is not a {prx} file type.")
+                    elif OUT_PALETTE_FILE_EXT == file_ext:
+                        print(f"{str(node)}.Palette: You selected an OUT file that is not a {prx} file type.")
+                    return False
+            else:
+                # If the path string is empty we do not want to print out
+                if file:
+                    if OUT_FLAM3_FILE_EXT == file_ext:
+                        print(f"{str(node)}.OUT: Select a valid OUT directory location.")
+                    elif OUT_PALETTE_FILE_EXT == file_ext:
+                        print(f"{str(node)}.Palette: Select a valid OUT directory location.")
+                return False
+        else:
+            # just check if the user input is a valid file
+            if os.path.isfile(file_s[0]):
+                return infile
+            else:
+                # If the path string is empty we do not want to print out
+                if file:
+                    if OUT_FLAM3_FILE_EXT == file_ext:
+                        print(f"{str(node)}.OUT: Select a valid OUT directory location.")
+                    elif OUT_PALETTE_FILE_EXT == file_ext:
+                        print(f"{str(node)}.Palette: Select a valid OUT directory location.")
+                return False
+            
+    @staticmethod
+    def out_new_XML(node: hou.Node, outpath: str) -> None:
+        root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+        if _out_utils.out_build_XML(node, root):
+            _out_utils._pretty_print(root)
+            tree = lxmlET.ElementTree(root)
+            tree.write(outpath)
+
+    @staticmethod
+    def out_append_XML(node: hou.Node, apo_data: apo_flame, out_path: str) -> None:
+        # with ET since I have the XML tree already stored using its Element type
+        # root = apo_data.tree.getroot()
+        
+        # with lxmlET
+        tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
+        root = tree.getroot()
+        
+        if _out_utils.out_build_XML(node, root):
+            _out_utils._pretty_print(root)
+            tree = lxmlET.ElementTree(root)
+            tree.write(out_path)
+
+
+
+
     @staticmethod
     def affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
@@ -4865,6 +5232,9 @@ class _out_utils():
                 xaos_no_vactive.append([])
         return xaos_no_vactive
 
+
+
+
     def out_xf_xaos_to(self) -> tuple:
         """Export in a tuple[str] the xaos TO values to write out
         Returns:
@@ -4944,12 +5314,12 @@ class _out_utils():
             except:
                 prm = self._node.parm(prm_name)
             if prm_type:
-                return ' '.join([str(out_round_float(x.eval())) for x in prm])
+                return ' '.join([str(self.out_round_float(x.eval())) for x in prm])
             else:
                 if type(prm) is not str:
                     return str(self._node.parm(prm_name).eval())
                 else:
-                    return out_round_float(self._node.parm(prm_name).eval())
+                    return self.out_round_float(self._node.parm(prm_name).eval())
         else:
             print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H parameter name.")
             return ''
@@ -4965,13 +5335,13 @@ class _out_utils():
         else:
             # otherwise get that name and use it
             iter_num = self._node.parm(GLB_ITERATIONS).evalAsInt()
-            return out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+            return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
 
 
     def __out_xf_data(self, prm_name: str) -> tuple:
         val = []
         for iter in range(self._iter_count):
-            val.append(str(out_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
+            val.append(str(self.out_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
         return tuple(val)
 
 
@@ -5090,7 +5460,7 @@ class _out_utils():
                 if fsum(prm) == 3:
                     return False
                 else:
-                    return ' '.join([out_round_float(x) for x in prm])
+                    return ' '.join([self.out_round_float(x) for x in prm])
         else:
             print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
             return ''
@@ -5100,7 +5470,7 @@ class _out_utils():
 
         if self._flam3h_mb_do:
             try:
-                return out_round_float(self._node.parm(prm_name).eval())
+                return self.out_round_float(self._node.parm(prm_name).eval())
             except:
                 print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
@@ -5163,248 +5533,6 @@ class out_flam3_data(_out_utils):
         self.finalxf_preaffine = self._out_utils__out_finalxf_preaffine() # type: ignore
         self.finalxf_postaffine = self._out_utils__out_finalxf_postaffine() # type: ignore
 
-def my_system() -> str:
-    mysys = platform.system()
-    if mysys == 'Windows':
-        return 'WIN'
-    elif mysys == 'Linux':
-        return 'LNX'
-    elif mysys == 'Darwin':
-        return 'MAC'
-    elif mysys == 'Java':
-        return 'JAVA'
-    else:
-        return 'UNKNW'
-def out_flame_properties_build(self) -> dict:
-    f3p = out_flame_properties(self)
-    return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{my_system()}-{FLAM3HOUDINI_VERSION}',
-            XML_XF_NAME: f3p.flame_name,
-            OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
-            OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
-            OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
-            OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
-            OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
-            OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, 
-            OUT_XML_FLAME_SIZE: f3p.flame_size, # custom to FLAM3H only
-            OUT_XML_FLAME_CENTER: f3p.flame_center,
-            OUT_XML_FLAME_SCALE: f3p.flame_scale,
-            OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
-            OUT_XML_FLAME_BG: '0 0 0',
-            OUT_XML_FLAME_SUPERSAMPLE: '2',
-            OUT_XML_FLAME_FILTER: '0.5',
-            OUT_XML_FLAME_QUALITY: f3p.flame_quality,
-            OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
-            OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
-            OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
-            OUT_XML_FLAME_K2: f3p.flame_k2,
-            OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
-            OUT_XML_FLAME_POWER: f3p.flame_highlight,
-            OUT_XML_FLAME_RADIUS: '9',
-            OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
-            OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
-            OUT_XML_FLAME_PALETTE_MODE: 'linear',
-            OUT_XML_FLAME_INTERPOLATION: 'linear',
-            OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
-            # The following are not really needed for our purpose and we assume all curves are defaults to start with.
-            # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
-            # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
-            # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
-            # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
-            # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve 
-            }
-
-
-def out_round_float(VAL) -> str:
-    if float(VAL).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
-        return str(int(float(VAL)))
-    else:
-        return str(round(float(VAL), ROUND_DECIMAL_COUNT))
-
-def out_populate_xform_vars_XML(self: hou.Node, 
-                                varsPRM: tuple, 
-                                TYPES_tuple: tuple, 
-                                WEIGHTS_tuple: tuple, 
-                                XFORM: lxmlET.Element, # type: ignore
-                                MP_IDX: str, 
-                                FUNC: Callable) -> list[str]:
-    names = []
-    for idx, prm in enumerate(WEIGHTS_tuple):
-        prm_w = self.parm(f"{prm[0]}{MP_IDX}").eval()
-        if prm_w != 0:
-            v_type = self.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-            v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-            names.append(v_name)
-            XFORM.set(FUNC(v_name), out_round_float(prm_w))
-            vars_prm = varsPRM[v_type]
-            if vars_prm[-1]:
-                f3_prm = varsPRM[v_type][1:-1]
-                apo_prm = flam3_varsPRM_APO.varsPRM[v_type][1:-1]
-                for id, p in enumerate(apo_prm):
-                    if f3_prm[id][-1]:
-                        for i, n in enumerate(p):
-                            vals = self.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                            XFORM.set(FUNC(p[i]), out_round_float(vals[i]))
-                    else:
-                        val = self.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                        XFORM.set(FUNC(p[0]), out_round_float(val))
-    return names
-
-
-# This solution works great and its nice to be lazy for once
-# https://stackoverflow.com/questions/28813876/how-do-i-get-pythons-elementtree-to-pretty-print-to-an-xml-file
-def _pretty_print(current, parent=None, index=-1, depth=0) -> None:
-    for i, node in enumerate(current):
-        _pretty_print(node, current, i, depth + 1)
-    if parent is not None:
-        if index == 0:
-            parent.text = '\n' + ('  ' * depth)
-        else:
-            parent[index - 1].tail = '\n' + ('  ' * depth)
-        if index == len(parent) - 1:
-            current.tail = '\n' + ('  ' * (depth - 1))
-            
-            
-def out_check_duplicate(vars: list) -> bool:
-    result = []
-    [result.append(x) for x in vars if x not in result]
-    if(len(vars) != len(result)):
-        return True
-    return False
-
-
-# Check for FLAM3 compatibility and let the user know.
-def flam3_compatibility_check_and_msg(self: hou.Node, 
-                                      names_VARS: list, 
-                                      names_VARS_PRE: list, 
-                                      flam3_do_FF: list, 
-                                      names_VARS_FF: list, 
-                                      names_VARS_POST_FF: list) -> bool:
-    
-    # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
-    # just in case in the future I add more. Will need to update this definition arguments if i endup doing so.
-    bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
-    
-    # ITERATORS dublicate vars check
-    pre_vars_duplicate_idx = []
-    vars_duplicate_idx = []
-    for idx, n in enumerate(names_VARS):
-        if n:
-            check = out_check_duplicate(n)
-            if check:
-                vars_duplicate_idx.append(str(idx+1))
-                if bool_VARS is False:
-                    bool_VARS = True
-    for idx, n in enumerate(names_VARS_PRE):
-        if n:
-            check = out_check_duplicate(n)
-            if check:
-                pre_vars_duplicate_idx.append(str(idx+1))
-                if bool_VARS_PRE is False:
-                    bool_VARS_PRE = True
-
-    # FF dublicate vars check
-    if flam3_do_FF:
-        bool_VARS_FF = out_check_duplicate(names_VARS_FF)
-        bool_VARS_POST_FF = out_check_duplicate(names_VARS_POST_FF)
-        
-    # Build messages accordinlgy
-    if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
-        
-        ui_text = "Multiple variations of the same type not allowed"
-        ALL_msg = f"Node: {str(self)}\nType: Warning:\n\n"
-        VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside iterator:\n{', '.join(vars_duplicate_idx)}\n"
-        VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same PRE variation multiple times inside iterator:\n{', '.join(pre_vars_duplicate_idx)}\n"
-        VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
-        VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same POST variation multiple times inside the FF POST section.\n"
-        HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
-        
-        if bool_VARS:
-            ALL_msg += VARS_msg
-        if bool_VARS_PRE:
-            ALL_msg += "\n" + VARS_PRE_msg
-        if bool_VARS_FF:
-            ALL_msg += "\n" + VARS_FF_msg
-        if bool_VARS_POST_FF:
-            ALL_msg += "\n" + VARS_POST_FF_msg
-        
-        ALL_msg += HELP_msg
-        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
-        return False
-    else:
-        return True
-
-
-def out_build_XML(self: hou.Node, root: lxmlET.Element) -> bool: # type: ignore
-    # Build Flame properties
-    flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
-    flame.tag = XML_FLAME_NAME
-    for key, value in out_flame_properties_build(self).items():
-        if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
-            flame.set(key, value)
-    # Build xforms
-    is_PRE_BLUR = False
-    name_PRE_BLUR = ''
-    names_VARS = []
-    names_VARS_PRE = []
-    names_VARS_POST = []
-    f3d = out_flam3_data(self)
-    for iter in range(f3d.iter_count):
-        iter_var = iter + 1
-        if int(f3d.xf_vactive[iter]):
-            xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
-            xf.tag = XML_XF
-            xf.set(XML_XF_NAME, f3d.xf_name[iter])
-            xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
-            xf.set(XML_XF_COLOR, f3d.xf_color[iter])
-            xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
-            if f3d.xf_pre_blur[iter]:
-                is_PRE_BLUR =True
-                xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
-            xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
-            if f3d.xf_postaffine[iter]:
-                xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
-            if f3d.xf_xaos[iter]:
-                xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
-            xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-            names_VARS.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_varsT, flam3_iterator.sec_varsW, xf, str(iter_var), make_NULL))
-            names_VARS_PRE.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW[1:], xf, str(iter_var), make_PRE))
-            names_VARS_POST.append(out_populate_xform_vars_XML(self, flam3_varsPRM.varsPRM, flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW, xf, str(iter_var), make_POST))
-    # Build finalxform
-    names_VARS_FF = []
-    names_VARS_PRE_FF = []
-    names_VARS_POST_FF = []
-    if f3d.flam3_do_FF:
-        finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
-        finalxf.tag = XML_FF
-        finalxf.set(XML_XF_COLOR, '0')
-        finalxf.set(XML_XF_VAR_COLOR, '1')
-        finalxf.set(XML_XF_COLOR_SPEED, '0')
-        finalxf.set(XML_XF_SYMMETRY, '1')
-        finalxf.set(XML_XF_NAME, f3d.finalxf_name)
-        finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
-        if f3d.finalxf_postaffine:
-            finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
-        names_VARS_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3_iterator_FF.sec_varsT_FF, flam3_iterator_FF.sec_varsW_FF, finalxf, '', make_NULL)
-        names_VARS_PRE_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_prevarsT_FF, flam3_iterator_FF.sec_prevarsW_FF, finalxf, '', make_PRE)
-        names_VARS_POST_FF = out_populate_xform_vars_XML(self, flam3_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3_iterator_FF.sec_postvarsT_FF, flam3_iterator_FF.sec_postvarsW_FF, finalxf, '', make_POST)
-    # Build palette
-    palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
-    palette.tag = XML_PALETTE
-    palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
-    palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
-    palette.text = f3d.palette_hex
-
-    # Get unique plugins used
-    if is_PRE_BLUR: name_PRE_BLUR = XML_XF_PB
-    names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
-    names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE) + [name_PRE_BLUR]
-    names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
-    # Set unique 'plugins' used and 'new linear' as last
-    flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
-    flame.set(XML_FLAME_NEW_LINEAR, '1')
-    
-    return flam3_compatibility_check_and_msg(self, names_VARS, names_VARS_PRE, f3d.flam3_do_FF, names_VARS_FF, names_VARS_POST_FF)
-
 
 ###############################################################################################
 # MENU - OUT - build menu from output flame file
@@ -5442,137 +5570,14 @@ def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
 # Callback script
 def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
     iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
-    flame_name_new = out_flame_properties.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+    flame_name_new = _out_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 # Callback script
 def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
     iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
-    flame_name_new = out_flame_properties.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+    flame_name_new = _out_utils.out_auto_change_iter_num(iter_num, flame_name, autoadd)
     self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
-
-
-
-def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
-    """_summary_
-
-    Args:
-        file_split (tuple[str, str]): Returns tuple "(head, tail)" where "tail" is everything after the final slash. Either part may be empty
-        file_name (str): The input filename to be checked
-        file_ext (str): the desired filename extension
-
-    Returns:
-        str: A corrected file path
-    """    
-    build_f = "/".join(file_split) + file_ext
-    build_f_s = os.path.split(build_f)[0].split("/")
-    build_f_s[:] = [item for item in build_f_s if item]
-    build_f_s_cleaned = []
-    # Clean location directories.
-    # Probably not needed as I check for the validity of the parent directory eitherway
-    # but i leave it here and remove it if causing any trouble down the line.
-    for item in build_f_s:
-        item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED)
-        build_f_s_cleaned.append(item_cleaned)
-    # append cleaned file_name
-    build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
-    # the file_ext start with a dot so its added as last
-    return "/".join(build_f_s_cleaned) + file_ext
-
-def out_check_outpath(self, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
-    
-    now = datetime.now()
-    new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
-    
-    file = os.path.expandvars(infile)
-    file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
-    
-    autopath = self.parm(PREFS_AUTO_PATH_CORRECTION).evalAsInt()
-
-    if autopath:
-        
-        # Just in case lets check is a valid location
-        if os.path.isdir(file_s[0]):
-
-            filename_s = os.path.splitext(file_s[-1].strip())
-            
-            if filename_s[-1] == file_ext:
-                build_f_s = file.split("/")
-                build_f_s[:] = [item for item in build_f_s if item]
-                build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
-                return "/".join(build_f_s)
-            
-            elif not filename_s[-1] and filename_s[0]:
-                # this is done in case only the extension is left in the prm field
-                if file_s[-1] in file_ext and file_s[-1][0] == ".":
-                    return out_check_build_file(file_s, new_name, file_ext)
-                else:
-                    if not file_s[-1][0].isalnum():
-                        return out_check_build_file(file_s, new_name, file_ext)
-                    else:
-                        return out_check_build_file(file_s, file_s[-1], file_ext)
-            
-            elif not filename_s[-1] and not filename_s[0]:
-                return out_check_build_file(file_s, new_name, file_ext)
-            
-            # this as last for now
-            #
-            # If there is a file extension and it match part or all of the file_ext string.
-            #
-            # This will execute only if the string match at the beginning of the file extension
-            # otherwise the above if/elif statements would have executed already.
-            elif len(filename_s) > 1 and filename_s[-1] in file_ext:
-                return out_check_build_file(file_s, filename_s[0], file_ext)
-            else:
-                # Print out proper msg based on file extension
-                if OUT_FLAM3_FILE_EXT == file_ext:
-                    print(f"{str(self)}.OUT: You selected an OUT file that is not a {prx} file type.")
-                elif OUT_PALETTE_FILE_EXT == file_ext:
-                    print(f"{str(self)}.Palette: You selected an OUT file that is not a {prx} file type.")
-                return False
-        else:
-            # If the path string is empty we do not want to print out
-            if file:
-                if OUT_FLAM3_FILE_EXT == file_ext:
-                    print(f"{str(self)}.OUT: Select a valid OUT directory location.")
-                elif OUT_PALETTE_FILE_EXT == file_ext:
-                    print(f"{str(self)}.Palette: Select a valid OUT directory location.")
-            return False
-    else:
-        # just check if the user input is a valid file
-        if os.path.isfile(file_s[0]):
-            return infile
-        else:
-            # If the path string is empty we do not want to print out
-            if file:
-                if OUT_FLAM3_FILE_EXT == file_ext:
-                    print(f"{str(self)}.OUT: Select a valid OUT directory location.")
-                elif OUT_PALETTE_FILE_EXT == file_ext:
-                    print(f"{str(self)}.Palette: Select a valid OUT directory location.")
-            return False
-
-
-
-def out_new_XML(self: hou.Node, outpath: str) -> None:
-    root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
-    if out_build_XML(self, root):
-        _pretty_print(root)
-        tree = lxmlET.ElementTree(root)
-        tree.write(outpath)
-
-
-def out_append_XML(self: hou.Node, apo_data: apo_flame, out_path: str) -> None:
-    # with ET since I have the XML tree already stored using its Element type
-    # root = apo_data.tree.getroot()
-    
-    # with lxmlET
-    tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
-    root = tree.getroot()
-    
-    if out_build_XML(self, root):
-        _pretty_print(root)
-        tree = lxmlET.ElementTree(root)
-        tree.write(out_path)
 
 
 def out_XML(kwargs: dict) -> None:
@@ -5584,7 +5589,7 @@ def out_XML(kwargs: dict) -> None:
     if iterators_num:
         
         out_path = node.parm(OUT_PATH).evalAsString()
-        out_path_checked = out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+        out_path_checked = _out_utils.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
         # if the output path is valid
         if out_path_checked is not False:
             
@@ -5600,15 +5605,15 @@ def out_XML(kwargs: dict) -> None:
                     apo_data = apo_flame(kwargs['node'], str(out_path_checked))
                     if kwargs["ctrl"]:
                         node.setParms({OUT_PATH: str(out_path_checked)})
-                        out_new_XML(node, str(out_path_checked))
+                        _out_utils.out_new_XML(node, str(out_path_checked))
                         node.setParms({OUT_FLAME_PRESET_NAME: ''})
                     else:
                         node.setParms({OUT_PATH: str(out_path_checked)})
                         if apo_data.isvalidtree:
-                            out_append_XML(node, apo_data, str(out_path_checked))
+                            _out_utils.out_append_XML(node, apo_data, str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''})
                         else:
-                            out_new_XML(node, str(out_path_checked))
+                            _out_utils.out_new_XML(node, str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''})
                     init_presets(kwargs, OUT_PRESETS)
 
