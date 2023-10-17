@@ -5560,7 +5560,9 @@ def menu_out_contents_presets(kwargs: dict) -> list:
             menu.append(item)
         return menu
     
-# Get data needed
+# Get data needed for:
+# def out_auto_add_iter_data()
+# def out_auto_change_iter_num_to_prm()
 def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
     iter_num = self.parm(GLB_ITERATIONS).evalAsInt()
     flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
