@@ -1131,8 +1131,8 @@ def flam3_on_create(kwargs: dict) -> None:
     node.setColor(hou.Color((0.825,0.825,0.825)))
     
     # Set about tab infos
-    flam3_about_msg(node)
-    flam3_about_plugins_msg(node)
+    apo_flame_utils.flam3_about_msg(node)
+    apo_flame_utils.flam3_about_plugins_msg(node)
     # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
     node.setParms({MSG_FLAMESTATS: ""})
     node.setParms({MSG_FLAMERENDER: ""})
@@ -1207,8 +1207,8 @@ def flam3_on_loaded(kwargs: dict) -> None:
 
     node = kwargs['node']
     # update about tab just in case
-    flam3_about_msg(node)
-    flam3_about_plugins_msg(node)
+    apo_flame_utils.flam3_about_msg(node)
+    apo_flame_utils.flam3_about_plugins_msg(node)
     # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
     # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
     # Need to investigate why. the SYS_IN_PRESETS menu parameter is set inside the apo_to_flam3()
@@ -3075,7 +3075,7 @@ class apo_flame(_xml_tree):
                     else:
                         # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
-                        pre_gaussian_blur = xform.get(make_PRE(var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
+                        pre_gaussian_blur = xform.get(make_PRE(apo_flame_utils.var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
                             if self._node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                                 keyvalues.append(float(pre_gaussian_blur))
@@ -3158,7 +3158,7 @@ class apo_flame(_xml_tree):
             palette_hsv_xml_list = self._flam3h_hsv[idx]
             if palette_hsv_xml_list:
                 palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
-                return typemaker(list(map(lambda x: float(x), palette_hsv_xml_s)))
+                return apo_flame_utils.typemaker(list(map(lambda x: float(x), palette_hsv_xml_s)))
             else:
                 return False
         else:
@@ -3340,6 +3340,1126 @@ class apo_flame_iter_data(apo_flame):
     
     
     
+# This is mostly to group all those function into one common place
+class apo_flame_utils:
+    
+    def __init__(self) -> None:
+        pass
+    
+    # Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
+    @staticmethod
+    def get_xforms_var_keys(xforms: Union[tuple, None], 
+                            vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
+                            exclude_keys: tuple
+                            ) -> Union[list[str], None]:
+        """
+        Args:
+            xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+
+        Returns:
+            Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
+        """    
+        if xforms is not None:
+            vars_keys = []
+            if type(vars) is dict:
+                for xf in xforms:
+                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))))
+            else:
+                for xf in xforms:
+                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))))
+
+            return vars_keys
+        else:
+            return None
+        
+    @staticmethod
+    def removeprefix(var_name: str, prefix: str) -> str:
+        """Remove any prefix, if a prefix is present, from a variation name.
+    ex: from: pre_linear to: linear
+    ex: from post_mobius to: mobius
+        Args:
+            var_name (str): the variation name to remove the prefix from
+            prefix (str): the prefix to check
+
+        Returns:
+            str: a variation name without the prefix, or the original variation name if it did not have any prefix. 
+        """
+        if var_name.startswith(prefix):
+            return var_name[len(prefix):]
+        else:
+            return var_name[:]
+        
+    @staticmethod 
+    def get_xforms_var_keys_PP(xforms: Union[tuple, None], 
+                            vars: dict, 
+                            prx: str, 
+                            exclude_keys: tuple
+                            ) -> Union[list[str], None]:
+        """find a PRE or POST variation inside the currently processed xform/iterator
+
+        Args:
+            xforms (Union[tuple, None]): the current xform/iterator to search in
+            vars (dict): the variations we are searching for
+            prx (str): the current type of the variation expressed as a prefix: "pre" or "post"
+            exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+
+        Returns:
+            Union[list[str], None]: return the a list of variations found using the prefix criteria
+        """  
+        if xforms is not None:
+            vars_keys = []
+            for xf in xforms:
+                # Note the: vars.get(removeprefix(x, prx)[0]
+                # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
+                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(apo_flame_utils.removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))))
+            return vars_keys
+        else:
+            return None
+        
+    @staticmethod
+    def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+        """
+        Args:
+            data (list): [a list of floats containinig the current parameter values to be converted into hou types]
+
+        Returns:
+            Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [Based on how many element in the passed list return the proper type of data]
+        """
+        len_data = len(data)
+        if len_data == 1:
+            return float(data[0])
+        elif len_data == 2:
+            return hou.Vector2((data))
+        elif len_data == 3:
+            return hou.Vector3((data))
+        elif len_data == 4:
+            return hou.Vector4((data))
+        else:
+            return data
+        
+    @staticmethod  
+    def apo_get_idx_by_key(key: str) -> Union[int, None]:
+        """
+        Args:
+            key (str): [variation name we are processing]
+
+        Returns:
+            Union[int, None]: [return variation idx from the tuple look up table]
+        """
+        try: idx = VARS_FLAM3_DICT_IDX.get(key)
+        except: return None
+        return idx
+        
+    @staticmethod
+    def flam3_prx_mode(mode: int) -> tuple[str, str]:
+        """
+        Args:
+            mode (int): [0 for iterator and 1 for FF]
+
+        Returns:
+            tuple[str, str]: [return parameter prefix based on mode: Iterator, FF, FF POST]
+        """
+        prx = ""
+        prx_prm = ""
+        if mode == 1:
+            prx = PRX_FF_PRM
+            prx_prm = PRX_FF_PRM + "_"
+        if mode == 2:
+            prx = PRX_FF_PRM
+            prx_prm = PRX_FF_PRM_POST + "_"
+        return prx, prx_prm
+    
+    @staticmethod
+    def apo_set_affine(mode: int, 
+                    node: hou.Node, 
+                    prx: str, 
+                    apo_data: apo_flame_iter_data, 
+                    n: flam3_iterator_prm_names, 
+                    mp_idx: int
+                    ) -> None:
+        """
+        Args:
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            prx (str): [parameter name prefix]
+            apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
+            n (flam3_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[apo_flame_iter_data]]
+            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        """
+        if mode:
+            node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
+            node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
+            node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]}) # type: ignore
+            if apo_data.finalxform_post is not None:
+                node.setParms({f"{prx}{n.postaffine_do}": 1}) # type: ignore
+                node.setParms({f"{prx}{n.postaffine_x}": apo_data.finalxform_post[mp_idx][0]}) # type: ignore
+                node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
+                node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
+        else:
+            node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]}) # type: ignore
+            node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]}) # type: ignore
+            node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]}) # type: ignore
+            if apo_data.post is not None:
+                if apo_data.post[mp_idx]:
+                    node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1}) # type: ignore
+                    node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]}) # type: ignore
+                    node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
+                    node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
+
+    @staticmethod
+    def apo_set_data(mode: int, 
+                    node: hou.Node, 
+                    prx: str, 
+                    apo_data: list, 
+                    prm_name: str, 
+                    mp_idx: int
+                    ) -> None:
+        """
+        Args:
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            prx (str): [parameter name prefix]
+            apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
+            prm_name (str): [parameter name for the current data we want to set]
+            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+        """
+        if mode:
+            pass
+        else:
+            if apo_data is not None:
+                n = flam3_iterator_prm_names
+                if prm_name not in [n.shader_alpha, n.main_weight]:
+                    if apo_data[mp_idx]:
+                        node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
+                else:
+                    node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
+           
+    @staticmethod  
+    def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
+        if app.startswith(XML_APP_NAME_FRACTORIUM):
+            check = flam3_varsPRM_APO.varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
+            if check is not None:
+                return check
+            else:
+                return apo_prm
+        else:
+            return apo_prm
+        
+    @staticmethod
+    def var_name_from_dict(mydict: dict, idx: int):
+        return list(mydict.keys())[list(mydict.values()).index(idx)]
+    @staticmethod
+    def v_parametric_var_collect(node: hou.Node, 
+                                mode: int, 
+                                apo_prm: tuple, 
+                                xform: dict, 
+                                mp_idx: int, 
+                                v_type: int, 
+                                func: Callable) -> list:
+        """
+        Args:
+            node (hou.Node): [Current FLAM3 houdini node]
+            mode (int): [0 for iterator. 1 for FF]
+            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            v_type (int): [the current variation type index]
+            func (Callable): [function to change variation name between var, pre_var and post_var]
+        """
+        
+        iter_type = f"Iterator.{mp_idx+1}:"
+        if mode:
+            iter_type = 'FF:'
+        
+        VAR: list = []
+        for names in apo_prm[1:-1]:
+            var_prm_vals: list = []
+            for n in [x.lower() for x in names]:
+                # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
+                n = func(n)
+                if xform.get(n) is not None:
+                    var_prm_vals.append(float(str(xform.get(n))))
+                else:
+                    # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
+                    if n not in XML_XF_PRM_EXCEPTION:
+                        var_prm_vals.append(float(0))
+                        print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(apo_flame_utils.var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+            VAR.append(apo_flame_utils.typemaker(var_prm_vals))
+        return VAR
+
+    @staticmethod
+    def v_parametric(app: str, 
+                    mode: int, 
+                    node: hou.Node, 
+                    mp_idx: int, 
+                    t_idx: int, 
+                    xform: dict, 
+                    v_type: int, 
+                    v_weight: float, 
+                    var_prm: tuple, 
+                    apo_prm: tuple
+                    ) -> None:
+        """
+        Args:
+            app (str): [What software were used to generate this flame preset]
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            t_idx (int): [current variation number idx to use with: flam3_iterator.sec_varsT, flam3_iterator.sec_varsW]
+            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+            v_type (int): [the current variation type index]
+            weight (float): [the current variation weight]
+            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+        
+        # Exceptions: check if this flame need different parameters names based on detected exception
+        apo_prm = apo_flame_utils.prm_name_exceptions(v_type, app.upper(), apo_prm)
+        
+        VAR = apo_flame_utils.v_parametric_var_collect( node, 
+                                                        mode, 
+                                                        apo_prm, 
+                                                        xform, 
+                                                        mp_idx, 
+                                                        v_type, 
+                                                        make_NULL)
+
+        for idx, prm in enumerate(var_prm[1:-1]):
+            if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) # type: ignore
+            else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
+
+        if mode:
+            node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
+        else:
+            node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
+            
+    @staticmethod
+    def v_parametric_PRE(app: str, 
+                        mode: int, 
+                        node: hou.Node, 
+                        mp_idx: int, 
+                        t_idx: int, 
+                        xform: dict, 
+                        v_type: int, 
+                        v_weight: float, 
+                        var_prm: tuple, 
+                        apo_prm: tuple
+                        ) -> None:
+        """
+        Args:
+            app (str): [What software were used to generate this flame preset]
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+            v_type (int): [the current variation type index]
+            weight (float): [the current variation weight]
+            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+        
+        # Exceptions: check if this flame need different parameters names based on detected exception
+        apo_prm = apo_flame_utils.prm_name_exceptions(v_type, app.upper(), apo_prm)
+        
+        VAR = apo_flame_utils.v_parametric_var_collect( node, 
+                                                        mode, 
+                                                        apo_prm, 
+                                                        xform, 
+                                                        mp_idx, 
+                                                        v_type, 
+                                                        make_PRE)
+            
+        for idx, prm in enumerate(var_prm[1:-1]):
+            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
+
+        # Only on pre variations with parametric so:
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
+
+    @staticmethod
+    def v_parametric_POST(app: str, 
+                        mode: int, 
+                        node: hou.Node, 
+                        mp_idx: int, 
+                        t_idx: int, 
+                        xform: dict, 
+                        v_type: int, 
+                        v_weight: float, 
+                        var_prm: tuple, 
+                        apo_prm: tuple
+                        ) -> None:
+        """
+        Args:
+            app (str): [What software were used to generate this flame preset]
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            t_idx (int): [current variation number idx to use with: flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW]
+            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+            v_type (int): [the current variation type index]
+            weight (float): [the current variation weight]
+            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+        
+        # Exceptions: check if this flame need different parameters names based on detected exception
+        apo_prm = apo_flame_utils.prm_name_exceptions(v_type, app.upper(), apo_prm)
+
+        VAR = apo_flame_utils.v_parametric_var_collect( node, 
+                                                        mode, 
+                                                        apo_prm, 
+                                                        xform, 
+                                                        mp_idx, 
+                                                        v_type, 
+                                                        make_POST)
+            
+        for idx, prm in enumerate(var_prm[1:-1]):
+            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
+
+        # Only on post variation with parametric so:
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
+    
+    @staticmethod    
+    def v_parametric_PRE_FF(app: str, 
+                            node: hou.Node, 
+                            t_idx: int, 
+                            xform: dict, 
+                            v_type: int, 
+                            v_weight: float, 
+                            var_prm: tuple, 
+                            apo_prm: tuple
+                            ) -> None:
+        """
+        Args:
+            app (str): [What software were used to generate this flame preset]
+            node (hou.Node): [Current FLAM3 houdini node]
+            t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT_FF, flam3_iterator.sec_prevarsW_FF]
+            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+            v_type (int): [the current variation type index]
+            weight (float): [the current variation weight]
+            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+        """
+        # Exceptions: check if this flame need different parameters names based on detected exception
+        apo_prm = apo_flame_utils.prm_name_exceptions(v_type, app.upper(), apo_prm)
+
+        VAR = apo_flame_utils.v_parametric_var_collect( node, 
+                                                        0, 
+                                                        apo_prm, 
+                                                        xform, 
+                                                        0, 
+                                                        v_type, 
+                                                        make_PRE)
+            
+        for idx, prm in enumerate(var_prm[1:-1]):
+            node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
+
+        # Only on post variation with parametric so:
+        node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
+
+    @staticmethod
+    def v_parametric_POST_FF(app: str, 
+                            node: hou.Node, 
+                            t_idx: int, 
+                            xform: dict, 
+                            v_type: int, 
+                            v_weight: float, 
+                            var_prm: tuple, 
+                            apo_prm: tuple
+                            ) -> None:
+        """
+        Args:
+            app (str): [What software were used to generate this flame preset]
+            node (hou.Node): [Current FLAM3 houdini node]
+            t_idx (int): [current variation number idx to use with: flam3_iterator.sec_postvarsT_FF, flam3_iterator.sec_postvarsW_FF]
+            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
+            v_type (int): [the current variation type index]
+            weight (float): [the current variation weight]
+            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
+            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
+        """
+        # Exceptions: check if this flame need different parameters names based on detected exception
+        apo_prm = apo_flame_utils.prm_name_exceptions(v_type, app.upper(), apo_prm)
+
+        VAR = apo_flame_utils.v_parametric_var_collect( node, 
+                                                        0, 
+                                                        apo_prm, 
+                                                        xform, 
+                                                        0, 
+                                                        v_type, 
+                                                        make_POST)
+            
+        for idx, prm in enumerate(var_prm[1:-1]):
+            node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
+
+        # Only on post variation with parametric so:
+        node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
+
+    @staticmethod
+    def v_generic(mode: int, 
+                node: hou.Node, 
+                mp_idx: int, 
+                t_idx: int, 
+                v_type: int, 
+                v_weight: float
+                ) -> None:
+        """
+        Args:
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+            v_type (int): [Current variation type index]
+            weight (float): [Current variation weight]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+
+        if mode:
+            node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
+        else:
+            node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+
+    @staticmethod
+    def v_generic_PRE(mode: int, 
+                    node: hou.Node, 
+                    mp_idx: int, 
+                    t_idx: int, 
+                    v_type: int, 
+                    v_weight: float
+                    ) -> None:
+        """
+        Args:
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+            v_type (int): [Current variation type index]
+            weight (float): [Current variation weight]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+
+    @staticmethod
+    def v_generic_POST(mode: int, 
+                    node: hou.Node, 
+                    mp_idx: int, 
+                    t_idx: int, 
+                    v_type: int, 
+                    v_weight: float
+                    ) -> None:
+        """
+        Args:
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+            v_type (int): [Current variation type index]
+            weight (float): [Current variation weight]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+
+    @staticmethod
+    def v_generic_PRE_FF(node: hou.Node, 
+                        t_idx: int, 
+                        v_type: int, 
+                        v_weight: float
+                        ) -> None:
+        """
+        Args:
+            node (hou.Node): [Current FLAM3 houdini node]
+            t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+            v_type (int): [Current variation type index]
+            weight (float): [Current variation weight]
+        """
+        node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
+
+    @staticmethod
+    def v_generic_POST_FF(node: hou.Node, 
+                        t_idx: int, 
+                        v_type: int, 
+                        v_weight: float
+                        ) -> None:
+        """
+        Args:
+            node (hou.Node): [Current FLAM3 houdini node]
+            t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
+            v_type (int): [Current variation type index]
+            weight (float): [Current variation weight]
+        """
+        node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
+
+    @staticmethod
+    def v_pre_blur(mode: int, 
+                node: hou.Node, 
+                mp_idx: int, 
+                pb_weights: tuple
+                ) -> None:
+        """
+        Args:
+            mode (int): [0 for iterator. 1 for FF]
+            node (hou.Node): [Current FLAM3 houdini node]
+            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            pb_weights (tuple): [all iterators pre_blur weight values]
+        """
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+        if mode: pass
+        else:
+            if pb_weights[mp_idx]:
+                node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
+
+
+    # To be used only with PRE and POST variations
+    @staticmethod
+    def check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
+        if w < 0:
+            print(f"{str(node)} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
+            return abs(w)
+        else: return w
+
+    @staticmethod
+    def apo_set_iterator(mode: int, 
+                        node: hou.Node, 
+                        apo_data: apo_flame_iter_data, 
+                        preset_id: int, 
+                        exclude_keys: tuple
+                        ) -> None:
+        """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
+        
+    The collection of XML data happen inside: class: apo_flame_iter_data()
+
+        Args:
+            mode (int): iterator or FF
+            node (hou.Node): FLAM3H node
+            apo_data (apo_flame_iter_data): Flames data from the flame file loaded in: class: apo_flame_iter_data()
+            preset_id (int): the flame preset we are loading out of all the presets included in the flame file
+            exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+        """ 
+        # What software were used to generate this flame preset
+        app = apo_data.apo_version[preset_id]
+
+        xforms = ()
+        MAX_VARS_MODE = 0
+        if mode:
+            MAX_VARS_MODE = MAX_FF_VARS
+            xforms = apo_data.finalxform
+        else:
+            MAX_VARS_MODE = MAX_ITER_VARS
+            xforms = apo_data.xforms
+
+        iterator_names = flam3_iterator_prm_names()
+        prx, prx_prm = apo_flame_utils.flam3_prx_mode(mode)
+
+        var_prm: tuple = flam3_varsPRM.varsPRM
+        apo_prm: tuple = flam3_varsPRM_APO.varsPRM
+        
+        vars_keys = apo_flame_utils.get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+        assert vars_keys is not None
+        vars_keys_pre = apo_flame_utils.get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        assert vars_keys_pre is not None
+        vars_keys_post = apo_flame_utils.get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        assert vars_keys_post is not None
+
+        # Set variations ( iterator and FF )
+        for mp_idx, xform in enumerate(xforms):
+            for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]):
+                v_type = apo_flame_utils.apo_get_idx_by_key(key_name)
+                if v_type is not None:
+                    v_weight = float(xform.get(key_name))
+                    if apo_prm[v_type][-1]:
+                        apo_flame_utils.v_parametric(   app, 
+                                                        mode, 
+                                                        node, 
+                                                        mp_idx, 
+                                                        t_idx, 
+                                                        xform, 
+                                                        v_type, 
+                                                        v_weight, 
+                                                        var_prm[v_type], 
+                                                        apo_prm[v_type]
+                                                        )
+                    else:
+                        apo_flame_utils.v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
+                else:
+                    # if this variation is not found, set it to Linear and its weight to ZERO
+                    apo_flame_utils.v_generic(mode, node, mp_idx, t_idx, 0, 0)
+            apo_flame_utils.v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
+                    
+            if mode:
+                # Set finalxform name first if any
+                if apo_data.finalxform_name[0]:
+                    node.setParms({f"{prx}note": apo_data.finalxform_name[0]}) # type: ignore
+                # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
+                if vars_keys_pre[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
+                        v_type = apo_flame_utils.apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = apo_flame_utils.check_negative_weight(node, w, make_PRE(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                apo_flame_utils.v_parametric_PRE_FF(app, 
+                                                                    node, 
+                                                                    t_idx, 
+                                                                    xform, 
+                                                                    v_type, 
+                                                                    v_weight, 
+                                                                    var_prm[v_type], 
+                                                                    apo_prm[v_type]
+                                                                    )
+                            else:
+                                apo_flame_utils.v_generic_PRE_FF(node, t_idx, v_type, v_weight)
+                # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
+                if vars_keys_post[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
+                        v_type = apo_flame_utils.apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = apo_flame_utils.check_negative_weight(node, w, make_POST(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                apo_flame_utils.v_parametric_POST_FF(   app, 
+                                                                        node, 
+                                                                        t_idx, 
+                                                                        xform, 
+                                                                        v_type, 
+                                                                        v_weight, 
+                                                                        var_prm[v_type], 
+                                                                        apo_prm[v_type]
+                                                                        )
+                            else:
+                                apo_flame_utils.v_generic_POST_FF(node, t_idx, v_type, v_weight)
+                                
+            else:
+                # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
+                if vars_keys_pre[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
+                        v_type = apo_flame_utils.apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = apo_flame_utils.check_negative_weight(node, w, make_PRE(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                apo_flame_utils.v_parametric_PRE(   app, 
+                                                                    mode, 
+                                                                    node, 
+                                                                    mp_idx, 
+                                                                    t_idx, 
+                                                                    xform, 
+                                                                    v_type, 
+                                                                    v_weight, 
+                                                                    var_prm[v_type], 
+                                                                    apo_prm[v_type]
+                                                                    )
+                            else:
+                                apo_flame_utils.v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
+                                
+                # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
+                if vars_keys_post[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
+                        v_type = apo_flame_utils.apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = apo_flame_utils.check_negative_weight(node, w, make_POST(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                apo_flame_utils.v_parametric_POST(  app, 
+                                                                    mode, 
+                                                                    node, 
+                                                                    mp_idx, 
+                                                                    t_idx, 
+                                                                    xform, 
+                                                                    v_type, 
+                                                                    v_weight, 
+                                                                    var_prm[v_type], 
+                                                                    apo_prm[v_type]
+                                                                    )
+                            else:
+                                apo_flame_utils.v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
+                                
+                # Activate iterator, just in case...
+                node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
+                # Set the rest of the iterators
+                if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
+                    apo_flame_utils.apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
+                else: 
+                    apo_flame_utils.apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
+                apo_flame_utils.apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
+                apo_flame_utils.apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
+                apo_flame_utils.apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
+                apo_flame_utils.apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
+                apo_flame_utils.apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+            
+            # Affine ( PRE and POST) for iterator and FF
+            apo_flame_utils.apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
+
+
+
+    @staticmethod
+    def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
+        splt = preset_name.split("::")
+        if len(splt) > 1:
+            try:
+                return int(splt[-1])
+            except:
+                return None
+        else:
+            return None
+
+
+    # This is used to avoid an empty extra line at the end
+    @staticmethod
+    def apo_join_vars_grp(groups: list) -> str:
+        vars = []
+        for id, grp in enumerate(groups):
+            if id < len(groups)-1:
+                vars.append(", ".join(grp) + "\n")
+            else:
+                vars.append(", ".join(grp))
+        return ''.join(vars)
+
+    @staticmethod
+    def out_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
+        flatten = [item for sublist in VARS_list for item in sublist]
+        result = []
+        [result.append(x) for x in flatten if x not in result]
+        sort = sorted(result, key=lambda var: var)
+        return [func(x) for x in sort]
+    
+    @staticmethod
+    def set_iter_on_load(node: hou.Node, preset_id: int) -> int:
+        iter_on_load = node.parm(IN_ITER_NUM_ON_LOAD).eval()
+        use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
+        preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        iter_on_load_preset = apo_flame_utils.get_preset_name_iternum(preset_name)
+        if iter_on_load_preset is not None:
+            node.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
+            node.setParms({IN_USE_ITER_ON_LOAD: 0}) # type: ignore
+            iter_on_load = iter_on_load_preset
+        else:
+            if not use_iter_on_load:
+                node.setParms({IN_ITER_NUM_ON_LOAD: ITER_LOAD_DEFAULT}) # type: ignore
+                iter_on_load = ITER_LOAD_DEFAULT
+        return iter_on_load 
+
+
+    @staticmethod
+    def apo_load_stats_msg(node: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
+        
+        # spacers
+        nl = "\n"
+        nnl = "\n\n"
+        
+        # checks
+        pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
+        for item in apo_data.pre_blur:
+            if item:
+                pb_bool = True
+                break
+        if min(apo_data.opacity) == 0.0:
+            opacity_bool = True
+        if apo_data.post is not None:
+            post_bool = True
+        if apo_data.xaos is not None:
+            xaos_bool = True
+        if apo_data.palette is not None:
+            palette_bool = True
+        if apo_data.finalxform is not None:
+            ff_bool = True
+        if apo_data.finalxform_post is not None:
+            ff_post_bool = True
+        # custom to FLAM3H only
+        if apo_data.mb_flam3h_fps is not False:
+            flam3h_mb_bool = True
+            
+        # checks msgs
+        opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
+        if opacity_bool:
+            opacity_bool_msg = "YES"
+        if post_bool:
+            post_bool_msg = "YES"
+        if xaos_bool:
+            xaos_bool_msg = "YES"
+        if ff_post_bool:
+            ff_post_bool_msg = "YES"
+
+            
+        # build msgs
+        sw = f"Software: {apo_data.apo_version[preset_id]}"
+        name = f"NAME: {apo_data.name[preset_id]}"
+        iter_count = f"iterators count: {str(len(apo_data.xforms))}"
+        post = f"post affine: {post_bool_msg}"
+        opacity = f"opacity: {opacity_bool_msg}"
+        xaos = f"xaos: {xaos_bool_msg}"
+        if flam3h_mb_bool:
+            mb = f"Motion blur{nnl}"
+        else:
+            mb = nnl
+        
+        ff_msg = ""
+        if ff_bool:
+            ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
+        else:
+            ff_msg = f"FF: NO"
+            
+        if palette_bool:
+            if apo_data.palette_flam3h_hsv is not False:
+                # custom to FLAM3H only
+                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} ( -> HSV )"
+            else:
+                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+        else:
+            palette_count_format = f"Palette not found."
+        
+        exclude_keys = XML_XF_KEY_EXCLUDE
+        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+        vars_keys = apo_flame_utils.get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
+        vars_keys_PRE = apo_flame_utils.get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_POST = apo_flame_utils.get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+
+        # FF
+        vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
+        if ff_bool:
+            vars_keys_FF = apo_flame_utils.get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+            vars_keys_PRE_FF = apo_flame_utils.get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+            vars_keys_POST_FF = apo_flame_utils.get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
+        if pb_bool:
+            vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
+        result_sorted = apo_flame_utils.out_vars_flatten_unique_sorted(vars_all, make_NULL) # type: ignore
+        
+        n = 5
+        var_used_heading = "Variations used:"
+        result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
+        vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{apo_flame_utils.apo_join_vars_grp(result_grp)}"
+        
+        # Build and set descriptive parameter msg
+        preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
+                            f"{preset_name}", )
+        node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
+
+        # Build missing:
+        vars_keys_from_fractorium = apo_flame_utils.get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
+        vars_keys_from_fractorium_pre = apo_flame_utils.get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
+        vars_keys_from_fractorium_post = apo_flame_utils.get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+        
+        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
+        if ff_bool:
+            vars_keys_from_fractorium_FF = apo_flame_utils.get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
+            vars_keys_from_fractorium_pre_FF = apo_flame_utils.get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
+            vars_keys_from_fractorium_post_FF = apo_flame_utils.get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+        vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
+        result_sorted_fractorium = apo_flame_utils.out_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, make_NULL)
+        
+        # Compare and keep and build missing vars msg
+        vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
+        result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
+        vars_missing_msg = ""
+        if vars_missing:
+            vars_missing_msg = f"{nnl}MISSING:\n{apo_flame_utils.apo_join_vars_grp(result_grp_fractorium)}"
+        # Check if the loaded Flame file is locked.
+        in_path = node.parm(IN_PATH).evalAsString()
+        in_path_checked = _out_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+        if isLOCK(in_path_checked):
+            flame_lib_locked = f"\nflame lib file: LOCKED"
+        else: flame_lib_locked = ''
+        # build full stats msg
+        build = ( sw, flame_lib_locked, nnl,
+                name, nl,
+                palette_count_format, nl,
+                mb,
+                iter_count, nl,
+                post, nl,
+                opacity, nl,
+                xaos, nl,
+                ff_msg, nnl,
+                vars_used_msg,
+                vars_missing_msg )
+        build_stats_msg = "".join(build)
+        
+        return build_stats_msg
+
+    @staticmethod
+    def apo_load_render_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
+        
+        # spacers
+        nl = "\n"
+        nnl = "\n\n"
+        na = 'n/a'
+        
+        size = f'Size: {na}'
+        if apo_data.out_size[preset_id]:
+            size = f"Size: {apo_data.out_size[preset_id]}"
+            
+        center = f'Center: {na}'
+        if apo_data.out_center[preset_id]:
+            center = f"Center: {apo_data.out_center[preset_id]}"
+            
+        rotate = f'Rotate: {na}'
+        if apo_data.out_rotate[preset_id]:
+            rotate = f"Rotate: {apo_data.out_rotate[preset_id]}"
+
+        scale = f'Scale: {na}'
+        if apo_data.out_scale[preset_id]:
+            scale = f"Scale: {apo_data.out_scale[preset_id]}"
+        
+        quality = f'Quality: {na}'
+        if apo_data.out_quality[preset_id]:
+            quality = f"Quality: {apo_data.out_quality[preset_id]}"
+
+        brightness = f'Brightness: {na}'
+        if apo_data.out_brightness[preset_id]:
+            brightness = f"Brightness: {apo_data.out_brightness[preset_id]}"
+            
+        gamma = f'Gamma: {na}'
+        if apo_data.out_gamma[preset_id]:
+            gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
+            
+        highlight = f'Highlight power: {na}'
+        if apo_data.out_highlight_power[preset_id]:
+            highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
+            
+        K2 = f'Logscale K2: {na}'
+        if apo_data._out_logscale_k2[preset_id]:
+            K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
+            
+        vibrancy = f'Vibrancy: {na}'
+        if apo_data.out_vibrancy[preset_id]:
+            vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
+        
+        build = (size, nl,
+                center, nl,
+                rotate, nl,
+                scale, nl,
+                quality, nl,
+                brightness, nl,
+                gamma, nl,
+                highlight, nl,
+                K2, nl,
+                vibrancy
+                )
+        
+        build_render_stats_msg = "".join(build)
+        return build_render_stats_msg
+
+    @staticmethod
+    def apo_copy_render_stats_msg(node: hou.Node) -> None:
+        
+        xml = node.parm(IN_PATH).evalAsString()
+        preset_id = int(node.parm(IN_PRESETS).eval())
+        f3r = apo_flame_iter_data(node, xml, preset_id)
+        if f3r.isvalidtree:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): int(f3r.out_rotate[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): int(f3r.out_scale[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
+            except:
+                pass
+            node.setParms({"outedit": 1}) # type: ignore
+        else:
+            pass
+
+    @staticmethod
+    def flam3_about_msg(node: hou.Node):
+        
+        nl = "\n"
+        nnl = "\n\n"
+
+        year = datetime.now().strftime("%Y")
+        flam3_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
+        Implementation_years = f"2020/{year}"
+        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
+        
+        code_references = """Code references:
+    flam3 :: (GPL v2)
+    Apophysis :: (GPL)
+    Fractorium :: (GPL v3)"""
+        
+        h_version = '.'.join(str(x) for x in hou.applicationVersion())
+        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+        Python_version = f"Python: {python_version()}"
+        license_type = str(hou.licenseCategory()).split(".")[-1]
+        Houdini_license = f"License: {license_type}"
+        Platform = f"Platform: {hou.applicationPlatformInfo()}"
+        PC_name = f"Machine name: {hou.machineName()}"
+        User = f"User: {hou.userName()}"
+        
+        example_flames = """example Flames:
+    C-91, Gabor Timar, Golubaja, Pillemaster,
+    Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
+    Seph, Lucy, b33rheart, Neonrauschen"""
+        
+        build = (Implementation_build, nnl,
+                code_references, nnl,
+                example_flames, nnl,
+                Houdini_version, nl,
+                Houdini_license, nl,
+                Python_version, nl,
+                Platform, nl,
+                PC_name, nl,
+                User
+                )
+        
+        build_about_msg = "".join(build)
+
+        node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
+
+    @staticmethod
+    def flam3_about_plugins_msg(node: hou.Node):
+        
+        vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
+        n = 6
+        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+        _vars = []
+        for idx, grp in enumerate(vars_sorted_grp):
+            if idx == (len(vars_sorted_grp)-1):
+                _vars.append(", ".join(grp))
+            else:
+                _vars.append(", ".join(grp) + "\n")
+        vars_txt = "".join(_vars)
+        
+        node.setParms({MSG_FLAM3PLUGINS: vars_txt}) # type: ignore
+
+
+
+
 ###############################################################################################
 # MENU - APO - build menu from flame file presets
 ###############################################################################################
@@ -3359,759 +4479,6 @@ def menu_apo_presets(kwargs: dict) -> list:
         return menu
 
 
-# Use this with everything but not PRE and POST dictionary lookup, use def get_xforms_var_keys_PP() instead
-def get_xforms_var_keys(xforms: Union[tuple, None], 
-                        vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
-                        exclude_keys: tuple
-                        ) -> Union[list[str], None]:
-    """
-    Args:
-        xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
-
-    Returns:
-        Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
-    """    
-    if xforms is not None:
-        vars_keys = []
-        if type(vars) is dict:
-            for xf in xforms:
-                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))))
-        else:
-            for xf in xforms:
-                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))))
-
-        return vars_keys
-    else:
-        return None
-
-
-def removeprefix(var_name: str, prefix: str) -> str:
-    """Remove any prefix, if a prefix is present, from a variation name.
-ex: from: pre_linear to: linear
-ex: from post_mobius to: mobius
-    Args:
-        var_name (str): the variation name to remove the prefix from
-        prefix (str): the prefix to check
-
-    Returns:
-        str: a variation name without the prefix, or the original variation name if it did not have any prefix. 
-    """
-    if var_name.startswith(prefix):
-        return var_name[len(prefix):]
-    else:
-        return var_name[:]
-# to be used with VARS_FRACTORIUM_DICT - ONLY for PRE and POST lookup
-def get_xforms_var_keys_PP(xforms: Union[tuple, None], 
-                           vars: dict, 
-                           prx: str, 
-                           exclude_keys: tuple
-                           ) -> Union[list[str], None]:
-    """find a PRE or POST variation inside the currently processed xform/iterator
-
-    Args:
-        xforms (Union[tuple, None]): the current xform/iterator to search in
-        vars (dict): the variations we are searching for
-        prx (str): the current type of the variation expressed as a prefix: "pre" or "post"
-        exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
-
-    Returns:
-        Union[list[str], None]: return the a list of variations found using the prefix criteria
-    """  
-    if xforms is not None:
-        vars_keys = []
-        for xf in xforms:
-            # Note the: vars.get(removeprefix(x, prx)[0]
-            # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
-             vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))))
-        return vars_keys
-    else:
-        return None
-
-
-def typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
-    """
-    Args:
-        data (list): [a list of floats containinig the current parameter values to be converted into hou types]
-
-    Returns:
-        Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [Based on how many element in the passed list return the proper type of data]
-    """
-    len_data = len(data)
-    if len_data == 1:
-        return float(data[0])
-    elif len_data == 2:
-        return hou.Vector2((data))
-    elif len_data == 3:
-        return hou.Vector3((data))
-    elif len_data == 4:
-        return hou.Vector4((data))
-    else:
-        return data
-
-
-def apo_get_idx_by_key(key: str) -> Union[int, None]:
-    """
-    Args:
-        key (str): [variation name we are processing]
-
-    Returns:
-        Union[int, None]: [return variation idx from the tuple look up table]
-    """
-    try: idx = VARS_FLAM3_DICT_IDX.get(key)
-    except: return None
-    return idx
-
-
-def flam3_prx_mode(mode: int) -> tuple[str, str]:
-    """
-    Args:
-        mode (int): [0 for iterator and 1 for FF]
-
-    Returns:
-        tuple[str, str]: [return parameter prefix based on mode: Iterator, FF, FF POST]
-    """
-    prx = ""
-    prx_prm = ""
-    if mode == 1:
-        prx = PRX_FF_PRM
-        prx_prm = PRX_FF_PRM + "_"
-    if mode == 2:
-        prx = PRX_FF_PRM
-        prx_prm = PRX_FF_PRM_POST + "_"
-    return prx, prx_prm
-
-
-def apo_set_affine(mode: int, 
-                   node: hou.Node, 
-                   prx: str, 
-                   apo_data: apo_flame_iter_data, 
-                   n: flam3_iterator_prm_names, 
-                   mp_idx: int
-                   ) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        prx (str): [parameter name prefix]
-        apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
-        n (flam3_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[apo_flame_iter_data]]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-    """
-    if mode:
-        node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
-        node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
-        node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]}) # type: ignore
-        if apo_data.finalxform_post is not None:
-            node.setParms({f"{prx}{n.postaffine_do}": 1}) # type: ignore
-            node.setParms({f"{prx}{n.postaffine_x}": apo_data.finalxform_post[mp_idx][0]}) # type: ignore
-            node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
-            node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
-    else:
-        node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]}) # type: ignore
-        node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]}) # type: ignore
-        node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]}) # type: ignore
-        if apo_data.post is not None:
-            if apo_data.post[mp_idx]:
-                node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1}) # type: ignore
-                node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]}) # type: ignore
-                node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
-                node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
-
-
-
-def apo_set_data(mode: int, 
-                 node: hou.Node, 
-                 prx: str, 
-                 apo_data: list, 
-                 prm_name: str, 
-                 mp_idx: int
-                 ) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        prx (str): [parameter name prefix]
-        apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
-        prm_name (str): [parameter name for the current data we want to set]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-    """
-    if mode:
-        pass
-    else:
-        if apo_data is not None:
-            n = flam3_iterator_prm_names
-            if prm_name not in [n.shader_alpha, n.main_weight]:
-                if apo_data[mp_idx]:
-                    node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
-            else:
-                node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
-            
-
-
-def prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
-    if app.startswith(XML_APP_NAME_FRACTORIUM):
-        check = flam3_varsPRM_APO.varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
-        if check is not None:
-            return check
-        else:
-            return apo_prm
-    else:
-        return apo_prm
-
-
-
-def var_name_from_dict(mydict: dict, idx: int):
-    return list(mydict.keys())[list(mydict.values()).index(idx)]
-def v_parametric_var_collect(node: hou.Node, 
-                             mode: int, 
-                             apo_prm: tuple, 
-                             xform: dict, 
-                             mp_idx: int, 
-                             v_type: int, 
-                             func: Callable) -> list:
-    """
-    Args:
-        node (hou.Node): [Current FLAM3 houdini node]
-        mode (int): [0 for iterator. 1 for FF]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        v_type (int): [the current variation type index]
-        func (Callable): [function to change variation name between var, pre_var and post_var]
-    """
-    
-    iter_type = f"Iterator.{mp_idx+1}:"
-    if mode:
-        iter_type = 'FF:'
-    
-    VAR: list = []
-    for names in apo_prm[1:-1]:
-        var_prm_vals: list = []
-        for n in [x.lower() for x in names]:
-            # If one of the FLAM3 parameter is not in the xform, skip it and set it to ZERO for now.
-            n = func(n)
-            if xform.get(n) is not None:
-                var_prm_vals.append(float(str(xform.get(n))))
-            else:
-                # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
-                if n not in XML_XF_PRM_EXCEPTION:
-                    var_prm_vals.append(float(0))
-                    print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
-        VAR.append(typemaker(var_prm_vals))
-    return VAR
-
-def v_parametric(app: str, 
-                 mode: int, 
-                 node: hou.Node, 
-                 mp_idx: int, 
-                 t_idx: int, 
-                 xform: dict, 
-                 v_type: int, 
-                 v_weight: float, 
-                 var_prm: tuple, 
-                 apo_prm: tuple
-                 ) -> None:
-    """
-    Args:
-        app (str): [What software were used to generate this flame preset]
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_varsT, flam3_iterator.sec_varsW]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        v_type (int): [the current variation type index]
-        weight (float): [the current variation weight]
-        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    
-    # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
-    
-    VAR = v_parametric_var_collect(node, 
-                                   mode, 
-                                   apo_prm, 
-                                   xform, 
-                                   mp_idx, 
-                                   v_type, 
-                                   make_NULL)
-
-    for idx, prm in enumerate(var_prm[1:-1]):
-        if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) # type: ignore
-        else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
-
-    if mode:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
-    else:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
-        
-
-def v_parametric_PRE(app: str, 
-                     mode: int, 
-                     node: hou.Node, 
-                     mp_idx: int, 
-                     t_idx: int, 
-                     xform: dict, 
-                     v_type: int, 
-                     v_weight: float, 
-                     var_prm: tuple, 
-                     apo_prm: tuple
-                     ) -> None:
-    """
-    Args:
-        app (str): [What software were used to generate this flame preset]
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        v_type (int): [the current variation type index]
-        weight (float): [the current variation weight]
-        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    
-    # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
-    
-    VAR = v_parametric_var_collect(node, 
-                                   mode, 
-                                   apo_prm, 
-                                   xform, 
-                                   mp_idx, 
-                                   v_type, 
-                                   make_PRE)
-        
-    for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
-
-    # Only on pre variations with parametric so:
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
-
-
-def v_parametric_POST(app: str, 
-                      mode: int, 
-                      node: hou.Node, 
-                      mp_idx: int, 
-                      t_idx: int, 
-                      xform: dict, 
-                      v_type: int, 
-                      v_weight: float, 
-                      var_prm: tuple, 
-                      apo_prm: tuple
-                      ) -> None:
-    """
-    Args:
-        app (str): [What software were used to generate this flame preset]
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_postvarsT, flam3_iterator.sec_postvarsW]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        v_type (int): [the current variation type index]
-        weight (float): [the current variation weight]
-        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    
-    # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
-
-    VAR = v_parametric_var_collect(node, 
-                                   mode, 
-                                   apo_prm, 
-                                   xform, 
-                                   mp_idx, 
-                                   v_type, 
-                                   make_POST)
-        
-    for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
-
-    # Only on post variation with parametric so:
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
-    
-    
-def v_parametric_PRE_FF(app: str, 
-                        node: hou.Node, 
-                        t_idx: int, 
-                        xform: dict, 
-                        v_type: int, 
-                        v_weight: float, 
-                        var_prm: tuple, 
-                        apo_prm: tuple
-                        ) -> None:
-    """
-    Args:
-        app (str): [What software were used to generate this flame preset]
-        node (hou.Node): [Current FLAM3 houdini node]
-        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_prevarsT_FF, flam3_iterator.sec_prevarsW_FF]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        v_type (int): [the current variation type index]
-        weight (float): [the current variation weight]
-        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-    """
-    # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
-
-    VAR = v_parametric_var_collect(node, 
-                                   0, 
-                                   apo_prm, 
-                                   xform, 
-                                   0, 
-                                   v_type, 
-                                   make_PRE)
-        
-    for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
-
-    # Only on post variation with parametric so:
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
-
-
-def v_parametric_POST_FF(app: str, 
-                         node: hou.Node, 
-                         t_idx: int, 
-                         xform: dict, 
-                         v_type: int, 
-                         v_weight: float, 
-                         var_prm: tuple, 
-                         apo_prm: tuple
-                         ) -> None:
-    """
-    Args:
-        app (str): [What software were used to generate this flame preset]
-        node (hou.Node): [Current FLAM3 houdini node]
-        t_idx (int): [current variation number idx to use with: flam3_iterator.sec_postvarsT_FF, flam3_iterator.sec_postvarsW_FF]
-        xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-        v_type (int): [the current variation type index]
-        weight (float): [the current variation weight]
-        var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3_varsPRM.varsPRM[v_type]]
-        apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3_varsPRM_APO.varsPRM[v_type]]
-    """
-    # Exceptions: check if this flame need different parameters names based on detected exception
-    apo_prm = prm_name_exceptions(v_type, app.upper(), apo_prm)
-
-    VAR = v_parametric_var_collect(node, 
-                                   0, 
-                                   apo_prm, 
-                                   xform, 
-                                   0, 
-                                   v_type, 
-                                   make_POST)
-        
-    for idx, prm in enumerate(var_prm[1:-1]):
-        node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
-
-    # Only on post variation with parametric so:
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
-
-
-def v_generic(mode: int, 
-              node: hou.Node, 
-              mp_idx: int, 
-              t_idx: int, 
-              v_type: int, 
-              v_weight: float
-              ) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        v_type (int): [Current variation type index]
-        weight (float): [Current variation weight]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-
-    if mode:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
-    else:
-        node.setParms({f"{prx}{flam3_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
-
-
-def v_generic_PRE(mode: int, 
-                  node: hou.Node, 
-                  mp_idx: int, 
-                  t_idx: int, 
-                  v_type: int, 
-                  v_weight: float
-                  ) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        v_type (int): [Current variation type index]
-        weight (float): [Current variation weight]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-    node.setParms({f"{prx}{flam3_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
-
-
-def v_generic_POST(mode: int, 
-                   node: hou.Node, 
-                   mp_idx: int, 
-                   t_idx: int, 
-                   v_type: int, 
-                   v_weight: float
-                   ) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        v_type (int): [Current variation type index]
-        weight (float): [Current variation weight]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-    node.setParms({f"{prx}{flam3_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
-
-
-def v_generic_PRE_FF(node: hou.Node, 
-                     t_idx: int, 
-                     v_type: int, 
-                     v_weight: float
-                     ) -> None:
-    """
-    Args:
-        node (hou.Node): [Current FLAM3 houdini node]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        v_type (int): [Current variation type index]
-        weight (float): [Current variation weight]
-    """
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
-    node.setParms({f"{flam3_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
-
-
-def v_generic_POST_FF(node: hou.Node, 
-                      t_idx: int, 
-                      v_type: int, 
-                      v_weight: float
-                      ) -> None:
-    """
-    Args:
-        node (hou.Node): [Current FLAM3 houdini node]
-        t_idx (int): [Current variation number idx to use with: flam3_iterator.sec_prevarsT, flam3_iterator.sec_prevarsW]
-        v_type (int): [Current variation type index]
-        weight (float): [Current variation weight]
-    """
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
-    node.setParms({f"{flam3_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
-
-
-def v_pre_blur(mode: int, 
-               node: hou.Node, 
-               mp_idx: int, 
-               pb_weights: tuple
-               ) -> None:
-    """
-    Args:
-        mode (int): [0 for iterator. 1 for FF]
-        node (hou.Node): [Current FLAM3 houdini node]
-        mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-        pb_weights (tuple): [all iterators pre_blur weight values]
-    """
-    prx, prx_prm = flam3_prx_mode(mode)
-    if mode: pass
-    else:
-        if pb_weights[mp_idx]:
-            node.setParms({f"{prx}{flam3_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
-
-# To be used only with PRE and POST variations
-def check_negative_weight(self: hou.Node, w: float, v_type_name: str) -> float:
-    if w < 0:
-        print(f"{str(self)} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
-        return abs(w)
-    else: return w
-def apo_set_iterator(mode: int, 
-                     node: hou.Node, 
-                     apo_data: apo_flame_iter_data, 
-                     preset_id: int, 
-                     exclude_keys: tuple
-                     ) -> None:
-    """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
-    
-The collection of XML data happen inside: class: apo_flame_iter_data()
-
-    Args:
-        mode (int): iterator or FF
-        node (hou.Node): FLAM3H node
-        apo_data (apo_flame_iter_data): Flames data from the flame file loaded in: class: apo_flame_iter_data()
-        preset_id (int): the flame preset we are loading out of all the presets included in the flame file
-        exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
-    """ 
-    # What software were used to generate this flame preset
-    app = apo_data.apo_version[preset_id]
-
-    xforms = ()
-    MAX_VARS_MODE = 0
-    if mode:
-        MAX_VARS_MODE = MAX_FF_VARS
-        xforms = apo_data.finalxform
-    else:
-        MAX_VARS_MODE = MAX_ITER_VARS
-        xforms = apo_data.xforms
-
-    iterator_names = flam3_iterator_prm_names()
-    prx, prx_prm = flam3_prx_mode(mode)
-
-    var_prm: tuple = flam3_varsPRM.varsPRM
-    apo_prm: tuple = flam3_varsPRM_APO.varsPRM
-    
-    vars_keys = get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
-    assert vars_keys is not None
-    vars_keys_pre = get_xforms_var_keys(xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-    assert vars_keys_pre is not None
-    vars_keys_post = get_xforms_var_keys(xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-    assert vars_keys_post is not None
-
-    # Set variations ( iterator and FF )
-    for mp_idx, xform in enumerate(xforms):
-        for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]):
-            v_type = apo_get_idx_by_key(key_name)
-            if v_type is not None:
-                v_weight = float(xform.get(key_name))
-                if apo_prm[v_type][-1]:
-                    v_parametric(app, 
-                                 mode, 
-                                 node, 
-                                 mp_idx, 
-                                 t_idx, 
-                                 xform, 
-                                 v_type, 
-                                 v_weight, 
-                                 var_prm[v_type], 
-                                 apo_prm[v_type]
-                                 )
-                else:
-                    v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
-            else:
-                # if this variation is not found, set it to Linear and its weight to ZERO
-                v_generic(mode, node, mp_idx, t_idx, 0, 0)
-        v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
-                
-        if mode:
-            # Set finalxform name first if any
-            if apo_data.finalxform_name[0]:
-                node.setParms({f"{prx}note": apo_data.finalxform_name[0]}) # type: ignore
-            # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
-            if vars_keys_pre[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
-                    if v_type is not None:
-                        w = float(xform.get(key_name))
-                        v_weight = check_negative_weight(node, w, make_PRE(var_prm[v_type][0])) # type: ignore
-                        if apo_prm[v_type][-1]:
-                            v_parametric_PRE_FF(app, 
-                                                node, 
-                                                t_idx, 
-                                                xform, 
-                                                v_type, 
-                                                v_weight, 
-                                                var_prm[v_type], 
-                                                apo_prm[v_type]
-                                                )
-                        else:
-                            v_generic_PRE_FF(node, t_idx, v_type, v_weight)
-            # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
-            if vars_keys_post[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
-                    if v_type is not None:
-                        w = float(xform.get(key_name))
-                        v_weight = check_negative_weight(node, w, make_POST(var_prm[v_type][0])) # type: ignore
-                        if apo_prm[v_type][-1]:
-                            v_parametric_POST_FF(app, 
-                                                 node, 
-                                                 t_idx, 
-                                                 xform, 
-                                                 v_type, 
-                                                 v_weight, 
-                                                 var_prm[v_type], 
-                                                 apo_prm[v_type]
-                                                 )
-                        else:
-                            v_generic_POST_FF(node, t_idx, v_type, v_weight)
-                            
-        else:
-            # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
-            if vars_keys_pre[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
-                    if v_type is not None:
-                        w = float(xform.get(key_name))
-                        v_weight = check_negative_weight(node, w, make_PRE(var_prm[v_type][0])) # type: ignore
-                        if apo_prm[v_type][-1]:
-                            v_parametric_PRE(app, 
-                                             mode, 
-                                             node, 
-                                             mp_idx, 
-                                             t_idx, 
-                                             xform, 
-                                             v_type, 
-                                             v_weight, 
-                                             var_prm[v_type], 
-                                             apo_prm[v_type]
-                                             )
-                        else:
-                            v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
-                            
-            # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
-            if vars_keys_post[mp_idx]: # type: ignore
-                for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
-                    v_type = apo_get_idx_by_key(make_VAR(key_name)) # type: ignore
-                    if v_type is not None:
-                        w = float(xform.get(key_name))
-                        v_weight = check_negative_weight(node, w, make_POST(var_prm[v_type][0])) # type: ignore
-                        if apo_prm[v_type][-1]:
-                            v_parametric_POST(app, 
-                                              mode, 
-                                              node, 
-                                              mp_idx, 
-                                              t_idx, 
-                                              xform, 
-                                              v_type, 
-                                              v_weight, 
-                                              var_prm[v_type], 
-                                              apo_prm[v_type]
-                                              )
-                        else:
-                            v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
-                            
-            # Activate iterator, just in case...
-            node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
-            # Set the rest of the iterators
-            if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
-                apo_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
-            else: 
-                apo_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
-            apo_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
-            apo_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
-            apo_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-            apo_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
-            apo_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
-        
-        # Affine ( PRE and POST) for iterator and FF
-        apo_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
-
 
 def iter_on_load_callback(self):
     iter_on_load = self.parm(IN_ITER_NUM_ON_LOAD).eval()
@@ -4130,32 +4497,6 @@ def use_iter_on_load_callback(self):
         else:
             self.setParms({GLB_ITERATIONS: iternumonload})
 
-
-def get_preset_name_iternum(preset_name: str) -> Union[int, None]:
-    splt = preset_name.split("::")
-    if len(splt) > 1:
-        try:
-            return int(splt[-1])
-        except:
-            return None
-    else:
-        return None
-
-
-def set_iter_on_load(self: hou.Node, preset_id: int) -> int:
-    iter_on_load = self.parm(IN_ITER_NUM_ON_LOAD).eval()
-    use_iter_on_load = self.parm(IN_USE_ITER_ON_LOAD).eval()
-    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
-    iter_on_load_preset = get_preset_name_iternum(preset_name)
-    if iter_on_load_preset is not None:
-        self.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
-        self.setParms({IN_USE_ITER_ON_LOAD: 0}) # type: ignore
-        iter_on_load = iter_on_load_preset
-    else:
-        if not use_iter_on_load:
-            self.setParms({IN_ITER_NUM_ON_LOAD: ITER_LOAD_DEFAULT}) # type: ignore
-            iter_on_load = ITER_LOAD_DEFAULT
-    return iter_on_load    
 
 
 '''
@@ -4184,7 +4525,7 @@ def apo_to_flam3(self: hou.Node) -> None:
         self.setParms({IN_ISVALID_FILE: 1}) #type: ignore
         
         preset_id = int(self.parm(IN_PRESETS).eval())
-        iter_on_load = set_iter_on_load(self, preset_id)
+        iter_on_load = apo_flame_utils.set_iter_on_load(self, preset_id)
         reset_SYS(self, 1, iter_on_load, 0)
         reset_MB(self)
         reset_PREFS(self)
@@ -4212,13 +4553,13 @@ def apo_to_flam3(self: hou.Node) -> None:
         if self.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
-        apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
+        apo_flame_utils.apo_set_iterator(0, self, apo_data, preset_id, exclude_keys)
         
         # if FF
         if apo_data.finalxform is not None:
             reset_FF(self)
             self.setParms({SYS_DO_FF: 1}) # type: ignore
-            apo_set_iterator(1, self, apo_data, preset_id, exclude_keys)
+            apo_flame_utils.apo_set_iterator(1, self, apo_data, preset_id, exclude_keys)
         else:
             reset_FF(self)
             self.setParms({SYS_DO_FF: 0}) # type: ignore
@@ -4251,12 +4592,12 @@ def apo_to_flam3(self: hou.Node) -> None:
         palette_hsv(self)
         # if "copy render properties on Load" is checked
         if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-            apo_copy_render_stats_msg(self)
+            apo_flame_utils.apo_copy_render_stats_msg(self)
         # Set density back to default on load
         self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
         #Updated flame stats 
-        self.setParms({MSG_FLAMESTATS: apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
-        self.setParms({MSG_FLAMERENDER: apo_load_render_stats_msg(self, preset_id, apo_data)}) # type: ignore
+        self.setParms({MSG_FLAMESTATS: apo_flame_utils.apo_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
+        self.setParms({MSG_FLAMERENDER: apo_flame_utils.apo_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
         # Updated SYS inpresets parameter
         self.setParms({SYS_IN_PRESETS: self.parm(IN_PRESETS).eval()}) # type: ignore
         # updated xaos:
@@ -4275,325 +4616,6 @@ def apo_to_flam3(self: hou.Node) -> None:
             self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
 
 
-# This is used to avoid an empty extra line at the end
-def apo_join_vars_grp(groups: list) -> str:
-    vars = []
-    for id, grp in enumerate(groups):
-        if id < len(groups)-1:
-            vars.append(", ".join(grp) + "\n")
-        else:
-            vars.append(", ".join(grp))
-    return ''.join(vars)
-
-def out_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
-    flatten = [item for sublist in VARS_list for item in sublist]
-    result = []
-    [result.append(x) for x in flatten if x not in result]
-    sort = sorted(result, key=lambda var: var)
-    return [func(x) for x in sort]
-
-
-def apo_load_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
-    
-    # spacers
-    nl = "\n"
-    nnl = "\n\n"
-    
-    # checks
-    pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
-    for item in apo_data.pre_blur:
-        if item:
-            pb_bool = True
-            break
-    if min(apo_data.opacity) == 0.0:
-        opacity_bool = True
-    if apo_data.post is not None:
-        post_bool = True
-    if apo_data.xaos is not None:
-        xaos_bool = True
-    if apo_data.palette is not None:
-        palette_bool = True
-    if apo_data.finalxform is not None:
-        ff_bool = True
-    if apo_data.finalxform_post is not None:
-        ff_post_bool = True
-    # custom to FLAM3H only
-    if apo_data.mb_flam3h_fps is not False:
-        flam3h_mb_bool = True
-        
-    # checks msgs
-    opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
-    if opacity_bool:
-        opacity_bool_msg = "YES"
-    if post_bool:
-        post_bool_msg = "YES"
-    if xaos_bool:
-        xaos_bool_msg = "YES"
-    if ff_post_bool:
-        ff_post_bool_msg = "YES"
-
-        
-    # build msgs
-    sw = f"Software: {apo_data.apo_version[preset_id]}"
-    name = f"NAME: {apo_data.name[preset_id]}"
-    iter_count = f"iterators count: {str(len(apo_data.xforms))}"
-    post = f"post affine: {post_bool_msg}"
-    opacity = f"opacity: {opacity_bool_msg}"
-    xaos = f"xaos: {xaos_bool_msg}"
-    if flam3h_mb_bool:
-        mb = f"Motion blur{nnl}"
-    else:
-        mb = nnl
-    
-    ff_msg = ""
-    if ff_bool:
-        ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
-    else:
-        ff_msg = f"FF: NO"
-        
-    if palette_bool:
-        if apo_data.palette_flam3h_hsv is not False:
-            # custom to FLAM3H only
-            palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} ( -> HSV )"
-        else:
-            palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
-    else:
-        palette_count_format = f"Palette not found."
-    
-    exclude_keys = XML_XF_KEY_EXCLUDE
-    if self.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-        exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-    vars_keys = get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
-    vars_keys_PRE = get_xforms_var_keys(apo_data.xforms, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-    vars_keys_POST = get_xforms_var_keys(apo_data.xforms, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-
-    # FF
-    vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
-    if ff_bool:
-        vars_keys_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
-        vars_keys_PRE_FF = get_xforms_var_keys(apo_data.finalxform, make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        vars_keys_POST_FF = get_xforms_var_keys(apo_data.finalxform, make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-    vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
-    if pb_bool:
-        vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
-    result_sorted = out_vars_flatten_unique_sorted(vars_all, make_NULL) # type: ignore
-    
-    n = 5
-    var_used_heading = "Variations used:"
-    result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-    vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{apo_join_vars_grp(result_grp)}"
-    
-    # Build and set descriptive parameter msg
-    preset_name = self.parm(IN_PRESETS).menuLabels()[preset_id]
-    descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
-                        f"{preset_name}", )
-    self.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
-
-    # Build missing:
-    vars_keys_from_fractorium = get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
-    vars_keys_from_fractorium_pre = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
-    vars_keys_from_fractorium_post = get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
-    
-    vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
-    if ff_bool:
-        vars_keys_from_fractorium_FF = get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
-        vars_keys_from_fractorium_pre_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
-        vars_keys_from_fractorium_post_FF = get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
-    vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
-    result_sorted_fractorium = out_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, make_NULL)
-    
-    # Compare and keep and build missing vars msg
-    vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
-    result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
-    vars_missing_msg = ""
-    if vars_missing:
-        vars_missing_msg = f"{nnl}MISSING:\n{apo_join_vars_grp(result_grp_fractorium)}"
-    # Check if the loaded Flame file is locked.
-    in_path = self.parm(IN_PATH).evalAsString()
-    in_path_checked = _out_utils.out_check_outpath(self, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
-    if isLOCK(in_path_checked):
-        flame_lib_locked = f"\nflame lib file: LOCKED"
-    else: flame_lib_locked = ''
-    # build full stats msg
-    build = ( sw, flame_lib_locked, nnl,
-              name, nl,
-              palette_count_format, nl,
-              mb,
-              iter_count, nl,
-              post, nl,
-              opacity, nl,
-              xaos, nl,
-              ff_msg, nnl,
-              vars_used_msg,
-              vars_missing_msg )
-    build_stats_msg = "".join(build)
-    
-    return build_stats_msg
-
-
-def apo_load_render_stats_msg(self: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
-    
-    # spacers
-    nl = "\n"
-    nnl = "\n\n"
-    na = 'n/a'
-    
-    size = f'Size: {na}'
-    if apo_data.out_size[preset_id]:
-        size = f"Size: {apo_data.out_size[preset_id]}"
-        
-    center = f'Center: {na}'
-    if apo_data.out_center[preset_id]:
-        center = f"Center: {apo_data.out_center[preset_id]}"
-        
-    rotate = f'Rotate: {na}'
-    if apo_data.out_rotate[preset_id]:
-        rotate = f"Rotate: {apo_data.out_rotate[preset_id]}"
-
-    scale = f'Scale: {na}'
-    if apo_data.out_scale[preset_id]:
-        scale = f"Scale: {apo_data.out_scale[preset_id]}"
-    
-    quality = f'Quality: {na}'
-    if apo_data.out_quality[preset_id]:
-        quality = f"Quality: {apo_data.out_quality[preset_id]}"
-
-    brightness = f'Brightness: {na}'
-    if apo_data.out_brightness[preset_id]:
-        brightness = f"Brightness: {apo_data.out_brightness[preset_id]}"
-        
-    gamma = f'Gamma: {na}'
-    if apo_data.out_gamma[preset_id]:
-        gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
-        
-    highlight = f'Highlight power: {na}'
-    if apo_data.out_highlight_power[preset_id]:
-        highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
-        
-    K2 = f'Logscale K2: {na}'
-    if apo_data._out_logscale_k2[preset_id]:
-        K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
-        
-    vibrancy = f'Vibrancy: {na}'
-    if apo_data.out_vibrancy[preset_id]:
-        vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
-    
-    build = (size, nl,
-             center, nl,
-             rotate, nl,
-             scale, nl,
-             quality, nl,
-             brightness, nl,
-             gamma, nl,
-             highlight, nl,
-             K2, nl,
-             vibrancy
-            )
-    
-    build_render_stats_msg = "".join(build)
-    return build_render_stats_msg
-
-
-def apo_copy_render_stats_msg(self: hou.Node) -> None:
-    
-    xml = self.parm(IN_PATH).evalAsString()
-    preset_id = int(self.parm(IN_PRESETS).eval())
-    f3r = apo_flame_iter_data(self, xml, preset_id)
-    if f3r.isvalidtree:
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): int(f3r.out_rotate[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): int(f3r.out_scale[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
-        except:
-            pass
-        try: self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
-        except:
-            pass
-        self.setParms({"outedit": 1}) # type: ignore
-    else:
-        pass
-
-
-def flam3_about_msg(self):
-    
-    nl = "\n"
-    nnl = "\n\n"
-
-    year = datetime.now().strftime("%Y")
-    flam3_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
-    Implementation_years = f"2020/{year}"
-    Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
-    
-    code_references = """Code references:
-flam3 :: (GPL v2)
-Apophysis :: (GPL)
-Fractorium :: (GPL v3)"""
-    
-    h_version = '.'.join(str(x) for x in hou.applicationVersion())
-    Houdini_version = f"Host:\nSideFX Houdini {h_version}"
-    Python_version = f"Python: {python_version()}"
-    license_type = str(hou.licenseCategory()).split(".")[-1]
-    Houdini_license = f"License: {license_type}"
-    Platform = f"Platform: {hou.applicationPlatformInfo()}"
-    PC_name = f"Machine name: {hou.machineName()}"
-    User = f"User: {hou.userName()}"
-    
-    example_flames = """example Flames:
-C-91, Gabor Timar, Golubaja, Pillemaster,
-Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
-Seph, Lucy, b33rheart, Neonrauschen"""
-    
-    build = (Implementation_build, nnl,
-             code_references, nnl,
-             example_flames, nnl,
-             Houdini_version, nl,
-             Houdini_license, nl,
-             Python_version, nl,
-             Platform, nl,
-             PC_name, nl,
-             User
-             )
-    
-    build_about_msg = "".join(build)
-
-    self.setParms({MSG_FLAM3ABOUT: build_about_msg})
-
-
-def flam3_about_plugins_msg(self):
-    
-    vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
-    n = 6
-    vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-    _vars = []
-    for idx, grp in enumerate(vars_sorted_grp):
-        if idx == (len(vars_sorted_grp)-1):
-            _vars.append(", ".join(grp))
-        else:
-            _vars.append(", ".join(grp) + "\n")
-    vars_txt = "".join(_vars)
-    
-    self.setParms({MSG_FLAM3PLUGINS: vars_txt})
 
 
 # SAVE XML FILES start here
@@ -4768,7 +4790,7 @@ class _out_utils():
             prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
             if prm_w != 0:
                 v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-                v_name = var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                v_name = apo_flame_utils.var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
                 XFORM.set(FUNC(v_name), _out_utils.out_round_float(prm_w))
                 vars_prm = varsPRM[v_type]
@@ -4982,9 +5004,9 @@ class _out_utils():
 
         # Get unique plugins used
         if is_PRE_BLUR: name_PRE_BLUR = XML_XF_PB
-        names_VARS_flatten_unique = out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
-        names_VARS_PRE_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE) + [name_PRE_BLUR]
-        names_VARS_POST_flatten_unique = out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
+        names_VARS_flatten_unique = apo_flame_utils.out_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], make_NULL)
+        names_VARS_PRE_flatten_unique = apo_flame_utils.out_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], make_PRE) + [name_PRE_BLUR]
+        names_VARS_POST_flatten_unique = apo_flame_utils.out_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], make_POST)
         # Set unique 'plugins' used and 'new linear' as last
         flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
