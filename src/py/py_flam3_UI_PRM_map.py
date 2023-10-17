@@ -246,6 +246,10 @@ hou.pwd().hdaModule().flam3.iter_on_load_callback(kwargs['node'])
 'Callback Script'
 hou.pwd().hdaModule().flam3.use_iter_on_load_callback(kwargs['node'])
 
+'cprendervals'
+'Callback Script'
+hou.pwd().hdaModule().flam3.apo_flame_utils.apo_copy_render_stats_msg(kwargs['node'])
+
 
 #######################################################
 # PARAMETERS SAVE FLAMES ( OUT Tab )
