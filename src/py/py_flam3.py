@@ -4611,7 +4611,9 @@ def in_to_flam3(self: hou.Node) -> None:
         self.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
         # Updated SYS inpresets parameter
         self.setParms({SYS_IN_PRESETS: self.parm(IN_PRESETS).eval()}) # type: ignore
-        # updated xaos:
+        
+        # updated xaos and activate "auto set xaos":
+        self.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
         auto_set_xaos(self)
         
         #updated OUT Flame name iter num if any
