@@ -92,7 +92,7 @@ kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
 'Callback Script'
 hou.pwd().hdaModule().flam3.in_to_flam3_sys(kwargs['node'])
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.menu_in_presets(kwargs)
 return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.in_to_flam3(kwargs['node'])
@@ -229,7 +229,7 @@ return menu
 'Callback Script'
 hou.pwd().hdaModule().flam3.in_to_flam3(kwargs['node'])
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.menu_in_presets(kwargs)
 return menu
 'Action Button'
 kwargs['node'].hdaModule().flam3.in_to_flam3(kwargs['node'])
