@@ -2791,7 +2791,7 @@ class in_flame(_xml_tree):
         super().__init__(xmlfile)
         self._node = node
         self._name = self._xml_tree__get_name() # type: ignore
-        self._apo_version = self._xml_tree__get_name(XML_FLAME_VERSION) # type: ignore
+        self._sw_version = self._xml_tree__get_name(XML_FLAME_VERSION) # type: ignore
         self._flame = self._xml_tree__get_flame() # type: ignore
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
         self._flame_plugins = self._xml_tree__get_name(XML_FLAME_PLUGINS) # type: ignore
@@ -2838,8 +2838,8 @@ class in_flame(_xml_tree):
         return self._name
     
     @property
-    def apo_version(self):
-        return self._apo_version
+    def sw_version(self):
+        return self._sw_version
 
     @property
     def flame(self):
@@ -3953,7 +3953,7 @@ class in_flame_utils:
             exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
         """ 
         # What software were used to generate this flame preset
-        app = apo_data.apo_version[preset_id]
+        app = apo_data.sw_version[preset_id]
 
         xforms = ()
         MAX_VARS_MODE = 0
@@ -4198,7 +4198,7 @@ class in_flame_utils:
 
             
         # build msgs
-        sw = f"Software: {apo_data.apo_version[preset_id]}"
+        sw = f"Software: {apo_data.sw_version[preset_id]}"
         name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"iterators count: {str(len(apo_data.xforms))}"
         post = f"post affine: {post_bool_msg}"
@@ -4249,7 +4249,7 @@ class in_flame_utils:
         
         # Build and set descriptive parameter msg
         preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-        descriptive_prm = ( f"sw: {apo_data.apo_version[preset_id]}\n",
+        descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
                             f"{preset_name}", )
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
