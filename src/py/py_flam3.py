@@ -3169,7 +3169,7 @@ class in_flame(_xml_tree):
         else:
             return None
 
-class apo_flame_iter_data(in_flame):
+class in_flame_iter_data(in_flame):
 
     def __init__(self, node: hou.Node, xmlfile: str, idx=0) -> None:
         """
@@ -3479,7 +3479,7 @@ class in_flame_utils:
     def in_set_affine(mode: int, 
                     node: hou.Node, 
                     prx: str, 
-                    apo_data: apo_flame_iter_data, 
+                    apo_data: in_flame_iter_data, 
                     n: flam3_iterator_prm_names, 
                     mp_idx: int
                     ) -> None:
@@ -3488,8 +3488,8 @@ class in_flame_utils:
             mode (int): [0 for iterator. 1 for FF]
             node (hou.Node): [Current FLAM3 houdini node]
             prx (str): [parameter name prefix]
-            apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
-            n (flam3_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[apo_flame_iter_data]]
+            apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
+            n (flam3_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[in_flame_iter_data]]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
         if mode:
@@ -3525,7 +3525,7 @@ class in_flame_utils:
             mode (int): [0 for iterator. 1 for FF]
             node (hou.Node): [Current FLAM3 houdini node]
             prx (str): [parameter name prefix]
-            apo_data (apo_flame_iter_data): [Apophysis XML data collection from: class[apo_flame_iter_data]]
+            apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
             prm_name (str): [parameter name for the current data we want to set]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
@@ -3941,18 +3941,18 @@ class in_flame_utils:
     @staticmethod
     def in_set_iterator(mode: int, 
                         node: hou.Node, 
-                        apo_data: apo_flame_iter_data, 
+                        apo_data: in_flame_iter_data, 
                         preset_id: int, 
                         exclude_keys: tuple
                         ) -> None:
         """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
         
-    The collection of XML data happen inside: class: apo_flame_iter_data()
+    The collection of XML data happen inside: class: in_flame_iter_data()
 
         Args:
             mode (int): iterator or FF
             node (hou.Node): FLAM3H node
-            apo_data (apo_flame_iter_data): Flames data from the flame file loaded in: class: apo_flame_iter_data()
+            apo_data (in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
             preset_id (int): the flame preset we are loading out of all the presets included in the flame file
             exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
         """ 
@@ -4161,7 +4161,7 @@ class in_flame_utils:
 
 
     @staticmethod
-    def in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: apo_flame_iter_data) -> str:
+    def in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: in_flame_iter_data) -> str:
         
         # spacers
         nl = "\n"
@@ -4299,7 +4299,7 @@ class in_flame_utils:
         return build_stats_msg
 
     @staticmethod
-    def in_load_render_stats_msg(preset_id: int, apo_data: apo_flame_iter_data) -> str:
+    def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
         
         # spacers
         nl = "\n"
@@ -4366,7 +4366,7 @@ class in_flame_utils:
         
         xml = node.parm(IN_PATH).evalAsString()
         preset_id = int(node.parm(IN_PRESETS).eval())
-        f3r = apo_flame_iter_data(node, xml, preset_id)
+        f3r = in_flame_iter_data(node, xml, preset_id)
         if f3r.isvalidtree:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
             except:
@@ -4545,7 +4545,7 @@ def in_to_flam3(self: hou.Node) -> None:
         reset_MB(self)
         reset_PREFS(self)
 
-        apo_data = apo_flame_iter_data(self, xml, preset_id)
+        apo_data = in_flame_iter_data(self, xml, preset_id)
         
         # RIP
         # if there are ZERO opacities, always turn RIP toggle ON
