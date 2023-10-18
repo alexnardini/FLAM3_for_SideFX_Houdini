@@ -4463,7 +4463,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
     def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
         return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 
-# Turn Fractorium variation names dictionary names into PRE and POST variation names dictionary
+# Turn Fractorium variation names dictionary into PRE and POST variation names dictionary
 VARS_FRACTORIUM_DICT_PRE  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
 VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
 
