@@ -240,7 +240,7 @@ hou.pwd().hdaModule().flam3.init_presets(kwargs, "inpresets")
 
 'iternumonload'
 'Callback Script'
-hou.pwd().hdaModule().flam3.iter_on_load_callback(kwargs['node'])
+hou.pwd().hdaModule().flam3.set_iter_on_load_callback(kwargs['node'])
 
 'useiteronload'
 'Callback Script'
