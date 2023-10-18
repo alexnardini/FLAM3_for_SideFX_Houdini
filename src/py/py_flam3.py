@@ -3365,10 +3365,10 @@ class in_flame_utils:
             vars_keys = []
             if type(vars) is dict:
                 for xf in xforms:
-                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))))
+                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))))  # type: ignore
             else:
                 for xf in xforms:
-                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))))
+                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))))  # type: ignore
 
             return vars_keys
         else:
@@ -3413,7 +3413,7 @@ class in_flame_utils:
             for xf in xforms:
                 # Note the: vars.get(in_util_removeprefix(x, prx)[0]
                 # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
-                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))))
+                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys())))))) # type: ignore
             return vars_keys
         else:
             return None
