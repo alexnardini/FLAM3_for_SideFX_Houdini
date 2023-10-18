@@ -1723,9 +1723,9 @@ def viewportParticleSize(self: hou.Node) -> None:
 # Convert and set "xaos:"" command strings between modes from the preferences xaos mode menu
 ###############################################################################################
 def flam3_xaos_convert(self) -> None:
-    """Here I am using a class function call from: out_flam3_data class.out_xf_xaos_from()
+    """Here I am using a class function call from: out_xf_flame_data class.out_xf_xaos_from()
        down below inside the save XML/FLAME file section of this file.
-       The class function: out_flam3_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
+       The class function: out_xf_flame_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
     """
     autodiv = self.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
     div_xaos = 'xaos:'
@@ -1735,7 +1735,7 @@ def flam3_xaos_convert(self) -> None:
         div_weight = ' :'
     
     # Get xaos
-    f3d = out_flam3_data(self)
+    f3d = out_xf_flame_data(self)
     # Convert xaos
     xaos_new = f3d.out_xf_xaos_from(0)
     # updated CachedUserData: flam3h_xaos_iterators_prev
@@ -2036,7 +2036,7 @@ Note that all the data will be of type: string.
     Args:
         self (hou.Node): FLAM3H node
         data_name (str): The parameter name you desire to swt.
-        data (list): The data to set. A tuple can only come from: out_flam3_data(self).out_xf_xaos_from(mode)
+        data (list): The data to set. A tuple can only come from: out_xf_flame_data(self).out_xf_xaos_from(mode)
     """
     if data_name == FLAM3H_PRM_XAOS_MP_MEM:
         data_to_prm = ' '.join([str(x) for x in data])
@@ -4969,7 +4969,7 @@ class out_flame_utils():
         names_VARS = []
         names_VARS_PRE = []
         names_VARS_POST = []
-        f3d = out_flam3_data(node)
+        f3d = out_xf_flame_data(node)
         for iter in range(f3d.iter_count):
             iter_var = iter + 1
             if int(f3d.xf_vactive[iter]):
@@ -5550,7 +5550,7 @@ class out_flame_properties(out_flame_utils):
         self.flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
 
 
-class out_flam3_data(out_flame_utils):
+class out_xf_flame_data(out_flame_utils):
     def __init__(self, node: hou.Node) -> None:
         super().__init__(node)
         # FLAM3 data
@@ -5597,7 +5597,7 @@ def menu_out_contents_presets(kwargs: dict) -> list:
         return menu
     
 # Get data needed for:
-# def out_auto_add_iter_data()
+# def out_auto_add_iter_num_to_prm()
 # def out_auto_change_iter_num_to_prm()
 def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
     iter_num = self.parm(GLB_ITERATIONS).evalAsInt()
