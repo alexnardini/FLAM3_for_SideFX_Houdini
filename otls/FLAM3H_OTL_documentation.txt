@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.0.28
+#version: 1.0.33
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -736,6 +736,8 @@ HSV:
     
     Hue/Saturation/Value of the palette's colors.
     
+    HSV values are exported into the XML on Flame save when used.
+    
 palette:
     #id: PALETTE
     the actual color palette.
@@ -810,15 +812,10 @@ Reload preset ( presets ):
 
     == CP: Options == (CPOPTIONS)
     
-save HSV palette ( options ):
+save palette HSV:
     #id: PALETTE
-    ON by default. When saving out a palette, use the color-corrected HSV ramp.
-    Uncheck this option to save the non-color-corrected ramp instead.
-    
-reset HSV on Load ( options ):
-    #id: PALETTE
-    ON by default. Every time you load a palette, the HSV will reset to their default values to show the raw palette colors as they were saved.
-    Uncheck this option to keep the HSV values after a palette preset is loaded.
+    OFF by default. When saving out a palette, use the non-color-corrected ramp and save the HSV values along with it if used ( different from default values ).
+    Check this option to save the the color-corrected HSV ramp instead.
     
     
 
@@ -836,10 +833,13 @@ reset HSV on Load ( options ):
     *MB:* _Flame fractal moton blur._
     
     When animating your fractal flame, turning this on will compute a proper temporal motion blur.
+    
 
 on:
     #id: MB
     Enable motion blur.
+    
+    Motion blur values are exported into the XML on Flame save when turned on.
     
     TIP:
         #display: orange
@@ -954,6 +954,8 @@ IN file ( *.flame type ):
     #id: IN
     
     Load *.flame files authored with Apophysis, Fractorium and other flam3-compatible applications.
+    
+    The "auto set xaos" preference option will automatically switch ON whenever a preset is loaded.
     
     The only restrictions are:
     
@@ -1406,7 +1408,7 @@ The dependent variations and the affine coefficients they employ are listed belo
 
 *_FAN_*: `O[0]`
 
-_A list of all variations included with FLAM3 v1.0.28 for SideFX Houdini:_
+_A list of all variations included with FLAM3 v1.0.33 for SideFX Houdini:_
 
 - _Note that all the following are also available as PRE_ _and/or POST_ _variations._
 
