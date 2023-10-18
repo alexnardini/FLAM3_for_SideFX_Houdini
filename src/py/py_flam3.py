@@ -4519,7 +4519,7 @@ def use_iter_on_load_callback(self):
     a new preset from the IN Tab IN_PRESETS parameter,
     It works like a hook to then set and evaluate it from the SYS Tab.
 '''
-def in_sys_to_flam3(self: hou.Node) -> None:
+def in_to_flam3_sys(self: hou.Node) -> None:
 
     xml = self.parm(IN_PATH).evalAsString()
 
