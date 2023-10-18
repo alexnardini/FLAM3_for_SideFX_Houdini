@@ -90,7 +90,7 @@ kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
 
 'sys_inpresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.sys_in_to_flam3(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_sys_to_flam3(kwargs['node'])
 'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
 return menu
