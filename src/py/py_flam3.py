@@ -4199,7 +4199,7 @@ class in_flame_utils:
             
         # build msgs
         sw = f"Software: {apo_data.apo_version[preset_id]}"
-        name = f"NAME: {apo_data.name[preset_id]}"
+        name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"iterators count: {str(len(apo_data.xforms))}"
         post = f"post affine: {post_bool_msg}"
         opacity = f"opacity: {opacity_bool_msg}"
