@@ -90,12 +90,12 @@ kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
 
 'sys_inpresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.sys_apo_to_flam3(kwargs['node'])
+hou.pwd().hdaModule().flam3.sys_in_to_flam3(kwargs['node'])
 'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.apo_to_flam3(kwargs['node'])
+kwargs['node'].hdaModule().flam3.in_to_flam3(kwargs['node'])
 
 'sys_outpresets'
 'Menu Script'
@@ -227,12 +227,12 @@ return menu
 
 'inpresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.apo_to_flam3(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_to_flam3(kwargs['node'])
 'Menu Script'
 menu = kwargs['node'].hdaModule().flam3.menu_apo_presets(kwargs)
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.apo_to_flam3(kwargs['node'])
+kwargs['node'].hdaModule().flam3.in_to_flam3(kwargs['node'])
 
 'inpath'
 'Callback Script'
@@ -248,7 +248,7 @@ hou.pwd().hdaModule().flam3.use_iter_on_load_callback(kwargs['node'])
 
 'cprendervals'
 'Callback Script'
-hou.pwd().hdaModule().flam3.apo_flame_utils.apo_copy_render_stats_msg(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs['node'])
 
 
 #######################################################
