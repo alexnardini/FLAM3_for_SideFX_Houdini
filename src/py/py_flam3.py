@@ -4640,7 +4640,7 @@ class out_flame_utils():
 
     def __init__(self, node: hou.Node) -> None:
         self._node = node
-        self._prm_names = flam3h_iterator_prm_names()
+        self._flam3h_prm_names = flam3h_iterator_prm_names()
         self._flam3h_iterator = flam3h_iterator()
         self._flam3h_iterator_FF = flam3h_iterator_FF()
         self._flam3h_do_FF = self._node.parm(SYS_DO_FF).eval()
@@ -5278,9 +5278,9 @@ class out_flame_utils():
         Returns:
             tuple[str]: the xaos TO values to write out.
         """
-        val = self.out_xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
+        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_prm_names.xaos)
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._prm_names.main_vactive)
+        xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
 
     def out_xf_xaos_from(self, mode=0) -> tuple:
@@ -5290,11 +5290,11 @@ class out_flame_utils():
         Returns:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """
-        val = self.out_xaos_collect(self._node, self._iter_count, self._prm_names.xaos)
+        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_prm_names.xaos)
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
         if mode:
-            xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._prm_names.main_vactive)
+            xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
         else:
             return tuple([" ".join(x) for x in self.out_round_floats(t)])
@@ -5305,8 +5305,8 @@ class out_flame_utils():
         return self._node
 
     @property
-    def prm_name(self):
-        return self._prm_names
+    def flam3h_prm_names(self):
+        return self._flam3h_prm_names
     
     @property
     def flam3h_iterator(self):
@@ -5386,19 +5386,19 @@ class out_flame_utils():
     def __out_xf_name(self) -> list[str]:
         val = []
         for iter in range(self._iter_count):
-            val.append(self._node.parm(f"{self._prm_names.main_note}_{iter+1}").eval())
+            val.append(self._node.parm(f"{self._flam3h_prm_names.main_note}_{iter+1}").eval())
         return val
     
     def __out_finalxf_name(self) -> list[str]:
-        return self._node.parm(f"{PRX_FF_PRM}{self._prm_names.main_note}").eval()
+        return self._node.parm(f"{PRX_FF_PRM}{self._flam3h_prm_names.main_note}").eval()
 
     
     def __out_xf_pre_blur(self) -> list[str]:
         val = []
         for iter in range(self._iter_count):
-            value = self._node.parm(f"{self._prm_names.prevar_weight_blur}_{iter+1}").eval()
+            value = self._node.parm(f"{self._flam3h_prm_names.prevar_weight_blur}_{iter+1}").eval()
             if value > 0.0:
-                val.append(str(self._node.parm(f"{self._prm_names.prevar_weight_blur}_{iter+1}").eval()))
+                val.append(str(self._node.parm(f"{self._flam3h_prm_names.prevar_weight_blur}_{iter+1}").eval()))
             else:
                 val.append('')
         return val
@@ -5426,7 +5426,7 @@ class out_flame_utils():
     def __out_xf_postaffine(self) -> list[str]:
         val = []
         for iter in range(self._iter_count):
-            if self._node.parm(f"{self._prm_names.postaffine_do}_{iter+1}").eval():
+            if self._node.parm(f"{self._flam3h_prm_names.postaffine_do}_{iter+1}").eval():
                 collect = []
                 for prm in self._flam3h_iterator.sec_postAffine[1:-1]:
                     collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
@@ -5466,7 +5466,7 @@ class out_flame_utils():
     
     
     def __out_finalxf_postaffine(self) -> str:
-        if self._node.parm(f"{PRX_FF_PRM}{self._prm_names.postaffine_do}").eval():
+        if self._node.parm(f"{PRX_FF_PRM}{self._flam3h_prm_names.postaffine_do}").eval():
             collect = []
             for prm in self._flam3h_iterator_FF.sec_postAffine_FF[1:-1]:
                 collect.append(self._node.parmTuple(f"{prm[0]}").eval())
@@ -5557,13 +5557,13 @@ class out_xf_flame_data(out_flame_utils):
         super().__init__(node)
         # FLAM3 data
         self.xf_name = self._out_flame_utils__out_xf_name() # type: ignore
-        self.xf_vactive = self._out_flame_utils__out_xf_data(self._prm_names.main_vactive) # type: ignore
-        self.xf_weight = self._out_flame_utils__out_xf_data(self._prm_names.main_weight) # type: ignore
+        self.xf_vactive = self._out_flame_utils__out_xf_data(self._flam3h_prm_names.main_vactive) # type: ignore
+        self.xf_weight = self._out_flame_utils__out_xf_data(self._flam3h_prm_names.main_weight) # type: ignore
         self.xf_xaos = self._out_flame_utils__out_xf_xaos() # type: ignore
         self.xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
-        self.xf_color = self._out_flame_utils__out_xf_data(self._prm_names.shader_color) # type: ignore
-        self.xf_symmetry = self._out_flame_utils__out_xf_data(self._prm_names.shader_speed) # type: ignore
-        self.xf_opacity = self._out_flame_utils__out_xf_data(self._prm_names.shader_alpha) # type: ignore
+        self.xf_color = self._out_flame_utils__out_xf_data(self._flam3h_prm_names.shader_color) # type: ignore
+        self.xf_symmetry = self._out_flame_utils__out_xf_data(self._flam3h_prm_names.shader_speed) # type: ignore
+        self.xf_opacity = self._out_flame_utils__out_xf_data(self._flam3h_prm_names.shader_alpha) # type: ignore
         self.xf_preaffine = self._out_flame_utils__out_xf_preaffine() # type: ignore
         self.xf_postaffine = self._out_flame_utils__out_xf_postaffine() # type: ignore
         self.palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
