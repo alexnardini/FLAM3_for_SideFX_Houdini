@@ -69,7 +69,7 @@ return menu
 
 'iter'
 'Callback Script'
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs['node']).out_auto_change_iter_num_to_prm()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 
 
 #######################################################

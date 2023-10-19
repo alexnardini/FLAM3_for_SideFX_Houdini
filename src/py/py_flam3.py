@@ -1533,7 +1533,9 @@ class flam3h_iterator_utils():
 
     # Set menu_density() Menu
     def menu_global_density_set_default(self) -> None:
-        self.node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+        ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
+        if ptcount != DENSITY_LOAD_DEFAULT:
+            self.node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
     
     
 
