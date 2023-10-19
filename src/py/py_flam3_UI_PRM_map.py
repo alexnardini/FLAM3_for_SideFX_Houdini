@@ -270,7 +270,7 @@ return menu
 
 'outedit'
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'])
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT()
 
 
 #######################################################

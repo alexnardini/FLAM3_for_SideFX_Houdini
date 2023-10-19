@@ -120,6 +120,7 @@ OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
+OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 PREFS_XAOS_MODE = 'xm'
 PREFS_XAOS_AUTO_SET = 'autoxaos'
 PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
@@ -528,7 +529,7 @@ class flam3h_iterator_FF:
 
 
 ###############################################################################################
-# FLAM3 on create init
+# FLAM3H on CREATE init
 ###############################################################################################
 def flam3h_on_create(kwargs: dict) -> None:
     """
@@ -600,7 +601,7 @@ def flam3h_on_create(kwargs: dict) -> None:
 
 
 ###############################################################################################
-# FLAM3 on Loaded init
+# FLAM3H on LOADED init
 ###############################################################################################
 def flam3h_on_loaded(kwargs: dict) -> None:
     """
@@ -677,7 +678,7 @@ def flam3h_init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
             if apo.isvalidtree:
                 prm.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
-                if isLOCK(xml_checked):
+                if flam3h_general_utils.isLOCK(xml_checked):
                     flame_lib_locked = f"\nflame lib file: LOCKED"
                     node.setParms({MSG_OUT: flame_lib_locked})
                 else:
@@ -700,7 +701,7 @@ def flam3h_init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
                 if mode:
                     prm.set('0')
                     # check if the selected palette file is locked
-                    if isLOCK(json_path_checked):
+                    if flam3h_general_utils.isLOCK(json_path_checked):
                         palette_lib_locked = f"\npalette lib file: LOCKED"
                         node.setParms({MSG_PALETTE: palette_lib_locked})
                     else:
@@ -714,30 +715,195 @@ def flam3h_init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
             if json_path:
                 print(f'{str(node)}.palette: please select a valid file location.')
             node.setParms({MSG_PALETTE: ''})
-        
-
-
-def open_explorer_file(filename):
-    path = os.path.dirname(filename)
-    if os.path.isdir(path):
-        if sys_platform == "win32":
-            os.startfile(path)
-        else:
-            opener ="open" if sys_platform == "darwin" else "xdg-open"
-            sp_call([opener, path])
-    else:
-        pass
 
 
 
-def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
-    if filepath is not False:
-        if os.path.split(str(filepath))[-1].startswith(prx):
-            return True
+###############################################################################################
+# FLAM3H GENERAL RESETS
+###############################################################################################
+def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
+    """
+    Args:
+        density (int): Numper of points to use
+        iter (int): Number of iterations
+        mode (int): 0: skip "doff" 1: reset "doff"
+    """    
+    
+    self.setParms({GLB_DENSITY: density}) # type: ignore
+    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
+    self.setParms({GLB_ITERATIONS: iter}) # type: ignore
+    if mode:
+        self.setParms({SYS_DO_FF: 0}) # type: ignore
+    self.setParms({SYS_TAG: 1}) # type: ignore
+    self.setParms({SYS_TAG_SIZE: 0}) # type: ignore
+    self.setParms({SYS_RIP: 0}) # type: ignore
+    
+
+def reset_MB(self) -> None:
+    self.setParms({OUT_MB_DO: 0})
+    self.setParms({OUT_MB_FPS: 24})
+    self.setParms({OUT_MB_SAMPLES: 16})
+    self.setParms({OUT_MB_SHUTTER: 0.5})
+
+
+
+def reset_PREFS(self: hou.Node, mode=0) -> None:
+    self.setParms({"showprefs": 1}) # type: ignore
+    self.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
+    self.setParms({"camhandle": 0}) # type: ignore
+    self.setParms({"camcull": 0}) # type: ignore
+    self.setParms({"fcam": ""}) # type: ignore
+    self.setParms({"cullamount": 0.99}) # type: ignore
+    if mode:
+        self.setParms({"f3c": 1}) # type: ignore
+
+
+
+
+
+
+class flam3h_general_utils:
+    
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
+
+
+
+    @staticmethod
+    def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
+        if filepath is not False:
+            if os.path.split(str(filepath))[-1].startswith(prx):
+                return True
+            else:
+                return False
         else:
             return False
-    else:
-        return False
+
+
+    @staticmethod
+    def open_explorer_file(filename):
+        path = os.path.dirname(filename)
+        if os.path.isdir(path):
+            if sys_platform == "win32":
+                os.startfile(path)
+            else:
+                opener ="open" if sys_platform == "darwin" else "xdg-open"
+                sp_call([opener, path])
+        else:
+            pass
+
+
+    @staticmethod
+    def getSceneViewers() -> list:
+        """
+        Returns:
+            list: [return a list of open scene viewers]
+        """    
+        views = hou.ui.paneTabs() # type: ignore
+        viewers = []
+        for v in views:
+            if isinstance(v, hou.SceneViewer):
+                viewers.append(v)
+        return viewers
+
+
+
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+    
+
+
+
+    def colorSchemeDark(self) -> None:
+
+        node = self.node
+        
+        try:
+            module_test = hou.session.flam3_CS # type: ignore
+        except:
+            hou.session.flam3_CS = [] # type: ignore
+
+        count = 0
+        viewers_col = []
+
+        setprm = node.parm("setdark").eval()
+        Light = hou.viewportColorScheme.Light # type: ignore
+        Grey  = hou.viewportColorScheme.Grey # type: ignore
+        Dark  = hou.viewportColorScheme.Dark # type: ignore
+
+        for view in self.getSceneViewers():
+
+            settings = view.curViewport().settings()
+            col = settings.colorScheme()
+            viewers_col.append(col)
+            try:
+                idx_test = hou.session.flam3_CS[count] # type: ignore
+            except:
+                if len(hou.session.flam3_CS) > 0: # type: ignore
+                    hou.session.flam3_CS.append(viewers_col) # type: ignore
+                else:
+                    hou.session.flam3_CS = [] # type: ignore
+                    hou.session.flam3_CS.append(viewers_col) # type: ignore
+
+            if setprm:
+                if len(hou.session.flam3_CS) == 0: # type: ignore
+                    if col == Light or col == Grey:
+                        settings.setColorScheme(Dark)
+                else:
+                    if col == Light or col == Grey:
+                        settings.setColorScheme(Dark)
+                    elif col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
+                        if hou.session.flam3_CS[count] == Light: # type: ignore
+                            settings.setColorScheme(Light)
+                        elif hou.session.flam3_CS[count] == Grey: # type: ignore
+                            settings.setColorScheme(Grey)
+
+            else:
+                if col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
+                    if hou.session.flam3_CS[count] == Light: # type: ignore
+                        settings.setColorScheme(Light)
+                    elif hou.session.flam3_CS[count] == Grey: # type: ignore
+                        settings.setColorScheme(Grey)
+            count += 1
+        
+        # Update history
+        hou.session.flam3_CS = [] # type: ignore
+        hou.session.flam3_CS = viewers_col # type: ignore
+        
+        
+        
+        
+    def viewportParticleDisplay(self) -> None:
+        node = self.node
+        pttype = node.parm("vptype").evalAsInt()
+
+        Points = hou.viewportParticleDisplay.Points # type: ignore
+        Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+
+        for view in self.getSceneViewers():
+            settings = view.curViewport().settings()
+            if pttype == 0:
+                settings.particleDisplayType(Points)
+            elif pttype == 1:
+                settings.particleDisplayType(Pixels)
+                
+                
+    def viewportParticleSize(self) -> None:
+        node = self.node
+        Points = hou.viewportParticleDisplay.Points # type: ignore
+        ptsize = node.parm("vpptsize").evalAsFloat()
+
+        for view in self.getSceneViewers():
+            settings = view.curViewport().settings()
+            settings.particleDisplayType(Points)
+            settings.particlePointSize(ptsize)
 
 
 
@@ -795,8 +961,10 @@ class flam3h_palette_utils:
     def hex_to_rgb(hex: str): 
         return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
         
-        
-        
+
+
+
+
     @property
     def kwargs(self):
         return self._kwargs
@@ -804,7 +972,10 @@ class flam3h_palette_utils:
     @property
     def node(self):
         return self._node
-    
+
+
+
+
     
     def menu_ramp_presets(self) -> list:
 
@@ -850,10 +1021,10 @@ class flam3h_palette_utils:
         if out_path_checked is not False:
             
             if self.kwargs['shift']:
-                open_explorer_file(out_path_checked)
+                flam3h_general_utils.open_explorer_file(out_path_checked)
             else:
                     
-                if isLOCK(out_path_checked):
+                if flam3h_general_utils.isLOCK(out_path_checked):
                     ui_text = f"This Palette library is Locked."
                     ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -1068,207 +1239,6 @@ class flam3h_palette_utils:
         # Update ramp py 
         self.palette_cp()
         self.palette_hsv()
-
-
-
-
-
-###############################################################################################
-# Get scene viewers
-###############################################################################################
-def getSceneViewers() -> list:
-    """
-    Returns:
-        list: [return a list of open scene viewers]
-    """    
-    views = hou.ui.paneTabs() # type: ignore
-    viewers = []
-    for v in views:
-        if isinstance(v, hou.SceneViewer):
-            viewers.append(v)
-    return viewers
-
-
-###############################################################################################
-# Color scheme dark ( and remember the current color scheme if not dark )
-###############################################################################################
-def colorSchemeDark(self: hou.Node) -> None:
-
-    try:
-        module_test = hou.session.flam3_CS # type: ignore
-    except:
-        hou.session.flam3_CS = [] # type: ignore
-
-    count = 0
-    viewers_col = []
-
-    setprm = self.parm("setdark").eval()
-    Light = hou.viewportColorScheme.Light # type: ignore
-    Grey  = hou.viewportColorScheme.Grey # type: ignore
-    Dark  = hou.viewportColorScheme.Dark # type: ignore
-
-    for view in getSceneViewers():
-
-        settings = view.curViewport().settings()
-        col = settings.colorScheme()
-        viewers_col.append(col)
-        try:
-            idx_test = hou.session.flam3_CS[count] # type: ignore
-        except:
-            if len(hou.session.flam3_CS) > 0: # type: ignore
-                hou.session.flam3_CS.append(viewers_col) # type: ignore
-            else:
-                hou.session.flam3_CS = [] # type: ignore
-                hou.session.flam3_CS.append(viewers_col) # type: ignore
-
-        if setprm:
-            if len(hou.session.flam3_CS) == 0: # type: ignore
-                if col == Light or col == Grey:
-                    settings.setColorScheme(Dark)
-            else:
-                if col == Light or col == Grey:
-                    settings.setColorScheme(Dark)
-                elif col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3_CS[count] == Light: # type: ignore
-                        settings.setColorScheme(Light)
-                    elif hou.session.flam3_CS[count] == Grey: # type: ignore
-                        settings.setColorScheme(Grey)
-
-        else:
-            if col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
-                if hou.session.flam3_CS[count] == Light: # type: ignore
-                    settings.setColorScheme(Light)
-                elif hou.session.flam3_CS[count] == Grey: # type: ignore
-                    settings.setColorScheme(Grey)
-        count += 1
-    
-    # Update history
-    hou.session.flam3_CS = [] # type: ignore
-    hou.session.flam3_CS = viewers_col # type: ignore
-
-
-###############################################################################################
-# set viewport particle display. ( Points or Pixels )
-###############################################################################################
-def viewportParticleDisplay(self: hou.Node) -> None:
-
-    pttype = self.parm("vptype").evalAsInt()
-
-    Points = hou.viewportParticleDisplay.Points # type: ignore
-    Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
-
-    for view in getSceneViewers():
-        settings = view.curViewport().settings()
-        if pttype == 0:
-            settings.particleDisplayType(Points)
-        elif pttype == 1:
-            settings.particleDisplayType(Pixels)
-
-
-###############################################################################################
-# set viewport particle size. ( Points or Pixels )
-###############################################################################################
-def viewportParticleSize(self: hou.Node) -> None:
-
-    Points = hou.viewportParticleDisplay.Points # type: ignore
-    ptsize = self.parm("vpptsize").evalAsFloat()
-
-    for view in getSceneViewers():
-        settings = view.curViewport().settings()
-        settings.particleDisplayType(Points)
-        settings.particlePointSize(ptsize)
-
-
-
-def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
-    """
-    Args:
-        density (int): Numper of points to use
-        iter (int): Number of iterations
-        mode (int): 0: skip "doff" 1: reset "doff"
-    """    
-    
-    self.setParms({GLB_DENSITY: density}) # type: ignore
-    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
-    self.setParms({GLB_ITERATIONS: iter}) # type: ignore
-    if mode:
-        self.setParms({SYS_DO_FF: 0}) # type: ignore
-    self.setParms({SYS_TAG: 1}) # type: ignore
-    self.setParms({SYS_TAG_SIZE: 0}) # type: ignore
-    self.setParms({SYS_RIP: 0}) # type: ignore
-    
-# def reset_CP(self, mode=0) -> None:
-#     if not mode:
-#         # CP
-#         self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-#         # CP->ramp
-#         ramp_parm = self.parm(CP_RAMP_SRC_NAME)
-#         ramp_parm.deleteAllKeyframes()
-#         color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-#         color_keys = [0.0, 0.5, 1.0]
-#         color_values = [(1,0,0), (0,1,0), (0,0,1)]
-#         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-#     elif mode == 2:
-#         self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-#     elif mode == 3:
-#         ramp_parm = self.parm(CP_RAMP_SRC_NAME)
-#         ramp_parm.deleteAllKeyframes()
-#         color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-#         color_keys = [0.0, 0.5, 1.0]
-#         color_values = [(1,0,0), (0,1,0), (0,0,1)]
-#         ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-#     # Update ramp py 
-#     palette_cp(self)
-#     palette_hsv(self)
-
-def reset_MB(self) -> None:
-    self.setParms({OUT_MB_DO: 0})
-    self.setParms({OUT_MB_FPS: 24})
-    self.setParms({OUT_MB_SAMPLES: 16})
-    self.setParms({OUT_MB_SHUTTER: 0.5})
-    
-def reset_IN(self, mode=0) -> None:
-    self.setParms({IN_ISVALID_FILE: 0})
-    self.setParms({MSG_FLAMESTATS: ""})
-    self.setParms({MSG_FLAMERENDER: ""})
-    self.setParms({MSG_DESCRIPTIVE_PRM: ""})
-    if mode:
-        self.setParms({IN_PATH: ""})
-        self.setParms({IN_PRESETS: str(-1)})
-        self.setParms({IN_ITER_NUM_ON_LOAD: 64})
-        self.setParms({IN_USE_ITER_ON_LOAD: 0})
-        self.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
-    
-def reset_OUT(self, mode=0) -> None:
-    self.setParms({"outedit": 0})
-    self.setParms({"outmsg": ''})
-    self.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 100})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
-    self.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
-    if mode:
-        self.setParms({OUT_PATH: ""})
-        self.setParms({OUT_HSV_PALETTE_DO: 1})
-        self.setParms({OUT_PRESETS: "-1"})
-        self.setParms({OUT_FLAME_PRESET_NAME: ""})
-
-def reset_PREFS(self: hou.Node, mode=0) -> None:
-    self.setParms({"showprefs": 1}) # type: ignore
-    self.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
-    self.setParms({"camhandle": 0}) # type: ignore
-    self.setParms({"camcull": 0}) # type: ignore
-    self.setParms({"fcam": ""}) # type: ignore
-    self.setParms({"cullamount": 0.99}) # type: ignore
-    if mode:
-        self.setParms({"f3c": 1}) # type: ignore
-
 
 
 
@@ -2037,14 +2007,12 @@ class flam3h_iterator_utils():
         # update xaos
         self.auto_set_xaos()
 
-        # SYS
         self.reset_FF()
-        
         reset_SYS(node, 1, 10, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
         reset_MB(node)
-        reset_IN(node)
-        reset_OUT(node)
+        in_flame_utils(self.kwargs).reset_IN(node)
+        out_flame_utils(self.kwargs).reset_OUT(node)
         reset_PREFS(node)
         
         # iterator prm names
@@ -4339,7 +4307,7 @@ class in_flame_utils:
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
-        if isLOCK(in_path_checked):
+        if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"\nflame lib file: LOCKED"
         else: flame_lib_locked = ''
         # build full stats msg
@@ -4458,7 +4426,7 @@ class in_flame_utils:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
             except:
                 pass
-            node.setParms({"outedit": 1}) # type: ignore
+            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
         else:
             pass
 
@@ -4698,6 +4666,20 @@ Seph, Lucy, b33rheart, Neonrauschen"""
                 node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
                 # The following do not work, not sure why
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                
+                
+    def reset_IN(self, mode=0) -> None:
+        node = self.node
+        node.setParms({IN_ISVALID_FILE: 0})
+        node.setParms({MSG_FLAMESTATS: ""})
+        node.setParms({MSG_FLAMERENDER: ""})
+        node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+        if mode:
+            node.setParms({IN_PATH: ""})
+            node.setParms({IN_PRESETS: str(-1)})
+            node.setParms({IN_ITER_NUM_ON_LOAD: 64})
+            node.setParms({IN_USE_ITER_ON_LOAD: 0})
+            node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
 
 
 
@@ -4718,7 +4700,7 @@ VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRA
 
 # SAVE XML FILES start here
 
-class out_flame_utils():
+class out_flame_utils:
 
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -5437,6 +5419,28 @@ class out_flame_utils():
 
 
 
+    def reset_OUT(self, mode=0) -> None:
+        node = self.node
+        node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
+        node.setParms({MSG_OUT: ''})
+        node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 100})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+        if mode:
+            node.setParms({OUT_PATH: ""})
+            node.setParms({OUT_HSV_PALETTE_DO: 1})
+            node.setParms({OUT_PRESETS: "-1"})
+            node.setParms({OUT_FLAME_PRESET_NAME: ""})
+
+
 
     def menu_out_contents_presets(self) -> list:
         menu=[]
@@ -5503,10 +5507,10 @@ class out_flame_utils():
             if out_path_checked is not False:
                 
                 if self.kwargs['shift']:
-                    open_explorer_file(out_path_checked)
+                    flam3h_general_utils.open_explorer_file(out_path_checked)
                 else:
 
-                    if isLOCK(out_path_checked):
+                    if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flam3 library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
