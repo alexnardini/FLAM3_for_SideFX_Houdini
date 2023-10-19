@@ -5436,7 +5436,7 @@ class out_flame_utils:
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
         if mode:
             node.setParms({OUT_PATH: ""})
-            node.setParms({OUT_HSV_PALETTE_DO: 1})
+            node.setParms({OUT_HSV_PALETTE_DO: 0})
             node.setParms({OUT_PRESETS: "-1"})
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
