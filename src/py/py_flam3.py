@@ -5454,17 +5454,17 @@ class out_flame_utils():
                     else:
                         apo_data = in_flame(kwargs['node'], str(out_path_checked))
                         if kwargs["ctrl"]:
-                            node.setParms({OUT_PATH: str(out_path_checked)})
+                            node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             out_flame_utils.out_new_XML(node, str(out_path_checked))
-                            node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                            node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                         else:
-                            node.setParms({OUT_PATH: str(out_path_checked)})
+                            node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             if apo_data.isvalidtree:
                                 out_flame_utils.out_append_XML(node, apo_data, str(out_path_checked))
-                                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                                node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                             else:
                                 out_flame_utils.out_new_XML(node, str(out_path_checked))
-                                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                                node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                         flam3h_init_presets(kwargs, OUT_PRESETS)
 
 
