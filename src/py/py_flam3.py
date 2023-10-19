@@ -2230,7 +2230,7 @@ def vactive_clamp_count(kwargs: dict):
     [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
 
     id = kwargs['script_multiparm_index']
-    if len(va)==1:
+    if not len(va):
         node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
         print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
 
