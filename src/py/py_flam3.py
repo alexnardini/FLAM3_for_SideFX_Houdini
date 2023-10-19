@@ -1501,8 +1501,8 @@ class flam3h_iterator_utils():
     # Set menu_density() Menu
     def menu_global_density_set(self) -> None:
         
-        sel = self.node.parm(GLB_DENSITY_PRESETS).evalAsInt()
         ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
+        sel = self.node.parm(GLB_DENSITY_PRESETS).evalAsInt()
         vals = [500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000]
         
         if sel == 1:
@@ -1897,8 +1897,8 @@ class flam3h_iterator_utils():
         else:
             print(f"{str(node)}: {MARK_FF_MSG}.")
             
-            
-    def flam3_xaos_convert(self) -> None:
+
+    def flam3h_xaos_convert(self) -> None:
         """Here I am using a class function call from: out_xf_flame_data class.out_xf_xaos_from()
         down below inside the save XML/FLAME file section of this file.
         The class function: out_xf_flame_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
@@ -1912,7 +1912,7 @@ class flam3h_iterator_utils():
             div_weight = ' :'
         
         # Get xaos
-        f3d = out_xf_flame_data(self.kwargs)
+        f3d = out_flame_utils(self.kwargs)
         # Convert xaos
         xaos_new = f3d.out_xf_xaos_from(0)
         # updated CachedUserData: flam3h_xaos_iterators_prev
@@ -4453,9 +4453,9 @@ class in_flame_utils:
         nnl = "\n\n"
 
         year = datetime.now().strftime("%Y")
-        flam3_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
+        flam3h_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
         Implementation_years = f"2020/{year}"
-        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3_houdini_version}\n{Implementation_years}"
+        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
         
         code_references = """Code references:
 flam3 :: (GPL v2)
@@ -4579,7 +4579,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
     '''
     def in_to_flam3h(self) -> None:
 
-        node = self.kwargs['node']
+        node = self.node
         
         xml = node.parm(IN_PATH).evalAsString()
 
@@ -4814,6 +4814,7 @@ class out_flame_utils:
                 return flame_name
         else:
             return flame_name
+    
     
     @staticmethod 
     def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -5460,7 +5461,7 @@ class out_flame_utils:
 
     def menu_out_contents_presets(self) -> list:
         menu=[]
-        node = self._node
+        node = self.node
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iterators_num:
             xml = node.parm(OUT_PATH).evalAsString()
@@ -5550,7 +5551,7 @@ class out_flame_utils:
 
 
 
-    
+
 
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
