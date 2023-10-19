@@ -287,12 +287,12 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 
 'setdark'
 'Callback Script'
-hou.pwd().hdaModule().flam3.colorSchemeDark(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark()
 
 'vptype'
 'Callback Script'
-hou.pwd().hdaModule().flam3.viewportParticleDisplay(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay()
 
 'vpptsize'
 'Callback Script'
-hou.pwd().hdaModule().flam3.viewportParticleDisplay(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
