@@ -5407,7 +5407,7 @@ class out_flame_utils():
     # def out_auto_add_iter_num_to_prm()
     # def out_auto_change_iter_num_to_prm()
     def out_auto_add_iter_data(self) -> tuple[int, str, int]:
-        node = self._node
+        node = self.node
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
         flame_name = node.parm(OUT_FLAME_PRESET_NAME).eval()
         autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
@@ -5432,7 +5432,7 @@ class out_flame_utils():
 
     def out_XML(self, kwargs: dict) -> None:
         
-        node = kwargs['node']
+        node = self.node
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
         # if there is at least one iterator
