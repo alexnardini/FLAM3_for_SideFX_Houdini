@@ -2114,7 +2114,7 @@ class flam3h_iterator_utils():
             [mpmem.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
             
             # get mpmem from CachedUserData
-            __mpmem_hou_get = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_MP_MEM)
+            __mpmem_hou_get = self.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_MP_MEM)
             if __mpmem_hou_get is None:
                 mpmem_hou_get = mpmem
             else:
@@ -2134,7 +2134,7 @@ class flam3h_iterator_utils():
                 xaos_str.append(collect)
                 
             # get xaos from CachedUserData
-            __xaos_str_hou_get = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_ITERATOR_PREV)
+            __xaos_str_hou_get = self.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_ITERATOR_PREV)
             if __xaos_str_hou_get is None:
                 xaos_str_hou_get = xaos_str
             else:
@@ -2158,7 +2158,7 @@ class flam3h_iterator_utils():
                 for x in xaos_str:
                     del x[idx_del_inbetween]
                 # updated CachedUserData: flam3h_xaos_iterators_prev
-                flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
             # otherwise ADD
             # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
             elif idx_add_inbetween is not None:
@@ -2169,10 +2169,10 @@ class flam3h_iterator_utils():
                         # so lets remove the last element as it is not longer needed
                         del x[-1]
                 # updated CachedUserData: flam3h_xaos_iterators_prev
-                flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
             else:
                 # updated CachedUserData: flam3h_xaos_iterators_prev
-                flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
                 
             # set all multi parms xaos strings parms
             xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_round_floats(xaos_str)])
@@ -2193,7 +2193,7 @@ class flam3h_iterator_utils():
         [__mpmem_hou.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
         # export mpmem into CachedUserData
-        flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
+        self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
         # lock
         node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
 
