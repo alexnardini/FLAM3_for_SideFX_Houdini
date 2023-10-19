@@ -656,7 +656,7 @@ def flam3h_init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
                 if mode:
                     prm.set('0')
                     node.setParms({IN_ISVALID_FILE: 1})
-                    in_to_flam3h(kwargs)
+                    in_flame_utils(kwargs).in_to_flam3h()
         else:
             prm.set('-1')
             node.setParms({IN_ISVALID_FILE: 0})
