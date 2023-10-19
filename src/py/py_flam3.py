@@ -138,6 +138,9 @@ MSG_PALETTE = 'palettemsg'
 MSG_OUT = 'outmsg'
 MSG_FLAM3ABOUT = 'flam3about_msg'
 MSG_FLAM3PLUGINS = 'flam3plugins_msg'
+# Mark iterators msgs
+MARK_ITER_MSG = "Please mark an iterator first"
+MARK_FF_MSG = "Please mark the FF first"
 
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
@@ -521,606 +524,12 @@ class flam3h_iterator_FF:
     # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
     # so I need to handle them one by one inside: def prm_paste_FF() and def prm_paste_sel_FF()
     allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
-        
-
-
-###############################################################################################
-# MENU - GLOBAL Density presets
-###############################################################################################
-def menu_density(self: hou.Node) -> list:
-    """
-    Args:
-        int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
-
-    Returns:
-        list: [return menu list]
-    """
-    
-    iterators = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    menu=[]
-    menuitems = ()
-    if iterators:
-        menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
-    else:
-        menuitems = ("Please, add at least one iterator", "")
-    for i, item in enumerate(menuitems):
-        menu.append(i)
-        menu.append(item)
-    return menu
-
-# Set menu_density() Menu
-def menu_density_set(self: hou.Node) -> None:
-    
-    sel = self.parm(GLB_DENSITY_PRESETS).evalAsInt()
-    
-    if sel == 1:
-        self.setParms({GLB_DENSITY: 1000000}) # type: ignore
-    elif sel == 2:
-        self.setParms({GLB_DENSITY: 2000000}) # type: ignore
-    elif sel == 3:
-        self.setParms({GLB_DENSITY: 5000000}) # type: ignore
-    elif sel == 4:
-        self.setParms({GLB_DENSITY: 15000000}) # type: ignore
-    elif sel == 5:
-        self.setParms({GLB_DENSITY: 25000000}) # type: ignore
-    elif sel == 6:
-        self.setParms({GLB_DENSITY: 50000000}) # type: ignore
-    elif sel == 7:
-        self.setParms({GLB_DENSITY: 100000000}) # type: ignore
-    elif sel == 8:
-        self.setParms({GLB_DENSITY: 150000000}) # type: ignore
-    elif sel == 9:
-        self.setParms({GLB_DENSITY: 250000000}) # type: ignore
-    elif sel == 10:
-        self.setParms({GLB_DENSITY: 500000000}) # type: ignore
-    elif sel == 11:
-        self.setParms({GLB_DENSITY: 750000000}) # type: ignore
-    elif sel == 12:
-        self.setParms({GLB_DENSITY: 1000000000}) # type: ignore
-
-    # reset to null value so we can set the same preset again
-    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
-
-# Set menu_density() Menu
-def menu_density_set_default(self: hou.Node) -> None:
-    self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
-
-
-###############################################################################################
-# MENU - Build vars type menus
-###############################################################################################
-def menu_T(mode: int) -> list:
-    """
-    Args:
-        int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
-
-    Returns:
-        list: [return menu list]
-    """
-    menu=[]
-    if mode:
-        # build menu without parametrics
-        for i, item in flam3h_varsPRM().menu_vars_no_PRM():
-            menu.append(i)
-            menu.append(item.capitalize())
-    else:
-        # build menu with parametrics
-        for i, item in flam3h_varsPRM().menu_vars_all():
-            menu.append(i)
-            menu.append(item.capitalize())
-        
-    return menu
-
-
-###############################################################################################
-# MENU - Build iterator copy paste menu
-###############################################################################################
-MARK_ITER_MSG = "Please mark an iterator first"
-MARK_FF_MSG = "Please mark the FF first"
-def menu_copypaste(kwargs: dict) -> list:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-
-    Returns:
-        list: [return menu list]
-    """    
-    # init menu
-    menu=[]
-
-    # Check if we copied an iterator
-    try:
-        hou.session.flam3node_mp_id # type: ignore
-    except:
-        hou.session.flam3node_mp_id = None # type: ignore
-
-    id_from = hou.session.flam3node_mp_id # type: ignore
-
-    # If an iterator has been copied on a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
-    try:
-        hou.session.flam3node.type() # type: ignore
-    except:
-        id_from = None
-
-    # If we did and the FLAM3 node still exist
-    if id_from is not None:
-
-        # current id
-        id = kwargs['script_multiparm_index']
-
-        node=kwargs['node']
-        flam3node = hou.session.flam3node # type: ignore
-        
-        if node == flam3node and id==id_from:
-            menuitems = ( "Iterator marked. Select a different iterator number or a different FLAM3 node to paste those values", "" )
-        elif node == flam3node:
-            menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
-        else:
-            flam3nodeIter = f"{str(flam3node)}.iter."
-            menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: Post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
-        for i, item in enumerate(menuitems):
-            menu.append(i)
-            menu.append(item)
-
-        return menu
-    else:
-        menuitems = ( MARK_ITER_MSG, "" )
-        for i, item in enumerate(menuitems):
-            menu.append(i-1)
-            menu.append(item)
-
-        return menu
-
-
-###############################################################################################
-# MENU - Build FF copy paste menu
-###############################################################################################
-def menu_copypaste_FF(kwargs: dict) -> list:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-
-    Returns:
-        list: [return menu list]
-    """    
-    # init menu
-    menu=[]
-
-    # Check if we copied an iterator
-    try:
-        hou.session.flam3node_FF_check # type: ignore
-    except:
-        hou.session.flam3node_FF_check = None # type: ignore
-
-    flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
-
-    # If the FF has been copied on a node that has been deleted
-    # revert to -1 so that we are forced to copy an FF again.
-    try:
-        hou.session.flam3node_FF.type() # type: ignore
-    except:
-        flam3node_FF_check = None
-
-    # If we did and the FLAM3 node still exist
-    if flam3node_FF_check is not None:
-
-        node=kwargs['node']
-        flam3node_FF = hou.session.flam3node_FF # type: ignore
-        
-        if node == flam3node_FF:
-            menuitems = ( "FF marked. Select a different FLAM3 node to paste those FF values.", "" )
-        else:
-            flam3nodeFF = f"{str(flam3node_FF)}.FF"
-            menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: Post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
-        for i, item in enumerate(menuitems):
-            menu.append(i)
-            menu.append(item)
-
-        return menu
-    else:
-        menuitems = ( MARK_FF_MSG, "" )
-        for i, item in enumerate(menuitems):
-            menu.append(i-1)
-            menu.append(item)
-
-        return menu
-
-
-
-###############################################################################################
-# FLAM3 paste list of parms
-###############################################################################################
-def paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
-    """
-    Args:
-        prm_list (tuple): [parameters list to query and set]
-        node (hou.Node): [current hou.Node to set]
-        flam3node (hou.Node): [hou.Node to copy values from]
-        id (str): [current multiparamter index]
-        id_from (str): [multiparameter index to copy from]
-    """    
-    for prm in prm_list:
-        # if a tuple
-        if prm[1]:
-            prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
-            prm_to = node.parmTuple(f"{prm[0]}{id}")
-            prm_idx = 0
-            for p in prm_from:
-                if len(p.keyframes()):
-                    for k in p.keyframes():
-                        prm_to[prm_idx].setKeyframe(k)
-                else:
-                    prm_to[prm_idx].set(p.eval())
-                prm_idx += 1
-        else:
-            prm_from = flam3node.parm(f"{prm[0]}{id_from}")
-            prm_to = node.parm(f"{prm[0]}{id}")
-            if len(prm_from.keyframes()):
-                    for k in prm_from.keyframes():
-                        prm_to.setKeyframe(k)
-            else:
-                prm_to.set(prm_from.eval())
-
-
-###############################################################################################
-# FLAM3 (*T)Types-> paste parametric parms if any are found in the list of var types passed in
-###############################################################################################
-def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
-    """
-    Args:
-        prmT_list (tuple): [variations list - types]
-        varsPRM (tuple): [variation's parmaters list]
-        node (hou.Node): [current hou.Node to set]
-        flam3node (hou.Node): [hou.Node to copy values from]
-        id (str): [current multiparamter index]
-        id_from (str): [multiparameter index to copy from]
-    """    
-    for prm in prmT_list:
-
-        prm_from = flam3node.parm(f"{prm}{id_from}").eval()
-        node.setParms({f"{prm}{id}": prm_from}) # type: ignore
-        # Check if this var is a parametric or not
-        v_type = int(prm_from)
-        if(varsPRM[v_type][-1]):
-            
-            paste_from_list(varsPRM[v_type][1:-1], node, flam3node, id, id_from)
-
-
-###############################################################################################
-# simple save existing note and add the iterator copy string info to it
-###############################################################################################
-def paste_save_note(_note: str) -> str:
-    """
-    Args:
-        _note (str): [current note in the parameter]
-
-    Returns:
-        str: [simple new note append]
-    """
-
-    search_iter = "iter."
-    search_FF = ".FF"
-
-    if _note.find("(") or _note.find(")") == -1:
-        _note_split = _note.split(" ")
-        if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
-            note = "(" + " ".join(_note_split[0:-1]) + ")" + " "
-        elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
-            note = ""
-        else:
-            note = "(" + _note + ")" + " "
-    else:
-        note = "(" + _note[_note.find("(")+1:_note.find(")")] + ")" + " "
-
-    return note
-
-
-###############################################################################################
-# FLAM3 paste note msg
-# int_mode:
-# 0 -> iterators
-# 1 -> FF all
-# 2 -> FF sections
-###############################################################################################
-def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
-    """
-    Args:
-        int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
-        str_section (str): [section name string to be copied, this is only for msg print info]
-        node (hou.Node): [current hou.Node to set]
-        flam3node (hou.Node): [[hou.Node to copy values from]
-        id (str): [current multiparamter index]
-        id_from (str): [multiparameter index to copy from]
-    """ 
-    
-    n = flam3h_iterator_prm_names
-    _current_note_FF = node.parm("ffnote").evalAsString()
-
-    if int_mode == 0:
-        _current_note = node.parm(f"note_{id}").evalAsString()
-        # If on the same FLAM3 node
-        if node == flam3node:
-            if len(_current_note) == 0:
-                node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
-            else:
-                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
-        else:
-            if len(_current_note) == 0:
-                node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
-            else:
-                node.setParms({f"{n.main_note}_{id}": f"{paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
-            print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section} to: {str(node)}.iter.{id}{str_section}")
-    elif int_mode == 1:
-        if node != flam3node:
-            if len(_current_note_FF) == 0:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
-            else:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
-            print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF to: {str(node)}.FF")
-    elif int_mode == 2:
-        if node != flam3node:
-            if len(_current_note_FF) == 0:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
-            else:
-                node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
-            print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
-
-
-###############################################################################################
-# Copy paste all iterator's values from one to another and also from different FLAM3 HDA nodes
-###############################################################################################
-def prm_paste(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """    
-    if kwargs["ctrl"]:
-
-        # current node
-        node=kwargs['node']
-        
-        # current iterator
-        id = kwargs['script_multiparm_index']
-
-        # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3node # type: ignore
-        id_from = hou.session.flam3node_mp_id # type: ignore
-
-        # If an iterator was copied on a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
-        try:
-            flam3node.type()
-        except:
-            id_from = None
-
-        # If we ever copied an iterator from a currently existing FLAM3 node
-        if id_from is not None:
-            if node==flam3node and id==id_from:
-                print(f"{str(node)}: Iterator marked. Select a different iterator number to paste those values.")
-            else:
-                pastePRM_T_from_list(flam3h_iterator.allT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-                paste_from_list(flam3h_iterator.allMisc, node, flam3node, str(id), str(id_from))
-                paste_set_note(0, "", node, flam3node, str(id), str(id_from))
-
-        else:
-            print(f"{str(node)}: {MARK_ITER_MSG}.")
-
-    elif kwargs["shift"]:
-        del hou.session.flam3node_mp_id # type: ignore
-        del hou.session.flam3node # type: ignore
-
-    else:
-        hou.session.flam3node_mp_id = kwargs['script_multiparm_index'] # type: ignore
-        hou.session.flam3node = kwargs['node'] # type: ignore
-        print(f"{str(kwargs['node'])}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}") # type: ignore
-
-
-###############################################################################################
-# FF - Copy paste all FF's values from one FLAM3 node to another FLAM3 node
-###############################################################################################
-def prm_paste_FF(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """    
-    if kwargs["ctrl"]:
-
-        # current node
-        node=kwargs['node']
-
-        # FLAM3 node and its state we just copied
-        flam3node_FF = hou.session.flam3node_FF # type: ignore
-        flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
-
-        # If the FF was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
-        try:
-            flam3node_FF.type()
-        except:
-            flam3node_FF_check = None
-
-        # If we ever copied an FF from a currently existing FLAM3 node
-        if flam3node_FF_check is not None:
-            if node==flam3node_FF:
-                print(f"{str(node)}: FF marked. Select a different FLAM3 node to paste those FF values.")
-            else:
-                pastePRM_T_from_list(flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-                pastePRM_T_from_list(flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
-                pastePRM_T_from_list(flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-                paste_from_list(flam3h_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
-                paste_set_note(1, "", node, flam3node_FF, "", "")
-
-        else:
-            print(f"{str(node)}: {MARK_FF_MSG}.")
-
-    elif kwargs["shift"]:
-        del hou.session.flam3node_FF_check # type: ignore
-        del hou.session.flam3node_FF # type: ignore
-
-    else:
-        hou.session.flam3node_FF_check = 1 # type: ignore
-        hou.session.flam3node_FF = kwargs['node'] # type: ignore
-        print(f"{str(kwargs['node'])}: Copied FF: {str(hou.session.flam3node_FF)}->FF") # type: ignore
-
-
-###############################################################################################
-# paste sections of iterator's values from one to another and also from different FLAM3 nodes
-###############################################################################################
-def prm_paste_sel(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """    
-    # current node
-    node=kwargs['node']
-    
-    # current iterator
-    id = kwargs['script_multiparm_index']
-
-    # FLAM3 node and Iterator we just copied
-    flam3node = hou.session.flam3node # type: ignore
-    id_from = hou.session.flam3node_mp_id # type: ignore
-
-    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
-    #
-    # If an iterator was copied from a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
-    '''
-    try:
-        flam3node.type()
-    except:
-        id_from = None
-    '''
-
-    # If we ever copied an iterator from a currently existing FLAM3 node
-    if id_from is not None:
-
-        n = flam3h_iterator_prm_names
-        
-        # Get user selection of paste methods
-        paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
-
-        # set MAIN
-        if paste_sel == 1:
-            paste_from_list(flam3h_iterator.sec_main, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_MAIN, node, flam3node, str(id), str(id_from))
-        # set XML_XF_XAOS
-        elif paste_sel == 2:
-            paste_from_list(flam3h_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_XAOS, node, flam3node, str(id), str(id_from))
-        # set SHADER 
-        elif paste_sel == 3:
-            paste_from_list(flam3h_iterator.sec_shader, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_SHADER, node, flam3node, str(id), str(id_from))
-        # set PRE VARS
-        elif paste_sel == 4:
-            pastePRM_T_from_list(flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-            paste_from_list(flam3h_iterator.sec_prevarsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_PREVARS, node, flam3node, str(id), str(id_from))
-        # set VARS
-        elif paste_sel == 5:
-            pastePRM_T_from_list(flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-            paste_from_list(flam3h_iterator.sec_varsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_VARS, node, flam3node, str(id), str(id_from))
-        # set POST VARS
-        elif paste_sel == 6:
-            pastePRM_T_from_list(flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-            paste_from_list(flam3h_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_POSTVARS, node, flam3node, str(id), str(id_from))
-        # set PRE AFFINE
-        elif paste_sel == 7:
-            paste_from_list(flam3h_iterator.sec_preAffine, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_PREAFFINE, node, flam3node, str(id), str(id_from))
-        # set POST AFFINE
-        elif paste_sel == 8:
-            paste_from_list(flam3h_iterator.sec_postAffine, node, flam3node, str(id), str(id_from))
-            paste_set_note(0, SEC_POSTAFFINE, node, flam3node, str(id), str(id_from))
-     
-        # Set it to a null value ( first in the menu array idx in this case )
-        # so that we can paste the same section again, if we want to.
-        #
-        # please check the def->menu_copypaste() to know its size.
-        node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
-        node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
-        
-    else:
-        print(f"{str(node)}: {MARK_ITER_MSG}")
-
-
-###############################################################################################
-# FF paste sections of FF's values from one FLAM3 node to another FLAM3 node
-###############################################################################################
-def prm_paste_sel_FF(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """    
-    # current node
-    node=kwargs['node']
-
-    # FLAM3 node and its state we just copied
-    flam3node_FF = hou.session.flam3node_FF # type: ignore
-    flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
-
-    # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
-    #
-    # If the FF was copied from a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
-    '''
-    try:
-        flam3node_FF.type()
-    except:
-        flam3node_FF_check = None
-    '''
-
-    # If we ever copied an FF from a currently existing FLAM3 node
-    if flam3node_FF_check is not None:
-
-        n = flam3h_iterator_prm_names
-        
-        # Get user selection of paste methods
-        ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
-        
-        # set FF PRE VARS
-        if ff_paste_sel == 1:
-            pastePRM_T_from_list(flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-            paste_from_list(flam3h_iterator_FF.sec_prevarsW_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, SEC_PREVARS, node, flam3node_FF, "", "")
-        # set FF VARS
-        elif ff_paste_sel == 2:
-            pastePRM_T_from_list(flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
-            paste_from_list(flam3h_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
-        # set FF POST VARS
-        elif ff_paste_sel == 3:
-            pastePRM_T_from_list(flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-            paste_from_list(flam3h_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
-        # set FF PRE AFFINE
-        elif ff_paste_sel == 4:
-            paste_from_list(flam3h_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, SEC_PREAFFINE, node, flam3node_FF, "", "")
-        # set FF POST AFFINE
-        elif ff_paste_sel == 5:
-            paste_from_list(flam3h_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
-            paste_set_note(2, SEC_POSTAFFINE, node, flam3node_FF, "", "")
-
-        # Set it to a null value ( first in the menu array idx in this case )
-        # so that we can paste the same section again, if we want to.
-        #
-        # please check def->menu_copypaste_FF() to know its size.
-        node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
-        node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
-                
-    else:
-        print(f"{str(node)}: {MARK_FF_MSG}.")
 
 
 ###############################################################################################
 # FLAM3 on create init
 ###############################################################################################
-def flam3_on_create(kwargs: dict) -> None:
+def flam3h_on_create(kwargs: dict) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
@@ -1192,18 +601,18 @@ def flam3_on_create(kwargs: dict) -> None:
 ###############################################################################################
 # FLAM3 on Loaded init
 ###############################################################################################
-def flam3_on_loaded(kwargs: dict) -> None:
+def flam3h_on_loaded(kwargs: dict) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
     """
-    # Check for left over JSON, IN and OUT file paths no longer valid and init_presets accordingly
+    # Check for left over JSON, IN and OUT file paths no longer valid and flam3h_init_presets accordingly
     
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    init_presets(kwargs, CP_PALETTE_PRESETS, 0)
+    flam3h_init_presets(kwargs, CP_PALETTE_PRESETS, 0)
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    init_presets(kwargs, IN_PRESETS, 0)
-    init_presets(kwargs, OUT_PRESETS)
+    flam3h_init_presets(kwargs, IN_PRESETS, 0)
+    flam3h_init_presets(kwargs, OUT_PRESETS)
 
     node = kwargs['node']
     # update about tab just in case
@@ -1223,7 +632,7 @@ def flam3_on_loaded(kwargs: dict) -> None:
 ###############################################################################################
 # Init parameter presets menu list as soon as you load a valid json/flame file
 ###############################################################################################
-def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
+def flam3h_init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
     """
     Args:
         kwargs (dict): [kwargs[] dictionary]
@@ -1247,7 +656,7 @@ def init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
                 if mode:
                     prm.set('0')
                     node.setParms({IN_ISVALID_FILE: 1})
-                    in_to_flam3h(node)
+                    in_to_flam3h(kwargs)
         else:
             prm.set('-1')
             node.setParms({IN_ISVALID_FILE: 0})
@@ -1719,111 +1128,6 @@ def viewportParticleSize(self: hou.Node) -> None:
 
 
 
-###############################################################################################
-# Convert and set "xaos:"" command strings between modes from the preferences xaos mode menu
-###############################################################################################
-def flam3_xaos_convert(self) -> None:
-    """Here I am using a class function call from: out_xf_flame_data class.out_xf_xaos_from()
-       down below inside the save XML/FLAME file section of this file.
-       The class function: out_xf_flame_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
-    """
-    autodiv = self.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
-    div_xaos = 'xaos:'
-    div_weight = ':'
-    if autodiv:
-        div_xaos = 'xaos :'
-        div_weight = ' :'
-    
-    # Get xaos
-    f3d = out_xf_flame_data(self)
-    # Convert xaos
-    xaos_new = f3d.out_xf_xaos_from(0)
-    # updated CachedUserData: flam3h_xaos_iterators_prev
-    auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_new)
-    
-    for iter in range(f3d.iter_count):
-        if xaos_new[iter]:
-            xs = div_xaos + div_weight.join(xaos_new[iter].split(" "))
-            self.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(iter+1)}": xs})
-        else:
-            # I dnt think this is needed anymore but i leave it here.
-            self.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(iter+1)}": div_xaos})
-
-
-###############################################################################################
-# Parameters resets... 
-###############################################################################################
-def reset_preaffine(kwargs: dict) -> None:
-    node = kwargs['node']
-    id = kwargs['script_multiparm_index']
-    n = flam3h_iterator_prm_names
-    # pre affine
-    node.setParms({f"{n.preaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
-    node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
-    node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
-    node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
-    
-def reset_postaffine(kwargs: dict) -> None:
-    node = kwargs['node']
-    id = kwargs['script_multiparm_index']
-    n = flam3h_iterator_prm_names
-    # post affine
-    if node.parm(f"{n.postaffine_do}_{str(id)}").eval():
-        node.setParms({f"{n.postaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
-        node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
-        node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
-        node.setParms({f"{n.postaffine_ang}_{str(id)}": 0})
-    
-def reset_preaffine_FF(kwargs: dict) -> None:
-    node = kwargs['node']
-    n = flam3h_iterator_prm_names
-    # pre affine
-    node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
-    node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
-    node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
-    node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
-    
-def reset_postaffine_FF(kwargs: dict) -> None:
-    node = kwargs['node']
-    n = flam3h_iterator_prm_names
-    # post affine
-    if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval():
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
-
-
-def reset_FF(self: hou.Node) -> None:
-
-    n = flam3h_iterator_prm_names
-
-    self.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"}) # type: ignore
-    # FF pre
-    self.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}":  0}) # type: ignore 
-    self.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0}) # type: ignore
-    # FF var
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0}) # type: ignore
-    # FF post
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0}) # type: ignore
-    # FF affine
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
-    self.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0}) # type: ignore
-
-
 def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
     """
     Args:
@@ -1914,325 +1218,1019 @@ def reset_PREFS(self: hou.Node, mode=0) -> None:
         self.setParms({"f3c": 1}) # type: ignore
 
 
-###############################################################################################
-# Load default values. ( Sierpinsky triangle )
-###############################################################################################
-def flam3_default(self: hou.Node) -> None:
-    """
-    Args:
-        self (hou.Node): [current hou.Node]
-    """
-    # Iterators reset
-    self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-    for p in self.parms():
-        if not p.isLocked():
-            p.deleteAllKeyframes()
-    # Add back iterators
-    # This way all parameters will reset to their default values.
-    self.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
-    # update xaos
-    auto_set_xaos(self)
 
-    # SYS
-    reset_SYS(self, 1, 10, 1)
-    reset_FF(self)
-    reset_CP(self)
-    reset_MB(self)
-    reset_IN(self)
-    reset_OUT(self)
-    reset_PREFS(self)
+
+
+class flam3h_iterator_utils():
     
-    # iterator prm names
-    n = flam3h_iterator_prm_names
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
 
-    # iter 1
-    #
-    # shader
-    self.setParms({f"{n.shader_color}_1": 0}) # type: ignore
-    self.setParms({f"{n.shader_speed}_1": -0.5}) # type: ignore
-    # vars
-    self.setParms({f"{n.prevar_type_1}_1": 0}) # type: ignore
-    self.setParms({f"{n.prevar_type_2}_1": 0}) # type: ignore
-    self.setParms({f"{n.var_type_1}_1": 0}) # type: ignore
-    self.setParms({f"{n.var_type_2}_1": 0}) # type: ignore
-    self.setParms({f"{n.var_type_3}_1": 0}) # type: ignore
-    self.setParms({f"{n.var_type_4}_1": 0}) # type: ignore
-    self.setParms({f"{n.postvar_type_1}_1": 0}) # type: ignore
-    # pre affine
-    self.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))}) # type: ignore
-    self.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))}) # type: ignore
-    self.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))}) # type: ignore
 
-    # iter 2
-    #
-    # shader
-    self.setParms({f"{n.shader_color}_2": 0.5}) # type: ignore
-    self.setParms({f"{n.shader_speed}_2": -0.5}) # type: ignore
-    # vars
-    self.setParms({f"{n.prevar_type_1}_2": 0}) # type: ignore
-    self.setParms({f"{n.prevar_type_2}_2": 0}) # type: ignore
-    self.setParms({f"{n.var_type_1}_2": 0}) # type: ignore
-    self.setParms({f"{n.var_type_2}_2": 0}) # type: ignore
-    self.setParms({f"{n.var_type_3}_2": 0}) # type: ignore
-    self.setParms({f"{n.var_type_4}_2": 0}) # type: ignore
-    self.setParms({f"{n.postvar_type_1}_2": 0}) # type: ignore
-    # pre affine
-    self.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))}) # type: ignore
-    self.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))}) # type: ignore
-    self.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))}) # type: ignore
+    @staticmethod
+    def menu_T(mode: int) -> list:
+        """
+        Args:
+            int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
 
-    # iter 3
-    #
-    # shader
-    self.setParms({f"{n.shader_color}_3": 1.0}) # type: ignore
-    self.setParms({f"{n.shader_speed}_3": -0.5}) # type: ignore
-    # vars
-    self.setParms({f"{n.prevar_type_1}_3": 0}) # type: ignore
-    self.setParms({f"{n.prevar_type_2}_3": 0}) # type: ignore
-    self.setParms({f"{n.var_type_1}_3": 0}) # type: ignore
-    self.setParms({f"{n.var_type_2}_3": 0}) # type: ignore
-    self.setParms({f"{n.var_type_3}_3": 0}) # type: ignore
-    self.setParms({f"{n.var_type_4}_3": 0}) # type: ignore
-    self.setParms({f"{n.postvar_type_1}_3": 0}) # type: ignore
-    # pre affine
-    self.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))}) # type: ignore
-    self.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
-    self.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
+        Returns:
+            list: [return menu list]
+        """
+        menu=[]
+        if mode:
+            # build menu without parametrics
+            for i, item in flam3h_varsPRM().menu_vars_no_PRM():
+                menu.append(i)
+                menu.append(item.capitalize())
+        else:
+            # build menu with parametrics
+            for i, item in flam3h_varsPRM().menu_vars_all():
+                menu.append(i)
+                menu.append(item.capitalize())
+            
+        return menu
+
+
+
+
+        
+    @staticmethod
+    def paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+        """
+        Args:
+            prm_list (tuple): [parameters list to query and set]
+            node (hou.Node): [current hou.Node to set]
+            flam3node (hou.Node): [hou.Node to copy values from]
+            id (str): [current multiparamter index]
+            id_from (str): [multiparameter index to copy from]
+        """    
+        for prm in prm_list:
+            # if a tuple
+            if prm[1]:
+                prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
+                prm_to = node.parmTuple(f"{prm[0]}{id}")
+                prm_idx = 0
+                for p in prm_from:
+                    if len(p.keyframes()):
+                        for k in p.keyframes():
+                            prm_to[prm_idx].setKeyframe(k)
+                    else:
+                        prm_to[prm_idx].set(p.eval())
+                    prm_idx += 1
+            else:
+                prm_from = flam3node.parm(f"{prm[0]}{id_from}")
+                prm_to = node.parm(f"{prm[0]}{id}")
+                if len(prm_from.keyframes()):
+                        for k in prm_from.keyframes():
+                            prm_to.setKeyframe(k)
+                else:
+                    prm_to.set(prm_from.eval())
     
-    self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+    
+    @staticmethod           
+    def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+        """
+        Args:
+            prmT_list (tuple): [variations list - types]
+            varsPRM (tuple): [variation's parmaters list]
+            node (hou.Node): [current hou.Node to set]
+            flam3node (hou.Node): [hou.Node to copy values from]
+            id (str): [current multiparamter index]
+            id_from (str): [multiparameter index to copy from]
+        """    
+        for prm in prmT_list:
+            prm_from = flam3node.parm(f"{prm}{id_from}").eval()
+            node.setParms({f"{prm}{id}": prm_from}) # type: ignore
+            # Check if this var is a parametric or not
+            v_type = int(prm_from)
+            if(varsPRM[v_type][-1]):  
+                flam3h_iterator_utils.paste_from_list(varsPRM[v_type][1:-1], node, flam3node, id, id_from)
 
 
+    @staticmethod
+    def paste_save_note(_note: str) -> str:
+        """
+        Args:
+            _note (str): [current note in the parameter]
 
-def auto_set_xaos_data_get(self: hou.Node, data_name: str) -> Union[list, None]:
-    """Retrieve the desire data from FLAM3H data srting parameters
-and reconvert it back to usable types.
+        Returns:
+            str: [simple new note append]
+        """
 
-    Args:
-        self (hou.Node): FLAM3H node
-        data_name (str): The FLAM3H parameter name you desire to get.
+        search_iter = "iter."
+        search_FF = ".FF"
 
-    Returns:
-        Union[list, None]: A valid data type of the same data retrieved to be used inside: auto_set_xaos()
-    """
-    if data_name == FLAM3H_PRM_XAOS_MP_MEM:
-        get_prm = self.parm(FLAM3H_PRM_XAOS_MP_MEM).eval()
-        if get_prm:
-            return [int(x) for x in get_prm.split(' ')]
+        if _note.find("(") or _note.find(")") == -1:
+            _note_split = _note.split(" ")
+            if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
+                note = "(" + " ".join(_note_split[0:-1]) + ")" + " "
+            elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
+                note = ""
+            else:
+                note = "(" + _note + ")" + " "
+        else:
+            note = "(" + _note[_note.find("(")+1:_note.find(")")] + ")" + " "
+        return note
+
+
+    @staticmethod
+    def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+        """
+        Args:
+            int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
+            str_section (str): [section name string to be copied, this is only for msg print info]
+            node (hou.Node): [current hou.Node to set]
+            flam3node (hou.Node): [[hou.Node to copy values from]
+            id (str): [current multiparamter index]
+            id_from (str): [multiparameter index to copy from]
+        """ 
+        
+        n = flam3h_iterator_prm_names
+        _current_note_FF = node.parm("ffnote").evalAsString()
+
+        if int_mode == 0:
+            _current_note = node.parm(f"note_{id}").evalAsString()
+            # If on the same FLAM3 node
+            if node == flam3node:
+                if len(_current_note) == 0:
+                    node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
+                else:
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
+            else:
+                if len(_current_note) == 0:
+                    node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
+                else:
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
+                print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section} to: {str(node)}.iter.{id}{str_section}")
+        elif int_mode == 1:
+            if node != flam3node:
+                if len(_current_note_FF) == 0:
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
+                else:
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
+                print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF to: {str(node)}.FF")
+        elif int_mode == 2:
+            if node != flam3node:
+                if len(_current_note_FF) == 0:
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
+                else:
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
+                print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
+
+
+    @staticmethod
+    def auto_set_xaos_data_get(node: hou.Node, data_name: str) -> Union[list, None]:
+        """Retrieve the desire data from FLAM3H data srting parameters
+    and reconvert it back to usable types.
+
+        Args:
+            self (hou.Node): FLAM3H node
+            data_name (str): The FLAM3H parameter name you desire to get.
+
+        Returns:
+            Union[list, None]: A valid data type of the same data retrieved to be used inside: auto_set_xaos()
+        """
+        if data_name == FLAM3H_PRM_XAOS_MP_MEM:
+            get_prm = node.parm(FLAM3H_PRM_XAOS_MP_MEM).eval()
+            if get_prm:
+                return [int(x) for x in get_prm.split(' ')]
+            else:
+                return None
+        elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
+            get_prm = node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).eval()
+            if get_prm:
+                return [x.split(' ') for x in get_prm.split(':')]
+            else:
+                return None
         else:
             return None
-    elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
-        get_prm = self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).eval()
-        if get_prm:
-            return [x.split(' ') for x in get_prm.split(':')]
-        else:
-            return None
-    else:
-        return None
 
-def auto_set_xaos_data_set(self: hou.Node, data_name: str, data: Union[list, tuple]) -> None:
-    """Set the data_name data into FLAM3H data parameters.
-Note that all the data will be of type: string.
 
-    Args:
-        self (hou.Node): FLAM3H node
-        data_name (str): The parameter name you desire to swt.
-        data (list): The data to set. A tuple can only come from: out_xf_flame_data(self).out_xf_xaos_from(mode)
-    """
-    if data_name == FLAM3H_PRM_XAOS_MP_MEM:
-        data_to_prm = ' '.join([str(x) for x in data])
-        # unlock
-        self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
-        self.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
-        # lock
-        self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
-    elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
-        # unlock
-        self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
-        # to prm from: flam3_xaos_convert()
-        if isinstance(data, tuple):
-            data_to_prm = ':'.join(data)
-            self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+    @staticmethod
+    def auto_set_xaos_data_set(node: hou.Node, data_name: str, data: Union[list, tuple]) -> None:
+        """Set the data_name data into FLAM3H data parameters.
+    Note that all the data will be of type: string.
+
+        Args:
+            self (hou.Node): FLAM3H node
+            data_name (str): The parameter name you desire to swt.
+            data (list): The data to set. A tuple can only come from: out_xf_flame_data(self).out_xf_xaos_from(mode)
+        """
+        if data_name == FLAM3H_PRM_XAOS_MP_MEM:
+            data_to_prm = ' '.join([str(x) for x in data])
+            # unlock
+            node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
+            node.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
             # lock
-            self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+            node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
+        elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
+            # unlock
+            node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
+            # to prm from: flam3_xaos_convert()
+            if isinstance(data, tuple):
+                data_to_prm = ':'.join(data)
+                node.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+                # lock
+                node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+            else:
+                collect = []
+                for xaos in data:
+                    collect.append(' '.join(xaos))
+                data_to_prm = ':'.join(collect)
+                node.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+                # lock
+                node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+
+
+
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+        
+    @property
+    def node(self):
+        return self._node
+    
+    
+    
+    def menu_global_density(self) -> list:
+        """
+        Args:
+            int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
+
+        Returns:
+            list: [return menu list]
+        """
+        iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        menu=[]
+        menuitems = ()
+        if iterators:
+            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", "500M", "750M", "1 Billion", "" )
         else:
-            collect = []
-            for xaos in data:
-                collect.append(' '.join(xaos))
-            data_to_prm = ':'.join(collect)
-            self.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
-            # lock
-            self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+            menuitems = ("Please, add at least one iterator", "")
+        for i, item in enumerate(menuitems):
+            menu.append(i)
+            menu.append(item)
+        return menu
+    
+    
+    # Set menu_density() Menu
+    def menu_global_density_set(self) -> None:
+        
+        sel = self.node.parm(GLB_DENSITY_PRESETS).evalAsInt()
+        
+        if sel == 1:
+            self.node.setParms({GLB_DENSITY: 1000000}) # type: ignore
+        elif sel == 2:
+            self.node.setParms({GLB_DENSITY: 2000000}) # type: ignore
+        elif sel == 3:
+            self.node.setParms({GLB_DENSITY: 5000000}) # type: ignore
+        elif sel == 4:
+            self.node.setParms({GLB_DENSITY: 15000000}) # type: ignore
+        elif sel == 5:
+            self.node.setParms({GLB_DENSITY: 25000000}) # type: ignore
+        elif sel == 6:
+            self.node.setParms({GLB_DENSITY: 50000000}) # type: ignore
+        elif sel == 7:
+            self.node.setParms({GLB_DENSITY: 100000000}) # type: ignore
+        elif sel == 8:
+            self.node.setParms({GLB_DENSITY: 150000000}) # type: ignore
+        elif sel == 9:
+            self.node.setParms({GLB_DENSITY: 250000000}) # type: ignore
+        elif sel == 10:
+            self.node.setParms({GLB_DENSITY: 500000000}) # type: ignore
+        elif sel == 11:
+            self.node.setParms({GLB_DENSITY: 750000000}) # type: ignore
+        elif sel == 12:
+            self.node.setParms({GLB_DENSITY: 1000000000}) # type: ignore
+        # reset to null value so we can set the same preset again
+        self._node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
 
-    
-def auto_set_xaos(self: hou.Node) -> None:
-    """Set iterator's xaos values every time an iterator is added or removed.
 
-    Args:
-        self (hou.Node): FLAM3H node
-    """
-    iter_num = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+    # Set menu_density() Menu
+    def menu_global_density_set_default(self) -> None:
+        self.node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
     
-    autodiv = self.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
-    div_xaos = 'xaos:'
-    div_weight = ':'
-    if autodiv:
-        div_xaos = 'xaos :'
-        div_weight = ' :'
     
-    # unlock
-    self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
-    
-    autoset = self.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
-    if autoset:
-        
-        # unlock
-        self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
-        
-        # init indexes
-        idx_del_inbetween = None
-        idx_add_inbetween = None
-        
-        mpmem = []
-        mpmem_hou_get = []
-        xaos_str_hou_get = []
-        
-        # get mpmem parms now
-        [mpmem.append(int(self.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
-        
-        # get mpmem from CachedUserData
-        __mpmem_hou_get = auto_set_xaos_data_get(self, FLAM3H_PRM_XAOS_MP_MEM)
-        if __mpmem_hou_get is None:
-            mpmem_hou_get = mpmem
+
+    def menu_copypaste(self) -> list:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+
+        Returns:
+            list: [return menu list]
+        """    
+        # init menu
+        menu=[]
+
+        # Check if we copied an iterator
+        try:
+            hou.session.flam3node_mp_id # type: ignore
+        except:
+            hou.session.flam3node_mp_id = None # type: ignore
+
+        id_from = hou.session.flam3node_mp_id # type: ignore
+
+        # If an iterator has been copied on a node that has been deleted
+        # revert to -1 so that we are forced to copy an iterator again.
+        try:
+            hou.session.flam3node.type() # type: ignore
+        except:
+            id_from = None
+
+        # If we did and the FLAM3 node still exist
+        if id_from is not None:
+
+            # current id
+            id = self.kwargs['script_multiparm_index']
+
+            node = self.kwargs['node']
+            flam3node = hou.session.flam3node # type: ignore
+            
+            if node == flam3node and id==id_from:
+                menuitems = ( "Iterator marked. Select a different iterator number or a different FLAM3 node to paste those values", "" )
+            elif node == flam3node:
+                menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
+            else:
+                flam3nodeIter = f"{str(flam3node)}.iter."
+                menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: Post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+            return menu
         else:
-            mpmem_hou_get = list(__mpmem_hou_get)
-        
-        # collect all xaos
-        val = out_flame_utils.out_xaos_collect(self, iter_num, flam3h_iterator_prm_names.xaos)
-        # fill missing weights if any
-        fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1) for item in val]
-        
-        # convert all xaos into array of strings
-        xaos_str = []
-        for xaos in fill_all_xaos:
-            collect = []
-            for item in xaos:
-                collect.append(str(item))
-            xaos_str.append(collect)
+            menuitems = ( MARK_ITER_MSG, "" )
+            for i, item in enumerate(menuitems):
+                menu.append(i-1)
+                menu.append(item)
+            return menu
+
+
+    def menu_copypaste_FF(self) -> list:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+
+        Returns:
+            list: [return menu list]
+        """    
+        # init menu
+        menu=[]
+
+        # Check if we copied an iterator
+        try:
+            hou.session.flam3node_FF_check # type: ignore
+        except:
+            hou.session.flam3node_FF_check = None # type: ignore
+
+        flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
+
+        # If the FF has been copied on a node that has been deleted
+        # revert to -1 so that we are forced to copy an FF again.
+        try:
+            hou.session.flam3node_FF.type() # type: ignore
+        except:
+            flam3node_FF_check = None
+
+        # If we did and the FLAM3 node still exist
+        if flam3node_FF_check is not None:
+
+            node = self.kwargs['node']
+            flam3node_FF = hou.session.flam3node_FF # type: ignore
             
-        # get xaos from CachedUserData
-        __xaos_str_hou_get = auto_set_xaos_data_get(self, FLAM3H_PRM_XAOS_ITERATOR_PREV)
-        if __xaos_str_hou_get is None:
-            xaos_str_hou_get = xaos_str
+            if node == flam3node_FF:
+                menuitems = ( "FF marked. Select a different FLAM3 node to paste those FF values.", "" )
+            else:
+                flam3nodeFF = f"{str(flam3node_FF)}.FF"
+                menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: Post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+
+            return menu
         else:
-            xaos_str_hou_get = list(__xaos_str_hou_get)
-            
-        # DEL: INBETWEEN get index: try
-        s_current = set(mpmem)
-        s_history = set(mpmem_hou_get)
-        _idx = list(set(s_history - s_current))
-        if _idx: idx_del_inbetween = int(_idx[0]) - 1
-        # ADD: INBETWEEN get index : try
-        for mp in range(iter_num-1):
-            if mpmem[mp] == mpmem[mp + 1]:
-                idx_add_inbetween = mp
-                break
+            menuitems = ( MARK_FF_MSG, "" )
+            for i, item in enumerate(menuitems):
+                menu.append(i-1)
+                menu.append(item)
+
+            return menu
         
-        # DEL
-        if idx_del_inbetween is not None and idx_del_inbetween < iter_num:
-            xaos_str = xaos_str_hou_get
-            del xaos_str[idx_del_inbetween]
-            for x in xaos_str:
-                del x[idx_del_inbetween]
-            # updated CachedUserData: flam3h_xaos_iterators_prev
-            auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
-        # otherwise ADD
-        # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
-        elif idx_add_inbetween is not None:
-            for xidx, x in enumerate(xaos_str):
-                if xidx != idx_add_inbetween:
-                    x.insert(idx_add_inbetween, '1.0')
-                    # x already had the new iterator weight added to the end of it
-                    # so lets remove the last element as it is not longer needed
-                    del x[-1]
-            # updated CachedUserData: flam3h_xaos_iterators_prev
-            auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+
+    
+    def prm_paste(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        if self.kwargs["ctrl"]:
+
+            # current node
+            node = self.node
+            
+            # current iterator
+            id = self.kwargs['script_multiparm_index']
+
+            # FLAM3 node and Iterator we just copied
+            flam3node = hou.session.flam3node # type: ignore
+            id_from = hou.session.flam3node_mp_id # type: ignore
+
+            # If an iterator was copied on a node that has been deleted
+            # revert to -1 so that we are forced to copy an iterator again.
+            try:
+                flam3node.type()
+            except:
+                id_from = None
+
+            # If we ever copied an iterator from a currently existing FLAM3 node
+            if id_from is not None:
+                if node==flam3node and id==id_from:
+                    print(f"{str(node)}: Iterator marked. Select a different iterator number to paste those values.")
+                else:
+                    self.pastePRM_T_from_list(flam3h_iterator.allT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+                    self.paste_from_list(flam3h_iterator.allMisc, node, flam3node, str(id), str(id_from))
+                    self.paste_set_note(0, "", node, flam3node, str(id), str(id_from))
+
+            else:
+                print(f"{str(node)}: {MARK_ITER_MSG}.")
+
+        elif self.kwargs["shift"]:
+            del hou.session.flam3node_mp_id # type: ignore
+            del hou.session.flam3node # type: ignore
+
         else:
-            # updated CachedUserData: flam3h_xaos_iterators_prev
-            auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
-            
-        # set all multi parms xaos strings parms
-        xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_round_floats(xaos_str)])
-        for mp_idx, xaos in enumerate(xaos_str_round_floats):
-            xaos_set = div_xaos + xaos
-            self.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
-            
-        # lock
-        self.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+            hou.session.flam3node_mp_id = self.kwargs['script_multiparm_index'] # type: ignore
+            hou.session.flam3node = self.node # type: ignore
+            print(f"{str(self.node)}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}") # type: ignore
+
+
+    def prm_paste_FF(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        if self.kwargs["ctrl"]:
+
+            # current node
+            node=self.node
+
+            # FLAM3 node and its state we just copied
+            flam3node_FF = hou.session.flam3node_FF # type: ignore
+            flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
+
+            # If the FF was copied from a node that has been deleted
+            # revert to -1 so that we are forced to copy an iterator again.
+            try:
+                flam3node_FF.type()
+            except:
+                flam3node_FF_check = None
+
+            # If we ever copied an FF from a currently existing FLAM3 node
+            if flam3node_FF_check is not None:
+                if node==flam3node_FF:
+                    print(f"{str(node)}: FF marked. Select a different FLAM3 node to paste those FF values.")
+                else:
+                    self.pastePRM_T_from_list(flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
+                    self.pastePRM_T_from_list(flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
+                    self.pastePRM_T_from_list(flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
+                    self.paste_from_list(flam3h_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
+                    self.paste_set_note(1, "", node, flam3node_FF, "", "")
+
+            else:
+                print(f"{str(node)}: {MARK_FF_MSG}.")
+
+        elif self.kwargs["shift"]:
+            del hou.session.flam3node_FF_check # type: ignore
+            del hou.session.flam3node_FF # type: ignore
+
+        else:
+            hou.session.flam3node_FF_check = 1 # type: ignore
+            hou.session.flam3node_FF = self.node # type: ignore
+            print(f"{str(self.node)}: Copied FF: {str(hou.session.flam3node_FF)}->FF") # type: ignore
+
+    
+    def prm_paste_sel(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        # current node
+        node=self.node
         
-    # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
-    # and pick up the updated values once we turn it back ON.
-    #
-    # reset iterator's mpmem prm
-    [self.setParms({f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
-    # update flam3h_xaos_mpmem
-    __mpmem_hou = []
-    [__mpmem_hou.append(int(self.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
-    
-    # export mpmem into CachedUserData
-    auto_set_xaos_data_set(self, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
-    # lock
-    self.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
+        # current iterator
+        id = self.kwargs['script_multiparm_index']
+
+        # FLAM3 node and Iterator we just copied
+        flam3node = hou.session.flam3node # type: ignore
+        id_from = hou.session.flam3node_mp_id # type: ignore
+
+        # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
+        #
+        # If an iterator was copied from a node that has been deleted
+        # revert to -1 so that we are forced to copy an iterator again.
+        '''
+        try:
+            flam3node.type()
+        except:
+            id_from = None
+        '''
+
+        # If we ever copied an iterator from a currently existing FLAM3 node
+        if id_from is not None:
+
+            n = flam3h_iterator_prm_names
+            
+            # Get user selection of paste methods
+            paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
+
+            # set MAIN
+            if paste_sel == 1:
+                self.paste_from_list(flam3h_iterator.sec_main, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_MAIN, node, flam3node, str(id), str(id_from))
+            # set XML_XF_XAOS
+            elif paste_sel == 2:
+                self.paste_from_list(flam3h_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_XAOS, node, flam3node, str(id), str(id_from))
+            # set SHADER 
+            elif paste_sel == 3:
+                self.paste_from_list(flam3h_iterator.sec_shader, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_SHADER, node, flam3node, str(id), str(id_from))
+            # set PRE VARS
+            elif paste_sel == 4:
+                self.pastePRM_T_from_list(flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(flam3h_iterator.sec_prevarsW, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_PREVARS, node, flam3node, str(id), str(id_from))
+            # set VARS
+            elif paste_sel == 5:
+                self.pastePRM_T_from_list(flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(flam3h_iterator.sec_varsW, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_VARS, node, flam3node, str(id), str(id_from))
+            # set POST VARS
+            elif paste_sel == 6:
+                self.pastePRM_T_from_list(flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(flam3h_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_POSTVARS, node, flam3node, str(id), str(id_from))
+            # set PRE AFFINE
+            elif paste_sel == 7:
+                self.paste_from_list(flam3h_iterator.sec_preAffine, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_PREAFFINE, node, flam3node, str(id), str(id_from))
+            # set POST AFFINE
+            elif paste_sel == 8:
+                self.paste_from_list(flam3h_iterator.sec_postAffine, node, flam3node, str(id), str(id_from))
+                self.paste_set_note(0, SEC_POSTAFFINE, node, flam3node, str(id), str(id_from))
+        
+            # Set it to a null value ( first in the menu array idx in this case )
+            # so that we can paste the same section again, if we want to.
+            #
+            # please check the def->menu_copypaste() to know its size.
+            node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
+            node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
+            
+        else:
+            print(f"{str(node)}: {MARK_ITER_MSG}")
 
 
 
-def iterator_count(self: hou.Node) -> None:
-    """
-    Args:
-        self (hou.Node): [current hou.Node]
-    """
+    def prm_paste_sel_FF(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        # current node
+        node=self.node
 
-    iterators_count = self.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    
-    if not iterators_count:
-        # delete channel references
-        for p in self.parms():
+        # FLAM3 node and its state we just copied
+        flam3node_FF = hou.session.flam3node_FF # type: ignore
+        flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
+
+        # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
+        #
+        # If the FF was copied from a node that has been deleted
+        # revert to -1 so that we are forced to copy an iterator again.
+        '''
+        try:
+            flam3node_FF.type()
+        except:
+            flam3node_FF_check = None
+        '''
+
+        # If we ever copied an FF from a currently existing FLAM3 node
+        if flam3node_FF_check is not None:
+
+            n = flam3h_iterator_prm_names
+            
+            # Get user selection of paste methods
+            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
+            
+            # set FF PRE VARS
+            if ff_paste_sel == 1:
+                self.pastePRM_T_from_list(flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
+                self.paste_from_list(flam3h_iterator_FF.sec_prevarsW_FF, node, flam3node_FF, "", "")
+                self.paste_set_note(2, SEC_PREVARS, node, flam3node_FF, "", "")
+            # set FF VARS
+            elif ff_paste_sel == 2:
+                self.pastePRM_T_from_list(flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
+                self.paste_from_list(flam3h_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
+                self.paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
+            # set FF POST VARS
+            elif ff_paste_sel == 3:
+                self.pastePRM_T_from_list(flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
+                self.paste_from_list(flam3h_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
+                self.paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
+            # set FF PRE AFFINE
+            elif ff_paste_sel == 4:
+                self.paste_from_list(flam3h_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
+                self.paste_set_note(2, SEC_PREAFFINE, node, flam3node_FF, "", "")
+            # set FF POST AFFINE
+            elif ff_paste_sel == 5:
+                self.paste_from_list(flam3h_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
+                self.paste_set_note(2, SEC_POSTAFFINE, node, flam3node_FF, "", "")
+
+            # Set it to a null value ( first in the menu array idx in this case )
+            # so that we can paste the same section again, if we want to.
+            #
+            # please check def->menu_copypaste_FF() to know its size.
+            node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
+            node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
+                    
+        else:
+            print(f"{str(node)}: {MARK_FF_MSG}.")
+            
+            
+    def flam3_xaos_convert(self) -> None:
+        """Here I am using a class function call from: out_xf_flame_data class.out_xf_xaos_from()
+        down below inside the save XML/FLAME file section of this file.
+        The class function: out_xf_flame_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
+        """
+        node = self.node
+        autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
+        div_xaos = 'xaos:'
+        div_weight = ':'
+        if autodiv:
+            div_xaos = 'xaos :'
+            div_weight = ' :'
+        
+        # Get xaos
+        f3d = out_xf_flame_data(node)
+        # Convert xaos
+        xaos_new = f3d.out_xf_xaos_from(0)
+        # updated CachedUserData: flam3h_xaos_iterators_prev
+        flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_new)
+        
+        for iter in range(f3d.iter_count):
+            if xaos_new[iter]:
+                xs = div_xaos + div_weight.join(xaos_new[iter].split(" "))
+                node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(iter+1)}": xs})
+            else:
+                # I dnt think this is needed anymore but i leave it here.
+                node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(iter+1)}": div_xaos})
+
+
+
+    def reset_preaffine(self) -> None:
+        node = self.node
+        id = self.kwargs['script_multiparm_index']
+        n = flam3h_iterator_prm_names
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
+        node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
+        node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
+        node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
+        
+        
+    def reset_postaffine(self) -> None:
+        node = self.node
+        id = self.kwargs['script_multiparm_index']
+        n = flam3h_iterator_prm_names
+        # post affine
+        if node.parm(f"{n.postaffine_do}_{str(id)}").eval():
+            node.setParms({f"{n.postaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
+            node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
+            node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
+            node.setParms({f"{n.postaffine_ang}_{str(id)}": 0})
+        
+        
+    def reset_preaffine_FF(self) -> None:
+        node = self.node
+        n = flam3h_iterator_prm_names
+        # pre affine
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
+        
+        
+    def reset_postaffine_FF(self) -> None:
+        node = self.node
+        n = flam3h_iterator_prm_names
+        # post affine
+        if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval():
+            node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
+            node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
+            node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
+            node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
+
+
+    def reset_FF(self) -> None:
+
+        node = self.node
+
+        n = flam3h_iterator_prm_names
+
+        node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"}) # type: ignore
+        # FF pre
+        node.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}":  0}) # type: ignore 
+        node.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0}) # type: ignore
+        # FF var
+        node.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0}) # type: ignore
+        # FF post
+        node.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0}) # type: ignore
+        # FF affine
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0}) # type: ignore
+
+
+
+    def flam3h_default(self) -> None:
+        """
+        Args:
+            self (hou.Node): [current hou.Node]
+        """
+        
+        node = self.node
+        # Iterators reset
+        node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
+        for p in node.parms():
             if not p.isLocked():
                 p.deleteAllKeyframes()
-            
-        # GLOBAL
-        self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
-        self.setParms({GLB_ITERATIONS: ITERATIONS_LOAD_DEFAULT}) # type: ignore
+        # Add back iterators
+        # This way all parameters will reset to their default values.
+        node.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
+        # update xaos
+        self.auto_set_xaos()
+
         # SYS
-        self.setParms({SYS_DO_FF: 0}) # type: ignore
-        self.setParms({SYS_RIP: 0}) # type: ignore
-        # FF vars
-        reset_FF(self)
-        # MB
-        reset_MB(self)
-        # prefs
-        self.setParms({"showprefs": 1}) # type: ignore
-        self.setParms({"camhandle": 0}) # type: ignore
-        self.setParms({"camcull": 0}) # type: ignore
-
-        # descriptive message parameter
-        self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+        self.reset_FF()
         
-    else:
-        # set xaos every time an iterator is added or removed
-        auto_set_xaos(self)
+        reset_SYS(node, 1, 10, 1)
+        reset_CP(node)
+        reset_MB(node)
+        reset_IN(node)
+        reset_OUT(node)
+        reset_PREFS(node)
+        
+        # iterator prm names
+        n = flam3h_iterator_prm_names
+
+        # iter 1
+        #
+        # shader
+        node.setParms({f"{n.shader_color}_1": 0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_1": -0.5}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_type_1}_1": 0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_1": 0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_1": 0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))}) # type: ignore
+
+        # iter 2
+        #
+        # shader
+        node.setParms({f"{n.shader_color}_2": 0.5}) # type: ignore
+        node.setParms({f"{n.shader_speed}_2": -0.5}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_type_1}_2": 0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_2": 0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_2": 0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))}) # type: ignore
+
+        # iter 3
+        #
+        # shader
+        node.setParms({f"{n.shader_color}_3": 1.0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_3": -0.5}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_type_1}_3": 0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_3": 0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_3": 0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
+        
+        node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
 
 
-# There must always be at least one active iterator.
-def vactive_clamp_count(kwargs: dict):
-    va = []
-    node = kwargs['node']
-    iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
 
-    id = kwargs['script_multiparm_index']
-    if not va:
-        node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
-        print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
+    def auto_set_xaos(self) -> None:
+        """Set iterator's xaos values every time an iterator is added or removed.
+
+        Args:
+            self (hou.Node): FLAM3H node
+        """
+        node = self.node
+        
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
+        div_xaos = 'xaos:'
+        div_weight = ':'
+        if autodiv:
+            div_xaos = 'xaos :'
+            div_weight = ' :'
+        
+        # unlock
+        node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
+        
+        autoset = node.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
+        if autoset:
+            
+            # unlock
+            node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
+            
+            # init indexes
+            idx_del_inbetween = None
+            idx_add_inbetween = None
+            
+            mpmem = []
+            mpmem_hou_get = []
+            xaos_str_hou_get = []
+            
+            # get mpmem parms now
+            [mpmem.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+            
+            # get mpmem from CachedUserData
+            __mpmem_hou_get = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_MP_MEM)
+            if __mpmem_hou_get is None:
+                mpmem_hou_get = mpmem
+            else:
+                mpmem_hou_get = list(__mpmem_hou_get)
+            
+            # collect all xaos
+            val = out_flame_utils.out_xaos_collect(node, iter_num, flam3h_iterator_prm_names.xaos)
+            # fill missing weights if any
+            fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1) for item in val]
+            
+            # convert all xaos into array of strings
+            xaos_str = []
+            for xaos in fill_all_xaos:
+                collect = []
+                for item in xaos:
+                    collect.append(str(item))
+                xaos_str.append(collect)
+                
+            # get xaos from CachedUserData
+            __xaos_str_hou_get = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_ITERATOR_PREV)
+            if __xaos_str_hou_get is None:
+                xaos_str_hou_get = xaos_str
+            else:
+                xaos_str_hou_get = list(__xaos_str_hou_get)
+                
+            # DEL: INBETWEEN get index: try
+            s_current = set(mpmem)
+            s_history = set(mpmem_hou_get)
+            _idx = list(set(s_history - s_current))
+            if _idx: idx_del_inbetween = int(_idx[0]) - 1
+            # ADD: INBETWEEN get index : try
+            for mp in range(iter_num-1):
+                if mpmem[mp] == mpmem[mp + 1]:
+                    idx_add_inbetween = mp
+                    break
+            
+            # DEL
+            if idx_del_inbetween is not None and idx_del_inbetween < iter_num:
+                xaos_str = xaos_str_hou_get
+                del xaos_str[idx_del_inbetween]
+                for x in xaos_str:
+                    del x[idx_del_inbetween]
+                # updated CachedUserData: flam3h_xaos_iterators_prev
+                flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+            # otherwise ADD
+            # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
+            elif idx_add_inbetween is not None:
+                for xidx, x in enumerate(xaos_str):
+                    if xidx != idx_add_inbetween:
+                        x.insert(idx_add_inbetween, '1.0')
+                        # x already had the new iterator weight added to the end of it
+                        # so lets remove the last element as it is not longer needed
+                        del x[-1]
+                # updated CachedUserData: flam3h_xaos_iterators_prev
+                flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+            else:
+                # updated CachedUserData: flam3h_xaos_iterators_prev
+                flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                
+            # set all multi parms xaos strings parms
+            xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_round_floats(xaos_str)])
+            for mp_idx, xaos in enumerate(xaos_str_round_floats):
+                xaos_set = div_xaos + xaos
+                node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
+                
+            # lock
+            node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+            
+        # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
+        # and pick up the updated values once we turn it back ON.
+        #
+        # reset iterator's mpmem prm
+        [node.setParms({f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
+        # update flam3h_xaos_mpmem
+        __mpmem_hou = []
+        [__mpmem_hou.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+        
+        # export mpmem into CachedUserData
+        flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
+        # lock
+        node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
+
+
+
+    def iterators_count(self) -> None:
+        """
+        Args:
+            self (hou.Node): [current hou.Node]
+        """
+
+        node = self.node
+        iterators_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        if not iterators_count:
+            # delete channel references
+            for p in node.parms():
+                if not p.isLocked():
+                    p.deleteAllKeyframes()
+                
+            # GLOBAL
+            node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+            node.setParms({GLB_ITERATIONS: ITERATIONS_LOAD_DEFAULT}) # type: ignore
+            # SYS
+            node.setParms({SYS_DO_FF: 0}) # type: ignore
+            node.setParms({SYS_RIP: 0}) # type: ignore
+            # FF vars
+            self.reset_FF()
+            # MB
+            reset_MB(node)
+            # prefs
+            node.setParms({"showprefs": 1}) # type: ignore
+            node.setParms({"camhandle": 0}) # type: ignore
+            node.setParms({"camcull": 0}) # type: ignore
+
+            # descriptive message parameter
+            node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+            
+        else:
+            # set xaos every time an iterator is added or removed
+            self.auto_set_xaos()
+
+
+    def vactive_keep_last(self):
+        va = []
+        node = self.node
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
+
+        id = self.kwargs['script_multiparm_index']
+        if not va:
+            node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
+            print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
+
+
+
+
 
 
 ###############################################################################################
@@ -2297,11 +2295,11 @@ unless you delete an iterator in wich case you will require to modify the “xao
             autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).eval()
             if autodiv:
                 node.setParms({PREFS_XAOS_AUTO_SPACE: 0})
-                auto_set_xaos(node)
+                flam3h_iterator_utils(kwargs).auto_set_xaos()
                 
             else:
                 node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
-                auto_set_xaos(node)
+                flam3h_iterator_utils(kwargs).auto_set_xaos()
     else:
         hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
@@ -4528,121 +4526,124 @@ def use_iter_on_load_callback(self):
     a new preset from the IN Tab IN_PRESETS parameter,
     It works like a hook to then set and evaluate it from the SYS Tab.
 '''
-def in_to_flam3h_sys(self: hou.Node) -> None:
+def in_to_flam3h_sys(kwargs: dict) -> None:
 
-    xml = self.parm(IN_PATH).evalAsString()
+    node = kwargs['node']
+    xml = node.parm(IN_PATH).evalAsString()
 
-    if in_flame(self, xml).isvalidtree:
+    if in_flame(node, xml).isvalidtree:
         
-        preset_id = self.parm(SYS_IN_PRESETS).eval()
-        self.setParms({IN_PRESETS: preset_id}) # type: ignore
-        in_to_flam3h(self)
+        preset_id = node.parm(SYS_IN_PRESETS).eval()
+        node.setParms({IN_PRESETS: preset_id}) # type: ignore
+        in_to_flam3h(kwargs)
 '''
     The following is the actual load preset/flame function to be used.
 '''
-def in_to_flam3h(self: hou.Node) -> None:
+def in_to_flam3h(kwargs: dict) -> None:
 
-    xml = self.parm(IN_PATH).evalAsString()
+    node = kwargs['node']
+    
+    xml = node.parm(IN_PATH).evalAsString()
 
-    if in_flame(self, xml).isvalidtree:
+    if in_flame(node, xml).isvalidtree:
         
-        self.setParms({IN_ISVALID_FILE: 1}) #type: ignore
+        node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
         
-        preset_id = int(self.parm(IN_PRESETS).eval())
-        iter_on_load = in_flame_utils.in_set_iter_on_load(self, preset_id)
-        reset_SYS(self, 1, iter_on_load, 0)
-        reset_MB(self)
-        reset_PREFS(self)
+        preset_id = int(node.parm(IN_PRESETS).eval())
+        iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id)
+        reset_SYS(node, 1, iter_on_load, 0)
+        reset_MB(node)
+        reset_PREFS(node)
 
-        apo_data = in_flame_iter_data(self, xml, preset_id)
+        apo_data = in_flame_iter_data(node, xml, preset_id)
         
         # RIP
         # if there are ZERO opacities, always turn RIP toggle ON
         if min(apo_data.opacity) == 0.0:
-            self.setParms({SYS_RIP: 1}) # type: ignore
+            node.setParms({SYS_RIP: 1}) # type: ignore
         else:
             # Otherwise set RIP toggle accordingly from the XML data if any
             if apo_data.sys_flam3h_rip is not None:
-                self.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
+                node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
             
         # iterators
-        self.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-        for p in self.parms():
+        node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
+        for p in node.parms():
             if not p.isLocked():
                 p.deleteAllKeyframes()
-        self.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
+        node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
         
         # get keys to exclude
         exclude_keys = XML_XF_KEY_EXCLUDE
-        if self.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
-        in_flame_utils.in_set_iterator(0, self, apo_data, preset_id, exclude_keys)
+        in_flame_utils.in_set_iterator(0, node, apo_data, preset_id, exclude_keys)
         
         # if FF
         if apo_data.finalxform is not None:
-            reset_FF(self)
-            self.setParms({SYS_DO_FF: 1}) # type: ignore
-            in_flame_utils.in_set_iterator(1, self, apo_data, preset_id, exclude_keys)
+            flam3h_iterator_utils(kwargs).reset_FF()
+            node.setParms({SYS_DO_FF: 1}) # type: ignore
+            in_flame_utils.in_set_iterator(1, node, apo_data, preset_id, exclude_keys)
         else:
-            reset_FF(self)
-            self.setParms({SYS_DO_FF: 0}) # type: ignore
+            flam3h_iterator_utils(kwargs).reset_FF()
+            node.setParms({SYS_DO_FF: 0}) # type: ignore
         
         # if MB
         if apo_data.mb_flam3h_fps is not False:
-            self.setParms({OUT_MB_DO: 1}) # type: ignore
-            self.setParms({OUT_MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
-            self.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
-            self.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
+            node.setParms({OUT_MB_DO: 1}) # type: ignore
+            node.setParms({OUT_MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
+            node.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
+            node.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
         else:
-            reset_MB(self)
+            reset_MB(node)
             
         # F3C ( the if statement is for backward compatibility )
         if apo_data.prefs_flam3h_f3c is not None:
-            self.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
+            node.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
         
         # if CP HSV vals
         if apo_data.palette_flam3h_hsv is not False:
-            self.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
+            node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
         else:
         # CP HSV default vals
-            self.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
+            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
             
         # Set XML palette data
-        ramp_parm = self.parm(CP_RAMP_SRC_NAME)
+        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
         ramp_parm.deleteAllKeyframes()
         ramp_parm.set(apo_data.palette[0])
-        palette_cp(self)
-        palette_hsv(self)
+        palette_cp(node)
+        palette_hsv(node)
         # if "copy render properties on Load" is checked
-        if self.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-            in_flame_utils.in_copy_render_stats_msg(self)
+        if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+            in_flame_utils.in_copy_render_stats_msg(node)
         # Set density back to default on load
-        self.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+        node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
         #Updated flame stats 
-        self.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(self, preset_id, apo_data)}) # type: ignore
-        self.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+        node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
+        node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
         # Updated SYS inpresets parameter
-        self.setParms({SYS_IN_PRESETS: self.parm(IN_PRESETS).eval()}) # type: ignore
+        node.setParms({SYS_IN_PRESETS: node.parm(IN_PRESETS).eval()}) # type: ignore
         
         # updated xaos and activate "auto set xaos":
-        self.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
-        auto_set_xaos(self)
+        node.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
+        flam3h_iterator_utils(kwargs).auto_set_xaos()
         
         #updated OUT Flame name iter num if any
-        out_auto_change_iter_num_to_prm(self)
+        out_auto_change_iter_num_to_prm(node)
         
     else:
         if os.path.isfile(xml) and os.path.getsize(xml)>0:
-            self.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
-            self.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+            node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
+            node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
             # The following do not work, not sure why
-            self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+            node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
         else:
-            self.setParms({MSG_FLAMESTATS: ""}) # type: ignore
-            self.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+            node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
+            node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
             # The following do not work, not sure why
-            self.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+            node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
 
 
 
@@ -5668,5 +5669,5 @@ def out_XML(kwargs: dict) -> None:
                         else:
                             out_flame_utils.out_new_XML(node, str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                    init_presets(kwargs, OUT_PRESETS)
+                    flam3h_init_presets(kwargs, OUT_PRESETS)
 
