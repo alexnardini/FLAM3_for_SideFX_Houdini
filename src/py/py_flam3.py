@@ -4633,7 +4633,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
             #updated OUT Flame name iter num if any
-            out_auto_change_iter_num_to_prm(node)
+            out_flame_utils(node).out_auto_change_iter_num_to_prm()
             
         else:
             if os.path.isfile(xml) and os.path.getsize(xml)>0:
@@ -5303,33 +5303,6 @@ class out_flame_utils():
 
 
 
-    def out_xf_xaos_to(self) -> tuple:
-        """Export in a tuple[str] the xaos TO values to write out
-        Returns:
-            tuple[str]: the xaos TO values to write out.
-        """
-        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
-        return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
-
-    def out_xf_xaos_from(self, mode=0) -> tuple:
-        """Export in a tuple[str] the xaos FROM values to write out
-        Args:
-            mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
-        Returns:
-            tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
-        """
-        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
-        if mode:
-            xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
-            return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
-        else:
-            return tuple([" ".join(x) for x in self.out_round_floats(t)])
-
-
     @property
     def node(self):
         return self._node
@@ -5371,6 +5344,132 @@ class out_flame_utils():
     @property
     def flam3h_rip(self):
         return self._flam3h_rip
+
+
+
+
+
+
+    def out_xf_xaos_to(self) -> tuple:
+        """Export in a tuple[str] the xaos TO values to write out
+        Returns:
+            tuple[str]: the xaos TO values to write out.
+        """
+        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
+        return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
+
+    def out_xf_xaos_from(self, mode=0) -> tuple:
+        """Export in a tuple[str] the xaos FROM values to write out
+        Args:
+            mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
+        Returns:
+            tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
+        """
+        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
+        if mode:
+            xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
+            return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
+        else:
+            return tuple([" ".join(x) for x in self.out_round_floats(t)])
+
+
+
+
+    def menu_out_contents_presets(self) -> list:
+        menu=[]
+        node = self._node
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        if iterators_num:
+            xml = node.parm(OUT_PATH).evalAsString()
+            if in_flame(node, xml).isvalidtree:
+                apo = in_flame(node, xml)
+                for i, item in enumerate(apo.name):
+                    menu.append(i)
+                    menu.append(item)
+                return menu
+            else:
+                menu.append(-1)
+                menu.append('Empty')
+                return menu
+        else:
+            menuitems = ("Please, add at least one iterator", "")
+            for i, item in enumerate(menuitems):
+                menu.append(i)
+                menu.append(item)
+            return menu
+    
+    
+    # Get data needed for:
+    # def out_auto_add_iter_num_to_prm()
+    # def out_auto_change_iter_num_to_prm()
+    def out_auto_add_iter_data(self) -> tuple[int, str, int]:
+        node = self._node
+        iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
+        flame_name = node.parm(OUT_FLAME_PRESET_NAME).eval()
+        autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+        return iter_num, flame_name, autoadd
+
+
+    # Callback script
+    def out_auto_add_iter_num_to_prm(self) -> None:
+        node = self.node
+        iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
+        flame_name_new = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+
+
+    # Callback script
+    def out_auto_change_iter_num_to_prm(self) -> None:
+        node = self.node
+        iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
+        flame_name_new = out_flame_utils.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+        node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+
+
+    def out_XML(self, kwargs: dict) -> None:
+        
+        node = kwargs['node']
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        # if there is at least one iterator
+        if iterators_num:
+            
+            out_path = node.parm(OUT_PATH).evalAsString()
+            out_path_checked = out_flame_utils.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+            # if the output path is valid
+            if out_path_checked is not False:
+                
+                if kwargs['shift']:
+                    open_explorer_file(out_path_checked)
+                else:
+
+                    if isLOCK(out_path_checked):
+                        ui_text = f"This Flam3 library is Locked."
+                        ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                    else:
+                        apo_data = in_flame(kwargs['node'], str(out_path_checked))
+                        if kwargs["ctrl"]:
+                            node.setParms({OUT_PATH: str(out_path_checked)})
+                            out_flame_utils.out_new_XML(node, str(out_path_checked))
+                            node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                        else:
+                            node.setParms({OUT_PATH: str(out_path_checked)})
+                            if apo_data.isvalidtree:
+                                out_flame_utils.out_append_XML(node, apo_data, str(out_path_checked))
+                                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                            else:
+                                out_flame_utils.out_new_XML(node, str(out_path_checked))
+                                node.setParms({OUT_FLAME_PRESET_NAME: ''})
+                        flam3h_init_presets(kwargs, OUT_PRESETS)
+
+
+
+
     
 
     def __out_flame_data(self, prm_name='') -> str:
@@ -5600,90 +5699,3 @@ class out_xf_flame_data(out_flame_utils):
         self.finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
         self.finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine() # type: ignore
         self.finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine() # type: ignore
-
-
-###############################################################################################
-# MENU - OUT - build menu from output flame file
-###############################################################################################
-def menu_out_contents_presets(kwargs: dict) -> list:
-    menu=[]
-    node = kwargs['node']
-    iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    if iterators_num:
-        xml = node.parm(OUT_PATH).evalAsString()
-        if in_flame(kwargs['node'], xml).isvalidtree:
-            apo = in_flame(kwargs['node'], xml)
-            for i, item in enumerate(apo.name):
-                menu.append(i)
-                menu.append(item)
-            return menu
-        else:
-            menu.append(-1)
-            menu.append('Empty')
-            return menu
-    else:
-        menuitems = ("Please, add at least one iterator", "")
-        for i, item in enumerate(menuitems):
-            menu.append(i)
-            menu.append(item)
-        return menu
-    
-# Get data needed for:
-# def out_auto_add_iter_num_to_prm()
-# def out_auto_change_iter_num_to_prm()
-def out_auto_add_iter_data(self: hou.Node) -> tuple[int, str, int]:
-    iter_num = self.parm(GLB_ITERATIONS).evalAsInt()
-    flame_name = self.parm(OUT_FLAME_PRESET_NAME).eval()
-    autoadd = self.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
-    return iter_num, flame_name, autoadd
-
-# Callback script
-def out_auto_add_iter_num_to_prm(self: hou.Node) -> None:
-    iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
-    flame_name_new = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-    self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
-
-# Callback script
-def out_auto_change_iter_num_to_prm(self: hou.Node) -> None:
-    iter_num, flame_name, autoadd = out_auto_add_iter_data(self)
-    flame_name_new = out_flame_utils.out_auto_change_iter_num(iter_num, flame_name, autoadd)
-    self.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
-
-
-def out_XML(kwargs: dict) -> None:
-    
-    node = kwargs['node']
-    iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-    
-    # if there is at least one iterator
-    if iterators_num:
-        
-        out_path = node.parm(OUT_PATH).evalAsString()
-        out_path_checked = out_flame_utils.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
-        # if the output path is valid
-        if out_path_checked is not False:
-            
-            if kwargs['shift']:
-                open_explorer_file(out_path_checked)
-            else:
-
-                if isLOCK(out_path_checked):
-                    ui_text = f"This Flam3 library is Locked."
-                    ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
-                else:
-                    apo_data = in_flame(kwargs['node'], str(out_path_checked))
-                    if kwargs["ctrl"]:
-                        node.setParms({OUT_PATH: str(out_path_checked)})
-                        out_flame_utils.out_new_XML(node, str(out_path_checked))
-                        node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                    else:
-                        node.setParms({OUT_PATH: str(out_path_checked)})
-                        if apo_data.isvalidtree:
-                            out_flame_utils.out_append_XML(node, apo_data, str(out_path_checked))
-                            node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                        else:
-                            out_flame_utils.out_new_XML(node, str(out_path_checked))
-                            node.setParms({OUT_FLAME_PRESET_NAME: ''})
-                    flam3h_init_presets(kwargs, OUT_PRESETS)
-
