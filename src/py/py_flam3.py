@@ -1502,31 +1502,45 @@ class flam3h_iterator_utils():
     def menu_global_density_set(self) -> None:
         
         sel = self.node.parm(GLB_DENSITY_PRESETS).evalAsInt()
+        ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
+        vals = [500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000]
         
         if sel == 1:
-            self.node.setParms({GLB_DENSITY: 1000000}) # type: ignore
+            if ptcount != vals[1]:
+                self.node.setParms({GLB_DENSITY: vals[1]}) # type: ignore
         elif sel == 2:
-            self.node.setParms({GLB_DENSITY: 2000000}) # type: ignore
+            if ptcount != vals[2]:
+                self.node.setParms({GLB_DENSITY: vals[2]}) # type: ignore
         elif sel == 3:
-            self.node.setParms({GLB_DENSITY: 5000000}) # type: ignore
+            if ptcount != vals[3]:
+                self.node.setParms({GLB_DENSITY: vals[3]}) # type: ignore
         elif sel == 4:
-            self.node.setParms({GLB_DENSITY: 15000000}) # type: ignore
+            if ptcount != vals[4]:
+                self.node.setParms({GLB_DENSITY: vals[4]}) # type: ignore
         elif sel == 5:
-            self.node.setParms({GLB_DENSITY: 25000000}) # type: ignore
+            if ptcount != vals[5]:
+                self.node.setParms({GLB_DENSITY: vals[5]}) # type: ignore
         elif sel == 6:
-            self.node.setParms({GLB_DENSITY: 50000000}) # type: ignore
+            if ptcount != vals[6]:
+                self.node.setParms({GLB_DENSITY: vals[6]}) # type: ignore
         elif sel == 7:
-            self.node.setParms({GLB_DENSITY: 100000000}) # type: ignore
+            if ptcount != vals[7]:
+                self.node.setParms({GLB_DENSITY: vals[7]}) # type: ignore
         elif sel == 8:
-            self.node.setParms({GLB_DENSITY: 150000000}) # type: ignore
+            if ptcount != vals[8]:
+                self.node.setParms({GLB_DENSITY: vals[8]}) # type: ignore
         elif sel == 9:
-            self.node.setParms({GLB_DENSITY: 250000000}) # type: ignore
+            if ptcount != vals[9]:
+                self.node.setParms({GLB_DENSITY: vals[9]}) # type: ignore
         elif sel == 10:
-            self.node.setParms({GLB_DENSITY: 500000000}) # type: ignore
+            if ptcount != vals[10]:
+                self.node.setParms({GLB_DENSITY: vals[10]}) # type: ignore
         elif sel == 11:
-            self.node.setParms({GLB_DENSITY: 750000000}) # type: ignore
+            if ptcount != vals[11]:
+                self.node.setParms({GLB_DENSITY: vals[11]}) # type: ignore
         elif sel == 12:
-            self.node.setParms({GLB_DENSITY: 1000000000}) # type: ignore
+            if ptcount != vals[12]:
+                self.node.setParms({GLB_DENSITY: vals[12]}) # type: ignore
         # reset to null value so we can set the same preset again
         self._node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
 
