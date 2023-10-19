@@ -3310,8 +3310,9 @@ class in_flame_iter_data(in_flame):
 # This is mostly to group all those function into one common place
 class in_flame_utils:
     
-    def __init__(self) -> None:
-        pass
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
     
     
     @staticmethod
@@ -4474,6 +4475,184 @@ Seph, Lucy, b33rheart, Neonrauschen"""
     def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
         return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 
+
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+    
+    
+    
+    
+    def menu_in_presets(self) -> list:
+
+        xml = self.node.parm(IN_PATH).evalAsString()
+        menu=[]
+        apo = in_flame(self.node, xml)
+        if apo.isvalidtree:
+            for i, item in enumerate(apo.name):
+                menu.append(i)
+                menu.append(item)
+            return menu
+        else:
+            menu.append(-1)
+            menu.append('Empty')
+            return menu
+        
+        
+    def set_iter_on_load_callback(self):
+        iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
+        self.node.setParms({GLB_ITERATIONS: iter_on_load})
+        
+    def use_iter_on_load_callback(self):
+        node = self.node
+        useiteronload = node.parm(IN_USE_ITER_ON_LOAD).eval()
+        if useiteronload:
+            iternumonload = node.parm(IN_ITER_NUM_ON_LOAD).eval()
+            iter = node.parm(GLB_ITERATIONS).eval()
+            if iternumonload == iter:
+                pass
+            elif iternumonload > iter:
+                node.setParms({GLB_ITERATIONS: iter})
+                node.setParms({IN_ITER_NUM_ON_LOAD: iter})
+            else:
+                node.setParms({GLB_ITERATIONS: iternumonload})
+
+
+    '''
+        The following function is just a shortcut to set and load
+        a new preset from the IN Tab IN_PRESETS parameter,
+        It works like a hook to then set and evaluate it from the SYS Tab.
+    '''
+    def in_to_flam3h_sys(self) -> None:
+
+        node = self.kwargs['node']
+        xml = node.parm(IN_PATH).evalAsString()
+
+        if in_flame(node, xml).isvalidtree:
+            
+            preset_id = node.parm(SYS_IN_PRESETS).eval()
+            node.setParms({IN_PRESETS: preset_id}) # type: ignore
+            self.in_to_flam3h()
+    '''
+        The following is the actual load preset/flame function to be used.
+    '''
+    def in_to_flam3h(self) -> None:
+
+        node = self.kwargs['node']
+        
+        xml = node.parm(IN_PATH).evalAsString()
+
+        if in_flame(node, xml).isvalidtree:
+            
+            node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
+            
+            preset_id = int(node.parm(IN_PRESETS).eval())
+            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id)
+            reset_SYS(node, 1, iter_on_load, 0)
+            reset_MB(node)
+            reset_PREFS(node)
+
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            
+            # RIP
+            # if there are ZERO opacities, always turn RIP toggle ON
+            if min(apo_data.opacity) == 0.0:
+                node.setParms({SYS_RIP: 1}) # type: ignore
+            else:
+                # Otherwise set RIP toggle accordingly from the XML data if any
+                if apo_data.sys_flam3h_rip is not None:
+                    node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
+                
+            # iterators
+            node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
+            for p in node.parms():
+                if not p.isLocked():
+                    p.deleteAllKeyframes()
+            node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
+            
+            # get keys to exclude
+            exclude_keys = XML_XF_KEY_EXCLUDE
+            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+
+            in_flame_utils.in_set_iterator(0, node, apo_data, preset_id, exclude_keys)
+            
+            # if FF
+            if apo_data.finalxform is not None:
+                flam3h_iterator_utils(self.kwargs).reset_FF()
+                node.setParms({SYS_DO_FF: 1}) # type: ignore
+                in_flame_utils.in_set_iterator(1, node, apo_data, preset_id, exclude_keys)
+            else:
+                flam3h_iterator_utils(self.kwargs).reset_FF()
+                node.setParms({SYS_DO_FF: 0}) # type: ignore
+            
+            # if MB
+            if apo_data.mb_flam3h_fps is not False:
+                node.setParms({OUT_MB_DO: 1}) # type: ignore
+                node.setParms({OUT_MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
+                node.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
+                node.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
+            else:
+                reset_MB(node)
+                
+            # F3C ( the if statement is for backward compatibility )
+            if apo_data.prefs_flam3h_f3c is not None:
+                node.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
+            
+            # if CP HSV vals
+            if apo_data.palette_flam3h_hsv is not False:
+                node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
+            else:
+            # CP HSV default vals
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
+                
+            # Set XML palette data
+            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+            ramp_parm.deleteAllKeyframes()
+            ramp_parm.set(apo_data.palette[0])
+            palette_cp(node)
+            palette_hsv(node)
+            # if "copy render properties on Load" is checked
+            if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+                in_flame_utils.in_copy_render_stats_msg(node)
+            # Set density back to default on load
+            node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+            #Updated flame stats 
+            node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+            # Updated SYS inpresets parameter
+            node.setParms({SYS_IN_PRESETS: node.parm(IN_PRESETS).eval()}) # type: ignore
+            
+            # updated xaos and activate "auto set xaos":
+            node.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
+            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+            
+            #updated OUT Flame name iter num if any
+            out_auto_change_iter_num_to_prm(node)
+            
+        else:
+            if os.path.isfile(xml) and os.path.getsize(xml)>0:
+                node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
+                node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                # The following do not work, not sure why
+                node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+            else:
+                node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
+                node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                # The following do not work, not sure why
+                node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+
+
+
+
+
+
+
 # Turn Fractorium variation names dictionary into PRE and POST variation names dictionary
 VARS_FRACTORIUM_DICT_PRE  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
 VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
@@ -4481,169 +4660,6 @@ VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRA
 
 
 
-
-###############################################################################################
-# MENU - APO - build menu from flame file presets
-###############################################################################################
-def menu_in_presets(kwargs: dict) -> list:
-
-    xml = kwargs['node'].parm(IN_PATH).evalAsString()
-    menu=[]
-    apo = in_flame(kwargs['node'], xml)
-    if apo.isvalidtree:
-        for i, item in enumerate(apo.name):
-            menu.append(i)
-            menu.append(item)
-        return menu
-    else:
-        menu.append(-1)
-        menu.append('Empty')
-        return menu
-
-
-
-def set_iter_on_load_callback(self):
-    iter_on_load = self.parm(IN_ITER_NUM_ON_LOAD).eval()
-    self.setParms({GLB_ITERATIONS: iter_on_load})
-    
-def use_iter_on_load_callback(self):
-    useiteronload = self.parm(IN_USE_ITER_ON_LOAD).eval()
-    if useiteronload:
-        iternumonload = self.parm(IN_ITER_NUM_ON_LOAD).eval()
-        iter = self.parm(GLB_ITERATIONS).eval()
-        if iternumonload == iter:
-            pass
-        elif iternumonload > iter:
-            self.setParms({GLB_ITERATIONS: iter})
-            self.setParms({IN_ITER_NUM_ON_LOAD: iter})
-        else:
-            self.setParms({GLB_ITERATIONS: iternumonload})
-
-
-
-'''
-    The following function is just a shortcut to set and load
-    a new preset from the IN Tab IN_PRESETS parameter,
-    It works like a hook to then set and evaluate it from the SYS Tab.
-'''
-def in_to_flam3h_sys(kwargs: dict) -> None:
-
-    node = kwargs['node']
-    xml = node.parm(IN_PATH).evalAsString()
-
-    if in_flame(node, xml).isvalidtree:
-        
-        preset_id = node.parm(SYS_IN_PRESETS).eval()
-        node.setParms({IN_PRESETS: preset_id}) # type: ignore
-        in_to_flam3h(kwargs)
-'''
-    The following is the actual load preset/flame function to be used.
-'''
-def in_to_flam3h(kwargs: dict) -> None:
-
-    node = kwargs['node']
-    
-    xml = node.parm(IN_PATH).evalAsString()
-
-    if in_flame(node, xml).isvalidtree:
-        
-        node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
-        
-        preset_id = int(node.parm(IN_PRESETS).eval())
-        iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id)
-        reset_SYS(node, 1, iter_on_load, 0)
-        reset_MB(node)
-        reset_PREFS(node)
-
-        apo_data = in_flame_iter_data(node, xml, preset_id)
-        
-        # RIP
-        # if there are ZERO opacities, always turn RIP toggle ON
-        if min(apo_data.opacity) == 0.0:
-            node.setParms({SYS_RIP: 1}) # type: ignore
-        else:
-            # Otherwise set RIP toggle accordingly from the XML data if any
-            if apo_data.sys_flam3h_rip is not None:
-                node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
-            
-        # iterators
-        node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-        for p in node.parms():
-            if not p.isLocked():
-                p.deleteAllKeyframes()
-        node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
-        
-        # get keys to exclude
-        exclude_keys = XML_XF_KEY_EXCLUDE
-        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-
-        in_flame_utils.in_set_iterator(0, node, apo_data, preset_id, exclude_keys)
-        
-        # if FF
-        if apo_data.finalxform is not None:
-            flam3h_iterator_utils(kwargs).reset_FF()
-            node.setParms({SYS_DO_FF: 1}) # type: ignore
-            in_flame_utils.in_set_iterator(1, node, apo_data, preset_id, exclude_keys)
-        else:
-            flam3h_iterator_utils(kwargs).reset_FF()
-            node.setParms({SYS_DO_FF: 0}) # type: ignore
-        
-        # if MB
-        if apo_data.mb_flam3h_fps is not False:
-            node.setParms({OUT_MB_DO: 1}) # type: ignore
-            node.setParms({OUT_MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
-            node.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
-            node.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
-        else:
-            reset_MB(node)
-            
-        # F3C ( the if statement is for backward compatibility )
-        if apo_data.prefs_flam3h_f3c is not None:
-            node.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
-        
-        # if CP HSV vals
-        if apo_data.palette_flam3h_hsv is not False:
-            node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
-        else:
-        # CP HSV default vals
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
-            
-        # Set XML palette data
-        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-        ramp_parm.deleteAllKeyframes()
-        ramp_parm.set(apo_data.palette[0])
-        palette_cp(node)
-        palette_hsv(node)
-        # if "copy render properties on Load" is checked
-        if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-            in_flame_utils.in_copy_render_stats_msg(node)
-        # Set density back to default on load
-        node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
-        #Updated flame stats 
-        node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
-        node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
-        # Updated SYS inpresets parameter
-        node.setParms({SYS_IN_PRESETS: node.parm(IN_PRESETS).eval()}) # type: ignore
-        
-        # updated xaos and activate "auto set xaos":
-        node.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
-        flam3h_iterator_utils(kwargs).auto_set_xaos()
-        
-        #updated OUT Flame name iter num if any
-        out_auto_change_iter_num_to_prm(node)
-        
-    else:
-        if os.path.isfile(xml) and os.path.getsize(xml)>0:
-            node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
-            node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-            # The following do not work, not sure why
-            node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-        else:
-            node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
-            node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-            # The following do not work, not sure why
-            node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
 
 
 
