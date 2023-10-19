@@ -2253,7 +2253,7 @@ class flam3h_iterator_utils():
             self.auto_set_xaos()
 
 
-    def vactive_keep_last(self):
+    def vactive_keep_last(self) -> None:
         va = []
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
