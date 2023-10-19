@@ -44,15 +44,16 @@ flam3_first_time()
 
 """Inside: OTL->type_properties->Scripts->OnCreated
 initialize what the tool need when you create its node in the network editor."""
-kwargs["node"].hdaModule().flam3.flam3_default(kwargs["node"])
-kwargs["node"].hdaModule().flam3.flam3_on_create(kwargs)
-kwargs["node"].hdaModule().flam3.auto_set_xaos(kwargs["node"])
+kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
+kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
+kwargs["node"].hdaModule().flam3.flam3h_on_create(kwargs)
+
 
 
 """Inside: OTL->type_properties->Scripts->OnLoaded
 When loading a hip file with a FLAM3H node in it do some checks."""
-kwargs["node"].hdaModule().flam3.flam3_on_loaded(kwargs)
-kwargs["node"].hdaModule().flam3.auto_set_xaos(kwargs["node"])
+kwargs["node"].hdaModule().flam3.flam3h_on_loaded(kwargs)
+kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 
 
 
@@ -61,14 +62,14 @@ kwargs["node"].hdaModule().flam3.auto_set_xaos(kwargs["node"])
 #######################################################
 'ptcount_presets'
 'callback script'
-hou.pwd().hdaModule().flam3.menu_density_set(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set()
 'Menu script'
-menu = kwargs['node'].hdaModule().flam3.menu_density(kwargs['node'])
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
 return menu
 
 'iter'
 'Callback Script'
-hou.pwd().hdaModule().flam3.out_auto_change_iter_num_to_prm(kwargs['node'])
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs['node']).out_auto_change_iter_num_to_prm()
 
 
 #######################################################
@@ -77,32 +78,32 @@ hou.pwd().hdaModule().flam3.out_auto_change_iter_num_to_prm(kwargs['node'])
 
 'loaddef'
 'Callback Script'
-hou.pwd().hdaModule().flam3.flam3_default(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
 'sys_palettepresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.sys_json_to_ramp(kwargs)
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).sys_json_to_ramp()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu
 'Action Script'
-kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
 
 'sys_inpresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.in_to_flam3h_sys(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_in_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.in_to_flam3h(kwargs['node'])
+kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 'sys_outpresets'
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.out_XML(kwargs)
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 
 #######################################################
 # PARAMETERS ITERATORS ( FLAME Tab )
@@ -110,37 +111,41 @@ kwargs['node'].hdaModule().flam3.out_XML(kwargs)
 
 'flamefunc'
 'Callback Script'
-hou.pwd().hdaModule().flam3.iterator_count(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
+
+'prmpastesel_#'
+'Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
+return menu
+'Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 
 'activetip_#'
 'Callback Script'
 hou.pwd().hdaModule().flam3.ui_active_iterator_infos()
 
-'prmpastesel_#'
+'vactive_#'
 'Callback Script'
-hou.pwd().hdaModule().flam3.prm_paste_sel(kwargs)
-'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_copypaste(kwargs)
-return menu
-'Action Button'
-kwargs['node'].hdaModule().flam3.prm_paste(kwargs)
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).vactive_keep_last()
 
 'xaos_#'
 'Action Button'
-kwargs['node'].hdaModule().flam3.ui_xaos_infos(kwargs)
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 
 'All ITERATORS variations type parameters'
 "pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#"
-menu = kwargs['node'].hdaModule().flam3.menu_T(0)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(0)
 return menu
 
 'ang_#'
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_preaffine(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
 
 'pang_#'
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_postaffine(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()
 
 
 #######################################################
@@ -149,31 +154,25 @@ kwargs['node'].hdaModule().flam3.reset_postaffine(kwargs)
 
 'ffprmpastesel_#'
 'Callback Script'
-hou.pwd().hdaModule().flam3.prm_paste_sel_FF(kwargs)
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_copypaste_FF(kwargs)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.prm_paste_FF(kwargs)
-
-'xaos_#'
-'Callback Script'
-hou.pwd().hdaModule().flam3.auto_set_xaos(kwargs['node'])
-'Action Button'
-kwargs['node'].hdaModule().flam3.ui_xaos_infos(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 'All FF variations type parameters'
 "ffpre1type_#, ffv1type_#, ffv2type_#, ffp1type_#, ffp2type_#"
-menu = kwargs['node'].hdaModule().flam3.menu_T(0)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(0)
 return menu
 
 'ffang_#'
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_preaffine_FF(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()
 
 'ffpang_#'
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_postaffine_FF(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()
 
 
 
@@ -183,41 +182,37 @@ kwargs['node'].hdaModule().flam3.reset_postaffine_FF(kwargs)
 
 'hsv'
 'Callback Script'
-hou.pwd().hdaModule().flam3.palette_hsv(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_hsv()
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_CP(kwargs['node'], 2)
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 
 'palettehsv'
 'Callback Script'
-hou.pwd().hdaModule().flam3.palette_lock(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_lock()
 'Action Button'
-kwargs['node'].hdaModule().flam3.palette_cp(kwargs['node'])
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 
 'palette'
 'Callback Script'
-hou.pwd().hdaModule().flam3.palette_cp(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_CP(kwargs['node'], 3)
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 
 'palettefile'
 'Callbac Script'
-hou.pwd().hdaModule().flam3.init_presets(kwargs, "palettepresets")
+hou.pwd().hdaModule().flam3.flam3h_init_presets(kwargs, "palettepresets")
 'Action Button'
-kwargs['node'].hdaModule().flam3.ramp_save(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).ramp_save()
 
 'palettepresets'
 'Callback Script'
-hou.pwd().hdaModule().flam3.json_to_ramp(kwargs)
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
 'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu
 'Action Button'
-kwargs['node'].hdaModule().flam3.json_to_ramp(kwargs)
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
 
-'mem_palettepresets'
-'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_ramp_presets(kwargs)
-return menu
 
 
 #######################################################
@@ -225,30 +220,30 @@ return menu
 #######################################################
 
 
-'inpresets'
-'Callback Script'
-hou.pwd().hdaModule().flam3.in_to_flam3h(kwargs['node'])
-'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_in_presets(kwargs)
-return menu
-'Action Button'
-kwargs['node'].hdaModule().flam3.in_to_flam3h(kwargs['node'])
-
 'inpath'
 'Callback Script'
-hou.pwd().hdaModule().flam3.init_presets(kwargs, "inpresets")
+hou.pwd().hdaModule().flam3.flam3h_init_presets(kwargs, "inpresets")
+
+'inpresets'
+'Callback Script'
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
+return menu
+'Action Button'
+kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 'iternumonload'
 'Callback Script'
-hou.pwd().hdaModule().flam3.set_iter_on_load_callback(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
 
 'useiteronload'
 'Callback Script'
-hou.pwd().hdaModule().flam3.use_iter_on_load_callback(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 
 'cprendervals'
 'Callback Script'
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs['node'])
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_copy_render_stats_msg(kwargs['node'])
 
 
 #######################################################
@@ -258,24 +253,25 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs['node
 
 'outpath'
 'Callback Script'
-hou.pwd().hdaModule().flam3.init_presets(kwargs, "outpresets")
+hou.pwd().hdaModule().flam3.flam3h_init_presets(kwargs, "outpresets")
 'Action Button'
-kwargs['node'].hdaModule().flam3.out_XML(kwargs)
-
-'outpresets'
-'Menu Script'
-menu = kwargs['node'].hdaModule().flam3.menu_out_contents_presets(kwargs)
-return menu
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 'outname'
 'Callback Script'
-hou.pwd().hdaModule().flam3.out_auto_add_iter_num_to_prm(kwargs['node'])
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
 'Action Button'
 kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
 
+'outpresets'
+'Menu Script'
+menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
+return menu
+
 'outedit'
 'Action Button'
-kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
+kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'])
+
 
 #######################################################
 # PREFERENCES ( prefs Tab )
@@ -283,11 +279,11 @@ kwargs['node'].hdaModule().flam3.reset_OUT(kwargs['node'], 1)
 
 'xm'
 'Callback Script'
-hou.pwd().hdaModule().flam3.flam3_xaos_convert(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3_xaos_convert()
 
 'autoxaos'
 'allback Script'
-hou.pwd().hdaModule().flam3.auto_set_xaos(kwargs['node'])
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 
 'setdark'
 'Callback Script'
