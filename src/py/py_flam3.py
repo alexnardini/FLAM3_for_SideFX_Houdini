@@ -2531,7 +2531,7 @@ you can manually edit the created XML/Flame file and change the flame → “nam
     
     def ui_active_iterator_infos(self) -> None:
         ALL_msg = """If an iterator is disabled,
-it wont be included when saving the flame out into a Flame file.
+it wont be included when saving the Flame out into a flame file.
 
 In case you still want to include the inactive iterator into the file,
 set its Weight to Zero instead."""
