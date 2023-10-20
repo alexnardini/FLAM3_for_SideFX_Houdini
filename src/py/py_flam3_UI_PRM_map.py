@@ -128,7 +128,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 
 'parameter name: activetip_#'
 'script type: Callback Script'
-hou.pwd().hdaModule().flam3.ui_active_iterator_infos()
+hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
 
 'parameter name: vactive_#'
 'script type: Callback Script'
@@ -136,7 +136,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).vactive_keep_last()
 
 'parameter name: xaos_#'
 'script type: Action Button'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
+kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
 'All ITERATORS variations type parameters'
 "parameter name: pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#"
@@ -268,7 +268,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 'script type: Callback Script'
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
 'script type: Action Button'
-kwargs['node'].hdaModule().flam3.ui_OUT_presets_name_infos()
+kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
 
 'parameter name: outpresets'
 'script type: Menu Script'
@@ -304,3 +304,26 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 'parameter name: vpptsize'
 'script type: Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
+
+
+
+#######################################################
+# ABOUT ( about Tab )
+#######################################################
+
+'parameter name: flame3github_icon'
+'script type: Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_github()
+
+'parameter name: flame3insta'
+'script type: Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_instagram()
+
+'parameter name: tffa_pdf'
+'script type: Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_paper()
+
+'parameter name: tffa_flam3github'
+'script type: Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_flam3_github()
+

@@ -569,8 +569,8 @@ class flam3h_scripts:
         node.setColor(hou.Color((0.825,0.825,0.825)))
         
         # Set about tab infos
-        in_flame_utils(self.kwargs).flam3h_about_msg()
-        in_flame_utils(self.kwargs).flam3h_about_plugins_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
         node.setParms({MSG_FLAMESTATS: ""})
         node.setParms({MSG_FLAMERENDER: ""})
@@ -642,8 +642,8 @@ class flam3h_scripts:
         flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
 
         # update about tab just in case
-        in_flame_utils(self.kwargs).flam3h_about_msg()
-        in_flame_utils(self.kwargs).flam3h_about_plugins_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
         # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
         # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
         # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside the in_to_flam3h()
@@ -677,7 +677,7 @@ class flam3h_general_utils:
 
 
     @staticmethod
-    def util_isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
+    def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
         if filepath is not False:
             if os.path.split(str(filepath))[-1].startswith(prx):
                 return True
@@ -688,7 +688,7 @@ class flam3h_general_utils:
 
 
     @staticmethod
-    def util_open_explorer_file(filename):
+    def open_explorer_file(filename):
         path = os.path.dirname(filename)
         if os.path.isdir(path):
             if sys_platform == "win32":
@@ -771,7 +771,7 @@ class flam3h_general_utils:
                 if apo.isvalidtree:
                     prm.set(f'{len(apo.name)-1}')
                     # check if the selected Flame file is locked
-                    if self.util_isLOCK(xml_checked):
+                    if self.isLOCK(xml_checked):
                         flame_lib_locked = f"\nflame lib file: LOCKED"
                         node.setParms({MSG_OUT: flame_lib_locked})
                     else:
@@ -794,7 +794,7 @@ class flam3h_general_utils:
                     if mode:
                         prm.set('0')
                         # check if the selected palette file is locked
-                        if self.util_isLOCK(json_path_checked):
+                        if self.isLOCK(json_path_checked):
                             palette_lib_locked = f"\npalette lib file: LOCKED"
                             node.setParms({MSG_PALETTE: palette_lib_locked})
                         else:
@@ -935,350 +935,6 @@ class flam3h_general_utils:
         if mode:
             node.setParms({"f3c": 1}) # type: ignore
 
-
-
-
-# FLAM3H PALETTE start here
-##########################################
-##########################################
-##########################################
-##########################################
-##########################################
-##########################################
-##########################################
-##########################################
-
-
-class flam3h_palette_utils:
-    
-    def __init__(self, kwargs: dict) -> None:
-        self._kwargs = kwargs
-        self._node = kwargs['node']
-        
-    @staticmethod 
-    def get_ramp_keys_count(ramp: hou.Ramp) -> str:
-        keys_count = len(ramp.keys())
-        if keys_count <= 32:
-            return PALETTE_COUNT_64
-        elif keys_count == 64:
-            return PALETTE_COUNT_64
-        elif keys_count <= 128:
-            return PALETTE_COUNT_128
-        elif keys_count <= 256:
-            return PALETTE_COUNT_256
-        else:
-            print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
-            return PALETTE_COUNT_256
-        
-    @staticmethod
-    def isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
-        if filepath is not False:
-            try:
-                with open(str(filepath),'r') as r:
-                    data_check = json.load(r)
-                    node.setParms({parm_path_name: str(filepath)}) #type: ignore
-                    del data_check
-                    return True
-            except:
-                return False
-        else:
-            return False
-        
-        
-    @staticmethod  
-    def clamp(x):
-        return max(0, min(x, 255))
-        
-        
-    @staticmethod
-    def rgb_to_hex(rgb: tuple) -> str:
-        vals = [flam3h_palette_utils.clamp(255*x) for x in rgb]
-        hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
-        return hex
-
-
-    @staticmethod
-    def hex_to_rgb(hex: str): 
-        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
-        
-
-
-
-
-    @property
-    def kwargs(self):
-        return self._kwargs
-    
-    @property
-    def node(self):
-        return self._node
-
-
-
-
-    
-    def menu_ramp_presets(self) -> list:
-
-        node = self.node
-        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-
-        menu=[]
-        
-        if flam3h_palette_utils.isJSON(node, filepath):
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                with open(filepath) as f:
-                    data = json.load(f)
-                menuitems = data.keys()
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
-            else:
-                menuitems = ("Please, add at least one iterator", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
-        else:
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                menu.append(-1)
-                menu.append('Empty')
-            else:
-                menuitems = ("Please, add at least one iterator", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
-        return menu
-
-
-    def ramp_save(self) -> None:
-        """
-        Args:
-            kwargs (dict): [kwargs[] dictionary]
-        """
-        node = self.node
-        palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-        out_path_checked = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
-
-        if out_path_checked is not False:
-            
-            if self.kwargs['shift']:
-                flam3h_general_utils.util_open_explorer_file(out_path_checked)
-            else:
-                    
-                if flam3h_general_utils.util_isLOCK(out_path_checked):
-                    ui_text = f"This Palette library is Locked."
-                    ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
-                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
-                else:
-                    # get user's preset name or build an automated one
-                    name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
-                    if not name:
-                        now = datetime.now()
-                        presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
-                    else:
-                        # otherwise get that name and use it
-                        presetname = name
-
-                    # Updated HSV ramp before getting it
-                    self.palette_hsv()
-                    self.palette_cp()
-
-                    ramp = hou.Ramp()
-                    hsv_vals = []
-                    hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
-                    if node.parm(CP_RAMP_SAVE_HSV).eval():
-                        ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
-                        hsv_vals_prm = [1.0, 1.0, 1.0]
-                    else:
-                        ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
-                        
-                    dict = {}
-                    HEXs = []
-                    keys_count = self.get_ramp_keys_count(ramp)
-                    POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-                    for p in POSs:
-                        clr = tuple(ramp.lookup(p))
-                        HEXs.append(self.rgb_to_hex(clr))
-                    
-                    if min(hsv_vals_prm)==max(hsv_vals_prm)==1.0:
-                        dict = { presetname: {'hex': ''.join(HEXs) } }
-                    else:
-                        hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
-                        dict = { presetname: {'hex': ''.join(HEXs), 'hsv': hsv_vals} }
-                    json_data = json.dumps(dict, indent=4)
-
-                    if self.kwargs["ctrl"]:
-                        os.remove(str(out_path_checked))
-                        with open(str(out_path_checked),'w') as w:
-                            w.write(json_data)
-                    else:
-                        # if the file exist and is a valid JSON file
-                        if self.isJSON(node, out_path_checked):
-                            with open(str(out_path_checked),'r') as r:
-                                prevdata = json.load(r)
-                            with open(str(out_path_checked), 'w') as w:
-                                newdata = dict
-                                prevdata.update(newdata)
-                                data = json.dumps(prevdata,indent = 4)
-                                w.write(data)
-                        # Otherwise mean it is either empty or not exist,
-                        # just create one with the current ramp in it
-                        #
-                        # Note that we already checked for a proper file extension with:
-                        # def out_check_outpath(...)
-                        # so to not override something else by accident
-                        else:
-                            with open(str(out_path_checked),'w') as w:
-                                w.write(json_data)
-
-                    # Set some parameters
-                    with open(out_path_checked) as f:
-                        data = json.load(f)
-                        node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
-                        node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
-                        del data
-                        
-                    # Set the file path to the corrected one
-                    node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
-
-
-
-    def sys_json_to_ramp(self) -> None:
-        node = self.node
-        preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
-        node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
-        self.json_to_ramp()
-        
-        
-        
-    def json_to_ramp(self) -> None:
-        """
-        Args:
-            kwargs (dict): [kwargs[] dictionary]
-        """    
-        node = self.node
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        
-        if iterators_num:
-            
-            #get ramp parm
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            
-            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-            # get current preset
-            preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-            preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
-            
-            if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-                HEXs = []
-                hsv_vals = []
-                # The following 'hsv_check' is for backward compatibility
-                hsv_check = False
-                with open(filepath) as f:
-                    data = json.load(f)[preset]
-                    hex_values = data['hex']
-                    try:
-                        [hsv_vals.append(float(x)) for x in data['hsv'].split(' ')]
-                        hsv_check = True
-                    except:
-                        pass
-                    [HEXs.append(hex) for hex in wrap(hex_values, 6)]
-
-                rgb_from_XML_PALETTE = []
-                for hex in HEXs:
-                    x = self.hex_to_rgb(hex)
-                    rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
-                
-                # Initialize new ramp.
-                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-                ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-                ramp_parm.set(ramp)
-
-                if hsv_check:
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
-                else:
-                    # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
-
-                self.palette_cp()
-                self.palette_hsv()
-                
-                # Store selection into mem preset menu
-                node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
-        
-
-
-    def palette_cp(self) -> None:
-        """
-        Args:
-            self (hou.Node): [current hou.Node]
-        """    
-        node = self.node
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
-        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
-        # Apply HSV if any is currently set
-        self.palette_hsv()
-
-
-    def palette_hsv(self) -> None:
-        """
-        Args:
-            self (hou.Node): [current hou.Node]
-        """  
-        node = self.node  
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
-        hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
-        hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
-        
-        rgb = []
-        for item in hsv:
-            h = item[0] + hsvprm[0].eval()
-            s = item[1] * hsvprm[1].eval()
-            v = item[2] * hsvprm[2].eval()
-            rgb.append(colorsys.hsv_to_rgb(h, s, v))
-        
-        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
-        
-        
-        
-    def palette_lock(self) -> None:
-        """
-        Args:
-            self (hou.Node): [current hou.Node]
-        """    
-        self.palette_cp()
-        self.palette_hsv()
-        
-        
-        
-        
-    def reset_CP(self, mode=0) -> None:
-        node = self.node
-        if not mode:
-            # CP
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-            # CP->ramp
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-            color_keys = [0.0, 0.5, 1.0]
-            color_values = [(1,0,0), (0,1,0), (0,0,1)]
-            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-        elif mode == 2:
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-        elif mode == 3:
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-            color_keys = [0.0, 0.5, 1.0]
-            color_values = [(1,0,0), (0,1,0), (0,0,1)]
-            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-        # Update ramp py 
-        self.palette_cp()
-        self.palette_hsv()
 
 
 
@@ -2321,41 +1977,501 @@ class flam3h_iterator_utils():
 
 
 
-###############################################################################################
-# Open web browser to the FLAM3 for Houdini github
-###############################################################################################
-def web_flame3github() -> None:
-    page = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
-    webbrowser.open(page)
-    
-###############################################################################################
-# Open web browser to the FLAM3 for Houdini instagram
-###############################################################################################
-def web_flame3insta() -> None:
-    page = "https://www.instagram.com/alexnardini/"
-    webbrowser.open(page)
-
-###############################################################################################
-# Open web browser to the FractalFlame Algorithm paper
-###############################################################################################
-def web_TFFA() -> None:
-    page = "https://flam3.com/flame_draves.pdf"
-    webbrowser.open(page)
-    
-###############################################################################################
-# Open web browser to the FractalFlame Algorithm FLAM3 Github
-###############################################################################################
-def web_FLAM3github() -> None:
-    page = "https://github.com/scottdraves/flam3"
-    webbrowser.open(page)
+# FLAM3H PALETTE start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
 
 
-###############################################################################################
-# XAOS usage infos. Show a portion of the xaos documentation as an info window
-###############################################################################################
-def ui_xaos_infos(kwargs) -> None:
+class flam3h_palette_utils:
     
-    ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
+        
+    @staticmethod 
+    def get_ramp_keys_count(ramp: hou.Ramp) -> str:
+        keys_count = len(ramp.keys())
+        if keys_count <= 32:
+            return PALETTE_COUNT_64
+        elif keys_count == 64:
+            return PALETTE_COUNT_64
+        elif keys_count <= 128:
+            return PALETTE_COUNT_128
+        elif keys_count <= 256:
+            return PALETTE_COUNT_256
+        else:
+            print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
+            return PALETTE_COUNT_256
+        
+    @staticmethod
+    def isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+        if filepath is not False:
+            try:
+                with open(str(filepath),'r') as r:
+                    data_check = json.load(r)
+                    node.setParms({parm_path_name: str(filepath)}) #type: ignore
+                    del data_check
+                    return True
+            except:
+                return False
+        else:
+            return False
+        
+        
+    @staticmethod  
+    def clamp(x):
+        return max(0, min(x, 255))
+        
+        
+    @staticmethod
+    def rgb_to_hex(rgb: tuple) -> str:
+        vals = [flam3h_palette_utils.clamp(255*x) for x in rgb]
+        hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+        return hex
+
+
+    @staticmethod
+    def hex_to_rgb(hex: str): 
+        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+        
+
+
+
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+
+
+
+
+    
+    def menu_ramp_presets(self) -> list:
+
+        node = self.node
+        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+
+        menu=[]
+        
+        if flam3h_palette_utils.isJSON(node, filepath):
+            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+                with open(filepath) as f:
+                    data = json.load(f)
+                menuitems = data.keys()
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+            else:
+                menuitems = ("Please, add at least one iterator", "")
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+        else:
+            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+                menu.append(-1)
+                menu.append('Empty')
+            else:
+                menuitems = ("Please, add at least one iterator", "")
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+        return menu
+
+
+    def ramp_save(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """
+        node = self.node
+        palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        out_path_checked = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+
+        if out_path_checked is not False:
+            
+            if self.kwargs['shift']:
+                flam3h_general_utils.open_explorer_file(out_path_checked)
+            else:
+                    
+                if flam3h_general_utils.isLOCK(out_path_checked):
+                    ui_text = f"This Palette library is Locked."
+                    ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
+                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                else:
+                    # get user's preset name or build an automated one
+                    name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
+                    if not name:
+                        now = datetime.now()
+                        presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
+                    else:
+                        # otherwise get that name and use it
+                        presetname = name
+
+                    # Updated HSV ramp before getting it
+                    self.palette_hsv()
+                    self.palette_cp()
+
+                    ramp = hou.Ramp()
+                    hsv_vals = []
+                    hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
+                    if node.parm(CP_RAMP_SAVE_HSV).eval():
+                        ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+                        hsv_vals_prm = [1.0, 1.0, 1.0]
+                    else:
+                        ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+                        
+                    dict = {}
+                    HEXs = []
+                    keys_count = self.get_ramp_keys_count(ramp)
+                    POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+                    for p in POSs:
+                        clr = tuple(ramp.lookup(p))
+                        HEXs.append(self.rgb_to_hex(clr))
+                    
+                    if min(hsv_vals_prm)==max(hsv_vals_prm)==1.0:
+                        dict = { presetname: {'hex': ''.join(HEXs) } }
+                    else:
+                        hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
+                        dict = { presetname: {'hex': ''.join(HEXs), 'hsv': hsv_vals} }
+                    json_data = json.dumps(dict, indent=4)
+
+                    if self.kwargs["ctrl"]:
+                        os.remove(str(out_path_checked))
+                        with open(str(out_path_checked),'w') as w:
+                            w.write(json_data)
+                    else:
+                        # if the file exist and is a valid JSON file
+                        if self.isJSON(node, out_path_checked):
+                            with open(str(out_path_checked),'r') as r:
+                                prevdata = json.load(r)
+                            with open(str(out_path_checked), 'w') as w:
+                                newdata = dict
+                                prevdata.update(newdata)
+                                data = json.dumps(prevdata,indent = 4)
+                                w.write(data)
+                        # Otherwise mean it is either empty or not exist,
+                        # just create one with the current ramp in it
+                        #
+                        # Note that we already checked for a proper file extension with:
+                        # def out_check_outpath(...)
+                        # so to not override something else by accident
+                        else:
+                            with open(str(out_path_checked),'w') as w:
+                                w.write(json_data)
+
+                    # Set some parameters
+                    with open(out_path_checked) as f:
+                        data = json.load(f)
+                        node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
+                        node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+                        del data
+                        
+                    # Set the file path to the corrected one
+                    node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
+
+
+
+    def sys_json_to_ramp(self) -> None:
+        node = self.node
+        preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
+        node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
+        self.json_to_ramp()
+        
+        
+        
+    def json_to_ramp(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        node = self.node
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        if iterators_num:
+            
+            #get ramp parm
+            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+            ramp_parm.deleteAllKeyframes()
+            
+            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+            # get current preset
+            preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+            preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
+            
+            if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+                HEXs = []
+                hsv_vals = []
+                # The following 'hsv_check' is for backward compatibility
+                hsv_check = False
+                with open(filepath) as f:
+                    data = json.load(f)[preset]
+                    hex_values = data['hex']
+                    try:
+                        [hsv_vals.append(float(x)) for x in data['hsv'].split(' ')]
+                        hsv_check = True
+                    except:
+                        pass
+                    [HEXs.append(hex) for hex in wrap(hex_values, 6)]
+
+                rgb_from_XML_PALETTE = []
+                for hex in HEXs:
+                    x = self.hex_to_rgb(hex)
+                    rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+                
+                # Initialize new ramp.
+                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+                ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+                ramp_parm.set(ramp)
+
+                if hsv_check:
+                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+                else:
+                    # This is for backward compatibility ( when the hsv data wasn't being exported yet )
+                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+
+                self.palette_cp()
+                self.palette_hsv()
+                
+                # Store selection into mem preset menu
+                node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
+        
+
+
+    def palette_cp(self) -> None:
+        """
+        Args:
+            self (hou.Node): [current hou.Node]
+        """    
+        node = self.node
+        rmphsv = node.parm(CP_RAMP_HSV_NAME)
+        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
+        # Apply HSV if any is currently set
+        self.palette_hsv()
+
+
+    def palette_hsv(self) -> None:
+        """
+        Args:
+            self (hou.Node): [current hou.Node]
+        """  
+        node = self.node  
+        rmphsv = node.parm(CP_RAMP_HSV_NAME)
+        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
+        hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
+        
+        rgb = []
+        for item in hsv:
+            h = item[0] + hsvprm[0].eval()
+            s = item[1] * hsvprm[1].eval()
+            v = item[2] * hsvprm[2].eval()
+            rgb.append(colorsys.hsv_to_rgb(h, s, v))
+        
+        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
+        
+        
+        
+    def palette_lock(self) -> None:
+        """
+        Args:
+            self (hou.Node): [current hou.Node]
+        """    
+        self.palette_cp()
+        self.palette_hsv()
+        
+        
+        
+        
+    def reset_CP(self, mode=0) -> None:
+        node = self.node
+        if not mode:
+            # CP
+            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+            # CP->ramp
+            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+            ramp_parm.deleteAllKeyframes()
+            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
+            color_keys = [0.0, 0.5, 1.0]
+            color_values = [(1,0,0), (0,1,0), (0,0,1)]
+            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+        elif mode == 2:
+            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        elif mode == 3:
+            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+            ramp_parm.deleteAllKeyframes()
+            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
+            color_keys = [0.0, 0.5, 1.0]
+            color_values = [(1,0,0), (0,1,0), (0,0,1)]
+            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+        # Update ramp py 
+        self.palette_cp()
+        self.palette_hsv()
+
+
+
+
+
+# FLAM3H ABOUT start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class flam3h_about_utils():
+    
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
+        
+        
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+        
+
+    def flam3h_about_msg(self):
+        node = self.node
+        nl = "\n"
+        nnl = "\n\n"
+
+        year = datetime.now().strftime("%Y")
+        flam3h_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
+        Implementation_years = f"2020/{year}"
+        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
+        
+        code_references = """Code references:
+flam3 :: (GPL v2)
+Apophysis :: (GPL)
+Fractorium :: (GPL v3)"""
+        
+        h_version = '.'.join(str(x) for x in hou.applicationVersion())
+        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+        Python_version = f"Python: {python_version()}"
+        license_type = str(hou.licenseCategory()).split(".")[-1]
+        Houdini_license = f"License: {license_type}"
+        Platform = f"Platform: {hou.applicationPlatformInfo()}"
+        PC_name = f"Machine name: {hou.machineName()}"
+        User = f"User: {hou.userName()}"
+        
+        example_flames = """example Flames:
+C-91, Gabor Timar, Golubaja, Pillemaster,
+Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
+Seph, Lucy, b33rheart, Neonrauschen"""
+        
+        build = (Implementation_build, nnl,
+                code_references, nnl,
+                example_flames, nnl,
+                Houdini_version, nl,
+                Houdini_license, nl,
+                Python_version, nl,
+                Platform, nl,
+                PC_name, nl,
+                User
+                )
+        
+        build_about_msg = "".join(build)
+
+        node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
+
+
+    def flam3h_about_plugins_msg(self):
+        node = self.node
+        vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
+        n = 6
+        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+        _vars = []
+        for idx, grp in enumerate(vars_sorted_grp):
+            if idx == (len(vars_sorted_grp)-1):
+                _vars.append(", ".join(grp))
+            else:
+                _vars.append(", ".join(grp) + "\n")
+        vars_txt = "".join(_vars)
+        
+        node.setParms({MSG_FLAM3PLUGINS: vars_txt}) # type: ignore
+
+
+
+
+    def flam3h_about_web_homepage(self) -> None:
+        page = "https://www.alexnardini.net/"
+        webbrowser.open(page)
+        
+
+    def flam3h_about_web_github(self) -> None:
+        page = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
+        webbrowser.open(page)
+        
+
+    def flam3h_about_web_instagram(self) -> None:
+        page = "https://www.instagram.com/alexnardini/"
+        webbrowser.open(page)
+
+
+    def flam3h_about_web_paper(self) -> None:
+        page = "https://flam3.com/flame_draves.pdf"
+        webbrowser.open(page)
+        
+
+    def flam3h_about_web_flam3_github(self) -> None:
+        page = "https://github.com/scottdraves/flam3"
+        webbrowser.open(page)
+
+
+
+
+
+
+# FLAM3H UI MESSAGES start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class flam3h_ui_msg_utils():
+    
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
+        
+        
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+        
+
+    def ui_xaos_infos(self) -> None:
+        
+        ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
 To set XAOS for a flame with 4 iterators,
 use the "xaos:" keyword followed by each iterator weights values separated by a colon:
@@ -2370,55 +2486,62 @@ FLAM3 will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be int
 When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator
 so you wont need to remove values from the command string,
 unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
-    
-    node=kwargs['node']
-    autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
-    
-    if autoset:
-        if kwargs["ctrl"]:
+        
+        node = self.node
+        autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
+        
+        if autoset:
+            if self.kwargs["ctrl"]:
+                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+
+            else:
+                # current node
+                autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).eval()
+                if autodiv:
+                    node.setParms({PREFS_XAOS_AUTO_SPACE: 0})
+                    flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+                    
+                else:
+                    node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
+                    flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+        else:
             hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
-        else:
-            # current node
-            autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).eval()
-            if autodiv:
-                node.setParms({PREFS_XAOS_AUTO_SPACE: 0})
-                flam3h_iterator_utils(kwargs).auto_set_xaos()
-                
-            else:
-                node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
-                flam3h_iterator_utils(kwargs).auto_set_xaos()
-    else:
-        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+            
 
-        
-###############################################################################################
-# OUT Presets name infos.
-###############################################################################################
-def ui_OUT_presets_name_infos() -> None:
-    ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini can be baked into the preset name you choose for it. 
+    def ui_OUT_presets_name_infos(self) -> None:
+        ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini
+can be baked into the preset name you choose for it. 
 
-For instance, the Flame preset “My_Awesome_GrandJulia” will be loaded with 64 iterations by default. However, if the iteration number is added to the preset name after a double colon, as in “My_Awesome_GrandJulia::16,” it will override all settings and load the preset with 16 as the iteration numbers.
+For instance, the Flame preset “My_Awesome_GrandJulia” will be loaded with 64 iterations by default.
+However, if the iteration number is added to the preset name after a double colon,
+as in “My_Awesome_GrandJulia::16,” it will override all settings and load the preset with 16 as the iteration numbers.
 
-Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
+Therefore,
+do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
 
-If you like, you can manually edit the created XML/Flame file and change the flame → “name” key afterwards.
+If you like,
+you can manually edit the created XML/Flame file and change the flame → “name” key afterwards.
     
 """
 
+        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
-    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
-###############################################################################################
-# Disabled iterator save out info.
-###############################################################################################
-def ui_active_iterator_infos() -> None:
-    ALL_msg = """If an iterator is disabled,
+    
+    def ui_active_iterator_infos(self) -> None:
+        ALL_msg = """If an iterator is disabled,
 it wont be included when saving the flame out into a Flame file.
 
 In case you still want to include the inactive iterator into the file,
 set its Weight to Zero instead."""
-    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
+
+        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
+
+
+
+
+
 
 
 
@@ -4383,7 +4506,7 @@ class in_flame_utils:
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
-        if flam3h_general_utils.util_isLOCK(in_path_checked):
+        if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"\nflame lib file: LOCKED"
         else: flame_lib_locked = ''
         # build full stats msg
@@ -4696,70 +4819,6 @@ class in_flame_utils:
             node.setParms({IN_ITER_NUM_ON_LOAD: 64})
             node.setParms({IN_USE_ITER_ON_LOAD: 0})
             node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
-
-
-
-
-    def flam3h_about_msg(self):
-        node = self.node
-        nl = "\n"
-        nnl = "\n\n"
-
-        year = datetime.now().strftime("%Y")
-        flam3h_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
-        Implementation_years = f"2020/{year}"
-        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
-        
-        code_references = """Code references:
-flam3 :: (GPL v2)
-Apophysis :: (GPL)
-Fractorium :: (GPL v3)"""
-        
-        h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
-        Python_version = f"Python: {python_version()}"
-        license_type = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_license = f"License: {license_type}"
-        Platform = f"Platform: {hou.applicationPlatformInfo()}"
-        PC_name = f"Machine name: {hou.machineName()}"
-        User = f"User: {hou.userName()}"
-        
-        example_flames = """example Flames:
-C-91, Gabor Timar, Golubaja, Pillemaster,
-Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
-Seph, Lucy, b33rheart, Neonrauschen"""
-        
-        build = (Implementation_build, nnl,
-                code_references, nnl,
-                example_flames, nnl,
-                Houdini_version, nl,
-                Houdini_license, nl,
-                Python_version, nl,
-                Platform, nl,
-                PC_name, nl,
-                User
-                )
-        
-        build_about_msg = "".join(build)
-
-        node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
-
-
-    def flam3h_about_plugins_msg(self):
-        node = self.node
-        vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
-        n = 6
-        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-        _vars = []
-        for idx, grp in enumerate(vars_sorted_grp):
-            if idx == (len(vars_sorted_grp)-1):
-                _vars.append(", ".join(grp))
-            else:
-                _vars.append(", ".join(grp) + "\n")
-        vars_txt = "".join(_vars)
-        
-        node.setParms({MSG_FLAM3PLUGINS: vars_txt}) # type: ignore
-
 
 
 
@@ -5596,10 +5655,10 @@ class out_flame_utils:
             if out_path_checked is not False:
                 
                 if self.kwargs['shift']:
-                    flam3h_general_utils.util_open_explorer_file(out_path_checked)
+                    flam3h_general_utils.open_explorer_file(out_path_checked)
                 else:
 
-                    if flam3h_general_utils.util_isLOCK(out_path_checked):
+                    if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flam3 library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
