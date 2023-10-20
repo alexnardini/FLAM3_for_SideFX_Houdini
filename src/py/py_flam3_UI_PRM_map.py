@@ -206,7 +206,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 
 'parameter name: palettefile'
 'script type: Callbac Script'
-hou.pwd().hdaModule().flam3.flam3h_init_presets(kwargs, "palettepresets")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("palettepresets")
 'script type: Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).ramp_save()
 
@@ -228,7 +228,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
 
 'parameter name: inpath'
 'script type: Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_init_presets(kwargs, "inpresets")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("inpresets")
 
 'parameter name: inpresets'
 'script type: Callback Script'
@@ -260,7 +260,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_copy_render_stats_msg(kwar
 
 'parameter name: outpath'
 'script type: Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_init_presets(kwargs, "outpresets")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("outpresets")
 'script type: Action Button'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 

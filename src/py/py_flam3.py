@@ -611,10 +611,10 @@ def flam3h_on_loaded(kwargs: dict) -> None:
     # Check for left over JSON, IN and OUT file paths no longer valid and flam3h_init_presets accordingly
     
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    flam3h_init_presets(kwargs, CP_PALETTE_PRESETS, 0)
+    flam3h_general_utils(kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
     #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    flam3h_init_presets(kwargs, IN_PRESETS, 0)
-    flam3h_init_presets(kwargs, OUT_PRESETS)
+    flam3h_general_utils(kwargs).flam3h_init_presets(IN_PRESETS, 0)
+    flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
 
     node = kwargs['node']
     # update about tab just in case
@@ -631,135 +631,6 @@ def flam3h_on_loaded(kwargs: dict) -> None:
 
 
 
-###############################################################################################
-# Init parameter presets menu list as soon as you load a valid json/flame file
-###############################################################################################
-def flam3h_init_presets(kwargs: dict, prm_presets_name: str, mode=1) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-        mode (int): To be used to prevent to load a left over preset when loading back a hip file.
-    """    
-    node = kwargs['node']
-    prm = node.parm(prm_presets_name)
-    prm.set('-1')
-    
-    if IN_PRESETS in prm_presets_name:
-        xml = node.parm(IN_PATH).evalAsString()
-        if os.path.isfile(xml) is True:
-            apo = in_flame(node, xml)
-            if not apo.isvalidtree:
-                prm.set('-1')
-                node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
-                node.setParms({MSG_FLAMERENDER: ""})
-                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
-            else:
-                # Only set when NOT on an: onLoaded python script
-                if mode:
-                    prm.set('0')
-                    node.setParms({IN_ISVALID_FILE: 1})
-                    in_flame_utils(kwargs).in_to_flam3h()
-        else:
-            prm.set('-1')
-            node.setParms({IN_ISVALID_FILE: 0})
-            node.setParms({MSG_FLAMESTATS: ""})
-            node.setParms({MSG_FLAMERENDER: ""})
-            node.setParms({MSG_DESCRIPTIVE_PRM: ""})
-            # We do not want to print if the file path parameter is empty
-            if xml:
-                print(f'{str(node)}.IN: please select a valid file location.')
-                
-    elif OUT_PRESETS in prm_presets_name:
-        xml = node.parm(OUT_PATH).evalAsString()
-        xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
-        if xml_checked is not False:
-            node.setParms({OUT_PATH: xml_checked}) 
-            apo = in_flame(node, xml_checked) #type: ignore
-            if apo.isvalidtree:
-                prm.set(f'{len(apo.name)-1}')
-                # check if the selected Flame file is locked
-                if flam3h_general_utils.isLOCK(xml_checked):
-                    flame_lib_locked = f"\nflame lib file: LOCKED"
-                    node.setParms({MSG_OUT: flame_lib_locked})
-                else:
-                    node.setParms({MSG_OUT: ''})
-            else:
-                prm.set('-1')
-                node.setParms({MSG_OUT: ''})
-        else:
-            # We do not want to print if the file path parameter is empty
-            if xml:
-                print(f'{str(node)}.OUT: please select a valid file location.')
-                
-    elif CP_PALETTE_PRESETS in prm_presets_name:
-        json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-        json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
-        if json_path_checked is not False:
-            node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
-            if flam3h_palette_utils.isJSON(node, json_path):
-                # Only set when NOT on an: onLoaded python script
-                if mode:
-                    prm.set('0')
-                    # check if the selected palette file is locked
-                    if flam3h_general_utils.isLOCK(json_path_checked):
-                        palette_lib_locked = f"\npalette lib file: LOCKED"
-                        node.setParms({MSG_PALETTE: palette_lib_locked})
-                    else:
-                        node.setParms({MSG_PALETTE: ''})
-                        
-            else:
-                prm.set('-1')
-                node.setParms({MSG_PALETTE: ''})
-        else:
-            # We do not want to print if the file path parameter is empty
-            if json_path:
-                print(f'{str(node)}.palette: please select a valid file location.')
-            node.setParms({MSG_PALETTE: ''})
-
-
-
-###############################################################################################
-# FLAM3H GENERAL RESETS
-###############################################################################################
-def reset_SYS(self: hou.Node, density: int, iter: int, mode: int) -> None:
-    """
-    Args:
-        density (int): Numper of points to use
-        iter (int): Number of iterations
-        mode (int): 0: skip "doff" 1: reset "doff"
-    """    
-    
-    self.setParms({GLB_DENSITY: density}) # type: ignore
-    self.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
-    self.setParms({GLB_ITERATIONS: iter}) # type: ignore
-    if mode:
-        self.setParms({SYS_DO_FF: 0}) # type: ignore
-    self.setParms({SYS_TAG: 1}) # type: ignore
-    self.setParms({SYS_TAG_SIZE: 0}) # type: ignore
-    self.setParms({SYS_RIP: 0}) # type: ignore
-    
-
-def reset_MB(self) -> None:
-    self.setParms({OUT_MB_DO: 0})
-    self.setParms({OUT_MB_FPS: 24})
-    self.setParms({OUT_MB_SAMPLES: 16})
-    self.setParms({OUT_MB_SHUTTER: 0.5})
-
-
-
-def reset_PREFS(self: hou.Node, mode=0) -> None:
-    self.setParms({"showprefs": 1}) # type: ignore
-    self.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
-    self.setParms({"camhandle": 0}) # type: ignore
-    self.setParms({"camcull": 0}) # type: ignore
-    self.setParms({"fcam": ""}) # type: ignore
-    self.setParms({"cullamount": 0.99}) # type: ignore
-    if mode:
-        self.setParms({"f3c": 1}) # type: ignore
-
-
-
-
 
 
 class flam3h_general_utils:
@@ -771,7 +642,7 @@ class flam3h_general_utils:
 
 
     @staticmethod
-    def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
+    def util_isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
         if filepath is not False:
             if os.path.split(str(filepath))[-1].startswith(prx):
                 return True
@@ -782,7 +653,7 @@ class flam3h_general_utils:
 
 
     @staticmethod
-    def open_explorer_file(filename):
+    def util_open_explorer_file(filename):
         path = os.path.dirname(filename)
         if os.path.isdir(path):
             if sys_platform == "win32":
@@ -795,7 +666,7 @@ class flam3h_general_utils:
 
 
     @staticmethod
-    def getSceneViewers() -> list:
+    def util_getSceneViewers() -> list:
         """
         Returns:
             list: [return a list of open scene viewers]
@@ -821,6 +692,90 @@ class flam3h_general_utils:
 
 
 
+    def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+            mode (int): To be used to prevent to load a left over preset when loading back a hip file.
+        """    
+        node = self.node
+        prm = node.parm(prm_presets_name)
+        prm.set('-1')
+        
+        if IN_PRESETS in prm_presets_name:
+            xml = node.parm(IN_PATH).evalAsString()
+            if os.path.isfile(xml) is True:
+                apo = in_flame(node, xml)
+                if not apo.isvalidtree:
+                    prm.set('-1')
+                    node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
+                    node.setParms({MSG_FLAMERENDER: ""})
+                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                else:
+                    # Only set when NOT on an: onLoaded python script
+                    if mode:
+                        prm.set('0')
+                        node.setParms({IN_ISVALID_FILE: 1})
+                        in_flame_utils(self.kwargs).in_to_flam3h()
+            else:
+                prm.set('-1')
+                node.setParms({IN_ISVALID_FILE: 0})
+                node.setParms({MSG_FLAMESTATS: ""})
+                node.setParms({MSG_FLAMERENDER: ""})
+                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                # We do not want to print if the file path parameter is empty
+                if xml:
+                    print(f'{str(node)}.IN: please select a valid file location.')
+                    
+        elif OUT_PRESETS in prm_presets_name:
+            xml = node.parm(OUT_PATH).evalAsString()
+            xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+            if xml_checked is not False:
+                node.setParms({OUT_PATH: xml_checked}) 
+                apo = in_flame(node, xml_checked) #type: ignore
+                if apo.isvalidtree:
+                    prm.set(f'{len(apo.name)-1}')
+                    # check if the selected Flame file is locked
+                    if self.util_isLOCK(xml_checked):
+                        flame_lib_locked = f"\nflame lib file: LOCKED"
+                        node.setParms({MSG_OUT: flame_lib_locked})
+                    else:
+                        node.setParms({MSG_OUT: ''})
+                else:
+                    prm.set('-1')
+                    node.setParms({MSG_OUT: ''})
+            else:
+                # We do not want to print if the file path parameter is empty
+                if xml:
+                    print(f'{str(node)}.OUT: please select a valid file location.')
+                    
+        elif CP_PALETTE_PRESETS in prm_presets_name:
+            json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
+            if json_path_checked is not False:
+                node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
+                if flam3h_palette_utils.isJSON(node, json_path):
+                    # Only set when NOT on an: onLoaded python script
+                    if mode:
+                        prm.set('0')
+                        # check if the selected palette file is locked
+                        if self.util_isLOCK(json_path_checked):
+                            palette_lib_locked = f"\npalette lib file: LOCKED"
+                            node.setParms({MSG_PALETTE: palette_lib_locked})
+                        else:
+                            node.setParms({MSG_PALETTE: ''})
+                            
+                else:
+                    prm.set('-1')
+                    node.setParms({MSG_PALETTE: ''})
+            else:
+                # We do not want to print if the file path parameter is empty
+                if json_path:
+                    print(f'{str(node)}.palette: please select a valid file location.')
+                node.setParms({MSG_PALETTE: ''})
+
+
+
     def colorSchemeDark(self) -> None:
 
         node = self.node
@@ -838,7 +793,7 @@ class flam3h_general_utils:
         Grey  = hou.viewportColorScheme.Grey # type: ignore
         Dark  = hou.viewportColorScheme.Dark # type: ignore
 
-        for view in self.getSceneViewers():
+        for view in self.util_getSceneViewers():
 
             settings = view.curViewport().settings()
             col = settings.colorScheme()
@@ -887,7 +842,7 @@ class flam3h_general_utils:
         Points = hou.viewportParticleDisplay.Points # type: ignore
         Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
 
-        for view in self.getSceneViewers():
+        for view in self.util_getSceneViewers():
             settings = view.curViewport().settings()
             if pttype == 0:
                 settings.particleDisplayType(Points)
@@ -900,10 +855,50 @@ class flam3h_general_utils:
         Points = hou.viewportParticleDisplay.Points # type: ignore
         ptsize = node.parm("vpptsize").evalAsFloat()
 
-        for view in self.getSceneViewers():
+        for view in self.util_getSceneViewers():
             settings = view.curViewport().settings()
             settings.particleDisplayType(Points)
             settings.particlePointSize(ptsize)
+            
+            
+            
+    def reset_SYS(self, density: int, iter: int, mode: int) -> None:
+        """
+        Args:
+            density (int): Numper of points to use
+            iter (int): Number of iterations
+            mode (int): 0: skip "doff" 1: reset "doff"
+        """    
+        node = self.node
+        node.setParms({GLB_DENSITY: density}) # type: ignore
+        node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
+        node.setParms({GLB_ITERATIONS: iter}) # type: ignore
+        if mode:
+            node.setParms({SYS_DO_FF: 0}) # type: ignore
+        node.setParms({SYS_TAG: 1}) # type: ignore
+        node.setParms({SYS_TAG_SIZE: 0}) # type: ignore
+        node.setParms({SYS_RIP: 0}) # type: ignore
+        
+
+    def reset_MB(self) -> None:
+        node = self.node
+        node.setParms({OUT_MB_DO: 0})
+        node.setParms({OUT_MB_FPS: 24})
+        node.setParms({OUT_MB_SAMPLES: 16})
+        node.setParms({OUT_MB_SHUTTER: 0.5})
+
+
+
+    def reset_PREFS(self, mode=0) -> None:
+        node = self.node
+        node.setParms({"showprefs": 1}) # type: ignore
+        node.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
+        node.setParms({"camhandle": 0}) # type: ignore
+        node.setParms({"camcull": 0}) # type: ignore
+        node.setParms({"fcam": ""}) # type: ignore
+        node.setParms({"cullamount": 0.99}) # type: ignore
+        if mode:
+            node.setParms({"f3c": 1}) # type: ignore
 
 
 
@@ -1021,10 +1016,10 @@ class flam3h_palette_utils:
         if out_path_checked is not False:
             
             if self.kwargs['shift']:
-                flam3h_general_utils.open_explorer_file(out_path_checked)
+                flam3h_general_utils.util_open_explorer_file(out_path_checked)
             else:
                     
-                if flam3h_general_utils.isLOCK(out_path_checked):
+                if flam3h_general_utils.util_isLOCK(out_path_checked):
                     ui_text = f"This Palette library is Locked."
                     ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -2024,12 +2019,12 @@ class flam3h_iterator_utils():
         self.auto_set_xaos()
 
         self.reset_FF()
-        reset_SYS(node, 1, 10, 1)
+        flam3h_general_utils(self.kwargs).reset_SYS(1, 10, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
-        reset_MB(node)
+        flam3h_general_utils(self.kwargs).reset_MB()
         in_flame_utils(self.kwargs).reset_IN(node)
         out_flame_utils(self.kwargs).reset_OUT(node)
-        reset_PREFS(node)
+        flam3h_general_utils(self.kwargs).reset_PREFS()
         
         # iterator prm names
         n = flam3h_iterator_prm_names
@@ -4323,7 +4318,7 @@ class in_flame_utils:
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
-        if flam3h_general_utils.isLOCK(in_path_checked):
+        if flam3h_general_utils.util_isLOCK(in_path_checked):
             flame_lib_locked = f"\nflame lib file: LOCKED"
         else: flame_lib_locked = ''
         # build full stats msg
@@ -4589,9 +4584,9 @@ Seph, Lucy, b33rheart, Neonrauschen"""
             
             preset_id = int(node.parm(IN_PRESETS).eval())
             iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id)
-            reset_SYS(node, 1, iter_on_load, 0)
-            reset_MB(node)
-            reset_PREFS(node)
+            flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
+            flam3h_general_utils(self.kwargs).reset_MB()
+            flam3h_general_utils(self.kwargs).reset_PREFS()
 
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
@@ -5524,10 +5519,10 @@ class out_flame_utils:
             if out_path_checked is not False:
                 
                 if self.kwargs['shift']:
-                    flam3h_general_utils.open_explorer_file(out_path_checked)
+                    flam3h_general_utils.util_open_explorer_file(out_path_checked)
                 else:
 
-                    if flam3h_general_utils.isLOCK(out_path_checked):
+                    if flam3h_general_utils.util_isLOCK(out_path_checked):
                         ui_text = f"This Flam3 library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -5545,8 +5540,8 @@ class out_flame_utils:
                             else:
                                 out_flame_utils.out_new_XML(self.kwargs, str(out_path_checked))
                                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-                        flam3h_init_presets(self.kwargs, OUT_PRESETS)
-                        flam3h_init_presets(self.kwargs, OUT_SYS_PRESETS)
+                        flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
+                        flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
 
 
 
