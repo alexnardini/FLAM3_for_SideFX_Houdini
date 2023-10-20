@@ -82,6 +82,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
+
 'parameter name:    sys_palettepresets'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).sys_json_to_ramp()
@@ -91,6 +92,7 @@ return menu
 'script type:       Action Script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
 
+
 'parameter name:    sys_inpresets'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
@@ -99,6 +101,7 @@ menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
+
 
 'parameter name:    sys_outpresets'
 'script type:       Menu Script'
@@ -117,26 +120,32 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
+
 'parameter name:    prmpastesel_#'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
+
 return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
+
 
 'parameter name:    activetip_#'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
 
+
 'parameter name:    vactive_#'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).vactive_keep_last()
 
+
 'parameter name:    xaos_#'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
+
 
 'All ITERATORS variations type parameters'
 "parameter name:    pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#"
@@ -144,9 +153,11 @@ kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(0)
 return menu
 
+
 'parameter name:    ang_#'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
+
 
 'parameter name:    pang_#'
 'script type:       Action Button'
@@ -167,15 +178,18 @@ return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
+
 'All FF variations type parameters'
 "parameter name:    ffpre1type, ffv1type, ffv2type, ffp1type, ffp2type"
 'script type:       Callback Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(0)
 return menu
 
+
 'parameter name:    ffang'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()
+
 
 'parameter name:    ffpang'
 'script type:       Action Button'
@@ -193,11 +207,13 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_hsv()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 
+
 'parameter name:    palettehsv'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_lock()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
+
 
 'parameter name:    palette'
 'script type:       Callback Script'
@@ -205,11 +221,13 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 
+
 'parameter name:    palettefile'
 'script type:       Callbac Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("palettepresets")
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).ramp_save()
+
 
 'parameter name:    palettepresets'
 'script type:       Callback Script'
@@ -231,6 +249,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("inpresets")
 
+
 'parameter name:    inpresets'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
@@ -240,13 +259,16 @@ return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
+
 'parameter name:    iternumonload'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
 
+
 'parameter name:    useiteronload'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
+
 
 'parameter name:    cprendervals'
 'script type:       Callback Script'
@@ -265,16 +287,19 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("ou
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
+
 'parameter name:    outname'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
 
+
 'parameter name:    outpresets'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
+
 
 'parameter name:    outedit'
 'script type:       Action Button'
@@ -290,17 +315,21 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT()
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert()
 
+
 'parameter name:    autoxaos'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
+
 
 'parameter name:    setdark'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark()
 
+
 'parameter name:    vptype'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay()
+
 
 'parameter name:    vpptsize'
 'script type:       Callback Script'
@@ -315,17 +344,21 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
 'parameter name:    flam3homepage'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_homepage()
 
+
 'parameter name:    flam3github'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_github()
+
 
 'parameter name:    flam3insta'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_instagram()
 
+
 'parameter name:    tffa_pdf'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_paper()
+
 
 'parameter name:    tffa_flam3github'
 'script type:       Action Button'
