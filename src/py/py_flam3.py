@@ -543,6 +543,14 @@ class flam3h_iterator_FF:
 
 
 class flam3h_scripts:
+    """
+Methods:
+
+flam3h_on_create(self) -> None:
+
+flam3h_on_loaded(self) -> None:
+
+    """    
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -669,6 +677,31 @@ class flam3h_scripts:
 
 
 class flam3h_general_utils:
+    """
+STATIC METHODS:
+
+isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
+
+open_explorer_file(filename) -> None:
+
+util_getSceneViewers() -> list:
+
+METHODS:
+
+flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
+
+colorSchemeDark(self) -> None:
+
+viewportParticleDisplay(self) -> None:
+
+viewportParticleSize(self) -> None:
+
+reset_SYS(self, density: int, iter: int, mode: int) -> None:
+
+reset_MB(self) -> None:
+
+reset_PREFS(self, mode=0) -> None:
+    """    
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -688,7 +721,7 @@ class flam3h_general_utils:
 
 
     @staticmethod
-    def open_explorer_file(filename):
+    def open_explorer_file(filename) -> None:
         path = os.path.dirname(filename)
         if os.path.isdir(path):
             if sys_platform == "win32":
@@ -951,6 +984,63 @@ class flam3h_general_utils:
 
 
 class flam3h_iterator_utils():
+    """
+STATIC METHODS:
+
+menu_T(mode: int) -> list:
+
+paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+
+pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+
+paste_save_note(_note: str) -> str:
+
+paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+
+auto_set_xaos_data_get(node: hou.Node, data_name: str) -> Union[list, None]:
+
+auto_set_xaos_data_set(node: hou.Node, data_name: str, data: Union[list, tuple]) -> None:
+
+METHODS:
+
+menu_global_density(self) -> list:
+
+menu_global_density_set(self) -> None:
+
+menu_global_density_set_default(self) -> None:
+
+menu_copypaste(self) -> list:
+
+menu_copypaste_FF(self) -> list:
+
+prm_paste(self) -> None:
+
+prm_paste_FF(self) -> None:
+
+prm_paste_sel(self) -> None:
+
+prm_paste_sel_FF(self) -> None:
+
+flam3h_xaos_convert(self) -> None:
+
+reset_preaffine(self) -> None:
+
+reset_postaffine(self) -> None:
+
+reset_preaffine_FF(self) -> None:
+
+reset_postaffine_FF(self) -> None:
+
+reset_FF(self) -> None:
+
+flam3h_default(self) -> None:
+
+auto_set_xaos(self) -> None:
+
+iterators_count(self) -> None:
+
+vactive_keep_last(self) -> None:
+    """    
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -1324,7 +1414,6 @@ class flam3h_iterator_utils():
         """    
         # init menu
         menu=[]
-
         # Check if we copied an iterator
         try:
             hou.session.flam3node_FF_check # type: ignore
@@ -1989,6 +2078,37 @@ class flam3h_iterator_utils():
 
 
 class flam3h_palette_utils:
+    """
+STATIC METHODS:
+
+get_ramp_keys_count(ramp: hou.Ramp) -> str:
+
+isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+
+clamp(x):
+
+rgb_to_hex(rgb: tuple) -> str:
+
+hex_to_rgb(hex: str):
+
+METHODS:
+
+menu_ramp_presets(self) -> list:
+
+ramp_save(self) -> None:
+
+sys_json_to_ramp(self) -> None:
+
+json_to_ramp(self) -> None:
+
+palette_cp(self) -> None:
+
+palette_hsv(self) -> None:
+
+palette_lock(self) -> None:
+
+reset_CP(self, mode=0) -> None:
+    """
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -2335,6 +2455,23 @@ class flam3h_palette_utils:
 
 
 class flam3h_about_utils():
+    """
+METHODS:
+
+flam3h_about_msg(self):
+
+flam3h_about_plugins_msg(self):
+
+flam3h_about_web_homepage(self) -> None:
+
+flam3h_about_web_github(self) -> None:
+
+flam3h_about_web_instagram(self) -> None:
+
+flam3h_about_web_paper(self) -> None:
+
+flam3h_about_web_flam3_github(self) -> None:
+    """
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -2454,6 +2591,15 @@ Seph, Lucy, b33rheart, Neonrauschen"""
 
 
 class flam3h_ui_msg_utils():
+    """
+METHODS:
+
+ui_xaos_infos(self) -> None:
+
+ui_OUT_presets_name_infos(self) -> None:
+
+ui_active_iterator_infos(self) -> None:
+    """
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -3528,6 +3674,201 @@ class in_flame_iter_data(in_flame):
     
 # This is mostly to group all those function into one common place
 class in_flame_utils:
+    """
+STATIC METHODS:
+
+in_util_make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
+
+in_util_make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
+
+in_util_make_PRE(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
+
+in_util_make_POST(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
+
+in_get_xforms_var_keys( xforms: Union[tuple, None], 
+                        vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
+                        exclude_keys: tuple
+                        ) -> Union[list[str], None]:
+                            
+in_util_removeprefix(var_name: str, prefix: str) -> str:
+
+in_get_xforms_var_keys_PP(xforms: Union[tuple, None], 
+                          vars: dict, 
+                          prx: str, 
+                          exclude_keys: tuple
+                          ) -> Union[list[str], None]:
+
+in_util_typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+
+in_get_idx_by_key(key: str) -> Union[int, None]:
+
+in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
+
+in_set_affine(mode: int, 
+              node: hou.Node, 
+              prx: str, 
+              apo_data: in_flame_iter_data, 
+              n: flam3h_iterator_prm_names, 
+              mp_idx: int
+              ) -> None:
+
+in_set_data(mode: int, 
+            node: hou.Node, 
+            prx: str, 
+            apo_data: list, 
+            prm_name: str, 
+            mp_idx: int
+            ) -> None:
+
+in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
+
+in_var_name_from_dict(mydict: dict, idx: int):
+
+in_v_parametric_var_collect(node: hou.Node, 
+                            mode: int, 
+                            apo_prm: tuple, 
+                            xform: dict, 
+                            mp_idx: int, 
+                            v_type: int, 
+                            func: Callable) -> list:
+
+in_v_parametric(app: str, 
+                mode: int, 
+                node: hou.Node, 
+                mp_idx: int, 
+                t_idx: int, 
+                xform: dict, 
+                v_type: int, 
+                v_weight: float, 
+                var_prm: tuple, 
+                apo_prm: tuple
+                ) -> None:
+
+in_v_parametric_PRE(app: str, 
+                    mode: int, 
+                    node: hou.Node, 
+                    mp_idx: int, 
+                    t_idx: int, 
+                    xform: dict, 
+                    v_type: int, 
+                    v_weight: float, 
+                    var_prm: tuple, 
+                    apo_prm: tuple
+                    ) -> None:
+
+in_v_parametric_POST(app: str, 
+                     mode: int, 
+                     node: hou.Node, 
+                     mp_idx: int, 
+                     t_idx: int, 
+                     xform: dict, 
+                     v_type: int, 
+                     v_weight: float, 
+                     var_prm: tuple, 
+                     apo_prm: tuple
+                     ) -> None:
+
+in_v_parametric_PRE_FF(app: str, 
+                       node: hou.Node, 
+                       t_idx: int, 
+                       xform: dict, 
+                       v_type: int, 
+                       v_weight: float, 
+                       var_prm: tuple, 
+                       apo_prm: tuple
+                       ) -> None:
+
+in_v_parametric_POST_FF(app: str, 
+                        node: hou.Node, 
+                        t_idx: int, 
+                        xform: dict, 
+                        v_type: int, 
+                        v_weight: float, 
+                        var_prm: tuple, 
+                        apo_prm: tuple
+                        ) -> None:
+
+in_v_generic(mode: int, 
+             node: hou.Node, 
+             mp_idx: int, 
+             t_idx: int, 
+             v_type: int, 
+             v_weight: float
+             ) -> None:
+
+in_v_generic_PRE(mode: int, 
+                 node: hou.Node, 
+                 mp_idx: int, 
+                 t_idx: int, 
+                 v_type: int, 
+                 v_weight: float
+                 ) -> None:
+
+in_v_generic_POST(mode: int, 
+                  node: hou.Node, 
+                  mp_idx: int, 
+                  t_idx: int, 
+                  v_type: int, 
+                  v_weight: float
+                  ) -> None:
+
+in_v_generic_PRE_FF(node: hou.Node, 
+                    t_idx: int, 
+                    v_type: int, 
+                    v_weight: float
+                    ) -> None:
+
+in_v_generic_POST_FF(node: hou.Node, 
+                     t_idx: int, 
+                     v_type: int, 
+                     v_weight: float
+                     ) -> None:
+
+in_v_pre_blur(mode: int, 
+              node: hou.Node, 
+              mp_idx: int, 
+              pb_weights: tuple
+              ) -> None:
+
+in_util_check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
+
+in_set_iterator(mode: int, 
+                node: hou.Node, 
+                apo_data: in_flame_iter_data, 
+                preset_id: int, 
+                exclude_keys: tuple
+                ) -> None:
+
+in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
+
+in_util_join_vars_grp(groups: list) -> str:
+
+in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
+
+in_set_iter_on_load(node: hou.Node, preset_id: int) -> int:
+
+in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: in_flame_iter_data) -> str:
+
+in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+
+in_copy_render_stats_msg(node: hou.Node) -> None:
+
+in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
+
+METHODS:
+
+menu_in_presets(self) -> list:
+
+set_iter_on_load_callback(self):
+
+use_iter_on_load_callback(self):
+
+in_to_flam3h_sys(self) -> None:
+
+in_to_flam3h(self) -> None:
+
+reset_IN(self, mode=0) -> None:
+    """
     
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -3581,10 +3922,10 @@ class in_flame_utils:
     
     # Use this with everything but not PRE and POST dictionary lookup, use def in_get_xforms_var_keys_PP() instead
     @staticmethod
-    def in_get_xforms_var_keys(xforms: Union[tuple, None], 
-                            vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
-                            exclude_keys: tuple
-                            ) -> Union[list[str], None]:
+    def in_get_xforms_var_keys( xforms: Union[tuple, None], 
+                                vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
+                                exclude_keys: tuple
+                                ) -> Union[list[str], None]:
         """
         Args:
             xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -3624,10 +3965,10 @@ class in_flame_utils:
         
     @staticmethod 
     def in_get_xforms_var_keys_PP(xforms: Union[tuple, None], 
-                            vars: dict, 
-                            prx: str, 
-                            exclude_keys: tuple
-                            ) -> Union[list[str], None]:
+                                vars: dict, 
+                                prx: str, 
+                                exclude_keys: tuple
+                                ) -> Union[list[str], None]:
         """find a PRE or POST variation inside the currently processed xform/iterator
 
         Args:
@@ -4848,6 +5189,78 @@ VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRA
 
 
 class out_flame_utils:
+    """
+STATIC METHODS:
+
+out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+
+out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+
+out_flame_default_name(node: hou.Node, autoadd: int) -> str:
+
+out_util_round_float(VAL) -> str:
+
+out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
+
+out_populate_xform_vars_XML(node: hou.Node, 
+                            varsPRM: tuple, 
+                            TYPES_tuple: tuple, 
+                            WEIGHTS_tuple: tuple, 
+                            XFORM: lxmlET.Element, # type: ignore
+                            MP_IDX: str, 
+                            FUNC: Callable) -> list[str]:
+
+_out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
+
+out_check_duplicate(vars: list) -> bool:
+
+out_flam3_compatibility_check_and_msg(node: hou.Node, 
+                                      names_VARS: list, 
+                                      names_VARS_PRE: list, 
+                                      flam3h_do_FF: list, 
+                                      names_VARS_FF: list, 
+                                      names_VARS_POST_FF: list) -> bool:
+                                      
+out_my_system() -> str:
+
+out_flame_properties_build(kwargs: dict) -> dict:
+
+out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool:
+
+out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
+
+out_check_outpath(node: hou.Node, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+
+out_new_XML(kwargs: dict, outpath: str) -> None:
+
+out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
+
+out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
+
+out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
+
+out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
+
+out_xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
+
+METHODS:
+
+out_xf_xaos_to(self) -> tuple:
+
+out_xf_xaos_from(self, mode=0) -> tuple:
+
+reset_OUT(self, mode=0) -> None:
+
+menu_out_contents_presets(self) -> list:
+
+out_auto_add_iter_data(self) -> tuple[int, str, int]:
+
+out_auto_add_iter_num_to_prm(self) -> None:
+
+out_auto_change_iter_num_to_prm(self) -> None:
+
+out_XML(self) -> None:
+    """
 
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
@@ -5005,6 +5418,27 @@ class out_flame_utils:
             return str(int(float(VAL)))
         else:
             return str(round(float(VAL), ROUND_DECIMAL_COUNT))
+        
+    @staticmethod
+    def out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
+        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
+
+        Args:
+            VAL_LIST (list[list[str]]): A list of list[str] of values to rounds
+
+        Returns:
+            list[list[str]]: A list of list[str] with the rounded values if any
+        """    
+        v_ROUND = []
+        for item in VAL_LIST:
+            collect = []
+            for i in item:
+                if float(i).is_integer():  # type: ignore - float.is_integer() is a valid method for a float
+                    collect.append(str(int(float(i))))
+                else:
+                    collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
+            v_ROUND.append(collect)
+        return v_ROUND
     
     @staticmethod    
     def out_populate_xform_vars_XML(node: hou.Node, 
@@ -5391,27 +5825,6 @@ class out_flame_utils:
             return [new[0], new[1], affine[2]]
         else:
             return affine
-    
-    @staticmethod
-    def out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
-        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
-
-        Args:
-            VAL_LIST (list[list[str]]): A list of list[str] of values to rounds
-
-        Returns:
-            list[list[str]]: A list of list[str] with the rounded values if any
-        """    
-        v_ROUND = []
-        for item in VAL_LIST:
-            collect = []
-            for i in item:
-                if float(i).is_integer():  # type: ignore - float.is_integer() is a valid method for a float
-                    collect.append(str(int(float(i))))
-                else:
-                    collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
-            v_ROUND.append(collect)
-        return v_ROUND
 
     @staticmethod
     def out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
