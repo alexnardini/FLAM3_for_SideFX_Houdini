@@ -2018,12 +2018,13 @@ class flam3h_iterator_utils():
         # update xaos
         self.auto_set_xaos()
 
+        # resets Tab contexts
         self.reset_FF()
         flam3h_general_utils(self.kwargs).reset_SYS(1, 10, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
         flam3h_general_utils(self.kwargs).reset_MB()
-        in_flame_utils(self.kwargs).reset_IN(node)
-        out_flame_utils(self.kwargs).reset_OUT(node)
+        in_flame_utils(self.kwargs).reset_IN()
+        out_flame_utils(self.kwargs).reset_OUT()
         flam3h_general_utils(self.kwargs).reset_PREFS()
         
         # iterator prm names
@@ -2186,7 +2187,7 @@ class flam3h_iterator_utils():
                 self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
                 
             # set all multi parms xaos strings parms
-            xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_round_floats(xaos_str)])
+            xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
             for mp_idx, xaos in enumerate(xaos_str_round_floats):
                 xaos_set = div_xaos + xaos
                 node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
@@ -2234,7 +2235,7 @@ class flam3h_iterator_utils():
             # FF vars
             self.reset_FF()
             # MB
-            reset_MB(node)
+            flam3h_general_utils(self.kwargs).reset_MB()
             # prefs
             node.setParms({"showprefs": 1}) # type: ignore
             node.setParms({"camhandle": 0}) # type: ignore
@@ -2366,6 +2367,14 @@ set its Weight to Zero instead."""
 
 
 # LOAD XML FLAME FILES start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
 
 
 # It happen that Houdini sometime round value to many, many decimals.
@@ -4629,7 +4638,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
                 node.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
                 node.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
             else:
-                reset_MB(node)
+                flam3h_general_utils(self.kwargs).reset_MB()
                 
             # F3C ( the if statement is for backward compatibility )
             if apo_data.prefs_flam3h_f3c is not None:
@@ -4710,6 +4719,15 @@ VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRA
 
 
 # SAVE XML FILES start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
 
 class out_flame_utils:
 
@@ -4864,7 +4882,7 @@ class out_flame_utils:
         return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
     @staticmethod
-    def out_round_float(VAL) -> str:
+    def out_util_round_float(VAL) -> str:
         if float(VAL).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
             return str(int(float(VAL)))
         else:
@@ -4885,7 +4903,7 @@ class out_flame_utils:
                 v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
                 v_name = in_flame_utils.in_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
-                XFORM.set(FUNC(v_name), out_flame_utils.out_round_float(prm_w))
+                XFORM.set(FUNC(v_name), out_flame_utils.out_util_round_float(prm_w))
                 vars_prm = varsPRM[v_type]
                 if vars_prm[-1]:
                     f3_prm = varsPRM[v_type][1:-1]
@@ -4894,10 +4912,10 @@ class out_flame_utils:
                         if f3_prm[id][-1]:
                             for i, n in enumerate(p):
                                 vals = node.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                                XFORM.set(FUNC(p[i]), out_flame_utils.out_round_float(vals[i]))
+                                XFORM.set(FUNC(p[i]), out_flame_utils.out_util_round_float(vals[i]))
                         else:
                             val = node.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                            XFORM.set(FUNC(p[0]), out_flame_utils.out_round_float(val))
+                            XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
         return names
     
     @staticmethod
@@ -5257,7 +5275,7 @@ class out_flame_utils:
             return affine
     
     @staticmethod
-    def out_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
+    def out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
@@ -5411,7 +5429,7 @@ class out_flame_utils:
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
         xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
-        return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
+        return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
     def out_xf_xaos_from(self, mode=0) -> tuple:
         """Export in a tuple[str] the xaos FROM values to write out
@@ -5425,9 +5443,9 @@ class out_flame_utils:
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
         if mode:
             xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
-            return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_round_floats(xaos_vactive))])
+            return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
         else:
-            return tuple([" ".join(x) for x in self.out_round_floats(t)])
+            return tuple([" ".join(x) for x in self.out_util_round_floats(t)])
 
 
 
@@ -5557,12 +5575,12 @@ class out_flame_utils:
             except:
                 prm = self._node.parm(prm_name)
             if prm_type:
-                return ' '.join([str(self.out_round_float(x.eval())) for x in prm])
+                return ' '.join([str(self.out_util_round_float(x.eval())) for x in prm])
             else:
                 if type(prm) is not str:
                     return str(self._node.parm(prm_name).eval())
                 else:
-                    return self.out_round_float(self._node.parm(prm_name).eval())
+                    return self.out_util_round_float(self._node.parm(prm_name).eval())
         else:
             print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H parameter name.")
             return ''
@@ -5584,7 +5602,7 @@ class out_flame_utils:
     def __out_xf_data(self, prm_name: str) -> tuple:
         val = []
         for iter in range(self._iter_count):
-            val.append(str(self.out_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
+            val.append(str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
         return tuple(val)
 
 
@@ -5625,7 +5643,7 @@ class out_flame_utils:
             angleDeg = self._node.parm(f"{self._flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
             flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             val.append([str(x) for x in flatten])
-        return [" ".join(x) for x in self.out_round_floats(val)]
+        return [" ".join(x) for x in self.out_util_round_floats(val)]
     
     
     def __out_xf_postaffine(self) -> list[str]:
@@ -5640,7 +5658,7 @@ class out_flame_utils:
                 val.append([str(x) for x in flatten])
             else:
                 val.append([])
-        return [" ".join(x) for x in self.out_round_floats(val)]
+        return [" ".join(x) for x in self.out_util_round_floats(val)]
     
     
     def __out_palette_hex(self) -> str:
@@ -5663,9 +5681,9 @@ class out_flame_utils:
             collect.append(self._node.parmTuple(f"{prm[0]}").eval())
         angleDeg = self._node.parm(f"{self._flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         if angleDeg != 0.0:
-            affine = self.out_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine = self.out_round_floats(collect)
+            affine = self.out_util_round_floats(collect)
         flatten = [item for sublist in affine for item in sublist]
         return " ".join(flatten)
     
@@ -5677,9 +5695,9 @@ class out_flame_utils:
                 collect.append(self._node.parmTuple(f"{prm[0]}").eval())
             angleDeg = self._node.parm(f"{self._flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if angleDeg != 0.0:
-                affine = self.out_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
             else:
-                affine = self.out_round_floats(collect)
+                affine = self.out_util_round_floats(collect)
             flatten = [item for sublist in affine for item in sublist]
             return " ".join(flatten)
         else:
@@ -5703,7 +5721,7 @@ class out_flame_utils:
                 if fsum(prm) == 3:
                     return False
                 else:
-                    return ' '.join([self.out_round_float(x) for x in prm])
+                    return ' '.join([self.out_util_round_float(x) for x in prm])
         else:
             print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
             return ''
@@ -5713,7 +5731,7 @@ class out_flame_utils:
 
         if self._flam3h_mb_do:
             try:
-                return self.out_round_float(self._node.parm(prm_name).eval())
+                return self.out_util_round_float(self._node.parm(prm_name).eval())
             except:
                 print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
