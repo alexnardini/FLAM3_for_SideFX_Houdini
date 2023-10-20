@@ -312,11 +312,14 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
 # ABOUT ( about Tab )
 #######################################################
 
-'parameter name:    flame3github_icon'
+'parameter name:    flam3homepage'
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_homepage()
+
+'parameter name:    flam3github'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_github()
 
-'parameter name:    flame3insta'
+'parameter name:    flam3insta'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_instagram()
 
