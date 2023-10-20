@@ -805,7 +805,7 @@ reset_PREFS(self, mode=0) -> None:
                     prm.set(f'{len(apo.name)-1}')
                     # check if the selected Flame file is locked
                     if self.isLOCK(xml_checked):
-                        flame_lib_locked = f"\nflame lib file: LOCKED"
+                        flame_lib_locked = f"flame lib file: LOCKED"
                         node.setParms({MSG_OUT: flame_lib_locked})
                     else:
                         node.setParms({MSG_OUT: ''})
@@ -813,6 +813,7 @@ reset_PREFS(self, mode=0) -> None:
                     prm.set('-1')
                     node.setParms({MSG_OUT: ''})
             else:
+                node.setParms({MSG_OUT: ''})
                 # We do not want to print if the file path parameter is empty
                 if xml:
                     print(f'{str(node)}.OUT: please select a valid file location.')
@@ -828,7 +829,7 @@ reset_PREFS(self, mode=0) -> None:
                         prm.set('0')
                         # check if the selected palette file is locked
                         if self.isLOCK(json_path_checked):
-                            palette_lib_locked = f"\npalette lib file: LOCKED"
+                            palette_lib_locked = f"palette lib file: LOCKED"
                             node.setParms({MSG_PALETTE: palette_lib_locked})
                         else:
                             node.setParms({MSG_PALETTE: ''})
@@ -837,10 +838,10 @@ reset_PREFS(self, mode=0) -> None:
                     prm.set('-1')
                     node.setParms({MSG_PALETTE: ''})
             else:
+                node.setParms({MSG_PALETTE: ''})
                 # We do not want to print if the file path parameter is empty
                 if json_path:
                     print(f'{str(node)}.palette: please select a valid file location.')
-                node.setParms({MSG_PALETTE: ''})
 
 
 
