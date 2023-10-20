@@ -776,6 +776,7 @@ reset_PREFS(self, mode=0) -> None:
                 apo = in_flame(node, xml)
                 if not apo.isvalidtree:
                     prm.set('-1')
+                    node.setParms({IN_ISVALID_FILE: 0})
                     node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
