@@ -528,109 +528,144 @@ class flam3h_iterator_FF:
     allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
-###############################################################################################
-# FLAM3H on CREATE init
-###############################################################################################
-def flam3h_on_create(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """
+
+
+
+# FLAM3H SCRIPTS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class flam3h_scripts:
     
-    # Set initial node color
-    node = kwargs['node']
-    node.setColor(hou.Color((0.825,0.825,0.825)))
+    def __init__(self, kwargs: dict) -> None:
+        self._kwargs = kwargs
+        self._node = kwargs['node']
+        
+        
+    @property
+    def kwargs(self):
+        return self._kwargs
     
-    # Set about tab infos
-    in_flame_utils.flam3h_about_msg(node)
-    in_flame_utils.flam3h_about_plugins_msg(node)
-    # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-    node.setParms({MSG_FLAMESTATS: ""})
-    node.setParms({MSG_FLAMERENDER: ""})
-    node.setParms({MSG_PALETTE: ''})
-    node.setParms({MSG_OUT: ''})
+    @property
+    def node(self):
+        return self._node
     
-    # FLAM3 node and MultiParameter id for iterators
-    #
-    # If there were already a FLAM3 node in the scene
-    # and we copied already an iterator's values, lets keep whats stored,
-    # otherwise initialize those values.
-    try:
-        hou.session.flam3node # type: ignore
-    except:
-        hou.session.flam3node = node # type: ignore
-    try:
-        hou.session.flam3node_mp_id # type: ignore
-    except:
-        hou.session.flam3node_mp_id = None # type: ignore
 
-    # If an iterator was copied from a node that has been deleted
-    # revert to -1 so that we are forced to copy an iterator again.
-    try:
-        hou.session.flam3node.type() # type: ignore
-    except:
-        hou.session.flam3node_mp_id = None # type: ignore
+    def flam3h_on_create(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """
+        
+        # Set initial node color
+        node = self.node
+        node.setColor(hou.Color((0.825,0.825,0.825)))
+        
+        # Set about tab infos
+        in_flame_utils(self.kwargs).flam3h_about_msg()
+        in_flame_utils(self.kwargs).flam3h_about_plugins_msg()
+        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
+        node.setParms({MSG_FLAMESTATS: ""})
+        node.setParms({MSG_FLAMERENDER: ""})
+        node.setParms({MSG_PALETTE: ''})
+        node.setParms({MSG_OUT: ''})
+        
+        # FLAM3 node and MultiParameter id for iterators
+        #
+        # If there were already a FLAM3 node in the scene
+        # and we copied already an iterator's values, lets keep whats stored,
+        # otherwise initialize those values.
+        try:
+            hou.session.flam3node # type: ignore
+        except:
+            hou.session.flam3node = node # type: ignore
+        try:
+            hou.session.flam3node_mp_id # type: ignore
+        except:
+            hou.session.flam3node_mp_id = None # type: ignore
 
-    # FLAM3 node for FF.
-    #
-    # If there were already a FLAM3 node in the scene
-    # and we copied already FF's values, lets keep whats stored,
-    # otherwise initialize those values.
-    try:
-        hou.session.flam3node_FF # type: ignore
-    except:
-        hou.session.flam3node_FF = node # type: ignore
-    try:
-        hou.session.flam3node_FF_check # type: ignore
-    except:
-        hou.session.flam3node_FF_check = None # type: ignore
+        # If an iterator was copied from a node that has been deleted
+        # revert to -1 so that we are forced to copy an iterator again.
+        try:
+            hou.session.flam3node.type() # type: ignore
+        except:
+            hou.session.flam3node_mp_id = None # type: ignore
 
-    # If the FF was copied from a node that has been deleted
-    # revert to -1 so that we are forced to copy the FF again.
-    try:
-        hou.session.flam3node_FF.type() # type: ignore
-    except:
-        hou.session.flam3node_FF_check = None # type: ignore
+        # FLAM3 node for FF.
+        #
+        # If there were already a FLAM3 node in the scene
+        # and we copied already FF's values, lets keep whats stored,
+        # otherwise initialize those values.
+        try:
+            hou.session.flam3node_FF # type: ignore
+        except:
+            hou.session.flam3node_FF = node # type: ignore
+        try:
+            hou.session.flam3node_FF_check # type: ignore
+        except:
+            hou.session.flam3node_FF_check = None # type: ignore
 
-    # Initialize flam3 viewport Color Scheme
-    try:
-        hou.session.flam3_CS # type: ignore
-    except:
-        hou.session.flam3_CS = [] # type: ignore
+        # If the FF was copied from a node that has been deleted
+        # revert to -1 so that we are forced to copy the FF again.
+        try:
+            hou.session.flam3node_FF.type() # type: ignore
+        except:
+            hou.session.flam3node_FF_check = None # type: ignore
 
-
-
-###############################################################################################
-# FLAM3H on LOADED init
-###############################################################################################
-def flam3h_on_loaded(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """
-    # Check for left over JSON, IN and OUT file paths no longer valid and flam3h_init_presets accordingly
-    
-    #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    flam3h_general_utils(kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
-    #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-    flam3h_general_utils(kwargs).flam3h_init_presets(IN_PRESETS, 0)
-    flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
-
-    node = kwargs['node']
-    # update about tab just in case
-    in_flame_utils.flam3h_about_msg(node)
-    in_flame_utils.flam3h_about_plugins_msg(node)
-    # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
-    # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
-    # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside the in_to_flam3h()
-    node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
-    # Same goes for the palette preset entrie, and some time goes also out of range
-    # so we store the selection first inside a mem menu parameter first inside json_to_ramp()
-    # and call it back here.
-    node.setParms({CP_PALETTE_PRESETS: node.parm(SYS_CP_PALETTE_PRESETS).eval()}) # type: ignore
+        # Initialize flam3 viewport Color Scheme
+        try:
+            hou.session.flam3_CS # type: ignore
+        except:
+            hou.session.flam3_CS = [] # type: ignore
 
 
 
+
+    def flam3h_on_loaded(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """
+        node = self.node
+        
+        #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+        flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
+        #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+        flam3h_general_utils(self.kwargs).flam3h_init_presets(IN_PRESETS, 0)
+        flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
+
+        # update about tab just in case
+        in_flame_utils(self.kwargs).flam3h_about_msg()
+        in_flame_utils(self.kwargs).flam3h_about_plugins_msg()
+        # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
+        # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
+        # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside the in_to_flam3h()
+        node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
+        # Same goes for the palette preset entrie, and some time goes also out of range
+        # so we store the selection first inside a mem menu parameter first inside json_to_ramp()
+        # and call it back here.
+        node.setParms({CP_PALETTE_PRESETS: node.parm(SYS_CP_PALETTE_PRESETS).eval()}) # type: ignore
+
+
+
+
+
+# FLAM3H ITERATORS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
 
 
 class flam3h_general_utils:
@@ -4450,66 +4485,6 @@ class in_flame_utils:
         else:
             pass
 
-    @staticmethod
-    def flam3h_about_msg(node: hou.Node):
-        
-        nl = "\n"
-        nnl = "\n\n"
-
-        year = datetime.now().strftime("%Y")
-        flam3h_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
-        Implementation_years = f"2020/{year}"
-        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
-        
-        code_references = """Code references:
-flam3 :: (GPL v2)
-Apophysis :: (GPL)
-Fractorium :: (GPL v3)"""
-        
-        h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
-        Python_version = f"Python: {python_version()}"
-        license_type = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_license = f"License: {license_type}"
-        Platform = f"Platform: {hou.applicationPlatformInfo()}"
-        PC_name = f"Machine name: {hou.machineName()}"
-        User = f"User: {hou.userName()}"
-        
-        example_flames = """example Flames:
-C-91, Gabor Timar, Golubaja, Pillemaster,
-Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
-Seph, Lucy, b33rheart, Neonrauschen"""
-        
-        build = (Implementation_build, nnl,
-                code_references, nnl,
-                example_flames, nnl,
-                Houdini_version, nl,
-                Houdini_license, nl,
-                Python_version, nl,
-                Platform, nl,
-                PC_name, nl,
-                User
-                )
-        
-        build_about_msg = "".join(build)
-
-        node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
-
-    @staticmethod
-    def flam3h_about_plugins_msg(node: hou.Node):
-        
-        vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
-        n = 6
-        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-        _vars = []
-        for idx, grp in enumerate(vars_sorted_grp):
-            if idx == (len(vars_sorted_grp)-1):
-                _vars.append(", ".join(grp))
-            else:
-                _vars.append(", ".join(grp) + "\n")
-        vars_txt = "".join(_vars)
-        
-        node.setParms({MSG_FLAM3PLUGINS: vars_txt}) # type: ignore
         
     @staticmethod
     def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
@@ -4700,6 +4675,69 @@ Seph, Lucy, b33rheart, Neonrauschen"""
             node.setParms({IN_ITER_NUM_ON_LOAD: 64})
             node.setParms({IN_USE_ITER_ON_LOAD: 0})
             node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
+
+
+
+
+    def flam3h_about_msg(self):
+        node = self.node
+        nl = "\n"
+        nnl = "\n\n"
+
+        year = datetime.now().strftime("%Y")
+        flam3h_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
+        Implementation_years = f"2020/{year}"
+        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
+        
+        code_references = """Code references:
+flam3 :: (GPL v2)
+Apophysis :: (GPL)
+Fractorium :: (GPL v3)"""
+        
+        h_version = '.'.join(str(x) for x in hou.applicationVersion())
+        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+        Python_version = f"Python: {python_version()}"
+        license_type = str(hou.licenseCategory()).split(".")[-1]
+        Houdini_license = f"License: {license_type}"
+        Platform = f"Platform: {hou.applicationPlatformInfo()}"
+        PC_name = f"Machine name: {hou.machineName()}"
+        User = f"User: {hou.userName()}"
+        
+        example_flames = """example Flames:
+C-91, Gabor Timar, Golubaja, Pillemaster,
+Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
+Seph, Lucy, b33rheart, Neonrauschen"""
+        
+        build = (Implementation_build, nnl,
+                code_references, nnl,
+                example_flames, nnl,
+                Houdini_version, nl,
+                Houdini_license, nl,
+                Python_version, nl,
+                Platform, nl,
+                PC_name, nl,
+                User
+                )
+        
+        build_about_msg = "".join(build)
+
+        node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
+
+
+    def flam3h_about_plugins_msg(self):
+        node = self.node
+        vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
+        n = 6
+        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
+        _vars = []
+        for idx, grp in enumerate(vars_sorted_grp):
+            if idx == (len(vars_sorted_grp)-1):
+                _vars.append(", ".join(grp))
+            else:
+                _vars.append(", ".join(grp) + "\n")
+        vars_txt = "".join(_vars)
+        
+        node.setParms({MSG_FLAM3PLUGINS: vars_txt}) # type: ignore
 
 
 
