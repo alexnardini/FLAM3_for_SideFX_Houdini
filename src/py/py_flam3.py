@@ -3582,7 +3582,7 @@ class in_flame(_xml_tree):
                     else:
                         # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
-                        pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
+                        pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
                             if self._node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                                 keyvalues.append(float(pre_gaussian_blur))
@@ -3926,7 +3926,7 @@ in_set_data(mode: int,
 
 in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
-in_var_name_from_dict(mydict: dict, idx: int):
+def in_get_var_name_from_dict(mydict: dict, idx: int) -> str:
 
 in_v_parametric_var_collect(node: hou.Node, 
                             mode: int, 
@@ -4376,7 +4376,7 @@ reset_IN(self, mode=0) -> None:
             return apo_prm
         
     @staticmethod
-    def in_var_name_from_dict(mydict: dict, idx: int) -> str:
+    def in_get_var_name_from_dict(mydict: dict, idx: int) -> str:
         """Get the current variation string name from its index.
 
         Args:
@@ -4431,7 +4431,7 @@ reset_IN(self, mode=0) -> None:
                     # If a variation parameter FLAM3 has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
-                        print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+                        print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
         return VAR
 
@@ -5851,7 +5851,7 @@ out_XML(self) -> None:
             prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
             if prm_w != 0:
                 v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-                v_name = in_flame_utils.in_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                v_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
                 XFORM.set(FUNC(v_name), out_flame_utils.out_util_round_float(prm_w))
                 vars_prm = varsPRM[v_type]
