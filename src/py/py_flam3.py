@@ -991,13 +991,13 @@ STATIC METHODS:
 
 menu_T(mode: int) -> list:
 
-paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+paste_from_list(node: hou.Node, flam3node: hou.Node, prm_list: tuple, id: str, id_from: str) -> None:
 
-pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+pastePRM_T_from_list(node: hou.Node, flam3node: hou.Node, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 
 paste_save_note(_note: str) -> str:
 
-paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+paste_set_note(node: hou.Node, flam3node: hou.Node, int_mode: int, str_section: str, id: str, id_from: str) -> None:
 
 auto_set_xaos_data_get(node: hou.Node, data_name: str) -> Union[list, None]:
 
@@ -1077,12 +1077,12 @@ vactive_keep_last(self) -> None:
 
         
     @staticmethod
-    def paste_from_list(prm_list: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+    def paste_from_list(node: hou.Node, flam3node: hou.Node, prm_list: tuple, id: str, id_from: str) -> None:
         """
         Args:
-            prm_list (tuple): [parameters list to query and set]
             node (hou.Node): [current hou.Node to set]
             flam3node (hou.Node): [hou.Node to copy values from]
+            prm_list (tuple): [parameters list to query and set]
             id (str): [current multiparamter index]
             id_from (str): [multiparameter index to copy from]
         """    
@@ -1103,20 +1103,20 @@ vactive_keep_last(self) -> None:
                 prm_from = flam3node.parm(f"{prm[0]}{id_from}")
                 prm_to = node.parm(f"{prm[0]}{id}")
                 if len(prm_from.keyframes()):
-                        for k in prm_from.keyframes():
-                            prm_to.setKeyframe(k)
+                    for k in prm_from.keyframes():
+                        prm_to.setKeyframe(k)
                 else:
                     prm_to.set(prm_from.eval())
     
     
     @staticmethod           
-    def pastePRM_T_from_list(prmT_list: tuple, varsPRM: tuple, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+    def pastePRM_T_from_list(node: hou.Node, flam3node: hou.Node, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
         """
         Args:
-            prmT_list (tuple): [variations list - types]
-            varsPRM (tuple): [variation's parmaters list]
             node (hou.Node): [current hou.Node to set]
             flam3node (hou.Node): [hou.Node to copy values from]
+            prmT_list (tuple): [variations list - types]
+            varsPRM (tuple): [variation's parmaters list]
             id (str): [current multiparamter index]
             id_from (str): [multiparameter index to copy from]
         """    
@@ -1126,7 +1126,7 @@ vactive_keep_last(self) -> None:
             # Check if this var is a parametric or not
             v_type = int(prm_from)
             if(varsPRM[v_type][-1]):  
-                flam3h_iterator_utils.paste_from_list(varsPRM[v_type][1:-1], node, flam3node, id, id_from)
+                flam3h_iterator_utils.paste_from_list(node, flam3node, varsPRM[v_type][1:-1], id, id_from)
 
 
     @staticmethod
@@ -1156,13 +1156,13 @@ vactive_keep_last(self) -> None:
 
 
     @staticmethod
-    def paste_set_note(int_mode: int, str_section: str, node: hou.Node, flam3node: hou.Node, id: str, id_from: str) -> None:
+    def paste_set_note(node: hou.Node, flam3node: hou.Node, int_mode: int, str_section: str, id: str, id_from: str) -> None:
         """
         Args:
-            int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
-            str_section (str): [section name string to be copied, this is only for msg print info]
             node (hou.Node): [current hou.Node to set]
             flam3node (hou.Node): [[hou.Node to copy values from]
+            int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
+            str_section (str): [section name string to be copied, this is only for msg print info]
             id (str): [current multiparamter index]
             id_from (str): [multiparameter index to copy from]
         """ 
@@ -1486,9 +1486,9 @@ vactive_keep_last(self) -> None:
                 if node==flam3node and id==id_from:
                     print(f"{str(node)}: Iterator marked. Select a different iterator number to paste those values.")
                 else:
-                    self.pastePRM_T_from_list(flam3h_iterator.allT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-                    self.paste_from_list(flam3h_iterator.allMisc, node, flam3node, str(id), str(id_from))
-                    self.paste_set_note(0, "", node, flam3node, str(id), str(id_from))
+                    self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
+                    self.paste_from_list(node, flam3node, flam3h_iterator.allMisc, str(id), str(id_from))
+                    self.paste_set_note(node, flam3node, 0, "", str(id), str(id_from))
 
             else:
                 print(f"{str(node)}: {MARK_ITER_MSG}.")
@@ -1529,11 +1529,11 @@ vactive_keep_last(self) -> None:
                 if node==flam3node_FF:
                     print(f"{str(node)}: FF marked. Select a different FLAM3 node to paste those FF values.")
                 else:
-                    self.pastePRM_T_from_list(flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-                    self.pastePRM_T_from_list(flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
-                    self.pastePRM_T_from_list(flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-                    self.paste_from_list(flam3h_iterator_FF.allMisc_FF, node, flam3node_FF, "", "")
-                    self.paste_set_note(1, "", node, flam3node_FF, "", "")
+                    self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                    self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                    self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                    self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.allMisc_FF, "", "")
+                    self.paste_set_note(node, flam3node_FF, 1, "", "", "")
 
             else:
                 print(f"{str(node)}: {MARK_FF_MSG}.")
@@ -1584,39 +1584,39 @@ vactive_keep_last(self) -> None:
 
             # set MAIN
             if paste_sel == 1:
-                self.paste_from_list(flam3h_iterator.sec_main, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_MAIN, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_main, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_MAIN, str(id), str(id_from))
             # set XML_XF_XAOS
             elif paste_sel == 2:
-                self.paste_from_list(flam3h_iterator.sec_xaos, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_XAOS, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_xaos, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_XAOS, str(id), str(id_from))
             # set SHADER 
             elif paste_sel == 3:
-                self.paste_from_list(flam3h_iterator.sec_shader, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_SHADER, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_shader, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_SHADER, str(id), str(id_from))
             # set PRE VARS
             elif paste_sel == 4:
-                self.pastePRM_T_from_list(flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-                self.paste_from_list(flam3h_iterator.sec_prevarsW, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_PREVARS, node, flam3node, str(id), str(id_from))
+                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_prevarsW, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_PREVARS, str(id), str(id_from))
             # set VARS
             elif paste_sel == 5:
-                self.pastePRM_T_from_list(flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-                self.paste_from_list(flam3h_iterator.sec_varsW, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_VARS, node, flam3node, str(id), str(id_from))
+                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_varsW, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_VARS, str(id), str(id_from))
             # set POST VARS
             elif paste_sel == 6:
-                self.pastePRM_T_from_list(flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, node, flam3node, str(id), str(id_from))
-                self.paste_from_list(flam3h_iterator.sec_postvarsW, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_POSTVARS, node, flam3node, str(id), str(id_from))
+                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_postvarsW, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_POSTVARS, str(id), str(id_from))
             # set PRE AFFINE
             elif paste_sel == 7:
-                self.paste_from_list(flam3h_iterator.sec_preAffine, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_PREAFFINE, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_preAffine, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_PREAFFINE, str(id), str(id_from))
             # set POST AFFINE
             elif paste_sel == 8:
-                self.paste_from_list(flam3h_iterator.sec_postAffine, node, flam3node, str(id), str(id_from))
-                self.paste_set_note(0, SEC_POSTAFFINE, node, flam3node, str(id), str(id_from))
+                self.paste_from_list(node, flam3node, flam3h_iterator.sec_postAffine, str(id), str(id_from))
+                self.paste_set_note(node, flam3node, 0, SEC_POSTAFFINE, str(id), str(id_from))
         
             # Set it to a null value ( first in the menu array idx in this case )
             # so that we can paste the same section again, if we want to.
@@ -1663,27 +1663,27 @@ vactive_keep_last(self) -> None:
             
             # set FF PRE VARS
             if ff_paste_sel == 1:
-                self.pastePRM_T_from_list(flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-                self.paste_from_list(flam3h_iterator_FF.sec_prevarsW_FF, node, flam3node_FF, "", "")
-                self.paste_set_note(2, SEC_PREVARS, node, flam3node_FF, "", "")
+                self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsW_FF, "", "")
+                self.paste_set_note(node, flam3node_FF, 2, SEC_PREVARS, "", "")
             # set FF VARS
             elif ff_paste_sel == 2:
-                self.pastePRM_T_from_list(flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), node, flam3node_FF, "", "")
-                self.paste_from_list(flam3h_iterator_FF.sec_varsW_FF, node, flam3node_FF, "", "")
-                self.paste_set_note(2, SEC_VARS, node, flam3node_FF, "", "")
+                self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsW_FF, "", "")
+                self.paste_set_note(node, flam3node_FF, 2, SEC_VARS, "", "")
             # set FF POST VARS
             elif ff_paste_sel == 3:
-                self.pastePRM_T_from_list(flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), node, flam3node_FF, "", "")
-                self.paste_from_list(flam3h_iterator_FF.sec_postvarsW_FF, node, flam3node_FF, "", "")
-                self.paste_set_note(2, SEC_POSTVARS, node, flam3node_FF, "", "")
+                self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsW_FF, "", "")
+                self.paste_set_note(node, flam3node_FF, 2, SEC_POSTVARS, "", "")
             # set FF PRE AFFINE
             elif ff_paste_sel == 4:
-                self.paste_from_list(flam3h_iterator_FF.sec_preAffine_FF, node, flam3node_FF, "", "")
-                self.paste_set_note(2, SEC_PREAFFINE, node, flam3node_FF, "", "")
+                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_preAffine_FF, "", "")
+                self.paste_set_note(node, flam3node_FF, 2, SEC_PREAFFINE, "", "")
             # set FF POST AFFINE
             elif ff_paste_sel == 5:
-                self.paste_from_list(flam3h_iterator_FF.sec_postAffine_FF, node, flam3node_FF, "", "")
-                self.paste_set_note(2, SEC_POSTAFFINE, node, flam3node_FF, "", "")
+                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postAffine_FF, "", "")
+                self.paste_set_note(node, flam3node_FF, 2, SEC_POSTAFFINE, "", "")
 
             # Set it to a null value ( first in the menu array idx in this case )
             # so that we can paste the same section again, if we want to.
