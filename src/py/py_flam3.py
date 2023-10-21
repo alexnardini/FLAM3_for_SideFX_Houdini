@@ -5271,7 +5271,7 @@ out_populate_xform_vars_XML(node: hou.Node,
 
 _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
-out_check_duplicate(vars: list) -> bool:
+out_util_check_duplicate(vars: list) -> bool:
 
 out_flam3_compatibility_check_and_msg(node: hou.Node, 
                                       names_VARS: list, 
@@ -5542,7 +5542,7 @@ out_XML(self) -> None:
                 current.tail = '\n' + ('  ' * (depth - 1))
            
     @staticmethod  
-    def out_check_duplicate(vars: list) -> bool:
+    def out_util_check_duplicate(vars: list) -> bool:
         result = []
         [result.append(x) for x in vars if x not in result]
         if(len(vars) != len(result)):
@@ -5568,7 +5568,7 @@ out_XML(self) -> None:
         pre_vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS_PRE):
             if n:
-                check = out_flame_utils.out_check_duplicate(n)
+                check = out_flame_utils.out_util_check_duplicate(n)
                 if check:
                     pre_vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS_PRE is False:
@@ -5577,7 +5577,7 @@ out_XML(self) -> None:
         vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS):
             if n:
-                check = out_flame_utils.out_check_duplicate(n)
+                check = out_flame_utils.out_util_check_duplicate(n)
                 if check:
                     vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS is False:
@@ -5585,8 +5585,8 @@ out_XML(self) -> None:
 
         # FF dublicate vars check
         if flam3h_do_FF:
-            bool_VARS_FF = out_flame_utils.out_check_duplicate(names_VARS_FF)
-            bool_VARS_POST_FF = out_flame_utils.out_check_duplicate(names_VARS_POST_FF)
+            bool_VARS_FF = out_flame_utils.out_util_check_duplicate(names_VARS_FF)
+            bool_VARS_POST_FF = out_flame_utils.out_util_check_duplicate(names_VARS_POST_FF)
             
         # Build messages accordinlgy
         if bool_VARS or bool_VARS_PRE or bool_VARS_FF or bool_VARS_POST_FF:
