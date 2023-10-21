@@ -55,7 +55,7 @@ import inspect
 
 
 
-FLAM3HOUDINI_VERSION = '1.1.0'
+FLAM3H_VERSION = '1.1.0'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -2629,7 +2629,7 @@ flam3h_about_web_flam3_github(self) -> None:
         nnl = "\n\n"
 
         year = datetime.now().strftime("%Y")
-        flam3h_houdini_version = f"Version: {FLAM3HOUDINI_VERSION}"
+        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}"
         Implementation_years = f"2020/{year}"
         Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
         
@@ -6101,7 +6101,7 @@ out_XML(self) -> None:
             dict: _description_
         """        
         f3p = out_flame_properties(kwargs)
-        return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{out_flame_utils.out_my_system()}-{FLAM3HOUDINI_VERSION}',
+        return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
                 XML_XF_NAME: f3p.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
                 OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
