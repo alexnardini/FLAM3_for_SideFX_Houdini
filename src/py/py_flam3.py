@@ -5551,19 +5551,29 @@ out_XML(self) -> None:
     
     # Check for FLAM3 compatibility and let the user know.
     @staticmethod
-    def out_flam3_compatibility_check_and_msg(node: hou.Node, 
-                                        names_VARS: list, 
+    def out_flam3_compatibility_check_and_msg(node: hou.Node,
                                         names_VARS_PRE: list, 
+                                        names_VARS: list, 
+                                        names_VARS_POST: list, 
                                         flam3h_do_FF: list, 
+                                        names_VARS_PRE_FF: list, 
                                         names_VARS_FF: list, 
                                         names_VARS_POST_FF: list) -> bool:
         
         # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
-        # just in case in the future I add more. Will need to update this definition arguments if i endup doing so.
+        # just in case in the future I add more.
         bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
         
         # ITERATORS dublicate vars check
         pre_vars_duplicate_idx = []
+        for idx, n in enumerate(names_VARS_PRE):
+            if n:
+                check = out_flame_utils.out_check_duplicate(n)
+                if check:
+                    pre_vars_duplicate_idx.append(str(idx+1))
+                    if bool_VARS_PRE is False:
+                        bool_VARS_PRE = True
+        
         vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS):
             if n:
@@ -5572,13 +5582,6 @@ out_XML(self) -> None:
                     vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS is False:
                         bool_VARS = True
-        for idx, n in enumerate(names_VARS_PRE):
-            if n:
-                check = out_flame_utils.out_check_duplicate(n)
-                if check:
-                    pre_vars_duplicate_idx.append(str(idx+1))
-                    if bool_VARS_PRE is False:
-                        bool_VARS_PRE = True
 
         # FF dublicate vars check
         if flam3h_do_FF:
@@ -5590,16 +5593,16 @@ out_XML(self) -> None:
             
             ui_text = "Multiple variations of the same type not allowed"
             ALL_msg = f"Node: {str(node)}\nType: Warning:\n\n"
-            VARS_msg = f"Iterators Vars:\nYou are using the same variation multiple times inside iterator:\n{', '.join(vars_duplicate_idx)}\n"
-            VARS_PRE_msg = f"Iterators PRE Vars:\nYou are using the same PRE variation multiple times inside iterator:\n{', '.join(pre_vars_duplicate_idx)}\n"
+            VARS_PRE_msg = f"PRE Vars:\nYou are using the same PRE variation multiple times inside iterator:\n{', '.join(pre_vars_duplicate_idx)}\n"
+            VARS_msg = f"Vars:\nYou are using the same variation multiple times inside iterator:\n{', '.join(vars_duplicate_idx)}\n"
             VARS_FF_msg = f"FF Vars:\nYou are using the same variation multiple times inside the FF VAR section.\n"
             VARS_POST_FF_msg = f"FF POST Vars:\nYou are using the same POST variation multiple times inside the FF POST section.\n"
             HELP_msg = f"\nWhile this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n\nSave the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
             
-            if bool_VARS:
-                ALL_msg += VARS_msg
             if bool_VARS_PRE:
-                ALL_msg += "\n" + VARS_PRE_msg
+                ALL_msg += VARS_PRE_msg
+            if bool_VARS:
+                ALL_msg += "\n" + VARS_msg
             if bool_VARS_FF:
                 ALL_msg += "\n" + VARS_FF_msg
             if bool_VARS_POST_FF:
@@ -5734,7 +5737,7 @@ out_XML(self) -> None:
         flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
-        return out_flame_utils.out_flam3_compatibility_check_and_msg(node, names_VARS, names_VARS_PRE, f3d.flam3h_do_FF, names_VARS_FF, names_VARS_POST_FF)
+        return out_flame_utils.out_flam3_compatibility_check_and_msg(node, names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
 
     @staticmethod
     def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
