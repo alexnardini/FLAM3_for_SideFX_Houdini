@@ -5551,6 +5551,14 @@ out_XML(self) -> None:
     
     @staticmethod
     def out_util_iterators_vars_duplicate(VARS: list) -> list:
+        """Collect duplicate variation's names per each iterator and make them unique
+
+        Args:
+            VARS (list): List of all variation's list names
+
+        Returns:
+            list: duplicate variation's names per each iterator and unique
+        """
         duplicate = []
         for iterator in VARS:
             v = []
@@ -5560,7 +5568,8 @@ out_XML(self) -> None:
                     v.append(var)
                 else:
                     d.append(var)
-            duplicate.append(d)
+            if d not in duplicate:
+                duplicate.append(d)
         
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
 
