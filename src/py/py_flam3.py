@@ -5589,7 +5589,9 @@ out_XML(self) -> None:
                     pre_vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS_PRE is False:
                         bool_VARS_PRE = True
-        VARS_PRE_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS_PRE)
+        VARS_PRE_duplicate = []
+        if bool_VARS_PRE:
+            VARS_PRE_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS_PRE)
         
         vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS):
@@ -5599,7 +5601,9 @@ out_XML(self) -> None:
                     vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS is False:
                         bool_VARS = True
-        VARS_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS)
+        VARS_duplicate = []
+        if bool_VARS:
+            VARS_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS)
 
         # FF dublicate vars check
         VARS_FF_duplicate = []
