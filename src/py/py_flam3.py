@@ -4573,7 +4573,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             app (str): [What software were used to generate this flame preset]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.Node): [Current FLAM3H houdini node]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_prevarsT_FF, flam3h_iterator.sec_prevarsW_FF]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
@@ -5374,7 +5374,7 @@ reset_IN(self, mode=0) -> None:
     '''
     def in_to_flam3h_sys(self) -> None:
         """Load a Flame preset into FLAM3H from the SYS Tab Flame load icon.
-        This will set all FLAM2H node parameters based on values from the loaded XML Flame preset.
+        This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
         xml = node.parm(IN_PATH).evalAsString()
@@ -5390,7 +5390,7 @@ reset_IN(self, mode=0) -> None:
     '''
     def in_to_flam3h(self) -> None:
         """Load a Flame preset into FLAM3H.
-        This will set all FLAM2H node parameters based on values from the loaded XML Flame preset.
+        This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
         
