@@ -6785,7 +6785,7 @@ out_XML(self) -> None:
         return " ".join(flatten)
     
     
-    def __out_finalxf_postaffine(self) -> str:
+    def __out_finalxf_postaffine(self) -> Union[str, bool]:
         if self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.postaffine_do}").eval():
             collect = []
             for prm in self._flam3h_iter_FF.sec_postAffine_FF[1:-1]:
@@ -6798,11 +6798,11 @@ out_XML(self) -> None:
             flatten = [item for sublist in affine for item in sublist]
             return " ".join(flatten)
         else:
-            return ''
+            return False
         
     
     # custom to FLAM3H only
-    def __out_flame_data_flam3h_hsv(self, prm_name='') -> Union[str, bool, None]:
+    def __out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool, None]:
 
         if prm_name == CP_RAMP_HSV_VAL_NAME:
             # This is only for OUT ramp HSV vals.
@@ -6821,7 +6821,7 @@ out_XML(self) -> None:
                     return ' '.join([self.out_util_round_float(x) for x in prm])
         else:
             print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
-            return ''
+            return False
         
     # custom to FLAM3H only
     def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
@@ -6866,7 +6866,7 @@ class out_flame_properties(out_flame_utils):
         
         # custom to FLAM3H only
         self.flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
-        self.flam3h_palette_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv(CP_RAMP_HSV_VAL_NAME) # type: ignore
+        self.flam3h_palette_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
         self.flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
         self.flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
         self.flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
