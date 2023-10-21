@@ -1870,7 +1870,7 @@ vactive_keep_last(self) -> None:
         This is used to reset back FLAM3H node entire parameter template.
         
         Args:
-            self (hou.Node): [current hou.Node]
+            self:
         """
         
         node = self.node
@@ -1959,7 +1959,7 @@ vactive_keep_last(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.
 
         Args:
-            self (hou.Node): FLAM3H node
+            self: 
         """
         node = self.node
         
@@ -2082,7 +2082,7 @@ vactive_keep_last(self) -> None:
         """Every time an iterator is added or remove
         this will run and execute based on iterator's number: Zero or more then Zero.
         Args:
-            self (hou.Node): [current hou.Node]
+            self:
         """
 
         node = self.node
