@@ -85,7 +85,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
 'parameter name:    sys_palettepresets'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).sys_json_to_ramp()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp_sys()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu

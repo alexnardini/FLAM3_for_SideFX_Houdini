@@ -2099,7 +2099,7 @@ menu_ramp_presets(self) -> list:
 
 ramp_save(self) -> None:
 
-sys_json_to_ramp(self) -> None:
+json_to_ramp_sys(self) -> None:
 
 json_to_ramp(self) -> None:
 
@@ -2303,13 +2303,11 @@ reset_CP(self, mode=0) -> None:
 
 
 
-    def sys_json_to_ramp(self) -> None:
+    def json_to_ramp_sys(self) -> None:
         node = self.node
         preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
         node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
         self.json_to_ramp()
-        
-        
         
     def json_to_ramp(self) -> None:
         """
@@ -2321,7 +2319,7 @@ reset_CP(self, mode=0) -> None:
         
         if iterators_num:
             
-            #get ramp parm
+            # get ramp parm
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
             
@@ -2366,7 +2364,7 @@ reset_CP(self, mode=0) -> None:
                 self.palette_hsv()
                 
                 # Store selection into mem preset menu
-                node.setParms({SYS_CP_PALETTE_PRESETS: node.parm(CP_PALETTE_PRESETS).eval()}) # type: ignore
+                node.setParms({SYS_CP_PALETTE_PRESETS: str(preset_id)}) # type: ignore
         
 
 
@@ -5088,13 +5086,14 @@ reset_IN(self, mode=0) -> None:
     '''
     def in_to_flam3h_sys(self) -> None:
 
-        node = self.kwargs['node']
+        node = self.node
         xml = node.parm(IN_PATH).evalAsString()
 
         if in_flame(node, xml).isvalidtree:
             
             preset_id = node.parm(IN_SYS_PRESETS).eval()
             node.setParms({IN_PRESETS: preset_id}) # type: ignore
+            
             self.in_to_flam3h()
     '''
         The following is the actual load preset/flame function to be used.
@@ -5111,6 +5110,7 @@ reset_IN(self, mode=0) -> None:
             
             preset_id = int(node.parm(IN_PRESETS).eval())
             iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id)
+            
             flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
             flam3h_general_utils(self.kwargs).reset_MB()
             flam3h_general_utils(self.kwargs).reset_PREFS()
@@ -5180,20 +5180,21 @@ reset_IN(self, mode=0) -> None:
                 in_flame_utils.in_copy_render_stats_msg(node)
             # Set density back to default on load
             node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
-            #Updated flame stats 
+            
+            # Update flame stats 
             node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
-            # Updated SYS inpresets parameter
-            node.setParms({IN_SYS_PRESETS: node.parm(IN_PRESETS).eval()}) # type: ignore
-            
-            # updated xaos and activate "auto set xaos":
+            # Update SYS inpresets parameter
+            node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
+            # Update xaos and activate "auto set xaos":
             node.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
-            
-            #updated OUT Flame name iter num if any
+            # Update OUT Flame name iter num if any
             out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
             
         else:
+            node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
+            
             if os.path.isfile(xml) and os.path.getsize(xml)>0:
                 node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
                 node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
