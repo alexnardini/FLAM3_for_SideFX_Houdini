@@ -3511,8 +3511,9 @@ class in_flame(_xml_tree):
         every xform in xforms is a dict coming directly from the parsed XML file.
 
         Args:
+            self:
             idx (int): [flame idx out of all flames included in the loaded flame file]
-            key (str): [use "xform" for transforms and "finalxofrm" for final flame transform]
+            key (str): [use "xform" for transforms and "finalxform" for final flame transform]
 
         Returns:
             list: [a list of all xforms inside the selected flame or None]
@@ -3537,8 +3538,9 @@ class in_flame(_xml_tree):
     def __get_xaos(self, xforms: list, key=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
-            tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
+            self:
             xforms (list): [list of all xforms contained inside this flame]
+            key (str): the flame XML xaos tag name.
 
         Returns:
             Union[list, None]: [either a list of xaos strings or None]
@@ -3561,7 +3563,7 @@ class in_flame(_xml_tree):
     def __get_affine(self, xforms: list, key: str) -> Union[tuple, None]:
         """
         Args:
-            tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
+            self:
             xforms (list): [list of all xforms contained inside this flame]
             key (str): [affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine]
 
@@ -3587,6 +3589,7 @@ class in_flame(_xml_tree):
     def __get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
         """
         Args:
+            self:
             xforms (list): [list of all xforms contained inside this flame]
             key (str): [xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity']
 
@@ -3635,8 +3638,9 @@ class in_flame(_xml_tree):
     def __get_palette(self, idx: int, key=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
         """
         Args:
-            tree (Type[ET.ElementTree]): [a valid xml.etree.ElementTree tree]
+            self:
             idx (int): [flame idx out of all flames included in the loaded flame file]
+            key (str): the flame XML palette tag name.
 
         Returns:
             hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
@@ -3700,7 +3704,13 @@ class in_flame(_xml_tree):
     def __get_mb_flam3h_mb(self, idx: int, key='') -> Union[int, float, bool, None]:
         """
         Args:
+            self:
             idx (int): [flame idx out of all flames included in the loaded flame file]
+            key (str): the flame XML motion blur tag name you are interested to get:
+            
+            OUT_XML_FLMA3H_MB_FPS
+            OUT_XML_FLMA3H_MB_SAMPLES
+            OUT_XML_FLMA3H_MB_SHUTTER
 
         Returns:
             Union[int, float, bool, None]: [FLAM3H motion blur parameter's values.]
@@ -3727,6 +3737,14 @@ class in_flame(_xml_tree):
         
     # custom to FLAM3H only
     def __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
+        """Get FLAM3H toggle parameter value: ON or OFF ( 1 or 0 )
+
+        Args:
+            toggle (bool): _description_
+
+        Returns:
+            Union[int, None]: This flame toggle
+        """        
 
         if self._isvalidtree:
             # f3c = self._flam3h_prefs_f3c[idx]
@@ -4422,8 +4440,8 @@ reset_IN(self, mode=0) -> None:
                                     func: Callable) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
         """Every parametric variation posses a certain number of parameters to control its behavior.
         In FLAM3H, those parameters have been grouped into a single data type.
-        For example the Curl variation posses two parameters: c1, c2
-        Those parameters have been packed into a vector2 data type: vector2[c1, c2].
+        For example the Curl variation posses two parametric parameters: c1, c2
+        Those two parameters have been packed into a vector2 data type: vector2[c1, c2].
         This has been done to help with performance as querying many, many different parameters did end up being costly,
         especially considering having many iterators each with parametric variations at the same time.
         
