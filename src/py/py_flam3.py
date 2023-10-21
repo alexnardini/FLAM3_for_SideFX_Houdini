@@ -61,7 +61,7 @@ CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
 DENSITY_LOAD_DEFAULT = 500000
-ITERATIONS_LOAD_DEFAULT = 10
+ITERATIONS_DEFAULT = 10
 
 DPT = '*'
 PRM = '...'
@@ -1887,7 +1887,7 @@ vactive_keep_last(self) -> None:
 
         # resets Tab contexts
         self.reset_FF()
-        flam3h_general_utils(self.kwargs).reset_SYS(1, 10, 1)
+        flam3h_general_utils(self.kwargs).reset_SYS(1, ITERATIONS_DEFAULT, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
         flam3h_general_utils(self.kwargs).reset_MB()
         in_flame_utils(self.kwargs).reset_IN()
@@ -2096,7 +2096,7 @@ vactive_keep_last(self) -> None:
                 
             # GLOBAL
             node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
-            node.setParms({GLB_ITERATIONS: ITERATIONS_LOAD_DEFAULT}) # type: ignore
+            node.setParms({GLB_ITERATIONS: ITERATIONS_DEFAULT}) # type: ignore
             # SYS
             node.setParms({SYS_DO_FF: 0}) # type: ignore
             node.setParms({SYS_RIP: 0}) # type: ignore
@@ -2939,7 +2939,7 @@ XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_spe
 # but I leave it here just in case other variation will need it.
 XML_XF_PRM_EXCEPTION = ("None", )
 
-ITER_LOAD_DEFAULT = 64
+IN_ITERATIONS_ON_LOAD = 64
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
@@ -5103,8 +5103,8 @@ reset_IN(self, mode=0) -> None:
             iter_on_load = iter_on_load_preset
         else:
             if not use_iter_on_load:
-                node.setParms({IN_ITER_NUM_ON_LOAD: ITER_LOAD_DEFAULT}) # type: ignore
-                iter_on_load = ITER_LOAD_DEFAULT
+                node.setParms({IN_ITER_NUM_ON_LOAD: IN_ITERATIONS_ON_LOAD}) # type: ignore
+                iter_on_load = IN_ITERATIONS_ON_LOAD
         return iter_on_load 
 
 
