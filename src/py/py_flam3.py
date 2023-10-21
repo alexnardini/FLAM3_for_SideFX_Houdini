@@ -5619,10 +5619,10 @@ out_XML(self) -> None:
             ui_text = "Multiple variations of the same type not allowed"
             ALL_msg = f"Node: {str(node)}\nType: Warning:\n\n"
             
-            VARS_PRE_msg = f"PRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\nDuplicate variation name:\n-> {', '.join(VARS_PRE_duplicate)}\n"
-            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\nDuplicate variation name:\n-> {', '.join(VARS_duplicate)}\n"
-            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\nDuplicate variation name:\n-> {', '.join(VARS_FF_duplicate)}\n"
-            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\nDuplicate variation name:\n-> {', '.join(VARS_POST_FF_duplicate)}\n"
+            VARS_PRE_msg = f"PRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n-> {', '.join(VARS_PRE_duplicate)}\n"
+            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\n-> {', '.join(VARS_duplicate)}\n"
+            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\n-> {', '.join(VARS_FF_duplicate)}\n"
+            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\n-> {', '.join(VARS_POST_FF_duplicate)}\n"
             
             HELP_msg  = ""
             HELP_msg += f"\nNOTE:\n"
