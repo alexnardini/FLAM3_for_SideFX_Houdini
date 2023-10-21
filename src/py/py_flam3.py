@@ -29,18 +29,9 @@ import inspect
 
 #   Tested on PYTHON v3.7.13(H19) and PYTHON v3.9.10(H19.5)
  
-#   Title:      SideFX Houdini FLAM3: 2D
+#   Title:      SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
 #   date:       January 2023, Last revised October 2023
-#
-#   info:       Based on the original: "The Fractal Flame Algorithm"
-#   Authors:    Scott Draves, Erik Reckase
-#
-#   Paper:      https://flam3.com/flame_draves.pdf
-#   Date:       September 2003, Last revised November 2008
-#
-#   Github:     https://github.com/scottdraves/flam3
-#   Date:       December 2002, Last revised May 2015
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
