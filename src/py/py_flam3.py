@@ -4284,7 +4284,7 @@ reset_IN(self, mode=0) -> None:
                     n: flam3h_iterator_prm_names, 
                     mp_idx: int
                     ) -> None:
-        """Set the affine values based on the loaded flame prest affine values for an iterator or the FF.
+        """Set the affine values based on the loaded flame preset affine values for an iterator or the FF.
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
@@ -4323,7 +4323,16 @@ reset_IN(self, mode=0) -> None:
                     mp_idx: int
                     ) -> None:
         """Set single parameter data value from the loaded flame preset.
-         
+        An example of the parameter you will set using this function are:
+        
+        main_note
+        main_weight
+        shader_speed
+        shader_color
+        shader_alpha
+        xaos
+        ...
+        
         Args:
             mode (int): [0 for iterator. 1 for FF]
             node (hou.Node): [Current FLAM3 houdini node]
@@ -4367,7 +4376,16 @@ reset_IN(self, mode=0) -> None:
             return apo_prm
         
     @staticmethod
-    def in_var_name_from_dict(mydict: dict, idx: int):
+    def in_var_name_from_dict(mydict: dict, idx: int) -> str:
+        """Get the current variation string name from its index.
+
+        Args:
+            mydict (dict): The dictionary for lookup
+            idx (int): The variation index to retrieve its string name from.
+
+        Returns:
+            str: The variation string name.
+        """        
         return list(mydict.keys())[list(mydict.values()).index(idx)]
     @staticmethod
     def in_v_parametric_var_collect(node: hou.Node, 
@@ -4430,6 +4448,7 @@ reset_IN(self, mode=0) -> None:
                         apo_prm: tuple
                         ) -> None:
         """Set a FLAM3H parametric variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        This include setting the variation type, its weight and its parametric parameters for an iterator or the FF.
         
         Args:
             app (str): [What software were used to generate this flame preset]
@@ -4480,6 +4499,7 @@ reset_IN(self, mode=0) -> None:
                             apo_prm: tuple
                             ) -> None:
         """Set a FLAM3H parametric PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        This include setting the variation type, its weight and its parametric parameters.
         
         Args:
             app (str): [What software were used to generate this flame preset]
@@ -4526,6 +4546,7 @@ reset_IN(self, mode=0) -> None:
                              apo_prm: tuple
                              ) -> None:
         """Set a FLAM3H parametric POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        This include setting the variation type, its weight and its parametric parameters.
         
         Args:
             app (str): [What software were used to generate this flame preset]
@@ -4570,6 +4591,7 @@ reset_IN(self, mode=0) -> None:
                                apo_prm: tuple
                                ) -> None:
         """Set a FLAM3H parametric FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        This include setting the variation type, its weight and its parametric parameters.
         
         Args:
             app (str): [What software were used to generate this flame preset]
@@ -4610,6 +4632,7 @@ reset_IN(self, mode=0) -> None:
                                 apo_prm: tuple
                                 ) -> None:
         """Set a FLAM3H parametric FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        This include setting the variation type, its weight and its parametric parameters.
         
         Args:
             app (str): [What software were used to generate this flame preset]
@@ -6627,7 +6650,19 @@ out_XML(self) -> None:
 
 
 
-
+    '''
+    The following definitions will prep all the data into proper strings to be then written into the XML flame/xform data keys/entries.
+    The name of each is self explanatory of the data they will prep and two different classes will be used to store all this data:
+    
+    FLAME RENDER PROPERTIES:
+    class out_flame_properties(out_flame_utils):
+    
+    ALL XFORMS ARE INCLUDED:
+    class out_xf_flame_data(out_flame_utils):
+    
+    This way we can then call those classes elsewere anytime we need them so to have this data always at hand easily.
+    '''
+    
     def __out_flame_data(self, prm_name='') -> str:
         if prm_name:
             prm_type = False
