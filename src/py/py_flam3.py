@@ -5567,9 +5567,9 @@ out_XML(self) -> None:
                 if var not in v:
                     v.append(var)
                 else:
-                    d.append(var)
-            if d not in duplicate:
-                duplicate.append(d)
+                    if var not in d:
+                        d.append(var)
+            duplicate.append(d)
         
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
 
