@@ -3289,7 +3289,16 @@ class _xml_tree:
         return self._isvalidtree
     
 
+
     def __get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
+        """Collect all Flame presets name from the XML Flame file.
+
+        Args:
+            key (_type_, optional): _description_. Defaults to XML_XF_NAME. The XML Flame's name key.
+
+        Returns:
+            Union[tuple, None]: Flame presets names.
+        """        
         if self._isvalidtree:
             root = self._tree.getroot()
             names = []
@@ -3303,6 +3312,14 @@ class _xml_tree:
             return None
         
     def __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
+        """Collect the actual Flame presets object data from the XML file.
+
+        Args:
+            key (_type_, optional): _description_. Defaults to XML_FLAME_NAME. The XML Flame's flame key.
+
+        Returns:
+            Union[tuple, None]: Flames objects data.
+        """        
         if self._isvalidtree:
             root = self._tree.getroot()
             flames = []    
@@ -3313,6 +3330,14 @@ class _xml_tree:
             return None
 
     def __get_flame_count(self, flames: list) -> int:
+        """Get the number of Flame presets inside the XML file.
+
+        Args:
+            flames (list): Flames objects data.
+
+        Returns:
+            int: Number of Flames.
+        """        
         if self._isvalidtree:
             return len(flames)
         return 0
@@ -6588,7 +6613,7 @@ out_XML(self) -> None:
 
     # Callback script
     def out_auto_add_iter_num_to_prm(self) -> None:
-        """Add the iteration number to the OUT Flame name after you type one in.
+        """Add the iteration number string to the OUT Flame name after you type one name string in.
         """        
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
@@ -6598,7 +6623,7 @@ out_XML(self) -> None:
 
     # Callback script
     def out_auto_change_iter_num_to_prm(self) -> None:
-        """Change the iteration number to the OUT Flame name when you change FLAM3H iterations.
+        """Change the iteration number string to the OUT Flame name when you change FLAM3H iterations.
         """      
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
