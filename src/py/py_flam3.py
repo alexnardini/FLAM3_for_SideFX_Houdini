@@ -5526,7 +5526,7 @@ reset_IN(self, mode=0) -> None:
         """Reset the FLAM3H OUT Tab parameters.
 
         Args:
-            mode (int, optional): _description_. Defaults to 0. 1 will restet all parameters.
+            mode (int, optional): _description_. Defaults to 0. 1 will restet the remainder of the parameters.
         """        
         node = self.node
         node.setParms({IN_ISVALID_FILE: 0})
@@ -6515,7 +6515,7 @@ out_XML(self) -> None:
         """Reset the OUT flame render properties to their default.
 
         Args:
-            mode (int, optional): _description_. Defaults to 0. 1 will reset all parameters.
+            mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
         """        
         node = self.node
         node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
