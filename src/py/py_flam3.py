@@ -5549,6 +5549,22 @@ out_XML(self) -> None:
             return True
         return False
     
+    @staticmethod
+    def out_util_iterators_vars_duplicate(VARS: list) -> list:
+        duplicate = []
+        for iterator in VARS:
+            v = []
+            d = []
+            for var in iterator:
+                if var not in v:
+                    v.append(var)
+                else:
+                    d.append(var)
+            duplicate.append(d)
+        
+        return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
+
+    
     # Check for FLAM3 compatibility and let the user know.
     @staticmethod
     def out_flam3_compatibility_check_and_msg(node: hou.Node,
@@ -5573,6 +5589,7 @@ out_XML(self) -> None:
                     pre_vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS_PRE is False:
                         bool_VARS_PRE = True
+        VARS_PRE_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS_PRE)
         
         vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS):
@@ -5582,11 +5599,19 @@ out_XML(self) -> None:
                     vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS is False:
                         bool_VARS = True
+        VARS_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS)
 
         # FF dublicate vars check
+        VARS_FF_duplicate = []
+        VARS_POST_FF_duplicate = []
         if flam3h_do_FF:
             bool_VARS_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_FF)
+            if bool_VARS_FF:
+                VARS_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_FF], in_flame_utils.in_util_make_NULL)
+                
             bool_VARS_POST_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_POST_FF)
+            if bool_VARS_POST_FF:
+                VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_NULL)
             
         # Build messages accordinlgy
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
@@ -5594,10 +5619,10 @@ out_XML(self) -> None:
             ui_text = "Multiple variations of the same type not allowed"
             ALL_msg = f"Node: {str(node)}\nType: Warning:\n\n"
             
-            VARS_PRE_msg = f"PRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n"
-            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\n"
-            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\n"
-            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\n"
+            VARS_PRE_msg = f"PRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\nDuplicate variation name:\n-> {', '.join(VARS_PRE_duplicate)}\n"
+            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\nDuplicate variation name:\n-> {', '.join(VARS_duplicate)}\n"
+            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\nDuplicate variation name:\n-> {', '.join(VARS_FF_duplicate)}\n"
+            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\nDuplicate variation name:\n-> {', '.join(VARS_POST_FF_duplicate)}\n"
             
             HELP_msg  = ""
             HELP_msg += f"\nNOTE:\n"
