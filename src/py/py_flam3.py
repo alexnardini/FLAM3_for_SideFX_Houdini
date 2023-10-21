@@ -5540,13 +5540,11 @@ out_XML(self) -> None:
                 parent[index - 1].tail = '\n' + ('  ' * depth)
             if index == len(parent) - 1:
                 current.tail = '\n' + ('  ' * (depth - 1))
-           
+        
     @staticmethod  
-    def out_util_check_duplicate(vars: list) -> bool:
+    def out_util_check_duplicate_var_section(vars: list) -> bool:
         result = []
-        duplicate = []
         [result.append(x) for x in vars if x not in result]
-        [duplicate.append(x) for x in vars if x in result]
         if(len(vars) != len(result)):
             return True
         return False
@@ -5570,7 +5568,7 @@ out_XML(self) -> None:
         pre_vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS_PRE):
             if n:
-                check = out_flame_utils.out_util_check_duplicate(n)
+                check = out_flame_utils.out_util_check_duplicate_var_section(n)
                 if check:
                     pre_vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS_PRE is False:
@@ -5579,7 +5577,7 @@ out_XML(self) -> None:
         vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS):
             if n:
-                check = out_flame_utils.out_util_check_duplicate(n)
+                check = out_flame_utils.out_util_check_duplicate_var_section(n)
                 if check:
                     vars_duplicate_idx.append(str(idx+1))
                     if bool_VARS is False:
@@ -5587,8 +5585,8 @@ out_XML(self) -> None:
 
         # FF dublicate vars check
         if flam3h_do_FF:
-            bool_VARS_FF = out_flame_utils.out_util_check_duplicate(names_VARS_FF)
-            bool_VARS_POST_FF = out_flame_utils.out_util_check_duplicate(names_VARS_POST_FF)
+            bool_VARS_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_FF)
+            bool_VARS_POST_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_POST_FF)
             
         # Build messages accordinlgy
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
