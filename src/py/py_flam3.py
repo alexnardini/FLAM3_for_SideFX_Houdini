@@ -60,8 +60,8 @@ FLAM3HOUDINI_VERSION = '1.1.0'
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
-DENSITY_LOAD_DEFAULT = 500000
-ITERATIONS_DEFAULT = 10
+FLAM3H_DENSITY_DEFAULT = 500000
+FLAM3H_ITERATIONS_DEFAULT = 10
 
 DPT = '*'
 PRM = '...'
@@ -1394,8 +1394,8 @@ vactive_keep_last(self) -> None:
         """Revert density parameter to its default value.
         """        
         ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
-        if ptcount != DENSITY_LOAD_DEFAULT:
-            self.node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+        if ptcount != FLAM3H_DENSITY_DEFAULT:
+            self.node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
     
     
 
@@ -1887,7 +1887,7 @@ vactive_keep_last(self) -> None:
 
         # resets Tab contexts
         self.reset_FF()
-        flam3h_general_utils(self.kwargs).reset_SYS(1, ITERATIONS_DEFAULT, 1)
+        flam3h_general_utils(self.kwargs).reset_SYS(1, FLAM3H_ITERATIONS_DEFAULT, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
         flam3h_general_utils(self.kwargs).reset_MB()
         in_flame_utils(self.kwargs).reset_IN()
@@ -1951,7 +1951,7 @@ vactive_keep_last(self) -> None:
         node.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
         node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
         
-        node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+        node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
 
 
 
@@ -2095,8 +2095,8 @@ vactive_keep_last(self) -> None:
                     p.deleteAllKeyframes()
                 
             # GLOBAL
-            node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
-            node.setParms({GLB_ITERATIONS: ITERATIONS_DEFAULT}) # type: ignore
+            node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
+            node.setParms({GLB_ITERATIONS: FLAM3H_ITERATIONS_DEFAULT}) # type: ignore
             # SYS
             node.setParms({SYS_DO_FF: 0}) # type: ignore
             node.setParms({SYS_RIP: 0}) # type: ignore
@@ -5537,7 +5537,7 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
                 in_flame_utils.in_copy_render_stats_msg(node)
             # Set density back to default on load
-            node.setParms({GLB_DENSITY: DENSITY_LOAD_DEFAULT}) # type: ignore
+            node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
             
             # Update flame stats 
             node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
