@@ -5564,7 +5564,7 @@ out_XML(self) -> None:
         
         # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
         # just in case in the future I add more.
-        bool_VARS = bool_VARS_PRE = bool_VARS_POST = bool_VARS_FF = bool_VARS_PRE_FF = bool_VARS_POST_FF = False
+        bool_VARS_PRE = bool_VARS = bool_VARS_POST = bool_VARS_PRE_FF = bool_VARS_FF = bool_VARS_POST_FF = False
 
         # ITERATORS dublicate vars check
         pre_vars_duplicate_idx = []
