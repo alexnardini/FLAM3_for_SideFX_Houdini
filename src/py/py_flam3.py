@@ -3934,7 +3934,7 @@ in_v_parametric_var_collect(node: hou.Node,
                             xform: dict, 
                             mp_idx: int, 
                             v_type: int, 
-                            func: Callable) -> list:
+                            func: Callable) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
 
 in_v_parametric(app: str, 
                 mode: int, 
@@ -4347,6 +4347,7 @@ reset_IN(self, mode=0) -> None:
     def in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
         """Some software have variation names and parameters names different from FLAM3H and Apophysis.
         This will take care of those special cases.
+        It will swap the current variation dictionary item with the one the posses the corret names.
 
         Args:
             v_type (int): The current variation we are processing
@@ -4375,8 +4376,14 @@ reset_IN(self, mode=0) -> None:
                                     xform: dict, 
                                     mp_idx: int, 
                                     v_type: int, 
-                                    func: Callable) -> list:
-        """
+                                    func: Callable) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+        """Every parametric variation posses a certain number of parameters to control its behavior.
+        In FLAM3H, those parameters have been grouped into a single data type.
+        For example the Curl variation posses two parameters: c1, c2
+        Those parameters have been packed into a vector2 data type: vector2[c1, c2].
+        This has been done to help with performance as querying many, many different parameters did end up being costly,
+        especially considering having many iterators each with parametric variations at the same time.
+        
         Args:
             node (hou.Node): [Current FLAM3 houdini node]
             mode (int): [0 for iterator. 1 for FF]
@@ -4385,12 +4392,15 @@ reset_IN(self, mode=0) -> None:
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             v_type (int): [the current variation type index]
             func (Callable): [function to change variation name between var, pre_var and post_var]
-        """
+        
+        Returns:
+            tuple: Expected data type of the collected parametric variation's parameters values.
+        """   
         
         iter_type = f"Iterator.{mp_idx+1}:"
         if mode:
             iter_type = 'FF:'
-        
+
         VAR: list = []
         for names in apo_prm[1:-1]:
             var_prm_vals: list = []
@@ -4436,14 +4446,14 @@ reset_IN(self, mode=0) -> None:
         
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
-        
-        VAR = in_flame_utils.in_v_parametric_var_collect( node, 
-                                                        mode, 
-                                                        apo_prm, 
-                                                        xform, 
-                                                        mp_idx, 
-                                                        v_type, 
-                                                        in_flame_utils.in_util_make_NULL)
+
+        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                         mode, 
+                                                         apo_prm, 
+                                                         xform, 
+                                                         mp_idx, 
+                                                         v_type, 
+                                                         in_flame_utils.in_util_make_NULL)
 
         for idx, prm in enumerate(var_prm[1:-1]):
             if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) # type: ignore
@@ -4486,13 +4496,13 @@ reset_IN(self, mode=0) -> None:
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
         
-        VAR = in_flame_utils.in_v_parametric_var_collect( node, 
-                                                        mode, 
-                                                        apo_prm, 
-                                                        xform, 
-                                                        mp_idx, 
-                                                        v_type, 
-                                                        in_flame_utils.in_util_make_PRE)
+        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                         mode, 
+                                                         apo_prm, 
+                                                         xform, 
+                                                         mp_idx, 
+                                                         v_type, 
+                                                         in_flame_utils.in_util_make_PRE)
             
         for idx, prm in enumerate(var_prm[1:-1]):
             node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
@@ -4531,13 +4541,13 @@ reset_IN(self, mode=0) -> None:
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect( node, 
-                                                        mode, 
-                                                        apo_prm, 
-                                                        xform, 
-                                                        mp_idx, 
-                                                        v_type, 
-                                                        in_flame_utils.in_util_make_POST)
+        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                         mode, 
+                                                         apo_prm, 
+                                                         xform, 
+                                                         mp_idx, 
+                                                         v_type, 
+                                                         in_flame_utils.in_util_make_POST)
             
         for idx, prm in enumerate(var_prm[1:-1]):
             node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
@@ -4570,7 +4580,7 @@ reset_IN(self, mode=0) -> None:
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect( node, 
+        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
                                                         0, 
                                                         apo_prm, 
                                                         xform, 
@@ -4609,7 +4619,7 @@ reset_IN(self, mode=0) -> None:
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect( node, 
+        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
                                                         0, 
                                                         apo_prm, 
                                                         xform, 
@@ -4652,12 +4662,12 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic_PRE(mode: int, 
-                    node: hou.Node, 
-                    mp_idx: int, 
-                    t_idx: int, 
-                    v_type: int, 
-                    v_weight: float
-                    ) -> None:
+                        node: hou.Node, 
+                        mp_idx: int, 
+                        t_idx: int, 
+                        v_type: int, 
+                        v_weight: float
+                        ) -> None:
         """
         Args:
             mode (int): [0 for iterator. 1 for FF]
@@ -4710,10 +4720,10 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic_POST_FF(node: hou.Node, 
-                             t_idx: int, 
-                             v_type: int, 
-                             v_weight: float
-                             ) -> None:
+                            t_idx: int, 
+                            v_type: int, 
+                            v_weight: float
+                            ) -> None:
         """
         Args:
             node (hou.Node): [Current FLAM3 houdini node]
@@ -4802,7 +4812,7 @@ reset_IN(self, mode=0) -> None:
                 if v_type is not None:
                     v_weight = float(xform.get(key_name))
                     if apo_prm[v_type][-1]:
-                        in_flame_utils.in_v_parametric(   app, 
+                        in_flame_utils.in_v_parametric( app, 
                                                         mode, 
                                                         node, 
                                                         mp_idx, 
@@ -4851,7 +4861,7 @@ reset_IN(self, mode=0) -> None:
                             w = float(xform.get(key_name))
                             v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_POST(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_POST_FF(   app, 
+                                in_flame_utils.in_v_parametric_POST_FF( app, 
                                                                         node, 
                                                                         t_idx, 
                                                                         xform, 
@@ -4872,7 +4882,7 @@ reset_IN(self, mode=0) -> None:
                             w = float(xform.get(key_name))
                             v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_PRE(   app, 
+                                in_flame_utils.in_v_parametric_PRE( app, 
                                                                     mode, 
                                                                     node, 
                                                                     mp_idx, 
@@ -4894,7 +4904,7 @@ reset_IN(self, mode=0) -> None:
                             w = float(xform.get(key_name))
                             v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_POST(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_POST(  app, 
+                                in_flame_utils.in_v_parametric_POST(app, 
                                                                     mode, 
                                                                     node, 
                                                                     mp_idx, 
