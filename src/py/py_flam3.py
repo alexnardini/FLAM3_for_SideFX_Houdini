@@ -6660,7 +6660,7 @@ out_XML(self) -> None:
     ALL XFORMS ARE INCLUDED:
     class out_xf_flame_data(out_flame_utils):
     
-    This way we can then call those classes elsewere anytime we need them so to have this data always at hand easily.
+    This way I can then call those classes elsewere anytime I need them so to have this data always at hand easily.
     '''
     
     def __out_flame_data(self, prm_name='') -> str:
