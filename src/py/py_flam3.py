@@ -4087,12 +4087,12 @@ in_v_pre_blur(mode: int,
 
 in_util_check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
 
-in_set_iterator(mode: int, 
-                node: hou.Node, 
-                apo_data: in_flame_iter_data, 
-                preset_id: int, 
-                exclude_keys: tuple
-                ) -> None:
+in_flam3h_set_iterator( mode: int, 
+                        node: hou.Node, 
+                        apo_data: in_flame_iter_data, 
+                        preset_id: int, 
+                        exclude_keys: tuple
+                        ) -> None:
 
 in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 
@@ -4859,12 +4859,12 @@ reset_IN(self, mode=0) -> None:
         else: return w
 
     @staticmethod
-    def in_set_iterator(mode: int, 
-                        node: hou.Node, 
-                        apo_data: in_flame_iter_data, 
-                        preset_id: int, 
-                        exclude_keys: tuple
-                        ) -> None:
+    def in_flam3h_set_iterator( mode: int, 
+                                node: hou.Node, 
+                                apo_data: in_flame_iter_data, 
+                                preset_id: int, 
+                                exclude_keys: tuple
+                                ) -> None:
         """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
         
     The collection of XML data happen inside: class: in_flame_iter_data()
@@ -5504,13 +5504,13 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                 exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
-            in_flame_utils.in_set_iterator(0, node, apo_data, preset_id, exclude_keys)
+            in_flame_utils.in_flam3h_set_iterator(0, node, apo_data, preset_id, exclude_keys)
             
             # if FF
             if apo_data.finalxform is not None:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 1}) # type: ignore
-                in_flame_utils.in_set_iterator(1, node, apo_data, preset_id, exclude_keys)
+                in_flame_utils.in_flam3h_set_iterator(1, node, apo_data, preset_id, exclude_keys)
             else:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 0}) # type: ignore
@@ -6925,13 +6925,15 @@ class out_flame_render_properties(out_flame_utils):
         self._flame_vibrancy = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
         self._flame_highlight = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
         
+        '''
         # The following are not really needed for our purpose and we assume all curves are defaults to start with.
-        #
-        # self._flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        # self._flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        # self._flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
-        # self._flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
-        # self._flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
+
+        self._flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        self._flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        self._flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
+        self._flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
+        self._flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
+        '''
         
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
@@ -6984,6 +6986,30 @@ class out_flame_render_properties(out_flame_utils):
     @property
     def flame_highlight(self):
         return self._flame_highlight
+    
+    '''
+    # The following are not really needed for our purpose and we assume all curves are defaults to start with.
+    
+    @property
+    def flame_render_curves(self):
+        return self._flame_render_curves
+    
+    @property
+    def flame_overall_curve(self):
+        return self._flame_overall_curve
+    
+    @property
+    def flame_red_curve(self):
+        return self._flame_red_curve
+    
+    @property
+    def flame_green_curve(self):
+        return self._flame_green_curve
+    
+    @property
+    def flame_blue_curve(self):
+        return self._flame_blue_curve
+    '''
     
     # custom to FLAM3H only
     
