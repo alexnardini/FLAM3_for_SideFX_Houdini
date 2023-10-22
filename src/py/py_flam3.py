@@ -6891,32 +6891,106 @@ class out_flame_properties(out_flame_utils):
 
     def __init__(self, kwargs: dict) -> None:
         super().__init__(kwargs)
-        self.flame_name = self._out_flame_utils__out_flame_name() # type: ignore
-        self.flame_size = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)) # type: ignore
-        self.flame_center = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)) # type: ignore
-        self.flame_scale = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)) # type: ignore
-        self.flame_rotate = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)) # type: ignore
-        self.flame_quality = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)) # type: ignore
-        self.flame_brightness = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)) # type: ignore
-        self.flame_gamma = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)) # type: ignore
-        self.flame_k2 = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)) # type: ignore
-        self.flame_vibrancy = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
-        self.flame_highlight = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
+        self._flame_name = self._out_flame_utils__out_flame_name() # type: ignore
+        self._flame_size = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)) # type: ignore
+        self._flame_center = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)) # type: ignore
+        self._flame_scale = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)) # type: ignore
+        self._flame_rotate = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)) # type: ignore
+        self._flame_quality = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)) # type: ignore
+        self._flame_brightness = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)) # type: ignore
+        self._flame_gamma = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)) # type: ignore
+        self._flame_k2 = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)) # type: ignore
+        self._flame_vibrancy = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
+        self._flame_highlight = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
+        
         # The following are not really needed for our purpose and we assume all curves are defaults to start with.
         #
-        # self.flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        # self.flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        # self.flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
-        # self.flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
-        # self.flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
+        # self._flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        # self._flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        # self._flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
+        # self._flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
+        # self._flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
         
         # custom to FLAM3H only
-        self.flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
-        self.flam3h_palette_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
-        self.flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
-        self.flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
-        self.flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
-        self.flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
+        self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
+        self._flam3h_palette_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
+        self._flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
+        self._flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
+        self._flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
+        self._flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
+
+    @property
+    def flame_name(self):
+        return self._flame_name
+    
+    @property
+    def flame_size(self):
+        return self._flame_size
+    
+    @property
+    def flame_center(self):
+        return self._flame_center
+    
+    @property
+    def flame_scale(self):
+        return self._flame_scale
+    
+    @property
+    def flame_rotate(self):
+        return self._flame_rotate
+    
+    @property
+    def flame_quality(self):
+        return self._flame_quality
+    
+    @property
+    def flame_brightness(self):
+        return self._flame_brightness
+    
+    @property
+    def flame_gamma(self):
+        return self._flame_gamma
+    
+    @property
+    def flame_k2(self):
+        return self._flame_k2
+    
+    @property
+    def flame_vibrancy(self):
+        return self._flame_vibrancy
+    
+    @property
+    def flame_highlight(self):
+        return self._flame_highlight
+    
+    # custom to FLAM3H only
+    
+    @property
+    def flam3h_sys_rip(self):
+        return self._flam3h_sys_rip
+    
+    @property
+    def flam3h_palette_hsv(self):
+        return self._flam3h_palette_hsv
+    
+    @property
+    def flam3h_mb_fps(self):
+        return self._flam3h_mb_fps
+    
+    @property
+    def flam3h_mb_samples(self):
+        return self._flam3h_mb_samples
+    
+    @property
+    def flam3h_mb_shutter(self):
+        return self._flam3h_mb_shutter
+    
+    @property
+    def flam3h_prefs_f3c(self):
+        return self._flam3h_prefs_f3c
+
+
+
 
 
 class out_xf_flame_data(out_flame_utils):
@@ -6928,17 +7002,73 @@ class out_xf_flame_data(out_flame_utils):
     def __init__(self, kwargs: dict) -> None:
         super().__init__(kwargs)
         # FLAM3 data
-        self.xf_name = self._out_flame_utils__out_xf_name() # type: ignore
-        self.xf_vactive = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.main_vactive) # type: ignore
-        self.xf_weight = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.main_weight) # type: ignore
-        self.xf_xaos = self._out_flame_utils__out_xf_xaos() # type: ignore
-        self.xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
-        self.xf_color = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_color) # type: ignore
-        self.xf_symmetry = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_speed) # type: ignore
-        self.xf_opacity = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_alpha) # type: ignore
-        self.xf_preaffine = self._out_flame_utils__out_xf_preaffine() # type: ignore
-        self.xf_postaffine = self._out_flame_utils__out_xf_postaffine() # type: ignore
-        self.palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
-        self.finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
-        self.finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine() # type: ignore
-        self.finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine() # type: ignore
+        self._xf_name = self._out_flame_utils__out_xf_name() # type: ignore
+        self._xf_vactive = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.main_vactive) # type: ignore
+        self._xf_weight = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.main_weight) # type: ignore
+        self._xf_xaos = self._out_flame_utils__out_xf_xaos() # type: ignore
+        self._xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
+        self._xf_color = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_color) # type: ignore
+        self._xf_symmetry = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_speed) # type: ignore
+        self._xf_opacity = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_alpha) # type: ignore
+        self._xf_preaffine = self._out_flame_utils__out_xf_preaffine() # type: ignore
+        self._xf_postaffine = self._out_flame_utils__out_xf_postaffine() # type: ignore
+        self._palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
+        self._finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
+        self._finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine() # type: ignore
+        self._finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine() # type: ignore
+
+    @property
+    def xf_name(self):
+        return self._xf_name
+    
+    @property
+    def xf_vactive(self):
+        return self._xf_vactive
+    
+    @property
+    def xf_weight(self):
+        return self._xf_weight
+    
+    @property
+    def xf_xaos(self):
+        return self._xf_xaos
+    
+    @property
+    def xf_pre_blur(self):
+        return self._xf_pre_blur
+    
+    @property
+    def xf_color(self):
+        return self._xf_color
+    
+    @property
+    def xf_symmetry(self):
+        return self._xf_symmetry
+    
+    @property
+    def xf_opacity(self):
+        return self._xf_opacity
+    
+    @property
+    def xf_preaffine(self):
+        return self._xf_preaffine
+    
+    @property
+    def xf_postaffine(self):
+        return self._xf_postaffine
+    
+    @property
+    def palette_hex(self):
+        return self._palette_hex
+    
+    @property
+    def finalxf_name(self):
+        return self._finalxf_name
+    
+    @property
+    def finalxf_preaffine(self):
+        return self._finalxf_preaffine
+    
+    @property
+    def finalxf_postaffine(self):
+        return self._finalxf_postaffine
