@@ -514,7 +514,7 @@ class flam3h_iterator_FF:
     
     # ALL method lists
     # allT_FF list is omitted here because FF VARS and FF POST VARS have their own unique parametric parameters
-    # so I need to handle them one by one inside: def prm_paste_FF() and def prm_paste_sel_FF()
+    # so I need to handle them one by one inside: def prm_paste_FF(kwargs).prm_paste_FF() and prm_paste_FF(kwargs).def prm_paste_sel_FF()
     allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
 
 
@@ -5497,6 +5497,13 @@ reset_IN(self, mode=0) -> None:
 
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
+            # iterators
+            node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
+            for p in node.parms():
+                if not p.isLocked():
+                    p.deleteAllKeyframes()
+            node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
+            
             # RIP
             # if there are ZERO opacities, always turn RIP toggle ON
             if min(apo_data.opacity) == 0.0:
@@ -5505,13 +5512,6 @@ reset_IN(self, mode=0) -> None:
                 # Otherwise set RIP toggle accordingly from the XML data if any
                 if apo_data.sys_flam3h_rip is not None:
                     node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
-                
-            # iterators
-            node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-            for p in node.parms():
-                if not p.isLocked():
-                    p.deleteAllKeyframes()
-            node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
             
             # get keys to exclude
             exclude_keys = XML_XF_KEY_EXCLUDE
@@ -5537,10 +5537,6 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
             else:
                 flam3h_general_utils(self.kwargs).reset_MB()
-                
-            # F3C ( the if statement is for backward compatibility )
-            if apo_data.prefs_flam3h_f3c is not None:
-                node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
             
             # if CP HSV vals
             if apo_data.palette_flam3h_hsv is not False:
@@ -5555,22 +5551,31 @@ reset_IN(self, mode=0) -> None:
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             flam3h_palette_utils(self.kwargs).palette_hsv()
+            
             # if "copy render properties on Load" is checked
             if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
                 in_flame_utils.in_copy_render_stats_msg(node)
+                
             # Set density back to default on load
             node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
             
             # Update flame stats 
             node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+            
             # Update SYS inpresets parameter
             node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
+            
             # Update xaos and activate "auto set xaos":
             node.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+            
             # Update OUT Flame name iter num if any
             out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
+            
+            # F3C ( the if statement is for backward compatibility )
+            if apo_data.prefs_flam3h_f3c is not None:
+                node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
             
         else:
             node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
