@@ -6077,7 +6077,7 @@ out_XML(self) -> None:
                         bool_VARS_PRE = True
         VARS_PRE_duplicate = []
         if bool_VARS_PRE:
-            VARS_PRE_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS_PRE)
+            VARS_PRE_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([out_flame_utils.out_util_iterators_vars_duplicate(names_VARS_PRE)], in_flame_utils.in_util_make_PRE)
         
         vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS):
@@ -6101,7 +6101,7 @@ out_XML(self) -> None:
                 
             bool_VARS_POST_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_POST_FF)
             if bool_VARS_POST_FF:
-                VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_NULL)
+                VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
             
         # Build messages accordinlgy
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
