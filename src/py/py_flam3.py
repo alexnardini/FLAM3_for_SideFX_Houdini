@@ -6191,7 +6191,7 @@ out_XML(self) -> None:
         names_VARS_POST = []
         f3d = out_flame_xforms_data(kwargs)
         for iter in range(f3d.iter_count):
-            iter_var = iter + 1
+            mp_idx = iter + 1
             if int(f3d.xf_vactive[iter]):
                 xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
                 xf.tag = XML_XF
@@ -6208,9 +6208,9 @@ out_XML(self) -> None:
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-                names_VARS.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, str(iter_var), in_flame_utils.in_util_make_NULL))
-                names_VARS_PRE.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, str(iter_var), in_flame_utils.in_util_make_PRE))
-                names_VARS_POST.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, str(iter_var), in_flame_utils.in_util_make_POST))
+                names_VARS.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, str(mp_idx), in_flame_utils.in_util_make_NULL))
+                names_VARS_PRE.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, str(mp_idx), in_flame_utils.in_util_make_PRE))
+                names_VARS_POST.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, str(mp_idx), in_flame_utils.in_util_make_POST))
         # Build finalxform
         names_VARS_FF = []
         names_VARS_PRE_FF = []
