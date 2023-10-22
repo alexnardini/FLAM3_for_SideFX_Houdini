@@ -5777,8 +5777,8 @@ out_XML(self) -> None:
                 
                 is_int = True
                 try:
-                    # if the name is a number, we want to still add the iteration num to it
-                    # and not evaluate this as integer
+                    # if the name is a number, I want to still add the iteration num to it
+                    # and not evaluate this as integer, even if it is an integer.
                     if rp[-1] != flame_name:
                         int(rp[-1].strip())
                     else:
@@ -5795,8 +5795,11 @@ out_XML(self) -> None:
                     flame_name_new = ' '.join(rp_clean) + div + str(iter_num)
                     return flame_name_new.strip()
                 else:
+                    splt = flame_name.split(":")
                     _rp = str(flame_name).rpartition(div)
-                    if _rp[-1] != rp[-1].strip():
+                    if len(splt)>1:
+                        return ''.join([item.strip() for item in splt]) + div + str(iter_num)
+                    elif _rp[-1] != rp[-1].strip():
                         return ''.join([item.strip() for item in _rp[:-1]]) + str(iter_num)
                     else:
                         return flame_name
@@ -6182,7 +6185,6 @@ out_XML(self) -> None:
             if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
                 flame.set(key, value)
         # Build xforms
-        is_PRE_BLUR = False
         name_PRE_BLUR = ''
         names_VARS = []
         names_VARS_PRE = []
@@ -6198,7 +6200,7 @@ out_XML(self) -> None:
                 xf.set(XML_XF_COLOR, f3d.xf_color[iter])
                 xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
                 if f3d.xf_pre_blur[iter]:
-                    is_PRE_BLUR =True
+                    name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
                 xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
                 if f3d.xf_postaffine[iter]:
@@ -6235,7 +6237,6 @@ out_XML(self) -> None:
         palette.text = f3d.palette_hex
 
         # Get unique plugins used
-        if is_PRE_BLUR: name_PRE_BLUR = XML_XF_PB
         names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
         names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], in_flame_utils.in_util_make_PRE) + [name_PRE_BLUR]
         names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
