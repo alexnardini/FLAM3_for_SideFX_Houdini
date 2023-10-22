@@ -1269,7 +1269,7 @@ vactive_keep_last(self) -> None:
         Args:
             self (hou.Node): FLAM3H node
             data_name (str): The parameter name you desire to swt.
-            data (list): The data to set. A tuple can only come from: out_xf_flame_data(self).out_xf_xaos_from(mode)
+            data (list): The data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
         """
         if data_name == FLAM3H_PRM_XAOS_MP_MEM:
             data_to_prm = ' '.join([str(x) for x in data])
@@ -1741,9 +1741,9 @@ vactive_keep_last(self) -> None:
             
 
     def flam3h_xaos_convert(self) -> None:
-        """Here I am using a class function call from: out_xf_flame_data class.out_xf_xaos_from()
+        """Here I am using a class function call from: out_flame_utils.out_xf_xaos_from()
         down below inside the save XML/FLAME file section of this file.
-        The class function: out_xf_flame_data class.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
+        The class function: out_flame_utils.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
         """
         node = self.node
         autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
@@ -6099,7 +6099,7 @@ out_XML(self) -> None:
         Returns:
             dict: _description_
         """        
-        f3p = out_flame_properties(kwargs)
+        f3p = out_flame_render_properties(kwargs)
         return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
                 XML_XF_NAME: f3p.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
@@ -6160,7 +6160,7 @@ out_XML(self) -> None:
         names_VARS = []
         names_VARS_PRE = []
         names_VARS_POST = []
-        f3d = out_xf_flame_data(kwargs)
+        f3d = out_flame_xforms_data(kwargs)
         for iter in range(f3d.iter_count):
             iter_var = iter + 1
             if int(f3d.xf_vactive[iter]):
@@ -6697,10 +6697,10 @@ out_XML(self) -> None:
     The name of each is self explanatory of the data they will prep and two different classes will be used to store all this data:
     
     FLAME RENDER PROPERTIES:
-    class out_flame_properties(out_flame_utils):
+    class out_flame_render_properties(out_flame_utils):
     
     ALL XFORMS ARE INCLUDED:
-    class out_xf_flame_data(out_flame_utils):
+    class out_flame_xforms_data(out_flame_utils):
     
     This way I can then call those classes elsewere anytime I need them so to have this data always at hand easily.
     '''
@@ -6885,7 +6885,7 @@ out_XML(self) -> None:
 
 
 
-# OUT FLAME PROPERTIES start here
+# OUT FLAME RENDER PROPERTIES start here
 ##########################################
 ##########################################
 ##########################################
@@ -6896,7 +6896,7 @@ out_XML(self) -> None:
 ##########################################
 
 
-class out_flame_properties(out_flame_utils):
+class out_flame_render_properties(out_flame_utils):
     """
     Args:
         out_flame_utils ([class]): [inherit properties methods from the out_flame_utils class]
@@ -7006,7 +7006,7 @@ class out_flame_properties(out_flame_utils):
 
 
 
-# OUT XFORMS FLAME DATA start here
+# OUT FLAME XFORMS DATA start here
 ##########################################
 ##########################################
 ##########################################
@@ -7017,7 +7017,7 @@ class out_flame_properties(out_flame_utils):
 ##########################################
 
 
-class out_xf_flame_data(out_flame_utils):
+class out_flame_xforms_data(out_flame_utils):
     """
     Args:
         out_flame_utils ([class]): [inherit properties methods from the out_flame_utils class]
@@ -7096,3 +7096,4 @@ class out_xf_flame_data(out_flame_utils):
     @property
     def finalxf_postaffine(self):
         return self._finalxf_postaffine
+
