@@ -5066,7 +5066,6 @@ reset_IN(self, mode=0) -> None:
             return None
 
 
-    # This is used to avoid an empty extra line at the end
     @staticmethod
     def in_util_join_vars_grp(groups: list) -> str:
         """When formatting a message to print out we use groups as if the were each line of the meesage and join them.
@@ -5086,6 +5085,7 @@ reset_IN(self, mode=0) -> None:
                 vars.append(", ".join(grp))
         return ''.join(vars)
 
+
     @staticmethod
     def in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
         """Return a flattened list of unique and sorted items without duplicates.
@@ -5102,6 +5102,7 @@ reset_IN(self, mode=0) -> None:
         [result.append(x) for x in flatten if x not in result]
         sort = sorted(result, key=lambda var: var)
         return [func(x) for x in sort]
+    
     
     @staticmethod
     def in_set_iter_on_load(node: hou.Node, preset_id: int) -> int:
