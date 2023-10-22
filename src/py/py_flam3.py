@@ -6762,7 +6762,7 @@ out_XML(self) -> None:
 
     '''
     The following definitions will prep all the data into proper strings to be then written into the XML flame/xform data keys/entries.
-    The name of each is self explanatory of the data they will prep and two different classes will be used to store all this data:
+    The name of each is self explanatory of the data they will prep and two different classes will be used to hold all this data:
     
     OUT FLAME RENDER PROPERTIES:
     class out_flame_render_properties(out_flame_utils):
@@ -6770,7 +6770,7 @@ out_XML(self) -> None:
     OUT FLAME XFORMS DATA:
     class out_flame_xforms_data(out_flame_utils):
     
-    This way I can then call those classes elsewere anytime I need them so to have this data always at hand easily.
+    This way they can be called elsewere anytime so to have this data always at hand.
     '''
     
     def __out_flame_data(self, prm_name='') -> str:
@@ -6789,7 +6789,7 @@ out_XML(self) -> None:
                 else:
                     return self.out_util_round_float(self._node.parm(prm_name).eval())
         else:
-            print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H parameter name.")
+            print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
             return ''
 
 
@@ -6930,7 +6930,7 @@ out_XML(self) -> None:
                 else:
                     return ' '.join([self.out_util_round_float(x) for x in prm])
         else:
-            print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
+            print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
             return False
         
     # custom to FLAM3H only
@@ -6940,7 +6940,7 @@ out_XML(self) -> None:
             try:
                 return self.out_util_round_float(self._node.parm(prm_name).eval())
             except:
-                print(f"{str(self.node)}: parameter name not found. Please pass in a valid FLAM3H val parameter name.")
+                print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
         else:
             return False
