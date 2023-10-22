@@ -624,8 +624,6 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3_CS = [] # type: ignore
 
 
-
-
     def flam3h_on_loaded(self) -> None:
         """
         Args:
@@ -696,7 +694,6 @@ reset_PREFS(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-
 
 
     @staticmethod
@@ -850,7 +847,6 @@ reset_PREFS(self, mode=0) -> None:
                     print(f'{str(node)}.palette: please select a valid file location.')
 
 
-
     def colorSchemeDark(self) -> None:
         """Change viewport color scheme to dark
         and remember the current color scheme so to switch back to it when unchecked.
@@ -911,8 +907,6 @@ reset_PREFS(self, mode=0) -> None:
         hou.session.flam3_CS = viewers_col # type: ignore
         
         
-        
-        
     def viewportParticleDisplay(self) -> None:
         """Switch viewporet particle display mode
         between Pixel and Points.
@@ -945,7 +939,6 @@ reset_PREFS(self, mode=0) -> None:
             settings.particlePointSize(ptsize)
             
             
-            
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
         """Reset the FLAM3H SYS Tab parameters.
         
@@ -973,7 +966,6 @@ reset_PREFS(self, mode=0) -> None:
         node.setParms({MB_FPS: 24})
         node.setParms({MB_SAMPLES: 16})
         node.setParms({MB_SHUTTER: 0.5})
-
 
 
     def reset_PREFS(self, mode=0) -> None:
@@ -1094,9 +1086,6 @@ vactive_keep_last(self) -> None:
                 menu.append(item.capitalize())
             
         return menu
-
-
-
 
         
     @staticmethod
@@ -1307,7 +1296,7 @@ vactive_keep_last(self) -> None:
         return self._node
     
     
-    
+
     def menu_global_density(self) -> list:
         """Build density menu parameter with a list of options.
         
@@ -1330,7 +1319,6 @@ vactive_keep_last(self) -> None:
         return menu
     
     
-    # Set menu_density() Menu
     def menu_global_density_set(self) -> None:
         """Set density menu parameter based on user choice.
         
@@ -1388,7 +1376,6 @@ vactive_keep_last(self) -> None:
             self.node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
     
     
-
     def menu_copypaste(self) -> list:
         """Build copy/paste parameter menu entries.
         
@@ -1495,7 +1482,6 @@ vactive_keep_last(self) -> None:
             return menu
         
 
-    
     def prm_paste(self) -> None:
         """Paste and entire iterator.
         
@@ -1671,7 +1657,6 @@ vactive_keep_last(self) -> None:
             print(f"{str(node)}: {MARK_ITER_MSG}")
 
 
-
     def prm_paste_sel_FF(self) -> None:
         """Paste only sections of a FF.
         
@@ -1768,7 +1753,6 @@ vactive_keep_last(self) -> None:
                 node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(iter+1)}": div_xaos})
 
 
-
     def reset_preaffine(self) -> None:
         """Reset an iterator pre affine values to their defaults.
         """        
@@ -1852,7 +1836,6 @@ vactive_keep_last(self) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0}) # type: ignore
-
 
 
     def flam3h_default(self) -> None:
@@ -1942,7 +1925,6 @@ vactive_keep_last(self) -> None:
         node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
         
         node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
-
 
 
     def auto_set_xaos(self) -> None:
@@ -2067,7 +2049,6 @@ vactive_keep_last(self) -> None:
         node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
 
 
-
     def iterators_count(self) -> None:
         """Every time an iterator is added or remove
         this will run and execute based on iterator's number: Zero or more then Zero.
@@ -2175,6 +2156,7 @@ reset_CP(self, mode=0) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
         
+        
     @staticmethod 
     def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
@@ -2198,6 +2180,7 @@ reset_CP(self, mode=0) -> None:
         else:
             print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
             return PALETTE_COUNT_256
+        
         
     @staticmethod
     def isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
@@ -2414,7 +2397,6 @@ reset_CP(self, mode=0) -> None:
                     node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
 
 
-
     def json_to_ramp_sys(self) -> None:
         """Load the selected palette preset from the provided json file
         using the SYS load palette button.
@@ -2423,6 +2405,7 @@ reset_CP(self, mode=0) -> None:
         preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
         node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
         self.json_to_ramp()
+        
         
     def json_to_ramp(self) -> None:
         """Load the selected palette preset from the provided json file
@@ -2483,7 +2466,6 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
         
 
-
     def palette_cp(self) -> None:
         """Force the HSV palette colors/keys to march the source palette colors/keys.
         
@@ -2520,7 +2502,6 @@ reset_CP(self, mode=0) -> None:
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
         
         
-        
     def palette_lock(self) -> None:
         """Lock the HSV palette color/keys from being modified.
         
@@ -2529,8 +2510,6 @@ reset_CP(self, mode=0) -> None:
         """    
         self.palette_cp()
         self.palette_hsv()
-        
-        
         
         
     def reset_CP(self, mode=0) -> None:
@@ -2795,7 +2774,6 @@ unless you delete an iterator in wich case you will require to modify the “xao
             hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
             
-
     def ui_OUT_presets_name_infos(self) -> None:
         ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini
 can be baked into the preset name you choose for it. 
@@ -3311,6 +3289,7 @@ class _xml_tree:
         else:
             return None
         
+        
     def __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
         """Collect the actual Flame presets object data from the XML file.
 
@@ -3328,6 +3307,7 @@ class _xml_tree:
             return tuple(flames)
         else:
             return None
+
 
     def __get_flame_count(self, flames: list) -> int:
         """Get the number of Flame presets inside the XML file.
@@ -3510,6 +3490,7 @@ class in_flame(_xml_tree):
         """     
         return 0 if idx < 0 else 0 if self._flame_count == 1 else self._flame_count - 1 if idx > self._flame_count - 1 else idx
 
+
     def __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
         """Get choosen fractal flame's xforms collected inside a dict each.
         every xform in xforms is a dict coming directly from the parsed XML file.
@@ -3539,6 +3520,7 @@ class in_flame(_xml_tree):
         else:
             return None
     
+    
     def __get_xaos(self, xforms: list, key=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
@@ -3563,6 +3545,7 @@ class in_flame(_xml_tree):
                 return tuple(xaos)
         else:
             return None
+
 
     def __get_affine(self, xforms: list, key: str) -> Union[tuple, None]:
         """
@@ -3589,6 +3572,7 @@ class in_flame(_xml_tree):
                     return tuple(coefs)
         else:
             return None
+        
         
     def __get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
         """
@@ -3684,7 +3668,6 @@ class in_flame(_xml_tree):
             return None
     
     
-    
     # custom to FLAM3H only
     def __get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
         """
@@ -3703,6 +3686,7 @@ class in_flame(_xml_tree):
                 return False
         else:
             return False
+    
     
     # custom to FLAM3H only
     def __get_mb_flam3h_mb(self, idx: int, key='') -> Union[int, float, bool, None]:
@@ -3738,6 +3722,7 @@ class in_flame(_xml_tree):
                 return False
         else:
             return False
+        
         
     # custom to FLAM3H only
     def __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
@@ -4136,6 +4121,7 @@ reset_IN(self, mode=0) -> None:
     def in_util_make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
         return name
 
+
     @staticmethod
     def in_util_make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
         """Convert a PRE or POST variation name into a variation name.
@@ -4164,6 +4150,7 @@ reset_IN(self, mode=0) -> None:
         else:
             return None
 
+
     @staticmethod
     def in_util_make_PRE(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
         """Convert a variation name into a variation PRE variation name.
@@ -4181,6 +4168,7 @@ reset_IN(self, mode=0) -> None:
             return [V_PRX_PRE + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
         else:
             return None
+
 
     @staticmethod
     def in_util_make_POST(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
@@ -4201,7 +4189,6 @@ reset_IN(self, mode=0) -> None:
             return None
 
     
-    # Use this with everything but not PRE and POST dictionary lookup, use def in_get_xforms_var_keys_PP() instead
     @staticmethod
     def in_get_xforms_var_keys( xforms: Union[tuple, None], 
                                 vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
@@ -4209,6 +4196,8 @@ reset_IN(self, mode=0) -> None:
                                 ) -> Union[list[str], None]:
         """Return a list of all the variation names included in all xforms compared against the available FLAM3H variations.
         This is used to find variation names and PRE and POST variation names based on the provided vars argument.
+        
+        Use this with everything but not PRE and POST dictionary lookup, use def in_get_xforms_var_keys_PP() instead
         
         Args:
             xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
@@ -4229,6 +4218,7 @@ reset_IN(self, mode=0) -> None:
         else:
             return None
         
+        
     @staticmethod
     def in_util_removeprefix(var_name: str, prefix: str) -> str:
         """Remove any prefix, if a prefix is present, from a variation name.
@@ -4246,6 +4236,7 @@ reset_IN(self, mode=0) -> None:
             return var_name[len(prefix):]
         else:
             return var_name[:]
+        
         
     @staticmethod 
     def in_get_xforms_var_keys_PP(xforms: Union[tuple, None], 
@@ -4274,6 +4265,7 @@ reset_IN(self, mode=0) -> None:
         else:
             return None
         
+        
     @staticmethod
     def in_util_typemaker(data: list) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
         """Based on how many element in the passed list return the proper type of data.
@@ -4296,6 +4288,7 @@ reset_IN(self, mode=0) -> None:
         else:
             return data
         
+        
     @staticmethod  
     def in_get_idx_by_key(key: str) -> Union[int, None]:
         """Return the variation idx based on its name from the variation's dictionary.
@@ -4309,6 +4302,7 @@ reset_IN(self, mode=0) -> None:
         try: idx = VARS_FLAM3_DICT_IDX.get(key)
         except: return None
         return idx
+        
         
     @staticmethod
     def in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
@@ -4328,6 +4322,7 @@ reset_IN(self, mode=0) -> None:
             prx = PRX_FF_PRM
             prx_prm = PRX_FF_PRM_POST + "_"
         return prx, prx_prm
+    
     
     @staticmethod
     def in_set_affine(mode: int, 
@@ -4367,6 +4362,7 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
                     node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
 
+
     @staticmethod
     def in_set_data(mode: int, 
                     node: hou.Node, 
@@ -4405,6 +4401,7 @@ reset_IN(self, mode=0) -> None:
                 else:
                     node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
            
+           
     @staticmethod  
     def in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
         """Some software have variation names and parameters names different from FLAM3H and Apophysis.
@@ -4428,6 +4425,7 @@ reset_IN(self, mode=0) -> None:
         else:
             return apo_prm
         
+        
     @staticmethod
     def in_get_var_name_from_dict(mydict: dict, idx: int) -> str:
         """Get the current variation string name from its index.
@@ -4440,6 +4438,8 @@ reset_IN(self, mode=0) -> None:
             str: The variation string name.
         """        
         return list(mydict.keys())[list(mydict.values()).index(idx)]
+    
+    
     @staticmethod
     def in_v_parametric_var_collect(node: hou.Node, 
                                     mode: int, 
@@ -4487,6 +4487,7 @@ reset_IN(self, mode=0) -> None:
                         print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
         return VAR
+
 
     @staticmethod
     def in_v_parametric(app: str, 
@@ -4539,6 +4540,7 @@ reset_IN(self, mode=0) -> None:
             node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
             node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
             
+            
     @staticmethod
     def in_v_parametric_PRE(app: str, 
                             mode: int, 
@@ -4585,6 +4587,7 @@ reset_IN(self, mode=0) -> None:
         # Only on pre variations with parametric so:
         node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
+
 
     @staticmethod
     def in_v_parametric_POST(app: str, 
@@ -4633,6 +4636,7 @@ reset_IN(self, mode=0) -> None:
         node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
     
+    
     @staticmethod    
     def in_v_parametric_PRE_FF(app: str, 
                                node: hou.Node, 
@@ -4673,6 +4677,7 @@ reset_IN(self, mode=0) -> None:
         # Only on post variation with parametric so:
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
+
 
     @staticmethod
     def in_v_parametric_POST_FF(app: str, 
@@ -4715,6 +4720,7 @@ reset_IN(self, mode=0) -> None:
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
+
     @staticmethod
     def in_v_generic(mode: int, 
                      node: hou.Node, 
@@ -4742,6 +4748,7 @@ reset_IN(self, mode=0) -> None:
             node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
             node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
+
     @staticmethod
     def in_v_generic_PRE(mode: int, 
                         node: hou.Node, 
@@ -4763,6 +4770,7 @@ reset_IN(self, mode=0) -> None:
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+
 
     @staticmethod
     def in_v_generic_POST(mode: int, 
@@ -4786,6 +4794,7 @@ reset_IN(self, mode=0) -> None:
         node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
 
+
     @staticmethod
     def in_v_generic_PRE_FF(node: hou.Node, 
                             t_idx: int, 
@@ -4803,6 +4812,7 @@ reset_IN(self, mode=0) -> None:
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
+
     @staticmethod
     def in_v_generic_POST_FF(node: hou.Node, 
                             t_idx: int, 
@@ -4819,6 +4829,7 @@ reset_IN(self, mode=0) -> None:
         """
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
+
 
     @staticmethod
     def in_v_pre_blur(mode: int, 
@@ -4841,7 +4852,6 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({f"{prx}{flam3h_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
 
 
-    # To be used only with PRE and POST variations
     @staticmethod
     def in_util_check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
         """FLAM3H do not allow negative variation's weights for the PRE and POST variations.
@@ -4859,6 +4869,7 @@ reset_IN(self, mode=0) -> None:
             print(f"{str(node)} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
             return abs(w)
         else: return w
+
 
     @staticmethod
     def in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
@@ -4881,6 +4892,7 @@ reset_IN(self, mode=0) -> None:
             _MAX_VARS = MAX_ITER_VARS
             xf = apo_data.xforms
         return xf, _MAX_VARS
+
 
     @staticmethod
     def in_flam3h_set_iterators(mode: int, 
@@ -5043,7 +5055,6 @@ reset_IN(self, mode=0) -> None:
             
             # Affine ( PRE and POST) for iterator and FF
             in_flame_utils.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
-
 
 
     @staticmethod
@@ -5278,6 +5289,7 @@ reset_IN(self, mode=0) -> None:
         
         return build_stats_msg
 
+
     @staticmethod
     def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
@@ -5348,7 +5360,8 @@ reset_IN(self, mode=0) -> None:
         
         build_render_stats_msg = "".join(build)
         return build_render_stats_msg
-
+    
+    
     @staticmethod
     def in_copy_render_stats_msg(node: hou.Node) -> None:
         """Copy the loaded IN Flame preset render properties into the OUT Flame render properties to be written out. 
@@ -5876,6 +5889,7 @@ out_XML(self) -> None:
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
         return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
+    
     @staticmethod
     def out_util_round_float(VAL) -> str:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
@@ -5890,6 +5904,7 @@ out_XML(self) -> None:
             return str(int(float(VAL)))
         else:
             return str(round(float(VAL), ROUND_DECIMAL_COUNT))
+        
         
     @staticmethod
     def out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
@@ -5912,6 +5927,7 @@ out_XML(self) -> None:
             v_ROUND.append(collect)
         return v_ROUND
     
+    
     @staticmethod    
     def out_populate_xform_vars_XML(node: hou.Node, 
                                     varsPRM: tuple, 
@@ -5920,6 +5936,19 @@ out_XML(self) -> None:
                                     XFORM: lxmlET.Element, # type: ignore
                                     MP_IDX: str, 
                                     FUNC: Callable) -> list[str]:
+        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET.Element) to be written out into the XML file.
+
+        Args:
+            node (hou.Node): FLAM3H houdini node
+            varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
+            TYPES_tuple (tuple): FLAM3H variation's types parameters names.
+            WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
+            XFORM (lxmlET.Element): The current xform (lxmlET.Element) to populate.
+            FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST.
+
+        Returns:
+            list[str]: List of used variation in this iterator/xform
+        """
         names = []
         for idx, prm in enumerate(WEIGHTS_tuple):
             prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
@@ -5942,6 +5971,7 @@ out_XML(self) -> None:
                             XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
         return names
     
+    
     @staticmethod
     def _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
         """Reformat the XML data in a more readable way
@@ -5962,6 +5992,7 @@ out_XML(self) -> None:
             if index == len(parent) - 1:
                 current.tail = '\n' + ('  ' * (depth - 1))
         
+        
     @staticmethod  
     def out_util_check_duplicate_var_section(vars: list) -> bool:
         """Check if an iterator section (PRE, VAR or POST, same for FF) is using a variation multiple times.
@@ -5977,6 +6008,7 @@ out_XML(self) -> None:
         if(len(vars) != len(result)):
             return True
         return False
+    
     
     @staticmethod
     def out_util_iterators_vars_duplicate(VARS: list) -> list:
@@ -6003,7 +6035,6 @@ out_XML(self) -> None:
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
 
     
-    # Check for FLAM3 compatibility and let the user know.
     @staticmethod
     def out_flam3_compatibility_check_and_msg(node: hou.Node,
                                             names_VARS_PRE: list, 
@@ -6103,6 +6134,7 @@ out_XML(self) -> None:
         else:
             return True
         
+        
     @staticmethod
     def out_my_system() -> str:
         """Return the OS we are on.
@@ -6171,6 +6203,7 @@ out_XML(self) -> None:
                 OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve
                 '''
                 }
+        
         
     @staticmethod
     def out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool: # type: ignore
@@ -6252,9 +6285,10 @@ out_XML(self) -> None:
         
         return out_flame_utils.out_flam3_compatibility_check_and_msg(node, names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
 
+
     @staticmethod
     def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
-        """Used in conjuction with: deff out_check_outpath()
+        """Used in conjuction with: def out_check_outpath()
         help to make spelling auto corrections to the provided output file path.
 
         Args:
@@ -6279,6 +6313,7 @@ out_XML(self) -> None:
         build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
         # the file_ext start with a dot so its added as last
         return "/".join(build_f_s_cleaned) + file_ext
+    
     
     @staticmethod
     def out_check_outpath(node: hou.Node, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
@@ -6401,8 +6436,6 @@ out_XML(self) -> None:
             tree.write(out_path)
 
 
-
-
     @staticmethod
     def out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
@@ -6424,6 +6457,7 @@ out_XML(self) -> None:
             return [new[0], new[1], affine[2]]
         else:
             return affine
+
 
     @staticmethod
     def out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
@@ -6447,6 +6481,7 @@ out_XML(self) -> None:
                     break
             xaos_cleaned.append(invert[::-1])
         return xaos_cleaned
+    
     
     @staticmethod
     def out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
@@ -6479,6 +6514,7 @@ out_XML(self) -> None:
             else:
                 val.append([])
         return val
+
 
     @staticmethod
     def out_xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
@@ -6569,6 +6605,7 @@ out_XML(self) -> None:
         xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
+
     def out_xf_xaos_from(self, mode=0) -> tuple:
         """Export in a tuple[str] the xaos FROM values to write out
         Args:
@@ -6584,7 +6621,6 @@ out_XML(self) -> None:
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
         else:
             return tuple([" ".join(x) for x in self.out_util_round_floats(t)])
-
 
 
     def reset_OUT(self, mode=0) -> None:
@@ -6612,8 +6648,6 @@ out_XML(self) -> None:
             node.setParms({OUT_HSV_PALETTE_DO: 0})
             node.setParms({OUT_PRESETS: "-1"})
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
-
-
 
 
     def menu_out_contents_presets(self) -> list:
