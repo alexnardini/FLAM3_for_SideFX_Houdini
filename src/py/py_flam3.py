@@ -4955,7 +4955,7 @@ reset_IN(self, mode=0) -> None:
             if mode:
                 # Set finalxform name first if any
                 if apo_data.finalxform_name[0]:
-                    node.setParms({f"{prx}note": apo_data.finalxform_name[0]}) # type: ignore
+                    node.setParms({f"{prx}{iterator_names.main_note}": apo_data.finalxform_name[0]}) # type: ignore
                 # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
