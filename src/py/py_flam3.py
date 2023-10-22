@@ -4873,14 +4873,14 @@ reset_IN(self, mode=0) -> None:
             tuple[tuple, int]: _description_
         """        
         xf = ()
-        MAX_VARS = 0
+        _MAX_VARS = 0
         if mode:
-            MAX_VARS = MAX_FF_VARS
+            _MAX_VARS = MAX_FF_VARS
             xf = apo_data.finalxform
         else:
-            MAX_VARS = MAX_ITER_VARS
+            _MAX_VARS = MAX_ITER_VARS
             xf = apo_data.xforms
-        return xf, MAX_VARS
+        return xf, _MAX_VARS
 
     @staticmethod
     def in_flam3h_set_iterators(mode: int, 
@@ -4900,7 +4900,7 @@ reset_IN(self, mode=0) -> None:
             preset_id (int): the flame preset we are loading out of all the presets included in the flame file
             exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
         """ 
-        xforms, MAX_VARS_MODE = in_flame_utils.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
+        xforms, _MAX_VARS_MODE = in_flame_utils.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
         vars_keys = in_flame_utils.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
         assert vars_keys is not None
@@ -4917,7 +4917,7 @@ reset_IN(self, mode=0) -> None:
         
         # Set variations ( iterator and FF )
         for mp_idx, xform in enumerate(xforms):
-            for t_idx, key_name in enumerate(vars_keys[mp_idx][:MAX_VARS_MODE]):
+            for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
                 v_type = in_flame_utils.in_get_idx_by_key(key_name)
                 if v_type is not None:
                     v_weight = float(xform.get(key_name))
