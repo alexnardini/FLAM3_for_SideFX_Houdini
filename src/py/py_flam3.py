@@ -2619,9 +2619,12 @@ flam3h_about_web_flam3_github(self) -> None:
         nnl = "\n\n"
 
         year = datetime.now().strftime("%Y")
+        flam3h_author = f"Author: Alessandro Nardini ( Italy )"
+        flam3h_cvex_version = f"CVEX H19.x"
+        flam3h_python_version = f"Python 3.9.10"
         flam3h_houdini_version = f"Version: {FLAM3H_VERSION}"
         Implementation_years = f"2020/{year}"
-        Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: CVEX H19.x, Python 3.9.10\n{flam3h_houdini_version}\n{Implementation_years}"
+        Implementation_build = f"{flam3h_author}\nCode language: {flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         
         code_references = """Code references:
 flam3 :: (GPL v2)
