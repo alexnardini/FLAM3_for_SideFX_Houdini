@@ -1008,7 +1008,7 @@ reset_PREFS(self, mode=0) -> None:
 ##########################################
 
 
-class flam3h_iterator_utils():
+class flam3h_iterator_utils:
     """
 STATIC METHODS:
 
@@ -3349,6 +3349,10 @@ class _xml_tree:
 
 
 class in_flame(_xml_tree):
+    """
+    Args:
+        _xml_tree ([class]): [inherit properties methods from the _xml_tree class]
+    """  
 
     def __init__(self, node: hou.Node, xmlfile: str) -> None:
         """
@@ -3767,7 +3771,11 @@ class in_flame(_xml_tree):
 
 
 class in_flame_iter_data(in_flame):
-
+    """
+    Args:
+        in_flame ([class]): [inherit properties methods from the in_flame class]
+    """  
+    
     def __init__(self, node: hou.Node, xmlfile: str, idx=0) -> None:
         """
         Args:
@@ -6876,6 +6884,10 @@ out_XML(self) -> None:
 
 
 class out_flame_properties(out_flame_utils):
+    """
+    Args:
+        out_flame_utils ([class]): [inherit properties methods from the out_flame_utils class]
+    """  
 
     def __init__(self, kwargs: dict) -> None:
         super().__init__(kwargs)
@@ -6908,6 +6920,10 @@ class out_flame_properties(out_flame_utils):
 
 
 class out_xf_flame_data(out_flame_utils):
+    """
+    Args:
+        out_flame_utils ([class]): [inherit properties methods from the out_flame_utils class]
+    """  
     
     def __init__(self, kwargs: dict) -> None:
         super().__init__(kwargs)
