@@ -2225,7 +2225,7 @@ reset_CP(self, mode=0) -> None:
         
         
     @staticmethod  
-    def clamp(x):
+    def clamp(x) -> float:
         """clamp a value to be between Zero and 255.
 
         Args:
@@ -2253,7 +2253,7 @@ reset_CP(self, mode=0) -> None:
 
 
     @staticmethod
-    def hex_to_rgb(hex: str):
+    def hex_to_rgb(hex: str) -> tuple:
         """Convert a HEX color value into RGB color value.
 
         Args:
@@ -2611,7 +2611,7 @@ flam3h_about_web_flam3_github(self) -> None:
         return self._node
         
 
-    def flam3h_about_msg(self):
+    def flam3h_about_msg(self) -> None:
         """Build and set the FLAM3H about message.
         """        
         node = self.node
@@ -2661,7 +2661,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
         node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
 
 
-    def flam3h_about_plugins_msg(self):
+    def flam3h_about_plugins_msg(self) -> None:
         """Build and set the FLAM3H about plugins message.
         """    
         node = self.node
@@ -5418,13 +5418,13 @@ reset_IN(self, mode=0) -> None:
             return menu
         
         
-    def set_iter_on_load_callback(self):
+    def set_iter_on_load_callback(self) -> None:
         """Set the iteration number based on the "iteration on load" number.
         """        
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
         
-    def use_iter_on_load_callback(self):
+    def use_iter_on_load_callback(self) -> None:
         """When the IN "force iterations on Load" is turned ON it will set the iteration number wisely.
         """        
         node = self.node
