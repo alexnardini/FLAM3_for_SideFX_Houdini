@@ -142,6 +142,62 @@ FLAM3H_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
 
 
+
+class flam3h_iterator_prm_names:
+
+    '''
+    Mostly, handy to have all those packed into one class
+    for easy access everywhere is needed and better readability.
+
+    '''
+    # ITERATOR
+    #
+    # Main
+    main_mpmem = 'mpmem' # auto set xaos: custom data
+    main_note = 'note'
+    main_prmpastesel = 'prmpastesel'
+    main_vactive = 'vactive'
+    main_weight = 'iw'
+    # Xaos
+    xaos = 'xaos'
+    # Shader
+    shader_color = 'clr'
+    shader_speed = 'clrspeed'
+    shader_alpha = 'alpha'
+    # Pre 
+    prevar_blur = 'preblurtype' # this can be omitted as it is always zero
+    prevar_weight_blur = 'preblurweight'
+    prevar_type_1 = 'pre1type'
+    prevar_type_2 = 'pre2type'
+    prevar_weight_1 = 'pre1weight'
+    prevar_weight_2 = 'pre2weight'
+    # Var
+    var_type_1 = 'v1type'
+    var_type_2 = 'v2type'
+    var_type_3 = 'v3type'
+    var_type_4 = 'v4type'
+    var_weight_1 = 'v1weight'
+    var_weight_2 = 'v2weight'
+    var_weight_3 = 'v3weight'
+    var_weight_4 = 'v4weight'
+    # Post
+    postvar_type_1 = 'p1type'
+    postvar_type_2 = 'p2type'
+    postvar_weight_1 = 'p1weight'
+    postvar_weight_2 = 'p2weight'
+    # Pre affine
+    preaffine_x = 'x'
+    preaffine_y = 'y'
+    preaffine_o = 'o'
+    preaffine_ang = 'ang'
+    # post affine
+    postaffine_do = 'dopost'
+    postaffine_x = 'px'
+    postaffine_y = 'py'
+    postaffine_o = 'po'
+    postaffine_ang = 'pang'
+    
+
 class flam3h_varsPRM:
 
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
@@ -284,61 +340,6 @@ class flam3h_varsPRM:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
         """   
         return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
-
-
-class flam3h_iterator_prm_names:
-
-    '''
-    Mostly, handy to have all those packed into one class
-    for easy access everywhere I need and better readability.
-
-    '''
-    # ITERATOR
-    #
-    # Main
-    main_mpmem = 'mpmem' # auto set xaos: custom data
-    main_note = 'note'
-    main_prmpastesel = 'prmpastesel'
-    main_vactive = 'vactive'
-    main_weight = 'iw'
-    # Xaos
-    xaos = 'xaos'
-    # Shader
-    shader_color = 'clr'
-    shader_speed = 'clrspeed'
-    shader_alpha = 'alpha'
-    # Pre 
-    prevar_blur = 'preblurtype' # this can be omitted as it is always zero
-    prevar_weight_blur = 'preblurweight'
-    prevar_type_1 = 'pre1type'
-    prevar_type_2 = 'pre2type'
-    prevar_weight_1 = 'pre1weight'
-    prevar_weight_2 = 'pre2weight'
-    # Var
-    var_type_1 = 'v1type'
-    var_type_2 = 'v2type'
-    var_type_3 = 'v3type'
-    var_type_4 = 'v4type'
-    var_weight_1 = 'v1weight'
-    var_weight_2 = 'v2weight'
-    var_weight_3 = 'v3weight'
-    var_weight_4 = 'v4weight'
-    # Post
-    postvar_type_1 = 'p1type'
-    postvar_type_2 = 'p2type'
-    postvar_weight_1 = 'p1weight'
-    postvar_weight_2 = 'p2weight'
-    # Pre affine
-    preaffine_x = 'x'
-    preaffine_y = 'y'
-    preaffine_o = 'o'
-    preaffine_ang = 'ang'
-    # post affine
-    postaffine_do = 'dopost'
-    postaffine_x = 'px'
-    postaffine_y = 'py'
-    postaffine_o = 'po'
-    postaffine_ang = 'pang'
 
 
 class flam3h_iterator:
