@@ -6793,6 +6793,13 @@ out_XML(self) -> None:
             return ''
 
 
+    def __out_xf_data(self, prm_name: str) -> tuple:
+        val = []
+        for iter in range(self._iter_count):
+            val.append(str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
+        return tuple(val)
+
+
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         
         flame_name = self._node.parm(prm_name).eval()
@@ -6804,13 +6811,6 @@ out_XML(self) -> None:
             # otherwise get that name and use it
             iter_num = self._node.parm(GLB_ITERATIONS).evalAsInt()
             return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-
-
-    def __out_xf_data(self, prm_name: str) -> tuple:
-        val = []
-        for iter in range(self._iter_count):
-            val.append(str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
-        return tuple(val)
 
 
     def __out_xf_name(self) -> list[str]:
@@ -6866,20 +6866,6 @@ out_XML(self) -> None:
             else:
                 val.append([])
         return [" ".join(x) for x in self.out_util_round_floats(val)]
-    
-    
-    def __out_palette_hex(self) -> str:
-        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-        HEXs = []
-        for p in POSs:
-            HEXs.append(flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))))
-        n = 8
-        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
-        hex_join = []
-        for grp in hex_grp:
-            # 6 time \s
-            hex_join.append("      " + "".join(grp) + "\n")
-        return "\n" + "".join(hex_join) + "    " # 4 times \s
 
 
     def __out_finalxf_preaffine(self) -> str:
@@ -6909,6 +6895,20 @@ out_XML(self) -> None:
             return " ".join(flatten)
         else:
             return False
+        
+        
+    def __out_palette_hex(self) -> str:
+        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
+        HEXs = []
+        for p in POSs:
+            HEXs.append(flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))))
+        n = 8
+        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
+        hex_join = []
+        for grp in hex_grp:
+            # 6 time \s
+            hex_join.append("      " + "".join(grp) + "\n")
+        return "\n" + "".join(hex_join) + "    " # 4 times \s
         
     
     # custom to FLAM3H only
