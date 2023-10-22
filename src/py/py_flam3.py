@@ -84,16 +84,20 @@ SYS_DO_FF = 'doff'
 SYS_RIP = 'rip'
 SYS_TAG = 'tag'
 SYS_TAG_SIZE = 'tagsize'
-SYS_CP_PALETTE_PRESETS = 'sys_palettepresets'
 FLAME_ITERATORS_COUNT = "flamefunc"
 CP_PALETTE_LIB_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
+CP_SYS_PALETTE_PRESETS = 'sys_palettepresets'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_HSV_NAME = 'palettehsv'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
+MB_DO = 'domb'
+MB_FPS = 'fps'
+MB_SAMPLES = 'mbsamples'
+MB_SHUTTER = 'shutter'
 IN_ISVALID_FILE = 'isvalidfile'
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
@@ -116,13 +120,8 @@ PREFS_XAOS_MODE = 'xm'
 PREFS_XAOS_AUTO_SET = 'autoxaos'
 PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
-# Motion blur
-OUT_MB_DO = 'domb'
-OUT_MB_FPS = 'fps'
-OUT_MB_SAMPLES = 'mbsamples'
-OUT_MB_SHUTTER = 'shutter'
-# Prefs
-OUT_PREFS_F3C = 'f3c'
+PREFS_F3C = 'f3c'
+
 # Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
@@ -650,7 +649,7 @@ flam3h_on_loaded(self) -> None:
         # Same goes for the palette preset entrie, and some time goes also out of range
         # so we store the selection first inside a mem menu parameter first inside json_to_ramp()
         # and call it back here.
-        node.setParms({CP_PALETTE_PRESETS: node.parm(SYS_CP_PALETTE_PRESETS).eval()}) # type: ignore
+        node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
 
 
 
@@ -970,10 +969,10 @@ reset_PREFS(self, mode=0) -> None:
         """Reset the FLAM3H MP Tab parameters.
         """        
         node = self.node
-        node.setParms({OUT_MB_DO: 0})
-        node.setParms({OUT_MB_FPS: 24})
-        node.setParms({OUT_MB_SAMPLES: 16})
-        node.setParms({OUT_MB_SHUTTER: 0.5})
+        node.setParms({MB_DO: 0})
+        node.setParms({MB_FPS: 24})
+        node.setParms({MB_SAMPLES: 16})
+        node.setParms({MB_SHUTTER: 0.5})
 
 
 
@@ -2421,7 +2420,7 @@ reset_CP(self, mode=0) -> None:
         using the SYS load palette button.
         """        
         node = self.node
-        preset_id = node.parm(SYS_CP_PALETTE_PRESETS).eval()
+        preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
         node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
         self.json_to_ramp()
         
@@ -2481,7 +2480,7 @@ reset_CP(self, mode=0) -> None:
                 self.palette_hsv()
                 
                 # Store selection into mem preset menu
-                node.setParms({SYS_CP_PALETTE_PRESETS: str(preset_id)}) # type: ignore
+                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
         
 
 
@@ -2866,14 +2865,14 @@ XML_XF_VAR_COLOR = 'var_color'
 XML_XF_SYMMETRY = 'symmetry'
 XML_XF_COLOR_SPEED = 'color_speed'
 XML_XF_OPACITY = 'opacity'
-# custom to FLAM3H only
+# OUT custom to FLAM3H only
 OUT_XML_FLAM3H_SYS_RIP = 'flam3h_rip'
 OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
 OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mb_samples'
 OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_mb_shutter'
 OUT_XML_FLAM3H_PREFS_F3C = 'flam3h_f3c'
-# XML OUT render key data names
+# OUT XML render key data names
 OUT_XML_VERSION = 'version'
 OUT_XML_FLAME_SIZE = 'size'
 OUT_XML_FLAME_CENTER = 'center'
@@ -2930,6 +2929,9 @@ XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_spe
 # but I leave it here just in case other variation will need it.
 XML_XF_PRM_EXCEPTION = ("None", )
 
+# On Flame preset load set the iteration number to use to this value.
+# This setting will be overwritten if the IN "force iterations on Load" option is turned ON.
+# All the above will be overwritten if the iteration number to use is baked into the Flame preset XML key's name.
 IN_ITERATIONS_ON_LOAD = 64
 
 # REGEX_ALL = "(?s:.*?)"
@@ -2940,6 +2942,8 @@ REGEX_POST = "^(?:post_)"
 V_PRX_PRE = "pre_"
 V_PRX_POST = "post_"
 
+# Set global limits for the number of allowed variations to be used for each variation type:
+# PRE, VAR and POST for iterator and FF.
 MAX_ITER_VARS = 4
 MAX_ITER_VARS_PRE = 2
 MAX_ITER_VARS_POST = 1
@@ -2947,6 +2951,8 @@ MAX_FF_VARS = 2
 MAX_FF_VARS_PRE = 1
 MAX_FF_VARS_POST = 2
 
+# XML Flame key's "version" to identify the authoring software
+# of the loaded Flame preset.
 XML_APP_NAME_FLAM3HOUDINI = 'FLAM3H'
 XML_APP_NAME_FRACTORIUM = 'EMBER'
 # XML_APP_NAME_APO = 'Apophysis'
@@ -5508,16 +5514,16 @@ reset_IN(self, mode=0) -> None:
             
             # if MB
             if apo_data.mb_flam3h_fps is not False:
-                node.setParms({OUT_MB_DO: 1}) # type: ignore
-                node.setParms({OUT_MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
-                node.setParms({OUT_MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
-                node.setParms({OUT_MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
+                node.setParms({MB_DO: 1}) # type: ignore
+                node.setParms({MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
+                node.setParms({MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
+                node.setParms({MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
             else:
                 flam3h_general_utils(self.kwargs).reset_MB()
                 
             # F3C ( the if statement is for backward compatibility )
             if apo_data.prefs_flam3h_f3c is not None:
-                node.setParms({OUT_PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
+                node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
             
             # if CP HSV vals
             if apo_data.palette_flam3h_hsv is not False:
@@ -5703,8 +5709,8 @@ out_XML(self) -> None:
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
         self._flam3h_rip = self._node.parm(SYS_RIP).evalAsInt()
-        self._flam3h_mb_do = self._node.parm(OUT_MB_DO).evalAsInt()
-        self._flam3h_f3c = self._node.parm(OUT_PREFS_F3C).evalAsInt()
+        self._flam3h_mb_do = self._node.parm(MB_DO).evalAsInt()
+        self._flam3h_f3c = self._node.parm(PREFS_F3C).evalAsInt()
         
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -6927,9 +6933,9 @@ class out_flame_render_properties(out_flame_utils):
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
         self._flam3h_palette_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
-        self._flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_FPS) # type: ignore
-        self._flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SAMPLES) # type: ignore
-        self._flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(OUT_MB_SHUTTER) # type: ignore
+        self._flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_FPS) # type: ignore
+        self._flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SAMPLES) # type: ignore
+        self._flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SHUTTER) # type: ignore
         self._flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
 
     @property
