@@ -6702,10 +6702,10 @@ out_XML(self) -> None:
     The following definitions will prep all the data into proper strings to be then written into the XML flame/xform data keys/entries.
     The name of each is self explanatory of the data they will prep and two different classes will be used to store all this data:
     
-    FLAME RENDER PROPERTIES:
+    OUT FLAME RENDER PROPERTIES:
     class out_flame_render_properties(out_flame_utils):
     
-    ALL XFORMS ARE INCLUDED:
+    OUT FLAME XFORMS DATA:
     class out_flame_xforms_data(out_flame_utils):
     
     This way I can then call those classes elsewere anytime I need them so to have this data always at hand easily.
