@@ -1,10 +1,10 @@
 <flames>
-<flame version="EMBER-WIN-22.21.4.2" time="0" name="Spherical::32" size="1500 1000" center="0 0" scale="375" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="5" gamma="2.5" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.05" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="spherical flatten linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="3" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" spherical="1" flatten="1" coefs="0 1 -1 0 1 0" opacity="1"/>
-   <xform weight="4" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" spherical="1" flatten="1" coefs="0 -1 1 0 0 0" opacity="1"/>
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 3 0" opacity="1"/>
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 -3 0" opacity="1"/>
-   <palette count="256" format="RGB">
+  <flame version="FLAM3H-WIN-1.1.0" name="Spherical::32" flam3h_rip="0" flam3h_hsv="1 1.5 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear spherical" new_linear="1">
+    <xform name="iterator_1" weight="3" color="0" symmetry="0.9" coefs="0 1 -1 0 1 0" opacity="1" spherical="1"/>
+    <xform name="iterator_2" weight="4" color="0" symmetry="0.9" coefs="0 -1 1 0 0 0" opacity="1" spherical="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="0" coefs="1 0 0 1 3 0" opacity="1" linear="1"/>
+    <xform name="iterator_4" weight="0.5" color="1" symmetry="0" coefs="1 0 0 1 -3 0" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -37,15 +37,15 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="1" name="Mobius_A::64" size="1500 1000" center="0 0" scale="375" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="5" gamma="2.5" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.05" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="Mobius flatten linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="50" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" Mobius="1" Mobius_Re_A="1" Mobius_Im_A="0" Mobius_Re_B="0" Mobius_Im_B="0" Mobius_Re_C="0" Mobius_Im_C="-1" Mobius_Re_D="1" Mobius_Im_D="0" flatten="1" coefs="1 0 0 1 0.05 -0.1" opacity="1"/>
-   <xform weight="40" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 0 0" post="-1 0 0 -1 -0.05 0.1" opacity="1"/>
-   <xform weight="6" color="0" var_color="1" color_speed="0" symmetry="1" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 1 0" opacity="1"/>
-   <xform weight="6" color="0" var_color="1" color_speed="0" symmetry="1" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 -1 0" opacity="1"/>
-   <xform weight="2.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 0 0" post="1 0 0 1 0 -3" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Mobius A::64" flam3h_rip="0" flam3h_hsv="1 1.333 1.6" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear mobius" new_linear="1">
+    <xform name="iterator_1" weight="50" color="0" symmetry="0.9" coefs="1 0 0 1 0.05 -0.1" opacity="1" mobius="1" Re_A="1" Re_B="0" Re_C="0" Re_D="1" Im_A="0" Im_B="0" Im_C="-1" Im_D="0"/>
+    <xform name="iterator_2" weight="40" color="0" symmetry="0.9" coefs="1 0 0 1 0 0" post="-1 0 0 -1 -0.05 0.1" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="6" color="0" symmetry="1" coefs="1 0 0 1 1 0" opacity="1" linear="1"/>
+    <xform name="iterator_4" weight="6" color="0" symmetry="1" coefs="1 0 0 1 -1 0" opacity="1" linear="1"/>
+    <xform name="iterator_5" weight="2.5" color="1" symmetry="0" coefs="1 0 0 1 0 0" post="1 0 0 1 0 -3" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -78,15 +78,15 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="2" name="Mobius_B::96" size="1500 1000" center="0 0" scale="375" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="5" gamma="2.5" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.05" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="Mobius flatten linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="10" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" Mobius="1" Mobius_Re_A="1" Mobius_Im_A="0" Mobius_Re_B="0" Mobius_Im_B="0" Mobius_Re_C="0" Mobius_Im_C="-1" Mobius_Re_D="1" Mobius_Im_D="0" flatten="1" coefs="1 0 0 1 0.1 -0.1" opacity="1"/>
-   <xform weight="16" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 0 0" post="-1 0 0 -1 -0.1 0.1" opacity="1"/>
-   <xform weight="12" color="0" var_color="1" color_speed="0" symmetry="1" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 1 0" opacity="1"/>
-   <xform weight="2" color="0" var_color="1" color_speed="0" symmetry="1" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 -1 0" opacity="1"/>
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 0 0" post="1 0 0 1 0 -3" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Mobius B::96" flam3h_rip="0" flam3h_hsv="1 1.333 1.6" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear mobius" new_linear="1">
+    <xform name="iterator_1" weight="10" color="0" symmetry="0.9" coefs="1 0 0 1 0.1 -0.1" opacity="1" mobius="1" Re_A="1" Re_B="0" Re_C="0" Re_D="1" Im_A="0" Im_B="0" Im_C="-1" Im_D="0"/>
+    <xform name="iterator_2" weight="16" color="0" symmetry="0.9" coefs="1 0 0 1 0 0" post="-1 0 0 -1 -0.1 0.1" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="12" color="0" symmetry="1" coefs="1 0 0 1 1 0" opacity="1" linear="1"/>
+    <xform name="iterator_4" weight="2" color="0" symmetry="1" coefs="1 0 0 1 -1 0" opacity="1" linear="1"/>
+    <xform name="iterator_5" weight="0.5" color="1" symmetry="0" coefs="1 0 0 1 0 0" post="1 0 0 1 0 -3" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -119,12 +119,12 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="3" name="Disc_Julian::128" size="1500 1000" center="0 0" scale="375" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="5" gamma="2.5" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.05" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="disc flatten julian" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="15" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" disc="1" flatten="1" coefs="0.673435 0.673435 -0.673435 0.673435 0 0" opacity="1"/>
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="1" julian_dist="-1" julian_power="50" flatten="1" coefs="1 0 0 1 0 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Disc Julian::128" flam3h_rip="0" flam3h_hsv="1 1.3 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="disc julian" new_linear="1">
+    <xform name="iterator_1" weight="15" color="0" symmetry="0.9" coefs="0.673435 0.673435 -0.673435 0.673435 0 0" opacity="1" disc="1"/>
+    <xform name="iterator_2" weight="0.5" color="1" symmetry="0" coefs="1 0 0 1 0 0" opacity="1" julian="1" julian_power="50" julian_dist="-1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -157,12 +157,12 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="4" name="Gnarl::128" size="1500 1000" center="0 0" scale="225" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="linear gaussian_blur radial_blur flatten waves2" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.05" color="0" var_color="1" color_speed="1" symmetry="-1" name="" animate="1" linear="1" gaussian_blur="0.15" radial_blur="2" radial_blur_angle="1" flatten="1" coefs="0 -0.0625 0.0625 0 0 3" post="0 -1 1 0 0 0" opacity="1"/>
-   <xform weight="10" color="1" var_color="1" color_speed="0.0125" symmetry="0.975" name="" animate="0" waves2="1" waves2_freqx="0" waves2_scalex="0" waves2_freqy="5" waves2_scaley="0.05" waves2_freqz="0" waves2_scalez="0" flatten="1" coefs="0 -0.973363 0.973363 0 0 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Gnarl::128" flam3h_rip="0" flam3h_hsv="1 1.2 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="gaussian_blur linear radial_blur waves2" new_linear="1">
+    <xform name="iterator_1" weight="0.05" color="0" symmetry="-1" coefs="0 -0.0625 0.0625 0 0 3" post="0 -1 1 0 0 0" opacity="1" linear="1" gaussian_blur="0.15" radial_blur="2" radial_blur_angle="1"/>
+    <xform name="iterator_2" weight="10" color="1" symmetry="0.975" coefs="0 -0.973363 0.973363 0 0 0" opacity="1" waves2="1" waves2_scalex="0" waves2_scaley="0.05" waves2_freqx="0" waves2_freqy="5"/>
+    <palette count="256" format="RGB">
       00FF7F00FF4400CA32000A02000000000000000000000000
       00000000000000000000000000551500FF9D00FFA600FF62
       001004000000000000000000000000000000000000000000
@@ -195,53 +195,14 @@
       000000000000000000000000000000000000000000000701
       003A0E00761D00FD3F00FF3F00A92A000000000000003D0F
       00FF3F00FF5100FF6600FF3F008B22003A0E00882200FF48
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="5" name="Grand_Julian_A::16" size="1500 1000" center="0 0" scale="225" rotate="-90" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="swirl polar blur flatten julian" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" swirl="0.272" polar="0.035" blur="0.25" flatten="1" coefs="1 0 0 1 0 0" opacity="1"/>
-   <xform weight="2" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="0.775" julian_dist="1.5" julian_power="20" flatten="1" coefs="1 0 -0.7 0.2 0 0" opacity="1"/>
-   <xform weight="5" color="0.506" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="2.25" julian_dist="-0.9" julian_power="2" flatten="1" coefs="1 0 0 1 0.65 0" opacity="1"/>
-   <palette count="256" format="RGB">
-      00FF7F00FF4400CA32000A02000000000000000000000000
-      00000000000000000000000000551500FF9D00FFA600FF62
-      001004000000000000000000000000000000000000000000
-      00000000000000000000611800791E00551500340D003A0E
-      000000001906007F1F00D3341C009D00310C00761D00B82E
-      00FF3F00FF5100A9A93F00FF0400FF0075EB00D5FF00EAFF
-      00FFFF00FFEA00FFE200FFEA00FFEA00FFCC00FFA200FF3F
-      00EB3A00FF3F00FF3F00FF3F00822000280A000000000000
-      00310C00AC2B00FF5100FFA600FF3F005515000000000000
-      000000000000000000000000000000000000000000000000
-      000000000000000000006A1A00FFFF00DDFF0058D300FFE6
-      00FFAA00FF9100FF5500FF3F00FF3F00FF5100FF7700FF9D
-      00FFD500FFD900FFBF00FF62000401000000000000000000
-      000000000000000000000000000000000000000000000701
-      003A0E00761D00FD3F00FF3F00A92A000000000000003D0F
-      00FF3F00FF5100FF6600FF3F008B22003A0E00882200FF48
-      00FF7F00FF4400CA32000A02000000000000000000000000
-      00000000000000000000000000551500FF9D00FFA600FF62
-      001004000000000000000000000000000000000000000000
-      00000000000000000000611800791E00551500340D003A0E
-      000000001906007F1F00D3341C009D00310C00761D00B82E
-      00FF3F00FF5100A9A93F00FF0400FF0075EB00D5FF00EAFF
-      00FFFF00FFEA00FFE200FFEA00FFEA00FFCC00FFA200FF3F
-      00EB3A00FF3F00FF3F00FF3F00822000280A000000000000
-      00310C00AC2B00FF5100FFA600FF3F005515000000000000
-      000000000000000000000000000000000000000000000000
-      000000000000000000006A1A00FFFF00DDFF0058D300FFE6
-      00FFAA00FF9100FF5500FF3F00FF3F00FF5100FF7700FF9D
-      00FFD500FFD900FFBF00FF62000401000000000000000000
-      000000000000000000000000000000000000000000000701
-      003A0E00761D00FD3F00FF3F00A92A000000000000003D0F
-      00FF3F00FF5100FF6600FF3F008B22003A0E00882200FF48
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="6" name="Grand_Julian_B::16" size="1500 1000" center="0 0" scale="375" rotate="-45" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="pre_gaussian_blur bubble julian flatten" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" pre_gaussian_blur="10" bubble="0.2" coefs="1 0 0 1 0 0" opacity="1"/>
-   <xform weight="6" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="1" julian_dist="-1" julian_power="2" flatten="1" coefs="0.707107 -0.707107 0.707107 0.707107 0 -0.3" opacity="1"/>
-   <xform weight="1" color="0.5" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="0.2" julian_dist="-1" julian_power="15" flatten="1" coefs="0.707107 -0.707107 0.707107 0.707107 0 0" opacity="1"/>
-   <xform weight="1" color="0.75" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="0.3" julian_dist="-1" julian_power="8" flatten="1" coefs="0.707107 -0.707107 0.707107 0.707107 0 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Grand Julian B::16" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur bubble julian" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="1" symmetry="0" pre_blur="10.0" coefs="1 0 0 1 0 0" opacity="1" bubble="0.2"/>
+    <xform name="iterator_2" weight="6" color="0" symmetry="0" coefs="0.707107 -0.707107 0.707107 0.707107 0 -0.3" opacity="1" julian="1" julian_power="2" julian_dist="-1"/>
+    <xform name="iterator_3" weight="1" color="0.5" symmetry="0" coefs="0.707107 -0.707107 0.707107 0.707107 0 0" opacity="1" julian="0.2" julian_power="15" julian_dist="-1"/>
+    <xform name="iterator_4" weight="1" color="0.75" symmetry="0" coefs="0.707107 -0.707107 0.707107 0.707107 0 0" opacity="1" julian="0.3" julian_power="8" julian_dist="-1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -274,12 +235,12 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="7" name="Rings2_Julian::128" size="1500 1000" center="0 0" scale="1500" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="julian flatten rings2" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" julian="1" julian_dist="-2" julian_power="8000" flatten="1" coefs="1 0 0 1 0 0" opacity="1"/>
-   <xform weight="30" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" rings2="1" rings2_val="1" flatten="1" coefs="1 0 0 1 -0.1 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Ring2 Julian::128" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="julian rings2" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="1" symmetry="0" coefs="1 0 0 1 0 0" opacity="1" julian="1" julian_power="8000" julian_dist="-2"/>
+    <xform name="iterator_2" weight="30" color="0" symmetry="0.9" coefs="1 0 0 1 -0.1 0" opacity="1" rings2="1" rings2_val="1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -312,14 +273,14 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="8" name="Flipped_Disc::24" size="1500 1000" center="0 0" scale="375" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="disc flatten linear spherical radial_blur" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="1" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" disc="1" flatten="1" coefs="0.4 0 0 0.4 0 0" opacity="1"/>
-   <xform weight="1" color="0" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" disc="1" flatten="1" coefs="0.4 0 0 0.4 0 0" post="-1 0 0 1 0 0" opacity="1"/>
-   <xform weight="0.5" color="1" var_color="1" color_speed="1" symmetry="-1" name="" animate="1" linear="0.5" spherical="0.5" radial_blur="1" radial_blur_angle="1" flatten="1" coefs="1 0 0 1 1 0" opacity="1"/>
-   <xform weight="0.5" color="0" var_color="1" color_speed="1" symmetry="-1" name="" animate="1" linear="0.5" spherical="0.5" radial_blur="1" radial_blur_angle="1" flatten="1" coefs="1 0 0 1 -1 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Flipped disc::24" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="disc linear radial_blur spherical" new_linear="1">
+    <xform name="iterator_1" weight="1" color="0" symmetry="0.9" coefs="0.4 0 0 0.4 0 0" opacity="1" disc="1"/>
+    <xform name="iterator_2" weight="1" color="0" symmetry="0.9" coefs="0.4 0 0 0.4 0 0" post="-1 0 0 1 0 0" opacity="1" disc="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="-1" coefs="1 0 0 1 1 0" opacity="1" linear="0.5" spherical="0.5" radial_blur="1" radial_blur_angle="1"/>
+    <xform name="iterator_4" weight="0.5" color="0" symmetry="-1" coefs="1 0 0 1 -1 0" opacity="1" linear="0.5" spherical="0.5" radial_blur="1" radial_blur_angle="1"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -352,12 +313,12 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="9" name="Plastic::128" size="1500 1000" center="0 0" scale="375" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="30" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="noise blur flatten linear spherical" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.05" color="0" var_color="1" color_speed="0.9" symmetry="-0.8" name="" animate="1" noise="0.095" blur="0.4" flatten="1" coefs="1 0 0 1 0 0" opacity="1"/>
-   <xform weight="5" color="1" var_color="1" color_speed="0.1" symmetry="0.8" name="" animate="0" linear="0.075" spherical="1.2" flatten="1" coefs="-0.113137 -0.113137 0.113137 -0.113137 0 -0.4" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Plastic::128" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="blur linear noise spherical" new_linear="1">
+    <xform name="iterator_1" weight="0.05" color="0" symmetry="-0.8" coefs="1 0 0 1 0 0" opacity="1" noise="0.095" blur="0.4"/>
+    <xform name="iterator_2" weight="5" color="1" symmetry="0.8" coefs="-0.113137 -0.113137 0.113137 -0.113137 0 -0.4" opacity="1" linear="0.075" spherical="1.2"/>
+    <palette count="256" format="RGB">
       2D3E584D76AE558DC05B98B45B98B45D96B36098B1688C9C
       74934D6F93156086006578043F4C0015300300190A0E0F07
       13120D142208243D152D5F18424436445569508BAD5291B0
@@ -390,12 +351,12 @@
       0D0B0E130D111A12103522245C3B426552705094A75292AE
       5291B05291B05190AF4D88AA2F4982373F415124415F0A21
       6E19308C2842863556994868B94C5FB1687C5E9EB7A29A98
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="11" name="Splits_Elliptic::64" size="1500 1000" center="0 0" scale="110" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="4" gamma="4" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="0" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="elliptic flatten splits" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.5" color="0.336036" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" elliptic="1" flatten="1" coefs="0 -1.25 1.25 0 0 0" opacity="1"/>
-   <xform weight="0.5" color="0.789083" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" splits="1" splits_x="0" splits_y="1" flatten="1" coefs="1.95313 0 0 1.95313 0 0" post="0 1 -1 0 0 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Splits Elliptic::64" flam3h_rip="0" flam3h_hsv="1 1.15 1.3" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="elliptic splits" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0.336036" symmetry="0.9" coefs="0 -1.25 1.25 0 0 0" opacity="1" elliptic="1"/>
+    <xform name="iterator_2" weight="0.5" color="0.789083" symmetry="0.9" coefs="1.95313 0 0 1.95313 0 0" post="0 1 -1 0 0 0" opacity="1" splits="1" splits_x="0" splits_y="1"/>
+    <palette count="256" format="RGB">
       B50C29BB4611D6771DD38C3EA4CD8B87A6D4946EF5764AF5
       4F1FE73B0FAE172683000A14080B121C24775032A26E4ED3
       7547EF7D4EFC8259FF7F5BFB6285D6759BD993B6E08CB3EA
@@ -428,14 +389,14 @@
       000400000500181A025B814491CE42DCC34CFACD7CFA5B93
       D75E938573AD5B7CB24E72A6664BB29F4376E74577F14B7D
       F3548AEA528DE35A9EC66DA39B7DEF8BA9DBDCC342A3CD8D
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="12" name="Asa_eDisc::24" size="1500 1000" center="0.0454545 0.990909" scale="220" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="1.3" gamma="2" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="linear flatten edisc" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 0 1" opacity="1"/>
-   <xform weight="5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" edisc="1" flatten="1" coefs="0 -1 1 0 -2 0" chaos="1 0 0 1 " opacity="1"/>
-   <xform weight="5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" edisc="1" flatten="1" coefs="0 -1 1 0 -2 0" post="-1 0 0 -1 0 0" chaos="1 0 0 1 " opacity="1"/>
-   <xform weight="0.5" color="1" var_color="1" color_speed="0.05" symmetry="0.9" name="" animate="0" linear="1" flatten="1" coefs="1 0 0 1 -2 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Asa eDisc::24" flam3h_rip="0" flam3h_hsv="1 1.25 1.1" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="edisc linear" new_linear="1">
+    <xform name="iterator_1" weight="5" color="0" symmetry="0" coefs="1 0 0 1 0 1" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="5" color="0" symmetry="0" coefs="0 -1 1 0 -2 0" chaos="1 0 0" opacity="1" edisc="1"/>
+    <xform name="iterator_3" weight="5" color="0" symmetry="0" coefs="0 -1 1 0 -2 0" post="-1 0 0 -1 0 0" chaos="1 0 0" opacity="1" edisc="1"/>
+    <xform name="iterator_4" weight="0.5" color="1" symmetry="0.9" coefs="1 0 0 1 -2 0" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
       80A3CF8DB0D6E4E9EDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFFFFFFEFFBDCBD69097B36F87A94D6B876267A97397C9
       749AC9759ECA7E9ACA7A8ECB7C96BB80A1CCFEFEFCFEFEFD
@@ -468,15 +429,15 @@
       3C617E3E5F7E415E7E4B6888578094688C9C7C94AC627C9D
       5671934A6789425A74303C62272C4A1B2540313541343852
       383B64373E6936416E3C446847567F4F5D8E57629A7397C9
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="13" name="Square_Tile::32" size="1000 1000" center="0 0" scale="150" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="2" gamma="2" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.01" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear flatten blur" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="0.5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 1 -1" opacity="1"/>
-   <xform weight="0.5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 1 1" opacity="1"/>
-   <xform weight="0.5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 -1 1" opacity="1"/>
-   <xform weight="0.5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" linear="1" flatten="1" coefs="1 0 0 1 -1 -1" opacity="1"/>
-   <xform weight="0.5" color="0" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" blur="0.5" flatten="1" coefs="1 0 0 1 0 0" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Square tile::32" flam3h_rip="0" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="blur linear" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 1 -1" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 1 1" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 -1 1" opacity="1" linear="1"/>
+    <xform name="iterator_4" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 -1 -1" opacity="1" linear="1"/>
+    <xform name="iterator_5" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 0 0" opacity="1" blur="0.5"/>
+    <palette count="256" format="RGB">
       727788677082626C7D5D68795B647459606F585F6D575E6B
       5A616C5F6571646A766E727E787B868385908F909B94959F
       9A9BA4ADAFB4B2B5BBB8BBC2B8BDC5B9BFC8B8BEC9B7BECA
@@ -509,13 +470,13 @@
       7781967380946F7F92697C90657A8E61778D5E748A5D7286
       5F71846473836B7887717C8A79828F7F8895838B98838B9A
       848A9983869382838F817F8B7F7E897E7C887C7B87767886
-   </palette>
-</flame>
-<flame name="Stained Glass" version="Apophysis 2.08 beta 2" size="450 450" center="0.294 0.294" scale="74.25" oversample="2" filter="0.5" quality="1" background="0 0 0" brightness="30" gamma="1.05" >
-   <xform weight="19" color="0.191072556423023" symmetry="0.388097900431603" linear="0.902328" rectangles="-1" coefs="0.464771 0.124535 -0.124535 0.464771 -3.31672 -2.040694" rectangles_x="3.17316" rectangles_y="3.6852" chaos="1 0.5 " />
-   <xform weight="1" color="0.393628286896273" symmetry="0.126726508140564" gaussian_blur="2" coefs="1 0 0 1 0 0" chaos="1 1 0 " plotmode="off" />
-   <xform weight="2" color="0.471602384932339" symmetry="0.388097900431603" linear="0.747225692449138" coefs="0.440629 0.118066 -0.118066 0.440629 0.348265 5.149213" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Stained glass::64" flam3h_rip="0" flam3h_hsv="1 1.15 1.4" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="gaussian_blur linear rectangles" new_linear="1">
+    <xform name="iterator_1" weight="19" color="0.19107256" symmetry="0.3880979" coefs="0.464771 0.124535 -0.124535 0.464771 -3.31672 -2.040694" chaos="1 0.5" opacity="1" linear="0.902328" rectangles="-1" rectangles_x="3.17316" rectangles_y="3.6852"/>
+    <xform name="iterator_2" weight="1" color="0.39362829" symmetry="0.12672651" coefs="1 0 0 1 0 0" chaos="1 1 0" opacity="1" gaussian_blur="2"/>
+    <xform name="iterator_3" weight="2" color="0.47160238" symmetry="0.3880979" coefs="0.440629 0.118066 -0.118066 0.440629 0.348265 5.149213" opacity="1" linear="0.74722569"/>
+    <palette count="256" format="RGB">
       162E521C335522395B2C486D3F5374516077736F6C95796E
       A08371A9837696756E7D6E716C746964696360616377614C
       7254387C4F327D4C2E7F3D2F7F4B358F5F4BB07C66BD8471
@@ -548,6 +509,6 @@
       1D375A1B3355172F531B32541E35545C46387549308F492F
       A73E0EB1492297553B7F422F763D296B412B5C4E1D4F301E
       3D1C13251D2A172E50162E52162E52152C55172D52162E52
-   </palette>
-</flame>
+    </palette>
+  </flame>
 </flames>

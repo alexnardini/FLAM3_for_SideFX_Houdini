@@ -1,11 +1,11 @@
 <flames>
-<flame version="EMBER-WIN-22.21.4.2" time="0" name="APO-SB-090323-cyl1::64" size="811 507" center="-0.259338 -0.076276" scale="131.103" rotate="0" supersample="2" filter="0.3" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="14" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.14" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="splits flatten pre_gaussian_blur cylinder gaussian_blur ngon" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="100" color="0" var_color="1" color_speed="0.0684776" symmetry="0.863045" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="0.931867 -0.373253 0.510193 0.86257 -0.048658 -0.181322" chaos="1 0 1 1 " opacity="1"/>
-   <xform weight="100" color="0.333333" var_color="1" color_speed="0.0339827" symmetry="0.932035" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="0.509414 -0.260959 0.260959 0.509414 -0.5 -0.768243" post="-0.928579 0.277213 -0.277213 -0.928579 0 0" chaos="0 1 1 1 " opacity="0"/>
-   <xform weight="5" color="0.666667" var_color="1" color_speed="0.910723" symmetry="-0.821446" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="-0.907828 -0.419342 0.419342 -0.907828 0 0" post="-0.184647 2.81749 -34 0 -0.65 0" chaos="1 1 0 1 " opacity="1"/>
-   <xform weight="5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="0.795177 0.606378 -0.606378 0.795177 0 0" post="-0.184647 2.81749 -34 0 0.65 0" chaos="0 0 1 0 " opacity="1"/>
-   <finalxform color="0.845066" var_color="1" color_speed="0.133136" symmetry="0.733728" name="" animate="0" ngon="1" ngon_sides="4" ngon_power="2" ngon_circle="1" ngon_corners="1" flatten="1" coefs="1 0 0 1 0.07 -0.05" opacity="1"/>
-   <palette count="256" format="RGB">
+  <flame version="FLAM3H-WIN-1.1.0" name="APO-SB-Cyl1::64" flam3h_rip="1" flam3h_hsv="1 1.3 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder gaussian_blur ngon splits" new_linear="1">
+    <xform name="iterator_1" weight="100" color="0" symmetry="0.863045" coefs="0.931867 -0.373253 0.510193 0.86257 -0.048658 -0.181322" chaos="1 0" opacity="1" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_2" weight="100" color="0.333333" symmetry="0.932035" coefs="0.509414 -0.260959 0.260959 0.509414 -0.5 -0.768243" post="-0.928579 0.277213 -0.277213 -0.928579 0 0" chaos="0" opacity="0" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_3" weight="5" color="0.666667" symmetry="-0.821446" pre_blur="1.0" coefs="-0.907828 -0.419342 0.419342 -0.907828 0 0" post="-0.184647 2.81749 -34 0 -0.65 0" chaos="1 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <xform name="iterator_4" weight="5" color="1" symmetry="0" pre_blur="1.0" coefs="0.795177 0.606378 -0.606378 0.795177 0 0" post="-0.184647 2.81749 -34 0 0.65 0" chaos="0 0 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 0.07 -0.05" ngon="1" ngon_power="2" ngon_sides="4" ngon_corners="1" ngon_circle="1"/>
+    <palette count="256" format="RGB">
       D5E5DBCBE2DBBEDDD9BAD7D6B6D0D1B4D0C9B0CDC5B0CEC2
       AACEC1A9D0C3ABCEC8AED0C8B2D1C9B6D3C5BBD1BFC5D4AF
       CED4A3D5D39CD9D6A1D7DAA7D4DAB0D6DBADDADFA7E1DEA1
@@ -38,15 +38,15 @@
       55A0D956A2D862A2D466A5D56AA9D774A9D87FABD98AB4DA
       9BBCDCA7C0DBB1CAE1BBCFE7C4D2ECC8D9F1CFE2F4D4E6F1
       D8EDF0DCF3EDE3F5EAE6F7E6E8F6E3E9F2E0E5EDDDDEEBDA
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="1" name="tusks::64" size="811 507" center="0.170889 -0.0960385" scale="224.809" rotate="-89.46" supersample="2" filter="0.3" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="14" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.14" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="splits flatten pre_gaussian_blur cylinder gaussian_blur log" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="100" color="0" var_color="1" color_speed="0.0684776" symmetry="0.863045" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="0.931867 -0.373253 0.510193 0.86257 -0.06402 0.018381" chaos="1 0 1 1 " opacity="1"/>
-   <xform weight="100" color="0.333333" var_color="1" color_speed="0.0339827" symmetry="0.932035" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="0.509414 -0.260959 0.260959 0.509414 -0.5 -0.768243" post="-0.928579 0.277213 -0.277213 -0.928579 0 0" chaos="0 1 1 1 " opacity="0"/>
-   <xform weight="5" color="0.666667" var_color="1" color_speed="0.910723" symmetry="-0.821446" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="-0.907828 -0.419342 0.419342 -0.907828 0 0" post="-0.184647 2.81749 -34 0 -0.65 0" chaos="1 1 0 1 " opacity="1"/>
-   <xform weight="5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="0.795177 0.606378 -0.606378 0.795177 0 0" post="-0.184647 2.81749 -34 0 0.65 0" chaos="0 0 1 0 " opacity="1"/>
-   <finalxform color="0.845066" var_color="1" color_speed="0.133136" symmetry="0.733728" name="" animate="0" log="0.608" log_base="2.71828" flatten="1" coefs="0 0.8 -1.94504 -0.930236 0.715087 0.396213" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Tusks::64" flam3h_rip="1" flam3h_hsv="1 1.2 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder gaussian_blur log splits" new_linear="1">
+    <xform name="iterator_1" weight="100" color="0" symmetry="0.863045" coefs="0.931867 -0.373253 0.510193 0.86257 -0.06402 0.018381" chaos="1 0" opacity="1" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_2" weight="100" color="0.333333" symmetry="0.932035" coefs="0.509414 -0.260959 0.260959 0.509414 -0.5 -0.768243" post="-0.928579 0.277213 -0.277213 -0.928579 0 0" chaos="0" opacity="0" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_3" weight="5" color="0.666667" symmetry="-0.821446" pre_blur="1.0" coefs="-0.907828 -0.419342 0.419342 -0.907828 0 0" post="-0.184647 2.81749 -34 0 -0.65 0" chaos="1 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <xform name="iterator_4" weight="5" color="1" symmetry="0" pre_blur="1.0" coefs="0.795177 0.606378 -0.606378 0.795177 0 0" post="-0.184647 2.81749 -34 0 0.65 0" chaos="0 0 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="0 0.8 -1.94504 -0.930236 0.715087 0.396213" log="0.608"/>
+    <palette count="256" format="RGB">
       86796F79726F726E6A6B6B65727267797A6A7F7E69858269
       94916396946199985F92905F8C895F8381617A7964787865
       7677676D70686D6F676D6F67726E64786D62796A5E7B685B
@@ -79,15 +79,15 @@
       795935805C317F5A307A542C714B2A6642295F3F25523927
       47342A3B322F362F333933383D383D484142534D4961574C
       7163527E6C5A8E7B629D896C9B876B9583698C7A67817266
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="2" name="MistysKooshBall::64" size="1280 931" center="0 0" scale="190.584" rotate="0" supersample="2" filter="0.5" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="14" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.14" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="splits flatten pre_gaussian_blur cylinder gaussian_blur eyefish" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="100" color="0" var_color="1" color_speed="0.081129" symmetry="0.837742" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="-0.864828 0.502742 -0.554391 -0.832978 -0.043618 -0.13497" chaos="1 0 1 1 " opacity="1"/>
-   <xform weight="100" color="0.333333" var_color="1" color_speed="0.0233508" symmetry="0.953298" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="-0.348612 -0.443631 0.443631 -0.348612 -0.5 -0.582805" post="-0.977466 0.207246 -0.207246 -0.977466 0 0" chaos="0 1 1 1 " opacity="0"/>
-   <xform weight="5" color="0.666667" var_color="1" color_speed="0.939395" symmetry="-0.878791" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="-0.642154 -0.766575 0.766575 -0.642154 0 0" post="-0.364246 2.66423 -35 0 -0.65 0" chaos="1 1 0 1 " opacity="1"/>
-   <xform weight="5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="0.83137 -0.555719 0.555719 0.83137 0 0" post="-0.364246 2.66423 -35 0 0.65 0" chaos="0 0 1 0 " opacity="1"/>
-   <finalxform color="0.395985" var_color="1" color_speed="0.112374" symmetry="0.775251" name="" animate="0" eyefish="1.36" flatten="1" coefs="1 0 0 1 0.07 -0.05" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="MistysKooshBall::64" flam3h_rip="1" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder eyefish gaussian_blur splits" new_linear="1">
+    <xform name="iterator_1" weight="100" color="0" symmetry="0.837742" coefs="-0.864828 0.502742 -0.554391 -0.832978 -0.043618 -0.13497" chaos="1 0" opacity="1" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_2" weight="100" color="0.333333" symmetry="0.953298" coefs="-0.348612 -0.443631 0.443631 -0.348612 -0.5 -0.582805" post="-0.977466 0.207246 -0.207246 -0.977466 0 0" chaos="0" opacity="0" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_3" weight="5" color="0.666667" symmetry="-0.878791" pre_blur="1.0" coefs="-0.642154 -0.766575 0.766575 -0.642154 0 0" post="-0.364246 2.66423 -35 0 -0.65 0" chaos="1 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <xform name="iterator_4" weight="5" color="1" symmetry="0" pre_blur="1.0" coefs="0.83137 -0.555719 0.555719 0.83137 0 0" post="-0.364246 2.66423 -35 0 0.65 0" chaos="0 0 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 0.07 -0.05" eyefish="1.36"/>
+    <palette count="256" format="RGB">
       141D330C3B330C53390C6B3F1978482785522E9155359E59
       4D967854977F5B99875F948B648F907087927C809584829A
       8C849F9F8A9AAB8B9CB88D9EBE919AC59597C99299CE909C
@@ -120,15 +120,15 @@
       CC5596D25F95D56199D4659AC46896B25F939960926D6188
       555776595C774F5B7C544D76774B71974577AE3881C13377
       CD3268CD3067A82C607E2A50731F4448193D1D21371A1C31
-   </palette>
-</flame>
-<flame version="EMBER-WIN-22.21.4.2" time="3" name="Cylindrical_Flower_Power::64" size="804 585" center="0 0" scale="102.429" rotate="0" supersample="2" filter="0.3" filter_shape="gaussian" temporal_filter_type="box" temporal_filter_width="1" quality="1000" temporal_samples="100" sub_batch_size="10240" fuse="15" rand_range="1" background="0 0 0" brightness="14" gamma="3" highlight_power="1" logscale_k2="0" vibrancy="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" gamma_threshold="0.14" cam_zpos="0" cam_persp="0" cam_yaw="0" cam_pitch="0" cam_dof="0" blur_curve="0" palette_mode="linear" interpolation="smooth" interpolation_type="log" plugins="splits flatten pre_gaussian_blur cylinder gaussian_blur ngon" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 " overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 " blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 ">
-   <xform weight="100" color="0" var_color="1" color_speed="0.062958" symmetry="0.874084" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="-0.399828 0.921602 -0.980435 -0.218442 -0.944333 0.021807" chaos="1 0 1 1 " opacity="1"/>
-   <xform weight="100" color="0.333333" var_color="1" color_speed="0.014676" symmetry="0.970648" name="" animate="0" splits="1" splits_x="0" splits_y="0.1" flatten="1" coefs="-0.503485 -0.055746 0.055746 -0.503485 -0.5 -1.27286" post="-0.915979 0.232685 -0.232685 -0.915979 0 0" chaos="0 1 1 1 " opacity="0"/>
-   <xform weight="5" color="0.666667" var_color="1" color_speed="0.914168" symmetry="-0.828336" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="-0.754276 0.656557 -0.656557 -0.754276 0 0" post="-0.38845 2.9352 -37 0 -0.65 0" chaos="1 1 0 1 " opacity="1"/>
-   <xform weight="5" color="1" var_color="1" color_speed="0.5" symmetry="0" name="" animate="1" pre_gaussian_blur="1" cylinder="0.03" gaussian_blur="0.005" coefs="0.626427 -0.77948 0.77948 0.626427 0 0" post="-0.38845 2.9352 -37 0 0.65 0" chaos="0 0 1 0 " opacity="1"/>
-   <finalxform color="0.624853" var_color="1" color_speed="0.143539" symmetry="0.712922" name="" animate="0" ngon="1" ngon_sides="4" ngon_power="2" ngon_circle="1" ngon_corners="1" flatten="1" coefs="1 0 0 1 0.07 -0.05" opacity="1"/>
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Cylindrical Flower Power::64" flam3h_rip="1" flam3h_hsv="1 1.2 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder gaussian_blur ngon splits" new_linear="1">
+    <xform name="iterator_1" weight="100" color="0" symmetry="0.874084" coefs="-0.399828 0.921602 -0.980435 -0.218442 -0.944333 0.021807" chaos="1 0" opacity="1" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_2" weight="100" color="0.333333" symmetry="0.970648" coefs="-0.503485 -0.055746 0.055746 -0.503485 -0.5 -1.27286" post="-0.915979 0.232685 -0.232685 -0.915979 0 0" chaos="0" opacity="0" splits="1" splits_x="0" splits_y="0.1"/>
+    <xform name="iterator_3" weight="5" color="0.666667" symmetry="-0.828336" pre_blur="1.0" coefs="-0.754276 0.656557 -0.656557 -0.754276 0 0" post="-0.38845 2.9352 -37 0 -0.65 0" chaos="1 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <xform name="iterator_4" weight="5" color="1" symmetry="0" pre_blur="1.0" coefs="0.626427 -0.77948 0.77948 0.626427 0 0" post="-0.38845 2.9352 -37 0 0.65 0" chaos="0 0 1 0" opacity="1" cylinder="0.03" gaussian_blur="0.005"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 0.07 -0.05" ngon="1" ngon_power="2" ngon_sides="4" ngon_corners="1" ngon_circle="1"/>
+    <palette count="256" format="RGB">
       141D330C3B330C53390C6B3F1978482785522E9155359E59
       4D967854977F5B99875F948B648F907087927C809584829A
       8C849F9F8A9AAB8B9CB88D9EBE919AC59597C99299CE909C
@@ -161,6 +161,6 @@
       CC5596D25F95D56199D4659AC46896B25F939960926D6188
       555776595C774F5B7C544D76774B71974577AE3881C13377
       CD3268CD3067A82C607E2A50731F4448193D1D21371A1C31
-   </palette>
-</flame>
+    </palette>
+  </flame>
 </flames>

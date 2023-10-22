@@ -1,9 +1,9 @@
-<Flames name="Seph Flames Pack">
-<flame name="Bubbles::64" version="Apophysis 7x 2010 (T500 R12)" size="106 78" center="0 0" scale="26.5" zoom="-1.049" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4.84782608695652" gamma="2.31" gamma_threshold="0.05" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="5" color="0.995" spherical="3.3" eyefish="0.2" coefs="-0.62092 -0.001313 0.001313 -0.62092 0.245622 -0.395134" opacity="1" />
-   <xform weight="0.85" color="0.5" bubble="0.45" pre_blur="5" coefs="1.771561 0 0 1.771561 0.936566 -0.359909" opacity="1" />
-   <finalxform color="0" symmetry="1" juliascope="1.333" coefs="1 0 0 1 0 0" juliascope_power="2" juliascope_dist="1" />
-   <palette count="256" format="RGB">
+<flames>
+  <flame version="FLAM3H-WIN-1.1.0" name="Bubbles::64" flam3h_rip="0" flam3h_hsv="1 1.175 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur bubble eyefish juliascope spherical" new_linear="1">
+    <xform name="iterator_1" weight="5" color="0.995" symmetry="0" coefs="-0.62092 -0.001313 0.001313 -0.62092 0.245622 -0.395134" opacity="1" spherical="3.3" eyefish="0.2"/>
+    <xform name="iterator_2" weight="0.85" color="0.5" symmetry="0" pre_blur="5.0" coefs="1.771561 0 0 1.771561 0.936566 -0.359909" opacity="1" bubble="0.45"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 0 0" juliascope="1.333" juliascope_power="2" juliascope_dist="1"/>
+    <palette count="256" format="RGB">
       D02BA7BF29A4B52AA5AC29ADAC29A8B636A7C63EAFCE3DA9
       D24DA6D858A8CD53A7C053A4B9549EB54E9BB54899B74A93
       C04E94CC5596D25F95D56199D4659AC46896B25F93996092
@@ -36,13 +36,13 @@
       473060571D61670E629A1278C31D85D32180EA2C7CF23D7C
       F1497DF64B78F65275F45D6EED6B68E07566D97D59D98E57
       DA8C59DC8455E48064F16F71F65B79F14A86EA4195E136A1
-   </palette>
-</flame>
-<flame name="Egyptean Ancient Room::48" version="Apophysis 7x 2010 (T500 R12)" size="886 560" center="0 0.097" scale="221.5" zoom="0.262" cam_pitch="-0.952949771588904" cam_yaw="-0.162315620435473" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" julian="1" coefs="1 0 0 1 0 0" julian_power="-50" julian_dist="1" opacity="1" />
-   <xform weight="10" color="0.9" disc="1" coefs="-0.35214 -0.838119 0.838119 -0.35214 0 0" opacity="1" />
-   <finalxform color="0" symmetry="1" Spherical3D="0.212" coefs="1 0 0 1 0.004513 -0.192238" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Egyptean ancient rooms::48" flam3h_rip="0" flam3h_hsv="1 1.15 1.333" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="disc julian linear" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 0 0" opacity="1" julian="1" julian_power="-50" julian_dist="1"/>
+    <xform name="iterator_2" weight="10" color="0.9" symmetry="0" coefs="-0.35214 -0.838119 0.838119 -0.35214 0 0" opacity="1" disc="1"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 0.004513 -0.192238" linear="1"/>
+    <palette count="256" format="RGB">
       D67B75D57A62D37155D16948D3633ED65D35D45B32D25A30
       CF5A2FC96132B66C3AAD6836A464339B5D2D935727905424
       8D51217E3E197632156E2712691E1065150E67140E69130E
@@ -75,15 +75,15 @@
       FCCA36FEDE39FDE93AF6E23BF0DC3CE7D13EDFC640DAC341
       D6C042C4B54CBFB057BBAB63B9A972B7A882B8A78BBAA695
       B8A696B7A798C5A38FCA9889D08D84D58680DA807CD87D78
-   </palette>
-</flame>
-<flame name="Alien Attack::16" version="Apophysis 7x 2010 (T500 R12)" size="886 560" center="0 0" scale="221.5" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" spherical="0.228" coefs="1 0 0 1 0 -0.1" opacity="1" />
-   <xform weight="0.85" color="0.5" julian="0.298" coefs="1 0 0 1 0.009132 -0.770321" julian_power="3" julian_dist="1" opacity="1" />
-   <xform weight="0.5" color="1" bubble="0.137" coefs="1 0 0 1 0.009132 -0.970321" opacity="1" />
-   <xform weight="0.5" color="0.857" spherical="2" julian="1" coefs="1 0 0 1 0.003037 1.990512" julian_power="3" julian_dist="1" opacity="1" />
-   <finalxform color="0" symmetry="1" spherical="0.102" coefs="0.722075 0 0 0.722075 -0.002708 0.293589" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Alien Attack::16" flam3h_rip="0" flam3h_hsv="1 1.25 1.6" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="bubble julian spherical" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0" coefs="1 0 0 1 0 -0.1" opacity="1" spherical="0.228"/>
+    <xform name="iterator_2" weight="0.85" color="0.5" symmetry="0" coefs="1 0 0 1 0.009132 -0.770321" opacity="1" julian="0.298" julian_power="3" julian_dist="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="0" coefs="1 0 0 1 0.009132 -0.970321" opacity="1" bubble="0.137"/>
+    <xform name="iterator_4" weight="0.5" color="0.857" symmetry="0" coefs="1 0 0 1 0.003037 1.990512" opacity="1" spherical="2" julian="1" julian_power="3" julian_dist="1"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="0.722075 0 0 0.722075 -0.002708 0.293589" spherical="0.102"/>
+    <palette count="256" format="RGB">
       24390C5766827E94AA89A6B292AEB9A0B3BAA3B7BEA1B4BA
       9AACB593A5AE8A909B9067177F4D035D14064E0A06410402
       3500081E0400090302010100000001030103050009150F04
@@ -116,13 +116,13 @@
       9AABB995A9B891A9B18A9A9DAC7C17C37C06C57E07C87F07
       D4820BAFB0ACAFB7B8ADB6B5A0AAB38BA1AE7D8AA05B6269
       2B3A061D12050F0C040306040103040403020B0B011A1903
-   </palette>
-</flame>
-<flame name="Stairway to Hell::64" version="Apophysis 7x 2010 (T500 R12)" size="886 560" center="2.136 0" scale="221.5" zoom="-1.631" oversample="1" filter="0.5" quality="50" background="0 0 0" brightness="3.4" gamma="1.74" vibrancy="0.18" gamma_threshold="0.034" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="5" color="0.995" spherical="3.33" eyefish="0.3" coefs="-0.319513 -0.003526 0.017533 -0.335657 0.700124 -0.339359" opacity="1" />
-   <xform weight="0.85" color="0.5" bubble="0.45" pre_blur="5" coefs="1 0 0 1 0.790926 -0.487137" opacity="1" />
-   <finalxform color="0" symmetry="1" curl="2.268" coefs="0.503332 0.005968 0.00764 0.505004 -0.997212 -0.17427" curl_c1="0.841897" curl_c2="0" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Stairway to hell::64" flam3h_rip="0" flam3h_hsv="1 1.2 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur bubble curl eyefish spherical" new_linear="1">
+    <xform name="iterator_1" weight="5" color="0.995" symmetry="0" coefs="-0.319513 -0.003526 0.017533 -0.335657 0.700124 -0.339359" opacity="1" spherical="3.33" eyefish="0.3"/>
+    <xform name="iterator_2" weight="0.85" color="0.5" symmetry="0" pre_blur="5.0" coefs="1 0 0 1 0.790926 -0.487137" opacity="1" bubble="0.45"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="0.503332 0.005968 0.00764 0.505004 -0.997212 -0.17427" curl="2.268" curl_c1="0.841897" curl_c2="0"/>
+    <palette count="256" format="RGB">
       55603D225B33155931085830085223084D16074913064511
       0A331210260E16190B24120E330C113E0C0F4A0D0E4F0D0C
       550D0A580917560B1C540E2150112A4C15344C1B3A4D2141
@@ -155,6 +155,6 @@
       700C1D62121A561F154B3012433A1146400D53480A614F07
       724E077E42058A3A0791320D972D13982113971D0F971F10
       9A2A14A33516AC4114A74619A2511D8955257D5F2B5B5E38
-   </palette>
-</flame>
-</Flames>
+    </palette>
+  </flame>
+</flames>

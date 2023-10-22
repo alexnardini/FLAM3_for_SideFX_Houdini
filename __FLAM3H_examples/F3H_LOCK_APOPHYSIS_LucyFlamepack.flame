@@ -1,9 +1,9 @@
-<Flames name="LucyFlamepack">
-<flame name="looniesplits::64" version="Apophysis 7x 2010 (R12)" size="1280 1024" center="-4.12302755071147 0.980385709960642" scale="384" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="9.09130434782609" gamma="3.95" gamma_threshold="0.0423093658828749" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="12" color="0" symmetry="0.92" loonie="0.6" coefs="-0.60708 1.040395 -1.040395 -0.60708 -1.354032 3.970914" chaos="0 1 0 " opacity="1" />
-   <xform weight="4" color="0" symmetry="0.92" splits="1" coefs="1.140718 0.638449 -0.638449 1.140718 -4.663008 1.25381" splits_x="0" splits_y="0.2" chaos="1 0 " opacity="1" />
-   <xform weight="1" color="0.363" symmetry="-0.5" cylinder="0.2" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 1 -5 0 -3.4 0" chaos="1 0 " opacity="1" />
-   <palette count="256" format="RGB">
+<flames>
+  <flame version="FLAM3H-WIN-1.1.0" name="loonie splits::64" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder loonie splits" new_linear="1">
+    <xform name="iterator_1" weight="12" color="0" symmetry="0.92" coefs="-0.60708 1.040395 -1.040395 -0.60708 -1.354032 3.970914" chaos="0 1 0" opacity="1" loonie="0.6"/>
+    <xform name="iterator_2" weight="4" color="0" symmetry="0.92" coefs="1.140718 0.638449 -0.638449 1.140718 -4.663008 1.25381" chaos="1 0" opacity="1" splits="1" splits_x="0" splits_y="0.2"/>
+    <xform name="iterator_3" weight="1" color="0.363" symmetry="-0.5" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 1 -5 0 -3.4 0" chaos="1 0" opacity="1" cylinder="0.2"/>
+    <palette count="256" format="RGB">
       908655A38851A08F5DC6A349DCB23DD5A243C99532A17744
       BA6C5DA68A6398958C9C9EA48EB4D58AB5E175BBEC5AB1E9
       5399C96F88A4887173BB675CEC6443E44B30F74424F84520
@@ -36,15 +36,15 @@
       77BBEA72AAD66D9CC59099AD9993A0A9A1A8AFB9BD9EC4E1
       8FC1DBA1BAD6B3B9C1C7A89EE17774EB6672E6646CD97078
       B08F938D878D7191935F8099677D9270817F7A856A879461
-   </palette>
-</flame>
-<flame name="lazysplits::128" version="Apophysis 7x 2010 (R12)" size="1280 1024" center="-4.435 1.469" scale="294.4" angle="-0.51085787205874" rotate="29.27" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="8.59130434782609" gamma="3.95" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="16" color="0" symmetry="0.95" lazysusan="0.65" coefs="-1.053079 0.366112 -0.366112 -1.053079 -4.533071 1.648157" lazysusan_spin="0" lazysusan_space="0" lazysusan_twist="-2" lazysusan_x="0" lazysusan_y="0" chaos="0 1 0 0 0 " opacity="1" />
-   <xform weight="1" color="0" symmetry="0.95" splits="1" coefs="-0.732668 1.082614 -1.082614 -0.732668 -5.757761 0.876711" splits_x="0" splits_y="0.2" chaos="1 0 " opacity="1" />
-   <xform weight="1" color="0.326" symmetry="-0.5" cylinder="0.24" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 0.5 -4 0 -3.4 0" chaos="1 0 " opacity="1" />
-   <xform weight="0.3" color="0.296" symmetry="-0.5" cylinder="0.04" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 0.5 -22 0 -3.4 0.16" chaos="1 0 " opacity="1" />
-   <xform weight="0.3" color="0.296" symmetry="-0.5" cylinder="0.04" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 0.5 -22 0 -3.4 -0.16" chaos="1 0 " opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="lazy splits::128" flam3h_rip="0" flam3h_hsv="1 1.2 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder lazysusan splits" new_linear="1">
+    <xform name="iterator_1" weight="16" color="0" symmetry="0.95" coefs="-1.053079 0.366112 -0.366112 -1.053079 -4.533071 1.648157" chaos="0 1 0 0 0" opacity="1" lazysusan="0.65" lazysusan_x="0" lazysusan_y="0" lazysusan_spin="0" lazysusan_twist="-2" lazysusan_space="0"/>
+    <xform name="iterator_2" weight="1" color="0" symmetry="0.95" coefs="-0.732668 1.082614 -1.082614 -0.732668 -5.757761 0.876711" chaos="1 0" opacity="1" splits="1" splits_x="0" splits_y="0.2"/>
+    <xform name="iterator_3" weight="1" color="0.326" symmetry="-0.5" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 0.5 -4 0 -3.4 0" chaos="1 0" opacity="1" cylinder="0.24"/>
+    <xform name="iterator_4" weight="0.3" color="0.296" symmetry="-0.5" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 0.5 -22 0 -3.4 0.16" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_5" weight="0.3" color="0.296" symmetry="-0.5" pre_blur="0.2" coefs="1 0 0 1 0 0" post="0 0.5 -22 0 -3.4 -0.16" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <palette count="256" format="RGB">
       E7BB5CF9D14BC7C034B8C22B7C8F36768C44718A536F7549
       7C5C518F5E5AAE5F5AE49550F0B24CFDCF48FAD14CF8D351
       E9CA9EE4C187C29B649284535E65315B5F2F595A2E275725
@@ -77,20 +77,20 @@
       775B74583651361F29020005010002000000020200040500
       110F022B392A3F613E5378428A7862887268866C6F8A6C6C
       8E6C6389805F859054829E279FA92CBDB431BCB534BCB737
-   </palette>
-</flame>
-<flame name="bipolar01::64" version="Apophysis 7x 2010 (R12)" size="1103 895" center="-0.069 0" scale="363.99" angle="1.5706217938697" rotate="-89.99" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" symmetry="1" linear="1" coefs="1 0 0 1 0 -2.5" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="1" linear="1" coefs="1 0 0 1 0 2.5" opacity="1" />
-   <xform weight="12" color="0" symmetry="0.98" bipolar="1" coefs="0.458926 -1.078778 1.078778 0.458926 0 0" bipolar_shift="0.5" opacity="1" />
-   <xform weight="0.4" color="0.115" symmetry="-0.3" cylinder="0.1" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -16 0 0 -1.25" opacity="1" />
-   <xform weight="0.4" color="0.115" symmetry="-0.3" cylinder="0.1" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -16 0 0 1.25" opacity="1" />
-   <xform weight="0.2" color="0" cylinder="0.07" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 -1.075" opacity="1" />
-   <xform weight="0.2" color="0" cylinder="0.07" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 -1.425" opacity="1" />
-   <xform weight="0.2" color="0" cylinder="0.07" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 1.075" opacity="1" />
-   <xform weight="0.2" color="0" cylinder="0.07" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 1.425" opacity="1" />
-   <xform weight="0.5" color="0.125" gaussian_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 1 0 -0.5" opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="bipolar01::64" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur bipolar cylinder gaussian_blur linear" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="1" coefs="1 0 0 1 0 -2.5" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0" symmetry="1" coefs="1 0 0 1 0 2.5" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="12" color="0" symmetry="0.98" coefs="0.458926 -1.078778 1.078778 0.458926 0 0" opacity="1" bipolar="1" bipolar_shift="0.5"/>
+    <xform name="iterator_4" weight="0.4" color="0.115" symmetry="-0.3" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -16 0 0 -1.25" opacity="1" cylinder="0.1"/>
+    <xform name="iterator_5" weight="0.4" color="0.115" symmetry="-0.3" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -16 0 0 1.25" opacity="1" cylinder="0.1"/>
+    <xform name="iterator_6" weight="0.2" color="0" symmetry="0" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 -1.075" opacity="1" cylinder="0.07"/>
+    <xform name="iterator_7" weight="0.2" color="0" symmetry="0" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 -1.425" opacity="1" cylinder="0.07"/>
+    <xform name="iterator_8" weight="0.2" color="0" symmetry="0" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 1.075" opacity="1" cylinder="0.07"/>
+    <xform name="iterator_9" weight="0.2" color="0" symmetry="0" pre_blur="0.5" coefs="0 -1 1 0 0 0" post="0 1 -20 0 0 1.425" opacity="1" cylinder="0.07"/>
+    <xform name="iterator_10" weight="0.5" color="0.125" symmetry="0" coefs="1 0 0 1 0 0" post="1 0 0 1 0 -0.5" opacity="1" gaussian_blur="0.1"/>
+    <palette count="256" format="RGB">
       346AA0162C425A4631623A11763C01984C00C86501E59544
       EA9D50F0A65CFCAF61FE9934FD8C1BFC850EEC7702E47301
       DD6F00CF6700B95C009850078A48057C471282572C527AA2
@@ -123,15 +123,15 @@
       6835026E38037F4103954B01BB5E00CA6500C16101A95603
       924B05894603804102743A016232015031114947455A98D5
       4E9BE7439EF95EAAF598C7F6C8DAEDE8EAEC7994B0567FA8
-   </palette>
-</flame>
-<flame name="bipolar02::64" version="Apophysis 7x 2010 (R12)" size="1102 892" center="0 0" scale="385.7" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 0 -2.16" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 0 2.16" opacity="1" />
-   <xform weight="14" color="0" symmetry="0.82" bipolar="1" splits="0.02" coefs="0.389681 1.97562 -1.97562 0.389681 0 0" bipolar_shift="0" splits_x="0" splits_y="4" opacity="1" />
-   <xform weight="0.8" color="0.425" cylinder="0.07" pre_blur="0.1" coefs="0 1 -1 0 0 0" post="0 1 -28 0 0 0" opacity="1" />
-   <xform weight="0.5" color="0.438" symmetry="-0.6" bubble="0.05" pre_blur="2" splits="0.02" coefs="1.104848 -1.104855 1.104855 1.104855 0 0" post="0.999962 0.008727 -0.008727 0.999962 0 0" splits_x="0" splits_y="4" opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="bipolar02::64" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur bipolar bubble cylinder linear splits" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 0 -2.16" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 0 2.16" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="14" color="0" symmetry="0.82" coefs="0.389681 1.97562 -1.97562 0.389681 0 0" opacity="1" bipolar="1" bipolar_shift="0" splits="0.02" splits_x="0" splits_y="4"/>
+    <xform name="iterator_4" weight="0.8" color="0.425" symmetry="0" pre_blur="0.1" coefs="0 1 -1 0 0 0" post="0 1 -28 0 0 0" opacity="1" cylinder="0.07"/>
+    <xform name="iterator_5" weight="0.5" color="0.438" symmetry="-0.6" pre_blur="2.0" coefs="1.104848 -1.104855 1.104855 1.104855 0 0" post="0.999962 0.008727 -0.008727 0.999962 0 0" opacity="1" bubble="0.05" splits="0.02" splits_x="0" splits_y="4"/>
+    <palette count="256" format="RGB">
       9446739D456BB54F5FC7644FD2793BD08338CE8D35CE923E
       CE9847CCA45CCBA965B5BA84A7C39099CD9C90C89988C397
       7DC08370B2746CA15D66924B799E2887A42495AA21A1B523
@@ -164,17 +164,17 @@
       307266287A6021835A1C96551E9053208A5120863B208325
       1C7822196E1F1C5625194F1F1E5114285A2533633632683B
       326E4133794A3B8356528A7356757B5A618472547F8B477B
-   </palette>
-</flame>
-<flame name="bipolar03::32" version="Apophysis 7x 2010 (R12)" size="1280 960" center="0 0" scale="409.6" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 0 2.1" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 0 -2.1" opacity="1" />
-   <xform weight="0.3" color="0.375" bubble="0.12" pre_blur="0.5" splits="0.01" coefs="1 0 0 1 0 0" post="1 0 0 1.55 0 -0.4" splits_x="2" splits_y="0" opacity="1" />
-   <xform weight="4" color="0" symmetry="0.95" bipolar="1" splits="0.01" coefs="0.248263 -1.632284 1.632284 0.248263 0 0" bipolar_shift="0.4" splits_x="2" splits_y="0" opacity="1" />
-   <xform weight="0.2" color="0.045" cylinder="0.02" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 50 0 0" opacity="1" />
-   <xform weight="0.1" color="0.13" cylinder="0.04" pre_blur="0.5" splits="0.002" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 -1.05" splits_x="0" splits_y="1" opacity="1" />
-   <xform weight="0.1" color="0.129" cylinder="0.04" pre_blur="0.5" splits="0.002" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 1.05" splits_x="0" splits_y="1" opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="bipolar03::32" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur bipolar bubble cylinder linear splits" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 0 2.1" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 0 -2.1" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="0.3" color="0.375" symmetry="0" pre_blur="0.5" coefs="1 0 0 1 0 0" post="1 0 0 1.55 0 -0.4" opacity="1" bubble="0.12" splits="0.01" splits_x="2" splits_y="0"/>
+    <xform name="iterator_4" weight="4" color="0" symmetry="0.95" coefs="0.248263 -1.632284 1.632284 0.248263 0 0" opacity="1" bipolar="1" bipolar_shift="0.4" splits="0.01" splits_x="2" splits_y="0"/>
+    <xform name="iterator_5" weight="0.2" color="0.045" symmetry="0" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 50 0 0" opacity="1" cylinder="0.02"/>
+    <xform name="iterator_6" weight="0.1" color="0.13" symmetry="0" pre_blur="0.5" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 -1.05" opacity="1" cylinder="0.04" splits="0.002" splits_x="0" splits_y="1"/>
+    <xform name="iterator_7" weight="0.1" color="0.129" symmetry="0" pre_blur="0.5" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 1.05" opacity="1" cylinder="0.04" splits="0.002" splits_x="0" splits_y="1"/>
+    <palette count="256" format="RGB">
       4751424650414650414751424F5A4A525D4C55614F5A6754
       666A556F6E547174567E80578183568486568789558A8D54
       8B8E53898E528A8E51898E4E7F8E457E8E437E8E427A8E40
@@ -207,15 +207,15 @@
       3B550C3750092F4906264003253E06253C0A263C0C273C0F
       2D401536451E3B4C2644532D4E5C3B4E5D3E4F5E41555E46
       4F5C494E59494D58484C57474B56464A55454A55454A5545
-   </palette>
-</flame>
-<flame name="polar2::64" version="Apophysis 7x 2010 (R12)" size="1280 960" center="0 -0.199" scale="486.4" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="5.73913043478261" gamma="4" gamma_threshold="0.0497437798287922" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 -2.1 -0.016038" opacity="1" />
-   <xform weight="10" color="0" symmetry="0.84" polar2="1" coefs="0.21965 1.464528 -1.464528 0.21965 0 0" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 2.1 0" opacity="1" />
-   <xform weight="0.2" color="0.2" cylinder="0.04" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 200 1.05 0" opacity="1" />
-   <xform weight="0.2" color="0.2" cylinder="0.04" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 200 -1.05 0" opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="polar2::64" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder linear polar2" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 -2.1 -0.016038" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="10" color="0" symmetry="0.84" coefs="0.21965 1.464528 -1.464528 0.21965 0 0" opacity="1" polar2="1"/>
+    <xform name="iterator_3" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 2.1 0" opacity="1" linear="1"/>
+    <xform name="iterator_4" weight="0.2" color="0.2" symmetry="0" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 200 1.05 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_5" weight="0.2" color="0.2" symmetry="0" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 200 -1.05 0" opacity="1" cylinder="0.04"/>
+    <palette count="256" format="RGB">
       9A759E9674A28D799F82799D777C9482776A94755AA7744B
       AD7B49B48247B18746AF8D469F984D9D994B9B9B4A92A043
       8AA53D80AE4076B74377B73E79B73AA2BB17B3BF12C4C40E
@@ -248,16 +248,16 @@
       9E996CA09D67A6A05FADA75CB1AC67AFB173AAB279A5A571
       98965E8C865183815178834F6F86475F81394F7526477122
       4D70255F7A2B6F813E7A87527E926C869383918B9396819C
-   </palette>
-</flame>
-<flame name="ell-splits01::64" version="Apophysis 7x 2010 (R12)" size="1280 768" center="0 0" scale="230.4" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="4" gamma="4" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="1.2" color="0" symmetry="0.9" elliptic="1" coefs="0.832719 0 0 0.832721 0.4 0" opacity="1" />
-   <xform weight="0.7" color="0.085" symmetry="0.87" splits="1" coefs="1.733051 -1E-006 1E-006 1.733044 0 0" post="0 1 -1 0 0 0" splits_x="0" splits_y="1.1" opacity="1" />
-   <xform weight="0.05" color="0.04" cylinder="0.045" pre_blur="0.2" coefs="1 0 0 1 0 0" post="-1 0 0 -50 1.05 0" opacity="1" />
-   <xform weight="0.05" color="0.04" cylinder="0.045" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 50 -1.05 0" opacity="1" />
-   <xform weight="0.03" color="0.027" gaussian_blur="0.1" coefs="1 0 0 1 0 0" post="0.099619 -0.008716 0.348623 3.984779 0.09 -1.2" opacity="1" />
-   <xform weight="0.03" color="0.027" gaussian_blur="0.1" coefs="1 0 0 1 0 0" post="0.099619 0.008716 -0.348623 3.98478 0.09 1.2" opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="ell-splits01::64" flam3h_rip="0" flam3h_hsv="1 1.2 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder elliptic gaussian_blur splits" new_linear="1">
+    <xform name="iterator_1" weight="1.2" color="0" symmetry="0.9" coefs="0.832719 0 0 0.832721 0.4 0" opacity="1" elliptic="1"/>
+    <xform name="iterator_2" weight="0.7" color="0.085" symmetry="0.87" coefs="1.733051 -1e-06 1e-06 1.733044 0 0" post="0 1 -1 0 0 0" opacity="1" splits="1" splits_x="0" splits_y="1.1"/>
+    <xform name="iterator_3" weight="0.05" color="0.04" symmetry="0" pre_blur="0.2" coefs="1 0 0 1 0 0" post="-1 0 0 -50 1.05 0" opacity="1" cylinder="0.045"/>
+    <xform name="iterator_4" weight="0.05" color="0.04" symmetry="0" pre_blur="0.2" coefs="1 0 0 1 0 0" post="1 0 0 50 -1.05 0" opacity="1" cylinder="0.045"/>
+    <xform name="iterator_5" weight="0.03" color="0.027" symmetry="0" coefs="1 0 0 1 0 0" post="0.099619 -0.008716 0.348623 3.984779 0.09 -1.2" opacity="1" gaussian_blur="0.1"/>
+    <xform name="iterator_6" weight="0.03" color="0.027" symmetry="0" coefs="1 0 0 1 0 0" post="0.099619 0.008716 -0.348623 3.98478 0.09 1.2" opacity="1" gaussian_blur="0.1"/>
+    <palette count="256" format="RGB">
       3C5457275F610E7665278C4A84BF1998CA26ACD533C2B53B
       D89543C97C46A82A36AC388D98348D84308E84398E84438F
       84528D84628C6E5186693D56943432A61B60B9028FC80791
@@ -290,14 +290,14 @@
       276E4E3061493A554469375F81276D99177B8E147E841282
       7912706E125F401B723A7C800E625C0B5B4E095541096720
       0979001886002793006EB61B76891F7F5D2368533852494D
-   </palette>
-</flame>
-<flame name="l000nie::64" version="Apophysis 7x 2010 (R12)" size="1280 1024" center="0.078 0.345" scale="256" angle="-4.36087966903303" rotate="249.86" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="6.7" gamma="3.99" gamma_threshold="0.062199798183653" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="10" color="0" symmetry="0.9" loonie="1" coefs="-0.908464 -0.210932 0.210932 -0.908464 -0.715929 -1.538241" chaos="3 0 1 2 " opacity="1" />
-   <xform weight="14" color="0" symmetry="0.94" loonie="1" coefs="0.703256 -0.635429 0.635429 0.703256 0.645377 0.523446" chaos="0 3 1 2 " opacity="1" />
-   <xform weight="0.5" color="0.157" gaussian_blur="0.2" coefs="1 0 0 1 0 0" opacity="1" />
-   <xform weight="1" color="0" symmetry="0.9" loonie="1" coefs="0.424903 -0.621547 0.621547 0.424903 -0.462905 1.030254" chaos="0 0 1 1.5 " opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="lOOOnie::64" flam3h_rip="0" flam3h_hsv="1 1.25 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="gaussian_blur loonie" new_linear="1">
+    <xform name="iterator_1" weight="10" color="0" symmetry="0.9" coefs="-0.908464 -0.210932 0.210932 -0.908464 -0.715929 -1.538241" chaos="3 0 1 2" opacity="1" loonie="1"/>
+    <xform name="iterator_2" weight="14" color="0" symmetry="0.94" coefs="0.703256 -0.635429 0.635429 0.703256 0.645377 0.523446" chaos="0 3 1 2" opacity="1" loonie="1"/>
+    <xform name="iterator_3" weight="0.5" color="0.157" symmetry="0" coefs="1 0 0 1 0 0" opacity="1" gaussian_blur="0.2"/>
+    <xform name="iterator_4" weight="1" color="0" symmetry="0.9" coefs="0.424903 -0.621547 0.621547 0.424903 -0.462905 1.030254" chaos="0 0 1 1.5" opacity="1" loonie="1"/>
+    <palette count="256" format="RGB">
       825A628E66669B746EA58671B19775B8A971BCB569BFBA64
       C7B558CFAF4ACFA238C38E32B67627A5691E97621388611D
       79612A6A6B2F5F73275A7224516C304C7135507E3758872C
@@ -330,16 +330,16 @@
       3E4F5F39485F35425F2E2F582F20462E20352C29312E3236
       3F3D36544C295B5F1F5B671B646E217D661F925D1A9A4D0C
       8B450F7739176D2F24712B247231316A38436940566F4D5A
-   </palette>
-</flame>
-<flame name="elliptic01::48" version="Apophysis 7x 2010 (R12)" size="1024 1024" center="0.0351998835425262 0.110520373795378" scale="512" angle="1.47480321793521" rotate="-84.5" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="4" gamma="4" gamma_threshold="0.04" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 -4 0" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 4 0" opacity="1" />
-   <xform weight="10" color="0" symmetry="0.93" elliptic="1" splits="0.02" coefs="0.653362 1.425891 -1.425891 0.653362 0.531004 -0.058824" splits_x="3" splits_y="0" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 0 -5" opacity="1" />
-   <xform weight="0.5" color="0" symmetry="0.9" linear="1" coefs="1 0 0 1 0 5" opacity="1" />
-   <xform weight="0.5" color="0.238" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 32 0 0" opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="elliptic01::48" flam3h_rip="0" flam3h_hsv="1 1.333 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder elliptic linear splits" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 -4 0" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 4 0" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="10" color="0" symmetry="0.93" coefs="0.653362 1.425891 -1.425891 0.653362 0.531004 -0.058824" opacity="1" elliptic="1" splits="0.02" splits_x="3" splits_y="0"/>
+    <xform name="iterator_4" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 0 -5" opacity="1" linear="1"/>
+    <xform name="iterator_5" weight="0.5" color="0" symmetry="0.9" coefs="1 0 0 1 0 5" opacity="1" linear="1"/>
+    <xform name="iterator_6" weight="0.5" color="0.238" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 32 0 0" opacity="1" cylinder="0.04"/>
+    <palette count="256" format="RGB">
       AA6556A65B519C6055586F524C7B5A3E775636745B427B66
       568E747E9E7BA3A576D1A877DEB290E1C8A3E2D4A2DDC9A7
       E1D1AAD7D5BCEACEBEE0D2ABE3C9AEDFCBB2E1B5AADAA393
@@ -372,18 +372,18 @@
       A6581EB04E03A94703A62B019F0F089A0808A50603A00300
       950100940903320B0A301D0C2E181B3027215246209B671E
       AC772EB88236D29C45E3A15BDCA96EE09B6BD28368B86A5E
-   </palette>
-</flame>
-<flame name="rectanglesplits::64" version="Apophysis 7x 2010 (R12)" size="1024 1024" center="0 0" scale="286.72" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="5.26086956521739" gamma="4" gamma_threshold="0.05" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="28" color="0" symmetry="0.92" splits="1" coefs="0.958611 0.336814 -0.336814 0.958611 0.268842 -0.152424" splits_x="0.11" splits_y="0.11" chaos="0 1 0 0 0 0 0 0 " plotmode="off" opacity="0" />
-   <xform weight="1" color="0" symmetry="1" rectangles="1" splits="0.012" coefs="0.916389 0 0 0.916389 0 0" rectangles_x="1" rectangles_y="1" splits_x="4" splits_y="4" chaos="1 0 " opacity="1" />
-   <xform weight="0.5" color="0.059" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 12 -1.01 0" chaos="1 0 " opacity="1" />
-   <xform weight="0.5" color="0.059" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 12 1.01 0" chaos="1 0 " opacity="1" />
-   <xform weight="0.5" color="0.059" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 -1.01" chaos="1 0 " opacity="1" />
-   <xform weight="0.5" color="0.059" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 1.01" chaos="1 0 " opacity="1" />
-   <xform weight="0.5" color="0.059" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 0" chaos="1 0 " opacity="1" />
-   <xform weight="0.5" color="0.059" cylinder="0.04" pre_blur="0.1" coefs="1 0 0 1 0 0" post="-1 0 0 -12 0 0" chaos="1 0 " opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="Rectangles splits::64" flam3h_rip="1" flam3h_hsv="1 1.333 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_blur cylinder rectangles splits" new_linear="1">
+    <xform name="iterator_1" weight="28" color="0" symmetry="0.92" coefs="0.958611 0.336814 -0.336814 0.958611 0.268842 -0.152424" chaos="0 1 0 0 0 0 0 0" opacity="0" splits="1" splits_x="0.11" splits_y="0.11"/>
+    <xform name="iterator_2" weight="1" color="0" symmetry="1" coefs="0.916389 0 0 0.916389 0 0" chaos="1 0" opacity="1" rectangles="1" rectangles_x="1" rectangles_y="1" splits="0.012" splits_x="4" splits_y="4"/>
+    <xform name="iterator_3" weight="0.5" color="0.059" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 12 -1.01 0" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_4" weight="0.5" color="0.059" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="1 0 0 12 1.01 0" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_5" weight="0.5" color="0.059" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 -1.01" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_6" weight="0.5" color="0.059" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 1.01" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_7" weight="0.5" color="0.059" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="0 1 -12 0 0 0" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <xform name="iterator_8" weight="0.5" color="0.059" symmetry="0" pre_blur="0.1" coefs="1 0 0 1 0 0" post="-1 0 0 -12 0 0" chaos="1 0" opacity="1" cylinder="0.04"/>
+    <palette count="256" format="RGB">
       01FF0100FF0700E22627ADAC80BFB7DAD1C2DFE7CFE9FFEA
       EDF3CFDBCBBBD4B193509F7001ACC8009FDB1F70FF2740FF
       222EFC2125FA2906DC5B01947D009AA000A0AF0088A70086
@@ -416,13 +416,13 @@
       D8C2ABE9EBC3EAFFE0F6FDD3FFF1ACFFEEABFFECAAFEE7A3
       D7B697EFCEA3E186575E40D6642DE96B1AFD7515FF6317FF
       531AF2742F70C87243C96D3A8D82305EAA262FD31C22E701
-   </palette>
-</flame>
-<flame name="looniejulian::32" version="Apophysis 7x 2010 (R12)" size="1103 895" center="0 0" scale="253.69" angle="1.5706217938697" rotate="-89.9900000000002" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="5.76086956521739" gamma="4" gamma_threshold="0.0498457424459183" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="1" color="0.45" symmetry="0.9" loonie="0.6" coefs="0 0.433534 -0.433531 0 0 0" chaos="0 " opacity="1" />
-   <xform weight="1" color="0" symmetry="0.9" julian="1" coefs="2.75032 0 0 2.75032 0.25 0" julian_power="2" julian_dist="-1" chaos="1 0 " opacity="1" />
-   <xform weight="0.1" color="0" gaussian_blur="0.07" coefs="1 0 0 1 0 0" chaos="0 " opacity="1" />
-   <palette count="256" format="RGB">
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="loonie julian::32" flam3h_rip="0" flam3h_hsv="1 1.25 1.25" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="gaussian_blur julian loonie" new_linear="1">
+    <xform name="iterator_1" weight="1" color="0.45" symmetry="0.9" coefs="0 0.433534 -0.433531 0 0 0" chaos="0" opacity="1" loonie="0.6"/>
+    <xform name="iterator_2" weight="1" color="0" symmetry="0.9" coefs="2.75032 0 0 2.75032 0.25 0" chaos="1 0" opacity="1" julian="1" julian_power="2" julian_dist="-1"/>
+    <xform name="iterator_3" weight="0.1" color="0" symmetry="0" coefs="1 0 0 1 0 0" chaos="0" opacity="1" gaussian_blur="0.07"/>
+    <palette count="256" format="RGB">
       B07A49AF814AB98052BE7C55C37858C17455BF7153BE6D51
       BD6A50BB634CBD594FBF5055BC5259BA555DB7585EB55C5F
       B55E62BB6666B97172B67C77B4887DB38E7EB29480BAA387
@@ -455,46 +455,46 @@
       C37C73BA7575B56D78A5616EA05E639C5C589D594D9E5642
       A2563EA6563BB55531BA542DC05429C25627C45826C75A26
       CA5C27CF6429D46D2DD4703FCA7145C1724BBD734AB97549
-   </palette>
-</flame>
-<flame name="looniejulian02::64" version="Apophysis 7x 2010 (R12)" size="1280 1024" center="1.73211911931103 0.210221006379416" scale="320" angle="1.81357162574731" rotate="-103.91" oversample="1" filter="0.2" quality="1" background="0 0 0" brightness="5.7304347826087" gamma="4" gamma_threshold="0.0499962063732929" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" >
-   <xform weight="1.1" color="0.542" symmetry="0.9" loonie="0.6" coefs="0.48544 0.085596 -0.085595 0.485438 0.01 0" chaos="0 1 0 " opacity="1" />
-   <xform weight="1" color="0" symmetry="0.9" julian="1" coefs="3.768853 -1.757445 1.757445 3.768853 -0.06 0" julian_power="2" julian_dist="-1" chaos="1 0 " opacity="1" />
-   <xform weight="0.03" color="0.895" symmetry="0.2" gaussian_blur="0.2" coefs="0.48544 0.085596 -0.085595 0.485438 0 0" chaos="1 0 0 " opacity="1" />
-   <finalxform color="0" symmetry="1" spherical="2" coefs="1 0 0 1 1 0" />
-   <palette count="256" format="RGB">
-      48443A47463D4C4C41585448645C4F6D675A7E7B6A817E6C
-      85826F8D8370957F6D9C75689D6C679D67679D6466936567
-      9064658E6363885D5D7E5659724F5768495252444D4D444B
-      49454945424145403B473C364E3C32563E2C61402A684528
-      7148247C4D218A52229B5C25AB6827BD722CD38135D37F34
-      D37E33CB7832C27330B56E2DAD682DA566319F6533985D2F
-      92542C924B288D45258C45238F4D25985D2EA16D34AC7D3C
-      BA8B41C49548CC9C4DD3A350D8AC56D6B05ACDB35CBFB257
-      B0AE54A1A45092994D869648808E4B7B884B77824C747F4D
-      737C4C74744E77774B817B4E8D8151998357A4885AAB8A5C
-      AE855DAC7C59A575539B714C93654A8E5E4687564184513E
-      85493987433285442B86482D8B4D339358379D653FAD724B
-      BD8055CB8C5AD29963D1A172CAA87ABCAE7FB0B186A7B393
-      A4B69AA5BAA4ABC1B3AFC3BFADC5C5A8C7C3A5C6C3ABC6BA
-      B9CABAC8CFBBD1CCB7DBCAB3DBC5ADDBC0A7C59D85B58C74
-      A67C639E715996675096624E965E4C975D4C995D4C9B614D
-      9D6952A07158A4795FA98267AE856AB3896EBE8E73BE876E
-      BF8169B3775FA86D56A0665198604C8954427E4C3C71372D
-      72302873292473231E731E1974201875231877301B7D341C
-      83391E88331C8D2E1A8D2C168E2A138D29118B2C0E903B0A
-      8E3C0F8D3D158B3E1E89402887442D864832835A43855F43
-      8865448161477A5D4A765C4B735B4D6855555D535D5D5556
-      594F51564A4C5446485243454E3B3F48343F3C2D3C39303C
-      36333D3A383C3E3E3C413F3D44413F4B4543504544534743
-      5548435749435747435845435C4543624341734340794841
-      7F4D43804D44824D4685514A86514B87534C89544B92604D
-      996351A06756A36858A66A5AAC6F5DB2725CBA7A5CB87C5E
-      B77E60B78063B78266BC896CC29274C99C7AD2A985DCC09A
-      DCC49FDDC8A5DFCEACE1D4B3E3D8B6E6DBBBE4E0C3E0DDC3
-      DCDBC3DAD7C0D8D4BED4CBB4D0C1A8C8B39DBDAB95AE9B82
-      AD987CAC9677AB916CAD8A5EAD7D50A671448C5531834E2A
-      7A472477462274452072421D6F421F663F2559402D494238
-   </palette>
-</flame>
-</Flames>
+    </palette>
+  </flame>
+  <flame version="FLAM3H-WIN-1.1.0" name="loonie julian 02::64" flam3h_rip="0" flam3h_hsv="1 1.5 1" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="gaussian_blur julian loonie spherical" new_linear="1">
+    <xform name="iterator_1" weight="1.1" color="0.542" symmetry="0.9" coefs="0.48544 0.085596 -0.085595 0.485438 0.01 0" chaos="0 1 0" opacity="1" loonie="0.6"/>
+    <xform name="iterator_2" weight="1" color="0" symmetry="0.9" coefs="3.768853 -1.757445 1.757445 3.768853 -0.06 0" chaos="1 0" opacity="1" julian="1" julian_power="2" julian_dist="-1"/>
+    <xform name="iterator_3" weight="0.03" color="0.895" symmetry="0.2" coefs="0.48544 0.085596 -0.085595 0.485438 0 0" chaos="1 0 0" opacity="1" gaussian_blur="0.2"/>
+    <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 1 0" spherical="2"/>
+    <palette count="256" format="RGB">
+      A33A24AF3204B73000AA3500A3270B8B2B1F503B2849392A
+      4331233C362A2F281E2C281F342D253E6A756286928EB3D0
+      A8BDDAB2CDE2BFCEE1D0E7F7D4ECF8E3F7FFFCFEFDFDFEFF
+      FEFEFEFDFEF6FEFCE3FFF9BFFFF8B4FFF19EFFE38FFFD988
+      FED885FED883FED883FDDD88FFE89AFFEFA4FDF3AEFFF7B9
+      FFFCD9FFFBE0FFFCCFFFF6B5FEE89CFFDD8CFFD686FFD684
+      FDCE7EDCC0909D8966AC3E2D8431238D3618A52D12B74006
+      BC6E3DFFB457FDC067FDD07BFFD27DFED480FFD782FFDD89
+      FFE08DFFE194FFE8A2D6CBB9D5D1E0C2D9E7BAD4EBACC8DE
+      92B9D850B0DA00A1BA009FB3447D905D7784AE997EB8A795
+      FDD381FFDC8AFFE598FFEFA9FFEEA8FEE28FFFD581FEC76D
+      FFB253F97400E54500E63E00F05C04FDB054FDCF79FEE195
+      F7E9BAD1E7F2D8F0FADAF0FBDAF3FAE0F3FAFAFBFDFDFEF8
+      FEFFFAFEFEFCF4F8FBE4E5F7C2DCE990CADE53BADB47AED9
+      029ECF00A6C5009ACA0083C4048CC6348EB352A3CE5984AE
+      467B89477777467C7C6387958DAACC9BBAD79EBCD6A8C4DC
+      B6C7E3B8CCE4C0C7E1BFCCDDBED5E5C0DCF1B2E3F4ABECF2
+      A5D9EFACD1EBA1CBE397C5DF88AFCE798EBB62848D527D83
+      609DB2A0BBD6C6B0A2B6A2A38595A243787E3E848C69BBD0
+      94B7D5A1BFD9ADC9E1B9D5EDC6DDEDCBE1EED1E4F3CFDEF3
+      CDD9E9BBDAEEB0CCE4B1CAE0ADC1E2A8BFDE96CFE28ABFF3
+      A1D2FDCAE4F3E8EEFFFCFDFFFDFCF7FEFEF2FFFEEFFFFEEA
+      FFF7B9FFF1A8FEE392FFDB83FFD67EFFD47DFFD478FED377
+      FECF77FEC86EFEC76DFFC567FFBD66FFC46AFFC96FFECE79
+      FFD17CFDD178FDD276F8D174B4A57E9A85687E6E5F7A6554
+      9B8766C0B391FFC981FFCF7DFFD17CFFD07EFFD281FFD080
+      FFD07EFECF7DFECF7DFFD27DFFD37CFFCE77FFC46BFFBC67
+      B29A7498868666747D607C80748A978AA6AA9AB5D3A3BDD6
+      B0C6DEC6BDC0FEE89FFFCF7DFFB758DD642FE64404CF4409
+      C02B03AB4C2E5D463E4A74733F6E744E433F5941274C4944
+      6B726A8A7A6DA98D77CA9180FFB75BFDC765FFC865FEC96D
+      FFD277FFD17BFFD27FFED681FFD989FEE098C7D3E3B5D0E5
+    </palette>
+  </flame>
+</flames>
