@@ -4087,7 +4087,7 @@ in_v_pre_blur(mode: int,
 
 in_util_check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
 
-in_flam3h_set_iterator( mode: int, 
+in_flam3h_set_iterators(mode: int, 
                         node: hou.Node, 
                         apo_data: in_flame_iter_data, 
                         preset_id: int, 
@@ -4859,7 +4859,7 @@ reset_IN(self, mode=0) -> None:
         else: return w
 
     @staticmethod
-    def in_flam3h_set_iterator( mode: int, 
+    def in_flam3h_set_iterators(mode: int, 
                                 node: hou.Node, 
                                 apo_data: in_flame_iter_data, 
                                 preset_id: int, 
@@ -5504,13 +5504,13 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                 exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
-            in_flame_utils.in_flam3h_set_iterator(0, node, apo_data, preset_id, exclude_keys)
+            in_flame_utils.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
             
             # if FF
             if apo_data.finalxform is not None:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 1}) # type: ignore
-                in_flame_utils.in_flam3h_set_iterator(1, node, apo_data, preset_id, exclude_keys)
+                in_flame_utils.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
             else:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 0}) # type: ignore
