@@ -5940,7 +5940,8 @@ out_XML(self) -> None:
                                     MP_IDX: str, 
                                     FUNC: Callable) -> list[str]:
         """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET.Element) to be written out into the XML file.
-
+        It will also return a list of used variations in the provided iterator/xform.
+        
         Args:
             node (hou.Node): FLAM3H houdini node
             varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
