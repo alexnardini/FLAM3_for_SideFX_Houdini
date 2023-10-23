@@ -5978,7 +5978,7 @@ out_XML(self) -> None:
     
     @staticmethod
     def _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
-        """Reformat the XML data in a more readable way
+        """Reformat the XML data in a pretty way.
 
         Args:
             current (_type_): The Flame XML root with want to reformat.
@@ -5999,7 +5999,7 @@ out_XML(self) -> None:
         
     @staticmethod  
     def out_util_check_duplicate_var_section(vars: list) -> bool:
-        """Check if an iterator section (PRE, VAR or POST, same for FF) is using a variation multiple times.
+        """Check if any of the iterator sections (PRE, VAR or POST, same for FF) is using a variation multiple times.
 
         Args:
             vars (list): a section list of used variations
