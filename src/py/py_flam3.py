@@ -2091,11 +2091,11 @@ vactive_keep_last(self) -> None:
 
     def vactive_keep_last(self) -> None:
         """While is possible to delete all iterators,
-        we must always have at least one active iterator if at least one iterator is present.
+        we must always have at least one active iterator, if at least one iterator is present.
         This will prevent the last active iterator to being disabled.
-        """        
+        """    
+        node = self.node    
         va = []
-        node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
 
@@ -2103,6 +2103,23 @@ vactive_keep_last(self) -> None:
         if not va:
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
+
+
+    def weight_keep_last(self) -> None:
+        """While is possible to delete all iterators,
+        we must always have at least one iterator's weight above Zero, if at least one iterator is present.
+        This will prevent the last active iterator to being disabled.
+        """  
+        node = self.node      
+        W = []
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        [W.append(int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() == 0]
+
+        id = self.kwargs['script_multiparm_index']
+        if len(W) == iter_num:
+            node.setParms({f"{flam3h_iterator_prm_names.main_weight}_{str(id)}": 0.000001})
+            print(f"{str(node)}: iterator {str(id)} Weight reverted back to being not Zero.\nThere must always be at least one iterator weight above Zero.\n") # type: ignore
+
 
 
 
@@ -3951,7 +3968,7 @@ in_set_affine(mode: int,
               node: hou.Node, 
               prx: str, 
               apo_data: in_flame_iter_data, 
-              n: flam3h_iterator_prm_names, 
+              flam3h_prm_names: flam3h_iterator_prm_names, 
               mp_idx: int
               ) -> None:
 
@@ -4329,12 +4346,12 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod
     def in_set_affine(mode: int, 
-                    node: hou.Node, 
-                    prx: str, 
-                    apo_data: in_flame_iter_data, 
-                    n: flam3h_iterator_prm_names, 
-                    mp_idx: int
-                    ) -> None:
+                      node: hou.Node, 
+                      prx: str, 
+                      apo_data: in_flame_iter_data, 
+                      flam3h_prm_names: flam3h_iterator_prm_names, 
+                      mp_idx: int
+                      ) -> None:
         """Set the affine values based on the loaded flame preset affine values for an iterator or the FF.
         
         Args:
@@ -4346,24 +4363,24 @@ reset_IN(self, mode=0) -> None:
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
         if mode:
-            node.setParms({f"{prx}{n.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
-            node.setParms({f"{prx}{n.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
-            node.setParms({f"{prx}{n.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]}) # type: ignore
             if apo_data.finalxform_post is not None:
-                node.setParms({f"{prx}{n.postaffine_do}": 1}) # type: ignore
-                node.setParms({f"{prx}{n.postaffine_x}": apo_data.finalxform_post[mp_idx][0]}) # type: ignore
-                node.setParms({f"{prx}{n.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
-                node.setParms({f"{prx}{n.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}": 1}) # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.postaffine_x}": apo_data.finalxform_post[mp_idx][0]}) # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
         else:
-            node.setParms({f"{prx}{n.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]}) # type: ignore
-            node.setParms({f"{prx}{n.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]}) # type: ignore
-            node.setParms({f"{prx}{n.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]}) # type: ignore
             if apo_data.post is not None:
                 if apo_data.post[mp_idx]:
-                    node.setParms({f"{prx}{n.postaffine_do}_{str(mp_idx+1)}": 1}) # type: ignore
-                    node.setParms({f"{prx}{n.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]}) # type: ignore
-                    node.setParms({f"{prx}{n.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
-                    node.setParms({f"{prx}{n.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{str(mp_idx+1)}": 1}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
 
 
     @staticmethod
@@ -4667,12 +4684,12 @@ reset_IN(self, mode=0) -> None:
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
         VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                        0, 
-                                                        apo_prm, 
-                                                        xform, 
-                                                        0, 
-                                                        v_type, 
-                                                        in_flame_utils.in_util_make_PRE)
+                                                         0, 
+                                                         apo_prm, 
+                                                         xform, 
+                                                         0, 
+                                                         v_type, 
+                                                         in_flame_utils.in_util_make_PRE)
             
         for idx, prm in enumerate(var_prm[1:-1]):
             node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
@@ -4709,12 +4726,12 @@ reset_IN(self, mode=0) -> None:
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
         VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                        0, 
-                                                        apo_prm, 
-                                                        xform, 
-                                                        0, 
-                                                        v_type, 
-                                                        in_flame_utils.in_util_make_POST)
+                                                         0, 
+                                                         apo_prm, 
+                                                         xform, 
+                                                         0, 
+                                                         v_type, 
+                                                         in_flame_utils.in_util_make_POST)
             
         for idx, prm in enumerate(var_prm[1:-1]):
             node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
@@ -4754,12 +4771,12 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic_PRE(mode: int, 
-                        node: hou.Node, 
-                        mp_idx: int, 
-                        t_idx: int, 
-                        v_type: int, 
-                        v_weight: float
-                        ) -> None:
+                         node: hou.Node, 
+                         mp_idx: int, 
+                         t_idx: int, 
+                         v_type: int, 
+                         v_weight: float
+                         ) -> None:
         """Set a FLAM3H PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
@@ -4818,10 +4835,10 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic_POST_FF(node: hou.Node, 
-                            t_idx: int, 
-                            v_type: int, 
-                            v_weight: float
-                            ) -> None:
+                             t_idx: int, 
+                             v_type: int, 
+                             v_weight: float
+                             ) -> None:
         """Set a FLAM3H FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
@@ -5350,16 +5367,16 @@ reset_IN(self, mode=0) -> None:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
         
         build = (size, nl,
-                center, nl,
-                rotate, nl,
-                scale, nl,
-                quality, nl,
-                brightness, nl,
-                gamma, nl,
-                highlight, nl,
-                K2, nl,
-                vibrancy
-                )
+                 center, nl,
+                 rotate, nl,
+                 scale, nl,
+                 quality, nl,
+                 brightness, nl,
+                 gamma, nl,
+                 highlight, nl,
+                 K2, nl,
+                 vibrancy
+                 )
         
         build_render_stats_msg = "".join(build)
         return build_render_stats_msg
