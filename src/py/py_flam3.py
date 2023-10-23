@@ -2092,7 +2092,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     def iterator_keep_last_vactive(self) -> None:
-        """While is possible to delete all iterators,
+        """While it is possible to delete all iterators,
         we must always have at least one active iterator, if at least one iterator is present and its weight above Zero.
         This will prevent the last active iterator to being disabled.
         """    
@@ -2112,9 +2112,9 @@ iterator_keep_last_weight(self) -> None:
 
 
     def iterator_keep_last_weight(self) -> None:
-        """While is possible to delete all iterators,
+        """While it is possible to delete all iterators,
         we must always have at least one iterator's weight above Zero, if at least one iterator is present or active.
-        This will prevent to set the last iterator's Weight to Zero.
+        This will prevent to set the last active iterator's Weight to be Zero.
         """  
         node = self.node
         W = []
