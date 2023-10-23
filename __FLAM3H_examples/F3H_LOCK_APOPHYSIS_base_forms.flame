@@ -425,7 +425,7 @@
       CD5B32CD5A30A8452C7E382A732E1F481920291D37261A31
     </palette>
   </flame>
-  <flame version="FLAM3H-WIN-1.1.0" name="Classic flower::64" flam3h_rip="1" flam3h_hsv="1 1.15 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="cross gaussian_blur julian linear spherical" new_linear="1">
+  <flame version="FLAM3H-WIN-1.1.0" name="Classic flower::96" flam3h_rip="1" flam3h_hsv="1 1.15 1.5" flam3h_f3c="1" size="1920 1080" center="0 0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="cross gaussian_blur julian linear spherical" new_linear="1">
     <xform name="iterator_1" weight="1.223" color="0.215" symmetry="0" coefs="1 0 0 1 0 0" opacity="0" gaussian_blur="0.5"/>
     <xform name="iterator_2" weight="15" color="0.456" symmetry="0.933" coefs="0.304589 -1.212322 1.212322 0.304589 -0.409632 -0.02109" opacity="1" linear="0.947" spherical="0.053" cross="0.005"/>
     <finalxform color="0" var_color="1" color_speed="0" symmetry="1" name="iterator_FF" coefs="1 0 0 1 0 0" julian="1" julian_power="-2" julian_dist="1"/>
