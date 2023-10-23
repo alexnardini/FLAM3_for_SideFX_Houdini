@@ -2108,7 +2108,6 @@ iterator_keep_last_weight(self) -> None:
         if not va:
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
-        
 
 
     def iterator_keep_last_weight(self) -> None:
