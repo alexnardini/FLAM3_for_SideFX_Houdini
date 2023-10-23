@@ -2099,7 +2099,10 @@ iterator_keep_last_weight(self) -> None:
         node = self.node    
         va = []
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() and node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() > 0]
+        [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) 
+            for mp_idx in range(iter_num) 
+                if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() 
+                and node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() > 0]
 
         id = self.kwargs['script_multiparm_index']
         if not va:
@@ -2116,9 +2119,15 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         W = []
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        [W.append(int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() == 0 and int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())]
+        [W.append(int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval())) 
+            for mp_idx in range(iter_num) 
+                if node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() == 0 
+                and int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())]
+        
         vactive_iters = []
-        [vactive_iters.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
+        [vactive_iters.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) 
+            for mp_idx in range(iter_num) 
+                if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
         
         min_weight = 0.000001
         id = self.kwargs['script_multiparm_index']
