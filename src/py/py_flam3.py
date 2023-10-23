@@ -2113,13 +2113,15 @@ weight_keep_last(self) -> None:
         we must always have at least one iterator's weight above Zero, if at least one iterator is present.
         This will prevent the last active iterator to being disabled.
         """  
-        node = self.node      
+        node = self.node
         W = []
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        [W.append(int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() == 0]
-
+        [W.append(int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() == 0 and int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())]
+        vactive_iters = []
+        [vactive_iters.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
+        
         id = self.kwargs['script_multiparm_index']
-        if len(W) == iter_num:
+        if len(W) == len(vactive_iters):
             node.setParms({f"{flam3h_iterator_prm_names.main_weight}_{str(id)}": 0.000001})
             print(f"{str(node)}: iterator {str(id)} Weight reverted back to being not Zero.\nThere must always be at least one iterator weight above Zero.\n") # type: ignore
 
