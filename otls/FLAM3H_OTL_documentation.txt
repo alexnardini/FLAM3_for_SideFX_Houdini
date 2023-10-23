@@ -814,8 +814,7 @@ Reload preset ( presets ):
     
 save palette HSV:
     #id: PALETTE
-    OFF by default. When saving out a palette, use the non-color-corrected ramp and save the HSV values along with it if used ( different from default values ).
-    Check this option to save the the color-corrected HSV ramp instead.
+    OFF by default. When saving out a palette, use the non-color-corrected ramp and save the HSV values along with it if used ( different from default values ).Check this option to save the the color-corrected HSV ramp instead. This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
     
     
 
