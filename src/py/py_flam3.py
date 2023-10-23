@@ -1056,9 +1056,9 @@ auto_set_xaos(self) -> None:
 
 iterators_count(self) -> None:
 
-vactive_keep_last(self) -> None:
+iterator_keep_last_vactive(self) -> None:
 
-weight_keep_last(self) -> None:
+iterator_keep_last_weight(self) -> None:
     """    
     
     def __init__(self, kwargs: dict) -> None:
@@ -2091,7 +2091,7 @@ weight_keep_last(self) -> None:
             self.auto_set_xaos()
 
 
-    def vactive_keep_last(self) -> None:
+    def iterator_keep_last_vactive(self) -> None:
         """While is possible to delete all iterators,
         we must always have at least one active iterator, if at least one iterator is present.
         This will prevent the last active iterator to being disabled.
@@ -2108,7 +2108,7 @@ weight_keep_last(self) -> None:
         
 
 
-    def weight_keep_last(self) -> None:
+    def iterator_keep_last_weight(self) -> None:
         """While is possible to delete all iterators,
         we must always have at least one iterator's weight above Zero, if at least one iterator is present.
         This will prevent the set the last iterator's Weight to Zero.

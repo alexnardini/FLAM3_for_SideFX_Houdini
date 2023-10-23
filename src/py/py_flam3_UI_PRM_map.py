@@ -112,17 +112,6 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 
-'parameter name:    prmpastesel_#'
-'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
-'script type:       Menu Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
-
-return menu
-'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
-
-
 'parameter name:    activetip_#'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
@@ -130,7 +119,22 @@ hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos
 
 'parameter name:    vactive_#'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).vactive_keep_last()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive()
+
+
+'parameter name:    iw_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_weight()
+
+
+'parameter name:    prmpastesel_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
+return menu
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 
 
 'parameter name:    xaos_#'
