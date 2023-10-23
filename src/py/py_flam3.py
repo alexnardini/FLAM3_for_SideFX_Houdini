@@ -58,14 +58,14 @@ DPT = '*'
 PRM = '...'
 PRX_FF_PRM = 'ff'
 PRX_FF_PRM_POST = 'fp1'
-SEC_MAIN = '.main'
-SEC_XAOS = '.xaos'
-SEC_SHADER = '.shader'
-SEC_PREVARS = '.pre_vars'
-SEC_VARS = '.vars'
-SEC_POSTVARS = '.post_vars'
-SEC_PREAFFINE = '.pre_affine'
-SEC_POSTAFFINE = '.post_affine'
+SEC_MAIN = 'main'
+SEC_XAOS = 'xaos'
+SEC_SHADER = 'shader'
+SEC_PREVARS = 'pre_vars'
+SEC_VARS = 'vars'
+SEC_POSTVARS = 'post_vars'
+SEC_PREAFFINE = 'pre_affine'
+SEC_POSTAFFINE = 'post_affine'
 
 # Saving flames out will always use the standard PALETTE_COUNT_256
 # but saving palette out will downsample if possible to save some data.
@@ -1199,15 +1199,15 @@ iterator_keep_last_weight(self) -> None:
             # If on the same FLAM3 node
             if node == flam3node:
                 if len(_current_note) == 0:
-                    node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
+                    node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}.{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}.{str_section}"}) # type: ignore
             else:
                 if len(_current_note) == 0:
-                    node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
+                    node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}.{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
-                print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section} to: {str(node)}.iter.{id}{str_section}")
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}.{str_section}"}) # type: ignore
+                print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}.{str_section} to: {str(node)}.iter.{id}.{str_section}")
         elif int_mode == 1:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
@@ -1218,10 +1218,10 @@ iterator_keep_last_weight(self) -> None:
         elif int_mode == 2:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF.{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
-                print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF{str_section} to: {str(node)}.FF{str_section}")
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF.{str_section}"}) # type: ignore
+                print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF.{str_section} to: {str(node)}.FF.{str_section}")
 
 
     @staticmethod
