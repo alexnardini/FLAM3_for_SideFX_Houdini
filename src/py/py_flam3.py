@@ -1648,7 +1648,7 @@ vactive_keep_last(self) -> None:
                 self.paste_set_note(node, flam3node, 0, SEC_POSTAFFINE, str(id), str(id_from))
         
             # Set it to a null value ( first in the menu array idx in this case )
-            # so that we can paste the same section again, if we want to.
+            # so that it's possible to paste the same section again, if needed.
             #
             # please check the def->menu_copypaste() to know its size.
             node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
@@ -3084,24 +3084,26 @@ VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh
 
 class flam3h_varsPRM_APO:
     
-    # The following parameters matches the Apophysis/Fractorium parameter's names,
-    # so no need to regex for now as the strings names are matching already.
-    #
-    # There are a few exceptions so far witch I handled simply for now, but it work.
-    #
-    # They are grouped as follow and based on the FLAM3 Houdini node parametric parameters:
-    #
-    # for generic variation:
-    # ("variation name", bool: (parametric or not parametric)),
-    #
-    # for parametric variation:
-    # ("variation name", (prm_1, ..., prm_4), (prm_1, ..., prm_4), bool: (parametric or not parametric)),
-    #
-    # -> (prm_1, ..., prm_4) accept a max of 4 entries (hou.Vector4) and based on the number of parameters
-    # they are then automatically converted to the expeted v_type using the function: 
-    # in_util_typemaker(list[]) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
-    #
-    # The (("variation_name") entrie, is not used here and only for reference.
+    '''
+    The following parameters matches the Apophysis/Fractorium parameter's names,
+    so no need to regex for now as the strings names are matching already.
+    
+    There are a few exceptions so far witch I handled simply for now, but it work.
+    
+    They are grouped as follow and based on the FLAM3 Houdini node parametric parameters:
+    
+    for generic variation:
+    ("variation name", bool: (parametric or not parametric)),
+    
+    for parametric variation:
+    ("variation name", (prm_1, ..., prm_4), (prm_1, ..., prm_4), bool: (parametric or not parametric)),
+    
+    -> (prm_1, ..., prm_4) accept a max of 4 entries (hou.Vector4) and based on the number of parameters
+    they are then automatically converted to the expeted v_type using the function: 
+    in_flame_utils.in_util_typemaker(list[]) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]:
+    
+    The (("variation_name") entrie, is not used here and only for reference.
+    '''
     
     varsPRM = ( ("linear", 0), 
                 ("sinusoidal", 0), 
@@ -4102,9 +4104,9 @@ METHODS:
 
 menu_in_presets(self) -> list:
 
-set_iter_on_load_callback(self):
+set_iter_on_load_callback(self) -> None:
 
-use_iter_on_load_callback(self):
+use_iter_on_load_callback(self) -> None:
 
 in_to_flam3h_sys(self) -> None:
 
