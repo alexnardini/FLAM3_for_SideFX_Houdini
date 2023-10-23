@@ -1057,6 +1057,8 @@ auto_set_xaos(self) -> None:
 iterators_count(self) -> None:
 
 vactive_keep_last(self) -> None:
+
+weight_keep_last(self) -> None:
     """    
     
     def __init__(self, kwargs: dict) -> None:
@@ -2097,12 +2099,13 @@ vactive_keep_last(self) -> None:
         node = self.node    
         va = []
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
+        [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num) if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() and node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() > 0]
 
         id = self.kwargs['script_multiparm_index']
         if not va:
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
+        
 
 
     def weight_keep_last(self) -> None:
