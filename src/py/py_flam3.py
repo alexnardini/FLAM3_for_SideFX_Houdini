@@ -728,6 +728,8 @@ METHODS:
 
 flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
 
+flam3h_display_help(self) -> None:
+
 colorSchemeDark(self) -> None:
 
 viewportParticleDisplay(self) -> None:
@@ -895,6 +897,10 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if json_path:
                     print(f'{str(node)}.palette: please select a valid file location.')
+
+
+    def flam3h_display_help(self) -> None:
+        hou.ui.displayNodeHelp(self.node.type()) # type: ignore
 
 
     def colorSchemeDark(self) -> None:
