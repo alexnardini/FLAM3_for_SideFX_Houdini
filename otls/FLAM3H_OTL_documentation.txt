@@ -295,6 +295,13 @@ OUT Save:
     
     _If the selected file is not a valid Flame file type, nothing will happen._
 
+FLAM3H documentation:
+    #id: SYS
+    [Smallicon:opdef:.?iconOrangeHelpSVG.svg]
+    
+    Display this FLAM3H OTL documentation.
+    
+    
     
 
 
