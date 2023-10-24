@@ -541,7 +541,13 @@ class flam3h_iterator_FF:
 
 class flam3h_scripts:
     """
-Methods:
+STATIC METHODS:
+
+...
+
+METHODS:
+
+flam3h_check_first_node_instance_msg(self, node: hou.Node) -> None:
 
 flam3h_on_create(self) -> None:
 
@@ -552,8 +558,8 @@ flam3h_on_loaded(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        
-        
+
+
     @property
     def kwargs(self):
         return self._kwargs
@@ -561,16 +567,51 @@ flam3h_on_loaded(self) -> None:
     @property
     def node(self):
         return self._node
-    
+
+
+
+    def flam3h_check_first_node_instance_msg(self, node: hou.Node) -> None:
+        """This is temporary until I dnt have time to find a better solution
+        to advice the user of the first time compile time without having any leftover
+        messages in the Houdini status bar.
+
+        Args:
+            node (hou.Node): FLAM3H node
+        """        
+        
+        try:
+            hou.session.flam3_first_instance # type: ignore
+        except:
+            hou.session.flam3_first_instance = 1 # type: ignore
+
+            if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                _MSG_sb = f"First FLAM3H node instance ever created -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
+                _MSG = f"FLAM3H CVEX node compile: DONE"
+                ui_text = "FLAM3H CVEX Compile"
+                if hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                    hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+            else:
+                _MSG_sb = f"First FLAM3H node instance ever created -> Once you Cook it for the first time it will compile the FLAM3H CVEX code. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
+                _MSG = f"First FLAM3H node instance ever created.\n\nCook me once to compile the FLAM3H CVEX node.\n\nDepending on your PC configuration it can take anywhere between 30s and 1 minute.\nIt is a one time compile process."
+                ui_text = "FLAM3H CVEX Compile"
+                if hou.ui.displayMessage(_MSG, buttons=("Compile FLAM3H CVEX node",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                    node.setDisplayFlag(True)  # type: ignore
+                    _MSG_sb = f""
+                    hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Message) # type: ignore
+                
 
     def flam3h_on_create(self) -> None:
         """
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """
-        
-        # Set initial node color
         node = self.node
+        
+        self.flam3h_check_first_node_instance_msg(node)
+                
+        # Set initial node color
         node.setColor(hou.Color((0.825,0.825,0.825)))
         
         # Set about tab infos
