@@ -46,7 +46,7 @@ import inspect
 
 
 
-FLAM3H_VERSION = '1.1.0'
+FLAM3H_VERSION = '1.1.01'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1565,7 +1565,7 @@ iterator_keep_last_weight(self) -> None:
             # If we ever copied an FF from a currently existing FLAM3 node
             if flam3node_FF_check is not None:
                 if node==flam3node_FF:
-                    print(f"{str(node)}: FF marked. Select a different FLAM3 node to paste those FF values.")
+                    print(f"{str(node)}: FF marked. Select a different FLAM3H node to paste those FF values.")
                 else:
                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
