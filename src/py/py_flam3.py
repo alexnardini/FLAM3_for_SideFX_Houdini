@@ -2116,8 +2116,10 @@ iterator_keep_last_weight(self) -> None:
         else:
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
-            _MSG = f""
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            _MSG = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file."
+            sm = hou.ui.statusMessage() # type: ignore
+            if  _MSG in sm[0]:
+                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
 
 
     def iterator_keep_last_vactive(self) -> None:
@@ -2531,7 +2533,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
                 
                 # Print to status Bar
-                _MSG = f"{str(node)}: PALETTE preset: \"{preset}\" load: Completed"
+                _MSG = f"{str(node)}: LOAD PALETTE preset: \"{preset}\": Completed"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
@@ -5694,7 +5696,7 @@ reset_IN(self, mode=0) -> None:
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-            _MSG = f"{str(node)}: FLAME preset: \"{preset_name}\" load: Completed"
+            _MSG = f"{str(node)}: LOAD FLAME preset: \"{preset_name}\": Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
