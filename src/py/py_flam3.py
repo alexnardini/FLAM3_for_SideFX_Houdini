@@ -582,7 +582,7 @@ flam3h_on_loaded(self) -> None:
         try:
             hou.session.flam3_first_instance # type: ignore
         except:
-            hou.session.flam3_first_instance = 1 # type: ignore
+            hou.session.flam3_first_instance = False # type: ignore
 
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                 _MSG_sb = f"First FLAM3H node instance ever created -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
@@ -592,11 +592,11 @@ flam3h_on_loaded(self) -> None:
                 if hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                     hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
             else:
-                _MSG_sb = f"First FLAM3H node instance ever created -> Once you Cook it for the first time it will compile the FLAM3H CVEX code. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_sb = f"First FLAM3H node instance ever created -> Once you Cook it for the first time it will compile the FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
                 hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
                 _MSG = f"First FLAM3H node instance ever created.\n\nCook me once to compile the FLAM3H CVEX node.\n\nDepending on your PC configuration it can take anywhere between 30s and 1 minute.\nIt is a one time compile process."
                 ui_text = "FLAM3H CVEX Compile"
-                if hou.ui.displayMessage(_MSG, buttons=("Compile FLAM3H CVEX node",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                if hou.ui.displayMessage(_MSG, buttons=("Compile FLAM3H CVEX node", ), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                     node.setDisplayFlag(True)  # type: ignore
                     _MSG_sb = f""
                     hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Message) # type: ignore
