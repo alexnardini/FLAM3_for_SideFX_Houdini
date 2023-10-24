@@ -35,9 +35,11 @@ _*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://g
 _*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
 
 
-_*[FLAM3 for Houdini - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
+_*[FLAM3H - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
 
-_*[FLAM3 for Houdini - instagram|https://www.instagram.com/alexnardini/]*_
+_*[FLAM3H - website|https://www.alexnardini.net/]*_
+
+_*[FLAM3H - instagram|https://www.instagram.com/alexnardini/]*_
 
 
 
