@@ -1416,7 +1416,7 @@ iterator_keep_last_weight(self) -> None:
             flam3node = hou.session.flam3node # type: ignore
             
             if node == flam3node and id==id_from:
-                menuitems = ( "Iterator marked. Select a different iterator number or a different FLAM3 node to paste those values", "" )
+                menuitems = ( "Iterator marked. To paste its values, select a different iterator number or a different FLAM3H node.", "" )
             elif node == flam3node:
                 menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
             else:
@@ -1467,7 +1467,7 @@ iterator_keep_last_weight(self) -> None:
             flam3node_FF = hou.session.flam3node_FF # type: ignore
             
             if node == flam3node_FF:
-                menuitems = ( "FF marked. Select a different FLAM3 node to paste those FF values.", "" )
+                menuitems = ( "FF marked. Select a different FLAM3H node to paste those FF values.", "" )
             else:
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
                 menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: Post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
@@ -1513,7 +1513,7 @@ iterator_keep_last_weight(self) -> None:
             # If we ever copied an iterator from a currently existing FLAM3 node
             if id_from is not None:
                 if node==flam3node and id==id_from:
-                    print(f"{str(node)}: Iterator marked. Select a different iterator number to paste those values.")
+                    print(f"{str(node)}: Iterator marked. Select a different iterator number to paste its values.")
                 else:
                     self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
                     self.paste_from_list(node, flam3node, flam3h_iterator.allMisc, str(id), str(id_from))
@@ -6827,14 +6827,6 @@ out_XML(self) -> None:
             print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
             return ''
 
-
-    def __out_xf_data(self, prm_name: str) -> tuple:
-        val = []
-        for iter in range(self._iter_count):
-            val.append(str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
-        return tuple(val)
-
-
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         
         flame_name = self._node.parm(prm_name).eval()
@@ -6846,19 +6838,26 @@ out_XML(self) -> None:
             # otherwise get that name and use it
             iter_num = self._node.parm(GLB_ITERATIONS).evalAsInt()
             return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        
+        
+    def __out_xf_data(self, prm_name: str) -> tuple:
+        val = []
+        for iter in range(self._iter_count):
+            val.append(str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
+        return tuple(val)
 
 
-    def __out_xf_name(self) -> list[str]:
+    def __out_xf_name(self) -> tuple:
         val = []
         for iter in range(self._iter_count):
             val.append(self._node.parm(f"{self._flam3h_iter_prm_names.main_note}_{iter+1}").eval())
-        return val
+        return tuple(val)
     
-    def __out_finalxf_name(self) -> list[str]:
+    def __out_finalxf_name(self) -> str:
         return self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.main_note}").eval()
 
     
-    def __out_xf_pre_blur(self) -> list[str]:
+    def __out_xf_pre_blur(self) -> tuple:
         val = []
         for iter in range(self._iter_count):
             value = self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval()
@@ -6866,7 +6865,7 @@ out_XML(self) -> None:
                 val.append(str(self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval()))
             else:
                 val.append('')
-        return val
+        return tuple(val)
 
 
     def __out_xf_xaos(self) -> tuple:
@@ -6876,7 +6875,7 @@ out_XML(self) -> None:
             return self.out_xf_xaos_to()
 
 
-    def __out_xf_preaffine(self) -> list[str]:
+    def __out_xf_preaffine(self) -> tuple:
         val = []
         for iter in range(self._iter_count):
             collect = []
@@ -6885,10 +6884,10 @@ out_XML(self) -> None:
             angleDeg = self._node.parm(f"{self._flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
             flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             val.append([str(x) for x in flatten])
-        return [" ".join(x) for x in self.out_util_round_floats(val)]
+        return tuple([" ".join(x) for x in self.out_util_round_floats(val)])
     
     
-    def __out_xf_postaffine(self) -> list[str]:
+    def __out_xf_postaffine(self) -> tuple:
         val = []
         for iter in range(self._iter_count):
             if self._node.parm(f"{self._flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
@@ -6900,7 +6899,7 @@ out_XML(self) -> None:
                 val.append([str(x) for x in flatten])
             else:
                 val.append([])
-        return [" ".join(x) for x in self.out_util_round_floats(val)]
+        return tuple([" ".join(x) for x in self.out_util_round_floats(val)])
 
 
     def __out_finalxf_preaffine(self) -> str:
