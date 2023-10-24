@@ -2806,8 +2806,9 @@ FLAM3 will assume all XAOS values are 1.0, the equivalent of: \"xaos:1:1:1:1\"
 If you set only iterator 1 and iterator 2,
 FLAM3 will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be interpreted as \"xaos:0:0:1:1\"
 
-When turning iterators OFF and ON, FLAM3 will internally remove and reformat XAOS values to account for missing iterator
-so you wont need to remove values from the command string,
+When turning iterators OFF and ON,
+FLAM3 will internally remove and reformat XAOS values
+to account for missing iterators so you wont need to remove values from the command string,
 unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
         
         node = self.node
@@ -2835,15 +2836,19 @@ unless you delete an iterator in wich case you will require to modify the “xao
         ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini
 can be baked into the preset name you choose for it. 
 
-For instance, the Flame preset “My_Awesome_GrandJulia” will be loaded with 64 iterations by default.
+For instance,
+the Flame preset “My_Awesome_GrandJulia” will be loaded with 64 iterations by default.
 However, if the iteration number is added to the preset name after a double colon,
-as in “My_Awesome_GrandJulia::16,” it will override all settings and load the preset with 16 as the iteration numbers.
+as in “My_Awesome_GrandJulia::16,” it will override all settings
+and load the preset with 16 as the iteration numbers.
 
 Therefore,
-do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
+do some tests before saving it,
+and choose the ideal iteration number to incorporate into the preset name.
 
 If you like,
-you can manually edit the created XML/Flame file and change the flame → “name” key afterwards.
+you can manually edit the created XML/Flame file
+and change the flame → “name” key afterwards.
     
 """
 
