@@ -5566,7 +5566,7 @@ reset_IN(self, mode=0) -> None:
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
         
     def use_iter_on_load_callback(self) -> None:
-        """When the IN "force iterations on Load" is turned ON it will set the iteration number wisely.
+        """When the IN tab "force iterations on Load" option is turned ON it will set the initial iteration number wisely.
         """        
         node = self.node
         useiteronload = node.parm(IN_USE_ITER_ON_LOAD).eval()
