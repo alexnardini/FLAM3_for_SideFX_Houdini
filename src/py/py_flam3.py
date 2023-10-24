@@ -2704,11 +2704,11 @@ Seph, Lucy, b33rheart, Neonrauschen"""
         
         node = self.node
         
-        _FLAM3HWEB_MSG = 'FLAM3H web'
-        _FLAM3HGIT_MSG = 'FLAM3H github'
+        _FLAM3HWEB_MSG   = 'FLAM3H web'
+        _FLAM3HGIT_MSG   = 'FLAM3H github'
         _FLAM3HINSTA_MSG = 'FLAM3H instagram'
-        _FLAM3PDF_MSG = 'The Fractal Flame Algorithm pdf'
-        _FLAM3GIT_MSG = 'The Fractal Flame Algorithm github'
+        _FLAM3PDF_MSG    = 'The Fractal Flame Algorithm pdf'
+        _FLAM3GIT_MSG    = 'The Fractal Flame Algorithm github'
         
         node.setParms({MSG_FLAM3HWEB:   _FLAM3HWEB_MSG}) # type: ignore
         node.setParms({MSG_FLAM3HGIT:   _FLAM3HGIT_MSG}) # type: ignore
