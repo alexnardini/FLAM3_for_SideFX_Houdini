@@ -1210,26 +1210,31 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}.{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}.{str_section}"}) # type: ignore
+                _MSG = f"{str(node)}.iter.{id}.{str_section}: Copied values from: iter.{id_from}.{str_section}"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
                 if len(_current_note) == 0:
                     node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}.{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}.{str_section}"}) # type: ignore
-                print(f"{str(node)}: Copied values from: {str(flam3node)}.iter.{id_from}.{str_section} to: {str(node)}.iter.{id}.{str_section}")
+                _MSG = f"{str(node)}.{str_section}: Copied values from: {str(flam3node)}.iter.{id_from}.{str_section}"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         elif int_mode == 1:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
-                print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF to: {str(node)}.FF")
+                _MSG = f"{str(node)}: Copied FF from: {str(flam3node)}.FF"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         elif int_mode == 2:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF.{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF.{str_section}"}) # type: ignore
-                print(f"{str(node)}: Copied FF from: {str(flam3node)}.FF.{str_section} to: {str(node)}.FF.{str_section}")
+                _MSG = f"{str(node)}.FF.{str_section}: Copied from: {str(flam3node)}.FF.{str_section}"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     @staticmethod
@@ -1521,14 +1526,16 @@ iterator_keep_last_weight(self) -> None:
             # If we ever copied an iterator from a currently existing FLAM3 node
             if id_from is not None:
                 if node==flam3node and id==id_from:
-                    print(f"{str(node)}: Iterator marked. Select a different iterator number to paste its values.")
+                    _MSG = f"{str(node)}: Iterator marked. Select a different iterator number to paste its values."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
                     self.paste_from_list(node, flam3node, flam3h_iterator.allMisc, str(id), str(id_from))
                     self.paste_set_note(node, flam3node, 0, "", str(id), str(id_from))
 
             else:
-                print(f"{str(node)}: {MARK_ITER_MSG}.")
+                _MSG = f"{str(node)}: {MARK_ITER_MSG}."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
         elif self.kwargs["shift"]:
             del hou.session.flam3node_mp_id # type: ignore
@@ -1537,7 +1544,8 @@ iterator_keep_last_weight(self) -> None:
         else:
             hou.session.flam3node_mp_id = self.kwargs['script_multiparm_index'] # type: ignore
             hou.session.flam3node = self.node # type: ignore
-            print(f"{str(self.node)}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}") # type: ignore
+            _MSG = f"{str(self.node)}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}" # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def prm_paste_FF(self) -> None:
@@ -1565,7 +1573,8 @@ iterator_keep_last_weight(self) -> None:
             # If we ever copied an FF from a currently existing FLAM3 node
             if flam3node_FF_check is not None:
                 if node==flam3node_FF:
-                    print(f"{str(node)}: FF marked. Select a different FLAM3H node to paste those FF values.")
+                    _MSG = f"{str(node)}: FF marked. Select a different FLAM3H node to paste those FF values."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
@@ -1574,7 +1583,8 @@ iterator_keep_last_weight(self) -> None:
                     self.paste_set_note(node, flam3node_FF, 1, "", "", "")
 
             else:
-                print(f"{str(node)}: {MARK_FF_MSG}.")
+                _MSG = f"{str(node)}: {MARK_FF_MSG}."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
         elif self.kwargs["shift"]:
             del hou.session.flam3node_FF_check # type: ignore
@@ -1583,7 +1593,8 @@ iterator_keep_last_weight(self) -> None:
         else:
             hou.session.flam3node_FF_check = 1 # type: ignore
             hou.session.flam3node_FF = self.node # type: ignore
-            print(f"{str(self.node)}: Copied FF: {str(hou.session.flam3node_FF)}->FF") # type: ignore
+            _MSG = f"{str(self.node)}: Copied FF: {str(hou.session.flam3node_FF)}->FF" # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
     
     def prm_paste_sel(self) -> None:
@@ -1665,7 +1676,8 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
             
         else:
-            print(f"{str(node)}: {MARK_ITER_MSG}")
+            _MSG = f"{str(node)}: {MARK_ITER_MSG}"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
     def prm_paste_sel_FF(self) -> None:
@@ -1732,7 +1744,8 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
                     
         else:
-            print(f"{str(node)}: {MARK_FF_MSG}.")
+            _MSG = f"{str(node)}: {MARK_FF_MSG}."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             
 
     def flam3h_xaos_convert(self) -> None:
@@ -1937,6 +1950,9 @@ iterator_keep_last_weight(self) -> None:
         
         node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
 
+        _MSG = f"{str(node)}: Flame preset: \"Sierpiński triangle\" load: Completed"
+        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        
 
     def auto_set_xaos(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.
@@ -2094,9 +2110,14 @@ iterator_keep_last_weight(self) -> None:
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
             
+            _MSG = f"{str(node)}: Iterators count set to Zero. Add at least one iterator or load a valid IN flame file."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            
         else:
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
+            _MSG = f""
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def iterator_keep_last_vactive(self) -> None:
@@ -2115,7 +2136,8 @@ iterator_keep_last_weight(self) -> None:
         if not va:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
-            print(f"{str(node)}: iterator {str(id)} reverted back to being Active.\nThere must always be at least one active iterator.\n") # type: ignore
+            _MSG = f"{str(node)}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
     def iterator_keep_last_weight(self) -> None:
@@ -2140,7 +2162,8 @@ iterator_keep_last_weight(self) -> None:
             min_weight = 0.000001
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_weight}_{str(id)}": min_weight})
-            print(f"{str(node)}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero.\nThere must always be at least one active iterator's weight above Zero.\n") # type: ignore
+            _MSG = f"{str(node)}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
 
@@ -2218,7 +2241,9 @@ reset_CP(self, mode=0) -> None:
         elif keys_count <= 256:
             return PALETTE_COUNT_256
         else:
-            print(f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.')
+            _MSG = f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.'
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            print(_MSG)
             return PALETTE_COUNT_256
         
         
@@ -2504,6 +2529,10 @@ reset_CP(self, mode=0) -> None:
                 
                 # Store selection into mem preset menu
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
+                
+                # Print to status Bar
+                _MSG = f"{str(node)}: PALETTE preset: \"{preset}\" load: Completed"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
     def palette_cp(self) -> None:
@@ -5662,6 +5691,11 @@ reset_IN(self, mode=0) -> None:
             # F3C ( the if statement is for backward compatibility )
             if apo_data.prefs_flam3h_f3c is not None:
                 node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
+                
+            # Print to status Bar
+            preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+            _MSG = f"{str(node)}: FLAME preset: \"{preset_name}\" load: Completed"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
             node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
@@ -5669,6 +5703,11 @@ reset_IN(self, mode=0) -> None:
             if os.path.isfile(xml) and os.path.getsize(xml)>0:
                 node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
                 node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                
+                # Status Bar
+                _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
                 # The following do not work, not sure why
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
             else:
