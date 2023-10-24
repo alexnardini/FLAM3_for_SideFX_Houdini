@@ -128,8 +128,14 @@ MSG_FLAMERENDER = 'flamerender_msg'
 MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
 MSG_PALETTE = 'palettemsg'
 MSG_OUT = 'outmsg'
-MSG_FLAM3ABOUT = 'flam3about_msg'
-MSG_FLAM3PLUGINS = 'flam3plugins_msg'
+# Message About Tab parameters
+MSG_FLAM3HABOUT = 'flam3about_msg'
+MSG_FLAM3HPLUGINS = 'flam3plugins_msg'
+MSG_FLAM3HWEB = 'flam3h_heading_web'
+MSG_FLAM3HGIT = 'flam3h_heading_git'
+MSG_FLAM3HINSTA = 'flam3h_heading_insta'
+MSG_FLAM3PDF = 'flam3_heading_pdf'
+MSG_FLAM3GIT = 'flam3_heading_git'
 # Mark iterators msgs
 MARK_ITER_MSG = "Please mark an iterator first"
 MARK_FF_MSG = "Please mark the FF first"
@@ -570,6 +576,7 @@ flam3h_on_loaded(self) -> None:
         # Set about tab infos
         flam3h_about_utils(self.kwargs).flam3h_about_msg()
         flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
         node.setParms({MSG_FLAMESTATS: ""})
         node.setParms({MSG_FLAMERENDER: ""})
@@ -641,6 +648,7 @@ flam3h_on_loaded(self) -> None:
         # update about tab just in case
         flam3h_about_utils(self.kwargs).flam3h_about_msg()
         flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
         # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
         # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
         # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside the in_to_flam3h()
@@ -2597,6 +2605,8 @@ flam3h_about_msg(self):
 
 flam3h_about_plugins_msg(self):
 
+flam3h_about_web_msg(self) -> None:
+
 flam3h_about_web_homepage(self) -> None:
 
 flam3h_about_web_github(self) -> None:
@@ -2669,7 +2679,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
         
         build_about_msg = "".join(build)
 
-        node.setParms({MSG_FLAM3ABOUT: build_about_msg}) # type: ignore
+        node.setParms({MSG_FLAM3HABOUT: build_about_msg}) # type: ignore
 
 
     def flam3h_about_plugins_msg(self) -> None:
@@ -2687,10 +2697,25 @@ Seph, Lucy, b33rheart, Neonrauschen"""
                 _vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(_vars)
         
-        node.setParms({MSG_FLAM3PLUGINS: vars_txt}) # type: ignore
-
-
-
+        node.setParms({MSG_FLAM3HPLUGINS: vars_txt}) # type: ignore
+        
+        
+    def flam3h_about_web_msg(self) -> None:
+        
+        node = self.node
+        
+        _FLAM3HWEB_MSG = 'FLAM3H web'
+        _FLAM3HGIT_MSG = 'FLAM3H github'
+        _FLAM3HINSTA_MSG = 'FLAM3H instagram'
+        _FLAM3PDF_MSG = 'The Fractal Flame Algorithm pdf'
+        _FLAM3GIT_MSG = 'The Fractal Flame Algorithm github'
+        
+        node.setParms({MSG_FLAM3HWEB:   _FLAM3HWEB_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3HGIT:   _FLAM3HGIT_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3HINSTA: _FLAM3HINSTA_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3PDF:    _FLAM3PDF_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3GIT:    _FLAM3GIT_MSG}) # type: ignore
+        
 
     def flam3h_about_web_homepage(self) -> None:
         """Open a web browser to the FLAM3H homepage.
