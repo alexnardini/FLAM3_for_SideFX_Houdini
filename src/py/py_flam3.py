@@ -58,14 +58,14 @@ DPT = '*'
 PRM = '...'
 PRX_FF_PRM = 'ff'
 PRX_FF_PRM_POST = 'fp1'
-SEC_MAIN = 'main'
-SEC_XAOS = 'xaos'
-SEC_SHADER = 'shader'
-SEC_PREVARS = 'pre_vars'
-SEC_VARS = 'vars'
-SEC_POSTVARS = 'post_vars'
-SEC_PREAFFINE = 'pre_affine'
-SEC_POSTAFFINE = 'post_affine'
+SEC_MAIN = '.main'
+SEC_XAOS = '.xaos'
+SEC_SHADER = '.shader'
+SEC_PREVARS = '.pre_vars'
+SEC_VARS = '.vars'
+SEC_POSTVARS = '.post_vars'
+SEC_PREAFFINE = '.pre_affine'
+SEC_POSTAFFINE = '.post_affine'
 
 # Saving flames out will always use the standard PALETTE_COUNT_256
 # but saving palette out will downsample if possible to save some data.
@@ -1207,17 +1207,17 @@ iterator_keep_last_weight(self) -> None:
             # If on the same FLAM3 node
             if node == flam3node:
                 if len(_current_note) == 0:
-                    node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}.{str_section}"}) # type: ignore
+                    node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}.{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.iter.{id}.{str_section}: Copied values from: iter.{id_from}.{str_section}"
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
+                _MSG = f"{str(node)}.iter.{id}{str_section}: Copied values from: iter.{id_from}{str_section}"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
                 if len(_current_note) == 0:
-                    node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}.{str_section}"}) # type: ignore
+                    node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}.{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.{str_section}: Copied values from: {str(flam3node)}.iter.{id_from}.{str_section}"
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
+                _MSG = f"{str(node)}.iter.{id}{str_section}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         elif int_mode == 1:
             if node != flam3node:
@@ -1230,10 +1230,10 @@ iterator_keep_last_weight(self) -> None:
         elif int_mode == 2:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF.{str_section}"}) # type: ignore
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF.{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.FF.{str_section}: Copied from: {str(flam3node)}.FF.{str_section}"
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
+                _MSG = f"{str(node)}.FF{str_section}: Copied from: {str(flam3node)}.FF{str_section}"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
@@ -1950,7 +1950,7 @@ iterator_keep_last_weight(self) -> None:
         
         node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
 
-        _MSG = f"{str(node)}: Flame preset: \"Sierpiński triangle\" load: Completed"
+        _MSG = f"{str(node)}: LOAD FLAME preset: \"Sierpiński triangle\" -> Completed"
         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
@@ -2533,7 +2533,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
                 
                 # Print to status Bar
-                _MSG = f"{str(node)}: LOAD PALETTE preset: \"{preset}\": Completed"
+                _MSG = f"{str(node)}: LOAD PALETTE preset: \"{preset}\" -> Completed"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
@@ -2856,9 +2856,15 @@ unless you delete an iterator in wich case you will require to modify the “xao
                     node.setParms({PREFS_XAOS_AUTO_SPACE: 0})
                     flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                     
+                    _MSG = f"{str(node)}: Xaos weights auto space: OFF"
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    
                 else:
                     node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
                     flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+                    
+                    _MSG = f"{str(node)}: Xaos weights auto space: ON"
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         else:
             hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
@@ -4581,6 +4587,7 @@ reset_IN(self, mode=0) -> None:
                         var_prm_vals.append(float(0))
                         print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
+
         return VAR
 
 
@@ -5150,6 +5157,9 @@ reset_IN(self, mode=0) -> None:
             
             # Affine ( PRE and POST) for iterator and FF
             in_flame_utils.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
+            
+        _MSG = f"{str(node)}: Iterators and FF parameters SET -> Completed"
+        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     @staticmethod
@@ -5696,7 +5706,7 @@ reset_IN(self, mode=0) -> None:
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-            _MSG = f"{str(node)}: LOAD FLAME preset: \"{preset_name}\": Completed"
+            _MSG = f"{str(node)}: LOAD FLAME preset: \"{preset_name}\" -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
@@ -6526,6 +6536,9 @@ out_XML(self) -> None:
             out_flame_utils._out_pretty_print(root)
             tree = lxmlET.ElementTree(root)
             tree.write(outpath)
+            
+            _MSG = f"FLAM3H: SAVE FLAME: New -> Completed"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     @staticmethod
@@ -6548,6 +6561,9 @@ out_XML(self) -> None:
             out_flame_utils._out_pretty_print(root)
             tree = lxmlET.ElementTree(root)
             tree.write(out_path)
+            
+            _MSG = f"FLAM3H: SAVE FLAME: Append -> Completed"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     @staticmethod
