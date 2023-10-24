@@ -168,6 +168,12 @@ iterations:
     #display: rounded white
     
     == SYS: Utils == (SYSUTILS)
+
+FLAM3H documentation:
+    #id: SYS
+    [Smallicon:opdef:.?iconOrangeHelpSVG.svg]
+    
+    Display this documentation.
     
 FF:
     #id: SYS
@@ -294,12 +300,6 @@ OUT Save:
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     
     _If the selected file is not a valid Flame file type, nothing will happen._
-
-FLAM3H documentation:
-    #id: SYS
-    [Smallicon:opdef:.?iconOrangeHelpSVG.svg]
-    
-    Display this FLAM3H OTL documentation.
     
     
     
@@ -961,7 +961,7 @@ _The following is an example of what the Sierpinski triangle preset looks like o
 IN file ( *.flame type ):
     #id: IN
     
-    Load *.flame files authored with Apophysis, Fractorium and other flam3-compatible applications.
+    Load *.flame files authored FLAM3H, Fractorium, Apophysis and other flam3-compatible applications.
     
     The "auto set xaos" preference option will automatically switch ON whenever a preset is loaded.
     
