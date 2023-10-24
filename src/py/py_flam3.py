@@ -5500,8 +5500,16 @@ reset_IN(self, mode=0) -> None:
                 menu.append(item)
             return menu
         else:
-            menu.append(-1)
-            menu.append('Empty')
+            iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+            if iterators:
+                menu.append(-1)
+                menu.append('Empty')
+            else:
+                menuitems = ("Please, load a IN flame file first", "")
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+                
             return menu
         
         
