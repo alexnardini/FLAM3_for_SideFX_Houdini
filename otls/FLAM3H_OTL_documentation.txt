@@ -1380,9 +1380,39 @@ size:
         
     
     
+:box:
+    #display: rounded white
 
+== About == (ABOUT)
 
+~~~
+:box:
+    #display: inverted teal
 
+    *About.* _Here you will find information about FLAM3H._
+
+About:
+    #id: about
+    Display informations about FLAM3H. Author, code languages used, version number, code references and much more can be found inside here.
+
+Plugins:
+    #id: about
+    List of plugins/variations shipped with FLAM3H.
+    
+Web links:
+    #id: about
+    A list of useful web links to check out.
+    
+    - [Smallicon:opdef:.?FLAM3H_DOC_icon.svg] Open a web browser to the FLAM3H website. 
+    - [Smallicon:opdef:.?iconGithubBlackSVG.svg] Open a web browser to the FLAM3H github repository.
+    - [Smallicon:opdef:.?iconInstagramSVG.svg] Open a web browser to the FLAM3H instagram account. 
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] Open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
+    - [Smallicon:opdef:.?iconGithubWhiteSVG.svg] Open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
+    
+    
+    
+  
+    
 :box:
     #display: rounded white
     
