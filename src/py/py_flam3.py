@@ -45,6 +45,33 @@ import inspect
 #               Everything is then glued together inside Houdini.
 
 
+'''
+LIST OF CLASSES:
+
+flam3h_iterator_prm_names
+flam3h_varsPRM
+flam3h_iterator
+flam3h_varsPRM_FF
+flam3h_iterator_FF
+flam3h_scripts
+flam3h_general_utils
+flam3h_iterator_utils
+flam3h_palette_utils
+flam3h_about_utils
+flam3h_ui_msg_utils
+
+_xml_tree
+in_flame(_xml_tree)
+in_flame_iter_data(in_flame)
+in_flame_utils
+out_flame_utils
+out_flame_render_properties(out_flame_utils)
+out_flame_xforms_data(out_flame_utils)
+
+'''
+
+
+
 
 FLAM3H_VERSION = '1.1.01'
 
