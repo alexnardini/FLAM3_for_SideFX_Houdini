@@ -547,7 +547,7 @@ STATIC METHODS:
 
 METHODS:
 
-flam3h_check_first_node_instance_msg(self, node: hou.Node, FIRST_TIME_MSG=True) -> None:
+flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
 
 flam3h_on_create(self) -> None:
 
