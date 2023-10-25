@@ -2756,10 +2756,14 @@ reset_CP(self, mode=0) -> None:
             color_values = [(1,0,0), (0,1,0), (0,0,1)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
         elif mode == 2:
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-            # Print out to Houdini's status bar
-            _MSG = f"{str(node)}:PALETTE HSV -> RESET"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
+            if fsum(_hsv) != float(3):
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+                # Print out to Houdini's status bar
+                _MSG = f"{str(node)}:PALETTE HSV -> RESET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else:
+                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
@@ -7226,7 +7230,7 @@ out_XML(self) -> None:
                 # Here we go ahead since we know the prm CP_RAMP_HSV_VAL_NAME is a tuple
                 prm = self._node.parmTuple(prm_name).eval()
                 # If the HSV values are at their defaults, do not export them into the XML file
-                if fsum(prm) == 3:
+                if fsum(prm) == float(3):
                     return False
                 else:
                     return ' '.join([self.out_util_round_float(x) for x in prm])
