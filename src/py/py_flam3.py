@@ -156,13 +156,13 @@ MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
 MSG_PALETTE = 'palettemsg'
 MSG_OUT = 'outmsg'
 # Message About Tab parameters
-MSG_FLAM3HABOUT = 'flam3about_msg'
-MSG_FLAM3HPLUGINS = 'flam3plugins_msg'
-MSG_FLAM3HWEB = 'flam3h_heading_web'
-MSG_FLAM3HGIT = 'flam3h_heading_git'
-MSG_FLAM3HINSTA = 'flam3h_heading_insta'
-MSG_FLAM3PDF = 'flam3_heading_pdf'
-MSG_FLAM3GIT = 'flam3_heading_git'
+MSG_FLAM3H_ABOUT = 'flam3about_msg'
+MSG_FLAM3H_PLUGINS = 'flam3plugins_msg'
+MSG_FLAM3H_WEB = 'flam3h_heading_web'
+MSG_FLAM3H_GIT = 'flam3h_heading_git'
+MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
+MSG_FLAM3_PDF = 'flam3_heading_pdf'
+MSG_FLAM3_GIT = 'flam3_heading_git'
 # Message Mark iterators
 MARK_ITER_MSG = "Please mark an iterator first"
 MARK_FF_MSG = "Please mark the FF first"
@@ -2795,7 +2795,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
         
         build_about_msg = "".join(build)
 
-        node.setParms({MSG_FLAM3HABOUT: build_about_msg}) # type: ignore
+        node.setParms({MSG_FLAM3H_ABOUT: build_about_msg}) # type: ignore
 
 
     def flam3h_about_plugins_msg(self) -> None:
@@ -2813,7 +2813,7 @@ Seph, Lucy, b33rheart, Neonrauschen"""
                 _vars.append(", ".join(grp) + "\n")
         vars_txt = "".join(_vars)
         
-        node.setParms({MSG_FLAM3HPLUGINS: vars_txt}) # type: ignore
+        node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
         
         
     def flam3h_about_web_msg(self) -> None:
@@ -2826,11 +2826,11 @@ Seph, Lucy, b33rheart, Neonrauschen"""
         _FLAM3PDF_MSG    = 'The Fractal Flame Algorithm pdf'
         _FLAM3GIT_MSG    = 'The Fractal Flame Algorithm github'
         
-        node.setParms({MSG_FLAM3HWEB:   _FLAM3HWEB_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3HGIT:   _FLAM3HGIT_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3HINSTA: _FLAM3HINSTA_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3PDF:    _FLAM3PDF_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3GIT:    _FLAM3GIT_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3H_WEB:   _FLAM3HWEB_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3H_GIT:   _FLAM3HGIT_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3_PDF:    _FLAM3PDF_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3_GIT:    _FLAM3GIT_MSG}) # type: ignore
         
 
     def flam3h_about_web_homepage(self) -> None:
