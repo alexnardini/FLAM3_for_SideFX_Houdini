@@ -680,6 +680,13 @@ flam3h_on_loaded(self) -> None:
         """
         node = self.node
         
+        # This is important so loading a hip file with a FLAM3H node
+        # it wont block the houdini session until user input.
+        try:
+            hou.session.flam3_first_instance # type: ignore
+        except:
+            hou.session.flam3_first_instance = False # type: ignore
+        
         #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
         flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
         #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
