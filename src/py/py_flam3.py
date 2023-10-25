@@ -885,6 +885,7 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if xml:
                     print(f'{str(node)}.IN: please select a valid file location.')
+            # Force preset menu to updated
             prm.eval()
         elif OUT_PRESETS in prm_presets_name:
             xml = node.parm(OUT_PATH).evalAsString()
@@ -908,6 +909,7 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if xml:
                     print(f'{str(node)}.OUT: please select a valid file location.')
+            # Force preset menu to updated
             prm.eval()
         elif CP_PALETTE_PRESETS in prm_presets_name:
             json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
@@ -932,6 +934,7 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if json_path:
                     print(f'{str(node)}.palette: please select a valid file location.')
+            # Force preset menu to updated
             prm.eval()
 
     def flam3h_display_help(self) -> None:
