@@ -570,7 +570,7 @@ flam3h_on_loaded(self) -> None:
 
 
 
-    def flam3h_check_first_node_instance_msg(self, node: hou.Node, FIRST_TIME_MSG=True) -> None:
+    def flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
         messages in the Houdini status bar.
@@ -586,6 +586,7 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3_first_instance = False # type: ignore
 
             if FIRST_TIME_MSG:
+                node = self.node
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     _MSG_sb = f"First FLAM3H node instance ever created -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
                     hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
@@ -611,7 +612,7 @@ flam3h_on_loaded(self) -> None:
         """
         node = self.node
         
-        self.flam3h_check_first_node_instance_msg(node)
+        self.flam3h_check_first_node_instance_msg()
                 
         # Set initial node color
         node.setColor(hou.Color((0.825,0.825,0.825)))
@@ -686,7 +687,7 @@ flam3h_on_loaded(self) -> None:
         
         # This is important so loading a hip file with a FLAM3H node
         # it wont block the houdini session until user input.
-        self.flam3h_check_first_node_instance_msg(node, False)
+        self.flam3h_check_first_node_instance_msg(False)
         
         #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
         flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
