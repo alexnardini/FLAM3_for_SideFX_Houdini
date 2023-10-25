@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.01'
+FLAM3H_VERSION = '1.1.02'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1424,46 +1424,84 @@ iterator_keep_last_weight(self) -> None:
         """Set density menu parameter based on user choice.
         
         """        
+        node = self.node
         ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
         sel = self.node.parm(GLB_DENSITY_PRESETS).evalAsInt()
         vals = [500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000]
+        vals_name = ["Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points"]
         
         if sel == 1:
             if ptcount != vals[1]:
                 self.node.setParms({GLB_DENSITY: vals[1]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[1]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 2:
             if ptcount != vals[2]:
                 self.node.setParms({GLB_DENSITY: vals[2]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[2]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 3:
             if ptcount != vals[3]:
                 self.node.setParms({GLB_DENSITY: vals[3]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[3]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 4:
             if ptcount != vals[4]:
                 self.node.setParms({GLB_DENSITY: vals[4]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[4]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         elif sel == 5:
             if ptcount != vals[5]:
                 self.node.setParms({GLB_DENSITY: vals[5]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[5]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 6:
             if ptcount != vals[6]:
                 self.node.setParms({GLB_DENSITY: vals[6]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[6]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 7:
             if ptcount != vals[7]:
                 self.node.setParms({GLB_DENSITY: vals[7]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[7]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 8:
             if ptcount != vals[8]:
                 self.node.setParms({GLB_DENSITY: vals[8]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[8]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 9:
             if ptcount != vals[9]:
                 self.node.setParms({GLB_DENSITY: vals[9]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[9]} \" -> SET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 10:
             if ptcount != vals[10]:
                 self.node.setParms({GLB_DENSITY: vals[10]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[10]} \" -> SET ( Shooting for High Quality, may take awhile. )"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 11:
             if ptcount != vals[11]:
                 self.node.setParms({GLB_DENSITY: vals[11]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[11]} \" -> SET ( Shooting for High Quality, may take awhile. )"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 12:
             if ptcount != vals[12]:
                 self.node.setParms({GLB_DENSITY: vals[12]}) # type: ignore
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[12]} \" -> SET ( Shooting for High Quality, may take awhile. )"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                
         # reset to null value so we can set the same preset again
         self._node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
 
@@ -1472,9 +1510,13 @@ iterator_keep_last_weight(self) -> None:
     def menu_global_density_set_default(self) -> None:
         """Revert density parameter to its default value.
         """        
+        node = self.node
         ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
         if ptcount != FLAM3H_DENSITY_DEFAULT:
             self.node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
+            _MSG = f"{str(node)} -> DENSITY preset: \" Default: 500K points \" -> SET"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
     
     
     def menu_copypaste(self) -> list:
@@ -1619,7 +1661,7 @@ iterator_keep_last_weight(self) -> None:
                     self.paste_set_note(node, flam3node, 0, "", str(id), str(id_from))
 
             else:
-                _MSG = f"{str(node)}: {MARK_ITER_MSG}."
+                _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
         elif self.kwargs["shift"]:
@@ -1668,7 +1710,7 @@ iterator_keep_last_weight(self) -> None:
                     self.paste_set_note(node, flam3node_FF, 1, "", "", "")
 
             else:
-                _MSG = f"{str(node)}: {MARK_FF_MSG}."
+                _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
         elif self.kwargs["shift"]:
@@ -1761,7 +1803,7 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
             
         else:
-            _MSG = f"{str(node)}: {MARK_ITER_MSG}"
+            _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
@@ -1829,7 +1871,7 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
                     
         else:
-            _MSG = f"{str(node)}: {MARK_FF_MSG}."
+            _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             
 
@@ -2475,7 +2517,11 @@ reset_CP(self, mode=0) -> None:
                 if flam3h_general_utils.isLOCK(out_path_checked):
                     ui_text = f"This Palette library is Locked."
                     ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
+                    _MSG = f"{str(node)} -> PALETTE library file -> is LOCKED"
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                    # Clear up status bar msg
+                    hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                 else:
                     # get user's preset name or build an automated one
                     name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
@@ -2620,6 +2666,7 @@ reset_CP(self, mode=0) -> None:
                 # Print to status Bar
                 _MSG = f"{str(node)}: LOAD PALETTE preset: \"{preset}\" -> Completed"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            
         
 
     def palette_cp(self) -> None:
@@ -5720,6 +5767,7 @@ reset_IN(self, mode=0) -> None:
             # if there are ZERO opacities, always turn RIP toggle ON
             if min(apo_data.opacity) == 0.0:
                 node.setParms({SYS_RIP: 1}) # type: ignore
+                
             else:
                 # Otherwise set RIP toggle accordingly from the XML data if any
                 if apo_data.sys_flam3h_rip is not None:
@@ -6953,7 +7001,11 @@ out_XML(self) -> None:
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flame library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                        _MSG = f"{str(node)} -> FLAME library file -> is LOCKED"
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                        # Clear up status bar msg
+                        hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     else:
                         apo_data = in_flame(self.node, str(out_path_checked))
                         if self.kwargs["ctrl"]:
