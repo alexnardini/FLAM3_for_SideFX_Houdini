@@ -1902,6 +1902,14 @@ iterator_keep_last_weight(self) -> None:
             else:
                 # I dnt think this is needed anymore but i leave it here.
                 node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(iter+1)}": div_xaos})
+                
+        # Get preference xaos mode and print to Houdini's status bar
+        if f3d.xm:
+            _MSG = f"{str(node)}: XAOS Mode -> FROM"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        else:
+            _MSG = f"{str(node)}: XAOS Mode -> TO"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def reset_preaffine(self) -> None:
@@ -1915,6 +1923,10 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
         node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
         node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
+        # Print to Houdini's status bar
+        id = self.kwargs['script_multiparm_index']
+        _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> RESET"
+        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
         
     def reset_postaffine(self) -> None:
@@ -1929,6 +1941,9 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
             node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
             node.setParms({f"{n.postaffine_ang}_{str(id)}": 0})
+        # Print to Houdini's status bar
+        _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> RESET"
+        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
         
     def reset_preaffine_FF(self) -> None:
@@ -1941,6 +1956,9 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
+        # Print to Houdini's status bar
+        _MSG = f"{str(node)}: FF PRE Affine -> RESET"
+        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
         
     def reset_postaffine_FF(self) -> None:
@@ -1954,6 +1972,9 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
             node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
             node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
+        # Print to Houdini's status bar
+        _MSG = f"{str(node)}: FF POST Affine -> RESET"
+        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def reset_FF(self) -> None:
@@ -2076,7 +2097,8 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
         
         node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
-
+        
+        # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD FLAME preset: \"Sierpiński triangle\" -> Completed"
         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
@@ -2212,6 +2234,7 @@ iterator_keep_last_weight(self) -> None:
 
         node = self.node
         iterators_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
         
         if not iterators_count:
             # delete channel references
@@ -2237,15 +2260,15 @@ iterator_keep_last_weight(self) -> None:
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
             
-            _MSG = f"{str(node)}: Iterators count set to Zero. Add at least one iterator or load a valid IN flame file."
+            # Print to Houdini's status bar
+            _MSG = f"{str(node)}: {_MSG_str}"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             
         else:
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
-            _MSG = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file."
             sm = hou.ui.statusMessage() # type: ignore
-            if  _MSG in sm[0]:
+            if  _MSG_str in sm[0]:
                 hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
 
 
@@ -2639,7 +2662,7 @@ reset_CP(self, mode=0) -> None:
                     except:
                         pass
                     [HEXs.append(hex) for hex in wrap(hex_values, 6)]
-
+                    
                 rgb_from_XML_PALETTE = []
                 for hex in HEXs:
                     x = self.hex_to_rgb(hex)
@@ -2734,6 +2757,9 @@ reset_CP(self, mode=0) -> None:
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
         elif mode == 2:
             node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+            # Print out to Houdini's status bar
+            _MSG = f"{str(node)}:PALETTE HSV -> RESET"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
@@ -2741,6 +2767,9 @@ reset_CP(self, mode=0) -> None:
             color_keys = [0.0, 0.5, 1.0]
             color_values = [(1,0,0), (0,1,0), (0,0,1)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+            # Print out to Houdini's status bar
+            _MSG = f"{str(node)}:PALETTE -> RESET"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         # Update ramp py 
         self.palette_cp()
         self.palette_hsv()
@@ -6839,6 +6868,10 @@ out_XML(self) -> None:
     def palette_hsv_do(self):
         return self._palette_hsv_do
     
+    @property
+    def xm(self):
+        return self._xm
+    
     # custom to FLAM3H only
     
     @property
@@ -7002,9 +7035,11 @@ out_XML(self) -> None:
                         ui_text = f"This Flame library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         _MSG = f"{str(node)} -> FLAME library file -> is LOCKED"
+                        # Print to Houdini's status bar
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        # Pop up message window
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
-                        # Clear up status bar msg
+                        # Clear up Houdini's status bar msg
                         hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     else:
                         apo_data = in_flame(self.node, str(out_path_checked))
