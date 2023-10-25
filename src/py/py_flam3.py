@@ -577,7 +577,7 @@ flam3h_on_loaded(self) -> None:
 
         Args:
             node (hou.Node): FLAM3H node
-            mode (int): 0 for onLoaded and 1 for onCreated
+            mode (int): False for onLoaded and True for onCreated
         """        
         
         try:
