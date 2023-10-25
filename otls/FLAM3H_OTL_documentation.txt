@@ -556,7 +556,7 @@ pre affine:
         
         To translate a set of points, we need to use an *_affine transformation_*. 
         An *_affine transformation_* multiplies a vector by a matrix, just as in a linear transformation, 
-        and then adds a vector to the result ( the *O*._xy_ `vector2` component ). 
+        and then adds a vector to the result ( the *O*._xy_ *`vector2`* component ). 
         This added vector carries out the translation. 
         By applying an affine transformation to an image on the screen, we can do everything a linear transformation can do, 
         and also have the ability to move the image up or down and left or right.
@@ -1452,6 +1452,13 @@ Web links:
 
     *Variations information.* _Here you will find information about some special cases and a complete list of available variations/plugins currently implemented._
 
+ 
+:box:
+    #display: rounded white
+    
+    == Variations: Dependent == (VARDEPENDENT)
+
+    
 _Dependant variation's affine coefficients:_
 
 A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters.
@@ -1464,6 +1471,12 @@ The dependent variations and the affine coefficients they employ are listed belo
 *_RINGS_*: `O[0]`
 
 *_FAN_*: `O[0]`
+
+
+:box:
+    #display: rounded white
+    
+    == Variations: Full list == (VARDLIST)
 
 _A list of all variations included with FLAM3H v1.1.02 for SideFX Houdini:_
 
@@ -1577,6 +1590,118 @@ wedgejulia,
 wedgesph, 
 whorl
 *
+
+:box:
+    #display: rounded white
+    
+    == Variations: Parametrics == (VARDLIST)
+
+_A list of all parametric variations and their parametric parameter's names._
+
+NOTE:
+    Repeated variations names indicate distinct Houdini parameters.
+    For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters.
+
+
+- *Auger*           ->      _Frequency, Scale, Symmetry, weight_
+
+- *Bent2*           ->      _X, Y_
+
+- *Bipolar*         ->      _Shift_
+
+- *Blob*            ->      _Low, High, waves_
+
+- *Bwraps*          ->      _Size, Space, Gain_
+
+- *Bwraps*          ->      _In twist, Out twist_
+
+- *Cell*            ->      _Size_
+
+- *Conic*           ->      _Eccentricity, Holes_
+
+- *Cpow*            ->      _Pow, R, I_
+
+- *Crop*            ->      _Left, Top, Right, Bottom_
+
+- *Crop*            ->      _Area, Zero_
+
+- *Curl*            ->      _C1, C2_
+
+- *Curve*           ->      _Lenght X, Lenght Y_
+
+- *Curve*           ->      _Amplitude X, Amplitude Y_
+
+- *Disc2*           ->      _Rotation, Twist_
+
+- *Escher*          ->      _Beta_
+
+- *Fan2*            ->      _X, Y_
+
+- *Flower*          ->      _Petals, Holes_
+
+- *Flux*            ->      _Spread_
+
+- *JuliaN*          ->      _Power, Distance_
+
+- *JuliaScope*      ->      _Power, Distance_
+
+- *Lazysusan*       ->      _X, Y_
+
+- *Lazysusan*       ->      _Spin, Twist, Space_
+
+- *Mobius*          ->      _Re A, Re B, Re C, Re D_
+
+- *Mobius*          ->      _Im A, Im B, Im C, Im D_
+
+- *Modulus*         ->      _X, Y_
+
+- *Ngon*            ->      _Power, Side, Corners, Circle_
+
+- *Oscope*          ->      _Frequency, Amplitude, Damping, Separation_
+
+- *Parabola*        ->      _Height, Width_
+
+- *Pdj*             ->      _w A, w B, w C, w D_
+
+- *Perspective*     ->      _Angle, Distance_
+
+- *Pie*             ->      _Slice, Thickness, Rotation_
+
+- *Polynomial*      ->      _Pow X, Pow Y_
+
+- *Polynomial*      ->      _Lc X, Lc Y_
+
+- *Polynomial*      ->      _Sc X, Sc Y_
+
+- *Point Symmetry*  ->      _Order, Center X, Center Y_
+
+- *Radial Blur*     ->      _Angle_
+
+- *Rectangles*      ->      _X, Y_
+
+- *Rings2*          ->      _Val_
+
+- *Separation*      ->      _X, Y_
+
+- *Separation*      ->      _Inside X, Inside Y_
+
+- *Split*           ->      _X, Y_
+
+- *Splits*          ->      _X, Y_
+
+- *Waves2*          ->      _Scale X, Scale Y_
+
+- *Waves2*          ->      _Frequency X, Frequency Y_
+
+- *Wedge*           ->      _Swirl, Angle, Hole, Count_
+
+- *WedgeJulia*      ->      _Power, Angle, Distance, Count_
+
+- *WedgeSph*        ->      _Swirl, Angle, Hole, Count_
+
+- *Whorl*           ->      _In, Out_
+
+
 
 
 
