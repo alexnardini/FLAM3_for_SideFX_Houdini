@@ -3734,7 +3734,7 @@ class in_flame(_xml_tree):
             key (str): [use "xform" for transforms and "finalxform" for final flame transform]
 
         Returns:
-            list: [a list of all xforms inside the selected flame or None]
+            tuple: [a tuple of all xforms inside the selected flame or None]
         """
         if  self._isvalidtree:
             xforms = []
@@ -3762,7 +3762,7 @@ class in_flame(_xml_tree):
             key (str): the flame XML xaos tag name.
 
         Returns:
-            Union[list, None]: [either a list of xaos strings or None]
+            Union[tuple, None]: [either a list of xaos strings or None]
         """        
         if  self._isvalidtree:
             xaos = []
@@ -3788,7 +3788,7 @@ class in_flame(_xml_tree):
             key (str): [affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine]
 
         Returns:
-            Union[list, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
+            Union[tuple, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
         """           
         if  self._isvalidtree:
             if xforms is not None:
@@ -3815,7 +3815,7 @@ class in_flame(_xml_tree):
             key (str): [xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity']
 
         Returns:
-            Union[list, None]: [description]
+            Union[tuple, None]: [description]
         """        
         if  self._isvalidtree:
             if xforms is not None:
