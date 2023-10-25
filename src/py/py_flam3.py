@@ -1492,13 +1492,13 @@ iterator_keep_last_weight(self) -> None:
         elif sel == 11:
             if ptcount != vals[11]:
                 self.node.setParms({GLB_DENSITY: vals[11]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[11]} \" -> SET ( Shooting for High Quality, may take awhile. )"
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[11]} \" -> SET ( Shooting for Very High Quality, may take awhile. )"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 12:
             if ptcount != vals[12]:
                 self.node.setParms({GLB_DENSITY: vals[12]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[12]} \" -> SET ( Shooting for High Quality, may take awhile. )"
+                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[12]} \" -> SET ( Shooting for Super High Quality, may take awhile. )"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                 
