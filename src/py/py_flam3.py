@@ -885,7 +885,7 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if xml:
                     print(f'{str(node)}.IN: please select a valid file location.')
-                    
+            prm.eval()
         elif OUT_PRESETS in prm_presets_name:
             xml = node.parm(OUT_PATH).evalAsString()
             xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
@@ -908,7 +908,7 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if xml:
                     print(f'{str(node)}.OUT: please select a valid file location.')
-                    
+            prm.eval()
         elif CP_PALETTE_PRESETS in prm_presets_name:
             json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
@@ -924,7 +924,6 @@ reset_PREFS(self, mode=0) -> None:
                             node.setParms({MSG_PALETTE: palette_lib_locked})
                         else:
                             node.setParms({MSG_PALETTE: ''})
-                            
                 else:
                     prm.set('-1')
                     node.setParms({MSG_PALETTE: ''})
@@ -933,7 +932,7 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if json_path:
                     print(f'{str(node)}.palette: please select a valid file location.')
-
+            prm.eval()
 
     def flam3h_display_help(self) -> None:
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
