@@ -5168,17 +5168,17 @@ reset_IN(self, mode=0) -> None:
                 if v_type is not None:
                     v_weight = float(xform.get(key_name))
                     if apo_prm[v_type][-1]:
-                        in_flame_utils.in_v_parametric( app, 
-                                                        mode, 
-                                                        node, 
-                                                        mp_idx, 
-                                                        t_idx, 
-                                                        xform, 
-                                                        v_type, 
-                                                        v_weight, 
-                                                        var_prm[v_type], 
-                                                        apo_prm[v_type]
-                                                        )
+                        in_flame_utils.in_v_parametric(app, 
+                                                       mode, 
+                                                       node, 
+                                                       mp_idx, 
+                                                       t_idx, 
+                                                       xform, 
+                                                       v_type, 
+                                                       v_weight, 
+                                                       var_prm[v_type], 
+                                                       apo_prm[v_type]
+                                                       )
                     else:
                         in_flame_utils.in_v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
                 else:
