@@ -570,13 +570,14 @@ flam3h_on_loaded(self) -> None:
 
 
 
-    def flam3h_check_first_node_instance_msg(self, node: hou.Node) -> None:
+    def flam3h_check_first_node_instance_msg(self, node: hou.Node, FIRST_TIME_MSG=True) -> None:
         """This is temporary until I dnt have time to find a better solution
-        to advice the user of the first time compile time without having any leftover
+        to advice the user about the first node compile time without having any leftover
         messages in the Houdini status bar.
 
         Args:
             node (hou.Node): FLAM3H node
+            mode (int): 0 for onLoaded and 1 for onCreated
         """        
         
         try:
@@ -584,22 +585,23 @@ flam3h_on_loaded(self) -> None:
         except:
             hou.session.flam3_first_instance = False # type: ignore
 
-            if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                _MSG_sb = f"First FLAM3H node instance ever created -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-                hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
-                _MSG = f"FLAM3H CVEX node compile: DONE"
-                ui_text = "FLAM3H CVEX Compile"
-                if hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                    hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-            else:
-                _MSG_sb = f"First FLAM3H node instance ever created -> Once you Cook it for the first time it will compile the FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-                hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
-                _MSG = f"First FLAM3H node instance ever created.\n\nCook me once to compile the FLAM3H CVEX node.\n\nDepending on your PC configuration it can take anywhere between 30s and 1 minute.\nIt is a one time compile process."
-                ui_text = "FLAM3H CVEX Compile"
-                if hou.ui.displayMessage(_MSG, buttons=("Compile FLAM3H CVEX node", ), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                    node.setDisplayFlag(True)  # type: ignore
-                    _MSG_sb = f""
-                    hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Message) # type: ignore
+            if FIRST_TIME_MSG:
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                    _MSG_sb = f"First FLAM3H node instance ever created -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                    hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
+                    _MSG = f"FLAM3H CVEX node compile: DONE"
+                    ui_text = "FLAM3H CVEX Compile"
+                    if hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                else:
+                    _MSG_sb = f"First FLAM3H node instance ever created -> Once you Cook it for the first time it will compile the FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                    hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
+                    _MSG = f"First FLAM3H node instance ever created.\n\nCook me once to compile the FLAM3H CVEX node.\n\nDepending on your PC configuration it can take anywhere between 30s and 1 minute.\nIt is a one time compile process."
+                    ui_text = "FLAM3H CVEX Compile"
+                    if hou.ui.displayMessage(_MSG, buttons=("Compile FLAM3H CVEX node", ), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        node.setDisplayFlag(True)  # type: ignore
+                        _MSG_sb = f""
+                        hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Message) # type: ignore
                 
 
     def flam3h_on_create(self) -> None:
@@ -630,20 +632,20 @@ flam3h_on_loaded(self) -> None:
         # and we copied already an iterator's values, lets keep whats stored,
         # otherwise initialize those values.
         try:
-            hou.session.flam3node # type: ignore
+            hou.session.flam3h_node # type: ignore
         except:
-            hou.session.flam3node = node # type: ignore
+            hou.session.flam3h_node = node # type: ignore
         try:
-            hou.session.flam3node_mp_id # type: ignore
+            hou.session.flam3h_node_mp_id # type: ignore
         except:
-            hou.session.flam3node_mp_id = None # type: ignore
+            hou.session.flam3h_node_mp_id = None # type: ignore
 
         # If an iterator was copied from a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
-            hou.session.flam3node.type() # type: ignore
+            hou.session.flam3h_node.type() # type: ignore
         except:
-            hou.session.flam3node_mp_id = None # type: ignore
+            hou.session.flam3h_node_mp_id = None # type: ignore
 
         # FLAM3 node for FF.
         #
@@ -651,26 +653,26 @@ flam3h_on_loaded(self) -> None:
         # and we copied already FF's values, lets keep whats stored,
         # otherwise initialize those values.
         try:
-            hou.session.flam3node_FF # type: ignore
+            hou.session.flam3h_node_FF # type: ignore
         except:
-            hou.session.flam3node_FF = node # type: ignore
+            hou.session.flam3h_node_FF = node # type: ignore
         try:
-            hou.session.flam3node_FF_check # type: ignore
+            hou.session.flam3h_node_FF_check # type: ignore
         except:
-            hou.session.flam3node_FF_check = None # type: ignore
+            hou.session.flam3h_node_FF_check = None # type: ignore
 
         # If the FF was copied from a node that has been deleted
         # revert to -1 so that we are forced to copy the FF again.
         try:
-            hou.session.flam3node_FF.type() # type: ignore
+            hou.session.flam3h_node_FF.type() # type: ignore
         except:
-            hou.session.flam3node_FF_check = None # type: ignore
+            hou.session.flam3h_node_FF_check = None # type: ignore
 
         # Initialize flam3 viewport Color Scheme
         try:
-            hou.session.flam3_CS # type: ignore
+            hou.session.flam3h_CS # type: ignore
         except:
-            hou.session.flam3_CS = [] # type: ignore
+            hou.session.flam3h_CS = [] # type: ignore
 
 
     def flam3h_on_loaded(self) -> None:
@@ -682,10 +684,7 @@ flam3h_on_loaded(self) -> None:
         
         # This is important so loading a hip file with a FLAM3H node
         # it wont block the houdini session until user input.
-        try:
-            hou.session.flam3_first_instance # type: ignore
-        except:
-            hou.session.flam3_first_instance = False # type: ignore
+        self.flam3h_check_first_node_instance_msg(node, False)
         
         #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
         flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
@@ -918,9 +917,9 @@ reset_PREFS(self, mode=0) -> None:
         node = self.node
         
         try:
-            module_test = hou.session.flam3_CS # type: ignore
+            module_test = hou.session.flam3h_CS # type: ignore
         except:
-            hou.session.flam3_CS = [] # type: ignore
+            hou.session.flam3h_CS = [] # type: ignore
 
         count = 0
         viewers_col = []
@@ -936,38 +935,38 @@ reset_PREFS(self, mode=0) -> None:
             col = settings.colorScheme()
             viewers_col.append(col)
             try:
-                idx_test = hou.session.flam3_CS[count] # type: ignore
+                idx_test = hou.session.flam3h_CS[count] # type: ignore
             except:
-                if len(hou.session.flam3_CS) > 0: # type: ignore
-                    hou.session.flam3_CS.append(viewers_col) # type: ignore
+                if len(hou.session.flam3h_CS) > 0: # type: ignore
+                    hou.session.flam3h_CS.append(viewers_col) # type: ignore
                 else:
-                    hou.session.flam3_CS = [] # type: ignore
-                    hou.session.flam3_CS.append(viewers_col) # type: ignore
+                    hou.session.flam3h_CS = [] # type: ignore
+                    hou.session.flam3h_CS.append(viewers_col) # type: ignore
 
             if setprm:
-                if len(hou.session.flam3_CS) == 0: # type: ignore
+                if len(hou.session.flam3h_CS) == 0: # type: ignore
                     if col == Light or col == Grey:
                         settings.setColorScheme(Dark)
                 else:
                     if col == Light or col == Grey:
                         settings.setColorScheme(Dark)
-                    elif col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
-                        if hou.session.flam3_CS[count] == Light: # type: ignore
+                    elif col == Dark and hou.session.flam3h_CS[count] != Dark: # type: ignore
+                        if hou.session.flam3h_CS[count] == Light: # type: ignore
                             settings.setColorScheme(Light)
-                        elif hou.session.flam3_CS[count] == Grey: # type: ignore
+                        elif hou.session.flam3h_CS[count] == Grey: # type: ignore
                             settings.setColorScheme(Grey)
 
             else:
-                if col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3_CS[count] == Light: # type: ignore
+                if col == Dark and hou.session.flam3h_CS[count] != Dark: # type: ignore
+                    if hou.session.flam3h_CS[count] == Light: # type: ignore
                         settings.setColorScheme(Light)
-                    elif hou.session.flam3_CS[count] == Grey: # type: ignore
+                    elif hou.session.flam3h_CS[count] == Grey: # type: ignore
                         settings.setColorScheme(Grey)
             count += 1
         
         # Update history
-        hou.session.flam3_CS = [] # type: ignore
-        hou.session.flam3_CS = viewers_col # type: ignore
+        hou.session.flam3h_CS = [] # type: ignore
+        hou.session.flam3h_CS = viewers_col # type: ignore
         
         
     def viewportParticleDisplay(self) -> None:
@@ -1460,16 +1459,16 @@ iterator_keep_last_weight(self) -> None:
 
         # Check if we copied an iterator
         try:
-            hou.session.flam3node_mp_id # type: ignore
+            hou.session.flam3h_node_mp_id # type: ignore
         except:
-            hou.session.flam3node_mp_id = None # type: ignore
+            hou.session.flam3h_node_mp_id = None # type: ignore
 
-        id_from = hou.session.flam3node_mp_id # type: ignore
+        id_from = hou.session.flam3h_node_mp_id # type: ignore
 
         # If an iterator has been copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
         try:
-            hou.session.flam3node.type() # type: ignore
+            hou.session.flam3h_node.type() # type: ignore
         except:
             id_from = None
 
@@ -1480,7 +1479,7 @@ iterator_keep_last_weight(self) -> None:
             id = self.kwargs['script_multiparm_index']
 
             node = self.kwargs['node']
-            flam3node = hou.session.flam3node # type: ignore
+            flam3node = hou.session.flam3h_node # type: ignore
             
             if node == flam3node and id==id_from:
                 menuitems = ( "Iterator marked. To paste its values, select a different iterator number or a different FLAM3H node.", "" )
@@ -1514,16 +1513,16 @@ iterator_keep_last_weight(self) -> None:
         menu=[]
         # Check if we copied an iterator
         try:
-            hou.session.flam3node_FF_check # type: ignore
+            hou.session.flam3h_node_FF_check # type: ignore
         except:
-            hou.session.flam3node_FF_check = None # type: ignore
+            hou.session.flam3h_node_FF_check = None # type: ignore
 
-        flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
+        flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
 
         # If the FF has been copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an FF again.
         try:
-            hou.session.flam3node_FF.type() # type: ignore
+            hou.session.flam3h_node_FF.type() # type: ignore
         except:
             flam3node_FF_check = None
 
@@ -1531,7 +1530,7 @@ iterator_keep_last_weight(self) -> None:
         if flam3node_FF_check is not None:
 
             node = self.kwargs['node']
-            flam3node_FF = hou.session.flam3node_FF # type: ignore
+            flam3node_FF = hou.session.flam3h_node_FF # type: ignore
             
             if node == flam3node_FF:
                 menuitems = ( "FF marked. Select a different FLAM3H node to paste those FF values.", "" )
@@ -1567,8 +1566,8 @@ iterator_keep_last_weight(self) -> None:
             id = self.kwargs['script_multiparm_index']
 
             # FLAM3 node and Iterator we just copied
-            flam3node = hou.session.flam3node # type: ignore
-            id_from = hou.session.flam3node_mp_id # type: ignore
+            flam3node = hou.session.flam3h_node # type: ignore
+            id_from = hou.session.flam3h_node_mp_id # type: ignore
 
             # If an iterator was copied on a node that has been deleted
             # revert to -1 so that we are forced to copy an iterator again.
@@ -1592,13 +1591,13 @@ iterator_keep_last_weight(self) -> None:
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
         elif self.kwargs["shift"]:
-            del hou.session.flam3node_mp_id # type: ignore
-            del hou.session.flam3node # type: ignore
+            del hou.session.flam3h_node_mp_id # type: ignore
+            del hou.session.flam3h_node # type: ignore
 
         else:
-            hou.session.flam3node_mp_id = self.kwargs['script_multiparm_index'] # type: ignore
-            hou.session.flam3node = self.node # type: ignore
-            _MSG = f"{str(self.node)}: Copied iterator: {str(hou.session.flam3node)}->iter.{str(hou.session.flam3node_mp_id)}" # type: ignore
+            hou.session.flam3h_node_mp_id = self.kwargs['script_multiparm_index'] # type: ignore
+            hou.session.flam3h_node = self.node # type: ignore
+            _MSG = f"{str(self.node)}: Copied iterator: {str(hou.session.flam3h_node)}->iter.{str(hou.session.flam3h_node_mp_id)}" # type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
@@ -1614,8 +1613,8 @@ iterator_keep_last_weight(self) -> None:
             node=self.node
 
             # FLAM3 node and its state we just copied
-            flam3node_FF = hou.session.flam3node_FF # type: ignore
-            flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
+            flam3node_FF = hou.session.flam3h_node_FF # type: ignore
+            flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
 
             # If the FF was copied from a node that has been deleted
             # revert to -1 so that we are forced to copy an iterator again.
@@ -1641,13 +1640,13 @@ iterator_keep_last_weight(self) -> None:
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
         elif self.kwargs["shift"]:
-            del hou.session.flam3node_FF_check # type: ignore
-            del hou.session.flam3node_FF # type: ignore
+            del hou.session.flam3h_node_FF_check # type: ignore
+            del hou.session.flam3h_node_FF # type: ignore
 
         else:
-            hou.session.flam3node_FF_check = 1 # type: ignore
-            hou.session.flam3node_FF = self.node # type: ignore
-            _MSG = f"{str(self.node)}: Copied FF: {str(hou.session.flam3node_FF)}->FF" # type: ignore
+            hou.session.flam3h_node_FF_check = 1 # type: ignore
+            hou.session.flam3h_node_FF = self.node # type: ignore
+            _MSG = f"{str(self.node)}: Copied FF: {str(hou.session.flam3h_node_FF)}->FF" # type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
     
@@ -1664,8 +1663,8 @@ iterator_keep_last_weight(self) -> None:
         id = self.kwargs['script_multiparm_index']
 
         # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3node # type: ignore
-        id_from = hou.session.flam3node_mp_id # type: ignore
+        flam3node = hou.session.flam3h_node # type: ignore
+        id_from = hou.session.flam3h_node_mp_id # type: ignore
 
         # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
         #
@@ -1744,8 +1743,8 @@ iterator_keep_last_weight(self) -> None:
         node=self.node
 
         # FLAM3 node and its state we just copied
-        flam3node_FF = hou.session.flam3node_FF # type: ignore
-        flam3node_FF_check = hou.session.flam3node_FF_check # type: ignore
+        flam3node_FF = hou.session.flam3h_node_FF # type: ignore
+        flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
 
         # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
         #
