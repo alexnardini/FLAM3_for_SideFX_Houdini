@@ -1439,7 +1439,9 @@ Web links:
     
     
     
-  
+
+
+
     
 :box:
     #display: rounded white
@@ -1447,7 +1449,7 @@ Web links:
 @variations Variations infos
 
 :box:
-    #display: inverted teal
+    #display: inverted seafoam
 
     *Variations information.* _Here you will find information about the available variations/plugins currently implemented._
 
