@@ -35,11 +35,11 @@ _*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://g
 _*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
 
 
-_*[FLAM3H - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
+[Smallicon:opdef:.?iconGithubBlackSVG.svg]   _*[FLAM3H - github|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini]*_
 
-_*[FLAM3H - website|https://www.alexnardini.net/]*_
+[Smallicon:opdef:.?FLAM3H_DOC_icon.svg] _*[FLAM3H - website|https://www.alexnardini.net/]*_
 
-_*[FLAM3H - instagram|https://www.instagram.com/alexnardini/]*_
+[Smallicon:opdef:.?iconInstagramSVG.svg]  _*[FLAM3H - instagram|https://www.instagram.com/alexnardini/]*_
 
 
 
@@ -879,6 +879,11 @@ save palette HSV:
     When animating your fractal flame, turning this on will compute a proper temporal motion blur.
     
 
+:box:
+    #display: rounded white
+
+    == MB == (MBPRM)
+
 on:
     #id: MB
     Enable motion blur.
@@ -1639,7 +1644,7 @@ NOTE:
     For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters.
 
 
-- *Auger*           ->      _Frequency, Scale, Symmetry, Weight_
+- *Auger*           ->      _Frequency, Scale, Symmetry, weight_
 
 - *Bent2*           ->      _X, Y_
 
