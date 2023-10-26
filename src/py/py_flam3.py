@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.02'
+FLAM3H_VERSION = '1.1.03'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1157,6 +1157,7 @@ iterator_keep_last_weight(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+        self._affine_defaults = ((1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0)
 
 
     @staticmethod
@@ -1395,6 +1396,10 @@ iterator_keep_last_weight(self) -> None:
     @property
     def node(self):
         return self._node
+    
+    @property
+    def affine_defaults(self):
+        return self._affine_defaults
     
     
 
@@ -1916,18 +1921,28 @@ iterator_keep_last_weight(self) -> None:
         """Reset an iterator pre affine values to their defaults.
         """        
         node = self.node
-        id = self.kwargs['script_multiparm_index']
         n = flam3h_iterator_prm_names
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
-        node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
-        node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
-        node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
-        # Print to Houdini's status bar
         id = self.kwargs['script_multiparm_index']
-        _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> RESET"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
+        check = True
+        default = self.affine_defaults
+        current = (node.parmTuple(f"{n.preaffine_x}_{str(id)}").eval(), node.parmTuple(f"{n.preaffine_y}_{str(id)}").eval(), node.parmTuple(f"{n.preaffine_o}_{str(id)}").eval(), node.parm(f"{n.preaffine_ang}_{str(id)}").eval() )
+        for idx, a in enumerate(default):
+            if current[idx] != a:
+                check = False
+                # pre affine
+                node.setParms({f"{n.preaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
+                node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
+                node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
+                node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
+                # Print to Houdini's status bar
+                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> RESET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                break
+        if check:
+            _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> already at their default values."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
         
     def reset_postaffine(self) -> None:
         """Reset an iterator post affine values to their defaults.
@@ -1935,15 +1950,26 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         id = self.kwargs['script_multiparm_index']
         n = flam3h_iterator_prm_names
-        # post affine
-        if node.parm(f"{n.postaffine_do}_{str(id)}").eval():
-            node.setParms({f"{n.postaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
-            node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
-            node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
-            node.setParms({f"{n.postaffine_ang}_{str(id)}": 0})
-        # Print to Houdini's status bar
-        _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> RESET"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        
+        check = True
+        default = self.affine_defaults
+        current = (node.parmTuple(f"{n.postaffine_x}_{str(id)}").eval(), node.parmTuple(f"{n.postaffine_y}_{str(id)}").eval(), node.parmTuple(f"{n.postaffine_o}_{str(id)}").eval(), node.parm(f"{n.postaffine_ang}_{str(id)}").eval() )
+        for idx, a in enumerate(default):
+            if current[idx] != a:
+                check = False
+                # post affine
+                if node.parm(f"{n.postaffine_do}_{str(id)}").eval():
+                    node.setParms({f"{n.postaffine_x}_{str(id)}": hou.Vector2(default[0])})
+                    node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2(default[1])})
+                    node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2(default[2])})
+                    node.setParms({f"{n.postaffine_ang}_{str(id)}": default[3]})
+                # Print to Houdini's status bar
+                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> RESET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                break
+        if check:
+            _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> already at their default values."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
         
     def reset_preaffine_FF(self) -> None:
@@ -1951,31 +1977,51 @@ iterator_keep_last_weight(self) -> None:
         """        
         node = self.node
         n = flam3h_iterator_prm_names
-        # pre affine
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))})
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))})
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))})
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0})
-        # Print to Houdini's status bar
-        _MSG = f"{str(node)}: FF PRE Affine -> RESET"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
+        check = True
+        default = self.affine_defaults
+        current = (node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_x}").eval(), node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_y}").eval(), node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_o}").eval(), node.parm(f"{PRX_FF_PRM}{n.preaffine_ang}").eval() )
+        for idx, a in enumerate(default):
+            if current[idx] != a:
+                check = False
+                # pre affine
+                node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2(default[0])})
+                node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2(default[1])})
+                node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2(default[2])})
+                node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": default[3]})
+                # Print to Houdini's status bar
+                _MSG = f"{str(node)}: FF PRE Affine -> RESET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                break
+        if check:
+            _MSG = f"{str(node)}: FF PRE Affine -> already at their default values."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
     def reset_postaffine_FF(self) -> None:
         """Reset a FF post affine values to their defaults.
         """        
         node = self.node
         n = flam3h_iterator_prm_names
-        # post affine
-        if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval():
-            node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))})
-            node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))})
-            node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))})
-            node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0})
-        # Print to Houdini's status bar
-        _MSG = f"{str(node)}: FF POST Affine -> RESET"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-
+        
+        check = True
+        default = self.affine_defaults
+        current = (node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_x}").eval(), node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_y}").eval(), node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_o}").eval(), node.parm(f"{PRX_FF_PRM}{n.postaffine_ang}").eval() )
+        for idx, a in enumerate(default):
+            if current[idx] != a:
+                check = False
+                # post affine
+                if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval():
+                    node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2(default[0])})
+                    node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2(default[1])})
+                    node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2(default[2])})
+                    node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": default[3]})
+                # Print to Houdini's status bar
+                _MSG = f"{str(node)}: FF POST Affine -> RESET"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                break
+        if check:
+            _MSG = f"{str(node)}: FF POST Affine -> already at their default values."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
     def reset_FF(self) -> None:
         """Reset the FLAM3H FF Tab parameters.
@@ -2760,10 +2806,11 @@ reset_CP(self, mode=0) -> None:
             if fsum(_hsv) != float(3):
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
                 # Print out to Houdini's status bar
-                _MSG = f"{str(node)}:PALETTE HSV -> RESET"
+                _MSG = f"{str(node)}: PALETTE HSV -> RESET"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
-                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                _MSG = f"{str(node)}: PALETTE HSV -> already at its default values."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
