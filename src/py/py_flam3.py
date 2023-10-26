@@ -2681,7 +2681,7 @@ reset_CP(self, mode=0) -> None:
                         # just create one with the current ramp in it
                         #
                         # Note that we already checked for a proper file extension with:
-                        # def out_check_outpath(...)
+                        # def out_flame_utils.out_check_outpath(...)
                         # so to not override something else by accident
                         else:
                             with open(str(out_path_checked),'w') as w:
