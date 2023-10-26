@@ -715,7 +715,7 @@ flam3h_on_loaded(self) -> None:
         
         # We can skip to initialize xaos as the history is stored in the node itself.
         
-        # This is important so loading a hip file with a FLAM3H node
+        # This is important so loading a hip file with a FLAM3H node inside
         # it wont block the houdini session until user input.
         self.flam3h_check_first_node_instance_msg(False)
         
