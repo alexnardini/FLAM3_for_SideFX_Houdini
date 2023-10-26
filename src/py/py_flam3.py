@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.03'
+FLAM3H_VERSION = '1.1.04'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -169,6 +169,9 @@ MARK_FF_MSG = "Please mark the FF first"
 
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
+# PALETTE JSON data keys
+CP_JSON_KEY_NAME_HEX = 'f3h_hex'
+CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
 
 # self prm names for user data
 FLAM3H_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
@@ -2386,6 +2389,8 @@ STATIC METHODS:
 
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
+isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
+
 isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
 
 clamp(x):
@@ -2446,6 +2451,26 @@ reset_CP(self, mode=0) -> None:
         
         
     @staticmethod
+    def isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
+        """Try to get the first palette preset of a JSON FLAM3H palette file.
+
+        Args:
+            filepath (Union[str, bool]): The JSON FLAM3H Palette file path
+
+        Returns:
+            Union[str, bool]: The preset name, or False if not.
+        """        
+        try:
+            # get presets if any
+            with open(filepath) as f:
+                data = json.load(f)
+            # get the first preset of them all
+            return list(data.keys())[0]
+        except:
+            return False
+
+
+    @staticmethod
     def isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
         """Check if the loaded palette lib file is actually a FAM3H palette json file.
 
@@ -2458,23 +2483,22 @@ reset_CP(self, mode=0) -> None:
             bool: _description_
         """      
         if filepath is not False:
-            try:
-                # get presets if any
-                with open(filepath) as f:
-                    data = json.load(f)
-                # get the first preset of them all
-                preset = list(data.keys())[0]
-                
-                # check if the preset is actually a FLAM3H Palette preset
+            preset = flam3h_palette_utils.isJSON_F3H_get_first_preset(filepath)
+            if preset is not False:
+                # If we made it this far, mean we loaded a valid JSON file,
+                # lets now check if the preset is actually a FLAM3H Palette preset.
                 with open(filepath) as f:
                     data = json.load(f)[preset]
                     # This is the moment of the truth ;)
-                    hex_values = data['hex']
+                    try:
+                        hex_values = data[CP_JSON_KEY_NAME_HEX]
+                    except:
+                        return False
                     # Validate the file path setting it
                     node.setParms({parm_path_name: str(filepath)}) #type: ignore
                     del data
                     return True
-            except:
+            else:
                 return False
         else:
             return False
@@ -2633,10 +2657,10 @@ reset_CP(self, mode=0) -> None:
                         HEXs.append(self.rgb_to_hex(clr))
                     
                     if min(hsv_vals_prm)==max(hsv_vals_prm)==1.0:
-                        dict = { presetname: {'hex': ''.join(HEXs) } }
+                        dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs) } }
                     else:
                         hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
-                        dict = { presetname: {'hex': ''.join(HEXs), 'hsv': hsv_vals} }
+                        dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
                     json_data = json.dumps(dict, indent=4)
 
                     if self.kwargs["ctrl"]:
@@ -2713,9 +2737,9 @@ reset_CP(self, mode=0) -> None:
                 hsv_check = False
                 with open(filepath) as f:
                     data = json.load(f)[preset]
-                    hex_values = data['hex']
+                    hex_values = data[CP_JSON_KEY_NAME_HEX]
                     try:
-                        [hsv_vals.append(float(x)) for x in data['hsv'].split(' ')]
+                        [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                         hsv_check = True
                     except:
                         pass
