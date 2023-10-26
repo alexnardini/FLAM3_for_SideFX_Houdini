@@ -896,6 +896,11 @@ on:
         If you animate any of the available parameters using expressions,
         remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.
 
+:box:
+    #display: rounded white
+
+    == MB: Settings == (MBSETTINGS)
+
 fps:
     #id: MB
     desired Frames per second.
@@ -907,6 +912,11 @@ samples:
 shutter offset:
     #id: MB
     Shutter time.
+
+:box:
+    #display: rounded white
+
+    == MB: Viz == (MBVIZ)
     
 viz mb:
     #id: MB
