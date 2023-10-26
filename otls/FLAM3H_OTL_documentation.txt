@@ -1619,7 +1619,7 @@ NOTE:
 
 - *Conic*           ->      _Eccentricity, Holes_
 
-- *Cpow*            ->      _Pow, R, I_
+- *Cpow*            ->      _Pow, r, i_
 
 - *Crop*            ->      _Left, Top, Right, Bottom_
 
