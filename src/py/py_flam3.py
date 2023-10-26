@@ -2447,7 +2447,7 @@ reset_CP(self, mode=0) -> None:
         
     @staticmethod
     def isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
-        """Check is the loaded palette lib file is actually a json file.
+        """Check if the loaded palette lib file is actually a FAM3H palette json file.
 
         Args:
             node (hou.Node): current FLAM3H node
