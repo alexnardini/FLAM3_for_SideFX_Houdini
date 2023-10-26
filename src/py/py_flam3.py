@@ -2465,7 +2465,7 @@ reset_CP(self, mode=0) -> None:
                 # get the first preset of them all
                 preset = list(data.keys())[0]
                 
-                # check the preset is actually a FLAM3H Palette preset
+                # check if the preset is actually a FLAM3H Palette preset
                 with open(filepath) as f:
                     data = json.load(f)[preset]
                     # This is the moment of the truth ;)
