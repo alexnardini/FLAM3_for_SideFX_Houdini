@@ -2499,7 +2499,7 @@ reset_CP(self, mode=0) -> None:
                     try:
                         hex_values = data[CP_JSON_KEY_NAME_HEX]
                         sm = hou.ui.statusMessage() # type: ignore
-                        if sm:
+                        if sm[0]:
                             hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     except:
                         _MSG = f"{str(node)}: PALETTE JSON LOAD -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
