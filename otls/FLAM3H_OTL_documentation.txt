@@ -1639,7 +1639,7 @@ NOTE:
     For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters.
 
 
-- *Auger*           ->      _Frequency, Scale, Symmetry, weight_
+- *Auger*           ->      _Frequency, Scale, Symmetry, Weight_
 
 - *Bent2*           ->      _X, Y_
 
