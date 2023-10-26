@@ -937,6 +937,9 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if json_path:
                     print(f'{str(node)}.palette: please select a valid file location.')
+                else:
+                    hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+            
             # Force preset menu to updated
             prm.eval()
 
@@ -1524,7 +1527,9 @@ iterator_keep_last_weight(self) -> None:
             self.node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" Default: 500K points \" -> SET"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-        else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+        else:
+            _MSG = f"{str(node)}: DENSITY -> already at its default value."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
     
     
     def menu_copypaste(self) -> list:
@@ -2483,6 +2488,7 @@ reset_CP(self, mode=0) -> None:
             bool: _description_
         """      
         if filepath is not False:
+            
             preset = flam3h_palette_utils.isJSON_F3H_get_first_preset(filepath)
             if preset is not False:
                 # If we made it this far, mean we loaded a valid JSON file,
@@ -2492,10 +2498,20 @@ reset_CP(self, mode=0) -> None:
                     # This is the moment of the truth ;)
                     try:
                         hex_values = data[CP_JSON_KEY_NAME_HEX]
+                        sm = hou.ui.statusMessage() # type: ignore
+                        if sm:
+                            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     except:
+                        _MSG = f"{str(node)}: PALETTE JSON LOAD -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                        sm = hou.ui.statusMessage() # type: ignore
+                        if  _MSG in sm[0]:
+                            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                        else:
+                            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+
                         return False
                     # Validate the file path setting it
-                    node.setParms({parm_path_name: str(filepath)}) #type: ignore
+                    node.setParms({parm_path_name: filepath}) #type: ignore
                     del data
                     return True
             else:
@@ -2656,7 +2672,7 @@ reset_CP(self, mode=0) -> None:
                         clr = tuple(ramp.lookup(p))
                         HEXs.append(self.rgb_to_hex(clr))
                     
-                    if min(hsv_vals_prm)==max(hsv_vals_prm)==1.0:
+                    if fsum(hsv_vals_prm) == 1.0:
                         dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs) } }
                     else:
                         hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
