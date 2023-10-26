@@ -916,7 +916,7 @@ reset_PREFS(self, mode=0) -> None:
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
             if json_path_checked is not False:
                 node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
-                if flam3h_palette_utils.isJSON(node, json_path):
+                if flam3h_palette_utils.isJSON_F3H(node, json_path):
                     # Only set when NOT on an: onLoaded python script
                     if mode:
                         prm.set('0')
@@ -2386,7 +2386,7 @@ STATIC METHODS:
 
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
-isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
 
 clamp(x):
 
@@ -2446,7 +2446,7 @@ reset_CP(self, mode=0) -> None:
         
         
     @staticmethod
-    def isJSON(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+    def isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
         """Check is the loaded palette lib file is actually a json file.
 
         Args:
@@ -2456,13 +2456,22 @@ reset_CP(self, mode=0) -> None:
 
         Returns:
             bool: _description_
-        """        
+        """      
         if filepath is not False:
             try:
-                with open(str(filepath),'r') as r:
-                    data_check = json.load(r)
+                # get presets if any
+                with open(filepath) as f:
+                    data = json.load(f)
+                preset = list(data.keys())[0]
+                
+                # check the presets are actually FLAM3H ramps presets
+                with open(filepath) as f:
+                    data = json.load(f)[preset]
+                    # This is the moment of the truth ;)
+                    hex_values = data['hex']
+                    
                     node.setParms({parm_path_name: str(filepath)}) #type: ignore
-                    del data_check
+                    del data
                     return True
             except:
                 return False
@@ -2535,10 +2544,10 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-
+        
         menu=[]
         
-        if flam3h_palette_utils.isJSON(node, filepath):
+        if flam3h_palette_utils.isJSON_F3H(node, filepath):
             if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
                 with open(filepath) as f:
                     data = json.load(f)
@@ -2635,7 +2644,7 @@ reset_CP(self, mode=0) -> None:
                             w.write(json_data)
                     else:
                         # if the file exist and is a valid JSON file
-                        if self.isJSON(node, out_path_checked):
+                        if self.isJSON_F3H(node, out_path_checked):
                             with open(str(out_path_checked),'r') as r:
                                 prevdata = json.load(r)
                             with open(str(out_path_checked), 'w') as w:
@@ -2695,8 +2704,10 @@ reset_CP(self, mode=0) -> None:
             preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
             
             if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+
                 HEXs = []
                 hsv_vals = []
+                
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
                 with open(filepath) as f:
