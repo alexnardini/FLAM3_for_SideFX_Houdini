@@ -2476,16 +2476,17 @@ reset_CP(self, mode=0) -> None:
 
 
     @staticmethod
-    def isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
-        """Check if the loaded palette lib file is actually a FAM3H palette json file.
+    def isJSON_F3H(node: hou.Node, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+        """Check if the loaded palette lib file is a valid FLAM3H palette json file.
 
         Args:
             node (hou.Node): current FLAM3H node
             filepath (Union[str, bool]): Palette lib full file path.
-            parm_path_name (_type_, optional): The actual color palette file parameter name.
+            msg (bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
+            parm_path_name (str): Default to global: CP_PALETTE_LIB_PATH. The actual Houdini's palette file parameter name.
 
         Returns:
-            bool: _description_
+            bool: True if valid. False if not valid.
         """      
         if filepath is not False:
             
@@ -2499,24 +2500,24 @@ reset_CP(self, mode=0) -> None:
                     try:
                         hex_values = data[CP_JSON_KEY_NAME_HEX]
                         sm = hou.ui.statusMessage() # type: ignore
-                        if sm[0]:
+                        if sm[0] and msg:
                             hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     except:
-                        _MSG = f"{str(node)}: PALETTE JSON LOAD -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                        sm = hou.ui.statusMessage() # type: ignore
-                        if  _MSG in sm[0]:
-                            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-                        else:
+                        if msg:
+                            _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
                         return False
+                    
                     # Validate the file path setting it
                     node.setParms({parm_path_name: filepath}) #type: ignore
                     del data
                     return True
             else:
+                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                 return False
         else:
+            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
             return False
         
         
@@ -2588,7 +2589,7 @@ reset_CP(self, mode=0) -> None:
         
         menu=[]
         
-        if flam3h_palette_utils.isJSON_F3H(node, filepath):
+        if flam3h_palette_utils.isJSON_F3H(node, filepath, False):
             if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
                 with open(filepath) as f:
                     data = json.load(f)
@@ -2636,7 +2637,7 @@ reset_CP(self, mode=0) -> None:
                 if flam3h_general_utils.isLOCK(out_path_checked):
                     ui_text = f"This Palette library is Locked."
                     ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
-                    _MSG = f"{str(node)} -> PALETTE library file -> is LOCKED"
+                    _MSG = f"{str(node)}: PALETTE library file -> is LOCKED"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                     # Clear up status bar msg
@@ -2685,7 +2686,7 @@ reset_CP(self, mode=0) -> None:
                             w.write(json_data)
                     else:
                         # if the file exist and is a valid JSON file
-                        if self.isJSON_F3H(node, out_path_checked):
+                        if self.isJSON_F3H(node, out_path_checked, False):
                             with open(str(out_path_checked),'r') as r:
                                 prevdata = json.load(r)
                             with open(str(out_path_checked), 'w') as w:
@@ -7137,7 +7138,7 @@ out_XML(self) -> None:
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flame library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-                        _MSG = f"{str(node)} -> FLAME library file -> is LOCKED"
+                        _MSG = f"{str(node)}: FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                         # Pop up message window
