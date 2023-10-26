@@ -739,6 +739,18 @@ flam3h_on_loaded(self) -> None:
         node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
 
 
+    # Need to think about this...not wired in the OTL yet
+    def flam3h_on_deleted(self) -> None:
+
+        if  len( self.node.type().instances() ) == 1:
+            
+            del hou.session.flam3h_node # type: ignore
+            del hou.session.flam3h_node_mp_id # type: ignore
+            del hou.session.flam3h_node_FF # type: ignore
+            del hou.session.flam3h_node_FF_check # type: ignore
+            del hou.session.flam3h_CS # type: ignore
+
+
 
 
 
@@ -6137,6 +6149,7 @@ out_XML(self) -> None:
         self._flam3h_mb_do = self._node.parm(MB_DO).evalAsInt()
         self._flam3h_f3c = self._node.parm(PREFS_F3C).evalAsInt()
         
+        
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
         """It will check the passed Flame name 
@@ -6162,7 +6175,6 @@ out_XML(self) -> None:
                 
                 rp = flame_name.split(splt)
                 rp[:] = [item for item in rp if item]
-                
                 # Lets make some name checks first
                 #
                 # if it start with a special character
@@ -6204,11 +6216,8 @@ out_XML(self) -> None:
                     return flame_name_new.strip()
                 else:
                     splt = flame_name.split(":")
-                    _rp = str(flame_name).rpartition(div)
                     if len(splt)>1:
-                        return ''.join([item.strip() for item in splt]) + div + str(iter_num)
-                    elif _rp[-1] != rp[-1].strip():
-                        return ''.join([item.strip() for item in _rp[:-1]]) + str(iter_num)
+                        return ''.join([item.strip() for item in splt[:-1]]) + div + str(iter_num)
                     else:
                         return flame_name
             else:
