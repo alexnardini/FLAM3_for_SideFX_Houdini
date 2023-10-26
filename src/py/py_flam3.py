@@ -2462,14 +2462,15 @@ reset_CP(self, mode=0) -> None:
                 # get presets if any
                 with open(filepath) as f:
                     data = json.load(f)
+                # get the first preset of them all
                 preset = list(data.keys())[0]
                 
-                # check the presets are actually FLAM3H ramps presets
+                # check the preset is actually a FLAM3H Palette preset
                 with open(filepath) as f:
                     data = json.load(f)[preset]
                     # This is the moment of the truth ;)
                     hex_values = data['hex']
-                    
+                    # Validate the file path setting it
                     node.setParms({parm_path_name: str(filepath)}) #type: ignore
                     del data
                     return True
