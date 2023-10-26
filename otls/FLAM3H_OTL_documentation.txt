@@ -97,7 +97,7 @@ density presets mini menu:
     
 Reset density:
     #id: Global
-    [Smallicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
     
     Reset density to its default: 500k
         
@@ -577,11 +577,23 @@ pre affine:
     NOTE:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
         
-      
+pre affine reset:
+    #id: FLAME
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    
+    Reset this iterator's pre affine to their default values.
+        
+        
 POST affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
     * See above affine description for more informations.
+    
+post affine reset:
+    #id: FLAME
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    
+    Reset this iterator's post affine to their default values.
     
 :box:
     #display: rounded white
@@ -698,11 +710,23 @@ FF: pre affine:
 
     - *See the above iterator's affine description for more information*.
     
+FF pre affine reset:
+    #id: FF
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    
+    Reset the FF pre affine to their default values.
+    
 FF: POST affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
     
     - *See the above iterator's affine description for more information*.
+    
+FF post affine reset:
+    #id: FF
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    
+    Reset the FF post affine to their default values.
         
 :box:
     #display: rounded white
@@ -747,9 +771,21 @@ HSV:
     
     HSV values are exported into the XML on Flame save when used.
     
+HSV reset:
+    #id: PALETTE
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    
+    Reset the HSV to their default values.
+    
 palette:
     #id: PALETTE
     the actual color palette.
+    
+palette reset:
+    #id: PALETTE
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    
+    Reset the palette to its default values.
     
 :box:
     #display: rounded white
@@ -1227,7 +1263,7 @@ Edit render properties:
     
 Reset render properties:
     #id: OUT
-    [Smallicon:opdef:.?iconBlackSVG.svg]
+    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
     
     Click this icon to reset all OUT render properties.
     
