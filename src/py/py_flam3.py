@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.04'
+FLAM3H_VERSION = '1.1.05'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -2499,18 +2499,18 @@ reset_CP(self, mode=0) -> None:
                     # This is the moment of the truth ;)
                     try:
                         hex_values = data[CP_JSON_KEY_NAME_HEX]
-                        sm = hou.ui.statusMessage() # type: ignore
-                        if sm[0] and msg:
-                            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     except:
                         if msg:
                             _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-
+                        del data
                         return False
                     
                     # Validate the file path setting it
                     node.setParms({parm_path_name: filepath}) #type: ignore
+                    sm = hou.ui.statusMessage() # type: ignore
+                    if sm[0] and msg:
+                        hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     del data
                     return True
             else:
