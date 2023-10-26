@@ -1587,7 +1587,7 @@ _A list of all variations included with FLAM3H:_
 *Wedgejulia*, 
 *Wedgesph*, 
 *Whorl*
-*
+
 
 :box:
     #display: rounded white
