@@ -1609,7 +1609,7 @@ NOTE:
 
 - *Bipolar*         ->      _Shift_
 
-- *Blob*            ->      _Low, High, waves_
+- *Blob*            ->      _Low, High, Waves_
 
 - *Bwraps*          ->      _Size, Space, Gain_
 
