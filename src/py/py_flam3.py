@@ -723,16 +723,19 @@ flam3h_on_loaded(self) -> None:
         flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
         #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
         flam3h_general_utils(self.kwargs).flam3h_init_presets(IN_PRESETS, 0)
+        
         flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
 
         # update about tab just in case
         flam3h_about_utils(self.kwargs).flam3h_about_msg()
         flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
         flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+        
         # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
         # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
         # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside the in_to_flam3h()
         node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
+        
         # Same goes for the palette preset entrie, and some time goes also out of range
         # so we store the selection first inside a mem menu parameter first inside json_to_flam3h_ramp()
         # and call it back here.
