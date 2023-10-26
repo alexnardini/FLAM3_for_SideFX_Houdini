@@ -81,12 +81,12 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
 'parameter name:    sys_palettepresets'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp_sys()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu
 'script type:       Action Script'
-kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 
 
 'parameter name:    sys_inpresets'
@@ -226,17 +226,17 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 'script type:       Callbac Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("palettepresets")
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).ramp_save()
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
 
 'parameter name:    palettepresets'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_ramp()
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 
 
 

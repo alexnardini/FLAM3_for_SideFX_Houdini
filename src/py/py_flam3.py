@@ -734,7 +734,7 @@ flam3h_on_loaded(self) -> None:
         # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside the in_to_flam3h()
         node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
         # Same goes for the palette preset entrie, and some time goes also out of range
-        # so we store the selection first inside a mem menu parameter first inside json_to_ramp()
+        # so we store the selection first inside a mem menu parameter first inside json_to_flam3h_ramp()
         # and call it back here.
         node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
 
@@ -2405,9 +2405,9 @@ menu_ramp_presets(self) -> list:
 
 ramp_save(self) -> None:
 
-json_to_ramp_sys(self) -> None:
+json_to_flam3h_ramp_sys(self) -> None:
 
-json_to_ramp(self) -> None:
+json_to_flam3h_ramp(self) -> None:
 
 palette_cp(self) -> None:
 
@@ -2462,8 +2462,8 @@ reset_CP(self, mode=0) -> None:
         """        
         try:
             # get presets if any
-            with open(filepath) as f:
-                data = json.load(f)
+            with open(filepath, 'r') as r:
+                data = json.load(r)
             # get the first preset of them all
             return list(data.keys())[0]
         except:
@@ -2487,8 +2487,8 @@ reset_CP(self, mode=0) -> None:
             if preset is not False:
                 # If we made it this far, mean we loaded a valid JSON file,
                 # lets now check if the preset is actually a FLAM3H Palette preset.
-                with open(filepath) as f:
-                    data = json.load(f)[preset]
+                with open(filepath, 'r') as r:
+                    data = json.load(r)[preset]
                     # This is the moment of the truth ;)
                     try:
                         hex_values = data[CP_JSON_KEY_NAME_HEX]
@@ -2597,7 +2597,7 @@ reset_CP(self, mode=0) -> None:
         return menu
 
 
-    def ramp_save(self) -> None:
+    def flam3h_ramp_save(self) -> None:
         """Save the current color palette into a json file.
         This wil also save the HSV values along with it.
         
@@ -2698,17 +2698,17 @@ reset_CP(self, mode=0) -> None:
                     node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
 
 
-    def json_to_ramp_sys(self) -> None:
+    def json_to_flam3h_ramp_sys(self) -> None:
         """Load the selected palette preset from the provided json file
         using the SYS load palette button.
         """        
         node = self.node
         preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
         node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
-        self.json_to_ramp()
+        self.json_to_flam3h_ramp()
         
         
-    def json_to_ramp(self) -> None:
+    def json_to_flam3h_ramp(self) -> None:
         """Load the selected palette preset from the provided json file
         
         Args:
@@ -2735,8 +2735,8 @@ reset_CP(self, mode=0) -> None:
                 
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
-                with open(filepath) as f:
-                    data = json.load(f)[preset]
+                with open(filepath, 'r') as r:
+                    data = json.load(r)[preset]
                     hex_values = data[CP_JSON_KEY_NAME_HEX]
                     try:
                         [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
