@@ -739,7 +739,7 @@ flam3h_on_loaded(self) -> None:
         node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
 
 
-    # Need to think about this...not wired in the OTL yet
+    # Need to think about this...not wired in FLAM3H yet
     def flam3h_on_deleted(self) -> None:
 
         if  len( self.node.type().instances() ) == 1:
