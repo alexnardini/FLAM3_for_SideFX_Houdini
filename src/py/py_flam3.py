@@ -633,29 +633,11 @@ flam3h_on_loaded(self) -> None:
                         node.setDisplayFlag(True)  # type: ignore
                         _MSG_sb = f""
                         hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Message) # type: ignore
-                
-
-    def flam3h_on_create(self) -> None:
-        """
-        Args:
-            kwargs (dict): [kwargs[] dictionary]
-        """
+                    
+                    
+    def flam3h_on_create_set_houdini_session_data(self) -> None:
+        
         node = self.node
-        
-        self.flam3h_check_first_node_instance_msg()
-                
-        # Set initial node color
-        node.setColor(hou.Color((0.9,0.9,0.9)))
-        
-        # Set about tab infos
-        flam3h_about_utils(self.kwargs).flam3h_about_msg()
-        flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
-        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-        node.setParms({MSG_FLAMESTATS: ""})
-        node.setParms({MSG_FLAMERENDER: ""})
-        node.setParms({MSG_PALETTE: ''})
-        node.setParms({MSG_OUT: ''})
         
         # FLAM3 node and MultiParameter id for iterators
         #
@@ -704,7 +686,11 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_CS # type: ignore
         except:
             hou.session.flam3h_CS = [] # type: ignore
+                    
+                         
+    def flam3h_on_create_set_viewport_settings(self) -> None:
         
+        node = self.node
         
         # Update dark history
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
@@ -754,6 +740,33 @@ flam3h_on_loaded(self) -> None:
                 type = settings.particleDisplayType()
                 if type == Pixels:
                     node.setParms({"vptype": 1})
+                
+
+    def flam3h_on_create(self) -> None:
+        """
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """
+        node = self.node
+        
+        self.flam3h_check_first_node_instance_msg()
+                
+        # Set initial node color
+        node.setColor(hou.Color((0.9,0.9,0.9)))
+        
+        # Set about tab infos
+        flam3h_about_utils(self.kwargs).flam3h_about_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
+        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+        
+        self.flam3h_on_create_set_houdini_session_data()
+        self.flam3h_on_create_set_viewport_settings()
+        
+        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
+        node.setParms({MSG_FLAMESTATS: ""})
+        node.setParms({MSG_FLAMERENDER: ""})
+        node.setParms({MSG_PALETTE: ''})
+        node.setParms({MSG_OUT: ''})
 
 
     def flam3h_on_loaded(self) -> None:
