@@ -1514,19 +1514,19 @@ iterator_keep_last_weight(self) -> None:
             if ptcount != vals[10]:
                 self.node.setParms({GLB_DENSITY: vals[10]}) # type: ignore
                 _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[10]} \" -> SET ( Shooting for High Quality, may take awhile. )"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 11:
             if ptcount != vals[11]:
                 self.node.setParms({GLB_DENSITY: vals[11]}) # type: ignore
                 _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[11]} \" -> SET ( Shooting for Very High Quality, may take awhile. )"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
         elif sel == 12:
             if ptcount != vals[12]:
                 self.node.setParms({GLB_DENSITY: vals[12]}) # type: ignore
                 _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[12]} \" -> SET ( Shooting for Super High Quality, may take awhile. )"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                 
         # reset to null value so we can set the same preset again
@@ -1683,7 +1683,7 @@ iterator_keep_last_weight(self) -> None:
             if id_from is not None:
                 if node==flam3node and id==id_from:
                     _MSG = f"{str(node)}: Iterator marked. Select a different iterator number to paste its values."
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
                 else:
                     self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
                     self.paste_from_list(node, flam3node, flam3h_iterator.allMisc, str(id), str(id_from))
@@ -1691,7 +1691,7 @@ iterator_keep_last_weight(self) -> None:
 
             else:
                 _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
         elif self.kwargs["shift"]:
             del hou.session.flam3h_node_mp_id # type: ignore
@@ -1730,7 +1730,7 @@ iterator_keep_last_weight(self) -> None:
             if flam3node_FF_check is not None:
                 if node==flam3node_FF:
                     _MSG = f"{str(node)}: FF marked. Select a different FLAM3H node to paste those FF values."
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
                 else:
                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
@@ -1740,7 +1740,7 @@ iterator_keep_last_weight(self) -> None:
 
             else:
                 _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
         elif self.kwargs["shift"]:
             del hou.session.flam3h_node_FF_check # type: ignore
@@ -1833,7 +1833,7 @@ iterator_keep_last_weight(self) -> None:
             
         else:
             _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
 
     def prm_paste_sel_FF(self) -> None:
@@ -1901,7 +1901,7 @@ iterator_keep_last_weight(self) -> None:
                     
         else:
             _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
 
     def flam3h_xaos_convert(self) -> None:
@@ -2416,7 +2416,7 @@ iterator_keep_last_weight(self) -> None:
             
             # Print to Houdini's status bar
             _MSG = f"{str(node)}: {_MSG_str}"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
         else:
             # set xaos every time an iterator is added or removed
@@ -2443,7 +2443,7 @@ iterator_keep_last_weight(self) -> None:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             _MSG = f"{str(node)}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
 
     def iterator_keep_last_weight(self) -> None:
@@ -2469,7 +2469,7 @@ iterator_keep_last_weight(self) -> None:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_weight}_{str(id)}": min_weight})
             _MSG = f"{str(node)}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
 
 
@@ -2550,7 +2550,7 @@ reset_CP(self, mode=0) -> None:
             return PALETTE_COUNT_256
         else:
             _MSG = f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.'
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             print(_MSG)
             return PALETTE_COUNT_256
         
@@ -7012,7 +7012,7 @@ out_XML(self) -> None:
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
             
             node = self.node
-            ui_text = "Multiple variations of the same type not allowed"
+            ui_text = "Multiple variations of the same type not allowed.\nShow Details to learn more."
             ALL_msg = f"Node: {str(node)}\nType: Warning:\n"
             
             VARS_PRE_msg = f"\nPRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n-> {', '.join(VARS_PRE_duplicate)}\n"
@@ -7036,7 +7036,11 @@ out_XML(self) -> None:
                 ALL_msg += "\n" + VARS_POST_FF_msg
             
             ALL_msg += HELP_msg
-            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
+            
+            _MSG = f"{str(node)}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
             return False
         else:
             return True
