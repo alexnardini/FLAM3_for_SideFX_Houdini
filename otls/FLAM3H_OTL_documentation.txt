@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.06
+#version: 1.1.10
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -215,8 +215,9 @@ TAG:
     TIP:
         The Tag icon will change when:
         
-        - [Smallicon:opdef:.?icon_TagOSVG.svg]: when "*auto set xaos*" is *ON* 
-        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when "*auto set xaos*" is *OFF*
+        - [Smallicon:opdef:.?icon_TagOBlueSVG.svg]: when *_auto set xaos_* is *ON* ( _default_ )
+        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when *_auto set xaos_* is *OFF*
+        - [Smallicon:opdef:.?icon_TagOSVG.svg]: when Xaos is active and you cross the 20 iterators limit.
          
 TAG size:
     #id: SYS
