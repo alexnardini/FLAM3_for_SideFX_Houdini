@@ -173,7 +173,7 @@ iterations:
     
 FLAM3H documentation:
     #id: SYS
-    [Smallicon:opdef:.?FLAM3H_DOC_icon.svg]
+    [Smallicon:opdef:.?icon_TagOBlueSVG.svg]
     
     Display this documentation.
     
