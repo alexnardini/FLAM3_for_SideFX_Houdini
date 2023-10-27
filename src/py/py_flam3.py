@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.05'
+FLAM3H_VERSION = '1.1.06'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -2046,6 +2046,90 @@ iterator_keep_last_weight(self) -> None:
         if check:
             _MSG = f"{str(node)}: FF POST Affine -> already at their default values."
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            
+            
+    def swap_iter_pre_vars(self) -> None:
+        
+        node = self.node
+        id = self.kwargs['script_multiparm_index']
+        _MSG = f"{str(node)}.iterator.{str(id)} PRE variations -> SWAP"
+        
+        # Get prm names
+        pvT = flam3h_iterator.sec_prevarsT
+        pvW = flam3h_iterator.sec_prevarsW[1:]
+
+        # Get values
+        pvT_vals = (node.parm(f"{pvT[0]}{str(id)}").eval(), node.parm(f"{pvT[1]}{str(id)}").eval())
+        pvW_vals = (node.parm(f"{pvW[0][0]}{str(id)}").eval(), node.parm(f"{pvW[1][0]}{str(id)}").eval())
+        
+        if self.kwargs["ctrl"]:
+            # Swap types
+            if pvT_vals[0] != pvT_vals[1]:
+                node.setParms({f"{pvT[0]}{str(id)}": pvT_vals[1]})
+                node.setParms({f"{pvT[1]}{str(id)}": pvT_vals[0]})
+                
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        else:
+            # Swap types
+            if pvT_vals[0] != pvT_vals[1]:
+                node.setParms({f"{pvT[0]}{str(id)}": pvT_vals[1]})
+                node.setParms({f"{pvT[1]}{str(id)}": pvT_vals[0]})
+            
+                # Swap weights
+                if fsum(pvW_vals) > 0:
+                    node.setParms({f"{pvW[0][0]}{str(id)}": pvW_vals[1]})
+                    node.setParms({f"{pvW[1][0]}{str(id)}": pvW_vals[0]})
+                
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else:
+                # Swap weights only
+                if fsum(pvW_vals) > 0:
+                    node.setParms({f"{pvW[0][0]}{str(id)}": pvW_vals[1]})
+                    node.setParms({f"{pvW[1][0]}{str(id)}": pvW_vals[0]})
+                    
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
+                
+    def swap_FF_post_vars(self) -> None:
+        
+        node = self.node
+        _MSG = f"{str(node)} FF POST variations -> SWAP"
+        
+        # Get prm names
+        pvT = flam3h_iterator_FF.sec_postvarsT_FF
+        pvW = flam3h_iterator_FF.sec_postvarsW_FF
+
+        # Get values
+        pvT_vals = (node.parm(f"{pvT[0]}").eval(), node.parm(f"{pvT[1]}").eval())
+        pvW_vals = (node.parm(f"{pvW[0][0]}").eval(), node.parm(f"{pvW[1][0]}").eval())
+        
+        if self.kwargs["ctrl"]:
+            # Swap types
+            if pvT_vals[0] != pvT_vals[1]:
+                node.setParms({f"{pvT[0]}": pvT_vals[1]})
+                node.setParms({f"{pvT[1]}": pvT_vals[0]})
+                
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        else:
+            # Swap types
+            if pvT_vals[0] != pvT_vals[1]:
+                node.setParms({f"{pvT[0]}": pvT_vals[1]})
+                node.setParms({f"{pvT[1]}": pvT_vals[0]})
+            
+                # Swap weights
+                if fsum(pvW_vals) > 0:
+                    node.setParms({f"{pvW[0][0]}": pvW_vals[1]})
+                    node.setParms({f"{pvW[1][0]}": pvW_vals[0]})
+                    
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else:
+                # Swap weights only
+                if fsum(pvW_vals) > 0:
+                    node.setParms({f"{pvW[0][0]}": pvW_vals[1]})
+                    node.setParms({f"{pvW[1][0]}": pvW_vals[0]})
+                    
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
 
     def reset_FF(self) -> None:
         """Reset the FLAM3H FF Tab parameters.
@@ -2169,7 +2253,7 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
         
         # Print to Houdini's status bar
-        _MSG = f"{str(node)}: LOAD FLAME preset: \"Sierpiński triangle\" -> Completed"
+        _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
@@ -2802,7 +2886,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
                 
                 # Print to status Bar
-                _MSG = f"{str(node)}: LOAD PALETTE preset: \"{preset}\" -> Completed"
+                _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         
@@ -5988,7 +6072,7 @@ reset_IN(self, mode=0) -> None:
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-            _MSG = f"{str(node)}: LOAD FLAME preset: \"{preset_name}\" -> Completed"
+            _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
@@ -6816,7 +6900,7 @@ out_XML(self) -> None:
             tree = lxmlET.ElementTree(root)
             tree.write(outpath)
             
-            _MSG = f"FLAM3H: SAVE FLAME: New -> Completed"
+            _MSG = f"FLAM3H: SAVE Flame: New -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
@@ -6841,7 +6925,7 @@ out_XML(self) -> None:
             tree = lxmlET.ElementTree(root)
             tree.write(out_path)
             
-            _MSG = f"FLAM3H: SAVE FLAME: Append -> Completed"
+            _MSG = f"FLAM3H: SAVE Flame: Append -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 

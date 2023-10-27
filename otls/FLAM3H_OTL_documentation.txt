@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.05
+#version: 1.1.06
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -511,6 +511,18 @@ pre tab:
     #id: FLAME
     PRE variations for the selected iterator.
     
+    The order of the PRE variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
+
+    
+swap pre vars:
+    #id: FLAME
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    
+    ((LMB)) swap the order of the PRE Variations and their weights. 
+    
+    ((CTRL)) + ((LMB)) swap only the variation names.
+    
+    
 var tab:
     #id: FLAME
     Variations for the selected iterator.
@@ -670,7 +682,6 @@ FF pre tab:
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
     
     
-    
 FF var tab:
     #id: FF
     Variations for the FF iterator.
@@ -681,8 +692,19 @@ FF Post tab:
     #id: FF
     POST Variations for the FF iterator.
     
-    This is applyed after the variations. It is the very last transformation.
+    These are applyed after the variations. They are the very last transformation.
     * When using parametric variations, their parameters will populate the *FF: PP VARS* Tab.
+    
+    The order of the POST variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
+    
+
+swap FF Post vars:
+    #id: FLAME
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    
+    ((LMB)) swap the order of the POST Variations and their weights. 
+    
+    ((CTRL)) + ((LMB)) swap only the variation names.
 
     
 FF: w:
