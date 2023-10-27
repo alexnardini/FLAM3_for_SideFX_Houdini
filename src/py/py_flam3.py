@@ -6680,15 +6680,13 @@ out_XML(self) -> None:
                 OUT_XML_FLAME_INTERPOLATION: 'linear',
                 OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
                 
-                '''
                 # The following are not really needed for our purpose and we assume all curves are defaults to start with.
                 
-                OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
-                OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
-                OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
-                OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
-                OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve
-                '''
+                # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
+                # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
+                # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
+                # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
+                # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve
                 }
         
         
@@ -6717,7 +6715,7 @@ out_XML(self) -> None:
         names_VARS_POST = []
         f3d = out_flame_xforms_data(kwargs)
         for iter in range(f3d.iter_count):
-            mp_idx = iter + 1
+            mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
                 xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
                 xf.tag = XML_XF
@@ -6734,9 +6732,9 @@ out_XML(self) -> None:
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-                names_VARS.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, str(mp_idx), in_flame_utils.in_util_make_NULL))
-                names_VARS_PRE.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, str(mp_idx), in_flame_utils.in_util_make_PRE))
-                names_VARS_POST.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, str(mp_idx), in_flame_utils.in_util_make_POST))
+                names_VARS.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
+                names_VARS_PRE.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
+                names_VARS_POST.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
         # Build finalxform
         names_VARS_FF = []
         names_VARS_PRE_FF = []
@@ -7486,15 +7484,13 @@ class out_flame_render_properties(out_flame_utils):
         self._flame_vibrancy = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
         self._flame_highlight = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
         
-        '''
         # The following are not really needed for our purpose and we assume all curves are defaults to start with.
 
-        self._flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        self._flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        self._flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
-        self._flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
-        self._flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
-        '''
+        # self._flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        # self._flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
+        # self._flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
+        # self._flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
+        # self._flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
         
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
@@ -7548,29 +7544,27 @@ class out_flame_render_properties(out_flame_utils):
     def flame_highlight(self):
         return self._flame_highlight
     
-    '''
     # The following are not really needed for our purpose and we assume all curves are defaults to start with.
     
-    @property
-    def flame_render_curves(self):
-        return self._flame_render_curves
+    # @property
+    # def flame_render_curves(self):
+    #     return self._flame_render_curves
     
-    @property
-    def flame_overall_curve(self):
-        return self._flame_overall_curve
+    # @property
+    # def flame_overall_curve(self):
+    #     return self._flame_overall_curve
     
-    @property
-    def flame_red_curve(self):
-        return self._flame_red_curve
+    # @property
+    # def flame_red_curve(self):
+    #     return self._flame_red_curve
     
-    @property
-    def flame_green_curve(self):
-        return self._flame_green_curve
+    # @property
+    # def flame_green_curve(self):
+    #     return self._flame_green_curve
     
-    @property
-    def flame_blue_curve(self):
-        return self._flame_blue_curve
-    '''
+    # @property
+    # def flame_blue_curve(self):
+    #     return self._flame_blue_curve
     
     # custom to FLAM3H only
     
