@@ -698,28 +698,29 @@ flam3h_on_loaded(self) -> None:
         all_f3h = node.type().instances()
         all_f3h_vpptsize = []
         all_f3h_vptype = []
-        _DARK = False
         if len(all_f3h) > 1:
-            # If there are other FLAM3H instances, collect some data from them all
-            # and see if the are set to dark mode
+            # If there are other FLAM3H instances, collect some data from them
+            # and see if they are set to dark mode
             for f3h in all_f3h:
                 if f3h != node:
-                    # Collect some data fisrst
+                    # Only collect the first instance's data
+                    # since they will all have the same settings.
                     all_f3h_vpptsize.append(f3h.parm("vpptsize").evalAsFloat())
                     all_f3h_vptype.append(f3h.parm("vptype").evalAsInt())
                     # If the other FLAM3H instances are set on dark mode,
                     # set myself to dark mode too, otherwise keep whatever viewport color is there
-                    if not _DARK:
-                        if f3h.parm("setdark").eval():
-                            node.setParms({"setdark": 1})
-                            _DARK = True
-            # Run dark mode
-            flam3h_general_utils(self.kwargs).colorSchemeDark() # type: ignore
+                    if f3h.parm("setdark").eval():
+                        node.setParms({"setdark": 1})
+                        # Run dark mode
+                        flam3h_general_utils(self.kwargs).colorSchemeDark(False)
+                        break
+                    else:
+                        break
         else:
             # Otherwise if i'm the only FLAM3H node, go dark right away
             node.setParms({"setdark": 1})
             # Run dark mode
-            flam3h_general_utils(self.kwargs).colorSchemeDark() # type: ignore
+            flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
         if all_f3h_vpptsize:
