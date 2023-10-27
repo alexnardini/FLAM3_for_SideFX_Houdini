@@ -707,20 +707,53 @@ flam3h_on_loaded(self) -> None:
         
         
         # Update dark history
-        flam3h_general_utils(self.kwargs).colorSchemeDark()  # type: ignore
-        # Run dark mode
-        node.setParms({"setdark": 1})
-        flam3h_general_utils(self.kwargs).colorSchemeDark()  # type: ignore
-        # Set other FLAM3H instances to dark
-        for f3h in self.node.type().instances():
-            if not f3h.parm("setdark").eval():
-                f3h.setParms({"setdark": 1})
-            
-        # Set viewport Point Size to FLAM3H default value
-        flam3h_ptsize_default = node.parm("vpptsize").evalAsFloat()
-        for view in flam3h_general_utils.util_getSceneViewers():
-            settings = view.curViewport().settings()
-            settings.particlePointSize(flam3h_ptsize_default)
+        flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
+        # Set other FLAM3H instances to dark if any
+        all_f3h = node.type().instances()
+        all_f3h_vpptsize = []
+        all_f3h_vptype = []
+        _DARK = False
+        if len(all_f3h) > 1:
+            # If there are other FLAM3H instances, collect some data from them all
+            # and see if the are set to dark mode
+            for f3h in all_f3h:
+                if f3h != node:
+                    all_f3h_vpptsize.append(f3h.parm("vpptsize").evalAsFloat())
+                    all_f3h_vptype.append(f3h.parm("vptype").evalAsInt())
+                    # If they are set on dark mode, set myself to dark mode too
+                    # Otherwise keep whatever viewport bg is there
+                    if not _DARK:
+                        if f3h.parm("setdark").eval():
+                            node.setParms({"setdark": 1})
+                            _DARK = True
+            # Run dark mode
+            flam3h_general_utils(self.kwargs).colorSchemeDark() # type: ignore
+        else:
+            # Otherwise if i'm the only FLAM3H node, go dark right away
+            node.setParms({"setdark": 1})
+            # Run dark mode
+            flam3h_general_utils(self.kwargs).colorSchemeDark() # type: ignore
+    
+        # If we collected some data, set
+        if all_f3h_vpptsize:
+            node.setParms({"vpptsize": all_f3h_vpptsize[0]})
+        else:
+            for view in flam3h_general_utils.util_getSceneViewers():
+                settings = view.curViewport().settings()
+                size = settings.particlePointSize()
+                if size != 1:
+                    node.setParms({"vpptsize": size})
+                    
+        Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+        # If we collected some data, set
+        if all_f3h_vptype:
+            node.setParms({"vptype": all_f3h_vptype[0]})
+        else:
+            for view in flam3h_general_utils.util_getSceneViewers():
+                settings = view.curViewport().settings()
+                type = settings.particleDisplayType()
+                if type == Pixels:
+                    node.setParms({"vptype": 1})
 
 
     def flam3h_on_loaded(self) -> None:
@@ -979,7 +1012,7 @@ reset_PREFS(self, mode=0) -> None:
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
 
 
-    def colorSchemeDark(self) -> None:
+    def colorSchemeDark(self, update_others=True) -> None:
         """Change viewport color scheme to dark
         and remember the current color scheme so to switch back to it when unchecked.
         If the viewport color scheme is already dark, checking this option will do nothing. 
@@ -1033,6 +1066,15 @@ reset_PREFS(self, mode=0) -> None:
                     elif hou.session.flam3h_CS[count] == Grey: # type: ignore
                         settings.setColorScheme(Grey)
             count += 1
+            
+        if update_others:
+            # Updated dark preference's option toggle on other FLAM3H nodes instances
+            all_f3h = self.node.type().instances()
+            if len(all_f3h) > 1:
+                for f3h in all_f3h:
+                    if f3h != node:
+                        if f3h.parm("setdark").eval() != setprm:
+                            f3h.setParms({"setdark": setprm})
         
         # Update history
         hou.session.flam3h_CS = [] # type: ignore
@@ -1056,6 +1098,14 @@ reset_PREFS(self, mode=0) -> None:
             elif pttype == 1:
                 settings.particleDisplayType(Pixels)
                 
+        # Updated Point Display type preference's option toggle on other FLAM3H nodes instances
+        all_f3h = self.node.type().instances()
+        if len(all_f3h) > 1:
+            for f3h in all_f3h:
+                if f3h != node:
+                    if f3h.parm("vptype").eval() != pttype:
+                        f3h.setParms({"vptype": pttype})
+                
                 
     def viewportParticleSize(self) -> None:
         """When the viewport particle display type is set to Point
@@ -1069,6 +1119,12 @@ reset_PREFS(self, mode=0) -> None:
             settings = view.curViewport().settings()
             settings.particleDisplayType(Points)
             settings.particlePointSize(ptsize)
+            
+        # Updated Point Size preference's option toggle on other FLAM3H nodes instances
+        if node.parm("vptype").evalAsInt() == 0:
+            for f3h in self.node.type().instances():
+                if f3h.parm("vpptsize").eval() != ptsize:
+                    f3h.setParms({"vpptsize": ptsize})
             
             
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
