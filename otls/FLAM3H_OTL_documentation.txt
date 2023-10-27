@@ -99,7 +99,7 @@ density presets mini menu:
     
 Reset density:
     #id: Global
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset density to its default: 500k
         
@@ -173,7 +173,7 @@ iterations:
     
 FLAM3H documentation:
     #id: SYS
-    [Smallicon:opdef:.?iconOrangeHelpSVG.svg]
+    [Smallicon:opdef:.?icon_DocSVG.svg]
     
     Display this documentation.
     
@@ -215,8 +215,8 @@ TAG:
     TIP:
         The Tag icon will change when:
         
-        - [Smallicon:opdef:.?iconBlueStarRedSVG.svg]: when "*auto set xaos*" is *ON* 
-        - [Smallicon:opdef:.?iconRedSVG.svg]: when "*auto set xaos*" is *OFF*
+        - [Smallicon:opdef:.?icon_TagSVG.svg]: when "*auto set xaos*" is *ON* 
+        - [Smallicon:opdef:.?icon_TagRedSVG.svg]: when "*auto set xaos*" is *OFF*
          
 TAG size:
     #id: SYS
@@ -354,7 +354,7 @@ note:
     
 copy/paste:
     #id: FLAME
-    [Smallicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
     
     ((LMB)) to mark this iterator for being copied. 
     
@@ -368,7 +368,7 @@ copy/paste:
     
 A tip:
     #id: FLAME
-    [Smallicon:opdef:.?iconBluStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
     
     Show active iterator informations and tips.
     
@@ -449,7 +449,9 @@ xaos:
         
 auto space xaos weights / xaos information tips:
     #id: FLAME
-    [Smallicon:opdef:.?iconBlueStarRedSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedOutlineSVG.svg]
+    
+    Activate/Deactivate auto space xaos weights option.
     
     When the "*auto set xaos*" preferences option is *ON*:
     
@@ -593,7 +595,7 @@ pre affine:
         
 pre affine reset:
     #id: FLAME
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset this iterator's pre affine to their default values.
         
@@ -605,7 +607,7 @@ POST affine:
     
 post affine reset:
     #id: FLAME
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset this iterator's post affine to their default values.
     
@@ -651,7 +653,7 @@ FF: note:
     
 FF: copy/paste:
     #id: FF
-    [Smallicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
     
     ((LMB)) to mark this FF for being copied. 
     
@@ -736,7 +738,7 @@ FF: pre affine:
     
 FF pre affine reset:
     #id: FF
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset the FF pre affine to their default values.
     
@@ -748,7 +750,7 @@ FF: POST affine:
     
 FF post affine reset:
     #id: FF
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset the FF post affine to their default values.
         
@@ -797,7 +799,7 @@ HSV:
     
 HSV reset:
     #id: PALETTE
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset the HSV to their default values.
     
@@ -807,7 +809,7 @@ palette:
     
 palette reset:
     #id: PALETTE
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset the palette to its default values.
     
@@ -1131,7 +1133,7 @@ Render infos:
     
 Copy/Paste render properties:
     #id: IN
-    [Smallicon:opdef:.?iconBlackStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
     
     When you click this icon, those render properties will be copied and pasted into the render properties of the OUT tab.
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
@@ -1240,7 +1242,7 @@ Flame name ( preset ):
     
 Flame name tip:
     #id: OUT
-    [Smallicon:opdef:.?iconBluStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
     
     Show Flame name's informations and tips.
     
