@@ -1417,7 +1417,7 @@ auto set xaos:
     In case of ADD, the new xaos weights will be of value: 1.
     
     TIP:
-        The FLAM3H viewport Tag icon will turn red ( [Smallicon:opdef:.?iconRedSVG.svg] ) when OFF.
+        The FLAM3H viewport Tag icon will turn red ( [Smallicon:opdef:.?icon_TagORedSVG.svg] ) when OFF.
 
 :box:
     #display: rounded white

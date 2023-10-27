@@ -143,12 +143,19 @@ OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
+PREFS_TOGGLE = 'showprefs'
+PREFS_F3C = 'f3c'
+PREFS_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_XAOS_MODE = 'xm'
 PREFS_XAOS_AUTO_SET = 'autoxaos'
 PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
-PREFS_AUTO_PATH_CORRECTION = 'autopath'
-PREFS_F3C = 'f3c'
-
+PREFS_CAMERA_HANDLE = 'camhandle'
+PREFS_CAMERA = 'fcam'
+PREFS_CAMERA_CULL = 'camcull'
+PREFS_CAMERA_CULL_AMOUNT = 'cullamount'
+PREFS_VIEWPORT_DARK = 'setdark'
+PREFS_VIEWPORT_PT_TYPE = 'vptype'
+PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 # Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
@@ -166,13 +173,11 @@ MSG_FLAM3_GIT = 'flam3_heading_git'
 # Message Mark iterators
 MARK_ITER_MSG = "Please mark an iterator first"
 MARK_FF_MSG = "Please mark the FF first"
-
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
 # PALETTE JSON data keys
 CP_JSON_KEY_NAME_HEX = 'f3h_hex'
 CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
-
 # self prm names for user data
 FLAM3H_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
@@ -686,9 +691,9 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_CS # type: ignore
         except:
             hou.session.flam3h_CS = [] # type: ignore
-                    
-                         
-    def flam3h_on_create_set_viewport_settings(self) -> None:
+
+
+    def flam3h_on_create_set_prefs_viewport(self) -> None:
         
         node = self.node
         
@@ -705,12 +710,12 @@ flam3h_on_loaded(self) -> None:
                 if f3h != node:
                     # Only collect the first instance's data
                     # since they will all have the same settings.
-                    all_f3h_vpptsize.append(f3h.parm("vpptsize").evalAsFloat())
-                    all_f3h_vptype.append(f3h.parm("vptype").evalAsInt())
+                    all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat())
+                    all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt())
                     # If the other FLAM3H instances are set on dark mode,
                     # set myself to dark mode too, otherwise keep whatever viewport color is there
-                    if f3h.parm("setdark").eval():
-                        node.setParms({"setdark": 1})
+                    if f3h.parm(PREFS_VIEWPORT_DARK).eval():
+                        node.setParms({PREFS_VIEWPORT_DARK: 1})
                         # Run dark mode
                         flam3h_general_utils(self.kwargs).colorSchemeDark(False)
                         break
@@ -724,24 +729,18 @@ flam3h_on_loaded(self) -> None:
     
         # If we collected some data, set
         if all_f3h_vpptsize:
-            node.setParms({"vpptsize": all_f3h_vpptsize[0]})
+            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
+            node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
         else:
+            Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
             for view in flam3h_general_utils.util_getSceneViewers():
                 settings = view.curViewport().settings()
                 size = settings.particlePointSize()
                 if size != 1:
-                    node.setParms({"vpptsize": size})
-                    
-        Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
-        # If we collected some data, set
-        if all_f3h_vptype:
-            node.setParms({"vptype": all_f3h_vptype[0]})
-        else:
-            for view in flam3h_general_utils.util_getSceneViewers():
-                settings = view.curViewport().settings()
+                    node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
                 type = settings.particleDisplayType()
                 if type == Pixels:
-                    node.setParms({"vptype": 1})
+                    node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
                 
 
     def flam3h_on_create(self) -> None:
@@ -762,7 +761,7 @@ flam3h_on_loaded(self) -> None:
         flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
         
         self.flam3h_on_create_set_houdini_session_data()
-        self.flam3h_on_create_set_viewport_settings()
+        self.flam3h_on_create_set_prefs_viewport()
         
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
         node.setParms({MSG_FLAMESTATS: ""})
@@ -1042,7 +1041,7 @@ reset_PREFS(self, mode=0) -> None:
         count = 0
         viewers_col = []
 
-        setprm = node.parm("setdark").eval()
+        setprm = node.parm(PREFS_VIEWPORT_DARK).eval()
         Light = hou.viewportColorScheme.Light # type: ignore
         Grey  = hou.viewportColorScheme.Grey # type: ignore
         Dark  = hou.viewportColorScheme.Dark # type: ignore
@@ -1088,8 +1087,8 @@ reset_PREFS(self, mode=0) -> None:
             if len(all_f3h) > 1:
                 for f3h in all_f3h:
                     if f3h != node:
-                        if f3h.parm("setdark").eval() != setprm:
-                            f3h.setParms({"setdark": setprm})
+                        if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm:
+                            f3h.setParms({PREFS_VIEWPORT_DARK: setprm})
         
         # Update history
         hou.session.flam3h_CS = [] # type: ignore
@@ -1101,7 +1100,7 @@ reset_PREFS(self, mode=0) -> None:
         between Pixel and Points.
         """        
         node = self.node
-        pttype = node.parm("vptype").evalAsInt()
+        pttype = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
 
         Points = hou.viewportParticleDisplay.Points # type: ignore
         Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
@@ -1118,8 +1117,8 @@ reset_PREFS(self, mode=0) -> None:
         if len(all_f3h) > 1:
             for f3h in all_f3h:
                 if f3h != node:
-                    if f3h.parm("vptype").eval() != pttype:
-                        f3h.setParms({"vptype": pttype})
+                    if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype:
+                        f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype})
                 
                 
     def viewportParticleSize(self) -> None:
@@ -1128,7 +1127,7 @@ reset_PREFS(self, mode=0) -> None:
         """        
         node = self.node
         Points = hou.viewportParticleDisplay.Points # type: ignore
-        ptsize = node.parm("vpptsize").evalAsFloat()
+        ptsize = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
 
         for view in self.util_getSceneViewers():
             settings = view.curViewport().settings()
@@ -1136,10 +1135,10 @@ reset_PREFS(self, mode=0) -> None:
             settings.particlePointSize(ptsize)
             
         # Updated Point Size preference's option toggle on other FLAM3H nodes instances
-        if node.parm("vptype").evalAsInt() == 0:
+        if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
             for f3h in self.node.type().instances():
-                if f3h.parm("vpptsize").eval() != ptsize:
-                    f3h.setParms({"vpptsize": ptsize})
+                if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize:
+                    f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize})
             
             
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
@@ -1178,14 +1177,14 @@ reset_PREFS(self, mode=0) -> None:
             mode (int, optional): _description_. Defaults to 0.
         """        
         node = self.node
-        node.setParms({"showprefs": 1}) # type: ignore
+        node.setParms({PREFS_TOGGLE: 1}) # type: ignore
         node.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
-        node.setParms({"camhandle": 0}) # type: ignore
-        node.setParms({"camcull": 0}) # type: ignore
-        node.setParms({"fcam": ""}) # type: ignore
-        node.setParms({"cullamount": 0.99}) # type: ignore
+        node.setParms({PREFS_CAMERA_HANDLE: 0}) # type: ignore
+        node.setParms({PREFS_CAMERA_CULL: 0}) # type: ignore
+        node.setParms({PREFS_CAMERA: ""}) # type: ignore
+        node.setParms({PREFS_CAMERA_CULL_AMOUNT: 0.99}) # type: ignore
         if mode:
-            node.setParms({"f3c": 1}) # type: ignore
+            node.setParms({PREFS_F3C: 1}) # type: ignore
 
 
 
@@ -2494,9 +2493,9 @@ iterator_keep_last_weight(self) -> None:
             # MB
             flam3h_general_utils(self.kwargs).reset_MB()
             # prefs
-            node.setParms({"showprefs": 1}) # type: ignore
-            node.setParms({"camhandle": 0}) # type: ignore
-            node.setParms({"camcull": 0}) # type: ignore
+            node.setParms({PREFS_TOGGLE: 1}) # type: ignore
+            node.setParms({PREFS_CAMERA_HANDLE: 0}) # type: ignore
+            node.setParms({PREFS_CAMERA_CULL: 0}) # type: ignore
 
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
