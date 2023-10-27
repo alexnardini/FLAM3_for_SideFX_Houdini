@@ -7058,7 +7058,7 @@ out_XML(self) -> None:
             TYPES_tuple (tuple): FLAM3H variation's types parameters names.
             WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
             XFORM (lxmlET.Element): The current xform (lxmlET.Element) to populate.
-            FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST.
+            FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
 
         Returns:
             list[str]: List of used variation in this iterator/xform
