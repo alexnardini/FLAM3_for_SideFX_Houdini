@@ -215,8 +215,8 @@ TAG:
     TIP:
         The Tag icon will change when:
         
-        - [Smallicon:opdef:.?icon_TagSVG.svg]: when "*auto set xaos*" is *ON* 
-        - [Smallicon:opdef:.?icon_TagRedSVG.svg]: when "*auto set xaos*" is *OFF*
+        - [Smallicon:opdef:.?icon_TagOSVG.svg]: when "*auto set xaos*" is *ON* 
+        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when "*auto set xaos*" is *OFF*
          
 TAG size:
     #id: SYS
