@@ -6154,40 +6154,15 @@ out_util_round_float(VAL) -> str:
 
 out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
 
-out_populate_xform_vars_XML(node: hou.Node, 
-                            varsPRM: tuple, 
-                            TYPES_tuple: tuple, 
-                            WEIGHTS_tuple: tuple, 
-                            XFORM: lxmlET.Element, # type: ignore
-                            MP_IDX: str, 
-                            FUNC: Callable) -> list[str]:
-
-_out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
-
 def out_util_check_duplicate_var_section(vars: list) -> bool:
 
 out_util_check_duplicate(vars: list) -> bool:
-
-out_flam3_compatibility_check_and_msg(node: hou.Node, 
-                                      names_VARS: list, 
-                                      names_VARS_PRE: list, 
-                                      flam3h_do_FF: list, 
-                                      names_VARS_FF: list, 
-                                      names_VARS_POST_FF: list) -> bool:
                                       
 out_my_system() -> str:
-
-out_flame_properties_build(kwargs: dict) -> dict:
-
-out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool:
 
 out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 
 out_check_outpath(node: hou.Node, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
-
-out_new_XML(kwargs: dict, outpath: str) -> None:
-
-out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
 
 out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
 
@@ -6197,13 +6172,15 @@ out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
 
 out_xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
 
+_out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
+
 METHODS:
+
+reset_OUT(self, mode=0) -> None:
 
 out_xf_xaos_to(self) -> tuple:
 
 out_xf_xaos_from(self, mode=0) -> tuple:
-
-reset_OUT(self, mode=0) -> None:
 
 menu_out_contents_presets(self) -> list:
 
@@ -6212,6 +6189,29 @@ out_auto_add_iter_data(self) -> tuple[int, str, int]:
 out_auto_add_iter_num_to_prm(self) -> None:
 
 out_auto_change_iter_num_to_prm(self) -> None:
+
+out_flame_properties_build(kwargs: dict) -> dict:
+
+out_flam3_compatibility_check_and_msg(node: hou.Node, 
+                                      names_VARS: list, 
+                                      names_VARS_PRE: list, 
+                                      flam3h_do_FF: list, 
+                                      names_VARS_FF: list, 
+                                      names_VARS_POST_FF: list) -> bool:
+                                      
+out_populate_xform_vars_XML(node: hou.Node, 
+                            varsPRM: tuple, 
+                            TYPES_tuple: tuple, 
+                            WEIGHTS_tuple: tuple, 
+                            XFORM: lxmlET.Element, # type: ignore
+                            MP_IDX: str, 
+                            FUNC: Callable) -> list[str]:
+
+out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool:
+
+out_new_XML(kwargs: dict, outpath: str) -> None:
+
+out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
 
 out_XML(self) -> None:
     """
@@ -6412,72 +6412,6 @@ out_XML(self) -> None:
                     collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
             v_ROUND.append(collect)
         return v_ROUND
-    
-    
-    @staticmethod    
-    def out_populate_xform_vars_XML(node: hou.Node, 
-                                    varsPRM: tuple, 
-                                    TYPES_tuple: tuple, 
-                                    WEIGHTS_tuple: tuple, 
-                                    XFORM: lxmlET.Element, # type: ignore
-                                    MP_IDX: str, 
-                                    FUNC: Callable) -> list[str]:
-        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET.Element) to be written out into the XML file.
-        It will also return a list of used variations in the provided iterator/xform.
-        
-        Args:
-            node (hou.Node): FLAM3H houdini node
-            varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
-            TYPES_tuple (tuple): FLAM3H variation's types parameters names.
-            WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
-            XFORM (lxmlET.Element): The current xform (lxmlET.Element) to populate.
-            FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST.
-
-        Returns:
-            list[str]: List of used variation in this iterator/xform
-        """
-        names = []
-        for idx, prm in enumerate(WEIGHTS_tuple):
-            prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
-            if prm_w != 0:
-                v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-                v_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-                names.append(v_name)
-                XFORM.set(FUNC(v_name), out_flame_utils.out_util_round_float(prm_w))
-                vars_prm = varsPRM[v_type]
-                if vars_prm[-1]:
-                    f3_prm = varsPRM[v_type][1:-1]
-                    apo_prm = flam3h_varsPRM_APO.varsPRM[v_type][1:-1]
-                    for id, p in enumerate(apo_prm):
-                        if f3_prm[id][-1]:
-                            for i, n in enumerate(p):
-                                vals = node.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                                XFORM.set(FUNC(p[i]), out_flame_utils.out_util_round_float(vals[i]))
-                        else:
-                            val = node.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
-                            XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
-        return names
-    
-    
-    @staticmethod
-    def _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
-        """Reformat the XML data in a pretty way.
-
-        Args:
-            current (_type_): The Flame XML root with want to reformat.
-            parent (_type_, optional): _description_. Defaults to None.
-            index (int, optional): _description_. Defaults to -1.
-            depth (int, optional): _description_. Defaults to 0.
-        """        
-        for i, node in enumerate(current):
-            out_flame_utils._out_pretty_print(node, current, i, depth + 1)
-        if parent is not None:
-            if index == 0:
-                parent.text = '\n' + ('  ' * depth)
-            else:
-                parent[index - 1].tail = '\n' + ('  ' * depth)
-            if index == len(parent) - 1:
-                current.tail = '\n' + ('  ' * (depth - 1))
         
         
     @staticmethod  
@@ -6521,106 +6455,6 @@ out_XML(self) -> None:
         
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
 
-    
-    @staticmethod
-    def out_flam3_compatibility_check_and_msg(node: hou.Node,
-                                            names_VARS_PRE: list, 
-                                            names_VARS: list, 
-                                            names_VARS_POST: list, 
-                                            flam3h_do_FF: list, 
-                                            names_VARS_PRE_FF: list, 
-                                            names_VARS_FF: list, 
-                                            names_VARS_POST_FF: list) -> bool:
-        """Check if the Flame we want to write out is compatible with the FLAM3 flame format.
-        If not, print out details to let us know what is wrong with it.
-
-        Args:
-            node (hou.Node): Current FLAM3H houdini node
-            names_VARS_PRE (list): A list of all iterators PRE variations used.
-            names_VARS (list): A list of all iterators variations used.
-            names_VARS_POST (list): A list of all iterators POST variations used.
-            flam3h_do_FF (list): Is FF active or not.
-            names_VARS_PRE_FF (list): A list of all iterators FF PRE variations used.
-            names_VARS_FF (list): A list of all iterators FF variations used.
-            names_VARS_POST_FF (list): A list of all iterators FF POST variations used.
-
-        Returns:
-            bool: Return True if the Flame is valid or False if not.
-        """        
-        
-        # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
-        # just in case in the future I add more.
-        bool_VARS_PRE = bool_VARS = bool_VARS_POST = bool_VARS_PRE_FF = bool_VARS_FF = bool_VARS_POST_FF = False
-
-        # ITERATORS dublicate vars check
-        pre_vars_duplicate_idx = []
-        for idx, n in enumerate(names_VARS_PRE):
-            if n:
-                check = out_flame_utils.out_util_check_duplicate_var_section(n)
-                if check:
-                    pre_vars_duplicate_idx.append(str(idx+1))
-                    if bool_VARS_PRE is False:
-                        bool_VARS_PRE = True
-        VARS_PRE_duplicate = []
-        if bool_VARS_PRE:
-            VARS_PRE_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([out_flame_utils.out_util_iterators_vars_duplicate(names_VARS_PRE)], in_flame_utils.in_util_make_PRE)
-        
-        vars_duplicate_idx = []
-        for idx, n in enumerate(names_VARS):
-            if n:
-                check = out_flame_utils.out_util_check_duplicate_var_section(n)
-                if check:
-                    vars_duplicate_idx.append(str(idx+1))
-                    if bool_VARS is False:
-                        bool_VARS = True
-        VARS_duplicate = []
-        if bool_VARS:
-            VARS_duplicate = out_flame_utils.out_util_iterators_vars_duplicate(names_VARS)
-
-        # FF dublicate vars check
-        VARS_FF_duplicate = []
-        VARS_POST_FF_duplicate = []
-        if flam3h_do_FF:
-            bool_VARS_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_FF)
-            if bool_VARS_FF:
-                VARS_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_FF], in_flame_utils.in_util_make_NULL)
-                
-            bool_VARS_POST_FF = out_flame_utils.out_util_check_duplicate_var_section(names_VARS_POST_FF)
-            if bool_VARS_POST_FF:
-                VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
-            
-        # Build messages accordinlgy
-        if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
-            
-            ui_text = "Multiple variations of the same type not allowed"
-            ALL_msg = f"Node: {str(node)}\nType: Warning:\n"
-            
-            VARS_PRE_msg = f"\nPRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n-> {', '.join(VARS_PRE_duplicate)}\n"
-            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\n-> {', '.join(VARS_duplicate)}\n"
-            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\n-> {', '.join(VARS_FF_duplicate)}\n"
-            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\n-> {', '.join(VARS_POST_FF_duplicate)}\n"
-            
-            HELP_msg  = ""
-            HELP_msg += f"\nNOTE:\n"
-            HELP_msg += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n"
-            HELP_msg += f"\nTIP:\n"
-            HELP_msg += f"Save the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
-            
-            if bool_VARS_PRE:
-                ALL_msg += VARS_PRE_msg
-            if bool_VARS:
-                ALL_msg += "\n" + VARS_msg
-            if bool_VARS_FF:
-                ALL_msg += "\n" + VARS_FF_msg
-            if bool_VARS_POST_FF:
-                ALL_msg += "\n" + VARS_POST_FF_msg
-            
-            ALL_msg += HELP_msg
-            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
-            return False
-        else:
-            return True
-        
         
     @staticmethod
     def out_my_system() -> str:
@@ -6640,136 +6474,7 @@ out_XML(self) -> None:
             return 'JAVA'
         else:
             return 'UNKNW'
-    @staticmethod
-    def out_flame_properties_build(kwargs: dict) -> dict:
-        """Return a dictionary with all the flame properties to written out.
-
-        Args:
-            kwargs (dict): _description_
-
-        Returns:
-            dict: _description_
-        """        
-        f3p = out_flame_render_properties(kwargs)
-        return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
-                XML_XF_NAME: f3p.flame_name,
-                OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
-                OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
-                OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
-                OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
-                OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
-                OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, 
-                OUT_XML_FLAME_SIZE: f3p.flame_size, # custom to FLAM3H only
-                OUT_XML_FLAME_CENTER: f3p.flame_center,
-                OUT_XML_FLAME_SCALE: f3p.flame_scale,
-                OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
-                OUT_XML_FLAME_BG: '0 0 0',
-                OUT_XML_FLAME_SUPERSAMPLE: '2',
-                OUT_XML_FLAME_FILTER: '0.5',
-                OUT_XML_FLAME_QUALITY: f3p.flame_quality,
-                OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
-                OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
-                OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
-                OUT_XML_FLAME_K2: f3p.flame_k2,
-                OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
-                OUT_XML_FLAME_POWER: f3p.flame_highlight,
-                OUT_XML_FLAME_RADIUS: '9',
-                OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
-                OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
-                OUT_XML_FLAME_PALETTE_MODE: 'linear',
-                OUT_XML_FLAME_INTERPOLATION: 'linear',
-                OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
-                
-                # The following are not really needed for our purpose and we assume all curves are defaults to start with.
-                
-                # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
-                # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
-                # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
-                # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
-                # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve
-                }
-        
-        
-    @staticmethod
-    def out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool: # type: ignore
-        """Build the XML Flame data to be then written out.
-
-        Args:
-            kwargs (dict): _description_
-            root (lxmlET.Element): The root of the either the flame to be written out or the flame file to append the new flame to.
-
-        Returns:
-            bool: return True if the Flame is a compatible FLAM3 flame or False if not.
-        """        
-        node = kwargs['node']
-        # Build Flame properties
-        flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
-        flame.tag = XML_FLAME_NAME
-        for key, value in out_flame_utils.out_flame_properties_build(kwargs).items():
-            if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
-                flame.set(key, value)
-        # Build xforms
-        name_PRE_BLUR = ''
-        names_VARS = []
-        names_VARS_PRE = []
-        names_VARS_POST = []
-        f3d = out_flame_xforms_data(kwargs)
-        for iter in range(f3d.iter_count):
-            mp_idx = str(int(iter + 1))
-            if int(f3d.xf_vactive[iter]):
-                xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
-                xf.tag = XML_XF
-                xf.set(XML_XF_NAME, f3d.xf_name[iter])
-                xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
-                xf.set(XML_XF_COLOR, f3d.xf_color[iter])
-                xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
-                if f3d.xf_pre_blur[iter]:
-                    name_PRE_BLUR = XML_XF_PB
-                    xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
-                xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
-                if f3d.xf_postaffine[iter]:
-                    xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
-                if f3d.xf_xaos[iter]:
-                    xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
-                xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-                names_VARS.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
-                names_VARS_PRE.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
-                names_VARS_POST.append(out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
-        # Build finalxform
-        names_VARS_FF = []
-        names_VARS_PRE_FF = []
-        names_VARS_POST_FF = []
-        if f3d.flam3h_do_FF:
-            finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
-            finalxf.tag = XML_FF
-            finalxf.set(XML_XF_COLOR, '0')
-            finalxf.set(XML_XF_VAR_COLOR, '1')
-            finalxf.set(XML_XF_COLOR_SPEED, '0')
-            finalxf.set(XML_XF_SYMMETRY, '1')
-            finalxf.set(XML_XF_NAME, f3d.finalxf_name)
-            finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
-            if f3d.finalxf_postaffine:
-                finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
-            names_VARS_FF = out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
-            names_VARS_PRE_FF = out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
-            names_VARS_POST_FF = out_flame_utils.out_populate_xform_vars_XML(node, flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
-        # Build palette
-        palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
-        palette.tag = XML_PALETTE
-        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
-        palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
-        palette.text = f3d.palette_hex
-
-        # Get unique plugins used
-        names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
-        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], in_flame_utils.in_util_make_PRE) + [name_PRE_BLUR]
-        names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
-        # Set unique 'plugins' used and 'new linear' as last
-        flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
-        flame.set(XML_FLAME_NEW_LINEAR, '1')
-        
-        return out_flame_utils.out_flam3_compatibility_check_and_msg(node, names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
-
+    
 
     @staticmethod
     def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
@@ -6883,50 +6588,7 @@ out_XML(self) -> None:
                         print(f"{str(node)}.Palette: Select a valid OUT directory location.")
                 return False
             
-            
-    @staticmethod
-    def out_new_XML(kwargs: dict, outpath: str) -> None:
-        """Write out a new XML flame file with only the current FLAM3H flame preset.
-
-        Args:
-            kwargs (dict): _description_
-            outpath (str): Current OUT flame full file path.
-        """        
-        root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
-        if out_flame_utils.out_build_XML(kwargs, root):
-            out_flame_utils._out_pretty_print(root)
-            tree = lxmlET.ElementTree(root)
-            tree.write(outpath)
-            
-            _MSG = f"FLAM3H: SAVE Flame: New -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-
-
-    @staticmethod
-    def out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
-        """Append a XML flame file to the current OUT flame lib file.
-
-        Args:
-            kwargs (dict): _description_
-            apo_data (in_flame): Current OUT flame lib file data for all its flame presets.
-            out_path (str): Current OUT flame full file path.
-        """        
-        # with ET since I have the XML tree already stored using its Element type
-        # root = apo_data.tree.getroot()
-        
-        # with lxmlET
-        tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
-        root = tree.getroot()
-        
-        if out_flame_utils.out_build_XML(kwargs, root):
-            out_flame_utils._out_pretty_print(root)
-            tree = lxmlET.ElementTree(root)
-            tree.write(out_path)
-            
-            _MSG = f"FLAM3H: SAVE Flame: Append -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-
-
+ 
     @staticmethod
     def out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
         """Every affine has an Angle parameter wich rotate the affine values internally.
@@ -7032,6 +6694,27 @@ out_XML(self) -> None:
             else:
                 xaos_no_vactive.append([])
         return xaos_no_vactive
+    
+    
+    @staticmethod
+    def _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
+        """Reformat the XML data in a pretty way.
+
+        Args:
+            current (_type_): The Flame XML root with want to reformat.
+            parent (_type_, optional): _description_. Defaults to None.
+            index (int, optional): _description_. Defaults to -1.
+            depth (int, optional): _description_. Defaults to 0.
+        """        
+        for i, node in enumerate(current):
+            out_flame_utils._out_pretty_print(node, current, i, depth + 1)
+        if parent is not None:
+            if index == 0:
+                parent.text = '\n' + ('  ' * depth)
+            else:
+                parent[index - 1].tail = '\n' + ('  ' * depth)
+            if index == len(parent) - 1:
+                current.tail = '\n' + ('  ' * (depth - 1))
 
 
 
@@ -7088,6 +6771,31 @@ out_XML(self) -> None:
 
 
 
+    def reset_OUT(self, mode=0) -> None:
+        """Reset the OUT flame render properties to their default.
+
+        Args:
+            mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
+        """        
+        node = self.node
+        node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
+        node.setParms({MSG_OUT: ''})
+        node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 100})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+        if mode:
+            node.setParms({OUT_PATH: ""})
+            node.setParms({OUT_HSV_PALETTE_DO: 0})
+            node.setParms({OUT_PRESETS: "-1"})
+            node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
     def out_xf_xaos_to(self) -> tuple:
@@ -7116,33 +6824,6 @@ out_XML(self) -> None:
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
         else:
             return tuple([" ".join(x) for x in self.out_util_round_floats(t)])
-
-
-    def reset_OUT(self, mode=0) -> None:
-        """Reset the OUT flame render properties to their default.
-
-        Args:
-            mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
-        """        
-        node = self.node
-        node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
-        node.setParms({MSG_OUT: ''})
-        node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 100})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
-        if mode:
-            node.setParms({OUT_PATH: ""})
-            node.setParms({OUT_HSV_PALETTE_DO: 0})
-            node.setParms({OUT_PRESETS: "-1"})
-            node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
     def menu_out_contents_presets(self) -> list:
@@ -7211,11 +6892,328 @@ out_XML(self) -> None:
         node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
+
+    def out_flame_properties_build(self) -> dict:
+        """Return a dictionary with all the flame properties to written out.
+
+        Args:
+            kwargs (dict): _description_
+
+        Returns:
+            dict: _description_
+        """        
+        f3p = out_flame_render_properties(self.kwargs)
+        return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
+                XML_XF_NAME: f3p.flame_name,
+                OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
+                OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
+                OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, 
+                OUT_XML_FLAME_SIZE: f3p.flame_size, # custom to FLAM3H only
+                OUT_XML_FLAME_CENTER: f3p.flame_center,
+                OUT_XML_FLAME_SCALE: f3p.flame_scale,
+                OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
+                OUT_XML_FLAME_BG: '0 0 0',
+                OUT_XML_FLAME_SUPERSAMPLE: '2',
+                OUT_XML_FLAME_FILTER: '0.5',
+                OUT_XML_FLAME_QUALITY: f3p.flame_quality,
+                OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
+                OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
+                OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
+                OUT_XML_FLAME_K2: f3p.flame_k2,
+                OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
+                OUT_XML_FLAME_POWER: f3p.flame_highlight,
+                OUT_XML_FLAME_RADIUS: '9',
+                OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
+                OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
+                OUT_XML_FLAME_PALETTE_MODE: 'linear',
+                OUT_XML_FLAME_INTERPOLATION: 'linear',
+                OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
+                
+                # The following are not really needed for our purpose and we assume all curves are defaults to start with.
+                
+                # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
+                # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
+                # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
+                # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
+                # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve
+                }
+        
+
+    def out_flam3_compatibility_check_and_msg(self,
+                                              names_VARS_PRE: list, 
+                                              names_VARS: list, 
+                                              names_VARS_POST: list, 
+                                              flam3h_do_FF: list, 
+                                              names_VARS_PRE_FF: list, 
+                                              names_VARS_FF: list, 
+                                              names_VARS_POST_FF: list) -> bool:
+        
+        """Check if the Flame we want to write out is compatible with the FLAM3 flame format.
+        If not, print out details to let us know what is wrong with it.
+
+        Args:
+            names_VARS_PRE (list): A list of all iterators PRE variations used.
+            names_VARS (list): A list of all iterators variations used.
+            names_VARS_POST (list): A list of all iterators POST variations used.
+            flam3h_do_FF (list): Is FF active or not.
+            names_VARS_PRE_FF (list): A list of all iterators FF PRE variations used.
+            names_VARS_FF (list): A list of all iterators FF variations used.
+            names_VARS_POST_FF (list): A list of all iterators FF POST variations used.
+
+        Returns:
+            bool: Return True if the Flame is valid or False if not.
+        """        
+        
+        # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
+        # just in case in the future I add more.
+        bool_VARS_PRE = bool_VARS = bool_VARS_POST = bool_VARS_PRE_FF = bool_VARS_FF = bool_VARS_POST_FF = False
+
+        # ITERATORS dublicate vars check
+        pre_vars_duplicate_idx = []
+        for idx, n in enumerate(names_VARS_PRE):
+            if n:
+                check = self.out_util_check_duplicate_var_section(n)
+                if check:
+                    pre_vars_duplicate_idx.append(str(idx+1))
+                    if bool_VARS_PRE is False:
+                        bool_VARS_PRE = True
+        VARS_PRE_duplicate = []
+        if bool_VARS_PRE:
+            VARS_PRE_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([self.out_util_iterators_vars_duplicate(names_VARS_PRE)], in_flame_utils.in_util_make_PRE)
+        
+        vars_duplicate_idx = []
+        for idx, n in enumerate(names_VARS):
+            if n:
+                check = self.out_util_check_duplicate_var_section(n)
+                if check:
+                    vars_duplicate_idx.append(str(idx+1))
+                    if bool_VARS is False:
+                        bool_VARS = True
+        VARS_duplicate = []
+        if bool_VARS:
+            VARS_duplicate = self.out_util_iterators_vars_duplicate(names_VARS)
+
+        # FF dublicate vars check
+        VARS_FF_duplicate = []
+        VARS_POST_FF_duplicate = []
+        if flam3h_do_FF:
+            bool_VARS_FF = self.out_util_check_duplicate_var_section(names_VARS_FF)
+            if bool_VARS_FF:
+                VARS_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_FF], in_flame_utils.in_util_make_NULL)
+                
+            bool_VARS_POST_FF = self.out_util_check_duplicate_var_section(names_VARS_POST_FF)
+            if bool_VARS_POST_FF:
+                VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+            
+        # Build messages accordinlgy
+        if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
+            
+            node = self.node
+            ui_text = "Multiple variations of the same type not allowed"
+            ALL_msg = f"Node: {str(node)}\nType: Warning:\n"
+            
+            VARS_PRE_msg = f"\nPRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n-> {', '.join(VARS_PRE_duplicate)}\n"
+            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\n-> {', '.join(VARS_duplicate)}\n"
+            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\n-> {', '.join(VARS_FF_duplicate)}\n"
+            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\n-> {', '.join(VARS_POST_FF_duplicate)}\n"
+            
+            HELP_msg  = ""
+            HELP_msg += f"\nNOTE:\n"
+            HELP_msg += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n"
+            HELP_msg += f"\nTIP:\n"
+            HELP_msg += f"Save the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+            
+            if bool_VARS_PRE:
+                ALL_msg += VARS_PRE_msg
+            if bool_VARS:
+                ALL_msg += "\n" + VARS_msg
+            if bool_VARS_FF:
+                ALL_msg += "\n" + VARS_FF_msg
+            if bool_VARS_POST_FF:
+                ALL_msg += "\n" + VARS_POST_FF_msg
+            
+            ALL_msg += HELP_msg
+            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility warning", details=ALL_msg, details_label=None, details_expanded=True) # type: ignore
+            return False
+        else:
+            return True
+        
+
+    def out_populate_xform_vars_XML(self, 
+                                    varsPRM: tuple, 
+                                    TYPES_tuple: tuple, 
+                                    WEIGHTS_tuple: tuple, 
+                                    XFORM: lxmlET.Element, # type: ignore
+                                    MP_IDX: str, 
+                                    FUNC: Callable) -> list[str]:
+        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET.Element) to be written out into the XML file.
+        It will also return a list of used variations in the provided iterator/xform.
+        
+        Args:
+            node (hou.Node): FLAM3H houdini node
+            varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
+            TYPES_tuple (tuple): FLAM3H variation's types parameters names.
+            WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
+            XFORM (lxmlET.Element): The current xform (lxmlET.Element) to populate.
+            FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST.
+
+        Returns:
+            list[str]: List of used variation in this iterator/xform
+        """
+        node = self.node
+        names = []
+        for idx, prm in enumerate(WEIGHTS_tuple):
+            prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
+            if prm_w != 0:
+                v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
+                v_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                names.append(v_name)
+                XFORM.set(FUNC(v_name), out_flame_utils.out_util_round_float(prm_w))
+                vars_prm = varsPRM[v_type]
+                if vars_prm[-1]:
+                    f3_prm = varsPRM[v_type][1:-1]
+                    apo_prm = flam3h_varsPRM_APO.varsPRM[v_type][1:-1]
+                    for id, p in enumerate(apo_prm):
+                        if f3_prm[id][-1]:
+                            for i, n in enumerate(p):
+                                vals = node.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
+                                XFORM.set(FUNC(p[i]), out_flame_utils.out_util_round_float(vals[i]))
+                        else:
+                            val = node.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
+                            XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
+        return names
+
+        
+    def out_build_XML(self, root: lxmlET.Element) -> bool: # type: ignore
+        """Build the XML Flame data to be then written out.
+
+        Args:
+            kwargs (dict): _description_
+            root (lxmlET.Element): The root of the either the flame to be written out or the flame file to append the new flame to.
+
+        Returns:
+            bool: return True if the Flame is a compatible FLAM3 flame or False if not.
+        """        
+        node = self.kwargs['node']
+        # Build Flame properties
+        flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
+        flame.tag = XML_FLAME_NAME
+        for key, value in self.out_flame_properties_build().items():
+            if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
+                flame.set(key, value)
+        # Build xforms
+        name_PRE_BLUR = ''
+        names_VARS = []
+        names_VARS_PRE = []
+        names_VARS_POST = []
+        f3d = out_flame_xforms_data(self.kwargs)
+        for iter in range(f3d.iter_count):
+            mp_idx = str(int(iter + 1))
+            if int(f3d.xf_vactive[iter]):
+                xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
+                xf.tag = XML_XF
+                xf.set(XML_XF_NAME, f3d.xf_name[iter])
+                xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
+                xf.set(XML_XF_COLOR, f3d.xf_color[iter])
+                xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+                if f3d.xf_pre_blur[iter]:
+                    name_PRE_BLUR = XML_XF_PB
+                    xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
+                xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
+                if f3d.xf_postaffine[iter]:
+                    xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
+                if f3d.xf_xaos[iter]:
+                    xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
+                xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
+                names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
+                names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
+                names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
+        # Build finalxform
+        names_VARS_FF = []
+        names_VARS_PRE_FF = []
+        names_VARS_POST_FF = []
+        if f3d.flam3h_do_FF:
+            finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
+            finalxf.tag = XML_FF
+            finalxf.set(XML_XF_COLOR, '0')
+            finalxf.set(XML_XF_VAR_COLOR, '1')
+            finalxf.set(XML_XF_COLOR_SPEED, '0')
+            finalxf.set(XML_XF_SYMMETRY, '1')
+            finalxf.set(XML_XF_NAME, f3d.finalxf_name)
+            finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
+            if f3d.finalxf_postaffine:
+                finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
+            names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
+            names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
+            names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
+        # Build palette
+        palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
+        palette.tag = XML_PALETTE
+        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
+        palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
+        palette.text = f3d.palette_hex
+
+        # Get unique plugins used
+        names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
+        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], in_flame_utils.in_util_make_PRE) + [name_PRE_BLUR]
+        names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+        # Set unique 'plugins' used and 'new linear' as last
+        flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
+        flame.set(XML_FLAME_NEW_LINEAR, '1')
+        
+        return self.out_flam3_compatibility_check_and_msg(names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
+
+
+    def out_new_XML(self, outpath: str) -> None:
+        """Write out a new XML flame file with only the current FLAM3H flame preset.
+
+        Args:
+            kwargs (dict): _description_
+            outpath (str): Current OUT flame full file path.
+        """        
+        root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+        if self.out_build_XML(root):
+            out_flame_utils._out_pretty_print(root)
+            tree = lxmlET.ElementTree(root)
+            tree.write(outpath)
+            
+            _MSG = f"FLAM3H: SAVE Flame: New -> Completed"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
+
+    def out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
+        """Append a XML flame file to the current OUT flame lib file.
+
+        Args:
+            kwargs (dict): _description_
+            apo_data (in_flame): Current OUT flame lib file data for all its flame presets.
+            out_path (str): Current OUT flame full file path.
+        """        
+        # with ET since I have the XML tree already stored using its Element type
+        # root = apo_data.tree.getroot()
+        
+        # with lxmlET
+        tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
+        root = tree.getroot()
+        
+        if self.out_build_XML(root):
+            out_flame_utils._out_pretty_print(root)
+            tree = lxmlET.ElementTree(root)
+            tree.write(out_path)
+            
+            _MSG = f"FLAM3H: SAVE Flame: Append -> Completed"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
+
     def out_XML(self) -> None:
         """Write out the XML Flame file.
         It allow for writing out a new file or append to the current XML flame file.
         """        
         node = self.node
+        kwargs = self.kwargs
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
         # if there is at least one iterator
@@ -7226,7 +7224,7 @@ out_XML(self) -> None:
             # if the output path is valid
             if out_path_checked is not False:
                 
-                if self.kwargs['shift']:
+                if kwargs['shift']:
                     flam3h_general_utils.open_explorer_file(out_path_checked)
                 else:
 
@@ -7242,20 +7240,20 @@ out_XML(self) -> None:
                         hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     else:
                         apo_data = in_flame(self.node, str(out_path_checked))
-                        if self.kwargs["ctrl"]:
+                        if kwargs["ctrl"]:
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
-                            out_flame_utils.out_new_XML(self.kwargs, str(out_path_checked))
+                            self.out_new_XML(str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                         else:
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             if apo_data.isvalidtree:
-                                out_flame_utils.out_append_XML(self.kwargs, apo_data, str(out_path_checked))
+                                self.out_append_XML(apo_data, str(out_path_checked))
                                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                             else:
-                                out_flame_utils.out_new_XML(self.kwargs, str(out_path_checked))
+                                self.out_new_XML(str(out_path_checked))
                                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-                        flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
-                        flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
+                        flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
+                        flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
 
 
 
