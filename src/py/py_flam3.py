@@ -645,7 +645,7 @@ flam3h_on_loaded(self) -> None:
         self.flam3h_check_first_node_instance_msg()
                 
         # Set initial node color
-        node.setColor(hou.Color((0.825,0.825,0.825)))
+        node.setColor(hou.Color((0.9,0.9,0.9)))
         
         # Set about tab infos
         flam3h_about_utils(self.kwargs).flam3h_about_msg()
@@ -704,6 +704,23 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_CS # type: ignore
         except:
             hou.session.flam3h_CS = [] # type: ignore
+        
+        
+        # Update dark history
+        flam3h_general_utils(self.kwargs).colorSchemeDark()  # type: ignore
+        # Run dark mode
+        node.setParms({"setdark": 1})
+        flam3h_general_utils(self.kwargs).colorSchemeDark()  # type: ignore
+        # Set other FLAM3H instances to dark
+        for f3h in self.node.type().instances():
+            if not f3h.parm("setdark").eval():
+                f3h.setParms({"setdark": 1})
+            
+        # Set viewport Point Size to FLAM3H default value
+        flam3h_ptsize_default = node.parm("vpptsize").evalAsFloat()
+        for view in flam3h_general_utils.util_getSceneViewers():
+            settings = view.curViewport().settings()
+            settings.particlePointSize(flam3h_ptsize_default)
 
 
     def flam3h_on_loaded(self) -> None:
@@ -742,7 +759,7 @@ flam3h_on_loaded(self) -> None:
         node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
 
 
-    # Need to think about this...not wired in FLAM3H yet and just the basis for now.
+    # Wip
     def flam3h_on_deleted(self) -> None:
 
         if  len( self.node.type().instances() ) == 1:
@@ -751,8 +768,7 @@ flam3h_on_loaded(self) -> None:
             del hou.session.flam3h_node_mp_id # type: ignore
             del hou.session.flam3h_node_FF # type: ignore
             del hou.session.flam3h_node_FF_check # type: ignore
-            
-            # del hou.session.flam3h_CS # type: ignore
+
 
 
 
