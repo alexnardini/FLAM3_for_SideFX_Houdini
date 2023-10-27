@@ -704,10 +704,11 @@ flam3h_on_loaded(self) -> None:
             # and see if the are set to dark mode
             for f3h in all_f3h:
                 if f3h != node:
+                    # Collect some data fisrst
                     all_f3h_vpptsize.append(f3h.parm("vpptsize").evalAsFloat())
                     all_f3h_vptype.append(f3h.parm("vptype").evalAsInt())
-                    # If they are set on dark mode, set myself to dark mode too
-                    # Otherwise keep whatever viewport bg is there
+                    # If the other FLAM3H instances are set on dark mode,
+                    # set myself to dark mode too, otherwise keep whatever viewport color is there
                     if not _DARK:
                         if f3h.parm("setdark").eval():
                             node.setParms({"setdark": 1})
@@ -7773,4 +7774,3 @@ class out_flame_xforms_data(out_flame_utils):
     @property
     def finalxf_postaffine(self):
         return self._finalxf_postaffine
-
