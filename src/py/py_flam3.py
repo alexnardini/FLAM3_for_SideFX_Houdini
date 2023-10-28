@@ -1685,10 +1685,12 @@ iterator_keep_last_weight(self) -> None:
             else:
                 flam3nodeIter = f"{str(flam3node)}.iter."
                 menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: Post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
+            
             for i, item in enumerate(menuitems):
                 menu.append(i)
                 menu.append(item)
             return menu
+        
         else:
             if idx_out_of_range is not False:
                 flam3node = hou.session.flam3h_node # type: ignore
@@ -1696,18 +1698,23 @@ iterator_keep_last_weight(self) -> None:
                     menuitems = ( f"Marked iterator index: {str(idx_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
                 else:
                     menuitems = ( f"Marked iterator index: {str(flam3node)}.iterator.{str(idx_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
+                
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
-                return menu   
+                return menu
+              
             elif deleted:
                 menuitems = ( "Marked iterator's node has been deleted. Mark another iterator first", "" )
+                
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
-                return menu    
+                return menu
+               
             else:
                 menuitems = ( MARK_ITER_MSG, "" )
+                
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
