@@ -1660,6 +1660,13 @@ iterator_keep_last_weight(self) -> None:
         except:
             id_from = None
             deleted = True
+            
+        idx_out_of_range = False
+        if id_from is not None:
+            iter_num = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+            if id_from > iter_num:
+                idx_out_of_range = id_from
+                id_from = None
 
         # If we did and the FLAM3 node still exist
         if id_from is not None:
@@ -1682,7 +1689,13 @@ iterator_keep_last_weight(self) -> None:
                 menu.append(item)
             return menu
         else:
-            if deleted:
+            if idx_out_of_range is not None:
+                menuitems = ( f"Marked iterator index: {str(idx_out_of_range)} is out of range. Mark an existing iterator instead.", "" )
+                for i, item in enumerate(menuitems):
+                    menu.append(i-1)
+                    menu.append(item)
+                return menu   
+            elif deleted:
                 menuitems = ( "Marked iterator's node has been deleted. Mark another iterator first", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
@@ -1798,7 +1811,7 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             if idx_out_of_range is not None:
-                _MSG = f"{str(node)}: Marked iterator index: {str(idx_out_of_range)} -> out of range. Mark an existing iterator instead."
+                _MSG = f"{str(node)}: Marked iterator index: {str(idx_out_of_range)} is out of range -> Mark an existing iterator instead."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             elif deleted:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG} to copy parameter's values from."
