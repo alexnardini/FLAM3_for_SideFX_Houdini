@@ -629,7 +629,7 @@ flam3h_on_loaded(self) -> None:
                 
                 _MSG_INFO = f"FLAM3H first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX node compile: DONE"
-                ui_text = "FLAM3H CVEX Compile"
+                ui_text =   f"FLAM3H CVEX Compile"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
