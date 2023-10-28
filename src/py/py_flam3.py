@@ -1866,7 +1866,7 @@ iterator_keep_last_weight(self) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     _MSG = f"{str(node)}: iterator UNMARKED -> {str(id)}" # type: ignore
-                    id = None # type: ignore
+                    hou.session.flam3h_node_mp_id = None # type: ignore
                     # hou.session.flam3h_node = None # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
