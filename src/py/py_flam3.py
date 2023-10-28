@@ -1671,7 +1671,7 @@ iterator_keep_last_weight(self) -> None:
             flam3node = hou.session.flam3h_node # type: ignore
             
             if node == flam3node and id==id_from:
-                menuitems = ( "Iterator marked. To paste its values, select a different iterator number or a different FLAM3H node.", "" )
+                menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == flam3node:
                 menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
             else:
