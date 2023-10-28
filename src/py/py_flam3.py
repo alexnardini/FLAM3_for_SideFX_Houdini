@@ -1774,7 +1774,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 if deleted:
                     _MSG = f"{str(node)} -> Iterator's node DELETED. Mark a new iterator first"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore 
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
                 else:
                     _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -1800,13 +1800,13 @@ iterator_keep_last_weight(self) -> None:
                     _MSG = f"{str(node)} -> DELETED Marked iterator: {str(hou.session.flam3h_node_mp_id)}" # type: ignore
                     hou.session.flam3h_node_mp_id = None # type: ignore
                     hou.session.flam3h_node = None # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     
             else:
                 if hou.session.flam3h_node_mp_id is not None: # type: ignore
                     if deleted:
                         _MSG = f"{str(node)} -> Iterator's node DELETED. Mark a new iterator first"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     else:
                         _MSG = f"{str(node)} -> Delete failed. You never marked any of this node's iterator. The marked iterator is from node: {node_msg}.iterator.{str(hou.session.flam3h_node_mp_id)}" # type: ignore
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -1814,7 +1814,7 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     if deleted:
                         _MSG = f"{str(node)} -> Iterator's node DELETED. Mark a new iterator first"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     else:
                         _MSG = f"{str(node)} -> No iterator has ever been marked yet. Nothing to delete."
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -1882,7 +1882,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 if deleted:
                     _MSG = f"{str(node)} -> FF's node DELETED. Mark a new FF first"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -1905,7 +1905,7 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{str(node)} -> DELETED Marked FF: {str(node)}.FF" # type: ignore
                 hou.session.flam3h_node_FF_check = None # type: ignore
                 hou.session.flam3h_node_FF = None # type: ignore
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 
             elif node != hou.session.flam3h_node_FF and hou.session.flam3h_node_FF is not None: # type: ignore
                 _MSG = f"{str(node)} -> Delete failed. You never marked this node's FF. The marked FF is from node: {node_msg}.FF" # type: ignore
@@ -1914,7 +1914,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 if deleted:
                     _MSG = f"{str(node)} -> FF's node DELETED. Mark a new FF first"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     _MSG = f"{str(node)} -> No FF has ever been marked yet. Nothing to delete."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
