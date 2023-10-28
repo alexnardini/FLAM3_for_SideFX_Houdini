@@ -1842,6 +1842,7 @@ iterator_keep_last_weight(self) -> None:
     def prm_paste_SHIFT(self, id: int) -> None:
         node = self.node
         _id = hou.session.flam3h_node_mp_id # type: ignore
+        print(_id)
         deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
@@ -1851,11 +1852,11 @@ iterator_keep_last_weight(self) -> None:
             
         idx_out_of_range = False
         if _id is not None:
-            if hou.session.flam3h_node is not None:
-                iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-                if _id > iter_num:
-                    idx_out_of_range = _id
-                    id_from = None
+            flam3node = hou.session.flam3h_node # type: ignore
+            assert flam3node is not None
+            iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+            if _id > iter_num:
+                idx_out_of_range = _id
         
         if node == hou.session.flam3h_node: # type: ignore
             
@@ -1875,15 +1876,16 @@ iterator_keep_last_weight(self) -> None:
                 
         else:
             if id is not None:
-                if idx_out_of_range is not False:
-                    _MSG = f"{str(node)}: Marked iterator index: {str(idx_out_of_range)} is out of range -> Mark an existing iterator instead."
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                elif deleted:
+                if deleted:
                     _MSG = f"{str(node)}: Marked iterator's node has been deleted -> Mark a new iterator first."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(id)}" # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    if idx_out_of_range is not False:
+                        _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(_id)} and it is out of range. Mark an existing iterator instead." # type: ignore
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    else:
+                        _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(id)}" # type: ignore
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def prm_paste_CLICK(self, id: int) -> None:
