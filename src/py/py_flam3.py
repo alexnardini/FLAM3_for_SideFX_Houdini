@@ -1683,7 +1683,7 @@ iterator_keep_last_weight(self) -> None:
             return menu
         else:
             if deleted:
-                menuitems = ( "Marked iterator's node deleted. Mark a new iterator first", "" )
+                menuitems = ( "Marked iterator's node has been deleted. Mark another iterator first", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
@@ -1742,7 +1742,7 @@ iterator_keep_last_weight(self) -> None:
             return menu
         else:
             if deleted:
-                menuitems = ( "Marked FF's node deleted. Mark a new FF first", "" )
+                menuitems = ( "Marked FF's node has been deleted. Mark another FF first", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
@@ -1790,7 +1790,7 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             if deleted:
-                _MSG = f"{str(node)}: Marked iterator's node deleted -> {MARK_ITER_MSG} to copy parameter's values from."
+                _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
                 _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
