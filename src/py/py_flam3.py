@@ -620,14 +620,17 @@ flam3h_on_loaded(self) -> None:
         except:
             hou.session.flam3_first_instance = False # type: ignore
 
-            hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-            sys_updated_mode = hou.session.flam3h_sys_update_mode # type: ignore
-
             if FIRST_TIME_MSG:
+                
+                hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+                sys_updated_mode = hou.session.flam3h_sys_update_mode # type: ignore
+                
                 node = self.node
+                
                 _MSG_INFO = f"FLAM3H first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX node compile: DONE"
                 ui_text = "FLAM3H CVEX Compile"
+                
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
                     if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
