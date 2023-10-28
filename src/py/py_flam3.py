@@ -1774,7 +1774,7 @@ iterator_keep_last_weight(self) -> None:
             
             # If it is the same iterator we marked ( it imply it is also the same node )
             if node==flam3node and id==id_from:
-                _MSG = f"{str(node)} -> This is the marked iterator. Select a different iterator number to paste its values."
+                _MSG = f"{str(node)}: This iterator is marked -> Select a different iterator number to paste its values."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
                 self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
@@ -1782,15 +1782,15 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_set_note(node, flam3node, 0, "", str(id), str(id_from))
                 
                 if node==flam3node:
-                    _MSG = f"{str(node)} -> Copied values from: iterator.{str(id_from)}"
+                    _MSG = f"{str(node)}: Copied values from -> iterator.{str(id_from)}"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
                 else:
-                    _MSG = f"{str(node)} -> Copied values from: {str(flam3node)}.iterator.{str(id_from)}"
+                    _MSG = f"{str(node)}: Copied values from -> {str(flam3node)}.iterator.{str(id_from)}"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
         else:
             if deleted:
-                _MSG = f"{str(node)} -> Marked iterator's node deleted. Mark a new iterator first"
+                _MSG = f"{str(node)}: Marked iterator's node deleted -> Mark a new iterator first"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
                 _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
@@ -1810,10 +1810,10 @@ iterator_keep_last_weight(self) -> None:
             
             if hou.session.flam3h_node_mp_id is not None: # type: ignore
                 
-                _MSG = f"{str(node)}:  Unmarked iterator -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
+                _MSG = f"{str(node)}: iterator UNMARKED -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
                 hou.session.flam3h_node_mp_id = None # type: ignore
                 # hou.session.flam3h_node = None # type: ignore
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
                 _MSG = f"{str(node)} -> This iterator is Unmarked already."
@@ -1822,10 +1822,10 @@ iterator_keep_last_weight(self) -> None:
         else:
             if hou.session.flam3h_node_mp_id is not None: # type: ignore
                 if deleted:
-                    _MSG = f"{str(node)} -> Marked iterator's node deleted. Mark a new iterator first."
+                    _MSG = f"{str(node)}: Marked iterator's node deleted -> Mark a new iterator first."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
-                    _MSG = f"{str(node)} -> This iterator is Unmarked already. The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(hou.session.flam3h_node_mp_id)}" # type: ignore
+                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(hou.session.flam3h_node_mp_id)}" # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
