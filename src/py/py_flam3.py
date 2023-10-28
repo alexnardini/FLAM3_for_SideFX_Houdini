@@ -1774,7 +1774,7 @@ iterator_keep_last_weight(self) -> None:
             
             # If it is the same iterator we marked ( it imply it is also the same node )
             if node==flam3node and id==id_from:
-                _MSG = f"{str(node)}: This iterator is marked -> Select a different iterator number to paste its values."
+                _MSG = f"{str(node)}: This iterator is marked: {str(id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
                 self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
