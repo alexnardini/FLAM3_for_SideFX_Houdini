@@ -1758,6 +1758,7 @@ iterator_keep_last_weight(self) -> None:
         
     def prm_paste_CTRL(self, id: int) -> None:
         node = self.node
+        
         flam3node = None
         deleted = False
         try:
@@ -1769,6 +1770,13 @@ iterator_keep_last_weight(self) -> None:
             id_from = None
             deleted = True
 
+        idx_out_of_range = False
+        if id_from is not None:
+            iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+            if id_from > iter_num:
+                idx_out_of_range = id_from
+                id_from = None
+                
         # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from is not None:
             
@@ -1789,7 +1797,10 @@ iterator_keep_last_weight(self) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
         else:
-            if deleted:
+            if idx_out_of_range is not None:
+                _MSG = f"{str(node)}: Marked iterator index: {str(idx_out_of_range)} -> out of range. Mark an existing iterator instead."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            elif deleted:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
