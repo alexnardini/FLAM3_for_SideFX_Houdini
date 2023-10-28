@@ -1816,13 +1816,13 @@ iterator_keep_last_weight(self) -> None:
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
-                _MSG = f"{str(node)} -> This iterator is Unmarked already."
+                _MSG = f"{str(node)}: This iterator is Unmarked already -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
         else:
             if hou.session.flam3h_node_mp_id is not None: # type: ignore
                 if deleted:
-                    _MSG = f"{str(node)}: Marked iterator's node deleted -> Mark a new iterator first."
+                    _MSG = f"{str(node)}: Marked iterator's node has been deleted -> Mark a new iterator first."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(hou.session.flam3h_node_mp_id)}" # type: ignore
