@@ -620,24 +620,25 @@ flam3h_on_loaded(self) -> None:
         except:
             hou.session.flam3_first_instance = False # type: ignore
 
+            hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+            sys_updated_mode = hou.session.flam3h_sys_update_mode # type: ignore
+
             if FIRST_TIME_MSG:
                 node = self.node
+                _MSG_INFO = f"FLAM3H first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX node compile: DONE"
+                ui_text = "FLAM3H CVEX Compile"
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    _MSG_sb = f"First FLAM3H node instance ever created -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-                    hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
-                    _MSG = f"FLAM3H CVEX node compile: DONE"
-                    ui_text = "FLAM3H CVEX Compile"
-                    if hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                        hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                    hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                        hou.setUpdateMode(sys_updated_mode)  # type: ignore
                 else:
-                    _MSG_sb = f"First FLAM3H node instance ever created -> Once you Cook it for the first time it will compile the FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-                    hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Warning) # type: ignore
-                    _MSG = f"First FLAM3H node instance ever created.\n\nCook me once to compile the FLAM3H CVEX node.\n\nDepending on your PC configuration it can take anywhere between 30s and 1 minute.\nIt is a one time compile process."
-                    ui_text = "FLAM3H CVEX Compile"
-                    if hou.ui.displayMessage(_MSG, buttons=("Compile FLAM3H CVEX node", ), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                        node.setDisplayFlag(True)  # type: ignore
-                        _MSG_sb = f""
-                        hou.ui.setStatusMessage(_MSG_sb, hou.severityType.Message) # type: ignore
+                    hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+                    node.setDisplayFlag(True)  # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                        hou.setUpdateMode(sys_updated_mode)  # type: ignore
                     
                     
     def flam3h_on_create_set_houdini_session_data(self) -> None:
@@ -811,10 +812,14 @@ flam3h_on_loaded(self) -> None:
 
         if  len( self.node.type().instances() ) == 1:
             
-            del hou.session.flam3h_node # type: ignore
-            del hou.session.flam3h_node_mp_id # type: ignore
-            del hou.session.flam3h_node_FF # type: ignore
-            del hou.session.flam3h_node_FF_check # type: ignore
+            try:
+                del hou.session.flam3h_node # type: ignore
+                del hou.session.flam3h_node_mp_id # type: ignore
+                del hou.session.flam3h_node_FF # type: ignore
+                del hou.session.flam3h_node_FF_check # type: ignore
+                del hou.session.flam3h_sys_update_mode # type: ignore
+            except:
+                pass
 
 
 
