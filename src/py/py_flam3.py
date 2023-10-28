@@ -19,12 +19,13 @@ import xml.etree.ElementTree as ET  # This will do the same but starting from Py
 import numpy as np
 import platform
 import os
-import hou
-import nodesearch
 import json
 import colorsys
 import webbrowser
 import inspect
+
+import hou
+import nodesearch
 
 
 
@@ -613,7 +614,7 @@ flam3h_on_loaded(self) -> None:
 
         Args:
             node (hou.Node): FLAM3H node
-            mode (int): False for onLoaded and True for onCreated
+            FIRST_TIME_MSG (int): False for onLoaded and True for onCreated
         """        
         
         try:
@@ -621,33 +622,30 @@ flam3h_on_loaded(self) -> None:
         except:
             hou.session.flam3_first_instance = False # type: ignore
 
+            node = self.node
+            _MSG_INFO = f"FLAM3H first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+            _MSG_DONE = f"FLAM3H CVEX node compile: DONE"
+            
+            hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+            sys_updated_mode = hou.session.flam3h_sys_update_mode # type: ignore
+                
             if FIRST_TIME_MSG:
-                
-                hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-                sys_updated_mode = hou.session.flam3h_sys_update_mode # type: ignore
-                
-                node = self.node
-                
-                _MSG_INFO = f"FLAM3H first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE"
-                ui_text =   f"FLAM3H CVEX Compile"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        node.cook(force=True)
+                        hou.setUpdateMode(sys_updated_mode) # type: ignore
                         hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
-                        hou.setUpdateMode(sys_updated_mode)  # type: ignore
                 else:
-                    m = nodesearch.State("Display", True)
-                    _display_node = m.nodes(node.parent(), recursive=False)[0]
+                    # m = nodesearch.State("Display", True)
+                    # _display_node = m.nodes(node.parent(), recursive=False)[0]
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-                    node.setDisplayFlag(True)  # type: ignore
-                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                        _display_node.setDisplayFlag(True)
-                        hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
-                        hou.setUpdateMode(sys_updated_mode)  # type: ignore
-                    
-                    
+                    node.cook(force=True)
+                    hou.setUpdateMode(sys_updated_mode) # type: ignore
+                    hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+
+
     def flam3h_on_create_set_houdini_session_data(self) -> None:
         
         node = self.node
@@ -663,7 +661,6 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_node_mp_id = None # type: ignore
 
         # If an iterator was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
         try:
             hou.session.flam3h_node.type() # type: ignore
         except:
@@ -680,7 +677,6 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_node_FF_check = None # type: ignore
 
         # If the FF was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy the FF again.
         try:
             hou.session.flam3h_node_FF.type() # type: ignore
         except:
@@ -703,6 +699,7 @@ flam3h_on_loaded(self) -> None:
         all_f3h = node.type().instances()
         all_f3h_vpptsize = []
         all_f3h_vptype = []
+        
         if len(all_f3h) > 1:
 
             for f3h in all_f3h:
@@ -723,13 +720,17 @@ flam3h_on_loaded(self) -> None:
         if all_f3h_vpptsize:
             node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
             node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
+            
         else:
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+            
             for view in flam3h_general_utils.util_getSceneViewers():
                 settings = view.curViewport().settings()
                 size = settings.particlePointSize()
+                
                 if size != 1:
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                    
                 type = settings.particleDisplayType()
                 if type == Pixels:
                     node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
@@ -774,6 +775,7 @@ flam3h_on_loaded(self) -> None:
         # This is important so loading a hip file with a FLAM3H node inside
         # it wont block the houdini session until user input.
         self.flam3h_check_first_node_instance_msg(False)
+        self.flam3h_on_create_set_prefs_viewport()
         
         #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
         flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
@@ -801,8 +803,7 @@ flam3h_on_loaded(self) -> None:
     # Wip
     def flam3h_on_deleted(self) -> None:
 
-        if  len( self.node.type().instances() ) == 1:
-            
+        if len(self.node.type().instances()) == 1:
             try:
                 del hou.session.flam3h_node # type: ignore
                 del hou.session.flam3h_node_mp_id # type: ignore
