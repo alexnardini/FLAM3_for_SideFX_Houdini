@@ -1842,7 +1842,7 @@ iterator_keep_last_weight(self) -> None:
     def prm_paste_SHIFT(self, id: int) -> None:
         node = self.node
         _id = hou.session.flam3h_node_mp_id # type: ignore
-        print(_id)
+
         deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
