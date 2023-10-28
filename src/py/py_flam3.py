@@ -1654,10 +1654,12 @@ iterator_keep_last_weight(self) -> None:
 
         # If an iterator has been copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an iterator again.
+        deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
         except:
             id_from = None
+            deleted = True
 
         # If we did and the FLAM3 node still exist
         if id_from is not None:
@@ -1680,11 +1682,18 @@ iterator_keep_last_weight(self) -> None:
                 menu.append(item)
             return menu
         else:
-            menuitems = ( MARK_ITER_MSG, "" )
-            for i, item in enumerate(menuitems):
-                menu.append(i-1)
-                menu.append(item)
-            return menu
+            if deleted:
+                menuitems = ( "Marked iterator's node DELETED. Mark a new iterator first", "" )
+                for i, item in enumerate(menuitems):
+                    menu.append(i-1)
+                    menu.append(item)
+                return menu    
+            else:
+                menuitems = ( MARK_ITER_MSG, "" )
+                for i, item in enumerate(menuitems):
+                    menu.append(i-1)
+                    menu.append(item)
+                return menu
 
 
     def menu_copypaste_FF(self) -> list:
@@ -1708,10 +1717,12 @@ iterator_keep_last_weight(self) -> None:
 
         # If the FF has been copied on a node that has been deleted
         # revert to -1 so that we are forced to copy an FF again.
+        deleted = False
         try:
             hou.session.flam3h_node_FF.type() # type: ignore
         except:
             flam3node_FF_check = None
+            deleted = True
 
         # If we did and the FLAM3 node still exist
         if flam3node_FF_check is not None:
@@ -1730,12 +1741,19 @@ iterator_keep_last_weight(self) -> None:
 
             return menu
         else:
-            menuitems = ( MARK_FF_MSG, "" )
-            for i, item in enumerate(menuitems):
-                menu.append(i-1)
-                menu.append(item)
+            if deleted:
+                menuitems = ( "Marked FF's node DELETED. Mark a new FF first", "" )
+                for i, item in enumerate(menuitems):
+                    menu.append(i-1)
+                    menu.append(item)
+                return menu    
+            else:
+                menuitems = ( MARK_FF_MSG, "" )
+                for i, item in enumerate(menuitems):
+                    menu.append(i-1)
+                    menu.append(item)
 
-            return menu
+                return menu
         
         
     def prm_paste_CTRL(self, id: int) -> None:
@@ -1763,7 +1781,7 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             if deleted:
-                _MSG = f"{str(node)} -> Iterator's node DELETED. Mark a new iterator first"
+                _MSG = f"{str(node)} -> Marked iterator's node DELETED. Mark a new iterator first"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
                 _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from."
@@ -1855,19 +1873,20 @@ iterator_keep_last_weight(self) -> None:
     def prm_paste_FF_CTRL(self) -> None:
         # current node
         node = self.node
-        # FLAM3 node and its state we just copied
-        flam3node_FF = hou.session.flam3h_node_FF # type: ignore
-        flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
-
-        # If the FF was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
+        flam3node_FF = None
+        flam3node_FF_check = None
+        
         deleted = False
         try:
-            flam3node_FF.type()
+            hou.session.flam3h_node_FF.type() # type: ignore
+            flam3node_FF = hou.session.flam3h_node_FF # type: ignore
+            flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
         except:
-            flam3node_FF_check = None
+            flam3node_FF = None
             deleted = True
 
+        print(flam3node_FF)
+        print(flam3node_FF_check)
         # If we ever copied an FF from a currently existing FLAM3 node
         if flam3node_FF_check is not None:
             
@@ -1909,8 +1928,8 @@ iterator_keep_last_weight(self) -> None:
             
         if node == hou.session.flam3h_node_FF: # type: ignore
             _MSG = f"{str(node)} -> Unmarked FF: {str(node)}.FF" # type: ignore
-            hou.session.flam3h_node_FF_check = None # type: ignore
-            hou.session.flam3h_node_FF = None # type: ignore
+            hou.session.flam3h_node_FF_check = None# type: ignore
+            hou.session.flam3h_node_FF = node# type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             
         elif node != hou.session.flam3h_node_FF and hou.session.flam3h_node_FF is not None: # type: ignore
@@ -1944,18 +1963,123 @@ iterator_keep_last_weight(self) -> None:
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
-    def prm_paste_FF(self) -> None:
-        """Paste the entire FF.
+    # def prm_paste_FF(self) -> None:
+    #     """Paste the entire FF.
         
-        Args:
-            kwargs (dict): [kwargs[] dictionary]
-        """    
-        if self.kwargs["ctrl"]:
-            self.prm_paste_FF_CTRL()
-        elif self.kwargs["shift"]:
-            self.prm_paste_FF_SHIFT()
-        else:
-            self.prm_paste_FF_CLICK()
+    #     Args:
+    #         kwargs (dict): [kwargs[] dictionary]
+    #     """    
+    #     if self.kwargs["ctrl"]:
+    #         self.prm_paste_FF_CTRL()
+    #     elif self.kwargs["shift"]:
+    #         self.prm_paste_FF_SHIFT()
+    #     else:
+    #         self.prm_paste_FF_CLICK()
+    
+    
+    def prm_paste_FF(self) -> None:
+            """Paste the entire FF.
+            
+            Args:
+                kwargs (dict): [kwargs[] dictionary]
+            """   
+            # current node
+            node=self.node
+                 
+            if self.kwargs["ctrl"]:
+
+                # FLAM3 node and its state we just copied
+                flam3node_FF = hou.session.flam3h_node_FF # type: ignore
+                flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
+
+                # If the FF was copied from a node that has been deleted
+                # revert to -1 so that we are forced to copy an iterator again.
+                deleted = False
+                try:
+                    flam3node_FF.type()
+                except:
+                    flam3node_FF_check = None
+                    deleted = True
+
+                # If we ever copied an FF from a currently existing FLAM3 node
+                if flam3node_FF_check is not None:
+                    if node==flam3node_FF:
+                        _MSG = f"{str(node)}: FF marked. Select a different FLAM3H node to paste those FF values."
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    else:
+                        self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                        self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                        self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                        self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.allMisc_FF, "", "")
+                        self.paste_set_note(node, flam3node_FF, 1, "", "", "")
+
+                else:
+                    _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+
+            elif self.kwargs["shift"]:
+                hou.session.flam3h_node_FF_check = None # type: ignore
+                hou.session.flam3h_node_FF = node # type: ignore
+                print("Unmarked")
+
+            else:
+                hou.session.flam3h_node_FF_check = 1 # type: ignore
+                hou.session.flam3h_node_FF = self.node # type: ignore
+                _MSG = f"{str(self.node)}: Copied FF: {str(hou.session.flam3h_node_FF)}->FF" # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+    
+    
+    
+    
+    
+    # def prm_paste_FF(self) -> None:
+    #         """Paste the entire FF.
+            
+    #         Args:
+    #             kwargs (dict): [kwargs[] dictionary]
+    #         """   
+    #         # current node
+    #         node=self.node
+                 
+    #         if self.kwargs["ctrl"]:
+
+    #             # FLAM3 node and its state we just copied
+    #             flam3node_FF = hou.session.flam3h_node_FF # type: ignore
+    #             flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
+
+    #             # If the FF was copied from a node that has been deleted
+    #             # revert to -1 so that we are forced to copy an iterator again.
+    #             try:
+    #                 flam3node_FF.type()
+    #             except:
+    #                 flam3node_FF_check = None
+
+    #             # If we ever copied an FF from a currently existing FLAM3 node
+    #             if flam3node_FF_check is not None:
+    #                 if node==flam3node_FF:
+    #                     _MSG = f"{str(node)}: FF marked. Select a different FLAM3H node to paste those FF values."
+    #                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+    #                 else:
+    #                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+    #                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+    #                     self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+    #                     self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.allMisc_FF, "", "")
+    #                     self.paste_set_note(node, flam3node_FF, 1, "", "", "")
+
+    #             else:
+    #                 _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
+    #                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+
+    #         elif self.kwargs["shift"]:
+    #             hou.session.flam3h_node_FF_check = None# type: ignore
+    #             hou.session.flam3h_node_FF = node# type: ignore
+
+    #         else:
+    #             hou.session.flam3h_node_FF_check = 1 # type: ignore
+    #             hou.session.flam3h_node_FF = self.node # type: ignore
+    #             _MSG = f"{str(self.node)}: Copied FF: {str(hou.session.flam3h_node_FF)}->FF" # type: ignore
+    #             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
 
     
     def prm_paste_sel(self) -> None:
