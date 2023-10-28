@@ -23,9 +23,7 @@ import json
 import colorsys
 import webbrowser
 import inspect
-
 import hou
-import nodesearch
 
 
 
