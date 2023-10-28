@@ -1289,7 +1289,7 @@ iterator_keep_last_weight(self) -> None:
 
         
     @staticmethod
-    def paste_from_list(node: hou.Node, flam3node: hou.Node, prm_list: tuple, id: str, id_from: str) -> None:
+    def paste_from_list(node: hou.Node, flam3node: Union[hou.Node, None], prm_list: tuple, id: str, id_from: str) -> None:
         """Paste value for a parameter, including keyframes if any,
         between different multiparameter indexes.
         
@@ -1303,28 +1303,30 @@ iterator_keep_last_weight(self) -> None:
         for prm in prm_list:
             # if a tuple
             if prm[1]:
-                prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
-                prm_to = node.parmTuple(f"{prm[0]}{id}")
-                prm_idx = 0
-                for p in prm_from:
-                    if len(p.keyframes()):
-                        for k in p.keyframes():
-                            prm_to[prm_idx].setKeyframe(k)
-                    else:
-                        prm_to[prm_idx].set(p.eval())
-                    prm_idx += 1
+                if flam3node is not None:
+                    prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
+                    prm_to = node.parmTuple(f"{prm[0]}{id}")
+                    prm_idx = 0
+                    for p in prm_from:
+                        if len(p.keyframes()):
+                            for k in p.keyframes():
+                                prm_to[prm_idx].setKeyframe(k)
+                        else:
+                            prm_to[prm_idx].set(p.eval())
+                        prm_idx += 1
             else:
-                prm_from = flam3node.parm(f"{prm[0]}{id_from}")
-                prm_to = node.parm(f"{prm[0]}{id}")
-                if len(prm_from.keyframes()):
-                    for k in prm_from.keyframes():
-                        prm_to.setKeyframe(k)
-                else:
-                    prm_to.set(prm_from.eval())
+                if flam3node is not None:
+                    prm_from = flam3node.parm(f"{prm[0]}{id_from}")
+                    prm_to = node.parm(f"{prm[0]}{id}")
+                    if len(prm_from.keyframes()):
+                        for k in prm_from.keyframes():
+                            prm_to.setKeyframe(k)
+                    else:
+                        prm_to.set(prm_from.eval())
     
     
     @staticmethod           
-    def pastePRM_T_from_list(node: hou.Node, flam3node: hou.Node, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
+    def pastePRM_T_from_list(node: hou.Node, flam3node: Union[hou.Node, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
         """Paste variation parameter values
         between different multiparameter indexes.
         In case of a parametric variation, it will paste its parameters using:
@@ -1339,12 +1341,13 @@ iterator_keep_last_weight(self) -> None:
             id_from (str): [multiparameter index to copy from]
         """    
         for prm in prmT_list:
-            prm_from = flam3node.parm(f"{prm}{id_from}").eval()
-            node.setParms({f"{prm}{id}": prm_from}) # type: ignore
-            # Check if this var is a parametric or not
-            v_type = int(prm_from)
-            if(varsPRM[v_type][-1]):  
-                flam3h_iterator_utils.paste_from_list(node, flam3node, varsPRM[v_type][1:-1], id, id_from)
+            if flam3node is not None:
+                prm_from = flam3node.parm(f"{prm}{id_from}").eval()
+                node.setParms({f"{prm}{id}": prm_from}) # type: ignore
+                # Check if this var is a parametric or not
+                v_type = int(prm_from)
+                if(varsPRM[v_type][-1]):  
+                    flam3h_iterator_utils.paste_from_list(node, flam3node, varsPRM[v_type][1:-1], id, id_from)
 
 
     @staticmethod
@@ -1376,7 +1379,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def paste_set_note(node: hou.Node, flam3node: hou.Node, int_mode: int, str_section: str, id: str, id_from: str) -> None:
+    def paste_set_note(node: hou.Node, flam3node: Union[hou.Node, None], int_mode: int, str_section: str, id: str, id_from: str) -> None:
         """After a copy/paste, it will set the note parameter with a string indicating what has been pasted ( when copy/paste iterator's sections )
         
         Args:
@@ -1737,16 +1740,14 @@ iterator_keep_last_weight(self) -> None:
         
     def prm_paste_CTRL(self, id: int) -> None:
         node = self.node
-        # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3h_node # type: ignore
-        id_from = hou.session.flam3h_node_mp_id # type: ignore
-
-        # If an iterator was copied on a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
+        flam3node = node
         deleted = False
         try:
-            flam3node.type()
+            hou.session.flam3h_node.type() # type: ignore
+            flam3node = hou.session.flam3h_node # type: ignore
+            id_from = hou.session.flam3h_node_mp_id # type: ignore
         except:
+            flam3node = None
             id_from = None
             deleted = True
 
@@ -1788,9 +1789,9 @@ iterator_keep_last_weight(self) -> None:
             
             if hou.session.flam3h_node_mp_id is not None: # type: ignore
                 
-                _MSG = f"{str(node)} -> DELETED Marked iterator: {str(hou.session.flam3h_node_mp_id)}" # type: ignore
+                _MSG = f"{str(node)} ->  Unmarked iterator: {str(hou.session.flam3h_node_mp_id)}" # type: ignore
                 hou.session.flam3h_node_mp_id = None # type: ignore
-                hou.session.flam3h_node = None # type: ignore
+                # hou.session.flam3h_node = None # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 
         else:
@@ -1907,7 +1908,7 @@ iterator_keep_last_weight(self) -> None:
             node_msg = f"{str(hou.session.flam3h_node_FF)}" # type: ignore
             
         if node == hou.session.flam3h_node_FF: # type: ignore
-            _MSG = f"{str(node)} -> DELETED Marked FF: {str(node)}.FF" # type: ignore
+            _MSG = f"{str(node)} -> Unmarked FF: {str(node)}.FF" # type: ignore
             hou.session.flam3h_node_FF_check = None # type: ignore
             hou.session.flam3h_node_FF = None # type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
