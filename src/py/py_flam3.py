@@ -20,6 +20,7 @@ import numpy as np
 import platform
 import os
 import hou
+import nodesearch
 import json
 import colorsys
 import webbrowser
@@ -637,9 +638,12 @@ flam3h_on_loaded(self) -> None:
                         hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
                         hou.setUpdateMode(sys_updated_mode)  # type: ignore
                 else:
+                    m = nodesearch.State("Display", True)
+                    _display_node = m.nodes(node.parent(), recursive=False)[0]
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
                     node.setDisplayFlag(True)  # type: ignore
                     if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = ui_text, details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        _display_node.setDisplayFlag(True)
                         hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
                         hou.setUpdateMode(sys_updated_mode)  # type: ignore
                     
@@ -649,10 +653,6 @@ flam3h_on_loaded(self) -> None:
         node = self.node
         
         # FLAM3 node and MultiParameter id for iterators
-        #
-        # If there were already a FLAM3 node in the scene
-        # and we copied already an iterator's values, lets keep whats stored,
-        # otherwise initialize those values.
         try:
             hou.session.flam3h_node # type: ignore
         except:
@@ -670,10 +670,6 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_node_mp_id = None # type: ignore
 
         # FLAM3 node for FF.
-        #
-        # If there were already a FLAM3 node in the scene
-        # and we copied already FF's values, lets keep whats stored,
-        # otherwise initialize those values.
         try:
             hou.session.flam3h_node_FF # type: ignore
         except:
@@ -708,27 +704,19 @@ flam3h_on_loaded(self) -> None:
         all_f3h_vpptsize = []
         all_f3h_vptype = []
         if len(all_f3h) > 1:
-            # If there are other FLAM3H instances, collect some data from them
-            # and see if they are set to dark mode
+
             for f3h in all_f3h:
                 if f3h != node:
-                    # Only collect the first instance's data
-                    # since they will all have the same settings.
                     all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat())
                     all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt())
-                    # If the other FLAM3H instances are set on dark mode,
-                    # set myself to dark mode too, otherwise keep whatever viewport color is there
                     if f3h.parm(PREFS_VIEWPORT_DARK).eval():
                         node.setParms({PREFS_VIEWPORT_DARK: 1})
-                        # Run dark mode
                         flam3h_general_utils(self.kwargs).colorSchemeDark(False)
                         break
                     else:
                         break
         else:
-            # Otherwise if i'm the only FLAM3H node, go dark right away
             node.setParms({"setdark": 1})
-            # Run dark mode
             flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
