@@ -1881,7 +1881,7 @@ iterator_keep_last_weight(self) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
                     if idx_out_of_range is not False:
-                        _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(_id)} and it is out of range. Mark an existing iterator instead." # type: ignore
+                        _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(idx_out_of_range)} and it is out of range. Mark an existing iterator instead." # type: ignore
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                     else:
                         _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(id)}" # type: ignore
