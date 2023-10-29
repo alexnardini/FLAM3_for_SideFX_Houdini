@@ -7538,6 +7538,8 @@ out_XML(self) -> None:
                         flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
                         flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
 
+            _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
 
