@@ -1549,16 +1549,19 @@ Web links:
     
 _Dependant variation's affine coefficients:_
 
-A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters.
-The dependent variations and the affine coefficients they employ are listed below:
-
-*_Waves_*: `O[0] X[1]   Y[1] O[1]`
-
-*_Popcorn_*: `O[0]  O[1]`
-
-*_Rings_*: `O[0]`
-
-*_Fan_*: `O[0]`
+:box:
+    #display: rounded gray
+    
+    A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters.
+    The dependent variations and the affine coefficients they employ are listed below:
+    
+    *_Waves_*: `O[0] X[1]   Y[1] O[1]`
+    
+    *_Popcorn_*: `O[0]  O[1]`
+    
+    *_Rings_*: `O[0]`
+    
+    *_Fan_*: `O[0]`
 
 
 :box:
@@ -1570,112 +1573,115 @@ _A list of all variations included with FLAM3H:_
 
 - _Note that all the following are also available as PRE_ _and/or POST_ _variations._
 
-*Arch*, 
-*Auger*, 
-*Bent*, 
-*Bent2*, 
-*Bipolar*, 
-*Blade*, 
-*Blob*, 
-*Blur*, 
-*Boarders*, 
-*Bubble*, 
-*Butterfly*, 
-*Bwraps*, 
-*Cell*, 
-*Conic*, 
-*Cos*, 
-*Cosh*, 
-*Cosine*, 
-*Cot*, 
-*Coth*, 
-*Cpow*, 
-*Crop*, 
-*Cross*, 
-*Csc*, 
-*Csch*, 
-*Curl*, 
-*Curve*, 
-*Cylinder*, 
-*Diamond*, 
-*Disc*, 
-*Disc2*, 
-*Edisc*, 
-*Elliptic*, 
-*Escher*, 
-*Ex*, 
-*Exp*, 
-*Exponential*, 
-*Eyefish*, 
-*Fan*, 
-*Fan2*, 
-*Fisheye*, 
-*Flower*, 
-*Flux*, 
-*Foci*, 
-*Gaussian_blur*, 
-*Glynnia*, 
-*Handkerchief*, 
-*Heart*, 
-*Hemisphere*, 
-*Horseshoe*, 
-*Hyperbolic*, 
-*Julia*, 
-*JuliaN*, 
-*Juliascope*, 
-*Lazysusan*, 
-*Linear*, 
-*Log*, 
-*Loonie*, 
-*Mobius*, 
-*Modulus*, 
-*Ngon*, 
-*Noise*, 
-*Oscope*, 
-*Parabola*, 
-*Pdj*, 
-*Perspective*, 
-*Pie*, 
-*Point_symmetry*, 
-*Polar*, 
-*Polar2*, 
-*Polynomial*, 
-*Popcorn*, 
-*Popcorn2*, 
-*Power*, 
-*Pre_blur*, 
-*Radialblur*, 
-*Rays*, 
-*Rectangles*, 
-*Rings*, 
-*Rings2*, 
-*Scry*, 
-*Sec*, 
-*Secant2*, 
-*Sech*, 
-*Separation*, 
-*Sin*, 
-*Sinh*, 
-*Sinusoidal*, 
-*Spherical*, 
-*Spiral*, 
-*Split*, 
-*Splits*, 
-*Square*, 
-*Stripes*, 
-*Supershape*, 
-*Swirl*, 
-*Tan*, 
-*Tangent*, 
-*Tanh*, 
-*Twintrian*, 
-*Unpolar*, 
-*Waves*, 
-*Waves2*, 
-*Wedge*, 
-*Wedgejulia*, 
-*Wedgesph*, 
-*Whorl*
+:box:
+    #display: rounded gray
+    
+    *Arch*, 
+    *Auger*, 
+    *Bent*, 
+    *Bent2*, 
+    *Bipolar*, 
+    *Blade*, 
+    *Blob*, 
+    *Blur*, 
+    *Boarders*, 
+    *Bubble*, 
+    *Butterfly*, 
+    *Bwraps*, 
+    *Cell*, 
+    *Conic*, 
+    *Cos*, 
+    *Cosh*, 
+    *Cosine*, 
+    *Cot*, 
+    *Coth*, 
+    *Cpow*, 
+    *Crop*, 
+    *Cross*, 
+    *Csc*, 
+    *Csch*, 
+    *Curl*, 
+    *Curve*, 
+    *Cylinder*, 
+    *Diamond*, 
+    *Disc*, 
+    *Disc2*, 
+    *Edisc*, 
+    *Elliptic*, 
+    *Escher*, 
+    *Ex*, 
+    *Exp*, 
+    *Exponential*, 
+    *Eyefish*, 
+    *Fan*, 
+    *Fan2*, 
+    *Fisheye*, 
+    *Flower*, 
+    *Flux*, 
+    *Foci*, 
+    *Gaussian_blur*, 
+    *Glynnia*, 
+    *Handkerchief*, 
+    *Heart*, 
+    *Hemisphere*, 
+    *Horseshoe*, 
+    *Hyperbolic*, 
+    *Julia*, 
+    *JuliaN*, 
+    *Juliascope*, 
+    *Lazysusan*, 
+    *Linear*, 
+    *Log*, 
+    *Loonie*, 
+    *Mobius*, 
+    *Modulus*, 
+    *Ngon*, 
+    *Noise*, 
+    *Oscope*, 
+    *Parabola*, 
+    *Pdj*, 
+    *Perspective*, 
+    *Pie*, 
+    *Point_symmetry*, 
+    *Polar*, 
+    *Polar2*, 
+    *Polynomial*, 
+    *Popcorn*, 
+    *Popcorn2*, 
+    *Power*, 
+    *Pre_blur*, 
+    *Radialblur*, 
+    *Rays*, 
+    *Rectangles*, 
+    *Rings*, 
+    *Rings2*, 
+    *Scry*, 
+    *Sec*, 
+    *Secant2*, 
+    *Sech*, 
+    *Separation*, 
+    *Sin*, 
+    *Sinh*, 
+    *Sinusoidal*, 
+    *Spherical*, 
+    *Spiral*, 
+    *Split*, 
+    *Splits*, 
+    *Square*, 
+    *Stripes*, 
+    *Supershape*, 
+    *Swirl*, 
+    *Tan*, 
+    *Tangent*, 
+    *Tanh*, 
+    *Twintrian*, 
+    *Unpolar*, 
+    *Waves*, 
+    *Waves2*, 
+    *Wedge*, 
+    *Wedgejulia*, 
+    *Wedgesph*, 
+    *Whorl*
 
 
 :box:
@@ -1689,104 +1695,106 @@ NOTE:
     Repeated variations names indicate distinct Houdini parameters.
     For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters.
 
-
-- *Auger*           ->      _Frequency, Scale, Symmetry, Weight_
-
-- *Bent2*           ->      _X, Y_
-
-- *Bipolar*         ->      _Shift_
-
-- *Blob*            ->      _Low, High, Waves_
-
-- *Bwraps*          ->      _Size, Space, Gain_
-
-- *Bwraps*          ->      _In twist, Out twist_
-
-- *Cell*            ->      _Size_
-
-- *Conic*           ->      _Eccentricity, Holes_
-
-- *Cpow*            ->      _Pow, r, i_
-
-- *Crop*            ->      _Left, Top, Right, Bottom_
-
-- *Crop*            ->      _Area, Zero_
-
-- *Curl*            ->      _C1, C2_
-
-- *Curve*           ->      _Lenght X, Lenght Y_
-
-- *Curve*           ->      _Amplitude X, Amplitude Y_
-
-- *Disc2*           ->      _Rotation, Twist_
-
-- *Escher*          ->      _Beta_
-
-- *Fan2*            ->      _X, Y_
-
-- *Flower*          ->      _Petals, Holes_
-
-- *Flux*            ->      _Spread_
-
-- *JuliaN*          ->      _Power, Distance_
-
-- *JuliaScope*      ->      _Power, Distance_
-
-- *Lazysusan*       ->      _X, Y_
-
-- *Lazysusan*       ->      _Spin, Twist, Space_
-
-- *Mobius*          ->      _Re A, Re B, Re C, Re D_
-
-- *Mobius*          ->      _Im A, Im B, Im C, Im D_
-
-- *Modulus*         ->      _X, Y_
-
-- *Ngon*            ->      _Power, Side, Corners, Circle_
-
-- *Oscope*          ->      _Frequency, Amplitude, Damping, Separation_
-
-- *Parabola*        ->      _Height, Width_
-
-- *Pdj*             ->      _w A, w B, w C, w D_
-
-- *Perspective*     ->      _Angle, Distance_
-
-- *Pie*             ->      _Slice, Thickness, Rotation_
-
-- *Polynomial*      ->      _Pow X, Pow Y_
-
-- *Polynomial*      ->      _Lc X, Lc Y_
-
-- *Polynomial*      ->      _Sc X, Sc Y_
-
-- *Point Symmetry*  ->      _Order, Center X, Center Y_
-
-- *Radial Blur*     ->      _Angle_
-
-- *Rectangles*      ->      _X, Y_
-
-- *Rings2*          ->      _Val_
-
-- *Separation*      ->      _X, Y_
-
-- *Separation*      ->      _Inside X, Inside Y_
-
-- *Split*           ->      _X, Y_
-
-- *Splits*          ->      _X, Y_
-
-- *Waves2*          ->      _Scale X, Scale Y_
-
-- *Waves2*          ->      _Frequency X, Frequency Y_
-
-- *Wedge*           ->      _Swirl, Angle, Hole, Count_
-
-- *WedgeJulia*      ->      _Power, Angle, Distance, Count_
-
-- *WedgeSph*        ->      _Swirl, Angle, Hole, Count_
-
-- *Whorl*           ->      _In, Out_
+:box:
+    #display: rounded gray
+    
+    - *Auger*           ->      _Frequency, Scale, Symmetry, Weight_
+    
+    - *Bent2*           ->      _X, Y_
+    
+    - *Bipolar*         ->      _Shift_
+    
+    - *Blob*            ->      _Low, High, Waves_
+    
+    - *Bwraps*          ->      _Size, Space, Gain_
+    
+    - *Bwraps*          ->      _In twist, Out twist_
+    
+    - *Cell*            ->      _Size_
+    
+    - *Conic*           ->      _Eccentricity, Holes_
+    
+    - *Cpow*            ->      _Pow, r, i_
+    
+    - *Crop*            ->      _Left, Top, Right, Bottom_
+    
+    - *Crop*            ->      _Area, Zero_
+    
+    - *Curl*            ->      _C1, C2_
+    
+    - *Curve*           ->      _Lenght X, Lenght Y_
+    
+    - *Curve*           ->      _Amplitude X, Amplitude Y_
+    
+    - *Disc2*           ->      _Rotation, Twist_
+    
+    - *Escher*          ->      _Beta_
+    
+    - *Fan2*            ->      _X, Y_
+    
+    - *Flower*          ->      _Petals, Holes_
+    
+    - *Flux*            ->      _Spread_
+    
+    - *JuliaN*          ->      _Power, Distance_
+    
+    - *JuliaScope*      ->      _Power, Distance_
+    
+    - *Lazysusan*       ->      _X, Y_
+    
+    - *Lazysusan*       ->      _Spin, Twist, Space_
+    
+    - *Mobius*          ->      _Re A, Re B, Re C, Re D_
+    
+    - *Mobius*          ->      _Im A, Im B, Im C, Im D_
+    
+    - *Modulus*         ->      _X, Y_
+    
+    - *Ngon*            ->      _Power, Side, Corners, Circle_
+    
+    - *Oscope*          ->      _Frequency, Amplitude, Damping, Separation_
+    
+    - *Parabola*        ->      _Height, Width_
+    
+    - *Pdj*             ->      _w A, w B, w C, w D_
+    
+    - *Perspective*     ->      _Angle, Distance_
+    
+    - *Pie*             ->      _Slice, Thickness, Rotation_
+    
+    - *Polynomial*      ->      _Pow X, Pow Y_
+    
+    - *Polynomial*      ->      _Lc X, Lc Y_
+    
+    - *Polynomial*      ->      _Sc X, Sc Y_
+    
+    - *Point Symmetry*  ->      _Order, Center X, Center Y_
+    
+    - *Radial Blur*     ->      _Angle_
+    
+    - *Rectangles*      ->      _X, Y_
+    
+    - *Rings2*          ->      _Val_
+    
+    - *Separation*      ->      _X, Y_
+    
+    - *Separation*      ->      _Inside X, Inside Y_
+    
+    - *Split*           ->      _X, Y_
+    
+    - *Splits*          ->      _X, Y_
+    
+    - *Waves2*          ->      _Scale X, Scale Y_
+    
+    - *Waves2*          ->      _Frequency X, Frequency Y_
+    
+    - *Wedge*           ->      _Swirl, Angle, Hole, Count_
+    
+    - *WedgeJulia*      ->      _Power, Angle, Distance, Count_
+    
+    - *WedgeSph*        ->      _Swirl, Angle, Hole, Count_
+    
+    - *Whorl*           ->      _In, Out_
 
 
 
@@ -1804,9 +1812,12 @@ NOTE:
 
 
 == Rendering: workflow tips == (REND)
-
-Workflow tips:
-    #id: rendering
+    
+:box:
+    #display: rounded gray
+    
+    Workflow tips:
+        #id: rendering
     
     You can keep the FLAM3H node live without the need to bake the processed point cloud while rendering
     and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( in Solaris: *`@widths`* ) accordingly.
@@ -1826,9 +1837,12 @@ Workflow tips:
 
 
 == Rendering: Point size == (REND)
-
-Point size:
-    #id: rendering
+    
+:box:
+    #display: rounded gray
+    
+    Point size:
+        #id: rendering
     
     For simplicity, FLAM3 for Houdini sets all *'@pscale'* to a value of *'0.001'*.
     Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
@@ -1839,9 +1853,12 @@ Point size:
 
 
 == Rendering: Helpful settings == (REND)
-
-Karma/Mantra tips:
-    #id: Karma/Mantra tips
+    
+:box:
+    #display: rounded gray
+    
+    Karma/Mantra tips:
+        #id: Karma/Mantra tips
     
     - *When rendering with Karma*, remember to turn on the "*Simplified lighting*"/"*Disable lighting*" option to be sure to render the points with their full color values.
     
@@ -1874,12 +1891,12 @@ NOTE:
 
 
 == Cvex: How to compile == (COMPILE)
-
-Compile CVEX:
-    #id: CVEX
     
 :box:
-    #display: rounded white
+    #display: rounded gray
+    
+    Compile CVEX:
+        #id: CVEX
     
     *SideFX made this part very easy*:
     
@@ -1905,12 +1922,12 @@ Compile CVEX:
         - Output: _*TheFractalFlameAlgorithm.vex*_
     
 == Cvex: How to update FLAM3H node == (UPDATE)
-
-Reload CVEX:
-    #id: CVEX
     
 :box:
-    #display: rounded white
+    #display: rounded gray
+    
+    Reload CVEX:
+        #id: CVEX
     
     Inside the FLAM3H node, you will find many wrangle core nodes running a compiled Cvex file.
     
@@ -1948,8 +1965,11 @@ Reload CVEX:
 
 == FLAME: Iterator's count ==
     
-Iterator's count:
-    #id: Limitations
+:box:
+    #display: rounded gray
+    
+    Iterator's count:
+        #id: Limitations
     
     FLAM3 for Houdini allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of 20 iterators.
     
@@ -1957,8 +1977,11 @@ Iterator's count:
 
 == FLAME: xform's PRE, VAR and POST variations ==
 
-PRE variations:
-    #id: Limitations
+:box:
+    #display: rounded gray
+    
+    PRE variations:
+        #id: Limitations
     
     Every iterator is capable of 3 PRE variations, with one ( the first one to always be executed ) being: pre_blur, followed by the other two.
     
@@ -1967,21 +1990,30 @@ PRE variations:
     NOTE:
         _*The weight of the PRE variations can not be negative*_ in FLAM3 for Houdini.
 
-VAR variations:
-    #id: Limitations
+:box:
+    #display: rounded gray
+    
+    VAR variations:
+        #id: Limitations
     
     Every iterator is capable of 4 variations.
     
-POST variations:
-    #id: Limitations
+:box:
+    #display: rounded gray
+    
+    POST variations:
+        #id: Limitations
     
     Every iterator is capable of 1 POST variation.
     
     NOTE:
         _*The weight of the POST variation can not be negative*_ in FLAM3 for Houdini.
-        
-Parametric variation parameters:
-    #id: Limitations
+    
+:box:
+    #display: rounded gray
+    
+    Parametric variation parameters:
+        #id: Limitations
     
     Each iterator has only one set of parametric variation parameters shared within the PRE, VAR and POST variations.
     This means if you use 2 PRE_Mobius, 4 Mobius and 1 POST_Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
@@ -1990,29 +2022,44 @@ Parametric variation parameters:
     
 == FF: finalxform's PRE, VAR and POST variations ==
 
-FF PRE variations:
-    #id: Limitations
+    
+:box:
+    #display: rounded gray
+    
+    FF PRE variations:
+        #id: Limitations
     
     FF iterator is capable of 1 PRE variation.
     
     NOTE:
         _*The weight of the FF PRE variations can not be negative*_ in FLAM3 for Houdini.
 
-FF VAR variations:
-    #id: Limitations
+    
+:box:
+    #display: rounded gray
+    
+    FF VAR variations:
+        #id: Limitations
     
     FF iterator is capable of 2 variations.
     
-FF POST variations:
-    #id: Limitations
+    
+:box:
+    #display: rounded gray
+    
+    FF POST variations:
+        #id: Limitations
     
     FF iterator is capable of 2 POST variations.
     
     NOTE:
         _*The weight of the FF POST variation can not be negative*_ in FLAM3 for Houdini.
+       
+:box:
+    #display: rounded gray
         
-FF Parametric variation parameters:
-    #id: Limitations
+    FF Parametric variation parameters:
+        #id: Limitations
     
     FF iterator has two sets of parametric variation parameters.
     One is shared with VAR variations.
@@ -2024,8 +2071,11 @@ FF Parametric variation parameters:
     
 == FF: Shader ==
 
-FF Shader:
-    #id: Limitations
+:box:
+    #display: rounded gray
+
+    FF Shader:
+        #id: Limitations
     
     This finalxform ( FF ) does not possess any color parameters in this implementation ( Chaotica style ).
 
@@ -2053,6 +2103,9 @@ FF Shader:
 
 Mini bio:
     #id: Author
+    
+:box:
+    #display: rounded gray
     
     Alessandro Nardini is an Italian artist who's spent most of his career serving the entertainment industry.
     He served many different branches of the entertainment industry's post-production,
