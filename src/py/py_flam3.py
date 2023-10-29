@@ -803,10 +803,10 @@ flam3h_on_loaded(self) -> None:
 
         if len(self.node.type().instances()) == 1:
             try:
-                del hou.session.flam3h_node # type: ignore
-                del hou.session.flam3h_node_mp_id # type: ignore
-                del hou.session.flam3h_node_FF # type: ignore
-                del hou.session.flam3h_node_FF_check # type: ignore
+                hou.session.flam3h_node = None# type: ignore
+                # hou.session.flam3h_node_mp_id = None# type: ignore
+                hou.session.flam3h_node_FF = None# type: ignore
+                # hou.session.flam3h_node_FF_check = None# type: ignore
                 del hou.session.flam3h_sys_update_mode # type: ignore
             except:
                 pass
@@ -1842,21 +1842,22 @@ iterator_keep_last_weight(self) -> None:
     def prm_paste_SHIFT(self, id: int) -> None:
         node = self.node
         flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
-
+        flam3node = None
+        
         deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
+            flam3node = hou.session.flam3h_node # type: ignore
         except:
             hou.session.flam3h_node = None # type: ignore
             deleted = True
             
         mp_idx_out_of_range = False
         if flam3h_node_mp_id is not None:
-            flam3node = hou.session.flam3h_node # type: ignore
-            assert flam3node is not None
-            iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-            if flam3h_node_mp_id > iter_num:
-                mp_idx_out_of_range = flam3h_node_mp_id
+            if flam3node is not None:
+                iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+                if flam3h_node_mp_id > iter_num:
+                    mp_idx_out_of_range = flam3h_node_mp_id
         
         if node == hou.session.flam3h_node: # type: ignore
             
