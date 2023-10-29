@@ -1243,6 +1243,12 @@ menu_copypaste(self) -> list:
 
 menu_copypaste_FF(self) -> list:
 
+prm_paste_CTRL(self, id: int) -> None:
+
+prm_paste_SHIFT(self, id: int) -> None:
+
+prm_paste_CLICK(self, id: int) -> None:
+
 prm_paste(self) -> None:
 
 prm_paste_FF(self) -> None:
