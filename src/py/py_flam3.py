@@ -647,6 +647,7 @@ flam3h_on_loaded(self) -> None:
     def flam3h_on_create_set_houdini_session_data(self) -> None:
         
         node = self.node
+        node_instances = self.node.type().instances()
         
         # FLAM3 node and MultiParameter id for iterators
         try:
@@ -663,6 +664,10 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_node.type() # type: ignore
         except:
             hou.session.flam3h_node_mp_id = None # type: ignore
+            # If we deleted all FLAM3H nodes and we then create a new one,
+            # Lets initialize to himself
+            if len(node_instances) == 1:
+                hou.session.flam3h_node = node # type: ignore
 
         # FLAM3 node for FF.
         try:
@@ -679,7 +684,11 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3h_node_FF.type() # type: ignore
         except:
             hou.session.flam3h_node_FF_check = None # type: ignore
-
+            # If we deleted all FLAM3H nodes and we then create a new one,
+            # Lets initialize to himself
+            if len(node_instances) == 1:
+                hou.session.flam3h_node_FF = node # type: ignore
+                
         # Initialize flam3 viewport Color Scheme
         try:
             hou.session.flam3h_CS # type: ignore
@@ -803,10 +812,18 @@ flam3h_on_loaded(self) -> None:
 
         if len(self.node.type().instances()) == 1:
             try:
-                hou.session.flam3h_node = None# type: ignore
-                # hou.session.flam3h_node_mp_id = None# type: ignore
-                hou.session.flam3h_node_FF = None# type: ignore
-                # hou.session.flam3h_node_FF_check = None# type: ignore
+                hou.session.flam3h_node.type() # type: ignore
+            except:
+                if hou.session.flam3h_node_mp_id is not None:  # type: ignore
+                    hou.session.flam3h_node = None # type: ignore
+                # hou.session.flam3h_node_mp_id = None # type: ignore
+            try:
+                hou.session.flam3h_node_FF.type # type: ignore
+            except:
+                if hou.session.flam3h_node_FF_check is not None:  # type: ignore
+                    hou.session.flam3h_node_FF = None # type: ignore
+                # hou.session.flam3h_node_FF_check = None # type: ignore
+            try:
                 del hou.session.flam3h_sys_update_mode # type: ignore
             except:
                 pass
