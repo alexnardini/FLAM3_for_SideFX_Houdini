@@ -150,7 +150,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     int xaos_chk = detail(1, "XS");
     if(xaos_chk){
         if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
-        else append(T, concat("[", "Xf", "]"));             // xaos FROM
+        else append(T, concat("[", "fX", "]"));             // xaos FROM
     }
     if(MB) append(T, "MB");
 

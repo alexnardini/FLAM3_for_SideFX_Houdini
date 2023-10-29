@@ -201,7 +201,7 @@ TAG:
     * The iteration number will be the very first number inside square brackets.
     * Xaos (_when active_) will be next inside square brackets. ( read the xaos documentation to know more about it. )
     * Xaos TO will be: *Xt*
-    * Xaos FROM wil be: *Xf*
+    * Xaos FROM wil be: *fX*
     * Motion blur (_when active_) will be next inside square brackets.
     * Iterator variations are lowercase.
     * FF variations are UPPER CASE.

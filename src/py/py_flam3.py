@@ -171,7 +171,7 @@ MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
 MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
 # Message Mark iterators
-MARK_ITER_MSG = "Please mark an iterator first"
+MARK_ITER_MSG = "Please, mark an iterator first"
 MARK_FF_MSG = "Please mark the FF first"
 # File lock prefix
 FLAM3_LIB_LOCK = 'F3H_LOCK'
