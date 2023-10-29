@@ -190,6 +190,12 @@ RIP:
     NOTE:
         If rendering a flame seems unusually slow, it's probably because certain points wind up being really far from the zero world.
         Those points will be eliminated if this option is turned ON.
+
+
+:box:
+    #display: rounded white
+    
+    == SYS: Tag == (SYSTAG)
         
 TAG:
     #id: SYS
@@ -223,6 +229,11 @@ TAG size:
     #id: SYS
     Set different viewport TAG sizes.
     
+    
+:box:
+    #display: rounded white
+    
+    == SYS: Sierpiński triangle == (SYSDEFAULT)
     
 loaddef:
     #id: SYS
