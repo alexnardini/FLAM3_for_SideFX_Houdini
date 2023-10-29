@@ -2527,7 +2527,7 @@ iterator_keep_last_weight(self) -> None:
         
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
         
 
     def auto_set_xaos(self) -> None:
