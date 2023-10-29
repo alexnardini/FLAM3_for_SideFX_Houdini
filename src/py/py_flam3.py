@@ -1796,7 +1796,7 @@ iterator_keep_last_weight(self) -> None:
         
         
     def prm_paste_CTRL(self, id: int) -> None:
-        """Everything about copying iterator's data.
+        """Everything about paste iterator's data.
 
         Args:
             id (int): current multi parameter index
