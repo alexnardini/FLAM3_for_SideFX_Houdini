@@ -1681,10 +1681,10 @@ iterator_keep_last_weight(self) -> None:
             if node == flam3node and id==id_from:
                 menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == flam3node:
-                menuitems = ( "", f"{str(id_from)}", f"{str(id_from)}: xaos:", f"{str(id_from)}: shader", f"{str(id_from)}: pre", f"{str(id_from)}: vars", f"{str(id_from)}: Post", f"{str(id_from)}: pre affine", f"{str(id_from)}: post affine", "" )
+                menuitems = ( "", f"iter.{str(id_from)}", f"iter.{str(id_from)} -> xaos:", f"iter.{str(id_from)} -> shader", f"iter.{str(id_from)} -> PRE", f"iter.{str(id_from)} -> VAR", f"iter.{str(id_from)} -> POST", f"iter.{str(id_from)} -> pre affine", f"iter.{str(id_from)} -> post affine", "" )
             else:
                 flam3nodeIter = f"{str(flam3node)}.iter."
-                menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)}: xaos:", f"{flam3nodeIter}{str(id_from)}: shader", f"{flam3nodeIter}{str(id_from)}: pre", f"{flam3nodeIter}{str(id_from)}: vars", f"{flam3nodeIter}{str(id_from)}: Post", f"{flam3nodeIter}{str(id_from)}: pre affine", f"{flam3nodeIter}{str(id_from)}: post affine", "" )
+                menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)} -> xaos:", f"{flam3nodeIter}{str(id_from)} -> shader", f"{flam3nodeIter}{str(id_from)} -> PRE", f"{flam3nodeIter}{str(id_from)} -> VAR", f"{flam3nodeIter}{str(id_from)} -> POST", f"{flam3nodeIter}{str(id_from)} -> pre affine", f"{flam3nodeIter}{str(id_from)} -> post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
