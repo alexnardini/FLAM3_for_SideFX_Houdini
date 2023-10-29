@@ -1425,31 +1425,31 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.iter.{id}{str_section}: Copied values from: iter.{id_from}{str_section}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                _MSG = f"{str(node)}.iter.{id}{str_section} -> Copied values from: iter.{id_from}{str_section}"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             else:
                 if len(_current_note) == 0:
                     node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.iter.{id}{str_section}: Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                _MSG = f"{str(node)}.iter.{id}{str_section} -> Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
         elif int_mode == 1:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
-                _MSG = f"{str(node)}: Copied FF from: {str(flam3node)}.FF"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                _MSG = f"{str(node)} -> Copied FF from: {str(flam3node)}.FF"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
         elif int_mode == 2:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.FF{str_section}: Copied from: {str(flam3node)}.FF{str_section}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                _MSG = f"{str(node)}.FF{str_section} -> Copied from: {str(flam3node)}.FF{str_section}"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
 
     @staticmethod
