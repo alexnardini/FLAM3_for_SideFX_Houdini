@@ -3160,8 +3160,11 @@ reset_CP(self, mode=0) -> None:
                 
                 # Print to status Bar
                 _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
+            else:
+                _MSG = f"{str(node)}: PALETTE -> Nothing to load"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
     def palette_cp(self) -> None:
@@ -6346,7 +6349,7 @@ reset_IN(self, mode=0) -> None:
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
         else:
             node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
@@ -6366,6 +6369,9 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
                 # The following do not work, not sure why
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                
+            _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
                 
     def reset_IN(self, mode=0) -> None:
@@ -7457,7 +7463,7 @@ out_XML(self) -> None:
             tree = lxmlET.ElementTree(root)
             tree.write(outpath)
             
-            _MSG = f"FLAM3H: SAVE Flame: New -> Completed"
+            _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
@@ -7481,7 +7487,7 @@ out_XML(self) -> None:
             tree = lxmlET.ElementTree(root)
             tree.write(out_path)
             
-            _MSG = f"FLAM3H: SAVE Flame: Append -> Completed"
+            _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
