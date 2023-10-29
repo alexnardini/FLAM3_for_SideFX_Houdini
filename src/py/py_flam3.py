@@ -1841,7 +1841,7 @@ iterator_keep_last_weight(self) -> None:
 
     def prm_paste_SHIFT(self, id: int) -> None:
         node = self.node
-        _id = hou.session.flam3h_node_mp_id # type: ignore
+        flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
 
         deleted = False
         try:
@@ -1851,12 +1851,12 @@ iterator_keep_last_weight(self) -> None:
             deleted = True
             
         idx_out_of_range = False
-        if _id is not None:
+        if flam3h_node_mp_id is not None:
             flam3node = hou.session.flam3h_node # type: ignore
             assert flam3node is not None
             iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-            if _id > iter_num:
-                idx_out_of_range = _id
+            if flam3h_node_mp_id > iter_num:
+                idx_out_of_range = flam3h_node_mp_id
         
         if node == hou.session.flam3h_node: # type: ignore
             
