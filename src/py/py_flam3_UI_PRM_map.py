@@ -25,12 +25,26 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
 """Inside: OTL->type_properties->Scripts->PreFirstCreate
 Check Houdini version and let us know."""
-# Check Houdini version
-def flam3_first_time() -> None:
+def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
     if hou_version != 19:
-        hou.ui.displayMessage("Sorry, you need Houdini 19 or 19.5 to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
-flam3_first_time()
+        hou.ui.displayMessage("Sorry, you need Houdini 19.x to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+
+def flam3h_sys_updated_mode() -> None:
+    current = hou.updateModeSetting()
+    hou.session.flam3h_sys_update_mode = current
+        
+def flam3h_compile_first_time_msg() -> None:
+    try:
+        hou.session.flam3_first_instance # type: ignore
+    except:
+        _MSG_INFO = f"\nFLAM3H CVEX node need to cook once to compile\nits definition for this Houdini session.\n\nDepending on your PC configuration\nit can take anywhere between 30s and 1 minute.\nIt is a one time compile process.\n"
+        print(_MSG_INFO)
+        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+
+flam3h_first_time()
+flam3h_sys_updated_mode()
+flam3h_compile_first_time_msg()
 
 
 """Inside: OTL->type_properties->Scripts->OnCreated

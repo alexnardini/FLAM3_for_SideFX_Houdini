@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.10'
+FLAM3H_VERSION = '1.1.15'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1796,7 +1796,11 @@ iterator_keep_last_weight(self) -> None:
         
         
     def prm_paste_CTRL(self, id: int) -> None:
-        
+        """Everything about copying iterator's data.
+
+        Args:
+            id (int): current multi parameter index
+        """        
         node = self.node
         
         deleted = False
@@ -1851,7 +1855,11 @@ iterator_keep_last_weight(self) -> None:
 
 
     def prm_paste_SHIFT(self, id: int) -> None:
-        
+        """Everything about unmarking iterators from being copied.
+
+        Args:
+            id (int): current multi parameter index
+        """        
         node = self.node
         
         flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
@@ -1901,6 +1909,11 @@ iterator_keep_last_weight(self) -> None:
 
 
     def prm_paste_CLICK(self, id: int) -> None:
+        """Everything about marking iterators from being copied.
+
+        Args:
+            id (int): current multi parameter index
+        """        
         node = self.node
         try:
             hou.session.flam3h_node.type() # type: ignore
@@ -1924,7 +1937,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     def prm_paste(self) -> None:
-        """Paste and entire iterator.
+        """Paste the entire iterator's data.
         
         Args:
             kwargs (dict): [kwargs[] dictionary]
@@ -1941,7 +1954,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     def prm_paste_FF(self) -> None:
-            """Paste the entire FF.
+            """Paste the entire FF data.
             
             Args:
                 kwargs (dict): [kwargs[] dictionary]
