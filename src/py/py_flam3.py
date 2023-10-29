@@ -1857,7 +1857,7 @@ iterator_keep_last_weight(self) -> None:
                 if flam3h_node_mp_id > iter_num:
                     mp_idx_out_of_range = flam3h_node_mp_id
         
-        if node ==flam3node: # type: ignore
+        if node == flam3node: # type: ignore
             
             if flam3h_node_mp_id is not None:
                 if mp_idx_out_of_range is not False:
