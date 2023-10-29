@@ -1836,7 +1836,7 @@ iterator_keep_last_weight(self) -> None:
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
                 _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
     def prm_paste_SHIFT(self, id: int) -> None:
