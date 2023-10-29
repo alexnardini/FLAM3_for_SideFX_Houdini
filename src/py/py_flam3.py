@@ -665,7 +665,7 @@ flam3h_on_loaded(self) -> None:
         except:
             hou.session.flam3h_node_mp_id = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
-            # Lets initialize to himself
+            # Lets initialize back to himself.
             if len(node_instances) == 1:
                 hou.session.flam3h_node = node # type: ignore
 
@@ -685,7 +685,7 @@ flam3h_on_loaded(self) -> None:
         except:
             hou.session.flam3h_node_FF_check = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
-            # Lets initialize to himself
+            # Lets initialize back to himself.
             if len(node_instances) == 1:
                 hou.session.flam3h_node_FF = node # type: ignore
                 
