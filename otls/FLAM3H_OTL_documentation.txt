@@ -1314,7 +1314,7 @@ Edit render properties:
     
 Reset render properties:
     #id: OUT
-    [Smallicon:opdef:.?iconGreyWhiteStarSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Click this icon to reset all OUT render properties.
     
