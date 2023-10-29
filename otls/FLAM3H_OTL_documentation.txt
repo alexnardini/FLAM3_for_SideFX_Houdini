@@ -364,8 +364,7 @@ copy/paste:
     
     It will work also between different FLAM3H nodes.
     
-    Once an iterator has been copied/marked, you can use the arrow menu next to the *F* icon.
-    You can paste particular sections from the copied iterator, including xaos, from this menu.
+    Once an iterator has been marked, you can use the mini menu next to the [Smallicon:opdef:.?iconStarSwapRedSVG.svg] icon to paste particular sections from the marked iterator, including xaos.
     
 A tip:
     #id: FLAME
@@ -663,8 +662,7 @@ FF: copy/paste:
     
     It will only work between different FLAM3H nodes.
     
-    Once the FF has been copied, you can access the arrow icon menu adjacent to the *F* icon on a different FLAM3H node.
-    You can paste particular sections from the marked FF from this menu.
+    Once a FF has been marked, you can use the mini menu next to the [Smallicon:opdef:.?iconStarSwapRedSVG.svg] icon to paste particular sections from the marked FF, including xaos.
 
     
 :box:
