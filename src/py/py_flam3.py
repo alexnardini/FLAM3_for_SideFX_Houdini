@@ -1702,15 +1702,17 @@ iterator_keep_last_weight(self) -> None:
         deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
-            # The following is for the hou.session.flam3h_node_mp_id undo so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+            # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
             if node == flam3node:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if id_from != _FLAM3H_DATA_PRM_MPIDX:
                         id_from = _FLAM3H_DATA_PRM_MPIDX
+                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
             else:
                 if __FLAM3H_DATA_PRM_MPIDX > 0:
                     if id_from != __FLAM3H_DATA_PRM_MPIDX:
                         id_from = __FLAM3H_DATA_PRM_MPIDX
+                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
         except:
             id_from = None
             deleted = True
@@ -2212,8 +2214,8 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
             
         else:
-            _MSG = f"{str(node)} -> COPY/PASTE: {MARK_ITER_MSG} to copy parameter's values from"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
     def prm_paste_sel_FF(self) -> None:
@@ -2280,8 +2282,8 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
                     
         else:
-            _MSG = f"{str(node)} -> FF COPY/PASTE: {MARK_FF_MSG} to copy parameter's values from."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             
 
     def flam3h_xaos_convert(self) -> None:
