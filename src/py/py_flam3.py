@@ -1822,6 +1822,14 @@ iterator_keep_last_weight(self) -> None:
         
         
     def prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+        """Updated data for copy/paste iterator's methods in case of Undos
+
+        Args:
+            node (hou.Node): _description_
+
+        Returns:
+            tuple[Union[hou.Node, None], Union[int, None], bool]: _description_
+        """        
         
         deleted = False
         # UPDATE TO COPY/PASTE ITERATOR's DATA FOR UNDO
