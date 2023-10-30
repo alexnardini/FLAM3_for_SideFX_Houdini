@@ -1832,11 +1832,11 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             tuple[Union[hou.Node, None], Union[int, None], bool]: 
             
-            flam3node -> is the node we are copying from. 
+            from_FLAM3H_NODE -> is the node we are copying the data from. 
             
-            mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside flam3node. 
+            mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside "from_FLAM3H_NODE". 
             
-            deleted -> will tell us if flam3node still exist.
+            isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """        
         
         isDELETED = False
@@ -1844,16 +1844,16 @@ iterator_keep_last_weight(self) -> None:
         # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         try:
-            flam3node = hou.session.flam3h_node # type: ignore 
-            assert flam3node is not None
-            __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+            from_FLAM3H_NODE = hou.session.flam3h_node # type: ignore 
+            assert from_FLAM3H_NODE is not None
+            __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         except:
-            flam3node = None
+            from_FLAM3H_NODE = None
             __FLAM3H_DATA_PRM_MPIDX = 0
         try:
             hou.session.flam3h_node.type() # type: ignore
             mp_id_from = hou.session.flam3h_node_mp_id # type: ignore
-            if node == flam3node:
+            if node == from_FLAM3H_NODE:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = _FLAM3H_DATA_PRM_MPIDX
@@ -1867,7 +1867,7 @@ iterator_keep_last_weight(self) -> None:
             mp_id_from = None
             isDELETED = True
         
-        return flam3node, mp_id_from, isDELETED
+        return from_FLAM3H_NODE, mp_id_from, isDELETED
         
         
     def prm_paste_CTRL(self, id: int) -> None:
