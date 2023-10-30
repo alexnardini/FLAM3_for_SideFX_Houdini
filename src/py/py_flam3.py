@@ -1691,11 +1691,12 @@ iterator_keep_last_weight(self) -> None:
             hou.session.flam3h_node_mp_id = None # type: ignore
 
         id_from = hou.session.flam3h_node_mp_id # type: ignore
-        flam3node = hou.session.flam3h_node # type: ignore 
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         try:
+            flam3node = hou.session.flam3h_node # type: ignore 
             __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         except:
+            flam3node = None
             __FLAM3H_DATA_PRM_MPIDX = 0
         
         deleted = False
@@ -1716,7 +1717,7 @@ iterator_keep_last_weight(self) -> None:
             
         mp_idx_out_of_range = False
         if id_from is not None:
-            # flam3node = hou.session.flam3h_node # type: ignore
+            assert flam3node is not None
             iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
             if id_from > iter_num:
                 mp_idx_out_of_range = id_from
@@ -1898,21 +1899,31 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     _MSG = f"{str(node)}: Marked iterator index: {str(flam3node)}.iterator.{str(mp_idx_out_of_range)} is out of range -> Mark an existing iterator instead."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    
             elif deleted:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
+                
             else:
                 if node == flam3node:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed -> {MARK_ITER_MSG} to copy parameter's values from."
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    else:
+                        _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        
                 elif node != flam3node:
                     assert flam3node is not None
                     __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(flam3node)} -> {MARK_ITER_MSG} to copy parameter's values from."
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    else:
+                        _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        
                 else:
                     _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
@@ -7102,6 +7113,7 @@ out_XML(self) -> None:
     @staticmethod
     def out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
         """Collect all xaos command string weights.
+        Provide also a form of Undo in the case we enter non numeric characters instead.
 
         Args:
             node (hou.Node): FLAM3H node
@@ -7112,6 +7124,7 @@ out_XML(self) -> None:
             list[list[str]]: A list of xaos list[str] of values
         """        
         val = []
+        val_prev = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV)
         for iter in range(iter_count):
             iter_xaos = node.parm(f"{prm}_{iter+1}").eval()
             if iter_xaos:
@@ -7124,7 +7137,14 @@ out_XML(self) -> None:
                         build_f = [float(x.strip()) for x in build_strip]
                         val.append(build_strip)
                     except:
-                        val.append([])
+                        # ( Assuming the "xaos:" keyword is present )
+                        # if we eneterd an invalid string,
+                        # retrive from the history instead ( Undo )
+                        if val_prev is not None:
+                            val.append(val_prev[iter])
+                        else:
+                            # Otherwise reset to all values of 1
+                            val.append([])
                 else:
                     val.append([])
             else:
