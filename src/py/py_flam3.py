@@ -78,8 +78,13 @@ FLAM3H_VERSION = '1.1.15'
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
-FLAM3H_DENSITY_DEFAULT = 500000
-FLAM3H_ITERATIONS_DEFAULT = 10
+# Defaults global
+FLAM3H_DEFAULT_GLB_DENSITY = 500000
+FLAM3H_DEFAULT_GLB_ITERATIONS = 10
+# On IN Flame preset load set the iteration number to use to this value.
+# This setting will be overwritten if the IN Tab "force iterations on Load" option is turned ON.
+# All of the above settings will be overwritten if the iteration number to use is baked into the Flame preset's name.
+FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD = 64
 
 DPT = '*'
 PRM = '...'
@@ -1640,8 +1645,8 @@ iterator_keep_last_weight(self) -> None:
         """        
         node = self.node
         ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
-        if ptcount != FLAM3H_DENSITY_DEFAULT:
-            self.node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
+        if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
+            self.node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" Default: 500K points \" -> SET"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         else:
@@ -2453,7 +2458,7 @@ iterator_keep_last_weight(self) -> None:
 
         # resets Tab contexts
         self.reset_FF()
-        flam3h_general_utils(self.kwargs).reset_SYS(1, FLAM3H_ITERATIONS_DEFAULT, 1)
+        flam3h_general_utils(self.kwargs).reset_SYS(1, FLAM3H_DEFAULT_GLB_ITERATIONS, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
         flam3h_general_utils(self.kwargs).reset_MB()
         in_flame_utils(self.kwargs).reset_IN()
@@ -2523,7 +2528,7 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
         node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
         
-        node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
+        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
@@ -2670,8 +2675,8 @@ iterator_keep_last_weight(self) -> None:
                     p.deleteAllKeyframes()
                 
             # GLOBAL
-            node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
-            node.setParms({GLB_ITERATIONS: FLAM3H_ITERATIONS_DEFAULT}) # type: ignore
+            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+            node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
             # SYS
             node.setParms({SYS_DO_FF: 0}) # type: ignore
             node.setParms({SYS_RIP: 0}) # type: ignore
@@ -3649,11 +3654,6 @@ XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_spe
 # This has been fixed and now radial_blur variation matches all the other apps
 # but I leave it here just in case other variation will need it.
 XML_XF_PRM_EXCEPTION = ("None", )
-
-# On Flame preset load set the iteration number to use to this value.
-# This setting will be overwritten if the IN "force iterations on Load" option is turned ON.
-# All the above will be overwritten if the iteration number to use is baked into the Flame preset XML key's name.
-FLAM3H_IN_ITERATIONS_ON_LOAD_DEFAULT = 64
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
@@ -5883,8 +5883,8 @@ reset_IN(self, mode=0) -> None:
             iter_on_load = iter_on_load_preset
         else:
             if not use_iter_on_load:
-                node.setParms({IN_ITER_NUM_ON_LOAD: FLAM3H_IN_ITERATIONS_ON_LOAD_DEFAULT}) # type: ignore
-                iter_on_load = FLAM3H_IN_ITERATIONS_ON_LOAD_DEFAULT
+                node.setParms({IN_ITER_NUM_ON_LOAD: FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD}) # type: ignore
+                iter_on_load = FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD
         return iter_on_load 
 
 
@@ -6326,7 +6326,7 @@ reset_IN(self, mode=0) -> None:
                 in_flame_utils.in_copy_render_stats_msg(node)
                 
             # Set density back to default on load
-            node.setParms({GLB_DENSITY: FLAM3H_DENSITY_DEFAULT}) # type: ignore
+            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
             # Update flame stats 
             node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
