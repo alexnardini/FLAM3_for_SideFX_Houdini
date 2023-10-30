@@ -1981,8 +1981,8 @@ iterator_keep_last_weight(self) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 else:
                     assert flam3node is not None
-                    _FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                    if _FLAM3H_DATA_PRM_MPIDX == -1:
+                    __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    if __FLAM3H_DATA_PRM_MPIDX == -1:
                         # flam3node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                         _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator has been removed from node: {str(hou.session.flam3h_node)} ->  Mark an existing iterator instead." # type: ignore
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
