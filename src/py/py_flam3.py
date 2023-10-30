@@ -748,12 +748,11 @@ flam3h_on_loaded(self) -> None:
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """
-        node = self.node
         
+        self.node.setColor(hou.Color((0.9,0.9,0.9)))
+        
+        flam3h_iterator_utils(self.kwargs).flam3h_default()
         self.flam3h_check_first_node_instance_msg()
-                
-        # Set initial node color
-        node.setColor(hou.Color((0.9,0.9,0.9)))
         
         # Set about tab infos
         flam3h_about_utils(self.kwargs).flam3h_about_msg()
@@ -762,12 +761,6 @@ flam3h_on_loaded(self) -> None:
         
         self.flam3h_on_create_set_houdini_session_data()
         self.flam3h_on_create_set_prefs_viewport()
-        
-        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-        node.setParms({MSG_FLAMESTATS: ""})
-        node.setParms({MSG_FLAMERENDER: ""})
-        node.setParms({MSG_PALETTE: ''})
-        node.setParms({MSG_OUT: ''})
 
 
     def flam3h_on_loaded(self) -> None:
@@ -2465,6 +2458,12 @@ iterator_keep_last_weight(self) -> None:
         in_flame_utils(self.kwargs).reset_IN()
         out_flame_utils(self.kwargs).reset_OUT()
         flam3h_general_utils(self.kwargs).reset_PREFS()
+        
+        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
+        node.setParms({MSG_FLAMESTATS: ""})
+        node.setParms({MSG_FLAMERENDER: ""})
+        node.setParms({MSG_PALETTE: ''})
+        node.setParms({MSG_OUT: ''})
         
         # iterator prm names
         n = flam3h_iterator_prm_names

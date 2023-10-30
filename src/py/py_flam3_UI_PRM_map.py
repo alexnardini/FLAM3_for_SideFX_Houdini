@@ -23,6 +23,7 @@ import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
 
+
 """Inside: OTL->type_properties->Scripts->PreFirstCreate
 Check Houdini version and let us know."""
 def flam3h_first_time() -> None:
@@ -47,17 +48,18 @@ flam3h_sys_updated_mode()
 flam3h_compile_first_time_msg()
 
 
+
 """Inside: OTL->type_properties->Scripts->OnCreated
 initialize what the tool need when you create its node in the network editor."""
-kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
-kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
+
 
 
 """Inside: OTL->type_properties->Scripts->OnLoaded
 When loading a hip file with a FLAM3H node in it do some checks."""
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
+
 
 
 """Inside: OTL->type_properties->Scripts->OnDeleted
