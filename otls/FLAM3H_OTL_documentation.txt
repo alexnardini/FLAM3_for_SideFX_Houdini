@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.15
+#version: 1.1.2
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v19.5.435 )"""
 
@@ -1421,6 +1421,12 @@ xaos modes:
 auto set xaos:
     #id: prefs
     
+    :box:
+        #display: inverted pink
+        
+        This toggle has been hidden from the UI as it is no longer needed.
+        Auto set xaos is now handling all the iterator's data, including copy/paste iterator's multi parameters data.
+    
     ON by default. Auto-set an iterator's xaos values every time an iterator is added or removed. 
     It will keep the existing xaos weights and only add/remove the necessary ones. 
     In case of ADD, the new xaos weights will be of value: 1.
@@ -1439,7 +1445,7 @@ handle:
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     
     :box:
-        #display: inverted red
+        #display: inverted pink
     
         *TURN THIS OFF WHEN RENDERING.*
     

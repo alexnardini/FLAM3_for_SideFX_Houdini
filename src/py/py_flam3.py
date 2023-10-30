@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.15'
+FLAM3H_VERSION = '1.1.2'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -6516,10 +6516,24 @@ reset_IN(self, mode=0) -> None:
             if apo_data.prefs_flam3h_f3c is not None:
                 node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
                 
+            # init/clear copy/paste iterator's data and prm
+            if node == hou.session.flam3h_node:  # type: ignore
+                hou.session.flam3h_node_mp_id = None # type: ignore
+                hou.session.flam3h_node_FF = node # type: ignore
+                hou.session.flam3h_node_FF_check = None # type: ignore
+                if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+                    # unlock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                    # set
+                    node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                    # lock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+                
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            
             
         else:
             node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
