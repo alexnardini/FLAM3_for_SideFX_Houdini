@@ -3656,20 +3656,31 @@ ui_active_iterator_infos(self) -> None:
         
         ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
-To set XAOS for a flame with 4 iterators,
-use the "xaos:" keyword followed by each iterator weights values separated by a colon:
-\"xaos:1:2:3:4\" ( xaos keyword can be uppercase too if you prefer. )
+Xaos is fully automatic,
+howver below are some general rules on how it work:
 
-If no set or when using a short descriptive note,
-FLAM3H will assume all XAOS values are 1.0, the equivalent of: \"xaos:1:1:1:1\"
+To set XAOS for a flame with 4 iterators,
+use the " xaos: " keyword followed by each iterator weights values separated by a colon:
+\" xaos:1:2:3:4 \" ( xaos keyword can be uppercase too if you prefer. )
+
+If no set,
+FLAM3H will assume all XAOS values are 1.0, the equivalent of: \" xaos:1:1:1:1 \"
 
 If you set only iterator 1 and iterator 2,
-FLAM3H will always fill in the rest with a value of 1.0. \"xaos:0:0\" will be interpreted as \"xaos:0:0:1:1\"
+FLAM3H will always fill in the rest with a value of 1.0. \" xaos:0:0 \" will be interpreted as \" xaos:0:0:1:1 \"
 
-When turning iterators OFF and ON,
+When turning iterators ON and OFF and removing or adding them,
 FLAM3H will internally remove and reformat XAOS values
-to account for missing iterators so you wont need to remove values from the command string,
-unless you delete an iterator in wich case you will require to modify the “xaos:” command string."""
+to account for missing iterators. In short, it is fully automatic.
+
+If you type a non-numeric character in any of the xaos's weights,
+FLAM3H will undo to what you had before.
+
+If you miss to add a semicolon " : " after the word " xaos ",
+the entire xaos string will be reset with all the weights of value 1.0.
+
+If you dnt use the " xaos: " keywork at the beginning,
+the entire xaos string will be reset with all the weights of value 1.0."""
         
         node = self.node
         autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
