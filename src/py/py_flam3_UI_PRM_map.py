@@ -58,7 +58,6 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 """Inside: OTL->type_properties->Scripts->OnLoaded
 When loading a hip file with a FLAM3H node in it do some checks."""
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
-kwargs["node"].hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 
 
 
