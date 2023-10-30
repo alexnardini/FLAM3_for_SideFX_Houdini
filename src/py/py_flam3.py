@@ -1822,7 +1822,9 @@ iterator_keep_last_weight(self) -> None:
         
         
     def prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
-        """Updated data for copy/paste iterator's methods in case of Undos
+        """Updated data for copy/paste iterator's methods in case of Undos.
+        It will make sure that the houdini.session data about the iterator index
+        will always be up to date.
 
         Args:
             node (hou.Node): the current FLAM3H node
@@ -1832,12 +1834,12 @@ iterator_keep_last_weight(self) -> None:
             
             flam3node -> is the node we are copying from. 
             
-            id_from -> is the iterator number we are copying from inside flam3node. 
+            mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside flam3node. 
             
             deleted -> will tell us if flam3node still exist.
         """        
         
-        deleted = False
+        isDELETED = False
         # UPDATE TO COPY/PASTE ITERATOR's DATA FOR UNDO
         # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
@@ -1850,22 +1852,22 @@ iterator_keep_last_weight(self) -> None:
             __FLAM3H_DATA_PRM_MPIDX = 0
         try:
             hou.session.flam3h_node.type() # type: ignore
-            id_from = hou.session.flam3h_node_mp_id # type: ignore
+            mp_id_from = hou.session.flam3h_node_mp_id # type: ignore
             if node == flam3node:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
-                    if id_from != _FLAM3H_DATA_PRM_MPIDX:
-                        id_from = _FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
+                    if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
+                        mp_id_from = _FLAM3H_DATA_PRM_MPIDX
+                        hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
             else:
                 if __FLAM3H_DATA_PRM_MPIDX > 0:
-                    if id_from != __FLAM3H_DATA_PRM_MPIDX:
-                        id_from = __FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
+                    if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
+                        mp_id_from = __FLAM3H_DATA_PRM_MPIDX
+                        hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
         except:
-            id_from = None
-            deleted = True
+            mp_id_from = None
+            isDELETED = True
         
-        return flam3node, id_from, deleted
+        return flam3node, mp_id_from, isDELETED
         
         
     def prm_paste_CTRL(self, id: int) -> None:
