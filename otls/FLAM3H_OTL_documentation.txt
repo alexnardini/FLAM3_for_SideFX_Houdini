@@ -447,7 +447,9 @@ xaos:
     
     If "auto set xaos" is ON:
     
-    - If you type a non-numeric character in any of the xaos's weights or miss adding a semicolon "*:*" after the word *xaos*, the entire xaos string will be reset with all the weights of value *1.0*.
+    - If you type a non-numeric character in any of the xaos's weights, FLAM3H will undo to what you had before.
+    - If you miss adding a semicolon "*:*" after the word *xaos*, the entire xaos string will be reset with all the weights of value *1.0*.
+    - If you dnt use the "*xaos:*" keywork at the beginning, the entire xaos string will be reset with all the weights of value *1.0*.
     
     TIP:
         #display: orange
