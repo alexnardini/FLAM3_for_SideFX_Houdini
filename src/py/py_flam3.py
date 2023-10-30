@@ -1825,10 +1825,16 @@ iterator_keep_last_weight(self) -> None:
         """Updated data for copy/paste iterator's methods in case of Undos
 
         Args:
-            node (hou.Node): _description_
+            node (hou.Node): the current FLAM3H node
 
         Returns:
-            tuple[Union[hou.Node, None], Union[int, None], bool]: _description_
+            tuple[Union[hou.Node, None], Union[int, None], bool]: 
+            
+            flam3node -> is the node we are copying from. 
+            
+            id_from -> is the iterator number we are copying from inside flam3node. 
+            
+            deleted -> will tell us if flam3node still exist.
         """        
         
         deleted = False
