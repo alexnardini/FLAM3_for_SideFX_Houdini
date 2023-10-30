@@ -6017,10 +6017,10 @@ reset_IN(self, mode=0) -> None:
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
         if flam3h_general_utils.isLOCK(in_path_checked):
-            flame_lib_locked = f"\nflame lib file: LOCKED"
+            flame_lib_locked = f"flame lib file: LOCKED"
         else: flame_lib_locked = ''
         # build full stats msg
-        build = ( sw, flame_lib_locked, nnl,
+        build = ( flame_lib_locked, nl, sw, nnl,
                 name, nl,
                 palette_count_format, nl,
                 mb,
