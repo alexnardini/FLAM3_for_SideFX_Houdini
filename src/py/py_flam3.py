@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.2'
+FLAM3H_VERSION = '1.1.21'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1682,7 +1682,8 @@ iterator_keep_last_weight(self) -> None:
         """    
         menu=[]
         
-        node = self.kwargs['node']
+        deleted = False
+        node = self.node
         id = self.kwargs['script_multiparm_index']
 
         try:
@@ -1690,6 +1691,10 @@ iterator_keep_last_weight(self) -> None:
         except:
             hou.session.flam3h_node_mp_id = None # type: ignore
 
+
+
+        # UPDATE TO COPY ITERATOR's SECTIONS
+        # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
         id_from = hou.session.flam3h_node_mp_id # type: ignore
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         try:
@@ -1698,11 +1703,8 @@ iterator_keep_last_weight(self) -> None:
         except:
             flam3node = None
             __FLAM3H_DATA_PRM_MPIDX = 0
-        
-        deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
-            # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
             if node == flam3node:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if id_from != _FLAM3H_DATA_PRM_MPIDX:
@@ -1716,6 +1718,8 @@ iterator_keep_last_weight(self) -> None:
         except:
             id_from = None
             deleted = True
+            
+            
             
         mp_idx_out_of_range = False
         if id_from is not None:
@@ -1855,18 +1859,42 @@ iterator_keep_last_weight(self) -> None:
 
         Args:
             id (int): current multi parameter index
-        """        
+        """    
+        deleted = False    
         node = self.node
         
-        deleted = False
+        
+        
+        # UPDATED TO COPY ENTIRE ITERATOR
+        # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+        try:
+            flam3node = hou.session.flam3h_node # type: ignore 
+            __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+        except:
+            flam3node = None
+            __FLAM3H_DATA_PRM_MPIDX = 0
         try:
             hou.session.flam3h_node.type() # type: ignore
             flam3node = hou.session.flam3h_node # type: ignore
             id_from = hou.session.flam3h_node_mp_id # type: ignore
+            
+            if node == flam3node:
+                if _FLAM3H_DATA_PRM_MPIDX > 0:
+                    if id_from != _FLAM3H_DATA_PRM_MPIDX:
+                        id_from = _FLAM3H_DATA_PRM_MPIDX
+                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
+            else:
+                if __FLAM3H_DATA_PRM_MPIDX > 0:
+                    if id_from != __FLAM3H_DATA_PRM_MPIDX:
+                        id_from = __FLAM3H_DATA_PRM_MPIDX
+                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
         except:
             flam3node = None
             id_from = None
             deleted = True
+
+
 
         mp_idx_out_of_range = False
         if id_from is not None:
@@ -2651,6 +2679,7 @@ iterator_keep_last_weight(self) -> None:
         Args:
             self: 
         """
+
         node = self.node
         
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
