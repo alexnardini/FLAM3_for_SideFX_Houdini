@@ -774,51 +774,53 @@ flam3h_on_loaded(self) -> None:
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """
-        node = self.node
         
-        # This is important so loading a hip file with a FLAM3H node inside
-        # it wont block the houdini session until user input.
-        self.flam3h_check_first_node_instance_msg(False)
-        self.flam3h_on_create_set_prefs_viewport()
-        
-        #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-        flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
-        #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-        flam3h_general_utils(self.kwargs).flam3h_init_presets(IN_PRESETS, 0)
-        
-        flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
+        if hou.hipFile.isLoadingHipFile(): #type: ignore
+            
+            node = self.node
+            
+            # This is important so loading a hip file with a FLAM3H node inside
+            # it wont block the houdini session until user input.
+            self.flam3h_check_first_node_instance_msg(False)
+            self.flam3h_on_create_set_prefs_viewport()
+            
+            #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+            flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
+            #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+            flam3h_general_utils(self.kwargs).flam3h_init_presets(IN_PRESETS, 0)
+            
+            flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
 
-        # update about tab just in case
-        flam3h_about_utils(self.kwargs).flam3h_about_msg()
-        flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
-        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-        
-        # Init xaos
-        flam3h_iterator_utils(self.kwargs).auto_set_xaos()
-        
-        # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
-        # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
-        # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside: in_flame_utils(self.kwargs).in_to_flam3h()
-        node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
-        
-        # Same goes for the palette preset entrie, and some time goes also out of range
-        # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
-        # and call it back here.
-        node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
-        
-        # init/clear copy/paste iterator's data and prm
-        hou.session.flam3h_node = node # type: ignore
-        hou.session.flam3h_node_mp_id = None # type: ignore
-        hou.session.flam3h_node_FF = node # type: ignore
-        hou.session.flam3h_node_FF_check = None # type: ignore
-        for f3h in self.node.type().instances():
-            if f3h.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+            # update about tab just in case
+            flam3h_about_utils(self.kwargs).flam3h_about_msg()
+            flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
+            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+            
+            # Init xaos
+            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+            
+            # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
+            # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
+            # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside: in_flame_utils(self.kwargs).in_to_flam3h()
+            node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
+            
+            # Same goes for the palette preset entrie, and some time goes also out of range
+            # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
+            # and call it back here.
+            node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
+            
+            # init/clear copy/paste iterator's data and prm
+            hou.session.flam3h_node = node # type: ignore
+            hou.session.flam3h_node_mp_id = None # type: ignore
+            hou.session.flam3h_node_FF = node # type: ignore
+            hou.session.flam3h_node_FF_check = None # type: ignore
+            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
                 # unlock
-                f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                f3h.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
-                f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
 
     # Wip
@@ -1691,8 +1693,11 @@ iterator_keep_last_weight(self) -> None:
         id_from = hou.session.flam3h_node_mp_id # type: ignore
         flam3node = hou.session.flam3h_node # type: ignore 
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-
+        try:
+            __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+        except:
+            __FLAM3H_DATA_PRM_MPIDX = 0
+        
         deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
