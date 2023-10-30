@@ -184,8 +184,9 @@ FLAM3_LIB_LOCK = 'F3H_LOCK'
 CP_JSON_KEY_NAME_HEX = 'f3h_hex'
 CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
 # self prm names for user data
-FLAM3H_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
-FLAM3H_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
+FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
+FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
+FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 
 
 
@@ -804,6 +805,20 @@ flam3h_on_loaded(self) -> None:
         # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
         # and call it back here.
         node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
+        
+        # init/clear copy/paste iterator's data and prm
+        hou.session.flam3h_node = node # type: ignore
+        hou.session.flam3h_node_mp_id = None # type: ignore
+        hou.session.flam3h_node_FF = node # type: ignore
+        hou.session.flam3h_node_FF_check = None # type: ignore
+        for f3h in self.node.type().instances():
+            if f3h.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+                # unlock
+                f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                f3h.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                # lock
+                f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
 
     # Wip
@@ -1463,14 +1478,14 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             Union[list, None]: A valid data type of the same data retrieved to be used inside: auto_set_xaos()
         """
-        if data_name == FLAM3H_PRM_XAOS_MP_MEM:
-            get_prm = node.parm(FLAM3H_PRM_XAOS_MP_MEM).eval()
+        if data_name == FLAM3H_DATA_PRM_XAOS_MP_MEM:
+            get_prm = node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).eval()
             if get_prm:
                 return [int(x) for x in get_prm.split(' ')]
             else:
                 return None
-        elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
-            get_prm = node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).eval()
+        elif data_name == FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV:
+            get_prm = node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).eval()
             if get_prm:
                 return [x.split(' ') for x in get_prm.split(':')]
             else:
@@ -1489,30 +1504,30 @@ iterator_keep_last_weight(self) -> None:
             data_name (str): The parameter name you desire to swt.
             data (list): The data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
         """
-        if data_name == FLAM3H_PRM_XAOS_MP_MEM:
+        if data_name == FLAM3H_DATA_PRM_XAOS_MP_MEM:
             data_to_prm = ' '.join([str(x) for x in data])
             # unlock
-            node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
-            node.setParms({FLAM3H_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
+            node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
+            node.setParms({FLAM3H_DATA_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
             # lock
-            node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
-        elif data_name == FLAM3H_PRM_XAOS_ITERATOR_PREV:
+            node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
+        elif data_name == FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV:
             # unlock
-            node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
+            node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).lock(False)
             # to prm from: flam3_xaos_convert()
             if isinstance(data, tuple):
                 data_to_prm = ':'.join(data)
-                node.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+                node.setParms({FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
                 # lock
-                node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+                node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).lock(True)
             else:
                 collect = []
                 for xaos in data:
                     collect.append(' '.join(xaos))
                 data_to_prm = ':'.join(collect)
-                node.setParms({FLAM3H_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
+                node.setParms({FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV: data_to_prm}) # type: ignore
                 # lock
-                node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+                node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).lock(True)
 
 
 
@@ -1664,6 +1679,9 @@ iterator_keep_last_weight(self) -> None:
             list: [return menu list]
         """    
         menu=[]
+        
+        node = self.kwargs['node']
+        id = self.kwargs['script_multiparm_index']
 
         try:
             hou.session.flam3h_node_mp_id # type: ignore
@@ -1671,17 +1689,29 @@ iterator_keep_last_weight(self) -> None:
             hou.session.flam3h_node_mp_id = None # type: ignore
 
         id_from = hou.session.flam3h_node_mp_id # type: ignore
+        flam3node = hou.session.flam3h_node # type: ignore 
+        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+        __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
 
         deleted = False
         try:
             hou.session.flam3h_node.type() # type: ignore
+            # The following is for the hou.session.flam3h_node_mp_id undo so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+            if node == flam3node:
+                if _FLAM3H_DATA_PRM_MPIDX > 0:
+                    if id_from != _FLAM3H_DATA_PRM_MPIDX:
+                        id_from = _FLAM3H_DATA_PRM_MPIDX
+            else:
+                if __FLAM3H_DATA_PRM_MPIDX > 0:
+                    if id_from != __FLAM3H_DATA_PRM_MPIDX:
+                        id_from = __FLAM3H_DATA_PRM_MPIDX
         except:
             id_from = None
             deleted = True
             
         mp_idx_out_of_range = False
         if id_from is not None:
-            flam3node = hou.session.flam3h_node # type: ignore
+            # flam3node = hou.session.flam3h_node # type: ignore
             iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
             if id_from > iter_num:
                 mp_idx_out_of_range = id_from
@@ -1689,11 +1719,6 @@ iterator_keep_last_weight(self) -> None:
 
         if id_from is not None:
 
-            id = self.kwargs['script_multiparm_index']
-
-            node = self.kwargs['node']
-            flam3node = hou.session.flam3h_node # type: ignore
-            
             if node == flam3node and id==id_from:
                 menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == flam3node:
@@ -1709,7 +1734,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if mp_idx_out_of_range is not False:
-                flam3node = hou.session.flam3h_node # type: ignore
+                # flam3node = hou.session.flam3h_node # type: ignore
                 if self.node == flam3node:
                     menuitems = ( f"Marked iterator index: {str(mp_idx_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
                 else:
@@ -1729,12 +1754,35 @@ iterator_keep_last_weight(self) -> None:
                 return menu
                
             else:
-                menuitems = ( MARK_ITER_MSG, "" )
+                try:
+                    hou.session.flam3h_node.type() # type: ignore
+                    flam3node = hou.session.flam3h_node # type: ignore
+                except:
+                    flam3node = None
+                    
+                if flam3node is not None:
+                    _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    if node == flam3node and _FLAM3H_DATA_PRM_MPIDX == -1:
+                        menuitems = ( f"REMOVED: The marked iterator has been removed -> Mark an existing iterator instead.", "" )
+                    elif node != flam3node and __FLAM3H_DATA_PRM_MPIDX == -1:
+                        menuitems = ( f"REMOVED: The marked iterator has been removed from node: {str(flam3node)} -> Mark an existing iterator instead.", "" )
+                    
+                    else:
+                        menuitems = ( MARK_ITER_MSG, "" )
                 
-                for i, item in enumerate(menuitems):
-                    menu.append(i-1)
-                    menu.append(item)
-                return menu
+                    for i, item in enumerate(menuitems):
+                        menu.append(i-1)
+                        menu.append(item)
+                    return menu
+                
+                else:
+                    menuitems = ( MARK_ITER_MSG, "" )
+                
+                    for i, item in enumerate(menuitems):
+                        menu.append(i-1)
+                        menu.append(item)
+                    return menu
 
 
     def menu_copypaste_FF(self) -> list:
@@ -1849,8 +1897,20 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
-                _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                if node == flam3node:
+                    _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    if _FLAM3H_DATA_PRM_MPIDX == -1:
+                        _MSG = f"{str(node)} -> The marked iterator has been removed -> {MARK_ITER_MSG} to copy parameter's values from."
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                elif node != flam3node:
+                    assert flam3node is not None
+                    __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    if __FLAM3H_DATA_PRM_MPIDX == -1:
+                        _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(flam3node)} -> {MARK_ITER_MSG} to copy parameter's values from."
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                else:
+                    _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
     def prm_paste_SHIFT(self, id: int) -> None:
@@ -1887,10 +1947,22 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     _MSG = f"{str(node)}: iterator UNMARKED -> {str(flam3h_node_mp_id)}" # type: ignore
                     hou.session.flam3h_node_mp_id = None # type: ignore
+                    # unlock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                    # set
+                    node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                    # lock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                     # hou.session.flam3h_node = None # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
+                # unlock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                # lock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 _MSG = f"{str(node)}: This iterator is Unmarked already -> {str(id)}" # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
@@ -1903,8 +1975,15 @@ iterator_keep_last_weight(self) -> None:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(mp_idx_out_of_range)} and it is out of range. Mark an existing iterator instead." # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 else:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(flam3h_node_mp_id)}" # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    assert flam3node is not None
+                    _FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    if _FLAM3H_DATA_PRM_MPIDX == -1:
+                        # flam3node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                        _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator has been removed from node: {str(hou.session.flam3h_node)} ->  Mark an existing iterator instead." # type: ignore
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    else:
+                        _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(flam3h_node_mp_id)}" # type: ignore
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def prm_paste_CLICK(self, id: int) -> None:
@@ -1914,6 +1993,7 @@ iterator_keep_last_weight(self) -> None:
             id (int): current multi parameter index
         """        
         node = self.node
+        flam3node = hou.session.flam3h_node # type: ignore
         try:
             hou.session.flam3h_node.type() # type: ignore
         except:
@@ -1923,6 +2003,12 @@ iterator_keep_last_weight(self) -> None:
             if hou.session.flam3h_node_mp_id != id: # type: ignore
                 hou.session.flam3h_node_mp_id = id # type: ignore
                 hou.session.flam3h_node = self.node # type: ignore
+                # unlock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
+                # lock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
@@ -1931,6 +2017,12 @@ iterator_keep_last_weight(self) -> None:
         else:
             hou.session.flam3h_node_mp_id = id # type: ignore
             hou.session.flam3h_node = self.node # type: ignore
+            # unlock
+            node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+            # set
+            node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
+            # lock
+            node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
             _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
@@ -2194,7 +2286,7 @@ iterator_keep_last_weight(self) -> None:
         # Convert xaos
         xaos_new = f3d.out_xf_xaos_from(0)
         # updated CachedUserData: flam3h_xaos_iterators_prev
-        flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_new)
+        flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_new)
         
         for iter in range(f3d.iter_count):
             if xaos_new[iter]:
@@ -2553,13 +2645,14 @@ iterator_keep_last_weight(self) -> None:
             div_weight = ' :'
         
         # unlock
-        node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(False)
+        node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
+        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
         
         autoset = node.parm(PREFS_XAOS_AUTO_SET).evalAsInt()
         if autoset:
             
             # unlock
-            node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(False)
+            node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).lock(False)
             
             # init indexes
             idx_del_inbetween = None
@@ -2573,7 +2666,7 @@ iterator_keep_last_weight(self) -> None:
             [mpmem.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
             
             # get mpmem from CachedUserData
-            __mpmem_hou_get = self.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_MP_MEM)
+            __mpmem_hou_get = self.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_MP_MEM)
             if __mpmem_hou_get is None:
                 mpmem_hou_get = mpmem
             else:
@@ -2593,7 +2686,7 @@ iterator_keep_last_weight(self) -> None:
                 xaos_str.append(collect)
                 
             # get xaos from CachedUserData
-            __xaos_str_hou_get = self.auto_set_xaos_data_get(node, FLAM3H_PRM_XAOS_ITERATOR_PREV)
+            __xaos_str_hou_get = self.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV)
             if __xaos_str_hou_get is None:
                 xaos_str_hou_get = xaos_str
             else:
@@ -2616,8 +2709,39 @@ iterator_keep_last_weight(self) -> None:
                 del xaos_str[idx_del_inbetween]
                 for x in xaos_str:
                     del x[idx_del_inbetween]
+                    
                 # updated CachedUserData: flam3h_xaos_iterators_prev
-                self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                
+                # Update copy/paste iterator's index if there is a need to do so
+                flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
+                if flam3h_node_mp_id is not None:
+                    # Check if the node still exist
+                    try:
+                         hou.session.flam3h_node.type() # type: ignore
+                         flam3h_node = hou.session.flam3h_node # type: ignore
+                    except:
+                        flam3h_node_mp_id = None
+                        flam3h_node = None
+                    # If the node exist
+                    if flam3h_node_mp_id is not None:
+                        # and if it is the selected one
+                        if node == flam3h_node:
+                            if (idx_del_inbetween+1) < flam3h_node_mp_id:
+                                hou.session.flam3h_node_mp_id = flam3h_node_mp_id - 1 # type: ignore
+                                # set
+                                node.setParms({FLAM3H_DATA_PRM_MPIDX: node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() - 1})
+                            elif (idx_del_inbetween+1) == flam3h_node_mp_id:
+                                hou.session.flam3h_node_mp_id = None # type: ignore
+                                # set
+                                node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
+                                # Let us know
+                                _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG} to copy parameter's values from."
+                                print(_MSG)
+                                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                            else:
+                                pass
+
             # otherwise ADD
             # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
             elif idx_add_inbetween is not None:
@@ -2628,10 +2752,32 @@ iterator_keep_last_weight(self) -> None:
                         # so lets remove the last element as it is not longer needed
                         del x[-1]
                 # updated CachedUserData: flam3h_xaos_iterators_prev
-                self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                
+                # Update copy/paste iterator's index if there is a need to do so
+                flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
+                if flam3h_node_mp_id is not None:
+                    # Check if the node still exist
+                    try:
+                         hou.session.flam3h_node.type() # type: ignore
+                         flam3h_node = hou.session.flam3h_node # type: ignore
+                    except:
+                        flam3h_node_mp_id = None
+                        flam3h_node = None
+                    # If the node exist
+                    if flam3h_node_mp_id is not None:
+                        # and if it is the selected one
+                        if node == flam3h_node:
+                            if (idx_add_inbetween+1) <= flam3h_node_mp_id:
+                                hou.session.flam3h_node_mp_id = flam3h_node_mp_id + 1 # type: ignore
+                                # set
+                                node.setParms({FLAM3H_DATA_PRM_MPIDX: node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() + 1})
+                            else:
+                                pass
+                
             else:
                 # updated CachedUserData: flam3h_xaos_iterators_prev
-                self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
                 
             # set all multi parms xaos strings parms
             xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
@@ -2640,7 +2786,7 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
                 
             # lock
-            node.parm(FLAM3H_PRM_XAOS_ITERATOR_PREV).lock(True)
+            node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).lock(True)
             
         # The following as last and always so we can keep track of "flam3h_xaos_mpmem" when "auto set xaos" is OFF
         # and pick up the updated values once we turn it back ON.
@@ -2652,9 +2798,10 @@ iterator_keep_last_weight(self) -> None:
         [__mpmem_hou.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
         # export mpmem into CachedUserData
-        self.auto_set_xaos_data_set(node, FLAM3H_PRM_XAOS_MP_MEM, __mpmem_hou)
+        self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_MP_MEM, __mpmem_hou)
         # lock
-        node.parm(FLAM3H_PRM_XAOS_MP_MEM).lock(True)
+        node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
+        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
 
     def iterators_count(self) -> None:
@@ -2695,6 +2842,24 @@ iterator_keep_last_weight(self) -> None:
             # Print to Houdini's status bar
             _MSG = f"{str(node)}: {_MSG_str}"
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            
+            # Handle copy/paste iterator's data
+            try:
+                hou.session.flam3h_node.type() # type: ignore
+                flam3node = hou.session.flam3h_node # type: ignore
+            except:
+                flam3node = None
+                
+            if flam3node is not None:
+                if node == flam3node:
+                    hou.session.flam3h_node_mp_id = None # type: ignore
+                    hou.session.flam3h_node_FF_check = None # type: ignore
+                    # unlock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                    # set
+                    node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                    # lock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
             
         else:
             # set xaos every time an iterator is added or removed
