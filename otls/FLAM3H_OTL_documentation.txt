@@ -221,7 +221,7 @@ TAG:
         The Tag icon will change when:
         
         - [Smallicon:opdef:.?icon_TagOBlueSVG.svg]: when *_auto set xaos_* is *ON* ( _default_ )
-        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when *_auto set xaos_* is *OFF*
+        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when *_auto set xaos_* is *OFF* ( _deprecated_ )
         - [Smallicon:opdef:.?icon_TagOSVG.svg]: when Xaos is active and you cross the 20 iterators limit.
          
 TAG size:
@@ -1970,7 +1970,7 @@ NOTE:
     The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3 for Houdini.
     All of those restrictions are in place to maintain performance within the CVEX language restrictions.
 
-== FLAME: Iterator's count ==
+== Limitations: Iterator's count ==
     
 :box:
     #display: rounded gray
@@ -1982,7 +1982,7 @@ NOTE:
     
     _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
-== FLAME: xform's PRE, VAR and POST variations ==
+== Limitations: iterator's PRE, VAR and POST variations ==
 
 :box:
     #display: rounded gray
@@ -2027,7 +2027,7 @@ NOTE:
     
     
     
-== FF: finalxform's PRE, VAR and POST variations ==
+== Limitations: FF's PRE, VAR and POST variations ==
 
     
 :box:
@@ -2076,7 +2076,7 @@ NOTE:
     
     but if you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
     
-== FF: Shader ==
+== Limitations: FF Shader ==
 
 :box:
     #display: rounded gray
@@ -2114,6 +2114,6 @@ Mini bio:
 :box:
     #display: rounded gray
     
-    Alessandro Nardini is an Italian artist who's spent most of his career serving the entertainment industry.
-    He served many different branches of the entertainment industry's post-production,
-    spanning feature films, games, TV/commercials, episodic series and streaming.
+    _Alessandro Nardini is an Italian artist who's spent most of his career serving the entertainment industry._
+    _He served many different branches of the entertainment industry's post-production,_
+    _spanning feature films, games, TV/commercials, episodic series and streaming._
