@@ -1686,37 +1686,8 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         id = self.kwargs['script_multiparm_index']
 
+        flam3node, id_from, deleted = self.prm_paste_update_undo(node)
 
-
-        # UPDATE TO COPY ITERATOR's SECTIONS
-        # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
-        
-        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        try:
-            flam3node = hou.session.flam3h_node # type: ignore 
-            __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        except:
-            flam3node = None
-            __FLAM3H_DATA_PRM_MPIDX = 0
-        try:
-            hou.session.flam3h_node.type() # type: ignore
-            id_from = hou.session.flam3h_node_mp_id # type: ignore
-            if node == flam3node:
-                if _FLAM3H_DATA_PRM_MPIDX > 0:
-                    if id_from != _FLAM3H_DATA_PRM_MPIDX:
-                        id_from = _FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
-            else:
-                if __FLAM3H_DATA_PRM_MPIDX > 0:
-                    if id_from != __FLAM3H_DATA_PRM_MPIDX:
-                        id_from = __FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
-        except:
-            id_from = None
-            deleted = True
-            
-            
-            
         mp_idx_out_of_range = False
         if id_from is not None:
             assert flam3node is not None
@@ -1850,22 +1821,15 @@ iterator_keep_last_weight(self) -> None:
                 return menu
         
         
-    def prm_paste_CTRL(self, id: int) -> None:
-        """Everything about paste iterator's data.
-
-        Args:
-            id (int): current multi parameter index
-        """    
-        deleted = False    
-        node = self.node
+    def prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
         
-        
-        
-        # UPDATED TO COPY ENTIRE ITERATOR
+        deleted = False
+        # UPDATE TO COPY/PASTE ITERATOR's DATA FOR UNDO
         # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         try:
             flam3node = hou.session.flam3h_node # type: ignore 
+            assert flam3node is not None
             __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         except:
             flam3node = None
@@ -1884,12 +1848,23 @@ iterator_keep_last_weight(self) -> None:
                         id_from = __FLAM3H_DATA_PRM_MPIDX
                         hou.session.flam3h_node_mp_id = id_from  # type: ignore
         except:
-            flam3node = None
             id_from = None
             deleted = True
+        
+        return flam3node, id_from, deleted
+        
+        
+    def prm_paste_CTRL(self, id: int) -> None:
+        """Everything about paste iterator's data.
 
-
-
+        Args:
+            id (int): current multi parameter index
+        """    
+        deleted = False    
+        node = self.node
+        
+        flam3node, id_from, deleted = self.prm_paste_update_undo(node)
+        
         mp_idx_out_of_range = False
         if id_from is not None:
             if flam3node is not None:
@@ -1962,37 +1937,8 @@ iterator_keep_last_weight(self) -> None:
         deleted = False     
         node = self.node
         
+        flam3node, id_from, deleted = self.prm_paste_update_undo(node)
         
-        
-        # UPDATED TO UNMARK ITERATOR
-        # The following is for the hou.session.flam3h_node_mp_id Undo; so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
-        id_from = hou.session.flam3h_node_mp_id # type: ignore
-        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        try:
-            flam3node = hou.session.flam3h_node # type: ignore 
-            __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        except:
-            flam3node = None
-            __FLAM3H_DATA_PRM_MPIDX = 0
-        try:
-            hou.session.flam3h_node.type() # type: ignore
-            id_from = hou.session.flam3h_node_mp_id # type: ignore
-            if node == flam3node:
-                if _FLAM3H_DATA_PRM_MPIDX > 0:
-                    if id_from != _FLAM3H_DATA_PRM_MPIDX:
-                        id_from = _FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
-            else:
-                if __FLAM3H_DATA_PRM_MPIDX > 0:
-                    if id_from != __FLAM3H_DATA_PRM_MPIDX:
-                        id_from = __FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = id_from  # type: ignore
-        except:
-            flam3node = None # type: ignore
-            deleted = True
-
-
-
         mp_idx_out_of_range = False
         if id_from is not None:
             if flam3node is not None:
@@ -2055,7 +2001,7 @@ iterator_keep_last_weight(self) -> None:
             id (int): current multi parameter index
         """        
         node = self.node
-        flam3node = hou.session.flam3h_node # type: ignore
+
         try:
             hou.session.flam3h_node.type() # type: ignore
         except:
