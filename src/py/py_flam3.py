@@ -3653,7 +3653,7 @@ XML_XF_PRM_EXCEPTION = ("None", )
 # On Flame preset load set the iteration number to use to this value.
 # This setting will be overwritten if the IN "force iterations on Load" option is turned ON.
 # All the above will be overwritten if the iteration number to use is baked into the Flame preset XML key's name.
-IN_ITERATIONS_ON_LOAD = 64
+FLAM3H_IN_ITERATIONS_ON_LOAD_DEFAULT = 64
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
@@ -5883,8 +5883,8 @@ reset_IN(self, mode=0) -> None:
             iter_on_load = iter_on_load_preset
         else:
             if not use_iter_on_load:
-                node.setParms({IN_ITER_NUM_ON_LOAD: IN_ITERATIONS_ON_LOAD}) # type: ignore
-                iter_on_load = IN_ITERATIONS_ON_LOAD
+                node.setParms({IN_ITER_NUM_ON_LOAD: FLAM3H_IN_ITERATIONS_ON_LOAD_DEFAULT}) # type: ignore
+                iter_on_load = FLAM3H_IN_ITERATIONS_ON_LOAD_DEFAULT
         return iter_on_load 
 
 
