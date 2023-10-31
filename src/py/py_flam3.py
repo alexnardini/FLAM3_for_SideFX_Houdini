@@ -1259,6 +1259,8 @@ menu_copypaste(self) -> list:
 
 menu_copypaste_FF(self) -> list:
 
+prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], Union[int, bool], bool]:
+
 prm_paste_CTRL(self, id: int) -> None:
 
 prm_paste_SHIFT(self, id: int) -> None:
@@ -1682,29 +1684,20 @@ iterator_keep_last_weight(self) -> None:
         """    
         menu=[]
         
-        deleted = False
+        isDELETED = False
         node = self.node
         id = self.kwargs['script_multiparm_index']
 
-        flam3node, id_from, deleted = self.prm_paste_update_undo(node)
+        from_FLAM3H_NODE, mp_id_from, mp_id_from_out_of_range, isDELETED = self.prm_paste_update_undo(node)
 
-        mp_idx_out_of_range = False
-        if id_from is not None:
-            assert flam3node is not None
-            iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-            if id_from > iter_num:
-                mp_idx_out_of_range = id_from
-                id_from = None
-
-        if id_from is not None:
-
-            if node == flam3node and id==id_from:
+        if mp_id_from is not None:
+            if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
-            elif node == flam3node:
-                menuitems = ( "", f"iter.{str(id_from)}", f"iter.{str(id_from)} -> xaos:", f"iter.{str(id_from)} -> shader", f"iter.{str(id_from)} -> PRE", f"iter.{str(id_from)} -> VAR", f"iter.{str(id_from)} -> POST", f"iter.{str(id_from)} -> pre affine", f"iter.{str(id_from)} -> post affine", "" )
+            elif node == from_FLAM3H_NODE:
+                menuitems = ( "", f"iter.{str(mp_id_from)}", f"iter.{str(mp_id_from)} -> xaos:", f"iter.{str(mp_id_from)} -> shader", f"iter.{str(mp_id_from)} -> PRE", f"iter.{str(mp_id_from)} -> VAR", f"iter.{str(mp_id_from)} -> POST", f"iter.{str(mp_id_from)} -> pre affine", f"iter.{str(mp_id_from)} -> post affine", "" )
             else:
-                flam3nodeIter = f"{str(flam3node)}.iter."
-                menuitems = ( "", f"{flam3nodeIter}{str(id_from)}", f"{flam3nodeIter}{str(id_from)} -> xaos:", f"{flam3nodeIter}{str(id_from)} -> shader", f"{flam3nodeIter}{str(id_from)} -> PRE", f"{flam3nodeIter}{str(id_from)} -> VAR", f"{flam3nodeIter}{str(id_from)} -> POST", f"{flam3nodeIter}{str(id_from)} -> pre affine", f"{flam3nodeIter}{str(id_from)} -> post affine", "" )
+                flam3nodeIter = f"{str(from_FLAM3H_NODE)}.iter."
+                menuitems = ( "", f"{flam3nodeIter}{str(mp_id_from)}", f"{flam3nodeIter}{str(mp_id_from)} -> xaos:", f"{flam3nodeIter}{str(mp_id_from)} -> shader", f"{flam3nodeIter}{str(mp_id_from)} -> PRE", f"{flam3nodeIter}{str(mp_id_from)} -> VAR", f"{flam3nodeIter}{str(mp_id_from)} -> POST", f"{flam3nodeIter}{str(mp_id_from)} -> pre affine", f"{flam3nodeIter}{str(mp_id_from)} -> post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
@@ -1712,19 +1705,19 @@ iterator_keep_last_weight(self) -> None:
             return menu
         
         else:
-            if mp_idx_out_of_range is not False:
-                # flam3node = hou.session.flam3h_node # type: ignore
-                if self.node == flam3node:
-                    menuitems = ( f"Marked iterator index: {str(mp_idx_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
+            if mp_id_from_out_of_range is not False:
+                # from_FLAM3H_NODE = hou.session.flam3h_node # type: ignore
+                if self.node == from_FLAM3H_NODE:
+                    menuitems = ( f"Marked iterator index: {str(mp_id_from_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
                 else:
-                    menuitems = ( f"Marked iterator index: {str(flam3node)}.iterator.{str(mp_idx_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
+                    menuitems = ( f"Marked iterator index: {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from_out_of_range)} -> is out of range. Mark an existing iterator instead.", "" )
                 
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
                 return menu
               
-            elif deleted:
+            elif isDELETED:
                 menuitems = ( "Marked iterator's node has been deleted. Mark another iterator first", "" )
                 
                 for i, item in enumerate(menuitems):
@@ -1733,20 +1726,13 @@ iterator_keep_last_weight(self) -> None:
                 return menu
                
             else:
-                try:
-                    hou.session.flam3h_node.type() # type: ignore
-                    flam3node = hou.session.flam3h_node # type: ignore
-                except:
-                    flam3node = None
-                    
-                if flam3node is not None:
+                if from_FLAM3H_NODE is not None:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                    __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                    if node == flam3node and _FLAM3H_DATA_PRM_MPIDX == -1:
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                         menuitems = ( f"REMOVED: The marked iterator has been removed -> Mark an existing iterator instead.", "" )
-                    elif node != flam3node and __FLAM3H_DATA_PRM_MPIDX == -1:
-                        menuitems = ( f"REMOVED: The marked iterator has been removed from node: {str(flam3node)} -> Mark an existing iterator instead.", "" )
-                    
+                    elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
+                        menuitems = ( f"REMOVED: The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> Mark an existing iterator instead.", "" )
                     else:
                         menuitems = ( MARK_ITER_MSG, "" )
                 
@@ -1783,12 +1769,12 @@ iterator_keep_last_weight(self) -> None:
 
         flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
 
-        deleted = False
+        isDELETED = False
         try:
             hou.session.flam3h_node_FF.type() # type: ignore
         except:
             flam3node_FF_check = None
-            deleted = True
+            isDELETED = True
 
         if flam3node_FF_check is not None:
 
@@ -1806,7 +1792,7 @@ iterator_keep_last_weight(self) -> None:
 
             return menu
         else:
-            if deleted:
+            if isDELETED:
                 menuitems = ( "Marked FF's node has been deleted. Mark another FF first", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
@@ -1821,7 +1807,7 @@ iterator_keep_last_weight(self) -> None:
                 return menu
         
         
-    def prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+    def prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], Union[int, bool], bool]:
         """Updated data for copy/paste iterator's methods in case of Undos.
         It will make sure that the houdini.session data about the iterator index
         will always be up to date.
@@ -1834,7 +1820,9 @@ iterator_keep_last_weight(self) -> None:
             
             from_FLAM3H_NODE -> is the node we are copying the data from. 
             
-            mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside "from_FLAM3H_NODE". 
+            mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside "from_FLAM3H_NODE".
+            
+            mp_id_from_out_of_range  -> Multiparameter index is out of range. It has either been deleted or the iterator's count has been reduced.
             
             isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """        
@@ -1866,8 +1854,21 @@ iterator_keep_last_weight(self) -> None:
         except:
             mp_id_from = None
             isDELETED = True
+            
+        # This is in place instead of the isDELETED check
+        # becasue it can happen that a Flame with less iterators is loaded
+        # right before an iterator have been marked; it seemed more appropriate
+        # to categorize this as: index out of range.
+        mp_id_from_out_of_range = False
+        if mp_id_from is not None:
+            if from_FLAM3H_NODE is not None:
+                assert from_FLAM3H_NODE is not None
+                iter_num = from_FLAM3H_NODE.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+                if mp_id_from > iter_num:
+                    mp_id_from_out_of_range = mp_id_from
+                    mp_id_from = None
         
-        return from_FLAM3H_NODE, mp_id_from, isDELETED
+        return from_FLAM3H_NODE, mp_id_from, mp_id_from_out_of_range, isDELETED
         
         
     def prm_paste_CTRL(self, id: int) -> None:
@@ -1876,51 +1877,43 @@ iterator_keep_last_weight(self) -> None:
         Args:
             id (int): current multi parameter index
         """    
-        deleted = False    
+        isDELETED = False    
         node = self.node
         
-        flam3node, id_from, deleted = self.prm_paste_update_undo(node)
-        
-        mp_idx_out_of_range = False
-        if id_from is not None:
-            if flam3node is not None:
-                iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-                if id_from > iter_num:
-                    mp_idx_out_of_range = id_from
-                    id_from = None
+        from_FLAM3H_NODE, mp_id_from, mp_id_from_out_of_range, isDELETED = self.prm_paste_update_undo(node)
                 
-        if id_from is not None:
+        if mp_id_from is not None:
             
-            if node==flam3node and id==id_from:
-                _MSG = f"{str(node)}: This iterator is marked: {str(id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
+            if node==from_FLAM3H_NODE and id==mp_id_from:
+                _MSG = f"{str(node)}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             else:
-                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
-                self.paste_from_list(node, flam3node, flam3h_iterator.allMisc, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, "", str(id), str(id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, "", str(id), str(mp_id_from))
                 
-                if node==flam3node:
-                    _MSG = f"{str(node)}: Copied values from -> iterator.{str(id_from)}"
+                if node==from_FLAM3H_NODE:
+                    _MSG = f"{str(node)}: Copied values from -> iterator.{str(mp_id_from)}"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
                 else:
-                    _MSG = f"{str(node)}: Copied values from -> {str(flam3node)}.iterator.{str(id_from)}"
+                    _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
         else:
-            if mp_idx_out_of_range is not False:
-                if node==flam3node:
-                    _MSG = f"{str(node)}: Marked iterator index: {str(mp_idx_out_of_range)} is out of range -> Mark an existing iterator instead."
+            if mp_id_from_out_of_range is not False:
+                if node==from_FLAM3H_NODE:
+                    _MSG = f"{str(node)}: Marked iterator index: {str(mp_id_from_out_of_range)} is out of range -> Mark an existing iterator instead."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
-                    _MSG = f"{str(node)}: Marked iterator index: {str(flam3node)}.iterator.{str(mp_idx_out_of_range)} is out of range -> Mark an existing iterator instead."
+                    _MSG = f"{str(node)}: Marked iterator index: {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from_out_of_range)} is out of range -> Mark an existing iterator instead."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     
-            elif deleted:
+            elif isDELETED:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG} to copy parameter's values from."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
                 
             else:
-                if node == flam3node:
+                if node == from_FLAM3H_NODE:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed -> {MARK_ITER_MSG} to copy parameter's values from."
@@ -1929,11 +1922,11 @@ iterator_keep_last_weight(self) -> None:
                         _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                         
-                elif node != flam3node:
-                    assert flam3node is not None
-                    __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                elif node != from_FLAM3H_NODE:
+                    assert from_FLAM3H_NODE is not None
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(flam3node)} -> {MARK_ITER_MSG} to copy parameter's values from."
+                        _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> {MARK_ITER_MSG} to copy parameter's values from."
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     else:
                         _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
@@ -1950,26 +1943,20 @@ iterator_keep_last_weight(self) -> None:
         Args:
             id (int): current multi parameter index
         """   
-        deleted = False     
+        isDELETED = False     
         node = self.node
         
-        flam3node, id_from, deleted = self.prm_paste_update_undo(node)
+        from_FLAM3H_NODE, mp_id_from, mp_id_from_out_of_range, isDELETED = self.prm_paste_update_undo(node)
         
-        mp_idx_out_of_range = False
-        if id_from is not None:
-            if flam3node is not None:
-                iter_num = flam3node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-                if id_from > iter_num:
-                    mp_idx_out_of_range = id_from
-        
-        if node == flam3node: # type: ignore
+        if node == from_FLAM3H_NODE: # type: ignore
             
-            if id_from is not None:
-                if mp_idx_out_of_range is not False:
-                    _MSG = f"{str(node)}: Marked iterator index: {str(mp_idx_out_of_range)} is out of range -> Mark an existing iterator instead."
+            if mp_id_from is not None:
+                
+                if mp_id_from_out_of_range is not False:
+                    _MSG = f"{str(node)}: Marked iterator index: {str(mp_id_from_out_of_range)} is out of range -> Mark an existing iterator instead."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
-                    _MSG = f"{str(node)}: iterator UNMARKED -> {str(id_from)}" # type: ignore
+                    _MSG = f"{str(node)}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
                     hou.session.flam3h_node_mp_id = None # type: ignore
                     # unlock
                     node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
@@ -1991,18 +1978,20 @@ iterator_keep_last_weight(self) -> None:
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
         else:
-            if deleted:
+            if isDELETED:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> Mark a new iterator first."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                
             else:
-                if mp_idx_out_of_range is not False:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(mp_idx_out_of_range)} and it is out of range. Mark an existing iterator instead." # type: ignore
+                if mp_id_from_out_of_range is not False:
+                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(hou.session.flam3h_node)}.iterator.{str(mp_id_from_out_of_range)} and it is out of range. Mark an existing iterator instead." # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    
                 else:
-                    assert flam3node is not None
-                    __FLAM3H_DATA_PRM_MPIDX = flam3node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    assert from_FLAM3H_NODE is not None
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
-                        # flam3node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                        # from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                         _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator has been removed from node: {str(hou.session.flam3h_node)} ->  Mark an existing iterator instead." # type: ignore
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                     else:
@@ -2762,10 +2751,25 @@ iterator_keep_last_weight(self) -> None:
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
                                 # Let us know
                                 _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG} to copy parameter's values from."
-                                print(_MSG)
                                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                             else:
                                 pass
+                            
+            # If we removed the very last iterator and it was marked
+            elif idx_del_inbetween is not None and idx_del_inbetween == iter_num:
+                _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                if _FLAM3H_DATA_PRM_MPIDX == iter_num:
+                    # updated CachedUserData: flam3h_xaos_iterators_prev
+                    self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                else:
+                    if _FLAM3H_DATA_PRM_MPIDX is not -1:
+                        # set
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
+                        # Let us know
+                        _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG} to copy parameter's values from."
+                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        # updated CachedUserData: flam3h_xaos_iterators_prev
+                        self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
 
             # otherwise ADD
             # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
@@ -2875,16 +2879,15 @@ iterator_keep_last_weight(self) -> None:
             except:
                 flam3node = None
                 
-            if flam3node is not None:
-                if node == flam3node:
-                    hou.session.flam3h_node_mp_id = None # type: ignore
-                    hou.session.flam3h_node_FF_check = None # type: ignore
-                    # unlock
-                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                    # set
-                    node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
-                    # lock
-                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+            if flam3node is not None and  node == flam3node:
+                hou.session.flam3h_node_mp_id = None # type: ignore
+                hou.session.flam3h_node_FF_check = None # type: ignore
+                # unlock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                # lock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
             
         else:
             # set xaos every time an iterator is added or removed
