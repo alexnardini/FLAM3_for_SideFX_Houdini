@@ -2635,6 +2635,19 @@ iterator_keep_last_weight(self) -> None:
         
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
+        # init/clear copy/paste iterator's data and prm
+        if node == hou.session.flam3h_node:  # type: ignore
+            hou.session.flam3h_node_mp_id = None # type: ignore
+            hou.session.flam3h_node_FF = node # type: ignore
+            hou.session.flam3h_node_FF_check = None # type: ignore
+            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+                # unlock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                # lock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+        
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
         hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
