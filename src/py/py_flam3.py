@@ -627,7 +627,7 @@ flam3h_on_loaded(self) -> None:
             hou.session.flam3_first_instance = False # type: ignore
 
             node = self.node
-            _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+            _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
             _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
             
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
