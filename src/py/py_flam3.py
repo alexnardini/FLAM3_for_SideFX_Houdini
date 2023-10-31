@@ -1939,8 +1939,10 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
-        
+
         if node == from_FLAM3H_NODE: # type: ignore
+            
+            assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
                 _MSG = f"{str(node)}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
@@ -1951,17 +1953,21 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                # hou.session.flam3h_iterator_node = None # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
+                _MSG = ''
+                if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() == -1:
+                    _MSG = f"{str(node)}: This iterator is Unmarked already:  {str(id)}   Unmarked removed iterator -> {str(hou.session.flam3h_iterator_node_mp_idx)}" # type: ignore
+                else:
+                    _MSG = f"{str(node)}: This iterator is Unmarked already -> {str(id)}"
+                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                _MSG = f"{str(node)}: This iterator is Unmarked already -> {str(id)}" # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
         else:
@@ -1979,7 +1985,7 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}" # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-
+        
 
     def prm_paste_CLICK(self, id: int) -> None:
         """Everything about marking iterators from being copied.
