@@ -1976,6 +1976,7 @@ iterator_keep_last_weight(self) -> None:
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 
             else:
+                assert from_FLAM3H_NODE is not None
                 __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
                     # from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
