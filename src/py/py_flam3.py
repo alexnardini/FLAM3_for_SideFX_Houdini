@@ -1127,6 +1127,7 @@ reset_PREFS(self, mode=0) -> None:
             settings = view.curViewport().settings()
             if pttype == 0:
                 settings.particleDisplayType(Points)
+                self.viewportParticleSize()
             elif pttype == 1:
                 settings.particleDisplayType(Pixels)
                 
