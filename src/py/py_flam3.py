@@ -1545,14 +1545,16 @@ iterator_keep_last_weight(self) -> None:
         """        
         node = self.node
         exist_DATA = False
+        
         try:
-            from_FLAM3H_NODE = hou.session.flam3h_node  # type: ignore
+            hou.session.flam3h_node.type() # type: ignore
+            from_FLAM3HNODE = hou.session.flam3h_node # type: ignore
             exist_DATA = True
         except:
-            from_FLAM3H_NODE = None
+            from_FLAM3HNODE = None
         
-        if exist_DATA and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE:  # type: ignore
+        if exist_DATA:
+            if node == from_FLAM3HNODE:  # type: ignore
                 hou.session.flam3h_node_mp_id = None # type: ignore
                 hou.session.flam3h_node_FF = node # type: ignore
                 hou.session.flam3h_node_FF_check = None # type: ignore
@@ -1860,7 +1862,7 @@ iterator_keep_last_weight(self) -> None:
                         mp_id_from = __FLAM3H_DATA_PRM_MPIDX
                         hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
                 else:
-                    if _FLAM3H_DATA_PRM_MPIDX == -1:
+                    if __FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
         except:
             mp_id_from = None
