@@ -1544,17 +1544,25 @@ iterator_keep_last_weight(self) -> None:
         """init/clear copy/paste iterator's data and prm
         """        
         node = self.node
-        if node == hou.session.flam3h_node:  # type: ignore
-            hou.session.flam3h_node_mp_id = None # type: ignore
-            hou.session.flam3h_node_FF = node # type: ignore
-            hou.session.flam3h_node_FF_check = None # type: ignore
-            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
-                # unlock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
-                # lock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+        exist_DATA = False
+        try:
+            hou.session.flam3h_node  # type: ignore
+            exist_DATA = True
+        except:
+            pass
+        
+        if exist_DATA:
+            if node == hou.session.flam3h_node:  # type: ignore
+                hou.session.flam3h_node_mp_id = None # type: ignore
+                hou.session.flam3h_node_FF = node # type: ignore
+                hou.session.flam3h_node_FF_check = None # type: ignore
+                if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+                    # unlock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                    # set
+                    node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                    # lock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
     
 
     def menu_global_density(self) -> list:
@@ -1845,6 +1853,7 @@ iterator_keep_last_weight(self) -> None:
         except:
             from_FLAM3H_NODE = None
             __FLAM3H_DATA_PRM_MPIDX = 0
+            
         try:
             hou.session.flam3h_node.type() # type: ignore
             mp_id_from = hou.session.flam3h_node_mp_id # type: ignore
