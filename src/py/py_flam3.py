@@ -1853,15 +1853,23 @@ iterator_keep_last_weight(self) -> None:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = _FLAM3H_DATA_PRM_MPIDX
                         hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
+                else:
+                    if _FLAM3H_DATA_PRM_MPIDX == -1:
+                        mp_id_from = None
             else:
                 if __FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = __FLAM3H_DATA_PRM_MPIDX
                         hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
+                else:
+                    if _FLAM3H_DATA_PRM_MPIDX == -1:
+                        mp_id_from = None
         except:
             mp_id_from = None
             isDELETED = True
             
+        # Deprecated, but i leave it here just in case for now
+        #
         # This is in place instead of the isDELETED check
         # becasue it can happen that a Flame with less iterators is loaded
         # right before an iterator have been marked; it seemed more appropriate
