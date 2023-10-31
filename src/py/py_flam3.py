@@ -3681,11 +3681,15 @@ to account for missing iterators. In short, it is fully automatic.
 If you type a non-numeric character in any of the xaos's weights,
 FLAM3H will undo to what you had before.
 
-If you miss to add a semicolon " : " after the word " xaos ",
-the entire xaos string will be reset with all the weights of value 1.0.
+As a geneal rule,
+as long as the string start with the word “xaos”,
+FLAM3H will always undo to what you had before if anything invalid is typed after.
 
-If you dnt use the " xaos: " keywork at the beginning,
-the entire xaos string will be reset with all the weights of value 1.0."""
+If you dnt use the “xaos” keywork at the beginning,
+the entire xaos string will be reset with all the weights of value: 1
+
+If you just type “0” ( Zero ),
+the entire xaos string will be reset to all weights with value: 0 ( Zero )"""
         
         node = self.node
         autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
@@ -7137,7 +7141,15 @@ out_XML(self) -> None:
             iter_xaos = node.parm(f"{prm}_{iter+1}").eval()
             if iter_xaos:
                 strip = iter_xaos.split(':')
-                if strip[0].lower().strip() == 'xaos':
+                # if you just type "xaos" only
+                if iter_xaos.lower().strip() == 'xaos':
+                    if val_prev is not None:
+                        # retrive from the history instead ( Undo )
+                        val.append(val_prev[iter])
+                    else:
+                        val.append([])
+                # if the first element of the strip is: "xaos"
+                elif strip[0].lower().strip() == 'xaos':
                     try:
                         build_strip = [x.strip() for x in strip[1:iter_count+1] if x]
                         # The following is only used to check if any of the xaos weights is not a legit number.
@@ -7153,10 +7165,29 @@ out_XML(self) -> None:
                         else:
                             # Otherwise reset to all values of 1
                             val.append([])
+                # If the split fail and it just start with the word: 'xaos'
+                elif str(iter_xaos.lower().strip()).startswith('xaos'):
+                    if val_prev is not None:
+                        # retrive from the history instead ( Undo )
+                        val.append(val_prev[iter])
+                    else:
+                        val.append([])
+                # Fill with: 1
+                elif str(iter_xaos.lower().strip()).startswith('1'):
+                    v = []
+                    [v.append(str(1)) for x in range(iter_count)]
+                    val.append(v)
+                # Fill with: 0
+                elif str(iter_xaos.lower().strip()).startswith('0'):
+                    v = []
+                    [v.append(str(0)) for x in range(iter_count)]
+                    val.append(v)
                 else:
+                    # Otherwise reset to all values of 1
                     val.append([])
             else:
                 val.append([])
+                
         return val
 
 
