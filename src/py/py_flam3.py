@@ -7126,6 +7126,14 @@ out_XML(self) -> None:
     def out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
         """Collect all xaos command string weights.
         Provide also a form of Undo in the case we enter non numeric characters instead.
+        
+        Allow for different combinations as:
+        
+        - Undo to preview state.
+        
+        - Fill with all: 1
+        
+        - Fill with all: 0 ( Zero )
 
         Args:
             node (hou.Node): FLAM3H node
@@ -7165,7 +7173,7 @@ out_XML(self) -> None:
                         else:
                             # Otherwise reset to all values of 1
                             val.append([])
-                # If the split fail and it just start with the word: 'xaos'
+                # If the split fail to validate and it just start with the word: 'xaos'
                 elif str(iter_xaos.lower().strip()).startswith('xaos'):
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
