@@ -657,49 +657,49 @@ flam3h_on_loaded(self) -> None:
         
         # FLAM3 node and MultiParameter id for iterators
         try:
-            hou.session.flam3h_node # type: ignore
+            hou.session.flam3h_iterator_node # type: ignore
         except:
-            hou.session.flam3h_node = node # type: ignore
+            hou.session.flam3h_iterator_node = node # type: ignore
         try:
-            hou.session.flam3h_node_mp_id # type: ignore
+            hou.session.flam3h_iterator_node_mp_idx # type: ignore
         except:
-            hou.session.flam3h_node_mp_id = None # type: ignore
+            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
 
         # If an iterator was copied from a node that has been deleted
         try:
-            hou.session.flam3h_node.type() # type: ignore
+            hou.session.flam3h_iterator_node.type() # type: ignore
         except:
-            hou.session.flam3h_node_mp_id = None # type: ignore
+            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
             # Lets initialize back to himself.
             if len(node_instances) == 1:
-                hou.session.flam3h_node = node # type: ignore
+                hou.session.flam3h_iterator_node = node # type: ignore
 
         # FLAM3 node for FF.
         try:
-            hou.session.flam3h_node_FF # type: ignore
+            hou.session.flam3h_FF_node # type: ignore
         except:
-            hou.session.flam3h_node_FF = node # type: ignore
+            hou.session.flam3h_FF_node = node # type: ignore
         try:
-            hou.session.flam3h_node_FF_check # type: ignore
+            hou.session.flam3h_FF_node_check # type: ignore
         except:
-            hou.session.flam3h_node_FF_check = None # type: ignore
+            hou.session.flam3h_FF_node_check = None # type: ignore
 
         # If the FF was copied from a node that has been deleted
         try:
-            hou.session.flam3h_node_FF.type() # type: ignore
+            hou.session.flam3h_FF_node.type() # type: ignore
         except:
-            hou.session.flam3h_node_FF_check = None # type: ignore
+            hou.session.flam3h_FF_node_check = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
             # Lets initialize back to himself.
             if len(node_instances) == 1:
-                hou.session.flam3h_node_FF = node # type: ignore
+                hou.session.flam3h_FF_node = node # type: ignore
                 
         # Initialize flam3 viewport Color Scheme
         try:
-            hou.session.flam3h_CS # type: ignore
+            hou.session.flam3h_viewport_CS # type: ignore
         except:
-            hou.session.flam3h_CS = [] # type: ignore
+            hou.session.flam3h_viewport_CS = [] # type: ignore
 
 
     def flam3h_on_create_set_prefs_viewport(self) -> None:
@@ -818,17 +818,17 @@ flam3h_on_loaded(self) -> None:
 
         if len(self.node.type().instances()) == 1:
             try:
-                hou.session.flam3h_node.type() # type: ignore
+                hou.session.flam3h_iterator_node.type() # type: ignore
             except:
-                if hou.session.flam3h_node_mp_id is not None:  # type: ignore
-                    hou.session.flam3h_node = None # type: ignore
-                # hou.session.flam3h_node_mp_id = None # type: ignore
+                if hou.session.flam3h_iterator_node_mp_idx is not None:  # type: ignore
+                    hou.session.flam3h_iterator_node = None # type: ignore
+                # hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
             try:
-                hou.session.flam3h_node_FF.type # type: ignore
+                hou.session.flam3h_FF_node.type # type: ignore
             except:
-                if hou.session.flam3h_node_FF_check is not None:  # type: ignore
-                    hou.session.flam3h_node_FF = None # type: ignore
-                # hou.session.flam3h_node_FF_check = None # type: ignore
+                if hou.session.flam3h_FF_node_check is not None:  # type: ignore
+                    hou.session.flam3h_FF_node = None # type: ignore
+                # hou.session.flam3h_FF_node_check = None # type: ignore
             try:
                 del hou.session.flam3h_sys_update_mode # type: ignore
             except:
@@ -1052,9 +1052,9 @@ reset_PREFS(self, mode=0) -> None:
         node = self.node
         
         try:
-            module_test = hou.session.flam3h_CS # type: ignore
+            module_test = hou.session.flam3h_viewport_CS # type: ignore
         except:
-            hou.session.flam3h_CS = [] # type: ignore
+            hou.session.flam3h_viewport_CS = [] # type: ignore
 
         count = 0
         viewers_col = []
@@ -1070,32 +1070,32 @@ reset_PREFS(self, mode=0) -> None:
             col = settings.colorScheme()
             viewers_col.append(col)
             try:
-                idx_test = hou.session.flam3h_CS[count] # type: ignore
+                idx_test = hou.session.flam3h_viewport_CS[count] # type: ignore
             except:
-                if len(hou.session.flam3h_CS) > 0: # type: ignore
-                    hou.session.flam3h_CS.append(viewers_col) # type: ignore
+                if len(hou.session.flam3h_viewport_CS) > 0: # type: ignore
+                    hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
                 else:
-                    hou.session.flam3h_CS = [] # type: ignore
-                    hou.session.flam3h_CS.append(viewers_col) # type: ignore
+                    hou.session.flam3h_viewport_CS = [] # type: ignore
+                    hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
 
             if setprm:
-                if len(hou.session.flam3h_CS) == 0: # type: ignore
+                if len(hou.session.flam3h_viewport_CS) == 0: # type: ignore
                     if col == Light or col == Grey:
                         settings.setColorScheme(Dark)
                 else:
                     if col == Light or col == Grey:
                         settings.setColorScheme(Dark)
-                    elif col == Dark and hou.session.flam3h_CS[count] != Dark: # type: ignore
-                        if hou.session.flam3h_CS[count] == Light: # type: ignore
+                    elif col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
+                        if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
                             settings.setColorScheme(Light)
-                        elif hou.session.flam3h_CS[count] == Grey: # type: ignore
+                        elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
                             settings.setColorScheme(Grey)
 
             else:
-                if col == Dark and hou.session.flam3h_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3h_CS[count] == Light: # type: ignore
+                if col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
+                    if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
                         settings.setColorScheme(Light)
-                    elif hou.session.flam3h_CS[count] == Grey: # type: ignore
+                    elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
                         settings.setColorScheme(Grey)
             count += 1
             
@@ -1109,8 +1109,8 @@ reset_PREFS(self, mode=0) -> None:
                             f3h.setParms({PREFS_VIEWPORT_DARK: setprm})
         
         # Update history
-        hou.session.flam3h_CS = [] # type: ignore
-        hou.session.flam3h_CS = viewers_col # type: ignore
+        hou.session.flam3h_viewport_CS = [] # type: ignore
+        hou.session.flam3h_viewport_CS = viewers_col # type: ignore
         
         
     def viewportParticleDisplay(self) -> None:
@@ -1547,17 +1547,17 @@ iterator_keep_last_weight(self) -> None:
         exist_DATA = False
         
         try:
-            hou.session.flam3h_node.type() # type: ignore
-            from_FLAM3HNODE = hou.session.flam3h_node # type: ignore
+            hou.session.flam3h_iterator_node.type() # type: ignore
+            from_FLAM3HNODE = hou.session.flam3h_iterator_node # type: ignore
             exist_DATA = True
         except:
             from_FLAM3HNODE = None
         
         if exist_DATA:
             if node == from_FLAM3HNODE:  # type: ignore
-                hou.session.flam3h_node_mp_id = None # type: ignore
-                hou.session.flam3h_node_FF = node # type: ignore
-                hou.session.flam3h_node_FF_check = None # type: ignore
+                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
+                hou.session.flam3h_FF_node = node # type: ignore
+                hou.session.flam3h_FF_node_check = None # type: ignore
                 if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
                     # unlock
                     node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
@@ -1768,15 +1768,15 @@ iterator_keep_last_weight(self) -> None:
         menu=[]
 
         try:
-            hou.session.flam3h_node_FF_check # type: ignore
+            hou.session.flam3h_FF_node_check # type: ignore
         except:
-            hou.session.flam3h_node_FF_check = None # type: ignore
+            hou.session.flam3h_FF_node_check = None # type: ignore
 
-        flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
+        flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
 
         isDELETED = False
         try:
-            hou.session.flam3h_node_FF.type() # type: ignore
+            hou.session.flam3h_FF_node.type() # type: ignore
         except:
             flam3node_FF_check = None
             isDELETED = True
@@ -1784,7 +1784,7 @@ iterator_keep_last_weight(self) -> None:
         if flam3node_FF_check is not None:
 
             node = self.kwargs['node']
-            flam3node_FF = hou.session.flam3h_node_FF # type: ignore
+            flam3node_FF = hou.session.flam3h_FF_node # type: ignore
             
             if node == flam3node_FF:
                 menuitems = ( "FF marked. Select a different FLAM3H node to paste those FF values.", "" )
@@ -1817,7 +1817,7 @@ iterator_keep_last_weight(self) -> None:
         It will make sure that the houdini.session data about the iterator index
         will always be up to date.
         
-        It is for: hou.session.flam3h_node_mp_id -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+        It is for: hou.session.flam3h_iterator_node_mp_idx -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
             node (hou.Node): the current FLAM3H node
@@ -1838,7 +1838,7 @@ iterator_keep_last_weight(self) -> None:
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         
         try:
-            from_FLAM3H_NODE = hou.session.flam3h_node # type: ignore 
+            from_FLAM3H_NODE = hou.session.flam3h_iterator_node # type: ignore 
             assert from_FLAM3H_NODE is not None
             __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
         except:
@@ -1846,13 +1846,13 @@ iterator_keep_last_weight(self) -> None:
             __FLAM3H_DATA_PRM_MPIDX = 0
             
         try:
-            hou.session.flam3h_node.type() # type: ignore
-            mp_id_from = hou.session.flam3h_node_mp_id # type: ignore
+            hou.session.flam3h_iterator_node.type() # type: ignore
+            mp_id_from = hou.session.flam3h_iterator_node_mp_idx # type: ignore
             if node == from_FLAM3H_NODE:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = _FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
+                        hou.session.flam3h_iterator_node_mp_idx = mp_id_from  # type: ignore
                 else:
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
@@ -1860,7 +1860,7 @@ iterator_keep_last_weight(self) -> None:
                 if __FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = __FLAM3H_DATA_PRM_MPIDX
-                        hou.session.flam3h_node_mp_id = mp_id_from  # type: ignore
+                        hou.session.flam3h_iterator_node_mp_idx = mp_id_from  # type: ignore
                 else:
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
@@ -1944,14 +1944,14 @@ iterator_keep_last_weight(self) -> None:
             
             if mp_id_from is not None:
                 _MSG = f"{str(node)}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
-                hou.session.flam3h_node_mp_id = None # type: ignore
+                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                # hou.session.flam3h_node = None # type: ignore
+                # hou.session.flam3h_iterator_node = None # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
@@ -1990,35 +1990,35 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
 
         try:
-            hou.session.flam3h_node.type() # type: ignore
+            hou.session.flam3h_iterator_node.type() # type: ignore
         except:
-            hou.session.flam3h_node = None # type: ignore
+            hou.session.flam3h_iterator_node = None # type: ignore
             
-        if node == hou.session.flam3h_node: # type: ignore
-            if hou.session.flam3h_node_mp_id != id: # type: ignore
-                hou.session.flam3h_node_mp_id = id # type: ignore
-                hou.session.flam3h_node = self.node # type: ignore
+        if node == hou.session.flam3h_iterator_node: # type: ignore
+            if hou.session.flam3h_iterator_node_mp_idx != id: # type: ignore
+                hou.session.flam3h_iterator_node_mp_idx = id # type: ignore
+                hou.session.flam3h_iterator_node = self.node # type: ignore
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
+                _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_iterator_node_mp_idx)}" # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             else:
                 _MSG = f"{str(self.node)} -> This iterator is already Marked." # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         else:
-            hou.session.flam3h_node_mp_id = id # type: ignore
-            hou.session.flam3h_node = self.node # type: ignore
+            hou.session.flam3h_iterator_node_mp_idx = id # type: ignore
+            hou.session.flam3h_iterator_node = self.node # type: ignore
             # unlock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
             # set
             node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
             # lock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-            _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_node_mp_id)}" # type: ignore
+            _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_iterator_node_mp_idx)}" # type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
@@ -2047,8 +2047,8 @@ iterator_keep_last_weight(self) -> None:
             """   
             node=self.node
             
-            flam3node_FF = hou.session.flam3h_node_FF # type: ignore
-            flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
+            flam3node_FF = hou.session.flam3h_FF_node # type: ignore
+            flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
             
             deleted = False
             try:
@@ -2087,11 +2087,11 @@ iterator_keep_last_weight(self) -> None:
                 if flam3node_FF_check is not None: # type: ignore
                     if node == flam3node_FF:
                         _MSG = f"{str(node)} ->  Unmarked FF: {str(flam3node_FF)}.FF" # type: ignore
-                        hou.session.flam3h_node_FF_check = None # type: ignore
-                        hou.session.flam3h_node_FF = node # type: ignore
+                        hou.session.flam3h_FF_node_check = None # type: ignore
+                        hou.session.flam3h_FF_node = node # type: ignore
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                     else:
-                        _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.flam3h_node_FF)}.FF" # type: ignore
+                        _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.flam3h_FF_node)}.FF" # type: ignore
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 else:
                     if deleted:
@@ -2106,8 +2106,8 @@ iterator_keep_last_weight(self) -> None:
                     _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 else:
-                    hou.session.flam3h_node_FF_check = 1 # type: ignore
-                    hou.session.flam3h_node_FF = self.node # type: ignore
+                    hou.session.flam3h_FF_node_check = 1 # type: ignore
+                    hou.session.flam3h_FF_node = self.node # type: ignore
                     _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
     
@@ -2125,8 +2125,8 @@ iterator_keep_last_weight(self) -> None:
         id = self.kwargs['script_multiparm_index']
 
         # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3h_node # type: ignore
-        id_from = hou.session.flam3h_node_mp_id # type: ignore
+        flam3node = hou.session.flam3h_iterator_node # type: ignore
+        id_from = hou.session.flam3h_iterator_node_mp_idx # type: ignore
 
         # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
         #
@@ -2205,8 +2205,8 @@ iterator_keep_last_weight(self) -> None:
         node=self.node
 
         # FLAM3 node and its state we just copied
-        flam3node_FF = hou.session.flam3h_node_FF # type: ignore
-        flam3node_FF_check = hou.session.flam3h_node_FF_check # type: ignore
+        flam3node_FF = hou.session.flam3h_FF_node # type: ignore
+        flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
 
         # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
         #
@@ -2713,12 +2713,12 @@ iterator_keep_last_weight(self) -> None:
                 self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
-                flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
+                flam3h_node_mp_id = hou.session.flam3h_iterator_node_mp_idx # type: ignore
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
-                         hou.session.flam3h_node.type() # type: ignore
-                         flam3h_node = hou.session.flam3h_node # type: ignore
+                         hou.session.flam3h_iterator_node.type() # type: ignore
+                         flam3h_node = hou.session.flam3h_iterator_node # type: ignore
                     except:
                         flam3h_node_mp_id = None
                         flam3h_node = None
@@ -2727,11 +2727,11 @@ iterator_keep_last_weight(self) -> None:
                         # and if it is the selected one
                         if node == flam3h_node:
                             if (idx_del_inbetween+1) < flam3h_node_mp_id:
-                                hou.session.flam3h_node_mp_id = flam3h_node_mp_id - 1 # type: ignore
+                                hou.session.flam3h_iterator_node_mp_idx = flam3h_node_mp_id - 1 # type: ignore
                                 # set
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() - 1})
                             elif (idx_del_inbetween+1) == flam3h_node_mp_id:
-                                hou.session.flam3h_node_mp_id = None # type: ignore
+                                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
                                 # set
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
                                 # Let us know
@@ -2772,12 +2772,12 @@ iterator_keep_last_weight(self) -> None:
                 self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
-                flam3h_node_mp_id = hou.session.flam3h_node_mp_id # type: ignore
+                flam3h_node_mp_id = hou.session.flam3h_iterator_node_mp_idx # type: ignore
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
-                         hou.session.flam3h_node.type() # type: ignore
-                         flam3h_node = hou.session.flam3h_node # type: ignore
+                         hou.session.flam3h_iterator_node.type() # type: ignore
+                         flam3h_node = hou.session.flam3h_iterator_node # type: ignore
                     except:
                         flam3h_node_mp_id = None
                         flam3h_node = None
@@ -2786,7 +2786,7 @@ iterator_keep_last_weight(self) -> None:
                         # and if it is the selected one
                         if node == flam3h_node:
                             if (idx_add_inbetween+1) <= flam3h_node_mp_id:
-                                hou.session.flam3h_node_mp_id = flam3h_node_mp_id + 1 # type: ignore
+                                hou.session.flam3h_iterator_node_mp_idx = flam3h_node_mp_id + 1 # type: ignore
                                 # set
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() + 1})
                             else:
@@ -2862,14 +2862,14 @@ iterator_keep_last_weight(self) -> None:
             
             # Handle copy/paste iterator's data
             try:
-                hou.session.flam3h_node.type() # type: ignore
-                flam3node = hou.session.flam3h_node # type: ignore
+                hou.session.flam3h_iterator_node.type() # type: ignore
+                flam3node = hou.session.flam3h_iterator_node # type: ignore
             except:
                 flam3node = None
                 
             if flam3node is not None and  node == flam3node:
-                hou.session.flam3h_node_mp_id = None # type: ignore
-                hou.session.flam3h_node_FF_check = None # type: ignore
+                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
+                hou.session.flam3h_FF_node_check = None # type: ignore
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set

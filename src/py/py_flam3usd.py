@@ -49,9 +49,9 @@ def flam3USD_on_create(kwargs: dict) -> None:
 
     # INITIALIZE ffx_CS
     try:
-        hou.session.flam3_CS # type: ignore
+        hou.session.flam3h_viewport_CS # type: ignore
     except:
-        hou.session.flam3_CS = [] # type: ignore
+        hou.session.flam3h_viewport_CS = [] # type: ignore
     
     
 def getSceneViewers() -> list:
@@ -69,9 +69,9 @@ def getSceneViewers() -> list:
 
 def colorSchemeDark(self: hou.Node) -> None:
     try:
-        module_test = hou.session.flam3_CS # type: ignore
+        module_test = hou.session.flam3h_viewport_CS # type: ignore
     except:
-        hou.session.flam3_CS = [] # type: ignore
+        hou.session.flam3h_viewport_CS = [] # type: ignore
 
     count = 0
     viewers_col = []
@@ -87,38 +87,38 @@ def colorSchemeDark(self: hou.Node) -> None:
         col = settings.colorScheme()
         viewers_col.append(col)
         try:
-            idx_test = hou.session.flam3_CS[count] # type: ignore
+            idx_test = hou.session.flam3h_viewport_CS[count] # type: ignore
         except:
-            if len(hou.session.flam3_CS) > 0: # type: ignore
-                hou.session.flam3_CS.append(viewers_col) # type: ignore
+            if len(hou.session.flam3h_viewport_CS) > 0: # type: ignore
+                hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
             else:
-                hou.session.flam3_CS = [] # type: ignore
-                hou.session.flam3_CS.append(viewers_col) # type: ignore
+                hou.session.flam3h_viewport_CS = [] # type: ignore
+                hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
 
         if setprm:
-            if len(hou.session.flam3_CS) == 0: # type: ignore
+            if len(hou.session.flam3h_viewport_CS) == 0: # type: ignore
                 if col == Light or col == Grey:
                     settings.setColorScheme(Dark)
             else:
                 if col == Light or col == Grey:
                     settings.setColorScheme(Dark)
-                elif col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3_CS[count] == Light: # type: ignore
+                elif col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
+                    if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
                         settings.setColorScheme(Light)
-                    elif hou.session.flam3_CS[count] == Grey: # type: ignore
+                    elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
                         settings.setColorScheme(Grey)
 
         else:
-            if col == Dark and hou.session.flam3_CS[count] != Dark: # type: ignore
-                if hou.session.flam3_CS[count] == Light: # type: ignore
+            if col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
+                if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
                     settings.setColorScheme(Light)
-                elif hou.session.flam3_CS[count] == Grey: # type: ignore
+                elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
                     settings.setColorScheme(Grey)
         count += 1
     
     # Update history
-    hou.session.flam3_CS = [] # type: ignore
-    hou.session.flam3_CS = viewers_col # type: ignore
+    hou.session.flam3h_viewport_CS = [] # type: ignore
+    hou.session.flam3h_viewport_CS = viewers_col # type: ignore
 
 
 def viewportParticleDisplay(self: hou.Node) -> None:
