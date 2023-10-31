@@ -2755,12 +2755,15 @@ iterator_keep_last_weight(self) -> None:
                             else:
                                 pass
                             
+            # DEL Last
             # If we removed the very last iterator and it was marked
             elif idx_del_inbetween is not None and idx_del_inbetween == iter_num:
                 _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                
                 if _FLAM3H_DATA_PRM_MPIDX == iter_num:
                     # updated CachedUserData: flam3h_xaos_iterators_prev
                     self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
+                    
                 else:
                     if _FLAM3H_DATA_PRM_MPIDX is not -1:
                         # set
