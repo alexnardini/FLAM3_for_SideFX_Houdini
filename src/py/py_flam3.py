@@ -3683,10 +3683,10 @@ FLAM3H will undo to what you had before.
 
 As a geneal rule,
 as long as the string start with the word “xaos”,
-FLAM3H will always undo to what you had before if anything invalid is typed after.
+FLAM3H will always undo to what you had before if any invalid character is typed after.
 
 If you dnt use the “xaos” keywork at the beginning,
-the entire xaos string will be reset with all the weights of value: 1
+the entire xaos string will be reset to all weights with value: 1
 
 If you just type “0” ( Zero ),
 the entire xaos string will be reset to all weights with value: 0 ( Zero )"""
