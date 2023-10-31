@@ -810,17 +810,7 @@ flam3h_on_loaded(self) -> None:
             node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
             
             # init/clear copy/paste iterator's data and prm
-            hou.session.flam3h_node = node # type: ignore
-            hou.session.flam3h_node_mp_id = None # type: ignore
-            hou.session.flam3h_node_FF = node # type: ignore
-            hou.session.flam3h_node_FF_check = None # type: ignore
-            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
-                # unlock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
-                # lock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
 
 
     # Wip
@@ -957,8 +947,8 @@ reset_PREFS(self, mode=0) -> None:
         return self._node
     
 
-
-
+                
+                
     def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
         """Initialize parameter's menu presets for the CP, IN and OUT tabs.
         
@@ -1548,6 +1538,23 @@ iterator_keep_last_weight(self) -> None:
     def affine_defaults(self):
         return self._affine_defaults
     
+    
+    
+    def flam3h_paste_reset_hou_session_data(self) -> None:
+        """init/clear copy/paste iterator's data and prm
+        """        
+        node = self.node
+        if node == hou.session.flam3h_node:  # type: ignore
+            hou.session.flam3h_node_mp_id = None # type: ignore
+            hou.session.flam3h_node_FF = node # type: ignore
+            hou.session.flam3h_node_FF_check = None # type: ignore
+            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+                # unlock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                # lock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
     
 
     def menu_global_density(self) -> list:
@@ -2636,17 +2643,7 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
         # init/clear copy/paste iterator's data and prm
-        if node == hou.session.flam3h_node:  # type: ignore
-            hou.session.flam3h_node_mp_id = None # type: ignore
-            hou.session.flam3h_node_FF = node # type: ignore
-            hou.session.flam3h_node_FF_check = None # type: ignore
-            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
-                # unlock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
-                # lock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+        flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
         
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
@@ -6567,17 +6564,7 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
                 
             # init/clear copy/paste iterator's data and prm
-            if node == hou.session.flam3h_node:  # type: ignore
-                hou.session.flam3h_node_mp_id = None # type: ignore
-                hou.session.flam3h_node_FF = node # type: ignore
-                hou.session.flam3h_node_FF_check = None # type: ignore
-                if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
-                    # unlock
-                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                    # set
-                    node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
-                    # lock
-                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
