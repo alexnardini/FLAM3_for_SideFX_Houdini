@@ -1845,6 +1845,7 @@ iterator_keep_last_weight(self) -> None:
         try:
             hou.session.flam3h_iterator_node.type() # type: ignore
             mp_id_from = hou.session.flam3h_iterator_node_mp_idx # type: ignore
+            
             if node == from_FLAM3H_NODE:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
@@ -1914,6 +1915,7 @@ iterator_keep_last_weight(self) -> None:
                 elif node != from_FLAM3H_NODE:
                     assert from_FLAM3H_NODE is not None
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> {MARK_ITER_MSG} to copy parameter's values from."
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
@@ -1958,6 +1960,7 @@ iterator_keep_last_weight(self) -> None:
                     _MSG = f"{str(node)}: This iterator is Unmarked already:  {str(id)}   Unmarked removed iterator -> {str(hou.session.flam3h_iterator_node_mp_idx)}" # type: ignore
                 else:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> {str(id)}"
+                    
                 hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
@@ -1975,6 +1978,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 assert from_FLAM3H_NODE is not None
                 __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} ->  Mark an existing iterator instead." # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
