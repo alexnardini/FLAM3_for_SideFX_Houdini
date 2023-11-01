@@ -3664,6 +3664,9 @@ ui_active_iterator_infos(self) -> None:
 Xaos is fully automatic,
 howver below are some general rules on how it work:
 
+
+XAOS USAGE:
+
 To set XAOS for a flame with 4 iterators,
 use the " xaos: " keyword followed by each iterator weights values separated by a colon:
 \" xaos:1:2:3:4 \" ( xaos keyword can be uppercase too if you prefer. )
@@ -3678,18 +3681,21 @@ When turning iterators ON and OFF and removing or adding them,
 FLAM3H will internally remove and reformat XAOS values
 to account for missing iterators. In short, it is fully automatic.
 
+
+XAOS COMMAND OPTIONS:
+
 If you type a non-numeric character in any of the xaos's weights,
 FLAM3H will undo to what you had before.
-
-As a geneal rule,
-as long as the string start with the word “xaos”,
-FLAM3H will always undo to what you had before if any invalid character is typed after.
 
 If you dnt use the “xaos” keywork at the beginning,
 the entire xaos string will be reset to all weights with value: 1
 
-If you just type “0” ( Zero ),
-the entire xaos string will be reset to all weights with value: 0 ( Zero )"""
+If you type a number,
+the entire xaos string will be reset to all weights set to that number.
+
+If you type a floating point number,
+the entire xaos string will be reset to all weights set to the integer part of that number.
+ex: 123.876 will become -> 123"""
         
         node = self.node
         autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()

@@ -214,8 +214,8 @@ TAG:
     * PRE variations will be inside square brackets at the beginning of each iterator, or FF.
     * POST variations will be inside square brackets at the end of each iterator, or FF
     * The iterator's weight value will be the last in each iterator.
-    
     * The colons *:* indicate how many variation slots are still available ( 4 in case of an iterator VAR section, plus a last colon *:* as a separator from the iterator's weight).
+    * If an iterator is disabled, it will be displayed as: " *::::::::::* "
     
     TIP:
         The Tag icon will change when:
@@ -429,14 +429,14 @@ xaos:
     
     _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite points of view._
     
-    *Looking from an iterator's point of view*:
+    Looking from an iterator's point of view:
     - When in *xaos_TO* mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
     - When in *xaos_FROM* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
     - _*Note* that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *Curl* variation in the above diagram/image. )_
     
 
         
-    *How to set xaos in FLAM3H:*
+    *How to set xaos in FLAM3H*:
         
     - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator's weight values separated by a colon: *xaos:1:2:3:4*.
     - When the *auto space xaos weights* option is ON ( it is OFF by default ), the xaos keyword will look like this: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work.
@@ -444,11 +444,12 @@ xaos:
     - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
     - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
+    *XAOS command option*:
     
     - If you type a non-numeric character in any of the xaos's weights, FLAM3H will undo to what you had before.
-    - As a geneal rule, as long as the string start with the word "*_xaos_*", FLAM3H will alway undo to what you had before if anything invalid is typed after.
     - If you dnt use the "*_xaos_*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*
-    - If you just type "*_0_*" ( Zero ), the entire xaos string will be reset to all weights with value: *`0`* ( Zero )
+    - If you just type a number, the entire xaos string will be reset to all weights set to that number.
+    - If you just type a floating point number, the entire xaos string will be reset to all weights set to the integer part of that number. ( _ex: 123.876 will become -> 123_ )
     
     TIP:
         #display: orange
