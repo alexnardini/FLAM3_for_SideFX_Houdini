@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.22'
+FLAM3H_VERSION = '1.1.23'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -929,11 +929,7 @@ reset_PREFS(self, mode=0) -> None:
             list: [return a list of open scene viewers]
         """    
         views = hou.ui.paneTabs() # type: ignore
-        viewers = []
-        for v in views:
-            if isinstance(v, hou.SceneViewer):
-                viewers.append(v)
-        return viewers
+        return [v for v in views if isinstance(v, hou.SceneViewer)]
 
 
 
@@ -2546,11 +2542,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         # Iterators reset
         node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-        for p in node.parms():
-            if not p.isLocked():
-                p.deleteAllKeyframes()
-        # Add back iterators
-        # This way all parameters will reset to their default values.
+        [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
         node.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
         # update xaos
         self.auto_set_xaos()
@@ -2845,10 +2837,9 @@ iterator_keep_last_weight(self) -> None:
         _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
         
         if not iterators_count:
+            
             # delete channel references
-            for p in node.parms():
-                if not p.isLocked():
-                    p.deleteAllKeyframes()
+            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
                 
             # GLOBAL
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -3558,13 +3549,8 @@ Seph, Lucy, b33rheart, Neonrauschen"""
         node = self.node
         vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
         n = 6
-        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)] 
-        _vars = []
-        for idx, grp in enumerate(vars_sorted_grp):
-            if idx == (len(vars_sorted_grp)-1):
-                _vars.append(", ".join(grp))
-            else:
-                _vars.append(", ".join(grp) + "\n")
+        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
+        _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + "\n" for idx, grp in enumerate(vars_sorted_grp)]
         vars_txt = "".join(_vars)
         
         node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
@@ -4257,10 +4243,7 @@ class _xml_tree:
         """        
         if self._isvalidtree:
             root = self._tree.getroot()
-            flames = []    
-            for f in root.iter(key):
-                flames.append(f)
-            return tuple(flames)
+            return tuple([f for f in root.iter(key)])
         else:
             return None
 
@@ -4460,9 +4443,10 @@ class in_flame(_xml_tree):
             tuple: [a tuple of all xforms inside the selected flame or None]
         """
         if  self._isvalidtree:
-            xforms = []
-            for xf in self._flame[idx].iter(key):
-                xforms.append(xf.attrib)
+            xforms = [xf.attrib for xf in self._flame[idx].iter(key)]
+            # xforms = []
+            # for xf in self._flame[idx].iter(key):
+            #     xforms.append(xf.attrib)
             xforms_lower = []
             if xforms:
                 for xf in xforms:
@@ -4515,13 +4499,7 @@ class in_flame(_xml_tree):
         """           
         if  self._isvalidtree:
             if xforms is not None:
-                coefs = []
-                for xform in xforms:
-                    if xform.get(key) is not None:
-                        affine = [float(x) for x in xform.get(key).split()]
-                        coefs.append(tuple(self.affine_coupling(affine)))
-                    else:
-                        coefs.append([])
+                coefs = [tuple(self.affine_coupling([float(x) for x in xform.get(key).split()])) if xform.get(key) is not None else [] for xform in xforms ]
                 if not max(list(map(lambda x: len(x), coefs))):
                     return None
                 else:
@@ -4598,16 +4576,14 @@ class in_flame(_xml_tree):
             if palette_attrib is not None:
                 palette_hex = self._flame[idx].find(key).text
                 format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
+                
                 HEX = []
                 for line in palette_hex.splitlines():
                     cleandoc = inspect.cleandoc(line)
                     if(len(cleandoc)>1):
                         [HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 try:
-                    rgb_from_XML_PALETTE = []
-                    for hex in HEX:
-                        x = flam3h_palette_utils.hex_to_rgb(hex)
-                        rgb_from_XML_PALETTE.append((x[0]/(255 + 0.0), x[1]/(255 + 0.0), x[2]/(255 + 0.0)))
+                    rgb_from_XML_PALETTE = [(flam3h_palette_utils.hex_to_rgb(hex)[0]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[1]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[2]/(255 + 0.0)) for hex in HEX]
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
@@ -5149,7 +5125,7 @@ reset_IN(self, mode=0) -> None:
     def in_get_xforms_var_keys( xforms: Union[tuple, None], 
                                 vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
                                 exclude_keys: tuple
-                                ) -> Union[list[str], None]:
+                                ) -> Union[list, None]:
         """Return a list of all the variation names included in all xforms compared against the available FLAM3H variations.
         This is used to find variation names and PRE and POST variation names based on the provided vars argument.
         
@@ -5164,13 +5140,9 @@ reset_IN(self, mode=0) -> None:
         if xforms is not None:
             vars_keys = []
             if type(vars) is dict:
-                for xf in xforms:
-                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))))  # type: ignore
+                return [list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
             else:
-                for xf in xforms:
-                    vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))))  # type: ignore
-
-            return vars_keys
+                return [list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
         else:
             return None
         
@@ -5199,7 +5171,7 @@ reset_IN(self, mode=0) -> None:
                                 vars: dict, 
                                 prx: str, 
                                 exclude_keys: tuple
-                                ) -> Union[list[str], None]:
+                                ) -> Union[list, None]:
         """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.
 
         Args:
@@ -5212,12 +5184,7 @@ reset_IN(self, mode=0) -> None:
             Union[list[str], None]: return the a list of variations found using the prefix criteria
         """  
         if xforms is not None:
-            vars_keys = []
-            for xf in xforms:
-                # Note the: vars.get(in_util_removeprefix(x, prx)[0]
-                # as we need to remove the prefix in order to get the correct dictionary letter the processed variation start with, hence the [0]
-                vars_keys.append(list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys())))))) # type: ignore
-            return vars_keys
+            return [list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
         else:
             return None
         
@@ -5486,10 +5453,7 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_NULL)
 
-        for idx, prm in enumerate(var_prm[1:-1]):
-            if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) # type: ignore
-            else: node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
-
+        [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         if mode:
             node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
             node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
@@ -5537,10 +5501,8 @@ reset_IN(self, mode=0) -> None:
                                                          mp_idx, 
                                                          v_type, 
                                                          in_flame_utils.in_util_make_PRE)
-            
-        for idx, prm in enumerate(var_prm[1:-1]):
-            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
-
+        
+        [node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on pre variations with parametric so:
         node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
@@ -5585,10 +5547,8 @@ reset_IN(self, mode=0) -> None:
                                                          mp_idx, 
                                                          v_type, 
                                                          in_flame_utils.in_util_make_POST)
-            
-        for idx, prm in enumerate(var_prm[1:-1]):
-            node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) # type: ignore
-
+        
+        [node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
         node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
@@ -5628,9 +5588,7 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_PRE)
             
-        for idx, prm in enumerate(var_prm[1:-1]):
-            node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
-
+        [node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
@@ -5670,9 +5628,7 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_POST)
             
-        for idx, prm in enumerate(var_prm[1:-1]):
-            node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) # type: ignore
-
+        [node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
@@ -6047,13 +6003,8 @@ reset_IN(self, mode=0) -> None:
 
         Returns:
             str: The final message without the extra empty line at the end.
-        """        
-        vars = []
-        for id, grp in enumerate(groups):
-            if id < len(groups)-1:
-                vars.append(", ".join(grp) + "\n")
-            else:
-                vars.append(", ".join(grp))
+        """     
+        vars = [", ".join(grp) + "\n" if id < len(groups)-1 else ", ".join(grp) for id, grp in enumerate(groups)]   
         return ''.join(vars)
 
 
@@ -6481,9 +6432,7 @@ reset_IN(self, mode=0) -> None:
             
             # iterators
             node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-            for p in node.parms():
-                if not p.isLocked():
-                    p.deleteAllKeyframes()
+            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
             node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
             
             # RIP
@@ -6792,11 +6741,7 @@ out_XML(self) -> None:
                     is_int = False
                     
                 if is_int is False:
-                    rp_clean = []
-                    for item in rp:
-                        item_cleaned = ''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
-                        rp_clean.append(item_cleaned)
-                        
+                    rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
                     flame_name_new = ' '.join(rp_clean) + div + str(iter_num)
                     return flame_name_new.strip()
                 else:
@@ -7237,12 +7182,7 @@ out_XML(self) -> None:
         """    
         xaos_no_vactive = []
         for x in fill:
-            collect = []
-            for idx, item in enumerate(x):
-                if node.parm(f"{prm}_{idx+1}").eval():
-                    collect.append(str(item))
-                else:
-                    continue
+            collect = [str(item) for idx, item in enumerate(x) if node.parm(f"{prm}_{idx+1}").eval()]
             if collect:
                 xaos_no_vactive.append(collect)
             else:
@@ -7260,8 +7200,7 @@ out_XML(self) -> None:
             index (int, optional): _description_. Defaults to -1.
             depth (int, optional): _description_. Defaults to 0.
         """        
-        for i, node in enumerate(current):
-            out_flame_utils._out_pretty_print(node, current, i, depth + 1)
+        [out_flame_utils._out_pretty_print(node, current, i, depth + 1) for i, node in enumerate(current)]
         if parent is not None:
             if index == 0:
                 parent.text = '\n' + ('  ' * depth)
@@ -7813,8 +7752,9 @@ out_XML(self) -> None:
                         flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
                         flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
 
-            _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else:
+                _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
 
@@ -7902,9 +7842,7 @@ out_XML(self) -> None:
     def __out_xf_preaffine(self) -> tuple:
         val = []
         for iter in range(self._iter_count):
-            collect = []
-            for prm in self._flam3h_iter.sec_preAffine[:-1]:
-                collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
+            collect = [self._node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self._flam3h_iter.sec_preAffine[:-1]]
             angleDeg = self._node.parm(f"{self._flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
             flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             val.append([str(x) for x in flatten])
@@ -7915,9 +7853,7 @@ out_XML(self) -> None:
         val = []
         for iter in range(self._iter_count):
             if self._node.parm(f"{self._flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
-                collect = []
-                for prm in self._flam3h_iter.sec_postAffine[1:-1]:
-                    collect.append(self._node.parmTuple(f"{prm[0]}{iter+1}").eval())
+                collect = [self._node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self._flam3h_iter.sec_postAffine[1:-1]]
                 angleDeg = self._node.parm(f"{self._flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
                 flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
                 val.append([str(x) for x in flatten])
@@ -7927,9 +7863,7 @@ out_XML(self) -> None:
 
 
     def __out_finalxf_preaffine(self) -> str:
-        collect = []
-        for prm in self._flam3h_iter_FF.sec_preAffine_FF[:-1]:
-            collect.append(self._node.parmTuple(f"{prm[0]}").eval())
+        collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self._flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg = self._node.parm(f"{self._flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         if angleDeg != 0.0:
             affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
@@ -7941,9 +7875,7 @@ out_XML(self) -> None:
     
     def __out_finalxf_postaffine(self) -> Union[str, bool]:
         if self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.postaffine_do}").eval():
-            collect = []
-            for prm in self._flam3h_iter_FF.sec_postAffine_FF[1:-1]:
-                collect.append(self._node.parmTuple(f"{prm[0]}").eval())
+            collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self._flam3h_iter_FF.sec_postAffine_FF[1:-1]]
             angleDeg = self._node.parm(f"{self._flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if angleDeg != 0.0:
                 affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
@@ -7957,9 +7889,7 @@ out_XML(self) -> None:
         
     def __out_palette_hex(self) -> str:
         POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-        HEXs = []
-        for p in POSs:
-            HEXs.append(flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))))
+        HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))) for p in POSs]
         n = 8
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
         hex_join = []
