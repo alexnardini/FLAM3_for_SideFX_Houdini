@@ -2707,7 +2707,8 @@ iterator_keep_last_weight(self) -> None:
                     break
             
             # DEL
-            if idx_del_inbetween is not None and idx_del_inbetween < iter_num:
+            if idx_del_inbetween is not None:
+
                 xaos_str = xaos_str_hou_get
                 del xaos_str[idx_del_inbetween]
                 for x in xaos_str:
@@ -2743,29 +2744,11 @@ iterator_keep_last_weight(self) -> None:
                                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                             else:
                                 pass
-                            
-            # DEL Last
-            # If we removed the very last iterator and it was marked
-            elif idx_del_inbetween is not None and idx_del_inbetween == iter_num:
-                _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                
-                if _FLAM3H_DATA_PRM_MPIDX == iter_num:
-                    # updated CachedUserData: flam3h_xaos_iterators_prev
-                    self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
-                    
-                else:
-                    if _FLAM3H_DATA_PRM_MPIDX is not -1:
-                        # set
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
-                        # Let us know
-                        _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG} to copy parameter's values from."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                        # updated CachedUserData: flam3h_xaos_iterators_prev
-                        self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_str)
 
             # otherwise ADD
             # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
             elif idx_add_inbetween is not None:
+
                 for xidx, x in enumerate(xaos_str):
                     if xidx != idx_add_inbetween:
                         x.insert(idx_add_inbetween, '1.0')
