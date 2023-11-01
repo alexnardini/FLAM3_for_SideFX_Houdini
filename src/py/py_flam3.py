@@ -2765,7 +2765,7 @@ iterator_keep_last_weight(self) -> None:
                                 pass
             
             # DEL
-            if idx_del_inbetween is not None and idx_del_inbetween < iter_num:
+            elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
 
                 xaos_str = xaos_str_hou_get
                 del xaos_str[idx_del_inbetween]
