@@ -7145,10 +7145,14 @@ out_XML(self) -> None:
         """        
         val = []
         val_prev = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV)
+        
         for iter in range(iter_count):
             iter_xaos = node.parm(f"{prm}_{iter+1}").eval()
+            
+            # If the xaos string is not empty
             if iter_xaos:
                 strip = iter_xaos.split(':')
+                
                 # if you just type "xaos" only
                 if iter_xaos.lower().strip() == 'xaos':
                     if val_prev is not None:
@@ -7156,6 +7160,7 @@ out_XML(self) -> None:
                         val.append(val_prev[iter])
                     else:
                         val.append([])
+                        
                 # if the first element of the strip is: "xaos"
                 elif strip[0].lower().strip() == 'xaos':
                     try:
@@ -7173,27 +7178,35 @@ out_XML(self) -> None:
                         else:
                             # Otherwise reset to all values of 1
                             val.append([])
+                            
                 # If the split fail to validate and it just start with the word: 'xaos'
                 elif str(iter_xaos.lower().strip()).startswith('xaos'):
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
                     else:
+                        # Otherwise reset to all values of 1
                         val.append([])
-                # Fill with: 1
-                elif str(iter_xaos.lower().strip()).startswith('1'):
-                    v = []
-                    [v.append(str(1)) for x in range(iter_count)]
-                    val.append(v)
-                # Fill with: 0
-                elif str(iter_xaos.lower().strip()).startswith('0'):
-                    v = []
-                    [v.append(str(0)) for x in range(iter_count)]
-                    val.append(v)
+                        
                 else:
-                    # Otherwise reset to all values of 1
-                    val.append([])
+                    isNUM = False
+                    try:
+                        if isinstance(float(iter_xaos.lower().strip()), float):
+                            isNUM = True
+                    except:
+                        pass
+                    
+                    # If a number is typed, fill all xaos weights with that number
+                    # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
+                    if isNUM:
+                        v = []
+                        [v.append(str(int(float(iter_xaos.lower().strip())))) for x in range(iter_count)]
+                        val.append(v)
+                    else:
+                        # Otherwise reset to all values of 1
+                        val.append([])
             else:
+                # Otherwise reset to all values of 1
                 val.append([])
                 
         return val
