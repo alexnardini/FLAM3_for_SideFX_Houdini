@@ -2041,7 +2041,9 @@ iterator_keep_last_weight(self) -> None:
         if self.kwargs["ctrl"]:
             self.prm_paste_CTRL(id)
         elif self.kwargs["shift"]:
-            self.prm_paste_SHIFT(id)    
+            self.prm_paste_SHIFT(id)
+        elif self.kwargs["alt"]:
+            pass
         else:
             self.prm_paste_CLICK(id)
     
@@ -2107,6 +2109,9 @@ iterator_keep_last_weight(self) -> None:
                     else:
                         _MSG = f"{str(node)}: This FF is Unmarked already"
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                        
+            elif self.kwargs["alt"]:
+                pass
 
             else:
                 if flam3node_FF_check and node == flam3node_FF:
