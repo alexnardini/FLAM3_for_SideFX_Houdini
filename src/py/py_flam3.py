@@ -1343,7 +1343,7 @@ iterator_keep_last_weight(self) -> None:
                     else:
                         prm_to.set(prm_from.eval())
         else:
-            _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist."
+            _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 
     
