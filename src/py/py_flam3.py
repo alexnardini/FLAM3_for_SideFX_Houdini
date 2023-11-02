@@ -1099,10 +1099,7 @@ reset_PREFS(self, mode=0) -> None:
             # Updated dark preference's option toggle on other FLAM3H nodes instances
             all_f3h = self.node.type().instances()
             if len(all_f3h) > 1:
-                for f3h in all_f3h:
-                    if f3h != node:
-                        if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm:
-                            f3h.setParms({PREFS_VIEWPORT_DARK: setprm})
+                [f3h.setParms({PREFS_VIEWPORT_DARK: setprm}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm]
         
         # Update history
         hou.session.flam3h_viewport_CS = [] # type: ignore
@@ -1130,10 +1127,7 @@ reset_PREFS(self, mode=0) -> None:
         # Updated Point Display type preference's option toggle on other FLAM3H nodes instances
         all_f3h = self.node.type().instances()
         if len(all_f3h) > 1:
-            for f3h in all_f3h:
-                if f3h != node:
-                    if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype:
-                        f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype})
+            [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
                 
                 
     def viewportParticleSize(self) -> None:
@@ -1151,9 +1145,7 @@ reset_PREFS(self, mode=0) -> None:
             
         # Updated Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
-            for f3h in self.node.type().instances():
-                if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize:
-                    f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize})
+            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in self.node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
             
             
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
@@ -1328,27 +1320,25 @@ iterator_keep_last_weight(self) -> None:
             id (str): [current multiparamter index]
             id_from (str): [multiparameter index to copy from]
         """    
+        
         for prm in prm_list:
-            # if a tuple
-            if prm[1]:
-                if flam3node is not None:
+            if flam3node is not None:
+                # if a tuple
+                if prm[1]:
                     prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
                     prm_to = node.parmTuple(f"{prm[0]}{id}")
                     prm_idx = 0
                     for p in prm_from:
                         if len(p.keyframes()):
-                            for k in p.keyframes():
-                                prm_to[prm_idx].setKeyframe(k)
+                            [prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()]
                         else:
                             prm_to[prm_idx].set(p.eval())
                         prm_idx += 1
-            else:
-                if flam3node is not None:
+                else:
                     prm_from = flam3node.parm(f"{prm[0]}{id_from}")
                     prm_to = node.parm(f"{prm[0]}{id}")
                     if len(prm_from.keyframes()):
-                        for k in prm_from.keyframes():
-                            prm_to.setKeyframe(k)
+                        [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
                     else:
                         prm_to.set(prm_from.eval())
     
@@ -3452,6 +3442,7 @@ reset_CP(self, mode=0) -> None:
             mode (int, optional): _description_. Defaults to 0. 2 to reset the HSV vals. 3 to reset the palette to its default colors/keys.
         """        
         node = self.node
+        
         if not mode:
             # CP
             node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
@@ -3462,6 +3453,7 @@ reset_CP(self, mode=0) -> None:
             color_keys = [0.0, 0.5, 1.0]
             color_values = [(1,0,0), (0,1,0), (0,0,1)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+            
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
             if fsum(_hsv) != float(3):
@@ -3472,6 +3464,7 @@ reset_CP(self, mode=0) -> None:
             else:
                 _MSG = f"{str(node)}: PALETTE HSV -> already at its default values."
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
@@ -3482,6 +3475,7 @@ reset_CP(self, mode=0) -> None:
             # Print out to Houdini's status bar
             _MSG = f"{str(node)}:PALETTE -> RESET"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            
         # Update ramp py 
         self.palette_cp()
         self.palette_hsv()
@@ -3540,73 +3534,69 @@ flam3h_about_web_flam3_github(self) -> None:
         """Build and set the FLAM3H about message.
         """    
         
-        node = self.node
-        
         nl = "\n"
         nnl = "\n\n"
             
         year = datetime.now().strftime("%Y")
         
-        flam3h_cvex_version = f"CVEX H19.x.x"
+        flam3h_cvex_version = f"Code language: CVEX H19.x.x"
         hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
         if hou_version >= 19:
-            flam3h_cvex_version = f"CVEX H{str(hou_version)}.x.x"
-            
+            flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
         flam3h_python_version = f"Python 3.9.10"
         flam3h_houdini_version = f"Version: {FLAM3H_VERSION}"
         Implementation_years = f"2020/{year}"
-        Implementation_build = f"{flam3h_author}\nCode language: {flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
+        Implementation_build = f"{flam3h_author}\n{flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         
         code_references = """Code references:
 flam3 :: (GPL v2)
 Apophysis :: (GPL)
 Fractorium :: (GPL v3)"""
+
+        example_flames = """Example flames:
+C-91, Gabor Timar, Golubaja, Pillemaster,
+Plangkye, Tatasz, Triptychaos, TyrantWave,
+Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
         
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
         Houdini_version = f"Host:\nSideFX Houdini {h_version}"
         Python_version = f"Python: {python_version()}"
         license_type = str(hou.licenseCategory()).split(".")[-1]
         Houdini_license = f"License: {license_type}"
-        Platform = f"Platform: {hou.applicationPlatformInfo()}"
-        PC_name = f"Machine name: {hou.machineName()}"
         User = f"User: {hou.userName()}"
+        PC_name = f"Machine name: {hou.machineName()}"
+        Platform = f"Platform: {hou.applicationPlatformInfo()}"
         
-        example_flames = """example Flames:
-C-91, Gabor Timar, Golubaja, Pillemaster,
-Plangkye, Tatasz, Triptychaos, TyrantWave, Zy0rg,
-Seph, Lucy, b33rheart, Neonrauschen"""
-        
-        build = (Implementation_build, nnl,
-                code_references, nnl,
-                example_flames, nnl,
-                Houdini_version, nl,
-                Houdini_license, nl,
-                Python_version, nl,
-                Platform, nl,
-                PC_name, nl,
-                User
-                )
+        build = (   Implementation_build, nnl,
+                    code_references, nnl,
+                    example_flames, nnl,
+                    Houdini_version, nl,
+                    Houdini_license, nl,
+                    Python_version, nl,
+                    User, nl,
+                    PC_name, nl,
+                    Platform
+                    )
         
         build_about_msg = "".join(build)
-
-        node.setParms({MSG_FLAM3H_ABOUT: build_about_msg}) # type: ignore
+        self.node.setParms({MSG_FLAM3H_ABOUT: build_about_msg}) # type: ignore
 
 
     def flam3h_about_plugins_msg(self) -> None:
         """Build and set the FLAM3H about plugins message.
         """    
-        node = self.node
         vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
         n = 6
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
         _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + "\n" for idx, grp in enumerate(vars_sorted_grp)]
         vars_txt = "".join(_vars)
-        
-        node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
+        self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
         
         
     def flam3h_about_web_msg(self) -> None:
+        """Build and set the FLAM3H about web heading's msgs.
+        """    
         
         node = self.node
         
@@ -5394,8 +5384,9 @@ reset_IN(self, mode=0) -> None:
 
         Returns:
             str: The variation string name.
-        """        
-        return list(mydict.keys())[list(mydict.values()).index(idx)]
+        """       
+        var_name = list(mydict.keys())[list(mydict.values()).index(idx)] 
+        return var_name
     
     
     @staticmethod
@@ -7840,8 +7831,8 @@ out_XML(self) -> None:
             print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
             return ''
 
+
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
-        
         flame_name = self._node.parm(prm_name).eval()
         autoadd = self._node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
         
@@ -7854,30 +7845,21 @@ out_XML(self) -> None:
         
         
     def __out_xf_data(self, prm_name: str) -> tuple:
-        val = []
-        for iter in range(self._iter_count):
-            val.append(str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())))
+        val = [str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())) for iter in range(self._iter_count)]
         return tuple(val)
 
 
     def __out_xf_name(self) -> tuple:
-        val = []
-        for iter in range(self._iter_count):
-            val.append(self._node.parm(f"{self._flam3h_iter_prm_names.main_note}_{iter+1}").eval())
+        val = [self._node.parm(f"{self._flam3h_iter_prm_names.main_note}_{iter+1}").eval() for iter in range(self._iter_count)]
         return tuple(val)
+    
     
     def __out_finalxf_name(self) -> str:
         return self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.main_note}").eval()
 
     
     def __out_xf_pre_blur(self) -> tuple:
-        val = []
-        for iter in range(self._iter_count):
-            value = self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval()
-            if value > 0.0:
-                val.append(str(self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval()))
-            else:
-                val.append('')
+        val = [str( self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() ) if self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() > 0 else '' for iter in range(self._iter_count)]
         return tuple(val)
 
 
@@ -7940,11 +7922,8 @@ out_XML(self) -> None:
         POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))) for p in POSs]
         n = 8
-        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]  
-        hex_join = []
-        for grp in hex_grp:
-            # 6 time \s
-            hex_join.append("      " + "".join(grp) + "\n")
+        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)] 
+        hex_join = ["      " + "".join(grp) + "\n" for grp in hex_grp] # 6 time \s
         return "\n" + "".join(hex_join) + "    " # 4 times \s
         
     
@@ -7970,6 +7949,7 @@ out_XML(self) -> None:
             print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
             return False
         
+        
     # custom to FLAM3H only
     def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
 
@@ -7981,6 +7961,7 @@ out_XML(self) -> None:
                 return False
         else:
             return False
+        
         
     # custom to FLAM3H only
     def __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
