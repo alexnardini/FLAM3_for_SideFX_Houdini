@@ -2915,32 +2915,19 @@ iterator_keep_last_weight(self) -> None:
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
             
+            # init/clear copy/paste iterator's data and prm
+            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
+            
             # Print to Houdini's status bar
             _MSG = f"{str(node)}: {_MSG_str}"
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
-            # Handle copy/paste iterator's data
-            try:
-                hou.session.flam3h_iterator_node.type() # type: ignore
-                flam3node = hou.session.flam3h_iterator_node # type: ignore
-            except:
-                flam3node = None
-                
-            if flam3node is not None and  node == flam3node:
-                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
-                hou.session.flam3h_FF_node_check = None # type: ignore
-                # unlock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
-                # lock
-                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-            
         else:
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
-            sm = hou.ui.statusMessage() # type: ignore
-            if  _MSG_str in sm[0]:
+            
+            # Clear status bar msg
+            if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
                 hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
 
 
@@ -4277,12 +4264,7 @@ class _xml_tree:
         """        
         if self._isvalidtree:
             root = self._tree.getroot()
-            names = []
-            for name in root:
-                if name.get(key) is not None:
-                    names.append(name.get(key))
-                else:
-                    names.append([])
+            names = [name.get(key) if name.get(key) is not None else [] for name in root]
             return tuple(names)
         else:
             return None
@@ -4500,9 +4482,6 @@ class in_flame(_xml_tree):
         """
         if  self._isvalidtree:
             xforms = [xf.attrib for xf in self._flame[idx].iter(key)]
-            # xforms = []
-            # for xf in self._flame[idx].iter(key):
-            #     xforms.append(xf.attrib)
             xforms_lower = []
             if xforms:
                 for xf in xforms:
@@ -4528,13 +4507,7 @@ class in_flame(_xml_tree):
             Union[tuple, None]: [either a list of xaos strings or None]
         """        
         if  self._isvalidtree:
-            xaos = []
-            for xform in xforms:
-                if xform.get(key) is not None:
-                    chaos = ":".join(xform.get(key).split())
-                    xaos.append(f"xaos:{chaos}")
-                else:
-                    xaos.append([])
+            xaos = [f"xaos:{':'.join(xf.get(key).split())}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))):
                 return None
             else:
