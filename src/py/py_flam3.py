@@ -5167,7 +5167,6 @@ reset_IN(self, mode=0) -> None:
             Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
         """    
         if xforms is not None:
-            vars_keys = []
             if type(vars) is dict:
                 return [list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
             else:
