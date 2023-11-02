@@ -1321,8 +1321,9 @@ iterator_keep_last_weight(self) -> None:
             id_from (str): [multiparameter index to copy from]
         """    
         
-        for prm in prm_list:
-            if flam3node is not None:
+        if flam3node is not None:
+            
+            for prm in prm_list:
                 # if a tuple
                 if prm[1]:
                     prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
@@ -1341,9 +1342,9 @@ iterator_keep_last_weight(self) -> None:
                         [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
                     else:
                         prm_to.set(prm_from.eval())
-            else:
-                _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+        else:
+            _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist."
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 
     
     @staticmethod           
