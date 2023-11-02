@@ -3538,14 +3538,21 @@ flam3h_about_web_flam3_github(self) -> None:
 
     def flam3h_about_msg(self) -> None:
         """Build and set the FLAM3H about message.
-        """        
+        """    
+        
         node = self.node
+        
         nl = "\n"
         nnl = "\n\n"
-
+            
         year = datetime.now().strftime("%Y")
+        
+        flam3h_cvex_version = f"CVEX H19.x.x"
+        hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+        if hou_version >= 19:
+            flam3h_cvex_version = f"CVEX H{str(hou_version)}.x.x"
+            
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
-        flam3h_cvex_version = f"CVEX H19.x"
         flam3h_python_version = f"Python 3.9.10"
         flam3h_houdini_version = f"Version: {FLAM3H_VERSION}"
         Implementation_years = f"2020/{year}"
