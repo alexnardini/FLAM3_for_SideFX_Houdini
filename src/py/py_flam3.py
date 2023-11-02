@@ -6099,6 +6099,7 @@ reset_IN(self, mode=0) -> None:
         
         # checks
         pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
+        
         for item in apo_data.pre_blur:
             if item:
                 pb_bool = True
@@ -6121,6 +6122,7 @@ reset_IN(self, mode=0) -> None:
             
         # checks msgs
         opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
+        
         if opacity_bool:
             opacity_bool_msg = "YES"
         if post_bool:
@@ -6138,6 +6140,7 @@ reset_IN(self, mode=0) -> None:
         post = f"post affine: {post_bool_msg}"
         opacity = f"opacity: {opacity_bool_msg}"
         xaos = f"xaos: {xaos_bool_msg}"
+        
         if flam3h_mb_bool:
             mb = f"Motion blur{nnl}"
         else:
@@ -6159,21 +6162,27 @@ reset_IN(self, mode=0) -> None:
             palette_count_format = f"Palette not found."
         
         exclude_keys = XML_XF_KEY_EXCLUDE
+        
         if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+            
         vars_keys = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
         vars_keys_PRE = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
         vars_keys_POST = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
 
         # FF
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
+        
         if ff_bool:
             vars_keys_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
             vars_keys_PRE_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
             vars_keys_POST_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+            
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
+        
         if pb_bool:
             vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
+            
         result_sorted = in_flame_utils.in_util_vars_flatten_unique_sorted(vars_all, in_flame_utils.in_util_make_NULL) # type: ignore
         
         n = 5
@@ -6193,10 +6202,12 @@ reset_IN(self, mode=0) -> None:
         vars_keys_from_fractorium_post = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
         
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
+        
         if ff_bool:
             vars_keys_from_fractorium_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
             vars_keys_from_fractorium_pre_FF = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
             vars_keys_from_fractorium_post_FF = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+        
         vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
         result_sorted_fractorium = in_flame_utils.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, in_flame_utils.in_util_make_NULL)
         
@@ -6204,29 +6215,32 @@ reset_IN(self, mode=0) -> None:
         vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
         vars_missing_msg = ""
+        
         if vars_missing:
             vars_missing_msg = f"{nnl}MISSING:\n{in_flame_utils.in_util_join_vars_grp(result_grp_fractorium)}"
+            
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+        
         if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"flame lib file: LOCKED"
         else: flame_lib_locked = ''
-        # build full stats msg
-        build = ( flame_lib_locked, nl, sw, nnl,
-                name, nl,
-                palette_count_format, nl,
-                mb,
-                iter_count, nl,
-                post, nl,
-                opacity, nl,
-                xaos, nl,
-                ff_msg, nnl,
-                vars_used_msg,
-                vars_missing_msg )
-        build_stats_msg = "".join(build)
         
-        return build_stats_msg
+        # build full stats msg
+        build = (   flame_lib_locked, nl, sw, nnl,
+                    name, nl,
+                    palette_count_format, nl,
+                    mb,
+                    iter_count, nl,
+                    post, nl,
+                    opacity, nl,
+                    xaos, nl,
+                    ff_msg, nnl,
+                    vars_used_msg,
+                    vars_missing_msg )
+        
+        return "".join(build)
 
 
     @staticmethod
