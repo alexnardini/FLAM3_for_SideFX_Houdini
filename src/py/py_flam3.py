@@ -1280,7 +1280,7 @@ iterator_keep_last_weight(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._affine_defaults = ((1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0)
+        self._affine_defaults = ((1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0) # X, Y, O, Angle
 
 
     @staticmethod
@@ -1820,8 +1820,6 @@ iterator_keep_last_weight(self) -> None:
             
             mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside "from_FLAM3H_NODE".
             
-            mp_id_from_out_of_range  -> Multiparameter index is out of range. It has either been deleted or the iterator's count has been reduced.
-            
             isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """        
         
@@ -2147,20 +2145,25 @@ iterator_keep_last_weight(self) -> None:
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """    
-        # current node
-        node=self.node
+
+        node = self.node
         
-        # current iterator
-        id = self.kwargs['script_multiparm_index']
+        # Marked iterator ( not needed but just in case lets "try" so to speak )
+        try:
+            id_from = hou.session.flam3h_iterator_node_mp_idx # type: ignore
+        except:
+            id_from = None
 
-        # FLAM3 node and Iterator we just copied
-        flam3node = hou.session.flam3h_iterator_node # type: ignore
-        id_from = hou.session.flam3h_iterator_node_mp_idx # type: ignore
-
-        # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from is not None:
 
+            # current iterator
+            id = self.kwargs['script_multiparm_index']
+            
+            # FLAM3H parameter's names
             n = flam3h_iterator_prm_names
+
+            # Marked iterator node
+            flam3node = hou.session.flam3h_iterator_node # type: ignore
             
             # Get user selection of paste methods
             paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
@@ -2214,17 +2217,21 @@ iterator_keep_last_weight(self) -> None:
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """    
-        # current node
-        node=self.node
+        
+        node = self.node
 
-        # FLAM3 node and its state we just copied
-        flam3node_FF = hou.session.flam3h_FF_node # type: ignore
-        flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
-
-        # If we ever copied an FF from a currently existing FLAM3 node
+        # Marked FF check ( not needed but just in case lets "try" so to speak )
+        try:
+            flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
+        except:
+            flam3node_FF_check = None
+            
         if flam3node_FF_check is not None:
 
             n = flam3h_iterator_prm_names
+            
+            # Marked FF node
+            flam3node_FF = hou.session.flam3h_FF_node # type: ignore
             
             # Get user selection of paste methods
             ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
@@ -2820,9 +2827,7 @@ iterator_keep_last_weight(self) -> None:
                 
             # set all multi parms xaos strings parms
             xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
-            for mp_idx, xaos in enumerate(xaos_str_round_floats):
-                xaos_set = div_xaos + xaos
-                node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(mp_idx+1)}": xaos_set}) # type: ignore
+            [node.setParms({f"{flam3h_iterator_prm_names.xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)]
                 
             # lock
             node.parm(FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV).lock(True)
@@ -2833,8 +2838,7 @@ iterator_keep_last_weight(self) -> None:
         # reset iterator's mpmem prm
         [node.setParms({f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
         # update flam3h_xaos_mpmem
-        __mpmem_hou = []
-        [__mpmem_hou.append(int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+        __mpmem_hou = [int(node.parm(f"{flam3h_iterator_prm_names.main_mpmem}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_num)]
         
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_MP_MEM, __mpmem_hou)
