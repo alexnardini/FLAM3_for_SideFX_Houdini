@@ -1341,7 +1341,10 @@ iterator_keep_last_weight(self) -> None:
                         [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
                     else:
                         prm_to.set(prm_from.eval())
-    
+            else:
+                _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                
     
     @staticmethod           
     def pastePRM_T_from_list(node: hou.Node, flam3node: Union[hou.Node, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
