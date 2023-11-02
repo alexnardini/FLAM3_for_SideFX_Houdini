@@ -392,8 +392,7 @@ A:
     
 W:
     #id: FLAME
-    The iterator weight. Define the probability that this iterator is chosen during the chaos game.
-    The higher an iterator weight is compared to the others, the more iterations you may need to properly resolve the fractal Flame's shapes you are working on.
+    The Weight of this iterator. Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator weight is higher than the others.
     
 :box:
     #display: rounded white
@@ -487,12 +486,11 @@ location:
     
 speed:
     #id: FLAME
-    Speed of color blending between iterations. Values above ZERO attract the selected color while values below ZERO will repel it.
+    Speed of color blending between iterations. Values above 0 attract the selected color while values below 0 will repel it.
     
 opacity:
     #id: FLAME
-    The opacity of the current transform/iterator. Opacity 0 means it will be entirely transparent, and opacity 1, entirely opaque.
-    It can also be used to fine-tune your fractal Flame, making parts of it more or less prominent in addition to the iterator's weight.
+    This iterator's opacity. It will be fully opaque at opacity 1 and completely transparent at opacity 0. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's weight.
     
     TIP:
         When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore).
