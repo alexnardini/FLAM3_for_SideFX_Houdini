@@ -770,7 +770,7 @@ flam3h_on_loaded(self) -> None:
         self.flam3h_on_create_set_prefs_viewport()
         
         # Remove any comment and user data from the node
-        flam3h_general_utils.del_comment_and_user_data(node)
+        flam3h_general_utils.del_comment_and_user_data_iterator(node)
 
 
     def flam3h_on_loaded(self) -> None:
@@ -817,7 +817,7 @@ flam3h_on_loaded(self) -> None:
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
             
             # Remove any comment and user data from the node
-            flam3h_general_utils.del_comment_and_user_data(node)
+            flam3h_general_utils.del_comment_and_user_data_iterator(node)
 
 
     # Wip
@@ -892,7 +892,7 @@ reset_PREFS(self, mode=0) -> None:
         
     
     @staticmethod
-    def set_comment_and_user_data(node: hou.Node, comment: str, data_name="Marked iterator") -> None:
+    def set_comment_and_user_data_iterator(node: hou.Node, comment: str, data_name="Marked iterator") -> None:
         _node_info = "nodeinfo_"
         if node.userData(f"{_node_info}{data_name}") is None:
             node.setUserData(f"{_node_info}{data_name}", comment)
@@ -901,7 +901,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def del_comment_and_user_data(node: hou.Node, comment="", data_name="Marked iterator") -> None:
+    def del_comment_and_user_data_iterator(node: hou.Node, comment="", data_name="Marked iterator") -> None:
         _node_info = "nodeinfo_"
         if node.userData(f"{_node_info}{data_name}") is not None:
             node.destroyUserData(f"{_node_info}{data_name}")
@@ -1582,7 +1582,7 @@ iterator_keep_last_weight(self) -> None:
                     # lock
                     node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                     
-                    flam3h_general_utils.del_comment_and_user_data(node)
+                    flam3h_general_utils.del_comment_and_user_data_iterator(node)
     
 
     def menu_global_density(self) -> list:
@@ -1870,25 +1870,25 @@ iterator_keep_last_weight(self) -> None:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = _FLAM3H_DATA_PRM_MPIDX
                         hou.session.flam3h_iterator_node_mp_idx = mp_id_from  # type: ignore
-                        flam3h_general_utils.del_comment_and_user_data(node)
-                        flam3h_general_utils.set_comment_and_user_data(node, str(mp_id_from))
+                        flam3h_general_utils.del_comment_and_user_data_iterator(node)
+                        flam3h_general_utils.set_comment_and_user_data_iterator(node, str(mp_id_from))
                 else:
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
-                        flam3h_general_utils.del_comment_and_user_data(node)
+                        flam3h_general_utils.del_comment_and_user_data_iterator(node)
             else:
                 if __FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
                         mp_id_from = __FLAM3H_DATA_PRM_MPIDX
                         hou.session.flam3h_iterator_node_mp_idx = mp_id_from  # type: ignore
                         assert from_FLAM3H_NODE is not None
-                        flam3h_general_utils.del_comment_and_user_data(from_FLAM3H_NODE)
-                        flam3h_general_utils.set_comment_and_user_data(from_FLAM3H_NODE, str(mp_id_from))
+                        flam3h_general_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
+                        flam3h_general_utils.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
                 else:
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
                         assert from_FLAM3H_NODE is not None
-                        flam3h_general_utils.del_comment_and_user_data(from_FLAM3H_NODE)
+                        flam3h_general_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                         
         except:
             mp_id_from = None
@@ -1980,7 +1980,7 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                flam3h_general_utils.del_comment_and_user_data(node)
+                flam3h_general_utils.del_comment_and_user_data_iterator(node)
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
@@ -1997,7 +1997,7 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                flam3h_general_utils.del_comment_and_user_data(node)
+                flam3h_general_utils.del_comment_and_user_data_iterator(node)
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
         else:
@@ -2044,8 +2044,8 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                flam3h_general_utils.del_comment_and_user_data(node)
-                flam3h_general_utils.set_comment_and_user_data(node, str(id))
+                flam3h_general_utils.del_comment_and_user_data_iterator(node)
+                flam3h_general_utils.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_iterator_node_mp_idx)}" # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -2057,8 +2057,8 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                flam3h_general_utils.del_comment_and_user_data(node)
-                flam3h_general_utils.set_comment_and_user_data(node, str(id))
+                flam3h_general_utils.del_comment_and_user_data_iterator(node)
+                flam3h_general_utils.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{str(self.node)} -> This iterator is already Marked." # type: ignore
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -2072,8 +2072,8 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
             # lock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-            flam3h_general_utils.del_comment_and_user_data(node)
-            flam3h_general_utils.set_comment_and_user_data(node, str(id))
+            flam3h_general_utils.del_comment_and_user_data_iterator(node)
+            flam3h_general_utils.set_comment_and_user_data_iterator(node, str(id))
             
             # Reset the other node mp_idx data
             if from_FLAM3H_NODE is not None:
@@ -2083,7 +2083,7 @@ iterator_keep_last_weight(self) -> None:
                 from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
                 # lock
                 from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-                flam3h_general_utils.del_comment_and_user_data(from_FLAM3H_NODE)
+                flam3h_general_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
             _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.flam3h_iterator_node_mp_idx)}" # type: ignore
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -2775,7 +2775,7 @@ iterator_keep_last_weight(self) -> None:
                                 hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
                                 # set
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
-                                flam3h_general_utils.del_comment_and_user_data(node)
+                                flam3h_general_utils.del_comment_and_user_data_iterator(node)
                                 # Let us know
                                 _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG} to copy parameter's values from."
                                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
@@ -2816,15 +2816,15 @@ iterator_keep_last_weight(self) -> None:
                                 # set
                                 idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() - 1
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
-                                flam3h_general_utils.del_comment_and_user_data(node)
-                                flam3h_general_utils.set_comment_and_user_data(node, str(idx_new))
+                                flam3h_general_utils.del_comment_and_user_data_iterator(node)
+                                flam3h_general_utils.set_comment_and_user_data_iterator(node, str(idx_new))
 
                             elif (idx_del_inbetween+1) == flam3h_node_mp_id:
                                 
                                 hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
                                 # set
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
-                                flam3h_general_utils.del_comment_and_user_data(node)
+                                flam3h_general_utils.del_comment_and_user_data_iterator(node)
                                 # Let us know
                                 _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG} to copy parameter's values from."
                                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
@@ -2869,8 +2869,8 @@ iterator_keep_last_weight(self) -> None:
                                 # set
                                 idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() + 1
                                 node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
-                                flam3h_general_utils.del_comment_and_user_data(node)
-                                flam3h_general_utils.set_comment_and_user_data(node, str(idx_new))
+                                flam3h_general_utils.del_comment_and_user_data_iterator(node)
+                                flam3h_general_utils.set_comment_and_user_data_iterator(node, str(idx_new))
                                 
                             else:
                                 pass
@@ -6583,7 +6583,7 @@ reset_IN(self, mode=0) -> None:
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
             
             # Remove any comment and user data from the node
-            flam3h_general_utils.del_comment_and_user_data(node)
+            flam3h_general_utils.del_comment_and_user_data_iterator(node)
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
