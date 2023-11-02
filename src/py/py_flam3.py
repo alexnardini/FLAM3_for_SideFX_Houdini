@@ -7831,7 +7831,8 @@ out_XML(self) -> None:
     
     
     def __out_finalxf_name(self) -> str:
-        return self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.main_note}").eval()
+        FF_name = self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.main_note}").eval()
+        return FF_name
 
     
     def __out_xf_pre_blur(self) -> tuple:
