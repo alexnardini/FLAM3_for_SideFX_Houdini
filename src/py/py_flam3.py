@@ -2157,17 +2157,6 @@ iterator_keep_last_weight(self) -> None:
         flam3node = hou.session.flam3h_iterator_node # type: ignore
         id_from = hou.session.flam3h_iterator_node_mp_idx # type: ignore
 
-        # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.prmpastesel_# parameter
-        #
-        # If an iterator was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
-        '''
-        try:
-            flam3node.type()
-        except:
-            id_from = None
-        '''
-
         # If we ever copied an iterator from a currently existing FLAM3 node
         if id_from is not None:
 
@@ -2212,12 +2201,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, flam3node, flam3h_iterator.sec_postAffine, str(id), str(id_from))
                 self.paste_set_note(node, flam3node, 0, SEC_POSTAFFINE, str(id), str(id_from))
         
-            # Set it to a null value ( first in the menu array idx in this case )
-            # so that it's possible to paste the same section again, if needed.
-            #
-            # please check the def->menu_copypaste() to know its size.
             node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
-            node.parm(f"{n.main_prmpastesel}_{str(id)}").eval()
             
         else:
             _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
@@ -2236,17 +2220,6 @@ iterator_keep_last_weight(self) -> None:
         # FLAM3 node and its state we just copied
         flam3node_FF = hou.session.flam3h_FF_node # type: ignore
         flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
-
-        # WE DO THE FOLLOWING IN THE SCRIPTED MENU LIST -> FLAM3node.ffprmpastesel parameter
-        #
-        # If the FF was copied from a node that has been deleted
-        # revert to -1 so that we are forced to copy an iterator again.
-        '''
-        try:
-            flam3node_FF.type()
-        except:
-            flam3node_FF_check = None
-        '''
 
         # If we ever copied an FF from a currently existing FLAM3 node
         if flam3node_FF_check is not None:
@@ -2280,12 +2253,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postAffine_FF, "", "")
                 self.paste_set_note(node, flam3node_FF, 2, SEC_POSTAFFINE, "", "")
 
-            # Set it to a null value ( first in the menu array idx in this case )
-            # so that we can paste the same section again, if we want to.
-            #
-            # please check def->menu_copypaste_FF() to know its size.
             node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
-            node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
                     
         else:
             _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
