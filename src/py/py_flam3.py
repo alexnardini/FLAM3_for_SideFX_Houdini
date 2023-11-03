@@ -1328,8 +1328,20 @@ iterator_keep_last_weight(self) -> None:
                     node.setUserData(f"{data_name}", value)
                     node.setComment(f"{str(data_iter)}, FF")
                     node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-
-
+                    
+    # add to header  
+    @staticmethod
+    def exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
+        d_type = "nodeinfo_"
+        
+        data_name = f"{d_type}{data}"
+        
+        if node.userData(f"{data_name}") is None:
+            return False
+        else:
+            return True
+        
+    # add to header  
     @staticmethod
     def del_comment_and_user_data_iterator(node: hou.Node, data="Marked iterator") -> None:
         
@@ -1373,7 +1385,7 @@ iterator_keep_last_weight(self) -> None:
                     node.setComment(f"{str(data_iter)}")
                     node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
-
+    # add to header  
     @staticmethod
     def menu_T(mode: int) -> list:
         """Populate variation names parameter menu list.
@@ -1793,6 +1805,11 @@ iterator_keep_last_weight(self) -> None:
 
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
 
+        if not isDELETED:
+            if from_FLAM3H_NODE is not None:
+                if not self.exist_user_data(from_FLAM3H_NODE):
+                    mp_id_from = None
+
         if mp_id_from is not None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
@@ -1850,26 +1867,62 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """    
-
         menu=[]
-
+        
+        node = self.node
+        
+        # The following try/except blocks are not really needed
+        # becasue FLAM3H node will create and initialize those on creation
+        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        try:
+            hou.session.flam3h_FF_node # type: ignore
+        except:
+            hou.session.flam3h_FF_node = node # type: ignore
         try:
             hou.session.flam3h_FF_node_check # type: ignore
         except:
             hou.session.flam3h_FF_node_check = None # type: ignore
+        
+        from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
+        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check # type: ignore
 
-        flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
 
         isDELETED = False
         try:
             hou.session.flam3h_FF_node.type() # type: ignore
+            from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
         except:
-            flam3node_FF_check = None
+            from_FLAM3H_NODE_FF_CHECK = None
+            from_FLAM3H_NODE = None
             isDELETED = True
 
-        if flam3node_FF_check is not None:
 
-            node = self.kwargs['node']
+        if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+            # When you mark, then mark another node and then Undos
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
+                for f3h in node.type().instances():
+                    if f3h != node and self.exist_user_data(f3h, "Marked FF") is not False:
+                        from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
+                        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+                        break
+            # When you mark, then mark another node, then Undo and then Redos
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF") is True:
+                from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
+                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+        # when you mark, clear the mark and then Undos
+        elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is True:
+                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+
+
+        if not isDELETED:
+            if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+                if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                    from_FLAM3H_NODE_FF_CHECK = None
+
+
+        if from_FLAM3H_NODE_FF_CHECK is not None:
+
             flam3node_FF = hou.session.flam3h_FF_node # type: ignore
             
             if node == flam3node_FF:
@@ -1971,10 +2024,13 @@ iterator_keep_last_weight(self) -> None:
         Args:
             id (int): current multi parameter index
         """    
-        isDELETED = False    
+
         node = self.node
         
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        
+        if not self.exist_user_data(node):
+            mp_id_from = None
                 
         if mp_id_from is not None:
             
@@ -2030,10 +2086,13 @@ iterator_keep_last_weight(self) -> None:
         Args:
             id (int): current multi parameter index
         """   
-        isDELETED = False     
+  
         node = self.node
         
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        
+        if not self.exist_user_data(node):
+            mp_id_from = None
 
         if node == from_FLAM3H_NODE: # type: ignore
             
@@ -2177,91 +2236,132 @@ iterator_keep_last_weight(self) -> None:
     
     
     def prm_paste_FF(self) -> None:
-            """Paste the entire FF data.
-            
-            Args:
-                kwargs (dict): [kwargs[] dictionary]
-            """   
-            node=self.node
-            
-            flam3node_FF = hou.session.flam3h_FF_node # type: ignore
-            flam3node_FF_check = hou.session.flam3h_FF_node_check # type: ignore
-            
-            deleted = False
-            try:
-                flam3node_FF.type()
-            except:
-                flam3node_FF_check = None
-                flam3node_FF = None
-                deleted = True
+        """Paste the entire FF data.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """   
+        
+        node=self.node
+        
+        # The following try/except blocks are not really needed
+        # becasue FLAM3H node will create and initialize those on creation
+        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        try:
+            hou.session.flam3h_FF_node # type: ignore
+        except:
+            hou.session.flam3h_FF_node = node # type: ignore
+        try:
+            hou.session.flam3h_FF_node_check # type: ignore
+        except:
+            hou.session.flam3h_FF_node_check = None # type: ignore
+        
+        from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
+        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check # type: ignore
+        
+        
+        isDELETED = False
+        try:
+            from_FLAM3H_NODE.type()
+        except:
+            from_FLAM3H_NODE_FF_CHECK = None
+            from_FLAM3H_NODE = None
+            isDELETED = True
 
-            if self.kwargs["ctrl"]:
 
-                if flam3node_FF_check is not None:
-                    
-                    if node==flam3node_FF:
-                        _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                    else:
-                        self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                        self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
-                        self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                        self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.allMisc_FF, "", "")
-                        self.paste_set_note(node, flam3node_FF, 1, "", "", "")
-                        _MSG = f"{str(node)}: Copied values from -> {str(flam3node_FF)}.FF"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+        if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+            # When you mark, then mark another node and then Undos
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
+                for f3h in node.type().instances():
+                    if f3h != node and self.exist_user_data(f3h, "Marked FF") is not False:
+                        from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
+                        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+                        break
+            # When you mark, then mark another node, then Undo and then Redos
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF") is True:
+                from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
+                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+        # when you mark, clear the mark and then Undos
+        elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is True:
+                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
 
+
+        if not isDELETED:
+            if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+                if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                    from_FLAM3H_NODE_FF_CHECK = None
+                    # from_FLAM3H_NODE = hou.session.flam3h_FF_node  # type: ignore
+
+
+
+        if self.kwargs["ctrl"]:
+
+            if from_FLAM3H_NODE_FF_CHECK is not None:
+                
+                if node == from_FLAM3H_NODE:
+                    _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                 else:
-                    if deleted:
-                        _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG} to copy parameter's values from."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
-                    else:
-                        _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-
-
-            elif self.kwargs["shift"]:
-                    
-                if flam3node_FF_check is not None: # type: ignore
-                    if node == flam3node_FF:
-                        _MSG = f"{str(node)} ->  Unmarked FF: {str(flam3node_FF)}.FF" # type: ignore
-                        hou.session.flam3h_FF_node_check = None # type: ignore
-                        hou.session.flam3h_FF_node = node # type: ignore
-                        
-                        self.del_comment_and_user_data_iterator(node, "Marked FF")
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                    else:
-                        _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.flam3h_FF_node)}.FF" # type: ignore
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                else:
-                    if deleted:
-                        _MSG = f"{str(node)} -> Marked FF's node has been deleted -> Mark a new FF first."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                    else:
-                        _MSG = f"{str(node)}: This FF is Unmarked already"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                        
-            elif self.kwargs["alt"]:
-                pass
+                    self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                    self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                    self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                    self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
+                    self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
+                    _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
 
             else:
-                if flam3node_FF_check and node == flam3node_FF:
-                    _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                    
+                if isDELETED:
+                    _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG} to copy parameter's values from."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
                 else:
-                    # Remove the FF data and comment from the other node
-                    if flam3node_FF is not None:
-                        self.del_comment_and_user_data_iterator(flam3node_FF, "Marked FF")
-                        
-                    hou.session.flam3h_FF_node_check = 1 # type: ignore
-                    hou.session.flam3h_FF_node = self.node # type: ignore
+                    _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+
+
+        elif self.kwargs["shift"]:
+                
+            if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
+                if node == from_FLAM3H_NODE:
+                    _MSG = f"{str(node)} ->  Unmarked FF: {str(from_FLAM3H_NODE)}.FF" # type: ignore
+                    hou.session.flam3h_FF_node_check = None # type: ignore
+                    hou.session.flam3h_FF_node = node # type: ignore
                     
                     self.del_comment_and_user_data_iterator(node, "Marked FF")
-                    self.set_comment_and_user_data_iterator(node, "Yes", "Marked FF")
-                    _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-    
+                else:
+                    _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.flam3h_FF_node)}.FF" # type: ignore
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else:
+                if isDELETED:
+                    _MSG = f"{str(node)} -> Marked FF's node has been deleted -> Mark a new FF first."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                else:
+                    _MSG = f"{str(node)}: This FF is Unmarked already"
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    
+        elif self.kwargs["alt"]:
+            pass
+
+        else:
+            if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
+                _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
+            else:
+                # Remove the FF data and comment from the other node
+                if from_FLAM3H_NODE is not None:
+                    self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
+                    
+                hou.session.flam3h_FF_node_check = 1 # type: ignore
+                hou.session.flam3h_FF_node = self.node # type: ignore
+                
+                self.del_comment_and_user_data_iterator(node, "Marked FF")
+                self.set_comment_and_user_data_iterator(node, "Yes", "Marked FF")
+                _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
     
     def prm_paste_sel(self) -> None:
         """Paste only sections of an iterator.
