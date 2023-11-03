@@ -1345,29 +1345,33 @@ iterator_keep_last_weight(self) -> None:
             
             if node.userData(f"{data_FF_name}") is None:
                 if node.userData(f"{data_name}") is None:
-                    node.setUserData(f"{data_name}", value)
-                    node.setComment(node.userData(f"{data_name}"))
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                    with hou.undos.group(f"FLAM3H SET user data None"): # type: ignore
+                        node.setUserData(f"{data_name}", value)
+                        node.setComment(node.userData(f"{data_name}"))
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
                     
             else:
                 if node.userData(f"{data_name}") is None:
-                    node.setUserData(f"{data_name}", value)
-                    node.setComment(f"{value}, FF")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                    with hou.undos.group(f"FLAM3H SET user data"): # type: ignore
+                        node.setUserData(f"{data_name}", value)
+                        node.setComment(f"{value}, FF")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
                     
         elif data_name == data_FF_name:
             if node.userData(f"{data_iter_name}") is None:
                 if node.userData(f"{data_name}") is None:
-                    node.setUserData(f"{data_name}", value)
-                    node.setComment("FF")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                    with hou.undos.group(f"FLAM3H SET FF user data None"): # type: ignore
+                        node.setUserData(f"{data_name}", value)
+                        node.setComment("FF")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
             
             else:
                 if node.userData(f"{data_name}") is None:
-                    data_iter = node.userData(f"{data_iter_name}")
-                    node.setUserData(f"{data_name}", value)
-                    node.setComment(f"{str(data_iter)}, FF")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                    with hou.undos.group(f"FLAM3H SET FF user data"): # type: ignore
+                        data_iter = node.userData(f"{data_iter_name}")
+                        node.setUserData(f"{data_name}", value)
+                        node.setComment(f"{str(data_iter)}, FF")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
         
     # add to header  
@@ -1385,34 +1389,38 @@ iterator_keep_last_weight(self) -> None:
             if node.userData(f"{data_FF_name}") is None:
                 
                 if node.userData(f"{data_name}") is not None:
-                    node.destroyUserData(f"{data_name}")
-                    node.setComment("")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
+                    with hou.undos.group(f"FLAM3H DEL user data iter None"): # type: ignore
+                        node.destroyUserData(f"{data_name}")
+                        node.setComment("")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
                     
             else:
                 if node.userData(f"{data_name}") is not None:
-                    node.destroyUserData(f"{data_name}")
-                    # node.setComment("")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
-                    node.setComment("FF")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                    with hou.undos.group(f"FLAM3H DEL user data iter"): # type: ignore
+                        node.destroyUserData(f"{data_name}")
+                        # node.setComment("")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
+                        node.setComment("FF")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
                     
         elif data_name == data_FF_name:
             
             if node.userData(f"{data_iter_name}") is None:
                 if node.userData(f"{data_name}") is not None:
-                    node.destroyUserData(f"{data_name}")
-                    node.setComment("")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
+                    with hou.undos.group(f"FLAM3H DEL FF user data None"): # type: ignore
+                        node.destroyUserData(f"{data_name}")
+                        node.setComment("")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
                     
             else:
                 if node.userData(f"{data_name}") is not None:
-                    data_iter = node.userData(f"{data_iter_name}")
-                    node.destroyUserData(f"{data_name}")
-                    # node.setComment("")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
-                    node.setComment(f"{str(data_iter)}")
-                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                    with hou.undos.group(f"FLAM3H DEL FF user data"): # type: ignore
+                        data_iter = node.userData(f"{data_iter_name}")
+                        node.destroyUserData(f"{data_name}")
+                        # node.setComment("")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
+                        node.setComment(f"{str(data_iter)}")
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
     # add to header  
     @staticmethod
@@ -2083,28 +2091,10 @@ iterator_keep_last_weight(self) -> None:
             if mp_id_from is not None and from_FLAM3H_NODE is not None:
                 if not self.exist_user_data(from_FLAM3H_NODE):
                     mp_id_from = None
-                  
-            # Some time it happen that after Undos, the comment's Flag is not set back ON
-            # or due to the Undo stack the comment is not set at all.
-            # However if I enable the below code, the Undo stop working completely..
-              
-            # if self.exist_user_data(node):
-            #     data = self.get_user_data(node)
-            #     node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
-            #     node.setComment(f"{str(data)}")
-            #     node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-
-            # if from_FLAM3H_NODE is not None:
-            #     if self.exist_user_data(from_FLAM3H_NODE):
-            #         data = self.get_user_data(from_FLAM3H_NODE)
-            #         from_FLAM3H_NODE.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
-            #         from_FLAM3H_NODE.setComment(f"{str(data)}")
-            #         from_FLAM3H_NODE.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-
         
         return from_FLAM3H_NODE, mp_id_from, isDELETED
-        
-        
+
+
     def prm_paste_CTRL(self, id: int) -> None:
         """Everything about paste iterator's data.
 
@@ -2344,18 +2334,19 @@ iterator_keep_last_weight(self) -> None:
         id = self.kwargs['script_multiparm_index']
         
         if self.kwargs["ctrl"]:
-            with hou.undos.group("FLAM3H paste iterator data"): # type: ignore
+            with hou.undos.group(f"FLAM3H paste iterator data {str(id)}"): # type: ignore
                 self.prm_paste_CTRL(id)
                 
         elif self.kwargs["shift"]:
-            with hou.undos.group("FLAM3H unmark iterator"): # type: ignore
+            with hou.undos.group(f"FLAM3H unmark iterator {str(id)}"): # type: ignore
                 self.prm_paste_SHIFT(id)
                 
         elif self.kwargs["alt"]:
-            pass
+            with hou.undos.group(f"FLAM3H unmark iterator {str(id)}"): # type: ignore
+                self.prm_paste_SHIFT(id)
         
         else:
-            with hou.undos.group("FLAM3H mark iterator"): # type: ignore
+            with hou.undos.group(f"FLAM3H mark iterator {str(id)}"): # type: ignore
                 self.prm_paste_CLICK(id)
     
     
