@@ -656,14 +656,7 @@ flam3h_on_loaded(self) -> None:
         node_instances = self.node.type().instances()
         
         # FLAM3 node and MultiParameter id for iterators
-        try:
-            hou.session.flam3h_iterator_node # type: ignore
-        except:
-            hou.session.flam3h_iterator_node = node # type: ignore
-        try:
-            hou.session.flam3h_iterator_node_mp_idx # type: ignore
-        except:
-            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
+        flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
 
         # If an iterator was copied from a node that has been deleted
         try:
@@ -676,14 +669,7 @@ flam3h_on_loaded(self) -> None:
                 hou.session.flam3h_iterator_node = node # type: ignore
 
         # FLAM3 node for FF.
-        try:
-            hou.session.flam3h_FF_node # type: ignore
-        except:
-            hou.session.flam3h_FF_node = node # type: ignore
-        try:
-            hou.session.flam3h_FF_node_check # type: ignore
-        except:
-            hou.session.flam3h_FF_node_check = None # type: ignore
+        flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
 
         # If the FF was copied from a node that has been deleted
         try:
@@ -1235,6 +1221,10 @@ set_comment_and_user_data_iterator(node: hou.Node, value: str, data="Marked iter
 
 del_comment_and_user_data_iterator(node: hou.Node, data="Marked iterator") -> None:
 
+flam3h_init_hou_session_iterator_data(node) -> None:
+
+flam3h_init_hou_session_ff_data(node) -> None:
+
 menu_T(mode: int) -> list:
 
 paste_from_list(node: hou.Node, flam3node: hou.Node, prm_list: tuple, id: str, id_from: str) -> None:
@@ -1261,7 +1251,9 @@ menu_copypaste(self) -> list:
 
 menu_copypaste_FF(self) -> list:
 
-prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], Union[int, bool], bool]:
+prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+
+prm_paste_update_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
 
 prm_paste_CTRL(self, id: int) -> None:
 
@@ -1306,7 +1298,6 @@ iterator_keep_last_weight(self) -> None:
         self._affine_defaults = ((1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0) # X, Y, O, Angle
 
 
-    # add to header  
     @staticmethod
     def get_user_data(node: hou.Node, data="Marked iterator") -> Union[int, bool]:
         d_type = "nodeinfo_"
@@ -1319,7 +1310,6 @@ iterator_keep_last_weight(self) -> None:
             return False
 
 
-    # add to header  
     @staticmethod
     def exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
         d_type = "nodeinfo_"
@@ -1374,7 +1364,6 @@ iterator_keep_last_weight(self) -> None:
                         node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
         
-    # add to header  
     @staticmethod
     def del_comment_and_user_data_iterator(node: hou.Node, data="Marked iterator") -> None:
         
@@ -1422,7 +1411,37 @@ iterator_keep_last_weight(self) -> None:
                         node.setComment(f"{str(data_iter)}")
                         node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
-    # add to header  
+
+    @staticmethod            
+    def flam3h_init_hou_session_iterator_data(node) -> None:
+        # The following try/except blocks are not really needed
+        # becasue FLAM3H node will create and initialize those on creation
+        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        try:
+            hou.session.flam3h_iterator_node # type: ignore
+        except:
+            hou.session.flam3h_iterator_node = node # type: ignore
+        try:
+            hou.session.flam3h_iterator_node_mp_idx # type: ignore
+        except:
+            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
+
+
+    @staticmethod
+    def flam3h_init_hou_session_ff_data(node) -> None:
+        # The following try/except blocks are not really needed
+        # becasue FLAM3H node will create and initialize those on creation
+        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        try:
+            hou.session.flam3h_FF_node # type: ignore
+        except:
+            hou.session.flam3h_FF_node = node # type: ignore
+        try:
+            hou.session.flam3h_FF_node_check # type: ignore
+        except:
+            hou.session.flam3h_FF_node_check = None # type: ignore
+
+ 
     @staticmethod
     def menu_T(mode: int) -> list:
         """Populate variation names parameter menu list.
@@ -1907,55 +1926,8 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         
-        # The following try/except blocks are not really needed
-        # becasue FLAM3H node will create and initialize those on creation
-        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
-        try:
-            hou.session.flam3h_FF_node # type: ignore
-        except:
-            hou.session.flam3h_FF_node = node # type: ignore
-        try:
-            hou.session.flam3h_FF_node_check # type: ignore
-        except:
-            hou.session.flam3h_FF_node_check = None # type: ignore
-        
-        from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
-        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check # type: ignore
-
-
-        isDELETED = False
-        try:
-            hou.session.flam3h_FF_node.type() # type: ignore
-            from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
-        except:
-            from_FLAM3H_NODE_FF_CHECK = None
-            from_FLAM3H_NODE = None
-            isDELETED = True
-
-        # -> def prm_paste_FF(self) -> None:
-        if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
-            # Mark, mark another node, Undos
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
-                for f3h in node.type().instances():
-                    if f3h != node and self.exist_user_data(f3h, "Marked FF"):
-                        from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
-                        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
-                        break
-            # Mark, mark another node, Undo, Redos
-            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF"):
-                from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
-                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
-        # Mark, unmark, Undos
-        elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
-                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
-
-
-        if not isDELETED:
-            if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
-                if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
-                    from_FLAM3H_NODE_FF_CHECK = None
-
+        self.flam3h_init_hou_session_ff_data(node)
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_undo_ff(node)
 
         if from_FLAM3H_NODE_FF_CHECK is not None:
 
@@ -2095,6 +2067,49 @@ iterator_keep_last_weight(self) -> None:
         return from_FLAM3H_NODE, mp_id_from, isDELETED
 
 
+    def prm_paste_update_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+        
+        from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
+        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check # type: ignore
+        
+        
+        isDELETED = False
+        try:
+            from_FLAM3H_NODE.type()
+        except:
+            from_FLAM3H_NODE_FF_CHECK = None
+            from_FLAM3H_NODE = None
+            isDELETED = True
+
+
+        # -> def menu_copypaste_FF(self) -> list:
+        if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+            # Mark, mark another node, Undos
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
+                for f3h in node.type().instances():
+                    if f3h != node and self.exist_user_data(f3h, "Marked FF"):
+                        from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
+                        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+                        break
+            # Mark, mark another node, Undo, Redos
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF"):
+                from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
+                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+        # Mark, unmark, Undos
+        elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
+
+
+        if not isDELETED:
+            if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+                if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                    from_FLAM3H_NODE_FF_CHECK = None
+                    
+        return from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED
+
+
+
     def prm_paste_CTRL(self, id: int) -> None:
         """Everything about paste iterator's data.
 
@@ -2104,18 +2119,7 @@ iterator_keep_last_weight(self) -> None:
 
         node = self.node
         
-        # The following try/except blocks are not really needed
-        # becasue FLAM3H node will create and initialize those on creation
-        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
-        try:
-            hou.session.flam3h_iterator_node # type: ignore
-        except:
-            hou.session.flam3h_iterator_node = node # type: ignore
-        try:
-            hou.session.flam3h_iterator_node_mp_idx # type: ignore
-        except:
-            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
-        
+        self.flam3h_init_hou_session_iterator_data(node)
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
                 
         if mp_id_from is not None:
@@ -2175,18 +2179,7 @@ iterator_keep_last_weight(self) -> None:
   
         node = self.node
         
-        # The following try/except blocks are not really needed
-        # becasue FLAM3H node will create and initialize those on creation
-        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
-        try:
-            hou.session.flam3h_iterator_node # type: ignore
-        except:
-            hou.session.flam3h_iterator_node = node # type: ignore
-        try:
-            hou.session.flam3h_iterator_node_mp_idx # type: ignore
-        except:
-            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
-        
+        self.flam3h_init_hou_session_iterator_data(node)
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
 
         if node == from_FLAM3H_NODE: # type: ignore
@@ -2359,55 +2352,8 @@ iterator_keep_last_weight(self) -> None:
         
         node=self.node
         
-        # The following try/except blocks are not really needed
-        # becasue FLAM3H node will create and initialize those on creation
-        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
-        try:
-            hou.session.flam3h_FF_node # type: ignore
-        except:
-            hou.session.flam3h_FF_node = node # type: ignore
-        try:
-            hou.session.flam3h_FF_node_check # type: ignore
-        except:
-            hou.session.flam3h_FF_node_check = None # type: ignore
-        
-        from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
-        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check # type: ignore
-        
-        
-        isDELETED = False
-        try:
-            from_FLAM3H_NODE.type()
-        except:
-            from_FLAM3H_NODE_FF_CHECK = None
-            from_FLAM3H_NODE = None
-            isDELETED = True
-
-        # -> def menu_copypaste_FF(self) -> list:
-        if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
-            # Mark, mark another node, Undos
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
-                for f3h in node.type().instances():
-                    if f3h != node and self.exist_user_data(f3h, "Marked FF"):
-                        from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
-                        from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
-                        break
-            # Mark, mark another node, Undo, Redos
-            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF"):
-                from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
-                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
-        # Mark, unmark, Undos
-        elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
-                from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
-
-
-        if not isDELETED:
-            if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
-                if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
-                    from_FLAM3H_NODE_FF_CHECK = None
-
-
+        self.flam3h_init_hou_session_ff_data(node)
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_undo_ff(node)
 
         if self.kwargs["ctrl"]:
             
