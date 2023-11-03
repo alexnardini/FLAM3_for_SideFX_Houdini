@@ -2083,17 +2083,24 @@ iterator_keep_last_weight(self) -> None:
             if mp_id_from is not None and from_FLAM3H_NODE is not None:
                 if not self.exist_user_data(from_FLAM3H_NODE):
                     mp_id_from = None
-                    
-            # Some time it happen that after Undos, the comment's Flag is not set back ON.
-            if node == from_FLAM3H_NODE:
-                if self.exist_user_data(node):
-                    if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
-                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-            else:
-                assert from_FLAM3H_NODE is not None
-                if self.exist_user_data(from_FLAM3H_NODE):
-                    if from_FLAM3H_NODE.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
-                        from_FLAM3H_NODE.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                  
+            # Some time it happen that after Undos, the comment's Flag is not set back ON
+            # or due to the Undo stack the comment is not set at all.
+            # However if I enable the below code, the Undo stop working completely..
+              
+            # if self.exist_user_data(node):
+            #     data = self.get_user_data(node)
+            #     node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
+            #     node.setComment(f"{str(data)}")
+            #     node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+
+            # if from_FLAM3H_NODE is not None:
+            #     if self.exist_user_data(from_FLAM3H_NODE):
+            #         data = self.get_user_data(from_FLAM3H_NODE)
+            #         from_FLAM3H_NODE.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
+            #         from_FLAM3H_NODE.setComment(f"{str(data)}")
+            #         from_FLAM3H_NODE.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+
         
         return from_FLAM3H_NODE, mp_id_from, isDELETED
         
