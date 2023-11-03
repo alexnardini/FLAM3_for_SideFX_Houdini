@@ -893,18 +893,18 @@ reset_PREFS(self, mode=0) -> None:
     
     @staticmethod
     def set_comment_and_user_data_iterator(node: hou.Node, comment: str, data_name="Marked iterator") -> None:
-        _node_info = "nodeinfo_"
-        if node.userData(f"{_node_info}{data_name}") is None:
-            node.setUserData(f"{_node_info}{data_name}", comment)
-            node.setComment(node.userData(f"{_node_info}{data_name}"))
+        _dtype = "nodeinfo_"
+        if node.userData(f"{_dtype}{data_name}") is None:
+            node.setUserData(f"{_dtype}{data_name}", comment)
+            node.setComment(node.userData(f"{_dtype}{data_name}"))
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
 
     @staticmethod
     def del_comment_and_user_data_iterator(node: hou.Node, comment="", data_name="Marked iterator") -> None:
-        _node_info = "nodeinfo_"
-        if node.userData(f"{_node_info}{data_name}") is not None:
-            node.destroyUserData(f"{_node_info}{data_name}")
+        _dtype = "nodeinfo_"
+        if node.userData(f"{_dtype}{data_name}") is not None:
+            node.destroyUserData(f"{_dtype}{data_name}")
             node.setComment(comment)
             node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
 
