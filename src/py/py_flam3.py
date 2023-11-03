@@ -73,7 +73,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.30'
+FLAM3H_VERSION = '1.1.33'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -1929,17 +1929,17 @@ iterator_keep_last_weight(self) -> None:
             # When you mark, then mark another node and then Undos
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
                 for f3h in node.type().instances():
-                    if f3h != node and self.exist_user_data(f3h, "Marked FF") is not False:
+                    if f3h != node and self.exist_user_data(f3h, "Marked FF"):
                         from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
                         from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
                         break
             # When you mark, then mark another node, then Undo and then Redos
-            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF") is True:
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF"):
                 from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
                 from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
         # when you mark, clear the mark and then Undos
         elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is True:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
                 from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
 
 
@@ -2047,39 +2047,36 @@ iterator_keep_last_weight(self) -> None:
             # Mark, mark another node, Undo
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
                 for f3h in node.type().instances():
-                    if f3h != node and self.exist_user_data(f3h) is not False:
+                    if f3h != node and self.exist_user_data(f3h):
                         from_FLAM3H_NODE = hou.session.flam3h_iterator_node = f3h # type: ignore
                         mp_id_from = hou.session.flam3h_iterator_node_mp_idx = self.get_user_data(f3h) # type: ignore
-                        if self.exist_user_data(f3h):
-                            # unlock
-                            f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                            # set
-                            f3h.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(f3h)})
-                            # lock
-                            f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+                        # unlock
+                        f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                        # set
+                        f3h.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(f3h)})
+                        # lock
+                        f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                         break
             # Mark, mark another node, Undo, Redo
-            elif node != from_FLAM3H_NODE and self.exist_user_data(node) is True:
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node):
                 from_FLAM3H_NODE = hou.session.flam3h_iterator_node = node # type: ignore
                 mp_id_from = hou.session.flam3h_iterator_node_mp_idx = self.get_user_data(node) # type: ignore
-                if self.exist_user_data(node):
-                    # unlock
-                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                    # set
-                    node.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(node)}) # type: ignore
-                    # lock
-                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+                # unlock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(node)}) # type: ignore
+                # lock
+                node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
         # Mark, Clear, Mark, Undo
         elif mp_id_from is None and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is True:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
                 mp_id_from = hou.session.flam3h_iterator_node_mp_idx = self.get_user_data(from_FLAM3H_NODE) # type: ignore
-                if self.exist_user_data(from_FLAM3H_NODE):
-                    # unlock
-                    from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-                    # set
-                    from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(from_FLAM3H_NODE)})
-                    # lock
-                    from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+                # unlock
+                from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                # set
+                from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(from_FLAM3H_NODE)})
+                # lock
+                from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
 
         if not isDELETED:
@@ -2378,17 +2375,17 @@ iterator_keep_last_weight(self) -> None:
             # When you mark, then mark another node and then Undos
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
                 for f3h in node.type().instances():
-                    if f3h != node and self.exist_user_data(f3h, "Marked FF") is not False:
+                    if f3h != node and self.exist_user_data(f3h, "Marked FF"):
                         from_FLAM3H_NODE = hou.session.flam3h_FF_node = f3h # type: ignore
                         from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
                         break
             # When you mark, then mark another node, then Undo and then Redos
-            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF") is True:
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF"):
                 from_FLAM3H_NODE = hou.session.flam3h_FF_node = node # type: ignore
                 from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
         # when you mark, clear the mark and then Undos
         elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is True:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
                 from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check = 1  # type: ignore
 
 
