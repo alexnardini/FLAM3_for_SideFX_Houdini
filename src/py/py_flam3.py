@@ -779,10 +779,9 @@ flam3h_on_loaded(self) -> None:
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """
+        node = self.node
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
-            
-            node = self.node
             
             # This is important so loading a hip file with a FLAM3H node inside
             # it wont block the houdini session until user input.
@@ -820,6 +819,13 @@ flam3h_on_loaded(self) -> None:
             # Remove any comment and user data from the node
             flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
             flam3h_iterator_utils.del_comment_and_user_data_iterator(node, "Marked FF")
+            
+        else:
+            # Remove any comment and user data from the node
+            if flam3h_iterator_utils.exist_user_data(node):
+                flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
+            if flam3h_iterator_utils.exist_user_data(node, "Marked FF"):
+                flam3h_iterator_utils.del_comment_and_user_data_iterator(node, "Marked FF")
 
 
     # Wip
@@ -1221,6 +1227,14 @@ class flam3h_iterator_utils:
     """
 STATIC METHODS:
 
+get_user_data(node: hou.Node, data="Marked iterator") -> Union[int, bool]:
+
+exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
+
+set_comment_and_user_data_iterator(node: hou.Node, value: str, data="Marked iterator") -> None:
+
+del_comment_and_user_data_iterator(node: hou.Node, data="Marked iterator") -> None:
+
 menu_T(mode: int) -> list:
 
 paste_from_list(node: hou.Node, flam3node: hou.Node, prm_list: tuple, id: str, id_from: str) -> None:
@@ -1292,6 +1306,32 @@ iterator_keep_last_weight(self) -> None:
         self._affine_defaults = ((1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0) # X, Y, O, Angle
 
 
+    # add to header  
+    @staticmethod
+    def get_user_data(node: hou.Node, data="Marked iterator") -> Union[int, bool]:
+        d_type = "nodeinfo_"
+        
+        data_name = f"{d_type}{data}"
+        data = node.userData(f"{data_name}")
+        if data is not None:
+            return data
+        else:
+            return False
+
+
+    # add to header  
+    @staticmethod
+    def exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
+        d_type = "nodeinfo_"
+        
+        data_name = f"{d_type}{data}"
+        
+        if node.userData(f"{data_name}") is None:
+            return False
+        else:
+            return True
+
+
     @staticmethod
     def set_comment_and_user_data_iterator(node: hou.Node, value: str, data="Marked iterator") -> None:
         
@@ -1328,18 +1368,7 @@ iterator_keep_last_weight(self) -> None:
                     node.setUserData(f"{data_name}", value)
                     node.setComment(f"{str(data_iter)}, FF")
                     node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-                    
-    # add to header  
-    @staticmethod
-    def exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
-        d_type = "nodeinfo_"
-        
-        data_name = f"{d_type}{data}"
-        
-        if node.userData(f"{data_name}") is None:
-            return False
-        else:
-            return True
+
         
     # add to header  
     @staticmethod
@@ -1797,19 +1826,18 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """    
+
         menu=[]
         
-        isDELETED = False
-        node = self.node
         id = self.kwargs['script_multiparm_index']
-
+        
+        node = self.node
+        
+        if self.exist_user_data(node):
+            node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+        
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
-
-        if not isDELETED:
-            if from_FLAM3H_NODE is not None:
-                if not self.exist_user_data(from_FLAM3H_NODE):
-                    mp_id_from = None
-
+        
         if mp_id_from is not None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
@@ -1896,7 +1924,7 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3H_NODE = None
             isDELETED = True
 
-
+        # -> def prm_paste_FF(self) -> None:
         if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
             # When you mark, then mark another node and then Undos
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
@@ -2014,6 +2042,61 @@ iterator_keep_last_weight(self) -> None:
         except:
             mp_id_from = None
             isDELETED = True
+            
+        if mp_id_from is not None and from_FLAM3H_NODE is not None:
+            # Mark, mark another node, Undo
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
+                for f3h in node.type().instances():
+                    if f3h != node and self.exist_user_data(f3h) is not False:
+                        from_FLAM3H_NODE = hou.session.flam3h_iterator_node = f3h # type: ignore
+                        mp_id_from = hou.session.flam3h_iterator_node_mp_idx = self.get_user_data(f3h) # type: ignore
+                        if self.exist_user_data(f3h):
+                            # unlock
+                            f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                            # set
+                            f3h.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(f3h)})
+                            # lock
+                            f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+                        break
+            # Mark, mark another node, Undo, Redo
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node) is True:
+                from_FLAM3H_NODE = hou.session.flam3h_iterator_node = node # type: ignore
+                mp_id_from = hou.session.flam3h_iterator_node_mp_idx = self.get_user_data(node) # type: ignore
+                if self.exist_user_data(node):
+                    # unlock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                    # set
+                    node.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(node)}) # type: ignore
+                    # lock
+                    node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+        # Mark, Clear, Mark, Undo
+        elif mp_id_from is None and from_FLAM3H_NODE is not None:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is True:
+                mp_id_from = hou.session.flam3h_iterator_node_mp_idx = self.get_user_data(from_FLAM3H_NODE) # type: ignore
+                if self.exist_user_data(from_FLAM3H_NODE):
+                    # unlock
+                    from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+                    # set
+                    from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(from_FLAM3H_NODE)})
+                    # lock
+                    from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+
+
+        if not isDELETED:
+            if mp_id_from is not None and from_FLAM3H_NODE is not None:
+                if not self.exist_user_data(from_FLAM3H_NODE):
+                    mp_id_from = None
+                    
+            # Some time it happen that after Undos, the comment's Flag is not set back ON.
+            if node == from_FLAM3H_NODE:
+                if self.exist_user_data(node):
+                    if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
+                        node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+            else:
+                assert from_FLAM3H_NODE is not None
+                if self.exist_user_data(from_FLAM3H_NODE):
+                    if from_FLAM3H_NODE.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
+                        from_FLAM3H_NODE.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
         
         return from_FLAM3H_NODE, mp_id_from, isDELETED
         
@@ -2027,10 +2110,19 @@ iterator_keep_last_weight(self) -> None:
 
         node = self.node
         
-        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        # The following try/except blocks are not really needed
+        # becasue FLAM3H node will create and initialize those on creation
+        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        try:
+            hou.session.flam3h_iterator_node # type: ignore
+        except:
+            hou.session.flam3h_iterator_node = node # type: ignore
+        try:
+            hou.session.flam3h_iterator_node_mp_idx # type: ignore
+        except:
+            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
         
-        if not self.exist_user_data(node):
-            mp_id_from = None
+        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
                 
         if mp_id_from is not None:
             
@@ -2089,10 +2181,19 @@ iterator_keep_last_weight(self) -> None:
   
         node = self.node
         
-        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        # The following try/except blocks are not really needed
+        # becasue FLAM3H node will create and initialize those on creation
+        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        try:
+            hou.session.flam3h_iterator_node # type: ignore
+        except:
+            hou.session.flam3h_iterator_node = node # type: ignore
+        try:
+            hou.session.flam3h_iterator_node_mp_idx # type: ignore
+        except:
+            hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
         
-        if not self.exist_user_data(node):
-            mp_id_from = None
+        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
 
         if node == from_FLAM3H_NODE: # type: ignore
             
@@ -2152,8 +2253,12 @@ iterator_keep_last_weight(self) -> None:
         """        
         
         node = self.node
-        from_FLAM3H_NODE = None
         
+        if self.exist_user_data(node):
+            if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
+                node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+            
+        from_FLAM3H_NODE = None
         try:
             hou.session.flam3h_iterator_node.type() # type: ignore
             from_FLAM3H_NODE = hou.session.flam3h_iterator_node # type: ignore
@@ -2268,7 +2373,7 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3H_NODE = None
             isDELETED = True
 
-
+        # -> def menu_copypaste_FF(self) -> list:
         if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
             # When you mark, then mark another node and then Undos
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
@@ -2291,7 +2396,6 @@ iterator_keep_last_weight(self) -> None:
             if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
                 if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
                     from_FLAM3H_NODE_FF_CHECK = None
-                    # from_FLAM3H_NODE = hou.session.flam3h_FF_node  # type: ignore
 
 
 
