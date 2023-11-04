@@ -180,7 +180,7 @@ MSG_FLAM3_GIT = 'flam3_heading_git'
 MARK_ITER_MSG = "Please, mark an iterator first"
 MARK_FF_MSG = "Please, mark the FF first"
 # File lock prefix
-FLAM3_LIB_LOCK = 'F3H_LOCK'
+FLAM3H_LIB_LOCK = 'F3H_LOCK'
 # PALETTE JSON data keys
 CP_JSON_KEY_NAME_HEX = 'f3h_hex'
 CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
@@ -854,7 +854,7 @@ class flam3h_general_utils:
     """
 STATIC METHODS:
 
-isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
+isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
 
 open_explorer_file(filename) -> None:
 
@@ -885,12 +885,12 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def isLOCK(filepath: Union[str, bool], prx=FLAM3_LIB_LOCK) -> bool:
+    def isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
         """Check if the loaded lib file ( Palette ot flame XML ) is locked 
 
         Args:
             filepath (Union[str, bool]): the full lib file path
-            prx (_type_, optional): The lock prefix in the file name. Defaults to gobal FLAM3_LIB_LOCK.
+            prx (_type_, optional): The lock prefix in the file name. Defaults to gobal FLAM3H_LIB_LOCK.
 
         Returns:
             bool: True if locked. False if not
@@ -3727,7 +3727,7 @@ reset_CP(self, mode=0) -> None:
                     
                 if flam3h_general_utils.isLOCK(out_path_checked):
                     ui_text = f"This Palette library is Locked."
-                    ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
+                    ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                     _MSG = f"{str(node)}: PALETTE library file -> is LOCKED"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
                     hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -4392,7 +4392,7 @@ XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_spe
 XML_XF_PRM_EXCEPTION = ("None", )
 
 # REGEX_ALL = "(?s:.*?)"
-REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3_LIB_LOCK})"
+REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3H_LIB_LOCK})"
 REGEX_PRE = "^(?:pre_)"
 REGEX_POST = "^(?:post_)"
 
@@ -8306,7 +8306,7 @@ out_XML(self) -> None:
 
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flame library is Locked."
-                        ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                        ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         _MSG = f"{str(node)}: FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
