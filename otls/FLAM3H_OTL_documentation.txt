@@ -118,12 +118,12 @@ iterations:
     - You do not need many iterations to get some good fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
     - If you increase the iterator weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
     
-    Almost all the fractal Flames showcased inside FLAM3 for Houdini's Instagram account
+    Almost all the fractal Flames showcased inside FLAM3H's Instagram account
     use a maximum of 64 iterations, with a few exceptions reaching 96 and, in rare cases, 128/256 and more.
     
     Some flames require a truly high number of iterations to resolve properly.
     
-    Listed below are presets from Chaotica software that were converted to FLAM3 for Houdini.
+    Listed below are presets from Chaotica software that were converted to FLAM3H.
     They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
     Some of them take thousands of iterations to produce the desired results, while others take only a few hundred:
@@ -442,8 +442,8 @@ xaos:
         
     - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator's weight values separated by a colon: *xaos:1:2:3:4*.
     - When the auto space xaos weights option is ON ( it is OFF by default ), the xaos keyword will look like this: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work.
-    - If no set or when using a short descriptive note, FLAM3 will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
-    - If you set only iterator 1 and iterator 2, FLAM3 will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
+    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
+    - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
     - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
     *Xaos command options*:
@@ -513,7 +513,7 @@ pre_blur:
     It will always be the first pre-variation the algorithm runs.
     
     TIP:
-        When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3 for Houdini
+        When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H
         remeber that the variation "pre_gaussian_blur" will be remapped to "pre_blur" on Flame load by default.
         
         You can change this beahavior and load the "pre_gaussian_blur" variation instead, if any, inside the IN Tab.
@@ -541,7 +541,7 @@ var tab:
     TIP:
         #display: orange
     
-        Laying down a new FLAM3 node and activating the Final Flame transform with the default Sierpiński triangle (*FF*) will allow you to experiment with the variations and see what happens.
+        Laying down a new FLAM3H node and activating the Final Flame transform with the default Sierpiński triangle (*FF*) will allow you to experiment with the variations and see what happens.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
 Post tab:
@@ -1005,18 +1005,18 @@ viz mb:
     A *.flame file is an XML-formatted type of file.
         
 NOTE:
-    To be valid to be loaded inside FLAM3 for Houdini, a *.flame file must obey this rule:
+    To be valid to be loaded inside FLAM3H, a *.flame file must obey this rule:
     
     _the XML file needs to start with: <*flames*> and end with: </*flames*>._
     
     All the different flames ( if multiple flames are present in the file ) will be in between those keys.
     
     When you use Apophysis or Fractorium and copy a flame to the clipboard
-    the above keys are missing, so to be able to load it inside FLAM3 for Houdini just add those yourself.
+    the above keys are missing, so to be able to load it inside FLAM3H just add those yourself.
     
     Also some of the flames you find online have those keys missing ( mostly because they copy/paste from the clipboard ).
     
-    Everything will be correctly set when saving flames out of Apophysis and Fractorium when using the File->Save menu option, as well as when saving flames out of FLAM3 for Houdini.
+    Everything will be correctly set when saving flames out of Apophysis and Fractorium when using the File->Save menu option, as well as when saving flames out of FLAM3H.
     
 _The following is an example of what the Sierpinski triangle preset looks like once saved :_
     
@@ -1078,13 +1078,13 @@ IN file ( *.flame type ):
     
     The only restrictions are:
     
-    - The flames contained in the file must use the same variations included inside FLAM3 for Houdini. 
+    - The flames contained in the file must use the same variations included inside FLAM3H. 
     - A maximum of 4 VARS plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
     ( for a total of 8 vars per iterator ). If it finds more on load, it will just discard the extra one.
     - For FF ( FinalXForm ) you have 1 PRE, 2 VARS plus 2 POST available. If it finds more on load, it will just discard the extra one.
     
     NOTE:
-        FLAM3 for Houdini does not deal with any image color correction curves that are present inside Fractorium for example.
+        FLAM3H does not deal with any image color correction curves that are present inside Fractorium for example.
         Every time you load a Flame authored with Fractorium, those curves' values will be discarded and internally reset to their default values. ( no color correction at all )
     
 Reload:
@@ -1092,7 +1092,7 @@ Reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     ((LMB)) to reload the selected preset.
-    This is helpful when using Fractorium, for instance, and importing the same flame file into FLAM3 for Houdini.
+    This is helpful when using Fractorium, for instance, and importing the same flame file into FLAM3H.
     - In Fractorium, you can alter the flame, save it, and then click here to reload and see the modifications in Houdini.
     
 Presets:
@@ -1109,7 +1109,7 @@ Iterations on Load (int):
     TIP:
         If "*auto add iter num to Flame name*" OUT Tab option is *OFF*:
     
-        The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini can be baked into the preset name you choose for it.
+        The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
         For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
         However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "*My_Awesome_GrandJulia::16*".
         and load it with an iteration count of 16.
@@ -1120,7 +1120,7 @@ Iterations on Load (int):
     
 Force iterations on Load:
     #id: IN
-    When *.flame files are loaded, FLAM3 for Houdini immediately sets the iteration number to 64, which seems like a reasonable count to resolve the majority of them rather effectively.
+    When *.flame files are loaded, FLAM3H immediately sets the iteration number to 64, which seems like a reasonable count to resolve the majority of them rather effectively.
     However, if you need to act quickly, you can use this number to override the iterations set on load.
     
 :box:
@@ -1173,9 +1173,9 @@ Copy/Paste render properties:
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
     
     NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3 for Houdini. These curves will be overwritten with their default values each time you save a flame from FLAM3 for Houdini. (no color correction)
+        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H. These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
 
-        This means that if you save a Flame out again from FLAM3 for Houdini after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
+        This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
 
     
@@ -1199,7 +1199,7 @@ Copy/Paste render properties:
     If you animated your fractal flame, save the hip file from Houdini instead.
     
 TIP:
-    FLAM3 for Houdini allows you to save your flames in the standard *.flame file format 
+    FLAM3H allows you to save your flames in the standard *.flame file format 
     so that you can load them back inside any other applications like Fractorium, Apophysis and others.
     
     You must abide by some rules imposed by the original Flame file format.
@@ -1209,7 +1209,7 @@ TIP:
     For instance, you cannot utilize two Mobius variations inside an iterator's PRE or VAR sections.
     But you can use 1 Mobius in the PRE vars, 1 Mobius in the VAR, and 1 Mobius in the POST.
     
-    FLAM3 for Houdini, by design, will allow you to be more flexible with your Flame construction choises and allow
+    FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow
     you to bend this rule, enabling the use of the same variation multiple times within the same section ( _Chaotica style_ ), but you won't be able to save out
     the result in the standard flame file format. *Save the hip file instead in those cases*.
 
@@ -1266,7 +1266,7 @@ Flame name ( preset ):
     TIP:
         If "*auto add iter num to Flame name*" is *OFF*:
     
-        The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini can be baked into the preset name you choose for it.
+        The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
         For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
         However, if the iteration number is added to the preset name after a double colon, as in "*My_Awesome_GrandJulia::16*," it will override all settings and load the preset with 16 as the iteration numbers.
         
@@ -1294,7 +1294,7 @@ OUT file contents ( info ):
         
 Save palette HSV (cc):
     #id: OUT
-    OFF by default, as FLAM3 for Houdini will save the HSV values into the XML file and set those once you load it back.
+    OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
     If enabled, all color adjustments you may have made to the flame's palette will be preserved using the HSV ramp instead.
     This is helpful if you want to maintain the color-corrected palette when you load the saved Flame into a different program, such as Fractorium or Apophysis.
     
@@ -1330,10 +1330,10 @@ Edit render properties:
     Changing those values, will change how the saved Flame will render inside those applications.
     
     NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3 for Houdini.
-        These curves will be overwritten with their default values each time you save a flame from FLAM3 for Houdini. (no color correction)
+        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
+        These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
         
-        This means that if you save a Flame out again from FLAM3 for Houdini after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
+        This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
     
 Reset render properties:
@@ -1859,7 +1859,7 @@ NOTE:
     Point size:
         #id: rendering
     
-    For simplicity, FLAM3 for Houdini sets all *'@pscale'* to a value of *'0.001'*.
+    For simplicity, FLAM3H sets all *'@pscale'* to a value of *'0.001'*.
     Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
     It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     
@@ -1975,7 +1975,7 @@ NOTE:
 
     *FLAM3H: Limitations*.
     
-    The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3 for Houdini.
+    The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3H.
     All of those restrictions are in place to maintain performance within the CVEX language restrictions.
 
 == Limitations: Iterator's count ==
@@ -1986,7 +1986,7 @@ NOTE:
     Iterator's count:
         #id: Limitations
     
-    FLAM3 for Houdini allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of 20 iterators.
+    FLAM3H allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of 20 iterators.
     
     _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
@@ -2003,7 +2003,7 @@ NOTE:
     It is really pre_blur + 2 variations of your choice.
     
     NOTE:
-        _*The weight of the PRE variations can not be negative*_ in FLAM3 for Houdini.
+        _*The weight of the PRE variations can not be negative*_ in FLAM3H.
 
 :box:
     #display: rounded gray
@@ -2022,7 +2022,7 @@ NOTE:
     Every iterator is capable of 1 POST variation.
     
     NOTE:
-        _*The weight of the POST variation can not be negative*_ in FLAM3 for Houdini.
+        _*The weight of the POST variation can not be negative*_ in FLAM3H.
     
 :box:
     #display: rounded gray
@@ -2047,7 +2047,7 @@ NOTE:
     FF iterator is capable of 1 PRE variation.
     
     NOTE:
-        _*The weight of the FF PRE variations can not be negative*_ in FLAM3 for Houdini.
+        _*The weight of the FF PRE variations can not be negative*_ in FLAM3H.
 
     
 :box:
@@ -2068,7 +2068,7 @@ NOTE:
     FF iterator is capable of 2 POST variations.
     
     NOTE:
-        _*The weight of the FF POST variation can not be negative*_ in FLAM3 for Houdini.
+        _*The weight of the FF POST variation can not be negative*_ in FLAM3H.
        
 :box:
     #display: rounded gray
@@ -2100,7 +2100,7 @@ NOTE:
         - Color Speed -> 0.0 ( _this is the most important_ )
         - Direct Color -> 1.0
         
-        This way, you won't add a color to the flame that FLAM3 for Houdini won't be able to match.
+        This way, you won't add a color to the flame that FLAM3H won't be able to match.
         
         
 
