@@ -944,6 +944,24 @@ reset_PREFS(self, mode=0) -> None:
     def node(self):
         return self._node
     
+    
+    def flam3h_sys_tag(self) -> None:
+        
+        node = self.node
+        
+        tag = node.parm(SYS_TAG).evalAsInt()
+        if tag:
+            node.setParms({SYS_TAG: 0})
+            
+            _MSG = f"{str(node)}: Tag -> OFF"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            
+        else:
+            node.setParms({SYS_TAG: 1})
+            
+            _MSG = f"{str(node)}: Tag -> ON"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+    
 
                 
                 
@@ -6858,10 +6876,6 @@ reset_IN(self, mode=0) -> None:
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             flam3h_palette_utils(self.kwargs).palette_hsv()
-            
-            # if "copy render properties on Load" is checked
-            if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                in_flame_utils.in_copy_render_stats_msg(node)
                 
             # Set density back to default on load
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -6869,6 +6883,9 @@ reset_IN(self, mode=0) -> None:
             # Update flame stats 
             node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+            # if "copy render properties on Load" is checked
+            if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+                in_flame_utils.in_copy_render_stats_msg(node)
             
             # Update SYS inpresets parameter
             node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
@@ -6939,6 +6956,16 @@ reset_IN(self, mode=0) -> None:
 
 
 
+
+# CONVERT FRACTORIUM's VAR DICT start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
 # Turn Fractorium variation names dictionary into PRE and POST variation names dictionary
 VARS_FRACTORIUM_DICT_PRE  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
 VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
