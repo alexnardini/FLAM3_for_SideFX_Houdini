@@ -945,21 +945,21 @@ reset_PREFS(self, mode=0) -> None:
         return self._node
     
     
-    def flam3h_sys_tag(self) -> None:
+    def flam3h_toggle(self, prm=SYS_TAG) -> None:
         
         node = self.node
         
-        tag = node.parm(SYS_TAG).evalAsInt()
+        tag = node.parm(prm).evalAsInt()
         if tag:
-            node.setParms({SYS_TAG: 0})
+            node.setParms({prm: 0})
             
-            _MSG = f"{str(node)}: Tag -> OFF"
+            _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
-            node.setParms({SYS_TAG: 1})
+            node.setParms({prm: 1})
             
-            _MSG = f"{str(node)}: Tag -> ON"
+            _MSG = f"{str(node)}: {prm.upper()} -> ON"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
     
 
