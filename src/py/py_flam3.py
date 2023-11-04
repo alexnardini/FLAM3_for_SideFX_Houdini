@@ -2265,6 +2265,7 @@ iterator_keep_last_weight(self) -> None:
         """        
         
         node = self.node
+        self.flam3h_init_hou_session_iterator_data(node)
         
         if self.exist_user_data(node):
             if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
@@ -2372,7 +2373,6 @@ iterator_keep_last_weight(self) -> None:
         """   
         
         node=self.node
-        
         self.flam3h_init_hou_session_ff_data(node)
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
 
@@ -6732,7 +6732,13 @@ reset_IN(self, mode=0) -> None:
 
 
     def in_to_flam3h_reset_user_data(self) -> None:
+        
         node = self.node
+        
+        # lets initialize those to default values if one if their data no longer exist.
+        flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
+        flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
+        
         # Reset iterator user data if needed
         from_FLAM3H_NODE = hou.session.flam3h_iterator_node # type: ignore
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
