@@ -3194,9 +3194,7 @@ iterator_keep_last_weight(self) -> None:
             # convert all xaos into array of strings
             xaos_str = []
             for xaos in fill_all_xaos:
-                collect = []
-                for item in xaos:
-                    collect.append(str(item))
+                collect = [str(item) for item in xaos]
                 xaos_str.append(collect)
                 
             # get xaos from CachedUserData
