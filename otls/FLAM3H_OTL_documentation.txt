@@ -368,7 +368,7 @@ copy/paste:
     [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
 
     All the necessary methods for copy/paste iterator's data are contained in this icon. This icon allows you to mark an iterator for being copied, and then copy the data from the marked iterator into another iterator number — even if it is located inside a separate FLAM3H node.
-    When you paste the data, it wil copy everything from the marked iterator but not Xaos. Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including xaos.
+    When you paste the data, it wil copy everything from the marked iterator but not Xaos. Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including Xaos.
     
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
