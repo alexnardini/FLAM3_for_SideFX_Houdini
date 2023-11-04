@@ -1435,24 +1435,7 @@ xaos modes:
     
     NOTE:
         XAOS FROM mode will internally be changed into XAOS TO on save and reloaded as XAOS TO when saving out Flame files.
-        
-auto set xaos:
-    #id: prefs
-    
-    *_DEPRECTATED_*
-    
-    :box:
-        #display: inverted pink
-        
-        This toggle has been hidden from the UI as it is no longer needed.
-        Auto set xaos is now handling all the iterator's data, including copy/paste iterator's multi parameters data.
-    
-    ON by default. Auto-set an iterator's xaos values every time an iterator is added or removed. 
-    It will keep the existing xaos weights and only add/remove the necessary ones. 
-    In case of ADD, the new xaos weights will be of value: 1.
-    
-    TIP:
-        The FLAM3H viewport Tag icon will turn red ( [Smallicon:opdef:.?icon_TagORedSVG.svg] ) when OFF.
+
 
 :box:
     #display: rounded white
