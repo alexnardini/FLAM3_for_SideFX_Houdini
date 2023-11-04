@@ -623,9 +623,9 @@ flam3h_on_loaded(self) -> None:
         """        
         
         try:
-            hou.session.flam3_first_instance # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE # type: ignore
         except:
-            hou.session.flam3_first_instance = False # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE = False # type: ignore
 
             node = self.node
             _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
