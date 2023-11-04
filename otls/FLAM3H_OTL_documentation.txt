@@ -1911,14 +1911,14 @@ NOTE:
     
     *SideFX made this part very easy*:
     
-    * Open a Houdini 19.x Command line Tools shell
-    * Navigate into the directory where the cvex source files are located
-    * To compile any of the available cvex source files, run this command:
+    # Open a Houdini 19.x Command line Tools shell
+    # Navigate into the directory where the cvex source files are located
+    # To compile any of the available cvex source files, run this command:
     
-    {{{
-    #!vex
-    vcc -c cvex sourceFile.vfl -o outputFile.vex
-    }}}
+        {{{
+        #!vex
+        vcc -c cvex sourceFile.vfl -o outputFile.vex
+        }}}
     
     - *vcc* is the name of the Houdini's cvex/vex compiler
     - *-c* to specify a Houdini context, in this case the context is: *cvex*
@@ -1944,13 +1944,13 @@ NOTE:
     
     If you end up updating the Cvex code yourself by extending it: 
     
-    - Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile CVEX*.
-    - Once you are ready, remove the old compiled Cvex file from: *FLAM3H*->*Type properties*->*extra files*.
-    - Locate the new compiled Cvex file and load it back inside *FLAM3H*->*Type properties*->*extra files* section.
-    - Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
+    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile CVEX*.
+    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H*->*Type properties*->*extra files*.
+    # Locate the new compiled Cvex file and load it back inside *FLAM3H*->*Type properties*->*extra files* section.
+    # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
         - ex: From: _*TheFractalFlameAlgorithm.vex*_ To: _*TheFractalFlameAlgorithm*_
-    - Click *Apply* or *Accept* to confirm your changes.
-    - Go inside the FLAM3H node and on any of the wrangle core nodes, click the:
+    # Click *Apply* or *Accept* to confirm your changes.
+    # Go inside the FLAM3H node and on any of the wrangle core nodes, click the:
     
         * "Reload CVEX" icon: [Smallicon:opdef:.?icon_TagORedSVG.svg]
     
