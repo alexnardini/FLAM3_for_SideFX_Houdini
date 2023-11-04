@@ -526,7 +526,7 @@ pre tab:
     
 swap pre vars:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
     ((LMB)) swap the order of the PRE Variations and their weights. 
     
@@ -603,9 +603,15 @@ pre affine:
         
 pre affine reset:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
     Reset this iterator's pre affine to their default values.
+    
+    - ((LMB)) to reset all affine values.
+    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
+    - ((CTRL)) + ((LMB)) to reset only the affine O value.
+    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
+    
         
         
 POST affine:
@@ -615,9 +621,14 @@ POST affine:
     
 post affine reset:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
     Reset this iterator's post affine to their default values.
+    
+    - ((LMB)) to reset all affine values.
+    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
+    - ((CTRL)) + ((LMB)) to reset only the affine O value.
+    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
     
 :box:
     #display: rounded white
@@ -709,7 +720,7 @@ FF Post tab:
 
 swap FF Post vars:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
     ((LMB)) swap the order of the POST Variations and their weights. 
     
@@ -745,9 +756,14 @@ FF: pre affine:
     
 FF pre affine reset:
     #id: FF
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
     Reset the FF pre affine to their default values.
+    
+    - ((LMB)) to reset all affine values.
+    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
+    - ((CTRL)) + ((LMB)) to reset only the affine O value.
+    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
     
 FF: POST affine:
     #id: FF
@@ -757,9 +773,14 @@ FF: POST affine:
     
 FF post affine reset:
     #id: FF
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
     Reset the FF post affine to their default values.
+    
+    - ((LMB)) to reset all affine values.
+    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
+    - ((CTRL)) + ((LMB)) to reset only the affine O value.
+    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
         
 :box:
     #display: rounded white
