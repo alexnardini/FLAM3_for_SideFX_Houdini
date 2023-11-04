@@ -2040,7 +2040,7 @@ iterator_keep_last_weight(self) -> None:
             isDELETED = True
             
         # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
-        # The following will pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
+        # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
         #
         if mp_id_from is not None and from_FLAM3H_NODE is not None:
             # Mark, mark another node, Undo
@@ -2052,7 +2052,7 @@ iterator_keep_last_weight(self) -> None:
                         # unlock
                         f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                         # set
-                        f3h.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(f3h)})
+                        f3h.setParms({FLAM3H_DATA_PRM_MPIDX: int(self.get_user_data(f3h))})
                         # lock
                         f3h.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                         break
@@ -2063,7 +2063,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(node)}) # type: ignore
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: int(self.get_user_data(node))}) # type: ignore
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
         # Mark, Clear, Mark, Undo
@@ -2073,7 +2073,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: self.get_user_data(from_FLAM3H_NODE)})
+                from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: int(self.get_user_data(from_FLAM3H_NODE))})
                 # lock
                 from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
@@ -2119,7 +2119,7 @@ iterator_keep_last_weight(self) -> None:
             isDELETED = True
 
         # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
-        # The following will pick up the pieces and put them together to keep the copy/paste FF data going smooth.
+        # The following will try to pick up the pieces and put them together to keep the copy/paste FF data going smooth.
         #
         # -> def menu_copypaste_FF(self) -> list:
         if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
