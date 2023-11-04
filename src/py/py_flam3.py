@@ -5364,6 +5364,8 @@ set_iter_on_load_callback(self) -> None:
 
 use_iter_on_load_callback(self) -> None:
 
+in_to_flam3h_reset_user_data(self) -> None:
+
 in_to_flam3h_sys(self) -> None:
 
 in_to_flam3h(self) -> None:
@@ -6729,6 +6731,32 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({GLB_ITERATIONS: iternumonload})
 
 
+    def in_to_flam3h_reset_user_data(self) -> None:
+        node = self.node
+        # Reset iterator user data if needed
+        from_FLAM3H_NODE = hou.session.flam3h_iterator_node # type: ignore
+        if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
+            if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
+                flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
+                hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
+        
+        # Reset mp idx flam3h mem parameter
+        if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+            # unlock
+            node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+            # set
+            node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+            # lock
+            node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+        
+        # Reset FF user data if needed
+        from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
+        if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
+            if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
+                hou.session.flam3h_FF_node_check = None # type: ignore
+
+
     '''
         The following function is just a shortcut to set and load
         a new preset from the IN Tab IN_PRESETS parameter,
@@ -6850,19 +6878,8 @@ reset_IN(self, mode=0) -> None:
             if apo_data.prefs_flam3h_f3c is not None:
                 node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
             
-            # Reset iterator user data if needed
-            from_FLAM3H_NODE = hou.session.flam3h_iterator_node # type: ignore
-            if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
-                if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
-                    flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                    hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
-            
-            # Reset FF user data if needed
-            from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
-            if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
-                if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
-                    flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
-                    hou.session.flam3h_FF_node_check = None # type: ignore
+            # Reset iterator and FF user data if needed
+            self.in_to_flam3h_reset_user_data()
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
