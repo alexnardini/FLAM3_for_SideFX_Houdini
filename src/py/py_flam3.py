@@ -1374,9 +1374,7 @@ iterator_keep_last_weight(self) -> None:
         data_FF_name = f"{d_type}Marked FF"
         
         if data_name == data_iter_name:
-            
             if node.userData(f"{data_FF_name}") is None:
-                
                 if node.userData(f"{data_name}") is not None:
                     with hou.undos.group(f"FLAM3H DEL user data iter None"): # type: ignore
                         node.destroyUserData(f"{data_name}")
@@ -6851,13 +6849,20 @@ reset_IN(self, mode=0) -> None:
             # F3C ( the if statement is for backward compatibility )
             if apo_data.prefs_flam3h_f3c is not None:
                 node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
-                
-            # init/clear copy/paste iterator's data and prm
-            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
             
-            # Remove any comment and user data from the node
-            flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
-            flam3h_iterator_utils.del_comment_and_user_data_iterator(node, "Marked FF")
+            # Reset iterator user data if needed
+            from_FLAM3H_NODE = hou.session.flam3h_iterator_node # type: ignore
+            if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
+                if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
+                    flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
+                    hou.session.flam3h_FF_node_check = None # type: ignore
+            
+            # Reset FF user data if needed
+            from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
+            if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
+                if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                    flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
+                    hou.session.flam3h_FF_node_check = None # type: ignore
                 
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
