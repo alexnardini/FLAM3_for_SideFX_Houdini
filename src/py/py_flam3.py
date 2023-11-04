@@ -6855,7 +6855,7 @@ reset_IN(self, mode=0) -> None:
             if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
                 if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                    hou.session.flam3h_FF_node_check = None # type: ignore
+                    hou.session.flam3h_iterator_node_mp_idx = None # type: ignore
             
             # Reset FF user data if needed
             from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
