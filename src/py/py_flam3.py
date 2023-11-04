@@ -2022,6 +2022,9 @@ iterator_keep_last_weight(self) -> None:
             mp_id_from = None
             isDELETED = True
             
+        # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
+        # The following will pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
+        #
         if mp_id_from is not None and from_FLAM3H_NODE is not None:
             # Mark, mark another node, Undo
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
@@ -2098,7 +2101,9 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3H_NODE = None
             isDELETED = True
 
-
+        # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
+        # The following will pick up the pieces and put them together to keep the copy/paste FF data going smooth.
+        #
         # -> def menu_copypaste_FF(self) -> list:
         if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
             # Mark, mark another node, Undos
