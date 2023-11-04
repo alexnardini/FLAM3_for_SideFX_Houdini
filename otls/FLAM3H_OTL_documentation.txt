@@ -366,14 +366,18 @@ note:
 copy/paste:
     #id: FLAME
     [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
+
+    All the necessary methods for copy/paste iterator's data are contained in this icon. This icon allows you to mark an iterator for being copied, and then copy the data from the marked iterator into another iterator number — even if it is located inside a separate FLAM3H node.
+    Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including xaos.
+    
+    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
+    This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
+
+    Below are the different options on how you can use this icon:
     
     - ((LMB)) to mark this iterator for being copied. 
     - ((CTRL)) + ((LMB)) to PASTE the copied values into another iterator. It will copy everything, parametric variations' parameters included, but not XAOS. To copy XAOS, use the copy/paste mini menu.
     - ((SHIFT)) + ((LMB)) will unmark this iterator for being copied.
-    
-    It will work also between different FLAM3H nodes.
-    
-    Once an iterator has been marked, you can use the mini menu next to the [Smallicon:opdef:.?iconStarSwapRedSVG.svg] icon to paste particular sections from the marked iterator, including xaos.
     
 A tip:
     #id: FLAME
@@ -576,7 +580,7 @@ pre affine:
         A linear transformation cannot be used to translate a set of points. 
         
         To translate a set of points, we need to use an *_affine transformation_*. 
-        An *_affine transformation_* multiplies a vector by a matrix, just as in a linear transformation, 
+        An _affine transformation_ multiplies a vector by a matrix, just as in a linear transformation, 
         and then adds a vector to the result ( the *O*._xy_ *`vector2`* component ). 
         This added vector carries out the translation. 
         By applying an affine transformation to an image on the screen, we can do everything a linear transformation can do, 
@@ -670,6 +674,14 @@ FF: note:
 FF: copy/paste:
     #id: FF
     [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
+
+    All the necessary methods for copy/paste FF's data are contained in this icon. This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
+    Once the FF has been marked, you can use the mini menu next to the icon to copy individual sections from the marked FF.
+    
+    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
+    This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
+
+    Below are the different options on how you can use this icon:
     
     - ((LMB)) to mark this FF for being copied. 
     - ((CTRL)) + ((LMB)) on another FLAM3 node to paste the copied FF values. It will copy everything, parametric variations' parameters included.
