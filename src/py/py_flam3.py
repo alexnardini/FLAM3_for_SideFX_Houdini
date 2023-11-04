@@ -1251,9 +1251,9 @@ menu_copypaste(self) -> list:
 
 menu_copypaste_FF(self) -> list:
 
-prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+prm_paste_update_for_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
 
-prm_paste_update_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+prm_paste_update_for_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
 
 prm_paste_CTRL(self, id: int) -> None:
 
@@ -1315,7 +1315,6 @@ iterator_keep_last_weight(self) -> None:
         d_type = "nodeinfo_"
         
         data_name = f"{d_type}{data}"
-        
         if node.userData(f"{data_name}") is None:
             return False
         else:
@@ -1863,7 +1862,7 @@ iterator_keep_last_weight(self) -> None:
         if self.exist_user_data(node):
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
         
-        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
         if mp_id_from is not None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
@@ -1927,7 +1926,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         
         self.flam3h_init_hou_session_ff_data(node)
-        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_undo_ff(node)
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
 
         if from_FLAM3H_NODE_FF_CHECK is not None:
 
@@ -1959,7 +1958,7 @@ iterator_keep_last_weight(self) -> None:
                 return menu
         
         
-    def prm_paste_update_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+    def prm_paste_update_for_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
         """Updated data for copy/paste iterator's methods in case of Undos.
         It will make sure that the houdini.session data about the iterator index
         will always be up to date.
@@ -2067,7 +2066,25 @@ iterator_keep_last_weight(self) -> None:
         return from_FLAM3H_NODE, mp_id_from, isDELETED
 
 
-    def prm_paste_update_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+    def prm_paste_update_for_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+        """Updated data for copy/paste iterator's methods in case of Undos.
+        It will make sure that the houdini.session data about the iterator index
+        will always be up to date.
+        
+        It is for: hou.session.flam3h_iterator_node_mp_idx -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+
+        Args:
+            node (hou.Node): the current FLAM3H node
+
+        Returns:
+            tuple[Union[hou.Node, None], Union[int, None], bool]: 
+            
+            from_FLAM3H_NODE -> is the node we are copying the data from. 
+            
+            from_FLAM3H_NODE_FF_CHECK -> Is the FF being marked or not".
+            
+            isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
+        """     
         
         from_FLAM3H_NODE = hou.session.flam3h_FF_node # type: ignore
         from_FLAM3H_NODE_FF_CHECK = hou.session.flam3h_FF_node_check # type: ignore
@@ -2120,7 +2137,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         
         self.flam3h_init_hou_session_iterator_data(node)
-        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
         if mp_id_from is not None:
             
@@ -2180,7 +2197,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         
         self.flam3h_init_hou_session_iterator_data(node)
-        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_undo(node)
+        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
         if node == from_FLAM3H_NODE: # type: ignore
             
@@ -2327,19 +2344,19 @@ iterator_keep_last_weight(self) -> None:
         id = self.kwargs['script_multiparm_index']
         
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H paste iterator data {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H paste iterator data CTRL {str(id)}"): # type: ignore
                 self.prm_paste_CTRL(id)
                 
         elif self.kwargs["shift"]:
-            with hou.undos.group(f"FLAM3H unmark iterator {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H unmark iterator SHIFT {str(id)}"): # type: ignore
                 self.prm_paste_SHIFT(id)
                 
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H unmark iterator {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H unmark iterator ALT {str(id)}"): # type: ignore
                 self.prm_paste_SHIFT(id)
         
         else:
-            with hou.undos.group(f"FLAM3H mark iterator {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H mark iterator CLICK {str(id)}"): # type: ignore
                 self.prm_paste_CLICK(id)
     
     
@@ -2353,11 +2370,11 @@ iterator_keep_last_weight(self) -> None:
         node=self.node
         
         self.flam3h_init_hou_session_ff_data(node)
-        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_undo_ff(node)
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
 
         if self.kwargs["ctrl"]:
             
-            with hou.undos.group("FLAM3H paste FF data"): # type: ignore
+            with hou.undos.group("FLAM3H paste FF data CTRL"): # type: ignore
                 
                 if from_FLAM3H_NODE_FF_CHECK is not None:
                     
@@ -2385,7 +2402,7 @@ iterator_keep_last_weight(self) -> None:
 
         elif self.kwargs["shift"]:
             
-            with hou.undos.group("FLAM3H unmark FF"): # type: ignore
+            with hou.undos.group("FLAM3H unmark FF SHIFT"): # type: ignore
                 
                 if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
                     if node == from_FLAM3H_NODE:
@@ -2412,7 +2429,7 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             
-            with hou.undos.group("FLAM3H mark FF"): # type: ignore
+            with hou.undos.group("FLAM3H mark FF CLICK"): # type: ignore
                 
                 if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
                     _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
