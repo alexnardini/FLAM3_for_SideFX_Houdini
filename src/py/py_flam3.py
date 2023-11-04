@@ -632,7 +632,7 @@ flam3h_on_loaded(self) -> None:
             _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
             
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-            sys_updated_mode = hou.session.flam3h_sys_update_mode # type: ignore
+            sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
             if FIRST_TIME_MSG:
                 
@@ -824,15 +824,13 @@ flam3h_on_loaded(self) -> None:
             except:
                 if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
-                # hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
             try:
                 hou.session.FLAM3H_MARKED_FF_NODE.type # type: ignore
             except:
                 if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
                     hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
-                # hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
             try:
-                del hou.session.flam3h_sys_update_mode # type: ignore
+                del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
             except:
                 pass
 
