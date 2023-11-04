@@ -377,7 +377,7 @@ copy/paste:
     
     - ((LMB)) to mark this iterator for being copied. 
     - ((CTRL)) + ((LMB)) to paste the values from the marked iterator into another iterator.
-    - ((SHIFT)) + ((LMB)) will unmark this iterator for being copied.
+    - ((SHIFT)) + ((LMB)) to unmark this iterator for being copied.
     
 A tip:
     #id: FLAME
@@ -685,7 +685,7 @@ FF: copy/paste:
     
     - ((LMB)) to mark this FF for being copied. 
     - ((CTRL)) + ((LMB)) on another FLAM3H node to paste the FF values from the marked FF ( must be from a different FLAM3H node ).
-    - ((SHIFT)) + ((LMB)) will unmark the FF for being copied.
+    - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
     
     It will only work between different FLAM3H nodes.
     
