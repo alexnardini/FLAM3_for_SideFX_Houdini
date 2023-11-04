@@ -465,8 +465,6 @@ auto space xaos weights / xaos information tips:
     
     Activate/Deactivate auto space xaos weights option.
     
-    When the "*auto set xaos*" preferences option is *ON*: ( _default_ )
-    
     - ((LMB)) will space the xaos weights for easy read and count ( ON/OFF )
     
     - ((CTRL)) + ((LMB)) to show Xaos information and tips.
@@ -1067,8 +1065,6 @@ IN file ( *.flame type ):
     #id: IN
     
     Load *.flame files authored with Apophysis, Fractorium and other flam3-compatible applications.
-    
-    The "auto set xaos" preference option will automatically switch ON whenever a preset is loaded.
     
     The only restrictions are:
     
