@@ -687,10 +687,6 @@ FF: copy/paste:
     - ((CTRL)) + ((LMB)) to paste the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
     - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
     
-    It will only work between different FLAM3H nodes.
-    
-    Once a FF has been marked, you can use the mini menu next to the [Smallicon:opdef:.?iconStarSwapRedSVG.svg] icon to paste particular sections from the marked FF, including xaos.
-
     
 :box:
     #display: rounded white
