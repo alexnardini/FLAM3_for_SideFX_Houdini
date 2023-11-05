@@ -2373,7 +2373,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H unmark iterator {str(id)}"): # type: ignore
+                with hou.undos.group(f"FLAM3H unmark iterator CLICK {str(id)}"): # type: ignore
                     self.prm_paste_SHIFT(id, node)
             else:
                 with hou.undos.group(f"FLAM3H mark iterator CLICK {str(id)}"): # type: ignore
@@ -2495,7 +2495,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if self.exist_user_data(node, "Marked FF") and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H unmark FF"): # type: ignore
+                with hou.undos.group(f"FLAM3H unmark FF CLICK"): # type: ignore
                     self.prm_paste_FF_SHIFT(node)
             else:
                 with hou.undos.group(f"FLAM3H mark FF CLICK"): # type: ignore
