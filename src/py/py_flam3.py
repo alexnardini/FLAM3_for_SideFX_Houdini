@@ -7398,7 +7398,7 @@ out_XML(self) -> None:
     
     
     @staticmethod
-    def out_util_round_float(VAL) -> str:
+    def out_util_round_float(val) -> str:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
@@ -7407,14 +7407,14 @@ out_XML(self) -> None:
         Returns:
             str: A value without the floating zeros
         """        
-        if float(VAL).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
-            return str(int(float(VAL)))
+        if float(val).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
+            return str(int(float(val)))
         else:
-            return str(round(float(VAL), ROUND_DECIMAL_COUNT))
+            return str(round(float(val), ROUND_DECIMAL_COUNT))
         
         
     @staticmethod
-    def out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
+    def out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
@@ -7423,16 +7423,7 @@ out_XML(self) -> None:
         Returns:
             list[list[str]]: A list of list[str] with the rounded values if any
         """    
-        v_ROUND = []
-        for item in VAL_LIST:
-            collect = []
-            for i in item:
-                if float(i).is_integer():  # type: ignore - float.is_integer() is a valid method for a float
-                    collect.append(str(int(float(i))))
-                else:
-                    collect.append(str(round(float(i), ROUND_DECIMAL_COUNT)))
-            v_ROUND.append(collect)
-        return v_ROUND
+        return [[str(int(float(i))) if float(i).is_integer() else str(round(float(i), ROUND_DECIMAL_COUNT)) for i in item] for item in val_list]
         
         
     @staticmethod  
@@ -7453,7 +7444,7 @@ out_XML(self) -> None:
     
     
     @staticmethod
-    def out_util_iterators_vars_duplicate(VARS: list) -> list:
+    def out_util_iterators_vars_duplicate(vars: list) -> list:
         """Collect duplicate variation's names per each iterator.
 
         Args:
@@ -7463,7 +7454,7 @@ out_XML(self) -> None:
             list: duplicate variation's names per each iterator
         """
         duplicate = []
-        for iterator in VARS:
+        for iterator in vars:
             v = []
             d = []
             for var in iterator:
