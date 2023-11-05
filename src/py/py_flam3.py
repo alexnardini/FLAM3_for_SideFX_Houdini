@@ -1436,6 +1436,10 @@ iterator_keep_last_weight(self) -> None:
         except:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
         try:
+            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+        except:
+            hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+        try:
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
         except:
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
@@ -1450,6 +1454,10 @@ iterator_keep_last_weight(self) -> None:
             hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
         except:
             hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+        try:
+            hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+        except:
+            hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
         try:
             hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
         except:
