@@ -2277,17 +2277,13 @@ iterator_keep_last_weight(self) -> None:
             node (hou.Node): this FLAM3H node
         """        
         
+        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+                
         if self.exist_user_data(node):
             if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-            
-        from_FLAM3H_NODE = None
-        try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
-        
+
+
         if node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
             
             if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX != id: # type: ignore
@@ -2338,7 +2334,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                from_FLAM3H_NODE.setParms({FLAM3H_DATA_PRM_MPIDX: 0}) # type: ignore
                 # lock
                 from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 
@@ -2450,6 +2446,10 @@ iterator_keep_last_weight(self) -> None:
         """ 
         
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
+        
+        if self.exist_user_data(node, "Marked FF"):
+            if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
+                node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
             
         if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
             _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
