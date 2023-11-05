@@ -1430,7 +1430,7 @@ iterator_keep_last_weight(self) -> None:
     def flam3h_init_hou_session_iterator_data(node) -> None:
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
-        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        # but just in case this data is deleted somehow.
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         except:
@@ -1449,7 +1449,7 @@ iterator_keep_last_weight(self) -> None:
     def flam3h_init_hou_session_ff_data(node) -> None:
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
-        # but just in case this data is deleted on purpose right after ( from a SOP Python node for example ).
+        # but just in case this data is deleted somehow.
         try:
             hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
         except:
