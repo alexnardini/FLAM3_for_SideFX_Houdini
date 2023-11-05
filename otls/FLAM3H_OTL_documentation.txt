@@ -196,7 +196,9 @@ RIP:
     #display: rounded white
     
     == SYS: Tag == (SYSTAG)
-        
+[Image:opdef:.?FLAM3H_DOC_tag_reference.svg]
+_The above tag reference's image shows a flame with two iterators ( the second one being disabled ) with the FF._
+
 TAG:
     #id: SYS
     [Smallicon:opdef:.?icon_TagOBlueSVG.svg]
