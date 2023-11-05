@@ -7504,13 +7504,8 @@ out_XML(self) -> None:
         build_f = "/".join(file_split) + file_ext
         build_f_s = os.path.split(build_f)[0].split("/")
         build_f_s[:] = [item for item in build_f_s if item]
-        build_f_s_cleaned = []
-        # Clean location directories.
-        # Probably not needed as I check for the validity of the parent directory eitherway
-        # but i leave it here and remove it if causing any trouble down the line.
-        for item in build_f_s:
-            item_cleaned =''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED)
-            build_f_s_cleaned.append(item_cleaned)
+        # Clean location directories. ( maybe not needed but whatever )
+        build_f_s_cleaned = [''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED) for item in build_f_s]
         # append cleaned file_name
         build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
         # the file_ext start with a dot so its added as last
