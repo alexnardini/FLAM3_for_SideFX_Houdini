@@ -2147,16 +2147,14 @@ iterator_keep_last_weight(self) -> None:
 
 
 
-    def prm_paste_CTRL(self, id: int) -> None:
+    def prm_paste_CTRL(self, id: int, node: hou.Node) -> None:
         """Everything about paste iterator's data.
 
         Args:
             id (int): current multi parameter index
+            node (hou.Node): this FLAM3H node
         """    
 
-        node = self.node
-        
-        self.flam3h_init_hou_session_iterator_data(node)
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
         if mp_id_from is not None:
@@ -2207,16 +2205,14 @@ iterator_keep_last_weight(self) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
-    def prm_paste_SHIFT(self, id: int) -> None:
+    def prm_paste_SHIFT(self, id: int, node: hou.Node) -> None:
         """Everything about unmarking iterators from being copied.
 
         Args:
             id (int): current multi parameter index
+            node (hou.Node): this FLAM3H node
         """   
   
-        node = self.node
-        
-        self.flam3h_init_hou_session_iterator_data(node)
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
         if node == from_FLAM3H_NODE: # type: ignore
@@ -2229,7 +2225,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0}) # type: ignore
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 
@@ -2248,7 +2244,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0})
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: 0}) # type: ignore
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 
@@ -2273,15 +2269,13 @@ iterator_keep_last_weight(self) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         
 
-    def prm_paste_CLICK(self, id: int) -> None:
-        """Everything about marking iterators from being copied.
+    def prm_paste_CLICK(self, id: int, node: hou.Node) -> None:
+        """Everything about marking iterators for being copied.
 
         Args:
             id (int): current multi parameter index
+            node (hou.Node): this FLAM3H node
         """        
-        
-        node = self.node
-        self.flam3h_init_hou_session_iterator_data(node)
         
         if self.exist_user_data(node):
             if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
@@ -2302,7 +2296,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: id}) # type: ignore
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 
@@ -2316,7 +2310,7 @@ iterator_keep_last_weight(self) -> None:
                 # unlock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
                 # set
-                node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
+                node.setParms({FLAM3H_DATA_PRM_MPIDX: id}) # type: ignore
                 # lock
                 node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
                 
@@ -2332,7 +2326,7 @@ iterator_keep_last_weight(self) -> None:
             # unlock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
             # set
-            node.setParms({FLAM3H_DATA_PRM_MPIDX: id})
+            node.setParms({FLAM3H_DATA_PRM_MPIDX: id}) # type: ignore
             # lock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
             
@@ -2361,26 +2355,122 @@ iterator_keep_last_weight(self) -> None:
             kwargs (dict): [kwargs[] dictionary]
         """    
         
-        # current iterator
+        node = self.node
         id = self.kwargs['script_multiparm_index']
+        self.flam3h_init_hou_session_iterator_data(node)
         
         if self.kwargs["ctrl"]:
             with hou.undos.group(f"FLAM3H paste iterator data CTRL {str(id)}"): # type: ignore
-                self.prm_paste_CTRL(id)
+                self.prm_paste_CTRL(id, node)
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {str(id)}"): # type: ignore
-                self.prm_paste_SHIFT(id)
+                self.prm_paste_SHIFT(id, node)
                 
         elif self.kwargs["alt"]:
             with hou.undos.group(f"FLAM3H unmark iterator ALT {str(id)}"): # type: ignore
-                self.prm_paste_SHIFT(id)
+                self.prm_paste_SHIFT(id, node)
         
         else:
-            with hou.undos.group(f"FLAM3H mark iterator CLICK {str(id)}"): # type: ignore
-                self.prm_paste_CLICK(id)
+            if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+                with hou.undos.group(f"FLAM3H unmark iterator {str(id)}"): # type: ignore
+                    self.prm_paste_SHIFT(id, node)
+            else:
+                with hou.undos.group(f"FLAM3H mark iterator CLICK {str(id)}"): # type: ignore
+                    self.prm_paste_CLICK(id, node)
     
     
+    def prm_paste_FF_CTRL(self, node: hou.Node) -> None:
+        """Everything about paste FF's data.
+
+        Args:
+            node (hou.Node): this FLAM3H node
+        """    
+        
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
+            
+        if from_FLAM3H_NODE_FF_CHECK is not None:
+            
+            if node == from_FLAM3H_NODE:
+                _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else:
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
+                
+                _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+
+        else:
+            if isDELETED:
+                _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG} to copy parameter's values from."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
+            else:
+                _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+    
+    
+    def prm_paste_FF_SHIFT(self, node: hou.Node) -> None:
+        """Everything about unmarking FF from being copied.
+
+        Args:
+            node (hou.Node): this FLAM3H node
+        """  
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
+            
+        if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
+            if node == from_FLAM3H_NODE:
+                _MSG = f"{str(node)} ->  Unmarked FF: {str(from_FLAM3H_NODE)}.FF" # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+                
+                self.del_comment_and_user_data_iterator(node, "Marked FF")
+                
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else:
+                _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        else:
+            if isDELETED:
+                _MSG = f"{str(node)} -> Marked FF's node has been deleted -> Mark a new FF first."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else:
+                _MSG = f"{str(node)}: This FF is Unmarked already"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
+
+    def prm_paste_FF_CLICK(self, node: hou.Node) -> None:
+        """Everything about marking FF for being copied.
+
+        Args:
+            node (hou.Node): this FLAM3H node
+        """ 
+        
+        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
+            
+        if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
+            _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
+        else:
+            # Remove the FF data and comment from the other node
+            if from_FLAM3H_NODE is not None:
+                
+                self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
+                
+            hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
+            hou.session.FLAM3H_MARKED_FF_NODE = self.node # type: ignore
+            
+            self.del_comment_and_user_data_iterator(node, "Marked FF")
+            self.set_comment_and_user_data_iterator(node, "Yes", "Marked FF")
+            
+            _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
+
     def prm_paste_FF(self) -> None:
         """Paste the entire FF data.
         
@@ -2388,87 +2478,28 @@ iterator_keep_last_weight(self) -> None:
             kwargs (dict): [kwargs[] dictionary]
         """   
         
-        node=self.node
+        node = self.node
         self.flam3h_init_hou_session_ff_data(node)
-        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
-
+        
         if self.kwargs["ctrl"]:
-            
-            with hou.undos.group("FLAM3H paste FF data CTRL"): # type: ignore
+            with hou.undos.group(f"FLAM3H paste FF data CTRL"): # type: ignore
+                self.prm_paste_FF_CTRL(node)
                 
-                if from_FLAM3H_NODE_FF_CHECK is not None:
-                    
-                    if node == from_FLAM3H_NODE:
-                        _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                    else:
-                        self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                        self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
-                        self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                        self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
-                        self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
-                        
-                        _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
-
-                else:
-                    if isDELETED:
-                        _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG} to copy parameter's values from."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
-                    else:
-                        _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-
-
         elif self.kwargs["shift"]:
-            
-            with hou.undos.group("FLAM3H unmark FF SHIFT"): # type: ignore
+            with hou.undos.group(f"FLAM3H unmark FF SHIFT"): # type: ignore
+                self.prm_paste_FF_SHIFT(node)
                 
-                if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
-                    if node == from_FLAM3H_NODE:
-                        _MSG = f"{str(node)} ->  Unmarked FF: {str(from_FLAM3H_NODE)}.FF" # type: ignore
-                        hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
-                        hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-                        
-                        self.del_comment_and_user_data_iterator(node, "Marked FF")
-                        
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                    else:
-                        _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                else:
-                    if isDELETED:
-                        _MSG = f"{str(node)} -> Marked FF's node has been deleted -> Mark a new FF first."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                    else:
-                        _MSG = f"{str(node)}: This FF is Unmarked already"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                    
         elif self.kwargs["alt"]:
-            pass
-
+            with hou.undos.group(f"FLAM3H unmark FF ALT"): # type: ignore
+                self.prm_paste_FF_SHIFT(node)
+        
         else:
-            
-            with hou.undos.group("FLAM3H mark FF CLICK"): # type: ignore
-                
-                if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
-                    _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-
-                else:
-                    # Remove the FF data and comment from the other node
-                    if from_FLAM3H_NODE is not None:
-                        
-                        self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
-                        
-                    hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_NODE = self.node # type: ignore
-                    
-                    self.del_comment_and_user_data_iterator(node, "Marked FF")
-                    self.set_comment_and_user_data_iterator(node, "Yes", "Marked FF")
-                    
-                    _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            if self.exist_user_data(node, "Marked FF") and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
+                with hou.undos.group(f"FLAM3H unmark FF"): # type: ignore
+                    self.prm_paste_FF_SHIFT(node)
+            else:
+                with hou.undos.group(f"FLAM3H mark FF CLICK"): # type: ignore
+                    self.prm_paste_FF_CLICK(node)
 
     
     def prm_paste_sel(self) -> None:
@@ -2482,11 +2513,11 @@ iterator_keep_last_weight(self) -> None:
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
         try:
-            id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
         except:
-            id_from = None
+            mp_id_from = None
 
-        if id_from is not None:
+        if mp_id_from is not None:
 
             # current iterator
             id = self.kwargs['script_multiparm_index']
@@ -2495,46 +2526,46 @@ iterator_keep_last_weight(self) -> None:
             n = flam3h_iterator_prm_names
 
             # Marked iterator node
-            flam3node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
             
             # Get user selection of paste methods
             paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
 
             # set MAIN
             if paste_sel == 1:
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_main, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_MAIN, str(id), str(id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_main, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_MAIN, str(id), str(mp_id_from))
             # set XML_XF_XAOS
             elif paste_sel == 2:
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_xaos, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_XAOS, str(id), str(id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_xaos, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, str(id), str(mp_id_from))
             # set SHADER 
             elif paste_sel == 3:
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_shader, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_SHADER, str(id), str(id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_shader, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_SHADER, str(id), str(mp_id_from))
             # set PRE VARS
             elif paste_sel == 4:
-                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_prevarsW, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_PREVARS, str(id), str(id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsW, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREVARS, str(id), str(mp_id_from))
             # set VARS
             elif paste_sel == 5:
-                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_varsW, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_VARS, str(id), str(id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsW, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_VARS, str(id), str(mp_id_from))
             # set POST VARS
             elif paste_sel == 6:
-                self.pastePRM_T_from_list(node, flam3node, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, str(id), str(id_from))
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_postvarsW, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_POSTVARS, str(id), str(id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsW, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTVARS, str(id), str(mp_id_from))
             # set PRE AFFINE
             elif paste_sel == 7:
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_preAffine, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_PREAFFINE, str(id), str(id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, str(id), str(mp_id_from))
             # set POST AFFINE
             elif paste_sel == 8:
-                self.paste_from_list(node, flam3node, flam3h_iterator.sec_postAffine, str(id), str(id_from))
-                self.paste_set_note(node, flam3node, 0, SEC_POSTAFFINE, str(id), str(id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, str(id), str(mp_id_from))
         
             node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
             
@@ -2554,43 +2585,43 @@ iterator_keep_last_weight(self) -> None:
 
         # Marked FF check ( not needed but just in case lets "try" so to speak )
         try:
-            flam3node_FF_check = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+            from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
         except:
-            flam3node_FF_check = None
+            from_FLAM3H_NODE_FF_CHECK = None
             
-        if flam3node_FF_check is not None:
+        if from_FLAM3H_NODE_FF_CHECK is not None:
 
             n = flam3h_iterator_prm_names
             
             # Marked FF node
-            flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             # Get user selection of paste methods
             ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
             
             # set FF PRE VARS
             if ff_paste_sel == 1:
-                self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_prevarsW_FF, "", "")
-                self.paste_set_note(node, flam3node_FF, 2, SEC_PREVARS, "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsW_FF, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREVARS, "", "")
             # set FF VARS
             elif ff_paste_sel == 2:
-                self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
-                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_varsW_FF, "", "")
-                self.paste_set_note(node, flam3node_FF, 2, SEC_VARS, "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsW_FF, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_VARS, "", "")
             # set FF POST VARS
             elif ff_paste_sel == 3:
-                self.pastePRM_T_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postvarsW_FF, "", "")
-                self.paste_set_note(node, flam3node_FF, 2, SEC_POSTVARS, "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsW_FF, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTVARS, "", "")
             # set FF PRE AFFINE
             elif ff_paste_sel == 4:
-                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_preAffine_FF, "", "")
-                self.paste_set_note(node, flam3node_FF, 2, SEC_PREAFFINE, "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_preAffine_FF, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREAFFINE, "", "")
             # set FF POST AFFINE
             elif ff_paste_sel == 5:
-                self.paste_from_list(node, flam3node_FF, flam3h_iterator_FF.sec_postAffine_FF, "", "")
-                self.paste_set_note(node, flam3node_FF, 2, SEC_POSTAFFINE, "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
 
             node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
                     
