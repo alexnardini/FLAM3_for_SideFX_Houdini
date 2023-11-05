@@ -183,8 +183,9 @@ FF:
 RIP:
     #id: SYS
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
-    * It can happen that some points shoot to infinity after being transformed by the algorithm.
-    Set this ON when rendering (especially for a sequence) to fix black or failed frames if you encounter any.
+
+    After the algorithm transforms the points, it is possible for some of those points to shoot to infinity.
+    Turn this on while rendering ( particularly for a sequence ) to correct any failed or black frames that may appear.
     
     NOTE:
         If rendering a flame seems unusually slow, it's probably because certain points wind up being really far from the zero world.
@@ -277,6 +278,7 @@ IN Preset reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     If there is a selected IN preset, click to reload it.
+
     By constantly saving the Flame over the same flame file that you are loading in, this feature allows you to swiftly update a preset that you are loading inside the IN Tab while changing it, for example, in Fractorium. 
     To update it in Houdini, simply click this icon quickly rather than entering the IN Tab, and then returning to where you were.
 
@@ -287,7 +289,8 @@ IN Preset reload:
     
 OUT Presets mini menu:
     #id: SYS
-    This menu is simply provided as information.
+    This menu is simply provided as information only.
+
     If there are any Flames in the chosen output file, they will be displayed.
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
@@ -304,15 +307,16 @@ OUT Save:
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     Click to save this flame inside the selected OUT file, if any.
+
+    _If the selected file does not exist, it will be created._
     
-    ((LMB)) to save the current flame into the selected OUT file.
+    _If the selected file exists and already contains some Flames in it, it will append the current one._
+
+    _If the selected file is not a valid Flame file type, nothing will happen._
     
-    - If the selected file does not exist, it will be created.
-    - If the selected file exists and already contains some Flames in it, it will append the current one.
+    - ((LMB)) to save the current flame into the selected OUT file.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
-    
-    _If the selected file is not a valid Flame file type, nothing will happen._
     
     
     
@@ -344,8 +348,9 @@ number of iterators:
     #id: FLAME
     
     Number of iterators to use.
-    * This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
-    * Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
+    This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
+    
+    Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
     
     NOTE:
         The order of the iterators does not matter at all.
@@ -434,7 +439,7 @@ xaos:
     Looking from an iterator's point of view:
     - When in xaos_TO mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
     - When in xaos_FROM mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
-    - _Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *Curl* variation in the above diagram/image. )_
+    - Note _that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *Curl* variation in the above diagram/image. )_
     
 
         
@@ -581,23 +586,22 @@ pre affine:
         
         To translate a set of points, we need to use an *_affine transformation_*. 
         An _affine transformation_ multiplies a vector by a matrix, just as in a linear transformation, 
-        and then adds a vector to the result ( the *O*._xy_ *`vector2`* component ). 
-        This added vector carries out the translation. 
-        By applying an affine transformation to an image on the screen, we can do everything a linear transformation can do, 
+        and then adds a vector to the result ( the *`O`*._`xy`_ component ). 
+        This added *`vector2`* carries out the translation. 
+        By applying an _affine transformation_ to an image on the screen, we can do everything a linear transformation can do, 
         and also have the ability to move the image up or down and left or right.
 
     Each iterator( xform ) has an affine transform that is always applied on every iteration.
     This is known as the pre affine becasue it is applied before the variations.
-    
-    
-    - With *X*._`xy`_ and *Y*._`xy`_ you will apply rotation and scale/shear while with *O*._`xy`_ you will apply translation/offset.
-    - They compose a 2x3 matrix ( *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ ).
-    - The rotation parameter will take the values of *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ and rotate them ( *O*._`xy`_ being the pivot).
+
+    - With *`X`*._`xy`_ and *`Y`*._`xy`_ you will apply rotation and scale/shear while with *`O`*._`xy`_ you will apply translation/offset.
+    - They compose a 2x3 matrix ( *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ ).
+    - The rotation parameter will take the values of *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ and rotate them ( *`O`*._`xy`_ being the pivot).
     
     There are two ways you can use the affine:
-    # Use *X*._`xy`_, *Y*._`xy`_, *O*._`xy`_ for everything ( translation, rotation and scale/shear ).
+    # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything ( translation, rotation and scale/shear ).
     
-    # Use the rotation parameter in combination with: *X*._`x`_ and *Y*._`y`_ for scale, *X*._`y`_ and *Y*._`x`_ for share and *O*._`xy`_ for translation.
+    # Use the rotation parameter in combination with: *`X`*._`x`_ and *`Y`*._`y`_ for scale, *`X`*._`y`_ and *`Y`*._`x`_ for share and *`O`*._`xy`_ for translation.
     
     NOTE:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
@@ -1835,12 +1839,12 @@ NOTE:
 
     When using Karma renderer:
 
-    - With *64gb of physical memory* you will be able to render *500M points* without weight much on virtual memory.
+    - With 64gb of physical memory you will be able to render 500M points without weight much on virtual memory.
     
-    - With *128gb of physical memory* you will be able to render *1 billion points* without weight much on virtual memory.
+    - With 128gb of physical memory you will be able to render 1 billion points without weight much on virtual memory.
     
     TIP:
-        When using Mantra, you can take advantage of *delayed loads* to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
+        When using Mantra, you can take advantage of _delayed loads_ to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
         
         A non-deterministic random number generator was used to construct FLAM3H, and it lies at the heart of the algorithm.
         As a result, the points produced by FLAM3H nodes will always be in a little bit of a different location every time it cook.
@@ -1855,7 +1859,7 @@ NOTE:
     Point size:
         #id: rendering
     
-    For simplicity, FLAM3H sets all *'@pscale'* to a value of *'0.001'*.
+    For simplicity, FLAM3H sets all *`@pscale`* to a value of *`0.001`*.
     Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
     It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     
@@ -1871,9 +1875,9 @@ NOTE:
     Karma/Mantra tips:
         #id: Karma/Mantra tips
     
-    - *When rendering with Karma*, remember to turn on the "*Simplified lighting*"/"*Disable lighting*" option to be sure to render the points with their full color values.
+    - When rendering with Karma, remember to turn on the "_Simplified lighting_"/"_Disable lighting_" option to be sure to render the points with their full color values.
     
-    - *When rendering with Mantra*, just create a constant shader that uses the *`@Cd`* attribute.
+    - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (Saturation) and, most crucially, the "*V*" (Value).
     The more dense portions of the flame will get brighter if the Value in HSV is increased from the default value of 1.0, bringing the appearance of the flame closer to that of a typical fractal flame.
@@ -1928,9 +1932,9 @@ NOTE:
     
     - For FLAM3H, the output file name must be the same as the input source file name ( only the file extension will be different, of course ).
     
-        - Source: _*TheFractalFlameAlgorithm.vfl*_ 
+        - Source -> _TheFractalFlameAlgorithm_._*vfl*_ 
     
-        - Output: _*TheFractalFlameAlgorithm.vex*_
+        - Output -> _TheFractalFlameAlgorithm_._*vex*_
     
 == Cvex: How to update FLAM3H node == (UPDATE)
     
