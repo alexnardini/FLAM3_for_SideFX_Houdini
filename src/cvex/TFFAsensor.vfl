@@ -1,0 +1,141 @@
+/*  
+ /  Title:      SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       Jan 2022, Last revised Jan 2023
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       SENSOR "CVEX"
+ /
+ /  Comment:    Generate a camera sensor/frame to look  
+ /              the fractal flame through that matches what you will see 
+ /              when you load the saved flame into for example Apophysis.
+ /              
+ /              The sensor is built upon the output XML render data:
+ /              - Camera resolution
+ /              - Camera center
+ /              - Camera zoom factor
+ /              - Camera rotation
+*/
+
+
+#define LIMIT   1000
+
+#pragma opname  "TFFAsensor"
+#pragma oplabel "TFFAsensor"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+#include <math.h>
+
+
+struct sensor{
+    vector2 res, center;
+    int zoom, rot;
+
+    void sensorBuild(){
+        res = chu("../../outres");
+        center = chu("../../outcenter");
+        zoom = chi("../../outscale");
+        rot = chi("../../outrotate");
+    }
+}
+
+void _TFFAsensor()
+{
+    
+    sensor SENSOR;
+    SENSOR->sensorBuild();
+
+    vector2 sensor_res = SENSOR.res;
+    vector2 sensor_center = SENSOR.center;
+    int sensor_zoom = SENSOR.zoom;
+    int sensor_rot = SENSOR.rot;
+    
+    // FLAM3H CAMERA Sensor
+    vector translation, translation_sensor, rotation, scale;
+    translation = set(sensor_center[0], sensor_center[1], 0);
+    rotation = set(0, 0, -float(-sensor_rot));
+    float factor = 1.0 / float(sensor_zoom);
+    scale = set(factor, factor, 0);
+    
+    matrix m4_first, m4_second, m4_first_no_scale, m4_second_sensor, m4_flip_y;
+    m4_first = maketransform(0, 0, translation, 0, factor, 0);
+    m4_first_no_scale = maketransform(0, 0, translation, 0, 1);
+    m4_second = maketransform(0, 0, 0, rotation, 1, translation);
+    m4_second_sensor = maketransform(0, 0, 0, -rotation, 1, translation);
+    
+    float resx = sensor_res[0];
+    float resy = sensor_res[1];
+    vector _p1, _p2, _p3, _p4;
+    _p1 = set(-(resx/2), resy/2, 0);
+    _p2 = set((resx/2), resy/2, 0);
+    _p3 = set((resx/2), -(resy/2), 0);
+    _p4 = set(-(resx/2), -(resy/2), 0);
+    vector _points[] = array(_p1, _p2, _p3, _p4);
+    
+    vector _points_tm[] = {};
+    for(int i=0; i<4; i++){
+        vector pos = _points[i];
+        pos*= matrix(m4_first) * matrix(m4_second_sensor);
+        append(_points_tm, pos);
+    }
+    vector frame_sensor_offset = {0,0,0.1};
+    for(int i=0; i<4; i++){
+        vector pos = _points_tm[i];
+        _points_tm[i] = pos*invert(m4_first_no_scale)*invert(m4_second_sensor) + frame_sensor_offset;
+    }
+    vector center_sensor = (_points_tm[0] + _points_tm[1] + _points_tm[2] + _points_tm[3])/4;
+    matrix m4_center_sensor = maketransform(0, 0, center_sensor, 0, 1);
+    vector _points_tm_out[] = {};
+    
+    for(int i=0; i<4; i++){
+        vector pos = _points_tm[i];
+        _points_tm[i] = pos*invert(m4_center_sensor);
+        append(_points_tm_out, _points_tm[i] * (matrix(ident())*LIMIT) + frame_sensor_offset);
+    }
+    
+    int p1, p2, p3, p4;
+    p1 = addpoint(0, _points_tm[0]);
+    p2 = addpoint(0, _points_tm[1]);
+    p3 = addpoint(0, _points_tm[2]);
+    p4 = addpoint(0, _points_tm[3]);
+    int prim_in = addprim(0, "polyline", array(p1, p2, p3, p4, p1));
+    
+    int p1_o, p2_o, p3_o, p4_o;
+    p1_o = addpoint(0, _points_tm_out[0]);
+    p2_o = addpoint(0, _points_tm_out[1]);
+    p3_o = addpoint(0, _points_tm_out[2]);
+    p4_o = addpoint(0, _points_tm_out[3]);
+    int prim_out = addprim(0, "polyline", array(p1_o, p2_o, p3_o, p4_o, p1_o));
+    
+    vector color_sensor = 0.05;
+    int sensor_ptn[] = array(p1, p2, p3, p4, p1_o, p2_o, p3_o, p4_o);
+    foreach(int pt; sensor_ptn){
+        setpointattrib(0, "Cd", pt, color_sensor, "set");
+    }
+    int prim_1 = addprim(0, "poly", array(p1, p2, p2_o, p1_o, p1));
+    int prim_2 = addprim(0, "poly", array(p2, p3, p3_o, p2_o, p2));
+    int prim_3 = addprim(0, "poly", array(p3, p4, p4_o, p3_o, p3));
+    int prim_4 = addprim(0, "poly", array(p4, p1, p1_o, p4_o, p4));
+    
+    // FLAM3H Flame points
+    vector f3h_p = point(0, "P", 0);
+    f3h_p *= invert(m4_first_no_scale) * m4_second * invert(m4_center_sensor);
+    setpointattrib(0, "P", 0, f3h_p, "set");
+    setprimintrinsic(0, "transform", 0, matrix3(m4_second), "set");
+}
+
+cvex
+TFFAsensor()
+{
+    _TFFAsensor();
+}

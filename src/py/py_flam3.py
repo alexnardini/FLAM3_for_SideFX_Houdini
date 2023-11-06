@@ -149,6 +149,7 @@ OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
+OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
@@ -7878,6 +7879,8 @@ out_XML(self) -> None:
         node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
         node.setParms({MSG_OUT: ''})
         node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
+        
+        node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
@@ -7888,6 +7891,7 @@ out_XML(self) -> None:
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+        
         if mode:
             node.setParms({OUT_PATH: ""})
             node.setParms({OUT_HSV_PALETTE_DO: 0})
