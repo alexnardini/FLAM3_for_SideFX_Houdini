@@ -945,11 +945,16 @@ reset_PREFS(self, mode=0) -> None:
     
     
     def flam3h_toggle(self, prm=SYS_TAG) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa
+
+        Args:
+            prm (_type_, optional): _description_. Defaults to SYS_TAG. Toggle parameter name to use.
+        """        
         
         node = self.node
         
-        tag = node.parm(prm).evalAsInt()
-        if tag:
+        toggle = node.parm(prm).evalAsInt()
+        if toggle:
             node.setParms({prm: 0})
             
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
@@ -960,8 +965,17 @@ reset_PREFS(self, mode=0) -> None:
             
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-    
+            
+            
+    def flam3h_toggle_off(self, prm: str) -> None:
+        """If a toggle is ON it will switch OFF.
 
+        Args:
+            prm (str): Toggle parameter name to use
+        """        
+        toggle = self.node.parm(prm).evalAsInt()
+        if toggle:
+            self.node.setParms({prm: 0})
                 
                 
     def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
@@ -7886,7 +7900,7 @@ out_XML(self) -> None:
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 250})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 1})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
