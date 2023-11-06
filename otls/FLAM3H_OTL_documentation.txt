@@ -1323,6 +1323,13 @@ OUT render properties:
     NOTE:
         Those properties will control how the saved fractal flame will render inside other applications like Fractorium and Apophysis.
         They are their renderer settings, and they will be exported into the XML file.
+        
+
+:box:
+    #display: rounded white
+
+    == OUT: Edit Render properties == (OUTEDIT)
+
     
 Edit render properties:
     #id: OUT
@@ -1344,6 +1351,23 @@ Reset render properties:
     
     Click this icon to reset all OUT render properties.
     
+    
+:box:
+    #display: rounded white
+
+    == OUT: Edit Camera sensor == (OUTEDITCAMSENSOR)
+    
+SHOW sensor viz:
+    #id: OUT
+    [Smallicon:opdef:.?icon_TagORedSVG.svg]
+    
+    Activate FLAM3H camera sensor visualization.
+    
+    All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
+    
+    A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
+    The FLAM3H camera sensor will precisely display the image framing.
+    
 Resolution:
     #id: OUT
     The image resolution.
@@ -1359,6 +1383,13 @@ Rotate:
 Scale:
     #id: OUT
     The camera scale. This is a cheap way to do zoom since once loaded into Fractorium or Apophysis it wont increase the quality so you will have to tweak it yourself from within the host applicaton.
+    
+    
+:box:
+    #display: rounded white
+
+    == OUT: Edit Render settings == (OUTEDITRENSETTINGS)
+    
     
 Quality:
     #id: OUT

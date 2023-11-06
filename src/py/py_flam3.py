@@ -959,7 +959,7 @@ reset_PREFS(self, mode=0) -> None:
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 for view in flam3h_general_utils.util_getSceneViewers():
                     settings = view.curViewport().settings()
-                    settings.setLighting(hou.viewportLighting.Headlight)  # type: ignore
+                    settings.setLighting(hou.viewportLighting.Normal)  # type: ignore
                     
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -987,7 +987,7 @@ reset_PREFS(self, mode=0) -> None:
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 for view in flam3h_general_utils.util_getSceneViewers():
                     settings = view.curViewport().settings()
-                    settings.setLighting(hou.viewportLighting.Headlight)  # type: ignore
+                    settings.setLighting(hou.viewportLighting.Normal)  # type: ignore
                 
                 
     def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
