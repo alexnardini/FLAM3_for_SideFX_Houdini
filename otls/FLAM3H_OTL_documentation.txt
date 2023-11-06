@@ -1358,7 +1358,7 @@ Rotate:
     
 Scale:
     #id: OUT
-    The camera zoom.
+    The camera scale. This is a cheap way to do zoom since once loaded into Fractorium or Apophysis it wont increase the quality so you will have to tweak it yourself from within the host applicaton.
     
 Quality:
     #id: OUT
