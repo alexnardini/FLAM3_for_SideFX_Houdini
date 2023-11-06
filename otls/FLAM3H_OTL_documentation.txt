@@ -1361,7 +1361,7 @@ SHOW sensor viz:
     #id: OUT
     [Smallicon:opdef:.?icon_TagORedSVG.svg]
     
-    Activate FLAM3H camera sensor visualization.
+    Activate FLAM3H camera sensor visualization. Setting the viewport to FRONT will give you the best viewing experience.
     
     All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
     
@@ -1382,8 +1382,7 @@ Rotate:
     
 Scale:
     #id: OUT
-    The camera scale. This is a cheap way to do zoom since once loaded into Fractorium or Apophysis it wont increase the quality so you will have to tweak it yourself from within the host applicaton.
-    
+    Scale of the camera. This XML's key is an inexpensive method of achieving zoom because, once loaded into Fractorium or Apophysis, the quality won't be enhanced, requiring you to adjust it manually from within the host application.
     
 :box:
     #display: rounded white
