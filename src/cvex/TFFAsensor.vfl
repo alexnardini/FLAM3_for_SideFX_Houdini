@@ -79,8 +79,8 @@ void _TFFAsensor()
     float resy = sensor_res[1];
     vector _p1, _p2, _p3, _p4;
     _p1 = set(-(resx/2), resy/2, 0);
-    _p2 = set((resx/2), resy/2, 0);
-    _p3 = set((resx/2), -(resy/2), 0);
+    _p2 = set(resx/2, resy/2, 0);
+    _p3 = set(resx/2, -(resy/2), 0);
     _p4 = set(-(resx/2), -(resy/2), 0);
     vector _points[] = array(_p1, _p2, _p3, _p4);
     
