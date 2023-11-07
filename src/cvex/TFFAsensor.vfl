@@ -1,7 +1,7 @@
 /*  
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       Jan 2022, Last revised Jan 2023
+ /  date:       November 2023, Last revised November 2023
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -14,11 +14,13 @@
  /
  /  Name:       SENSOR "CVEX"
  /
- /  Comment:    Generate a camera sensor/frame to look  
- /              the fractal flame through that matches what you will see 
- /              when you load the saved flame into for example Apophysis.
+ /  Comment:    All the render settings required by third-party programs
+ /              such as Apophysis and Fractorium are stored together with the fractal flames
+ /              when they are saved from FLAM3H. A portion of the render parameters
+ /              deal with the camera and how the fractal flame you just saved is framed.
+ /              The FLAM3H camera sensor will precisely display the image framing.
  /              
- /              The sensor is built upon the output XML render data:
+ /              The sensor is built upon the OUT XML keys:
  /              - Camera resolution
  /              - Camera center
  /              - Camera zoom factor
