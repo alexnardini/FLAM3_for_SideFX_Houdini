@@ -86,7 +86,9 @@ void _TFFAsensor()
     vector frame_sensor_offset = {0,0,0.1};
     for(int i=0; i<4; i++){
         vector pos = _points_tm[i];
-        _points_tm[i] = pos * invert(m4_first_no_scale) * invert(m4_second_sensor) + frame_sensor_offset;
+        pos *= invert(m4_first_no_scale) * invert(m4_second_sensor);
+        pos += frame_sensor_offset;
+        _points_tm[i] = pos;
     }
 
     vector center_sensor = (_points_tm[0] + _points_tm[1] + _points_tm[2] + _points_tm[3])/4;
