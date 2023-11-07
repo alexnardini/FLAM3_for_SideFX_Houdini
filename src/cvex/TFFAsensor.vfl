@@ -14,15 +14,10 @@
  /
  /  Name:       SENSOR "CVEX"
  /
- /  Comment:    Generate a camera sensor/frame to look  
- /              the fractal flame through that matches what you will see 
- /              when you load the saved flame into for example Apophysis.
- /              
- /              The sensor is built upon the output XML render data:
- /              - Camera resolution
- /              - Camera center
- /              - Camera zoom factor
- /              - Camera rotation
+ /  Comment:    All the render settings required by third-party programs such as Apophysis and Fractorium
+ /              are stored together with the fractal flames when they are saved from FLAM3H.
+ /              A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
+ /              The FLAM3H camera sensor will precisely display the image framing.
 */
 
 
