@@ -128,10 +128,7 @@ void _TFFAsensor()
     int prim_4 = addprim(0, "poly", array(p4, p1, p1_o, p4_o, p4));
     
     // FLAM3H Flame points
-    vector f3h_p = point(0, "P", 0);
-    f3h_p *= invert(m4_first_no_scale) * m4_second * invert(m4_center_sensor);
-    setpointattrib(0, "P", 0, f3h_p, "set");
-    setprimintrinsic(0, "transform", 0, matrix3(m4_second), "set");
+    packedtransform(0, 0, invert(m4_first_no_scale) * m4_second * invert(m4_center_sensor));
 }
 
 cvex

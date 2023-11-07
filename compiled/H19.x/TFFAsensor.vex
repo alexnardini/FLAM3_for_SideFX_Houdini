@@ -13,8 +13,6 @@ source_filename = "TFFAsensor"
 @6 = private constant [3 x i8] c"Cd\00"
 @7 = private constant [4 x i8] c"set\00"
 @8 = private constant [5 x i8] c"poly\00"
-@9 = private constant [2 x i8] c"P\00"
-@10 = private constant [10 x i8] c"transform\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"sensorDATA@Z6sensorM4N3resUN6centerUN4zoomIN3rotI"(%sensor* %this) #0 {
@@ -240,15 +238,11 @@ end219:                                           ; preds = %cond214
   %return249 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @8, i64 0, i64 0), i64* %return248)
   %return255 = call i64* @"array@[I:IIIII"(i64 %return175, i64 %return166, i64 %return185, i64 %return194, i64 %return175)
   %return256 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @8, i64 0, i64 0), i64* %return255)
-  %return257 = call <3 x double> @"point@VISI"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 0)
-  %return260 = call <16 x double> @"invert@44"(<16 x double> %return26)
-  %output262 = call <16 x double> @"mul@44"(<16 x double> %return260, <16 x double> %return31)
-  %return264 = call <16 x double> @"invert@44"(<16 x double> %return130)
-  %output265 = call <16 x double> @"mul@44"(<16 x double> %output262, <16 x double> %return264)
-  %output266 = call <3 x double> @"mul@V4"(<3 x double> %return257, <16 x double> %output265)
-  %return268 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 0, <3 x double> %output266, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @7, i64 0, i64 0))
-  %cast270 = call <9 x double> @"set@34"(<16 x double> %return31)
-  %return271 = call i64 @"setprimintrinsic@IISI3S"(i64 0, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @10, i64 0, i64 0), i64 0, <9 x double> %cast270, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @7, i64 0, i64 0))
+  %return258 = call <16 x double> @"invert@44"(<16 x double> %return26)
+  %output260 = call <16 x double> @"mul@44"(<16 x double> %return258, <16 x double> %return31)
+  %return262 = call <16 x double> @"invert@44"(<16 x double> %return130)
+  %output263 = call <16 x double> @"mul@44"(<16 x double> %output260, <16 x double> %return262)
+  call void @"packedtransform@II4"(i64 0, i64 0, <16 x double> %output263)
   ret void
 }
 
@@ -337,13 +331,7 @@ declare i64 @"getcomp@I[II"(i64*, i64) #1
 declare i64 @"setpointattrib@IISIVS"(i64, i8*, i64, <3 x double>, i8*) #2
 
 ; Function Attrs: nounwind
-declare <3 x double> @"point@VISI"(i64, i8*, i64) #2
-
-; Function Attrs: nounwind
-declare <9 x double> @"set@34"(<16 x double>) #2
-
-; Function Attrs: nounwind
-declare i64 @"setprimintrinsic@IISI3S"(i64, i8*, i64, <9 x double>, i8*) #2
+declare void @"packedtransform@II4"(i64, i64, <16 x double>) #2
 
 ; Function Attrs: nounwind
 define void @TFFAsensor() #2 {
