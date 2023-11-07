@@ -14,10 +14,15 @@
  /
  /  Name:       SENSOR "CVEX"
  /
- /  Comment:    All the render settings required by third-party programs such as Apophysis and Fractorium
- /              are stored together with the fractal flames when they are saved from FLAM3H.
- /              A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
- /              The FLAM3H camera sensor will precisely display the image framing.
+ /  Comment:    Generate a camera sensor/frame to look  
+ /              the fractal flame through that matches what you will see 
+ /              when you load the saved flame into for example Apophysis.
+ /              
+ /              The sensor is built upon the output XML render data:
+ /              - Camera resolution
+ /              - Camera center
+ /              - Camera zoom factor
+ /              - Camera rotation
 */
 
 
@@ -56,13 +61,13 @@ void _TFFAsensor()
     int sensor_rot = SENSOR.rot;
     
     // FLAM3H CAMERA Sensor
-    vector translation, rotation, scale;
+    vector translation, translation_sensor, rotation, scale;
     translation = set(sensor_center[0], sensor_center[1], 0);
     rotation = set(0, 0, float(sensor_rot));
     float factor = 1.0 / float(sensor_zoom);
     scale = set(factor, factor, 0);
     
-    matrix m4_first, m4_second, m4_first_no_scale, m4_second_sensor;
+    matrix m4_first, m4_second, m4_first_no_scale, m4_second_sensor, m4_flip_y;
     m4_first = maketransform(0, 0, translation, 0, factor, 0);
     m4_first_no_scale = maketransform(0, 0, translation, 0, 1);
     m4_second = maketransform(0, 0, 0, rotation, 1, translation);
@@ -80,26 +85,22 @@ void _TFFAsensor()
     vector _points_tm[] = {};
     for(int i=0; i<4; i++){
         vector pos = _points[i];
-        pos*= m4_first * m4_second_sensor;
+        pos*= matrix(m4_first) * matrix(m4_second_sensor);
         append(_points_tm, pos);
     }
     vector frame_sensor_offset = {0,0,0.1};
     for(int i=0; i<4; i++){
         vector pos = _points_tm[i];
-        pos *= invert(m4_first_no_scale) * invert(m4_second_sensor);
-        pos += frame_sensor_offset;
-        _points_tm[i] = pos;
+        _points_tm[i] = pos * invert(m4_first_no_scale) * invert(m4_second_sensor) + frame_sensor_offset;
     }
-
     vector center_sensor = (_points_tm[0] + _points_tm[1] + _points_tm[2] + _points_tm[3])/4;
     matrix m4_center_sensor = maketransform(0, 0, center_sensor, 0, 1);
     vector _points_tm_out[] = {};
+    
     for(int i=0; i<4; i++){
         vector pos = _points_tm[i];
-        _points_tm[i] = pos * invert(m4_center_sensor);
-        pos *= (matrix(ident()) * LIMIT);
-        pos += frame_sensor_offset;
-        append(_points_tm_out, pos);
+        _points_tm[i] = pos*invert(m4_center_sensor);
+        append(_points_tm_out, _points_tm[i] * (matrix(ident())*LIMIT) + frame_sensor_offset);
     }
     
     int p1, p2, p3, p4;
