@@ -87,7 +87,7 @@ void _TFFAsensor()
     vector _points_tm[] = {};
     for(int i=0; i<4; i++){
         vector pos = _points[i];
-        pos*= matrix(m4_first) * matrix(m4_second_sensor);
+        pos *= matrix(m4_first) * matrix(m4_second_sensor);
         append(_points_tm, pos);
     }
     vector frame_sensor_offset = {0,0,0.1};
