@@ -1382,7 +1382,7 @@ Rotate:
     
 Scale:
     #id: OUT
-    Size of the lens. Because the quality won't be improved once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
+    Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
     
     
 :box:
