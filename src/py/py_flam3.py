@@ -31,7 +31,7 @@ import hou
  
 #   Title:      SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised October 2023
+#   date:       January 2023, Last revised November 2023
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
@@ -7907,7 +7907,7 @@ out_XML(self) -> None:
         node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
         
         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1920, 1080))})
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
