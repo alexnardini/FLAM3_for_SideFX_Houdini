@@ -1382,7 +1382,8 @@ Rotate:
     
 Scale:
     #id: OUT
-    Scale of the camera. This XML's key is an inexpensive method of achieving zoom because, once loaded into Fractorium or Apophysis, the quality won't be enhanced, requiring you to adjust it manually from within the host application.
+    Size of the lens. Because the quality won't be improved once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
+    
     
 :box:
     #display: rounded white
