@@ -24,7 +24,6 @@ import colorsys
 import webbrowser
 import inspect
 import hou
-import toolutils
 
 
 
@@ -955,9 +954,10 @@ reset_PREFS(self, mode=0) -> None:
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         if viewport.isCurrentTab():
             view = viewport.curViewport()
-            view.changeType(hou.geometryViewportType.Front) # type: ignore
-            view_obj = view.defaultCamera()
-            view_obj.setTranslation((0, 0, 1))
+            if view.type() != hou.geometryViewportType.Front: # type: ignore
+                view.changeType(hou.geometryViewportType.Front) # type: ignore
+            node = hou.node('./sensor/ADD_infos_and_logo/OUT_bbox_data')
+            view.frameBoundingBox(node.geometry().boundingBox())
 
 
 
