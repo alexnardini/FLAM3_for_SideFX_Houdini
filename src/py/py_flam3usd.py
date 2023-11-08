@@ -3,8 +3,10 @@ from datetime import datetime
 import hou
 
 
-#   Tested on PYTHON v3.7.13(H19) and PYTHON v3.9.10(H19.5)
-
+#   Tested on:  PYTHON v3.7.13  (H19)
+#               PYTHON v3.9.10  (H19.5)
+#               PYTHON v3.10.10 (H20)
+#
 #   Title:      SideFX Houdini FLAM3HUSD
 #   Author:     Alessandro Nardini
 #   date:       September 2023, Last revised September 2023
@@ -17,7 +19,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.0.3'
+FLAM3HUSD_VERSION = '0.0.4'
 
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 
@@ -150,8 +152,10 @@ def setHydraRenderer(self: hou.Node) -> None:
         if rndtype == 0:
             hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
         elif rndtype == 1:
-            hou.SceneViewer.setHydraRenderer(view, 'Karma')
+            hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
         elif rndtype == 2:
+            hou.SceneViewer.setHydraRenderer(view, 'Karma XPU')
+        elif rndtype == 3:
             hou.SceneViewer.setHydraRenderer(view, 'Storm')
             
 
