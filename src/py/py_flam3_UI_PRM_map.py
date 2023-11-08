@@ -327,7 +327,7 @@ return menu
 
 'parameter name:    outedit'
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT()
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT(1) # dnt clear the MSG_OUT if any
 
 
 

@@ -19,12 +19,6 @@
  /              when they are saved from FLAM3H. A portion of the render parameters
  /              deal with the camera and how the fractal flame you just saved is framed.
  /              The FLAM3H camera sensor will precisely display the image framing.
- /              
- /              The sensor is built upon the OUT XML keys:
- /              - Camera resolution
- /              - Camera center
- /              - Camera zoom factor
- /              - Camera rotation
 */
 
 
@@ -63,14 +57,13 @@ void _TFFAsensor()
     int sensor_rot = SENSOR.rot;
     
     // FLAM3H CAMERA Sensor
-    vector translation, translation_sensor, rotation, scale;
+    vector translation, translation_sensor, rotation;
     translation = set(sensor_center[0], sensor_center[1], 0);
     rotation = set(0, 0, float(sensor_rot));
     float factor = 1.0 / float(sensor_zoom);
-    scale = set(factor, factor, 0);
     
     matrix m4_first, m4_second, m4_first_no_scale, m4_second_sensor, m4_flip_y;
-    m4_first = maketransform(0, 0, translation, 0, factor, 0);
+    m4_first = maketransform(0, 0, translation, 0, factor);
     m4_first_no_scale = maketransform(0, 0, translation, 0, 1);
     m4_second = maketransform(0, 0, 0, rotation, 1, translation);
     m4_second_sensor = maketransform(0, 0, 0, -rotation, 1, translation);

@@ -3128,14 +3128,14 @@ iterator_keep_last_weight(self) -> None:
         flam3h_palette_utils(self.kwargs).reset_CP()
         flam3h_general_utils(self.kwargs).reset_MB()
         in_flame_utils(self.kwargs).reset_IN()
-        out_flame_utils(self.kwargs).reset_OUT()
+        out_flame_utils(self.kwargs).reset_OUT(1) # dnt clear the MSG_OUT if any
         flam3h_general_utils(self.kwargs).reset_PREFS()
         
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
         node.setParms({MSG_FLAMESTATS: ""})
         node.setParms({MSG_FLAMERENDER: ""})
         node.setParms({MSG_PALETTE: ''})
-        node.setParms({MSG_OUT: ''})
+        # node.setParms({MSG_OUT: ''})
         
         # iterator prm names
         n = flam3h_iterator_prm_names
@@ -7902,8 +7902,11 @@ out_XML(self) -> None:
             mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
         """        
         node = self.node
+        
+        if mode == 0:
+            node.setParms({MSG_OUT: ''})
+        
         node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
-        node.setParms({MSG_OUT: ''})
         node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
         
         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
@@ -7918,7 +7921,7 @@ out_XML(self) -> None:
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
         
-        if mode:
+        if mode == 2:
             node.setParms({OUT_PATH: ""})
             node.setParms({OUT_HSV_PALETTE_DO: 0})
             node.setParms({OUT_PRESETS: "-1"})
