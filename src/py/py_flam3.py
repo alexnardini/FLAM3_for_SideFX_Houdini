@@ -27,8 +27,10 @@ import hou
 
 
 
-#   Tested on PYTHON v3.7.13(H19) and PYTHON v3.9.10(H19.5)
- 
+#   Tested on:  PYTHON v3.7.13  (H19)
+#               PYTHON v3.9.10  (H19.5)
+#               PYTHON v3.10.10 (H20)
+#
 #   Title:      SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
 #   date:       January 2023, Last revised November 2023
@@ -861,11 +863,15 @@ open_explorer_file(filename) -> None:
 
 util_getSceneViewers() -> list:
 
-util_set_clipping_viewers() -> None:
-
-util_set_front_viewer() -> None:
-
 METHODS:
+
+util_set_clipping_viewers(self) -> None:
+
+util_set_front_viewer(self) -> None:
+
+flam3h_toggle(self, prm=SYS_TAG) -> None:
+
+flam3h_toggle_off(self, prm: str) -> None:
 
 flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
 
@@ -937,30 +943,7 @@ reset_PREFS(self, mode=0) -> None:
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
     
-    @staticmethod
-    def util_set_clipping_viewers() -> None:
-        for view in flam3h_general_utils.util_getSceneViewers():
-            curView = view.curViewport()
-            settings = curView.settings()
-            settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
-            settings.setClipPlanes( [0.001, 1000] )
-            settings.homeAutoAdjustClip()
-            settings.clipPlanes()
-            
     
-    @staticmethod
-    def util_set_front_viewer() -> None:
-        desktop = hou.ui.curDesktop() # type: ignore
-        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
-        if viewport.isCurrentTab():
-            view = viewport.curViewport()
-            if view.type() != hou.geometryViewportType.Front: # type: ignore
-                view.changeType(hou.geometryViewportType.Front) # type: ignore
-            node = hou.node('./sensor/ADD_infos_and_logo/OUT_bbox_data')
-            view.frameBoundingBox(node.geometry().boundingBox())
-
-
-
     @property
     def kwargs(self):
         return self._kwargs
@@ -968,6 +951,29 @@ reset_PREFS(self, mode=0) -> None:
     @property
     def node(self):
         return self._node
+    
+    
+    
+    def util_set_clipping_viewers(self) -> None:
+        for view in flam3h_general_utils.util_getSceneViewers():
+            curView = view.curViewport()
+            settings = curView.settings()
+            settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
+            settings.setClipPlanes( [0.001, 1000] )
+            settings.homeAutoAdjustClip()
+            settings.clipPlanes()
+    
+    
+    def util_set_front_viewer(self) -> None:
+        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            desktop = hou.ui.curDesktop() # type: ignore
+            viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+            if viewport.isCurrentTab():
+                view = viewport.curViewport()
+                if view.type() != hou.geometryViewportType.Front: # type: ignore
+                    view.changeType(hou.geometryViewportType.Front) # type: ignore
+                node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                view.frameBoundingBox(node.geometry().boundingBox())
     
     
     def flam3h_toggle(self, prm=SYS_TAG) -> None:
@@ -991,8 +997,8 @@ reset_PREFS(self, mode=0) -> None:
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
             # set the view clipping planes and curent viewport to Front
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                flam3h_general_utils.util_set_clipping_viewers()
-                flam3h_general_utils.util_set_front_viewer()
+                flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
                 
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -7924,11 +7930,9 @@ out_XML(self) -> None:
         
         if mode == 0:
             node.setParms({MSG_OUT: ''})
+            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
+            node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
         
-        node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
-        node.setParms({IN_USE_FRACTORIUM_COLOR_SPEED: 0})
-        
-        node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
@@ -7939,6 +7943,9 @@ out_XML(self) -> None:
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+        
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
         if mode == 2:
             node.setParms({OUT_PATH: ""})

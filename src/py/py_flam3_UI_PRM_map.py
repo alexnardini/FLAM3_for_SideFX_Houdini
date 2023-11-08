@@ -344,6 +344,26 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsenso
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsensor")
 
 
+'parameter name:    outres'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+
+
+'parameter name:    outcenter'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+
+
+'parameter name:    outrotate'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+
+
+'parameter name:    outscale'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+
+
 
 #######################################################
 # PREFERENCES ( prefs Tab )
