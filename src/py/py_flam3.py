@@ -24,6 +24,7 @@ import colorsys
 import webbrowser
 import inspect
 import hou
+import toolutils
 
 
 
@@ -861,6 +862,10 @@ open_explorer_file(filename) -> None:
 
 util_getSceneViewers() -> list:
 
+util_set_clipping_viewers() -> None:
+
+util_set_front_viewer() -> None:
+
 METHODS:
 
 flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
@@ -931,7 +936,28 @@ reset_PREFS(self, mode=0) -> None:
         """    
         views = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
-
+    
+    
+    @staticmethod
+    def util_set_clipping_viewers() -> None:
+        for view in flam3h_general_utils.util_getSceneViewers():
+            curView = view.curViewport()
+            settings = curView.settings()
+            settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
+            settings.setClipPlanes( [0.001, 1000] )
+            settings.homeAutoAdjustClip()
+            settings.clipPlanes()
+            
+    
+    @staticmethod
+    def util_set_front_viewer() -> None:
+        desktop = hou.ui.curDesktop() # type: ignore
+        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+        if viewport.isCurrentTab():
+            view = viewport.curViewport()
+            view.changeType(hou.geometryViewportType.Front) # type: ignore
+            view_obj = view.defaultCamera()
+            view_obj.setTranslation((0, 0, 1))
 
 
 
@@ -956,21 +982,18 @@ reset_PREFS(self, mode=0) -> None:
         toggle = node.parm(prm).evalAsInt()
         if toggle:
             node.setParms({prm: 0})
-            if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                for view in flam3h_general_utils.util_getSceneViewers():
-                    settings = view.curViewport().settings()
-                    settings.setLighting(hou.viewportLighting.Normal)  # type: ignore
-                    
+            
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
             node.setParms({prm: 1})
+            # If the passed toggle's name argument is the camera sensor: 'outsensor'
+            # set the view clipping planes and curent viewport to Front
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                for view in flam3h_general_utils.util_getSceneViewers():
-                    settings = view.curViewport().settings()
-                    settings.setLighting(hou.viewportLighting.Off)  # type: ignore
-            
+                flam3h_general_utils.util_set_clipping_viewers()
+                flam3h_general_utils.util_set_front_viewer()
+                
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
@@ -984,10 +1007,6 @@ reset_PREFS(self, mode=0) -> None:
         toggle = self.node.parm(prm).evalAsInt()
         if toggle:
             self.node.setParms({prm: 0})
-            if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                for view in flam3h_general_utils.util_getSceneViewers():
-                    settings = view.curViewport().settings()
-                    settings.setLighting(hou.viewportLighting.Normal)  # type: ignore
                 
                 
     def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
