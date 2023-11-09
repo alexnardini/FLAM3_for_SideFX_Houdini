@@ -594,9 +594,15 @@ METHODS:
 
 flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
 
+flam3h_on_create_set_houdini_session_data(self) -> None:
+
+flam3h_on_create_set_prefs_viewport(self) -> None:
+
 flam3h_on_create(self) -> None:
 
 flam3h_on_loaded(self) -> None:
+
+flam3h_on_deleted(self) -> None:
 
     """    
     
