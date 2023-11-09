@@ -869,6 +869,8 @@ util_set_clipping_viewers(self) -> None:
 
 util_set_front_viewer(self) -> None:
 
+util_set_front_viewer_all(self) -> None:
+
 flam3h_toggle(self, prm=SYS_TAG) -> None:
 
 flam3h_toggle_off(self, prm: str) -> None:
@@ -970,6 +972,17 @@ reset_PREFS(self, mode=0) -> None:
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             if viewport.isCurrentTab():
                 view = viewport.curViewport()
+                if view.type() != hou.geometryViewportType.Front: # type: ignore
+                    view.changeType(hou.geometryViewportType.Front) # type: ignore
+                node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                view.frameBoundingBox(node.geometry().boundingBox())
+                
+                
+    def util_set_front_viewer_all(self) -> None:
+        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            self.util_set_clipping_viewers()
+            for v in flam3h_general_utils.util_getSceneViewers():
+                view = v.curViewport()
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                 node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
@@ -7919,6 +7932,16 @@ out_XML(self) -> None:
 
 
 
+
+    def reset_OUT_kwargs(self) -> None:
+        node = self.node
+        kwargs = self.kwargs
+        if kwargs['ctrl']:
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
+            
 
     def reset_OUT(self, mode=0) -> None:
         """Reset the OUT flame render properties to their default.
