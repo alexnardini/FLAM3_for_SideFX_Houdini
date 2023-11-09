@@ -836,7 +836,10 @@ flam3h_on_loaded(self) -> None:
                 del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
             except:
                 pass
-
+            try:
+                del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+            except:
+                pass
 
 
 
@@ -862,6 +865,8 @@ isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
 open_explorer_file(filename) -> None:
 
 util_getSceneViewers() -> list:
+
+util_set_stashed_cam(self) -> None:
 
 METHODS:
 
@@ -945,6 +950,32 @@ reset_PREFS(self, mode=0) -> None:
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
     
+    @staticmethod
+    def util_set_stashed_cam() -> None:
+        desktop = hou.ui.curDesktop() # type: ignore
+        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+        
+        if viewport.isCurrentTab():
+            view = viewport.curViewport()
+            
+            try:
+                _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+            except:
+                _CAM_STASHED = None
+                
+            if _CAM_STASHED is not None:
+                
+                if _CAM_STASHED.isPerspective():
+                    view.changeType(hou.geometryViewportType.Perspective) # type: ignore
+                    view.setDefaultCamera(_CAM_STASHED) # type: ignore
+
+                elif _CAM_STASHED.isOrthographic:
+                    view.changeType(hou.geometryViewportType.Front) # type: ignore
+                    view_obj = view.defaultCamera()
+                    view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
+                    view_obj.setTranslation(_CAM_STASHED.translation())
+                    
+    
     
     @property
     def kwargs(self):
@@ -972,8 +1003,19 @@ reset_PREFS(self, mode=0) -> None:
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             if viewport.isCurrentTab():
                 view = viewport.curViewport()
+                
+                try:
+                    _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                except:
+                    _CAM_STASHED = None
+                    
+                if _CAM_STASHED is None:
+                    cam = view.defaultCamera()
+                    hou.session.FLAM3H_SENSOR_CAM_STASH = cam.stash() # type: ignore
+                
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
+                    
                 node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
                 view.frameBoundingBox(node.geometry().boundingBox())
                 
@@ -987,7 +1029,7 @@ reset_PREFS(self, mode=0) -> None:
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                 node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
                 view.frameBoundingBox(node.geometry().boundingBox())
-    
+
     
     def flam3h_toggle(self, prm=SYS_TAG) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
@@ -1001,6 +1043,11 @@ reset_PREFS(self, mode=0) -> None:
         toggle = node.parm(prm).evalAsInt()
         if toggle:
             node.setParms({prm: 0})
+            flam3h_general_utils.util_set_stashed_cam()
+            try:
+                del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+            except:
+                pass
             
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
