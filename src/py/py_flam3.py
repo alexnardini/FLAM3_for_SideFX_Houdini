@@ -7305,6 +7305,8 @@ _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
 METHODS:
 
+reset_OUT_kwargs(self) -> None:
+
 reset_OUT(self, mode=0) -> None:
 
 out_xf_xaos_to(self) -> tuple:
@@ -7936,11 +7938,55 @@ out_XML(self) -> None:
     def reset_OUT_kwargs(self) -> None:
         node = self.node
         kwargs = self.kwargs
+        
+        prms_out_sensor = ( OUT_RENDER_PROPERTIES_EDIT,
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
+        
+        prms_out_sensor_tuple = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),
+                                  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER) )
+        
+        prms_out_render = ( OUT_RENDER_PROPERTIES_EDIT,
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY),
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS),
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA),
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER),
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2),
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY) )
+        
         if kwargs['ctrl']:
+            [node.parm(name).deleteAllKeyframes() for name in prms_out_sensor]
+            [node.parmTuple(name).deleteAllKeyframes() for name in prms_out_sensor_tuple]
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
+            
+        elif kwargs['shift']:
+            [node.parm(name).deleteAllKeyframes() for name in prms_out_render]
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+            
+        else:
+            [node.parm(name).deleteAllKeyframes() for name in prms_out_sensor]
+            [node.parmTuple(name).deleteAllKeyframes() for name in prms_out_sensor_tuple]
+            [node.parm(name).deleteAllKeyframes() for name in prms_out_render]
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+        
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
 
     def reset_OUT(self, mode=0) -> None:

@@ -1308,22 +1308,6 @@ Auto add iter num to Flame name:
     TIP:
         When on, and once you type in a flame name, changing the iteration number will update the flame name too.
 
-    
-:box:
-    #display: rounded white
-
-    == OUT: Preset render properties == (OUTRND)
-    
-
-OUT render properties:
-    #id: OUT
-    Those properties are specific to the renderer of the application you will load the saved flame into.
-    Some of the properties are specific to Fractorium applications, which has been my point of reference.
-    
-    NOTE:
-        Those properties will control how the saved fractal flame will render inside other applications like Fractorium and Apophysis.
-        They are their renderer settings, and they will be exported into the XML file.
-        
 
 :box:
     #display: rounded white
@@ -1336,7 +1320,12 @@ Edit render properties:
     Allow the editing of the render properties for the host application you will load the saved Flame file into.
     Fractorium is the suggested one, followed by Apophysis.
     
-    Changing those values, will change how the saved Flame will render inside those applications.
+    Those properties are specific to the renderer of the application you will load the saved flame into.
+    Some of the properties are specific to Fractorium applications, which has been my point of reference.
+    
+    They will control how the saved fractal flame will render inside other applications like Fractorium and Apophysis.
+    They are their renderer settings, and they will be exported into the XML file.
+
     
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
@@ -1347,9 +1336,11 @@ Edit render properties:
     
 Reset render properties:
     #id: OUT
-    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
-    Click this icon to reset all OUT render properties.
+    - ((LMB)) to reset all OUT render properties.
+    - ((CTRL)) + ((LMB)) to reset only the OUT Camera sensor properties.
+    - ((SHIFT)) + ((LMB)) to reset only the OUT Render settings properties.
     
     
 :box:

@@ -331,7 +331,7 @@ return menu
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_off("outsensor")
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT(1) # dnt clear the MSG_OUT if any
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()
 
 
 'parameter name:    out_sensorviz_disabled'
