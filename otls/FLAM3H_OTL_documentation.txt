@@ -1352,7 +1352,7 @@ SHOW sensor viz:
     #id: OUT
     [Smallicon:opdef:.?icon_TagORedSVG.svg]
     
-    Activate FLAM3H camera sensor visualization. Setting the viewport to FRONT will give you the best viewing experience.
+    Activate FLAM3H Camera sensor visualization.
     
     All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
     
