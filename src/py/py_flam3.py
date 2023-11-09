@@ -4352,7 +4352,7 @@ ui_active_iterator_infos(self) -> None:
 
     def ui_xaos_infos(self) -> None:
         
-        ALL_msg = """The default mode is \"xaos TO\". You can change it to use \"xaos FROM\" mode instead in the preferences tab.
+        ALL_msg = """The default mode is \"xaos TO\".\nYou can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
 Xaos is fully automatic,
 howver below are some general rules on how it work:
