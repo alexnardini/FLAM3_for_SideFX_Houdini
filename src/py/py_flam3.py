@@ -2093,7 +2093,7 @@ iterator_keep_last_weight(self) -> None:
                 menuitems = ( "FF marked. Select a different FLAM3H node to paste those FF values.", "" )
             else:
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                menuitems = ( "", f"{flam3nodeFF}: pre", f"{flam3nodeFF}: var", f"{flam3nodeFF}: Post", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
+                menuitems = ( "", f"{flam3nodeFF} -> PRE", f"{flam3nodeFF} -> VAR", f"{flam3nodeFF} -> POST", f"{flam3nodeFF} -> pre affine", f"{flam3nodeFF} -> post affine", "" )
             for i, item in enumerate(menuitems):
                 menu.append(i)
                 menu.append(item)
