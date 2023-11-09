@@ -836,11 +836,8 @@ flam3h_on_loaded(self) -> None:
                 del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
             except:
                 pass
-            try:
-                del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-            except:
-                pass
-
+            
+            flam3h_general_utils.util_clear_stashed_cam_data()
 
 
 
@@ -865,6 +862,8 @@ isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
 open_explorer_file(filename) -> None:
 
 util_getSceneViewers() -> list:
+
+util_clear_stashed_cam_data() -> None:
 
 util_set_stashed_cam(self) -> None:
 
@@ -951,6 +950,18 @@ reset_PREFS(self, mode=0) -> None:
     
     
     @staticmethod
+    def util_clear_stashed_cam_data() -> None:
+        try:
+            del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+        except:
+            pass
+        try:
+            del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+        except:
+            pass
+    
+    
+    @staticmethod
     def util_set_stashed_cam() -> None:
         desktop = hou.ui.curDesktop() # type: ignore
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
@@ -964,16 +975,21 @@ reset_PREFS(self, mode=0) -> None:
                 _CAM_STASHED = None
                 
             if _CAM_STASHED is not None:
-                
                 if _CAM_STASHED.isPerspective():
                     view.changeType(hou.geometryViewportType.Perspective) # type: ignore
                     view.setDefaultCamera(_CAM_STASHED) # type: ignore
-
                 elif _CAM_STASHED.isOrthographic:
-                    view.changeType(hou.geometryViewportType.Front) # type: ignore
-                    view_obj = view.defaultCamera()
-                    view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
-                    view_obj.setTranslation(_CAM_STASHED.translation())
+                    try:
+                        _CAM_STASHED_TYPE = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+                    except:
+                        _CAM_STASHED_TYPE = None
+                        
+                    if _CAM_STASHED_TYPE is not None:
+                        view.changeType(_CAM_STASHED_TYPE) # type: ignore
+                        # view.changeType(hou.geometryViewportType.Front) # type: ignore
+                        view_obj = view.defaultCamera()
+                        view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
+                        view_obj.setTranslation(_CAM_STASHED.translation())
                     
     
     
@@ -1012,6 +1028,7 @@ reset_PREFS(self, mode=0) -> None:
                 if _CAM_STASHED is None:
                     cam = view.defaultCamera()
                     hou.session.FLAM3H_SENSOR_CAM_STASH = cam.stash() # type: ignore
+                    hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE = view.type() # type: ignore
                 
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
@@ -1043,12 +1060,10 @@ reset_PREFS(self, mode=0) -> None:
         toggle = node.parm(prm).evalAsInt()
         if toggle:
             node.setParms({prm: 0})
-            flam3h_general_utils.util_set_stashed_cam()
-            try:
-                del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-            except:
-                pass
             
+            flam3h_general_utils.util_set_stashed_cam()
+            flam3h_general_utils.util_clear_stashed_cam_data()
+
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
