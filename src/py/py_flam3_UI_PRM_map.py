@@ -349,6 +349,14 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsenso
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
 
 
+'parameter name:    outrespresets'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set()
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution()
+return menu
+
+
 'parameter name:    outcenter'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
