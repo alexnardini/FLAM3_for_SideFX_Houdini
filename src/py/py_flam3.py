@@ -152,6 +152,7 @@ OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
+OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
@@ -1006,8 +1007,8 @@ reset_PREFS(self, mode=0) -> None:
     @property
     def node(self):
         return self._node
-    
-    
+
+
     
     def util_set_clipping_viewers(self) -> None:
         for view in flam3h_general_utils.util_getSceneViewers():
@@ -1880,7 +1881,7 @@ iterator_keep_last_weight(self) -> None:
         """Build density menu parameter with a list of options.
         
         Args:
-            int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
+            NONE (None): [description.]
 
         Returns:
             list: [return menu list]
@@ -7373,6 +7374,10 @@ _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
 METHODS:
 
+menu_sensor_resolution(self) -> list:
+
+menu_sensor_resolution_set(self) -> None:
+
 reset_OUT_kwargs(self) -> None:
 
 reset_OUT(self, mode=0) -> None:
@@ -8001,6 +8006,91 @@ out_XML(self) -> None:
         return self._flam3h_rip
 
 
+
+
+    def menu_sensor_resolution(self) -> list:
+        """Build sensor resolution menu parameter with a list of options.
+        
+        """
+
+        outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).evalAsInt()
+        menu=[]
+        menuitems = ()
+        if outedit:
+            menuitems = (   "", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", "", 
+                            "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", "", 
+                            "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", "", 
+                            "256^2", "512^2", "1024^2", "2048^2", "4096^2"  )
+        else:
+            menuitems = ( "", )
+            
+        for i, item in enumerate(menuitems):
+            menu.append(i)
+            menu.append(item)
+        return menu
+
+
+    def menu_sensor_resolution_set(self) -> None:
+        """Set sensor resolution parameter based on user choice.
+        
+        """        
+        node = self.node
+        sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
+        
+        null = (0, 0)
+        res = (null, (640, 480), (1280, 720), (1920, 1080), (3840, 2160), null, # 1 2 3 4
+               (640, 486), (720, 486), (768, 586), (1024, 576), null, # 6 7 8 9
+               (4096, 3112), (2048, 1556), (3656, 2664), (1828, 1332), (3656, 3112), (1828, 1556), (3072, 2048), null, # 11 12 13 14 15 16 17
+               (256, 256), (512, 512), (1024, 1024), (2048, 2048), (4096, 4096) ) # 19 20 21 22 23
+ 
+        if sel == 1:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[1])}) # type: ignore
+        elif sel == 2:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[2])}) # type: ignore
+        elif sel == 3:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[3])}) # type: ignore
+        elif sel == 4:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[4])}) # type: ignore
+            
+        elif sel == 6:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[6])}) # type: ignore
+        elif sel == 7:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[7])}) # type: ignore
+        elif sel == 8:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[8])}) # type: ignore
+        elif sel == 9:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[9])}) # type: ignore
+            
+        elif sel == 11:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[11])}) # type: ignore
+        elif sel == 12:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[12])}) # type: ignore
+        elif sel == 13:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[13])}) # type: ignore
+        elif sel == 14:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[14])}) # type: ignore
+        elif sel == 15:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[15])}) # type: ignore
+        elif sel == 16:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[16])}) # type: ignore
+        elif sel == 17:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[17])}) # type: ignore
+            
+        elif sel == 19:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[19])}) # type: ignore
+        elif sel == 20:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[20])}) # type: ignore
+        elif sel == 21:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[21])}) # type: ignore
+        elif sel == 22:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[22])}) # type: ignore
+        elif sel == 23:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[23])}) # type: ignore
+
+        flam3h_general_utils(self.kwargs).util_set_front_viewer()
+        
+        # reset to null value so we can set the same preset again
+        node.setParms({OUT_RENDER_PROPERTIES_RES_PRESETS_MENU: "0"}) # type: ignore
 
 
     def reset_OUT_kwargs(self) -> None:
