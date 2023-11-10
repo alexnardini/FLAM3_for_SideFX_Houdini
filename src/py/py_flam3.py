@@ -982,10 +982,13 @@ reset_PREFS(self, mode=0) -> None:
                 _CAM_STASHED = None
                 
             if _CAM_STASHED is not None:
+                
                 if _CAM_STASHED.isPerspective():
                     view.changeType(hou.geometryViewportType.Perspective) # type: ignore
                     view.setDefaultCamera(_CAM_STASHED) # type: ignore
+                    
                 elif _CAM_STASHED.isOrthographic:
+                    
                     try:
                         _CAM_STASHED_TYPE = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
                     except:
@@ -1067,9 +1070,11 @@ reset_PREFS(self, mode=0) -> None:
         toggle = node.parm(prm).evalAsInt()
         if toggle:
             node.setParms({prm: 0})
-            
-            flam3h_general_utils.util_set_stashed_cam()
-            flam3h_general_utils.util_clear_stashed_cam_data()
+            # If the passed toggle's name argument is the camera sensor: 'outsensor'
+            # restore the viewport prior to entering the Camera sensor mode
+            if prm == OUT_RENDER_PROPERTIES_SENSOR:
+                flam3h_general_utils.util_set_stashed_cam()
+                flam3h_general_utils.util_clear_stashed_cam_data()
 
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -1095,6 +1100,11 @@ reset_PREFS(self, mode=0) -> None:
         toggle = self.node.parm(prm).evalAsInt()
         if toggle:
             self.node.setParms({prm: 0})
+            # If the passed toggle's name argument is the camera sensor: 'outsensor'
+            # restore the viewport prior to entering the Camera sensor mode
+            if prm == OUT_RENDER_PROPERTIES_SENSOR:
+                flam3h_general_utils.util_set_stashed_cam()
+                flam3h_general_utils.util_clear_stashed_cam_data()
                 
                 
     def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
