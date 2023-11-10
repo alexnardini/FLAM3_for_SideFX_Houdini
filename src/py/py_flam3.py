@@ -7980,7 +7980,7 @@ out_XML(self) -> None:
         if sel not in sel_null:
             self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[sel])}) # type: ignore
 
-        flam3h_general_utils(self.kwargs).util_set_front_viewer()
+            flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
         # reset to null value so we can set the same preset again
         node.setParms({OUT_RENDER_PROPERTIES_RES_PRESETS_MENU: "0"}) # type: ignore
