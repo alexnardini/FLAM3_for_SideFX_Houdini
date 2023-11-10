@@ -61,7 +61,7 @@ void _TFFAsensor()
     int sensor_rot = SENSOR.rot;
     
     // FLAM3H CAMERA Sensor
-    vector translation, translation_sensor, rotation;
+    vector translation, rotation;
     translation = set(sensor_center[0], sensor_center[1], 0);
     rotation = set(0, 0, float(sensor_rot));
     float factor = 1.0 / float(sensor_zoom);
