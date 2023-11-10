@@ -95,6 +95,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help()
 
 
+'parameter name     sys_out_sensorviz'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsensor")
+
+
 'parameter name     sys_tag'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_sys_tag()
