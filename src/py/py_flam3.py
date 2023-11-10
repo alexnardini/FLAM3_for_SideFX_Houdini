@@ -1042,8 +1042,8 @@ reset_PREFS(self, mode=0) -> None:
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                     
-                node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
-                view.frameBoundingBox(node.geometry().boundingBox())
+                node_bbox = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 
                 
     def util_set_front_viewer_all(self) -> None:
