@@ -1909,78 +1909,12 @@ iterator_keep_last_weight(self) -> None:
         vals = [500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000]
         vals_name = ["Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points"]
         
-        if sel == 1:
-            if ptcount != vals[1]:
-                self.node.setParms({GLB_DENSITY: vals[1]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[1]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 2:
-            if ptcount != vals[2]:
-                self.node.setParms({GLB_DENSITY: vals[2]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[2]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 3:
-            if ptcount != vals[3]:
-                self.node.setParms({GLB_DENSITY: vals[3]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[3]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 4:
-            if ptcount != vals[4]:
-                self.node.setParms({GLB_DENSITY: vals[4]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[4]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-        elif sel == 5:
-            if ptcount != vals[5]:
-                self.node.setParms({GLB_DENSITY: vals[5]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[5]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 6:
-            if ptcount != vals[6]:
-                self.node.setParms({GLB_DENSITY: vals[6]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[6]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 7:
-            if ptcount != vals[7]:
-                self.node.setParms({GLB_DENSITY: vals[7]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[7]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 8:
-            if ptcount != vals[8]:
-                self.node.setParms({GLB_DENSITY: vals[8]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[8]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 9:
-            if ptcount != vals[9]:
-                self.node.setParms({GLB_DENSITY: vals[9]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[9]} \" -> SET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 10:
-            if ptcount != vals[10]:
-                self.node.setParms({GLB_DENSITY: vals[10]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[10]} \" -> SET ( Shooting for High Quality, may take awhile. )"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 11:
-            if ptcount != vals[11]:
-                self.node.setParms({GLB_DENSITY: vals[11]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[11]} \" -> SET ( Shooting for Very High Quality, may take awhile. )"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-        elif sel == 12:
-            if ptcount != vals[12]:
-                self.node.setParms({GLB_DENSITY: vals[12]}) # type: ignore
-                _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[12]} \" -> SET ( Shooting for Super High Quality, may take awhile. )"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
-            else: hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-                
+        # if sel == 1:
+        if ptcount != vals[sel]:
+            self.node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
+            _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+  
         # reset to null value so we can set the same preset again
         self._node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
 
@@ -8036,56 +7970,15 @@ out_XML(self) -> None:
         """        
         node = self.node
         sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
-        
+        sel_null = (0, 5, 10, 18)
         null = (0, 0)
         res = (null, (640, 480), (1280, 720), (1920, 1080), (3840, 2160), null, # 1 2 3 4
                (640, 486), (720, 486), (768, 586), (1024, 576), null, # 6 7 8 9
                (4096, 3112), (2048, 1556), (3656, 2664), (1828, 1332), (3656, 3112), (1828, 1556), (3072, 2048), null, # 11 12 13 14 15 16 17
                (256, 256), (512, 512), (1024, 1024), (2048, 2048), (4096, 4096) ) # 19 20 21 22 23
  
-        if sel == 1:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[1])}) # type: ignore
-        elif sel == 2:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[2])}) # type: ignore
-        elif sel == 3:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[3])}) # type: ignore
-        elif sel == 4:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[4])}) # type: ignore
-            
-        elif sel == 6:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[6])}) # type: ignore
-        elif sel == 7:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[7])}) # type: ignore
-        elif sel == 8:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[8])}) # type: ignore
-        elif sel == 9:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[9])}) # type: ignore
-            
-        elif sel == 11:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[11])}) # type: ignore
-        elif sel == 12:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[12])}) # type: ignore
-        elif sel == 13:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[13])}) # type: ignore
-        elif sel == 14:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[14])}) # type: ignore
-        elif sel == 15:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[15])}) # type: ignore
-        elif sel == 16:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[16])}) # type: ignore
-        elif sel == 17:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[17])}) # type: ignore
-            
-        elif sel == 19:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[19])}) # type: ignore
-        elif sel == 20:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[20])}) # type: ignore
-        elif sel == 21:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[21])}) # type: ignore
-        elif sel == 22:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[22])}) # type: ignore
-        elif sel == 23:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[23])}) # type: ignore
+        if sel not in sel_null:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[sel])}) # type: ignore
 
         flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
