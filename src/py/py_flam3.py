@@ -996,7 +996,6 @@ reset_PREFS(self, mode=0) -> None:
                         
                     if _CAM_STASHED_TYPE is not None:
                         view.changeType(_CAM_STASHED_TYPE) # type: ignore
-                        # view.changeType(hou.geometryViewportType.Front) # type: ignore
                         view_obj = view.defaultCamera()
                         view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
                         view_obj.setTranslation(_CAM_STASHED.translation())
