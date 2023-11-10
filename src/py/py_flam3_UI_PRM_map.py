@@ -100,6 +100,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help()
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsensor")
 
 
+'parameter name     sys_tag_off'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
+
+
 'parameter name     sys_tag'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_sys_tag()
