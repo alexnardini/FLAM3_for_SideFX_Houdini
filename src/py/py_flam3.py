@@ -592,6 +592,10 @@ class flam3h_scripts:
     """
 STATIC METHODS:
 
+flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+
+flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+
 ...
 
 METHODS:
