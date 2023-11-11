@@ -615,6 +615,52 @@ flam3h_on_deleted(self) -> None:
         self._node = kwargs['node']
 
 
+
+    @staticmethod
+    def flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+        """This is mostly to save some code instead of typing the same block twice.
+
+        Args:
+            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            _MSG_INFO (str): The message to print in the status bar
+            _MSG_DONE (str): The message to print in the hou window 
+            sys_updated_mode (hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
+        """        
+        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+        if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+            if cvex_precision == 32:
+                hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+            elif cvex_precision == 64:
+                hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+            hou.setUpdateMode(sys_updated_mode) # type: ignore
+            hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+
+
+    @staticmethod
+    def flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+        """This is mostly to save some code instead of typing the same block twice.
+
+        Args:
+            node (hou.Node): This FLAM3H node
+            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            _MSG_INFO (str): The message to print in the status bar
+            _MSG_DONE (str): The message to print in the hou window 
+            sys_updated_mode (hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
+        """        
+        # m = nodesearch.State("Display", True)
+        # _display_node = m.nodes(node.parent(), recursive=False)[0]
+        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+        node.cook(force=True)
+        if cvex_precision == 32:
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+        elif cvex_precision == 64:
+            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+        hou.setUpdateMode(sys_updated_mode) # type: ignore
+        hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+
+
+
+
     @property
     def kwargs(self):
         return self._kwargs
@@ -622,6 +668,7 @@ flam3h_on_deleted(self) -> None:
     @property
     def node(self):
         return self._node
+
 
 
 
@@ -652,37 +699,35 @@ flam3h_on_deleted(self) -> None:
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
-            hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-            sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
-            
-            if cvex_precision == 32:
-                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+            if cvex_precision == 32 and first_instance_32bit is True:
+                
+                hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+                sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                
+                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
-            else:
-                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
             
-            if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-                if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                    # node.cook(force=True)
-                    if cvex_precision == 32 and first_instance_32bit is True:
-                        hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-                    elif cvex_precision == 64 and first_instance_64bit is True:
-                        hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
-                    hou.setUpdateMode(sys_updated_mode) # type: ignore
-                    hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                else:
+                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    
+                    
+            elif cvex_precision == 64 and first_instance_64bit is True:
+
+                hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+                sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                
+                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
+                
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                else:
+                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_no_flag(cvex_precision, node, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    
             else:
-                # m = nodesearch.State("Display", True)
-                # _display_node = m.nodes(node.parent(), recursive=False)[0]
-                hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-                node.cook(force=True)
-                if cvex_precision == 32 and first_instance_32bit is True:
-                    hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-                elif cvex_precision == 64 and first_instance_64bit is True:
-                    hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
-                hou.setUpdateMode(sys_updated_mode) # type: ignore
-                hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                pass
                 
         else:
             if cvex_precision == 32 and first_instance_32bit is True:
@@ -691,7 +736,7 @@ flam3h_on_deleted(self) -> None:
                 hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
                     
-                    
+
     def flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
@@ -715,7 +760,7 @@ flam3h_on_deleted(self) -> None:
             first_instance_64bit = True
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
-            
+
             node = self.node
             cvex_precision = int( node.parm(PREFS_CVEX_PRECISION).eval() )
             

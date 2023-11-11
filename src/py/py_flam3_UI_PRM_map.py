@@ -26,7 +26,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
 """Inside: OTL->type_properties->Scripts->PreFirstCreate
 Check Houdini version and let us know."""
-FLAM3H_VERSION = '1.1.33'
+FLAM3H_VERSION = '1.1.40 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -39,15 +39,29 @@ def flam3h_sys_updated_mode() -> None:
         
 def flam3h_compile_first_time_msg() -> None:
     try:
-        hou.session.FLAM3H_FIRST_INSTANCE # type: ignore
+        hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        first_instance_32bit = False
     except:
+        first_instance_32bit = True
+    try:
+        hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        first_instance_64bit = False
+    except:
+        first_instance_64bit = True
+
+    if first_instance_32bit:
         _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile\nits definition for this Houdini session.\n\nDepending on your PC configuration\nit can take anywhere between 30s and 1 minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-
+        
+    # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
+        
+        
 flam3h_first_time()
 flam3h_sys_updated_mode()
 flam3h_compile_first_time_msg()
+
+
 
 
 
@@ -390,6 +404,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
 'parameter name:    xm'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert()
+
+
+'parameter name:    vex_precision'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg()
 
 
 'parameter name:    autoxaos'
