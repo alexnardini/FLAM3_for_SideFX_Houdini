@@ -118,7 +118,7 @@ I did make every effort to make it better, with no success. I used 128+ iterator
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
-Some flames need a disproportionately large number of iterations to be resolved correctly.
+Some flames need a truly an high number of iterations to be resolved correctly.
 
 Listed below are presets from Chaotica software that were converted to FLAM3 for Houdini. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
