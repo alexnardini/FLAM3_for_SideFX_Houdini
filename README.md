@@ -114,7 +114,7 @@ There are no switch/case constructors or other types of pointer functions in the
 
 Python run single threaded here, therefore when lots of iterators are created, Houdini's user interface becomes a little slow.
 I think I did make every effort to make it better, with no success. I used 128+ iterators in all of my stress tests.
-However I actually never went over 20 iterators in any of the fractal flames images I've made so far, most of them were less than 10 iterators.
+However I actually never went over 20 iterators in any of the fractal flames images I've made so far, almost all of them were less than 10 iterators.
 A computer processor with good single-threaded performance would be very helpful here.
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
