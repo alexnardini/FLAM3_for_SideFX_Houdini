@@ -77,6 +77,8 @@ out_flame_xforms_data(out_flame_utils)
 
 
 FLAM3H_VERSION = '1.1.40'
+FLAM3H_VERSION_STATUS_BETA = " - Beta"
+FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -156,6 +158,7 @@ OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
+PREFS_CVEX_PRECISION = 'vex_precision'
 PREFS_XAOS_MODE = 'xm'
 PREFS_XAOS_AUTO_SET = 'autoxaos'
 PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
@@ -633,18 +636,24 @@ flam3h_on_deleted(self) -> None:
         """        
         
         try:
-            hou.session.FLAM3H_FIRST_INSTANCE # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
         except:
-            hou.session.FLAM3H_FIRST_INSTANCE = False # type: ignore
-
-            node = self.node
-            _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
-            _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
-            
-            hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-            sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
                 
             if FIRST_TIME_MSG:
+                
+                hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+                sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                
+                node = self.node
+                cvex_precision = int( node.parm(PREFS_CVEX_PRECISION).eval() )
+                
+                if cvex_precision == 32:
+                    _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                    _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
+                else:
+                    _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                    _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
@@ -659,6 +668,53 @@ flam3h_on_deleted(self) -> None:
                     node.cook(force=True)
                     hou.setUpdateMode(sys_updated_mode) # type: ignore
                     hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+
+                    
+                    
+    def flam3h_check_first_node_instance_64bit_msg(self) -> None:
+        """This is temporary until I dnt have time to find a better solution
+        to advice the user about the first node compile time without having any leftover
+        messages in the Houdini status bar.
+
+        Args:
+            node (hou.Node): FLAM3H node
+            FIRST_TIME_MSG (int): False for onLoaded and True for onCreated
+        """        
+        
+        node = self.node
+        cvex_precision = int( node.parm(PREFS_CVEX_PRECISION).eval() )
+        
+        if cvex_precision == 64:
+            
+            try:
+                hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+            except:
+                hou.session.FLAM3H_FIRST_INSTANCE_64BIT = True # type: ignore
+                    
+                if hou.session.FLAM3H_FIRST_INSTANCE_64BIT is True: # type: ignore
+                    
+                    sys_updated_mode = hou.updateModeSetting() # type: ignore
+                    hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+                    
+                    _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                    _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
+                    
+                    if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+                        node.cook(force=True)
+                        if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                            # node.cook(force=True)
+                            hou.setUpdateMode(sys_updated_mode) # type: ignore
+                            hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                        hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                    else:
+                        # m = nodesearch.State("Display", True)
+                        # _display_node = m.nodes(node.parent(), recursive=False)[0]
+                        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+                        node.cook(force=True)
+                        hou.setUpdateMode(sys_updated_mode) # type: ignore
+                        hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                        hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
 
     def flam3h_on_create_set_houdini_session_data(self) -> None:
@@ -783,6 +839,7 @@ flam3h_on_deleted(self) -> None:
             # This is important so loading a hip file with a FLAM3H node inside
             # it wont block the houdini session until user input.
             self.flam3h_check_first_node_instance_msg(False)
+            
             self.flam3h_on_create_set_prefs_viewport()
             
             #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
@@ -832,13 +889,19 @@ flam3h_on_deleted(self) -> None:
             try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             except:
-                if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
-                    hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+                try:
+                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+                except:
+                    pass
             try:
                 hou.session.FLAM3H_MARKED_FF_NODE.type # type: ignore
             except:
-                if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
+                try:
+                    if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
+                        hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
+                except:
+                    pass
             try:
                 del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
             except:
@@ -4155,8 +4218,6 @@ flam3h_about_web_flam3_github(self) -> None:
         nnl = "\n\n"
             
         year = datetime.now().strftime("%Y")
-        _STATUS_BETA = " - Beta"
-        _STATUS_GOLD = " - Gold"
         
         flam3h_cvex_version = f"Code language: CVEX H19.x.x"
         hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -4164,7 +4225,7 @@ flam3h_about_web_flam3_github(self) -> None:
             flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
         flam3h_python_version = f"Python 3.9.10"
-        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}{_STATUS_GOLD}"
+        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
         Implementation_years = f"2020/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         
