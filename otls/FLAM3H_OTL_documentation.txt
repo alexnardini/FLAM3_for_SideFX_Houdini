@@ -1317,7 +1317,7 @@ Auto add iter num to Flame name:
 :box:
     #display: rounded white
 
-    == OUT: Edit Render properties == (OUTEDIT)
+    == OUT Edit: Render properties == (OUTEDIT)
 
     
 Edit render properties:
@@ -1351,7 +1351,7 @@ Reset render properties:
 :box:
     #display: rounded white
 
-    == OUT: Camera sensor == (OUTEDITCAMSENSOR)
+    == OUT Edit: Camera sensor == (OUTEDITCAMSENSOR)
     
 SHOW sensor viz:
     #id: OUT
@@ -1387,7 +1387,7 @@ Scale:
 :box:
     #display: rounded white
 
-    == OUT: Render settings == (OUTEDITRENSETTINGS)
+    == OUT Edit: Render settings == (OUTEDITRENSETTINGS)
     
     
 Quality:
