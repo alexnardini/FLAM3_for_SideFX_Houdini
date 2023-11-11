@@ -2113,9 +2113,8 @@ NOTE:
     One is shared with VAR variations.
     The second is shared within the PRE- and POST-variations.
     
-    This means if you use 2 Mobius in the FF VAR section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ),
-    
-    but if you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
+    # If you use 2 Mobius in the FF VAR section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
+    # If you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
     
 == Limitations: FF Shader ==
 
