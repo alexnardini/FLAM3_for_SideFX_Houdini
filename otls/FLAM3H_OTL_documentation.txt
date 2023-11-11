@@ -1948,7 +1948,7 @@ NOTE:
     
     *SideFX made this part very easy*:
     
-    # Open a Houdini 19.x Command line Tools shell
+    # Open a Houdini 19 or higher, Command line Tools shell
     # Navigate into the directory where the cvex source files are located
     # To compile any of the available cvex source files, run this command:
     
