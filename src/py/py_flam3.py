@@ -76,7 +76,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.35'
+FLAM3H_VERSION = '1.1.40'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -4116,9 +4116,9 @@ class flam3h_about_utils():
     """
 METHODS:
 
-flam3h_about_msg(self):
+flam3h_about_msg(self) -> None:
 
-flam3h_about_plugins_msg(self):
+flam3h_about_plugins_msg(self) -> None:
 
 flam3h_about_web_msg(self) -> None:
 
@@ -4155,6 +4155,8 @@ flam3h_about_web_flam3_github(self) -> None:
         nnl = "\n\n"
             
         year = datetime.now().strftime("%Y")
+        _STATUS_BETA = " - Beta"
+        _STATUS_GOLD = " - Gold"
         
         flam3h_cvex_version = f"Code language: CVEX H19.x.x"
         hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -4162,7 +4164,7 @@ flam3h_about_web_flam3_github(self) -> None:
             flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
         flam3h_python_version = f"Python 3.9.10"
-        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}"
+        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}{_STATUS_GOLD}"
         Implementation_years = f"2020/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         

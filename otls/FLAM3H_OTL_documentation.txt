@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.35
+#version: 1.1.40 - Gold
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v20.0.506 )"""
 
@@ -1360,9 +1360,10 @@ SHOW sensor viz:
     Activate FLAM3H Camera sensor visualization.
     
     All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
-    
     A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
     The FLAM3H camera sensor will precisely display the image framing.
+
+    _This is meant to be used only when you intend to load the saved fractal flame into third-party programs and you desire to setup the fractal flame image framing in Houdini first._
     
     TIP:
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
