@@ -1006,6 +1006,7 @@ flam3h_on_deleted(self) -> None:
             except:
                 pass
             
+            # Delete all data related to the Camera sensor viz
             flam3h_general_utils.util_clear_stashed_cam_data()
 
 
