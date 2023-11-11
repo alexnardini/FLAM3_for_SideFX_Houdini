@@ -13,6 +13,7 @@
 
 
 == Welcome to FLAM3 for SideFX Houdini ==
+( _H19.x and H20.x only_ )
 
 _*A bit of history* ( from wikipedia )_:
 
@@ -31,8 +32,8 @@ Each of these events can be identified by their patterns of self-similarity; whi
 This is akin to a person's genome, or DNA.
 Together, all of these variables contribute to the interesting nature of the fractal flame discipline, with its seemingly endless possibilities, effects, and patterns.
 
-_H19.x and H20.x only_
-[Image:opdef:.?FLAM3H_DOC_intro_H19.jpg]
+_Fractal flame's author: Alessandro Nardini_
+[Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
 _*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]*_
@@ -227,7 +228,7 @@ TAG:
         - [Smallicon:opdef:.?icon_TagOBlueSVG.svg]: when the Tag is ON ( _default_ ).
         - [Smallicon:opdef:.?icon_TagOBlueSVG_disabled.svg]: when the Tag is OFF.
         - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when the OUT Camera sensor viz mode is ON.
-        - [Smallicon:opdef:.?icon_TagOSVG.svg]: when Xaos is active and you cross the 20 iterators limit. ( _only the viewport Tag_ )
+        - [Smallicon:opdef:.?icon_TagOSVG.svg]: when iterator's count is zero and when Xaos is active but you cross the 20 iterators limit. ( _only in the viewport Tag_ )
         
         When in OUT Camera sensor mode, the Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon.
