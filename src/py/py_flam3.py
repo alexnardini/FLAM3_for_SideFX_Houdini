@@ -76,7 +76,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.34'
+FLAM3H_VERSION = '1.1.35'
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -3527,6 +3527,11 @@ iterator_keep_last_weight(self) -> None:
         else:
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
+            
+            # If OUT Camera sensor viz mode is ON.
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                # We can avoid to set the clipping planes as they are already set
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
             # Clear status bar msg
             if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
