@@ -657,7 +657,7 @@ flam3h_on_deleted(self) -> None:
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                         node.cook(force=True)
                         hou.setUpdateMode(sys_updated_mode) # type: ignore
                         hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
@@ -702,7 +702,7 @@ flam3h_on_deleted(self) -> None:
                     if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
                         node.cook(force=True)
-                        if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                             # node.cook(force=True)
                             hou.setUpdateMode(sys_updated_mode) # type: ignore
                             hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
