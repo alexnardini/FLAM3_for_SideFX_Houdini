@@ -922,7 +922,7 @@ flam3h_on_deleted(self) -> None:
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
             
             # hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is already set to None
-            # lets set this to ourself to avoid a deleted marked node message on load
+            # lets set those to ourself to avoid a deleted marked node message on load
             hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
             hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
             
