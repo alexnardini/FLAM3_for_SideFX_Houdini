@@ -914,6 +914,8 @@ flam3h_on_deleted(self) -> None:
             # Finally reset the hou.session data
             in_flame_utils(self.kwargs).in_to_flam3h_reset_user_data()
             
+            # Reset memory mpidx data prm
+            #
             # unlock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
             # set
