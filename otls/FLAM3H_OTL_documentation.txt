@@ -47,7 +47,7 @@ _*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: 
 
 @intro
 
-FLAM3H, as the name suggests, is the implementation of the “fractal flame algorithm” inside SideFX Houdini 19.x. There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
+FLAM3H, as the name suggests, is the implementation of the “fractal flame algorithm” inside SideFX Houdini. There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
 Fractal art is not easy at all. For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow, but it has been biased in its underlying code toward Fractorium.
 
