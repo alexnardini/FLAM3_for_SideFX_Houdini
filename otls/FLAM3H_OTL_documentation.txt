@@ -29,7 +29,7 @@ _*Preface*_:
 The inception of this implementation dates back to 2020, during COVID-19. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal flame algorithm.
 I didn't know much about the subject at the time, but as I began experimenting with some of the free and open-source fractal flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
-Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, it slowly gained the proper form.
+Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
 These days, this tool has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
 Additionally, when combined with Houdini's procedural paradigm and toolsets, fractal flames reach previously unheard-of levels of possibilities.
