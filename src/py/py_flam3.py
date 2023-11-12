@@ -8392,8 +8392,8 @@ out_XML(self) -> None:
                 OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
-                OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, 
-                OUT_XML_FLAME_SIZE: f3p.flame_size, # custom to FLAM3H only
+                OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, # custom to FLAM3H only
+                OUT_XML_FLAME_SIZE: f3p.flame_size, 
                 OUT_XML_FLAME_CENTER: f3p.flame_center,
                 OUT_XML_FLAME_SCALE: f3p.flame_scale,
                 OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
