@@ -1233,7 +1233,7 @@ OUT file ( *.flame type ):
     If the selected file does not exist, it will be created.
     
     TIP:
-        When you have finished creating a FLAM3 library, you can rename the file to begin with "*F3H_LOCK*" to prevent any future alterations.
+        When you have finished creating a FLAM3H library, you can rename the file to begin with "*F3H_LOCK*" to prevent any future alterations.
         You can rename a lib file, for instance, called "*my_grandJulia.flame*" to "*F3H_LOCK_my_grandJulia.flame*" to keep it secure.
         
     
