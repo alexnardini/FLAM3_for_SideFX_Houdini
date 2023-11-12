@@ -15,17 +15,22 @@
 
 
 
-"""py_flam3.py loaded inside the Extra Files section. Renamed as py_flam3"""
+"""
+py_flam3.py loaded inside the Extra Files section. Renamed as py_flam3
+"""
 
-"""First inside the OTL->type_properties->Scripts->PythonModule
-the FLAM3 module is created out of the py_flam3 renamed file inside the Extra Files section"""
+"""
+First inside the OTL->type_properties->Scripts->PythonModule
+the FLAM3 module is created out of the py_flam3's renamed file inside the Extra Files section.
+"""
 import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 
 
 
-"""Inside: OTL->type_properties->Scripts->PreFirstCreate
-Check Houdini version and let us know."""
+"""
+Inside: OTL->type_properties->Scripts->PreFirstCreate
+"""
 FLAM3H_VERSION = '1.1.40 - Gold'
 
 def flam3h_first_time() -> None:
@@ -65,20 +70,26 @@ flam3h_compile_first_time_msg()
 
 
 
-"""Inside: OTL->type_properties->Scripts->OnCreated
-initialize what the tool need when you create its node in the network editor."""
+"""
+Inside: OTL->type_properties->Scripts->OnCreated
+initialize what the tool need when you create its node in the network editor.
+"""
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 
 
 
-"""Inside: OTL->type_properties->Scripts->OnLoaded
-When loading a hip file with a FLAM3H node in it do some checks."""
+"""
+Inside: OTL->type_properties->Scripts->OnLoaded
+When loading a hip file with a FLAM3H node in it do some checks.
+"""
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 
 
 
-"""Inside: OTL->type_properties->Scripts->OnDeleted
-WHen deleting a FLAM3H node."""
+"""
+Inside: OTL->type_properties->Scripts->OnDeleted
+When deleting a FLAM3H node.
+"""
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 
 
@@ -93,6 +104,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_se
 'Menu script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
 return menu
+
 
 'parameter name:    iter'
 'script type:       Callback Script'
