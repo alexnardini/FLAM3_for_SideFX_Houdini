@@ -622,7 +622,12 @@ flam3h_on_deleted(self) -> None:
 
     @staticmethod
     def flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
-        """This is mostly to save some code instead of typing the same block twice.
+        """This is temporary until I dnt have time to find a better solution
+        to advice the user about the first node compile time without having any leftover
+        messages in the Houdini status bar.
+        
+        This definition will cook and updated the FLAM3H node on creation based on its CVEX precision preference's setting
+        if its display flag is True.
 
         Args:
             cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
@@ -642,7 +647,12 @@ flam3h_on_deleted(self) -> None:
 
     @staticmethod
     def flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
-        """This is mostly to save some code instead of typing the same block twice.
+        """This is temporary until I dnt have time to find a better solution
+        to advice the user about the first node compile time without having any leftover
+        messages in the Houdini status bar.
+        
+        This definition will cook and updated the FLAM3H node on creation based on its CVEX precision preference's setting
+        if its display flag is False.
 
         Args:
             node (hou.Node): This FLAM3H node
@@ -680,6 +690,11 @@ flam3h_on_deleted(self) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
         messages in the Houdini status bar.
+        
+        This definition will cook and updated the FLAM3H node on creation based on its CVEX precision preference's setting
+        and based on its display flag status ( Tru or False ).
+        
+        It will also restore the houdini session update mode if not set already on AutoUpdate.
 
         Args:
             node (hou.Node): FLAM3H node
@@ -742,9 +757,8 @@ flam3h_on_deleted(self) -> None:
                     
 
     def flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
-        """This is temporary until I dnt have time to find a better solution
-        to advice the user about the first node compile time without having any leftover
-        messages in the Houdini status bar.
+        """When changing CVEX precison modes in the preference's tab,
+        this definition will let the user node of the compilie time if a mode is selected for the first time in the current houdini's session.
 
         Args:
             node (hou.Node): FLAM3H node
@@ -808,11 +822,13 @@ flam3h_on_deleted(self) -> None:
 
 
     def flam3h_on_create_set_houdini_session_data(self) -> None:
+        """Initialize the necessary data for the copy/paste iterator and FF methods on creation.
+        """        
         
         node = self.node
         node_instances = self.node.type().instances()
         
-        # FLAM3 node and MultiParameter id for iterators
+        # FLAM3H node and MultiParameter id for iterators
         flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
 
         # If an iterator was copied from a node that has been deleted
@@ -846,6 +862,8 @@ flam3h_on_deleted(self) -> None:
 
 
     def flam3h_on_create_set_prefs_viewport(self) -> None:
+        """Initialize the necessary data for the viewport display preference's option on creation.
+        """        
         
         node = self.node
         
@@ -893,7 +911,8 @@ flam3h_on_deleted(self) -> None:
                 
 
     def flam3h_on_create(self) -> None:
-        """
+        """Initialize FLAM3H node on creation and all the data it need to run.
+        
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """
@@ -918,7 +937,8 @@ flam3h_on_deleted(self) -> None:
 
 
     def flam3h_on_loaded(self) -> None:
-        """
+        """Initialize FLAM3H node on hip file load and all the data it need to run.
+        
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """
@@ -987,6 +1007,8 @@ flam3h_on_deleted(self) -> None:
 
     # Wip
     def flam3h_on_deleted(self) -> None:
+        """Cleanup the data on deletion.
+        """        
 
         if len(self.node.type().instances()) == 1:
             try:
