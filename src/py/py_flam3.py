@@ -2147,14 +2147,14 @@ iterator_keep_last_weight(self) -> None:
 
         menu=[]
         
-        id = self.kwargs['script_multiparm_index']
-        
         node = self.node
+        id = self.kwargs['script_multiparm_index']
         
         if self.exist_user_data(node):
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
         
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+        
         
         if mp_id_from is not None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
@@ -2844,7 +2844,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, str(id), str(mp_id_from))
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, str(id), str(mp_id_from))
         
-            node.setParms({f"{n.main_prmpastesel}_{str(id)}": str(0)})
+            node.setParms({f"{n.main_prmpastesel}_{str(id)}": 0})
             
         else:
             _MSG = f"{str(node)} -> {MARK_ITER_MSG} to copy parameter's values from."
@@ -2900,7 +2900,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
 
-            node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": str(0)})
+            node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": 0})
                     
         else:
             _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
