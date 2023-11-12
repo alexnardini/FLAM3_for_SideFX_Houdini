@@ -1267,7 +1267,7 @@ reset_PREFS(self, mode=0) -> None:
         if toggle:
             self.node.setParms({prm: 0})
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
-            # restore the viewport prior to entering the Camera sensor mode
+            # restore the viewport prior to entering the Camera sensor mode and clearup all related data
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 flam3h_general_utils.util_set_stashed_cam()
                 flam3h_general_utils.util_clear_stashed_cam_data()
