@@ -26,11 +26,13 @@ _*A bit of history* ( from wikipedia )_:
 
 _*Preface*_:
 
-Individuals and fractal flames are alike. Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today.
-Consider the various formulas that make up fractal flames as different brushes or life event brushes.
-Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole.
-This is akin to a person's genome, or DNA.
-Together, all of these variables contribute to the interesting nature of the fractal flame discipline, with its seemingly endless possibilities, effects, and patterns.
+The inception of this implementation dates back to 2020, during COVID-19. 
+At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal flame algorithm.
+I didn't know much about the subject at the time, but as I began experimenting with some of the free and open-source fractal flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
+Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, it slowly gained the proper form.
+
+These days, this tool has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
+Additionally, when combined with Houdini's procedural paradigm and toolsets, fractal flames reach previously unheard-of levels of possibilities.
 
 _Slimy paint - author: Alessandro Nardini_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
@@ -46,6 +48,12 @@ _*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: 
 
 
 @intro
+
+_Individuals and fractal flames are alike. Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._
+_Consider the various formulas that make up fractal flames as different brushes or life event brushes._
+_Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._
+_This is akin to a person's genome, or DNA._
+_Together, all of these variables contribute to the interesting nature of the fractal flame discipline, with its seemingly endless possibilities, effects, and patterns._
 
 FLAM3H, as the name suggests, is the implementation of _the fractal flame algorithm_ inside SideFX Houdini. There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
