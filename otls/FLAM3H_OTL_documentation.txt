@@ -1364,7 +1364,9 @@ SHOW sensor viz:
     A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
     The FLAM3H camera sensor will precisely display the image framing.
 
-    _This is meant to be used only when you intend to load the saved fractal flame into third-party programs and you desire to setup the fractal flame image framing in Houdini first._
+    _This is meant to be used only when you intend to load the saved fractal flame into third-party programs and you desire to setup the fractal flame image framing in Houdini first. Below a screenshot as an example:_
+
+    _*[FLAM3H to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
     
     TIP:
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.

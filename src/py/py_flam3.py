@@ -980,10 +980,26 @@ flam3h_on_deleted(self) -> None:
             # init/clear copy/paste iterator's data and prm
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
             
-            # Finally reset the hou.session data
+            # Finally reset the hou.session data 
+            # ( This probaly not needed but just incase the preview flam3h_paste_reset_hou_session_data() isnt clearing everything properly )
             in_flame_utils(self.kwargs).in_to_flam3h_reset_user_data()
             
-            # Reset memory mpidx data prm
+            # hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is already set to None
+            # lets set those to ourself to avoid a deleted marked node message on load
+            try:
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            except:
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+            try:
+                hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+            except:
+                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+            
+        else:
+            # Init xaos
+            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+            
+            # Reset memory mpidx prm data
             #
             # unlock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
@@ -992,12 +1008,6 @@ flam3h_on_deleted(self) -> None:
             # lock
             node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
             
-            # hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is already set to None
-            # lets set those to ourself to avoid a deleted marked node message on load
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-            
-        else:
             # Remove any comment and user data from the node
             if flam3h_iterator_utils.exist_user_data(node):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
