@@ -2107,7 +2107,6 @@ iterator_keep_last_weight(self) -> None:
         vals = [500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000]
         vals_name = ["Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points"]
         
-        # if sel == 1:
         if ptcount != vals[sel]:
             self.node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
