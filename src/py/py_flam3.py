@@ -6700,6 +6700,8 @@ reset_IN(self, mode=0) -> None:
                 else:
                     # if this variation is not found, set it to Linear and its weight to ZERO
                     in_flame_utils.in_v_generic(mode, node, mp_idx, t_idx, 0, 0)
+                    
+            # Set pre blur if found
             in_flame_utils.in_v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
                     
             if mode:
@@ -7399,7 +7401,6 @@ reset_IN(self, mode=0) -> None:
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
-            
         else:
             node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
             
@@ -7419,8 +7420,8 @@ reset_IN(self, mode=0) -> None:
                 # The following do not work, not sure why
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
                 
-            _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
                 
     def reset_IN(self, mode=0) -> None:
