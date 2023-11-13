@@ -2165,6 +2165,6 @@ Mini bio:
 :box:
     #display: rounded gray
     
-    _Alessandro Nardini is an Italian artist who's spent most of his career serving the entertainment industry._
+    _Alessandro Nardini is an Italian artist and developer who's spent most of his career serving the entertainment industry._
     _He served many different branches of the entertainment industry's post-production,_
     _spanning feature films, games, TV/commercials, episodic series and streaming._
