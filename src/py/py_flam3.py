@@ -2112,12 +2112,12 @@ iterator_keep_last_weight(self) -> None:
         vals_name = ["Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points"]
         
         if ptcount != vals[sel]:
-            self.node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
+            node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
   
         # reset to null value so we can set the same preset again
-        self._node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
+        node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
 
 
     # Set menu_density() Menu
@@ -2125,9 +2125,9 @@ iterator_keep_last_weight(self) -> None:
         """Revert density parameter to its default value.
         """        
         node = self.node
-        ptcount = self.node.parm(GLB_DENSITY).evalAsInt()
+        ptcount = node.parm(GLB_DENSITY).evalAsInt()
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
-            self.node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" Default: 500K points \" -> SET"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
         else:
