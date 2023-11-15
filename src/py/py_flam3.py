@@ -741,9 +741,9 @@ flam3h_on_deleted(self) -> None:
                 _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
-                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_no_flag(cvex_precision, node, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                     
             else:
                 pass
@@ -754,7 +754,7 @@ flam3h_on_deleted(self) -> None:
             elif cvex_precision == 64 and first_instance_64bit is True:
                 hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
-                    
+
 
     def flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
         """When changing CVEX precison modes in the preference's tab,
