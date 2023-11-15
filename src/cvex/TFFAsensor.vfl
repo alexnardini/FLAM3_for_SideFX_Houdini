@@ -39,13 +39,13 @@
 
 struct sensor{
     vector2 res, center;
-    int zoom, rot;
+    float zoom, rot;
 
     void sensorDATA(){
         res = chu("../../outres");
         center = chu("../../outcenter");
-        zoom = chi("../../outscale");
-        rot = chi("../../outrotate");
+        zoom = chf("../../outscale");
+        rot = chf("../../outrotate");
     }
 }
 
@@ -57,8 +57,8 @@ void _TFFAsensor()
 
     vector2 sensor_res = SENSOR.res;
     vector2 sensor_center = SENSOR.center;
-    int sensor_zoom = SENSOR.zoom;
-    int sensor_rot = SENSOR.rot;
+    float sensor_zoom = SENSOR.zoom;
+    float sensor_rot = SENSOR.rot;
     
     // FLAM3H CAMERA Sensor
     vector translation, rotation;
