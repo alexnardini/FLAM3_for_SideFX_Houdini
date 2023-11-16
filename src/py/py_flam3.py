@@ -7134,9 +7134,11 @@ reset_IN(self, mode=0) -> None:
             node (hou.Node): the FLAM3H houdini node.
         """        
         node = kwargs['node']
-        xml = node.parm(IN_PATH).evalAsString()
         preset_id = int(node.parm(IN_PRESETS).eval())
+        
+        xml = node.parm(IN_PATH).evalAsString()
         f3r = in_flame_iter_data(node, xml, preset_id)
+        
         if f3r.isvalidtree:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
             except:
