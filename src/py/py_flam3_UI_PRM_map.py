@@ -393,6 +393,11 @@ menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_reso
 return menu
 
 
+'parameter name:    outcprendervals'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
+
+
 'parameter name:    outcenter'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
