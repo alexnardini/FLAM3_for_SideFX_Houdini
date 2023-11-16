@@ -7127,13 +7127,13 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_copy_render_stats_msg(node: hou.Node) -> None:
+    def in_copy_render_stats_msg(kwargs: dict) -> None:
         """Copy the loaded IN Flame preset render properties into the OUT Flame render properties to be written out. 
 
         Args:
             node (hou.Node): the FLAM3H houdini node.
         """        
-        
+        node = kwargs['node']
         xml = node.parm(IN_PATH).evalAsString()
         preset_id = int(node.parm(IN_PRESETS).eval())
         f3r = in_flame_iter_data(node, xml, preset_id)
@@ -7168,7 +7168,12 @@ reset_IN(self, mode=0) -> None:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
             except:
                 pass
+            
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
+            
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                flam3h_general_utils(kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(kwargs).util_set_front_viewer()
         else:
             pass
 
