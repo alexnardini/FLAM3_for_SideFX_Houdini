@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.46 - Gold
+#version: 1.1.50 - Gold
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v20.0.506 )"""
 
@@ -1393,7 +1393,7 @@ Copy/Paste render properties:
     #id: IN
     [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
     
-    When you load a flame file/preset, this icon will become visible.
+    When you load a flame file in the IN tab, this icon will become available.
     
     When you click this icon, the currently loaded IN flame preset render properties will be copied and pasted here.
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
