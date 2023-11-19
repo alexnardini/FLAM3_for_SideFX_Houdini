@@ -1020,20 +1020,7 @@ viz mb:
     
     A *.flame file is an XML-formatted type of file.
         
-NOTE:
-    To be valid to be loaded inside FLAM3H, a *.flame file must obey this rule:
-    
-    _the XML file needs to start with: <*flames*> and end with: </*flames*>._
-    
-    All the different flames ( if multiple flames are present in the file ) will be in between those keys.
-    
-    When you use Apophysis or Fractorium and copy a flame to the clipboard
-    the above keys are missing, so to be able to load it inside FLAM3H just add those yourself.
-    
-    Also some of the flames you find online have those keys missing ( mostly because they copy/paste from the clipboard ).
-    
-    Everything will be correctly set when saving flames out of Apophysis and Fractorium when using the File->Save menu option, as well as when saving flames out of FLAM3H.
-    
+
 _The following is an example of what the Sierpinski triangle preset looks like once saved :_
     
 {{{

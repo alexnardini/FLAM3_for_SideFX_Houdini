@@ -5030,7 +5030,7 @@ class _xml_tree:
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
-        self._xmlfile_data = self.xmldata_root_chk(self._xmlfile)
+        self._xmlfile_data = self.xmlfile_root_chk(self._xmlfile)
         self._isvalidtree = self.isvalidtree_chk(self._xmlfile)
         if self._xmlfile_data is not None:
             self._tree = ET.ElementTree(ET.fromstring(self._xmlfile_data))
@@ -5042,7 +5042,7 @@ class _xml_tree:
             
     
     @staticmethod
-    def xmldata_root_chk(xmlfile) -> Union[str, None]:
+    def xmlfile_root_chk(xmlfile) -> Union[str, None]:
         try:
             tree = ET.parse(xmlfile)
             root = tree.getroot()
