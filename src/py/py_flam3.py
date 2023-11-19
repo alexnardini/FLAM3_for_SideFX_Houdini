@@ -76,7 +76,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.50'
+FLAM3H_VERSION = '1.1.52'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -5030,24 +5030,65 @@ class _xml_tree:
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
-        self._isvalidtree = False
-        try:
-            self._tree = ET.parse(xmlfile)
-            if isinstance(self._tree, ET.ElementTree):
-                root = self._tree.getroot()
-                if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
-                    self._isvalidtree = True
-                else:
-                    self._isvalidtree = False
-            else:
-                self._isvalidtree = False
-        except:
-            self._isvalidtree = False
+        self._xmlfile_data = self.xmldata_root_chk(self._xmlfile)
+        self._isvalidtree = self.isvalidtree_chk(self._xmlfile)
+        if self._xmlfile_data is not None:
+            self._tree = ET.ElementTree(ET.fromstring(self._xmlfile_data))
+            self._isvalidtree = True
+        else:
+            if self._isvalidtree:
+                self._tree = ET.parse(xmlfile)
+
             
+    
+    @staticmethod
+    def xmldata_root_chk(xmlfile) -> Union[str, None]:
+        try:
+            tree = ET.parse(xmlfile)
+            root = tree.getroot()
+            if XML_VALID_FLAMES_ROOT_TAG not in root.tag.lower():
+                newroot = ET.Element('flames')
+                newroot.insert(0, root)
+                # If there are flames, proceed
+                if tuple([f for f in newroot.iter(XML_FLAME_NAME)]):
+                    out_flame_utils._out_pretty_print(newroot)
+                    return ET.tostring(newroot, encoding="unicode")
+                else:
+                    return None
+            else:
+                return None
+        except:
+            return None
+    
+    
+    @staticmethod
+    def isvalidtree_chk(xmlfile: str) -> bool:
+        try:
+            tree = ET.parse(xmlfile)
+            if isinstance(tree, ET.ElementTree):
+                root = tree.getroot()
+                if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
+                    chk = tuple([f for f in root.iter(XML_FLAME_NAME)])
+                    if chk:
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        except:
+            return False
+    
+    
     
     @property
     def xmlfile(self):
         return self._xmlfile
+    
+    @property
+    def xmlfile_data(self):
+        return self._xmlfile_data
     
     @property
     def tree(self):
