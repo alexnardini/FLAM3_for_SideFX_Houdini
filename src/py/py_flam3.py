@@ -3358,9 +3358,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         # Iterators reset
-        node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-        [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
-        node.setParms({FLAME_ITERATORS_COUNT: 3}) # type: ignore
+        in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
         # update xaos
         self.auto_set_xaos()
 
@@ -7321,6 +7319,29 @@ reset_IN(self, mode=0) -> None:
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
+    
+    def in_to_flam3h_reset_iterators_parms(self, node: hou.Node, in_flame_iter_count: int) -> None:
+        """Prior to this, I was setting the iterator's count to zero and then back to the requested count to reset all their values.
+        It was not the fastest solution and this is actually making it more performant overall.
+
+        Args:
+            node (hou.Node): This FLAM3H node
+            in_flame_iter_count (int): IN flame iterator's count ( number of xforms )
+        """        
+        # iterators
+        flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        if in_flame_iter_count >= flam3h_iter_count:
+            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
+            [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
+            node.setParms({FLAME_ITERATORS_COUNT:  in_flame_iter_count}) # type: ignore
+        else:
+            node.setParms({FLAME_ITERATORS_COUNT: in_flame_iter_count}) # type: ignore
+            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
+            [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
+    
+    
+    
     '''
         The following function is just a shortcut to set and load
         a new preset from the IN Tab IN_PRESETS parameter,
@@ -7361,18 +7382,15 @@ reset_IN(self, mode=0) -> None:
             flam3h_general_utils(self.kwargs).reset_MB()
             flam3h_general_utils(self.kwargs).reset_PREFS()
 
+            # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
-            # iterators
-            node.setParms({FLAME_ITERATORS_COUNT: 0}) # type: ignore
-            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
-            node.setParms({FLAME_ITERATORS_COUNT:  len(apo_data.xforms)}) # type: ignore
+            # prepare iterators
+            self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
             
-            # RIP
-            # if there are ZERO opacities, always turn RIP toggle ON
+            # RIP: if there are ZERO opacities, always turn RIP toggle ON
             if min(apo_data.opacity) == 0.0:
                 node.setParms({SYS_RIP: 1}) # type: ignore
-                
             else:
                 # Otherwise set RIP toggle accordingly from the XML data if any
                 if apo_data.sys_flam3h_rip is not None:
@@ -7416,7 +7434,7 @@ reset_IN(self, mode=0) -> None:
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             flam3h_palette_utils(self.kwargs).palette_hsv()
-                
+            
             # Set density back to default on load
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
@@ -7430,7 +7448,7 @@ reset_IN(self, mode=0) -> None:
             # Update SYS inpresets parameter
             node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
             
-            # Update xaos and activate "auto set xaos":
+            # Update xaos and activate "auto set xaos", not needed anymore but just in case
             node.setParms({PREFS_XAOS_AUTO_SET: 1}) # type: ignore
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
@@ -7443,7 +7461,7 @@ reset_IN(self, mode=0) -> None:
             
             # Reset iterator and FF user data if needed
             self.in_to_flam3h_reset_user_data()
-                
+            
             # Print to status Bar
             preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
