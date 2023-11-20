@@ -6940,7 +6940,7 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_set_iter_on_load(node: hou.Node, preset_id: int, clipboard: bool) -> int:
+    def in_set_iter_on_load(node: hou.Node, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
         """WHen loading a FLame preset, t=set the FLAM3H iteration number
         to the value backed into the Flame preset name we just loaded.
 
@@ -6954,7 +6954,7 @@ reset_IN(self, mode=0) -> None:
         iter_on_load = node.parm(IN_ITER_NUM_ON_LOAD).eval()
         use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
         
-        if clipboard: preset_name = ''
+        if clipboard: preset_name = flame_name_clipboard
         else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
         
         iter_on_load_preset = in_flame_utils.in_get_preset_name_iternum(preset_name)
@@ -7382,22 +7382,24 @@ reset_IN(self, mode=0) -> None:
     
     
     
-    def in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int]:
+    def in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int, str]:
         node = self.node
         clipboard = False
         try:
             if self.kwargs['alt']:
                 xml = _xml_tree.xmlfile_getClipboard()
+                assert xml is not None
+                flame_name_clipboard = in_flame(node, xml).name[0]
                 clipboard = True
-                return xml, clipboard, 0
+                return xml, clipboard, 0, flame_name_clipboard
             else:
                 xml = node.parm(IN_PATH).evalAsString()
                 preset_id = int(node.parm(IN_PRESETS).eval())
-                return xml, clipboard, preset_id
+                return xml, clipboard, preset_id, ''
         except:
             xml = node.parm(IN_PATH).evalAsString()
             preset_id = int(node.parm(IN_PRESETS).eval())
-            return xml, clipboard, preset_id
+            return xml, clipboard, preset_id, ''
     
     
     '''
@@ -7426,13 +7428,13 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml, clipboard, preset_id = self.in_to_flam3h_clipboard_data()
+        xml, clipboard, preset_id, flame_name_clipboard = self.in_to_flam3h_clipboard_data()
 
         if xml is not None and _xml_tree(xml).isvalidtree:
 
             node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
             
-            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard)
+            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
             
             flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
             flam3h_general_utils(self.kwargs).reset_MB()
