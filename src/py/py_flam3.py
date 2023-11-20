@@ -14,7 +14,7 @@ from math import fsum
 from re import sub as re_sub
 from sys import platform as sys_platform
 from subprocess import call as sp_call
-from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
+import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
 import tkinter as tk
@@ -5042,48 +5042,57 @@ class _xml_tree:
             if self._isvalidtree:
                 self._tree = ET.parse(xmlfile)
 
-            
-            
-    @staticmethod    
+
+
+    @staticmethod
     def xmlfile_getClipboard() -> Union[str, None]:
-        root = tk.Tk()
-        root.withdraw()
-        flameClipboard = root.clipboard_get()
+        
         try:
-            return flameClipboard
+            root_paste = tk.Tk()
+            root_paste.withdraw()
+            root_paste.update()
+            clipboard = root_paste.clipboard_get()
+            root_paste.update()
+            root_paste.destroy()
+            return clipboard
         except:
             return None
-    
-    
-    
+
+
+
     @staticmethod
     def xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
         try:
             if clipboard:
                 if xmlfile is not None:
-                    tree =  ET.ElementTree(ET.fromstring(xmlfile))
+                    tree = lxmlET.ElementTree(lxmlET.fromstring(xmlfile)) # type: ignore
                 else:
-                    tree = ET.parse(xmlfile)
+                    tree = lxmlET.parse(xmlfile) # type: ignore
             else:
-                tree = ET.parse(xmlfile)
+                tree = lxmlET.parse(xmlfile) # type: ignore
                 
             root = tree.getroot()
             if XML_VALID_FLAMES_ROOT_TAG not in root.tag.lower():
-                newroot = ET.Element('flames')
+                newroot = lxmlET.Element('flames') # type: ignore
                 newroot.insert(0, root)
                 # If there are flames, proceed
                 if tuple([f for f in newroot.iter(XML_FLAME_NAME)]):
                     out_flame_utils._out_pretty_print(newroot)
-                    return ET.tostring(newroot, encoding="unicode")
+                    return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
                 else:
                     return None
             else:
-                return None
+                # If there are flames, proceed
+                if tuple([f for f in root.iter(XML_FLAME_NAME)]):
+                    out_flame_utils._out_pretty_print(root)
+                    return lxmlET.tostring(root, encoding="unicode") # type: ignore
+                else:
+                    return None
         except:
             return None
-    
-    
-    
+
+
+
     @staticmethod
     def xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
         try:
@@ -5103,9 +5112,9 @@ class _xml_tree:
                 return False
         except:
             return False
-    
-    
-    
+
+
+
     @property
     def xmlfile(self):
         return self._xmlfile
@@ -5121,7 +5130,7 @@ class _xml_tree:
     @property
     def isvalidtree(self):
         return self._isvalidtree
-    
+
 
 
     def __get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
@@ -7418,7 +7427,7 @@ reset_IN(self, mode=0) -> None:
         xml, clipboard, preset_id = self.in_to_flam3h_clipboard_data()
 
         if xml is not None and _xml_tree(xml).isvalidtree:
-            
+
             node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
             
             iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard)
@@ -8786,6 +8795,27 @@ out_XML(self) -> None:
             
             _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            
+            
+    def out_new_XML_clipboard(self) -> None:
+        """Write out a new XML flame file with only the current FLAM3H flame preset into the clipboard.
+
+        Args:
+        """        
+        root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+        if self.out_build_XML(root):
+            out_flame_utils._out_pretty_print(root)
+            flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
+            
+            root_copy = tk.Tk()
+            root_copy.withdraw()
+            root_copy.clipboard_clear()
+            root_copy.clipboard_append(flame)
+            root_copy.update()
+            root_copy.destroy()
+            
+            _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
     def out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
@@ -8825,8 +8855,13 @@ out_XML(self) -> None:
             
             out_path = node.parm(OUT_PATH).evalAsString()
             out_path_checked = out_flame_utils.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
-            # if the output path is valid
-            if out_path_checked is not False:
+            
+            # Write to the clipboard
+            if kwargs['alt']:
+                self.out_new_XML_clipboard()
+                
+            # Otherwise if the output path is valid
+            elif out_path_checked is not False:
                 
                 if kwargs['shift']:
                     flam3h_general_utils.open_explorer_file(out_path_checked)
@@ -8843,12 +8878,12 @@ out_XML(self) -> None:
                         # Clear up Houdini's status bar msg
                         hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
                     else:
-                        apo_data = in_flame(self.node, str(out_path_checked))
                         if kwargs["ctrl"]:
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             self.out_new_XML(str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                         else:
+                            apo_data = in_flame(self.node, str(out_path_checked))
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             if apo_data.isvalidtree:
                                 self.out_append_XML(apo_data, str(out_path_checked))
