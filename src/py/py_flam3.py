@@ -6970,7 +6970,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: in_flame_iter_data) -> str:
+    def in_load_stats_msg(node: hou.Node, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
 
         Args:
@@ -7022,7 +7022,9 @@ reset_IN(self, mode=0) -> None:
 
             
         # build msgs
-        sw = f"Software: {apo_data.sw_version[preset_id]}"
+        cb = ''
+        if clipboard: cb =  " -> Clipboard"
+        sw = f"Software: {apo_data.sw_version[preset_id]}{cb}"
         name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"iterators count: {str(len(apo_data.xforms))}"
         post = f"post affine: {post_bool_msg}"
@@ -7493,7 +7495,7 @@ reset_IN(self, mode=0) -> None:
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
             # Update flame stats 
-            node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, clipboard, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             # if "copy render properties on Load" is checked
             if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
