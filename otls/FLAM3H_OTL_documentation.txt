@@ -294,7 +294,12 @@ IN Preset reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to load a flame from the clipboard.
+    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+
+    When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
+
+    - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
+    - In Fractorium, you can alter the flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
     TIP:
         By constantly saving the Flame over the same flame file that you are loading in, this feature allows you to swiftly update a preset that you are loading inside the IN Tab while changing it, for example, in Fractorium. 
@@ -324,18 +329,13 @@ OUT Save:
     #id: SYS
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    - ((LMB)) to save this flame inside the selected OUT file, if any.
+    - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
 
-    _If the selected file does not exist, it will be created._
-    
-    _If the selected file exists and already contains some Flames in it, it will append the current one._
-
-    _If the selected file is not a valid Flame file type, nothing will happen._
-    
-    
-    
+    - If the selected file does not exist, it will be created.
+    - If the selected file is not a valid Flame file type, nothing will happen.
     
 
 
@@ -1096,11 +1096,12 @@ Reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to load a flame from the clipboard.
+    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+
+    When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
     
-    This is helpful when using Fractorium, for instance, and importing the same flame file into FLAM3H.
-    - In Fractorium, you can alter the flame, save it, and then click here to reload and see the modifications in Houdini.
-    - Best would be to copy the flame into the clipboard from Fractorium and load from the clipboard into FLAM3H.
+    - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
+    - In Fractorium, you can alter the flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
 Presets:
     #id: IN
@@ -1240,16 +1241,13 @@ Save Flame:
     #id: OUT
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    - ((LMB)) to save this flame inside the selected OUT file, if any.
+    - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
-    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
-    
+
     - If the selected file does not exist, it will be created.
-    - If the selected file exists and already contains some flames, it will append the current one.
-    
-    _If the selected file is not a valid Flame file type, nothing will happen._
-    
+    - If the selected file is not a valid Flame file type, nothing will happen.
     
     TIP:
         *Once you click save*:

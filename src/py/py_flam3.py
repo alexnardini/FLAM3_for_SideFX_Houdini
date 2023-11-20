@@ -144,6 +144,7 @@ IN_USE_ITER_ON_LOAD = 'useiteronload'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 IN_USE_FRACTORIUM_COLOR_SPEED = 'fcs'
+IN_CLIPBOARD_TOGGLE = 'inclipboard'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
@@ -1313,11 +1314,12 @@ reset_PREFS(self, mode=0) -> None:
         
         if IN_PRESETS in prm_presets_name:
             xml = node.parm(IN_PATH).evalAsString()
-            if os.path.isfile(xml) is True:
-                apo = in_flame(node, xml)
+            if os.path.isfile(xml):
+                apo = _xml_tree(xml)
                 if not apo.isvalidtree:
                     prm.set('-1')
                     node.setParms({IN_ISVALID_FILE: 0})
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
                     node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
@@ -1328,14 +1330,17 @@ reset_PREFS(self, mode=0) -> None:
                         node.setParms({IN_ISVALID_FILE: 1})
                         in_flame_utils(self.kwargs).in_to_flam3h()
             else:
-                prm.set('-1')
-                node.setParms({IN_ISVALID_FILE: 0})
-                node.setParms({MSG_FLAMESTATS: ""})
-                node.setParms({MSG_FLAMERENDER: ""})
-                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
-                # We do not want to print if the file path parameter is empty
-                if xml:
-                    print(f'{str(node)}.IN: please select a valid file location.')
+                clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
+                if not clipboard:
+                    prm.set('-1')
+                    node.setParms({IN_ISVALID_FILE: 0})
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                    node.setParms({MSG_FLAMESTATS: ""})
+                    node.setParms({MSG_FLAMERENDER: ""})
+                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                    # We do not want to print if the file path parameter is empty
+                    if xml:
+                        print(f'{str(node)}.IN: please select a valid file location.')
             # Force preset menu to updated
             prm.eval()
         elif OUT_PRESETS in prm_presets_name:
@@ -3707,6 +3712,7 @@ iterator_keep_last_weight(self) -> None:
 
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+            node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
             
             # init/clear copy/paste iterator's data and prm
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
@@ -7102,7 +7108,8 @@ reset_IN(self, mode=0) -> None:
         vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{in_flame_utils.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
-        preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        if clipboard: preset_name = apo_data.name[0]
+        else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
         descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
                             f"{preset_name}", )
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
@@ -7226,18 +7233,23 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_copy_render_stats_msg(kwargs: dict) -> None:
+    def in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
         """Copy the loaded IN Flame preset render properties into the OUT Flame render properties to be written out. 
 
         Args:
             node (hou.Node): the FLAM3H houdini node.
         """        
         node = kwargs['node']
-        preset_id = int(node.parm(IN_PRESETS).eval())
         
-        xml = node.parm(IN_PATH).evalAsString()
-        f3r = in_flame_iter_data(node, xml, preset_id)
-        
+        if clipboard:
+            preset_id = 0
+            f3r = apo_data
+        else:
+            xml = node.parm(IN_PATH).evalAsString()
+            preset_id = int(node.parm(IN_PRESETS).eval())
+            f3r = in_flame_iter_data(node, xml, preset_id)
+            
+        assert f3r is not None
         if f3r.isvalidtree:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
             except:
@@ -7403,23 +7415,34 @@ reset_IN(self, mode=0) -> None:
     
     
     def in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int, str]:
+        """Check if we are able to parse a flame from the clipboard
+        and provide some output data to work with if that is the case.
+
+        Returns:
+            tuple[Union[str, None], bool, int, str]: xml, clipboard, preset_id, clipboard_flame_name
+        """        
         node = self.node
-        clipboard = False
         try:
             if self.kwargs['alt']:
                 xml = _xml_tree.xmlfile_getClipboard()
-                assert xml is not None
-                flame_name_clipboard = in_flame(node, xml).name[0]
-                clipboard = True
-                return xml, clipboard, 0, flame_name_clipboard
+                try:
+                    tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+                except:
+                    tree= None
+                if tree is not None:
+                    assert xml is not None
+                    flame_name_clipboard = in_flame(node, xml).name[0]
+                    return xml, True, 0, flame_name_clipboard
+                else:
+                    return None, False, 0, ''
             else:
                 xml = node.parm(IN_PATH).evalAsString()
                 preset_id = int(node.parm(IN_PRESETS).eval())
-                return xml, clipboard, preset_id, ''
+                return xml, False, preset_id, ''
         except:
             xml = node.parm(IN_PATH).evalAsString()
             preset_id = int(node.parm(IN_PRESETS).eval())
-            return xml, clipboard, preset_id, ''
+            return xml, False, preset_id, ''
     
     
     '''
@@ -7453,6 +7476,8 @@ reset_IN(self, mode=0) -> None:
         if xml is not None and _xml_tree(xml).isvalidtree:
 
             node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
+            if clipboard: node.setParms({IN_CLIPBOARD_TOGGLE: 1}) # type: ignore
+            else: node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
             
             iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
             
@@ -7519,9 +7544,13 @@ reset_IN(self, mode=0) -> None:
             # Update flame stats 
             node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, clipboard, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
-            # if "copy render properties on Load" is checked
-            if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                in_flame_utils.in_copy_render_stats_msg(node)
+            
+            # if we are loading from the clipboard, alway copy the render settings on load
+            if clipboard: in_flame_utils.in_copy_render_stats_msg(self.kwargs, clipboard, apo_data)
+            else:
+                # if "copy render properties on Load" is checked
+                if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+                    in_flame_utils.in_copy_render_stats_msg(self.kwargs)
             
             # Update SYS inpresets parameter
             node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
@@ -7548,13 +7577,19 @@ reset_IN(self, mode=0) -> None:
         else:
             
             in_xml = node.parm(IN_PATH).evalAsString()
-            
+
             if clipboard and _xml_tree(in_xml).isvalidtree:
+                node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
+                _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
+            elif not clipboard and _xml_tree(in_xml).isvalidtree:
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
             else:
                 node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
+                node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
             
                 if not clipboard and xml is not None and os.path.isfile(xml) and os.path.getsize(xml)>0:
                     node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
@@ -7585,6 +7620,7 @@ reset_IN(self, mode=0) -> None:
         """        
         node = self.node
         node.setParms({IN_ISVALID_FILE: 0})
+        node.setParms({IN_CLIPBOARD_TOGGLE: 0})
         node.setParms({MSG_FLAMESTATS: ""})
         node.setParms({MSG_FLAMERENDER: ""})
         node.setParms({MSG_DESCRIPTIVE_PRM: ""})
