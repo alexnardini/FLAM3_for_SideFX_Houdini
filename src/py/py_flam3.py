@@ -5022,6 +5022,23 @@ class flam3h_varsPRM_APO:
 
 
 class _xml_tree:
+    """
+STATIC METHODS:
+
+xmlfile_getClipboard() -> Union[str, None]:
+
+xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
+
+xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
+
+METHODS:
+
+__get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
+
+__get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
+
+__get_flame_count(self, flames: list) -> int:
+"""
 
     def __init__(self, xmlfile: str) -> None:
         """
@@ -5928,7 +5945,7 @@ in_util_join_vars_grp(groups: list) -> str:
 
 in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
 
-in_set_iter_on_load(node: hou.Node, preset_id: int) -> int:
+in_set_iter_on_load(node: hou.Node, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 
 in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: in_flame_iter_data) -> str:
 
@@ -5947,6 +5964,10 @@ set_iter_on_load_callback(self) -> None:
 use_iter_on_load_callback(self) -> None:
 
 in_to_flam3h_reset_user_data(self) -> None:
+
+in_to_flam3h_reset_iterators_parms(self, node: hou.Node, in_flame_iter_count: int) -> None:
+
+in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int, str]:
 
 in_to_flam3h_sys(self) -> None:
 
