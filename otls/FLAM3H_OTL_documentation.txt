@@ -296,7 +296,7 @@ IN Preset reload:
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
 
-    When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
+    The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
 
     TIP:
         - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
@@ -1388,7 +1388,7 @@ Copy/Paste render properties:
     When you click this icon, the currently loaded IN flame preset render properties will be copied and pasted here.
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
+    The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
     
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H. These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
