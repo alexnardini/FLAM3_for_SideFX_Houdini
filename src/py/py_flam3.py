@@ -5221,6 +5221,30 @@ __get_flame_count(self, flames: list) -> int:
 
 class in_flame(_xml_tree):
     """
+STATIC METHODS:
+
+affine_coupling(affine: list) -> list:
+
+METHODS:
+
+__is_valid_idx(self, idx: int) -> int:
+
+__get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
+
+__get_xaos(self, xforms: list, key=XML_XF_XAOS) -> Union[tuple, None]:
+
+__get_affine(self, xforms: list, key: str) -> Union[tuple, None]:
+
+__get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
+
+__get_palette(self, idx: int, key=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
+
+__get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
+
+__get_mb_flam3h_mb(self, idx: int, key='') -> Union[int, float, bool, None]:
+
+__get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
+
     Args:
         _xml_tree ([class]): [inherit properties methods from the _xml_tree class]
     """  
