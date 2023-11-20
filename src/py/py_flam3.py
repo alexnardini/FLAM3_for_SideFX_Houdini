@@ -17,6 +17,7 @@ from subprocess import call as sp_call
 from lxml import etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
+import tkinter as tk
 import platform
 import os
 import json
@@ -5029,8 +5030,12 @@ class _xml_tree:
         """        
         self._xmlfile = xmlfile
         self._xmlfile_data = self.xmlfile_root_chk(self._xmlfile)
-        self._isvalidtree = self.isvalidtree_chk(self._xmlfile)
-        if self._xmlfile_data is not None:
+        self._xmlfile_data_clipboard = self.xmlfile_root_chk(self._xmlfile, True)
+        self._isvalidtree = self.xmlfile_isvalidtree_chk(self._xmlfile)
+        if self._xmlfile_data_clipboard is not None:
+            self._tree = ET.ElementTree(ET.fromstring(self._xmlfile_data_clipboard))
+            self._isvalidtree = True
+        elif self._xmlfile_data is not None:
             self._tree = ET.ElementTree(ET.fromstring(self._xmlfile_data))
             self._isvalidtree = True
         else:
@@ -5038,11 +5043,30 @@ class _xml_tree:
                 self._tree = ET.parse(xmlfile)
 
             
+            
+    @staticmethod    
+    def xmlfile_getClipboard() -> Union[str, None]:
+        root = tk.Tk()
+        root.withdraw()
+        flameClipboard = root.clipboard_get()
+        try:
+            return flameClipboard
+        except:
+            return None
+    
+    
     
     @staticmethod
-    def xmlfile_root_chk(xmlfile) -> Union[str, None]:
+    def xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
         try:
-            tree = ET.parse(xmlfile)
+            if clipboard:
+                if xmlfile is not None:
+                    tree =  ET.ElementTree(ET.fromstring(xmlfile))
+                else:
+                    tree = ET.parse(xmlfile)
+            else:
+                tree = ET.parse(xmlfile)
+                
             root = tree.getroot()
             if XML_VALID_FLAMES_ROOT_TAG not in root.tag.lower():
                 newroot = ET.Element('flames')
@@ -5059,13 +5083,15 @@ class _xml_tree:
             return None
     
     
+    
     @staticmethod
-    def isvalidtree_chk(xmlfile: str) -> bool:
+    def xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
         try:
             tree = ET.parse(xmlfile)
             if isinstance(tree, ET.ElementTree):
                 root = tree.getroot()
                 if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
+                    # If there are flames, proceed
                     chk = tuple([f for f in root.iter(XML_FLAME_NAME)])
                     if chk:
                         return True
@@ -6905,7 +6931,7 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_set_iter_on_load(node: hou.Node, preset_id: int) -> int:
+    def in_set_iter_on_load(node: hou.Node, preset_id: int, clipboard: bool) -> int:
         """WHen loading a FLame preset, t=set the FLAM3H iteration number
         to the value backed into the Flame preset name we just loaded.
 
@@ -6918,7 +6944,10 @@ reset_IN(self, mode=0) -> None:
         """        
         iter_on_load = node.parm(IN_ITER_NUM_ON_LOAD).eval()
         use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
-        preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        
+        if clipboard: preset_name = ''
+        else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        
         iter_on_load_preset = in_flame_utils.in_get_preset_name_iternum(preset_name)
         if iter_on_load_preset is not None:
             node.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
@@ -7342,6 +7371,24 @@ reset_IN(self, mode=0) -> None:
     
     
     
+    def in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int]:
+        node = self.node
+        clipboard = False
+        try:
+            if self.kwargs['alt']:
+                xml = _xml_tree.xmlfile_getClipboard()
+                clipboard = True
+                return xml, clipboard, 0
+            else:
+                xml = node.parm(IN_PATH).evalAsString()
+                preset_id = int(node.parm(IN_PRESETS).eval())
+                return xml, clipboard, preset_id
+        except:
+            xml = node.parm(IN_PATH).evalAsString()
+            preset_id = int(node.parm(IN_PRESETS).eval())
+            return xml, clipboard, preset_id
+    
+    
     '''
         The following function is just a shortcut to set and load
         a new preset from the IN Tab IN_PRESETS parameter,
@@ -7354,7 +7401,7 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         xml = node.parm(IN_PATH).evalAsString()
 
-        if in_flame(node, xml).isvalidtree:
+        if _xml_tree(xml).isvalidtree:
             
             preset_id = node.parm(IN_SYS_PRESETS).eval()
             node.setParms({IN_PRESETS: preset_id}) # type: ignore
@@ -7368,15 +7415,13 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        
-        xml = node.parm(IN_PATH).evalAsString()
+        xml, clipboard, preset_id = self.in_to_flam3h_clipboard_data()
 
-        if in_flame(node, xml).isvalidtree:
+        if xml is not None and _xml_tree(xml).isvalidtree:
             
             node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
             
-            preset_id = int(node.parm(IN_PRESETS).eval())
-            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id)
+            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard)
             
             flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
             flam3h_general_utils(self.kwargs).reset_MB()
@@ -7427,7 +7472,7 @@ reset_IN(self, mode=0) -> None:
             else:
             # CP HSV default vals
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
-                
+            
             # Set XML palette data
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
@@ -7468,26 +7513,32 @@ reset_IN(self, mode=0) -> None:
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
         else:
-            node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
-            
-            if os.path.isfile(xml) and os.path.getsize(xml)>0:
-                node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
-                node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-                
-                # Status Bar
-                _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                
-                # The following do not work, not sure why
-                node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-            else:
-                node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
-                node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-                # The following do not work, not sure why
-                node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-                
+            in_xml = node.parm(IN_PATH).evalAsString()
+            if clipboard and _xml_tree(in_xml).isvalidtree:
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
+            else:
+                node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
+            
+                if not clipboard and xml is not None and os.path.isfile(xml) and os.path.getsize(xml)>0:
+                    node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
+                    node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                    
+                    # Status Bar
+                    _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    
+                    # The following do not work, not sure why
+                    node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                else:
+                    node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
+                    node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                    # The following do not work, not sure why
+                    node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                    
+                    _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
                 
     def reset_IN(self, mode=0) -> None:
@@ -8386,7 +8437,7 @@ out_XML(self) -> None:
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iterators_num:
             xml = node.parm(OUT_PATH).evalAsString()
-            if in_flame(node, xml).isvalidtree:
+            if _xml_tree(xml).isvalidtree:
                 apo = in_flame(node, xml)
                 for i, item in enumerate(apo.name):
                     menu.append(i)
