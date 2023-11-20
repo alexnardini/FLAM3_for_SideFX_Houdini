@@ -3705,6 +3705,9 @@ iterator_keep_last_weight(self) -> None:
             self.reset_FF()
             # MB
             flam3h_general_utils(self.kwargs).reset_MB()
+            # IN
+            node.setParms({IN_ISVALID_FILE: 0})
+            node.setParms({IN_CLIPBOARD_TOGGLE: 0})
             # prefs
             node.setParms({PREFS_TOGGLE: 1}) # type: ignore
             node.setParms({PREFS_CAMERA_HANDLE: 0}) # type: ignore
@@ -3712,7 +3715,6 @@ iterator_keep_last_weight(self) -> None:
 
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-            node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
             
             # init/clear copy/paste iterator's data and prm
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
