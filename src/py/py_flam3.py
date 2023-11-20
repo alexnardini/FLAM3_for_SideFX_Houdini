@@ -7052,10 +7052,10 @@ reset_IN(self, mode=0) -> None:
         opacity = f"opacity: {opacity_bool_msg}"
         xaos = f"xaos: {xaos_bool_msg}"
         
+        mb = nnl
         if flam3h_mb_bool:
             mb = f"Motion blur{nnl}"
-        else:
-            mb = nnl
+            
         
         ff_msg = ""
         if ff_bool:
@@ -7126,7 +7126,6 @@ reset_IN(self, mode=0) -> None:
         vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
         vars_missing_msg = ""
-        
         if vars_missing:
             vars_missing_msg = f"{nnl}MISSING:\n{in_flame_utils.in_util_join_vars_grp(result_grp_fractorium)}"
             
@@ -7134,9 +7133,9 @@ reset_IN(self, mode=0) -> None:
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
         
+        flame_lib_locked = ''
         if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"flame lib file: LOCKED"
-        else: flame_lib_locked = ''
         
         # build full stats msg
         build = (   flame_lib_locked, nl, sw, nnl,
