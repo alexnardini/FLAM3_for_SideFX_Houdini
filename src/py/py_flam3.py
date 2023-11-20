@@ -7587,6 +7587,10 @@ reset_IN(self, mode=0) -> None:
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 
+            elif node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
+                _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                
             else:
                 node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
