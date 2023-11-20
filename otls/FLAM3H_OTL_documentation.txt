@@ -293,10 +293,12 @@ IN Preset reload:
     #id: SYS
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
-    If there is a selected IN preset, click to reload it.
-
-    By constantly saving the Flame over the same flame file that you are loading in, this feature allows you to swiftly update a preset that you are loading inside the IN Tab while changing it, for example, in Fractorium. 
-    To update it in Houdini, simply click this icon quickly rather than entering the IN Tab, and then returning to where you were.
+    - ((LMB)) If there is a selected IN preset, it will reload it.
+    - ((ALT)) + ((LMB)) to load a flame from the clipboard.
+    
+    TIP:
+        By constantly saving the Flame over the same flame file that you are loading in, this feature allows you to swiftly update a preset that you are loading inside the IN Tab while changing it, for example, in Fractorium. 
+        To update it in Houdini, simply click this icon quickly rather than entering the IN Tab, and then returning to where you were.
 
 :box:
     #display: rounded white
@@ -322,7 +324,9 @@ OUT Save:
     #id: SYS
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    Click to save this flame inside the selected OUT file, if any.
+    - ((LMB)) to save this flame inside the selected OUT file, if any.
+    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
 
     _If the selected file does not exist, it will be created._
     
@@ -330,9 +334,6 @@ OUT Save:
 
     _If the selected file is not a valid Flame file type, nothing will happen._
     
-    - ((LMB)) to save the current flame into the selected OUT file.
-    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
-    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     
     
     
@@ -1094,9 +1095,12 @@ Reload:
     #id: IN
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
-    ((LMB)) to reload the selected preset.
+    - ((LMB)) If there is a selected IN preset, it will reload it.
+    - ((ALT)) + ((LMB)) to load a flame from the clipboard.
+    
     This is helpful when using Fractorium, for instance, and importing the same flame file into FLAM3H.
     - In Fractorium, you can alter the flame, save it, and then click here to reload and see the modifications in Houdini.
+    - Best would be to copy the flame into the clipboard from Fractorium and load from the clipboard into FLAM3H.
     
 Presets:
     #id: IN
@@ -1236,12 +1240,13 @@ Save Flame:
     #id: OUT
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    ((LMB)) to save the current flame into the selected OUT file.
+    - ((LMB)) to save this flame inside the selected OUT file, if any.
+    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
+    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     
     - If the selected file does not exist, it will be created.
     - If the selected file exists and already contains some flames, it will append the current one.
-    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current Flame.
-    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     
     _If the selected file is not a valid Flame file type, nothing will happen._
     
