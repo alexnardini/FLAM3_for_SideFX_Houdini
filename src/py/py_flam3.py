@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.52'
+FLAM3H_VERSION = '1.1.55'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -7524,7 +7524,9 @@ reset_IN(self, mode=0) -> None:
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
         else:
+            
             in_xml = node.parm(IN_PATH).evalAsString()
+            
             if clipboard and _xml_tree(in_xml).isvalidtree:
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
@@ -7542,6 +7544,7 @@ reset_IN(self, mode=0) -> None:
                     
                     # The following do not work, not sure why
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                    
                 else:
                     node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
                     node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
@@ -8860,13 +8863,16 @@ out_XML(self) -> None:
             
             # Write to the clipboard
             if kwargs['alt']:
+                
                 self.out_new_XML_clipboard()
+                node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                 
             # Otherwise if the output path is valid
             elif out_path_checked is not False:
                 
                 if kwargs['shift']:
                     flam3h_general_utils.open_explorer_file(out_path_checked)
+                    
                 else:
 
                     if flam3h_general_utils.isLOCK(out_path_checked):
@@ -8879,20 +8885,26 @@ out_XML(self) -> None:
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         # Clear up Houdini's status bar msg
                         hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                        
                     else:
+                        
                         if kwargs["ctrl"]:
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             self.out_new_XML(str(out_path_checked))
                             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
+                            
                         else:
                             apo_data = in_flame(self.node, str(out_path_checked))
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
+                            
                             if apo_data.isvalidtree:
                                 self.out_append_XML(apo_data, str(out_path_checked))
                                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
+                                
                             else:
                                 self.out_new_XML(str(out_path_checked))
                                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
+                                
                         flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
                         flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
 
