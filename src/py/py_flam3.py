@@ -5959,7 +5959,7 @@ in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: in_flame_iter_data) 
 
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
 
-in_copy_render_stats_msg(node: hou.Node) -> None:
+in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
 
 in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 
@@ -7754,6 +7754,36 @@ out_new_XML(kwargs: dict, outpath: str) -> None:
 out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
 
 out_XML(self) -> None:
+
+__out_flame_data(self, prm_name='') -> str:
+
+__out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
+
+__out_xf_data(self, prm_name: str) -> tuple:
+
+__out_xf_name(self) -> tuple:
+
+__out_finalxf_name(self) -> str:
+
+__out_xf_pre_blur(self) -> tuple:
+
+__out_xf_xaos(self) -> tuple:
+
+__out_xf_preaffine(self) -> tuple:
+
+__out_xf_postaffine(self) -> tuple:
+
+__out_finalxf_preaffine(self) -> str:
+
+__out_finalxf_postaffine(self) -> Union[str, bool]:
+
+__out_palette_hex(self) -> str:
+
+__out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool, None]:
+
+__out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
+
+__out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     """
 
     def __init__(self, kwargs: dict) -> None:
