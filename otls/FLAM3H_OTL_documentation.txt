@@ -158,7 +158,6 @@ iterations:
         
         
 
-
 :box:
     #display: rounded white
 
@@ -187,7 +186,8 @@ FLAM3H documentation:
     
 FF:
     #id: SYS
-    Enable finalXform transform/iterator.
+    Enable [finalXform|#FF] transform/iterator.
+    
     
 RIP:
     #id: SYS
@@ -217,16 +217,16 @@ TAG:
     _Since it is helpful to review the fractal Flame being worked on, this should always be turned on. For every iterator, the weight is also shown._
     
     * The iteration number will be the very first number inside square brackets.
-    * Xaos (_when active_) will be next inside square brackets. ( read the xaos documentation to know more about it. )
+    * [Xaos|#FLAMEITERXAOS] (_when active_) will be next inside square brackets. Read the xaos documentation to know more about it.
     * Xaos TO will be: *Xt*
     * Xaos FROM wil be: *fX*
-    * Motion blur (_when active_) will be next inside square brackets.
-    * Iterator variations are lowercase.
-    * FF variations are UPPER CASE.
+    * [Motion blur|#MB] (_when active_) will be next inside square brackets.
+    * [Iterator variations|#FLAMEITERVARS] are lowercase.
+    * [FF variations|#FFVARS] are UPPER CASE.
     * "*pre_blur*" will be indicated witn an asterisk * at the beginning of each iterator and before all variations.
     * PRE variations will be inside square brackets at the beginning of each iterator, or FF.
     * POST variations will be inside square brackets at the end of each iterator, or FF
-    * The iterator's weight value will be the last in each iterator.
+    * The [iterator's weight|#FLAMEITER] value will be the last in each iterator.
     * The colons *:* indicate how many variation slots are still available ( 4 in case of an iterator VAR section, plus a last colon *:* as a separator from the iterator's weight).
     * If an iterator is disabled, it will be displayed as: " *::::::::::* "
     
@@ -264,11 +264,12 @@ loaddef:
     
 CP Presets mini menu:
     #id: SYS
-    Select a preset from the CP Tab JSON file that is presently open and load it.
+    Select a preset from the [CP Tab|#CP] JSON file that is presently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
     TIP:
-        To populate this menu, load a palette *.json file first inside the *CP* Tab.
+        To populate this menu, load a palette *.json file first inside the CP Tab.
+        
     
 CP Preset reload:
     #id: SYS
@@ -283,11 +284,11 @@ CP Preset reload:
     
 IN Presets mini menu:
     #id: SYS
-    Select a preset from the IN Tab Flame file that is presently open and load it.
+    Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch flame presets without constantly entering the IN Tab.
     
     TIP:
-        To populate this menu, load a valid *.flame file first inside the *IN* Tab.
+        To populate this menu, load a valid *.flame file first inside the IN Tab.
     
 IN Preset reload:
     #id: SYS
@@ -316,7 +317,8 @@ OUT Presets mini menu:
     It will always be set to the last Flame’s name you saved.
     
     TIP:
-        To populate this menu, load a valid *.flame file first inside the *OUT* Tab.
+        To populate this menu, load a valid *.flame file first inside the OUT Tab.
+        
         
     NOTE:
         Saving Flames from this icon, will always use a default name that uses the current date and time.
