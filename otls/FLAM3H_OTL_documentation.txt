@@ -1313,6 +1313,11 @@ Auto add iter num to Flame name:
     
     TIP:
         When on, and once you type in a flame name, changing the iteration number will update the flame name too.
+        
+use Fractorium parametric prm names:
+    #id: OUT
+    OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a flame. *_This is exclusive to the Oscope and Mobius variations_*.
+
 
 
 :box:

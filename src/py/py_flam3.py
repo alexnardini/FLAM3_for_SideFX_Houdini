@@ -151,6 +151,7 @@ OUT_PRESETS = 'outpresets'
 OUT_SYS_PRESETS = 'sys_outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
+OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
@@ -4730,7 +4731,7 @@ MAX_FF_VARS_POST = 2
 
 # XML Flame key's "version" to identify the authoring software
 # of the loaded Flame preset.
-XML_APP_NAME_FLAM3HOUDINI = 'FLAM3H'
+XML_APP_NAME_FLAM3H = 'FLAM3H'
 XML_APP_NAME_FRACTORIUM = 'EMBER'
 # XML_APP_NAME_APO = 'Apophysis'
 
@@ -8633,9 +8634,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
         Returns:
             dict: _description_
-        """        
+        """   
+        # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
+        # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
+        if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
+            XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
+        else:
+            XML_APP_NAME = XML_APP_NAME_FLAM3H
+             
         f3p = out_flame_render_properties(self.kwargs)
-        return {OUT_XML_VERSION: f'{XML_APP_NAME_FLAM3HOUDINI}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
+        return {OUT_XML_VERSION: f'{XML_APP_NAME}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
                 XML_XF_NAME: f3p.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
                 OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
@@ -8799,6 +8807,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             list[str]: List of used variation in this iterator/xform
         """
+        # OUT_USE_FRACTORIUM_PRM_NAMES
+        # XML_APP_NAME_FRACTORIUM
+        # in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)
         node = self.node
         names = []
         for idx, prm in enumerate(WEIGHTS_tuple):
@@ -8811,8 +8822,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 vars_prm = varsPRM[v_type]
                 if vars_prm[-1]:
                     f3_prm = varsPRM[v_type][1:-1]
-                    apo_prm = flam3h_varsPRM_APO.varsPRM[v_type][1:-1]
-                    for id, p in enumerate(apo_prm):
+
+                    apo_prm = flam3h_varsPRM_APO.varsPRM[v_type]
+                    if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
+                        prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
+                    else:
+                        prm = apo_prm[1:-1]
+                        
+                    for id, p in enumerate(prm):
                         if f3_prm[id][-1]:
                             for i, n in enumerate(p):
                                 vals = node.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
