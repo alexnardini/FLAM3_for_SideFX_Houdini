@@ -389,12 +389,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsenso
 
 'parameter name:    outres'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 
 
 'parameter name:    outrespresets'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False)
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution()
 return menu
@@ -407,17 +407,17 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 
 'parameter name:    outcenter'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 
 
 'parameter name:    outrotate'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 
 
 'parameter name:    outscale'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 
 
 
