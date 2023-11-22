@@ -152,6 +152,7 @@ OUT_SYS_PRESETS = 'sys_outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
+OUT_UPDATE_SENSOR = 'outsensorupdate'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
@@ -1218,7 +1219,7 @@ reset_PREFS(self, mode=0) -> None:
             settings.clipPlanes()
     
     
-    def util_set_front_viewer(self) -> None:
+    def util_set_front_viewer(self, update=True) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
@@ -1238,8 +1239,14 @@ reset_PREFS(self, mode=0) -> None:
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                     
-                node_bbox = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
-                view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                if update:
+                    node_bbox = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                else:
+                    update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
+                    if update_sensor:
+                        node_bbox = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 
                 
     def util_set_front_viewer_all(self) -> None:
@@ -8421,7 +8428,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return menu
 
 
-    def menu_sensor_resolution_set(self) -> None:
+    def menu_sensor_resolution_set(self, update=True) -> None:
         """Set sensor resolution parameter based on user choice.
         
         """        
@@ -8437,7 +8444,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         if sel not in sel_null:
             self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[sel])}) # type: ignore
 
-            flam3h_general_utils(self.kwargs).util_set_front_viewer()
+            if update:
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
+            else:
+                update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
+                if update_sensor:
+                    flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
         # reset to null value so we can set the same preset again
         node.setParms({OUT_RENDER_PROPERTIES_RES_PRESETS_MENU: "0"}) # type: ignore

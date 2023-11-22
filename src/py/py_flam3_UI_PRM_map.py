@@ -31,7 +31,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.1.45 - Gold'
+FLAM3H_VERSION = '1.1.57 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -55,9 +55,16 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile\nits definition for this Houdini session.\n\nDepending on your PC configuration\nit can take anywhere between 30s and 1 minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile its definition\nfor this Houdini session.\n\nDepending on your PC configuration\nit can take anywhere between 30s and 1 minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+        
+    # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
+        
+        
+flam3h_first_time()
+flam3h_sys_updated_mode()
+flam3h_compile_first_time_msg()
         
     # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
         
