@@ -8510,6 +8510,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
             node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
         
+        node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 0})
+        
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
