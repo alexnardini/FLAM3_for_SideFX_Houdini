@@ -8852,7 +8852,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             bool: return True if the Flame is a compatible FLAM3 flame or False if not.
         """        
-        node = self.kwargs['node']
         # Build Flame properties
         flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
@@ -8922,6 +8921,87 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return self.out_flam3_compatibility_check_and_msg(names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
 
 
+
+
+    def out_build_XML_clipboard(self, flame: lxmlET.Element) -> bool: # type: ignore
+        """Build the XML Flame data to be then written into the clipboard.
+        Note that this do not use any "flames" root tag, as being single it goes straignt to: "flame" as root.
+
+        Args:
+            kwargs (dict): _description_
+            flame (lxmlET.Element): The root of the the flame.
+
+        Returns:
+            bool: return True if the Flame is a compatible FLAM3 flame or False if not.
+        """        
+
+        for key, value in self.out_flame_properties_build().items():
+            if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
+                flame.set(key, value)
+        # Build xforms
+        name_PRE_BLUR = ''
+        names_VARS = []
+        names_VARS_PRE = []
+        names_VARS_POST = []
+        f3d = out_flame_xforms_data(self.kwargs)
+        for iter in range(f3d.iter_count):
+            mp_idx = str(int(iter + 1))
+            if int(f3d.xf_vactive[iter]):
+                xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
+                xf.tag = XML_XF
+                xf.set(XML_XF_NAME, f3d.xf_name[iter])
+                xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
+                xf.set(XML_XF_COLOR, f3d.xf_color[iter])
+                xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+                if f3d.xf_pre_blur[iter]:
+                    name_PRE_BLUR = XML_XF_PB
+                    xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
+                xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
+                if f3d.xf_postaffine[iter]:
+                    xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
+                if f3d.xf_xaos[iter]:
+                    xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
+                xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
+                names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
+                names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
+                names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
+        # Build finalxform
+        names_VARS_FF = []
+        names_VARS_PRE_FF = []
+        names_VARS_POST_FF = []
+        if f3d.flam3h_do_FF:
+            finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
+            finalxf.tag = XML_FF
+            finalxf.set(XML_XF_COLOR, '0')
+            finalxf.set(XML_XF_VAR_COLOR, '1')
+            finalxf.set(XML_XF_COLOR_SPEED, '0')
+            finalxf.set(XML_XF_SYMMETRY, '1')
+            finalxf.set(XML_XF_NAME, f3d.finalxf_name)
+            finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
+            if f3d.finalxf_postaffine:
+                finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
+            names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
+            names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
+            names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
+        # Build palette
+        palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
+        palette.tag = XML_PALETTE
+        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
+        palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
+        palette.text = f3d.palette_hex
+
+        # Get unique plugins used
+        names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
+        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], in_flame_utils.in_util_make_PRE) + [name_PRE_BLUR]
+        names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+        # Set unique 'plugins' used and 'new linear' as last
+        flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
+        flame.set(XML_FLAME_NEW_LINEAR, '1')
+        
+        return self.out_flam3_compatibility_check_and_msg(names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
+
+
+
     def out_new_XML(self, outpath: str) -> None:
         """Write out a new XML flame file with only the current FLAM3H flame preset.
 
@@ -8937,15 +9017,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             
             _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            
-            
+
+
+
     def out_new_XML_clipboard(self) -> None:
         """Write out a new XML flame file with only the current FLAM3H flame preset into the clipboard.
 
         Args:
-        """        
-        root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
-        if self.out_build_XML(root):
+        """ 
+        root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
+        if self.out_build_XML_clipboard(root):
             out_flame_utils._out_pretty_print(root)
             flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
             
@@ -8958,6 +9039,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             
             _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
 
 
     def out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
@@ -8982,6 +9064,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             
             _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+
 
 
     def out_XML(self) -> None:
