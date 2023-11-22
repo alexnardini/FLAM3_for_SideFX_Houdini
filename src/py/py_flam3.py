@@ -8823,21 +8823,21 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 XFORM.set(FUNC(v_name), out_flame_utils.out_util_round_float(prm_w))
                 vars_prm = varsPRM[v_type]
                 if vars_prm[-1]:
-                    f3_prm = varsPRM[v_type][1:-1]
+                    f3h_prm = varsPRM[v_type][1:-1]
 
                     apo_prm = flam3h_varsPRM_APO.varsPRM[v_type]
                     if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
-                        prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
+                        out_prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
-                        prm = apo_prm[1:-1]
+                        out_prm = apo_prm[1:-1]
                         
-                    for id, p in enumerate(prm):
-                        if f3_prm[id][-1]:
+                    for id, p in enumerate(out_prm):
+                        if f3h_prm[id][-1]:
                             for i, n in enumerate(p):
-                                vals = node.parmTuple(f"{f3_prm[id][0]}{MP_IDX}").eval()
+                                vals = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                                 XFORM.set(FUNC(p[i]), out_flame_utils.out_util_round_float(vals[i]))
                         else:
-                            val = node.parm(f"{f3_prm[id][0]}{MP_IDX}").eval()
+                            val = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                             XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
         return names
 
