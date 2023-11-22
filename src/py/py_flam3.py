@@ -1475,7 +1475,7 @@ reset_PREFS(self, mode=0) -> None:
         
         
     def viewportParticleDisplay(self) -> None:
-        """Switch viewporet particle display mode
+        """Switch viewport particle display mode
         between Pixel and Points.
         """        
         node = self.node
@@ -1536,7 +1536,7 @@ reset_PREFS(self, mode=0) -> None:
         
 
     def reset_MB(self) -> None:
-        """Reset the FLAM3H MP Tab parameters.
+        """Reset the FLAM3H MB Tab parameters.
         """        
         node = self.node
         node.setParms({MB_DO: 0})
@@ -7782,6 +7782,8 @@ out_populate_xform_vars_XML(node: hou.Node,
 out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool:
 
 out_new_XML(kwargs: dict, outpath: str) -> None:
+
+out_new_XML_clipboard(self) -> None:
 
 out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
 
