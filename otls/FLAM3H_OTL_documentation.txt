@@ -81,6 +81,18 @@ A considerable amount of effort has been allocated to ensure that, assuming that
 Being inside Houdini has its advantages, just think of the possibilities of utilizing his procedural paradigm and tool sets to animate your fractal flames. It also makes it very easy to build a pipeline around this tool using Houdini’s Python HOM libraries.
 
 
+@Platforms
+
+:platform:Windows
+    This HDA and all its Python code has been extensively tested on Windows.
+
+    
+_The following platforms should function flawlessly, though I didn't get a chance to test every feature, so some may not function as intended._
+    
+:platform:Mac
+
+:platform:Linux
+
 
 
 @parameters FLAM3H Tabs parameters
@@ -1021,54 +1033,6 @@ viz mb:
     *IN: Load* _*.flame file created with Apophysis, Fractorium and others._
     
     A *.flame file is an XML-formatted type of file.
-        
-
-_The following is an example of what the Sierpinski triangle preset looks like once saved :_
-    
-{{{
-#!xml
-<flames>
-  <flame version="FLAM3H-WIN-1.0.6" name="Sierpinsky Triangle" size="1920 1080" center="0.0 0.0" scale="100" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="1" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0.0" vibrancy="0.333333" highlight_power="1.0" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
-    <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
-    <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
-    <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
-    <palette count="256" format="RGB">
-      FF0000FD0200FB0400F90600F70800F50A00F30C00F10E00
-      EF1000ED1200EB1400E91600E71800E51A00E31C00E11E00
-      DF2000DD2200DB2400D92600D72800D52A00D32C00D12E00
-      CF3000CD3200CB3400C93600C73800C53A00C33C00C13E00
-      BF4000BD4200BB4400B94600B74800B54A00B34C00B14E00
-      AF5000AD5200AB5400A95600A75800A55A00A35C00A15E00
-      9F60009D62009B6400996600976800956A00936C00916E00
-      8F70008D72008B7400897600877800857A00837C00817E00
-      7F80007D82007B8400798600778800758A00738C00718E00
-      6F90006D92006B9400699600679800659A00639C00619E00
-      5FA0005DA2005BA40059A60057A80055AA0053AC0051AE00
-      4FB0004DB2004BB40049B60047B80045BA0043BC0041BE00
-      3FC0003DC2003BC40039C60037C80035CA0033CC0031CE00
-      2FD0002DD2002BD40029D60027D80025DA0023DC0021DE00
-      1FE0001DE2001BE40019E60017E80015EA0013EC0011EE00
-      0FF0000DF2000BF40009F60007F80005FA0003FC0001FE00
-      00FE0100FC0300FA0500F80700F60900F40B00F20D00F00F
-      00EE1100EC1300EA1500E81700E61900E41B00E21D00E01F
-      00DE2100DC2300DA2500D82700D62900D42B00D22D00D02F
-      00CE3100CC3300CA3500C83700C63900C43B00C23D00C03F
-      00BE4100BC4300BA4500B84700B64900B44B00B24D00B04F
-      00AE5100AC5300AA5500A85700A65900A45B00A25D00A05F
-      009E61009C63009A6500986700966900946B00926D00906F
-      008E71008C73008A7500887700867900847B00827D00807F
-      007E81007C83007A8500788700768900748B00728D00708F
-      006E91006C93006A9500689700669900649B00629D00609F
-      005EA1005CA3005AA50058A70056A90054AB0052AD0050AF
-      004EB1004CB3004AB50048B70046B90044BB0042BD0040BF
-      003EC1003CC3003AC50038C70036C90034CB0032CD0030CF
-      002ED1002CD3002AD50028D70026D90024DB0022DD0020DF
-      001EE1001CE3001AE50018E70016E90014EB0012ED0010EF
-      000EF1000CF3000AF50008F70006F90004FB0002FD0000FF
-    </palette>
-  </flame>
-</flames>
-}}}
 
 
 :box:
@@ -1211,13 +1175,62 @@ Copy/Paste render properties:
     The flame file format does not support animations, but only static frames, so to speak.
     If you animated your fractal flame, save the hip file from Houdini instead.
     
+
+_The following is an example of what the Sierpinski triangle preset looks like once saved :_
+    
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.1.58" name="Sierpiński triangle" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
+      FF0000FD0200FB0400F90600F70800F50A00F30C00F10E00
+      EF1000ED1200EB1400E91600E71800E51A00E31C00E11E00
+      DF2000DD2200DB2400D92600D72800D52A00D32C00D12E00
+      CF3000CD3200CB3400C93600C73800C53A00C33C00C13E00
+      BF4000BD4200BB4400B94600B74800B54A00B34C00B14E00
+      AF5000AD5200AB5400A95600A75800A55A00A35C00A15E00
+      9F60009D62009B6400996600976800956A00936C00916E00
+      8F70008D72008B7400897600877800857A00837C00817E00
+      7F80007D82007B8400798600778800758A00738C00718E00
+      6F90006D92006B9400699600679800659A00639C00619E00
+      5FA0005DA2005BA40059A60057A80055AA0053AC0051AE00
+      4FB0004DB2004BB40049B60047B80045BA0043BC0041BE00
+      3FC0003DC2003BC40039C60037C80035CA0033CC0031CE00
+      2FD0002DD2002BD40029D60027D80025DA0023DC0021DE00
+      1FE0001DE2001BE40019E60017E80015EA0013EC0011EE00
+      0FF0000DF2000BF40009F60007F80005FA0003FC0001FE00
+      00FE0100FC0300FA0500F80700F60900F40B00F20D00F00F
+      00EE1100EC1300EA1500E81700E61900E41B00E21D00E01F
+      00DE2100DC2300DA2500D82700D62900D42B00D22D00D02F
+      00CE3100CC3300CA3500C83700C63900C43B00C23D00C03F
+      00BE4100BC4300BA4500B84700B64900B44B00B24D00B04F
+      00AE5100AC5300AA5500A85700A65900A45B00A25D00A05F
+      009E61009C63009A6500986700966900946B00926D00906F
+      008E71008C73008A7500887700867900847B00827D00807F
+      007E81007C83007A8500788700768900748B00728D00708F
+      006E91006C93006A9500689700669900649B00629D00609F
+      005EA1005CA3005AA50058A70056A90054AB0052AD0050AF
+      004EB1004CB3004AB50048B70046B90044BB0042BD0040BF
+      003EC1003CC3003AC50038C70036C90034CB0032CD0030CF
+      002ED1002CD3002AD50028D70026D90024DB0022DD0020DF
+      001EE1001CE3001AE50018E70016E90014EB0012ED0010EF
+      000EF1000CF3000AF50008F70006F90004FB0002FD0000FF
+    </palette>
+  </flame>
+</flames>
+}}}
+
+    
 TIP:
     FLAM3H allows you to save your flames in the standard *.flame file format 
     so that you can load them back inside any other applications like Fractorium, Apophysis and others.
     
     You must abide by some rules imposed by the original Flame file format.
     
-    Not using numerous instances of the same variation in any of the accessible sections (PRE, VAR, or POST) is the most crucial thing to keep in mind.
+    Not using multiple instances of the same variation in any of the accessible sections (PRE, VAR, or POST) is the most crucial thing to keep in mind.
     
     For instance, you cannot utilize two Mobius variations inside an iterator's PRE or VAR sections.
     But you can use 1 Mobius in the PRE vars, 1 Mobius in the VAR, and 1 Mobius in the POST.
@@ -1325,7 +1338,29 @@ use Fractorium parametric prm names:
     
         *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
-
+        :disclosure:Technical note
+        
+            When saving a flame out with this option on, the xml appliction key will change from:
+            
+            {{{
+            #!xml
+            <flames>
+              <flame version="FLAM3H-WIN-1.1.58" ... >
+                  ...
+            }}}
+            
+            to:
+            
+            {{{
+            #!xml
+            <flames>
+              <flame version="EMBER-FLAM3H-WIN-1.1.58" ... >
+                  ...
+            }}}
+            
+            Note the " _EMBER_ " prefix added to the FLAM3H version name.
+            
+            This way once we load it back FLAM3H will remap those parameteric variations parameter's names to the proper one.
 
 :box:
     #display: rounded white

@@ -8823,9 +8823,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             list[str]: List of used variation in this iterator/xform
         """
-        # OUT_USE_FRACTORIUM_PRM_NAMES
-        # XML_APP_NAME_FRACTORIUM
-        # in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)
         node = self.node
         names = []
         for idx, prm in enumerate(WEIGHTS_tuple):
