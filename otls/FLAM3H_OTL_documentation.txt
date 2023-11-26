@@ -295,9 +295,10 @@ IN Preset reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    :new:
+        - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
 
-    The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
+    The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
 
     TIP:
         - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
@@ -329,9 +330,10 @@ OUT Save:
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    :new:
+        - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
 
     - If the selected file does not exist, it will be created.
     - If the selected file is not a valid Flame file type, nothing will happen.
@@ -1095,7 +1097,8 @@ Reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    :new:
+        - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
 
     When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
     
@@ -1244,9 +1247,10 @@ Save Flame:
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
     - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    :new:
+        - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
 
     - If the selected file does not exist, it will be created.
     - If the selected file is not a valid Flame file type, nothing will happen.
@@ -1316,7 +1320,10 @@ Auto add iter num to Flame name:
         
 use Fractorium parametric prm names:
     #id: OUT
-    OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a flame. *_This is exclusive to the Oscope and Mobius variations_*.
+    :new:
+        OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a flame.
+    
+        *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
 
 
@@ -1414,9 +1421,10 @@ Scale:
     #id: OUT
     Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
     
-updated sensor:
+update sensor:
     #id: OUT
-    ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updateds.
+    :new:
+        ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
     
     
 :box:
@@ -1520,10 +1528,9 @@ handle:
     Display the viewport camera handle to help frame/center your fractal flame.
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     
-    :box:
-        #display: inverted pink
-    
+    :warning:
         *TURN THIS OFF WHEN RENDERING.*
+
     
 camera cull:
     #id: prefs
