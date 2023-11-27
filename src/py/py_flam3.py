@@ -7271,7 +7271,9 @@ reset_IN(self, mode=0) -> None:
         """Copy the loaded IN Flame preset render properties into the OUT Flame render properties to be written out. 
 
         Args:
-            node (hou.Node): the FLAM3H houdini node.
+            kwargs (hou.Node): houdini kwargs.
+            clipboard (bool): True: load from clipboard. False: load from disk file.
+            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
         """        
         node = kwargs['node']
         
@@ -7604,8 +7606,12 @@ reset_IN(self, mode=0) -> None:
             self.in_to_flam3h_reset_user_data()
             
             # Print to status Bar
-            preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-            _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
+            if clipboard:
+                preset_name = flame_name_clipboard
+                _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
+            else:
+                preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+                _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
             
         else:
