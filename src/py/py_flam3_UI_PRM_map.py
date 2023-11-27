@@ -41,7 +41,7 @@ def flam3h_first_time() -> None:
 def flam3h_sys_updated_mode() -> None:
     current = hou.updateModeSetting()
     hou.session.FLAM3H_SYS_UPDATE_MODE = current
-        
+
 def flam3h_compile_first_time_msg() -> None:
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -60,15 +60,8 @@ def flam3h_compile_first_time_msg() -> None:
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
     # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
-        
-        
-flam3h_first_time()
-flam3h_sys_updated_mode()
-flam3h_compile_first_time_msg()
-        
-    # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
-        
-        
+
+
 flam3h_first_time()
 flam3h_sys_updated_mode()
 flam3h_compile_first_time_msg()
