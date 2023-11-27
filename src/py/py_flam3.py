@@ -1299,8 +1299,9 @@ reset_PREFS(self, mode=0) -> None:
                 
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-            
-            
+
+
+
     def flam3h_toggle_off(self, prm: str) -> None:
         """If a toggle is ON it will switch OFF.
 
@@ -1319,10 +1320,9 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def flam3h_init_presets_IN_PRESETS(self, mode=1) -> None:
-        """Initialize parameter's menu presets for the CP, IN and OUT tabs.
+        """Initialize parameter's menu presets for the IN tab.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
@@ -1363,11 +1363,9 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def flam3h_init_presets_OUT_PRESETS(self) -> None:
-        """Initialize parameter's menu presets for the CP, IN and OUT tabs.
+        """Initialize parameter's menu presets for the OUT tab.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
-            mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
         prm = node.parm(OUT_PRESETS)
@@ -1400,10 +1398,9 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def flam3h_init_presets_CP_PALETTE_PRESETS(self, mode=1) -> None:
-        """Initialize parameter's menu presets for the CP, IN and OUT tabs.
+        """Initialize parameter's menu presets for the CP tab.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
