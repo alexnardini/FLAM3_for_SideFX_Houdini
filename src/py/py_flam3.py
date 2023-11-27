@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.60'
+FLAM3H_VERSION = '1.1.61'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -913,7 +913,7 @@ flam3h_on_deleted(self) -> None:
                 if type == Pixels:
                     node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
                 
-
+ 
     def flam3h_on_create(self) -> None:
         """Initialize FLAM3H node on creation and all the data it need to run.
         
@@ -957,11 +957,11 @@ flam3h_on_deleted(self) -> None:
             self.flam3h_on_create_set_prefs_viewport()
             
             #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-            flam3h_general_utils(self.kwargs).flam3h_init_presets(CP_PALETTE_PRESETS, 0)
+            flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS(0)
             #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-            flam3h_general_utils(self.kwargs).flam3h_init_presets(IN_PRESETS, 0)
+            flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
             
-            flam3h_general_utils(self.kwargs).flam3h_init_presets(OUT_PRESETS)
+            flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
 
             # update about tab just in case
             flam3h_about_utils(self.kwargs).flam3h_about_msg()
@@ -1083,7 +1083,11 @@ flam3h_toggle(self, prm=SYS_TAG) -> None:
 
 flam3h_toggle_off(self, prm: str) -> None:
 
-flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
+flam3h_init_presets_IN_PRESETS(self, mode=1) -> None:
+
+flam3h_init_presets_OUT_PRESETS(self) -> None:
+
+flam3h_init_presets_CP_PALETTE_PRESETS(self, mode=1) -> None:
 
 flam3h_display_help(self) -> None:
 
@@ -1307,9 +1311,10 @@ reset_PREFS(self, mode=0) -> None:
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 flam3h_general_utils.util_set_stashed_cam()
                 flam3h_general_utils.util_clear_stashed_cam_data()
-                
-                
-    def flam3h_init_presets(self, prm_presets_name: str, mode=1) -> None:
+
+
+
+    def flam3h_init_presets_IN_PRESETS(self, mode=1) -> None:
         """Initialize parameter's menu presets for the CP, IN and OUT tabs.
         
         Args:
@@ -1317,95 +1322,123 @@ reset_PREFS(self, mode=0) -> None:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
-        prm = node.parm(prm_presets_name)
+        prm = node.parm(IN_PRESETS)
         prm.set('-1')
         
-        if IN_PRESETS in prm_presets_name:
-            xml = node.parm(IN_PATH).evalAsString()
-            if os.path.isfile(xml):
-                apo = _xml_tree(xml)
-                if not apo.isvalidtree:
-                    prm.set('-1')
-                    node.setParms({IN_ISVALID_FILE: 0})
-                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-                    node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
-                    node.setParms({MSG_FLAMERENDER: ""})
-                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
-                else:
-                    # Only set when NOT on an: onLoaded python script
-                    if mode:
-                        prm.set('0')
-                        node.setParms({IN_ISVALID_FILE: 1})
-                        in_flame_utils(self.kwargs).in_to_flam3h()
+        xml = node.parm(IN_PATH).evalAsString()
+        if os.path.isfile(xml):
+            apo = _xml_tree(xml)
+            if not apo.isvalidtree:
+                prm.set('-1')
+                node.setParms({IN_ISVALID_FILE: 0})
+                node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
+                node.setParms({MSG_FLAMERENDER: ""})
+                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
             else:
-                clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
-                if not clipboard:
-                    prm.set('-1')
-                    node.setParms({IN_ISVALID_FILE: 0})
-                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-                    node.setParms({MSG_FLAMESTATS: ""})
-                    node.setParms({MSG_FLAMERENDER: ""})
-                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
-                    # We do not want to print if the file path parameter is empty
-                    if xml:
-                        print(f'{str(node)}.IN: please select a valid file location.')
-            # Force preset menu to updated
-            prm.eval()
-        elif OUT_PRESETS in prm_presets_name:
-            xml = node.parm(OUT_PATH).evalAsString()
-            xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
-            if xml_checked is not False:
-                node.setParms({OUT_PATH: xml_checked}) 
-                apo = in_flame(node, xml_checked) #type: ignore
-                if apo.isvalidtree:
-                    prm.set(f'{len(apo.name)-1}')
-                    # check if the selected Flame file is locked
-                    if self.isLOCK(xml_checked):
-                        flame_lib_locked = f"flame lib file: LOCKED"
-                        node.setParms({MSG_OUT: flame_lib_locked})
-                    else:
-                        node.setParms({MSG_OUT: ''})
-                else:
-                    prm.set('-1')
-                    node.setParms({MSG_OUT: ''})
-            else:
-                node.setParms({MSG_OUT: ''})
+                # Only set when NOT on an: onLoaded python script
+                if mode:
+                    prm.set('0')
+                    node.setParms({IN_ISVALID_FILE: 1})
+                    in_flame_utils(self.kwargs).in_to_flam3h()
+        else:
+            clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
+            if not clipboard:
+                prm.set('-1')
+                node.setParms({IN_ISVALID_FILE: 0})
+                node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                node.setParms({MSG_FLAMESTATS: ""})
+                node.setParms({MSG_FLAMERENDER: ""})
+                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                 # We do not want to print if the file path parameter is empty
                 if xml:
-                    print(f'{str(node)}.OUT: please select a valid file location.')
-            # Force preset menu to updated
-            prm.eval()
-        elif CP_PALETTE_PRESETS in prm_presets_name:
-            json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
-            if json_path_checked is not False:
-                node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
-                if flam3h_palette_utils.isJSON_F3H(node, json_path):
-                    # Only set when NOT on an: onLoaded python script
-                    if mode:
-                        prm.set('0')
-                        # check if the selected palette file is locked
-                        if self.isLOCK(json_path_checked):
-                            palette_lib_locked = f"palette lib file: LOCKED"
-                            node.setParms({MSG_PALETTE: palette_lib_locked})
-                        else:
-                            node.setParms({MSG_PALETTE: ''})
+                    print(f'{str(node)}.IN: please select a valid file location.')
+        # Force preset menu to updated
+        prm.eval()
+
+
+
+    def flam3h_init_presets_OUT_PRESETS(self) -> None:
+        """Initialize parameter's menu presets for the CP, IN and OUT tabs.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+            mode (int): To be used to prevent to load a left over preset when loading back a hip file.
+        """    
+        node = self.node
+        prm = node.parm(OUT_PRESETS)
+        prm.set('-1')
+        
+        xml = node.parm(OUT_PATH).evalAsString()
+        xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+        if xml_checked is not False:
+            node.setParms({OUT_PATH: xml_checked}) 
+            apo = in_flame(node, xml_checked) #type: ignore
+            if apo.isvalidtree:
+                prm.set(f'{len(apo.name)-1}')
+                # check if the selected Flame file is locked
+                if self.isLOCK(xml_checked):
+                    flame_lib_locked = f"flame lib file: LOCKED"
+                    node.setParms({MSG_OUT: flame_lib_locked})
                 else:
-                    prm.set('-1')
-                    node.setParms({MSG_PALETTE: ''})
+                    node.setParms({MSG_OUT: ''})
             else:
+                prm.set('-1')
+                node.setParms({MSG_OUT: ''})
+        else:
+            node.setParms({MSG_OUT: ''})
+            # We do not want to print if the file path parameter is empty
+            if xml:
+                print(f'{str(node)}.OUT: please select a valid file location.')
+        # Force preset menu to updated
+        prm.eval()
+
+
+
+    def flam3h_init_presets_CP_PALETTE_PRESETS(self, mode=1) -> None:
+        """Initialize parameter's menu presets for the CP, IN and OUT tabs.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+            mode (int): To be used to prevent to load a left over preset when loading back a hip file.
+        """    
+        node = self.node
+        prm = node.parm(CP_PALETTE_PRESETS)
+        prm.set('-1')
+
+        json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
+        if json_path_checked is not False:
+            node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
+            if flam3h_palette_utils.isJSON_F3H(node, json_path):
+                # Only set when NOT on an: onLoaded python script
+                if mode:
+                    prm.set('0')
+                    # check if the selected palette file is locked
+                    if self.isLOCK(json_path_checked):
+                        palette_lib_locked = f"palette lib file: LOCKED"
+                        node.setParms({MSG_PALETTE: palette_lib_locked})
+                    else:
+                        node.setParms({MSG_PALETTE: ''})
+            else:
+                prm.set('-1')
                 node.setParms({MSG_PALETTE: ''})
-                # We do not want to print if the file path parameter is empty
-                if json_path:
-                    print(f'{str(node)}.palette: please select a valid file location.')
-                else:
-                    hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
-            
-            # Force preset menu to updated
-            prm.eval()
+        else:
+            node.setParms({MSG_PALETTE: ''})
+            # We do not want to print if the file path parameter is empty
+            if json_path:
+                print(f'{str(node)}.palette: please select a valid file location.')
+            else:
+                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+        
+        # Force preset menu to updated
+        prm.eval()
+
+
 
     def flam3h_display_help(self) -> None:
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
+
 
 
     def colorSchemeDark(self, update_others=True) -> None:
@@ -9066,8 +9099,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                                 self.out_new_XML(str(out_path_checked))
                                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                                 
-                        flam3h_general_utils(kwargs).flam3h_init_presets(OUT_PRESETS)
-                        flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
+                        flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
+                        # flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
 
             else:
                 _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."

@@ -31,7 +31,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.1.60 - Gold'
+FLAM3H_VERSION = '1.1.61 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -286,7 +286,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 
 'parameter name:    palettefile'
 'script type:       Callbac Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("palettepresets")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
@@ -309,7 +309,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 'parameter name:    inpath'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("inpresets")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS()
 
 
 'parameter name:    inpresets'
@@ -345,7 +345,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 
 'parameter name:    outpath'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets("outpresets")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
