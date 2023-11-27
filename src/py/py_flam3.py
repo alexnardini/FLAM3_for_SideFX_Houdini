@@ -825,6 +825,7 @@ flam3h_on_deleted(self) -> None:
                 hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
 
 
+
     def flam3h_on_create_set_houdini_session_data(self) -> None:
         """Initialize the necessary data for the copy/paste iterator and FF methods on creation.
         """        
@@ -863,6 +864,7 @@ flam3h_on_deleted(self) -> None:
             hou.session.flam3h_viewport_CS # type: ignore
         except:
             hou.session.flam3h_viewport_CS = [] # type: ignore
+
 
 
     def flam3h_on_create_set_prefs_viewport(self) -> None:
@@ -912,7 +914,8 @@ flam3h_on_deleted(self) -> None:
                 type = settings.particleDisplayType()
                 if type == Pixels:
                     node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
-                
+
+
  
     def flam3h_on_create(self) -> None:
         """Initialize FLAM3H node on creation and all the data it need to run.
@@ -938,6 +941,7 @@ flam3h_on_deleted(self) -> None:
         # Remove any comment and user data from the node
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node, "Marked FF")
+
 
 
     def flam3h_on_loaded(self) -> None:
