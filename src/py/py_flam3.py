@@ -3873,6 +3873,8 @@ palette_hsv(self) -> None:
 
 palette_lock(self) -> None:
 
+reset_CP_LOCK_MSG(self, filepath='') -> None:
+
 reset_CP(self, mode=0) -> None:
     """
     
@@ -4300,6 +4302,21 @@ reset_CP(self, mode=0) -> None:
 
 
 
+    def reset_CP_LOCK_MSG(self) -> None:
+        """Clearup the palette lib LOCK message if there is a need to do so.
+
+        Args:
+        """
+        node = self.node
+        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        if self.isJSON_F3H(node, filepath, False):
+            if flam3h_general_utils.isLOCK(filepath) is False:
+                node.setParms({MSG_PALETTE: ''})
+        else:
+            node.setParms({MSG_PALETTE: ''})
+
+
+
     def reset_CP(self, mode=0) -> None:
         """Reset the FLAM3H CP Tabs parameter values.
 
@@ -4320,12 +4337,7 @@ reset_CP(self, mode=0) -> None:
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
             
             # Check if the palette msg need to be cleared
-            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-            if self.isJSON_F3H(node, filepath, False):
-                if flam3h_general_utils.isLOCK(filepath) is False:
-                    node.setParms({MSG_PALETTE: ''})
-            else:
-                node.setParms({MSG_PALETTE: ''})
+            self.reset_CP_LOCK_MSG()
                 
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
