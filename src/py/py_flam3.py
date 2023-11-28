@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.61'
+FLAM3H_VERSION = '1.1.62'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -3422,7 +3422,7 @@ iterator_keep_last_weight(self) -> None:
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
         node.setParms({MSG_FLAMESTATS: ""})
         node.setParms({MSG_FLAMERENDER: ""})
-        node.setParms({MSG_PALETTE: ''})
+        # node.setParms({MSG_PALETTE: ''})
         # node.setParms({MSG_OUT: ''})
         
         # iterator prm names
@@ -4042,7 +4042,7 @@ reset_CP(self, mode=0) -> None:
         
         menu=[]
         
-        if flam3h_palette_utils.isJSON_F3H(node, filepath, False):
+        if self.isJSON_F3H(node, filepath, False):
             if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
                 with open(filepath) as f:
                     data = json.load(f)
@@ -4312,6 +4312,14 @@ reset_CP(self, mode=0) -> None:
             color_values = [(1,0,0), (0,1,0), (0,0,1)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
             
+            # Check if the palette msg need to be cleared
+            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+            if self.isJSON_F3H(node, filepath, False):
+                if flam3h_general_utils.isLOCK(filepath) is False:
+                    node.setParms({MSG_PALETTE: ''})
+            else:
+                node.setParms({MSG_PALETTE: ''})
+                
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
             if fsum(_hsv) != float(3):
