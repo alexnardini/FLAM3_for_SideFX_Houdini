@@ -4067,6 +4067,7 @@ reset_CP(self, mode=0) -> None:
         return menu
 
 
+
     def flam3h_ramp_save(self) -> None:
         """Save the current color palette into a json file.
         This wil also save the HSV values along with it.
@@ -4168,6 +4169,7 @@ reset_CP(self, mode=0) -> None:
                     node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
 
 
+
     def json_to_flam3h_ramp_sys(self) -> None:
         """Load the selected palette preset from the provided json file
         using the SYS load palette button.
@@ -4176,8 +4178,9 @@ reset_CP(self, mode=0) -> None:
         preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
         node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
         self.json_to_flam3h_ramp()
-        
-        
+
+
+
     def json_to_flam3h_ramp(self) -> None:
         """Load the selected palette preset from the provided json file
         
@@ -4245,7 +4248,8 @@ reset_CP(self, mode=0) -> None:
             else:
                 _MSG = f"{str(node)}: PALETTE -> Nothing to load"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-        
+
+
 
     def palette_cp(self) -> None:
         """Force the HSV palette colors/keys to march the source palette colors/keys.
@@ -4259,6 +4263,7 @@ reset_CP(self, mode=0) -> None:
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
         # Apply HSV if any is currently set
         self.palette_hsv()
+
 
 
     def palette_hsv(self) -> None:
@@ -4281,8 +4286,9 @@ reset_CP(self, mode=0) -> None:
             rgb.append(colorsys.hsv_to_rgb(h, s, v))
         
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
-        
-        
+
+
+
     def palette_lock(self) -> None:
         """Lock the HSV palette color/keys from being modified.
         
@@ -4291,8 +4297,9 @@ reset_CP(self, mode=0) -> None:
         """    
         self.palette_cp()
         self.palette_hsv()
-        
-        
+
+
+
     def reset_CP(self, mode=0) -> None:
         """Reset the FLAM3H CP Tabs parameter values.
 
