@@ -7767,7 +7767,13 @@ menu_sensor_resolution(self) -> list:
 
 menu_sensor_resolution_set(self) -> None:
 
+reset_OUT_sensor(self) -> None:
+
+reset_OUT_render(self) -> None:
+
 reset_OUT_kwargs(self) -> None:
+
+reset_OUT_options(self) -> None:
 
 reset_OUT(self, mode=0) -> None:
 
@@ -8478,59 +8484,83 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         node.setParms({OUT_RENDER_PROPERTIES_RES_PRESETS_MENU: "0"}) # type: ignore
 
 
-    def reset_OUT_kwargs(self) -> None:
-        node = self.node
-        kwargs = self.kwargs
         
-        prms_out_sensor = ( OUT_RENDER_PROPERTIES_EDIT,
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
+    def reset_OUT_sensor(self) -> None:
+        """Reset the OUT Camera sensor settings parameters tab.
+        """
+        
+        node = self.node
+        
+        prms_out_sensor = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
         
         prms_out_sensor_tuple = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),
                                   OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER) )
         
-        prms_out_render = ( OUT_RENDER_PROPERTIES_EDIT,
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY),
+        # Sensor
+        [node.parm(name).deleteAllKeyframes() for name in prms_out_sensor]
+        [node.parmTuple(name).deleteAllKeyframes() for name in prms_out_sensor_tuple]
+        node.setParms({prms_out_sensor_tuple[0]: hou.Vector2((1024, 1024))})
+        node.setParms({prms_out_sensor_tuple[1]: hou.Vector2((0, 0))})
+        node.setParms({prms_out_sensor[0]: 0})
+        node.setParms({prms_out_sensor[1]: 400})
+
+
+        
+    def reset_OUT_render(self) -> None:
+        """Reset the OUT Render settings parameters tab.
+        """
+        node = self.node
+        
+        prms_out_render = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY),
                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS),
                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA),
                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER),
                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2),
                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY) )
         
+        # Render
+        [node.parm(name).deleteAllKeyframes() for name in prms_out_render]
+        node.setParms({prms_out_render[0]: 1000})
+        node.setParms({prms_out_render[1]: 3})
+        node.setParms({prms_out_render[2]: 2.5})
+        node.setParms({prms_out_render[3]: 1})
+        node.setParms({prms_out_render[4]: 0})
+        node.setParms({prms_out_render[5]: 0.333333})
+
+
+
+    def reset_OUT_kwargs(self) -> None:
+        """Build a multifunctional reset OUT render properties method.
+        IT will allow to reset the entire tab or either only the Sensor or Render settings tab.
+        """
+        
+        kwargs = self.kwargs
+        
         if kwargs['ctrl']:
-            [node.parm(name).deleteAllKeyframes() for name in prms_out_sensor]
-            [node.parmTuple(name).deleteAllKeyframes() for name in prms_out_sensor_tuple]
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
+            self.reset_OUT_sensor()
             
         elif kwargs['shift']:
-            [node.parm(name).deleteAllKeyframes() for name in prms_out_render]
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+            self.reset_OUT_render()
             
         else:
-            [node.parm(name).deleteAllKeyframes() for name in prms_out_sensor]
-            [node.parmTuple(name).deleteAllKeyframes() for name in prms_out_sensor_tuple]
-            [node.parm(name).deleteAllKeyframes() for name in prms_out_render]
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
+            self.reset_OUT_sensor()
+            self.reset_OUT_render()
         
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
-            
+
+
+
+    def reset_OUT_options(self) -> None:
+        """Reset the OUT save options tab parameters.
+        """
+        node = self.node
+        node.setParms({OUT_HSV_PALETTE_DO: 0})
+        node.setParms({OUT_AUTO_ADD_ITER_NUM: 1})
+        node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 0})
+
+
 
     def reset_OUT(self, mode=0) -> None:
         """Reset the OUT flame render properties to their default.
@@ -8539,33 +8569,30 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
         """        
         node = self.node
+
+        self.reset_OUT_options()
+        self.reset_OUT_sensor()
+        self.reset_OUT_render()
         
+        # If we are in sensor viz and we reset, make sure the sensor is framed properly.
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            flam3h_general_utils(self.kwargs).util_set_front_viewer()
+            
+        # I do not think this is used anymore but I leave it here 
+        # until I make a cleanup pass of this code.
         if mode == 0:
             node.setParms({MSG_OUT: ''})
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 0})
             node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
         
-        node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 0})
-        
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024))})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0))})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 1})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0})
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.333333})
-        
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
-            flam3h_general_utils(self.kwargs).util_set_front_viewer()
-        
+        # I do not think this is used anymore but I leave it here 
+        # until I make a cleanup pass of this code.
         if mode == 2:
             node.setParms({OUT_PATH: ""})
             node.setParms({OUT_HSV_PALETTE_DO: 0})
             node.setParms({OUT_PRESETS: "-1"})
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
+
 
 
     def out_xf_xaos_to(self) -> tuple:
@@ -8577,6 +8604,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
         xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
+
 
 
     def out_xf_xaos_from(self, mode=0) -> tuple:
