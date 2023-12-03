@@ -196,6 +196,7 @@ MSG_FLAM3_GIT = 'flam3_heading_git'
 MARK_ITER_MSG = "Please, mark an iterator first"
 MARK_ITER_MSG_STATUS_BAR = f"{MARK_ITER_MSG} to copy parameter's values from."
 MARK_FF_MSG = "Please, mark the FF first"
+MARK_FF_MSG_STATUS_BAR = f"{MARK_FF_MSG} to copy parameter's values from."
 # File lock prefix
 FLAM3H_LIB_LOCK = 'F3H_LOCK'
 # PALETTE JSON data keys
@@ -2744,10 +2745,10 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             if isDELETED:
-                _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG} to copy parameter's values from."
+                _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
             else:
-                _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
+                _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
     
     
@@ -2968,7 +2969,7 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": 0})
                     
         else:
-            _MSG = f"{str(node)} -> {MARK_FF_MSG} to copy parameter's values from."
+            _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             
 
