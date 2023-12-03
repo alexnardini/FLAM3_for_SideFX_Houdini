@@ -5119,8 +5119,6 @@ class _xml_tree:
     """
 STATIC METHODS:
 
-xmlfile_getClipboard() -> Union[str, None]:
-
 xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
 
 xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
@@ -5152,12 +5150,6 @@ __get_flame_count(self, flames: list) -> int:
         else:
             if self._isvalidtree:
                 self._tree = ET.parse(xmlfile)
-
-
-
-    @staticmethod
-    def xmlfile_getClipboard() -> str:
-        return hou.ui.getTextFromClipboard() # type: ignore
 
 
 
@@ -7523,7 +7515,7 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         try:
             if self.kwargs['alt']:
-                xml = _xml_tree.xmlfile_getClipboard()
+                xml = hou.ui.getTextFromClipboard() # type: ignore
                 try:
                     tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
                 except:
