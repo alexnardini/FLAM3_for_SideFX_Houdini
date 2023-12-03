@@ -1306,8 +1306,7 @@ reset_PREFS(self, mode=0) -> None:
         
         if toggle:
             node.setParms({prm: 0})
-            # If the passed toggle's name argument is the camera sensor: 'outsensor'
-            # restore the viewport prior to entering the Camera sensor mode
+            # Restore the viewport prior to entering the Camera sensor mode
             flam3h_general_utils.util_set_stashed_cam()
             flam3h_general_utils.util_clear_stashed_cam_data()
 
@@ -1316,8 +1315,7 @@ reset_PREFS(self, mode=0) -> None:
             
         else:
             node.setParms({prm: 1})
-            # If the passed toggle's name argument is the camera sensor: 'outsensor'
-            # set the view clipping planes and curent viewport to Front, if the current FLAM3H node is displayed ( its displayFlag is On )
+            # If the current FLAM3H node is displayed ( its displayFlag is On )
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                 # Check if any other FLAM3H node is in Camera Sensor viz mode
                 self.flam3h_other_sensor_viz_off(node)
@@ -1357,7 +1355,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def flam3h_toggle_off(self, prm: str) -> None:
-        """If a toggle is ON it will switch OFF.
+        """If a toggle is ON it will switch it OFF.
 
         Args:
             prm (str): Toggle parameter name to use
