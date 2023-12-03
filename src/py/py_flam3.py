@@ -7519,17 +7519,22 @@ reset_IN(self, mode=0) -> None:
             _K = False
             
         if _K:
-            xml = hou.ui.getTextFromClipboard() # type: ignore
-            try:
-                tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-            except:
-                tree = None
-            if tree is not None:
-                assert xml is not None
-                flame_name_clipboard = in_flame(node, xml).name[0]
-                return xml, True, 0, flame_name_clipboard
+            if self.kwargs['alt']:
+                xml = hou.ui.getTextFromClipboard() # type: ignore
+                try:
+                    tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+                except:
+                    tree = None
+                if tree is not None:
+                    assert xml is not None
+                    flame_name_clipboard = in_flame(node, xml).name[0]
+                    return xml, True, 0, flame_name_clipboard
+                else:
+                    return None, False, 0, ''
             else:
-                return None, False, 0, ''
+                xml = node.parm(IN_PATH).evalAsString()
+                preset_id = int(node.parm(IN_PRESETS).eval())
+                return xml, False, preset_id, ''
             
         else:
             xml = node.parm(IN_PATH).evalAsString()
