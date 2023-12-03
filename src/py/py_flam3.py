@@ -7482,7 +7482,7 @@ reset_IN(self, mode=0) -> None:
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
-    
+
     def in_to_flam3h_reset_iterators_parms(self, node: hou.Node, in_flame_iter_count: int) -> None:
         """Prior to this, I was setting the iterator's count to zero and then back to the requested count to reset all their values.
         It was not the fastest solution and this is actually making it more performant overall.
@@ -7502,19 +7502,23 @@ reset_IN(self, mode=0) -> None:
             node.setParms({FLAME_ITERATORS_COUNT: in_flame_iter_count}) # type: ignore
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
             [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
-    
-    
-    
-    def in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int, str]:
+
+
+
+    def in_to_flam3h_clipboard_data(self, node: hou.Node) -> tuple[Union[str, None], bool, int, str]:
         """Check if we are able to parse a flame from the clipboard
         and provide some output data to work with if that is the case.
 
         Returns:
             tuple[Union[str, None], bool, int, str]: xml, clipboard, preset_id, clipboard_flame_name
-        """        
-        node = self.node
-
-        if self.kwargs['alt']:
+        """      
+        try:
+            self.kwargs['alt']
+            _K = True
+        except:
+            _K = False
+            
+        if _K:
             xml = hou.ui.getTextFromClipboard() # type: ignore
             try:
                 tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
@@ -7526,12 +7530,14 @@ reset_IN(self, mode=0) -> None:
                 return xml, True, 0, flame_name_clipboard
             else:
                 return None, False, 0, ''
+            
         else:
             xml = node.parm(IN_PATH).evalAsString()
             preset_id = int(node.parm(IN_PRESETS).eval())
             return xml, False, preset_id, ''
-    
-    
+
+
+
     '''
         The following function is just a shortcut to set and load
         a new preset from the IN Tab IN_PRESETS parameter,
@@ -7558,7 +7564,7 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard = self.in_to_flam3h_clipboard_data()
+        xml, clipboard, preset_id, flame_name_clipboard = self.in_to_flam3h_clipboard_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
 
@@ -7705,8 +7711,9 @@ reset_IN(self, mode=0) -> None:
                     
                     _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                
-                
+
+
+
     def reset_IN(self, mode=0) -> None:
         """Reset the FLAM3H OUT Tab parameters.
 
