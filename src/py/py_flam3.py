@@ -159,6 +159,11 @@ OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
+# The current FLAM3H node path prefix is obtained using: 'self.node.path()'
+# This path is hardcoded here, do not change the nodes names inside the FLAM3H HDA network.
+# If so, updated this and be sure this path always start with a slash: '/'
+OUT_SENSOR_BBOX_GEO_PATH = '/sensor/ADD_infos_and_logo/OUT_bbox_data'
+
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
@@ -1243,12 +1248,12 @@ reset_PREFS(self, mode=0) -> None:
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                     
                 if update:
-                    node_bbox = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                    node_bbox = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
                     if update_sensor:
-                        node_bbox = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                        node_bbox = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 
                 
@@ -1259,7 +1264,7 @@ reset_PREFS(self, mode=0) -> None:
                 view = v.curViewport()
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
-                node = hou.node(f"{self.node.path()}/sensor/ADD_infos_and_logo/OUT_bbox_data")
+                node = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
                 view.frameBoundingBox(node.geometry().boundingBox())
 
     
@@ -8885,6 +8890,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 if vars_prm[-1]:
                     f3h_prm = varsPRM[v_type][1:-1]
 
+                    # If OUT_USE_FRACTORIUM_PRM_NAMES toggle is ON
+                    # make sure to use the parametric variation's parameters names that Fractorium expect.
                     apo_prm = flam3h_varsPRM_APO.varsPRM[v_type]
                     if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
                         out_prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]

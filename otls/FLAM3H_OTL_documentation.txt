@@ -307,8 +307,7 @@ IN Preset reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    :new:
-        - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
 
     The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
 
@@ -344,11 +343,11 @@ OUT Save:
     - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
-    :new:
-        - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
 
-    - If the selected file does not exist, it will be created.
-    - If the selected file is not a valid Flame file type, nothing will happen.
+    If the selected file does not exist, it will be created.
+
+    If the selected file is not a valid Flame file type, nothing will happen.
     
 
 
@@ -1061,8 +1060,7 @@ Reload:
     [Smallicon:opdef:.?iconWhiteSVG.svg]
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    :new:
-        - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
 
     When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
     
@@ -1262,8 +1260,7 @@ Save Flame:
     - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
-    :new:
-        - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
 
     - If the selected file does not exist, it will be created.
     - If the selected file is not a valid Flame file type, nothing will happen.
@@ -1333,34 +1330,34 @@ Auto add iter num to Flame name:
         
 use Fractorium parametric prm names:
     #id: OUT
-    :new:
-        OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a flame.
-    
-        *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
-        :disclosure:Technical note
+    OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a flame.
+
+    *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
+
+    :disclosure:Technical note
+    
+        When saving a flame out with this option on, the xml appliction key will change from:
         
-            When saving a flame out with this option on, the xml appliction key will change from:
-            
-            {{{
-            #!xml
-            <flames>
-              <flame version="FLAM3H-WIN-1.1.58" ... >
-                  ...
-            }}}
-            
-            to:
-            
-            {{{
-            #!xml
-            <flames>
-              <flame version="EMBER-FLAM3H-WIN-1.1.58" ... >
-                  ...
-            }}}
-            
-            Note the " _EMBER_ " prefix added to the FLAM3H version name.
-            
-            This way once we load it back FLAM3H will remap those parameteric variations parameter's names to the proper one.
+        {{{
+        #!xml
+        <flames>
+          <flame version="FLAM3H-WIN-1.1.58" ... >
+              ...
+        }}}
+        
+        to:
+        
+        {{{
+        #!xml
+        <flames>
+          <flame version="EMBER-FLAM3H-WIN-1.1.58" ... >
+              ...
+        }}}
+        
+        Note the " _EMBER_ " prefix added to the FLAM3H version name.
+        
+        This way once we load it back FLAM3H will remap those parameteric variations parameter's names to the proper one.
 
 :box:
     #display: rounded white
@@ -1458,8 +1455,7 @@ Scale:
     
 update sensor:
     #id: OUT
-    :new:
-        ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
+    ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
     
     
 :box:
