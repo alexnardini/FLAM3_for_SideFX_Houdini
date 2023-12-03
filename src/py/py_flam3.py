@@ -1290,23 +1290,23 @@ reset_PREFS(self, mode=0) -> None:
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
-                node.setParms({prm: 1})
-                # If the passed toggle's name argument is the camera sensor: 'outsensor'
-                # set the view clipping planes and curent viewport to Front, if the current FLAM3H node is displayed ( its displayFlag is On )
-                if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                    if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                        flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
-                        flam3h_general_utils(self.kwargs).util_set_front_viewer()
-                        
-                        _MSG = f"{str(node)}: {prm.upper()} -> ON"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                    else:
-                        node.setParms({prm: 0})
-                        _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use the FLAM3H node that is currently displayed to viz the Camera sensor in the viewport."
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                else:
+            node.setParms({prm: 1})
+            # If the passed toggle's name argument is the camera sensor: 'outsensor'
+            # set the view clipping planes and curent viewport to Front, if the current FLAM3H node is displayed ( its displayFlag is On )
+            if prm == OUT_RENDER_PROPERTIES_SENSOR:
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                    flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
+                    flam3h_general_utils(self.kwargs).util_set_front_viewer()
+                    
                     _MSG = f"{str(node)}: {prm.upper()} -> ON"
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                else:
+                    node.setParms({prm: 0})
+                    _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use the FLAM3H node that is currently displayed to viz the Camera sensor in the viewport."
+                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            else:
+                _MSG = f"{str(node)}: {prm.upper()} -> ON"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
 
