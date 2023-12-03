@@ -7513,24 +7513,20 @@ reset_IN(self, mode=0) -> None:
             tuple[Union[str, None], bool, int, str]: xml, clipboard, preset_id, clipboard_flame_name
         """        
         node = self.node
-        try:
-            if self.kwargs['alt']:
-                xml = hou.ui.getTextFromClipboard() # type: ignore
-                try:
-                    tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-                except:
-                    tree= None
-                if tree is not None:
-                    assert xml is not None
-                    flame_name_clipboard = in_flame(node, xml).name[0]
-                    return xml, True, 0, flame_name_clipboard
-                else:
-                    return None, False, 0, ''
+
+        if self.kwargs['alt']:
+            xml = hou.ui.getTextFromClipboard() # type: ignore
+            try:
+                tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+            except:
+                tree= None
+            if tree is not None:
+                assert xml is not None
+                flame_name_clipboard = in_flame(node, xml).name[0]
+                return xml, True, 0, flame_name_clipboard
             else:
-                xml = node.parm(IN_PATH).evalAsString()
-                preset_id = int(node.parm(IN_PRESETS).eval())
-                return xml, False, preset_id, ''
-        except:
+                return None, False, 0, ''
+        else:
             xml = node.parm(IN_PATH).evalAsString()
             preset_id = int(node.parm(IN_PRESETS).eval())
             return xml, False, preset_id, ''
