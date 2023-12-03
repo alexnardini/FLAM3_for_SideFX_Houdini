@@ -1341,10 +1341,9 @@ reset_PREFS(self, mode=0) -> None:
         Args:
             prm (_type_, optional): _description_. Defaults to SYS_TAG. Toggle parameter name to use.
         """        
-        
         node = self.node
-        
         toggle = node.parm(prm).evalAsInt()
+        
         if toggle:
             node.setParms({prm: 0})
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
@@ -1364,6 +1363,7 @@ reset_PREFS(self, mode=0) -> None:
             prm (str): Toggle parameter name to use
         """        
         toggle = self.node.parm(prm).evalAsInt()
+        
         if toggle:
             self.node.setParms({prm: 0})
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
