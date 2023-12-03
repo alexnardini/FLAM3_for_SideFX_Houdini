@@ -7519,7 +7519,7 @@ reset_IN(self, mode=0) -> None:
             try:
                 tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
             except:
-                tree= None
+                tree = None
             if tree is not None:
                 assert xml is not None
                 flame_name_clipboard = in_flame(node, xml).name[0]
