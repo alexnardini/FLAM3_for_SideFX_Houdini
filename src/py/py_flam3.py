@@ -17,7 +17,6 @@ from subprocess import call as sp_call
 import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
-import tkinter as tk
 import platform
 import os
 import json
@@ -5157,18 +5156,8 @@ __get_flame_count(self, flames: list) -> int:
 
 
     @staticmethod
-    def xmlfile_getClipboard() -> Union[str, None]:
-        
-        try:
-            root_paste = tk.Tk()
-            root_paste.withdraw()
-            root_paste.update()
-            clipboard = root_paste.clipboard_get()
-            root_paste.update()
-            root_paste.destroy()
-            return clipboard
-        except:
-            return None
+    def xmlfile_getClipboard() -> str:
+        return hou.ui.getTextFromClipboard() # type: ignore
 
 
 
@@ -9072,13 +9061,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         if self.out_build_XML(root):
             out_flame_utils._out_pretty_print(root)
             flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
-            
-            root_copy = tk.Tk()
-            root_copy.withdraw()
-            root_copy.clipboard_clear()
-            root_copy.clipboard_append(flame)
-            root_copy.update()
-            root_copy.destroy()
+            hou.ui.copyTextToClipboard(flame) # type: ignore
             
             _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
