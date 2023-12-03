@@ -1083,6 +1083,8 @@ util_set_front_viewer(self) -> None:
 
 util_set_front_viewer_all(self) -> None:
 
+flam3h_other_sensor_viz_off(self, node: hou.Node, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+
 flam3h_toggle(self, prm=SYS_TAG) -> None:
 
 flam3h_toggle_off(self, prm: str) -> None:
@@ -1255,8 +1257,9 @@ reset_PREFS(self, mode=0) -> None:
                     if update_sensor:
                         node_bbox = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                
-                
+
+
+
     def util_set_front_viewer_all(self) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             self.util_set_clipping_viewers()
@@ -1267,7 +1270,28 @@ reset_PREFS(self, mode=0) -> None:
                 node = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
                 view.frameBoundingBox(node.geometry().boundingBox())
 
-    
+
+
+    def flam3h_other_sensor_viz_off(self, node: hou.Node, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+        """When activating the Camera sensor viz, check if there is another FLAM3H in camera sensor mode
+        and turn it Off if so. this way we guarantee there can be only one FLAM3H node in Camera sensor viz mode at any given time.
+
+        Args:
+            node (hou.Node): This FLAM3H node
+            prm (_type_, optional): Defaults to OUT_RENDER_PROPERTIES_SENSOR.
+        """
+        all_f3h = node.type().instances()
+        if len(all_f3h) > 1:
+            for f3h in all_f3h:
+                if f3h != node:
+                    if f3h.parm(prm).evalAsInt():
+                        f3h.setParms({prm: 0})
+                        # If another FLAM3H node is in Camera Sensor mode, clear up its data.
+                        flam3h_general_utils.util_clear_stashed_cam_data()
+                        break
+
+
+
     def flam3h_toggle(self, prm=SYS_TAG) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
@@ -1295,6 +1319,9 @@ reset_PREFS(self, mode=0) -> None:
             # set the view clipping planes and curent viewport to Front, if the current FLAM3H node is displayed ( its displayFlag is On )
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                    # Check if any other FLAM3H node is in Camera Sensor viz mode
+                    self.flam3h_other_sensor_viz_off(node)
+                    # Set this FLAM3H node to enter the camera sensor viz mode
                     flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
                     flam3h_general_utils(self.kwargs).util_set_front_viewer()
                     
@@ -1302,12 +1329,11 @@ reset_PREFS(self, mode=0) -> None:
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
                 else:
                     node.setParms({prm: 0})
-                    _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use the FLAM3H node that is currently displayed to viz the Camera sensor in the viewport."
+                    _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
                     hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
             else:
                 _MSG = f"{str(node)}: {prm.upper()} -> ON"
                 hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-
 
 
 
