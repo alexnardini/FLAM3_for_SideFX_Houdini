@@ -123,7 +123,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help()
 
 'parameter name     sys_out_sensorviz'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsensor")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
 
 
 'parameter name     sys_tag_off'
@@ -372,12 +372,12 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()
 
 'parameter name:    out_sensorviz_disabled'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsensor")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
 
 
 'parameter name:    out_sensorviz'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("outsensor")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
 
 
 'parameter name:    outres'

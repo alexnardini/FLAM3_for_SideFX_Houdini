@@ -1083,7 +1083,9 @@ util_set_front_viewer(self) -> None:
 
 util_set_front_viewer_all(self) -> None:
 
-flam3h_other_sensor_viz_off(self, node: hou.Node, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+flam3h_other_sensor_viz_off(self, node: hou.Node) -> None:
+
+flam3h_outsensor_toggle(self, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
 
 flam3h_toggle(self, prm=SYS_TAG) -> None:
 
@@ -1272,7 +1274,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def flam3h_other_sensor_viz_off(self, node: hou.Node, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+    def flam3h_other_sensor_viz_off(self, node: hou.Node) -> None:
         """When activating the Camera sensor viz, check if there is another FLAM3H in camera sensor mode
         and turn it Off if so. this way we guarantee there can be only one FLAM3H node in Camera sensor viz mode at any given time.
 
@@ -1284,11 +1286,52 @@ reset_PREFS(self, mode=0) -> None:
         if len(all_f3h) > 1:
             for f3h in all_f3h:
                 if f3h != node:
-                    if f3h.parm(prm).evalAsInt():
-                        f3h.setParms({prm: 0})
+                    if f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                        f3h.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         # If another FLAM3H node is in Camera Sensor mode, clear up its data.
                         flam3h_general_utils.util_clear_stashed_cam_data()
                         break
+
+
+
+    def flam3h_outsensor_toggle(self, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa.
+
+        Args:
+            prm (_type_, optional): _description_. Defaults to SYS_TAG. Toggle parameter name to use.
+        """        
+        
+        node = self.node
+        toggle = node.parm(prm).evalAsInt()
+        
+        if toggle:
+            node.setParms({prm: 0})
+            # If the passed toggle's name argument is the camera sensor: 'outsensor'
+            # restore the viewport prior to entering the Camera sensor mode
+            flam3h_general_utils.util_set_stashed_cam()
+            flam3h_general_utils.util_clear_stashed_cam_data()
+
+            _MSG = f"{str(node)}: {prm.upper()} -> OFF"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            
+        else:
+            node.setParms({prm: 1})
+            # If the passed toggle's name argument is the camera sensor: 'outsensor'
+            # set the view clipping planes and curent viewport to Front, if the current FLAM3H node is displayed ( its displayFlag is On )
+            if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                # Check if any other FLAM3H node is in Camera Sensor viz mode
+                self.flam3h_other_sensor_viz_off(node)
+                # Set this FLAM3H node to enter the camera sensor viz mode
+                flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
+                
+                _MSG = f"{str(node)}: {prm.upper()} -> ON"
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            else:
+                # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
+                node.setParms({prm: 0})
+                _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
+                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
 
 
 
@@ -1304,36 +1347,13 @@ reset_PREFS(self, mode=0) -> None:
         toggle = node.parm(prm).evalAsInt()
         if toggle:
             node.setParms({prm: 0})
-            # If the passed toggle's name argument is the camera sensor: 'outsensor'
-            # restore the viewport prior to entering the Camera sensor mode
-            if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                flam3h_general_utils.util_set_stashed_cam()
-                flam3h_general_utils.util_clear_stashed_cam_data()
-
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
             
         else:
             node.setParms({prm: 1})
-            # If the passed toggle's name argument is the camera sensor: 'outsensor'
-            # set the view clipping planes and curent viewport to Front, if the current FLAM3H node is displayed ( its displayFlag is On )
-            if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    # Check if any other FLAM3H node is in Camera Sensor viz mode
-                    self.flam3h_other_sensor_viz_off(node)
-                    # Set this FLAM3H node to enter the camera sensor viz mode
-                    flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
-                    flam3h_general_utils(self.kwargs).util_set_front_viewer()
-                    
-                    _MSG = f"{str(node)}: {prm.upper()} -> ON"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
-                else:
-                    node.setParms({prm: 0})
-                    _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-            else:
-                _MSG = f"{str(node)}: {prm.upper()} -> ON"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            _MSG = f"{str(node)}: {prm.upper()} -> ON"
+            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
 
 
 
