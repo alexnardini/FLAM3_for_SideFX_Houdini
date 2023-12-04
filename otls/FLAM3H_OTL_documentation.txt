@@ -1099,7 +1099,7 @@ Force iterations on Load:
 :box:
     #display: rounded white
 
-    == IN: Options == (INOPTIONS)
+    == IN: load options == (INOPTIONS)
     
 remap "pre_gaussian_blur":
     #id: prefs
@@ -1312,7 +1312,7 @@ OUT file contents ( info ):
 :box:
     #display: rounded white
 
-    == OUT: Options == (OUTOPTIONS)
+    == OUT: save options == (OUTOPTIONS)
         
 Save palette HSV (cc):
     #id: OUT
