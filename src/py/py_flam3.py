@@ -12,7 +12,6 @@ from math import sin
 from math import cos
 from math import fsum
 from re import sub as re_sub
-from sys import platform as sys_platform
 from subprocess import call as sp_call
 import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
@@ -76,7 +75,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.1.62'
+FLAM3H_VERSION = '1.1.70'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -645,14 +644,21 @@ flam3h_on_deleted(self) -> None:
             _MSG_DONE (str): The message to print in the hou window 
             sys_updated_mode (hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
         """        
-        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
-        if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+        flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
+        if hou.isUIAvailable():
+            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                if cvex_precision == 32:
+                    hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+                elif cvex_precision == 64:
+                    hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                hou.setUpdateMode(sys_updated_mode) # type: ignore
+            hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+        else:
             if cvex_precision == 32:
                 hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
             elif cvex_precision == 64:
                 hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
             hou.setUpdateMode(sys_updated_mode) # type: ignore
-            hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
 
 
     @staticmethod
@@ -673,14 +679,14 @@ flam3h_on_deleted(self) -> None:
         """        
         # m = nodesearch.State("Display", True)
         # _display_node = m.nodes(node.parent(), recursive=False)[0]
-        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+        flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         node.cook(force=True)
         if cvex_precision == 32:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
         elif cvex_precision == 64:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
         hou.setUpdateMode(sys_updated_mode) # type: ignore
-        hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+        flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
 
 
 
@@ -804,22 +810,30 @@ flam3h_on_deleted(self) -> None:
             
             density = node.parm(GLB_DENSITY).evalAsInt()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
-                if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                    # node.cook(force=True)
+                if hou.isUIAvailable():
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                        # node.cook(force=True)
+                        if cvex_precision == 32 and first_instance_32bit is True:
+                            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+                        elif cvex_precision == 64 and first_instance_64bit is True:
+                            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                        node.setParms({GLB_DENSITY: density})
+                        hou.setUpdateMode(sys_updated_mode) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
+                else:
                     if cvex_precision == 32 and first_instance_32bit is True:
                         hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
                     elif cvex_precision == 64 and first_instance_64bit is True:
                         hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
                     node.setParms({GLB_DENSITY: density})
                     hou.setUpdateMode(sys_updated_mode) # type: ignore
-                    hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
             else:
                 # m = nodesearch.State("Display", True)
                 # _display_node = m.nodes(node.parent(), recursive=False)[0]
-                hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
                 if cvex_precision == 32 and first_instance_32bit is True:
@@ -828,7 +842,7 @@ flam3h_on_deleted(self) -> None:
                     hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
                 node.setParms({GLB_DENSITY: density})
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
-                hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
 
 
 
@@ -1065,9 +1079,13 @@ class flam3h_general_utils:
     """
 STATIC METHODS:
 
+my_system() -> str:
+
+set_status_msg(msg: str, type: str) -> None:
+
 isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
 
-open_explorer_file(filename) -> None:
+util_open_file_explorer(filename) -> None:
 
 util_getSceneViewers() -> list:
 
@@ -1117,6 +1135,50 @@ reset_PREFS(self, mode=0) -> None:
         self._node = kwargs['node']
 
 
+
+    @staticmethod
+    def my_system() -> str:
+        """Return the OS we are on.
+
+        Returns:
+            str: Possible outcomes are: WIN
+                                        LNX
+                                        MAC
+                                        JAVA
+                                        UNKNW
+        """        
+        mysys = platform.system()
+        if mysys == 'Windows':
+            return 'WIN'
+        elif mysys == 'Linux':
+            return 'LNX'
+        elif mysys == 'Darwin':
+            return 'MAC'
+        elif mysys == 'Java':
+            return 'JAVA'
+        else:
+            return 'UNKNW'
+
+
+    @staticmethod
+    def set_status_msg(msg: str, type: str) -> None:
+        """Print a message to the Houdini's status bar if the UI is available.
+
+        Args:
+            msg (str): The message string to print
+            type (str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
+        """
+        if type == 'MSG':
+            severityType = hou.severityType.Message # type: ignore
+        elif type == 'IMP':
+            severityType = hou.severityType.ImportantMessage # type: ignore
+        elif type == 'WARN':
+            severityType = hou.severityType.Warning # type: ignore
+
+        if hou.isUIAvailable():
+            hou.ui.setStatusMessage(msg, severityType) # type: ignore
+
+
     @staticmethod
     def isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
         """Check if the loaded lib file ( Palette ot flame XML ) is locked 
@@ -1138,19 +1200,29 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def open_explorer_file(filename) -> None:
+    def util_open_file_explorer(filepath_name) -> None:
         """Ope the file explorer to the currently loaded file location.
 
         Args:
-            filename (_type_): The currently loaded file name full path.
-        """        
-        path = os.path.dirname(filename)
-        if os.path.isdir(path):
-            if sys_platform == "win32":
-                os.startfile(path)
+            filepath_name (_type_): The currently loaded file name full path.
+        """
+        dir = os.path.dirname(filepath_name)
+        if os.path.isdir(dir):
+            system = flam3h_general_utils.my_system()
+            if system == 'WIN':
+                _MSG = "(windows) explorer -> %s" % dir
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                os.startfile(dir)
+            elif system == 'LNX':
+                _MSG = "(linux) xdg-open -> %s" % dir
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                sp_call(["xdg-open", dir])
+            elif system == 'MAC':
+                _MSG = "(mac) open -> %s" % dir
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                sp_call(["open", dir])
             else:
-                opener ="open" if sys_platform == "darwin" else "xdg-open"
-                sp_call([opener, path])
+                pass
         else:
             pass
 
@@ -1163,8 +1235,8 @@ reset_PREFS(self, mode=0) -> None:
         """    
         views = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
-    
-    
+
+
     @staticmethod
     def util_clear_stashed_cam_data() -> None:
         try:
@@ -1311,7 +1383,7 @@ reset_PREFS(self, mode=0) -> None:
             flam3h_general_utils.util_clear_stashed_cam_data()
 
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            self.set_status_msg(_MSG, 'MSG')
             
         else:
             node.setParms({prm: 1})
@@ -1324,12 +1396,12 @@ reset_PREFS(self, mode=0) -> None:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
                 
                 _MSG = f"{str(node)}: {prm.upper()} -> ON"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                self.set_status_msg(_MSG, 'MSG')
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                 node.setParms({prm: 0})
                 _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                self.set_status_msg(_MSG, 'WARN')
 
 
 
@@ -1345,12 +1417,12 @@ reset_PREFS(self, mode=0) -> None:
         if toggle:
             node.setParms({prm: 0})
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            self.set_status_msg(_MSG, 'MSG')
             
         else:
             node.setParms({prm: 1})
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            self.set_status_msg(_MSG, 'MSG')
 
 
 
@@ -1483,7 +1555,7 @@ reset_PREFS(self, mode=0) -> None:
             if json_path:
                 print(f'{str(node)}.palette: please select a valid file location.')
             else:
-                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                self.set_status_msg('', 'MSG')
         
         # Force preset menu to updated
         prm.eval()
@@ -1975,7 +2047,7 @@ iterator_keep_last_weight(self) -> None:
                         prm_to.set(prm_from.eval())
         else:
             _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
     
     @staticmethod           
@@ -2056,14 +2128,14 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
                 _MSG = f"{str(node)}.iter.{id}{str_section} -> Copied values from: iter.{id_from}{str_section}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             else:
                 if len(_current_note) == 0:
                     node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
                 _MSG = f"{str(node)}.iter.{id}{str_section} -> Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         elif int_mode == 1:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
@@ -2071,7 +2143,7 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
                 _MSG = f"{str(node)} -> Copied FF from: {str(flam3node)}.FF"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         elif int_mode == 2:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
@@ -2079,7 +2151,7 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
                 _MSG = f"{str(node)}.FF{str_section} -> Copied from: {str(flam3node)}.FF{str_section}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
     @staticmethod
@@ -2223,7 +2295,7 @@ iterator_keep_last_weight(self) -> None:
         if ptcount != vals[sel]:
             node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
   
         # reset to null value so we can set the same preset again
         node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
@@ -2238,10 +2310,10 @@ iterator_keep_last_weight(self) -> None:
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             _MSG = f"{str(node)} -> DENSITY preset: \" Default: 500K points \" -> SET"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             _MSG = f"{str(node)}: DENSITY -> already at its default value."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
     
     
     def menu_copypaste(self) -> list:
@@ -2533,7 +2605,7 @@ iterator_keep_last_weight(self) -> None:
             
             if node==from_FLAM3H_NODE and id==mp_id_from:
                 _MSG = f"{str(node)}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
@@ -2541,25 +2613,25 @@ iterator_keep_last_weight(self) -> None:
                 
                 if node==from_FLAM3H_NODE:
                     _MSG = f"{str(node)}: Copied values from -> iterator.{str(mp_id_from)}"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 else:
                     _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
         else:      
             if isDELETED:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
                 
             else:
                 if node == from_FLAM3H_NODE:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed -> {MARK_ITER_MSG_STATUS_BAR}"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     else:
                         _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 elif node != from_FLAM3H_NODE:
                     assert from_FLAM3H_NODE is not None
@@ -2567,14 +2639,14 @@ iterator_keep_last_weight(self) -> None:
                     
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> {MARK_ITER_MSG_STATUS_BAR}"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     else:
                         _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 else:
                     _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
     def prm_paste_SHIFT(self, id: int, node: hou.Node) -> None:
@@ -2598,7 +2670,7 @@ iterator_keep_last_weight(self) -> None:
                 
                 self.del_comment_and_user_data_iterator(node)
                 
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
                 _MSG = ''
@@ -2612,12 +2684,12 @@ iterator_keep_last_weight(self) -> None:
                 
                 self.del_comment_and_user_data_iterator(node)
                 
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
             if isDELETED:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> Mark a new iterator first."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
             else:
                 assert from_FLAM3H_NODE is not None
@@ -2625,10 +2697,10 @@ iterator_keep_last_weight(self) -> None:
                 
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} ->  Mark an existing iterator instead." # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 else:
                     _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}" # type: ignore
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
 
     def prm_paste_CLICK(self, id: int, node: hou.Node) -> None:
@@ -2657,7 +2729,7 @@ iterator_keep_last_weight(self) -> None:
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -2666,7 +2738,7 @@ iterator_keep_last_weight(self) -> None:
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{str(self.node)} -> This iterator is already Marked." # type: ignore
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = id # type: ignore
@@ -2683,7 +2755,7 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
             _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def prm_paste(self) -> None:
@@ -2731,7 +2803,7 @@ iterator_keep_last_weight(self) -> None:
             
             if node == from_FLAM3H_NODE:
                 _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
@@ -2740,15 +2812,15 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
                 
                 _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
         else:
             if isDELETED:
                 _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore 
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
             else:
                 _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
     
     
     def prm_paste_FF_SHIFT(self, node: hou.Node) -> None:
@@ -2767,17 +2839,17 @@ iterator_keep_last_weight(self) -> None:
                 
                 self.del_comment_and_user_data_iterator(node, "Marked FF")
                 
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             if isDELETED:
                 _MSG = f"{str(node)} -> Marked FF's node has been deleted -> Mark a new FF first."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
                 _MSG = f"{str(node)}: This FF is Unmarked already"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def prm_paste_FF_CLICK(self, node: hou.Node) -> None:
@@ -2795,7 +2867,7 @@ iterator_keep_last_weight(self) -> None:
             
         if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
             _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         else:
             # Remove the FF data and comment from the other node
@@ -2810,7 +2882,7 @@ iterator_keep_last_weight(self) -> None:
             self.set_comment_and_user_data_iterator(node, "Yes", "Marked FF")
             
             _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def prm_paste_FF(self) -> None:
@@ -2913,7 +2985,7 @@ iterator_keep_last_weight(self) -> None:
             
         else:
             _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
     def prm_paste_sel_FF(self) -> None:
@@ -2969,7 +3041,7 @@ iterator_keep_last_weight(self) -> None:
                     
         else:
             _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
     def flam3h_xaos_convert(self) -> None:
@@ -3003,10 +3075,10 @@ iterator_keep_last_weight(self) -> None:
         # Get preference xaos mode and print to Houdini's status bar
         if f3d.xm:
             _MSG = f"{str(node)}: XAOS Mode -> FROM"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             _MSG = f"{str(node)}: XAOS Mode -> TO"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def reset_preaffine(self) -> None:
@@ -3030,11 +3102,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine X, Y -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine X, Y -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
             check = True
@@ -3043,10 +3115,10 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
                 # Print to Houdini's status bar
                 _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine O -> RESET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine O -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
             check = True
@@ -3055,10 +3127,10 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
                 # Print to Houdini's status bar
                 _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine Rotation Angle -> RESET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine Rotation Angle -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
             check = True
@@ -3072,11 +3144,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         
     def reset_postaffine(self) -> None:
@@ -3101,11 +3173,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2(default[1])})
                         # Print to Houdini's status bar
                         _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine X, Y -> RESET"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine X, Y -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
             check = True
@@ -3116,10 +3188,10 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2(default[2])})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine O -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine O -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
             check = True
@@ -3130,10 +3202,10 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.postaffine_ang}_{str(id)}": default[3]})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
             check = True
@@ -3148,11 +3220,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{n.postaffine_ang}_{str(id)}": default[3]})
                         # Print to Houdini's status bar
                         _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> RESET"
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         
     def reset_preaffine_FF(self) -> None:
@@ -3175,11 +3247,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2(default[1])})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: FF PRE Affine X, Y -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
                 _MSG = f"{str(node)}: FF PRE Affine X, Y -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         elif kwargs["ctrl"]:
             check = True
@@ -3188,10 +3260,10 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2(default[2])})
                 # Print to Houdini's status bar
                 _MSG = f"{str(node)}: FF PRE Affine O -> RESET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: FF PRE Affine O -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
             check = True
@@ -3200,10 +3272,10 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": default[3]})
                 # Print to Houdini's status bar
                 _MSG = f"{str(node)}: FF PRE Affine Rotation Angle -> RESET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: Iterator.{str(id)} FF PRE Affine Rotation Angle -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
             check = True
@@ -3217,11 +3289,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": default[3]})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: FF PRE Affine -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
                 _MSG = f"{str(node)}: FF PRE Affine -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def reset_postaffine_FF(self) -> None:
@@ -3244,11 +3316,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2(default[1])})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: FF POST Affine X, Y -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
                 _MSG = f"{str(node)}: FF POST Affine X, Y -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             
         elif kwargs["ctrl"]:
@@ -3259,10 +3331,10 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2(default[2])})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: FF POST Affine O -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: FF POST Affine O -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         elif kwargs["alt"]:
             check = True
@@ -3272,10 +3344,10 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": default[3]})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
                 _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         else:
             check = True
@@ -3290,11 +3362,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": default[3]})
                     # Print to Houdini's status bar
                     _MSG = f"{str(node)}: FF POST Affine -> RESET"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
                 _MSG = f"{str(node)}: FF POST Affine -> already at their default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def swap_iter_pre_vars(self) -> None:
@@ -3317,7 +3389,7 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{pvT[0]}{str(id)}": pvT_vals[1]})
                 node.setParms({f"{pvT[1]}{str(id)}": pvT_vals[0]})
                 
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             # Swap types
             if pvT_vals[0] != pvT_vals[1]:
@@ -3329,14 +3401,14 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{pvW[0][0]}{str(id)}": pvW_vals[1]})
                     node.setParms({f"{pvW[1][0]}{str(id)}": pvW_vals[0]})
                 
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 # Swap weights only
                 if fsum(pvW_vals) > 0:
                     node.setParms({f"{pvW[0][0]}{str(id)}": pvW_vals[1]})
                     node.setParms({f"{pvW[1][0]}{str(id)}": pvW_vals[0]})
                     
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
                 
     def swap_FF_post_vars(self) -> None:
@@ -3358,7 +3430,7 @@ iterator_keep_last_weight(self) -> None:
                 node.setParms({f"{pvT[0]}": pvT_vals[1]})
                 node.setParms({f"{pvT[1]}": pvT_vals[0]})
                 
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             # Swap types
             if pvT_vals[0] != pvT_vals[1]:
@@ -3370,14 +3442,14 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{pvW[0][0]}": pvW_vals[1]})
                     node.setParms({f"{pvW[1][0]}": pvW_vals[0]})
                     
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 # Swap weights only
                 if fsum(pvW_vals) > 0:
                     node.setParms({f"{pvW[0][0]}": pvW_vals[1]})
                     node.setParms({f"{pvW[1][0]}": pvW_vals[0]})
                     
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def reset_FF(self) -> None:
@@ -3506,7 +3578,7 @@ iterator_keep_last_weight(self) -> None:
         
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
 
     def auto_set_xaos(self) -> None:
@@ -3615,7 +3687,7 @@ iterator_keep_last_weight(self) -> None:
                                 self.del_comment_and_user_data_iterator(node)
                                 # Let us know
                                 _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
-                                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                                 
                             else:
                                 pass
@@ -3664,7 +3736,7 @@ iterator_keep_last_weight(self) -> None:
                                 self.del_comment_and_user_data_iterator(node)
                                 # Let us know
                                 _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
-                                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                                 
                             else:
                                 pass
@@ -3780,7 +3852,7 @@ iterator_keep_last_weight(self) -> None:
             
             # Print to Houdini's status bar
             _MSG = f"{str(node)}: {_MSG_str}"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
         else:
             # set xaos every time an iterator is added or removed
@@ -3788,7 +3860,7 @@ iterator_keep_last_weight(self) -> None:
             
             # Clear status bar msg
             if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
-                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg('', 'MSG')
                 
         # If OUT Camera sensor viz mode is ON.
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
@@ -3813,7 +3885,7 @@ iterator_keep_last_weight(self) -> None:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             _MSG = f"{str(node)}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
     def iterator_keep_last_weight(self) -> None:
@@ -3839,7 +3911,7 @@ iterator_keep_last_weight(self) -> None:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_weight}_{str(id)}": min_weight})
             _MSG = f"{str(node)}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
 
@@ -3922,7 +3994,7 @@ reset_CP(self, mode=0) -> None:
             return PALETTE_COUNT_256
         else:
             _MSG = f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.'
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             print(_MSG)
             return PALETTE_COUNT_256
         
@@ -3974,7 +4046,7 @@ reset_CP(self, mode=0) -> None:
                     except:
                         if msg:
                             _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         del data
                         return False
                     
@@ -3982,14 +4054,14 @@ reset_CP(self, mode=0) -> None:
                     node.setParms({parm_path_name: filepath}) #type: ignore
                     sm = hou.ui.statusMessage() # type: ignore
                     if sm[0] and msg:
-                        hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                        flam3h_general_utils.set_status_msg('', 'MSG')
                     del data
                     return True
             else:
-                hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg('', 'MSG')
                 return False
         else:
-            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg('', 'MSG')
             return False
         
         
@@ -4104,17 +4176,18 @@ reset_CP(self, mode=0) -> None:
         if out_path_checked is not False:
             
             if self.kwargs['shift']:
-                flam3h_general_utils.open_explorer_file(out_path_checked)
+                flam3h_general_utils.util_open_file_explorer(out_path_checked)
             else:
                     
                 if flam3h_general_utils.isLOCK(out_path_checked):
                     ui_text = f"This Palette library is Locked."
                     ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                     _MSG = f"{str(node)}: PALETTE library file -> is LOCKED"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    if hou.isUIAvailable():
+                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                     # Clear up status bar msg
-                    hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg('', 'MSG')
                 else:
                     # get user's preset name or build an automated one
                     name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
@@ -4262,11 +4335,11 @@ reset_CP(self, mode=0) -> None:
                 
                 # Print to status Bar
                 _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
             else:
                 _MSG = f"{str(node)}: PALETTE -> Nothing to load"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
 
@@ -4362,10 +4435,10 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
                 # Print out to Houdini's status bar
                 _MSG = f"{str(node)}: PALETTE HSV -> RESET"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG = f"{str(node)}: PALETTE HSV -> already at its default values."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
@@ -4376,7 +4449,7 @@ reset_CP(self, mode=0) -> None:
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
             # Print out to Houdini's status bar
             _MSG = f"{str(node)}:PALETTE -> RESET"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         # Update ramp py 
         self.palette_cp()
@@ -4635,7 +4708,8 @@ ex: 123.876 will become -> 123"""
         
         if autoset:
             if self.kwargs["ctrl"]:
-                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+                if hou.isUIAvailable():
+                    hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
             else:
                 # current node
@@ -4645,16 +4719,17 @@ ex: 123.876 will become -> 123"""
                     flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                     
                     _MSG = f"{str(node)}: Xaos weights auto space: OFF"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
                 else:
                     node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
                     flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                     
                     _MSG = f"{str(node)}: Xaos weights auto space: ON"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
-            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+            if hou.isUIAvailable():
+                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
             
     def ui_OUT_presets_name_infos(self) -> None:
@@ -4676,8 +4751,8 @@ you can manually edit the created XML/Flame file
 and change the flame → “name” key afterwards.
     
 """
-
-        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
+        if hou.isUIAvailable():
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
     
@@ -4687,8 +4762,8 @@ it wont be included when saving the Flame out into a flame file.
 
 In case you still want to include the inactive iterator into the file,
 set its Weight to Zero instead."""
-
-        hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
+        if hou.isUIAvailable():
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
 
@@ -5616,10 +5691,13 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
                 except:
                     hou.pwd().setParms({MSG_DESCRIPTIVE_PRM: "Error: IN->PALETTE\nHEX values not valid."})
-                    ui_text = "Flame's Palette hex values not valid."
-                    palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
-                    hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
-                    return None
+                    if hou.isUIAvailable():
+                        ui_text = "Flame's Palette hex values not valid."
+                        palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
+                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
+                        return None
+                    else:
+                        return None
             else:
                 return None
         else:
@@ -7004,7 +7082,7 @@ reset_IN(self, mode=0) -> None:
             in_flame_utils.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
             
         _MSG = f"{str(node)}: Iterators and FF parameters SET -> Completed"
-        hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     @staticmethod
@@ -7533,6 +7611,10 @@ reset_IN(self, mode=0) -> None:
                     return xml, True, 0, flame_name_clipboard
                 else:
                     return None, False, 0, ''
+            elif self.kwargs['shift']:
+                return None, False, 0, ''
+            elif self.kwargs['ctrl']:
+                return None, False, 0, ''
             else:
                 xml = node.parm(IN_PATH).evalAsString()
                 preset_id = int(node.parm(IN_PRESETS).eval())
@@ -7676,7 +7758,7 @@ reset_IN(self, mode=0) -> None:
             else:
                 preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
                 _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.ImportantMessage) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
         else:
             
@@ -7685,15 +7767,15 @@ reset_IN(self, mode=0) -> None:
             if clipboard and _xml_tree(in_xml).isvalidtree:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             elif not clipboard and _xml_tree(in_xml).isvalidtree:
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             elif node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
                 node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
@@ -7705,7 +7787,7 @@ reset_IN(self, mode=0) -> None:
                     
                     # Status Bar
                     _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
                     # The following do not work, not sure why
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
@@ -7717,7 +7799,7 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
                     
                     _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                    hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
 
@@ -7794,8 +7876,6 @@ out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[li
 def out_util_check_duplicate_var_section(vars: list) -> bool:
 
 out_util_check_duplicate(vars: list) -> bool:
-                                      
-out_my_system() -> str:
 
 out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 
@@ -8123,25 +8203,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
 
-        
-    @staticmethod
-    def out_my_system() -> str:
-        """Return the OS we are on.
-
-        Returns:
-            str: _description_
-        """        
-        mysys = platform.system()
-        if mysys == 'Windows':
-            return 'WIN'
-        elif mysys == 'Linux':
-            return 'LNX'
-        elif mysys == 'Darwin':
-            return 'MAC'
-        elif mysys == 'Java':
-            return 'JAVA'
-        else:
-            return 'UNKNW'
     
 
     @staticmethod
@@ -8758,7 +8819,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             XML_APP_NAME = XML_APP_NAME_FLAM3H
              
         f3p = out_flame_render_properties(self.kwargs)
-        return {OUT_XML_VERSION: f'{XML_APP_NAME}-{out_flame_utils.out_my_system()}-{FLAM3H_VERSION}',
+        return {OUT_XML_VERSION: f'{XML_APP_NAME}-{flam3h_general_utils.my_system()}-{FLAM3H_VERSION}',
                 XML_XF_NAME: f3p.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
                 OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
@@ -8893,9 +8954,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             ALL_msg += HELP_msg
             
             _MSG = f"{str(node)}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
-            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
-            hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+            if hou.isUIAvailable():
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+            flam3h_general_utils.set_status_msg('', 'MSG')
             return False
         else:
             return True
@@ -9049,7 +9111,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tree.write(outpath)
             
             _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
 
@@ -9066,7 +9128,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
             _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
 
@@ -9093,7 +9155,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tree.write(out_path)
             
             _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
-            hou.ui.setStatusMessage(_MSG, hou.severityType.Message) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
 
@@ -9121,7 +9183,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             elif out_path_checked is not False:
                 
                 if kwargs['shift']:
-                    flam3h_general_utils.open_explorer_file(out_path_checked)
+                    flam3h_general_utils.util_open_file_explorer(out_path_checked)
                     
                 else:
 
@@ -9130,11 +9192,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         _MSG = f"{str(node)}: FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
-                        hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         # Pop up message window
-                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                        if hou.isUIAvailable():
+                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         # Clear up Houdini's status bar msg
-                        hou.ui.setStatusMessage("", hou.severityType.Message) # type: ignore
+                        flam3h_general_utils.set_status_msg('', 'MSG')
                         
                     else:
                         
@@ -9160,7 +9223,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
             else:
                 _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
-                hou.ui.setStatusMessage(_MSG, hou.severityType.Warning) # type: ignore
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
 
