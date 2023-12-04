@@ -1412,7 +1412,7 @@ SHOW sensor viz:
 
     _*[FLAM3H to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
 
-    FLAM3H ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode if multiple FLAM3H node are present. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
+    When multiple FLAM3H node are present in the scene, FLAM3H ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
     
     TIP:
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
