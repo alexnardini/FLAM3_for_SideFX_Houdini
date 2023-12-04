@@ -601,6 +601,8 @@ class flam3h_scripts:
     """
 STATIC METHODS:
 
+set_first_instance_global_var(cvex_precision: int) -> None:
+
 flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 
 flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -608,6 +610,8 @@ flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, 
 ...
 
 METHODS:
+
+flam3h_set_first_instance_global_var(self, cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 
 flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
 
@@ -630,6 +634,14 @@ flam3h_on_deleted(self) -> None:
 
 
     @staticmethod
+    def set_first_instance_global_var(cvex_precision: int) -> None:
+        if cvex_precision == 32:
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+        elif cvex_precision == 64:
+            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+
+
+    @staticmethod
     def flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
@@ -647,17 +659,12 @@ flam3h_on_deleted(self) -> None:
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
-                if cvex_precision == 32:
-                    hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-                elif cvex_precision == 64:
-                    hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
+                
             hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
         else:
-            if cvex_precision == 32:
-                hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-            elif cvex_precision == 64:
-                hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+            flam3h_scripts.set_first_instance_global_var(cvex_precision)
             hou.setUpdateMode(sys_updated_mode) # type: ignore
 
 
@@ -681,10 +688,8 @@ flam3h_on_deleted(self) -> None:
         # _display_node = m.nodes(node.parent(), recursive=False)[0]
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         node.cook(force=True)
-        if cvex_precision == 32:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-        elif cvex_precision == 64:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+        flam3h_scripts.set_first_instance_global_var(cvex_precision)
+
         hou.setUpdateMode(sys_updated_mode) # type: ignore
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
 
@@ -699,6 +704,13 @@ flam3h_on_deleted(self) -> None:
     def node(self):
         return self._node
 
+
+
+    def flam3h_set_first_instance_global_var(self, cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
+        if cvex_precision == 32 and first_instance_32bit is True:
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+        elif cvex_precision == 64 and first_instance_64bit is True:
+            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
 
 
@@ -765,10 +777,7 @@ flam3h_on_deleted(self) -> None:
                 pass
                 
         else:
-            if cvex_precision == 32 and first_instance_32bit is True:
-                hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-            elif cvex_precision == 64 and first_instance_64bit is True:
-                hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+            self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
 
 
@@ -816,18 +825,14 @@ flam3h_on_deleted(self) -> None:
                 if hou.isUIAvailable():
                     if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                         # node.cook(force=True)
-                        if cvex_precision == 32 and first_instance_32bit is True:
-                            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-                        elif cvex_precision == 64 and first_instance_64bit is True:
-                            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                        self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+
                         node.setParms({GLB_DENSITY: density})
                         hou.setUpdateMode(sys_updated_mode) # type: ignore
                         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
                 else:
-                    if cvex_precision == 32 and first_instance_32bit is True:
-                        hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-                    elif cvex_precision == 64 and first_instance_64bit is True:
-                        hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                    self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+
                     node.setParms({GLB_DENSITY: density})
                     hou.setUpdateMode(sys_updated_mode) # type: ignore
             else:
@@ -836,10 +841,8 @@ flam3h_on_deleted(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
-                if cvex_precision == 32 and first_instance_32bit is True:
-                    hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-                elif cvex_precision == 64 and first_instance_64bit is True:
-                    hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+                self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+
                 node.setParms({GLB_DENSITY: density})
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
@@ -1247,8 +1250,8 @@ reset_PREFS(self, mode=0) -> None:
             del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
         except:
             pass
-    
-    
+
+
     @staticmethod
     def util_set_stashed_cam() -> None:
         desktop = hou.ui.curDesktop() # type: ignore
@@ -1280,9 +1283,9 @@ reset_PREFS(self, mode=0) -> None:
                         view_obj = view.defaultCamera()
                         view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
                         view_obj.setTranslation(_CAM_STASHED.translation())
-                    
-    
-    
+
+
+
     @property
     def kwargs(self):
         return self._kwargs
