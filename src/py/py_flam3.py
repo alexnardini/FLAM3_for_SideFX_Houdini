@@ -916,7 +916,7 @@ flam3h_on_deleted(self) -> None:
                     else:
                         break
         else:
-            node.setParms({"setdark": 1})
+            node.setParms({PREFS_VIEWPORT_DARK: 1})
             flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
