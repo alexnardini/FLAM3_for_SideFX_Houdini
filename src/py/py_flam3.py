@@ -1085,19 +1085,19 @@ set_status_msg(msg: str, type: str) -> None:
 
 isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
 
-util_open_file_explorer(filename) -> None:
+util_open_file_explorer(filepath_name) -> None:
 
 util_getSceneViewers() -> list:
 
 util_clear_stashed_cam_data() -> None:
 
-util_set_stashed_cam(self) -> None:
+util_set_stashed_cam() -> None:
 
 METHODS:
 
 util_set_clipping_viewers(self) -> None:
 
-util_set_front_viewer(self) -> None:
+util_set_front_viewer(self, update=True) -> None:
 
 util_set_front_viewer_all(self) -> None:
 
