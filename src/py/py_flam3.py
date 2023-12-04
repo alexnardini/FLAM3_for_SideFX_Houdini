@@ -7513,7 +7513,7 @@ reset_IN(self, mode=0) -> None:
             tuple[Union[str, None], bool, int, str]: xml, clipboard, preset_id, clipboard_flame_name
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
-        # loading a flame preset from the menu parameter entries instead of clicking the icon button.
+        # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
         try:
             self.kwargs['alt']
             _K = True
