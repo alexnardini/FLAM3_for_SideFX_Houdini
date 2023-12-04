@@ -1144,8 +1144,8 @@ reset_PREFS(self, mode=0) -> None:
         """Return the OS we are on.
 
         Returns:
-            str: Possible outcomes are: WIN
-                                        LNX
+            str: Possible outcomes are: WIN (windows)
+                                        LNX (linux)
                                         MAC
                                         JAVA
                                         UNKNW
