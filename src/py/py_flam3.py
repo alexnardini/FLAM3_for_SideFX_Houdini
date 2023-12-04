@@ -7511,13 +7511,15 @@ reset_IN(self, mode=0) -> None:
 
         Returns:
             tuple[Union[str, None], bool, int, str]: xml, clipboard, preset_id, clipboard_flame_name
-        """      
+        """ 
+        # The following try/except block is in place to avoid a 'KeyError' when
+        # loading a flame preset from the menu parameter entries instead of clicking the icon button.
         try:
             self.kwargs['alt']
             _K = True
         except:
             _K = False
-            
+
         if _K:
             if self.kwargs['alt']:
                 xml = hou.ui.getTextFromClipboard() # type: ignore
