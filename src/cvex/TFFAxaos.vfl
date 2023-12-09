@@ -89,11 +89,19 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
         int isDigit = 1;
         foreach( string vxs; varxaos_strip[1:]){
             string new_vxs = join(split(vxs, "."), "");
-            if(!isdigit(new_vxs)){
+            if(isDigit && new_vxs[0]=="-" && isdigit(new_vxs[1:])){
                 // If it's meant to be a valid xaos: command string
                 if(isXAOS){
                     isDigit = 0;
-                    warning("Non digit values in one or more iterator's xaos command string. The iterators affected will be reset to a default xaos value of 1's.");
+                    warning(concat("\nNegative xaos values inside iterator: ", itoa(i+1), ".\nThis iterator will be reset to a default xaos value of 1's."));
+                    break;
+                    }
+                }
+            else if(isDigit && !isdigit(new_vxs)){
+                // If it's meant to be a valid xaos: command string
+                if(isXAOS){
+                    isDigit = 0;
+                    warning(concat("\nNon digit xaos values inside iterator: ", itoa(i+1), ".\nThis iterator will be reset to a default xaos value of 1's."));
                     break;
                 }
             }
