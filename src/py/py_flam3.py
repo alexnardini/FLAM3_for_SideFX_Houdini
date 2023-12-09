@@ -8430,7 +8430,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             list[list[str]]: A list of xaos list[str] of values
         """   
-        _MAX = 1000
+        _MAX = 100000
 
         val = []
         val_prev = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV)
