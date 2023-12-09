@@ -486,7 +486,8 @@ xaos:
     - If you dnt use the "*_xaos_*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*
     - If you just type a number, the entire xaos string will be reset to all weights set to that number.
     - If you just type a floating point number, the entire xaos string will be reset to all weights set to the integer part of that number. ( _ex: 123.876 will become -> 123_ )
-    
+    - If you type a negative number, it will be clamped to ZERO.
+
     TIP:
         #display: orange
     
