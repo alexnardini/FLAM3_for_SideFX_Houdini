@@ -23,6 +23,7 @@ import colorsys
 import webbrowser
 import inspect
 import hou
+import nodesearch
 
 
 
@@ -157,10 +158,11 @@ OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
-# The current FLAM3H node path prefix is obtained using: 'self.node.path()'
-# This path is hardcoded here, do not change the nodes names inside the FLAM3H HDA network.
-# If so, updated this and be sure this path always start with a slash: '/'
-OUT_SENSOR_BBOX_GEO_PATH = '/sensor/ADD_infos_and_logo/OUT_bbox_data'
+
+# This Null node name is hard code here and represent the node name's prefix.
+# If you change this Null node name inside the FLAM3H houdini HDA network, update this global variable as well.
+# If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
+OUT_SENSOR_BBOX_NODE_NAME = 'OUT_bbox_data'
 
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
@@ -605,7 +607,7 @@ set_first_instance_global_var(cvex_precision: int) -> None:
 
 flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 
-flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 
 ...
 
@@ -662,14 +664,14 @@ flam3h_on_deleted(self) -> None:
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 
-            hou.ui.setStatusMessage(_MSG_DONE, hou.severityType.ImportantMessage) # type: ignore
+            flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         else:
             flam3h_scripts.set_first_instance_global_var(cvex_precision)
             hou.setUpdateMode(sys_updated_mode) # type: ignore
 
 
     @staticmethod
-    def flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.Node, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+    def flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
         messages in the Houdini status bar.
@@ -678,7 +680,7 @@ flam3h_on_deleted(self) -> None:
         if its display flag is False.
 
         Args:
-            node (hou.Node): This FLAM3H node
+            node (hou.SopNode): This FLAM3H node
             cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
             _MSG_INFO (str): The message to print in the status bar
             _MSG_DONE (str): The message to print in the hou window 
@@ -706,6 +708,7 @@ flam3h_on_deleted(self) -> None:
 
 
 
+
     def flam3h_set_first_instance_global_var(self, cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
         if cvex_precision == 32 and first_instance_32bit is True:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
@@ -725,7 +728,7 @@ flam3h_on_deleted(self) -> None:
         It will also restore the houdini session update mode if not set already on AutoUpdate.
 
         Args:
-            node (hou.Node): FLAM3H node
+            node (hou.SopNode): FLAM3H node
             FIRST_TIME_MSG (int): False for onLoaded and True for onCreated
         """        
         
@@ -786,7 +789,7 @@ flam3h_on_deleted(self) -> None:
         this definition will let the user node of the compilie time if a mode is selected for the first time in the current houdini's session.
 
         Args:
-            node (hou.Node): FLAM3H node
+            node (hou.SopNode): FLAM3H node
             FIRST_TIME_MSG (int): False for onLoaded and True for onCreated
         """        
         
@@ -947,7 +950,6 @@ flam3h_on_deleted(self) -> None:
             kwargs (dict): [kwargs[] dictionary]
         """
         node = self.node
-        
         node.setColor(hou.Color((0.9,0.9,0.9)))
         
         flam3h_iterator_utils(self.kwargs).flam3h_default()
@@ -1001,12 +1003,12 @@ flam3h_on_deleted(self) -> None:
             # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
             # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
             # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside: in_flame_utils(self.kwargs).in_to_flam3h()
-            node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()}) # type: ignore
+            node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()})
             
             # Same goes for the palette preset entrie, and some time goes also out of range
             # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
             # and call it back here.
-            node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()}) # type: ignore
+            node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()})
             
             # init/clear copy/paste iterator's data and prm
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
@@ -1067,6 +1069,10 @@ flam3h_on_deleted(self) -> None:
 
 
 
+
+
+
+
 # FLAM3H GENERAL UTLIS start here
 ##########################################
 ##########################################
@@ -1081,6 +1087,8 @@ flam3h_on_deleted(self) -> None:
 class flam3h_general_utils:
     """
 STATIC METHODS:
+
+clamp(x, val_max=255) -> float:
 
 my_system() -> str:
 
@@ -1098,13 +1106,15 @@ util_set_stashed_cam() -> None:
 
 METHODS:
 
+get_bbox_node_path(self) -> Union[str, None]:
+
 util_set_clipping_viewers(self) -> None:
 
 util_set_front_viewer(self, update=True) -> None:
 
 util_set_front_viewer_all(self) -> None:
 
-flam3h_other_sensor_viz_off(self, node: hou.Node) -> None:
+flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
 
 flam3h_outsensor_toggle(self, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
 
@@ -1136,7 +1146,23 @@ reset_PREFS(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+        # self._bboxpath = self._node.parm(OUT_SENSOR_BBOX_PATH).evalAsString()
+        self._bboxpath = self.get_bbox_node_path()
 
+
+
+    @staticmethod  
+    def clamp(x, val_max=255) -> float:
+        """clamp a value to be between Zero and 255.
+
+        Args:
+            x (_type_): the value to clamp.
+            val_max (int/float): Default to: 255. Max value to clamp to.
+
+        Returns:
+            _type_: value clamped between Zero and 255.
+        """        
+        return max(0, min(x, val_max))
 
 
     @staticmethod
@@ -1293,19 +1319,45 @@ reset_PREFS(self, mode=0) -> None:
     @property
     def node(self):
         return self._node
-
-
     
+    @property
+    def bboxpath(self):
+        return self._bboxpath
+
+
+
+
+    def get_bbox_node_path(self) -> Union[str, None]:
+        """Find the full path of the bbox data null node
+        inside the current FLAM3H node.
+        
+        The Null node name prefix to search is stored inside the global variable: OUT_SENSOR_BBOX_NODE_NAME
+
+        Returns:
+            Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode.
+        """        
+        matcher = nodesearch.Name(OUT_SENSOR_BBOX_NODE_NAME)
+        search = matcher.nodes(self.node, recursive=True)
+        if search:
+            return search[0].path()
+        else:
+            _MSG = f"{str(self.node)} -> Camera sensor BBOX data node not found."
+            self.set_status_msg(_MSG, 'WARN')
+            return None
+
+
+
     def util_set_clipping_viewers(self) -> None:
-        for view in flam3h_general_utils.util_getSceneViewers():
+        for view in self.util_getSceneViewers():
             curView = view.curViewport()
             settings = curView.settings()
             settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
             settings.setClipPlanes( [0.001, 1000] )
             settings.homeAutoAdjustClip()
             settings.clipPlanes()
-    
-    
+
+
+
     def util_set_front_viewer(self, update=True) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             desktop = hou.ui.curDesktop() # type: ignore
@@ -1327,34 +1379,37 @@ reset_PREFS(self, mode=0) -> None:
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                     
                 if update:
-                    node_bbox = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
-                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                    if self.bboxpath is not None:
+                        node_bbox = hou.node(self.bboxpath)
+                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
                     if update_sensor:
-                        node_bbox = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
-                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                        if self.bboxpath is not None:
+                            node_bbox = hou.node(self.bboxpath)
+                            view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
-
+    # Wip and not currently used.
     def util_set_front_viewer_all(self) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             self.util_set_clipping_viewers()
-            for v in flam3h_general_utils.util_getSceneViewers():
+            for v in self.util_getSceneViewers():
                 view = v.curViewport()
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
-                node = hou.node(f"{self.node.path()}{OUT_SENSOR_BBOX_GEO_PATH}")
-                view.frameBoundingBox(node.geometry().boundingBox())
+                if self.bboxpath is not None:
+                    node_bbox = hou.node(self.bboxpath)
+                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
 
-    def flam3h_other_sensor_viz_off(self, node: hou.Node) -> None:
+    def flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
         """When activating the Camera sensor viz, check if there is another FLAM3H in camera sensor mode
         and turn it Off if so. this way we guarantee there can be only one FLAM3H node in Camera sensor viz mode at any given time.
 
         Args:
-            node (hou.Node): This FLAM3H node
+            node (hou.SopNode): This FLAM3H node
             prm (_type_, optional): Defaults to OUT_RENDER_PROPERTIES_SENSOR.
         """
         all_f3h = node.type().instances()
@@ -1364,7 +1419,7 @@ reset_PREFS(self, mode=0) -> None:
                     if f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
                         f3h.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         # If another FLAM3H node is in Camera Sensor mode, clear up its data.
-                        flam3h_general_utils.util_clear_stashed_cam_data()
+                        self.util_clear_stashed_cam_data()
                         break
 
 
@@ -1382,8 +1437,8 @@ reset_PREFS(self, mode=0) -> None:
         if toggle:
             node.setParms({prm: 0})
             # Restore the viewport prior to entering the Camera sensor mode
-            flam3h_general_utils.util_set_stashed_cam()
-            flam3h_general_utils.util_clear_stashed_cam_data()
+            self.util_set_stashed_cam()
+            self.util_clear_stashed_cam_data()
 
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             self.set_status_msg(_MSG, 'MSG')
@@ -1395,8 +1450,8 @@ reset_PREFS(self, mode=0) -> None:
                 # Check if any other FLAM3H node is in Camera Sensor viz mode
                 self.flam3h_other_sensor_viz_off(node)
                 # Set this FLAM3H node to enter the camera sensor viz mode
-                flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
-                flam3h_general_utils(self.kwargs).util_set_front_viewer()
+                self.util_set_clipping_viewers()
+                self.util_set_front_viewer()
                 
                 _MSG = f"{str(node)}: {prm.upper()} -> ON"
                 self.set_status_msg(_MSG, 'MSG')
@@ -1442,8 +1497,8 @@ reset_PREFS(self, mode=0) -> None:
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
             # restore the viewport prior to entering the Camera sensor mode and clearup all related data
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
-                flam3h_general_utils.util_set_stashed_cam()
-                flam3h_general_utils.util_clear_stashed_cam_data()
+                self.util_set_stashed_cam()
+                self.util_clear_stashed_cam_data()
 
 
 
@@ -1687,14 +1742,14 @@ reset_PREFS(self, mode=0) -> None:
             mode (int): 0: skip "doff" 1: reset "doff"
         """    
         node = self.node
-        node.setParms({GLB_DENSITY: density}) # type: ignore
-        node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
-        node.setParms({GLB_ITERATIONS: iter}) # type: ignore
+        node.setParms({GLB_DENSITY: density})
+        node.setParms({GLB_DENSITY_PRESETS: 0})
+        node.setParms({GLB_ITERATIONS: iter})
         if mode:
-            node.setParms({SYS_DO_FF: 0}) # type: ignore
-        node.setParms({SYS_TAG: 1}) # type: ignore
-        node.setParms({SYS_TAG_SIZE: 0}) # type: ignore
-        node.setParms({SYS_RIP: 0}) # type: ignore
+            node.setParms({SYS_DO_FF: 0})
+        node.setParms({SYS_TAG: 1})
+        node.setParms({SYS_TAG_SIZE: 0})
+        node.setParms({SYS_RIP: 0})
         
 
     def reset_MB(self) -> None:
@@ -1714,14 +1769,14 @@ reset_PREFS(self, mode=0) -> None:
             mode (int, optional): _description_. Defaults to 0.
         """        
         node = self.node
-        node.setParms({PREFS_TOGGLE: 1}) # type: ignore
-        node.setParms({PREFS_XAOS_MODE: 0}) # type: ignore
-        node.setParms({PREFS_CAMERA_HANDLE: 0}) # type: ignore
-        node.setParms({PREFS_CAMERA_CULL: 0}) # type: ignore
-        node.setParms({PREFS_CAMERA: ""}) # type: ignore
-        node.setParms({PREFS_CAMERA_CULL_AMOUNT: 0.99}) # type: ignore
+        node.setParms({PREFS_TOGGLE: 1})
+        node.setParms({PREFS_XAOS_MODE: 0})
+        node.setParms({PREFS_CAMERA_HANDLE: 0})
+        node.setParms({PREFS_CAMERA_CULL: 0})
+        node.setParms({PREFS_CAMERA: ""})
+        node.setParms({PREFS_CAMERA_CULL_AMOUNT: 0.99})
         if mode:
-            node.setParms({PREFS_F3C: 1}) # type: ignore
+            node.setParms({PREFS_F3C: 1})
 
 
 
@@ -1742,35 +1797,37 @@ class flam3h_iterator_utils:
     """
 STATIC METHODS:
 
-get_user_data(node: hou.Node, data="Marked iterator") -> Union[int, bool]:
+get_user_data(node: hou.SopNode, data="Marked iterator") -> Union[int, bool]:
 
-exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
+exist_user_data(node: hou.SopNode, data="Marked iterator") -> bool:
 
-set_comment_and_user_data_iterator(node: hou.Node, value: str, data="Marked iterator") -> None:
+set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data="Marked iterator") -> None:
 
-del_comment_and_user_data_iterator(node: hou.Node, data="Marked iterator") -> None:
+del_comment_and_user_data_iterator(node: hou.SopNode, data="Marked iterator") -> None:
 
 flam3h_init_hou_session_iterator_data(node) -> None:
 
 flam3h_init_hou_session_ff_data(node) -> None:
 
-iterator_mpidx_mem_set(node: hou.Node, data: int) -> None:
+iterator_mpidx_mem_set(node: hou.SopNode, data: int) -> None:
 
 menu_T(mode: int) -> list:
 
-paste_from_list(node: hou.Node, flam3node: hou.Node, prm_list: tuple, id: str, id_from: str) -> None:
+paste_from_list(node: hou.SopNode, flam3node: hou.SopNode, prm_list: tuple, id: str, id_from: str) -> None:
 
-pastePRM_T_from_list(node: hou.Node, flam3node: hou.Node, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
+pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 
 paste_save_note(_note: str) -> str:
 
-paste_set_note(node: hou.Node, flam3node: hou.Node, int_mode: int, str_section: str, id: str, id_from: str) -> None:
+paste_set_note(node: hou.SopNode, flam3node: hou.SopNode, int_mode: int, str_section: str, id: str, id_from: str) -> None:
 
-auto_set_xaos_data_get(node: hou.Node, data_name: str) -> Union[list, None]:
+auto_set_xaos_data_get(node: hou.SopNode, data_name: str) -> Union[list, None]:
 
-auto_set_xaos_data_set(node: hou.Node, data_name: str, data: Union[list, tuple]) -> None:
+auto_set_xaos_data_set(node: hou.SopNode, data_name: str, data: Union[list, tuple]) -> None:
 
 METHODS:
+
+flam3h_paste_reset_hou_session_data(self) -> None:
 
 menu_global_density(self) -> list:
 
@@ -1782,9 +1839,9 @@ menu_copypaste(self) -> list:
 
 menu_copypaste_FF(self) -> list:
 
-prm_paste_update_for_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
 
-prm_paste_update_for_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+prm_paste_update_for_undo_ff(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
 
 prm_paste_CTRL(self, id: int) -> None:
 
@@ -1830,7 +1887,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def get_user_data(node: hou.Node, data="Marked iterator") -> Union[int, bool]:
+    def get_user_data(node: hou.SopNode, data="Marked iterator") -> Union[int, bool]:
         d_type = "nodeinfo_"
         
         data_name = f"{d_type}{data}"
@@ -1842,7 +1899,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def exist_user_data(node: hou.Node, data="Marked iterator") -> bool:
+    def exist_user_data(node: hou.SopNode, data="Marked iterator") -> bool:
         d_type = "nodeinfo_"
         
         data_name = f"{d_type}{data}"
@@ -1853,7 +1910,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def set_comment_and_user_data_iterator(node: hou.Node, value: str, data="Marked iterator") -> None:
+    def set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data="Marked iterator") -> None:
         
         d_type = "nodeinfo_"
         
@@ -1895,7 +1952,7 @@ iterator_keep_last_weight(self) -> None:
 
         
     @staticmethod
-    def del_comment_and_user_data_iterator(node: hou.Node, data="Marked iterator") -> None:
+    def del_comment_and_user_data_iterator(node: hou.SopNode, data="Marked iterator") -> None:
         
         d_type = "nodeinfo_"
         
@@ -1941,7 +1998,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod            
-    def flam3h_init_hou_session_iterator_data(node) -> None:
+    def flam3h_init_hou_session_iterator_data(node: hou.SopNode) -> None:
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
@@ -1960,7 +2017,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def flam3h_init_hou_session_ff_data(node) -> None:
+    def flam3h_init_hou_session_ff_data(node: hou.SopNode) -> None:
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
@@ -1979,11 +2036,11 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def iterator_mpidx_mem_set(node: hou.Node, data: int) -> None:
+    def iterator_mpidx_mem_set(node, data: int) -> None:
         # unlock
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
         # set
-        node.setParms({FLAM3H_DATA_PRM_MPIDX: data}) # type: ignore
+        node.setParms({FLAM3H_DATA_PRM_MPIDX: data})
         # lock
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
@@ -2015,13 +2072,13 @@ iterator_keep_last_weight(self) -> None:
 
         
     @staticmethod
-    def paste_from_list(node: hou.Node, flam3node: Union[hou.Node, None], prm_list: tuple, id: str, id_from: str) -> None:
+    def paste_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prm_list: tuple, id: str, id_from: str) -> None:
         """Paste value for a parameter, including keyframes if any,
         between different multiparameter indexes.
         
         Args:
-            node (hou.Node): [current hou.Node to set]
-            flam3node (hou.Node): [hou.Node to copy values from]
+            node (hou.SopNode): [current hou.SopNode to set]
+            flam3node (hou.SopNode): [hou.SopNode to copy values from]
             prm_list (tuple): [parameters list to query and set]
             id (str): [current multiparamter index]
             id_from (str): [multiparameter index to copy from]
@@ -2054,15 +2111,15 @@ iterator_keep_last_weight(self) -> None:
                 
     
     @staticmethod           
-    def pastePRM_T_from_list(node: hou.Node, flam3node: Union[hou.Node, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
+    def pastePRM_T_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
         """Paste variation parameter values
         between different multiparameter indexes.
         In case of a parametric variation, it will paste its parameters using:
         flam3h_iterator_utils.paste_from_list() definition.
          
         Args:
-            node (hou.Node): [current hou.Node to set]
-            flam3node (hou.Node): [hou.Node to copy values from]
+            node (hou.SopNode): [current hou.SopNode to set]
+            flam3node (hou.SopNode): [hou.SopNode to copy values from]
             prmT_list (tuple): [variations list - types]
             varsPRM (tuple): [variation's parmaters list]
             id (str): [current multiparamter index]
@@ -2107,12 +2164,12 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def paste_set_note(node: hou.Node, flam3node: Union[hou.Node, None], int_mode: int, str_section: str, id: str, id_from: str) -> None:
+    def paste_set_note(node: hou.SopNode, flam3node: Union[hou.SopNode, None], int_mode: int, str_section: str, id: str, id_from: str) -> None:
         """After a copy/paste, it will set the note parameter with a string indicating what has been pasted ( when copy/paste iterator's sections )
         
         Args:
-            node (hou.Node): [current hou.Node to set]
-            flam3node (hou.Node): [[hou.Node to copy values from]
+            node (hou.SopNode): [current hou.SopNode to set]
+            flam3node (hou.SopNode): [[hou.SopNode to copy values from]
             int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
             str_section (str): [section name string to be copied, this is only for msg print info]
             id (str): [current multiparamter index]
@@ -2158,12 +2215,12 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def auto_set_xaos_data_get(node: hou.Node, data_name: str) -> Union[list, None]:
+    def auto_set_xaos_data_get(node: hou.SopNode, data_name: str) -> Union[list, None]:
         """Retrieve the desire data from FLAM3H data srting parameters
     and reconvert it back to usable types.
 
         Args:
-            self (hou.Node): FLAM3H node
+            self (hou.SopNode): FLAM3H node
             data_name (str): The FLAM3H parameter name you desire to get.
 
         Returns:
@@ -2186,12 +2243,12 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def auto_set_xaos_data_set(node: hou.Node, data_name: str, data: Union[list, tuple]) -> None:
+    def auto_set_xaos_data_set(node: hou.SopNode, data_name: str, data: Union[list, tuple]) -> None:
         """Set the data_name data into FLAM3H data parameters.
     Note that all the data will be of type: string.
 
         Args:
-            self (hou.Node): FLAM3H node
+            self (hou.SopNode): FLAM3H node
             data_name (str): The parameter name you desire to swt.
             data (list): The data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
         """
@@ -2434,7 +2491,7 @@ iterator_keep_last_weight(self) -> None:
                 return menu
         
         
-    def prm_paste_update_for_undo(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+    def prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
         """Updated data for copy/paste iterator's methods in case of Undos.
         It will make sure that the houdini.session data about the iterator index
         will always be up to date.
@@ -2442,10 +2499,10 @@ iterator_keep_last_weight(self) -> None:
         It is for: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
-            node (hou.Node): the current FLAM3H node
+            node (hou.SopNode): the current FLAM3H node
 
         Returns:
-            tuple[Union[hou.Node, None], Union[int, None], bool]: 
+            tuple[Union[hou.SopNode, None], Union[int, None], bool]: 
             
             from_FLAM3H_NODE -> is the node we are copying the data from. 
             
@@ -2531,7 +2588,7 @@ iterator_keep_last_weight(self) -> None:
         return from_FLAM3H_NODE, mp_id_from, isDELETED
 
 
-    def prm_paste_update_for_undo_ff(self, node: hou.Node) -> tuple[Union[hou.Node, None], Union[int, None], bool]:
+    def prm_paste_update_for_undo_ff(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
         """Updated data for copy/paste iterator's methods in case of Undos.
         It will make sure that the houdini.session data about the iterator index
         will always be up to date.
@@ -2539,10 +2596,10 @@ iterator_keep_last_weight(self) -> None:
         It is for: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
-            node (hou.Node): the current FLAM3H node
+            node (hou.SopNode): the current FLAM3H node
 
         Returns:
-            tuple[Union[hou.Node, None], Union[int, None], bool]: 
+            tuple[Union[hou.SopNode, None], Union[int, None], bool]: 
             
             from_FLAM3H_NODE -> is the node we are copying the data from. 
             
@@ -2594,12 +2651,12 @@ iterator_keep_last_weight(self) -> None:
 
 
 
-    def prm_paste_CTRL(self, id: int, node: hou.Node) -> None:
+    def prm_paste_CTRL(self, id: int, node: hou.SopNode) -> None:
         """Everything about paste iterator's data.
 
         Args:
             id (int): current multi parameter index
-            node (hou.Node): this FLAM3H node
+            node (hou.SopNode): this FLAM3H node
         """    
 
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -2652,12 +2709,12 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
-    def prm_paste_SHIFT(self, id: int, node: hou.Node) -> None:
+    def prm_paste_SHIFT(self, id: int, node: hou.SopNode) -> None:
         """Everything about unmarking iterators from being copied.
 
         Args:
             id (int): current multi parameter index
-            node (hou.Node): this FLAM3H node
+            node (hou.SopNode): this FLAM3H node
         """   
   
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -2706,12 +2763,12 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
 
-    def prm_paste_CLICK(self, id: int, node: hou.Node) -> None:
+    def prm_paste_CLICK(self, id: int, node: hou.SopNode) -> None:
         """Everything about marking iterators for being copied.
 
         Args:
             id (int): current multi parameter index
-            node (hou.Node): this FLAM3H node
+            node (hou.SopNode): this FLAM3H node
         """        
         
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -2793,11 +2850,11 @@ iterator_keep_last_weight(self) -> None:
                     self.prm_paste_CLICK(id, node)
     
     
-    def prm_paste_FF_CTRL(self, node: hou.Node) -> None:
+    def prm_paste_FF_CTRL(self, node: hou.SopNode) -> None:
         """Everything about paste FF's data.
 
         Args:
-            node (hou.Node): this FLAM3H node
+            node (hou.SopNode): this FLAM3H node
         """    
         
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
@@ -2826,11 +2883,11 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
     
     
-    def prm_paste_FF_SHIFT(self, node: hou.Node) -> None:
+    def prm_paste_FF_SHIFT(self, node: hou.SopNode) -> None:
         """Everything about unmarking FF from being copied.
 
         Args:
-            node (hou.Node): this FLAM3H node
+            node (hou.SopNode): this FLAM3H node
         """  
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
@@ -2855,11 +2912,11 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
-    def prm_paste_FF_CLICK(self, node: hou.Node) -> None:
+    def prm_paste_FF_CLICK(self, node: hou.SopNode) -> None:
         """Everything about marking FF for being copied.
 
         Args:
-            node (hou.Node): this FLAM3H node
+            node (hou.SopNode): this FLAM3H node
         """ 
         
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
@@ -3065,7 +3122,7 @@ iterator_keep_last_weight(self) -> None:
         # Convert xaos
         xaos_new = f3d.out_xf_xaos_from(0)
         # updated CachedUserData: flam3h_xaos_iterators_prev
-        flam3h_iterator_utils.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_new)
+        self.auto_set_xaos_data_set(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV, xaos_new)
         
         for iter in range(f3d.iter_count):
             if xaos_new[iter]:
@@ -3577,7 +3634,7 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
         # init/clear copy/paste iterator's data and prm
-        flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
+        self.flam3h_paste_reset_hou_session_data()
         
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
@@ -3851,7 +3908,7 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
             
             # init/clear copy/paste iterator's data and prm
-            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
+            self.flam3h_paste_reset_hou_session_data()
             
             # Print to Houdini's status bar
             _MSG = f"{str(node)}: {_MSG_str}"
@@ -3941,9 +3998,7 @@ get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
 
-isJSON_F3H(node: hou.Node, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
-
-clamp(x):
+isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
 
 rgb_to_hex(rgb: tuple) -> str:
 
@@ -4023,11 +4078,11 @@ reset_CP(self, mode=0) -> None:
 
 
     @staticmethod
-    def isJSON_F3H(node: hou.Node, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
         """Check if the loaded palette lib file is a valid FLAM3H palette json file.
 
         Args:
-            node (hou.Node): current FLAM3H node
+            node (hou.SopNode): current FLAM3H node
             filepath (Union[str, bool]): Palette lib full file path.
             msg (bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
             parm_path_name (str): Default to global: CP_PALETTE_LIB_PATH. The actual Houdini's palette file parameter name.
@@ -4068,19 +4123,6 @@ reset_CP(self, mode=0) -> None:
             return False
         
         
-    @staticmethod  
-    def clamp(x) -> float:
-        """clamp a value to be between Zero and 255.
-
-        Args:
-            x (_type_): the value to clamp.
-
-        Returns:
-            _type_: value clamped between Zero and 255.
-        """        
-        return max(0, min(x, 255))
-        
-        
     @staticmethod
     def rgb_to_hex(rgb: tuple) -> str:
         """Convert a RGB color value into HEX color value.
@@ -4091,7 +4133,7 @@ reset_CP(self, mode=0) -> None:
         Returns:
             str: HEX color value
         """        
-        vals = [flam3h_palette_utils.clamp(255*x) for x in rgb]
+        vals = [flam3h_general_utils.clamp(255*x) for x in rgb]
         hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
         return hex
 
@@ -4704,7 +4746,9 @@ the entire xaos string will be reset to all weights set to that number.
 
 If you type a floating point number,
 the entire xaos string will be reset to all weights set to the integer part of that number.
-ex: 123.876 will become -> 123"""
+ex: 123.876 will become -> 123
+
+If you type a negative number, it will be clamped to ZERO."""
         
         node = self.node
         autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
@@ -4850,6 +4894,7 @@ OUT_XML_FLAME_RENDER_BLUE_CURVE = 'blue_curve'
 OUT_XML_FLAME_RENDER_RED_CURVE_VAL=OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL=OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL=OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
+# Note that those are the FLAM3H UI parameter's names for the OUT Render properties tab.
 OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
                                OUT_XML_FLAME_SIZE: 'outres',
                                OUT_XML_FLAME_CENTER: 'outcenter',
@@ -5272,8 +5317,7 @@ __get_flame_count(self, flames: list) -> int:
                 root = tree.getroot()
                 if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                     # If there are flames, proceed
-                    chk = tuple([f for f in root.iter(XML_FLAME_NAME)])
-                    if chk:
+                    if tuple([f for f in root.iter(XML_FLAME_NAME)]):
                         return True
                     else:
                         return False
@@ -5395,7 +5439,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         _xml_tree ([class]): [inherit properties methods from the _xml_tree class]
     """  
 
-    def __init__(self, node: hou.Node, xmlfile: str) -> None:
+    def __init__(self, node: hou.SopNode, xmlfile: str) -> None:
         """
         Args:
             xmlfile (str): [xml *.flame v_type file to load]
@@ -5809,7 +5853,7 @@ class in_flame_iter_data(in_flame):
         in_flame ([class]): [inherit properties methods from the in_flame class]
     """  
     
-    def __init__(self, node: hou.Node, xmlfile: str, idx=0) -> None:
+    def __init__(self, node: hou.SopNode, xmlfile: str, idx=0) -> None:
         """
         Args:
             xmlfile (str): xmlfile (str): [xml flame v_type file to load]
@@ -5984,7 +6028,7 @@ in_get_idx_by_key(key: str) -> Union[int, None]:
 in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
 
 in_set_affine(mode: int, 
-              node: hou.Node, 
+              node: hou.SopNode, 
               prx: str, 
               apo_data: in_flame_iter_data, 
               flam3h_prm_names: flam3h_iterator_prm_names, 
@@ -5992,7 +6036,7 @@ in_set_affine(mode: int,
               ) -> None:
 
 in_set_data(mode: int, 
-            node: hou.Node, 
+            node: hou.SopNode, 
             prx: str, 
             apo_data: list, 
             prm_name: str, 
@@ -6003,7 +6047,7 @@ in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
 def in_get_var_name_from_dict(mydict: dict, idx: int) -> str:
 
-in_v_parametric_var_collect(node: hou.Node, 
+in_v_parametric_var_collect(node: hou.SopNode, 
                             mode: int, 
                             apo_prm: tuple, 
                             xform: dict, 
@@ -6013,7 +6057,7 @@ in_v_parametric_var_collect(node: hou.Node,
 
 in_v_parametric(app: str, 
                 mode: int, 
-                node: hou.Node, 
+                node: hou.SopNode, 
                 mp_idx: int, 
                 t_idx: int, 
                 xform: dict, 
@@ -6025,7 +6069,7 @@ in_v_parametric(app: str,
 
 in_v_parametric_PRE(app: str, 
                     mode: int, 
-                    node: hou.Node, 
+                    node: hou.SopNode, 
                     mp_idx: int, 
                     t_idx: int, 
                     xform: dict, 
@@ -6037,7 +6081,7 @@ in_v_parametric_PRE(app: str,
 
 in_v_parametric_POST(app: str, 
                      mode: int, 
-                     node: hou.Node, 
+                     node: hou.SopNode, 
                      mp_idx: int, 
                      t_idx: int, 
                      xform: dict, 
@@ -6048,7 +6092,7 @@ in_v_parametric_POST(app: str,
                      ) -> None:
 
 in_v_parametric_PRE_FF(app: str, 
-                       node: hou.Node, 
+                       node: hou.SopNode, 
                        t_idx: int, 
                        xform: dict, 
                        v_type: int, 
@@ -6058,7 +6102,7 @@ in_v_parametric_PRE_FF(app: str,
                        ) -> None:
 
 in_v_parametric_POST_FF(app: str, 
-                        node: hou.Node, 
+                        node: hou.SopNode, 
                         t_idx: int, 
                         xform: dict, 
                         v_type: int, 
@@ -6068,7 +6112,7 @@ in_v_parametric_POST_FF(app: str,
                         ) -> None:
 
 in_v_generic(mode: int, 
-             node: hou.Node, 
+             node: hou.SopNode, 
              mp_idx: int, 
              t_idx: int, 
              v_type: int, 
@@ -6076,7 +6120,7 @@ in_v_generic(mode: int,
              ) -> None:
 
 in_v_generic_PRE(mode: int, 
-                 node: hou.Node, 
+                 node: hou.SopNode, 
                  mp_idx: int, 
                  t_idx: int, 
                  v_type: int, 
@@ -6084,37 +6128,37 @@ in_v_generic_PRE(mode: int,
                  ) -> None:
 
 in_v_generic_POST(mode: int, 
-                  node: hou.Node, 
+                  node: hou.SopNode, 
                   mp_idx: int, 
                   t_idx: int, 
                   v_type: int, 
                   v_weight: float
                   ) -> None:
 
-in_v_generic_PRE_FF(node: hou.Node, 
+in_v_generic_PRE_FF(node: hou.SopNode, 
                     t_idx: int, 
                     v_type: int, 
                     v_weight: float
                     ) -> None:
 
-in_v_generic_POST_FF(node: hou.Node, 
+in_v_generic_POST_FF(node: hou.SopNode, 
                      t_idx: int, 
                      v_type: int, 
                      v_weight: float
                      ) -> None:
 
 in_v_pre_blur(mode: int, 
-              node: hou.Node, 
+              node: hou.SopNode, 
               mp_idx: int, 
               pb_weights: tuple
               ) -> None:
 
-in_util_check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
+in_util_check_negative_weight(node: hou.SopNode, w: float, v_type_name: str) -> float:
 
 in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
 
 in_flam3h_set_iterators(mode: int, 
-                        node: hou.Node, 
+                        node: hou.SopNode, 
                         apo_data: in_flame_iter_data, 
                         preset_id: int, 
                         exclude_keys: tuple
@@ -6126,9 +6170,9 @@ in_util_join_vars_grp(groups: list) -> str:
 
 in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
 
-in_set_iter_on_load(node: hou.Node, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
+in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 
-in_load_stats_msg(node: hou.Node, preset_id: int, apo_data: in_flame_iter_data) -> str:
+in_load_stats_msg(node: hou.SopNode, preset_id: int, apo_data: in_flame_iter_data) -> str:
 
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
 
@@ -6146,7 +6190,7 @@ use_iter_on_load_callback(self) -> None:
 
 in_to_flam3h_reset_user_data(self) -> None:
 
-in_to_flam3h_reset_iterators_parms(self, node: hou.Node, in_flame_iter_count: int) -> None:
+in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
 
 in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int, str]:
 
@@ -6361,7 +6405,7 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod
     def in_set_affine(mode: int, 
-                      node: hou.Node, 
+                      node: hou.SopNode, 
                       prx: str, 
                       apo_data: in_flame_iter_data, 
                       flam3h_prm_names: flam3h_iterator_prm_names, 
@@ -6371,7 +6415,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             prx (str): [parameter name prefix]
             apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
             n (flam3h_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[in_flame_iter_data]]
@@ -6400,7 +6444,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_set_data(mode: int, 
-                    node: hou.Node, 
+                    node: hou.SopNode, 
                     prx: str, 
                     apo_data: list, 
                     prm_name: str, 
@@ -6419,7 +6463,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             prx (str): [parameter name prefix]
             apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
             prm_name (str): [parameter name for the current data we want to set]
@@ -6477,7 +6521,7 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_v_parametric_var_collect(node: hou.Node, 
+    def in_v_parametric_var_collect(node: hou.SopNode, 
                                     mode: int, 
                                     apo_prm: tuple, 
                                     xform: dict, 
@@ -6492,7 +6536,7 @@ reset_IN(self, mode=0) -> None:
         especially considering having many iterators each with parametric variations at the same time.
         
         Args:
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mode (int): [0 for iterator. 1 for FF]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
@@ -6529,7 +6573,7 @@ reset_IN(self, mode=0) -> None:
     @staticmethod
     def in_v_parametric(app: str, 
                         mode: int, 
-                        node: hou.Node, 
+                        node: hou.SopNode, 
                         mp_idx: int, 
                         t_idx: int, 
                         xform: dict, 
@@ -6544,7 +6588,7 @@ reset_IN(self, mode=0) -> None:
         Args:
             app (str): [What software were used to generate this flame preset]
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
@@ -6578,7 +6622,7 @@ reset_IN(self, mode=0) -> None:
     @staticmethod
     def in_v_parametric_PRE(app: str, 
                             mode: int, 
-                            node: hou.Node, 
+                            node: hou.SopNode, 
                             mp_idx: int, 
                             t_idx: int, 
                             xform: dict, 
@@ -6593,7 +6637,7 @@ reset_IN(self, mode=0) -> None:
         Args:
             app (str): [What software were used to generate this flame preset]
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
@@ -6624,7 +6668,7 @@ reset_IN(self, mode=0) -> None:
     @staticmethod
     def in_v_parametric_POST(app: str, 
                              mode: int, 
-                             node: hou.Node, 
+                             node: hou.SopNode, 
                              mp_idx: int, 
                              t_idx: int, 
                              xform: dict, 
@@ -6639,7 +6683,7 @@ reset_IN(self, mode=0) -> None:
         Args:
             app (str): [What software were used to generate this flame preset]
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
@@ -6669,7 +6713,7 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod    
     def in_v_parametric_PRE_FF(app: str, 
-                               node: hou.Node, 
+                               node: hou.SopNode, 
                                t_idx: int, 
                                xform: dict, 
                                v_type: int, 
@@ -6682,7 +6726,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             app (str): [What software were used to generate this flame preset]
-            node (hou.Node): [Current FLAM3H houdini node]
+            node (hou.SopNode): [Current FLAM3H houdini node]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_prevarsT_FF, flam3h_iterator.sec_prevarsW_FF]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
@@ -6709,7 +6753,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_parametric_POST_FF(app: str, 
-                                node: hou.Node, 
+                                node: hou.SopNode, 
                                 t_idx: int, 
                                 xform: dict, 
                                 v_type: int, 
@@ -6722,7 +6766,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             app (str): [What software were used to generate this flame preset]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_postvarsT_FF, flam3h_iterator.sec_postvarsW_FF]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
@@ -6749,7 +6793,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic(mode: int, 
-                     node: hou.Node, 
+                     node: hou.SopNode, 
                      mp_idx: int, 
                      t_idx: int, 
                      v_type: int, 
@@ -6759,7 +6803,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
@@ -6777,7 +6821,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic_PRE(mode: int, 
-                         node: hou.Node, 
+                         node: hou.SopNode, 
                          mp_idx: int, 
                          t_idx: int, 
                          v_type: int, 
@@ -6787,7 +6831,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
@@ -6800,7 +6844,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_generic_POST(mode: int, 
-                          node: hou.Node, 
+                          node: hou.SopNode, 
                           mp_idx: int, 
                           t_idx: int, 
                           v_type: int, 
@@ -6810,7 +6854,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
@@ -6822,7 +6866,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_v_generic_PRE_FF(node: hou.Node, 
+    def in_v_generic_PRE_FF(node: hou.SopNode, 
                             t_idx: int, 
                             v_type: int, 
                             v_weight: float
@@ -6830,7 +6874,7 @@ reset_IN(self, mode=0) -> None:
         """Set a FLAM3H FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
             weight (float): [Current variation weight]
@@ -6840,7 +6884,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_v_generic_POST_FF(node: hou.Node, 
+    def in_v_generic_POST_FF(node: hou.SopNode, 
                              t_idx: int, 
                              v_type: int, 
                              v_weight: float
@@ -6848,7 +6892,7 @@ reset_IN(self, mode=0) -> None:
         """Set a FLAM3H FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
             weight (float): [Current variation weight]
@@ -6859,7 +6903,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_v_pre_blur(mode: int, 
-                      node: hou.Node, 
+                      node: hou.SopNode, 
                       mp_idx: int, 
                       pb_weights: tuple
                       ) -> None:
@@ -6867,7 +6911,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.Node): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3 houdini node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             pb_weights (tuple): [all iterators pre_blur weight values]
         """
@@ -6879,12 +6923,12 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_util_check_negative_weight(node: hou.Node, w: float, v_type_name: str) -> float:
+    def in_util_check_negative_weight(node: hou.SopNode, w: float, v_type_name: str) -> float:
         """FLAM3H do not allow negative variation's weights for the PRE and POST variations.
         This function will turn a negative weight into its absoulute value instead.
 
         Args:
-            node (hou.Node): FLAM3H node
+            node (hou.SopNode): FLAM3H node
             w (float): The variation weight to check.
             v_type_name (str): The name of the variation to print out if it turn out to have its weight with a negative value.
 
@@ -6922,7 +6966,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_flam3h_set_iterators(mode: int, 
-                                node: hou.Node, 
+                                node: hou.SopNode, 
                                 apo_data: in_flame_iter_data, 
                                 preset_id: int, 
                                 exclude_keys: tuple
@@ -6933,7 +6977,7 @@ reset_IN(self, mode=0) -> None:
 
         Args:
             mode (int): iterator or FF
-            node (hou.Node): FLAM3H node
+            node (hou.SopNode): FLAM3H node
             apo_data (in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
             preset_id (int): the flame preset we are loading out of all the presets included in the flame file
             exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
@@ -7142,12 +7186,12 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_set_iter_on_load(node: hou.Node, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
+    def in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
         """WHen loading a FLame preset, t=set the FLAM3H iteration number
         to the value backed into the Flame preset name we just loaded.
 
         Args:
-            node (hou.Node): FLAM3H houdini node
+            node (hou.SopNode): FLAM3H houdini node
             preset_id (int): The Flame preset we loaded
 
         Returns:
@@ -7172,11 +7216,11 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_load_stats_msg(node: hou.Node, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
+    def in_load_stats_msg(node: hou.SopNode, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
 
         Args:
-            node (hou.Node): The current FLAM3H houdini node.
+            node (hou.SopNode): The current FLAM3H houdini node.
             preset_id (int): The loaded XML Flame preset
             apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
 
@@ -7412,7 +7456,7 @@ reset_IN(self, mode=0) -> None:
         """Copy the loaded IN Flame preset render properties into the OUT Flame render properties to be written out. 
 
         Args:
-            kwargs (hou.Node): houdini kwargs.
+            kwargs (hou.SopNode): houdini kwargs.
             clipboard (bool): True: load from clipboard. False: load from disk file.
             apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
         """        
@@ -7564,12 +7608,12 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_to_flam3h_reset_iterators_parms(self, node: hou.Node, in_flame_iter_count: int) -> None:
+    def in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
         """Prior to this, I was setting the iterator's count to zero and then back to the requested count to reset all their values.
         It was not the fastest solution and this is actually making it more performant overall.
 
         Args:
-            node (hou.Node): This FLAM3H node
+            node (hou.SopNode): This FLAM3H node
             in_flame_iter_count (int): IN flame iterator's count ( number of xforms )
         """        
         # iterators
@@ -7586,7 +7630,7 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_to_flam3h_clipboard_data(self, node: hou.Node) -> tuple[Union[str, None], bool, int, str]:
+    def in_to_flam3h_clipboard_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str]:
         """Check if we are able to parse a flame from the clipboard
         and provide some output data to work with if that is the case.
 
@@ -7870,7 +7914,7 @@ out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
 out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
-out_flame_default_name(node: hou.Node, autoadd: int) -> str:
+out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 
 out_util_round_float(VAL) -> str:
 
@@ -7882,15 +7926,15 @@ out_util_check_duplicate(vars: list) -> bool:
 
 out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 
-out_check_outpath(node: hou.Node, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
 
 out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
 
 out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
 
-out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
+out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
 
-out_xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
+out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
 
 _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
@@ -7924,14 +7968,14 @@ out_auto_change_iter_num_to_prm(self) -> None:
 
 out_flame_properties_build(kwargs: dict) -> dict:
 
-out_flam3_compatibility_check_and_msg(node: hou.Node, 
+out_flam3_compatibility_check_and_msg(node: hou.SopNode, 
                                       names_VARS: list, 
                                       names_VARS_PRE: list, 
                                       flam3h_do_FF: list, 
                                       names_VARS_FF: list, 
                                       names_VARS_POST_FF: list) -> bool:
                                       
-out_populate_xform_vars_XML(node: hou.Node, 
+out_populate_xform_vars_XML(node: hou.SopNode, 
                             varsPRM: tuple, 
                             TYPES_tuple: tuple, 
                             WEIGHTS_tuple: tuple, 
@@ -8120,11 +8164,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         
     @staticmethod
-    def out_flame_default_name(node: hou.Node, autoadd: int) -> str:
+    def out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
         """Create a default name to be used for the output Flame file path.
 
         Args:
-            node (hou.Node): Current FLAM3H houdini node
+            node (hou.SopNode): Current FLAM3H houdini node
             autoadd (int): Autoadd ON/OFF value. If ON, it will auto add the iteration number to the filename, otherwise not.
 
         Returns:
@@ -8233,11 +8277,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     
     @staticmethod
-    def out_check_outpath(node: hou.Node, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+    def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
         """Check for the validity of the provided output file path.
 
         Args:
-            node (hou.Node): Current FLAM3H node.
+            node (hou.SopNode): Current FLAM3H node.
             infile (str): THe file path to check.
             file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file.
             prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file.
@@ -8362,9 +8406,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             xaos_cleaned.append(invert[::-1])
         return xaos_cleaned
     
-    
+
     @staticmethod
-    def out_xaos_collect(node: hou.Node, iter_count: int, prm: str) -> list[list[str]]:
+    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
         """Collect all xaos command string weights.
         Provide also a form of Undo in the case we enter non numeric characters instead.
         
@@ -8375,15 +8419,19 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         - Fill with all: 1
         
         - Fill with all: 0 ( Zero )
+        
+        Negative values will be clamped to ZERO.
 
         Args:
-            node (hou.Node): FLAM3H node
+            node (hou.SopNode): FLAM3H node
             iter_count (int): Iterator's count
             prm (str): xaos varnote parameter
 
         Returns:
             list[list[str]]: A list of xaos list[str] of values
-        """        
+        """   
+        _MAX = 1000
+
         val = []
         val_prev = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV)
         
@@ -8405,7 +8453,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 # if the first element of the strip is: "xaos"
                 elif strip[0].lower().strip() == 'xaos':
                     try:
-                        build_strip = [x.strip() for x in strip[1:iter_count+1] if x]
+                        build_strip = [str(flam3h_general_utils.clamp(float(x.strip()), _MAX)) for x in strip[1:iter_count+1] if x]
                         # The following is only used to check if any of the xaos weights is not a legit number.
                         # If not it will raise an exception and the entire xaos weight string for this iterator will be filled with a value of '1'
                         build_f = [float(x.strip()) for x in build_strip]
@@ -8436,12 +8484,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                             isNUM = True
                     except:
                         pass
-                    
-                    # If a number is typed, fill all xaos weights with that number
+                    # If a number is typed, fill all xaos weights with that number.
                     # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
                     if isNUM:
-                        v = []
-                        [v.append(str(int(float(iter_xaos.lower().strip())))) for x in range(iter_count)]
+                        v = [str(int(flam3h_general_utils.clamp(float(iter_xaos.lower().strip()), _MAX))) for x in range(iter_count)]
                         val.append(v)
                     else:
                         # Otherwise reset to all values of 1
@@ -8454,11 +8500,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
 
     @staticmethod
-    def out_xaos_collect_vactive(node: hou.Node, fill: list[np.array], prm: str) -> list[list[str]]:
+    def out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
         """Check for any NO-active iterators and account for those.
 
         Args:
-            node (hou.Node): FLAM3H node
+            node (hou.SopNode): FLAM3H node
             fill (list[np.array]): List of [np.array] representing all xaos weights.
             prm (str): iterator vactive parameter.
 
@@ -8730,7 +8776,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
         fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count)))
+        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count))).tolist()
         if mode:
             xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
@@ -8977,7 +9023,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         It will also return a list of used variations in the provided iterator/xform.
         
         Args:
-            node (hou.Node): FLAM3H houdini node
+            node (hou.SopNode): FLAM3H houdini node
             varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
             TYPES_tuple (tuple): FLAM3H variation's types parameters names.
             WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
@@ -9018,7 +9064,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                             XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
         return names
 
-        
+
+
     def out_build_XML(self, flame: lxmlET.Element) -> bool: # type: ignore
         """Build the XML Flame data to be then written out.
 
