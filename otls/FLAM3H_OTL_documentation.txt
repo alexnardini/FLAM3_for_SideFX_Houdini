@@ -1662,28 +1662,7 @@ Web links:
 
     *Variations information.* _Here you will find information about the available variations/plugins currently implemented._
 
- 
-:box:
-    #display: rounded white
-    
-    == Variations: Dependent == (VARDEPENDENT)
 
-    
-_Dependant variation's affine coefficients:_
-
-:box:
-    #display: rounded gray
-    
-    A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters.
-    The dependent variations and the affine coefficients they employ are listed below:
-    
-    *_Waves_*: `O[0] X[1]   Y[1] O[1]`
-    
-    *_Popcorn_*: `O[0]  O[1]`
-    
-    *_Rings_*: `O[0]`
-    
-    *_Fan_*: `O[0]`
 
 
 :box:
@@ -1806,6 +1785,32 @@ _A list of all variations included with FLAM3H:_
     *Whorl*
 
 
+
+
+:box:
+    #display: rounded white
+    
+    == Variations: Dependent == (VARDEPENDENT)
+
+    
+_Dependent variation's affine coefficients:_
+
+:box:
+    #display: rounded gray
+    
+    A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters.
+    The dependent variations and the affine coefficients they employ are listed below:
+    
+    *_Waves_*: `O[0] X[1]   Y[1] O[1]`
+    
+    *_Popcorn_*: `O[0]  O[1]`
+    
+    *_Rings_*: `O[0]`
+    
+    *_Fan_*: `O[0]`
+
+
+
 :box:
     #display: rounded white
     
@@ -1919,11 +1924,11 @@ NOTE:
     - *Whorl*           ->      _In, Out_
 
 
-
-
-
 :box:
     #display: rounded white
+
+
+
 
 @rendering Rendering tips
 
