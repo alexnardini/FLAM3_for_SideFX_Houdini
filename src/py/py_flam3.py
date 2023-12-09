@@ -33,7 +33,7 @@ import nodesearch
 #
 #   Title:      SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised November 2023
+#   date:       January 2023, Last revised December 2023
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
