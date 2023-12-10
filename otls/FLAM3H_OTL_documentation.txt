@@ -232,6 +232,7 @@ TAG:
     * [Xaos|#FLAMEITERXAOS] (_when active_) will be next inside square brackets. Read the xaos documentation to know more about it.
     * Xaos TO will be: *Xt*
     * Xaos FROM wil be: *fX*
+    * [F3C|#PREFSGENERAL] when the preference's option "flam3 compatibility" is ON.
     * [Motion blur|#MB] (_when active_) will be next inside square brackets.
     * [Iterator variations|#FLAMEITERVARS] are lowercase.
     * [FF variations|#FFVARS] are UPPER CASE.
