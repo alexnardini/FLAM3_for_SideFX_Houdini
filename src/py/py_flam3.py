@@ -9156,7 +9156,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         flame.tag = XML_FLAME_NAME
         
         if self.out_build_XML(flame):
-            out_flame_utils._out_pretty_print(root)
+            self._out_pretty_print(root)
             tree = lxmlET.ElementTree(root)
             tree.write(outpath)
             
@@ -9173,7 +9173,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         
         if self.out_build_XML(root):
-            out_flame_utils._out_pretty_print(root)
+            self._out_pretty_print(root)
             flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
@@ -9200,7 +9200,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         flame.tag = XML_FLAME_NAME
         
         if self.out_build_XML(flame):
-            out_flame_utils._out_pretty_print(root)
+            self._out_pretty_print(root)
             tree = lxmlET.ElementTree(root)
             tree.write(out_path)
             
@@ -9221,7 +9221,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         if iterators_num:
             
             out_path = node.parm(OUT_PATH).evalAsString()
-            out_path_checked = out_flame_utils.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+            out_path_checked = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
             
             # Write to the clipboard
             if kwargs['alt']:
