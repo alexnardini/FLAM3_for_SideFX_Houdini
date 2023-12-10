@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.70 - Gold
+#version: 1.1.80 - Gold
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v20.0.506 )"""
 
