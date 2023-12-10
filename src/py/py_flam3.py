@@ -7733,13 +7733,13 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                 exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
-            in_flame_utils.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
+            self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
             
             # if FF
             if apo_data.finalxform is not None:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 1}) # type: ignore
-                in_flame_utils.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
+                self.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
             else:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 0}) # type: ignore
@@ -7771,15 +7771,15 @@ reset_IN(self, mode=0) -> None:
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
             # Update flame stats 
-            node.setParms({MSG_FLAMESTATS: in_flame_utils.in_load_stats_msg(node, clipboard, preset_id, apo_data)}) # type: ignore
-            node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(node, clipboard, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
             # if we are loading from the clipboard, alway copy the render settings on load
-            if clipboard: in_flame_utils.in_copy_render_stats_msg(self.kwargs, clipboard, apo_data)
+            if clipboard: self.in_copy_render_stats_msg(self.kwargs, clipboard, apo_data)
             else:
                 # if "copy render properties on Load" is checked
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                    in_flame_utils.in_copy_render_stats_msg(self.kwargs)
+                    self.in_copy_render_stats_msg(self.kwargs)
             
             # Update SYS inpresets parameter
             node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
@@ -8836,7 +8836,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """        
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        flame_name_new = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
@@ -8846,7 +8846,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """      
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        flame_name_new = out_flame_utils.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+        flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
         node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
@@ -9041,7 +9041,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
                 v_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
-                XFORM.set(FUNC(v_name), out_flame_utils.out_util_round_float(prm_w))
+                XFORM.set(FUNC(v_name), self.out_util_round_float(prm_w))
                 vars_prm = varsPRM[v_type]
                 if vars_prm[-1]:
                     f3h_prm = varsPRM[v_type][1:-1]
@@ -9058,10 +9058,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         if f3h_prm[id][-1]:
                             for i, n in enumerate(p):
                                 vals = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
-                                XFORM.set(FUNC(p[i]), out_flame_utils.out_util_round_float(vals[i]))
+                                XFORM.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
                         else:
                             val = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
-                            XFORM.set(FUNC(p[0]), out_flame_utils.out_util_round_float(val))
+                            XFORM.set(FUNC(p[0]), self.out_util_round_float(val))
         return names
 
 
