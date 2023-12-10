@@ -141,11 +141,12 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
 
     // SYS
-    int FF, MB, inum, iter, xaos_mode;
+    int FF, MB, inum, iter, f3c, xaos_mode;
     FF   = chi("../doff");
     MB   = chi("../domb");
     inum = chi("../flamefunc");
     iter = chi("../iter");
+    f3c  = chi("../f3c");
     xaos_mode = chi("../xm");
 
     // UI collect
@@ -156,6 +157,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
         else append(T, concat("[", "fX", "]"));             // xaos FROM
     }
+    if(f3c) append(T, "F3C");
     if(MB) append(T, "MB");
 
     for(int i=0; i<inum; ++i){
