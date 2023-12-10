@@ -3690,7 +3690,7 @@ iterator_keep_last_weight(self) -> None:
             # collect all xaos
             val = out_flame_utils.out_xaos_collect(node, iter_num, flam3h_iterator_prm_names.xaos)
             # fill missing weights if any
-            fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1) for item in val]
+            fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1).tolist() for item in val]
             
             # convert all xaos into array of strings
             xaos_str = []
@@ -4748,7 +4748,7 @@ If you type a floating point number,
 the entire xaos string will be reset to all weights set to the integer part of that number.
 ex: 123.876 will become -> 123
 
-If you type a negative number, it will be clamped to ZERO."""
+If you type a negative number, it will be reset to a value of: 1"""
         
         node = self.node
         autoset = node.parm(PREFS_XAOS_AUTO_SET).eval()
@@ -8453,7 +8453,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 # if the first element of the strip is: "xaos"
                 elif strip[0].lower().strip() == 'xaos':
                     try:
-                        build_strip = [str(flam3h_general_utils.clamp(float(x.strip()), _MAX)) for x in strip[1:iter_count+1] if x]
+                        build_strip = [str(float(x.strip())) if float(x.strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
                         # The following is only used to check if any of the xaos weights is not a legit number.
                         # If not it will raise an exception and the entire xaos weight string for this iterator will be filled with a value of '1'
                         build_f = [float(x.strip()) for x in build_strip]
@@ -8487,7 +8487,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                     # If a number is typed, fill all xaos weights with that number.
                     # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
                     if isNUM:
-                        v = [str(int(flam3h_general_utils.clamp(float(iter_xaos.lower().strip()), _MAX))) for x in range(iter_count)]
+                        v = [str(int((float(iter_xaos.lower().strip())))) if float(iter_xaos.lower().strip()) >= 0 else '1' for x in range(iter_count)]
                         val.append(v)
                     else:
                         # Otherwise reset to all values of 1
@@ -8761,7 +8761,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tuple[str]: the xaos TO values to write out.
         """
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
@@ -8775,7 +8775,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count))).tolist()
         if mode:
             xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
