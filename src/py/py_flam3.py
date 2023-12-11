@@ -8775,7 +8775,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
         t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count))).tolist()
         if mode:
             xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
