@@ -5654,8 +5654,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     return tuple(coefs)
         else:
             return None
-        
-        
+
+
     def __get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
         """
         Args:
@@ -6157,13 +6157,6 @@ in_util_check_negative_weight(node: hou.SopNode, w: float, v_type_name: str) -> 
 
 in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
 
-in_flam3h_set_iterators(mode: int, 
-                        node: hou.SopNode, 
-                        apo_data: in_flame_iter_data, 
-                        preset_id: int, 
-                        exclude_keys: tuple
-                        ) -> None:
-
 in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 
 in_util_join_vars_grp(groups: list) -> str:
@@ -6181,6 +6174,14 @@ in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
 in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 
 METHODS:
+
+in_flam3h_set_iterators(self, 
+                        mode: int, 
+                        node: hou.SopNode, 
+                        apo_data: in_flame_iter_data, 
+                        preset_id: int, 
+                        exclude_keys: tuple
+                        ) -> None:
 
 menu_in_presets(self) -> list:
 
@@ -6965,174 +6966,6 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_flam3h_set_iterators(mode: int, 
-                                node: hou.SopNode, 
-                                apo_data: in_flame_iter_data, 
-                                preset_id: int, 
-                                exclude_keys: tuple
-                                ) -> None:
-        """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
-        
-    The collection of XML data happen inside: class: in_flame_iter_data()
-
-        Args:
-            mode (int): iterator or FF
-            node (hou.SopNode): FLAM3H node
-            apo_data (in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
-            preset_id (int): the flame preset we are loading out of all the presets included in the flame file
-            exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
-        """ 
-        xforms, _MAX_VARS_MODE = in_flame_utils.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
-        
-        vars_keys = in_flame_utils.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
-        assert vars_keys is not None
-        vars_keys_pre = in_flame_utils.in_get_xforms_var_keys(xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        assert vars_keys_pre is not None
-        vars_keys_post = in_flame_utils.in_get_xforms_var_keys(xforms, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        assert vars_keys_post is not None
-
-        app = apo_data.sw_version[preset_id]
-        var_prm: tuple = flam3h_varsPRM.varsPRM
-        apo_prm: tuple = flam3h_varsPRM_APO.varsPRM
-        iterator_names = flam3h_iterator_prm_names()
-        prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-        
-        # Set variations ( iterator and FF )
-        for mp_idx, xform in enumerate(xforms):
-            for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
-                v_type = in_flame_utils.in_get_idx_by_key(key_name)
-                if v_type is not None:
-                    v_weight = float(xform.get(key_name))
-                    if apo_prm[v_type][-1]:
-                        in_flame_utils.in_v_parametric(app, 
-                                                       mode, 
-                                                       node, 
-                                                       mp_idx, 
-                                                       t_idx, 
-                                                       xform, 
-                                                       v_type, 
-                                                       v_weight, 
-                                                       var_prm[v_type], 
-                                                       apo_prm[v_type]
-                                                       )
-                    else:
-                        in_flame_utils.in_v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
-                else:
-                    # if this variation is not found, set it to Linear and its weight to ZERO
-                    in_flame_utils.in_v_generic(mode, node, mp_idx, t_idx, 0, 0)
-                    
-            # Set pre blur if found
-            in_flame_utils.in_v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
-                    
-            if mode:
-                # Set finalxform name first if any
-                if apo_data.finalxform_name[0]:
-                    node.setParms({f"{prx}{iterator_names.main_note}": apo_data.finalxform_name[0]}) # type: ignore
-                # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
-                if vars_keys_pre[mp_idx]: # type: ignore
-                    for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
-                        v_type = in_flame_utils.in_get_idx_by_key(in_flame_utils.in_util_make_VAR(key_name)) # type: ignore
-                        if v_type is not None:
-                            w = float(xform.get(key_name))
-                            v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
-                            if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_PRE_FF(app, 
-                                                                      node, 
-                                                                      t_idx, 
-                                                                      xform, 
-                                                                      v_type, 
-                                                                      v_weight, 
-                                                                      var_prm[v_type], 
-                                                                      apo_prm[v_type]
-                                                                      )
-                            else:
-                                in_flame_utils.in_v_generic_PRE_FF(node, t_idx, v_type, v_weight)
-                # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
-                if vars_keys_post[mp_idx]: # type: ignore
-                    for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
-                        v_type = in_flame_utils.in_get_idx_by_key(in_flame_utils.in_util_make_VAR(key_name)) # type: ignore
-                        if v_type is not None:
-                            w = float(xform.get(key_name))
-                            v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_POST(var_prm[v_type][0])) # type: ignore
-                            if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_POST_FF(app, 
-                                                                       node, 
-                                                                       t_idx, 
-                                                                       xform, 
-                                                                       v_type, 
-                                                                       v_weight, 
-                                                                       var_prm[v_type], 
-                                                                       apo_prm[v_type]
-                                                                       )
-                            else:
-                                in_flame_utils.in_v_generic_POST_FF(node, t_idx, v_type, v_weight)
-                                
-            else:
-                # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
-                if vars_keys_pre[mp_idx]: # type: ignore
-                    for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
-                        v_type = in_flame_utils.in_get_idx_by_key(in_flame_utils.in_util_make_VAR(key_name)) # type: ignore
-                        if v_type is not None:
-                            w = float(xform.get(key_name))
-                            v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
-                            if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_PRE(app, 
-                                                                   mode, 
-                                                                   node, 
-                                                                   mp_idx, 
-                                                                   t_idx, 
-                                                                   xform, 
-                                                                   v_type, 
-                                                                   v_weight, 
-                                                                   var_prm[v_type], 
-                                                                   apo_prm[v_type]
-                                                                   )
-                            else:
-                                in_flame_utils.in_v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
-                                
-                # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
-                if vars_keys_post[mp_idx]: # type: ignore
-                    for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
-                        v_type = in_flame_utils.in_get_idx_by_key(in_flame_utils.in_util_make_VAR(key_name)) # type: ignore
-                        if v_type is not None:
-                            w = float(xform.get(key_name))
-                            v_weight = in_flame_utils.in_util_check_negative_weight(node, w, in_flame_utils.in_util_make_POST(var_prm[v_type][0])) # type: ignore
-                            if apo_prm[v_type][-1]:
-                                in_flame_utils.in_v_parametric_POST(app, 
-                                                                    mode, 
-                                                                    node, 
-                                                                    mp_idx, 
-                                                                    t_idx, 
-                                                                    xform, 
-                                                                    v_type, 
-                                                                    v_weight, 
-                                                                    var_prm[v_type], 
-                                                                    apo_prm[v_type]
-                                                                    )
-                            else:
-                                in_flame_utils.in_v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
-                                
-                # Activate iterator, just in case...
-                node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
-                # Set the rest of the iterators
-                if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
-                    in_flame_utils.in_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
-                else: 
-                    in_flame_utils.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
-                in_flame_utils.in_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
-                in_flame_utils.in_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
-                in_flame_utils.in_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-                in_flame_utils.in_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
-                in_flame_utils.in_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
-            
-            # Affine ( PRE and POST) for iterator and FF
-            in_flame_utils.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
-            
-        _MSG = f"{str(node)}: Iterators and FF parameters SET -> Completed"
-        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-
-
-    @staticmethod
     def in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
         """Get the itaration number from the loaded Flame preset if any.
 
@@ -7528,7 +7361,174 @@ reset_IN(self, mode=0) -> None:
     
     
     
-    
+    def in_flam3h_set_iterators(self, 
+                                mode: int, 
+                                node: hou.SopNode, 
+                                apo_data: in_flame_iter_data, 
+                                preset_id: int, 
+                                exclude_keys: tuple
+                                ) -> None:
+        """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
+        
+    The collection of XML data happen inside: class: in_flame_iter_data()
+
+        Args:
+            mode (int): iterator or FF
+            node (hou.SopNode): FLAM3H node
+            apo_data (in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
+            preset_id (int): the flame preset we are loading out of all the presets included in the flame file
+            exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+        """ 
+        xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
+        
+        vars_keys = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+        assert vars_keys is not None
+        vars_keys_pre = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        assert vars_keys_pre is not None
+        vars_keys_post = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        assert vars_keys_post is not None
+
+        app = apo_data.sw_version[preset_id]
+        var_prm: tuple = flam3h_varsPRM.varsPRM
+        apo_prm: tuple = flam3h_varsPRM_APO.varsPRM
+        iterator_names = flam3h_iterator_prm_names()
+        prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
+        
+        # Set variations ( iterator and FF )
+        for mp_idx, xform in enumerate(xforms):
+            for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
+                v_type = self.in_get_idx_by_key(key_name)
+                if v_type is not None:
+                    v_weight = float(xform.get(key_name))
+                    if apo_prm[v_type][-1]:
+                        self.in_v_parametric(app, 
+                                             mode, 
+                                             node, 
+                                             mp_idx, 
+                                             t_idx, 
+                                             xform, 
+                                             v_type, 
+                                             v_weight, 
+                                             var_prm[v_type], 
+                                             apo_prm[v_type]
+                                             )
+                    else:
+                        self.in_v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
+                else:
+                    # if this variation is not found, set it to Linear and its weight to ZERO
+                    self.in_v_generic(mode, node, mp_idx, t_idx, 0, 0)
+                    
+            # Set pre blur if found
+            self.in_v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
+                    
+            if mode:
+                # Set finalxform name first if any
+                if apo_data.finalxform_name[0]:
+                    node.setParms({f"{prx}{iterator_names.main_note}": apo_data.finalxform_name[0]}) # type: ignore
+                # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
+                if vars_keys_pre[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
+                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                self.in_v_parametric_PRE_FF(app, 
+                                                            node, 
+                                                            t_idx, 
+                                                            xform, 
+                                                            v_type, 
+                                                            v_weight, 
+                                                            var_prm[v_type], 
+                                                            apo_prm[v_type]
+                                                            )
+                            else:
+                                self.in_v_generic_PRE_FF(node, t_idx, v_type, v_weight)
+                # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
+                if vars_keys_post[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
+                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                self.in_v_parametric_POST_FF(app, 
+                                                             node, 
+                                                             t_idx, 
+                                                             xform, 
+                                                             v_type, 
+                                                             v_weight, 
+                                                             var_prm[v_type], 
+                                                             apo_prm[v_type]
+                                                             )
+                            else:
+                                self.in_v_generic_POST_FF(node, t_idx, v_type, v_weight)
+                                
+            else:
+                # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
+                if vars_keys_pre[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
+                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                self.in_v_parametric_PRE(app, 
+                                                         mode, 
+                                                         node, 
+                                                         mp_idx, 
+                                                         t_idx, 
+                                                         xform, 
+                                                         v_type, 
+                                                         v_weight, 
+                                                         var_prm[v_type], 
+                                                         apo_prm[v_type]
+                                                         )
+                            else:
+                                self.in_v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
+                                
+                # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
+                if vars_keys_post[mp_idx]: # type: ignore
+                    for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
+                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        if v_type is not None:
+                            w = float(xform.get(key_name))
+                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
+                            if apo_prm[v_type][-1]:
+                                self.in_v_parametric_POST(app, 
+                                                          mode, 
+                                                          node, 
+                                                          mp_idx, 
+                                                          t_idx, 
+                                                          xform, 
+                                                          v_type, 
+                                                          v_weight, 
+                                                          var_prm[v_type], 
+                                                          apo_prm[v_type]
+                                                          )
+                            else:
+                                self.in_v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
+                                
+                # Activate iterator, just in case...
+                node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
+                # Set the rest of the iterators
+                if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
+                    self.in_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
+                else: 
+                    self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
+                self.in_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
+                self.in_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
+                self.in_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
+                self.in_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
+                self.in_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+            
+            # Affine ( PRE and POST) for iterator and FF
+            self.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
+            
+        _MSG = f"{str(node)}: Iterators and FF parameters SET -> Completed"
+        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+
+
     def menu_in_presets(self) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
 
