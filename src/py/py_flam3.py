@@ -8420,7 +8420,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         - Fill with all: 0 ( Zero )
         
-        Negative values will be clamped to ZERO.
+        - Check for negative xaos values
+        
+        Negative values will be reset to a value of: 1
 
         Args:
             node (hou.SopNode): FLAM3H node
@@ -8430,7 +8432,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             list[list[str]]: A list of xaos list[str] of values
         """   
-        _MAX = 100000
 
         val = []
         val_prev = flam3h_iterator_utils.auto_set_xaos_data_get(node, FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV)
@@ -8454,10 +8455,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 elif strip[0].lower().strip() == 'xaos':
                     try:
                         build_strip = [str(float(x.strip())) if float(x.strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
-                        # The following is only used to check if any of the xaos weights is not a legit number.
-                        # If not it will raise an exception and the entire xaos weight string for this iterator will be filled with a value of '1'
-                        build_f = [float(x.strip()) for x in build_strip]
-                        val.append(build_strip)
+                        val.append([float(x.strip()) for x in build_strip])
                     except:
                         # ( Assuming the "xaos:" keyword is present )
                         # if we eneterd an invalid string,
