@@ -57,7 +57,7 @@ Karma interactive rendering in the Houdini's viewport:
 `Just a bunch of dancing stars - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
 
-`Broccoli and gems - Author: Alessandro Nardini`
+`Lights festival - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_02_Karma_H19.jpg)
 
 **Highly inspired by Apophysis software and its workflow design.**
