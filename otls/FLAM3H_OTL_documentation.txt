@@ -1108,11 +1108,20 @@ Force iterations on Load:
 remap "pre_gaussian_blur":
     #id: prefs
     On Flame load, the "pre_gaussian_blur" variation will be remapped to the "pre_blur" variation.
+    
     ON by default since the chaos game in this implementation has the "pre_blur" variation hard coded to be as quick as possible.
+    
     If you'd rather want to use "pre_gaussian_blur" and have it behave as a pre variation (not cumulative/additive), turn it OFF.
     
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
+        
+        
+Reload preset with remap "pre_gaussian_blur" changes:
+    #id: prefs
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    
+    Clicking this icon will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
 
     
 Copy render properties on Load:

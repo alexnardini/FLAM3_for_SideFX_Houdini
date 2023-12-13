@@ -601,6 +601,8 @@ class flam3h_iterator_FF:
 
 class flam3h_scripts:
     """
+class flam3h_scripts
+
 STATIC METHODS:
 
 set_first_instance_global_var(cvex_precision: int) -> None:
@@ -1086,6 +1088,8 @@ flam3h_on_deleted(self) -> None:
 
 class flam3h_general_utils:
     """
+class flam3h_general_utils
+
 STATIC METHODS:
 
 clamp(x, val_max=255) -> float:
@@ -1795,6 +1799,8 @@ reset_PREFS(self, mode=0) -> None:
 
 class flam3h_iterator_utils:
     """
+class flam3h_iterator_utils
+
 STATIC METHODS:
 
 get_user_data(node: hou.SopNode, data="Marked iterator") -> Union[int, bool]:
@@ -3992,6 +3998,8 @@ iterator_keep_last_weight(self) -> None:
 
 class flam3h_palette_utils:
     """
+class flam3h_palette_utils
+
 STATIC METHODS:
 
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
@@ -4517,6 +4525,8 @@ reset_CP(self, mode=0) -> None:
 
 class flam3h_about_utils():
     """
+class flam3h_about_utils
+
 METHODS:
 
 flam3h_about_msg(self) -> None:
@@ -4685,6 +4695,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
 
 class flam3h_ui_msg_utils():
     """
+class flam3h_ui_msg_utils
+
 METHODS:
 
 ui_xaos_infos(self) -> None:
@@ -5240,6 +5252,8 @@ class flam3h_varsPRM_APO:
 
 class _xml_tree:
     """
+class _xml_tree
+
 STATIC METHODS:
 
 xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
@@ -5411,6 +5425,8 @@ __get_flame_count(self, flames: list) -> int:
 
 class in_flame(_xml_tree):
     """
+class in_flame
+
 STATIC METHODS:
 
 affine_coupling(affine: list) -> list:
@@ -5998,6 +6014,8 @@ class in_flame_iter_data(in_flame):
 
 class in_flame_utils:
     """
+class in_flame_utils
+
 STATIC METHODS:
 
 in_util_make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
@@ -6188,6 +6206,8 @@ menu_in_presets(self) -> list:
 set_iter_on_load_callback(self) -> None:
 
 use_iter_on_load_callback(self) -> None:
+
+in_to_flam3h_toggle(self, prm: str) -> None:
 
 in_to_flam3h_reset_user_data(self) -> None:
 
@@ -7580,6 +7600,15 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({GLB_ITERATIONS: iternumonload})
 
 
+    def in_to_flam3h_toggle(self, prm: str) -> None:
+        
+        flam3h_general_utils(self.kwargs).flam3h_toggle(prm)
+        
+        xml = self.node.parm(IN_PATH).evalAsString()
+        if _xml_tree(xml).isvalidtree:
+            self.in_to_flam3h()
+
+
     def in_to_flam3h_reset_user_data(self) -> None:
         
         node = self.node
@@ -7910,6 +7939,8 @@ VARS_FRACTORIUM_DICT_POST = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRA
 
 class out_flame_utils:
     """
+class out_flame_utils
+
 STATIC METHODS:
 
 out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
