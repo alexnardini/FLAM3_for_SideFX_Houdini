@@ -7733,12 +7733,14 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                 exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
+            # Set iterators
             self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
             
             # if FF
             if apo_data.finalxform is not None:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 1}) # type: ignore
+                # Set FF
                 self.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
             else:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
