@@ -9145,11 +9145,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         if f3d.flam3h_do_FF:
             finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
             finalxf.tag = XML_FF
+            finalxf.set(XML_XF_NAME, f3d.finalxf_name)
             finalxf.set(XML_XF_COLOR, '0')
             finalxf.set(XML_XF_VAR_COLOR, '1')
             finalxf.set(XML_XF_COLOR_SPEED, '0')
             finalxf.set(XML_XF_SYMMETRY, '1')
-            finalxf.set(XML_XF_NAME, f3d.finalxf_name)
             finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
             if f3d.finalxf_postaffine:
                 finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
