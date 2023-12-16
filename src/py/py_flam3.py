@@ -2407,10 +2407,10 @@ iterator_keep_last_weight(self) -> None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
-                menuitems = ( "", f"iter.{str(mp_id_from)}", f"iter.{str(mp_id_from)} -> xaos:", f"iter.{str(mp_id_from)} -> shader", f"iter.{str(mp_id_from)} -> PRE", f"iter.{str(mp_id_from)} -> VAR", f"iter.{str(mp_id_from)} -> POST", f"iter.{str(mp_id_from)} -> pre affine", f"iter.{str(mp_id_from)} -> post affine", "" )
+                menuitems = ( "", f"{str(mp_id_from)}", f"{str(mp_id_from)}: xaos:", f"{str(mp_id_from)}: shader", f"{str(mp_id_from)}: PRE", f"{str(mp_id_from)}: VAR", f"{str(mp_id_from)}: POST", f"{str(mp_id_from)}: pre affine", f"{str(mp_id_from)}: post affine", "" )
             else:
                 flam3nodeIter = f"{str(from_FLAM3H_NODE)}.iter."
-                menuitems = ( "", f"{flam3nodeIter}{str(mp_id_from)}", f"{flam3nodeIter}{str(mp_id_from)} -> xaos:", f"{flam3nodeIter}{str(mp_id_from)} -> shader", f"{flam3nodeIter}{str(mp_id_from)} -> PRE", f"{flam3nodeIter}{str(mp_id_from)} -> VAR", f"{flam3nodeIter}{str(mp_id_from)} -> POST", f"{flam3nodeIter}{str(mp_id_from)} -> pre affine", f"{flam3nodeIter}{str(mp_id_from)} -> post affine", "" )
+                menuitems = ( "", f"{flam3nodeIter}{str(mp_id_from)}", f"{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{flam3nodeIter}{str(mp_id_from)}: shader", f"{flam3nodeIter}{str(mp_id_from)}: PRE", f"{flam3nodeIter}{str(mp_id_from)}: VAR", f"{flam3nodeIter}{str(mp_id_from)}: POST", f"{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
@@ -2475,12 +2475,13 @@ iterator_keep_last_weight(self) -> None:
                 menuitems = ( "FF marked. Select a different FLAM3H node to paste those FF values.", "" )
             else:
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                menuitems = ( "", f"{flam3nodeFF} -> PRE", f"{flam3nodeFF} -> VAR", f"{flam3nodeFF} -> POST", f"{flam3nodeFF} -> pre affine", f"{flam3nodeFF} -> post affine", "" )
+                menuitems = ( "", f"{flam3nodeFF}: PRE", f"{flam3nodeFF}: VAR", f"{flam3nodeFF}: POST", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
             for i, item in enumerate(menuitems):
                 menu.append(i)
                 menu.append(item)
-
+                
             return menu
+        
         else:
             if isDELETED:
                 menuitems = ( "Marked FF's node has been deleted. Mark another FF first", "" )
@@ -2493,7 +2494,7 @@ iterator_keep_last_weight(self) -> None:
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
-
+                    
                 return menu
         
         
@@ -3270,7 +3271,7 @@ iterator_keep_last_weight(self) -> None:
                     _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default values."
+                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -3340,7 +3341,7 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{str(node)}: FF PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} FF PRE Affine Rotation Angle -> already at its default values."
+                _MSG = f"{str(node)}: Iterator.{str(id)} FF PRE Affine Rotation Angle -> already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -3412,7 +3413,7 @@ iterator_keep_last_weight(self) -> None:
                     _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> already at their default values."
+                _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> already at their default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         else:
