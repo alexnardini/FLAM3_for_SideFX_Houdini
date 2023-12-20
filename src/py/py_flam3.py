@@ -7603,11 +7603,13 @@ reset_IN(self, mode=0) -> None:
 
     def in_to_flam3h_toggle(self, prm: str) -> None:
         
-        flam3h_general_utils(self.kwargs).flam3h_toggle(prm)
-        
         xml = self.node.parm(IN_PATH).evalAsString()
         if _xml_tree(xml).isvalidtree:
+            flam3h_general_utils(self.kwargs).flam3h_toggle(prm)
             self.in_to_flam3h()
+        else:
+            _MSG = f"{str(self.node)}: {prm.upper()}: No valid flame file to load the flame from, load a valid flame file first."
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
     def in_to_flam3h_reset_user_data(self) -> None:
@@ -7649,10 +7651,15 @@ reset_IN(self, mode=0) -> None:
         # iterators
         flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
-        if in_flame_iter_count >= flam3h_iter_count:
+        if in_flame_iter_count > flam3h_iter_count:
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
             [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
             node.setParms({FLAME_ITERATORS_COUNT:  in_flame_iter_count}) # type: ignore
+            
+        elif in_flame_iter_count == flam3h_iter_count:
+            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
+            [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
+            
         else:
             node.setParms({FLAME_ITERATORS_COUNT: in_flame_iter_count}) # type: ignore
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
