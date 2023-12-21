@@ -3941,10 +3941,9 @@ iterator_keep_last_weight(self) -> None:
         This will prevent the last active iterator to being disabled.
         """    
         node = self.node    
-        va = []
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        [va.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) 
-            for mp_idx in range(iter_num) 
+        va = [int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()) 
+             for mp_idx in range(iter_num) 
                 if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() 
                 and node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() > 0]
 
@@ -3961,17 +3960,15 @@ iterator_keep_last_weight(self) -> None:
         This will prevent to set the last active iterator's Weight to be Zero.
         """  
         node = self.node
-        W = []
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        [W.append(int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval())) 
+        W = [int(node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval()) 
             for mp_idx in range(iter_num) 
                 if node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() == 0 
                 and int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())]
         
-        vactive_iters = []
-        [vactive_iters.append(int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval())) 
-            for mp_idx in range(iter_num) 
-                if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
+        vactive_iters = [int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()) 
+                        for mp_idx in range(iter_num) 
+                            if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()]
         
         if len(W) == len(vactive_iters):
             min_weight = 0.000001

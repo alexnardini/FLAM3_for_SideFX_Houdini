@@ -1130,6 +1130,13 @@ Copy render properties on Load:
     
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
+        
+Reload preset with "Copy render properties on Load" changes:
+    #id: prefs
+    [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    
+    Clicking this icon will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
+
     
 :box:
     #display: rounded white
