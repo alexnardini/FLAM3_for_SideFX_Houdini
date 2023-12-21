@@ -84,44 +84,44 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
         // xaos
         idx = (XS) ? XAOS(idx, res, _bound_XST) : sample_cdf((float[])_bound_IW, nrandom("twister"));
 
-        // affine
+        // pre affine
         affine(mem, x[idx], y[idx], o[idx]);
-        // pre
+        // PRE
         if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
         if(p1w[idx] >0) mem  = FLAME(p1GMP, idx, p1t[idx], f3c, mem, x[idx], y[idx], o[idx], p1w[idx]);
         if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], f3c, mem, x[idx], y[idx], o[idx], p2w[idx]);
-        // Var
+        // VAR
         tmp=0;
         if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], f3c, mem, x[idx], y[idx], o[idx], v1w[idx]);
         if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], f3c, mem, x[idx], y[idx], o[idx], v2w[idx]);
         if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], f3c, mem, x[idx], y[idx], o[idx], v3w[idx]);
         if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], f3c, mem, x[idx], y[idx], o[idx], v4w[idx]);
-        // Post
+        // POST
         if(P1w[idx] >0) tmp  = FLAME(P1GMP, idx, P1t[idx], f3c, tmp, x[idx], y[idx], o[idx], P1w[idx]);
-        // Post affine
+        // post affine
         if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
-        // Clr
+        // clr
         prv_clr=clr=_CLR[idx]+(OM[idx]*prv_clr);
-        // Out
+        // out
         mem=tmp;
     }
     // FF
     if(FF){
 
-        // FF affine
+        // FF pre affine
         affine(mem, fx, fy, fo);
-        // FF pre
+        // FF PRE
         if(fp1w >0) mem  = FLAMEFF(FP, fp1t, f3c, mem, fx, fy, fo, fp1w);
-        // FF Var
+        // FF VAR
         tmp=0;
         if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, f3c, mem, fx, fy, fo, fv1w);
         if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, f3c, mem, fx, fy, fo, fv2w);
-        // FF Post
+        // FF POST
         if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, f3c, tmp, fx, fy, fo, fP1w);
         if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, f3c, tmp, fx, fy, fo, fP2w);
-        // FF Post affine
+        // FF post affine
         if(PFF) affine(tmp, pfx, pfy, pfo);
-        // FF Out
+        // FF out
         mem=tmp;
     }
     a=A[idx];
