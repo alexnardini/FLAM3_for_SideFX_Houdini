@@ -7246,9 +7246,9 @@ reset_IN(self, mode=0) -> None:
         nnl = "\n\n"
         na = 'n/a'
         
-        size = f'Size: {na}'
+        size = f'Resolution: {na}'
         if apo_data.out_size[preset_id]:
-            size = f"Size: {apo_data.out_size[preset_id]}"
+            size = f"Resolution: {apo_data.out_size[preset_id]}"
             
         center = f'Center: {na}'
         if apo_data.out_center[preset_id]:
