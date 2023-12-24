@@ -7148,8 +7148,9 @@ reset_IN(self, mode=0) -> None:
         else:
             palette_count_format = f"Palette not found."
         
+        # get keys to exclude
         exclude_keys = XML_XF_KEY_EXCLUDE
-        
+        # ITERATOR posses an hard coded pre_blur, if the user toggle this option, lets exclude pre_gaussian_blur's key so we force pre_blur instead.
         if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
             exclude_keys = XML_XF_KEY_EXCLUDE_PGB
             
@@ -7159,11 +7160,11 @@ reset_IN(self, mode=0) -> None:
 
         # FF
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
-        
         if ff_bool:
-            vars_keys_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
-            vars_keys_PRE_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-            vars_keys_POST_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+            # FF do not posses an hard coded pre_blur so lets restore the standard XML_XF_KEY_EXCLUDE so we can have pre_gaussian_blur included if present.
+            vars_keys_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
+            vars_keys_PRE_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            vars_keys_POST_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         
@@ -7772,6 +7773,9 @@ reset_IN(self, mode=0) -> None:
             
             # if FF
             if apo_data.finalxform is not None:
+                # get keys to exclude
+                # FF do not posses an hard coded pre_blur so lets restore the standard exclude_keys so we can have pre_gaussian_blur included.
+                exclude_keys = XML_XF_KEY_EXCLUDE
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 1}) # type: ignore
                 # Set FF
