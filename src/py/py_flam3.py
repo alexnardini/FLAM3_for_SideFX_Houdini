@@ -4922,8 +4922,8 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 XML_VALID_FLAMES_ROOT_TAG = 'flames'
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
-# Note that "pre_gaussian_blur" has been added to this tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini
-# if "remap "pre_gaussian_blur" to pre_blur" preference option is checked (ON by default)
+# Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
+# note: for FF I swap back to the above  XML_XF_KEY_EXCLUDE to make possible to load pre_gaussian_blur since FF do not posses an hard coded pre_blur.
 XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
 
 # This has been fixed and now radial_blur variation matches all the other apps
@@ -6181,8 +6181,6 @@ in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]],
 
 in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 
-in_load_stats_msg(node: hou.SopNode, preset_id: int, apo_data: in_flame_iter_data) -> str:
-
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
 
 in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
@@ -6198,6 +6196,8 @@ in_flam3h_set_iterators(self,
                         preset_id: int, 
                         exclude_keys: tuple
                         ) -> None:
+                        
+in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
 
 menu_in_presets(self) -> list:
 
@@ -6207,11 +6207,13 @@ use_iter_on_load_callback(self) -> None:
 
 in_to_flam3h_toggle(self, prm: str) -> None:
 
+in_to_flam3h_toggle_pgb(self) -> None:
+
 in_to_flam3h_reset_user_data(self) -> None:
 
 in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
 
-in_to_flam3h_clipboard_data(self) -> tuple[Union[str, None], bool, int, str]:
+in_to_flam3h_clipboard_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
 
 in_to_flam3h_sys(self) -> None:
 
@@ -7067,171 +7069,6 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_load_stats_msg(node: hou.SopNode, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
-        """Build a message with all the informations about the Flame preset we just loaded.
-
-        Args:
-            node (hou.SopNode): The current FLAM3H houdini node.
-            preset_id (int): The loaded XML Flame preset
-            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
-
-        Returns:
-            str: A string to be used to set the IN Flame info data parameter message.
-        """        
-        # spacers
-        nl = "\n"
-        nnl = "\n\n"
-        
-        # checks
-        pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
-        
-        for item in apo_data.pre_blur:
-            if item:
-                pb_bool = True
-                break
-        if min(apo_data.opacity) == 0.0:
-            opacity_bool = True
-        if apo_data.post is not None:
-            post_bool = True
-        if apo_data.xaos is not None:
-            xaos_bool = True
-        if apo_data.palette is not None:
-            palette_bool = True
-        if apo_data.finalxform is not None:
-            ff_bool = True
-        if apo_data.finalxform_post is not None:
-            ff_post_bool = True
-        # custom to FLAM3H only
-        if apo_data.mb_flam3h_fps is not False:
-            flam3h_mb_bool = True
-            
-        # checks msgs
-        opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
-        
-        if opacity_bool:
-            opacity_bool_msg = "YES"
-        if post_bool:
-            post_bool_msg = "YES"
-        if xaos_bool:
-            xaos_bool_msg = "YES"
-        if ff_post_bool:
-            ff_post_bool_msg = "YES"
-
-            
-        # build msgs
-        cb = ''
-        if clipboard: cb =  " -> Clipboard"
-        sw = f"Software: {apo_data.sw_version[preset_id]}{cb}"
-        name = f"Name: {apo_data.name[preset_id]}"
-        iter_count = f"iterators count: {str(len(apo_data.xforms))}"
-        post = f"post affine: {post_bool_msg}"
-        opacity = f"opacity: {opacity_bool_msg}"
-        xaos = f"xaos: {xaos_bool_msg}"
-        
-        mb = nnl
-        if flam3h_mb_bool:
-            mb = f"Motion blur{nnl}"
-            
-        
-        ff_msg = ""
-        if ff_bool:
-            ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
-        else:
-            ff_msg = f"FF: NO"
-            
-        if palette_bool:
-            if apo_data.palette_flam3h_hsv is not False:
-                # custom to FLAM3H only
-                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} ( -> HSV )"
-            else:
-                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
-        else:
-            palette_count_format = f"Palette not found."
-        
-        # get keys to exclude
-        exclude_keys = XML_XF_KEY_EXCLUDE
-        # ITERATOR posses an hard coded pre_blur, if the user toggle this option, lets exclude pre_gaussian_blur's key so we force pre_blur instead.
-        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-            
-        vars_keys = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
-        vars_keys_PRE = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        vars_keys_POST = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-
-        # FF
-        vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
-        if ff_bool:
-            # FF do not posses an hard coded pre_blur so lets restore the standard XML_XF_KEY_EXCLUDE so we can have pre_gaussian_blur included if present.
-            vars_keys_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
-            vars_keys_PRE_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-            vars_keys_POST_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, in_flame_utils.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-            
-        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
-        
-        if pb_bool:
-            vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
-            
-        result_sorted = in_flame_utils.in_util_vars_flatten_unique_sorted(vars_all, in_flame_utils.in_util_make_NULL) # type: ignore
-        
-        n = 5
-        var_used_heading = "Variations used:"
-        result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-        vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{in_flame_utils.in_util_join_vars_grp(result_grp)}"
-        
-        # Build and set descriptive parameter msg
-        if clipboard: preset_name = apo_data.name[0]
-        else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-        descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
-                            f"{preset_name}", )
-        node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
-
-        # Build missing:
-        vars_keys_from_fractorium = in_flame_utils.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
-        vars_keys_from_fractorium_pre = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
-        vars_keys_from_fractorium_post = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
-        
-        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
-        
-        if ff_bool:
-            vars_keys_from_fractorium_FF = in_flame_utils.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
-            vars_keys_from_fractorium_pre_FF = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
-            vars_keys_from_fractorium_post_FF = in_flame_utils.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
-        
-        vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
-        result_sorted_fractorium = in_flame_utils.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, in_flame_utils.in_util_make_NULL)
-        
-        # Compare and keep and build missing vars msg
-        vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
-        result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
-        vars_missing_msg = ""
-        if vars_missing:
-            vars_missing_msg = f"{nnl}MISSING:\n{in_flame_utils.in_util_join_vars_grp(result_grp_fractorium)}"
-            
-        # Check if the loaded Flame file is locked.
-        in_path = node.parm(IN_PATH).evalAsString()
-        in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
-        
-        flame_lib_locked = ''
-        if flam3h_general_utils.isLOCK(in_path_checked):
-            flame_lib_locked = f"flame lib file: LOCKED"
-        
-        # build full stats msg
-        build = (   flame_lib_locked, nl, sw, nnl,
-                    name, nl,
-                    palette_count_format, nl,
-                    mb,
-                    iter_count, nl,
-                    post, nl,
-                    opacity, nl,
-                    xaos, nl,
-                    ff_msg, nnl,
-                    vars_used_msg,
-                    vars_missing_msg )
-        
-        return "".join(build)
-
-
-    @staticmethod
     def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
 
@@ -7548,6 +7385,172 @@ reset_IN(self, mode=0) -> None:
         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
+
+    def in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
+        """Build a message with all the informations about the Flame preset we just loaded.
+
+        Args:
+            node (hou.SopNode): The current FLAM3H houdini node.
+            preset_id (int): The loaded XML Flame preset
+            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+
+        Returns:
+            str: A string to be used to set the IN Flame info data parameter message.
+        """      
+        node = self.node  
+        # spacers
+        nl = "\n"
+        nnl = "\n\n"
+        
+        # checks
+        pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
+        
+        for item in apo_data.pre_blur:
+            if item:
+                pb_bool = True
+                break
+        if min(apo_data.opacity) == 0.0:
+            opacity_bool = True
+        if apo_data.post is not None:
+            post_bool = True
+        if apo_data.xaos is not None:
+            xaos_bool = True
+        if apo_data.palette is not None:
+            palette_bool = True
+        if apo_data.finalxform is not None:
+            ff_bool = True
+        if apo_data.finalxform_post is not None:
+            ff_post_bool = True
+        # custom to FLAM3H only
+        if apo_data.mb_flam3h_fps is not False:
+            flam3h_mb_bool = True
+            
+        # checks msgs
+        opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
+        
+        if opacity_bool:
+            opacity_bool_msg = "YES"
+        if post_bool:
+            post_bool_msg = "YES"
+        if xaos_bool:
+            xaos_bool_msg = "YES"
+        if ff_post_bool:
+            ff_post_bool_msg = "YES"
+
+            
+        # build msgs
+        cb = ''
+        if clipboard: cb =  " -> Clipboard"
+        sw = f"Software: {apo_data.sw_version[preset_id]}{cb}"
+        name = f"Name: {apo_data.name[preset_id]}"
+        iter_count = f"iterators count: {str(len(apo_data.xforms))}"
+        post = f"post affine: {post_bool_msg}"
+        opacity = f"opacity: {opacity_bool_msg}"
+        xaos = f"xaos: {xaos_bool_msg}"
+        
+        mb = nnl
+        if flam3h_mb_bool:
+            mb = f"Motion blur{nnl}"
+            
+        
+        ff_msg = ""
+        if ff_bool:
+            ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
+        else:
+            ff_msg = f"FF: NO"
+            
+        if palette_bool:
+            if apo_data.palette_flam3h_hsv is not False:
+                # custom to FLAM3H only
+                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} -> HSV"
+            else:
+                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+        else:
+            palette_count_format = f"Palette not found."
+        
+        # ITERATOR COLLECT
+        exclude_keys = XML_XF_KEY_EXCLUDE
+        # ITERATOR posses an hard coded pre_blur, if the user toggle this option, lets exclude pre_gaussian_blur's key so we force pre_blur instead.
+        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+            
+        vars_keys = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
+        vars_keys_PRE = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_POST = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+
+        # FF COLLECT
+        vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
+        if ff_bool:
+            # FF do not posses an hard coded pre_blur so lets restore the standard XML_XF_KEY_EXCLUDE so we can have pre_gaussian_blur included if present.
+            vars_keys_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
+            vars_keys_PRE_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            vars_keys_POST_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            
+        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
+        
+        if pb_bool:
+            vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
+            
+        result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL) # type: ignore
+        
+        n = 5
+        var_used_heading = "Variations used:"
+        result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
+        vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
+        
+        # Build and set descriptive parameter msg
+        if clipboard: preset_name = apo_data.name[0]
+        else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
+                            f"{preset_name}", )
+        node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
+
+        # Build missing:
+        vars_keys_from_fractorium = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
+        vars_keys_from_fractorium_pre = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
+        vars_keys_from_fractorium_post = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+        
+        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
+        
+        if ff_bool:
+            vars_keys_from_fractorium_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
+            vars_keys_from_fractorium_pre_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_PRE, exclude_keys)
+            vars_keys_from_fractorium_post_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+        
+        vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
+        result_sorted_fractorium = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL)
+        
+        # Compare and keep and build missing vars msg
+        vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
+        result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
+        vars_missing_msg = ""
+        if vars_missing:
+            vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+            
+        # Check if the loaded Flame file is locked.
+        in_path = node.parm(IN_PATH).evalAsString()
+        in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+        
+        flame_lib_locked = ''
+        if flam3h_general_utils.isLOCK(in_path_checked):
+            flame_lib_locked = f"flame lib file: LOCKED"
+        
+        # build full stats msg
+        build = (   flame_lib_locked, nl, sw, nnl,
+                    name, nl,
+                    palette_count_format, nl,
+                    mb,
+                    iter_count, nl,
+                    post, nl,
+                    opacity, nl,
+                    xaos, nl,
+                    ff_msg, nnl,
+                    vars_used_msg,
+                    vars_missing_msg )
+        
+        return "".join(build)
+
+
     def menu_in_presets(self) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
 
@@ -7610,6 +7613,43 @@ reset_IN(self, mode=0) -> None:
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
+    def in_to_flam3h_toggle_pgb(self) -> None:
+        """When loading a flame preset that use  a pre_gaussian_blur variation, this function will reload it
+        and switch the "remap pre_gaussian_blur" toggle ON/OFF on the fly.
+        
+        If no pre_gaussian_blur variation is present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
+        """ 
+        node = self.node
+        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard = self.in_to_flam3h_clipboard_data(node)
+        
+        if xml is not None and _xml_tree(xml).isvalidtree:
+            
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            pgb_var_name = self.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))
+            vars_key_PRE = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            vars_key_PRE_unique = self.in_util_vars_flatten_unique_sorted(vars_key_PRE, self.in_util_make_NULL) # type: ignore
+
+            if vars_key_PRE is not None and vars_key_PRE and pgb_var_name in vars_key_PRE_unique:
+                flam3h_general_utils(self.kwargs).flam3h_toggle(IN_REMAP_PRE_GAUSSIAN_BLUR)
+                self.in_to_flam3h()
+                
+            else:
+                if clipboard:
+                    _MSG = f"{str(node)}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have a \"pre_gaussian_blur\" variation in it."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                else:
+                    preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+                    _MSG = f"{str(node)}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                
+        else:
+            if load_from_clipboard:
+                _MSG = f"{str(node)}: {IN_REMAP_PRE_GAUSSIAN_BLUR.upper()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard or load a valid flame file first."
+            else:
+                _MSG = f"{str(node)}: {IN_REMAP_PRE_GAUSSIAN_BLUR.upper()}: No valid flame file to load the flame from, load a valid flame file first."
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+
+
     def in_to_flam3h_reset_user_data(self) -> None:
         
         node = self.node
@@ -7665,12 +7705,12 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_to_flam3h_clipboard_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str]:
+    def in_to_flam3h_clipboard_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
         """Check if we are able to parse a flame from the clipboard
         and provide some output data to work with if that is the case.
 
         Returns:
-            tuple[Union[str, None], bool, int, str]: xml, clipboard, preset_id, clipboard_flame_name
+            tuple[Union[str, None], bool, int, str, bool]: xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
@@ -7690,22 +7730,22 @@ reset_IN(self, mode=0) -> None:
                 if tree is not None:
                     assert xml is not None
                     flame_name_clipboard = in_flame(node, xml).name[0]
-                    return xml, True, 0, flame_name_clipboard
+                    return xml, True, 0, flame_name_clipboard, True
                 else:
-                    return None, False, 0, ''
+                    return None, False, 0, '', True
             elif self.kwargs['shift']:
-                return None, False, 0, ''
+                return None, False, 0, '', False
             elif self.kwargs['ctrl']:
-                return None, False, 0, ''
+                return None, False, 0, '', False
             else:
                 xml = node.parm(IN_PATH).evalAsString()
                 preset_id = int(node.parm(IN_PRESETS).eval())
-                return xml, False, preset_id, ''
+                return xml, False, preset_id, '', False
             
         else:
             xml = node.parm(IN_PATH).evalAsString()
             preset_id = int(node.parm(IN_PRESETS).eval())
-            return xml, False, preset_id, ''
+            return xml, False, preset_id, '', False
 
 
 
@@ -7735,7 +7775,7 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard = self.in_to_flam3h_clipboard_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, _ = self.in_to_flam3h_clipboard_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
 
@@ -7811,7 +7851,7 @@ reset_IN(self, mode=0) -> None:
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
             # Update flame stats 
-            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(node, clipboard, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
             # if we are loading from the clipboard, alway copy the render settings on load
