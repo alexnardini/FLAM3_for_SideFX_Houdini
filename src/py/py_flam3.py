@@ -1368,7 +1368,7 @@ reset_PREFS(self, mode=0) -> None:
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             if viewport.isCurrentTab():
                 view = viewport.curViewport()
-                
+
                 try:
                     _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
                 except:
@@ -7644,9 +7644,9 @@ reset_IN(self, mode=0) -> None:
                 
         else:
             if load_from_clipboard:
-                _MSG = f"{str(node)}: {IN_REMAP_PRE_GAUSSIAN_BLUR.upper()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard or load a valid flame file first."
+                _MSG = f"{str(node)}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
             else:
-                _MSG = f"{str(node)}: {IN_REMAP_PRE_GAUSSIAN_BLUR.upper()}: No valid flame file to load the flame from, load a valid flame file first."
+                _MSG = f"{str(node)}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
@@ -7710,7 +7710,17 @@ reset_IN(self, mode=0) -> None:
         and provide some output data to work with if that is the case.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]: xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard
+            tuple[Union[str, None], bool, int, str, bool]:  xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard
+            
+                                                            xml: either a flame preset from a flame file or from the Clipboard.
+                                                            
+                                                            clipboard: did we get a valid flame preset from the clipboard ? True or False.
+                                                            
+                                                            preset_id: flame preset index. From clipboard will always be ZERO.
+                                                            
+                                                            clipboard_flame_name: If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                            
+                                                            attempt_to_load_from_clipboard: Did we try to load flame preset from the clipboard ? True or False.
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
