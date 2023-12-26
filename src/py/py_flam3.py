@@ -7710,17 +7710,17 @@ reset_IN(self, mode=0) -> None:
         and provide some output data to work with if that is the case.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
             
-                                                            xml: either a flame preset from a flame file or from the Clipboard.
+                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
                                                             
-                                                            clipboard: did we get a valid flame preset from the clipboard ? True or False.
+                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
                                                             
-                                                            preset_id: flame preset index. From clipboard will always be ZERO.
+                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
                                                             
-                                                            clipboard_flame_name: If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                             
-                                                            attempt_to_load_from_clipboard: Did we try to load flame preset from the clipboard ? True or False.
+                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
