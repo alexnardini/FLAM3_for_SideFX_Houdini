@@ -1437,6 +1437,8 @@ reset_PREFS(self, mode=0) -> None:
             if self.bbox_reframe_path is not None:
                 node_bbox = hou.node(self.bbox_reframe_path)
                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                # Set clipping planes just in case
+                self.util_set_clipping_viewers()
 
 
 

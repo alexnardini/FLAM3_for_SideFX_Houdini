@@ -279,9 +279,12 @@ frame viewport:
     #id: SYS
     [Smallicon:opdef:.?icon_Cam.svg]
     
-    Re-frame current viewport based on camera sensor bounding box. It will take into account the current out camera sensor resolution.
+    Re-frame current viewport based on centered bounding box.
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
+    
+    TIP:
+        You can change the size of the bounding box to be framed in the preference's options, under the general tab.
     
 :box:
     #display: rounded white
@@ -1548,6 +1551,16 @@ display prefs:
     #display: round white
     
     == Prefs: General == (PREFSGENERAL)
+
+viewport bbox size:
+    #id: prefs
+    
+    The bounding box size that will be viewport framed when the SYS Tab frameview icon is clicked.
+    
+    A value of 1 should work well in every situation, but you can increase it if you'd like.
+    
+    Consider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.
+    Once this value is changed, Click the SYS Tab Frame viewport to see the new framing.
     
 flam3 compatibility (f3c):
     #id: prefs
