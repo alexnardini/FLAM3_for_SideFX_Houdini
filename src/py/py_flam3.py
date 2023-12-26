@@ -1354,6 +1354,8 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def util_set_clipping_viewers(self) -> None:
+        """Set current viewport camera clipping near/far planes
+        """        
         for view in self.util_getSceneViewers():
             curView = view.curViewport()
             settings = curView.settings()
@@ -1365,6 +1367,12 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def util_set_front_viewer(self, update=True) -> None:
+        """Set front view when entering the camera sensor mode.
+        This include storing and restoring the current viewport prior to entering the camera sensor mode.
+
+        Args:
+            update (bool, optional): _description_. Defaults to True.
+        """        
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
