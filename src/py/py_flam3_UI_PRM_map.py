@@ -334,7 +334,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 
 'parameter name:    remappgb'
 'script type:       Menu Script'
-kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("remappgb")
+kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_pgb()
 
 
 'parameter name:    propertiescp'

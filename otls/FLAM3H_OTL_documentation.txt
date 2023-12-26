@@ -556,14 +556,14 @@ pre_blur:
         
         You can change this beahavior and load the "pre_gaussian_blur" variation instead, if any, inside the IN Tab.
     
-pre tab:
+PRE tab:
     #id: FLAME
     PRE variations for the selected iterator.
     
     The order of the PRE variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
 
     
-swap pre vars:
+swap PRE vars:
     #id: FLAME
     [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
@@ -572,7 +572,7 @@ swap pre vars:
     ((CTRL)) + ((LMB)) swap only the variation names.
     
     
-var tab:
+VAR tab:
     #id: FLAME
     Variations for the selected iterator.
     
@@ -582,7 +582,7 @@ var tab:
         Laying down a new FLAM3H node and activating the Final Flame transform with the default Sierpiński triangle (*FF*) will allow you to experiment with the variations and see what happens.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
-Post tab:
+POST tab:
     #id: FLAME
     POST Variation for the selected iterator.
     
@@ -735,7 +735,7 @@ FF: copy/paste:
         
         Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric.
     
-FF pre tab:
+FF PRE tab:
     #id: FF
     PRE variation for the FF iterator.
     
@@ -743,13 +743,13 @@ FF pre tab:
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
     
     
-FF var tab:
+FF VAR tab:
     #id: FF
     Variations for the FF iterator.
     
     * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
 
-FF Post tab:
+FF POST tab:
     #id: FF
     POST Variations for the FF iterator.
     
@@ -759,7 +759,7 @@ FF Post tab:
     The order of the POST variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
     
 
-swap FF Post vars:
+swap FF POST vars:
     #id: FLAME
     [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
