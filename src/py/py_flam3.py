@@ -162,7 +162,8 @@ OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 # This Null node name is hard code here and represent the node name's prefix.
 # If you change this Null node name inside the FLAM3H houdini HDA network, update this global variable as well.
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
-OUT_SENSOR_BBOX_NODE_NAME = 'OUT_bbox_data'
+OUT_SENSOR_BBOX_NODE_NAME = 'OUT_bbox_sensor'
+OUT_REFRAME_BBOX_NODE_NAME = 'OUT_bbox_reframe'
 
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
@@ -1153,7 +1154,8 @@ reset_PREFS(self, mode=0) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
         # self._bboxpath = self._node.parm(OUT_SENSOR_BBOX_PATH).evalAsString()
-        self._bboxpath = self.get_bbox_node_path()
+        self._bbox_sensor_path = self.get_bbox_node_path(OUT_SENSOR_BBOX_NODE_NAME)
+        self._bbox_reframe_path = self.get_bbox_node_path(OUT_REFRAME_BBOX_NODE_NAME)
 
 
 
@@ -1327,22 +1329,29 @@ reset_PREFS(self, mode=0) -> None:
         return self._node
     
     @property
-    def bboxpath(self):
-        return self._bboxpath
+    def bbox_sensor_path(self):
+        return self._bbox_sensor_path
+    
+    @property
+    def bbox_reframe_path(self):
+        return self._bbox_reframe_path
 
 
 
 
-    def get_bbox_node_path(self) -> Union[str, None]:
+    def get_bbox_node_path(self, node_name: str) -> Union[str, None]:
         """Find the full path of the bbox data null node
         inside the current FLAM3H node.
         
-        The Null node name prefix to search is stored inside the global variable: OUT_SENSOR_BBOX_NODE_NAME
+        The Null node name prefixex to search are stored inside the global variables:
+        
+        OUT_SENSOR_BBOX_NODE_NAME
+        OUT_REFRAME_BBOX_NODE_NAME
 
         Returns:
-            Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode.
+            Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
         """        
-        matcher = nodesearch.Name(OUT_SENSOR_BBOX_NODE_NAME)
+        matcher = nodesearch.Name(node_name, exact = True)
         search = matcher.nodes(self.node, recursive=True)
         if search:
             return search[0].path()
@@ -1393,14 +1402,14 @@ reset_PREFS(self, mode=0) -> None:
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
                     
                 if update:
-                    if self.bboxpath is not None:
-                        node_bbox = hou.node(self.bboxpath)
+                    if self.bbox_sensor_path is not None:
+                        node_bbox = hou.node(self.bbox_sensor_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
                     if update_sensor:
-                        if self.bboxpath is not None:
-                            node_bbox = hou.node(self.bboxpath)
+                        if self.bbox_sensor_path is not None:
+                            node_bbox = hou.node(self.bbox_sensor_path)
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
@@ -1412,8 +1421,8 @@ reset_PREFS(self, mode=0) -> None:
                 view = v.curViewport()
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
-                if self.bboxpath is not None:
-                    node_bbox = hou.node(self.bboxpath)
+                if self.bbox_sensor_path is not None:
+                    node_bbox = hou.node(self.bbox_sensor_path)
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
@@ -1425,8 +1434,8 @@ reset_PREFS(self, mode=0) -> None:
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         if viewport.isCurrentTab():
             view = viewport.curViewport()
-            if self.bboxpath is not None:
-                node_bbox = hou.node(self.bboxpath)
+            if self.bbox_reframe_path is not None:
+                node_bbox = hou.node(self.bbox_reframe_path)
                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
