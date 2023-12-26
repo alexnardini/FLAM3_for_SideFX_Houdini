@@ -1118,6 +1118,8 @@ util_set_front_viewer(self, update=True) -> None:
 
 util_set_front_viewer_all(self) -> None:
 
+util_viewport_bbox_frame(self) -> None:
+
 flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
 
 flam3h_outsensor_toggle(self, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
@@ -1405,6 +1407,19 @@ reset_PREFS(self, mode=0) -> None:
                 if self.bboxpath is not None:
                     node_bbox = hou.node(self.bboxpath)
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
+
+
+
+    def util_viewport_bbox_frame(self) -> None:
+        """Reframe the current viewport based on camera sensor node's bounding box.
+        """        
+        desktop = hou.ui.curDesktop() # type: ignore
+        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+        if viewport.isCurrentTab():
+            view = viewport.curViewport()
+            if self.bboxpath is not None:
+                node_bbox = hou.node(self.bboxpath)
+                view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
 

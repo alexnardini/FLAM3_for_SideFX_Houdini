@@ -269,6 +269,19 @@ loaddef:
     [Smallicon:opdef:.?iconSierpinskyDefSVG.svg]
     
     Load/reset to default Sierpiński triangle preset.
+
+:box:
+    #display: rounded white
+    
+    == SYS: Frame current viewport == (SYSDEFAULT)
+    
+frame viewport:
+    #id: SYS
+    [Smallicon:opdef:.?icon_Cam.svg]
+    
+    Re-frame current viewport based on camera sensor bounding box. It will take into account the current out camera sensor resolution.
+    
+    This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
     
 :box:
     #display: rounded white
