@@ -1429,17 +1429,21 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def util_viewport_bbox_frame(self) -> None:
-        """Reframe the current viewport based on camera sensor node's bounding box.
-        """        
-        desktop = hou.ui.curDesktop() # type: ignore
-        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
-        if viewport.isCurrentTab():
-            view = viewport.curViewport()
-            if self.bbox_reframe_path is not None:
-                node_bbox = hou.node(self.bbox_reframe_path)
-                view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                # Set clipping planes just in case
-                self.util_set_clipping_viewers()
+        """Re-frame the current viewport based on camera sensor node's bounding box.
+        """  
+        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt() and not self.node.parm(OUT_UPDATE_SENSOR).evalAsInt():
+            self.util_set_clipping_viewers()
+            self.util_set_front_viewer()
+        else:      
+            desktop = hou.ui.curDesktop() # type: ignore
+            viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+            if viewport.isCurrentTab():
+                view = viewport.curViewport()
+                if self.bbox_reframe_path is not None:
+                    node_bbox = hou.node(self.bbox_reframe_path)
+                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                    # Set clipping planes just in case
+                    self.util_set_clipping_viewers()
 
 
 

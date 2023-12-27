@@ -277,7 +277,7 @@ loaddef:
     
 frame viewport:
     #id: SYS
-    [Smallicon:opdef:.?icon_Cam.svg]
+    [Smallicon:opdef:.?iconCamSVG.svg]
     
     :new:
     
@@ -285,6 +285,8 @@ frame viewport:
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
 
+    TIP:
+        When in camera sensor mode and update sensor toggle is off, the re-frame will be based on the Camera sensor bounding box instead.
 
 :box:
     #display: rounded white
@@ -1137,6 +1139,8 @@ Reload preset with remap "pre_gaussian_blur" changes:
     #id: prefs
     [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
+    :new:
+    
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to preform the same operation as above but loading a flame from the Clipboard instead.
 
@@ -1151,6 +1155,8 @@ Copy render properties on Load:
 Reload preset with "Copy render properties on Load" changes:
     #id: prefs
     [Smallicon:opdef:.?iconStarSwapSVG.svg]
+    
+    :new:
     
     Clicking this icon will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
 
