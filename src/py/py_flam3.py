@@ -1351,7 +1351,7 @@ reset_PREFS(self, mode=0) -> None:
         Returns:
             Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
         """        
-        matcher = nodesearch.Name(node_name, exact = True)
+        matcher = nodesearch.Name(node_name, exact=True)
         search = matcher.nodes(self.node, recursive=True)
         if search:
             return search[0].path()
@@ -1411,6 +1411,7 @@ reset_PREFS(self, mode=0) -> None:
                         if self.bbox_sensor_path is not None:
                             node_bbox = hou.node(self.bbox_sensor_path)
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
+
 
 
     # Wip and not currently used.

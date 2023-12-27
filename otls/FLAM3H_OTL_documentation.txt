@@ -279,13 +279,13 @@ frame viewport:
     #id: SYS
     [Smallicon:opdef:.?icon_Cam.svg]
     
-    Re-frame current viewport based on centered bounding box.
+    :new:
+    
+    Re-frame current viewport based on a centered bounding box.
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
-    
-    TIP:
-        You can change the size of the bounding box to be framed in the preference's options, under the general tab.
-    
+
+
 :box:
     #display: rounded white
     
@@ -1372,6 +1372,8 @@ use Fractorium parametric prm names:
 
     *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
+    
+    :dev:
     :disclosure:Technical note
     
         When saving a flame out with this option on, the xml appliction key will change from:
