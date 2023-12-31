@@ -146,6 +146,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame()
 
 
+'parameter name:    frameviewsensor'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame()
+
+
 'parameter name:    sys_palettepresets'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys()
