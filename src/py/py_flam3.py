@@ -4308,7 +4308,7 @@ reset_CP(self, mode=0) -> None:
                         clr = tuple(ramp.lookup(p))
                         HEXs.append(self.rgb_to_hex(clr))
                     
-                    if fsum(hsv_vals_prm) == 1.0:
+                    if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
                         dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs) } }
                     else:
                         hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
@@ -4520,13 +4520,13 @@ reset_CP(self, mode=0) -> None:
                 
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
-            if fsum(_hsv) != float(3):
+            if _hsv[0] == _hsv[1] == _hsv[2] == 1:
+                _MSG = f"{str(node)}: PALETTE HSV -> already at its default values."
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            else:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
                 # Print out to Houdini's status bar
                 _MSG = f"{str(node)}: PALETTE HSV -> RESET"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            else:
-                _MSG = f"{str(node)}: PALETTE HSV -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif mode == 3:
@@ -9543,7 +9543,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 # Here we go ahead since we know the prm CP_RAMP_HSV_VAL_NAME is a tuple
                 prm = self._node.parmTuple(prm_name).eval()
                 # If the HSV values are at their defaults, do not export them into the XML file
-                if fsum(prm) == float(3):
+                if prm[0] == prm[1] == prm[2] == 1:
                     return False
                 else:
                     return ' '.join([self.out_util_round_float(x) for x in prm])
