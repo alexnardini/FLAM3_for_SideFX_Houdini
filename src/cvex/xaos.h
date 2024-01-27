@@ -2,6 +2,10 @@
 #define __xaos_h__
 
 /*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
  /  date:       December 2022, Last revised December 2022
