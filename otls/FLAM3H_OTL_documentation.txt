@@ -3,7 +3,7 @@
 #context: sop
 #namespace: FLAM3
 #internal: FLAM3H
-#version: 1.1.90 - Gold
+#version: 1.2.00 - Gold
 
 """The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v20.0.506 )"""
 
@@ -287,6 +287,10 @@ frame viewport:
 
     TIP:
         When in camera sensor mode and update sensor toggle is off, the re-frame will be based on the Camera sensor bounding box instead.
+        
+        The icon will change to a red version of itself: 
+        
+        [Smallicon:opdef:.?iconCamSensorRedSVG.svg]
 
 :box:
     #display: rounded white
