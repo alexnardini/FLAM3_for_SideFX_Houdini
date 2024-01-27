@@ -21,6 +21,8 @@ import hou
 
 FLAM3HUSD_VERSION = '0.0.4'
 
+PREFS_VIEWPORT_DARK = 'setdark'
+
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 
 
@@ -78,10 +80,11 @@ def colorSchemeDark(self: hou.Node) -> None:
     count = 0
     viewers_col = []
 
-    setprm = self.parm("setdark").eval()
+    setprm = self.parm(PREFS_VIEWPORT_DARK).eval()
     Light = hou.viewportColorScheme.Light # type: ignore
     Grey  = hou.viewportColorScheme.Grey # type: ignore
     Dark  = hou.viewportColorScheme.Dark # type: ignore
+    DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
 
     for view in getSceneViewers():
 
@@ -99,16 +102,18 @@ def colorSchemeDark(self: hou.Node) -> None:
 
         if setprm:
             if len(hou.session.flam3h_viewport_CS) == 0: # type: ignore
-                if col == Light or col == Grey:
+                if col == Light or col == Grey or col == DarkGrey:
                     settings.setColorScheme(Dark)
             else:
-                if col == Light or col == Grey:
+                if col == Light or col == Grey or col == DarkGrey:
                     settings.setColorScheme(Dark)
                 elif col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
                     if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
                         settings.setColorScheme(Light)
                     elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
                         settings.setColorScheme(Grey)
+                    elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
+                        settings.setColorScheme(DarkGrey)
 
         else:
             if col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
@@ -116,6 +121,8 @@ def colorSchemeDark(self: hou.Node) -> None:
                     settings.setColorScheme(Light)
                 elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
                     settings.setColorScheme(Grey)
+                elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
+                    settings.setColorScheme(DarkGrey)
         count += 1
     
     # Update history
