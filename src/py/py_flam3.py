@@ -6392,7 +6392,7 @@ reset_IN(self, mode=0) -> None:
         """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.
 
         Args:
-            xforms (Union[tuple, None]): the current xform/iterator to search in
+            xforms (Union[tuple, None]): All the xforms of this flame. This can be iterator's xforms or FF xform.
             vars (dict): the variations we are searching for
             prx (str): the current type of the variation expressed as a prefix: "pre" or "post"
             exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
