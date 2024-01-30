@@ -1686,14 +1686,12 @@ reset_PREFS(self, mode=0) -> None:
         
         Light = hou.viewportColorScheme.Light # type: ignore
         Grey  = hou.viewportColorScheme.Grey # type: ignore
-        DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
         Dark  = hou.viewportColorScheme.Dark # type: ignore
-        
         # The following is a lazy way to make this backward compatible with H19.x
         # as the DarkGrey color scheme has been introduced in H20.x first
         hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
-        if hou_version < 20:
-            DarkGrey = Grey
+        if hou_version < 20: DarkGrey = Grey
+        else: DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
 
         for view in self.util_getSceneViewers():
 
