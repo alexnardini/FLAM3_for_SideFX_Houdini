@@ -9173,7 +9173,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 if vars_prm[-1]:
                     f3h_prm = varsPRM[v_type][1:-1]
 
-                    # If OUT_USE_FRACTORIUM_PRM_NAMES toggle is ON
+                    # If OUT Tab -> USE_FRACTORIUM_PRM_NAMES toggle is ON
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
                     apo_prm = flam3h_varsPRM_APO.varsPRM[v_type]
                     if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
