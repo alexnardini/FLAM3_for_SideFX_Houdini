@@ -1157,6 +1157,10 @@ reset_PREFS(self, mode=0) -> None:
         self._bbox_reframe_path = self.get_bbox_node_path(OUT_REFRAME_BBOX_NODE_NAME)
 
 
+    @staticmethod
+    def houdini_version() -> int:
+        return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+
 
     @staticmethod  
     def clamp(x, val_max=255) -> float:
@@ -1689,8 +1693,7 @@ reset_PREFS(self, mode=0) -> None:
         Dark  = hou.viewportColorScheme.Dark # type: ignore
         # The following is a lazy way to make this backward compatible with H19.x
         # as the DarkGrey color scheme has been introduced in H20.x first
-        hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
-        if hou_version < 20: DarkGrey = Grey
+        if flam3h_general_utils.houdini_version() < 20: DarkGrey = Grey
         else: DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
 
         for view in self.util_getSceneViewers():
