@@ -1615,7 +1615,7 @@ xaos modes:
 
     == Prefs: Camera == (PREFSCAM)
             
-handle:
+camera handle:
     #id: prefs
     Display the viewport camera handle to help frame/center your fractal flame.
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
