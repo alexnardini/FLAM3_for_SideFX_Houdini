@@ -310,7 +310,8 @@ CP Preset reload:
     #id: SYS
     [Smallicon:opdef:.?iconPrideSVG.svg]
     
-    Reload the selected CP palette preset. 
+    - ((LMB)) Reload the selected CP palette preset
+    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a palette *.json file.
     
 :box:
     #display: rounded white
@@ -968,7 +969,8 @@ Reload preset ( presets ):
     #id: PALETTE
     [Smallicon:opdef:.?iconPrideSVG.svg]
     
-    Reload the selected palette preset.
+    - ((LMB)) Reload the selected CP palette preset
+    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a palette *.json file.
     
 :box:
     #display: rounded white
@@ -1088,6 +1090,7 @@ Reload:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
 
     When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
     
