@@ -662,7 +662,7 @@ flam3h_on_deleted(self) -> None:
         """        
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
-            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 
@@ -828,7 +828,7 @@ flam3h_on_deleted(self) -> None:
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
                 if hou.isUIAvailable():
-                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                         # node.cook(force=True)
                         self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
@@ -3604,7 +3604,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     def flam3h_default(self) -> None:
-        """Sierpiński triangle parameter vaule.
+        """Sierpiński triangle parameters vaule.
         This is used to reset back FLAM3H node entire parameter template.
         
         Args:
@@ -4282,7 +4282,7 @@ reset_CP(self, mode=0) -> None:
                     _MSG = f"{str(node)}: PALETTE library file -> is LOCKED"
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     if hou.isUIAvailable():
-                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                     # Clear up status bar msg
                     flam3h_general_utils.set_status_msg('', 'MSG')
                 else:
@@ -4810,7 +4810,7 @@ If you type a negative number, it will be reset to a value of: 1"""
 
         if self.kwargs["ctrl"]:
             if hou.isUIAvailable():
-                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
+                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: XAOS usage infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
         else:
             # current node
@@ -4850,7 +4850,7 @@ and change the flame → “name” key afterwards.
     
 """
         if hou.isUIAvailable():
-            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
     
@@ -4861,7 +4861,7 @@ it wont be included when saving the Flame out into a flame file.
 In case you still want to include the inactive iterator into the file,
 set its Weight to Zero instead."""
         if hou.isUIAvailable():
-            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
 
@@ -5796,7 +5796,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     if hou.isUIAvailable():
                         ui_text = "Flame's Palette hex values not valid."
                         palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
-                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
+                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
                         return None
                     else:
                         return None
@@ -6254,7 +6254,7 @@ in_to_flam3h_reset_user_data(self) -> None:
 
 in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
 
-in_to_flam3h_clipboard_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
 
 in_to_flam3h_sys(self) -> None:
 
@@ -7661,7 +7661,7 @@ reset_IN(self, mode=0) -> None:
         If no pre_gaussian_blur variation is present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
         """ 
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard = self.in_to_flam3h_clipboard_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard = self.in_to_flam3h_init_data(node)
         
         if xml is not None and _xml_tree(xml).isvalidtree:
             
@@ -7746,9 +7746,23 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_to_flam3h_clipboard_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
-        """Check if we are able to parse a flame from the clipboard
-        and provide some output data to work with if that is the case.
+    # def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+    #     xml = hou.ui.getTextFromClipboard() # type: ignore
+    #     try:
+    #         tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+    #     except:
+    #         tree = None
+    #     if tree is not None:
+    #         assert xml is not None
+    #         flame_name_clipboard = in_flame(node, xml).name[0]
+    #         return xml, True, 0, flame_name_clipboard, True
+    #     else:
+    #         return None, False, 0, '', True
+
+
+    def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+        """Check if we are able to load a flame from a selected file or to parse a flame from the clipboard
+        and provide some output data to work with if any of those cases is true.
 
         Returns:
             tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
@@ -7765,6 +7779,7 @@ reset_IN(self, mode=0) -> None:
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
+        
         try:
             self.kwargs['alt']
             _K = True
@@ -7772,6 +7787,8 @@ reset_IN(self, mode=0) -> None:
             _K = False
 
         if _K:
+            
+            # ALT - If we are loading a flame from the clipboard
             if self.kwargs['alt']:
                 xml = hou.ui.getTextFromClipboard() # type: ignore
                 try:
@@ -7784,10 +7801,29 @@ reset_IN(self, mode=0) -> None:
                     return xml, True, 0, flame_name_clipboard, True
                 else:
                     return None, False, 0, '', True
+                
+            # SHIFT - If we are selecting a flame file to load
             elif self.kwargs['shift']:
-                return None, False, 0, '', False
+                flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+                if _xml_tree(flameFile).isvalidtree:
+                    node.setParms({IN_PATH: flameFile}) # type: ignore
+                    # Since this goes directly into: self.in_to_flam3h() definition only
+                    # its argument is set to 0 so not to create a loop of loading processes
+                    # becasue inside the following definition there is another call to: self.in_to_flam3h()
+                    flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
+                    
+                    # Set menu parameters index to the first entry
+                    node.setParms({IN_PRESETS: "0"}) # type: ignore
+                    node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
+                    
+                    return flameFile, False, 0, '', False
+                else:
+                    return None, False, 0, '', False
+            
+            # CTRL - 
             elif self.kwargs['ctrl']:
                 return None, False, 0, '', False
+            
             else:
                 xml = node.parm(IN_PATH).evalAsString()
                 preset_id = int(node.parm(IN_PRESETS).eval())
@@ -7826,7 +7862,7 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard, _ = self.in_to_flam3h_clipboard_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, _ = self.in_to_flam3h_init_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
 
@@ -9135,7 +9171,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             _MSG = f"{str(node)}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             if hou.isUIAvailable():
-                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False
         else:
@@ -9375,7 +9411,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         # Pop up message window
                         if hou.isUIAvailable():
-                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3 Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         # Clear up Houdini's status bar msg
                         flam3h_general_utils.set_status_msg('', 'MSG')
                         

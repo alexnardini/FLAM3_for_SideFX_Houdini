@@ -331,6 +331,7 @@ IN Preset reload:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
 
     The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
 
