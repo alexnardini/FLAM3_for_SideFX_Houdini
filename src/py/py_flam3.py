@@ -6254,6 +6254,10 @@ in_to_flam3h_reset_user_data(self) -> None:
 
 in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
 
+in_to_flam3h_init_data_ALT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+
+in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+
 in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
 
 in_to_flam3h_sys(self) -> None:
@@ -7746,23 +7750,130 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    # def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
-    #     xml = hou.ui.getTextFromClipboard() # type: ignore
-    #     try:
-    #         tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-    #     except:
-    #         tree = None
-    #     if tree is not None:
-    #         assert xml is not None
-    #         flame_name_clipboard = in_flame(node, xml).name[0]
-    #         return xml, True, 0, flame_name_clipboard, True
-    #     else:
-    #         return None, False, 0, '', True
+    def in_to_flam3h_init_data_ALT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+        """Load a flame preset from the clipboard.
+
+        Args:
+            node (hou.SopNode): FLAM3H node to load the flame preset into.
+
+        Returns:
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            
+                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                            
+                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                            
+                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                            
+                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                            
+                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+        """     
+        xml = hou.ui.getTextFromClipboard() # type: ignore
+        try:
+            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except:
+            tree = None
+        if tree is not None:
+            assert xml is not None
+            flame_name_clipboard = in_flame(node, xml).name[0]
+            return xml, True, 0, flame_name_clipboard, True
+        else:
+            return None, False, 0, '', True
+
+
+
+    def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+        """Load a flame file from a file dialog.
+
+        Args:
+            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+
+        Returns:
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            
+                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                            
+                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                            
+                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                            
+                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                            
+                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+        """        
+        flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        if _xml_tree(flameFile).isvalidtree:
+            node.setParms({IN_PATH: flameFile}) # type: ignore
+            # Since this goes directly into: self.in_to_flam3h() definition only
+            # its argument is set to 0 so not to create a loop of loading processes
+            # becasue inside the following definition there is another call to: self.in_to_flam3h()
+            flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
+            
+            # Set menu parameters index to the first entry
+            node.setParms({IN_PRESETS: "0"}) # type: ignore
+            node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
+            
+            return flameFile, False, 0, '', False
+        else:
+            return None, False, 0, '', False
+        
+        
+        
+    def in_to_flam3h_init_data_CTRL(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+        """Load nothing with a mouse click as the kwargs['ctrl'] is not mapped to anything else yet.
+
+        Args:
+            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+
+        Returns:
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            
+                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                            
+                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                            
+                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                            
+                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                            
+                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+    """
+        return None, False, 0, '', False
+    
+    
+    
+    def in_to_flam3h_init_data_LMB(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+        """Load a flame preset with a mouse click, no kwargs.
+
+        Args:
+            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+
+        Returns:
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            
+                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                            
+                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                            
+                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                            
+                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                            
+                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+    """
+        xml = node.parm(IN_PATH).evalAsString()
+        preset_id = int(node.parm(IN_PRESETS).eval())
+        return xml, False, preset_id, '', False
+
 
 
     def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
         """Check if we are able to load a flame from a selected file or to parse a flame from the clipboard
         and provide some output data to work with if any of those cases is true.
+        
+        Args:
+            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
             tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
@@ -7786,53 +7897,26 @@ reset_IN(self, mode=0) -> None:
         except:
             _K = False
 
+        # if kwargs
         if _K:
-            
             # ALT - If we are loading a flame from the clipboard
             if self.kwargs['alt']:
-                xml = hou.ui.getTextFromClipboard() # type: ignore
-                try:
-                    tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-                except:
-                    tree = None
-                if tree is not None:
-                    assert xml is not None
-                    flame_name_clipboard = in_flame(node, xml).name[0]
-                    return xml, True, 0, flame_name_clipboard, True
-                else:
-                    return None, False, 0, '', True
+                return self.in_to_flam3h_init_data_ALT(node)
                 
             # SHIFT - If we are selecting a flame file to load
             elif self.kwargs['shift']:
-                flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-                if _xml_tree(flameFile).isvalidtree:
-                    node.setParms({IN_PATH: flameFile}) # type: ignore
-                    # Since this goes directly into: self.in_to_flam3h() definition only
-                    # its argument is set to 0 so not to create a loop of loading processes
-                    # becasue inside the following definition there is another call to: self.in_to_flam3h()
-                    flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
-                    
-                    # Set menu parameters index to the first entry
-                    node.setParms({IN_PRESETS: "0"}) # type: ignore
-                    node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
-                    
-                    return flameFile, False, 0, '', False
-                else:
-                    return None, False, 0, '', False
+                return self.in_to_flam3h_init_data_SHIFT(node)
             
-            # CTRL - 
+            # CTRL - not mapped yet...
             elif self.kwargs['ctrl']:
-                return None, False, 0, '', False
+                return self.in_to_flam3h_init_data_CTRL(node)
             
             else:
-                xml = node.parm(IN_PATH).evalAsString()
-                preset_id = int(node.parm(IN_PRESETS).eval())
-                return xml, False, preset_id, '', False
+                return self.in_to_flam3h_init_data_LMB(node)
             
+        # otherwise if just a mouse click
         else:
-            xml = node.parm(IN_PATH).evalAsString()
-            preset_id = int(node.parm(IN_PRESETS).eval())
-            return xml, False, preset_id, '', False
+            return self.in_to_flam3h_init_data_LMB(node)
 
 
 
