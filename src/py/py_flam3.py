@@ -4055,7 +4055,7 @@ flam3h_ramp_save_JSON_DATA(self) -> str:
 
 flam3h_ramp_save(self) -> None:
 
-json_to_flam3h_ramp_SET_DATA(self) -> None:
+json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 
 json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
 
@@ -4389,7 +4389,7 @@ reset_CP(self, mode=0) -> None:
 
 
 
-    def json_to_flam3h_ramp_SET_DATA(self) -> None:
+    def json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 
         node = self.node
         
@@ -4461,7 +4461,13 @@ reset_CP(self, mode=0) -> None:
     def json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
         """Load the selected palette preset from the provided json file
         using the SYS load palette button.
-        """        
+
+        Args:
+            use_kwargs (bool, optional): Use the houdini kwargs arguments or not. Defaults to True.
+                                         This is being done as when this definition run from a menu parameter
+                                         the kwargs arguments are not available. 
+        """
+          
         node = self.node
         preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
         node.setParms({CP_PALETTE_PRESETS: preset_id}) 
@@ -4484,9 +4490,11 @@ reset_CP(self, mode=0) -> None:
             # SHIFT - If we are selecting a palette json file to load
             if self.kwargs['shift']:
                 filepath = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-                node.setParms({CP_PALETTE_LIB_PATH: filepath})
-                # The following definition use the default arg's value so it can set the proper ramp message if needed.
-                flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
+                dir = os.path.dirname(filepath)
+                if os.path.isdir(dir):
+                    node.setParms({CP_PALETTE_LIB_PATH: filepath})
+                    # The following definition use the default arg's value so it can set the proper ramp message if needed.
+                    flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
                 
             # ALT - If we afre loading a palette from the clipboard
             elif self.kwargs['alt']:
@@ -4561,13 +4569,13 @@ reset_CP(self, mode=0) -> None:
 
             # LMB - Load the currently selected palette preset
             else:   
-                self.json_to_flam3h_ramp_SET_DATA()
+                self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
         #  NO KWARGS - LMB - Load the currently selected palette preset
         #
         # This is used from the preset menus parameter, since kwargs are not available from here.
         else:
-            self.json_to_flam3h_ramp_SET_DATA()
+            self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
 
 
@@ -7934,18 +7942,22 @@ reset_IN(self, mode=0) -> None:
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
         """        
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-        if _xml_tree(flameFile).isvalidtree:
-            node.setParms({IN_PATH: flameFile}) # type: ignore
-            # Since this goes directly into: self.in_to_flam3h() definition only
-            # its argument is set to 0 so not to create a loop of loading processes
-            # becasue inside the following definition there is another call to: self.in_to_flam3h()
-            flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
-            
-            # Set menu parameters index to the first entry
-            node.setParms({IN_PRESETS: "0"}) # type: ignore
-            node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
-            
-            return flameFile, False, 0, '', False
+        dir = os.path.dirname(flameFile)
+        if os.path.isdir(dir):
+            if _xml_tree(flameFile).isvalidtree:
+                node.setParms({IN_PATH: flameFile}) # type: ignore
+                # Since this goes directly into: self.in_to_flam3h() definition only
+                # its argument is set to 0 so not to create a loop of loading processes
+                # becasue inside the following definition there is another call to: self.in_to_flam3h()
+                flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
+                
+                # Set menu parameters index to the first entry
+                node.setParms({IN_PRESETS: "0"}) # type: ignore
+                node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
+                
+                return flameFile, False, 0, '', False
+            else:
+                return None, False, 0, '', False
         else:
             return None, False, 0, '', False
         

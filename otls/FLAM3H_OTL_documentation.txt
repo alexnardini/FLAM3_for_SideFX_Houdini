@@ -310,7 +310,8 @@ CP Preset reload:
     #id: SYS
     [Smallicon:opdef:.?iconPrideSVG.svg]
     
-    - ((LMB)) Reload the selected CP palette preset
+    - ((LMB)) Reload the selected CP palette preset.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
     - ((SHIFT)) + ((LMB)) Open a file dialog window to load a palette *.json file.
     
 :box:
@@ -935,6 +936,7 @@ Save Palette:
     
     - If the selected file does not exist, it will be created.
     - If the selected file already contains some palettes, it will append the current one.
+    - ((ALT)) + ((LMB)) to save the current palette into the clipboard.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
 
@@ -969,7 +971,8 @@ Reload preset ( presets ):
     #id: PALETTE
     [Smallicon:opdef:.?iconPrideSVG.svg]
     
-    - ((LMB)) Reload the selected CP palette preset
+    - ((LMB)) Reload the selected CP palette preset.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
     - ((SHIFT)) + ((LMB)) Open a file dialog window to load a palette *.json file.
     
 :box:
