@@ -4508,60 +4508,70 @@ reset_CP(self, mode=0) -> None:
                 # If it is a valid json data
                 if data is not False:
                     
-                    preset = list(data.keys())[0]
-                    f3h_palette_data = json.loads(palette)[preset]
-                    
-                    # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
                     try:
-                        hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
-                        isJSON_F3H = True
+                        preset = list(data.keys())[0]
                     except:
-                        isJSON_F3H = False
-                        _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        del data
+                        preset = None
                         
-                    # If it is a valid FLAM3H Palette JSON data
-                    if isJSON_F3H:
+                    if preset is not None:
                         
-                        # get ramp parm
-                        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-                        ramp_parm.deleteAllKeyframes()
+                        f3h_palette_data = json.loads(palette)[preset]
                         
-                        HEXs = []
-                        hsv_vals = []
-                        hsv_check = False
-                        hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
+                        # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
                         try:
-                            [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
-                            hsv_check = True
+                            hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
+                            isJSON_F3H = True
                         except:
-                            pass
-                        [HEXs.append(hex) for hex in wrap(hex_values, 6)]
-                        
-                        rgb_from_XML_PALETTE = []
-                        for hex in HEXs:
-                            x = self.hex_to_rgb(hex)
-                            rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
-                        
-                        # Initialize new ramp.
-                        POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-                        ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-                        ramp_parm.set(ramp)
+                            isJSON_F3H = False
+                            _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                            del data
+                            
+                        # If it is a valid FLAM3H Palette JSON data
+                        if isJSON_F3H:
+                            
+                            # get ramp parm
+                            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                            ramp_parm.deleteAllKeyframes()
+                            
+                            HEXs = []
+                            hsv_vals = []
+                            hsv_check = False
+                            hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
+                            try:
+                                [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                                hsv_check = True
+                            except:
+                                pass
+                            [HEXs.append(hex) for hex in wrap(hex_values, 6)]
+                            
+                            rgb_from_XML_PALETTE = []
+                            for hex in HEXs:
+                                x = self.hex_to_rgb(hex)
+                                rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+                            
+                            # Initialize new ramp.
+                            POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+                            BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+                            ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+                            ramp_parm.set(ramp)
 
-                        if hsv_check:
-                            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
-                        else:
-                            # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+                            if hsv_check:
+                                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+                            else:
+                                # This is for backward compatibility ( when the hsv data wasn't being exported yet )
+                                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
-                        # Make sure we update the HSV ramp in place
-                        self.palette_cp()
-                        self.palette_hsv()
-                        
-                        _MSG = f"{str(node)}: Palette JSON load -> Palette from clipboard load -> Completed."
-                        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                            # Make sure we update the HSV ramp in place
+                            self.palette_cp()
+                            self.palette_hsv()
+                            
+                            _MSG = f"{str(node)}: Palette JSON load -> Palette from clipboard load -> Completed."
+                            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                            
+                    else:
+                        _MSG = f"{str(node)}: Palette JSON load -> The data from the clipboard is not a valid JSON data."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 else:
                     _MSG = f"{str(node)}: Palette JSON load -> The data from the clipboard is not a valid JSON data."
