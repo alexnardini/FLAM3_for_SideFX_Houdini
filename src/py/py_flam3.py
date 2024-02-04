@@ -4055,9 +4055,11 @@ flam3h_ramp_save_JSON_DATA(self) -> str:
 
 flam3h_ramp_save(self) -> None:
 
-json_to_flam3h_ramp_sys(self) -> None:
+json_to_flam3h_ramp_SET_DATA(self) -> None:
 
-json_to_flam3h_ramp(self) -> None:
+json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
+
+json_to_flam3h_ramp(self, use_kwargs=True) -> None:
 
 palette_cp(self) -> None:
 
@@ -4306,10 +4308,18 @@ reset_CP(self, mode=0) -> None:
         as when saving the HSV palette, its colors will be clamped. [0-255]
         """
         
+        # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
+            node =  self.node
             json_data = self.flam3h_ramp_save_JSON_DATA()
             hou.ui.copyTextToClipboard(json_data) # type: ignore
+            # Clear up palette preset name if any
+            node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+            # Satus message
+            _MSG = f"{str(node)}: SAVE Palette Clipboard -> palette copied to the clipboard -> Completed"
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
+        # Save palette into a file
         else:
             node = self.node
             palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
@@ -4317,6 +4327,7 @@ reset_CP(self, mode=0) -> None:
 
             if out_path_checked is not False:
                 
+                # SHIFT - Open a file explorer to the file location
                 if self.kwargs['shift']:
                     flam3h_general_utils.util_open_file_explorer(out_path_checked)
                     
@@ -4378,95 +4389,185 @@ reset_CP(self, mode=0) -> None:
 
 
 
-    def json_to_flam3h_ramp_sys(self) -> None:
+    def json_to_flam3h_ramp_SET_DATA(self) -> None:
+
+        node = self.node
+        
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        if iterators_num:
+            
+            # get ramp parm
+            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+            ramp_parm.deleteAllKeyframes()
+            
+            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+            
+            if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+
+                HEXs = []
+                hsv_vals = []
+                
+                # get current preset
+                preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+                preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
+                
+                # The following 'hsv_check' is for backward compatibility
+                hsv_check = False
+                with open(filepath, 'r') as r:
+                    data = json.load(r)[preset]
+                    hex_values = data[CP_JSON_KEY_NAME_HEX]
+                    try:
+                        [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                        hsv_check = True
+                    except:
+                        pass
+                    [HEXs.append(hex) for hex in wrap(hex_values, 6)]
+                    
+                rgb_from_XML_PALETTE = []
+                for hex in HEXs:
+                    x = self.hex_to_rgb(hex)
+                    rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+                
+                # Initialize new ramp.
+                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+                ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+                ramp_parm.set(ramp)
+
+                if hsv_check:
+                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+                else:
+                    # This is for backward compatibility ( when the hsv data wasn't being exported yet )
+                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+
+                self.palette_cp()
+                self.palette_hsv()
+                
+                # Store selection into mem preset menu
+                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
+                
+                # Print to status Bar
+                _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            
+            else:
+                _MSG = f"{str(node)}: PALETTE -> Nothing to load"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+
+
+
+
+
+    def json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
         """Load the selected palette preset from the provided json file
         using the SYS load palette button.
         """        
         node = self.node
         preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
-        node.setParms({CP_PALETTE_PRESETS: preset_id}) # type: ignore
-        self.json_to_flam3h_ramp()
+        node.setParms({CP_PALETTE_PRESETS: preset_id}) 
+        self.json_to_flam3h_ramp(use_kwargs)
 
 
 
-    def json_to_flam3h_ramp(self) -> None:
+    def json_to_flam3h_ramp(self, use_kwargs=True) -> None:
         """Load the selected palette preset from the provided json file
         
         Args:
             kwargs (dict): [kwargs[] dictionary]
-        """    
+        """
+        
         node = self.node
         
-        # SHIFT - If we are selecting a palette json file to load
-        if self.kwargs['shift']:
-            filepath = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-            node.setParms({CP_PALETTE_LIB_PATH: filepath})
-            # The following definition use the default arg's value so it can set the proper ramp message if needed.
-            flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
-        
-        # LMB - Load the currently selected palette preset
-        else:
-
-            iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-            
-            if iterators_num:
+        # KWARGS
+        if use_kwargs:
                 
-                # get ramp parm
-                ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-                ramp_parm.deleteAllKeyframes()
+            # SHIFT - If we are selecting a palette json file to load
+            if self.kwargs['shift']:
+                filepath = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+                node.setParms({CP_PALETTE_LIB_PATH: filepath})
+                # The following definition use the default arg's value so it can set the proper ramp message if needed.
+                flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
                 
-                filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-                # get current preset
-                preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
+            # ALT - If we afre loading a palette from the clipboard
+            elif self.kwargs['alt']:
                 
-                if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
-
-                    HEXs = []
-                    hsv_vals = []
+                palette = hou.ui.getTextFromClipboard() # type: ignore
+                try:
+                    data = json.loads(palette)
+                except:
+                    data = False
+                
+                # If it is a valid json data
+                if data is not False:
                     
-                    # The following 'hsv_check' is for backward compatibility
-                    hsv_check = False
-                    with open(filepath, 'r') as r:
-                        data = json.load(r)[preset]
-                        hex_values = data[CP_JSON_KEY_NAME_HEX]
+                    preset = list(data.keys())[0]
+                    f3h_palette_data = json.loads(palette)[preset]
+                    
+                    # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
+                    try:
+                        hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
+                        isJSON_F3H = True
+                    except:
+                        isJSON_F3H = False
+                        _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        del data
+                        
+                    # If it is a valid FLAM3H Palette JSON data
+                    if isJSON_F3H:
+                        
+                        # get ramp parm
+                        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                        ramp_parm.deleteAllKeyframes()
+                        
+                        HEXs = []
+                        hsv_vals = []
+                        hsv_check = False
+                        hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
                         try:
-                            [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                            [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
                             hsv_check = True
                         except:
                             pass
                         [HEXs.append(hex) for hex in wrap(hex_values, 6)]
                         
-                    rgb_from_XML_PALETTE = []
-                    for hex in HEXs:
-                        x = self.hex_to_rgb(hex)
-                        rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
-                    
-                    # Initialize new ramp.
-                    POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                    BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-                    ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-                    ramp_parm.set(ramp)
+                        rgb_from_XML_PALETTE = []
+                        for hex in HEXs:
+                            x = self.hex_to_rgb(hex)
+                            rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+                        
+                        # Initialize new ramp.
+                        POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+                        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+                        ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+                        ramp_parm.set(ramp)
 
-                    if hsv_check:
-                        node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
-                    else:
-                        # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                        node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+                        if hsv_check:
+                            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+                        else:
+                            # This is for backward compatibility ( when the hsv data wasn't being exported yet )
+                            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
-                    self.palette_cp()
-                    self.palette_hsv()
-                    
-                    # Store selection into mem preset menu
-                    node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
-                    
-                    # Print to status Bar
-                    _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
-                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                
+                        # Make sure we update the HSV ramp in place
+                        self.palette_cp()
+                        self.palette_hsv()
+                        
+                        _MSG = f"{str(node)}: Palette JSON load -> Palette from clipboard load -> Completed."
+                        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                        
                 else:
-                    _MSG = f"{str(node)}: PALETTE -> Nothing to load"
-                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    _MSG = f"{str(node)}: Palette JSON load -> The data from the clipboard is not a valid JSON data."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+
+            # LMB - Load the currently selected palette preset
+            else:   
+                self.json_to_flam3h_ramp_SET_DATA()
+
+        #  NO KWARGS - LMB - Load the currently selected palette preset
+        #
+        # This is used from the preset menus parameter, since kwargs are not available from here.
+        else:
+            self.json_to_flam3h_ramp_SET_DATA()
 
 
 
