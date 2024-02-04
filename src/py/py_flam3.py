@@ -4464,11 +4464,14 @@ reset_CP(self, mode=0) -> None:
                                          This is being done as when this definition run from a menu parameter
                                          the kwargs arguments are not available. 
         """
-          
-        node = self.node
-        preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
-        node.setParms({CP_PALETTE_PRESETS: preset_id}) 
-        self.json_to_flam3h_ramp(use_kwargs)
+        
+        if use_kwargs:
+            self.json_to_flam3h_ramp(use_kwargs)
+        else:
+            node = self.node
+            preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
+            node.setParms({CP_PALETTE_PRESETS: preset_id}) 
+            self.json_to_flam3h_ramp(use_kwargs)
 
 
 
@@ -4520,7 +4523,7 @@ reset_CP(self, mode=0) -> None:
                             isJSON_F3H = True
                         except:
                             isJSON_F3H = False
-                            _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                            _MSG = f"{str(node)}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             del data
                             
@@ -4562,15 +4565,15 @@ reset_CP(self, mode=0) -> None:
                             # Make sure we update the HSV ramp in place
                             self.palette_lock()
                             
-                            _MSG = f"{str(node)}: Palette JSON load -> Palette from clipboard load -> Completed."
+                            _MSG = f"{str(node)}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
                             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                             
                     else:
-                        _MSG = f"{str(node)}: Palette JSON load -> The data from the clipboard is not a valid JSON data."
+                        _MSG = f"{str(node)}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 else:
-                    _MSG = f"{str(node)}: Palette JSON load -> The data from the clipboard is not a valid JSON data."
+                    _MSG = f"{str(node)}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
             # LMB - Load the currently selected palette preset
