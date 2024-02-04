@@ -3690,6 +3690,7 @@ iterator_keep_last_weight(self) -> None:
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
 
+
     def auto_set_xaos(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.
 
@@ -4269,8 +4270,7 @@ reset_CP(self, mode=0) -> None:
             presetname = name
 
         # Updated HSV ramp before getting it
-        self.palette_hsv()
-        self.palette_cp()
+        self.palette_lock()
 
         ramp = hou.Ramp()
         hsv_vals = []
@@ -4440,8 +4440,7 @@ reset_CP(self, mode=0) -> None:
                     # This is for backward compatibility ( when the hsv data wasn't being exported yet )
                     node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
-                self.palette_cp()
-                self.palette_hsv()
+                self.palette_lock()
                 
                 # Store selection into mem preset menu
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
@@ -4453,8 +4452,6 @@ reset_CP(self, mode=0) -> None:
             else:
                 _MSG = f"{str(node)}: PALETTE -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-
-
 
 
 
@@ -4503,10 +4500,10 @@ reset_CP(self, mode=0) -> None:
                 try:
                     data = json.loads(palette)
                 except:
-                    data = False
+                    data = None
                 
                 # If it is a valid json data
-                if data is not False:
+                if data is not None:
                     
                     try:
                         preset = list(data.keys())[0]
@@ -4563,8 +4560,7 @@ reset_CP(self, mode=0) -> None:
                                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
                             # Make sure we update the HSV ramp in place
-                            self.palette_cp()
-                            self.palette_hsv()
+                            self.palette_lock()
                             
                             _MSG = f"{str(node)}: Palette JSON load -> Palette from clipboard load -> Completed."
                             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -4697,9 +4693,8 @@ reset_CP(self, mode=0) -> None:
             _MSG = f"{str(node)}:PALETTE -> RESET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
-        # Update ramp py 
-        self.palette_cp()
-        self.palette_hsv()
+        # Update ramp py
+        self.palette_lock()
 
 
 
@@ -8168,8 +8163,7 @@ reset_IN(self, mode=0) -> None:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
             ramp_parm.set(apo_data.palette[0])
-            flam3h_palette_utils(self.kwargs).palette_cp()
-            flam3h_palette_utils(self.kwargs).palette_hsv()
+            flam3h_palette_utils(self.kwargs).palette_lock()
             
             # Set density back to default on load
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -8441,8 +8435,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
-            flam3h_palette_utils(self.kwargs).palette_cp()
-            flam3h_palette_utils(self.kwargs).palette_hsv()
+            flam3h_palette_utils(self.kwargs).palette_lock()
             self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
