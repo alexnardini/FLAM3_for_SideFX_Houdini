@@ -862,6 +862,7 @@ flam3h_on_deleted(self) -> None:
         node_instances = self.node.type().instances()
         
         # FLAM3H node and MultiParameter id for iterators
+        # This is to make sure the hou.session's data is at least initialized.
         flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
 
         # If an iterator was copied from a node that has been deleted
@@ -875,6 +876,7 @@ flam3h_on_deleted(self) -> None:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
 
         # FLAM3 node for FF.
+        # This is to make sure the hou.session's data is at least initialized.
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
 
         # If the FF was copied from a node that has been deleted
@@ -2297,8 +2299,8 @@ iterator_keep_last_weight(self) -> None:
 
         Args:
             self (hou.SopNode): FLAM3H node
-            data_name (str): The parameter name you desire to swt.
-            data (list): The data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
+            data_name (str): The parameter name you desire to set.
+            data (list): The actual data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
         """
         if data_name == FLAM3H_DATA_PRM_XAOS_MP_MEM:
             data_to_prm = ' '.join([str(x) for x in data])
@@ -2442,6 +2444,7 @@ iterator_keep_last_weight(self) -> None:
         if self.exist_user_data(node):
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
         
+        # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
         
@@ -2506,7 +2509,10 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         
+        # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_ff_data(node)
+        
+        # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
 
         if from_FLAM3H_NODE_FF_CHECK is not None:
@@ -2708,6 +2714,7 @@ iterator_keep_last_weight(self) -> None:
             node (hou.SopNode): this FLAM3H node
         """    
 
+        # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
         if mp_id_from is not None:
@@ -2766,6 +2773,7 @@ iterator_keep_last_weight(self) -> None:
             node (hou.SopNode): this FLAM3H node
         """   
   
+        # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
         if node == from_FLAM3H_NODE: # type: ignore
@@ -2820,6 +2828,7 @@ iterator_keep_last_weight(self) -> None:
             node (hou.SopNode): this FLAM3H node
         """        
         
+        # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
         if self.exist_user_data(node):
@@ -2876,6 +2885,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
+        # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
         if self.kwargs["ctrl"]:
@@ -2906,6 +2916,7 @@ iterator_keep_last_weight(self) -> None:
             node (hou.SopNode): this FLAM3H node
         """    
         
+        # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
@@ -2938,6 +2949,8 @@ iterator_keep_last_weight(self) -> None:
         Args:
             node (hou.SopNode): this FLAM3H node
         """  
+        
+        # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
         if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
@@ -2968,6 +2981,7 @@ iterator_keep_last_weight(self) -> None:
             node (hou.SopNode): this FLAM3H node
         """ 
         
+        # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
         
         if self.exist_user_data(node, "Marked FF"):
@@ -3002,6 +3016,7 @@ iterator_keep_last_weight(self) -> None:
         """   
         
         node = self.node
+        # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_ff_data(node)
         
         if self.kwargs["ctrl"]:
@@ -4440,6 +4455,7 @@ reset_CP(self, mode=0) -> None:
                     # This is for backward compatibility ( when the hsv data wasn't being exported yet )
                     node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
+                # Update palette
                 self.palette_lock()
                 
                 # Store selection into mem preset menu
@@ -4496,7 +4512,7 @@ reset_CP(self, mode=0) -> None:
                     # The following definition use the default arg's value so it can set the proper ramp message if needed.
                     flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
                 
-            # ALT - If we afre loading a palette from the clipboard
+            # ALT - If we are loading a palette from the clipboard
             elif self.kwargs['alt']:
                 
                 palette = hou.ui.getTextFromClipboard() # type: ignore
@@ -4562,7 +4578,7 @@ reset_CP(self, mode=0) -> None:
                                 # This is for backward compatibility ( when the hsv data wasn't being exported yet )
                                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
-                            # Make sure we update the HSV ramp in place
+                            # Make sure we update the HSV palette
                             self.palette_lock()
                             
                             _MSG = f"{str(node)}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
@@ -4595,8 +4611,8 @@ reset_CP(self, mode=0) -> None:
             kwargs (dict): [kwargs[] dictionary]
         """    
         node = self.node
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
         rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        rmphsv = node.parm(CP_RAMP_HSV_NAME)
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
         # Apply HSV if any is currently set
         self.palette_hsv()
@@ -4609,9 +4625,9 @@ reset_CP(self, mode=0) -> None:
         Args:
             kwargs (dict): [kwargs[] dictionary]
         """  
-        node = self.node  
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
+        node = self.node
         rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        rmphsv = node.parm(CP_RAMP_HSV_NAME)
         hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
         hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
         
@@ -4628,6 +4644,7 @@ reset_CP(self, mode=0) -> None:
 
     def palette_lock(self) -> None:
         """Lock the HSV palette color/keys from being modified.
+        This is also used to updated the palette HSV to keep it up to date with the source palette.
         
         Args:
             kwargs (dict): [kwargs[] dictionary]
@@ -4696,7 +4713,7 @@ reset_CP(self, mode=0) -> None:
             _MSG = f"{str(node)}:PALETTE -> RESET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
-        # Update ramp py
+        # Update palette py
         self.palette_lock()
 
 
@@ -7846,7 +7863,7 @@ reset_IN(self, mode=0) -> None:
         
         node = self.node
         
-        # lets initialize those to default values if one if their data no longer exist.
+        # lets initialize those to default values in case their data no longer exist.
         flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
         

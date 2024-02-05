@@ -1,11 +1,12 @@
 #icon: opdef:.?FLAM3H_DOC_icon.svg
 #type: node
 #context: sop
-#namespace: FLAM3
+#namespace: alexnardini
 #internal: FLAM3H
 #version: 1.2.00 - Gold
 
-"""The Fractal Flame Algorithm: FLAM3 ( vcc compiler: SideFX Houdini v20.0.506 )"""
+"""The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
+( vcc compiler: v20.0.506 )"""
 
 
 :box:
@@ -279,16 +280,14 @@ frame viewport:
     #id: SYS
     [Smallicon:opdef:.?iconCamSVG.svg]
     
-    :new:
-    
     Re-frame current viewport based on a centered bounding box.
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
 
-    TIP:
-        When in camera sensor mode and update sensor toggle is off, the re-frame will be based on the Camera sensor bounding box instead.
+    NOTE:
+        When in camera sensor mode, the re-frame will be based on the Camera sensor bounding box instead.
         
-        The icon will change to a red version of itself: 
+        The icon will change into a red version of itself: 
         
         [Smallicon:opdef:.?iconCamSensorRedSVG.svg]
 
@@ -303,7 +302,9 @@ CP Presets mini menu:
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
     TIP:
-        To populate this menu, load a palette *.json file first inside the CP Tab.
+        To populate this menu, load a palette *.json file first inside the CP Tab,
+        
+        or ((SHIFT)) + ((LMB)) the icon to open a file dialog window to load a palette *.json file.
         
     
 CP Preset reload:
@@ -325,7 +326,9 @@ IN Presets mini menu:
     This is being introduced since it is convenient to switch flame presets without constantly entering the IN Tab.
     
     TIP:
-        To populate this menu, load a valid *.flame file first inside the IN Tab.
+        To populate this menu, load a valid *.flame file first inside the IN Tab,
+        
+        or ((SHIFT)) + ((LMB)) the icon to open a file dialog window to load a *.flame file.
     
 IN Preset reload:
     #id: SYS
@@ -592,9 +595,8 @@ swap PRE vars:
     #id: FLAME
     [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
-    ((LMB)) swap the order of the PRE Variations and their weights. 
-    
-    ((CTRL)) + ((LMB)) swap only the variation names.
+    - ((LMB)) swap the order of the PRE Variations and their weights. 
+    - ((CTRL)) + ((LMB)) swap only the variation names.
     
     
 VAR tab:
@@ -788,9 +790,8 @@ swap FF POST vars:
     #id: FLAME
     [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
-    ((LMB)) swap the order of the POST Variations and their weights. 
-    
-    ((CTRL)) + ((LMB)) swap only the variation names.
+    - ((LMB)) swap the order of the POST Variations and their weights. 
+    - ((CTRL)) + ((LMB)) swap only the variation names.
 
     
 FF: w:
@@ -932,10 +933,9 @@ Save Palette:
     
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    ((LMB)) to save the current palette into the selected OUT file.
-    
-    - If the selected file does not exist, it will be created.
-    - If the selected file already contains some palettes, it will append the current one.
+    - ((LMB)) to save the current palette into the selected OUT file.
+        - If the selected file does not exist, it will be created.
+        - If the selected file already contains some palettes, it will append the current one.
     - ((ALT)) + ((LMB)) to save the current palette into the clipboard.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
@@ -980,7 +980,7 @@ Reload preset ( presets ):
 
     == CP: Options == (CPOPTIONS)
     
-save palette HSV:
+save Palette HSV:
     #id: PALETTE
     OFF by default. When saving out a palette, use the non-color-corrected ramp and save the HSV values along with it if used ( different from default values ).Check this option to save the the color-corrected HSV ramp instead. This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
     
@@ -1150,8 +1150,6 @@ Reload preset with remap "pre_gaussian_blur" changes:
     #id: prefs
     [Smallicon:opdef:.?iconStarSwapOutlineSVG.svg]
     
-    :new:
-    
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to preform the same operation as above but loading a flame from the Clipboard instead.
 
@@ -1166,8 +1164,6 @@ Copy render properties on Load:
 Reload preset with "Copy render properties on Load" changes:
     #id: prefs
     [Smallicon:opdef:.?iconStarSwapSVG.svg]
-    
-    :new:
     
     Clicking this icon will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
 
@@ -1648,7 +1644,7 @@ amount:
 
     == Prefs: Viewport == (PREFSVIEW)
     
-dark:
+Dark:
     #id: prefs
     If it isn't already, change the viewport's color scheme to dark.
     If unchecked, it will remember the color scheme for every viewport and fall back on it.
