@@ -31,7 +31,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.1.90 - Gold'
+FLAM3H_VERSION = '1.2.00 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -153,7 +153,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_fram
 
 'parameter name:    sys_palettepresets'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False)
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu
@@ -303,7 +303,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
 'parameter name:    palettepresets'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False)
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
 return menu
