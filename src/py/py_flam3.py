@@ -1927,6 +1927,8 @@ iterators_count(self) -> None:
 
 iterator_keep_last_vactive(self) -> None:
 
+iterator_keep_last_vactive_STAR(self) -> None:
+
 iterator_keep_last_weight(self) -> None:
     """    
     
