@@ -8106,6 +8106,7 @@ reset_IN(self, mode=0) -> None:
             node.setParms({IN_PRESETS: preset_id}) # type: ignore
             
             self.in_to_flam3h()
+
     '''
         The following is the actual load preset/flame function to be used.
     '''
@@ -8274,6 +8275,7 @@ reset_IN(self, mode=0) -> None:
             mode (int, optional): _description_. Defaults to 0. 1 will restet the remainder of the parameters.
         """        
         node = self.node
+
         node.setParms({IN_ISVALID_FILE: 0})
         node.setParms({IN_CLIPBOARD_TOGGLE: 0})
         node.setParms({MSG_FLAMESTATS: ""})
