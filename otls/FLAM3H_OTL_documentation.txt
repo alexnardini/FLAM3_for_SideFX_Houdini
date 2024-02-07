@@ -749,7 +749,9 @@ VARS Tab:
     
 FF:
     #id: SYS
-    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+    
+    - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
+    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
     
     Enable and disable [finalXform|#FF] transform/iterator.
         
