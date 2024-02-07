@@ -199,11 +199,15 @@ FLAM3H documentation:
     
 FF:
     #id: SYS
+    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+    
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
 RIP:
     #id: SYS
+    [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg]
+    
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     After the algorithm transforms the points, it is possible for some of those points to shoot to infinity.
@@ -727,6 +731,12 @@ VARS Tab:
     #display: rounded white
 
     == FF == (FFMAIN)
+    
+FF:
+    #id: SYS
+    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+    
+    Enable and disable [finalXform|#FF] transform/iterator.
         
 FF: note:
     #id: FF
