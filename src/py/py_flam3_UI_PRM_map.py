@@ -31,7 +31,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.2.00 - Gold'
+FLAM3H_VERSION = '1.2.25 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -189,14 +189,19 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 
+'parameter name:    doiter_disabled_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
+
+
+'parameter name:    doiter_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
+
+
 'parameter name:    activetip_#'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
-
-
-'parameter name:    vactive_#'
-'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive()
 
 
 'parameter name:    iw_#'

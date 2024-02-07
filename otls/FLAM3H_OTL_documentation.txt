@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.2.00 - Gold
+#version: 1.2.25 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -344,7 +344,7 @@ IN Preset reload:
     #id: SYS
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
-    - [Smallicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
     
     Usage:
     
@@ -456,19 +456,24 @@ copy/paste:
     - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     - ((SHIFT)) + ((LMB)) to unmark this FLAM3H node marked iterator for being copied.
     
-A tip:
+Enable/Disable iterator:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
     
-    Show active iterator informations and tips.
+    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is OFF.
+    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] This iterator is ON.
     
-A:
-    #id: FLAME
     Enable/Disable this iterator.
     
     TIP:
         If an iterator is disabled, it won't be included when saving the Flame out into a flame file.
         In case you still want to include the inactive iterator in the file, set its weight to zero instead.
+    
+    
+A tip:
+    #id: FLAME
+    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
+    
+    Show active iterator informations and tips.
     
 W:
     #id: FLAME
@@ -1109,7 +1114,11 @@ IN file ( *.flame type ):
     
 Reload:
     #id: IN
-    [Smallicon:opdef:.?iconWhiteSVG.svg]
+
+    - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    
+    Usage:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a flame from the clipboard.

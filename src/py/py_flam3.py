@@ -76,7 +76,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.00'
+FLAM3H_VERSION = '1.2.25'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -4005,6 +4005,13 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             _MSG = f"{str(node)}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+
+
+    def iterator_keep_last_vactive_STAR(self) -> None:
+        id = self.kwargs['script_multiparm_index']
+        vactive_prm_name = f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}"
+        flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
+        self.iterator_keep_last_vactive()
 
 
     def iterator_keep_last_weight(self) -> None:
