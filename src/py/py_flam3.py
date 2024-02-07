@@ -3997,11 +3997,17 @@ iterator_keep_last_weight(self) -> None:
         """    
         node = self.node    
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        # The following will collect the active iterator bool value if and only if the iterator is active and its weight is above zero.
+        # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
+        # by the time we click to disable the last iterator they will all be disabled for a moment, just right before we switch this last one back to being enabled.
+        # Hence the case we are interested in is when the va: list variabel is empty, thats how we know we tried to switch the last active iterator OFF.
         va = [int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()) 
              for mp_idx in range(iter_num) 
                 if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() 
                 and node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() > 0]
 
+        # If this va: list variable is empty, mean we switched the last active irterator to OFF so lets do something about it.
         if not va:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
