@@ -6412,6 +6412,8 @@ in_util_join_vars_grp(groups: list) -> str:
 
 in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
 
+in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
+
 in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
