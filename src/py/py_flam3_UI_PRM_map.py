@@ -371,21 +371,21 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 'parameter name:    outpath'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
-'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 
 'parameter name:    outname'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 
 'parameter name:    outpresets'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
 
 
 'parameter name:    outedit'
