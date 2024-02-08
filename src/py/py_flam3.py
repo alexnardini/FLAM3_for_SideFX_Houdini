@@ -4853,9 +4853,9 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
         """Build and set the FLAM3H about plugins message.
         """    
         vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
-        n = 6
+        n = 5
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
-        _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + "\n" for idx, grp in enumerate(vars_sorted_grp)]
+        _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)]
         vars_txt = "".join(_vars)
         self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
         
