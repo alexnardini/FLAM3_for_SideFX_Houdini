@@ -76,7 +76,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.25'
+FLAM3H_VERSION = '1.2.30'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -4624,7 +4624,7 @@ reset_CP(self, mode=0) -> None:
             else:   
                 self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
-        #  NO KWARGS - LMB - Load the currently selected palette preset
+        # NO KWARGS - LMB - Load the currently selected palette preset
         #
         # This is used from the preset menus parameter, since kwargs are not available from here.
         else:
