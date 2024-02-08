@@ -4535,9 +4535,10 @@ reset_CP(self, mode=0) -> None:
             # SHIFT - If we are selecting a palette json file to load
             if self.kwargs['shift']:
                 filepath = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-                dir = os.path.dirname(filepath)
+                filepath_expandvars = os.path.expandvars(filepath)
+                dir = os.path.dirname(filepath_expandvars)
                 if os.path.isdir(dir):
-                    node.setParms({CP_PALETTE_LIB_PATH: filepath})
+                    node.setParms({CP_PALETTE_LIB_PATH: filepath_expandvars})
                     # The following definition use the default arg's value so it can set the proper ramp message if needed.
                     flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
                 
@@ -8030,10 +8031,11 @@ reset_IN(self, mode=0) -> None:
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
         """        
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-        dir = os.path.dirname(flameFile)
+        flameFile_expandvars = os.path.expandvars(flameFile)
+        dir = os.path.dirname(flameFile_expandvars)
         if os.path.isdir(dir):
-            if _xml_tree(flameFile).isvalidtree:
-                node.setParms({IN_PATH: flameFile}) # type: ignore
+            if _xml_tree(flameFile_expandvars).isvalidtree:
+                node.setParms({IN_PATH: flameFile_expandvars}) # type: ignore
                 # Since this goes directly into: self.in_to_flam3h() definition only
                 # its argument is set to 0 so not to create a loop of loading processes
                 # becasue inside the following definition there is another call to: self.in_to_flam3h()
@@ -8045,7 +8047,7 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
                 node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
                 
-                return flameFile, False, 0, '', False
+                return flameFile_expandvars, False, 0, '', False
             else:
                 return None, False, 0, '', False
         else:
