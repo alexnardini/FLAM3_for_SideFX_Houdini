@@ -2,7 +2,7 @@
 
 #   Title:      SideFX Houdini FLAM3: MAP PRM Definitions
 #   Author:     Alessandro Nardini
-#   date:       April 2023, Last revised October 2023
+#   date:       April 2023, Last revised January 2024
 #
 #   Name:       PY_MAP "Whatever"
 #
