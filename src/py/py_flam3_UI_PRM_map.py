@@ -31,7 +31,11 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
+<<<<<<< HEAD
 FLAM3H_VERSION = '1.2.00 - Gold'
+=======
+FLAM3H_VERSION = '1.2.25 - Gold'
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -189,14 +193,19 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 
+'parameter name:    doiter_disabled_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
+
+
+'parameter name:    doiter_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
+
+
 'parameter name:    activetip_#'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
-
-
-'parameter name:    vactive_#'
-'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive()
 
 
 'parameter name:    iw_#'
@@ -366,21 +375,21 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 'parameter name:    outpath'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
-'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 
 'parameter name:    outname'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 
 'parameter name:    outpresets'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
 
 
 'parameter name:    outedit'

@@ -3,7 +3,11 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
+<<<<<<< HEAD
 #version: 1.2.00 - Gold
+=======
+#version: 1.2.25 - Gold
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -193,20 +197,32 @@ iterations:
     
 FLAM3H documentation:
     #id: SYS
-    [Smallicon:opdef:.?icon_TagOSVG.svg]
+    [Smallicon:opdef:.?FLAM3H_iconSVG.svg]
     
     Display this documentation.
     
 FF:
     #id: SYS
+<<<<<<< HEAD
     [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+=======
+    
+    - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
+    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
 RIP:
     #id: SYS
+<<<<<<< HEAD
     [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg]
+=======
+    
+    - [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
+    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when RIP is ON.
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
@@ -227,7 +243,9 @@ _The above tag reference's image shows a flame with two iterators ( the second o
 
 TAG:
     #id: SYS
-    [Smallicon:opdef:.?icon_TagOBlueSVG.svg]
+    
+    - [Smallicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is OFF.
+    - [Smallicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is ON.
     
     Enable/disable vieport TAG infos.
     
@@ -313,7 +331,7 @@ CP Presets mini menu:
     
 CP Preset reload:
     #id: SYS
-    [Smallicon:opdef:.?iconPrideSVG.svg]
+    [Smallicon:opdef:.?icon_optionCPSVG.svg]
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
@@ -336,7 +354,11 @@ IN Presets mini menu:
     
 IN Preset reload:
     #id: SYS
-    [Smallicon:opdef:.?iconWhiteSVG.svg]
+    
+    - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    
+    Usage:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
@@ -446,19 +468,24 @@ copy/paste:
     - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     - ((SHIFT)) + ((LMB)) to unmark this FLAM3H node marked iterator for being copied.
     
-A tip:
+Enable/Disable iterator:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
     
-    Show active iterator informations and tips.
+    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is OFF.
+    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] This iterator is ON.
     
-A:
-    #id: FLAME
     Enable/Disable this iterator.
     
     TIP:
         If an iterator is disabled, it won't be included when saving the Flame out into a flame file.
         In case you still want to include the inactive iterator in the file, set its weight to zero instead.
+    
+    
+A tip:
+    #id: FLAME
+    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
+    
+    Show active iterator informations and tips.
     
 W:
     #id: FLAME
@@ -734,7 +761,13 @@ VARS Tab:
     
 FF:
     #id: SYS
+<<<<<<< HEAD
     [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+=======
+    
+    - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
+    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Enable and disable [finalXform|#FF] transform/iterator.
         
@@ -979,7 +1012,7 @@ LIB contents ( presets ):
     
 Reload preset ( presets ):
     #id: PALETTE
-    [Smallicon:opdef:.?iconPrideSVG.svg]
+    [Smallicon:opdef:.?icon_optionCPSVG.svg]
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
@@ -1099,7 +1132,11 @@ IN file ( *.flame type ):
     
 Reload:
     #id: IN
-    [Smallicon:opdef:.?iconWhiteSVG.svg]
+
+    - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    
+    Usage:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
@@ -1462,7 +1499,9 @@ Reset render properties:
     
 SHOW sensor viz:
     #id: OUT
-    [Smallicon:opdef:.?icon_TagORedSVG.svg]
+    
+    - [Smallicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is OFF.
+    - [Smallicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is ON.
     
     Activate FLAM3H Camera sensor visualization.
     
@@ -1517,7 +1556,7 @@ Scale:
     #id: OUT
     Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
     
-update sensor:
+update camera sensor:
     #id: OUT
     ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
     

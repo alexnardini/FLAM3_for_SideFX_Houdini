@@ -76,7 +76,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.00'
+FLAM3H_VERSION = '1.2.25'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -138,7 +138,9 @@ MB_SHUTTER = 'shutter'
 IN_ISVALID_FILE = 'inisvalidfile'
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
+IN_PRESETS_OFF = "inpresets_disabled"
 IN_SYS_PRESETS = 'sys_inpresets'
+IN_SYS_PRESETS_OFF = 'sys_inpresets_disabled'
 IN_USE_ITER_ON_LOAD = 'useiteronload'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
@@ -1008,6 +1010,8 @@ flam3h_on_deleted(self) -> None:
             # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
             # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside: in_flame_utils(self.kwargs).in_to_flam3h()
             node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()})
+            node.setParms({IN_PRESETS_OFF: node.parm(IN_SYS_PRESETS_OFF).eval()})
+            
             
             # Same goes for the palette preset entrie, and some time goes also out of range
             # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
@@ -1549,13 +1553,16 @@ reset_PREFS(self, mode=0) -> None:
         """    
         node = self.node
         prm = node.parm(IN_PRESETS)
+        prm_off = node.parm(IN_PRESETS_OFF)
         prm.set('-1')
+        prm_off.set('-1')
         
         xml = node.parm(IN_PATH).evalAsString()
         if os.path.isfile(xml):
             apo = _xml_tree(xml)
             if not apo.isvalidtree:
                 prm.set('-1')
+                prm_off.set('-1')
                 node.setParms({IN_ISVALID_FILE: 0})
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0})
                 node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
@@ -1565,12 +1572,14 @@ reset_PREFS(self, mode=0) -> None:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
+                    prm_off.set('0')
                     node.setParms({IN_ISVALID_FILE: 1})
                     in_flame_utils(self.kwargs).in_to_flam3h()
         else:
             clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
             if not clipboard:
                 prm.set('-1')
+                prm_off.set('-1')
                 node.setParms({IN_ISVALID_FILE: 0})
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0})
                 node.setParms({MSG_FLAMESTATS: ""})
@@ -1591,7 +1600,9 @@ reset_PREFS(self, mode=0) -> None:
         """    
         node = self.node
         prm = node.parm(OUT_PRESETS)
+        prm_sys = node.parm(OUT_SYS_PRESETS)
         prm.set('-1')
+        prm_sys.set('-1')
         
         xml = node.parm(OUT_PATH).evalAsString()
         xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
@@ -1600,6 +1611,7 @@ reset_PREFS(self, mode=0) -> None:
             apo = in_flame(node, xml_checked) #type: ignore
             if apo.isvalidtree:
                 prm.set(f'{len(apo.name)-1}')
+                prm_sys.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
                 if self.isLOCK(xml_checked):
                     flame_lib_locked = f"flame lib file: LOCKED"
@@ -1608,6 +1620,7 @@ reset_PREFS(self, mode=0) -> None:
                     node.setParms({MSG_OUT: ''})
             else:
                 prm.set('-1')
+                prm_sys.set('-1')
                 node.setParms({MSG_OUT: ''})
         else:
             node.setParms({MSG_OUT: ''})
@@ -1926,6 +1939,8 @@ auto_set_xaos(self) -> None:
 iterators_count(self) -> None:
 
 iterator_keep_last_vactive(self) -> None:
+
+iterator_keep_last_vactive_STAR(self) -> None:
 
 iterator_keep_last_weight(self) -> None:
     """    
@@ -3995,16 +4010,29 @@ iterator_keep_last_weight(self) -> None:
         """    
         node = self.node    
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        
+        # The following will collect the active iterator bool value if and only if the iterator is active and its weight is above zero.
+        # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
+        # by the time we click to disable the last iterator they will all be disabled for a moment, just right before we switch this last one back to being enabled.
+        # Hence the case we are interested in is when the va: list variabel is empty, thats how we know we tried to switch the last active iterator OFF.
         va = [int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()) 
              for mp_idx in range(iter_num) 
                 if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() 
                 and node.parm(f"{flam3h_iterator_prm_names.main_weight}_{str(mp_idx+1)}").eval() > 0]
 
+        # If this va: list variable is empty, mean we switched the last active irterator to OFF so lets do something about it.
         if not va:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}": 1})
             _MSG = f"{str(node)}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+
+
+    def iterator_keep_last_vactive_STAR(self) -> None:
+        id = self.kwargs['script_multiparm_index']
+        vactive_prm_name = f"{flam3h_iterator_prm_names.main_vactive}_{str(id)}"
+        flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
+        self.iterator_keep_last_vactive()
 
 
     def iterator_keep_last_weight(self) -> None:
@@ -4824,10 +4852,10 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
     def flam3h_about_plugins_msg(self) -> None:
         """Build and set the FLAM3H about plugins message.
         """    
-        vars_sorted = sorted(VARS_FLAM3_DICT_IDX.keys()) 
-        n = 6
+        vars_sorted = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys())]
+        n = 5
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
-        _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + "\n" for idx, grp in enumerate(vars_sorted_grp)]
+        _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)]
         vars_txt = "".join(_vars)
         self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
         
@@ -6384,6 +6412,8 @@ in_util_join_vars_grp(groups: list) -> str:
 
 in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
 
+in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
+
 in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
@@ -7248,6 +7278,25 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
+    def in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
+        """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not.
+        Those need to be queried separately, this definition will query the currently visible one.
+
+        Args:
+            node (hou.SopNode): This FLAm3H node
+            preset_id (int): the menu preset selction index to use to retrive its menu label string
+
+        Returns:
+            str: The selected menu preset menu label string
+        """
+        # Get the correct menu parameter's preset menu label
+        if node.parm(IN_ISVALID_FILE).evalAsInt():
+            return node.parm(IN_PRESETS).menuLabels()[preset_id]
+        else:
+            return node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+    
+    
+    @staticmethod
     def in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
         """WHen loading a FLame preset, t=set the FLAM3H iteration number
         to the value backed into the Flame preset name we just loaded.
@@ -7263,7 +7312,9 @@ reset_IN(self, mode=0) -> None:
         use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
         
         if clipboard: preset_name = flame_name_clipboard
-        else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        else:
+            # Get the correct menu parameter's preset menu label
+            preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
         
         iter_on_load_preset = in_flame_utils.in_get_preset_name_iternum(preset_name)
         if iter_on_load_preset is not None:
@@ -7365,7 +7416,13 @@ reset_IN(self, mode=0) -> None:
             f3r = apo_data
         else:
             xml = node.parm(IN_PATH).evalAsString()
-            preset_id = int(node.parm(IN_PRESETS).eval())
+            
+            # Get the correct menu parameter's preset idx
+            if node.parm(IN_ISVALID_FILE).evalAsInt():
+                preset_id = int(node.parm(IN_PRESETS).eval())
+            else:
+                preset_id = int(node.parm(IN_PRESETS_OFF).eval())
+                
             f3r = in_flame_iter_data(node, xml, preset_id)
             
         assert f3r is not None
@@ -7709,7 +7766,10 @@ reset_IN(self, mode=0) -> None:
         
         # Build and set descriptive parameter msg
         if clipboard: preset_name = apo_data.name[0]
-        else: preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+        else:
+            # Get the correct menu parameter's preset menu label
+            preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+                
         descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
                             f"{preset_name}", )
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
@@ -7847,7 +7907,9 @@ reset_IN(self, mode=0) -> None:
                     _MSG = f"{str(node)}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 else:
-                    preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
+                    # Get the correct menu parameter's preset menu label
+                    preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+
                     _MSG = f"{str(node)}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
@@ -7978,7 +8040,9 @@ reset_IN(self, mode=0) -> None:
                 
                 # Set menu parameters index to the first entry
                 node.setParms({IN_PRESETS: "0"}) # type: ignore
+                node.setParms({IN_PRESETS_OFF: "0"}) # type: ignore
                 node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
+                node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
                 
                 return flameFile, False, 0, '', False
             else:
@@ -8031,7 +8095,17 @@ reset_IN(self, mode=0) -> None:
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
     """
         xml = node.parm(IN_PATH).evalAsString()
-        preset_id = int(node.parm(IN_PRESETS).eval())
+        
+        # Get the correct menu parameter's preset idx
+        if node.parm(IN_ISVALID_FILE).evalAsInt():
+            preset_id = int(node.parm(IN_PRESETS).eval())
+            # Update
+            node.setParms({IN_PRESETS_OFF: node.parm(IN_PRESETS).eval()}) # type: ignore
+        else:
+            preset_id = int(node.parm(IN_PRESETS_OFF).eval())
+            # Update
+            node.setParms({IN_PRESETS: node.parm(IN_PRESETS_OFF).eval()}) # type: ignore
+            
         return xml, False, preset_id, '', False
 
 
@@ -8101,11 +8175,21 @@ reset_IN(self, mode=0) -> None:
         xml = node.parm(IN_PATH).evalAsString()
 
         if _xml_tree(xml).isvalidtree:
-            
-            preset_id = node.parm(IN_SYS_PRESETS).eval()
-            node.setParms({IN_PRESETS: preset_id}) # type: ignore
+            if node.parm(IN_ISVALID_FILE).evalAsInt():
+                preset_id = node.parm(IN_SYS_PRESETS).eval()
+                # Updated other PRESETS menu parameters
+                node.setParms({IN_SYS_PRESETS_OFF: preset_id}) # type: ignore
+                node.setParms({IN_PRESETS: preset_id}) # type: ignore
+                node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
+            else:
+                preset_id = node.parm(IN_SYS_PRESETS_OFF).eval()
+                # Updated other PRESETS menu parameters
+                node.setParms({IN_SYS_PRESETS: preset_id}) # type: ignore
+                node.setParms({IN_PRESETS: preset_id}) # type: ignore
+                node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
             
             self.in_to_flam3h()
+
     '''
         The following is the actual load preset/flame function to be used.
     '''
@@ -8199,8 +8283,9 @@ reset_IN(self, mode=0) -> None:
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
                     self.in_copy_render_stats_msg(self.kwargs)
             
-            # Update SYS inpresets parameter
+            # Update SYS inpresets parameters
             node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
+            node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
             
             # Update xaos
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
@@ -8220,8 +8305,10 @@ reset_IN(self, mode=0) -> None:
                 preset_name = flame_name_clipboard
                 _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
             else:
-                preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-                _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
+                # Get the correct menu parameter's preset menu label
+                preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+                    
+            _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
         else:
@@ -8274,6 +8361,7 @@ reset_IN(self, mode=0) -> None:
             mode (int, optional): _description_. Defaults to 0. 1 will restet the remainder of the parameters.
         """        
         node = self.node
+
         node.setParms({IN_ISVALID_FILE: 0})
         node.setParms({IN_CLIPBOARD_TOGGLE: 0})
         node.setParms({MSG_FLAMESTATS: ""})
@@ -8282,6 +8370,7 @@ reset_IN(self, mode=0) -> None:
         if mode:
             node.setParms({IN_PATH: ""})
             node.setParms({IN_PRESETS: str(-1)})
+            node.setParms({IN_PRESETS_OFF: str(-1)})
             node.setParms({IN_ITER_NUM_ON_LOAD: 64})
             node.setParms({IN_USE_ITER_ON_LOAD: 0})
             node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
@@ -9167,6 +9256,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             node.setParms({OUT_PATH: ""})
             node.setParms({OUT_HSV_PALETTE_DO: 0})
             node.setParms({OUT_PRESETS: "-1"})
+            node.setParms({OUT_SYS_PRESETS: "-1"})
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
