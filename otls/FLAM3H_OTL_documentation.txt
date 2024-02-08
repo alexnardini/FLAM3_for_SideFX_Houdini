@@ -200,18 +200,26 @@ FLAM3H documentation:
     
 FF:
     #id: SYS
+<<<<<<< HEAD
+    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+=======
     
     - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
     - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
 RIP:
     #id: SYS
+<<<<<<< HEAD
+    [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg]
+=======
     
     - [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
     - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when RIP is ON.
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
@@ -750,9 +758,13 @@ VARS Tab:
     
 FF:
     #id: SYS
+<<<<<<< HEAD
+    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
+=======
     
     - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
     - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
+>>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Enable and disable [finalXform|#FF] transform/iterator.
         
