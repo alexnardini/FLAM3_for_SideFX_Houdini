@@ -7276,6 +7276,25 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
+    def in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
+        """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not.
+        Those need to be queried separately, this definition will query the currently visible one.
+
+        Args:
+            node (hou.SopNode): This FLAm3H node
+            preset_id (int): the menu preset selction index to use to retrive its menu label string
+
+        Returns:
+            str: The selected menu preset menu label string
+        """
+        # Get the correct menu parameter's preset menu label
+        if node.parm(IN_ISVALID_FILE).evalAsInt():
+            return node.parm(IN_PRESETS).menuLabels()[preset_id]
+        else:
+            return node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+    
+    
+    @staticmethod
     def in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
         """WHen loading a FLame preset, t=set the FLAM3H iteration number
         to the value backed into the Flame preset name we just loaded.
@@ -7292,11 +7311,8 @@ reset_IN(self, mode=0) -> None:
         
         if clipboard: preset_name = flame_name_clipboard
         else:
-            # Get the correct menu parameter's preset
-            if node.parm(IN_ISVALID_FILE).evalAsInt():
-                preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-            else:
-                preset_name = node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+            # Get the correct menu parameter's preset menu label
+            preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
         
         iter_on_load_preset = in_flame_utils.in_get_preset_name_iternum(preset_name)
         if iter_on_load_preset is not None:
@@ -7398,7 +7414,8 @@ reset_IN(self, mode=0) -> None:
             f3r = apo_data
         else:
             xml = node.parm(IN_PATH).evalAsString()
-            # Get the correct menu parameter's preset
+            
+            # Get the correct menu parameter's preset idx
             if node.parm(IN_ISVALID_FILE).evalAsInt():
                 preset_id = int(node.parm(IN_PRESETS).eval())
             else:
@@ -7748,11 +7765,8 @@ reset_IN(self, mode=0) -> None:
         # Build and set descriptive parameter msg
         if clipboard: preset_name = apo_data.name[0]
         else:
-            # Get the correct menu parameter's preset
-            if node.parm(IN_ISVALID_FILE).evalAsInt():
-                preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-            else:
-                preset_name = node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+            # Get the correct menu parameter's preset menu label
+            preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
                 
         descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
                             f"{preset_name}", )
@@ -7891,11 +7905,8 @@ reset_IN(self, mode=0) -> None:
                     _MSG = f"{str(node)}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 else:
-                    # Get the correct menu parameter's preset
-                    if node.parm(IN_ISVALID_FILE).evalAsInt():
-                        preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-                    else:
-                        preset_name = node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+                    # Get the correct menu parameter's preset menu label
+                    preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
 
                     _MSG = f"{str(node)}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -8083,7 +8094,7 @@ reset_IN(self, mode=0) -> None:
     """
         xml = node.parm(IN_PATH).evalAsString()
         
-        # Get the correct menu parameter's preset
+        # Get the correct menu parameter's preset idx
         if node.parm(IN_ISVALID_FILE).evalAsInt():
             preset_id = int(node.parm(IN_PRESETS).eval())
             # Update
@@ -8292,11 +8303,8 @@ reset_IN(self, mode=0) -> None:
                 preset_name = flame_name_clipboard
                 _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
             else:
-                # Get the correct menu parameter's preset
-                if node.parm(IN_ISVALID_FILE).evalAsInt():
-                    preset_name = node.parm(IN_PRESETS).menuLabels()[preset_id]
-                else:
-                    preset_name = node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+                # Get the correct menu parameter's preset menu label
+                preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
                     
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
