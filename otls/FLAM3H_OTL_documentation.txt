@@ -13,7 +13,6 @@
     #display: rounded white
 
 
-
 == Welcome to FLAM3 for SideFX Houdini ==
 ( _H19.x and H20.x only_ )
 
@@ -200,26 +199,18 @@ FLAM3H documentation:
     
 FF:
     #id: SYS
-<<<<<<< HEAD
-    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
-=======
     
     - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
     - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
->>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
 RIP:
     #id: SYS
-<<<<<<< HEAD
-    [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg]
-=======
     
     - [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
     - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when RIP is ON.
->>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
@@ -230,6 +221,20 @@ RIP:
         If rendering a flame seems unusually slow, it's probably because certain points wind up being really far from the zero world.
         Those points will be eliminated if this option is turned ON.
 
+        
+F3C (flam3 compatibility):
+    #id: SYS
+    
+    - [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg] when F3C is OFF.
+    - [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg] when F3C is ON.
+    
+    The behavior of the *cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan* and *tanh* variations are different in flam3/Apophysis versus Chaotica.
+    * *Checked*: use the Apophysis behavior.
+    * *Unchecked*: use the Chaotica behavior.
+    
+    TIP:
+        In Fractorium you can go to "Options" to find the exact same checkbox.
+        
 
 :box:
     #display: rounded white
@@ -758,13 +763,9 @@ VARS Tab:
     
 FF:
     #id: SYS
-<<<<<<< HEAD
-    [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
-=======
     
     - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
     - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when FF is ON.
->>>>>>> be8cd712db0d3305ca979b634967c79c082b3be0
     
     Enable and disable [finalXform|#FF] transform/iterator.
         
