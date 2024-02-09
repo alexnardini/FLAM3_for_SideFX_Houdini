@@ -8,7 +8,7 @@
  /
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised May 2022
+ /  date:       October 2020, Last revised February 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -498,27 +498,25 @@ void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_times
     p[0] = (sinr + disc2_cosadd) * rr;
     p[1] = (cosr + disc2_sinadd) * rr;
 }
-// 47 L ( parametric )
-void V_DISC2_L(vector2 p; const vector2 _p; const float w, rot, twist; const vector precalc){
-    float disc2_sinadd, disc2_cosadd, disc2_timespi;
-    // precalc
-    disc2_timespi = precalc[0];
-    disc2_sinadd  = precalc[1];
-    disc2_cosadd  = precalc[2];
+// // 47 L ( parametric )
+// void V_DISC2_L(vector2 p; const vector2 _p; const float w, rot, twist; const vector precalc){
+//     float disc2_sinadd, disc2_cosadd, disc2_timespi;
+//     // precalc
+//     disc2_timespi = precalc[0];
+//     disc2_sinadd  = precalc[1];
+//     disc2_cosadd  = precalc[2];
 
-    V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
-}
+//     V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
+// }
 // 47 FF ( parametric )
 void V_DISC2_FF(vector2 p; const vector2 _p; const float w, rot, twist;){
-    float disc2_sinadd, disc2_cosadd, disc2_timespi;
-    // precalc
+    float a, b, c;
     vector precalc;
+    // precalc
     precalc_V_DISC2(precalc, rot, twist);
-    disc2_timespi = precalc[0];
-    disc2_sinadd  = precalc[1];
-    disc2_cosadd  = precalc[2];
-
-    V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
+    assign(a, b, c, precalc);
+    // Execute var
+    V_DISC2(p, _p, w, rot, twist, a, b, c);
 }
 // 48 ( parametric )
 void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes; const vector ss_n){

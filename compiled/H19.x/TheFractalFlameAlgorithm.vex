@@ -7032,31 +7032,6 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC2_L@UUFFFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist, <3 x double>* %precalc) #0 {
-__llvm_entry:
-  %0 = alloca <2 x double>
-  %1 = alloca double
-  %2 = alloca double
-  %3 = alloca double
-  %4 = alloca double
-  %5 = alloca double
-  %6 = alloca double
-  %precalc1 = load <3 x double>, <3 x double>* %precalc
-  %return = call double @"getcomp@FVI"(<3 x double> %precalc1, i64 0)
-  %return3 = call double @"getcomp@FVI"(<3 x double> %precalc1, i64 1)
-  %return5 = call double @"getcomp@FVI"(<3 x double> %precalc1, i64 2)
-  %_p6 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p6, <2 x double>* %0
-  %w7 = load double, double* %w
-  store double %w7, double* %1
-  store double %return, double* %4
-  store double %return3, double* %5
-  store double %return5, double* %6
-  call void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %0, double* %1, double* %2, double* %3, double* %4, double* %5, double* %6)
-  ret void
-}
-
-; Function Attrs: alwaysinline nounwind
 define private void @"V_DISC2_FF@UUFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rot, double* %twist) #0 {
 __llvm_entry:
   %precalc = alloca <3 x double>
@@ -7076,19 +7051,23 @@ __llvm_entry:
   store double %twist2, double* %1
   call void @"precalc_V_DISC2@VFF"(<3 x double>* %precalc, double* %0, double* %1)
   %precalc3 = load <3 x double>, <3 x double>* %precalc
-  %return = call double @"getcomp@FVI"(<3 x double> %precalc3, i64 0)
-  %return5 = call double @"getcomp@FVI"(<3 x double> %precalc3, i64 1)
-  %return7 = call double @"getcomp@FVI"(<3 x double> %precalc3, i64 2)
-  %_p8 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p8, <2 x double>* %2
-  %w9 = load double, double* %w
-  store double %w9, double* %3
-  store double %return, double* %6
-  store double %return5, double* %7
-  store double %return7, double* %8
+  %output = call { double, double, double } @"assign@FFFV"(<3 x double> %precalc3)
+  %output4 = extractvalue { double, double, double } %output, 0
+  %output5 = extractvalue { double, double, double } %output, 1
+  %output6 = extractvalue { double, double, double } %output, 2
+  %_p7 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p7, <2 x double>* %2
+  %w8 = load double, double* %w
+  store double %w8, double* %3
+  store double %output4, double* %6
+  store double %output5, double* %7
+  store double %output6, double* %8
   call void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %2, double* %3, double* %4, double* %5, double* %6, double* %7, double* %8)
   ret void
 }
+
+; Function Attrs: nounwind
+declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_SUPERSHAPE@UUFFFFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %ss_rnd, double* %ss_m, double* %ss_holes, <3 x double>* %ss_n) #0 {
@@ -10837,218 +10816,220 @@ __llvm_entry:
   %120 = alloca double
   %121 = alloca double
   %122 = alloca double
-  %123 = alloca <3 x double>
-  %124 = alloca <2 x double>
+  %123 = alloca double
+  %124 = alloca double
   %125 = alloca double
-  %126 = alloca double
+  %126 = alloca <2 x double>
   %127 = alloca double
   %128 = alloca double
-  %129 = alloca <3 x double>
-  %130 = alloca <2 x double>
-  %131 = alloca double
-  %132 = alloca double
+  %129 = alloca double
+  %130 = alloca double
+  %131 = alloca <3 x double>
+  %132 = alloca <2 x double>
   %133 = alloca double
-  %134 = alloca <2 x double>
+  %134 = alloca double
   %135 = alloca double
-  %136 = alloca double
+  %136 = alloca <2 x double>
   %137 = alloca double
-  %138 = alloca <2 x double>
+  %138 = alloca double
   %139 = alloca double
-  %140 = alloca double
+  %140 = alloca <2 x double>
   %141 = alloca double
-  %142 = alloca <2 x double>
+  %142 = alloca double
   %143 = alloca double
   %144 = alloca <2 x double>
   %145 = alloca double
   %146 = alloca <2 x double>
-  %147 = alloca <2 x double>
-  %148 = alloca double
-  %149 = alloca double
-  %150 = alloca <2 x double>
+  %147 = alloca double
+  %148 = alloca <2 x double>
+  %149 = alloca <2 x double>
+  %150 = alloca double
   %151 = alloca double
   %152 = alloca <2 x double>
   %153 = alloca double
   %154 = alloca <2 x double>
   %155 = alloca double
-  %156 = alloca double
-  %157 = alloca <2 x double>
+  %156 = alloca <2 x double>
+  %157 = alloca double
   %158 = alloca double
-  %159 = alloca double
+  %159 = alloca <2 x double>
   %160 = alloca double
   %161 = alloca double
-  %162 = alloca <2 x double>
+  %162 = alloca double
   %163 = alloca double
   %164 = alloca <2 x double>
   %165 = alloca double
   %166 = alloca <2 x double>
   %167 = alloca double
-  %168 = alloca double
-  %169 = alloca <2 x double>
+  %168 = alloca <2 x double>
+  %169 = alloca double
   %170 = alloca double
   %171 = alloca <2 x double>
   %172 = alloca double
-  %173 = alloca double
+  %173 = alloca <2 x double>
   %174 = alloca double
   %175 = alloca double
-  %176 = alloca <2 x double>
-  %177 = alloca <2 x double>
-  %178 = alloca double
+  %176 = alloca double
+  %177 = alloca double
+  %178 = alloca <2 x double>
   %179 = alloca <2 x double>
   %180 = alloca double
   %181 = alloca <2 x double>
-  %182 = alloca <2 x double>
-  %183 = alloca double
-  %184 = alloca double
+  %182 = alloca double
+  %183 = alloca <2 x double>
+  %184 = alloca <2 x double>
   %185 = alloca double
   %186 = alloca double
   %187 = alloca double
-  %188 = alloca <2 x double>
+  %188 = alloca double
   %189 = alloca double
   %190 = alloca <2 x double>
   %191 = alloca double
-  %192 = alloca double
-  %193 = alloca <2 x double>
-  %194 = alloca <2 x double>
-  %195 = alloca double
+  %192 = alloca <2 x double>
+  %193 = alloca double
+  %194 = alloca double
+  %195 = alloca <2 x double>
   %196 = alloca <2 x double>
-  %197 = alloca <2 x double>
-  %198 = alloca double
+  %197 = alloca double
+  %198 = alloca <2 x double>
   %199 = alloca <2 x double>
   %200 = alloca double
   %201 = alloca <2 x double>
-  %202 = alloca <2 x double>
+  %202 = alloca double
   %203 = alloca <2 x double>
-  %204 = alloca double
+  %204 = alloca <2 x double>
   %205 = alloca <2 x double>
-  %206 = alloca <2 x double>
-  %207 = alloca double
-  %208 = alloca double
+  %206 = alloca double
+  %207 = alloca <2 x double>
+  %208 = alloca <2 x double>
   %209 = alloca double
-  %210 = alloca <2 x double>
+  %210 = alloca double
   %211 = alloca double
-  %212 = alloca double
+  %212 = alloca <2 x double>
   %213 = alloca double
   %214 = alloca double
   %215 = alloca double
-  %216 = alloca <2 x double>
+  %216 = alloca double
   %217 = alloca double
-  %218 = alloca double
+  %218 = alloca <2 x double>
   %219 = alloca double
   %220 = alloca double
   %221 = alloca double
-  %222 = alloca <2 x double>
+  %222 = alloca double
   %223 = alloca double
-  %224 = alloca double
+  %224 = alloca <2 x double>
   %225 = alloca double
   %226 = alloca double
   %227 = alloca double
-  %228 = alloca <2 x double>
+  %228 = alloca double
   %229 = alloca double
-  %230 = alloca double
+  %230 = alloca <2 x double>
   %231 = alloca double
-  %232 = alloca <2 x double>
+  %232 = alloca double
   %233 = alloca double
   %234 = alloca <2 x double>
-  %235 = alloca <2 x double>
+  %235 = alloca double
   %236 = alloca <2 x double>
-  %237 = alloca double
+  %237 = alloca <2 x double>
   %238 = alloca <2 x double>
   %239 = alloca double
-  %240 = alloca i64
-  %241 = alloca <2 x double>
-  %242 = alloca double
-  %243 = alloca i64
-  %244 = alloca <2 x double>
-  %245 = alloca double
-  %246 = alloca i64
-  %247 = alloca <2 x double>
-  %248 = alloca double
-  %249 = alloca i64
-  %250 = alloca <2 x double>
-  %251 = alloca double
-  %252 = alloca i64
-  %253 = alloca <2 x double>
-  %254 = alloca double
-  %255 = alloca i64
-  %256 = alloca <2 x double>
-  %257 = alloca double
-  %258 = alloca i64
-  %259 = alloca <2 x double>
-  %260 = alloca double
-  %261 = alloca i64
-  %262 = alloca <2 x double>
-  %263 = alloca double
-  %264 = alloca i64
-  %265 = alloca <2 x double>
-  %266 = alloca double
-  %267 = alloca i64
-  %268 = alloca <2 x double>
-  %269 = alloca double
-  %270 = alloca i64
-  %271 = alloca <2 x double>
-  %272 = alloca double
-  %273 = alloca i64
-  %274 = alloca <2 x double>
-  %275 = alloca double
+  %240 = alloca <2 x double>
+  %241 = alloca double
+  %242 = alloca i64
+  %243 = alloca <2 x double>
+  %244 = alloca double
+  %245 = alloca i64
+  %246 = alloca <2 x double>
+  %247 = alloca double
+  %248 = alloca i64
+  %249 = alloca <2 x double>
+  %250 = alloca double
+  %251 = alloca i64
+  %252 = alloca <2 x double>
+  %253 = alloca double
+  %254 = alloca i64
+  %255 = alloca <2 x double>
+  %256 = alloca double
+  %257 = alloca i64
+  %258 = alloca <2 x double>
+  %259 = alloca double
+  %260 = alloca i64
+  %261 = alloca <2 x double>
+  %262 = alloca double
+  %263 = alloca i64
+  %264 = alloca <2 x double>
+  %265 = alloca double
+  %266 = alloca i64
+  %267 = alloca <2 x double>
+  %268 = alloca double
+  %269 = alloca i64
+  %270 = alloca <2 x double>
+  %271 = alloca double
+  %272 = alloca i64
+  %273 = alloca <2 x double>
+  %274 = alloca double
+  %275 = alloca i64
   %276 = alloca <2 x double>
   %277 = alloca double
-  %278 = alloca double
+  %278 = alloca <2 x double>
   %279 = alloca double
   %280 = alloca double
   %281 = alloca double
-  %282 = alloca <2 x double>
+  %282 = alloca double
   %283 = alloca double
-  %284 = alloca double
-  %285 = alloca <2 x double>
+  %284 = alloca <2 x double>
+  %285 = alloca double
   %286 = alloca double
-  %287 = alloca <4 x double>
-  %288 = alloca <4 x double>
-  %289 = alloca <2 x double>
-  %290 = alloca double
+  %287 = alloca <2 x double>
+  %288 = alloca double
+  %289 = alloca <4 x double>
+  %290 = alloca <4 x double>
   %291 = alloca <2 x double>
-  %292 = alloca <2 x double>
+  %292 = alloca double
   %293 = alloca <2 x double>
-  %294 = alloca double
-  %295 = alloca double
+  %294 = alloca <2 x double>
+  %295 = alloca <2 x double>
   %296 = alloca double
-  %297 = alloca <2 x double>
+  %297 = alloca double
   %298 = alloca double
-  %299 = alloca double
+  %299 = alloca <2 x double>
   %300 = alloca double
   %301 = alloca double
   %302 = alloca double
   %303 = alloca double
-  %304 = alloca <2 x double>
+  %304 = alloca double
   %305 = alloca double
   %306 = alloca <2 x double>
   %307 = alloca double
   %308 = alloca <2 x double>
-  %309 = alloca <2 x double>
+  %309 = alloca double
   %310 = alloca <2 x double>
   %311 = alloca <2 x double>
-  %312 = alloca double
-  %313 = alloca double
+  %312 = alloca <2 x double>
+  %313 = alloca <2 x double>
   %314 = alloca double
   %315 = alloca double
   %316 = alloca double
   %317 = alloca double
   %318 = alloca double
-  %319 = alloca <2 x double>
+  %319 = alloca double
   %320 = alloca double
   %321 = alloca <2 x double>
   %322 = alloca double
   %323 = alloca <2 x double>
   %324 = alloca double
-  %325 = alloca double
+  %325 = alloca <2 x double>
   %326 = alloca double
   %327 = alloca double
+  %328 = alloca double
+  %329 = alloca double
   %p = alloca <2 x double>
   store <2 x double> zeroinitializer, <2 x double>* %p, !vex-initializer-store !3
   %pos1 = load <2 x double>, <2 x double>* %pos
   %T2 = load i64, i64* %T
   %return = call i64 @"not@II"(i64 %T2)
-  %328 = icmp ne i64 %return, 0
-  br i1 %328, label %true, label %false
+  %330 = icmp ne i64 %return, 0
+  br i1 %330, label %true, label %false
 
 true:                                             ; preds = %__llvm_entry
   %w4 = load double, double* %w
@@ -11058,31 +11039,31 @@ true:                                             ; preds = %__llvm_entry
 
 false:                                            ; preds = %__llvm_entry
   %return6 = call i64 @"lt@III"(i64 %T2, i64 35)
-  %329 = icmp ne i64 %return6, 0
-  br i1 %329, label %true7, label %false8
+  %331 = icmp ne i64 %return6, 0
+  br i1 %331, label %true7, label %false8
 
 true7:                                            ; preds = %false
   %return11 = call i64 @"lt@III"(i64 %T2, i64 18)
-  %330 = icmp ne i64 %return11, 0
-  br i1 %330, label %true12, label %false13
+  %332 = icmp ne i64 %return11, 0
+  br i1 %332, label %true12, label %false13
 
 false8:                                           ; preds = %false
   %return357 = call i64 @"lt@III"(i64 %T2, i64 70)
-  %331 = icmp ne i64 %return357, 0
-  br i1 %331, label %true358, label %false359
+  %333 = icmp ne i64 %return357, 0
+  br i1 %333, label %true358, label %false359
 
-end9:                                             ; preds = %false1223, %end985, %false747, %false538, %false340, %false146
+end9:                                             ; preds = %false1229, %end991, %false753, %false544, %false340, %false146
   br label %UnifiedReturnBlock
 
 true12:                                           ; preds = %true7
   %return16 = call i64 @"eq@III"(i64 %T2, i64 1)
-  %332 = icmp ne i64 %return16, 0
-  br i1 %332, label %true17, label %false18
+  %334 = icmp ne i64 %return16, 0
+  br i1 %334, label %true17, label %false18
 
 false13:                                          ; preds = %true7
   %return163 = call i64 @"eq@III"(i64 %T2, i64 18)
-  %333 = icmp ne i64 %return163, 0
-  br i1 %333, label %true164, label %false165
+  %335 = icmp ne i64 %return163, 0
+  br i1 %335, label %true164, label %false165
 
 true17:                                           ; preds = %true12
   store <2 x double> %pos1, <2 x double>* %0
@@ -11094,8 +11075,8 @@ true17:                                           ; preds = %true12
 
 false18:                                          ; preds = %true12
   %return24 = call i64 @"eq@III"(i64 %T2, i64 2)
-  %334 = icmp ne i64 %return24, 0
-  br i1 %334, label %true25, label %false26
+  %336 = icmp ne i64 %return24, 0
+  br i1 %336, label %true25, label %false26
 
 true25:                                           ; preds = %false18
   store <2 x double> %pos1, <2 x double>* %2
@@ -11107,8 +11088,8 @@ true25:                                           ; preds = %false18
 
 false26:                                          ; preds = %false18
   %return32 = call i64 @"eq@III"(i64 %T2, i64 3)
-  %335 = icmp ne i64 %return32, 0
-  br i1 %335, label %true33, label %false34
+  %337 = icmp ne i64 %return32, 0
+  br i1 %337, label %true33, label %false34
 
 true33:                                           ; preds = %false26
   store <2 x double> %pos1, <2 x double>* %4
@@ -11120,8 +11101,8 @@ true33:                                           ; preds = %false26
 
 false34:                                          ; preds = %false26
   %return40 = call i64 @"eq@III"(i64 %T2, i64 4)
-  %336 = icmp ne i64 %return40, 0
-  br i1 %336, label %true41, label %false42
+  %338 = icmp ne i64 %return40, 0
+  br i1 %338, label %true41, label %false42
 
 true41:                                           ; preds = %false34
   store <2 x double> %pos1, <2 x double>* %6
@@ -11133,8 +11114,8 @@ true41:                                           ; preds = %false34
 
 false42:                                          ; preds = %false34
   %return48 = call i64 @"eq@III"(i64 %T2, i64 5)
-  %337 = icmp ne i64 %return48, 0
-  br i1 %337, label %true49, label %false50
+  %339 = icmp ne i64 %return48, 0
+  br i1 %339, label %true49, label %false50
 
 true49:                                           ; preds = %false42
   store <2 x double> %pos1, <2 x double>* %8
@@ -11146,8 +11127,8 @@ true49:                                           ; preds = %false42
 
 false50:                                          ; preds = %false42
   %return56 = call i64 @"eq@III"(i64 %T2, i64 6)
-  %338 = icmp ne i64 %return56, 0
-  br i1 %338, label %true57, label %false58
+  %340 = icmp ne i64 %return56, 0
+  br i1 %340, label %true57, label %false58
 
 true57:                                           ; preds = %false50
   store <2 x double> %pos1, <2 x double>* %10
@@ -11159,8 +11140,8 @@ true57:                                           ; preds = %false50
 
 false58:                                          ; preds = %false50
   %return64 = call i64 @"eq@III"(i64 %T2, i64 7)
-  %339 = icmp ne i64 %return64, 0
-  br i1 %339, label %true65, label %false66
+  %341 = icmp ne i64 %return64, 0
+  br i1 %341, label %true65, label %false66
 
 true65:                                           ; preds = %false58
   store <2 x double> %pos1, <2 x double>* %12
@@ -11172,8 +11153,8 @@ true65:                                           ; preds = %false58
 
 false66:                                          ; preds = %false58
   %return72 = call i64 @"eq@III"(i64 %T2, i64 8)
-  %340 = icmp ne i64 %return72, 0
-  br i1 %340, label %true73, label %false74
+  %342 = icmp ne i64 %return72, 0
+  br i1 %342, label %true73, label %false74
 
 true73:                                           ; preds = %false66
   store <2 x double> %pos1, <2 x double>* %14
@@ -11185,8 +11166,8 @@ true73:                                           ; preds = %false66
 
 false74:                                          ; preds = %false66
   %return80 = call i64 @"eq@III"(i64 %T2, i64 9)
-  %341 = icmp ne i64 %return80, 0
-  br i1 %341, label %true81, label %false82
+  %343 = icmp ne i64 %return80, 0
+  br i1 %343, label %true81, label %false82
 
 true81:                                           ; preds = %false74
   store <2 x double> %pos1, <2 x double>* %16
@@ -11198,8 +11179,8 @@ true81:                                           ; preds = %false74
 
 false82:                                          ; preds = %false74
   %return88 = call i64 @"eq@III"(i64 %T2, i64 10)
-  %342 = icmp ne i64 %return88, 0
-  br i1 %342, label %true89, label %false90
+  %344 = icmp ne i64 %return88, 0
+  br i1 %344, label %true89, label %false90
 
 true89:                                           ; preds = %false82
   store <2 x double> %pos1, <2 x double>* %18
@@ -11211,8 +11192,8 @@ true89:                                           ; preds = %false82
 
 false90:                                          ; preds = %false82
   %return96 = call i64 @"eq@III"(i64 %T2, i64 11)
-  %343 = icmp ne i64 %return96, 0
-  br i1 %343, label %true97, label %false98
+  %345 = icmp ne i64 %return96, 0
+  br i1 %345, label %true97, label %false98
 
 true97:                                           ; preds = %false90
   store <2 x double> %pos1, <2 x double>* %20
@@ -11224,8 +11205,8 @@ true97:                                           ; preds = %false90
 
 false98:                                          ; preds = %false90
   %return104 = call i64 @"eq@III"(i64 %T2, i64 12)
-  %344 = icmp ne i64 %return104, 0
-  br i1 %344, label %true105, label %false106
+  %346 = icmp ne i64 %return104, 0
+  br i1 %346, label %true105, label %false106
 
 true105:                                          ; preds = %false98
   store <2 x double> %pos1, <2 x double>* %22
@@ -11237,8 +11218,8 @@ true105:                                          ; preds = %false98
 
 false106:                                         ; preds = %false98
   %return112 = call i64 @"eq@III"(i64 %T2, i64 13)
-  %345 = icmp ne i64 %return112, 0
-  br i1 %345, label %true113, label %false114
+  %347 = icmp ne i64 %return112, 0
+  br i1 %347, label %true113, label %false114
 
 true113:                                          ; preds = %false106
   store <2 x double> %pos1, <2 x double>* %24
@@ -11250,8 +11231,8 @@ true113:                                          ; preds = %false106
 
 false114:                                         ; preds = %false106
   %return120 = call i64 @"eq@III"(i64 %T2, i64 14)
-  %346 = icmp ne i64 %return120, 0
-  br i1 %346, label %true121, label %false122
+  %348 = icmp ne i64 %return120, 0
+  br i1 %348, label %true121, label %false122
 
 true121:                                          ; preds = %false114
   store <2 x double> %pos1, <2 x double>* %26
@@ -11263,8 +11244,8 @@ true121:                                          ; preds = %false114
 
 false122:                                         ; preds = %false114
   %return128 = call i64 @"eq@III"(i64 %T2, i64 15)
-  %347 = icmp ne i64 %return128, 0
-  br i1 %347, label %true129, label %false130
+  %349 = icmp ne i64 %return128, 0
+  br i1 %349, label %true129, label %false130
 
 true129:                                          ; preds = %false122
   store <2 x double> %pos1, <2 x double>* %28
@@ -11288,8 +11269,8 @@ true129:                                          ; preds = %false122
 
 false130:                                         ; preds = %false122
   %return144 = call i64 @"eq@III"(i64 %T2, i64 16)
-  %348 = icmp ne i64 %return144, 0
-  br i1 %348, label %true145, label %false146
+  %350 = icmp ne i64 %return144, 0
+  br i1 %350, label %true145, label %false146
 
 true145:                                          ; preds = %false130
   store <2 x double> %pos1, <2 x double>* %34
@@ -11301,8 +11282,8 @@ true145:                                          ; preds = %false130
 
 false146:                                         ; preds = %false130
   %return152 = call i64 @"eq@III"(i64 %T2, i64 17)
-  %349 = icmp ne i64 %return152, 0
-  br i1 %349, label %true153, label %end9
+  %351 = icmp ne i64 %return152, 0
+  br i1 %351, label %true153, label %end9
 
 true153:                                          ; preds = %false146
   store <2 x double> %pos1, <2 x double>* %36
@@ -11328,8 +11309,8 @@ true164:                                          ; preds = %false13
 
 false165:                                         ; preds = %false13
   %return171 = call i64 @"eq@III"(i64 %T2, i64 19)
-  %350 = icmp ne i64 %return171, 0
-  br i1 %350, label %true172, label %false173
+  %352 = icmp ne i64 %return171, 0
+  br i1 %352, label %true172, label %false173
 
 true172:                                          ; preds = %false165
   store <2 x double> %pos1, <2 x double>* %42
@@ -11341,8 +11322,8 @@ true172:                                          ; preds = %false165
 
 false173:                                         ; preds = %false165
   %return179 = call i64 @"eq@III"(i64 %T2, i64 20)
-  %351 = icmp ne i64 %return179, 0
-  br i1 %351, label %true180, label %false181
+  %353 = icmp ne i64 %return179, 0
+  br i1 %353, label %true180, label %false181
 
 true180:                                          ; preds = %false173
   store <2 x double> %pos1, <2 x double>* %44
@@ -11354,8 +11335,8 @@ true180:                                          ; preds = %false173
 
 false181:                                         ; preds = %false173
   %return187 = call i64 @"eq@III"(i64 %T2, i64 21)
-  %352 = icmp ne i64 %return187, 0
-  br i1 %352, label %true188, label %false189
+  %354 = icmp ne i64 %return187, 0
+  br i1 %354, label %true188, label %false189
 
 true188:                                          ; preds = %false181
   store <2 x double> %pos1, <2 x double>* %46
@@ -11370,8 +11351,8 @@ true188:                                          ; preds = %false181
 
 false189:                                         ; preds = %false181
   %return197 = call i64 @"eq@III"(i64 %T2, i64 22)
-  %353 = icmp ne i64 %return197, 0
-  br i1 %353, label %true198, label %false199
+  %355 = icmp ne i64 %return197, 0
+  br i1 %355, label %true198, label %false199
 
 true198:                                          ; preds = %false189
   store <2 x double> %pos1, <2 x double>* %49
@@ -11389,8 +11370,8 @@ true198:                                          ; preds = %false189
 
 false199:                                         ; preds = %false189
   %return209 = call i64 @"eq@III"(i64 %T2, i64 23)
-  %354 = icmp ne i64 %return209, 0
-  br i1 %354, label %true210, label %false211
+  %356 = icmp ne i64 %return209, 0
+  br i1 %356, label %true210, label %false211
 
 true210:                                          ; preds = %false199
   store <2 x double> %pos1, <2 x double>* %53
@@ -11402,8 +11383,8 @@ true210:                                          ; preds = %false199
 
 false211:                                         ; preds = %false199
   %return217 = call i64 @"eq@III"(i64 %T2, i64 24)
-  %355 = icmp ne i64 %return217, 0
-  br i1 %355, label %true218, label %false219
+  %357 = icmp ne i64 %return217, 0
+  br i1 %357, label %true218, label %false219
 
 true218:                                          ; preds = %false211
   store <2 x double> %pos1, <2 x double>* %55
@@ -11415,8 +11396,8 @@ true218:                                          ; preds = %false211
 
 false219:                                         ; preds = %false211
   %return225 = call i64 @"eq@III"(i64 %T2, i64 25)
-  %356 = icmp ne i64 %return225, 0
-  br i1 %356, label %true226, label %false227
+  %358 = icmp ne i64 %return225, 0
+  br i1 %358, label %true226, label %false227
 
 true226:                                          ; preds = %false219
   store <2 x double> %pos1, <2 x double>* %57
@@ -11428,8 +11409,8 @@ true226:                                          ; preds = %false219
 
 false227:                                         ; preds = %false219
   %return233 = call i64 @"eq@III"(i64 %T2, i64 26)
-  %357 = icmp ne i64 %return233, 0
-  br i1 %357, label %true234, label %false235
+  %359 = icmp ne i64 %return233, 0
+  br i1 %359, label %true234, label %false235
 
 true234:                                          ; preds = %false227
   %w237 = load double, double* %w
@@ -11440,8 +11421,8 @@ true234:                                          ; preds = %false227
 
 false235:                                         ; preds = %false227
   %return240 = call i64 @"eq@III"(i64 %T2, i64 27)
-  %358 = icmp ne i64 %return240, 0
-  br i1 %358, label %true241, label %false242
+  %360 = icmp ne i64 %return240, 0
+  br i1 %360, label %true241, label %false242
 
 true241:                                          ; preds = %false235
   %GMP244 = load %gemPrm, %gemPrm* %GMP
@@ -11461,8 +11442,8 @@ true241:                                          ; preds = %false235
 
 false242:                                         ; preds = %false235
   %return256 = call i64 @"eq@III"(i64 %T2, i64 28)
-  %359 = icmp ne i64 %return256, 0
-  br i1 %359, label %true257, label %false258
+  %361 = icmp ne i64 %return256, 0
+  br i1 %361, label %true257, label %false258
 
 true257:                                          ; preds = %false242
   %GMP260 = load %gemPrm, %gemPrm* %GMP
@@ -11486,8 +11467,8 @@ true257:                                          ; preds = %false242
 
 false258:                                         ; preds = %false242
   %return276 = call i64 @"eq@III"(i64 %T2, i64 29)
-  %360 = icmp ne i64 %return276, 0
-  br i1 %360, label %true277, label %false278
+  %362 = icmp ne i64 %return276, 0
+  br i1 %362, label %true277, label %false278
 
 true277:                                          ; preds = %false258
   %GMP280 = load %gemPrm, %gemPrm* %GMP
@@ -11504,8 +11485,8 @@ true277:                                          ; preds = %false258
 
 false278:                                         ; preds = %false258
   %return288 = call i64 @"eq@III"(i64 %T2, i64 30)
-  %361 = icmp ne i64 %return288, 0
-  br i1 %361, label %true289, label %false290
+  %363 = icmp ne i64 %return288, 0
+  br i1 %363, label %true289, label %false290
 
 true289:                                          ; preds = %false278
   %GMP292 = load %gemPrm, %gemPrm* %GMP
@@ -11527,8 +11508,8 @@ true289:                                          ; preds = %false278
 
 false290:                                         ; preds = %false278
   %return306 = call i64 @"eq@III"(i64 %T2, i64 31)
-  %362 = icmp ne i64 %return306, 0
-  br i1 %362, label %true307, label %false308
+  %364 = icmp ne i64 %return306, 0
+  br i1 %364, label %true307, label %false308
 
 true307:                                          ; preds = %false290
   %GMP310 = load %gemPrm, %gemPrm* %GMP
@@ -11548,8 +11529,8 @@ true307:                                          ; preds = %false290
 
 false308:                                         ; preds = %false290
   %return322 = call i64 @"eq@III"(i64 %T2, i64 32)
-  %363 = icmp ne i64 %return322, 0
-  br i1 %363, label %true323, label %false324
+  %365 = icmp ne i64 %return322, 0
+  br i1 %365, label %true323, label %false324
 
 true323:                                          ; preds = %false308
   %GMP326 = load %gemPrm, %gemPrm* %GMP
@@ -11569,8 +11550,8 @@ true323:                                          ; preds = %false308
 
 false324:                                         ; preds = %false308
   %return338 = call i64 @"eq@III"(i64 %T2, i64 33)
-  %364 = icmp ne i64 %return338, 0
-  br i1 %364, label %true339, label %false340
+  %366 = icmp ne i64 %return338, 0
+  br i1 %366, label %true339, label %false340
 
 true339:                                          ; preds = %false324
   %w342 = load double, double* %w
@@ -11581,8 +11562,8 @@ true339:                                          ; preds = %false324
 
 false340:                                         ; preds = %false324
   %return345 = call i64 @"eq@III"(i64 %T2, i64 34)
-  %365 = icmp ne i64 %return345, 0
-  br i1 %365, label %true346, label %end9
+  %367 = icmp ne i64 %return345, 0
+  br i1 %367, label %true346, label %end9
 
 true346:                                          ; preds = %false340
   %GMP348 = load %gemPrm, %gemPrm* %GMP
@@ -11599,23 +11580,23 @@ true346:                                          ; preds = %false340
 
 true358:                                          ; preds = %false8
   %return362 = call i64 @"lt@III"(i64 %T2, i64 52)
-  %366 = icmp ne i64 %return362, 0
-  br i1 %366, label %true363, label %false364
+  %368 = icmp ne i64 %return362, 0
+  br i1 %368, label %true363, label %false364
 
 false359:                                         ; preds = %false8
-  %return768 = call i64 @"lt@III"(i64 %T2, i64 88)
-  %367 = icmp ne i64 %return768, 0
-  br i1 %367, label %true769, label %false770
+  %return774 = call i64 @"lt@III"(i64 %T2, i64 88)
+  %369 = icmp ne i64 %return774, 0
+  br i1 %369, label %true775, label %false776
 
 true363:                                          ; preds = %true358
   %return367 = call i64 @"eq@III"(i64 %T2, i64 35)
-  %368 = icmp ne i64 %return367, 0
-  br i1 %368, label %true368, label %false369
+  %370 = icmp ne i64 %return367, 0
+  br i1 %370, label %true368, label %false369
 
 false364:                                         ; preds = %true358
-  %return567 = call i64 @"eq@III"(i64 %T2, i64 59)
-  %369 = icmp ne i64 %return567, 0
-  br i1 %369, label %true568, label %false569
+  %return573 = call i64 @"eq@III"(i64 %T2, i64 59)
+  %371 = icmp ne i64 %return573, 0
+  br i1 %371, label %true574, label %false575
 
 true368:                                          ; preds = %true363
   %GMP371 = load %gemPrm, %gemPrm* %GMP
@@ -11632,8 +11613,8 @@ true368:                                          ; preds = %true363
 
 false369:                                         ; preds = %true363
   %return379 = call i64 @"eq@III"(i64 %T2, i64 36)
-  %370 = icmp ne i64 %return379, 0
-  br i1 %370, label %true380, label %false381
+  %372 = icmp ne i64 %return379, 0
+  br i1 %372, label %true380, label %false381
 
 true380:                                          ; preds = %false369
   %GMP383 = load %gemPrm, %gemPrm* %GMP
@@ -11650,8 +11631,8 @@ true380:                                          ; preds = %false369
 
 false381:                                         ; preds = %false369
   %return391 = call i64 @"eq@III"(i64 %T2, i64 37)
-  %371 = icmp ne i64 %return391, 0
-  br i1 %371, label %true392, label %false393
+  %373 = icmp ne i64 %return391, 0
+  br i1 %373, label %true392, label %false393
 
 true392:                                          ; preds = %false381
   %GMP395 = load %gemPrm, %gemPrm* %GMP
@@ -11668,8 +11649,8 @@ true392:                                          ; preds = %false381
 
 false393:                                         ; preds = %false381
   %return404 = call i64 @"eq@III"(i64 %T2, i64 38)
-  %372 = icmp ne i64 %return404, 0
-  br i1 %372, label %true405, label %false406
+  %374 = icmp ne i64 %return404, 0
+  br i1 %374, label %true405, label %false406
 
 true405:                                          ; preds = %false393
   %GMP408 = load %gemPrm, %gemPrm* %GMP
@@ -11690,8 +11671,8 @@ true405:                                          ; preds = %false393
 
 false406:                                         ; preds = %false393
   %return421 = call i64 @"eq@III"(i64 %T2, i64 39)
-  %373 = icmp ne i64 %return421, 0
-  br i1 %373, label %true422, label %false423
+  %375 = icmp ne i64 %return421, 0
+  br i1 %375, label %true422, label %false423
 
 true422:                                          ; preds = %false406
   %w425 = load double, double* %w
@@ -11702,8 +11683,8 @@ true422:                                          ; preds = %false406
 
 false423:                                         ; preds = %false406
   %return428 = call i64 @"eq@III"(i64 %T2, i64 40)
-  %374 = icmp ne i64 %return428, 0
-  br i1 %374, label %true429, label %false430
+  %376 = icmp ne i64 %return428, 0
+  br i1 %376, label %true429, label %false430
 
 true429:                                          ; preds = %false423
   store <2 x double> %pos1, <2 x double>* %105
@@ -11715,8 +11696,8 @@ true429:                                          ; preds = %false423
 
 false430:                                         ; preds = %false423
   %return436 = call i64 @"eq@III"(i64 %T2, i64 41)
-  %375 = icmp ne i64 %return436, 0
-  br i1 %375, label %true437, label %false438
+  %377 = icmp ne i64 %return436, 0
+  br i1 %377, label %true437, label %false438
 
 true437:                                          ; preds = %false430
   %w440 = load double, double* %w
@@ -11727,8 +11708,8 @@ true437:                                          ; preds = %false430
 
 false438:                                         ; preds = %false430
   %return443 = call i64 @"eq@III"(i64 %T2, i64 42)
-  %376 = icmp ne i64 %return443, 0
-  br i1 %376, label %true444, label %false445
+  %378 = icmp ne i64 %return443, 0
+  br i1 %378, label %true444, label %false445
 
 true444:                                          ; preds = %false438
   store <2 x double> %pos1, <2 x double>* %109
@@ -11740,8 +11721,8 @@ true444:                                          ; preds = %false438
 
 false445:                                         ; preds = %false438
   %return451 = call i64 @"eq@III"(i64 %T2, i64 43)
-  %377 = icmp ne i64 %return451, 0
-  br i1 %377, label %true452, label %false453
+  %379 = icmp ne i64 %return451, 0
+  br i1 %379, label %true452, label %false453
 
 true452:                                          ; preds = %false445
   store <2 x double> %pos1, <2 x double>* %111
@@ -11753,8 +11734,8 @@ true452:                                          ; preds = %false445
 
 false453:                                         ; preds = %false445
   %return459 = call i64 @"eq@III"(i64 %T2, i64 44)
-  %378 = icmp ne i64 %return459, 0
-  br i1 %378, label %true460, label %false461
+  %380 = icmp ne i64 %return459, 0
+  br i1 %380, label %true460, label %false461
 
 true460:                                          ; preds = %false453
   store <2 x double> %pos1, <2 x double>* %113
@@ -11766,8 +11747,8 @@ true460:                                          ; preds = %false453
 
 false461:                                         ; preds = %false453
   %return467 = call i64 @"eq@III"(i64 %T2, i64 45)
-  %379 = icmp ne i64 %return467, 0
-  br i1 %379, label %true468, label %false469
+  %381 = icmp ne i64 %return467, 0
+  br i1 %381, label %true468, label %false469
 
 true468:                                          ; preds = %false461
   store <2 x double> %pos1, <2 x double>* %115
@@ -11779,8 +11760,8 @@ true468:                                          ; preds = %false461
 
 false469:                                         ; preds = %false461
   %return475 = call i64 @"eq@III"(i64 %T2, i64 46)
-  %380 = icmp ne i64 %return475, 0
-  br i1 %380, label %true476, label %false477
+  %382 = icmp ne i64 %return475, 0
+  br i1 %382, label %true476, label %false477
 
 true476:                                          ; preds = %false469
   store <2 x double> %pos1, <2 x double>* %117
@@ -11792,1063 +11773,1069 @@ true476:                                          ; preds = %false469
 
 false477:                                         ; preds = %false469
   %return483 = call i64 @"eq@III"(i64 %T2, i64 47)
-  %381 = icmp ne i64 %return483, 0
-  br i1 %381, label %true484, label %false485
+  %383 = icmp ne i64 %return483, 0
+  br i1 %383, label %true484, label %false485
 
 true484:                                          ; preds = %false477
   %GMP487 = load %gemPrm, %gemPrm* %GMP
   %idx489 = load i64, i64* %idx
   %pc_DISC2 = extractvalue %gemPrm %GMP487, 54
   %return493 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %pc_DISC2, i64 %idx489)
+  %output494 = call { double, double, double } @"assign@FFFV"(<3 x double> %return493)
+  %output495 = extractvalue { double, double, double } %output494, 0
+  %output496 = extractvalue { double, double, double } %output494, 1
+  %output497 = extractvalue { double, double, double } %output494, 2
   store <2 x double> %pos1, <2 x double>* %119
-  %w495 = load double, double* %w
-  store double %w495, double* %120
-  store <3 x double> %return493, <3 x double>* %123
-  call void @"V_DISC2_L@UUFFFV"(<2 x double>* %p, <2 x double>* %119, double* %120, double* %121, double* %122, <3 x double>* %123)
-  %p497 = load <2 x double>, <2 x double>* %p
+  %w499 = load double, double* %w
+  store double %w499, double* %120
+  store double %output495, double* %123
+  store double %output496, double* %124
+  store double %output497, double* %125
+  call void @"V_DISC2@UUFFFFFF"(<2 x double>* %p, <2 x double>* %119, double* %120, double* %121, double* %122, double* %123, double* %124, double* %125)
+  %p503 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
 false485:                                         ; preds = %false477
-  %return499 = call i64 @"eq@III"(i64 %T2, i64 48)
-  %382 = icmp ne i64 %return499, 0
-  br i1 %382, label %true500, label %false501
+  %return505 = call i64 @"eq@III"(i64 %T2, i64 48)
+  %384 = icmp ne i64 %return505, 0
+  br i1 %384, label %true506, label %false507
 
-true500:                                          ; preds = %false485
-  %GMP503 = load %gemPrm, %gemPrm* %GMP
-  %supershape = extractvalue %gemPrm %GMP503, 9
-  %idx504 = load i64, i64* %idx
-  %return505 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %supershape, i64 %idx504)
-  %supershape_n = extractvalue %gemPrm %GMP503, 10
-  %return508 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %supershape_n, i64 %idx504)
-  store <2 x double> %pos1, <2 x double>* %124
-  %w510 = load double, double* %w
-  store double %w510, double* %125
-  %return512 = call double @"getcomp@FVI"(<3 x double> %return505, i64 1)
-  store double %return512, double* %126
-  %return514 = call double @"getcomp@FVI"(<3 x double> %return505, i64 0)
-  store double %return514, double* %127
-  %return516 = call double @"getcomp@FVI"(<3 x double> %return505, i64 2)
-  store double %return516, double* %128
-  store <3 x double> %return508, <3 x double>* %129
-  call void @"V_SUPERSHAPE@UUFFFFV"(<2 x double>* %p, <2 x double>* %124, double* %125, double* %126, double* %127, double* %128, <3 x double>* %129)
-  %p518 = load <2 x double>, <2 x double>* %p
+true506:                                          ; preds = %false485
+  %GMP509 = load %gemPrm, %gemPrm* %GMP
+  %supershape = extractvalue %gemPrm %GMP509, 9
+  %idx510 = load i64, i64* %idx
+  %return511 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %supershape, i64 %idx510)
+  %supershape_n = extractvalue %gemPrm %GMP509, 10
+  %return514 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %supershape_n, i64 %idx510)
+  store <2 x double> %pos1, <2 x double>* %126
+  %w516 = load double, double* %w
+  store double %w516, double* %127
+  %return518 = call double @"getcomp@FVI"(<3 x double> %return511, i64 1)
+  store double %return518, double* %128
+  %return520 = call double @"getcomp@FVI"(<3 x double> %return511, i64 0)
+  store double %return520, double* %129
+  %return522 = call double @"getcomp@FVI"(<3 x double> %return511, i64 2)
+  store double %return522, double* %130
+  store <3 x double> %return514, <3 x double>* %131
+  call void @"V_SUPERSHAPE@UUFFFFV"(<2 x double>* %p, <2 x double>* %126, double* %127, double* %128, double* %129, double* %130, <3 x double>* %131)
+  %p524 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false501:                                         ; preds = %false485
-  %return520 = call i64 @"eq@III"(i64 %T2, i64 49)
-  %383 = icmp ne i64 %return520, 0
-  br i1 %383, label %true521, label %false522
+false507:                                         ; preds = %false485
+  %return526 = call i64 @"eq@III"(i64 %T2, i64 49)
+  %385 = icmp ne i64 %return526, 0
+  br i1 %385, label %true527, label %false528
 
-true521:                                          ; preds = %false501
-  %GMP524 = load %gemPrm, %gemPrm* %GMP
-  %flower525 = extractvalue %gemPrm %GMP524, 37
-  %idx526 = load i64, i64* %idx
-  %return527 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %flower525, i64 %idx526)
-  store <2 x double> %pos1, <2 x double>* %130
-  %w529 = load double, double* %w
-  store double %w529, double* %131
-  %return531 = call double @"getcomp@FUI"(<2 x double> %return527, i64 0)
-  store double %return531, double* %132
-  %return533 = call double @"getcomp@FUI"(<2 x double> %return527, i64 1)
-  store double %return533, double* %133
-  call void @"V_FLOWER@UUFFF"(<2 x double>* %p, <2 x double>* %130, double* %131, double* %132, double* %133)
-  %p534 = load <2 x double>, <2 x double>* %p
+true527:                                          ; preds = %false507
+  %GMP530 = load %gemPrm, %gemPrm* %GMP
+  %flower531 = extractvalue %gemPrm %GMP530, 37
+  %idx532 = load i64, i64* %idx
+  %return533 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %flower531, i64 %idx532)
+  store <2 x double> %pos1, <2 x double>* %132
+  %w535 = load double, double* %w
+  store double %w535, double* %133
+  %return537 = call double @"getcomp@FUI"(<2 x double> %return533, i64 0)
+  store double %return537, double* %134
+  %return539 = call double @"getcomp@FUI"(<2 x double> %return533, i64 1)
+  store double %return539, double* %135
+  call void @"V_FLOWER@UUFFF"(<2 x double>* %p, <2 x double>* %132, double* %133, double* %134, double* %135)
+  %p540 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false522:                                         ; preds = %false501
-  %return536 = call i64 @"eq@III"(i64 %T2, i64 50)
-  %384 = icmp ne i64 %return536, 0
-  br i1 %384, label %true537, label %false538
+false528:                                         ; preds = %false507
+  %return542 = call i64 @"eq@III"(i64 %T2, i64 50)
+  %386 = icmp ne i64 %return542, 0
+  br i1 %386, label %true543, label %false544
 
-true537:                                          ; preds = %false522
-  %GMP540 = load %gemPrm, %gemPrm* %GMP
-  %conic541 = extractvalue %gemPrm %GMP540, 38
-  %idx542 = load i64, i64* %idx
-  %return543 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %conic541, i64 %idx542)
-  store <2 x double> %pos1, <2 x double>* %134
-  %w545 = load double, double* %w
-  store double %w545, double* %135
-  %return547 = call double @"getcomp@FUI"(<2 x double> %return543, i64 0)
-  store double %return547, double* %136
-  %return549 = call double @"getcomp@FUI"(<2 x double> %return543, i64 1)
-  store double %return549, double* %137
-  call void @"V_CONIC@UUFFF"(<2 x double>* %p, <2 x double>* %134, double* %135, double* %136, double* %137)
-  %p550 = load <2 x double>, <2 x double>* %p
+true543:                                          ; preds = %false528
+  %GMP546 = load %gemPrm, %gemPrm* %GMP
+  %conic547 = extractvalue %gemPrm %GMP546, 38
+  %idx548 = load i64, i64* %idx
+  %return549 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %conic547, i64 %idx548)
+  store <2 x double> %pos1, <2 x double>* %136
+  %w551 = load double, double* %w
+  store double %w551, double* %137
+  %return553 = call double @"getcomp@FUI"(<2 x double> %return549, i64 0)
+  store double %return553, double* %138
+  %return555 = call double @"getcomp@FUI"(<2 x double> %return549, i64 1)
+  store double %return555, double* %139
+  call void @"V_CONIC@UUFFF"(<2 x double>* %p, <2 x double>* %136, double* %137, double* %138, double* %139)
+  %p556 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false538:                                         ; preds = %false522
-  %return552 = call i64 @"eq@III"(i64 %T2, i64 51)
-  %385 = icmp ne i64 %return552, 0
-  br i1 %385, label %true553, label %end9
+false544:                                         ; preds = %false528
+  %return558 = call i64 @"eq@III"(i64 %T2, i64 51)
+  %387 = icmp ne i64 %return558, 0
+  br i1 %387, label %true559, label %end9
 
-true553:                                          ; preds = %false538
-  %GMP555 = load %gemPrm, %gemPrm* %GMP
-  %parabola556 = extractvalue %gemPrm %GMP555, 16
-  %idx557 = load i64, i64* %idx
-  %return558 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %parabola556, i64 %idx557)
-  store <2 x double> %pos1, <2 x double>* %138
-  %w560 = load double, double* %w
-  store double %w560, double* %139
-  %return562 = call double @"getcomp@FUI"(<2 x double> %return558, i64 0)
-  store double %return562, double* %140
-  %return564 = call double @"getcomp@FUI"(<2 x double> %return558, i64 1)
-  store double %return564, double* %141
-  call void @"V_PARABOLA@UUFFF"(<2 x double>* %p, <2 x double>* %138, double* %139, double* %140, double* %141)
-  %p565 = load <2 x double>, <2 x double>* %p
+true559:                                          ; preds = %false544
+  %GMP561 = load %gemPrm, %gemPrm* %GMP
+  %parabola562 = extractvalue %gemPrm %GMP561, 16
+  %idx563 = load i64, i64* %idx
+  %return564 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %parabola562, i64 %idx563)
+  store <2 x double> %pos1, <2 x double>* %140
+  %w566 = load double, double* %w
+  store double %w566, double* %141
+  %return568 = call double @"getcomp@FUI"(<2 x double> %return564, i64 0)
+  store double %return568, double* %142
+  %return570 = call double @"getcomp@FUI"(<2 x double> %return564, i64 1)
+  store double %return570, double* %143
+  call void @"V_PARABOLA@UUFFF"(<2 x double>* %p, <2 x double>* %140, double* %141, double* %142, double* %143)
+  %p571 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-true568:                                          ; preds = %false364
-  store <2 x double> %pos1, <2 x double>* %142
-  %w572 = load double, double* %w
-  store double %w572, double* %143
-  call void @"V_ELLIPTIC@UUF"(<2 x double>* %p, <2 x double>* %142, double* %143)
-  %p573 = load <2 x double>, <2 x double>* %p
-  br label %UnifiedReturnBlock
-
-false569:                                         ; preds = %false364
-  %return575 = call i64 @"eq@III"(i64 %T2, i64 52)
-  %386 = icmp ne i64 %return575, 0
-  br i1 %386, label %true576, label %false577
-
-true576:                                          ; preds = %false569
-  %GMP579 = load %gemPrm, %gemPrm* %GMP
-  %bent2580 = extractvalue %gemPrm %GMP579, 19
-  %idx581 = load i64, i64* %idx
-  %return582 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %bent2580, i64 %idx581)
+true574:                                          ; preds = %false364
   store <2 x double> %pos1, <2 x double>* %144
-  %w584 = load double, double* %w
-  store double %w584, double* %145
-  store <2 x double> %return582, <2 x double>* %146
-  call void @"V_BENT2@UUFU"(<2 x double>* %p, <2 x double>* %144, double* %145, <2 x double>* %146)
-  %p586 = load <2 x double>, <2 x double>* %p
+  %w578 = load double, double* %w
+  store double %w578, double* %145
+  call void @"V_ELLIPTIC@UUF"(<2 x double>* %p, <2 x double>* %144, double* %145)
+  %p579 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false577:                                         ; preds = %false569
-  %return588 = call i64 @"eq@III"(i64 %T2, i64 53)
-  %387 = icmp ne i64 %return588, 0
-  br i1 %387, label %true589, label %false590
+false575:                                         ; preds = %false364
+  %return581 = call i64 @"eq@III"(i64 %T2, i64 52)
+  %388 = icmp ne i64 %return581, 0
+  br i1 %388, label %true582, label %false583
 
-true589:                                          ; preds = %false577
-  %GMP592 = load %gemPrm, %gemPrm* %GMP
-  %bipolar_shift = extractvalue %gemPrm %GMP592, 1
-  %idx593 = load i64, i64* %idx
-  %return594 = call double @"getcomp@F[FI"(double* %bipolar_shift, i64 %idx593)
-  store <2 x double> %pos1, <2 x double>* %147
-  %w596 = load double, double* %w
-  store double %w596, double* %148
-  store double %return594, double* %149
-  call void @"V_BIPOLAR@UUFF"(<2 x double>* %p, <2 x double>* %147, double* %148, double* %149)
-  %p598 = load <2 x double>, <2 x double>* %p
+true582:                                          ; preds = %false575
+  %GMP585 = load %gemPrm, %gemPrm* %GMP
+  %bent2586 = extractvalue %gemPrm %GMP585, 19
+  %idx587 = load i64, i64* %idx
+  %return588 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %bent2586, i64 %idx587)
+  store <2 x double> %pos1, <2 x double>* %146
+  %w590 = load double, double* %w
+  store double %w590, double* %147
+  store <2 x double> %return588, <2 x double>* %148
+  call void @"V_BENT2@UUFU"(<2 x double>* %p, <2 x double>* %146, double* %147, <2 x double>* %148)
+  %p592 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false590:                                         ; preds = %false577
-  %return600 = call i64 @"eq@III"(i64 %T2, i64 54)
-  %388 = icmp ne i64 %return600, 0
-  br i1 %388, label %true601, label %false602
+false583:                                         ; preds = %false575
+  %return594 = call i64 @"eq@III"(i64 %T2, i64 53)
+  %389 = icmp ne i64 %return594, 0
+  br i1 %389, label %true595, label %false596
 
-true601:                                          ; preds = %false590
-  store <2 x double> %pos1, <2 x double>* %150
-  %w605 = load double, double* %w
-  store double %w605, double* %151
-  call void @"V_BOARDERS@UUF"(<2 x double>* %p, <2 x double>* %150, double* %151)
-  %p606 = load <2 x double>, <2 x double>* %p
+true595:                                          ; preds = %false583
+  %GMP598 = load %gemPrm, %gemPrm* %GMP
+  %bipolar_shift = extractvalue %gemPrm %GMP598, 1
+  %idx599 = load i64, i64* %idx
+  %return600 = call double @"getcomp@F[FI"(double* %bipolar_shift, i64 %idx599)
+  store <2 x double> %pos1, <2 x double>* %149
+  %w602 = load double, double* %w
+  store double %w602, double* %150
+  store double %return600, double* %151
+  call void @"V_BIPOLAR@UUFF"(<2 x double>* %p, <2 x double>* %149, double* %150, double* %151)
+  %p604 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false602:                                         ; preds = %false590
-  %return608 = call i64 @"eq@III"(i64 %T2, i64 55)
-  %389 = icmp ne i64 %return608, 0
-  br i1 %389, label %true609, label %false610
+false596:                                         ; preds = %false583
+  %return606 = call i64 @"eq@III"(i64 %T2, i64 54)
+  %390 = icmp ne i64 %return606, 0
+  br i1 %390, label %true607, label %false608
 
-true609:                                          ; preds = %false602
+true607:                                          ; preds = %false596
   store <2 x double> %pos1, <2 x double>* %152
-  %w613 = load double, double* %w
-  store double %w613, double* %153
-  call void @"V_BUTTERFLY@UUF"(<2 x double>* %p, <2 x double>* %152, double* %153)
-  %p614 = load <2 x double>, <2 x double>* %p
+  %w611 = load double, double* %w
+  store double %w611, double* %153
+  call void @"V_BOARDERS@UUF"(<2 x double>* %p, <2 x double>* %152, double* %153)
+  %p612 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false610:                                         ; preds = %false602
-  %return616 = call i64 @"eq@III"(i64 %T2, i64 56)
-  %390 = icmp ne i64 %return616, 0
-  br i1 %390, label %true617, label %false618
+false608:                                         ; preds = %false596
+  %return614 = call i64 @"eq@III"(i64 %T2, i64 55)
+  %391 = icmp ne i64 %return614, 0
+  br i1 %391, label %true615, label %false616
 
-true617:                                          ; preds = %false610
-  %GMP620 = load %gemPrm, %gemPrm* %GMP
-  %cell_size = extractvalue %gemPrm %GMP620, 2
-  %idx621 = load i64, i64* %idx
-  %return622 = call double @"getcomp@F[FI"(double* %cell_size, i64 %idx621)
+true615:                                          ; preds = %false608
   store <2 x double> %pos1, <2 x double>* %154
-  %w624 = load double, double* %w
-  store double %w624, double* %155
-  store double %return622, double* %156
-  call void @"V_CELL@UUFF"(<2 x double>* %p, <2 x double>* %154, double* %155, double* %156)
-  %p626 = load <2 x double>, <2 x double>* %p
+  %w619 = load double, double* %w
+  store double %w619, double* %155
+  call void @"V_BUTTERFLY@UUF"(<2 x double>* %p, <2 x double>* %154, double* %155)
+  %p620 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false618:                                         ; preds = %false610
-  %return628 = call i64 @"eq@III"(i64 %T2, i64 57)
-  %391 = icmp ne i64 %return628, 0
-  br i1 %391, label %true629, label %false630
+false616:                                         ; preds = %false608
+  %return622 = call i64 @"eq@III"(i64 %T2, i64 56)
+  %392 = icmp ne i64 %return622, 0
+  br i1 %392, label %true623, label %false624
 
-true629:                                          ; preds = %false618
-  %GMP632 = load %gemPrm, %gemPrm* %GMP
-  %cpow633 = extractvalue %gemPrm %GMP632, 11
-  %idx634 = load i64, i64* %idx
-  %return635 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %cpow633, i64 %idx634)
-  store <2 x double> %pos1, <2 x double>* %157
-  %w637 = load double, double* %w
-  store double %w637, double* %158
-  %return639 = call double @"getcomp@FVI"(<3 x double> %return635, i64 0)
-  store double %return639, double* %159
-  %return641 = call double @"getcomp@FVI"(<3 x double> %return635, i64 1)
-  store double %return641, double* %160
-  %return643 = call double @"getcomp@FVI"(<3 x double> %return635, i64 2)
-  store double %return643, double* %161
-  call void @"V_CPOW@UUFFFF"(<2 x double>* %p, <2 x double>* %157, double* %158, double* %159, double* %160, double* %161)
-  %p644 = load <2 x double>, <2 x double>* %p
+true623:                                          ; preds = %false616
+  %GMP626 = load %gemPrm, %gemPrm* %GMP
+  %cell_size = extractvalue %gemPrm %GMP626, 2
+  %idx627 = load i64, i64* %idx
+  %return628 = call double @"getcomp@F[FI"(double* %cell_size, i64 %idx627)
+  store <2 x double> %pos1, <2 x double>* %156
+  %w630 = load double, double* %w
+  store double %w630, double* %157
+  store double %return628, double* %158
+  call void @"V_CELL@UUFF"(<2 x double>* %p, <2 x double>* %156, double* %157, double* %158)
+  %p632 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false630:                                         ; preds = %false618
-  %return646 = call i64 @"eq@III"(i64 %T2, i64 58)
-  %392 = icmp ne i64 %return646, 0
-  br i1 %392, label %true647, label %false648
+false624:                                         ; preds = %false616
+  %return634 = call i64 @"eq@III"(i64 %T2, i64 57)
+  %393 = icmp ne i64 %return634, 0
+  br i1 %393, label %true635, label %false636
 
-true647:                                          ; preds = %false630
-  store <2 x double> %pos1, <2 x double>* %162
-  %w651 = load double, double* %w
-  store double %w651, double* %163
-  call void @"V_EDISC@UUF"(<2 x double>* %p, <2 x double>* %162, double* %163)
-  %p652 = load <2 x double>, <2 x double>* %p
+true635:                                          ; preds = %false624
+  %GMP638 = load %gemPrm, %gemPrm* %GMP
+  %cpow639 = extractvalue %gemPrm %GMP638, 11
+  %idx640 = load i64, i64* %idx
+  %return641 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %cpow639, i64 %idx640)
+  store <2 x double> %pos1, <2 x double>* %159
+  %w643 = load double, double* %w
+  store double %w643, double* %160
+  %return645 = call double @"getcomp@FVI"(<3 x double> %return641, i64 0)
+  store double %return645, double* %161
+  %return647 = call double @"getcomp@FVI"(<3 x double> %return641, i64 1)
+  store double %return647, double* %162
+  %return649 = call double @"getcomp@FVI"(<3 x double> %return641, i64 2)
+  store double %return649, double* %163
+  call void @"V_CPOW@UUFFFF"(<2 x double>* %p, <2 x double>* %159, double* %160, double* %161, double* %162, double* %163)
+  %p650 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false648:                                         ; preds = %false630
-  %return654 = call i64 @"eq@III"(i64 %T2, i64 60)
-  %393 = icmp ne i64 %return654, 0
-  br i1 %393, label %true655, label %false656
+false636:                                         ; preds = %false624
+  %return652 = call i64 @"eq@III"(i64 %T2, i64 58)
+  %394 = icmp ne i64 %return652, 0
+  br i1 %394, label %true653, label %false654
 
-true655:                                          ; preds = %false648
+true653:                                          ; preds = %false636
   store <2 x double> %pos1, <2 x double>* %164
-  %w659 = load double, double* %w
-  store double %w659, double* %165
-  call void @"V_NOISE@UUF"(<2 x double>* %p, <2 x double>* %164, double* %165)
-  %p660 = load <2 x double>, <2 x double>* %p
+  %w657 = load double, double* %w
+  store double %w657, double* %165
+  call void @"V_EDISC@UUF"(<2 x double>* %p, <2 x double>* %164, double* %165)
+  %p658 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false656:                                         ; preds = %false648
-  %return662 = call i64 @"eq@III"(i64 %T2, i64 61)
-  %394 = icmp ne i64 %return662, 0
-  br i1 %394, label %true663, label %false664
+false654:                                         ; preds = %false636
+  %return660 = call i64 @"eq@III"(i64 %T2, i64 60)
+  %395 = icmp ne i64 %return660, 0
+  br i1 %395, label %true661, label %false662
 
-true663:                                          ; preds = %false656
-  %GMP666 = load %gemPrm, %gemPrm* %GMP
-  %escher_beta = extractvalue %gemPrm %GMP666, 4
-  %idx667 = load i64, i64* %idx
-  %return668 = call double @"getcomp@F[FI"(double* %escher_beta, i64 %idx667)
+true661:                                          ; preds = %false654
   store <2 x double> %pos1, <2 x double>* %166
-  %w670 = load double, double* %w
-  store double %w670, double* %167
-  store double %return668, double* %168
-  call void @"V_ESCHER@UUFF"(<2 x double>* %p, <2 x double>* %166, double* %167, double* %168)
-  %p672 = load <2 x double>, <2 x double>* %p
+  %w665 = load double, double* %w
+  store double %w665, double* %167
+  call void @"V_NOISE@UUF"(<2 x double>* %p, <2 x double>* %166, double* %167)
+  %p666 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false664:                                         ; preds = %false656
-  %return674 = call i64 @"eq@III"(i64 %T2, i64 62)
-  %395 = icmp ne i64 %return674, 0
-  br i1 %395, label %true675, label %false676
+false662:                                         ; preds = %false654
+  %return668 = call i64 @"eq@III"(i64 %T2, i64 61)
+  %396 = icmp ne i64 %return668, 0
+  br i1 %396, label %true669, label %false670
 
-true675:                                          ; preds = %false664
-  store <2 x double> %pos1, <2 x double>* %169
-  %w679 = load double, double* %w
-  store double %w679, double* %170
-  call void @"V_FOCI@UUF"(<2 x double>* %p, <2 x double>* %169, double* %170)
-  %p680 = load <2 x double>, <2 x double>* %p
+true669:                                          ; preds = %false662
+  %GMP672 = load %gemPrm, %gemPrm* %GMP
+  %escher_beta = extractvalue %gemPrm %GMP672, 4
+  %idx673 = load i64, i64* %idx
+  %return674 = call double @"getcomp@F[FI"(double* %escher_beta, i64 %idx673)
+  store <2 x double> %pos1, <2 x double>* %168
+  %w676 = load double, double* %w
+  store double %w676, double* %169
+  store double %return674, double* %170
+  call void @"V_ESCHER@UUFF"(<2 x double>* %p, <2 x double>* %168, double* %169, double* %170)
+  %p678 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false676:                                         ; preds = %false664
-  %return682 = call i64 @"eq@III"(i64 %T2, i64 63)
-  %396 = icmp ne i64 %return682, 0
-  br i1 %396, label %true683, label %false684
+false670:                                         ; preds = %false662
+  %return680 = call i64 @"eq@III"(i64 %T2, i64 62)
+  %397 = icmp ne i64 %return680, 0
+  br i1 %397, label %true681, label %false682
 
-true683:                                          ; preds = %false676
-  %GMP686 = load %gemPrm, %gemPrm* %GMP
-  %lazysusan687 = extractvalue %gemPrm %GMP686, 12
-  %idx688 = load i64, i64* %idx
-  %return689 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %lazysusan687, i64 %idx688)
-  %lazysusanxyz691 = extractvalue %gemPrm %GMP686, 20
-  %return693 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %lazysusanxyz691, i64 %idx688)
+true681:                                          ; preds = %false670
   store <2 x double> %pos1, <2 x double>* %171
-  %w695 = load double, double* %w
-  store double %w695, double* %172
-  %return697 = call double @"getcomp@FVI"(<3 x double> %return689, i64 0)
-  store double %return697, double* %173
-  %return699 = call double @"getcomp@FVI"(<3 x double> %return689, i64 1)
-  store double %return699, double* %174
-  %return701 = call double @"getcomp@FVI"(<3 x double> %return689, i64 2)
-  store double %return701, double* %175
-  store <2 x double> %return693, <2 x double>* %176
-  call void @"V_LAZYSUSAN@UUFFFFU"(<2 x double>* %p, <2 x double>* %171, double* %172, double* %173, double* %174, double* %175, <2 x double>* %176)
-  %p703 = load <2 x double>, <2 x double>* %p
+  %w685 = load double, double* %w
+  store double %w685, double* %172
+  call void @"V_FOCI@UUF"(<2 x double>* %p, <2 x double>* %171, double* %172)
+  %p686 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false684:                                         ; preds = %false676
-  %return705 = call i64 @"eq@III"(i64 %T2, i64 64)
-  %397 = icmp ne i64 %return705, 0
-  br i1 %397, label %true706, label %false707
+false682:                                         ; preds = %false670
+  %return688 = call i64 @"eq@III"(i64 %T2, i64 63)
+  %398 = icmp ne i64 %return688, 0
+  br i1 %398, label %true689, label %false690
 
-true706:                                          ; preds = %false684
-  store <2 x double> %pos1, <2 x double>* %177
-  %w710 = load double, double* %w
-  store double %w710, double* %178
-  call void @"V_LOONIE@UUF"(<2 x double>* %p, <2 x double>* %177, double* %178)
-  %p711 = load <2 x double>, <2 x double>* %p
+true689:                                          ; preds = %false682
+  %GMP692 = load %gemPrm, %gemPrm* %GMP
+  %lazysusan693 = extractvalue %gemPrm %GMP692, 12
+  %idx694 = load i64, i64* %idx
+  %return695 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %lazysusan693, i64 %idx694)
+  %lazysusanxyz697 = extractvalue %gemPrm %GMP692, 20
+  %return699 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %lazysusanxyz697, i64 %idx694)
+  store <2 x double> %pos1, <2 x double>* %173
+  %w701 = load double, double* %w
+  store double %w701, double* %174
+  %return703 = call double @"getcomp@FVI"(<3 x double> %return695, i64 0)
+  store double %return703, double* %175
+  %return705 = call double @"getcomp@FVI"(<3 x double> %return695, i64 1)
+  store double %return705, double* %176
+  %return707 = call double @"getcomp@FVI"(<3 x double> %return695, i64 2)
+  store double %return707, double* %177
+  store <2 x double> %return699, <2 x double>* %178
+  call void @"V_LAZYSUSAN@UUFFFFU"(<2 x double>* %p, <2 x double>* %173, double* %174, double* %175, double* %176, double* %177, <2 x double>* %178)
+  %p709 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false707:                                         ; preds = %false684
-  %return713 = call i64 @"eq@III"(i64 %T2, i64 66)
-  %398 = icmp ne i64 %return713, 0
-  br i1 %398, label %true714, label %false715
+false690:                                         ; preds = %false682
+  %return711 = call i64 @"eq@III"(i64 %T2, i64 64)
+  %399 = icmp ne i64 %return711, 0
+  br i1 %399, label %true712, label %false713
 
-true714:                                          ; preds = %false707
-  %GMP717 = load %gemPrm, %gemPrm* %GMP
-  %modulus = extractvalue %gemPrm %GMP717, 21
-  %idx718 = load i64, i64* %idx
-  %return719 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %modulus, i64 %idx718)
+true712:                                          ; preds = %false690
   store <2 x double> %pos1, <2 x double>* %179
-  %w721 = load double, double* %w
-  store double %w721, double* %180
-  store <2 x double> %return719, <2 x double>* %181
-  call void @"V_MODULUS@UUFU"(<2 x double>* %p, <2 x double>* %179, double* %180, <2 x double>* %181)
-  %p723 = load <2 x double>, <2 x double>* %p
+  %w716 = load double, double* %w
+  store double %w716, double* %180
+  call void @"V_LOONIE@UUF"(<2 x double>* %p, <2 x double>* %179, double* %180)
+  %p717 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false715:                                         ; preds = %false707
-  %return725 = call i64 @"eq@III"(i64 %T2, i64 67)
-  %399 = icmp ne i64 %return725, 0
-  br i1 %399, label %true726, label %false727
+false713:                                         ; preds = %false690
+  %return719 = call i64 @"eq@III"(i64 %T2, i64 66)
+  %400 = icmp ne i64 %return719, 0
+  br i1 %400, label %true720, label %false721
 
-true726:                                          ; preds = %false715
-  %GMP729 = load %gemPrm, %gemPrm* %GMP
-  %oscope730 = extractvalue %gemPrm %GMP729, 46
-  %idx731 = load i64, i64* %idx
-  %return732 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %oscope730, i64 %idx731)
-  store <2 x double> %pos1, <2 x double>* %182
-  %w734 = load double, double* %w
-  store double %w734, double* %183
-  %return736 = call double @"getcomp@FPI"(<4 x double> %return732, i64 0)
-  store double %return736, double* %184
-  %return738 = call double @"getcomp@FPI"(<4 x double> %return732, i64 1)
-  store double %return738, double* %185
-  %return740 = call double @"getcomp@FPI"(<4 x double> %return732, i64 2)
-  store double %return740, double* %186
-  %return742 = call double @"getcomp@FPI"(<4 x double> %return732, i64 3)
-  store double %return742, double* %187
-  call void @"V_OSCOPE@UUFFFFF"(<2 x double>* %p, <2 x double>* %182, double* %183, double* %184, double* %185, double* %186, double* %187)
-  %p743 = load <2 x double>, <2 x double>* %p
+true720:                                          ; preds = %false713
+  %GMP723 = load %gemPrm, %gemPrm* %GMP
+  %modulus = extractvalue %gemPrm %GMP723, 21
+  %idx724 = load i64, i64* %idx
+  %return725 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %modulus, i64 %idx724)
+  store <2 x double> %pos1, <2 x double>* %181
+  %w727 = load double, double* %w
+  store double %w727, double* %182
+  store <2 x double> %return725, <2 x double>* %183
+  call void @"V_MODULUS@UUFU"(<2 x double>* %p, <2 x double>* %181, double* %182, <2 x double>* %183)
+  %p729 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false727:                                         ; preds = %false715
-  %return745 = call i64 @"eq@III"(i64 %T2, i64 68)
-  %400 = icmp ne i64 %return745, 0
-  br i1 %400, label %true746, label %false747
+false721:                                         ; preds = %false713
+  %return731 = call i64 @"eq@III"(i64 %T2, i64 67)
+  %401 = icmp ne i64 %return731, 0
+  br i1 %401, label %true732, label %false733
 
-true746:                                          ; preds = %false727
-  store <2 x double> %pos1, <2 x double>* %188
-  %w750 = load double, double* %w
-  store double %w750, double* %189
-  call void @"V_POLAR2@UUF"(<2 x double>* %p, <2 x double>* %188, double* %189)
-  %p751 = load <2 x double>, <2 x double>* %p
+true732:                                          ; preds = %false721
+  %GMP735 = load %gemPrm, %gemPrm* %GMP
+  %oscope736 = extractvalue %gemPrm %GMP735, 46
+  %idx737 = load i64, i64* %idx
+  %return738 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %oscope736, i64 %idx737)
+  store <2 x double> %pos1, <2 x double>* %184
+  %w740 = load double, double* %w
+  store double %w740, double* %185
+  %return742 = call double @"getcomp@FPI"(<4 x double> %return738, i64 0)
+  store double %return742, double* %186
+  %return744 = call double @"getcomp@FPI"(<4 x double> %return738, i64 1)
+  store double %return744, double* %187
+  %return746 = call double @"getcomp@FPI"(<4 x double> %return738, i64 2)
+  store double %return746, double* %188
+  %return748 = call double @"getcomp@FPI"(<4 x double> %return738, i64 3)
+  store double %return748, double* %189
+  call void @"V_OSCOPE@UUFFFFF"(<2 x double>* %p, <2 x double>* %184, double* %185, double* %186, double* %187, double* %188, double* %189)
+  %p749 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false747:                                         ; preds = %false727
-  %return753 = call i64 @"eq@III"(i64 %T2, i64 69)
-  %401 = icmp ne i64 %return753, 0
-  br i1 %401, label %true754, label %end9
+false733:                                         ; preds = %false721
+  %return751 = call i64 @"eq@III"(i64 %T2, i64 68)
+  %402 = icmp ne i64 %return751, 0
+  br i1 %402, label %true752, label %false753
 
-true754:                                          ; preds = %false747
-  %GMP756 = load %gemPrm, %gemPrm* %GMP
-  %popcorn2_c = extractvalue %gemPrm %GMP756, 5
-  %idx757 = load i64, i64* %idx
-  %return758 = call double @"getcomp@F[FI"(double* %popcorn2_c, i64 %idx757)
-  %popcorn2 = extractvalue %gemPrm %GMP756, 22
-  %return761 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %popcorn2, i64 %idx757)
+true752:                                          ; preds = %false733
   store <2 x double> %pos1, <2 x double>* %190
-  %w763 = load double, double* %w
-  store double %w763, double* %191
-  store double %return758, double* %192
-  store <2 x double> %return761, <2 x double>* %193
-  call void @"V_POPCORN2@UUFFU"(<2 x double>* %p, <2 x double>* %190, double* %191, double* %192, <2 x double>* %193)
-  %p766 = load <2 x double>, <2 x double>* %p
+  %w756 = load double, double* %w
+  store double %w756, double* %191
+  call void @"V_POLAR2@UUF"(<2 x double>* %p, <2 x double>* %190, double* %191)
+  %p757 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-true769:                                          ; preds = %false359
-  %return773 = call i64 @"eq@III"(i64 %T2, i64 73)
-  %402 = icmp ne i64 %return773, 0
-  br i1 %402, label %true774, label %false775
+false753:                                         ; preds = %false733
+  %return759 = call i64 @"eq@III"(i64 %T2, i64 69)
+  %403 = icmp ne i64 %return759, 0
+  br i1 %403, label %true760, label %end9
 
-false770:                                         ; preds = %false359
-  %return999 = call i64 @"eq@III"(i64 %T2, i64 88)
-  %403 = icmp ne i64 %return999, 0
-  br i1 %403, label %true1000, label %false1001
-
-true774:                                          ; preds = %true769
-  %GMP777 = load %gemPrm, %gemPrm* %GMP
-  %splits778 = extractvalue %gemPrm %GMP777, 26
-  %idx779 = load i64, i64* %idx
-  %return780 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %splits778, i64 %idx779)
-  store <2 x double> %pos1, <2 x double>* %194
-  %w782 = load double, double* %w
-  store double %w782, double* %195
-  store <2 x double> %return780, <2 x double>* %196
-  call void @"V_SPLITS@UUFU"(<2 x double>* %p, <2 x double>* %194, double* %195, <2 x double>* %196)
-  %p784 = load <2 x double>, <2 x double>* %p
+true760:                                          ; preds = %false753
+  %GMP762 = load %gemPrm, %gemPrm* %GMP
+  %popcorn2_c = extractvalue %gemPrm %GMP762, 5
+  %idx763 = load i64, i64* %idx
+  %return764 = call double @"getcomp@F[FI"(double* %popcorn2_c, i64 %idx763)
+  %popcorn2 = extractvalue %gemPrm %GMP762, 22
+  %return767 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %popcorn2, i64 %idx763)
+  store <2 x double> %pos1, <2 x double>* %192
+  %w769 = load double, double* %w
+  store double %w769, double* %193
+  store double %return764, double* %194
+  store <2 x double> %return767, <2 x double>* %195
+  call void @"V_POPCORN2@UUFFU"(<2 x double>* %p, <2 x double>* %192, double* %193, double* %194, <2 x double>* %195)
+  %p772 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false775:                                         ; preds = %true769
-  %return786 = call i64 @"eq@III"(i64 %T2, i64 70)
-  %404 = icmp ne i64 %return786, 0
-  br i1 %404, label %true787, label %false788
+true775:                                          ; preds = %false359
+  %return779 = call i64 @"eq@III"(i64 %T2, i64 73)
+  %404 = icmp ne i64 %return779, 0
+  br i1 %404, label %true780, label %false781
 
-true787:                                          ; preds = %false775
-  store <2 x double> %pos1, <2 x double>* %197
-  %w791 = load double, double* %w
-  store double %w791, double* %198
-  call void @"V_SCRY@UUF"(<2 x double>* %p, <2 x double>* %197, double* %198)
-  %p792 = load <2 x double>, <2 x double>* %p
+false776:                                         ; preds = %false359
+  %return1005 = call i64 @"eq@III"(i64 %T2, i64 88)
+  %405 = icmp ne i64 %return1005, 0
+  br i1 %405, label %true1006, label %false1007
+
+true780:                                          ; preds = %true775
+  %GMP783 = load %gemPrm, %gemPrm* %GMP
+  %splits784 = extractvalue %gemPrm %GMP783, 26
+  %idx785 = load i64, i64* %idx
+  %return786 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %splits784, i64 %idx785)
+  store <2 x double> %pos1, <2 x double>* %196
+  %w788 = load double, double* %w
+  store double %w788, double* %197
+  store <2 x double> %return786, <2 x double>* %198
+  call void @"V_SPLITS@UUFU"(<2 x double>* %p, <2 x double>* %196, double* %197, <2 x double>* %198)
+  %p790 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false788:                                         ; preds = %false775
-  %return794 = call i64 @"eq@III"(i64 %T2, i64 71)
-  %405 = icmp ne i64 %return794, 0
-  br i1 %405, label %true795, label %false796
+false781:                                         ; preds = %true775
+  %return792 = call i64 @"eq@III"(i64 %T2, i64 70)
+  %406 = icmp ne i64 %return792, 0
+  br i1 %406, label %true793, label %false794
 
-true795:                                          ; preds = %false788
-  %GMP798 = load %gemPrm, %gemPrm* %GMP
-  %separation = extractvalue %gemPrm %GMP798, 23
-  %idx799 = load i64, i64* %idx
-  %return800 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %separation, i64 %idx799)
-  %separation_inside = extractvalue %gemPrm %GMP798, 24
-  %return803 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %separation_inside, i64 %idx799)
+true793:                                          ; preds = %false781
   store <2 x double> %pos1, <2 x double>* %199
-  %w805 = load double, double* %w
-  store double %w805, double* %200
-  store <2 x double> %return800, <2 x double>* %201
-  store <2 x double> %return803, <2 x double>* %202
-  call void @"V_SEPARATION@UUFUU"(<2 x double>* %p, <2 x double>* %199, double* %200, <2 x double>* %201, <2 x double>* %202)
-  %p808 = load <2 x double>, <2 x double>* %p
+  %w797 = load double, double* %w
+  store double %w797, double* %200
+  call void @"V_SCRY@UUF"(<2 x double>* %p, <2 x double>* %199, double* %200)
+  %p798 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false796:                                         ; preds = %false788
-  %return810 = call i64 @"eq@III"(i64 %T2, i64 72)
-  %406 = icmp ne i64 %return810, 0
-  br i1 %406, label %true811, label %false812
+false794:                                         ; preds = %false781
+  %return800 = call i64 @"eq@III"(i64 %T2, i64 71)
+  %407 = icmp ne i64 %return800, 0
+  br i1 %407, label %true801, label %false802
 
-true811:                                          ; preds = %false796
-  %GMP814 = load %gemPrm, %gemPrm* %GMP
-  %split815 = extractvalue %gemPrm %GMP814, 25
-  %idx816 = load i64, i64* %idx
-  %return817 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %split815, i64 %idx816)
-  store <2 x double> %pos1, <2 x double>* %203
-  %w819 = load double, double* %w
-  store double %w819, double* %204
-  store <2 x double> %return817, <2 x double>* %205
-  call void @"V_SPLIT@UUFU"(<2 x double>* %p, <2 x double>* %203, double* %204, <2 x double>* %205)
-  %p821 = load <2 x double>, <2 x double>* %p
+true801:                                          ; preds = %false794
+  %GMP804 = load %gemPrm, %gemPrm* %GMP
+  %separation = extractvalue %gemPrm %GMP804, 23
+  %idx805 = load i64, i64* %idx
+  %return806 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %separation, i64 %idx805)
+  %separation_inside = extractvalue %gemPrm %GMP804, 24
+  %return809 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %separation_inside, i64 %idx805)
+  store <2 x double> %pos1, <2 x double>* %201
+  %w811 = load double, double* %w
+  store double %w811, double* %202
+  store <2 x double> %return806, <2 x double>* %203
+  store <2 x double> %return809, <2 x double>* %204
+  call void @"V_SEPARATION@UUFUU"(<2 x double>* %p, <2 x double>* %201, double* %202, <2 x double>* %203, <2 x double>* %204)
+  %p814 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false812:                                         ; preds = %false796
-  %return823 = call i64 @"eq@III"(i64 %T2, i64 74)
-  %407 = icmp ne i64 %return823, 0
-  br i1 %407, label %true824, label %false825
+false802:                                         ; preds = %false794
+  %return816 = call i64 @"eq@III"(i64 %T2, i64 72)
+  %408 = icmp ne i64 %return816, 0
+  br i1 %408, label %true817, label %false818
 
-true824:                                          ; preds = %false812
-  %GMP827 = load %gemPrm, %gemPrm* %GMP
-  %stripes828 = extractvalue %gemPrm %GMP827, 39
-  %idx829 = load i64, i64* %idx
-  %return830 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %stripes828, i64 %idx829)
-  store <2 x double> %pos1, <2 x double>* %206
-  %w832 = load double, double* %w
-  store double %w832, double* %207
-  %return834 = call double @"getcomp@FUI"(<2 x double> %return830, i64 0)
-  store double %return834, double* %208
-  %return836 = call double @"getcomp@FUI"(<2 x double> %return830, i64 1)
-  store double %return836, double* %209
-  call void @"V_STRIPES@UUFFF"(<2 x double>* %p, <2 x double>* %206, double* %207, double* %208, double* %209)
-  %p837 = load <2 x double>, <2 x double>* %p
+true817:                                          ; preds = %false802
+  %GMP820 = load %gemPrm, %gemPrm* %GMP
+  %split821 = extractvalue %gemPrm %GMP820, 25
+  %idx822 = load i64, i64* %idx
+  %return823 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %split821, i64 %idx822)
+  store <2 x double> %pos1, <2 x double>* %205
+  %w825 = load double, double* %w
+  store double %w825, double* %206
+  store <2 x double> %return823, <2 x double>* %207
+  call void @"V_SPLIT@UUFU"(<2 x double>* %p, <2 x double>* %205, double* %206, <2 x double>* %207)
+  %p827 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false825:                                         ; preds = %false812
-  %return839 = call i64 @"eq@III"(i64 %T2, i64 75)
-  %408 = icmp ne i64 %return839, 0
-  br i1 %408, label %true840, label %false841
+false818:                                         ; preds = %false802
+  %return829 = call i64 @"eq@III"(i64 %T2, i64 74)
+  %409 = icmp ne i64 %return829, 0
+  br i1 %409, label %true830, label %false831
 
-true840:                                          ; preds = %false825
-  %GMP843 = load %gemPrm, %gemPrm* %GMP
-  %wedge844 = extractvalue %gemPrm %GMP843, 47
-  %idx845 = load i64, i64* %idx
-  %return846 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %wedge844, i64 %idx845)
-  store <2 x double> %pos1, <2 x double>* %210
-  %w848 = load double, double* %w
-  store double %w848, double* %211
-  %return850 = call double @"getcomp@FPI"(<4 x double> %return846, i64 0)
-  store double %return850, double* %212
-  %return852 = call double @"getcomp@FPI"(<4 x double> %return846, i64 1)
-  store double %return852, double* %213
-  %return854 = call double @"getcomp@FPI"(<4 x double> %return846, i64 2)
-  store double %return854, double* %214
-  %return856 = call double @"getcomp@FPI"(<4 x double> %return846, i64 3)
-  store double %return856, double* %215
-  call void @"V_WEDGE@UUFFFFF"(<2 x double>* %p, <2 x double>* %210, double* %211, double* %212, double* %213, double* %214, double* %215)
-  %p857 = load <2 x double>, <2 x double>* %p
+true830:                                          ; preds = %false818
+  %GMP833 = load %gemPrm, %gemPrm* %GMP
+  %stripes834 = extractvalue %gemPrm %GMP833, 39
+  %idx835 = load i64, i64* %idx
+  %return836 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %stripes834, i64 %idx835)
+  store <2 x double> %pos1, <2 x double>* %208
+  %w838 = load double, double* %w
+  store double %w838, double* %209
+  %return840 = call double @"getcomp@FUI"(<2 x double> %return836, i64 0)
+  store double %return840, double* %210
+  %return842 = call double @"getcomp@FUI"(<2 x double> %return836, i64 1)
+  store double %return842, double* %211
+  call void @"V_STRIPES@UUFFF"(<2 x double>* %p, <2 x double>* %208, double* %209, double* %210, double* %211)
+  %p843 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false841:                                         ; preds = %false825
-  %return859 = call i64 @"eq@III"(i64 %T2, i64 76)
-  %409 = icmp ne i64 %return859, 0
-  br i1 %409, label %true860, label %false861
+false831:                                         ; preds = %false818
+  %return845 = call i64 @"eq@III"(i64 %T2, i64 75)
+  %410 = icmp ne i64 %return845, 0
+  br i1 %410, label %true846, label %false847
 
-true860:                                          ; preds = %false841
-  %GMP863 = load %gemPrm, %gemPrm* %GMP
-  %wedgejulia864 = extractvalue %gemPrm %GMP863, 48
-  %idx865 = load i64, i64* %idx
-  %return866 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %wedgejulia864, i64 %idx865)
-  store <2 x double> %pos1, <2 x double>* %216
-  %w868 = load double, double* %w
-  store double %w868, double* %217
-  %return870 = call double @"getcomp@FPI"(<4 x double> %return866, i64 0)
-  store double %return870, double* %218
-  %return872 = call double @"getcomp@FPI"(<4 x double> %return866, i64 1)
-  store double %return872, double* %219
-  %return874 = call double @"getcomp@FPI"(<4 x double> %return866, i64 2)
-  store double %return874, double* %220
-  %return876 = call double @"getcomp@FPI"(<4 x double> %return866, i64 3)
-  store double %return876, double* %221
-  call void @"V_WEDGEJULIA@UUFFFFF"(<2 x double>* %p, <2 x double>* %216, double* %217, double* %218, double* %219, double* %220, double* %221)
-  %p877 = load <2 x double>, <2 x double>* %p
+true846:                                          ; preds = %false831
+  %GMP849 = load %gemPrm, %gemPrm* %GMP
+  %wedge850 = extractvalue %gemPrm %GMP849, 47
+  %idx851 = load i64, i64* %idx
+  %return852 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %wedge850, i64 %idx851)
+  store <2 x double> %pos1, <2 x double>* %212
+  %w854 = load double, double* %w
+  store double %w854, double* %213
+  %return856 = call double @"getcomp@FPI"(<4 x double> %return852, i64 0)
+  store double %return856, double* %214
+  %return858 = call double @"getcomp@FPI"(<4 x double> %return852, i64 1)
+  store double %return858, double* %215
+  %return860 = call double @"getcomp@FPI"(<4 x double> %return852, i64 2)
+  store double %return860, double* %216
+  %return862 = call double @"getcomp@FPI"(<4 x double> %return852, i64 3)
+  store double %return862, double* %217
+  call void @"V_WEDGE@UUFFFFF"(<2 x double>* %p, <2 x double>* %212, double* %213, double* %214, double* %215, double* %216, double* %217)
+  %p863 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false861:                                         ; preds = %false841
-  %return879 = call i64 @"eq@III"(i64 %T2, i64 77)
-  %410 = icmp ne i64 %return879, 0
-  br i1 %410, label %true880, label %false881
+false847:                                         ; preds = %false831
+  %return865 = call i64 @"eq@III"(i64 %T2, i64 76)
+  %411 = icmp ne i64 %return865, 0
+  br i1 %411, label %true866, label %false867
 
-true880:                                          ; preds = %false861
-  %GMP883 = load %gemPrm, %gemPrm* %GMP
-  %wedgesph884 = extractvalue %gemPrm %GMP883, 49
-  %idx885 = load i64, i64* %idx
-  %return886 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %wedgesph884, i64 %idx885)
-  store <2 x double> %pos1, <2 x double>* %222
-  %w888 = load double, double* %w
-  store double %w888, double* %223
-  %return890 = call double @"getcomp@FPI"(<4 x double> %return886, i64 0)
-  store double %return890, double* %224
-  %return892 = call double @"getcomp@FPI"(<4 x double> %return886, i64 1)
-  store double %return892, double* %225
-  %return894 = call double @"getcomp@FPI"(<4 x double> %return886, i64 2)
-  store double %return894, double* %226
-  %return896 = call double @"getcomp@FPI"(<4 x double> %return886, i64 3)
-  store double %return896, double* %227
-  call void @"V_WEDGESPH@UUFFFFF"(<2 x double>* %p, <2 x double>* %222, double* %223, double* %224, double* %225, double* %226, double* %227)
-  %p897 = load <2 x double>, <2 x double>* %p
+true866:                                          ; preds = %false847
+  %GMP869 = load %gemPrm, %gemPrm* %GMP
+  %wedgejulia870 = extractvalue %gemPrm %GMP869, 48
+  %idx871 = load i64, i64* %idx
+  %return872 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %wedgejulia870, i64 %idx871)
+  store <2 x double> %pos1, <2 x double>* %218
+  %w874 = load double, double* %w
+  store double %w874, double* %219
+  %return876 = call double @"getcomp@FPI"(<4 x double> %return872, i64 0)
+  store double %return876, double* %220
+  %return878 = call double @"getcomp@FPI"(<4 x double> %return872, i64 1)
+  store double %return878, double* %221
+  %return880 = call double @"getcomp@FPI"(<4 x double> %return872, i64 2)
+  store double %return880, double* %222
+  %return882 = call double @"getcomp@FPI"(<4 x double> %return872, i64 3)
+  store double %return882, double* %223
+  call void @"V_WEDGEJULIA@UUFFFFF"(<2 x double>* %p, <2 x double>* %218, double* %219, double* %220, double* %221, double* %222, double* %223)
+  %p883 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false881:                                         ; preds = %false861
-  %return899 = call i64 @"eq@III"(i64 %T2, i64 78)
-  %411 = icmp ne i64 %return899, 0
-  br i1 %411, label %true900, label %false901
+false867:                                         ; preds = %false847
+  %return885 = call i64 @"eq@III"(i64 %T2, i64 77)
+  %412 = icmp ne i64 %return885, 0
+  br i1 %412, label %true886, label %false887
 
-true900:                                          ; preds = %false881
-  %GMP903 = load %gemPrm, %gemPrm* %GMP
-  %whorl904 = extractvalue %gemPrm %GMP903, 40
-  %idx905 = load i64, i64* %idx
-  %return906 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %whorl904, i64 %idx905)
-  store <2 x double> %pos1, <2 x double>* %228
-  %w908 = load double, double* %w
-  store double %w908, double* %229
-  %return910 = call double @"getcomp@FUI"(<2 x double> %return906, i64 0)
-  store double %return910, double* %230
-  %return912 = call double @"getcomp@FUI"(<2 x double> %return906, i64 1)
-  store double %return912, double* %231
-  call void @"V_WHORL@UUFFF"(<2 x double>* %p, <2 x double>* %228, double* %229, double* %230, double* %231)
-  %p913 = load <2 x double>, <2 x double>* %p
+true886:                                          ; preds = %false867
+  %GMP889 = load %gemPrm, %gemPrm* %GMP
+  %wedgesph890 = extractvalue %gemPrm %GMP889, 49
+  %idx891 = load i64, i64* %idx
+  %return892 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %wedgesph890, i64 %idx891)
+  store <2 x double> %pos1, <2 x double>* %224
+  %w894 = load double, double* %w
+  store double %w894, double* %225
+  %return896 = call double @"getcomp@FPI"(<4 x double> %return892, i64 0)
+  store double %return896, double* %226
+  %return898 = call double @"getcomp@FPI"(<4 x double> %return892, i64 1)
+  store double %return898, double* %227
+  %return900 = call double @"getcomp@FPI"(<4 x double> %return892, i64 2)
+  store double %return900, double* %228
+  %return902 = call double @"getcomp@FPI"(<4 x double> %return892, i64 3)
+  store double %return902, double* %229
+  call void @"V_WEDGESPH@UUFFFFF"(<2 x double>* %p, <2 x double>* %224, double* %225, double* %226, double* %227, double* %228, double* %229)
+  %p903 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false901:                                         ; preds = %false881
-  %return915 = call i64 @"eq@III"(i64 %T2, i64 79)
-  %412 = icmp ne i64 %return915, 0
-  br i1 %412, label %true916, label %false917
+false887:                                         ; preds = %false867
+  %return905 = call i64 @"eq@III"(i64 %T2, i64 78)
+  %413 = icmp ne i64 %return905, 0
+  br i1 %413, label %true906, label %false907
 
-true916:                                          ; preds = %false901
-  %GMP919 = load %gemPrm, %gemPrm* %GMP
-  %waves2_scale = extractvalue %gemPrm %GMP919, 27
-  %idx920 = load i64, i64* %idx
-  %return921 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %waves2_scale, i64 %idx920)
-  %waves2_freq = extractvalue %gemPrm %GMP919, 28
-  %return924 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %waves2_freq, i64 %idx920)
-  store <2 x double> %pos1, <2 x double>* %232
-  %w926 = load double, double* %w
-  store double %w926, double* %233
-  store <2 x double> %return921, <2 x double>* %234
-  store <2 x double> %return924, <2 x double>* %235
-  call void @"V_WAVES2@UUFUU"(<2 x double>* %p, <2 x double>* %232, double* %233, <2 x double>* %234, <2 x double>* %235)
-  %p929 = load <2 x double>, <2 x double>* %p
+true906:                                          ; preds = %false887
+  %GMP909 = load %gemPrm, %gemPrm* %GMP
+  %whorl910 = extractvalue %gemPrm %GMP909, 40
+  %idx911 = load i64, i64* %idx
+  %return912 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %whorl910, i64 %idx911)
+  store <2 x double> %pos1, <2 x double>* %230
+  %w914 = load double, double* %w
+  store double %w914, double* %231
+  %return916 = call double @"getcomp@FUI"(<2 x double> %return912, i64 0)
+  store double %return916, double* %232
+  %return918 = call double @"getcomp@FUI"(<2 x double> %return912, i64 1)
+  store double %return918, double* %233
+  call void @"V_WHORL@UUFFF"(<2 x double>* %p, <2 x double>* %230, double* %231, double* %232, double* %233)
+  %p919 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false917:                                         ; preds = %false901
-  %return931 = call i64 @"eq@III"(i64 %T2, i64 80)
-  %413 = icmp ne i64 %return931, 0
-  br i1 %413, label %true932, label %false933
+false907:                                         ; preds = %false887
+  %return921 = call i64 @"eq@III"(i64 %T2, i64 79)
+  %414 = icmp ne i64 %return921, 0
+  br i1 %414, label %true922, label %false923
 
-true932:                                          ; preds = %false917
-  store <2 x double> %pos1, <2 x double>* %236
-  %w936 = load double, double* %w
-  store double %w936, double* %237
-  call void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %236, double* %237)
-  %p937 = load <2 x double>, <2 x double>* %p
+true922:                                          ; preds = %false907
+  %GMP925 = load %gemPrm, %gemPrm* %GMP
+  %waves2_scale = extractvalue %gemPrm %GMP925, 27
+  %idx926 = load i64, i64* %idx
+  %return927 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %waves2_scale, i64 %idx926)
+  %waves2_freq = extractvalue %gemPrm %GMP925, 28
+  %return930 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %waves2_freq, i64 %idx926)
+  store <2 x double> %pos1, <2 x double>* %234
+  %w932 = load double, double* %w
+  store double %w932, double* %235
+  store <2 x double> %return927, <2 x double>* %236
+  store <2 x double> %return930, <2 x double>* %237
+  call void @"V_WAVES2@UUFUU"(<2 x double>* %p, <2 x double>* %234, double* %235, <2 x double>* %236, <2 x double>* %237)
+  %p935 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false933:                                         ; preds = %false917
-  %return939 = call i64 @"eq@III"(i64 %T2, i64 81)
-  %414 = icmp ne i64 %return939, 0
-  br i1 %414, label %true940, label %false941
+false923:                                         ; preds = %false907
+  %return937 = call i64 @"eq@III"(i64 %T2, i64 80)
+  %415 = icmp ne i64 %return937, 0
+  br i1 %415, label %true938, label %false939
 
-true940:                                          ; preds = %false933
+true938:                                          ; preds = %false923
   store <2 x double> %pos1, <2 x double>* %238
-  %w944 = load double, double* %w
-  store double %w944, double* %239
-  call void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %238, double* %239)
-  %p945 = load <2 x double>, <2 x double>* %p
+  %w942 = load double, double* %w
+  store double %w942, double* %239
+  call void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %238, double* %239)
+  %p943 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false941:                                         ; preds = %false933
-  %return947 = call i64 @"eq@III"(i64 %T2, i64 82)
-  %415 = icmp ne i64 %return947, 0
-  br i1 %415, label %true948, label %false949
+false939:                                         ; preds = %false923
+  %return945 = call i64 @"eq@III"(i64 %T2, i64 81)
+  %416 = icmp ne i64 %return945, 0
+  br i1 %416, label %true946, label %false947
 
-true948:                                          ; preds = %false941
-  %f3c951 = load i64, i64* %f3c
-  store i64 %f3c951, i64* %240
-  store <2 x double> %pos1, <2 x double>* %241
-  %w953 = load double, double* %w
-  store double %w953, double* %242
-  call void @"V_SIN@IUUF"(i64* %240, <2 x double>* %p, <2 x double>* %241, double* %242)
-  %p954 = load <2 x double>, <2 x double>* %p
+true946:                                          ; preds = %false939
+  store <2 x double> %pos1, <2 x double>* %240
+  %w950 = load double, double* %w
+  store double %w950, double* %241
+  call void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %240, double* %241)
+  %p951 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false949:                                         ; preds = %false941
-  %return956 = call i64 @"eq@III"(i64 %T2, i64 83)
-  %416 = icmp ne i64 %return956, 0
-  br i1 %416, label %true957, label %false958
+false947:                                         ; preds = %false939
+  %return953 = call i64 @"eq@III"(i64 %T2, i64 82)
+  %417 = icmp ne i64 %return953, 0
+  br i1 %417, label %true954, label %false955
 
-true957:                                          ; preds = %false949
-  %f3c960 = load i64, i64* %f3c
-  store i64 %f3c960, i64* %243
-  store <2 x double> %pos1, <2 x double>* %244
-  %w962 = load double, double* %w
-  store double %w962, double* %245
-  call void @"V_COS@IUUF"(i64* %243, <2 x double>* %p, <2 x double>* %244, double* %245)
-  %p963 = load <2 x double>, <2 x double>* %p
+true954:                                          ; preds = %false947
+  %f3c957 = load i64, i64* %f3c
+  store i64 %f3c957, i64* %242
+  store <2 x double> %pos1, <2 x double>* %243
+  %w959 = load double, double* %w
+  store double %w959, double* %244
+  call void @"V_SIN@IUUF"(i64* %242, <2 x double>* %p, <2 x double>* %243, double* %244)
+  %p960 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false958:                                         ; preds = %false949
-  %return965 = call i64 @"eq@III"(i64 %T2, i64 84)
-  %417 = icmp ne i64 %return965, 0
-  br i1 %417, label %true966, label %false967
+false955:                                         ; preds = %false947
+  %return962 = call i64 @"eq@III"(i64 %T2, i64 83)
+  %418 = icmp ne i64 %return962, 0
+  br i1 %418, label %true963, label %false964
 
-true966:                                          ; preds = %false958
-  %f3c969 = load i64, i64* %f3c
-  store i64 %f3c969, i64* %246
-  store <2 x double> %pos1, <2 x double>* %247
-  %w971 = load double, double* %w
-  store double %w971, double* %248
-  call void @"V_TAN@IUUF"(i64* %246, <2 x double>* %p, <2 x double>* %247, double* %248)
-  %p972 = load <2 x double>, <2 x double>* %p
+true963:                                          ; preds = %false955
+  %f3c966 = load i64, i64* %f3c
+  store i64 %f3c966, i64* %245
+  store <2 x double> %pos1, <2 x double>* %246
+  %w968 = load double, double* %w
+  store double %w968, double* %247
+  call void @"V_COS@IUUF"(i64* %245, <2 x double>* %p, <2 x double>* %246, double* %247)
+  %p969 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false967:                                         ; preds = %false958
-  %return974 = call i64 @"eq@III"(i64 %T2, i64 85)
-  %418 = icmp ne i64 %return974, 0
-  br i1 %418, label %true975, label %false976
+false964:                                         ; preds = %false955
+  %return971 = call i64 @"eq@III"(i64 %T2, i64 84)
+  %419 = icmp ne i64 %return971, 0
+  br i1 %419, label %true972, label %false973
 
-true975:                                          ; preds = %false967
-  %f3c978 = load i64, i64* %f3c
-  store i64 %f3c978, i64* %249
-  store <2 x double> %pos1, <2 x double>* %250
-  %w980 = load double, double* %w
-  store double %w980, double* %251
-  call void @"V_SEC@IUUF"(i64* %249, <2 x double>* %p, <2 x double>* %250, double* %251)
-  %p981 = load <2 x double>, <2 x double>* %p
+true972:                                          ; preds = %false964
+  %f3c975 = load i64, i64* %f3c
+  store i64 %f3c975, i64* %248
+  store <2 x double> %pos1, <2 x double>* %249
+  %w977 = load double, double* %w
+  store double %w977, double* %250
+  call void @"V_TAN@IUUF"(i64* %248, <2 x double>* %p, <2 x double>* %249, double* %250)
+  %p978 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false976:                                         ; preds = %false967
-  %return983 = call i64 @"eq@III"(i64 %T2, i64 86)
-  %419 = icmp ne i64 %return983, 0
-  br i1 %419, label %true984, label %end985
+false973:                                         ; preds = %false964
+  %return980 = call i64 @"eq@III"(i64 %T2, i64 85)
+  %420 = icmp ne i64 %return980, 0
+  br i1 %420, label %true981, label %false982
 
-true984:                                          ; preds = %false976
-  %f3c986 = load i64, i64* %f3c
-  store i64 %f3c986, i64* %252
-  store <2 x double> %pos1, <2 x double>* %253
-  %w988 = load double, double* %w
-  store double %w988, double* %254
-  call void @"V_CSC@IUUF"(i64* %252, <2 x double>* %p, <2 x double>* %253, double* %254)
-  %p989 = load <2 x double>, <2 x double>* %p
+true981:                                          ; preds = %false973
+  %f3c984 = load i64, i64* %f3c
+  store i64 %f3c984, i64* %251
+  store <2 x double> %pos1, <2 x double>* %252
+  %w986 = load double, double* %w
+  store double %w986, double* %253
+  call void @"V_SEC@IUUF"(i64* %251, <2 x double>* %p, <2 x double>* %252, double* %253)
+  %p987 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-end985:                                           ; preds = %false976
-  %return991 = call i64 @"eq@III"(i64 %T2, i64 87)
-  %420 = icmp ne i64 %return991, 0
-  br i1 %420, label %true992, label %end9
+false982:                                         ; preds = %false973
+  %return989 = call i64 @"eq@III"(i64 %T2, i64 86)
+  %421 = icmp ne i64 %return989, 0
+  br i1 %421, label %true990, label %end991
 
-true992:                                          ; preds = %end985
-  %f3c994 = load i64, i64* %f3c
-  store i64 %f3c994, i64* %255
-  store <2 x double> %pos1, <2 x double>* %256
-  %w996 = load double, double* %w
-  store double %w996, double* %257
-  call void @"V_COT@IUUF"(i64* %255, <2 x double>* %p, <2 x double>* %256, double* %257)
-  %p997 = load <2 x double>, <2 x double>* %p
+true990:                                          ; preds = %false982
+  %f3c992 = load i64, i64* %f3c
+  store i64 %f3c992, i64* %254
+  store <2 x double> %pos1, <2 x double>* %255
+  %w994 = load double, double* %w
+  store double %w994, double* %256
+  call void @"V_CSC@IUUF"(i64* %254, <2 x double>* %p, <2 x double>* %255, double* %256)
+  %p995 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-true1000:                                         ; preds = %false770
-  %f3c1003 = load i64, i64* %f3c
-  store i64 %f3c1003, i64* %258
-  store <2 x double> %pos1, <2 x double>* %259
-  %w1005 = load double, double* %w
-  store double %w1005, double* %260
-  call void @"V_SINH@IUUF"(i64* %258, <2 x double>* %p, <2 x double>* %259, double* %260)
-  %p1006 = load <2 x double>, <2 x double>* %p
+end991:                                           ; preds = %false982
+  %return997 = call i64 @"eq@III"(i64 %T2, i64 87)
+  %422 = icmp ne i64 %return997, 0
+  br i1 %422, label %true998, label %end9
+
+true998:                                          ; preds = %end991
+  %f3c1000 = load i64, i64* %f3c
+  store i64 %f3c1000, i64* %257
+  store <2 x double> %pos1, <2 x double>* %258
+  %w1002 = load double, double* %w
+  store double %w1002, double* %259
+  call void @"V_COT@IUUF"(i64* %257, <2 x double>* %p, <2 x double>* %258, double* %259)
+  %p1003 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1001:                                        ; preds = %false770
-  %return1008 = call i64 @"eq@III"(i64 %T2, i64 89)
-  %421 = icmp ne i64 %return1008, 0
-  br i1 %421, label %true1009, label %false1010
-
-true1009:                                         ; preds = %false1001
-  %f3c1012 = load i64, i64* %f3c
-  store i64 %f3c1012, i64* %261
-  store <2 x double> %pos1, <2 x double>* %262
-  %w1014 = load double, double* %w
-  store double %w1014, double* %263
-  call void @"V_COSH@IUUF"(i64* %261, <2 x double>* %p, <2 x double>* %262, double* %263)
-  %p1015 = load <2 x double>, <2 x double>* %p
+true1006:                                         ; preds = %false776
+  %f3c1009 = load i64, i64* %f3c
+  store i64 %f3c1009, i64* %260
+  store <2 x double> %pos1, <2 x double>* %261
+  %w1011 = load double, double* %w
+  store double %w1011, double* %262
+  call void @"V_SINH@IUUF"(i64* %260, <2 x double>* %p, <2 x double>* %261, double* %262)
+  %p1012 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1010:                                        ; preds = %false1001
-  %return1017 = call i64 @"eq@III"(i64 %T2, i64 90)
-  %422 = icmp ne i64 %return1017, 0
-  br i1 %422, label %true1018, label %false1019
+false1007:                                        ; preds = %false776
+  %return1014 = call i64 @"eq@III"(i64 %T2, i64 89)
+  %423 = icmp ne i64 %return1014, 0
+  br i1 %423, label %true1015, label %false1016
 
-true1018:                                         ; preds = %false1010
-  %f3c1021 = load i64, i64* %f3c
-  store i64 %f3c1021, i64* %264
-  store <2 x double> %pos1, <2 x double>* %265
-  %w1023 = load double, double* %w
-  store double %w1023, double* %266
-  call void @"V_TANH@IUUF"(i64* %264, <2 x double>* %p, <2 x double>* %265, double* %266)
-  %p1024 = load <2 x double>, <2 x double>* %p
+true1015:                                         ; preds = %false1007
+  %f3c1018 = load i64, i64* %f3c
+  store i64 %f3c1018, i64* %263
+  store <2 x double> %pos1, <2 x double>* %264
+  %w1020 = load double, double* %w
+  store double %w1020, double* %265
+  call void @"V_COSH@IUUF"(i64* %263, <2 x double>* %p, <2 x double>* %264, double* %265)
+  %p1021 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1019:                                        ; preds = %false1010
-  %return1026 = call i64 @"eq@III"(i64 %T2, i64 91)
-  %423 = icmp ne i64 %return1026, 0
-  br i1 %423, label %true1027, label %false1028
+false1016:                                        ; preds = %false1007
+  %return1023 = call i64 @"eq@III"(i64 %T2, i64 90)
+  %424 = icmp ne i64 %return1023, 0
+  br i1 %424, label %true1024, label %false1025
 
-true1027:                                         ; preds = %false1019
-  %f3c1030 = load i64, i64* %f3c
-  store i64 %f3c1030, i64* %267
-  store <2 x double> %pos1, <2 x double>* %268
-  %w1032 = load double, double* %w
-  store double %w1032, double* %269
-  call void @"V_SECH@IUUF"(i64* %267, <2 x double>* %p, <2 x double>* %268, double* %269)
-  %p1033 = load <2 x double>, <2 x double>* %p
+true1024:                                         ; preds = %false1016
+  %f3c1027 = load i64, i64* %f3c
+  store i64 %f3c1027, i64* %266
+  store <2 x double> %pos1, <2 x double>* %267
+  %w1029 = load double, double* %w
+  store double %w1029, double* %268
+  call void @"V_TANH@IUUF"(i64* %266, <2 x double>* %p, <2 x double>* %267, double* %268)
+  %p1030 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1028:                                        ; preds = %false1019
-  %return1035 = call i64 @"eq@III"(i64 %T2, i64 92)
-  %424 = icmp ne i64 %return1035, 0
-  br i1 %424, label %true1036, label %false1037
+false1025:                                        ; preds = %false1016
+  %return1032 = call i64 @"eq@III"(i64 %T2, i64 91)
+  %425 = icmp ne i64 %return1032, 0
+  br i1 %425, label %true1033, label %false1034
 
-true1036:                                         ; preds = %false1028
-  %f3c1039 = load i64, i64* %f3c
-  store i64 %f3c1039, i64* %270
-  store <2 x double> %pos1, <2 x double>* %271
-  %w1041 = load double, double* %w
-  store double %w1041, double* %272
-  call void @"V_CSCH@IUUF"(i64* %270, <2 x double>* %p, <2 x double>* %271, double* %272)
-  %p1042 = load <2 x double>, <2 x double>* %p
+true1033:                                         ; preds = %false1025
+  %f3c1036 = load i64, i64* %f3c
+  store i64 %f3c1036, i64* %269
+  store <2 x double> %pos1, <2 x double>* %270
+  %w1038 = load double, double* %w
+  store double %w1038, double* %271
+  call void @"V_SECH@IUUF"(i64* %269, <2 x double>* %p, <2 x double>* %270, double* %271)
+  %p1039 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1037:                                        ; preds = %false1028
-  %return1044 = call i64 @"eq@III"(i64 %T2, i64 93)
-  %425 = icmp ne i64 %return1044, 0
-  br i1 %425, label %true1045, label %false1046
+false1034:                                        ; preds = %false1025
+  %return1041 = call i64 @"eq@III"(i64 %T2, i64 92)
+  %426 = icmp ne i64 %return1041, 0
+  br i1 %426, label %true1042, label %false1043
 
-true1045:                                         ; preds = %false1037
-  %f3c1048 = load i64, i64* %f3c
-  store i64 %f3c1048, i64* %273
-  store <2 x double> %pos1, <2 x double>* %274
-  %w1050 = load double, double* %w
-  store double %w1050, double* %275
-  call void @"V_COTH@IUUF"(i64* %273, <2 x double>* %p, <2 x double>* %274, double* %275)
-  %p1051 = load <2 x double>, <2 x double>* %p
+true1042:                                         ; preds = %false1034
+  %f3c1045 = load i64, i64* %f3c
+  store i64 %f3c1045, i64* %272
+  store <2 x double> %pos1, <2 x double>* %273
+  %w1047 = load double, double* %w
+  store double %w1047, double* %274
+  call void @"V_CSCH@IUUF"(i64* %272, <2 x double>* %p, <2 x double>* %273, double* %274)
+  %p1048 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1046:                                        ; preds = %false1037
-  %return1053 = call i64 @"eq@III"(i64 %T2, i64 94)
-  %426 = icmp ne i64 %return1053, 0
-  br i1 %426, label %true1054, label %false1055
+false1043:                                        ; preds = %false1034
+  %return1050 = call i64 @"eq@III"(i64 %T2, i64 93)
+  %427 = icmp ne i64 %return1050, 0
+  br i1 %427, label %true1051, label %false1052
 
-true1054:                                         ; preds = %false1046
-  %GMP1057 = load %gemPrm, %gemPrm* %GMP
-  %auger1058 = extractvalue %gemPrm %GMP1057, 50
-  %idx1059 = load i64, i64* %idx
-  %return1060 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %auger1058, i64 %idx1059)
+true1051:                                         ; preds = %false1043
+  %f3c1054 = load i64, i64* %f3c
+  store i64 %f3c1054, i64* %275
   store <2 x double> %pos1, <2 x double>* %276
-  %w1062 = load double, double* %w
-  store double %w1062, double* %277
-  %return1064 = call double @"getcomp@FPI"(<4 x double> %return1060, i64 0)
-  store double %return1064, double* %278
-  %return1066 = call double @"getcomp@FPI"(<4 x double> %return1060, i64 1)
-  store double %return1066, double* %279
-  %return1068 = call double @"getcomp@FPI"(<4 x double> %return1060, i64 2)
-  store double %return1068, double* %280
-  %return1070 = call double @"getcomp@FPI"(<4 x double> %return1060, i64 3)
-  store double %return1070, double* %281
-  call void @"V_AUGER@UUFFFFF"(<2 x double>* %p, <2 x double>* %276, double* %277, double* %278, double* %279, double* %280, double* %281)
-  %p1071 = load <2 x double>, <2 x double>* %p
+  %w1056 = load double, double* %w
+  store double %w1056, double* %277
+  call void @"V_COTH@IUUF"(i64* %275, <2 x double>* %p, <2 x double>* %276, double* %277)
+  %p1057 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1055:                                        ; preds = %false1046
-  %return1073 = call i64 @"eq@III"(i64 %T2, i64 95)
-  %427 = icmp ne i64 %return1073, 0
-  br i1 %427, label %true1074, label %false1075
+false1052:                                        ; preds = %false1043
+  %return1059 = call i64 @"eq@III"(i64 %T2, i64 94)
+  %428 = icmp ne i64 %return1059, 0
+  br i1 %428, label %true1060, label %false1061
 
-true1074:                                         ; preds = %false1055
-  %GMP1077 = load %gemPrm, %gemPrm* %GMP
-  %flux_spread = extractvalue %gemPrm %GMP1077, 6
-  %idx1078 = load i64, i64* %idx
-  %return1079 = call double @"getcomp@F[FI"(double* %flux_spread, i64 %idx1078)
-  store <2 x double> %pos1, <2 x double>* %282
-  %w1081 = load double, double* %w
-  store double %w1081, double* %283
-  store double %return1079, double* %284
-  call void @"V_FLUX@UUFF"(<2 x double>* %p, <2 x double>* %282, double* %283, double* %284)
-  %p1083 = load <2 x double>, <2 x double>* %p
+true1060:                                         ; preds = %false1052
+  %GMP1063 = load %gemPrm, %gemPrm* %GMP
+  %auger1064 = extractvalue %gemPrm %GMP1063, 50
+  %idx1065 = load i64, i64* %idx
+  %return1066 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %auger1064, i64 %idx1065)
+  store <2 x double> %pos1, <2 x double>* %278
+  %w1068 = load double, double* %w
+  store double %w1068, double* %279
+  %return1070 = call double @"getcomp@FPI"(<4 x double> %return1066, i64 0)
+  store double %return1070, double* %280
+  %return1072 = call double @"getcomp@FPI"(<4 x double> %return1066, i64 1)
+  store double %return1072, double* %281
+  %return1074 = call double @"getcomp@FPI"(<4 x double> %return1066, i64 2)
+  store double %return1074, double* %282
+  %return1076 = call double @"getcomp@FPI"(<4 x double> %return1066, i64 3)
+  store double %return1076, double* %283
+  call void @"V_AUGER@UUFFFFF"(<2 x double>* %p, <2 x double>* %278, double* %279, double* %280, double* %281, double* %282, double* %283)
+  %p1077 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1075:                                        ; preds = %false1055
-  %return1085 = call i64 @"eq@III"(i64 %T2, i64 96)
-  %428 = icmp ne i64 %return1085, 0
-  br i1 %428, label %true1086, label %false1087
+false1061:                                        ; preds = %false1052
+  %return1079 = call i64 @"eq@III"(i64 %T2, i64 95)
+  %429 = icmp ne i64 %return1079, 0
+  br i1 %429, label %true1080, label %false1081
 
-true1086:                                         ; preds = %false1075
-  %GMP1089 = load %gemPrm, %gemPrm* %GMP
-  %mobius_re = extractvalue %gemPrm %GMP1089, 51
-  %idx1090 = load i64, i64* %idx
-  %return1091 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %mobius_re, i64 %idx1090)
-  %mobius_im = extractvalue %gemPrm %GMP1089, 52
-  %return1094 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %mobius_im, i64 %idx1090)
-  store <2 x double> %pos1, <2 x double>* %285
-  %w1096 = load double, double* %w
-  store double %w1096, double* %286
-  store <4 x double> %return1091, <4 x double>* %287
-  store <4 x double> %return1094, <4 x double>* %288
-  call void @"V_MOBIUS@UUFPP"(<2 x double>* %p, <2 x double>* %285, double* %286, <4 x double>* %287, <4 x double>* %288)
-  %p1099 = load <2 x double>, <2 x double>* %p
+true1080:                                         ; preds = %false1061
+  %GMP1083 = load %gemPrm, %gemPrm* %GMP
+  %flux_spread = extractvalue %gemPrm %GMP1083, 6
+  %idx1084 = load i64, i64* %idx
+  %return1085 = call double @"getcomp@F[FI"(double* %flux_spread, i64 %idx1084)
+  store <2 x double> %pos1, <2 x double>* %284
+  %w1087 = load double, double* %w
+  store double %w1087, double* %285
+  store double %return1085, double* %286
+  call void @"V_FLUX@UUFF"(<2 x double>* %p, <2 x double>* %284, double* %285, double* %286)
+  %p1089 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1087:                                        ; preds = %false1075
-  %return1101 = call i64 @"eq@III"(i64 %T2, i64 97)
-  %429 = icmp ne i64 %return1101, 0
-  br i1 %429, label %true1102, label %false1103
+false1081:                                        ; preds = %false1061
+  %return1091 = call i64 @"eq@III"(i64 %T2, i64 96)
+  %430 = icmp ne i64 %return1091, 0
+  br i1 %430, label %true1092, label %false1093
 
-true1102:                                         ; preds = %false1087
-  %GMP1105 = load %gemPrm, %gemPrm* %GMP
-  %curve_lenght = extractvalue %gemPrm %GMP1105, 29
-  %idx1106 = load i64, i64* %idx
-  %return1107 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %curve_lenght, i64 %idx1106)
-  %curve_amp = extractvalue %gemPrm %GMP1105, 30
-  %return1110 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %curve_amp, i64 %idx1106)
-  store <2 x double> %pos1, <2 x double>* %289
-  %w1112 = load double, double* %w
-  store double %w1112, double* %290
-  store <2 x double> %return1107, <2 x double>* %291
-  store <2 x double> %return1110, <2 x double>* %292
-  call void @"V_CURVE@UUFUU"(<2 x double>* %p, <2 x double>* %289, double* %290, <2 x double>* %291, <2 x double>* %292)
-  %p1115 = load <2 x double>, <2 x double>* %p
+true1092:                                         ; preds = %false1081
+  %GMP1095 = load %gemPrm, %gemPrm* %GMP
+  %mobius_re = extractvalue %gemPrm %GMP1095, 51
+  %idx1096 = load i64, i64* %idx
+  %return1097 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %mobius_re, i64 %idx1096)
+  %mobius_im = extractvalue %gemPrm %GMP1095, 52
+  %return1100 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %mobius_im, i64 %idx1096)
+  store <2 x double> %pos1, <2 x double>* %287
+  %w1102 = load double, double* %w
+  store double %w1102, double* %288
+  store <4 x double> %return1097, <4 x double>* %289
+  store <4 x double> %return1100, <4 x double>* %290
+  call void @"V_MOBIUS@UUFPP"(<2 x double>* %p, <2 x double>* %287, double* %288, <4 x double>* %289, <4 x double>* %290)
+  %p1105 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1103:                                        ; preds = %false1087
-  %return1117 = call i64 @"eq@III"(i64 %T2, i64 98)
-  %430 = icmp ne i64 %return1117, 0
-  br i1 %430, label %true1118, label %false1119
+false1093:                                        ; preds = %false1081
+  %return1107 = call i64 @"eq@III"(i64 %T2, i64 97)
+  %431 = icmp ne i64 %return1107, 0
+  br i1 %431, label %true1108, label %false1109
 
-true1118:                                         ; preds = %false1103
-  %GMP1121 = load %gemPrm, %gemPrm* %GMP
-  %persp1122 = extractvalue %gemPrm %GMP1121, 41
-  %idx1123 = load i64, i64* %idx
-  %return1124 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %persp1122, i64 %idx1123)
-  store <2 x double> %pos1, <2 x double>* %293
-  %w1126 = load double, double* %w
-  store double %w1126, double* %294
-  %return1128 = call double @"getcomp@FUI"(<2 x double> %return1124, i64 0)
-  store double %return1128, double* %295
-  %return1130 = call double @"getcomp@FUI"(<2 x double> %return1124, i64 1)
-  store double %return1130, double* %296
-  call void @"V_PERSPECTIVE@UUFFF"(<2 x double>* %p, <2 x double>* %293, double* %294, double* %295, double* %296)
-  %p1131 = load <2 x double>, <2 x double>* %p
+true1108:                                         ; preds = %false1093
+  %GMP1111 = load %gemPrm, %gemPrm* %GMP
+  %curve_lenght = extractvalue %gemPrm %GMP1111, 29
+  %idx1112 = load i64, i64* %idx
+  %return1113 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %curve_lenght, i64 %idx1112)
+  %curve_amp = extractvalue %gemPrm %GMP1111, 30
+  %return1116 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %curve_amp, i64 %idx1112)
+  store <2 x double> %pos1, <2 x double>* %291
+  %w1118 = load double, double* %w
+  store double %w1118, double* %292
+  store <2 x double> %return1113, <2 x double>* %293
+  store <2 x double> %return1116, <2 x double>* %294
+  call void @"V_CURVE@UUFUU"(<2 x double>* %p, <2 x double>* %291, double* %292, <2 x double>* %293, <2 x double>* %294)
+  %p1121 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1119:                                        ; preds = %false1103
-  %return1133 = call i64 @"eq@III"(i64 %T2, i64 99)
-  %431 = icmp ne i64 %return1133, 0
-  br i1 %431, label %true1134, label %false1135
+false1109:                                        ; preds = %false1093
+  %return1123 = call i64 @"eq@III"(i64 %T2, i64 98)
+  %432 = icmp ne i64 %return1123, 0
+  br i1 %432, label %true1124, label %false1125
 
-true1134:                                         ; preds = %false1119
-  %GMP1137 = load %gemPrm, %gemPrm* %GMP
-  %bwraps1138 = extractvalue %gemPrm %GMP1137, 13
-  %idx1139 = load i64, i64* %idx
-  %return1140 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %bwraps1138, i64 %idx1139)
-  %bwrapstwist1142 = extractvalue %gemPrm %GMP1137, 42
-  %return1144 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %bwrapstwist1142, i64 %idx1139)
-  store <2 x double> %pos1, <2 x double>* %297
-  %w1146 = load double, double* %w
-  store double %w1146, double* %298
-  %return1148 = call double @"getcomp@FVI"(<3 x double> %return1140, i64 0)
-  store double %return1148, double* %299
-  %return1150 = call double @"getcomp@FVI"(<3 x double> %return1140, i64 1)
-  store double %return1150, double* %300
-  %return1152 = call double @"getcomp@FVI"(<3 x double> %return1140, i64 2)
-  store double %return1152, double* %301
-  %return1154 = call double @"getcomp@FUI"(<2 x double> %return1144, i64 0)
-  store double %return1154, double* %302
-  %return1156 = call double @"getcomp@FUI"(<2 x double> %return1144, i64 1)
-  store double %return1156, double* %303
-  call void @"V_BWRAPS@UUFFFFFF"(<2 x double>* %p, <2 x double>* %297, double* %298, double* %299, double* %300, double* %301, double* %302, double* %303)
-  %p1157 = load <2 x double>, <2 x double>* %p
+true1124:                                         ; preds = %false1109
+  %GMP1127 = load %gemPrm, %gemPrm* %GMP
+  %persp1128 = extractvalue %gemPrm %GMP1127, 41
+  %idx1129 = load i64, i64* %idx
+  %return1130 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %persp1128, i64 %idx1129)
+  store <2 x double> %pos1, <2 x double>* %295
+  %w1132 = load double, double* %w
+  store double %w1132, double* %296
+  %return1134 = call double @"getcomp@FUI"(<2 x double> %return1130, i64 0)
+  store double %return1134, double* %297
+  %return1136 = call double @"getcomp@FUI"(<2 x double> %return1130, i64 1)
+  store double %return1136, double* %298
+  call void @"V_PERSPECTIVE@UUFFF"(<2 x double>* %p, <2 x double>* %295, double* %296, double* %297, double* %298)
+  %p1137 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1135:                                        ; preds = %false1119
-  %return1159 = call i64 @"eq@III"(i64 %T2, i64 100)
-  %432 = icmp ne i64 %return1159, 0
-  br i1 %432, label %true1160, label %false1161
+false1125:                                        ; preds = %false1109
+  %return1139 = call i64 @"eq@III"(i64 %T2, i64 99)
+  %433 = icmp ne i64 %return1139, 0
+  br i1 %433, label %true1140, label %false1141
 
-true1160:                                         ; preds = %false1135
-  store <2 x double> %pos1, <2 x double>* %304
-  %w1164 = load double, double* %w
-  store double %w1164, double* %305
-  call void @"V_HEMISPHERE@UUF"(<2 x double>* %p, <2 x double>* %304, double* %305)
-  %p1165 = load <2 x double>, <2 x double>* %p
+true1140:                                         ; preds = %false1125
+  %GMP1143 = load %gemPrm, %gemPrm* %GMP
+  %bwraps1144 = extractvalue %gemPrm %GMP1143, 13
+  %idx1145 = load i64, i64* %idx
+  %return1146 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %bwraps1144, i64 %idx1145)
+  %bwrapstwist1148 = extractvalue %gemPrm %GMP1143, 42
+  %return1150 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %bwrapstwist1148, i64 %idx1145)
+  store <2 x double> %pos1, <2 x double>* %299
+  %w1152 = load double, double* %w
+  store double %w1152, double* %300
+  %return1154 = call double @"getcomp@FVI"(<3 x double> %return1146, i64 0)
+  store double %return1154, double* %301
+  %return1156 = call double @"getcomp@FVI"(<3 x double> %return1146, i64 1)
+  store double %return1156, double* %302
+  %return1158 = call double @"getcomp@FVI"(<3 x double> %return1146, i64 2)
+  store double %return1158, double* %303
+  %return1160 = call double @"getcomp@FUI"(<2 x double> %return1150, i64 0)
+  store double %return1160, double* %304
+  %return1162 = call double @"getcomp@FUI"(<2 x double> %return1150, i64 1)
+  store double %return1162, double* %305
+  call void @"V_BWRAPS@UUFFFFFF"(<2 x double>* %p, <2 x double>* %299, double* %300, double* %301, double* %302, double* %303, double* %304, double* %305)
+  %p1163 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1161:                                        ; preds = %false1135
-  %return1167 = call i64 @"eq@III"(i64 %T2, i64 101)
-  %433 = icmp ne i64 %return1167, 0
-  br i1 %433, label %true1168, label %false1169
+false1141:                                        ; preds = %false1125
+  %return1165 = call i64 @"eq@III"(i64 %T2, i64 100)
+  %434 = icmp ne i64 %return1165, 0
+  br i1 %434, label %true1166, label %false1167
 
-true1168:                                         ; preds = %false1161
-  %GMP1171 = load %gemPrm, %gemPrm* %GMP
-  %polynomial_pow = extractvalue %gemPrm %GMP1171, 31
-  %idx1172 = load i64, i64* %idx
-  %return1173 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %polynomial_pow, i64 %idx1172)
-  %polynomial_lc = extractvalue %gemPrm %GMP1171, 32
-  %return1176 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %polynomial_lc, i64 %idx1172)
-  %polynomial_sc = extractvalue %gemPrm %GMP1171, 33
-  %return1179 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %polynomial_sc, i64 %idx1172)
+true1166:                                         ; preds = %false1141
   store <2 x double> %pos1, <2 x double>* %306
-  %w1181 = load double, double* %w
-  store double %w1181, double* %307
-  store <2 x double> %return1173, <2 x double>* %308
-  store <2 x double> %return1176, <2 x double>* %309
+  %w1170 = load double, double* %w
+  store double %w1170, double* %307
+  call void @"V_HEMISPHERE@UUF"(<2 x double>* %p, <2 x double>* %306, double* %307)
+  %p1171 = load <2 x double>, <2 x double>* %p
+  br label %UnifiedReturnBlock
+
+false1167:                                        ; preds = %false1141
+  %return1173 = call i64 @"eq@III"(i64 %T2, i64 101)
+  %435 = icmp ne i64 %return1173, 0
+  br i1 %435, label %true1174, label %false1175
+
+true1174:                                         ; preds = %false1167
+  %GMP1177 = load %gemPrm, %gemPrm* %GMP
+  %polynomial_pow = extractvalue %gemPrm %GMP1177, 31
+  %idx1178 = load i64, i64* %idx
+  %return1179 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %polynomial_pow, i64 %idx1178)
+  %polynomial_lc = extractvalue %gemPrm %GMP1177, 32
+  %return1182 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %polynomial_lc, i64 %idx1178)
+  %polynomial_sc = extractvalue %gemPrm %GMP1177, 33
+  %return1185 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %polynomial_sc, i64 %idx1178)
+  store <2 x double> %pos1, <2 x double>* %308
+  %w1187 = load double, double* %w
+  store double %w1187, double* %309
   store <2 x double> %return1179, <2 x double>* %310
-  call void @"V_POLYNOMIAL@UUFUUU"(<2 x double>* %p, <2 x double>* %306, double* %307, <2 x double>* %308, <2 x double>* %309, <2 x double>* %310)
-  %p1185 = load <2 x double>, <2 x double>* %p
+  store <2 x double> %return1182, <2 x double>* %311
+  store <2 x double> %return1185, <2 x double>* %312
+  call void @"V_POLYNOMIAL@UUFUUU"(<2 x double>* %p, <2 x double>* %308, double* %309, <2 x double>* %310, <2 x double>* %311, <2 x double>* %312)
+  %p1191 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1169:                                        ; preds = %false1161
-  %return1187 = call i64 @"eq@III"(i64 %T2, i64 102)
-  %434 = icmp ne i64 %return1187, 0
-  br i1 %434, label %true1188, label %false1189
+false1175:                                        ; preds = %false1167
+  %return1193 = call i64 @"eq@III"(i64 %T2, i64 102)
+  %436 = icmp ne i64 %return1193, 0
+  br i1 %436, label %true1194, label %false1195
 
-true1188:                                         ; preds = %false1169
-  %GMP1191 = load %gemPrm, %gemPrm* %GMP
-  %crop_ltrb = extractvalue %gemPrm %GMP1191, 53
-  %idx1192 = load i64, i64* %idx
-  %return1193 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %crop_ltrb, i64 %idx1192)
-  %crop_az = extractvalue %gemPrm %GMP1191, 43
-  %return1196 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %crop_az, i64 %idx1192)
-  store <2 x double> %pos1, <2 x double>* %311
-  %w1198 = load double, double* %w
-  store double %w1198, double* %312
-  %return1200 = call double @"getcomp@FPI"(<4 x double> %return1193, i64 0)
-  store double %return1200, double* %313
-  %return1202 = call double @"getcomp@FPI"(<4 x double> %return1193, i64 1)
-  store double %return1202, double* %314
-  %return1204 = call double @"getcomp@FPI"(<4 x double> %return1193, i64 2)
-  store double %return1204, double* %315
-  %return1206 = call double @"getcomp@FPI"(<4 x double> %return1193, i64 3)
-  store double %return1206, double* %316
-  %return1208 = call double @"getcomp@FUI"(<2 x double> %return1196, i64 0)
-  store double %return1208, double* %317
-  %return1210 = call double @"getcomp@FUI"(<2 x double> %return1196, i64 1)
-  store double %return1210, double* %318
-  call void @"V_CROP@UUFFFFFFF"(<2 x double>* %p, <2 x double>* %311, double* %312, double* %313, double* %314, double* %315, double* %316, double* %317, double* %318)
-  %p1211 = load <2 x double>, <2 x double>* %p
+true1194:                                         ; preds = %false1175
+  %GMP1197 = load %gemPrm, %gemPrm* %GMP
+  %crop_ltrb = extractvalue %gemPrm %GMP1197, 53
+  %idx1198 = load i64, i64* %idx
+  %return1199 = call <4 x double> @"getcomp@P[PI"(<4 x double>* %crop_ltrb, i64 %idx1198)
+  %crop_az = extractvalue %gemPrm %GMP1197, 43
+  %return1202 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %crop_az, i64 %idx1198)
+  store <2 x double> %pos1, <2 x double>* %313
+  %w1204 = load double, double* %w
+  store double %w1204, double* %314
+  %return1206 = call double @"getcomp@FPI"(<4 x double> %return1199, i64 0)
+  store double %return1206, double* %315
+  %return1208 = call double @"getcomp@FPI"(<4 x double> %return1199, i64 1)
+  store double %return1208, double* %316
+  %return1210 = call double @"getcomp@FPI"(<4 x double> %return1199, i64 2)
+  store double %return1210, double* %317
+  %return1212 = call double @"getcomp@FPI"(<4 x double> %return1199, i64 3)
+  store double %return1212, double* %318
+  %return1214 = call double @"getcomp@FUI"(<2 x double> %return1202, i64 0)
+  store double %return1214, double* %319
+  %return1216 = call double @"getcomp@FUI"(<2 x double> %return1202, i64 1)
+  store double %return1216, double* %320
+  call void @"V_CROP@UUFFFFFFF"(<2 x double>* %p, <2 x double>* %313, double* %314, double* %315, double* %316, double* %317, double* %318, double* %319, double* %320)
+  %p1217 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1189:                                        ; preds = %false1169
-  %return1213 = call i64 @"eq@III"(i64 %T2, i64 103)
-  %435 = icmp ne i64 %return1213, 0
-  br i1 %435, label %true1214, label %false1215
+false1195:                                        ; preds = %false1175
+  %return1219 = call i64 @"eq@III"(i64 %T2, i64 103)
+  %437 = icmp ne i64 %return1219, 0
+  br i1 %437, label %true1220, label %false1221
 
-true1214:                                         ; preds = %false1189
-  store <2 x double> %pos1, <2 x double>* %319
-  %w1218 = load double, double* %w
-  store double %w1218, double* %320
-  call void @"V_UNPOLAR@UUF"(<2 x double>* %p, <2 x double>* %319, double* %320)
-  %p1219 = load <2 x double>, <2 x double>* %p
-  br label %UnifiedReturnBlock
-
-false1215:                                        ; preds = %false1189
-  %return1221 = call i64 @"eq@III"(i64 %T2, i64 104)
-  %436 = icmp ne i64 %return1221, 0
-  br i1 %436, label %true1222, label %false1223
-
-true1222:                                         ; preds = %false1215
+true1220:                                         ; preds = %false1195
   store <2 x double> %pos1, <2 x double>* %321
-  %w1226 = load double, double* %w
-  store double %w1226, double* %322
-  call void @"V_GLYNNIA@UUF"(<2 x double>* %p, <2 x double>* %321, double* %322)
-  %p1227 = load <2 x double>, <2 x double>* %p
+  %w1224 = load double, double* %w
+  store double %w1224, double* %322
+  call void @"V_UNPOLAR@UUF"(<2 x double>* %p, <2 x double>* %321, double* %322)
+  %p1225 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-false1223:                                        ; preds = %false1215
-  %return1229 = call i64 @"eq@III"(i64 %T2, i64 105)
-  %437 = icmp ne i64 %return1229, 0
-  br i1 %437, label %true1230, label %end9
+false1221:                                        ; preds = %false1195
+  %return1227 = call i64 @"eq@III"(i64 %T2, i64 104)
+  %438 = icmp ne i64 %return1227, 0
+  br i1 %438, label %true1228, label %false1229
 
-true1230:                                         ; preds = %false1223
-  %GMP1232 = load %gemPrm, %gemPrm* %GMP
-  %point_symmetry = extractvalue %gemPrm %GMP1232, 14
-  %idx1233 = load i64, i64* %idx
-  %return1234 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %point_symmetry, i64 %idx1233)
+true1228:                                         ; preds = %false1221
   store <2 x double> %pos1, <2 x double>* %323
-  %w1236 = load double, double* %w
-  store double %w1236, double* %324
-  %return1238 = call double @"getcomp@FVI"(<3 x double> %return1234, i64 0)
-  store double %return1238, double* %325
-  %return1240 = call double @"getcomp@FVI"(<3 x double> %return1234, i64 1)
-  store double %return1240, double* %326
-  %return1242 = call double @"getcomp@FVI"(<3 x double> %return1234, i64 2)
-  store double %return1242, double* %327
-  call void @"V_POINT_SYMMETRY@UUFFFF"(<2 x double>* %p, <2 x double>* %323, double* %324, double* %325, double* %326, double* %327)
-  %p1243 = load <2 x double>, <2 x double>* %p
+  %w1232 = load double, double* %w
+  store double %w1232, double* %324
+  call void @"V_GLYNNIA@UUF"(<2 x double>* %p, <2 x double>* %323, double* %324)
+  %p1233 = load <2 x double>, <2 x double>* %p
   br label %UnifiedReturnBlock
 
-UnifiedReturnBlock:                               ; preds = %true1230, %true1222, %true1214, %true1188, %true1168, %true1160, %true1134, %true1118, %true1102, %true1086, %true1074, %true1054, %true1045, %true1036, %true1027, %true1018, %true1009, %true1000, %true992, %true984, %true975, %true966, %true957, %true948, %true940, %true932, %true916, %true900, %true880, %true860, %true840, %true824, %true811, %true795, %true787, %true774, %true754, %true746, %true726, %true714, %true706, %true683, %true675, %true663, %true655, %true647, %true629, %true617, %true609, %true601, %true589, %true576, %true568, %true553, %true537, %true521, %true500, %true484, %true476, %true468, %true460, %true452, %true444, %true437, %true429, %true422, %true405, %true392, %true380, %true368, %true346, %true339, %true323, %true307, %true289, %true277, %true257, %true241, %true234, %true226, %true218, %true210, %true198, %true188, %true180, %true172, %true164, %true153, %true145, %true129, %true121, %true113, %true105, %true97, %true89, %true81, %true73, %true65, %true57, %true49, %true41, %true33, %true25, %true17, %end9, %true
-  %UnifiedRetVal = phi <2 x double> [ %output, %true ], [ %pos1, %end9 ], [ %p22, %true17 ], [ %p30, %true25 ], [ %p38, %true33 ], [ %p46, %true41 ], [ %p54, %true49 ], [ %p62, %true57 ], [ %p70, %true65 ], [ %p78, %true73 ], [ %p86, %true81 ], [ %p94, %true89 ], [ %p102, %true97 ], [ %p110, %true105 ], [ %p118, %true113 ], [ %p126, %true121 ], [ %p142, %true129 ], [ %p150, %true145 ], [ %p161, %true153 ], [ %p169, %true164 ], [ %p177, %true172 ], [ %p185, %true180 ], [ %p195, %true188 ], [ %p207, %true198 ], [ %p215, %true210 ], [ %p223, %true218 ], [ %p231, %true226 ], [ %p238, %true234 ], [ %p254, %true241 ], [ %p274, %true257 ], [ %p286, %true277 ], [ %p304, %true289 ], [ %p320, %true307 ], [ %p336, %true323 ], [ %p343, %true339 ], [ %p355, %true346 ], [ %p377, %true368 ], [ %p389, %true380 ], [ %p402, %true392 ], [ %p419, %true405 ], [ %p426, %true422 ], [ %p434, %true429 ], [ %p441, %true437 ], [ %p449, %true444 ], [ %p457, %true452 ], [ %p465, %true460 ], [ %p473, %true468 ], [ %p481, %true476 ], [ %p497, %true484 ], [ %p518, %true500 ], [ %p534, %true521 ], [ %p550, %true537 ], [ %p565, %true553 ], [ %p573, %true568 ], [ %p586, %true576 ], [ %p598, %true589 ], [ %p606, %true601 ], [ %p614, %true609 ], [ %p626, %true617 ], [ %p644, %true629 ], [ %p652, %true647 ], [ %p660, %true655 ], [ %p672, %true663 ], [ %p680, %true675 ], [ %p703, %true683 ], [ %p711, %true706 ], [ %p723, %true714 ], [ %p743, %true726 ], [ %p751, %true746 ], [ %p766, %true754 ], [ %p784, %true774 ], [ %p792, %true787 ], [ %p808, %true795 ], [ %p821, %true811 ], [ %p837, %true824 ], [ %p857, %true840 ], [ %p877, %true860 ], [ %p897, %true880 ], [ %p913, %true900 ], [ %p929, %true916 ], [ %p937, %true932 ], [ %p945, %true940 ], [ %p954, %true948 ], [ %p963, %true957 ], [ %p972, %true966 ], [ %p981, %true975 ], [ %p989, %true984 ], [ %p997, %true992 ], [ %p1006, %true1000 ], [ %p1015, %true1009 ], [ %p1024, %true1018 ], [ %p1033, %true1027 ], [ %p1042, %true1036 ], [ %p1051, %true1045 ], [ %p1071, %true1054 ], [ %p1083, %true1074 ], [ %p1099, %true1086 ], [ %p1115, %true1102 ], [ %p1131, %true1118 ], [ %p1157, %true1134 ], [ %p1165, %true1160 ], [ %p1185, %true1168 ], [ %p1211, %true1188 ], [ %p1219, %true1214 ], [ %p1227, %true1222 ], [ %p1243, %true1230 ]
+false1229:                                        ; preds = %false1221
+  %return1235 = call i64 @"eq@III"(i64 %T2, i64 105)
+  %439 = icmp ne i64 %return1235, 0
+  br i1 %439, label %true1236, label %end9
+
+true1236:                                         ; preds = %false1229
+  %GMP1238 = load %gemPrm, %gemPrm* %GMP
+  %point_symmetry = extractvalue %gemPrm %GMP1238, 14
+  %idx1239 = load i64, i64* %idx
+  %return1240 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %point_symmetry, i64 %idx1239)
+  store <2 x double> %pos1, <2 x double>* %325
+  %w1242 = load double, double* %w
+  store double %w1242, double* %326
+  %return1244 = call double @"getcomp@FVI"(<3 x double> %return1240, i64 0)
+  store double %return1244, double* %327
+  %return1246 = call double @"getcomp@FVI"(<3 x double> %return1240, i64 1)
+  store double %return1246, double* %328
+  %return1248 = call double @"getcomp@FVI"(<3 x double> %return1240, i64 2)
+  store double %return1248, double* %329
+  call void @"V_POINT_SYMMETRY@UUFFFF"(<2 x double>* %p, <2 x double>* %325, double* %326, double* %327, double* %328, double* %329)
+  %p1249 = load <2 x double>, <2 x double>* %p
+  br label %UnifiedReturnBlock
+
+UnifiedReturnBlock:                               ; preds = %true1236, %true1228, %true1220, %true1194, %true1174, %true1166, %true1140, %true1124, %true1108, %true1092, %true1080, %true1060, %true1051, %true1042, %true1033, %true1024, %true1015, %true1006, %true998, %true990, %true981, %true972, %true963, %true954, %true946, %true938, %true922, %true906, %true886, %true866, %true846, %true830, %true817, %true801, %true793, %true780, %true760, %true752, %true732, %true720, %true712, %true689, %true681, %true669, %true661, %true653, %true635, %true623, %true615, %true607, %true595, %true582, %true574, %true559, %true543, %true527, %true506, %true484, %true476, %true468, %true460, %true452, %true444, %true437, %true429, %true422, %true405, %true392, %true380, %true368, %true346, %true339, %true323, %true307, %true289, %true277, %true257, %true241, %true234, %true226, %true218, %true210, %true198, %true188, %true180, %true172, %true164, %true153, %true145, %true129, %true121, %true113, %true105, %true97, %true89, %true81, %true73, %true65, %true57, %true49, %true41, %true33, %true25, %true17, %end9, %true
+  %UnifiedRetVal = phi <2 x double> [ %output, %true ], [ %pos1, %end9 ], [ %p22, %true17 ], [ %p30, %true25 ], [ %p38, %true33 ], [ %p46, %true41 ], [ %p54, %true49 ], [ %p62, %true57 ], [ %p70, %true65 ], [ %p78, %true73 ], [ %p86, %true81 ], [ %p94, %true89 ], [ %p102, %true97 ], [ %p110, %true105 ], [ %p118, %true113 ], [ %p126, %true121 ], [ %p142, %true129 ], [ %p150, %true145 ], [ %p161, %true153 ], [ %p169, %true164 ], [ %p177, %true172 ], [ %p185, %true180 ], [ %p195, %true188 ], [ %p207, %true198 ], [ %p215, %true210 ], [ %p223, %true218 ], [ %p231, %true226 ], [ %p238, %true234 ], [ %p254, %true241 ], [ %p274, %true257 ], [ %p286, %true277 ], [ %p304, %true289 ], [ %p320, %true307 ], [ %p336, %true323 ], [ %p343, %true339 ], [ %p355, %true346 ], [ %p377, %true368 ], [ %p389, %true380 ], [ %p402, %true392 ], [ %p419, %true405 ], [ %p426, %true422 ], [ %p434, %true429 ], [ %p441, %true437 ], [ %p449, %true444 ], [ %p457, %true452 ], [ %p465, %true460 ], [ %p473, %true468 ], [ %p481, %true476 ], [ %p503, %true484 ], [ %p524, %true506 ], [ %p540, %true527 ], [ %p556, %true543 ], [ %p571, %true559 ], [ %p579, %true574 ], [ %p592, %true582 ], [ %p604, %true595 ], [ %p612, %true607 ], [ %p620, %true615 ], [ %p632, %true623 ], [ %p650, %true635 ], [ %p658, %true653 ], [ %p666, %true661 ], [ %p678, %true669 ], [ %p686, %true681 ], [ %p709, %true689 ], [ %p717, %true712 ], [ %p729, %true720 ], [ %p749, %true732 ], [ %p757, %true752 ], [ %p772, %true760 ], [ %p790, %true780 ], [ %p798, %true793 ], [ %p814, %true801 ], [ %p827, %true817 ], [ %p843, %true830 ], [ %p863, %true846 ], [ %p883, %true866 ], [ %p903, %true886 ], [ %p919, %true906 ], [ %p935, %true922 ], [ %p943, %true938 ], [ %p951, %true946 ], [ %p960, %true954 ], [ %p969, %true963 ], [ %p978, %true972 ], [ %p987, %true981 ], [ %p995, %true990 ], [ %p1003, %true998 ], [ %p1012, %true1006 ], [ %p1021, %true1015 ], [ %p1030, %true1024 ], [ %p1039, %true1033 ], [ %p1048, %true1042 ], [ %p1057, %true1051 ], [ %p1077, %true1060 ], [ %p1089, %true1080 ], [ %p1105, %true1092 ], [ %p1121, %true1108 ], [ %p1137, %true1124 ], [ %p1163, %true1140 ], [ %p1171, %true1166 ], [ %p1191, %true1174 ], [ %p1217, %true1194 ], [ %p1225, %true1220 ], [ %p1233, %true1228 ], [ %p1249, %true1236 ]
   ret <2 x double> %UnifiedRetVal
 }
 
@@ -18619,7 +18606,7 @@ attributes #4 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"19.5.435"}
+!1 = !{!"20.0.590"}
 !2 = !{!"64"}
 !3 = !{!""}
 
