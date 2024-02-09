@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.30'
+FLAM3H_VERSION = '1.2.33'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -127,6 +127,7 @@ CP_PALETTE_LIB_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
 CP_SYS_PALETTE_PRESETS = 'sys_palettepresets'
+CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_HSV_NAME = 'palettehsv'
 CP_RAMP_SAVE_HSV = 'savehsv'
@@ -4477,6 +4478,8 @@ reset_CP(self, mode=0) -> None:
                 BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
                 ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
                 ramp_parm.set(ramp)
+                # Set lookup samples to the default value of: 256
+                node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
 
                 if hsv_check:
                     node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
@@ -4601,6 +4604,8 @@ reset_CP(self, mode=0) -> None:
                             BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
                             ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
                             ramp_parm.set(ramp)
+                            # Set lookup samples to the default value of: 256
+                            node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
 
                             if hsv_check:
                                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
@@ -4717,7 +4722,8 @@ reset_CP(self, mode=0) -> None:
             color_keys = [0.0, 0.5, 1.0]
             color_values = [(1,0,0), (0,1,0), (0,0,1)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
-            
+            # Set lookup samples to the default value of: 256
+            node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Check if the palette msg need to be cleared
             self.reset_CP_LOCK_MSG()
                 
@@ -4739,6 +4745,8 @@ reset_CP(self, mode=0) -> None:
             color_keys = [0.0, 0.5, 1.0]
             color_values = [(1,0,0), (0,1,0), (0,0,1)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+            # Set lookup samples to the default value of: 256
+            node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Print out to Houdini's status bar
             _MSG = f"{str(node)}:PALETTE -> RESET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -5106,6 +5114,7 @@ OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
 OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mb_samples'
 OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_mb_shutter'
+OUT_XML_FLAM3H_CP_SAMPLES = 'flam3h_cp_samples'
 OUT_XML_FLAM3H_PREFS_F3C = 'flam3h_f3c'
 # OUT XML render key data names
 OUT_XML_VERSION = 'version'
@@ -5719,6 +5728,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         self._flam3h_mb = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._flam3h_mb_samples = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._flam3h_mb_shutter = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._flam3h_cp_samples = self._xml_tree__get_name(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
         self._flam3h_prefs_f3c = self._xml_tree__get_name(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
     
 
@@ -5811,6 +5821,10 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     @property
     def flam3h_mb_shutter(self):
         return self._flam3h_mb_shutter
+    
+    @property
+    def flam3h_cp_samples(self):
+        return self._flam3h_cp_samples
     
     @property
     def flam3h_prefs_f3c(self): # flam3 compatibility preferences option
@@ -6057,6 +6071,26 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         
         
     # custom to FLAM3H only
+    def __get_cp_flam3h_samples(self, idx: int) -> Union[int, bool, None]:
+        """
+        Args:
+            self:
+            idx (int): [flame idx out of all flames included in the loaded flame file]
+
+        Returns:
+            Union[int, float, bool, None]: [FLAM3H palette lookup samples parameter values.]
+        """   
+        if self._isvalidtree:
+            if self._flam3h_cp_samples[idx]:
+                return int(self._flam3h_cp_samples[idx])
+            else:
+                # else return the default value
+                return 256
+        else:
+            return False
+        
+        
+    # custom to FLAM3H only
     def __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """Get FLAM3H toggle parameter value: ON or OFF ( 1 or 0 )
 
@@ -6132,6 +6166,7 @@ class in_flame_iter_data(in_flame):
         self._mb_flam3h_mb_fps = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._cp_flam3h_sp_samples = self._in_flame__get_cp_flam3h_samples(self._idx) # type: ignore
         self._prefs_flam3h_f3c = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
 
@@ -6220,6 +6255,10 @@ class in_flame_iter_data(in_flame):
     @property
     def mb_flam3h_shutter(self):
         return self._mb_flam3h_mb_shutter
+    
+    @property
+    def cp_flam3h_samples(self):
+        return self._cp_flam3h_sp_samples
     
     @property
     def prefs_flam3h_f3c(self):
@@ -8271,6 +8310,8 @@ reset_IN(self, mode=0) -> None:
             ramp_parm.deleteAllKeyframes()
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_lock()
+            # Set palette lookup samples
+            node.setParms({CP_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples})
             
             # Set density back to default on load
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -8554,6 +8595,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         self._flam3h_rip = self._node.parm(SYS_RIP).evalAsInt()
         self._flam3h_mb_do = self._node.parm(MB_DO).evalAsInt()
         self._flam3h_f3c = self._node.parm(PREFS_F3C).evalAsInt()
+        self._flam3h_palette_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
         
         
     @staticmethod
@@ -9099,6 +9141,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     @property
     def flam3h_rip(self):
         return self._flam3h_rip
+    
+    @property
+    def flam3h_palette_samples(self):
+        return self._flam3h_palette_lookup_samples
 
 
 
@@ -9384,6 +9430,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
+                OUT_XML_FLAM3H_CP_SAMPLES: f3p.flam3h_cp_samples, # custom to FLAM3H only
                 OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, # custom to FLAM3H only
                 OUT_XML_FLAME_SIZE: f3p.flame_size, 
                 OUT_XML_FLAME_CENTER: f3p.flame_center,
@@ -9955,6 +10002,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     # custom to FLAM3H only
     def __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return str(toggle)
+    
+    
+    # custom to FLAM3H only
+    def __out_flame_palette_lookup_samples(self) -> Union[str, bool, None]:
+        if self._flam3h_palette_lookup_samples == 256:
+            return False
+        else:
+            return str(self._flam3h_palette_lookup_samples)
 
 
 
@@ -10005,7 +10060,9 @@ class out_flame_render_properties(out_flame_utils):
         self._flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_FPS) # type: ignore
         self._flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SAMPLES) # type: ignore
         self._flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SHUTTER) # type: ignore
+        self._flam3h_cp_samples = self._out_flame_utils__out_flame_palette_lookup_samples() # type: ignore
         self._flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
+        
 
     @property
     def flame_name(self):
@@ -10094,6 +10151,10 @@ class out_flame_render_properties(out_flame_utils):
     @property
     def flam3h_mb_shutter(self):
         return self._flam3h_mb_shutter
+    
+    @property
+    def flam3h_cp_samples(self):
+        return self._flam3h_cp_samples
     
     @property
     def flam3h_prefs_f3c(self):

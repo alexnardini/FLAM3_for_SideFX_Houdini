@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.2.30 - Gold
+#version: 1.2.33 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -938,6 +938,25 @@ HSV reset:
     [Smallicon:opdef:.?iconStarSwapSVG.svg]
     
     Reset the HSV to their default values.
+    
+palette lookup samples:
+    #id: PALETTE
+    
+    The amount of lookup samples to use to sample this palette.
+    
+    Lookup samples have no connection on the palette you design. Only a few color keys can be made;
+    nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
+    
+    The amount of linearly spaced color keys in a typical fractal flame is equivalent to 256, which is the default.
+    
+    However, if you create more than 256 color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
+    
+    In general, 256 lookup samples will always be good.
+    
+    NOTE:
+        Saving out a flame into a file, will also save the palette lookup samples value so that you can restore it once you load the flame back into FLAM3H.
+        
+        If you are loading a flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
     
 palette:
     #id: PALETTE
