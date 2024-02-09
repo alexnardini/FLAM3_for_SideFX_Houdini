@@ -163,8 +163,8 @@ OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 
-# This Null node name is hard code here and represent the node name's prefix.
-# If you change this Null node name inside the FLAM3H houdini HDA network, update this global variable as well.
+# Those Null node names are hard code here and represent the nodes name's prefix.
+# If you change those Null node names inside the FLAM3H houdini HDA network, update those global variables as well.
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
 OUT_SENSOR_BBOX_NODE_NAME = 'OUT_bbox_sensor'
 OUT_REFRAME_BBOX_NODE_NAME = 'OUT_bbox_reframe'
@@ -1160,7 +1160,6 @@ reset_PREFS(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        # self._bboxpath = self._node.parm(OUT_SENSOR_BBOX_PATH).evalAsString()
         self._bbox_sensor_path = self.get_bbox_node_path(OUT_SENSOR_BBOX_NODE_NAME)
         self._bbox_reframe_path = self.get_bbox_node_path(OUT_REFRAME_BBOX_NODE_NAME)
 
@@ -1229,14 +1228,14 @@ reset_PREFS(self, mode=0) -> None:
 
     @staticmethod
     def isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
-        """Check if the loaded lib file ( Palette ot flame XML ) is locked 
+        """Check if the loaded lib file ( Palette or flame XML ) is locked .
 
         Args:
-            filepath (Union[str, bool]): the full lib file path
+            filepath (Union[str, bool]): the full lib file path.
             prx (_type_, optional): The lock prefix in the file name. Defaults to gobal FLAM3H_LIB_LOCK.
 
         Returns:
-            bool: True if locked. False if not
+            bool: True if locked. False if not.
         """        
         if filepath is not False:
             if os.path.split(str(filepath))[-1].startswith(prx):
@@ -3898,8 +3897,8 @@ iterator_keep_last_weight(self) -> None:
             if flam3h_node_mp_id is not None:
                 # Check if the node still exist
                 try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                        flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
@@ -4016,7 +4015,7 @@ iterator_keep_last_weight(self) -> None:
         # The following will collect the active iterator bool value if and only if the iterator is active and its weight is above zero.
         # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
         # by the time we click to disable the last iterator they will all be disabled for a moment, just right before we switch this last one back to being enabled.
-        # Hence the case we are interested in is when the va: list variabel is empty, thats how we know we tried to switch the last active iterator OFF.
+        # Hence the case we are interested in is when the va: list variable is empty, thats how we know we tried to switch the last active iterator OFF.
         va = [int(node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval()) 
              for mp_idx in range(iter_num) 
                 if node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{str(mp_idx+1)}").eval() 
@@ -5963,7 +5962,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                         else:
                             keyvalues.append([])
                             continue
+                        
                 return tuple(keyvalues)
+            
+            else:
+                return None
         else:
             return None
 
@@ -7324,7 +7327,7 @@ reset_IN(self, mode=0) -> None:
         Those need to be queried separately, this definition will query the currently visible one.
 
         Args:
-            node (hou.SopNode): This FLAm3H node
+            node (hou.SopNode): This FLAM3H node
             preset_id (int): the menu preset selction index to use to retrive its menu label string
 
         Returns:
@@ -7339,7 +7342,7 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod
     def in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
-        """WHen loading a FLame preset, t=set the FLAM3H iteration number
+        """When loading a FLame preset, set the FLAM3H iteration number
         to the value backed into the Flame preset name we just loaded.
 
         Args:
