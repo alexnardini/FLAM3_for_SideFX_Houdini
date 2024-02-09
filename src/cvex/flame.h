@@ -253,7 +253,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 47 DISC2 ( parametric )
             else if(T==47){
-                float a, b, c;
+                float a, b, c; // disc2_timespi, disc2_sinadd, disc2_cosadd
                 vector2 disc2 = GMP.disc2[idx];
                 assign(a, b, c, GMP.pc_DISC2[idx]);
                 V_DISC2(p, _p, w, disc2[0], disc2[1], a, b, c);
