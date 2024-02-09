@@ -210,7 +210,7 @@ RIP:
     #id: SYS
     
     - [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
-    - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when RIP is ON.
+    - [Smallicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is ON.
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
