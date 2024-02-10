@@ -1196,7 +1196,7 @@ Force iterations on Load:
 :box:
     #display: rounded white
 
-    == IN: load options == (INOPTIONS)
+    == IN: Load options == (INOPTIONS)
     
 remap "pre_gaussian_blur":
     #id: prefs
@@ -1426,7 +1426,7 @@ OUT file contents ( info ):
 :box:
     #display: rounded white
 
-    == OUT: save options == (OUTOPTIONS)
+    == OUT: Save options == (OUTOPTIONS)
         
 Save palette HSV (cc):
     #id: OUT
@@ -1478,7 +1478,7 @@ use Fractorium parametric prm names:
 :box:
     #display: rounded white
 
-    == OUT XML: Edit render properties == (OUTEDIT)
+    == OUT: Edit properties == (OUTEDIT)
 
     
 Edit render properties:
@@ -1512,7 +1512,7 @@ Reset render properties:
 :box:
     #display: rounded white
 
-    == OUT XML: Camera sensor == (OUTEDITCAMSENSOR)
+    == OUT: XML camera sensor == (OUTEDITCAMSENSOR)
     
 SHOW sensor viz:
     #id: OUT
@@ -1581,7 +1581,7 @@ update camera sensor:
 :box:
     #display: rounded white
 
-    == OUT XML: Render settings == (OUTEDITRENSETTINGS)
+    == OUT: XML render settings == (OUTEDITRENSETTINGS)
     
     
 Quality:
@@ -1612,7 +1612,7 @@ Vibrancy:
 :box:
     #display: rounded white
 
-    == OUT XML: FLAM3H custom XML keys == (OUTF3HXMLKEYS)
+    == OUT: XML FLAM3H custom XML keys == (OUTF3HXMLKEYS)
     
     _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H has loaded back the saved flame._
     
@@ -2086,7 +2086,7 @@ NOTE:
     *FLAM3H Rendering tips*. _A few small tips to render your fractal Flame images._
 
 
-== Rendering: workflow tips == (REND)
+== Rendering: Workflow tips == (REND)
     
 :box:
     #display: rounded gray
@@ -2250,7 +2250,7 @@ NOTE:
     
     _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
-== Limitations: iterator's PRE, VAR and POST variations ==
+== Limitations: Iterator's PRE, VAR and POST variations ==
 
 :box:
     #display: rounded gray
