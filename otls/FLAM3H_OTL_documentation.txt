@@ -1478,7 +1478,7 @@ use Fractorium parametric prm names:
 :box:
     #display: rounded white
 
-    == OUT Edit: Render properties == (OUTEDIT)
+    == OUT XML: Edit render properties == (OUTEDIT)
 
     
 Edit render properties:
@@ -1512,7 +1512,7 @@ Reset render properties:
 :box:
     #display: rounded white
 
-    == OUT Edit: Camera sensor == (OUTEDITCAMSENSOR)
+    == OUT XML: Camera sensor == (OUTEDITCAMSENSOR)
     
 SHOW sensor viz:
     #id: OUT
@@ -1581,7 +1581,7 @@ update camera sensor:
 :box:
     #display: rounded white
 
-    == OUT Edit: Render settings == (OUTEDITRENSETTINGS)
+    == OUT XML: Render settings == (OUTEDITRENSETTINGS)
     
     
 Quality:
@@ -1607,9 +1607,29 @@ Logscale K2:
 Vibrancy:
     #id: OUT
     The flame render setting: vibrancy.
+
+
+:box:
+    #display: rounded white
+
+    == OUT XML: FLAM3H custom XML keys == (OUTF3HXMLKEYS)
+    
+    _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H has loaded back the saved flame._
+    
+    _Below a list of FLAM3H custom XML keys that are currently implemented:_
+
+    :box:
+        #display: rounded gray
+    
         
-    
-    
+        - *`flam3h_rip`* -> _Remove invalid points_
+        - *`flam3h_f3c`* -> _Flam3 compatibility_
+        - *`flam3h_hsv`* -> _Palette HSV_
+        - *`flam3h_mb_fps`* -> _Motion blur frame per second_
+        - *`flam3h_mb_samples`* -> _Motion blur samples_
+        - *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
+        - *`flam3h_cp_samples`* -> _Palette lookup samples_
+
 
 
 
