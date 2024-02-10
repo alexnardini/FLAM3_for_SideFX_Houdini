@@ -1612,7 +1612,7 @@ Vibrancy:
 :box:
     #display: rounded white
 
-    == OUT: XML FLAM3H custom XML keys == (OUTF3HXMLKEYS)
+    == OUT: XML FLAM3H custom keys == (OUTF3HXMLKEYS)
     
     _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H has loaded back the saved flame._
     
