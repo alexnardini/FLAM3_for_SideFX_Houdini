@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.33'
+FLAM3H_VERSION = '1.2.35'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1615,7 +1615,7 @@ reset_PREFS(self, mode=0) -> None:
                 prm_sys.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
                 if self.isLOCK(xml_checked):
-                    flame_lib_locked = f"flame lib file: LOCKED"
+                    flame_lib_locked = f"Flame lib file: LOCKED"
                     node.setParms({MSG_OUT: flame_lib_locked})
                 else:
                     node.setParms({MSG_OUT: ''})
@@ -1653,7 +1653,7 @@ reset_PREFS(self, mode=0) -> None:
                     prm.set('0')
                     # check if the selected palette file is locked
                     if self.isLOCK(json_path_checked):
-                        palette_lib_locked = f"palette lib file: LOCKED"
+                        palette_lib_locked = f"Palette lib file: LOCKED"
                         node.setParms({MSG_PALETTE: palette_lib_locked})
                     else:
                         node.setParms({MSG_PALETTE: ''})
@@ -6165,7 +6165,7 @@ class in_flame_iter_data(in_flame):
         self._opacity = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
         # custom to FLAM3H only
         self._sys_flam3h_rip = self._in_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
-        self._palette_flam3h_hsv = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
+        self._cp_flam3h_hsv = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
         self._mb_flam3h_mb_fps = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
@@ -6244,8 +6244,8 @@ class in_flame_iter_data(in_flame):
     # custom to FLAM3H only
     
     @property
-    def palette_flam3h_hsv(self):
-        return self._palette_flam3h_hsv
+    def cp_flam3h_hsv(self):
+        return self._cp_flam3h_hsv
     
     @property
     def mb_flam3h_fps(self):
@@ -7304,12 +7304,13 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
+    def in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable, capitalize=False) -> list[str]:
         """Return a flattened list of unique and sorted items without duplicates.
 
         Args:
             VARS_list (Union[list[str], list[list[str]]]): The data to flatten, remove duplicates and sort.
             func (Callable): Function to turn variation names from VAR to PRE or POST or none based on the function provided.
+            capitalize (bool): (default to: False) capitalize the variation's names if any are found.
 
         Returns:
             list[str]: Return a flattened list of unique and sorted items without duplicates.
@@ -7318,7 +7319,10 @@ reset_IN(self, mode=0) -> None:
         result = []
         [result.append(x) for x in flatten if x not in result]
         sort = sorted(result, key=lambda var: var)
-        return [func(x) for x in sort]
+        if not capitalize:
+            return [str(func(x)) for x in sort if x]
+        else:
+            return [str(func(x)).capitalize() for x in sort if x]
     
     
     @staticmethod
@@ -7753,10 +7757,10 @@ reset_IN(self, mode=0) -> None:
         if clipboard: cb =  " -> Clipboard"
         sw = f"Software: {apo_data.sw_version[preset_id]}{cb}"
         name = f"Name: {apo_data.name[preset_id]}"
-        iter_count = f"iterators count: {str(len(apo_data.xforms))}"
-        post = f"post affine: {post_bool_msg}"
-        opacity = f"opacity: {opacity_bool_msg}"
-        xaos = f"xaos: {xaos_bool_msg}"
+        iter_count = f"Iterators count: {str(len(apo_data.xforms))}"
+        post = f"Post affine: {post_bool_msg}"
+        opacity = f"Opacity: {opacity_bool_msg}"
+        xaos = f"Xaos: {xaos_bool_msg}"
         
         mb = nnl
         if flam3h_mb_bool:
@@ -7767,10 +7771,10 @@ reset_IN(self, mode=0) -> None:
         if ff_bool:
             ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
         else:
-            ff_msg = f"FF: NO"
+            ff_msg = f"FF: NO\n"
             
         if palette_bool:
-            if apo_data.palette_flam3h_hsv is not False:
+            if apo_data.cp_flam3h_hsv is not False:
                 # custom to FLAM3H only
                 palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} -> HSV"
             else:
@@ -7801,7 +7805,7 @@ reset_IN(self, mode=0) -> None:
         if pb_bool:
             vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
             
-        result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL) # type: ignore
+        result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
         n = 5
         var_used_heading = "Variations used:"
@@ -7831,7 +7835,7 @@ reset_IN(self, mode=0) -> None:
             vars_keys_from_fractorium_post_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
         
         vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
-        result_sorted_fractorium = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL)
+        result_sorted_fractorium = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
         
         # Compare and keep and build missing vars msg
         vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
@@ -7846,7 +7850,7 @@ reset_IN(self, mode=0) -> None:
         
         flame_lib_locked = ''
         if flam3h_general_utils.isLOCK(in_path_checked):
-            flame_lib_locked = f"flame lib file: LOCKED"
+            flame_lib_locked = f"Flame lib file: LOCKED"
         
         # build full stats msg
         build = (   flame_lib_locked, nl, sw, nnl,
@@ -8302,8 +8306,8 @@ reset_IN(self, mode=0) -> None:
                 flam3h_general_utils(self.kwargs).reset_MB()
             
             # if CP HSV vals
-            if apo_data.palette_flam3h_hsv is not False:
-                node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.palette_flam3h_hsv}) # type: ignore
+            if apo_data.cp_flam3h_hsv is not False:
+                node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.cp_flam3h_hsv}) # type: ignore
             else:
             # CP HSV default vals
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
@@ -8598,7 +8602,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         self._flam3h_rip = self._node.parm(SYS_RIP).evalAsInt()
         self._flam3h_mb_do = self._node.parm(MB_DO).evalAsInt()
         self._flam3h_f3c = self._node.parm(PREFS_F3C).evalAsInt()
-        self._flam3h_palette_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
+        self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
         
         
     @staticmethod
@@ -9146,8 +9150,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return self._flam3h_rip
     
     @property
-    def flam3h_palette_samples(self):
-        return self._flam3h_palette_lookup_samples
+    def flam3h_cp_samples(self):
+        return self._flam3h_cp_lookup_samples
 
 
 
@@ -9429,7 +9433,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return {OUT_XML_VERSION: f'{XML_APP_NAME}-{flam3h_general_utils.my_system()}-{FLAM3H_VERSION}',
                 XML_XF_NAME: f3p.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
-                OUT_XML_FLAM3H_HSV: f3p.flam3h_palette_hsv, # custom to FLAM3H only
+                OUT_XML_FLAM3H_HSV: f3p.flam3h_cp_hsv, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
                 OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
@@ -10009,10 +10013,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     # custom to FLAM3H only
     def __out_flame_palette_lookup_samples(self) -> Union[str, bool, None]:
-        if self._flam3h_palette_lookup_samples == 256:
+        if self._flam3h_cp_lookup_samples == 256:
             return False
         else:
-            return str(self._flam3h_palette_lookup_samples)
+            return str(self._flam3h_cp_lookup_samples)
 
 
 
@@ -10059,7 +10063,7 @@ class out_flame_render_properties(out_flame_utils):
         
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
-        self._flam3h_palette_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
+        self._flam3h_cp_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
         self._flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_FPS) # type: ignore
         self._flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SAMPLES) # type: ignore
         self._flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SHUTTER) # type: ignore
@@ -10140,8 +10144,8 @@ class out_flame_render_properties(out_flame_utils):
         return self._flam3h_sys_rip
     
     @property
-    def flam3h_palette_hsv(self):
-        return self._flam3h_palette_hsv
+    def flam3h_cp_hsv(self):
+        return self._flam3h_cp_hsv
     
     @property
     def flam3h_mb_fps(self):

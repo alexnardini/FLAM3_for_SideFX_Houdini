@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.2.33 - Gold'
+FLAM3H_VERSION = '1.2.35 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -117,16 +117,52 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 # SYS Tab
 #######################################################
 
+# SYS DOC
 'parameter name     sys_help'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help()
 
 
+# SYS FF
+'parameter name     doff_sysdisabled'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("doff")
+
+
+'parameter name     doff_sysenabled'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("doff")
+
+
+# SYS RIP
+'parameter name     rip_disabled'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("rip")
+
+
+'parameter name     rip_enabled'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("rip")
+
+
+# SYS F3C
+'parameter name     f3c_chaotica'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
+
+
+'parameter name     f3c_apophysis'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
+
+
+# SYS SENSOR
 'parameter name     sys_out_sensorviz'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
 
 
+# SYS TAG
 'parameter name     sys_tag_off'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
@@ -137,11 +173,13 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_sys_tag()
 
 
+# SYS SIERPINSKY
 'parameter name:    loaddef'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
 
+# SYS SENSOR
 'parameter name:    frameview'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame()
@@ -150,6 +188,15 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_fram
 'parameter name:    frameviewsensor'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame()
+
+
+# SYS CP
+'parameter name:    sys_palettepresets_disabled'
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
+return menu
+'script type:       Action Script'
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 
 
 'parameter name:    sys_palettepresets'
@@ -162,6 +209,12 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 
 
+# SYS IN
+'parameter name:    sys_inpresets_disabled'
+'script type:       Action Button'
+n = None
+
+
 'parameter name:    sys_inpresets'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
@@ -170,6 +223,12 @@ menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
+
+
+# SYS OUT
+'parameter name:    sys_outpresets_disabled'
+'script type:       Action Button'
+n = None
 
 
 'parameter name:    sys_outpresets'
