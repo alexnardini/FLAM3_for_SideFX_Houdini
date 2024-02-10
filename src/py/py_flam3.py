@@ -4717,9 +4717,9 @@ reset_CP(self, mode=0) -> None:
             # CP->ramp
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-            color_keys = [0.0, 0.5, 1.0]
-            color_values = [(1,0,0), (0,1,0), (0,0,1)]
+            color_bases = [hou.rampBasis.Linear] * 4 # type: ignore
+            color_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
+            color_values = [(0.2,0,1), (0,0.85,1), (0,1,0.1), (0.95,1,0), (1,0,0)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
@@ -4740,9 +4740,9 @@ reset_CP(self, mode=0) -> None:
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 3 # type: ignore
-            color_keys = [0.0, 0.5, 1.0]
-            color_values = [(1,0,0), (0,1,0), (0,0,1)]
+            color_bases = [hou.rampBasis.Linear] * 4 # type: ignore
+            color_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
+            color_values = [(0.2,0,1), (0,0.85,1), (0,1,0.1), (0.95,1,0), (1,0,0)]
             ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
