@@ -35,7 +35,7 @@ Undoubtedly, it required some time to comprehend everything completely, but as I
 These days, this tool has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
 Additionally, when combined with Houdini's procedural paradigm and toolsets, fractal flames reach previously unheard-of levels of possibilities.
 
-_Slimy paint - author: Alessandro Nardini_
+_Lights festival - author: Alessandro Nardini_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
