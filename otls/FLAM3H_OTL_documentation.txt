@@ -1770,7 +1770,7 @@ Web links:
     A list of useful web links to check out.
     
     
-    [Smallicon:opdef:.?FLAM3H_DOC_icon.svg] 
+    [Smallicon:opdef:.?FLAM3H_iconSVG.svg] 
     
     Open a web browser to the FLAM3H website.
     
