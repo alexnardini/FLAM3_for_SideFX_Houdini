@@ -411,7 +411,7 @@ OUT Save:
 :box:
     #display: rounded white
 
-== FLAME: iterators parameters == (FLAME)
+== FLAME: Iterator parameters == (FLAME)
     
 ~~~
 :box:
@@ -744,7 +744,7 @@ VARS Tab:
 :box:
     #display: rounded white
 
-== FF: finalXform parameters == (FF)
+== FF: Final xform parameters == (FF)
     
 ~~~
 :box:
@@ -1051,7 +1051,7 @@ save Palette HSV:
 :box:
     #display: rounded white
 
-== MB: Motion Blur parameters == (MB)
+== MB: Motion blur parameters == (MB)
     
 ~~~
 :box:
@@ -1115,7 +1115,7 @@ viz mb:
 :box:
     #display: rounded white
 
-== IN: input parameters == (IN)
+== IN: Input parameters == (IN)
             
 ~~~
 :box:
@@ -1273,7 +1273,7 @@ Copy/Paste render properties:
 :box:
     #display: rounded white
 
-== OUT: output parameters == (OUT)
+== OUT: Output parameters == (OUT)
     
 ~~~
 :box:
