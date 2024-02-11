@@ -1625,7 +1625,7 @@ Vibrancy:
         - *`flam3h_rip`* -> _Remove invalid points_
         - *`flam3h_f3c`* -> _Flam3 compatibility_
         - *`flam3h_hsv`* -> _Palette HSV_
-        - *`flam3h_mb_fps`* -> _Motion blur frame per second_
+        - *`flam3h_mb_fps`* -> _Motion blur frames per second_
         - *`flam3h_mb_samples`* -> _Motion blur samples_
         - *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
         - *`flam3h_cp_samples`* -> _Palette lookup samples_
