@@ -228,7 +228,7 @@ F3C (flam3 compatibility):
     - [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg] when F3C is OFF.
     - [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg] when F3C is ON.
     
-    The behavior of the *Cos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
+    The behavior of the *Cos*, *Cosh*, *Cot*, *Coth*, *Csc*, *Csch*, *Sec*, *Sech*, *Sin*, *Sinh*, *Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
     * *Checked*: use the Apophysis behavior.
     * *Unchecked*: use the Chaotica behavior.
     
@@ -1665,7 +1665,7 @@ viewport bbox size:
     
 flam3 compatibility (f3c):
     #id: prefs
-    The behavior of the *Cos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
+    The behavior of the *Cos*, *Cosh*, *Cot*, *Coth*, *Csc*, *Csch*, *Sec*, *Sech*, *Sin*, *Sinh*, *Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
     * *Checked*: use the Apophysis behavior.
     * *Unchecked*: use the Chaotica behavior.
     
