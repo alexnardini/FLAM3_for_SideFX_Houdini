@@ -4120,6 +4120,10 @@ reset_CP(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+        # Color Palette defaults
+        self._cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
+        self._cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
+        self._cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
         
         
     @staticmethod 
@@ -4253,6 +4257,18 @@ reset_CP(self, mode=0) -> None:
     @property
     def node(self):
         return self._node
+    
+    @property
+    def cp_dev_bases(self):
+        return self._cp_def_bases
+    
+    @property
+    def cp_dev_keys(self):
+        return self._cp_def_keys
+    
+    @property
+    def cp_dev_values(self):
+        return self._cp_def_values
 
 
 
@@ -4717,10 +4733,8 @@ reset_CP(self, mode=0) -> None:
             # CP->ramp
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 4 # type: ignore
-            color_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
-            color_values = [(0.2,0,1), (0,0.85,1), (0,1,0.1), (0.95,1,0), (1,0,0)]
-            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+            # Build ramp
+            ramp_parm.set(hou.Ramp(self._cp_def_bases, self._cp_def_keys, self._cp_def_values))
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Check if the palette msg need to be cleared
@@ -4740,10 +4754,8 @@ reset_CP(self, mode=0) -> None:
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
-            color_bases = [hou.rampBasis.Linear] * 4 # type: ignore
-            color_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
-            color_values = [(0.2,0,1), (0,0.85,1), (0,1,0.1), (0.95,1,0), (1,0,0)]
-            ramp_parm.set(hou.Ramp(color_bases, color_keys, color_values))
+            # Build ramp
+            ramp_parm.set(hou.Ramp(self._cp_def_bases, self._cp_def_keys, self._cp_def_values))
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Print out to Houdini's status bar
