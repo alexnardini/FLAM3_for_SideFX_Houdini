@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.2.35 - Gold
+#version: 1.2.37 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -25,6 +25,14 @@ _*A bit of history* ( from wikipedia )_:
 [Fractal Art|Wp:Fractal_art]
 [Apophysis|Wp:Apophysis_(software)]
 
+
+_*Main source code references*_:
+
+_The original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
+
+_Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
+
+
 _*Preface*_:
 
 The inception of this implementation dates back to 2020, during COVID-19. 
@@ -38,10 +46,6 @@ Additionally, when combined with Houdini's procedural paradigm and toolsets, fra
 _Lights festival - author: Alessandro Nardini_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
-
-_*Implementation of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]*_
-
-_*Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]*_
 
 :box:
     #display: rounded white
