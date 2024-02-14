@@ -4096,7 +4096,7 @@ METHODS:
 
 menu_ramp_presets(self) -> list:
 
-flam3h_ramp_save_JSON_DATA(self) -> str:
+flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 
 flam3h_ramp_save(self) -> None:
 
@@ -4312,10 +4312,11 @@ reset_CP(self, mode=0) -> None:
 
 
 
-    def flam3h_ramp_save_JSON_DATA(self) -> str:
+    def flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
         """Build palette data to save out into a *.json file
 
         Returns:
+            dict: Raw json data dictionary
             str: indented json data as string
         """
         node = self.node
@@ -4350,13 +4351,13 @@ reset_CP(self, mode=0) -> None:
             HEXs.append(self.rgb_to_hex(clr))
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
-            dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs) } }
+            dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
         else:
             hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
             dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
             
         # OUTPUT DATA
-        return json.dumps(dict, indent=4)
+        return dict, json.dumps(dict, indent=4)
 
 
 
@@ -4371,7 +4372,7 @@ reset_CP(self, mode=0) -> None:
         # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
             node =  self.node
-            json_data = self.flam3h_ramp_save_JSON_DATA()
+            dict, json_data = self.flam3h_ramp_save_JSON_DATA()
             hou.ui.copyTextToClipboard(json_data) # type: ignore
             # Clear up palette preset name if any
             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
@@ -4407,7 +4408,7 @@ reset_CP(self, mode=0) -> None:
                         
                     else:
                         # build palette data to save
-                        json_data = self.flam3h_ramp_save_JSON_DATA()
+                        dict, json_data = self.flam3h_ramp_save_JSON_DATA()
 
                         if self.kwargs["ctrl"]:
                             os.remove(str(out_path_checked))
