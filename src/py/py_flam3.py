@@ -6182,7 +6182,7 @@ class in_flame_iter_data(in_flame):
         self._mb_flam3h_mb_fps = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._cp_flam3h_sp_samples = self._in_flame__get_cp_flam3h_samples(self._idx) # type: ignore
+        self._cp_flam3h_cp_samples = self._in_flame__get_cp_flam3h_samples(self._idx) # type: ignore
         self._prefs_flam3h_f3c = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
 
@@ -6274,7 +6274,7 @@ class in_flame_iter_data(in_flame):
     
     @property
     def cp_flam3h_samples(self):
-        return self._cp_flam3h_sp_samples
+        return self._cp_flam3h_cp_samples
     
     @property
     def prefs_flam3h_f3c(self):
