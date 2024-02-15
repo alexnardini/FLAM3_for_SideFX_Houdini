@@ -187,7 +187,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_fram
 
 'parameter name:    frameviewsensor'
 'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 
 
 # SYS Tab: CP
