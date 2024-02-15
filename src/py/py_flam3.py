@@ -166,8 +166,8 @@ OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 # Those Null node names are hard code here and represent the nodes name's prefix.
 # If you change those Null node names inside the FLAM3H houdini HDA network, update those global variables as well.
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
-OUT_SENSOR_BBOX_NODE_NAME = 'OUT_bbox_sensor'
-OUT_REFRAME_BBOX_NODE_NAME = 'OUT_bbox_reframe'
+OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
+OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 
 PREFS_TOGGLE = 'showprefs'
 PREFS_F3C = 'f3c'
@@ -1160,8 +1160,8 @@ reset_PREFS(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._bbox_sensor_path = self.get_bbox_node_path(OUT_SENSOR_BBOX_NODE_NAME)
-        self._bbox_reframe_path = self.get_bbox_node_path(OUT_REFRAME_BBOX_NODE_NAME)
+        self._bbox_sensor_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_SENSOR)
+        self._bbox_reframe_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_REFRAME)
 
 
     @staticmethod
@@ -1346,8 +1346,8 @@ reset_PREFS(self, mode=0) -> None:
         
         The Null node name prefixex to search are stored inside the global variables:
         
-        OUT_SENSOR_BBOX_NODE_NAME
-        OUT_REFRAME_BBOX_NODE_NAME
+        OUT_BBOX_NODE_NAME_SENSOR
+        OUT_BBOX_NODE_NAME_REFRAME
 
         Returns:
             Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
