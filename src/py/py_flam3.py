@@ -998,6 +998,7 @@ flam3h_on_deleted(self) -> None:
             # it wont block the houdini session until user input.
             self.flam3h_check_first_node_instance_msg(False)
             
+            # Updated FLAM3H viewport preferences
             self.flam3h_on_create_set_prefs_viewport()
             
             #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
@@ -1014,6 +1015,17 @@ flam3h_on_deleted(self) -> None:
             
             # Init xaos
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+            
+            # CAMERA SENSOR
+            #
+            # If a FLAM3H node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
+            # This work with multiple FLAM3H node becasue there can only be one FLAM3H node in camera sensor mode at any given time.
+            if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt(): # type: ignore
+                flam3h_general_utils(self.kwargs).util_set_front_viewer(False)
+            else:
+                # Otherwise just turn the camera sensor mode OFF.
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                    node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
             
             # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
             # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
@@ -1424,13 +1436,29 @@ reset_PREFS(self, mode=0) -> None:
                 if update:
                     if self.bbox_sensor_path is not None:
                         node_bbox = hou.node(self.bbox_sensor_path)
-                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                        if hou.hipFile.isLoadingHipFile(): # type: ignore
+                            try:
+                                # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                # but work on H20.0.590 and up, hence the try/except block
+                                view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                            except:
+                                self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                        else:
+                            view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
                     if update_sensor:
                         if self.bbox_sensor_path is not None:
                             node_bbox = hou.node(self.bbox_sensor_path)
-                            view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                            if hou.hipFile.isLoadingHipFile(): # type: ignore
+                                try:
+                                    # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                    # but work on H20.0.590 and up, hence the try/except block
+                                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                except:
+                                    self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                            else:
+                                view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
 
 
