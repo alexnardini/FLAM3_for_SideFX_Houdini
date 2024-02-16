@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.2.37 - Gold
+#version: 1.2.42 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -329,6 +329,13 @@ CP Presets mini menu:
     Select a preset from the [CP Tab|#CP] JSON file that is presently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
+    When loading/selecting a palette json file, you will need to either select a preset name or click the rainbow star icon to actually load/reload the selected preset name.
+    This is done so that if you want to add a palette to an already exisiting palette library file you wont loose the current palette as soon as you load the file you want to add/append into.
+    
+    Once you load a palette preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?icon_optionCPSVG.svg]
+    
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will disappear indicating that the palette no longer match the one you originally loaded.
+    
     TIP:
         To populate this menu, load a palette *.json file first inside the CP Tab,
         
@@ -352,6 +359,8 @@ IN Presets mini menu:
     #id: SYS
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch flame presets without constantly entering the IN Tab.
+    
+    Once you load a Flame preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
     
     TIP:
         To populate this menu, load a valid *.flame file first inside the IN Tab,
@@ -1032,6 +1041,13 @@ LIB contents ( presets ):
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
+    When loading/selecting a palette json file, you will need to either select a preset name or click the rainbow star icon to actually load/reload the selected preset name.
+    This is done so that if you want to add a palette to an already exisiting palette library file you wont loose the current palette as soon as you load the file you want to add/append into.
+    
+    Once you load a palette preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?icon_optionCPSVG.svg]
+    
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will disappear indicating that the palette no longer match the one you originally loaded.
+    
 Reload preset ( presets ):
     #id: PALETTE
     [Smallicon:opdef:.?icon_optionCPSVG.svg]
@@ -1175,6 +1191,8 @@ Presets:
     Every *.flame file can contain multiple flames.
     As many entries as there are flames in the file you are loading will be added to this preset menu.
     Each entry will display the flame's name.
+    
+    Once you load a Flame preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
     
 Iterations on Load (int):
     #id: IN

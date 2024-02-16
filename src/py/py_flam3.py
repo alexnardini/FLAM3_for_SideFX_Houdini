@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.37'
+FLAM3H_VERSION = '1.2.42'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -123,12 +123,15 @@ SYS_RIP = 'rip'
 SYS_TAG = 'tag'
 SYS_TAG_SIZE = 'tagsize'
 FLAME_ITERATORS_COUNT = "flamefunc"
+CP_ISVALID_FILE = 'cpisvalidfile'
+CP_ISVALID_PRESET = 'cpisvalidpreset'
 CP_PALETTE_LIB_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
 CP_SYS_PALETTE_PRESETS = 'sys_palettepresets'
 CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
+CP_RAMP_TMP_NAME = 'palettetmp'
 CP_RAMP_HSV_NAME = 'palettehsv'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_RESET_ON_LOAD = 'resethsv'
@@ -211,7 +214,9 @@ FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
 FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 
-
+# ICONS
+FLAM3H_ICON_STAR_BLUE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
+FLAM3H_ICON_STAR_PALETTE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 
 class flam3h_iterator_prm_names:
 
@@ -1648,23 +1653,38 @@ reset_PREFS(self, mode=0) -> None:
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             if flam3h_palette_utils.isJSON_F3H(node, json_path):
+                # CP is valid file
+                node.setParms({CP_ISVALID_FILE: 1})
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
+                    # Mark this as not a loaded preset
+                    node.setParms({CP_ISVALID_PRESET: 0})
                     # check if the selected palette file is locked
                     if self.isLOCK(json_path_checked):
                         palette_lib_locked = f"Palette lib file: LOCKED"
                         node.setParms({MSG_PALETTE: palette_lib_locked})
                     else:
                         node.setParms({MSG_PALETTE: ''})
+                
             else:
                 prm.set('-1')
+                # CP not a valid file
+                node.setParms({CP_ISVALID_FILE: 0})
                 node.setParms({MSG_PALETTE: ''})
+                # Mark this as not a loaded preset
+                node.setParms({CP_ISVALID_PRESET: 0})
+
         else:
+            # CP not a valid file
+            node.setParms({CP_ISVALID_FILE: 0})
             node.setParms({MSG_PALETTE: ''})
+            # Mark this as not a loaded preset
+            node.setParms({CP_ISVALID_PRESET: 0})
+            
             # We do not want to print if the file path parameter is empty
             if json_path:
-                print(f'{str(node)}.palette: please select a valid file location.')
+                print(f'{str(node)}.PALETTE: please select a valid file location.')
             else:
                 self.set_status_msg('', 'MSG')
         
@@ -4108,6 +4128,8 @@ json_to_flam3h_ramp(self, use_kwargs=True) -> None:
 
 palette_cp(self) -> None:
 
+palette_cp_to_tmp(self) -> None:
+
 palette_hsv(self) -> None:
 
 palette_lock(self) -> None:
@@ -4124,6 +4146,10 @@ reset_CP(self, mode=0) -> None:
         self._cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
         self._cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
         self._cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
+        # Color TEMP Palette defaults
+        self._cp_tmp_bases = [hou.rampBasis.Linear] * 2  # type: ignore
+        self._cp_tmp_keys = [0.0, 1.0]
+        self._cp_tmp_values = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
         
         
     @staticmethod 
@@ -4259,16 +4285,28 @@ reset_CP(self, mode=0) -> None:
         return self._node
     
     @property
-    def cp_dev_bases(self):
+    def cp_def_bases(self):
         return self._cp_def_bases
     
     @property
-    def cp_dev_keys(self):
+    def cp_def_keys(self):
         return self._cp_def_keys
     
     @property
-    def cp_dev_values(self):
+    def cp_def_values(self):
         return self._cp_def_values
+    
+    @property
+    def cp_tmp_bases(self):
+        return self._cp_tmp_bases
+    
+    @property
+    def cp_tmp_keys(self):
+        return self._cp_tmp_keys
+    
+    @property
+    def cp_tmp_values(self):
+        return self._cp_tmp_values
 
 
 
@@ -4292,8 +4330,13 @@ reset_CP(self, mode=0) -> None:
                     data = json.load(f)
                 menuitems = data.keys()
                 for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
+                    # ICON tag
+                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and node.parm(CP_ISVALID_PRESET).evalAsInt():
+                        menu.append(i)
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE}  {item}     ") # 5 ending \s to be able to read the full label
+                    else:
+                        menu.append(i)
+                        menu.append(item)
             else:
                 menuitems = ("Please, add at least one iterator", "")
                 for i, item in enumerate(menuitems):
@@ -4342,8 +4385,10 @@ reset_CP(self, mode=0) -> None:
         else:
             ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
-        dict = {}
+        json_dict = {}
         HEXs = []
+        # Force palette keys count to always be: 256
+        # keys_count = 256
         keys_count = self.get_ramp_keys_count(ramp)
         POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
         for p in POSs:
@@ -4351,13 +4396,13 @@ reset_CP(self, mode=0) -> None:
             HEXs.append(self.rgb_to_hex(clr))
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
-            dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
+            json_dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
         else:
             hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
-            dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
+            json_dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
             
         # OUTPUT DATA
-        return dict, json.dumps(dict, indent=4)
+        return json_dict, json.dumps(json_dict, indent=4)
 
 
 
@@ -4372,7 +4417,7 @@ reset_CP(self, mode=0) -> None:
         # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
             node =  self.node
-            dict, json_data = self.flam3h_ramp_save_JSON_DATA()
+            json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
             hou.ui.copyTextToClipboard(json_data) # type: ignore
             # Clear up palette preset name if any
             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
@@ -4408,7 +4453,7 @@ reset_CP(self, mode=0) -> None:
                         
                     else:
                         # build palette data to save
-                        dict, json_data = self.flam3h_ramp_save_JSON_DATA()
+                        json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
 
                         if self.kwargs["ctrl"]:
                             os.remove(str(out_path_checked))
@@ -4420,7 +4465,7 @@ reset_CP(self, mode=0) -> None:
                                 with open(str(out_path_checked),'r') as r:
                                     prevdata = json.load(r)
                                 with open(str(out_path_checked), 'w') as w:
-                                    newdata = dict
+                                    newdata = json_dict
                                     prevdata.update(newdata)
                                     data = json.dumps(prevdata,indent = 4)
                                     w.write(data)
@@ -4439,6 +4484,10 @@ reset_CP(self, mode=0) -> None:
                             data = json.load(f)
                             node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
                             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+                            # Mark this as the currently loaded preset as it is the preset we just saved
+                            node.setParms({CP_ISVALID_PRESET: 1})
+                            # Make sure to update the tmp ramp with the just saved one
+                            self.palette_cp_to_tmp()
                             del data
                             
                         # Set the file path to the corrected one
@@ -4470,6 +4519,9 @@ reset_CP(self, mode=0) -> None:
                 
                 # get current preset
                 preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+                # Mark this as not a loaded preset so we can get the real preset's name without the icon path at the beginning
+                node.setParms({CP_ISVALID_PRESET: 0})
+                # Get the currently selected preset's name
                 preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
                 
                 # The following 'hsv_check' is for backward compatibility
@@ -4508,6 +4560,10 @@ reset_CP(self, mode=0) -> None:
                 
                 # Store selection into mem preset menu
                 node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
+                
+                # Mark this as loaded preset
+                node.setParms({CP_ISVALID_PRESET: 1})
+                self.palette_cp_to_tmp()
                 
                 # Print to status Bar
                 _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
@@ -4632,6 +4688,11 @@ reset_CP(self, mode=0) -> None:
                             # Make sure we update the HSV palette
                             self.palette_lock()
                             
+                            # Mark this as not a loaded preset
+                            node.setParms({CP_ISVALID_PRESET: 0})
+                            # reset tmp ramp palette
+                            self.reset_CP_TMP()
+                            
                             _MSG = f"{str(node)}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
                             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                             
@@ -4658,8 +4719,6 @@ reset_CP(self, mode=0) -> None:
     def palette_cp(self) -> None:
         """Force the HSV palette colors/keys to march the source palette colors/keys.
         
-        Args:
-            kwargs (dict): [kwargs[] dictionary]
         """    
         node = self.node
         rmpsrc = node.parm(CP_RAMP_SRC_NAME)
@@ -4667,6 +4726,27 @@ reset_CP(self, mode=0) -> None:
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
         # Apply HSV if any is currently set
         self.palette_hsv()
+        
+        if node.parm(CP_ISVALID_FILE).evalAsInt():
+            rmptmp = node.parm(CP_RAMP_TMP_NAME)
+            if rmpsrc.evalAsRamp().keys() != rmptmp.evalAsRamp().keys() or rmpsrc.evalAsRamp().values() != rmptmp.evalAsRamp().values():
+                # Mark this as not a loaded palette preset
+                node.setParms({CP_ISVALID_PRESET: 0})
+            else:
+                # Mark this as a loaded palette preset
+                node.setParms({CP_ISVALID_PRESET: 1})
+            
+
+
+    def palette_cp_to_tmp(self) -> None:
+        """Make a copy of the source palette into the temp palette.
+        This is used when loading a palette preset to check if the user made modifications to the loaded palette.
+
+        """    
+        node = self.node
+        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        rmptmp = node.parm(CP_RAMP_TMP_NAME)
+        rmptmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
 
 
 
@@ -4720,6 +4800,15 @@ reset_CP(self, mode=0) -> None:
 
 
 
+    def reset_CP_TMP(self) -> None:
+        # CP->tmp ramp RESET
+        ramp_tmp_parm = self.node.parm(CP_RAMP_TMP_NAME)
+        ramp_tmp_parm.deleteAllKeyframes()
+        # Build ramp
+        ramp_tmp_parm.set(hou.Ramp(self._cp_tmp_bases, self._cp_tmp_keys, self._cp_tmp_values))
+
+
+
     def reset_CP(self, mode=0) -> None:
         """Reset the FLAM3H CP Tabs parameter values.
 
@@ -4762,6 +4851,12 @@ reset_CP(self, mode=0) -> None:
             # Print out to Houdini's status bar
             _MSG = f"{str(node)}:PALETTE -> RESET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            
+        # Mark this as not a loaded preset
+        node.setParms({CP_ISVALID_PRESET: 0})
+
+        # CP->tmp ramp RESET
+        self.reset_CP_TMP()
             
         # Update palette py
         self.palette_lock()
@@ -7829,7 +7924,10 @@ reset_IN(self, mode=0) -> None:
         if clipboard: preset_name = apo_data.name[0]
         else:
             # Get the correct menu parameter's preset menu label
-            preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+            # The apo_data.name[idx] is used for the descriptive parameter
+            # so to not print the icon path into the name.
+            preset_name = apo_data.name[preset_id]
+            # preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
                 
         descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
                             f"{preset_name}", )
@@ -7887,13 +7985,19 @@ reset_IN(self, mode=0) -> None:
         Returns:
             list: the actual menu
         """
+        node = self.node
         xml = self.node.parm(IN_PATH).evalAsString()
         menu=[]
         apo = in_flame(self.node, xml)
         if apo.isvalidtree:
             for i, item in enumerate(apo.name):
-                menu.append(i)
-                menu.append(item)
+                # ICON tag
+                if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_BLUE}  {item}     ") # 5 ending \s to be able to read the full label
+                else:
+                    menu.append(i)
+                    menu.append(item)
             return menu
         else:
             iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
@@ -8270,10 +8374,22 @@ reset_IN(self, mode=0) -> None:
             
             iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
             
+            # Resets
+            ####################################################
             flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
             flam3h_general_utils(self.kwargs).reset_MB()
             flam3h_general_utils(self.kwargs).reset_PREFS()
 
+            # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
+            ####################################################
+            exclude_keys = XML_XF_KEY_EXCLUDE
+            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+
+
+            # ITERATOR
+            ####################################################
+            ####################################################
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
@@ -8287,16 +8403,15 @@ reset_IN(self, mode=0) -> None:
                 # Otherwise set RIP toggle accordingly from the XML data if any
                 if apo_data.sys_flam3h_rip is not None:
                     node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
-            
-            # get keys to exclude
-            exclude_keys = XML_XF_KEY_EXCLUDE
-            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
 
             # Set iterators
             self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
+            ####################################################
             
-            # if FF
+            
+            # FF
+            ####################################################
+            ####################################################
             if apo_data.finalxform is not None:
                 # get keys to exclude
                 # FF do not posses an hard coded pre_blur so lets restore the standard exclude_keys so we can have pre_gaussian_blur included.
@@ -8308,8 +8423,12 @@ reset_IN(self, mode=0) -> None:
             else:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 0}) # type: ignore
+            ####################################################
             
-            # if MB
+            
+            # MB
+            ####################################################
+            ####################################################
             if apo_data.mb_flam3h_fps is not False:
                 node.setParms({MB_DO: 1}) # type: ignore
                 node.setParms({MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
@@ -8317,7 +8436,12 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
             else:
                 flam3h_general_utils(self.kwargs).reset_MB()
+            ####################################################
             
+            
+            # PALETTE
+            ####################################################
+            ####################################################
             # if CP HSV vals
             if apo_data.cp_flam3h_hsv is not False:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.cp_flam3h_hsv}) # type: ignore
@@ -8332,39 +8456,58 @@ reset_IN(self, mode=0) -> None:
             flam3h_palette_utils(self.kwargs).palette_lock()
             # Set palette lookup samples
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples})
+            # Mark this as not a loaded palette preset
+            node.setParms({CP_ISVALID_PRESET: 0})
+            # reset tmp ramp palette
+            flam3h_palette_utils(self.kwargs).reset_CP_TMP()
+            ####################################################
+            
             
             # Set density back to default on load
+            ####################################################
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
-            # Update flame stats 
+            # Update flame stats
+            ####################################################
             node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
-            # if we are loading from the clipboard, alway copy the render settings on load
-            if clipboard: self.in_copy_render_stats_msg(self.kwargs, clipboard, apo_data)
+            # if we are loading from the clipboard, always copy the render settings on load
+            ####################################################
+            ####################################################
+            if clipboard:
+                self.in_copy_render_stats_msg(self.kwargs, clipboard, apo_data)
             else:
+                # If not from clipboard
+                # Update SYS inpresets parameters
+                node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
+                node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
+                
                 # if "copy render properties on Load" is checked
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
                     self.in_copy_render_stats_msg(self.kwargs)
-            
-            # Update SYS inpresets parameters
-            node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
-            node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
+            ####################################################
             
             # Update xaos
+            ####################################################
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
             # Update OUT Flame name iter num if any
+            ####################################################
             out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
             
             # F3C ( the if statement is for backward compatibility )
+            ####################################################
             if apo_data.prefs_flam3h_f3c is not None:
                 node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
             
             # Reset iterator and FF user data if needed
+            ####################################################
             self.in_to_flam3h_reset_user_data()
             
             # Print to status Bar
+            ####################################################
+            ####################################################
             if clipboard:
                 preset_name = flame_name_clipboard
                 _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
@@ -8374,6 +8517,7 @@ reset_IN(self, mode=0) -> None:
                     
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            ####################################################
             
         else:
             
