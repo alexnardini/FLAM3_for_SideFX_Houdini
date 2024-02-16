@@ -1064,6 +1064,11 @@ flam3h_on_deleted(self) -> None:
             hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
             
         else:
+            # CAMERA SENSOR
+            # If camera sensor is ON, lets turn it OFF.
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                
             # Init xaos
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
