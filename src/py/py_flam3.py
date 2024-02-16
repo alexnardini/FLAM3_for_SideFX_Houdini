@@ -1017,14 +1017,25 @@ flam3h_on_deleted(self) -> None:
             
             # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
             # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
-            # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside: in_flame_utils(self.kwargs).in_to_flam3h()
+            # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside:
+            # 
+            #   - in_flame_utils(self.kwargs).in_to_flam3h()
+            #   - in_flame_utils(self.kwargs).in_to_flam3h_sys()
+            #
             node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()})
             node.setParms({IN_PRESETS_OFF: node.parm(IN_SYS_PRESETS_OFF).eval()})
             
             
             # Same goes for the palette preset entrie, and some time goes also out of range
-            # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
-            # and call it back here.
+            # so we store the selection first inside a mem menu parameter on Load inside:
+            #
+            #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
+            #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_sys()
+            #
+            # and on Save inside:
+            #
+            #   - flam3h_palette_utils(self.kwargs).flam3h_ramp_save()
+            #
             node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()})
             node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
             
