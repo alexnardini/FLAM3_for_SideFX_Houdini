@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.42'
+FLAM3H_VERSION = '1.2.45'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -128,7 +128,9 @@ CP_ISVALID_PRESET = 'cpisvalidpreset'
 CP_PALETTE_LIB_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
+CP_PALETTE_PRESETS_OFF = 'palettepresets_off'
 CP_SYS_PALETTE_PRESETS = 'sys_palettepresets'
+CP_SYS_PALETTE_PRESETS_OFF = 'sys_palettepresets_off'
 CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
@@ -1646,7 +1648,9 @@ reset_PREFS(self, mode=0) -> None:
         """    
         node = self.node
         prm = node.parm(CP_PALETTE_PRESETS)
+        prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
         prm.set('-1')
+        prm_off.set('-1')
 
         json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
         json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
@@ -1658,6 +1662,7 @@ reset_PREFS(self, mode=0) -> None:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
+                    prm_off.set('0')
                     # Mark this as not a loaded preset
                     node.setParms({CP_ISVALID_PRESET: 0})
                     # check if the selected palette file is locked
@@ -1669,6 +1674,7 @@ reset_PREFS(self, mode=0) -> None:
                 
             else:
                 prm.set('-1')
+                prm_off.set('-1')
                 # CP not a valid file
                 node.setParms({CP_ISVALID_FILE: 0})
                 node.setParms({MSG_PALETTE: ''})
@@ -4482,7 +4488,13 @@ reset_CP(self, mode=0) -> None:
                         # Set some parameters
                         with open(out_path_checked) as f:
                             data = json.load(f)
-                            node.setParms({CP_PALETTE_PRESETS: str(len(data.keys())-1) })
+                            preset_last_idx = str(len(data.keys())-1)
+                            # Set all CP preset menus parameter index
+                            node.setParms({CP_PALETTE_PRESETS: preset_last_idx })
+                            node.setParms({CP_PALETTE_PRESETS_OFF: preset_last_idx })
+                            node.setParms({CP_SYS_PALETTE_PRESETS: preset_last_idx })
+                            node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
+                            # Clearup the Palette name if any were given
                             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
                             # Mark this as the currently loaded preset as it is the preset we just saved
                             node.setParms({CP_ISVALID_PRESET: 1})
@@ -4518,9 +4530,12 @@ reset_CP(self, mode=0) -> None:
                 hsv_vals = []
                 
                 # get current preset
-                preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                # Mark this as not a loaded preset so we can get the real preset's name without the icon path at the beginning
-                node.setParms({CP_ISVALID_PRESET: 0})
+                if node.parm(CP_ISVALID_PRESET).evalAsInt():
+                    preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+                    # Mark this as not loaded preset so we can get the real preset's name without the icon path at the beginning
+                    node.setParms({CP_ISVALID_PRESET: 0})
+                else:
+                    preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
                 # Get the currently selected preset's name
                 preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
                 
@@ -4558,8 +4573,11 @@ reset_CP(self, mode=0) -> None:
                 # Update palette
                 self.palette_lock()
                 
-                # Store selection into mem preset menu
-                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)}) # type: ignore
+                # Store selection into all preset menu just in case ;)
+                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)})
+                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: str(preset_id)})
+                node.setParms({CP_PALETTE_PRESETS: str(preset_id)})
+                node.setParms({CP_PALETTE_PRESETS_OFF: str(preset_id)})
                 
                 # Mark this as loaded preset
                 node.setParms({CP_ISVALID_PRESET: 1})
@@ -4587,10 +4605,18 @@ reset_CP(self, mode=0) -> None:
         
         if use_kwargs:
             self.json_to_flam3h_ramp(use_kwargs)
+            
         else:
             node = self.node
-            preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
-            node.setParms({CP_PALETTE_PRESETS: preset_id}) 
+            if node.parm(CP_ISVALID_PRESET).evalAsInt():
+                preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
+                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: str(preset_id)})
+            else:
+                preset_id = node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()
+                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)})
+                
+            node.setParms({CP_PALETTE_PRESETS: str(preset_id)})
+            node.setParms({CP_PALETTE_PRESETS_OFF: str(preset_id)}) 
             self.json_to_flam3h_ramp(use_kwargs)
 
 

@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.2.42 - Gold
+#version: 1.2.45 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -344,7 +344,11 @@ CP Presets mini menu:
     
 CP Preset reload:
     #id: SYS
-    [Smallicon:opdef:.?icon_optionCPSVG.svg]
+    
+    - [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when no Palette preset has been loaded.
+    - [Smallicon:opdef:.?icon_optionCPSVG.svg] when you load a Palette preset.
+    
+    Usage:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
@@ -1050,7 +1054,11 @@ LIB contents ( presets ):
     
 Reload preset ( presets ):
     #id: PALETTE
-    [Smallicon:opdef:.?icon_optionCPSVG.svg]
+
+    - [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when no Palette preset has been loaded.
+    - [Smallicon:opdef:.?icon_optionCPSVG.svg] when you load a Palette preset.
+    
+    Usage:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
