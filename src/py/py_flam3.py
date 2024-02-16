@@ -1023,7 +1023,7 @@ flam3h_on_deleted(self) -> None:
             
             
             # Same goes for the palette preset entrie, and some time goes also out of range
-            # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
+            # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
             # and call it back here.
             node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()})
             node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
