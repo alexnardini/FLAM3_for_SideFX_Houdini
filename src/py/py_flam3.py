@@ -1026,6 +1026,7 @@ flam3h_on_deleted(self) -> None:
             # so we store the selection first inside a mem menu parameter first inside: flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp()
             # and call it back here.
             node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()})
+            node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
             
             # init/clear copy/paste iterator's data and prm
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
