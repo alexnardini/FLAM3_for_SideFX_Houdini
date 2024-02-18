@@ -462,7 +462,7 @@ note:
     
 copy/paste:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
 
     All the necessary methods for copy/paste iterator's data are contained in this icon. This icon allows you to mark an iterator for being copied, and then copy the data from the marked iterator into another iterator number — even if it is located inside a separate FLAM3H node.
     When you paste the data, it wil copy everything from the marked iterator but not Xaos. Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including Xaos.
@@ -601,6 +601,18 @@ opacity:
     #display: rounded white
 
     == Iterator: Variations == (FLAMEITERVARS)
+    
+    :box:
+        #display: rounded gray
+        
+        The selected variation name in each of their menu parameter posses a bookmark icon next to its label to display their state:
+        
+        - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
+        - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
+        - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
+        - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when its weight is below 0.
+    
+    
     
     TIP:
         _Each iterator allows up to 8 variations ( pre-blur var, 2 Pre vars, 4 Vars plus 1 Post var) to be used._
@@ -789,7 +801,7 @@ FF: note:
     
 FF: copy/paste:
     #id: FF
-    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
 
     All the necessary methods for copy/paste FF's data are contained in this icon. This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
     Once the FF has been marked, you can use the mini menu next to the icon to copy individual sections from the marked FF.
@@ -808,6 +820,16 @@ FF: copy/paste:
     #display: rounded white
 
     == FF: Variations == (FFVARS)
+    
+    :box:
+        #display: rounded gray
+        
+        The selected variation name in each of their menu parameter posses a bookmark icon next to its label to display their state:
+        
+        - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
+        - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
+        - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
+        - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when its weight is below 0.
     
     TIP:
         _FF iterator allow up to 5 variations ( 1 Pre var, 2 Vars plus 2 Post vars ) to be used._
@@ -1288,7 +1310,7 @@ Render infos:
     
 Copy/Paste render properties:
     #id: IN
-    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
     
     When you click this icon, those render properties will be copied and pasted into the render properties of the OUT tab.
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
@@ -1585,7 +1607,7 @@ Resolution presets menu:
     
 Copy/Paste render properties:
     #id: IN
-    [Smallicon:opdef:.?iconStarSwapRedSVG.svg]
+    [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
     
     When you load a flame file in the IN tab, this icon will become available.
     

@@ -220,6 +220,10 @@ FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
+
 
 class flam3h_iterator_prm_names:
 
@@ -1948,8 +1952,6 @@ flam3h_init_hou_session_ff_data(node) -> None:
 
 iterator_mpidx_mem_set(node: hou.SopNode, data: int) -> None:
 
-menu_T(mode: int) -> list:
-
 paste_from_list(node: hou.SopNode, flam3node: hou.SopNode, prm_list: tuple, id: str, id_from: str) -> None:
 
 pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
@@ -1963,6 +1965,14 @@ auto_set_xaos_data_get(node: hou.SopNode, data_name: str) -> Union[list, None]:
 auto_set_xaos_data_set(node: hou.SopNode, data_name: str, data: Union[list, tuple]) -> None:
 
 METHODS:
+
+menu_T_data(self) -> tuple[int, str]:
+
+menu_T(self) -> list:
+
+menu_T_data_pb(self) -> str:
+
+menu_T_pb(self) -> list:
 
 flam3h_paste_reset_hou_session_data(self) -> None:
 
@@ -2183,31 +2193,6 @@ iterator_keep_last_weight(self) -> None:
         # lock
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
-
-
-    @staticmethod
-    def menu_T(mode: int) -> list:
-        """Populate variation names parameter menu list.
-        
-        Args:
-            int_mode (int): [int(0) build menu with all variations. int(1) build menu without parametrics variations.]
-
-        Returns:
-            list: [return menu list]
-        """
-        menu=[]
-        if mode:
-            # build menu without parametrics
-            for i, item in flam3h_varsPRM().menu_vars_no_PRM():
-                menu.append(i)
-                menu.append(item.capitalize())
-        else:
-            # build menu with parametrics
-            for i, item in flam3h_varsPRM().menu_vars_all():
-                menu.append(i)
-                menu.append(item.capitalize())
-            
-        return menu
 
         
     @staticmethod
@@ -2430,6 +2415,97 @@ iterator_keep_last_weight(self) -> None:
     @property
     def affine_defaults(self):
         return self._affine_defaults
+    
+    
+    
+    
+    def menu_T_data(self) -> tuple[int, str]:
+        """Rerturn the selected variation index and the correct bookmark icon to use
+        based on its weight value.
+
+        Returns:
+            tuple[int, str]: int: variation idx.    str: icon
+        """        
+        idx = self.kwargs['script_multiparm_index']
+        _TYPE = self.kwargs['parm'].eval()
+        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
+
+        if prm_prefix.startswith(PRX_FF_PRM):
+            prm_weight_name = f"{prm_prefix}weight"
+        else:
+            prm_weight_name = f"{prm_prefix}weight_{str(idx)}"
+            
+        w = self.node.parm(prm_weight_name).eval()
+
+        _ICON = FLAM3H_ICON_STAR_EMPTY
+        if w == 0:
+            return _TYPE, _ICON
+        elif 0 < w <= 1:
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+        elif w > 1:
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+        elif w < 0:
+            _ICON = FLAM3H_ICON_STAR_FLAME_LOAD
+            
+        return _TYPE, _ICON
+    
+    
+    
+    def menu_T(self) -> list:
+        """Populate variation names parameter menu list.
+
+        Returns:
+            list: [return menu list]
+        """
+        menu=[]
+        _TYPE, _ICON = self.menu_T_data()
+        for i, item in flam3h_varsPRM().menu_vars_all():
+            if i == _TYPE:
+                menu.append(i)
+                menu.append(f"{_ICON} {item.capitalize()[:13]}     ") # 5 times \s
+            else:
+                menu.append(i)
+                menu.append(f"{item.capitalize()}          ") # 10 times \s
+            
+        return menu
+    
+    
+    
+    def menu_T_data_pb(self) -> str:
+        """Rerturn the bookmark icon to use for the Pre blur variation
+        based on its weight value.
+
+        Returns:
+            tuple[int, str]: int: variation idx.    str: icon
+        """        
+        idx = self.kwargs['script_multiparm_index']
+        prm_weight_name = f"{flam3h_iterator_prm_names.prevar_weight_blur}_{str(idx)}"
+
+        w = self.node.parm(prm_weight_name).eval()
+
+        _ICON = FLAM3H_ICON_STAR_EMPTY
+        if w == 0:
+            return _ICON
+        elif self.node.parm(prm_weight_name).eval() > 0:
+            _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV
+            
+        return _ICON
+    
+    
+    
+    def menu_T_pb(self) -> list:
+        """Populate variation name parameter menu list for Pre blur variation
+
+        Returns:
+            list: [return menu list]
+        """
+        menu=[]
+        _ICON = self.menu_T_data_pb()
+        menu.append(0)
+        menu.append(f"{_ICON} Pre blur                   ") # 19 times \s
+            
+        return menu
+    
     
     
     
