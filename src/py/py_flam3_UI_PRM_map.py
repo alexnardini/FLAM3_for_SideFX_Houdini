@@ -293,9 +293,16 @@ kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
 
 'All ITERATORS variations type parameters'
-"parameter name:    pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#"
+'parameter name:    preblurtype_#'
 'script type:       Menu Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(0)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
+return menu
+
+
+'All ITERATORS variations type parameters'
+'parameter name:    pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#'
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
 return menu
 
 
