@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.45'
+FLAM3H_VERSION = '1.2.50'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -216,9 +216,10 @@ FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
 FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 
-# ICONS
-FLAM3H_ICON_STAR_BLUE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
-FLAM3H_ICON_STAR_PALETTE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
+# ICONS menu tags
+FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
+FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 
 class flam3h_iterator_prm_names:
 
@@ -767,7 +768,7 @@ flam3h_on_deleted(self) -> None:
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -781,7 +782,7 @@ flam3h_on_deleted(self) -> None:
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -827,10 +828,10 @@ flam3h_on_deleted(self) -> None:
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
             
             if cvex_precision == 32:
-                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
             else:
-                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process."
+                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
             
             density = node.parm(GLB_DENSITY).evalAsInt()
@@ -1389,7 +1390,8 @@ reset_PREFS(self, mode=0) -> None:
             Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
         """        
         matcher = nodesearch.Name(node_name, exact=True)
-        search = matcher.nodes(self.node, recursive=True)
+        # Using hou.pwd() instead of self.node smake this work also on creation.
+        search = matcher.nodes(hou.pwd(), recursive=True)
         if search:
             return search[0].path()
         else:
@@ -4167,6 +4169,8 @@ METHODS:
 
 menu_ramp_presets(self) -> list:
 
+menu_ramp_presets_empty(self) -> list:
+
 flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 
 flam3h_ramp_save(self) -> None:
@@ -4364,8 +4368,8 @@ reset_CP(self, mode=0) -> None:
 
     
     def menu_ramp_presets(self) -> list:
-        """Build the palette preset parameter menu entries
-        based on the loaded json palette lib file.
+        """Build the palette preset parameter menu entries based on the loaded json palette lib file.
+        When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
 
         Returns:
             list: _description_
@@ -4384,7 +4388,52 @@ reset_CP(self, mode=0) -> None:
                     # ICON tag
                     if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and node.parm(CP_ISVALID_PRESET).evalAsInt():
                         menu.append(i)
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                    else:
+                        menu.append(i)
+                        menu.append(item)
+            else:
+                menuitems = ("Please, add at least one iterator", "")
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+        else:
+            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+                menu.append(-1)
+                menu.append('Empty')
+            else:
+                menuitems = ("Please, add at least one iterator", "")
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+        return menu
+    
+
+    def menu_ramp_presets_empty(self) -> list:
+        """Build the palette preset parameter menu entries based on the loaded json palette lib file.
+        When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
+
+        This definition exist only ecasue if I change the icon dynamically inside: def menu_ramp_presets(self) -> list:
+        Houdini will mix them up sometime, giving inconsistent results.
+
+        Returns:
+            list: _description_
+        """
+        node = self.node
+        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        
+        menu=[]
+        
+        if self.isJSON_F3H(node, filepath, False):
+            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
+                with open(filepath) as f:
+                    data = json.load(f)
+                menuitems = data.keys()
+                for i, item in enumerate(menuitems):
+                    # ICON tag
+                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and not node.parm(CP_ISVALID_PRESET).evalAsInt():
+                        menu.append(i)
+                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                     else:
                         menu.append(i)
                         menu.append(item)
@@ -4416,7 +4465,7 @@ reset_CP(self, mode=0) -> None:
         node = self.node
         
         # get user's preset name or build an automated one
-        name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
+        name = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
         if not name:
             now = datetime.now()
             presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
@@ -4577,12 +4626,10 @@ reset_CP(self, mode=0) -> None:
                 # get current preset
                 if node.parm(CP_ISVALID_PRESET).evalAsInt():
                     preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                    # Mark this as not loaded preset so we can get the real preset's name without the icon path at the beginning
-                    node.setParms({CP_ISVALID_PRESET: 0})
+                    preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
                 else:
                     preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
-                # Get the currently selected preset's name
-                preset = node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]
+                    preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_EMPTY)[-1].strip()
                 
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
@@ -6659,6 +6706,8 @@ in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter
 
 menu_in_presets(self) -> list:
 
+menu_in_presets_empty(self) -> list:
+
 set_iter_on_load_callback(self) -> None:
 
 use_iter_on_load_callback(self) -> None:
@@ -8052,6 +8101,7 @@ reset_IN(self, mode=0) -> None:
 
     def menu_in_presets(self) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
+        When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
         Returns:
             list: the actual menu
@@ -8065,7 +8115,45 @@ reset_IN(self, mode=0) -> None:
                 # ICON tag
                 if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     menu.append(i)
-                    menu.append(f"{FLAM3H_ICON_STAR_BLUE}  {item}     ") # 5 ending \s to be able to read the full label
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                else:
+                    menu.append(i)
+                    menu.append(item)
+            return menu
+        else:
+            iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+            if iterators:
+                menu.append(-1)
+                menu.append('Empty')
+            else:
+                menuitems = ("Please, load a IN flame file first", "")
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+                
+            return menu
+        
+
+    def menu_in_presets_empty(self) -> list:
+        """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
+        When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
+
+        This definition exist only ecasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
+        Houdini will mix them up sometime, giving inconsistent results.
+
+        Returns:
+            list: the actual menu
+        """
+        node = self.node
+        xml = self.node.parm(IN_PATH).evalAsString()
+        menu=[]
+        apo = in_flame(self.node, xml)
+        if apo.isvalidtree:
+            for i, item in enumerate(apo.name):
+                # ICON tag
+                if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                 else:
                     menu.append(i)
                     menu.append(item)
@@ -9615,7 +9703,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """        
         node = self.node
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
-        flame_name = node.parm(OUT_FLAME_PRESET_NAME).eval()
+        flame_name = str(node.parm(OUT_FLAME_PRESET_NAME).eval()).strip()
         autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
         return iter_num, flame_name, autoadd
 

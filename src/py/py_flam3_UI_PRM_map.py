@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.2.45 - Gold'
+FLAM3H_VERSION = '1.2.50 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -56,7 +56,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile its definition\nfor this Houdini session.\n\nDepending on your PC configuration\nit can take anywhere between 30s and 1 minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile its definition\nfor this Houdini session.\n\nDepending on your PC configuration it can take up to 1 minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
@@ -192,8 +192,13 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # SYS Tab: CP
 'parameter name:    sys_palettepresets_disabled'
+'script type:       Action Button'
+n = None
+
+
+'parameter name:    sys_palettepresets_off'
 'script type:       Menu Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets_empty()
 return menu
 'script type:       Action Script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
@@ -211,6 +216,9 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 # SYS Tab: IN
 'parameter name:    sys_inpresets_disabled'
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
+return menu
 'script type:       Action Button'
 n = None
 

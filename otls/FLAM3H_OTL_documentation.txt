@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.2.45 - Gold
+#version: 1.2.50 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -139,7 +139,7 @@ iterations:
     It is advised that occasionally you bump up this number a little to see if there is anything you are overlooking.
     For instance, certain Flames can seem completely different with higher number of iterations.
     
-    _But generally speaking, for many fratcal Flames shapes:_
+    But generally speaking, for many fratcal Flames shapes:
     
     - You do not need many iterations to get some good fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
     - If you increase the iterator weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
@@ -149,21 +149,7 @@ iterations:
     
     Some flames require a truly high number of iterations to resolve properly.
     
-    Listed below are presets from Chaotica software that were converted to FLAM3H.
-    They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
-
-    Some of them take thousands of iterations to produce the desired results, while others take only a few hundred:
-    
-    _*[ieddaka gnarl: 1280 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg]*_
-    
-    _*[blue modulus: 512 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg]*_
-    
-    _*[lazyswirls: 512 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg]*_
-    
-    _*[majestic: 64 iterations|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg]*_
-    
-    
-    You can create some beautiful fractal Flames with just a few iterations. Below are some examples I did myself:
+    However, you can create some beautiful fractal Flames with just a few iterations. Below are some examples:
     
     _*[Knot clusters: 6 iterations|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/270743580-f3c891ed-21c6-474e-89fa-62020149d821.jpg]*_
     
@@ -326,15 +312,15 @@ frame viewport:
     
 CP Presets mini menu:
     #id: SYS
-    Select a preset from the [CP Tab|#CP] JSON file that is presently open and load it.
+    Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
-    When loading/selecting a palette json file, you will need to either select a preset name or click the rainbow star icon to actually load/reload the selected preset name.
-    This is done so that if you want to add a palette to an already exisiting palette library file you wont loose the current palette as soon as you load the file you want to add/append into.
+    The selected menu entrie is tagged with an icon based on its state:
     
-    Once you load a palette preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?icon_optionCPSVG.svg]
+    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will disappear indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
     TIP:
         To populate this menu, load a palette *.json file first inside the CP Tab,
@@ -364,7 +350,10 @@ IN Presets mini menu:
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch flame presets without constantly entering the IN Tab.
     
-    Once you load a Flame preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
+    The selected menu entrie is tagged with an icon based on its state:
+    
+    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when the selected preset name is loaded.
     
     TIP:
         To populate this menu, load a valid *.flame file first inside the IN Tab,
@@ -614,12 +603,12 @@ opacity:
     == Iterator: Variations == (FLAMEITERVARS)
     
     TIP:
-        Each iterator allows up to 8 variations ( pre-blur var, 2 Pre vars, 4 Vars plus 1 Post var) to be used.
+        _Each iterator allows up to 8 variations ( pre-blur var, 2 Pre vars, 4 Vars plus 1 Post var) to be used._
         
-        Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric.
+        _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
-        When using parametric variations, their parameters in the VAR Tab will be shared between all of them.
-        This means that if you use 2 pre Mobius, 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+        _When using parametric variations, their parameters in the VAR Tab will be shared between all of them._
+        _This means that if you use 2 pre Mobius, 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
 pre_blur:
     #id: FLAME
@@ -749,11 +738,16 @@ post affine reset:
     #display: rounded white
 
     == Iterator: Parametric's VARS == (FLAMEITERPRMVARS)
-
+    
+TIP:
+    _What parameter you will control is indicated by the name of the parametric parameter;_
+    
+    _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
+    _A tooltip containing the names of the appropriate parameters will appear when the mouse is hovered over the name._
+        
 VARS Tab:
     #id: FLAME
     If a parametric variation is selected, its parameters will populate this Tab.
-    
     
 
 
@@ -816,9 +810,9 @@ FF: copy/paste:
     == FF: Variations == (FFVARS)
     
     TIP:
-        FF iterator allow up to 5 variations ( 1 Pre var, 2 Vars plus 2 Post vars ) to be used.
+        _FF iterator allow up to 5 variations ( 1 Pre var, 2 Vars plus 2 Post vars ) to be used._
         
-        Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric.
+        _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
 FF PRE tab:
     #id: FF
@@ -911,6 +905,12 @@ FF post affine reset:
     #display: rounded white
 
     == FF: Parametric's VARS == (FFPRMVARS)
+    
+    TIP:
+        _What parameter you will control is indicated by the name of the parametric parameter;_
+        
+        _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
+        _A tooltip containing the names of the appropriate parameters will appear when the mouse is hovered over the name._
     
 FF: VARS Tab:
     #id: FF
@@ -1045,12 +1045,12 @@ LIB contents ( presets ):
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
-    When loading/selecting a palette json file, you will need to either select a preset name or click the rainbow star icon to actually load/reload the selected preset name.
-    This is done so that if you want to add a palette to an already exisiting palette library file you wont loose the current palette as soon as you load the file you want to add/append into.
+    The selected menu entrie is tagged with an icon based on its state:
     
-    Once you load a palette preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?icon_optionCPSVG.svg]
+    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will disappear indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
 Reload preset ( presets ):
     #id: PALETTE
@@ -1200,7 +1200,10 @@ Presets:
     As many entries as there are flames in the file you are loading will be added to this preset menu.
     Each entry will display the flame's name.
     
-    Once you load a Flame preset, the loaded menu label will be marked with this icon: [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
+    The selected menu entrie is tagged with an icon based on its state:
+    
+    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when the selected preset name is loaded.
     
 Iterations on Load (int):
     #id: IN
@@ -1368,19 +1371,19 @@ _The following is an example of what the Sierpinski triangle preset looks like o
 
     
 TIP:
-    FLAM3H allows you to save your flames in the standard *.flame file format 
-    so that you can load them back inside any other applications like Fractorium, Apophysis and others.
+    _FLAM3H allows you to save your flames in the standard *.flame file format_
+    _so that you can load them back inside any other applications like Fractorium, Apophysis and others._
     
-    You must abide by some rules imposed by the original Flame file format.
+    _You must abide by some rules imposed by the original Flame file format._
     
-    Not using multiple instances of the same variation in any of the accessible sections (PRE, VAR, or POST) is the most crucial thing to keep in mind.
+    _Not using multiple instances of the same variation in any of the accessible sections (PRE, VAR, or POST) is the most crucial thing to keep in mind._
     
-    For instance, you cannot utilize two Mobius variations inside an iterator's PRE or VAR sections.
-    But you can use 1 Mobius in the PRE vars, 1 Mobius in the VAR, and 1 Mobius in the POST.
+    _For instance, you cannot utilize two Mobius variations inside an iterator's PRE or VAR sections._
+    _But you can use 1 Mobius in the PRE vars, 1 Mobius in the VAR, and 1 Mobius in the POST._
     
-    FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow
-    you to bend this rule, enabling the use of the same variation multiple times within the same section ( _Chaotica style_ ), but you won't be able to save out
-    the result in the standard flame file format. *Save the hip file instead in those cases*.
+    _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
+    _you to bend this rule, enabling the use of the same variation multiple times within the same section ( _Chaotica style_ ), but you won't be able to save out_
+    _the result in the standard flame file format. *Save the hip file instead in those cases*._
 
 :box:
     #display: rounded white
@@ -2002,8 +2005,8 @@ _Dependent variation's affine coefficients:_
 _A list of all parametric variations and their parametric parameter's names._
 
 NOTE:
-    Repeated variations names indicate distinct Houdini parameters.
-    For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters.
+    _Repeated variations names indicate distinct Houdini parameters._
+    _For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters._
 
 :box:
     #display: rounded gray
@@ -2196,8 +2199,8 @@ NOTE:
     Extending the Cvex code base, most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
     
 NOTE:
-    In order to improve speed, the Cvex code base has been scaled down to its bare minimum; this results in the least amount of code required to implement the entire algorithm.
-    Be as conservative as you can if you want to add anything.
+    _In order to improve speed, the Cvex code base has been scaled down to its bare minimum; this results in the least amount of code required to implement the entire algorithm._
+    _Be as conservative as you can if you want to add anything._
 
 
 == Cvex: How to compile == (COMPILE)
@@ -2298,7 +2301,7 @@ NOTE:
     It is really pre_blur + 2 variations of your choice.
     
     NOTE:
-        _*The weight of the PRE variations can not be negative*_ in FLAM3H.
+        _*The weight of the PRE variations can not be negative* in FLAM3H._
 
 :box:
     #display: rounded gray
@@ -2317,7 +2320,7 @@ NOTE:
     Every iterator is capable of 1 POST variation.
     
     NOTE:
-        _*The weight of the POST variation can not be negative*_ in FLAM3H.
+        _*The weight of the POST variation can not be negative* in FLAM3H._
     
 :box:
     #display: rounded gray
@@ -2342,7 +2345,7 @@ NOTE:
     FF iterator is capable of 1 PRE variation.
     
     NOTE:
-        _*The weight of the FF PRE variations can not be negative*_ in FLAM3H.
+        _*The weight of the FF PRE variations can not be negative* in FLAM3H._
 
     
 :box:
@@ -2363,7 +2366,7 @@ NOTE:
     FF iterator is capable of 2 POST variations.
     
     NOTE:
-        _*The weight of the FF POST variation can not be negative*_ in FLAM3H.
+        _*The weight of the FF POST variation can not be negative* in FLAM3H._
        
 :box:
     #display: rounded gray
@@ -2389,12 +2392,12 @@ NOTE:
     This finalxform ( FF ) does not possess any color parameters in this implementation ( Chaotica style ).
 
     NOTE:
-        When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:
+        _When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
         - Color -> 0.0
         - Color Speed -> 0.0 ( _this is the most important_ )
         - Direct Color -> 1.0
         
-        This way, you won't add a color to the flame that FLAM3H won't be able to match.
+        _This way, you won't add a color to the flame that FLAM3H won't be able to match._
         
         
 
