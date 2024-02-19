@@ -2624,7 +2624,7 @@ iterator_keep_last_weight(self) -> None:
                 menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
             else:
                 flam3nodeIter = f"{str(from_FLAM3H_NODE)}.iter."
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{from_FLAM3H_NODE.parent()}/{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
@@ -2692,7 +2692,7 @@ iterator_keep_last_weight(self) -> None:
                 menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  FF marked. Select a different FLAM3H node to paste those FF values.", "" )
             else:
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{flam3node_FF.parent()}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{flam3node_FF.parent()}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{flam3node_FF.parent()}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{flam3node_FF.parent()}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  .../{flam3node_FF.parent()}/{flam3nodeFF}: post affine", "" )
             for i, item in enumerate(menuitems):
                 menu.append(i)
                 menu.append(item)
