@@ -218,6 +218,8 @@ FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 
 # ICONS menu tags
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
+
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
@@ -2619,10 +2621,10 @@ iterator_keep_last_weight(self) -> None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
-                menuitems = ( "", f"{str(mp_id_from)}", f"{str(mp_id_from)}: xaos:", f"{str(mp_id_from)}: shader", f"{str(mp_id_from)}: PRE", f"{str(mp_id_from)}: VAR", f"{str(mp_id_from)}: POST", f"{str(mp_id_from)}: pre affine", f"{str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
             else:
                 flam3nodeIter = f"{str(from_FLAM3H_NODE)}.iter."
-                menuitems = ( "", f"{flam3nodeIter}{str(mp_id_from)}", f"{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{flam3nodeIter}{str(mp_id_from)}: shader", f"{flam3nodeIter}{str(mp_id_from)}: PRE", f"{flam3nodeIter}{str(mp_id_from)}: VAR", f"{flam3nodeIter}{str(mp_id_from)}: POST", f"{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeIter}{str(mp_id_from)}: post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
@@ -2631,7 +2633,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if isDELETED:
-                menuitems = ( "Marked iterator's node has been deleted. Mark another iterator first", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  Marked iterator's node has been deleted. Mark another iterator first", "" )
                 
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
@@ -2687,10 +2689,10 @@ iterator_keep_last_weight(self) -> None:
             flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             if node == flam3node_FF:
-                menuitems = ( "FF marked. Select a different FLAM3H node to paste those FF values.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  FF marked. Select a different FLAM3H node to paste those FF values.", "" )
             else:
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                menuitems = ( "", f"{flam3nodeFF}: PRE", f"{flam3nodeFF}: VAR", f"{flam3nodeFF}: POST", f"{flam3nodeFF}: pre affine", f"{flam3nodeFF}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {flam3nodeFF}: post affine", "" )
             for i, item in enumerate(menuitems):
                 menu.append(i)
                 menu.append(item)
@@ -2699,7 +2701,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if isDELETED:
-                menuitems = ( "Marked FF's node has been deleted. Mark another FF first", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  Marked FF's node has been deleted. Mark another FF first", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
