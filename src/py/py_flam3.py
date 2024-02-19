@@ -225,6 +225,7 @@ FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluS
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
 
@@ -2423,7 +2424,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def menu_T_data(self) -> tuple[int, str]:
+    def menu_T_data(self, FF=False) -> tuple[int, str]:
         """Rerturn the selected variation index and the correct bookmark icon to use
         based on its weight value.
 
@@ -2445,24 +2446,31 @@ iterator_keep_last_weight(self) -> None:
         if w == 0:
             return _TYPE, _ICON
         elif 0 < w <= 1:
-            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+            if FF is False:
+                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+                return _TYPE, _ICON
+            else:
+                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF
+                return _TYPE, _ICON
         elif w > 1:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+            return _TYPE, _ICON
         elif w < 0:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
+            return _TYPE, _ICON
             
         return _TYPE, _ICON
     
     
     
-    def menu_T(self) -> list:
+    def menu_T(self, FF=False) -> list:
         """Populate variation names parameter menu list.
 
         Returns:
             list: [return menu list]
         """
         menu=[]
-        _TYPE, _ICON = self.menu_T_data()
+        _TYPE, _ICON = self.menu_T_data(FF)
         for i, item in flam3h_varsPRM().menu_vars_all():
             if i == _TYPE:
                 menu.append(i)

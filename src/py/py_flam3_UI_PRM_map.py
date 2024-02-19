@@ -334,7 +334,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 'All FF variations type parameters'
 "parameter name:    ffpre1type, ffv1type, ffv2type, ffp1type, ffp2type"
 'script type:       Callback Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(0)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(True)
 return menu
 
 
