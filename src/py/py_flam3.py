@@ -5922,7 +5922,7 @@ __get_flame_count(self, flames: list) -> int:
         """        
         if self._isvalidtree:
             root = self._tree.getroot()
-            names = [name.get(key) if name.get(key) is not None else [] for name in root]
+            names = [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root]
             return tuple(names)
         else:
             return None
@@ -7649,9 +7649,11 @@ reset_IN(self, mode=0) -> None:
         """
         # Get the correct menu parameter's preset menu label
         if node.parm(IN_ISVALID_FILE).evalAsInt():
-            return node.parm(IN_PRESETS).menuLabels()[preset_id]
+            # return node.parm(IN_PRESETS).menuLabels()[preset_id]
+            return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
         else:
-            return node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+            # return node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
+            return str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
     
     
     @staticmethod
@@ -8754,7 +8756,7 @@ reset_IN(self, mode=0) -> None:
                 _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
             else:
                 # Get the correct menu parameter's preset menu label
-                preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+                preset_name = apo_data.name[preset_id]
                     
             _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
