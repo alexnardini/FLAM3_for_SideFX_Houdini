@@ -156,6 +156,7 @@ iterations:
     _*[Dancing stars: 12 iterations|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/270014121-b68b27d9-ebb7-4580-ad5f-9d114f2585f7.jpg]*_
 
     TIP:
+        #display: orange
         When: *Auto add iter num to Flame name* toggle is ON inside the OUT Tab,
         changing the iteration's parameter will update the flame name, if any have been typed.
         
@@ -223,6 +224,7 @@ F3C (flam3 compatibility):
     * *Unchecked*: use the Chaotica behavior.
     
     TIP:
+        #display: orange
         In Fractorium you can go to "Options" to find the exact same checkbox.
         
 
@@ -259,6 +261,7 @@ TAG:
     * If an iterator is disabled, it will be displayed as: " *::::::::::* "
     
     TIP:
+        #display: orange
         The Tag icon will change when:
         
         - [Smallicon:opdef:.?icon_TagOBlueSVG.svg]: when the Tag is ON ( _default_ ).
@@ -323,6 +326,7 @@ CP Presets mini menu:
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
     TIP:
+        #display: orange
         To populate this menu, load a palette *.json file first inside the CP Tab,
         
         or ((SHIFT)) + ((LMB)) the icon to open a file dialog window to load a palette *.json file.
@@ -356,6 +360,7 @@ IN Presets mini menu:
     - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when the selected preset name is loaded.
     
     TIP:
+        #display: orange
         To populate this menu, load a valid *.flame file first inside the IN Tab,
         
         or ((SHIFT)) + ((LMB)) the icon to open a file dialog window to load a *.flame file.
@@ -375,6 +380,7 @@ IN Preset reload:
     The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
 
     TIP:
+        #display: orange
         - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
         - In Fractorium, you can alter the flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
@@ -392,6 +398,7 @@ OUT Presets mini menu:
     It will always be set to the last Flame’s name you saved.
     
     TIP:
+        #display: orange
         To populate this menu, load a valid *.flame file first inside the OUT Tab.
         
         
@@ -485,6 +492,7 @@ Enable/Disable iterator:
     Enable/Disable this iterator.
     
     TIP:
+        #display: orange
         If an iterator is disabled, it won't be included when saving the Flame out into a flame file.
         In case you still want to include the inactive iterator in the file, set its weight to zero instead.
     
@@ -596,6 +604,7 @@ opacity:
     This iterator's opacity. It will be fully opaque at opacity 1 and completely transparent at opacity 0. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's weight.
     
     TIP:
+        #display: orange
         When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore).
 :box:
     #display: rounded white
@@ -610,11 +619,11 @@ opacity:
         - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
         - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
-        - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when its weight is below 0.
+        - [Smallicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
     
     
     
-    TIP:
+    NOTE:
         _Each iterator allows up to 8 variations ( pre-blur var, 2 Pre vars, 4 Vars plus 1 Post var) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
@@ -630,6 +639,7 @@ pre_blur:
     It will always be the first pre-variation the algorithm runs.
     
     TIP:
+        #display: orange
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H
         remeber that the variation "pre_gaussian_blur" will be remapped to "pre_blur" on Flame load by default.
         
@@ -752,6 +762,7 @@ post affine reset:
     == Iterator: Parametric's VARS == (FLAMEITERPRMVARS)
     
 TIP:
+    #display: orange
     _What parameter you will control is indicated by the name of the parametric parameter;_
     
     _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
@@ -829,9 +840,9 @@ FF: copy/paste:
         - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
         - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
-        - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when its weight is below 0.
+        - [Smallicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
     
-    TIP:
+    NOTE:
         _FF iterator allow up to 5 variations ( 1 Pre var, 2 Vars plus 2 Post vars ) to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
@@ -929,6 +940,7 @@ FF post affine reset:
     == FF: Parametric's VARS == (FFPRMVARS)
     
     TIP:
+        #display: orange
         _What parameter you will control is indicated by the name of the parametric parameter;_
         
         _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
@@ -1018,6 +1030,7 @@ JSON file:
     Load an already-created json palette library file or select the name of a new one to create.
     
     TIP:
+        #display: orange
         Once you are happy with a palette library you built, you can rename the file to start with: "*F3H_LOCK*"
         to prevent any further modifications to it. For example, if you have a lib file called "*my_rainbows_colors.json*"
         you can rename it to: "*F3H_LOCK_my_rainbows_colors.json*" to keep it safe.
@@ -1042,6 +1055,7 @@ Save Palette:
     _If the selected file is not a valid Palette JSON file type, nothing will happen._
     
     TIP:
+        #display: orange
         *Once you click save*:
         
         - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
@@ -1213,6 +1227,7 @@ Reload:
     When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
     
     TIP:
+        #display: orange
         - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
         - In Fractorium, you can alter the flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
@@ -1233,6 +1248,7 @@ Iterations on Load (int):
     This will override the internal default value of 64 iterations.
     
     TIP:
+        #display: orange
         If "*auto add iter num to Flame name*" OUT Tab option is *OFF*:
     
         The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
@@ -1393,6 +1409,7 @@ _The following is an example of what the Sierpinski triangle preset looks like o
 
     
 TIP:
+    #display: orange
     _FLAM3H allows you to save your flames in the standard *.flame file format_
     _so that you can load them back inside any other applications like Fractorium, Apophysis and others._
     
@@ -1419,6 +1436,7 @@ OUT file ( *.flame type ):
     If the selected file does not exist, it will be created.
     
     TIP:
+        #display: orange
         When you have finished creating a FLAM3H library, you can rename the file to begin with "*F3H_LOCK*" to prevent any future alterations.
         You can rename a lib file, for instance, called "*my_grandJulia.flame*" to "*F3H_LOCK_my_grandJulia.flame*" to keep it secure.
         
@@ -1436,6 +1454,7 @@ Save Flame:
     - If the selected file is not a valid Flame file type, nothing will happen.
     
     TIP:
+        #display: orange
         *Once you click save*:
         
         - If you select a location and a filename without an extension, it will automatically add the _*.flame*_ extension to them.
@@ -1460,6 +1479,7 @@ Flame name ( preset ):
     If no name is provided, an automated name composed of today's date and current time will be used instead.
     
     TIP:
+        #display: orange
         If "*auto add iter num to Flame name*" is *OFF*:
     
         The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
@@ -1500,6 +1520,7 @@ Auto add iter num to Flame name:
     It will also autocorrect the flame name string based on internally defined rules.
     
     TIP:
+        #display: orange
         When on, and once you type in a flame name, changing the iteration number will update the flame name too.
         
 use Fractorium parametric prm names:
@@ -1593,6 +1614,7 @@ SHOW sensor viz:
     When multiple FLAM3H node are present in the scene, FLAM3H ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
     
     TIP:
+        #display: orange
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
     
 Resolution:
@@ -1730,6 +1752,7 @@ flam3 compatibility (f3c):
     * *Unchecked*: use the Chaotica behavior.
     
     TIP:
+        #display: orange
         In Fractorium you can go to "Options" to find the exact same checkbox.
         
 Auto correct output paths:
@@ -2164,6 +2187,7 @@ NOTE:
     - With 128gb of physical memory you will be able to render 1 billion points without weight much on virtual memory.
     
     TIP:
+        #display: orange
         When using Mantra, you can take advantage of _delayed loads_ to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
         
         A non-deterministic random number generator was used to construct FLAM3H, and it lies at the heart of the algorithm.
@@ -2184,6 +2208,7 @@ NOTE:
     It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     
     TIP:
+        #display: orange
         As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
 
 

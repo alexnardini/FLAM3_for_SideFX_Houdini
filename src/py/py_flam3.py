@@ -217,12 +217,14 @@ FLAM3H_DATA_PRM_XAOS_ITERATOR_PREV = 'flam3h_data_xaos'
 FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 
 # ICONS menu tags
+FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
 
 
 class flam3h_iterator_prm_names:
@@ -2445,7 +2447,7 @@ iterator_keep_last_weight(self) -> None:
         elif w > 1:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
         elif w < 0:
-            _ICON = FLAM3H_ICON_STAR_FLAME_LOAD
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
             
         return _TYPE, _ICON
     
@@ -2615,7 +2617,7 @@ iterator_keep_last_weight(self) -> None:
         
         if mp_id_from is not None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
-                menuitems = ( f"{str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {str(id)}: Iterator marked. Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
                 menuitems = ( "", f"{str(mp_id_from)}", f"{str(mp_id_from)}: xaos:", f"{str(mp_id_from)}: shader", f"{str(mp_id_from)}: PRE", f"{str(mp_id_from)}: VAR", f"{str(mp_id_from)}: POST", f"{str(mp_id_from)}: pre affine", f"{str(mp_id_from)}: post affine", "" )
             else:
@@ -2641,11 +2643,11 @@ iterator_keep_last_weight(self) -> None:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                        menuitems = ( f"REMOVED: The marked iterator has been removed -> Mark an existing iterator instead.", "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed -> Mark an existing iterator instead.", "" )
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                        menuitems = ( f"REMOVED: The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> Mark an existing iterator instead.", "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> Mark an existing iterator instead.", "" )
                     else:
-                        menuitems = ( MARK_ITER_MSG, "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}", "" )
                 
                     for i, item in enumerate(menuitems):
                         menu.append(i-1)
@@ -2653,7 +2655,7 @@ iterator_keep_last_weight(self) -> None:
                     return menu
                 
                 else:
-                    menuitems = ( MARK_ITER_MSG, "" )
+                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}", "" )
                 
                     for i, item in enumerate(menuitems):
                         menu.append(i-1)
@@ -2703,7 +2705,7 @@ iterator_keep_last_weight(self) -> None:
                     menu.append(item)
                 return menu    
             else:
-                menuitems = ( MARK_FF_MSG, "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_FF_MSG}", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
