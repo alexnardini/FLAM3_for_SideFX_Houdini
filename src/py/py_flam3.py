@@ -2443,21 +2443,15 @@ iterator_keep_last_weight(self) -> None:
         w = self.node.parm(prm_weight_name).eval()
 
         _ICON = FLAM3H_ICON_STAR_EMPTY
-        if w == 0:
-            return _TYPE, _ICON
-        elif 0 < w <= 1:
+        if 0 < w <= 1:
             if FF is False:
                 _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
-                return _TYPE, _ICON
             else:
                 _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF
-                return _TYPE, _ICON
         elif w > 1:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
-            return _TYPE, _ICON
         elif w < 0:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
-            return _TYPE, _ICON
             
         return _TYPE, _ICON
     
@@ -2496,9 +2490,7 @@ iterator_keep_last_weight(self) -> None:
         w = self.node.parm(prm_weight_name).eval()
 
         _ICON = FLAM3H_ICON_STAR_EMPTY
-        if w == 0:
-            return _ICON
-        elif self.node.parm(prm_weight_name).eval() > 0:
+        if self.node.parm(prm_weight_name).eval() > 0:
             _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV
             
         return _ICON
