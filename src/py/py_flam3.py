@@ -223,7 +223,11 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRe
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG_disabled.svg]'
+FLAM3H_ICON_STAR_FLAME_SAVE = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteStarSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarRedSmallSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
+FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
@@ -4504,16 +4508,16 @@ reset_CP(self, mode=0) -> None:
                         menu.append(i)
                         menu.append(item)
             else:
-                menuitems = ("Please, add at least one iterator", "")
+                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
         else:
             if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
                 menu.append(-1)
-                menu.append('Empty')
+                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
             else:
-                menuitems = ("Please, add at least one iterator", "")
+                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
@@ -4549,16 +4553,16 @@ reset_CP(self, mode=0) -> None:
                         menu.append(i)
                         menu.append(item)
             else:
-                menuitems = ("Please, add at least one iterator", "")
+                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
         else:
             if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
                 menu.append(-1)
-                menu.append('Empty')
+                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
             else:
-                menuitems = ("Please, add at least one iterator", "")
+                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
@@ -8237,9 +8241,9 @@ reset_IN(self, mode=0) -> None:
             iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
             if iterators:
                 menu.append(-1)
-                menu.append('Empty')
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
             else:
-                menuitems = ("Please, load a IN flame file first", "")
+                menuitems = (f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Please, load a IN flame file first     ", "")
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
@@ -8275,9 +8279,9 @@ reset_IN(self, mode=0) -> None:
             iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
             if iterators:
                 menu.append(-1)
-                menu.append('Empty')
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
             else:
-                menuitems = ("Please, load a IN flame file first", "")
+                menuitems = (f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Please, load a IN flame file first     ", "")
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
@@ -9790,14 +9794,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 apo = in_flame(node, xml)
                 for i, item in enumerate(apo.name):
                     menu.append(i)
-                    menu.append(item)
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
                 return menu
             else:
                 menu.append(-1)
-                menu.append('Empty')
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Empty     ")
                 return menu
         else:
-            menuitems = ("Please, add at least one iterator", "")
+            menuitems = (f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Please, add at least one iterator     ", "")
             for i, item in enumerate(menuitems):
                 menu.append(i)
                 menu.append(item)
