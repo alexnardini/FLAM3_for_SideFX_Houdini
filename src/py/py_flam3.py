@@ -221,6 +221,7 @@ FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPa
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
+FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'
@@ -1973,7 +1974,9 @@ METHODS:
 
 menu_T_data(self) -> tuple[int, str]:
 
-menu_T(self) -> list:
+menu_T_data_FF(self) -> tuple[int, str]:
+
+menu_T(self, FF=False) -> list:
 
 menu_T_data_pb(self) -> str:
 
@@ -2424,7 +2427,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def menu_T_data(self, FF=False) -> tuple[int, str]:
+    def menu_T_data(self) -> tuple[int, str]:
         """Rerturn the selected variation index and the correct bookmark icon to use
         based on its weight value.
 
@@ -2435,19 +2438,40 @@ iterator_keep_last_weight(self) -> None:
         _TYPE = self.kwargs['parm'].eval()
         prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
 
-        if prm_prefix.startswith(PRX_FF_PRM):
-            prm_weight_name = f"{prm_prefix}weight"
-        else:
-            prm_weight_name = f"{prm_prefix}weight_{str(idx)}"
+        prm_weight_name = f"{prm_prefix}weight_{str(idx)}"
             
         w = self.node.parm(prm_weight_name).eval()
 
         _ICON = FLAM3H_ICON_STAR_EMPTY
         if 0 < w <= 1:
-            if FF is False:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
-            else:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+        elif w > 1:
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+        elif w < 0:
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
+            
+        return _TYPE, _ICON
+    
+    
+    
+    def menu_T_data_FF(self) -> tuple[int, str]:
+        """Rerturn the selected FF variation index and the correct bookmark icon to use
+        based on its weight value.
+
+        Returns:
+            tuple[int, str]: int: variation idx.    str: icon
+        """        
+
+        _TYPE = self.kwargs['parm'].eval()
+        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
+
+        prm_weight_name = f"{prm_prefix}weight"
+            
+        w = self.node.parm(prm_weight_name).eval()
+
+        _ICON = FLAM3H_ICON_STAR_EMPTY_FF
+        if 0 < w <= 1:
+            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF
         elif w > 1:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
         elif w < 0:
@@ -2459,12 +2483,17 @@ iterator_keep_last_weight(self) -> None:
     
     def menu_T(self, FF=False) -> list:
         """Populate variation names parameter menu list.
+        Differentiate iterators and FF
 
         Returns:
             list: [return menu list]
         """
         menu=[]
-        _TYPE, _ICON = self.menu_T_data(FF)
+        if not FF:
+            _TYPE, _ICON = self.menu_T_data()
+        else:
+            _TYPE, _ICON = self.menu_T_data_FF()
+            
         for i, item in flam3h_varsPRM().menu_vars_all():
             if i == _TYPE:
                 menu.append(i)
