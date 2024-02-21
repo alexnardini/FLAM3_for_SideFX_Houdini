@@ -5,7 +5,7 @@
  /
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised December 2023
+ /  date:       October 2020, Last revised February 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -141,9 +141,10 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
 
     // SYS
-    int SYS[], FF, MB, inum, iter, f3c, xaos_chk, xaos_mode;
+    int SYS[], FF, RIP, MB, inum, iter, f3c, xaos_chk, xaos_mode;
     SYS = detail(1, "SYS");
     FF   = SYS[0];
+    RIP  = SYS[1];  
     MB   = SYS[2];
     iter = SYS[3];
     f3c  = SYS[4];
@@ -158,6 +159,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
         else append(T, concat("[", "fX", "]"));             // xaos FROM
     }
+    if(RIP) append(T, "RIP");
     if(f3c) append(T, "F3C");
     if(MB) append(T, "MB");
 
