@@ -224,10 +224,10 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwa
 
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG_disabled.svg]'
 FLAM3H_ICON_STAR_FLAME_SAVE = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteStarSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarRedSmallSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'

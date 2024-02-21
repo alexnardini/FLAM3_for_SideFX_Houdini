@@ -357,7 +357,7 @@ IN Presets mini menu:
     The selected menu entrie is tagged with an icon based on its state:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
-    - [Smallicon:opdef:.?iconWhiteSVG.svg] when the selected preset name is loaded.
+    - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - When loading a Flame from the clipboard, no bookmark icon will be displayed.
     
     TIP:
@@ -1241,7 +1241,7 @@ Presets:
     The selected menu entrie is tagged with an icon based on its state:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
-    - [Smallicon:opdef:.?iconWhiteSVG.svg] when the selected preset name is loaded.
+    - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - When loading a Flame from the clipboard, no bookmark icon will be displayed.
     
 Iterations on Load (int):
