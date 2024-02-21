@@ -8247,6 +8247,10 @@ reset_IN(self, mode=0) -> None:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
+        Note:
+        If you change the icon gobal variable name inside here,
+        remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
+
         Returns:
             list: the actual menu
         """
@@ -8284,6 +8288,10 @@ reset_IN(self, mode=0) -> None:
 
         This definition exist only ecasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
         Houdini will mix them up sometime, giving inconsistent results.
+
+        Note:
+        If you change the icon gobal variable name inside here,
+        remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
 
         Returns:
             list: the actual menu
