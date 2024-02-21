@@ -2977,7 +2977,7 @@ iterator_keep_last_weight(self) -> None:
                         
                 elif node != from_FLAM3H_NODE:
                     assert from_FLAM3H_NODE is not None
-                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(node, FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -3075,7 +3075,7 @@ iterator_keep_last_weight(self) -> None:
                 
                 _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.network_flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2)
+                flam3h_general_utils.network_flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2) # type: ignore
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -3099,7 +3099,7 @@ iterator_keep_last_weight(self) -> None:
                 
             _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.network_flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2)
+            flam3h_general_utils.network_flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2) # type: ignore
 
 
     def prm_paste(self) -> None:
