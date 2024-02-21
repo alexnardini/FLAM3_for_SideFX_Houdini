@@ -320,10 +320,10 @@ CP Presets mini menu:
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded or a palette has been loaded from the Clipboard.
     - [Smallicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
     TIP:
         #display: orange
@@ -356,8 +356,9 @@ IN Presets mini menu:
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
-    - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when the selected preset name is loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] when the selected preset name is loaded.
+    - When loading a Flame from the clipboard, no bookmark icon will be displayed.
     
     TIP:
         #display: orange
@@ -1083,10 +1084,10 @@ LIB contents ( presets ):
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded or a palette has been loaded from the clipboard.
     - [Smallicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
 Reload preset ( presets ):
     #id: PALETTE
@@ -1239,8 +1240,9 @@ Presets:
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when the selected preset name is not loaded.
-    - [Smallicon:opdef:.?iconStarSwapBluSVG.svg] when the selected preset name is loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Smallicon:opdef:.?iconWhiteSVG.svg] when the selected preset name is loaded.
+    - When loading a Flame from the clipboard, no bookmark icon will be displayed.
     
 Iterations on Load (int):
     #id: IN
@@ -1750,7 +1752,7 @@ flash messages (network editor):
     
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
-    Copy/Paste iterators and FF data uses flash messages, as well other features like the viewport Tag, saving flames out, etc.
+    Copy/Paste iterators and FF data uses flash messages, as well as some other features.
     
 flam3 compatibility (f3c):
     #id: prefs

@@ -224,7 +224,7 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwa
 
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapBluSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG_disabled.svg]'
 FLAM3H_ICON_STAR_FLAME_SAVE = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteStarSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarRedSmallSVG.svg]'
@@ -235,7 +235,6 @@ FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionE
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
-
 
 
 class flam3h_iterator_prm_names:
@@ -1603,15 +1602,11 @@ reset_PREFS(self, mode=0) -> None:
             node.setParms({prm: 0})
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             self.set_status_msg(_MSG, 'MSG')
-            if prm==SYS_TAG:
-                flam3h_general_utils.network_flash_message(node, f"Tag OFF", 2)
             
         else:
             node.setParms({prm: 1})
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
             self.set_status_msg(_MSG, 'MSG')
-            if prm==SYS_TAG:
-                flam3h_general_utils.network_flash_message(node, f"Tag -> ON", 2)
 
 
 
@@ -3933,7 +3928,6 @@ iterator_keep_last_weight(self) -> None:
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-        flam3h_general_utils.network_flash_message(node, f"Sierpiński triangle", 2)
         
 
 
@@ -4575,7 +4569,7 @@ reset_CP(self, mode=0) -> None:
                     # ICON tag
                     if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and not node.parm(CP_ISVALID_PRESET).evalAsInt():
                         menu.append(i)
-                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                     else:
                         menu.append(i)
                         menu.append(item)
@@ -4746,6 +4740,7 @@ reset_CP(self, mode=0) -> None:
             else:
                 _MSG = f"{str(node)}: SAVE Palette -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.network_flash_message(node, f"PALETTE -> Select a valid output file", 2)
 
 
 
@@ -4773,7 +4768,7 @@ reset_CP(self, mode=0) -> None:
                     preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
                 else:
                     preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
-                    preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_EMPTY)[-1].strip()
+                    preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
                 
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
@@ -7715,7 +7710,7 @@ reset_IN(self, mode=0) -> None:
             return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
         else:
             # return node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]
-            return str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
+            return str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
     
     
     @staticmethod
@@ -7885,6 +7880,9 @@ reset_IN(self, mode=0) -> None:
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
+                
+            flam3h_general_utils.network_flash_message(node, f"IN Render properties -> COPIED", 2)
+            
         else:
             pass
 
@@ -8299,7 +8297,7 @@ reset_IN(self, mode=0) -> None:
                 # ICON tag
                 if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     menu.append(i)
-                    menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                 else:
                     menu.append(i)
                     menu.append(item)
@@ -9722,13 +9720,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         if kwargs['ctrl']:
             self.reset_OUT_sensor()
+            flam3h_general_utils.network_flash_message(self.node, f"OUT Camera sensor -> RESET", 2)
             
         elif kwargs['shift']:
             self.reset_OUT_render()
+            flam3h_general_utils.network_flash_message(self.node, f"OUT Render settings -> RESET", 2)
             
         else:
             self.reset_OUT_sensor()
             self.reset_OUT_render()
+            flam3h_general_utils.network_flash_message(self.node, f"OUT Render properties -> RESET", 2)
         
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
@@ -10302,6 +10303,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             else:
                 _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.network_flash_message(node, f"FLAME -> Select a valid output file", 2)
 
 
 
