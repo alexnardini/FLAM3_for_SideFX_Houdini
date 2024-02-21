@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.50'
+FLAM3H_VERSION = '1.2.55'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -99,11 +99,11 @@ PRX_FF_PRM_POST = 'fp1'
 SEC_MAIN = '.main'
 SEC_XAOS = '.xaos'
 SEC_SHADER = '.shader'
-SEC_PREVARS = '.pre_vars'
-SEC_VARS = '.vars'
-SEC_POSTVARS = '.post_vars'
-SEC_PREAFFINE = '.pre_affine'
-SEC_POSTAFFINE = '.post_affine'
+SEC_PREVARS = '.PRE'
+SEC_VARS = '.VAR'
+SEC_POSTVARS = '.POST'
+SEC_PREAFFINE = '.pre affine'
+SEC_POSTAFFINE = '.post affine'
 
 # Saving flames out will always use the standard PALETTE_COUNT_256
 # but saving palette out will downsample if possible to save some data.
@@ -175,6 +175,7 @@ OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
 OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 
 PREFS_TOGGLE = 'showprefs'
+PREFS_FLASH_MSG = 'flashmsg'
 PREFS_F3C = 'f3c'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_CVEX_PRECISION = 'vex_precision'
@@ -234,6 +235,7 @@ FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionE
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
+
 
 
 class flam3h_iterator_prm_names:
@@ -1152,6 +1154,8 @@ class flam3h_general_utils
 
 STATIC METHODS:
 
+network_flash_message(node: hou.SopNode, icon: Union[str, None], msg: Union[str, None], timer: float) -> None:
+
 clamp(x, val_max=255) -> float:
 
 my_system() -> str:
@@ -1214,6 +1218,16 @@ reset_PREFS(self, mode=0) -> None:
         self._node = kwargs['node']
         self._bbox_sensor_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_SENSOR)
         self._bbox_reframe_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_REFRAME)
+
+
+
+    @staticmethod
+    def network_flash_message(node: hou.SopNode, msg: Union[str, None], timer: float) -> None:
+        if node.parm(PREFS_FLASH_MSG).evalAsInt():
+            desktop = hou.ui.curDesktop() # type: ignore
+            ne = desktop.paneTabOfType(hou.paneTabType.NetworkEditor) # type: ignore
+            if ne is not None:
+                ne.flashMessage(None, msg, timer)
 
 
     @staticmethod
@@ -1589,11 +1603,15 @@ reset_PREFS(self, mode=0) -> None:
             node.setParms({prm: 0})
             _MSG = f"{str(node)}: {prm.upper()} -> OFF"
             self.set_status_msg(_MSG, 'MSG')
+            if prm==SYS_TAG:
+                flam3h_general_utils.network_flash_message(node, f"Tag OFF", 2)
             
         else:
             node.setParms({prm: 1})
             _MSG = f"{str(node)}: {prm.upper()} -> ON"
             self.set_status_msg(_MSG, 'MSG')
+            if prm==SYS_TAG:
+                flam3h_general_utils.network_flash_message(node, f"Tag -> ON", 2)
 
 
 
@@ -2911,14 +2929,14 @@ iterator_keep_last_weight(self) -> None:
 
 
 
-    def prm_paste_CTRL(self, id: int, node: hou.SopNode) -> None:
+    def prm_paste_CTRL(self, id: int) -> None:
         """Everything about paste iterator's data.
 
         Args:
             id (int): current multi parameter index
             node (hou.SopNode): this FLAM3H node
         """    
-
+        node = self.node
         # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
@@ -2927,22 +2945,24 @@ iterator_keep_last_weight(self) -> None:
             if node==from_FLAM3H_NODE and id==mp_id_from:
                 _MSG = f"{str(node)}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.network_flash_message(node, f"This iterator is Marked", 2)
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, "", str(id), str(mp_id_from))
                 
-                if node==from_FLAM3H_NODE:
-                    _MSG = f"{str(node)}: Copied values from -> iterator.{str(mp_id_from)}"
-                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                else:
-                    _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}"
-                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                # if node==from_FLAM3H_NODE:
+                #     _MSG = f"{str(node)}: Copied values from -> iterator.{str(mp_id_from)}"
+                #     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                # else:
+                #     _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}"
+                #     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
         else:      
             if isDELETED:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
+                flam3h_general_utils.network_flash_message(node, f"Marked iterator's node has been deleted", 2)
                 
             else:
                 if node == from_FLAM3H_NODE:
@@ -2950,17 +2970,19 @@ iterator_keep_last_weight(self) -> None:
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.network_flash_message(node, f"Marked iterator has been removed", 2)
                     else:
                         _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 elif node != from_FLAM3H_NODE:
                     assert from_FLAM3H_NODE is not None
-                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(node, FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.network_flash_message(node, f"Marked iterator has been removed", 2)
                     else:
                         _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -2970,14 +2992,14 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
-    def prm_paste_SHIFT(self, id: int, node: hou.SopNode) -> None:
+    def prm_paste_SHIFT(self, id: int) -> None:
         """Everything about unmarking iterators from being copied.
 
         Args:
             id (int): current multi parameter index
             node (hou.SopNode): this FLAM3H node
         """   
-  
+        node = self.node
         # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
@@ -2989,10 +3011,11 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{str(node)}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
-                
                 self.del_comment_and_user_data_iterator(node)
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"iterator UNMARKED", 2)
+                
                 
             else:
                 _MSG = ''
@@ -3003,7 +3026,6 @@ iterator_keep_last_weight(self) -> None:
                     
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
-                
                 self.del_comment_and_user_data_iterator(node)
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3012,6 +3034,7 @@ iterator_keep_last_weight(self) -> None:
             if isDELETED:
                 _MSG = f"{str(node)}: Marked iterator's node has been deleted -> Mark a new iterator first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.network_flash_message(node, f"Marked iterator's node has been deleted", 2)
                 
             else:
                 assert from_FLAM3H_NODE is not None
@@ -3025,14 +3048,14 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
 
-    def prm_paste_CLICK(self, id: int, node: hou.SopNode) -> None:
+    def prm_paste_CLICK(self, id: int) -> None:
         """Everything about marking iterators for being copied.
 
         Args:
             id (int): current multi parameter index
             node (hou.SopNode): this FLAM3H node
         """        
-        
+        node = self.node
         # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
@@ -3047,16 +3070,15 @@ iterator_keep_last_weight(self) -> None:
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = id # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE = self.node # type: ignore
                 self.iterator_mpidx_mem_set(node, id)
-                
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2)
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
-                
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
@@ -3067,18 +3089,17 @@ iterator_keep_last_weight(self) -> None:
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = id # type: ignore
             hou.session.FLAM3H_MARKED_ITERATOR_NODE = self.node # type: ignore
             self.iterator_mpidx_mem_set(node, id)
-            
             self.del_comment_and_user_data_iterator(node)
             self.set_comment_and_user_data_iterator(node, str(id))
             
             # Reset the other node mp_idx data
             if from_FLAM3H_NODE is not None:
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
-                
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
             _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.network_flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2)
 
 
     def prm_paste(self) -> None:
@@ -3095,32 +3116,32 @@ iterator_keep_last_weight(self) -> None:
         
         if self.kwargs["ctrl"]:
             with hou.undos.group(f"FLAM3H paste iterator data CTRL {str(id)}"): # type: ignore
-                self.prm_paste_CTRL(id, node)
+                self.prm_paste_CTRL(id)
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {str(id)}"): # type: ignore
-                self.prm_paste_SHIFT(id, node)
+                self.prm_paste_SHIFT(id)
                 
         elif self.kwargs["alt"]:
             with hou.undos.group(f"FLAM3H unmark iterator ALT {str(id)}"): # type: ignore
-                self.prm_paste_SHIFT(id, node)
+                self.prm_paste_SHIFT(id)
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark iterator CLICK {str(id)}"): # type: ignore
-                    self.prm_paste_SHIFT(id, node)
+                    self.prm_paste_SHIFT(id)
             else:
                 with hou.undos.group(f"FLAM3H mark iterator CLICK {str(id)}"): # type: ignore
-                    self.prm_paste_CLICK(id, node)
+                    self.prm_paste_CLICK(id)
     
     
-    def prm_paste_FF_CTRL(self, node: hou.SopNode) -> None:
+    def prm_paste_FF_CTRL(self) -> None:
         """Everything about paste FF's data.
 
         Args:
             node (hou.SopNode): this FLAM3H node
         """    
-        
+        node = self.node
         # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
@@ -3129,6 +3150,7 @@ iterator_keep_last_weight(self) -> None:
             if node == from_FLAM3H_NODE:
                 _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.network_flash_message(node, f"Select a different FLAM3H node's FF", 2)
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
@@ -3136,25 +3158,26 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
                 
-                _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                # _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
+                # flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
         else:
             if isDELETED:
                 _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
-                flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.network_flash_message(node, f"Marked FF's node has been deleted", 2)
             else:
                 _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
     
     
-    def prm_paste_FF_SHIFT(self, node: hou.SopNode) -> None:
+    def prm_paste_FF_SHIFT(self) -> None:
         """Everything about unmarking FF from being copied.
 
         Args:
             node (hou.SopNode): this FLAM3H node
         """  
-        
+        node = self.node
         # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
@@ -3167,6 +3190,7 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(node, "Marked FF")
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"FF UNMARKED", 2)
             else:
                 _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3179,13 +3203,13 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
-    def prm_paste_FF_CLICK(self, node: hou.SopNode) -> None:
+    def prm_paste_FF_CLICK(self) -> None:
         """Everything about marking FF for being copied.
 
         Args:
             node (hou.SopNode): this FLAM3H node
         """ 
-        
+        node = self.node
         # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
         
@@ -3211,6 +3235,7 @@ iterator_keep_last_weight(self) -> None:
             
             _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.network_flash_message(node, f"FF -> MARKED", 2)
 
 
     def prm_paste_FF(self) -> None:
@@ -3226,23 +3251,23 @@ iterator_keep_last_weight(self) -> None:
         
         if self.kwargs["ctrl"]:
             with hou.undos.group(f"FLAM3H paste FF data CTRL"): # type: ignore
-                self.prm_paste_FF_CTRL(node)
+                self.prm_paste_FF_CTRL()
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark FF SHIFT"): # type: ignore
-                self.prm_paste_FF_SHIFT(node)
+                self.prm_paste_FF_SHIFT()
                 
         elif self.kwargs["alt"]:
             with hou.undos.group(f"FLAM3H unmark FF ALT"): # type: ignore
-                self.prm_paste_FF_SHIFT(node)
+                self.prm_paste_FF_SHIFT()
         
         else:
             if self.exist_user_data(node, "Marked FF") and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark FF CLICK"): # type: ignore
-                    self.prm_paste_FF_SHIFT(node)
+                    self.prm_paste_FF_SHIFT()
             else:
                 with hou.undos.group(f"FLAM3H mark FF CLICK"): # type: ignore
-                    self.prm_paste_FF_CLICK(node)
+                    self.prm_paste_FF_CLICK()
 
     
     def prm_paste_sel(self) -> None:
@@ -3908,6 +3933,7 @@ iterator_keep_last_weight(self) -> None:
         # Print to Houdini's status bar
         _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+        flam3h_general_utils.network_flash_message(node, f"Sierpiński triangle", 2)
         
 
 
@@ -4640,6 +4666,7 @@ reset_CP(self, mode=0) -> None:
             # Satus message
             _MSG = f"{str(node)}: SAVE Palette Clipboard -> palette copied to the clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.network_flash_message(node, f"Palette SAVED to the Clipboard", 2)
         
         # Save palette into a file
         else:
@@ -4660,7 +4687,7 @@ reset_CP(self, mode=0) -> None:
                         ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                         _MSG = f"{str(node)}: PALETTE library file -> is LOCKED"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        
+                        flam3h_general_utils.network_flash_message(node, f"This Palette file is LOCKED", 2)
                         if hou.isUIAvailable():
                             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         
@@ -4714,6 +4741,7 @@ reset_CP(self, mode=0) -> None:
                             
                         # Set the file path to the corrected one
                         node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
+                        flam3h_general_utils.network_flash_message(node, f"Palette SAVED", 2)
                         
             else:
                 _MSG = f"{str(node)}: SAVE Palette -> Select a valid output file or a valid filename to create first."
@@ -8792,7 +8820,7 @@ reset_IN(self, mode=0) -> None:
                 # Get the correct menu parameter's preset menu label
                 preset_name = apo_data.name[preset_id]
                     
-            _MSG = f"{str(node)}: LOAD Flame preset: \"{preset_name}\" -> Completed"
+            _MSG = f"Preset: \"{preset_name}\" -> Loaded"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             ####################################################
             
@@ -10225,6 +10253,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 
                 self.out_new_XML_clipboard()
                 node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
+                flam3h_general_utils.network_flash_message(node, f"Flame SAVED to the Clipboard", 2)
                 
             # Otherwise if the output path is valid
             elif out_path_checked is not False:
@@ -10240,6 +10269,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         _MSG = f"{str(node)}: FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.network_flash_message(node, f"This Flame file is LOCKED", 2)
                         # Pop up message window
                         if hou.isUIAvailable():
                             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -10267,6 +10297,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                                 
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
                         # flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
+                        flam3h_general_utils.network_flash_message(node, f"Flame SAVED", 2)
 
             else:
                 _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
