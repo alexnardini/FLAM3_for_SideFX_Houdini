@@ -77,7 +77,7 @@ out_flame_xforms_data(out_flame_utils)
 
 
 
-FLAM3H_VERSION = '1.2.55'
+FLAM3H_VERSION = '1.2.60'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -230,7 +230,7 @@ FLAM3H_ICON_STAR_FLAME_SAVE = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteStarSVG
 FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBeigeSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
@@ -5528,6 +5528,7 @@ OUT_XML_RENDER_HOUDINI_DICT = {XML_XF_NAME: OUT_FLAME_PRESET_NAME,
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = 'flames'
+XML_VALID_CHAOS_ROOT_TAG = 'IFS'
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
 # Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
@@ -5916,6 +5917,8 @@ __get_flame_count(self, flames: list) -> int:
                     out_flame_utils._out_pretty_print(newroot)
                     return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
                 else:
+                    if XML_VALID_CHAOS_ROOT_TAG in root.tag:
+                        flam3h_general_utils.network_flash_message(hou.pwd(), f"Flame LOAD -> Chaotica XML not supported", 2)
                     return None
             else:
                 # If there are flames, proceed
@@ -8478,8 +8481,13 @@ reset_IN(self, mode=0) -> None:
             tree = None
         if tree is not None:
             assert xml is not None
-            flame_name_clipboard = in_flame(node, xml).name[0]
-            return xml, True, 0, flame_name_clipboard, True
+            if xml is not None and tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
+                flame_name_clipboard = in_flame(node, xml).name[0]
+                return xml, True, 0, flame_name_clipboard, True
+            else:
+                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag:
+                    flam3h_general_utils.network_flash_message(node, f"Flame LOAD -> Chaotica XML not supported", 2)
+                return None, False, 0, '', True
         else:
             return None, False, 0, '', True
 
