@@ -112,8 +112,10 @@ Karma and the built-in Nvidia Optix denoiser make a fantastic combination for re
 
 There are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
-Python run single threaded here, when lots of iterators are created, Houdini's FLAM3H user interface becomes a little slow.
-I made some effort to make it better, with no success. I used 128+ iterators in all of my stress tests.
+Python run single threaded here, now that this tool has lots of python code running and when lots of iterators are created, Houdini's FLAM3H user interface becames slow.
+I made some effort to make it better, with no success.
+All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot, its a shame that the UI is getting as sluggish as it is now.
+Also, I used 128+ iterators in all of my stress tests.
 In reality, though, I've never used more than 20 iterators in any of the fractal flames I've created thus far, nearly all of them used less than 10.
 A computer processor with good single-threaded performance would be very helpful here.
 
