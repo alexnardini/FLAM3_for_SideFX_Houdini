@@ -4821,6 +4821,7 @@ reset_CP(self, mode=0) -> None:
             else:
                 _MSG = f"{str(node)}: PALETTE -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"PALETTE -> Nothing to load", 2)
 
 
 
@@ -5918,7 +5919,7 @@ __get_flame_count(self, flames: list) -> int:
                     return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
                 else:
                     if XML_VALID_CHAOS_ROOT_TAG in root.tag:
-                        flam3h_general_utils.network_flash_message(hou.pwd(), f"Flame LOAD -> Chaotica XML not supported", 2)
+                        flam3h_general_utils.network_flash_message(hou.pwd(), f"Flame IN -> Chaotica XML not supported", 2)
                     return None
             else:
                 # If there are flames, proceed
@@ -8846,14 +8847,17 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"Flame IN -> Nothing to load", 2)
                 
             elif not clipboard and _xml_tree(in_xml).isvalidtree:
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"Flame IN -> Nothing to load", 2)
                 
             elif node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
                 _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.network_flash_message(node, f"Flame IN -> Nothing to load", 2)
                 
             else:
                 node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
@@ -8866,6 +8870,7 @@ reset_IN(self, mode=0) -> None:
                     # Status Bar
                     _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    flam3h_general_utils.network_flash_message(node, f"Flame IN -> Select a valid Flame file", 2)
                     
                     # The following do not work, not sure why
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
@@ -8878,6 +8883,7 @@ reset_IN(self, mode=0) -> None:
                     
                     _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    flam3h_general_utils.network_flash_message(node, f"Flame IN -> Nothing to load", 2)
 
 
 
@@ -10319,7 +10325,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             else:
                 _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.network_flash_message(node, f"FLAME -> Select a valid output file", 2)
+                flam3h_general_utils.network_flash_message(node, f"Flame OUT -> Select a valid output file", 2)
 
 
 
