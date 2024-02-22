@@ -116,7 +116,7 @@ Python run single threaded here, now that this tool has lots of python code runn
 I made some effort to make it better, with no success.
 All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot.
 There is also a big chunk of python code that deal with making the UI pretty and nice to look at, with lots of icons changing based on the user actions, looks nice all considered.
-It is a shame that the UI is getting as sluggish as it is now and hope SideFX will be able to improve on this in the future.
+It is a shame that the UI is getting as slow as it is now and hope SideFX will be able to improve on this in the future.
 A computer processor with strong single-threaded performance would be very helpful here.
 
 Also, I used 128+ iterators in all of my stress tests.
