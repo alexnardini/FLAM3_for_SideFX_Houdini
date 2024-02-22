@@ -114,7 +114,10 @@ There are no switch/case constructors or other types of pointer functions in the
 
 Python run single threaded here, now that this tool has lots of python code running and when lots of iterators are created, Houdini's FLAM3H user interface becames slow.
 I made some effort to make it better, with no success.
-All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot, its a shame that the UI is getting as sluggish as it is now.
+All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot.
+There is also a big chunk of python code that deal with making the UI pretty and nice to look at, with lots of icons changing based on the user actions, looks nice all considered.
+its a shame that the UI is getting as sluggish as it is now.
+
 Also, I used 128+ iterators in all of my stress tests.
 In reality, though, I've never used more than 20 iterators in any of the fractal flames I've created thus far, nearly all of them used less than 10.
 A computer processor with good single-threaded performance would be very helpful here.
