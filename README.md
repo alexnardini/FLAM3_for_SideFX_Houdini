@@ -117,10 +117,11 @@ I made some effort to make it better, with no success.
 All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot.
 There is also a big chunk of python code that deal with making the UI pretty and nice to look at, with lots of icons changing based on the user actions, looks nice all considered.
 It is a shame that the UI is getting as sluggish as it is now and hope SideFX will improve on this in the future.
+A computer processor with strong single-threaded performance would be very helpful here.
 
 Also, I used 128+ iterators in all of my stress tests.
 In reality, though, I've never used more than 20 iterators in any of the fractal flames I've created thus far, nearly all of them used less than 10.
-A computer processor with good single-threaded performance would be very helpful here.
+
 
 Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
