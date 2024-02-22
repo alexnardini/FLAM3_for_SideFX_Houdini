@@ -122,6 +122,7 @@ SYS_DO_FF = 'doff'
 SYS_RIP = 'rip'
 SYS_TAG = 'tag'
 SYS_TAG_SIZE = 'tagsize'
+SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
 FLAME_ITERATORS_COUNT = "flamefunc"
 CP_ISVALID_FILE = 'cpisvalidfile'
 CP_ISVALID_PRESET = 'cpisvalidpreset'
@@ -1448,11 +1449,20 @@ reset_PREFS(self, mode=0) -> None:
 
         Args:
             update (bool, optional): _description_. Defaults to True.
-        """        
+        """     
+           
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             if viewport.isCurrentTab():
+                
+                _SYS_FRAME_VIEW_SENSOR_prm = False
+                try:
+                    if self.kwargs['parm'].name() == SYS_FRAME_VIEW_SENSOR:
+                        _SYS_FRAME_VIEW_SENSOR_prm =True
+                except:
+                    pass
+                
                 view = viewport.curViewport()
 
                 try:
@@ -1480,9 +1490,13 @@ reset_PREFS(self, mode=0) -> None:
                                 self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         else:
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
+
+                        if _SYS_FRAME_VIEW_SENSOR_prm:
+                            flam3h_general_utils.network_flash_message(self.node, f"Camera sensor REFRAMED", 2)
+
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
-                    if update_sensor:
+                    if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
                         if self.bbox_sensor_path is not None:
                             node_bbox = hou.node(self.bbox_sensor_path)
                             if hou.hipFile.isLoadingHipFile(): # type: ignore
@@ -1494,6 +1508,9 @@ reset_PREFS(self, mode=0) -> None:
                                     self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                             else:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                
+                                if _SYS_FRAME_VIEW_SENSOR_prm:
+                                    flam3h_general_utils.network_flash_message(self.node, f"Camera sensor REFRAMED", 2)
 
 
 
@@ -1527,6 +1544,7 @@ reset_PREFS(self, mode=0) -> None:
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                     # Set clipping planes just in case
                     self.util_set_clipping_viewers()
+                    flam3h_general_utils.network_flash_message(self.node, f"Viewport REFRAMED", 2)
 
 
 

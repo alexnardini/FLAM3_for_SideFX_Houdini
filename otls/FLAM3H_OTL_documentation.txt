@@ -295,7 +295,7 @@ loaddef:
     
 frame viewport:
     #id: SYS
-    [Smallicon:opdef:.?iconCamSVG.svg]
+    [Smallicon:opdef:.?icon_FrameBlueSVG.svg]
     
     Re-frame current viewport based on a centered bounding box.
     
@@ -306,7 +306,7 @@ frame viewport:
         
         The icon will change into a red version of itself: 
         
-        [Smallicon:opdef:.?iconCamSensorRedSVG.svg]
+        [Smallicon:opdef:.?icon_FrameRedSVG.svg]
 
 :box:
     #display: rounded white
@@ -500,8 +500,8 @@ Enable/Disable iterator:
     
 A tip:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
-    
+    [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]
+
     Show active iterator informations and tips.
     
 W:
@@ -576,7 +576,7 @@ xaos:
         
 auto space xaos weights / xaos information tips:
     #id: FLAME
-    [Smallicon:opdef:.?iconStarSwapRedOutlineSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
     
     Activate/Deactivate auto space xaos weights option.
     
@@ -1494,7 +1494,7 @@ Flame name ( preset ):
     
 Flame name tip:
     #id: OUT
-    [Smallicon:opdef:.?iconStarSwapBluSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]
     
     Show Flame name's informations and tips.
     
