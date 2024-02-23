@@ -54,7 +54,7 @@ A custom shader could, in theory, implement a log density display and some form 
 
 Karma interactive rendering in the Houdini's viewport:
 
-`Just a bunch of dancing stars - Author: Alessandro Nardini`
+`the Queen's eggs - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
 
 `Lights festival - Author: Alessandro Nardini`
