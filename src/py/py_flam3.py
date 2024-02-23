@@ -12,7 +12,6 @@ from math import sin
 from math import cos
 from math import fsum
 from re import sub as re_sub
-from subprocess import call as sp_call
 import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import numpy as np
@@ -38,10 +37,12 @@ import nodesearch
 #   Name:       PY_FLAM3 "PYTHON"
 #
 #   Comment:    Python classes and definitions for:
+#               - General UX
 #               - Menus builder
 #               - Copy/Paste iterator's data
 #               - Load/Save flame files
 #               - Load/Save palettes
+#               - Fully automated UX Xaos
 #               - Tool's user experience
 #               
 #               Everything is then glued together inside Houdini.
@@ -1709,7 +1710,7 @@ reset_PREFS(self, mode=0) -> None:
         xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
         if xml_checked is not False:
             node.setParms({OUT_PATH: xml_checked}) 
-            apo = in_flame(node, xml_checked) #type: ignore
+            apo = _xml_tree(xml_checked) #type: ignore
             if apo.isvalidtree:
                 prm.set(f'{len(apo.name)-1}')
                 prm_sys.set(f'{len(apo.name)-1}')
@@ -1992,7 +1993,7 @@ flam3h_init_hou_session_iterator_data(node) -> None:
 
 flam3h_init_hou_session_ff_data(node) -> None:
 
-iterator_mpidx_mem_set(node: hou.SopNode, data: int) -> None:
+iterator_mpidx_mem_set(node, data: int) -> None:
 
 paste_from_list(node: hou.SopNode, flam3node: hou.SopNode, prm_list: tuple, id: str, id_from: str) -> None:
 
@@ -4534,32 +4535,20 @@ reset_CP(self, mode=0) -> None:
         menu=[]
         
         if self.isJSON_F3H(node, filepath, False):
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                with open(filepath) as f:
-                    data = json.load(f)
-                menuitems = data.keys()
-                for i, item in enumerate(menuitems):
-                    # ICON tag
-                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and node.parm(CP_ISVALID_PRESET).evalAsInt():
-                        menu.append(i)
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(i)
-                        menu.append(item)
-            else:
-                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
-                for i, item in enumerate(menuitems):
+            with open(filepath) as f:
+                data = json.load(f)
+            menuitems = data.keys()
+            for i, item in enumerate(menuitems):
+                # ICON tag
+                if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and node.parm(CP_ISVALID_PRESET).evalAsInt():
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                else:
                     menu.append(i)
                     menu.append(item)
         else:
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
-            else:
-                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
+            menu.append(-1)
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         return menu
     
 
@@ -4579,32 +4568,20 @@ reset_CP(self, mode=0) -> None:
         menu=[]
         
         if self.isJSON_F3H(node, filepath, False):
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                with open(filepath) as f:
-                    data = json.load(f)
-                menuitems = data.keys()
-                for i, item in enumerate(menuitems):
-                    # ICON tag
-                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and not node.parm(CP_ISVALID_PRESET).evalAsInt():
-                        menu.append(i)
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(i)
-                        menu.append(item)
-            else:
-                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
-                for i, item in enumerate(menuitems):
+            with open(filepath) as f:
+                data = json.load(f)
+            menuitems = data.keys()
+            for i, item in enumerate(menuitems):
+                # ICON tag
+                if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and node.parm(CP_ISVALID_FILE).evalAsInt() and not node.parm(CP_ISVALID_PRESET).evalAsInt():
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                else:
                     menu.append(i)
                     menu.append(item)
         else:
-            if node.parm(FLAME_ITERATORS_COUNT).evalAsInt():
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
-            else:
-                menuitems = (f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Please, add at least one iterator     ", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
+            menu.append(-1)
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         return menu
 
 
@@ -5888,7 +5865,7 @@ xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
 
 METHODS:
 
-__get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
+get_name(self, key=XML_XF_NAME) -> tuple:
 
 __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
 
@@ -5913,6 +5890,9 @@ __get_flame_count(self, flames: list) -> int:
         else:
             if self._isvalidtree:
                 self._tree = ET.parse(xmlfile)
+                
+        # This not private as its cheaper to have it evaluate from this parent class.
+        self._name = self.get_name()
 
 
 
@@ -5987,10 +5967,14 @@ __get_flame_count(self, flames: list) -> int:
     @property
     def isvalidtree(self):
         return self._isvalidtree
+    
+    @property
+    def name(self):
+        return self._name
 
 
-
-    def __get_name(self, key=XML_XF_NAME) -> Union[tuple, None]:
+    # This not private as its cheaper to have it evaluate from this parent class.
+    def get_name(self, key=XML_XF_NAME) -> tuple:
         """Collect all Flame presets name from the XML Flame file.
 
         Args:
@@ -6004,7 +5988,7 @@ __get_flame_count(self, flames: list) -> int:
             names = [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root]
             return tuple(names)
         else:
-            return None
+            return () 
         
         
     def __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
@@ -6090,32 +6074,32 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """        
         super().__init__(xmlfile)
         self._node = node
-        self._name = self._xml_tree__get_name() # type: ignore
-        self._sw_version = self._xml_tree__get_name(XML_FLAME_VERSION) # type: ignore
+        # self._name = self._xml_tree__get_name() # type: ignore
+        self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
         self._flame = self._xml_tree__get_flame() # type: ignore
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
-        self._flame_plugins = self._xml_tree__get_name(XML_FLAME_PLUGINS) # type: ignore
+        self._flame_plugins = self.get_name(XML_FLAME_PLUGINS) # type: ignore
         # render properties
-        self._out_size = self._xml_tree__get_name(OUT_XML_FLAME_SIZE) # type: ignore
-        self._out_center = self._xml_tree__get_name(OUT_XML_FLAME_CENTER) # type: ignore
-        self._out_rotate = self._xml_tree__get_name(OUT_XML_FLAME_ROTATE) # type: ignore
-        self._out_scale = self._xml_tree__get_name(OUT_XML_FLAME_SCALE) # type: ignore
-        self._out_quality = self._xml_tree__get_name(OUT_XML_FLAME_QUALITY) # type: ignore
-        self._out_brightness = self._xml_tree__get_name(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
-        self._out_gamma = self._xml_tree__get_name(OUT_XML_FLAME_GAMMA) # type: ignore
-        self._out_highlight_power = self._xml_tree__get_name(OUT_XML_FLAME_POWER) # type: ignore
-        self._out_logscale_k2 = self._xml_tree__get_name(OUT_XML_FLAME_K2) # type: ignore
-        self._out_vibrancy = self._xml_tree__get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
+        self._out_size = self.get_name(OUT_XML_FLAME_SIZE) # type: ignore
+        self._out_center = self.get_name(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_rotate = self.get_name(OUT_XML_FLAME_ROTATE) # type: ignore
+        self._out_scale = self.get_name(OUT_XML_FLAME_SCALE) # type: ignore
+        self._out_quality = self.get_name(OUT_XML_FLAME_QUALITY) # type: ignore
+        self._out_brightness = self.get_name(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
+        self._out_gamma = self.get_name(OUT_XML_FLAME_GAMMA) # type: ignore
+        self._out_highlight_power = self.get_name(OUT_XML_FLAME_POWER) # type: ignore
+        self._out_logscale_k2 = self.get_name(OUT_XML_FLAME_K2) # type: ignore
+        self._out_vibrancy = self.get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
         # custom to FLAM3H only
-        self._flam3h_sys_rip = self._xml_tree__get_name(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
-        self._flam3h_hsv = self._xml_tree__get_name(OUT_XML_FLAM3H_HSV) # type: ignore
+        self._flam3h_sys_rip = self.get_name(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
+        self._flam3h_hsv = self.get_name(OUT_XML_FLAM3H_HSV) # type: ignore
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_FPS) # type: ignore
-        self._flam3h_mb_samples = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
-        self._flam3h_mb_shutter = self._xml_tree__get_name(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._flam3h_cp_samples = self._xml_tree__get_name(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
-        self._flam3h_prefs_f3c = self._xml_tree__get_name(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
+        self._flam3h_mb = self.get_name(OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._flam3h_mb_samples = self.get_name(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._flam3h_mb_shutter = self.get_name(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._flam3h_cp_samples = self.get_name(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
+        self._flam3h_prefs_f3c = self.get_name(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
     
 
     @staticmethod
@@ -6134,9 +6118,9 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def node(self):
         return self._node
     
-    @property
-    def name(self):
-        return self._name
+    # @property
+    # def name(self):
+    #     return self._name
     
     @property
     def sw_version(self):
@@ -6327,8 +6311,9 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                             keyvalues.append(float(xform.get(key)))
                             continue
                     else:
-                        # Fractorium seem to always remap pre_blur to pre_gaussian_blur when you load a flame in.
+                        # Fractorium always remap pre_blur to pre_gaussian_blur when you load a flame in.
                         # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
+                        # An IN Tab load option is provided to change this behavior and load/use the pre_gaussian_blur variation instead on load.
                         pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
                             if self._node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
@@ -8279,7 +8264,7 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         xml = self.node.parm(IN_PATH).evalAsString()
         menu=[]
-        apo = in_flame(self.node, xml)
+        apo = _xml_tree(xml)
         if apo.isvalidtree:
             for i, item in enumerate(apo.name):
                 # ICON tag
@@ -8291,15 +8276,8 @@ reset_IN(self, mode=0) -> None:
                     menu.append(item)
             return menu
         else:
-            iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-            if iterators:
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-            else:
-                menuitems = (f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Please, load a IN flame file first     ", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
+            menu.append(-1)
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 
             return menu
         
@@ -8321,7 +8299,7 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         xml = self.node.parm(IN_PATH).evalAsString()
         menu=[]
-        apo = in_flame(self.node, xml)
+        apo = _xml_tree(xml)
         if apo.isvalidtree:
             for i, item in enumerate(apo.name):
                 # ICON tag
@@ -8333,15 +8311,8 @@ reset_IN(self, mode=0) -> None:
                     menu.append(item)
             return menu
         else:
-            iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-            if iterators:
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-            else:
-                menuitems = (f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Please, load a IN flame file first     ", "")
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
+            menu.append(-1)
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 
             return menu
         
@@ -8501,7 +8472,7 @@ reset_IN(self, mode=0) -> None:
         if tree is not None:
             assert xml is not None
             if xml is not None and tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
-                flame_name_clipboard = in_flame(node, xml).name[0]
+                flame_name_clipboard = _xml_tree(xml).name[0]
                 return xml, True, 0, flame_name_clipboard, True
             else:
                 if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag:
@@ -9860,8 +9831,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iterators_num:
             xml = node.parm(OUT_PATH).evalAsString()
-            if _xml_tree(xml).isvalidtree:
-                apo = in_flame(node, xml)
+            apo = _xml_tree(xml)
+            if apo.isvalidtree:
                 for i, item in enumerate(apo.name):
                     menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
@@ -9871,10 +9842,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Empty     ")
                 return menu
         else:
-            menuitems = (f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Please, add at least one iterator     ", "")
-            for i, item in enumerate(menuitems):
-                menu.append(i)
-                menu.append(item)
+            menu.append(-1)
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Empty     ")
             return menu
     
     
