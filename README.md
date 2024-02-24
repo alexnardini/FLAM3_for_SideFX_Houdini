@@ -112,7 +112,7 @@ Karma and the built-in Nvidia Optix denoiser make a fantastic combination for re
 
 There are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
-Python run single threaded here, now that this tool has lots of python code running and when lots of iterators are created, Houdini's FLAM3H user interface becames slow.
+Python run single threaded here, now that this tool has lots of python code running or when lots of iterators are created, Houdini's FLAM3H user interface becames slow.
 I made some effort to make it better, with no success.
 All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot.
 There is also a big chunk of python code that deal with making the UI pretty and nice to look at, with lots of icons changing based on the user actions, looks nice all considered.
