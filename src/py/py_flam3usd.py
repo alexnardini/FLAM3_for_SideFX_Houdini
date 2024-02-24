@@ -19,16 +19,29 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.0.4'
+FLAM3HUSD_VERSION = '0.0.5'
 
 PREFS_VIEWPORT_DARK = 'setdark'
 
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 
 
+def houdini_version() -> int:
+    return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
 
-def autoSetRenderer_on_create(self: hou.Node) -> None:
-    for view in getSceneViewers():
+
+def util_getSceneViewers() -> list:
+    """
+    Returns:
+        list: [return a list of open scene viewers]
+    """    
+    views = hou.ui.paneTabs() # type: ignore
+    return [v for v in views if isinstance(v, hou.SceneViewer)]
+
+
+
+def autoSetRenderer_on_create(self: hou.LopNode) -> None:
+    for view in util_getSceneViewers():
         cr = hou.SceneViewer.currentHydraRenderer(view)
         if "Houdini" in cr:
             self.setParms({"rndtype": 0}) # type: ignore
@@ -56,22 +69,9 @@ def flam3USD_on_create(kwargs: dict) -> None:
         hou.session.flam3h_viewport_CS # type: ignore
     except:
         hou.session.flam3h_viewport_CS = [] # type: ignore
-    
-    
-def getSceneViewers() -> list:
-    """
-    Returns:
-        list: [return a list of open scene viewers]
-    """    
-    views = hou.ui.paneTabs() # type: ignore
-    viewers = []
-    for v in views:
-        if isinstance(v, hou.SceneViewer):
-            viewers.append(v)
-    return viewers
 
 
-def colorSchemeDark(self: hou.Node) -> None:
+def colorSchemeDark(self: hou.LopNode) -> None:
     try:
         module_test = hou.session.flam3h_viewport_CS # type: ignore
     except:
@@ -81,12 +81,16 @@ def colorSchemeDark(self: hou.Node) -> None:
     viewers_col = []
 
     setprm = self.parm(PREFS_VIEWPORT_DARK).eval()
+    
     Light = hou.viewportColorScheme.Light # type: ignore
     Grey  = hou.viewportColorScheme.Grey # type: ignore
     Dark  = hou.viewportColorScheme.Dark # type: ignore
-    DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
+    # The following is a lazy way to make this backward compatible with H19.x
+    # as the DarkGrey color scheme has been introduced in H20.x first
+    if houdini_version() < 20: DarkGrey = Grey
+    else: DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
 
-    for view in getSceneViewers():
+    for view in util_getSceneViewers():
 
         settings = view.curViewport().settings()
         col = settings.colorScheme()
@@ -130,12 +134,12 @@ def colorSchemeDark(self: hou.Node) -> None:
     hou.session.flam3h_viewport_CS = viewers_col # type: ignore
 
 
-def viewportParticleDisplay(self: hou.Node) -> None:
+def viewportParticleDisplay(self: hou.LopNode) -> None:
     pttype = self.parm("vptype").evalAsInt()
     Points = hou.viewportParticleDisplay.Points # type: ignore
     Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
 
-    for view in getSceneViewers():
+    for view in util_getSceneViewers():
         settings = view.curViewport().settings()
         if pttype == 0:
             settings.particleDisplayType(Points)
@@ -143,26 +147,27 @@ def viewportParticleDisplay(self: hou.Node) -> None:
             settings.particleDisplayType(Pixels)
 
 
-def viewportParticleSize(self: hou.Node) -> None:
+def viewportParticleSize(self: hou.LopNode) -> None:
     Points = hou.viewportParticleDisplay.Points # type: ignore
     ptsize = self.parm("vpptsize").evalAsFloat()
 
-    for view in getSceneViewers():
+    for view in util_getSceneViewers():
         settings = view.curViewport().settings()
         settings.particleDisplayType(Points)
         settings.particlePointSize(ptsize)
         
         
-def setHydraRenderer(self: hou.Node) -> None:
+def setHydraRenderer(self: hou.LopNode) -> None:
     rndtype = self.parm("rndtype").evalAsInt()
-    for view in getSceneViewers():
+    for view in util_getSceneViewers():
         if rndtype == 0:
             hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
         elif rndtype == 1:
-            hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
+            if houdini_version() < 20:
+                hou.SceneViewer.setHydraRenderer(view, 'Karma')
+            else:
+                hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
         elif rndtype == 2:
-            hou.SceneViewer.setHydraRenderer(view, 'Karma XPU')
-        elif rndtype == 3:
             hou.SceneViewer.setHydraRenderer(view, 'Storm')
             
 
