@@ -4973,10 +4973,12 @@ reset_CP(self, mode=0) -> None:
                     else:
                         _MSG = f"{str(node)}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.network_flash_message(node, f"Palette Clipboard -> Nothing to load", 2)
                         
                 else:
                     _MSG = f"{str(node)}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    flam3h_general_utils.network_flash_message(node, f"Palette Clipboard -> Nothing to load", 2)
 
             # LMB - Load the currently selected palette preset
             else:   
@@ -8765,7 +8767,7 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard, _ = self.in_to_flam3h_init_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard = self.in_to_flam3h_init_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
 
@@ -8927,9 +8929,15 @@ reset_IN(self, mode=0) -> None:
             
             in_xml = node.parm(IN_PATH).evalAsString()
 
-            if clipboard and _xml_tree(in_xml).isvalidtree:
+            # Need to make some cleanup for the followings, but you know...for now
+
+            if attempt_from_clipboard:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
-                _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+                flam3h_general_utils.network_flash_message(node, f"Flame IN Clipboard -> Nothing to load", 2)
+
+            elif clipboard and _xml_tree(in_xml).isvalidtree:
+                node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
+                _MSG = f"{str(node)}: IN FLAME Clipboard -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.network_flash_message(node, f"Flame IN -> Nothing to load", 2)
                 
