@@ -9,7 +9,7 @@ import hou
 #
 #   Title:      SideFX Houdini FLAM3HUSD
 #   Author:     Alessandro Nardini
-#   date:       September 2023, Last revised September 2023
+#   date:       September 2023, Last revised February 2024
 #
 #   Name:       PY_FLAM3USD "PYTHON"
 #
