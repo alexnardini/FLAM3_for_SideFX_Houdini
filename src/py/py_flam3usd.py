@@ -166,6 +166,7 @@ def setHydraRenderer(self: hou.LopNode) -> None:
             if houdini_version() < 20:
                 hou.SceneViewer.setHydraRenderer(view, 'Karma')
             else:
+                # H20 changed this name so let use the new one
                 hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
         elif rndtype == 2:
             hou.SceneViewer.setHydraRenderer(view, 'Storm')
