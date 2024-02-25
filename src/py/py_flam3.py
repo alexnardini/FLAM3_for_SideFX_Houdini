@@ -1474,6 +1474,13 @@ reset_PREFS(self, mode=0) -> None:
     def util_set_front_viewer(self, update=True) -> None:
         """Set front view when entering the camera sensor mode.
         This include storing and restoring the current viewport prior to entering the camera sensor mode.
+        
+        This definition is multipurpose, it is run from multiple parameters.
+        - When run from the SYS prm: _SYS_FRAME_VIEW_SENSOR_prm it will also print a flash message.
+        - When run from the OUT Sensor prms, it will re frame the sensor based of if update sensor prm is ON or OFF.
+        - When run while loading a hip file it will test the necessary condition to see if it can work ort not.
+        
+        Maybe it would be better to split all those purposes into their own definition for each...but good for now.
 
         Args:
             update (bool, optional): _description_. Defaults to True.
@@ -2554,7 +2561,7 @@ iterator_keep_last_weight(self) -> None:
             
         w = self.node.parm(prm_weight_name).eval()
 
-        _ICON = FLAM3H_ICON_STAR_EMPTY_FF
+        _ICON = FLAM3H_ICON_STAR_EMPTY
         if w > 0:
             if w > 1:
                 _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
