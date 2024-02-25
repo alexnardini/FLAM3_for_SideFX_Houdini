@@ -1688,6 +1688,8 @@ reset_PREFS(self, mode=0) -> None:
         
         xml = node.parm(IN_PATH).evalAsString()
         if os.path.isfile(xml):
+            # We are using the class: _xml_tree becasue we really need to carefully validate the loaded flame file.
+            # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
             apo = _xml_tree(xml)
             if not apo.isvalidtree:
                 prm.set('-1')
@@ -1703,7 +1705,8 @@ reset_PREFS(self, mode=0) -> None:
                 if mode:
                     prm.set('0')
                     prm_off.set('0')
-                    node.setParms({IN_ISVALID_FILE: 1}) # the IN_ISVALID_PRESET is set inside: in_flame_utils(self.kwargs).in_to_flam3h()
+                    node.setParms({IN_ISVALID_FILE: 1})
+                    # the IN_ISVALID_PRESET is set inside the following: in_flame_utils(self.kwargs).in_to_flam3h()
                     in_flame_utils(self.kwargs).in_to_flam3h()
         else:
             clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
@@ -8436,6 +8439,8 @@ reset_IN(self, mode=0) -> None:
     def in_to_flam3h_toggle(self, prm: str) -> None:
         
         xml = self.node.parm(IN_PATH).evalAsString()
+        # Here we could take a shortcut and use: if node.parm(IN_ISVALID_FILE).eval(): instead,
+        # but for now we keep it safe and use the class: _xml_tree(..) instead.
         if _xml_tree(xml).isvalidtree:
             flam3h_general_utils(self.kwargs).flam3h_toggle(prm)
             self.in_to_flam3h()
@@ -8453,6 +8458,8 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard = self.in_to_flam3h_init_data(node)
         
+        # Here we are forced to use the class: _xml_tree(...) becasue a Flame can come from the clipboard
+        # and we need to carefully validate it before proceding.
         if xml is not None and _xml_tree(xml).isvalidtree:
             
             apo_data = in_flame_iter_data(node, xml, preset_id)
@@ -9932,6 +9939,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """
         menu=[]
         xml = self.node.parm(OUT_PATH).evalAsString()
+        # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
+        # Instead of the lightweight version class: _xml(...)
         apo = _xml_tree(xml)
         if apo.isvalidtree:
             for i, item in enumerate(apo.name):
