@@ -2577,6 +2577,11 @@ iterator_keep_last_weight(self) -> None:
     def menu_T(self, FF=False) -> list:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
 
         Returns:
             list: [return menu list]
@@ -2621,6 +2626,11 @@ iterator_keep_last_weight(self) -> None:
     
     def menu_T_pb(self) -> list:
         """Populate variation name parameter menu list for Pre blur variation
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
 
         Returns:
             list: [return menu list]
@@ -4291,6 +4301,7 @@ iterator_keep_last_weight(self) -> None:
         
         _NOTE:
             The parameters names is hard coded here to try to speed up even if a tiny bit.
+            If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """    
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
@@ -4319,6 +4330,7 @@ iterator_keep_last_weight(self) -> None:
         
         _NOTE:
             The parameters names is hard coded here to try to speed up even if a tiny bit.
+            If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """        
         id = self.kwargs['script_multiparm_index']
         vactive_prm_name = f"vactive_{str(id)}"
@@ -4333,6 +4345,7 @@ iterator_keep_last_weight(self) -> None:
         
         _NOTE:
             The parameters names is hard coded here to try to speed up even if a tiny bit.
+            If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """  
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
@@ -4589,8 +4602,8 @@ reset_CP(self, mode=0) -> None:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only ecasue if I change the icon dynamically inside: def menu_ramp_presets(self) -> list:
-        Houdini will mix them up sometime, giving inconsistent results.
+        This definition exist only becasue if I change the icon dynamically inside: def menu_ramp_presets(self) -> list:
+        Houdini not updated them until I dnt execute a "next" selection in the menu parameter.
 
         Returns:
             list: _description_
