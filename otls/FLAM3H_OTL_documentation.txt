@@ -838,7 +838,7 @@ FF: copy/paste:
         
         The selected variation name in each of their menu parameter posses a bookmark icon next to its label to display their state:
         
-        - [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg] when its weight is 0.
+        - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
         - [Smallicon:opdef:.?icon_optionFFEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
         - [Smallicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
