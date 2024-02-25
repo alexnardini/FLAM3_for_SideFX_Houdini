@@ -1108,7 +1108,13 @@ Reload preset ( presets ):
     
 save Palette HSV:
     #id: PALETTE
-    OFF by default. When saving out a palette, use the non-color-corrected ramp and save the HSV values along with it if used ( different from default values ).Check this option to save the the color-corrected HSV ramp instead. This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
+    OFF by default.
+    
+    When saving out a palette, FLAM3H use the non-color-corrected ramp by default and save the HSV values along with it if used ( different from default values ).
+    
+    Check this option to save the the color-corrected HSV ramp instead. 
+    
+    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
     
     
 
@@ -1423,8 +1429,10 @@ TIP:
     _But you can use 1 Mobius in the PRE vars, 1 Mobius in the VAR, and 1 Mobius in the POST._
     
     _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
-    _you to bend this rule, enabling the use of the same variation multiple times within the same section ( _Chaotica style_ ), but you won't be able to save out_
-    _the result in the standard flame file format. *Save the hip file instead in those cases*._
+    _you to bend this rule, enabling the use of the same variation multiple times within the same section ( Chaotica style ), but you won't be able to save out_
+    _the result in the standard flame file format._
+
+    _*Save the hip file instead in those cases*._
 
 :box:
     #display: rounded white
@@ -1513,8 +1521,12 @@ OUT file contents ( info ):
 Save palette HSV (cc):
     #id: OUT
     OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
-    If enabled, all color adjustments you may have made to the flame's palette will be preserved using the HSV ramp instead.
-    This is helpful if you want to maintain the color-corrected palette when you load the saved Flame into a different program, such as Fractorium or Apophysis.
+
+    If enabled, all color adjustments you may have made to the flame's palette will be preserved saving the HSV ramp instead.
+
+    It is helpful if you want to maintain the color-corrected palette when you load the saved Flame into a different program, such as Fractorium or Apophysis.
+
+    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
     
 Auto add iter num to Flame name:
     #id: OUT
