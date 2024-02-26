@@ -76,9 +76,6 @@ void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
     myp = _bound_P;
     myp += myp_offset;
 
-    resx = sensor_res[0];
-    resy = sensor_res[1];
-
     w = 0.5;
     resw = res_weight(resx, resy, w);
 
