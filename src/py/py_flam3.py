@@ -73,6 +73,9 @@ out_flame_utils
 out_flame_render_properties(out_flame_utils)
 out_flame_xforms_data(out_flame_utils)
 
+_NOTE:
+    Class @properties are always defined inbetween the @staticmethods and the class methods.
+
 '''
 
 
@@ -668,11 +671,11 @@ flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int
 
 flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 
+flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
+
 ...
 
 METHODS:
-
-flam3h_set_first_instance_global_var(self, cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 
 flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
 
@@ -753,6 +756,14 @@ flam3h_on_deleted(self) -> None:
 
         hou.setUpdateMode(sys_updated_mode) # type: ignore
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
+        
+        
+    @staticmethod
+    def flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
+        if cvex_precision == 32 and first_instance_32bit is True:
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+        elif cvex_precision == 64 and first_instance_64bit is True:
+            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
 
 
@@ -765,14 +776,6 @@ flam3h_on_deleted(self) -> None:
     def node(self):
         return self._node
 
-
-
-
-    def flam3h_set_first_instance_global_var(self, cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
-        if cvex_precision == 32 and first_instance_32bit is True:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
-        elif cvex_precision == 64 and first_instance_64bit is True:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
 
 
@@ -839,7 +842,7 @@ flam3h_on_deleted(self) -> None:
                 pass
                 
         else:
-            self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+            flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
 
 
@@ -887,13 +890,13 @@ flam3h_on_deleted(self) -> None:
                 if hou.isUIAvailable():
                     if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                         # node.cook(force=True)
-                        self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+                        flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
                         node.setParms({GLB_DENSITY: density})
                         hou.setUpdateMode(sys_updated_mode) # type: ignore
                         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
                 else:
-                    self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+                    flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
                     node.setParms({GLB_DENSITY: density})
                     hou.setUpdateMode(sys_updated_mode) # type: ignore
@@ -903,7 +906,7 @@ flam3h_on_deleted(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
-                self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+                flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
                 node.setParms({GLB_DENSITY: density})
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
@@ -1182,7 +1185,7 @@ class flam3h_general_utils
 
 STATIC METHODS:
 
-network_flash_message(node: hou.SopNode, icon: Union[str, None], msg: Union[str, None], timer: float) -> None:
+network_flash_message(node: hou.SopNode, msg: Union[str, None], timer: float) -> None:
 
 clamp(x, val_max=255) -> float:
 
@@ -1250,12 +1253,13 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def network_flash_message(node: hou.SopNode, msg: Union[str, None], timer: float) -> None:
-        if node.parm(PREFS_FLASH_MSG).eval():
+    def network_flash_message(node: hou.SopNode, msg: Union[str, None], timer: float, img=None) -> None:
+        
+        if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             desktop = hou.ui.curDesktop() # type: ignore
             ne = desktop.paneTabOfType(hou.paneTabType.NetworkEditor) # type: ignore
             if ne is not None:
-                ne.flashMessage(None, msg, timer)
+                ne.flashMessage(img, msg, timer)
 
 
     @staticmethod
@@ -1475,7 +1479,7 @@ reset_PREFS(self, mode=0) -> None:
         """Set front view when entering the camera sensor mode.
         This include storing and restoring the current viewport prior to entering the camera sensor mode.
         
-        This definition is multipurpose, it is run from multiple parameters.
+        This definition is multipurpose, it is run from multiple parameters:
         - When run from the SYS prm: _SYS_FRAME_VIEW_SENSOR_prm it will also print a flash message.
         - When run from the OUT Sensor prms, it will re frame the sensor based of if update sensor prm is ON or OFF.
         - When run while loading a hip file it will test the necessary condition to see if it can work ort not.
@@ -5952,6 +5956,9 @@ get_name(self, key=XML_XF_NAME) -> tuple
         
     def get_name(self, key=XML_XF_NAME) -> tuple:
         """Collect all Flame presets name from the XML Flame file.
+        
+        This is being added as a quick and cheap way to do so making some assumption ahead of time.
+        Read this class __init__ doc string to know more.
 
         Args:
             key (_type_, optional): _description_. Defaults to XML_XF_NAME. The XML Flame's name key.
