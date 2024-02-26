@@ -1,0 +1,247 @@
+;_name	TFFAsensorInfo
+; ModuleID = 'TFFAsensorInfo'
+source_filename = "TFFAsensorInfo"
+
+%sensor_info = type { double, <2 x double> }
+
+@0 = private constant [19 x i8] c"flam3h_sensor_zoom\00"
+@1 = private constant [18 x i8] c"flam3h_sensor_res\00"
+@2 = private constant [5 x i8] c"mode\00"
+@P = external global <3 x double>
+@Cd = external global <3 x double>
+@3 = private constant [2 x i8] c"P\00"
+@4 = private constant [3 x i8] c"Cd\00"
+
+; Function Attrs: alwaysinline nounwind
+define private double @"res_weight@FFFF"(double* %x, double* %y, double* %w) #0 {
+__llvm_entry:
+  %x1 = load double, double* %x
+  %y2 = load double, double* %y
+  %w3 = load double, double* %w
+  %output4 = fmul double %y2, %w3
+  %output5 = fadd double %x1, %output4
+  %output7 = fmul double 1.080000e+03, %w3
+  %output8 = fadd double 1.920000e+03, %output7
+  %output9 = call double @"div@FF"(double %output5, double %output8)
+  ret double %output9
+}
+
+; Function Attrs: nounwind readnone
+declare double @"div@FF"(double, double) #1
+
+; Function Attrs: alwaysinline nounwind
+define private void @"sensor_info_DATA@Z11sensor_infoM2N4zoomFN3resU"(%sensor_info* %this) #0 {
+__llvm_entry:
+  %return = call double @"chf@FS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @0, i64 0, i64 0))
+  %tmp = load %sensor_info, %sensor_info* %this
+  %0 = insertvalue %sensor_info %tmp, double %return, 0
+  %return1 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @1, i64 0, i64 0))
+  %1 = insertvalue %sensor_info %0, <2 x double> %return1, 1
+  store %sensor_info %1, %sensor_info* %this
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare double @"chf@FS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"chu@US"(i8*) #1
+
+; Function Attrs: alwaysinline nounwind
+define private %sensor_info @"sensor_info@Z11sensor_infoM2N4zoomFN3resUFU"(double* %zoom, <2 x double>* %res) #0 {
+__llvm_entry:
+  %zoom1 = load double, double* %zoom
+  %0 = insertvalue %sensor_info undef, double %zoom1, 0
+  %res2 = load <2 x double>, <2 x double>* %res
+  %1 = insertvalue %sensor_info %0, <2 x double> %res2, 1
+  ret %sensor_info %1
+}
+
+; Function Attrs: alwaysinline nounwind
+define private %sensor_info @"sensor_info@Z11sensor_infoM2N4zoomFN3resU"() #0 {
+__llvm_entry:
+  %0 = alloca <2 x double>
+  %1 = alloca double
+  store double 0.000000e+00, double* %1
+  store <2 x double> zeroinitializer, <2 x double>* %0
+  %sensor_info = call %sensor_info @"sensor_info@Z11sensor_infoM2N4zoomFN3resUFU"(double* %1, <2 x double>* %0)
+  ret %sensor_info %sensor_info
+}
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAsensorInfoCamera@VZ11sensor_infoM2N4zoomFN3resU"(<3 x double>* %p, %sensor_info* %INFO) #0 {
+__llvm_entry:
+  %0 = alloca double
+  %1 = alloca double
+  %2 = alloca double
+  %INFO1 = load %sensor_info, %sensor_info* %INFO
+  %zoom = extractvalue %sensor_info %INFO1, 0
+  %res = extractvalue %sensor_info %INFO1, 1
+  %p3 = load <3 x double>, <3 x double>* %p
+  %output = call <3 x double> @"add@VV"(<3 x double> %p3, <3 x double> <double 0.000000e+00, double 5.000000e-02, double 1.000000e-01>)
+  %return = call double @"getcomp@FUI"(<2 x double> %res, i64 0)
+  %return7 = call double @"getcomp@FUI"(<2 x double> %res, i64 1)
+  store double %return, double* %0
+  store double %return7, double* %1
+  store double 5.000000e-01, double* %2
+  %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
+  %output12 = call double @"div@FF"(double 1.000000e+00, double %zoom)
+  %output15 = fmul double %output12, 5.000000e+02
+  %cast = call <3 x double> @"set@VI"(i64 0)
+  %cast18 = call <3 x double> @"set@VF"(double %output12)
+  %return19 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast18)
+  %output24 = fmul double %output15, %res_weight
+  %cast25 = call <3 x double> @"set@VF"(double %output24)
+  %return26 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast25)
+  %output28 = call double @"div@FF"(double %return, double 2.000000e+00)
+  %return29 = call double @"neg@FF"(double %output28)
+  %output31 = call double @"div@FF"(double %return7, double 2.000000e+00)
+  %return32 = call <3 x double> @"set@VFFF"(double %return29, double %output31, double 0.000000e+00)
+  %output35 = call <3 x double> @"mul@V4"(<3 x double> %output, <16 x double> %return26)
+  %output38 = call <3 x double> @"mul@V4"(<3 x double> %return32, <16 x double> %return19)
+  %output39 = call <3 x double> @"add@VV"(<3 x double> %output35, <3 x double> %output38)
+  store <3 x double> %output39, <3 x double>* %p
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"add@VV"(<3 x double>, <3 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FUI"(<2 x double>, i64) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VI"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VF"(double) #1
+
+; Function Attrs: nounwind
+declare <16 x double> @"maketransform@4IIVVV"(i64, i64, <3 x double>, <3 x double>, <3 x double>) #2
+
+; Function Attrs: nounwind readnone
+declare double @"neg@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VFFF"(double, double, double) #1
+
+; Function Attrs: nounwind
+declare <3 x double> @"mul@V4"(<3 x double>, <16 x double>) #2
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAsensorInfoLogo@VZ11sensor_infoM2N4zoomFN3resU"(<3 x double>* %p, %sensor_info* %INFO) #0 {
+__llvm_entry:
+  %0 = alloca double
+  %1 = alloca double
+  %2 = alloca double
+  %INFO1 = load %sensor_info, %sensor_info* %INFO
+  %zoom = extractvalue %sensor_info %INFO1, 0
+  %res = extractvalue %sensor_info %INFO1, 1
+  %p3 = load <3 x double>, <3 x double>* %p
+  %output = call <3 x double> @"add@VV"(<3 x double> %p3, <3 x double> <double -1.000000e+00, double -8.000000e-01, double 1.000000e+00>)
+  %return = call double @"getcomp@FUI"(<2 x double> %res, i64 0)
+  %return7 = call double @"getcomp@FUI"(<2 x double> %res, i64 1)
+  store double %return, double* %0
+  store double %return7, double* %1
+  store double 5.000000e-01, double* %2
+  %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
+  %output12 = call double @"div@FF"(double 1.000000e+00, double %zoom)
+  %output15 = fmul double %output12, 6.000000e+01
+  %cast = call <3 x double> @"set@VI"(i64 0)
+  %cast18 = call <3 x double> @"set@VF"(double %output12)
+  %return19 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast18)
+  %output24 = fmul double %output15, %res_weight
+  %cast25 = call <3 x double> @"set@VF"(double %output24)
+  %return26 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast25)
+  %output28 = call double @"div@FF"(double %return, double 2.000000e+00)
+  %output30 = call double @"div@FF"(double %return7, double 2.000000e+00)
+  %return31 = call double @"neg@FF"(double %output30)
+  %return32 = call <3 x double> @"set@VFFF"(double %output28, double %return31, double 0.000000e+00)
+  %output35 = call <3 x double> @"mul@V4"(<3 x double> %output, <16 x double> %return26)
+  %output38 = call <3 x double> @"mul@V4"(<3 x double> %return32, <16 x double> %return19)
+  %output39 = call <3 x double> @"add@VV"(<3 x double> %output35, <3 x double> %output38)
+  store <3 x double> %output39, <3 x double>* %p
+  ret void
+}
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAsensorInfo@VV"(<3 x double>* %_bound_P, <3 x double>* %_bound_Cd) #0 {
+__llvm_entry:
+  %SENSOR_INFO = alloca %sensor_info
+  %0 = alloca %sensor_info
+  %p = alloca <3 x double>
+  %_bound_P1 = load <3 x double>, <3 x double>* %_bound_P
+  store <3 x double> %_bound_P1, <3 x double>* %p
+  %SENSOR_INFO2 = call %sensor_info @"sensor_info@Z11sensor_infoM2N4zoomFN3resU"()
+  %SENSOR_INFO2.fca.0.extract = extractvalue %sensor_info %SENSOR_INFO2, 0
+  %SENSOR_INFO2.fca.0.gep = getelementptr inbounds %sensor_info, %sensor_info* %SENSOR_INFO, i32 0, i32 0
+  store double %SENSOR_INFO2.fca.0.extract, double* %SENSOR_INFO2.fca.0.gep
+  %SENSOR_INFO2.fca.1.extract = extractvalue %sensor_info %SENSOR_INFO2, 1
+  %SENSOR_INFO2.fca.1.gep = getelementptr inbounds %sensor_info, %sensor_info* %SENSOR_INFO, i32 0, i32 1
+  store <2 x double> %SENSOR_INFO2.fca.1.extract, <2 x double>* %SENSOR_INFO2.fca.1.gep
+  call void @"sensor_info_DATA@Z11sensor_infoM2N4zoomFN3resU"(%sensor_info* %SENSOR_INFO)
+  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @2, i64 0, i64 0))
+  %1 = icmp ne i64 %return, 0
+  %SENSOR_INFO3.fca.0.load = load double, double* %SENSOR_INFO2.fca.0.gep
+  %SENSOR_INFO3.fca.0.insert = insertvalue %sensor_info undef, double %SENSOR_INFO3.fca.0.load, 0
+  %SENSOR_INFO3.fca.1.load = load <2 x double>, <2 x double>* %SENSOR_INFO2.fca.1.gep
+  %SENSOR_INFO3.fca.0.gep = getelementptr inbounds %sensor_info, %sensor_info* %0, i32 0, i32 0
+  store double %SENSOR_INFO3.fca.0.load, double* %SENSOR_INFO3.fca.0.gep
+  %SENSOR_INFO3.fca.1.gep = getelementptr inbounds %sensor_info, %sensor_info* %0, i32 0, i32 1
+  store <2 x double> %SENSOR_INFO3.fca.1.load, <2 x double>* %SENSOR_INFO3.fca.1.gep
+  br i1 %1, label %true, label %false
+
+true:                                             ; preds = %__llvm_entry
+  call void @"_TFFAsensorInfoLogo@VZ11sensor_infoM2N4zoomFN3resU"(<3 x double>* %p, %sensor_info* %0)
+  br label %end
+
+false:                                            ; preds = %__llvm_entry
+  call void @"_TFFAsensorInfoCamera@VZ11sensor_infoM2N4zoomFN3resU"(<3 x double>* %p, %sensor_info* %0)
+  br label %end
+
+end:                                              ; preds = %false, %true
+  %p5 = load <3 x double>, <3 x double>* %p
+  store <3 x double> %p5, <3 x double>* %_bound_P
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare i64 @"chi@IS"(i8*) #1
+
+; Function Attrs: nounwind
+define void @TFFAsensorInfo(<3 x double> %P, <3 x double> %Cd) #2 {
+__llvm_entry:
+  %0 = alloca <3 x double>
+  %"<P>" = alloca <3 x double>
+  store <3 x double> %P, <3 x double>* %"<P>"
+  call void @"_TFFAsensorInfo@VV"(<3 x double>* %"<P>", <3 x double>* %0)
+  %evalue = load <3 x double>, <3 x double>* %"<P>"
+  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @3, i64 0, i64 0), <3 x double> %evalue) #3
+  %gvalue2 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @4, i64 0, i64 0), <3 x double> %Cd) #3
+  store <3 x double> %gvalue, <3 x double>* @P
+  store <3 x double> %gvalue2, <3 x double>* @Cd
+  ret void
+}
+
+declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFAsensorInfo(<3 x double> zeroinitializer, <3 x double> <double 2.000000e+00, double 2.000000e+00, double 2.000000e+00>)
+  ret void
+}
+
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind readnone }
+attributes #2 = { nounwind }
+attributes #3 = { nounwind readonly }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"20.0.625"}
+!2 = !{!"64"}
+
+;_code_end

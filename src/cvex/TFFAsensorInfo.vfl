@@ -1,0 +1,123 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /
+ /  Title:      SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       October 2020, Last revised December 2022
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       SENSOR INFO CAMERA "CVEX"
+ /
+ /  Comment:    Place sensor's camera infos.
+*/
+
+
+#pragma opname  "TFFAsensorInfo"
+#pragma oplabel "TFFAsensorInfo"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+#include <math.h>
+
+float res_weight(const float x, y, w){ return ( x * 1+(y*w) ) / ( 1920 * 1+(1080*w) ); }
+
+
+struct sensor_info{
+    float zoom;
+    vector2 res;
+
+    void sensor_info_DATA(){
+        zoom = chf("flam3h_sensor_zoom");
+        res = chu("flam3h_sensor_res");
+    }
+}
+
+void _TFFAsensorInfoCamera(vector p; const sensor_info INFO)
+{
+
+    float sensor_zoom = INFO.zoom;
+    vector2 sensor_res = INFO.res;
+
+    vector myp_offset = {0, 0.05, 0.1};
+    vector myp = p + myp_offset;
+
+    float resx, resy, w, resw;
+    resx = sensor_res[0];
+    resy = sensor_res[1];
+
+    w = 0.5;
+    resw = res_weight(resx, resy, w);
+
+    float sw, factor, scale;
+    sw = 500;
+    factor = 1.0 / float(sensor_zoom);
+    scale = factor * sw;
+    matrix m4_tx = maketransform(0, 0, 0, 0, factor);
+    matrix m4_scale = maketransform(0, 0, 0, 0, scale*resw);
+
+    vector pos_font = set(-(resx/2), resy/2, 0);
+    myp = myp * m4_scale + pos_font * m4_tx;
+
+    p = myp;
+}
+
+
+void _TFFAsensorInfoLogo(vector p; const sensor_info INFO)
+{
+
+    float sensor_zoom = INFO.zoom;
+    vector2 sensor_res = INFO.res;
+
+    vector myp_offset = {-1, -0.8, 1};
+    vector myp = p + myp_offset;
+
+    float resx, resy, w, resw;
+    resx = sensor_res[0];
+    resy = sensor_res[1];
+
+    w = 0.5;
+    resw = res_weight(resx, resy, w);
+
+    float sw, factor, scale;
+    sw = 60;
+    factor = 1.0 / float(sensor_zoom);
+    scale = factor * sw;
+    matrix m4_tx = maketransform(0, 0, 0, 0, factor);
+    matrix m4_scale = maketransform(0, 0, 0, 0, scale*resw);
+
+    vector pos_font = set(resx/2, -(resy/2), 0);
+    myp = myp * m4_scale + pos_font * m4_tx;
+
+    p = myp;
+}
+
+void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
+{
+    vector p = _bound_P;
+    sensor_info SENSOR_INFO;
+    SENSOR_INFO->sensor_info_DATA();
+
+    if(chi("mode"))
+        _TFFAsensorInfoLogo(p,SENSOR_INFO);
+    else
+        _TFFAsensorInfoCamera(p, SENSOR_INFO);
+    _bound_P = p;
+}
+
+cvex
+TFFAsensorInfo( export vector P = 0;
+                export vector Cd = 2 )
+{
+    _TFFAsensorInfo(P, Cd);
+}
