@@ -1319,7 +1319,7 @@ Reload preset with "Copy render properties on Load" changes:
     
 infos Tab:
     #id: IN
-    Display information about the loaded Flame preset.
+    Display informations about the loaded Flame preset.
 
     Those infos include all the Missing variations if any are found in the currently loaded Flame preset.
 
