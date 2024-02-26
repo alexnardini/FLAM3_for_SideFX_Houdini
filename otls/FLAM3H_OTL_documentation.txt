@@ -1327,7 +1327,7 @@ infos Tab:
 
     FLAM3H was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
 
-    Any variation that Fractorium is unaware of will slilently slip away without notice during load.
+    All of the variations that Fractorium lacks will slilently slip away without notice during load.
     
 :box:
     #display: rounded white
