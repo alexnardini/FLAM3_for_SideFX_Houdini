@@ -109,7 +109,7 @@ void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
     SENSOR_INFO->sensor_info_DATA();
 
     if(chi("mode"))
-        _TFFAsensorInfoLogo(p,SENSOR_INFO);
+        _TFFAsensorInfoLogo(p, SENSOR_INFO);
     else
         _TFFAsensorInfoCamera(p, SENSOR_INFO);
     _bound_P = p;
