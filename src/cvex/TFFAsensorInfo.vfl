@@ -34,86 +34,64 @@ float res_weight(const float x, y, w){ return ( x * 1+(y*w) ) / ( 1920 * 1+(1080
 
 
 struct sensor_info{
+    int mode;
     float zoom;
     vector2 res;
 
     void sensor_info_DATA(){
+        mode = chi("mode");
         zoom = chf("flam3h_sensor_zoom");
         res = chu("flam3h_sensor_res");
     }
 }
 
-void _TFFAsensorInfoCamera(vector p; const sensor_info INFO)
-{
-
-    float sensor_zoom = INFO.zoom;
-    vector2 sensor_res = INFO.res;
-
-    vector myp_offset = {0, 0.05, 0.1};
-    vector myp = p + myp_offset;
-
-    float resx, resy, w, resw;
-    resx = sensor_res[0];
-    resy = sensor_res[1];
-
-    w = 0.5;
-    resw = res_weight(resx, resy, w);
-
-    float sw, factor, scale;
-    sw = 500;
-    factor = 1.0 / float(sensor_zoom);
-    scale = factor * sw;
-    matrix m4_tx = maketransform(0, 0, 0, 0, factor);
-    matrix m4_scale = maketransform(0, 0, 0, 0, scale*resw);
-
-    vector pos_font = set(-(resx/2), resy/2, 0);
-    myp = myp * m4_scale + pos_font * m4_tx;
-
-    p = myp;
-}
-
-
-void _TFFAsensorInfoLogo(vector p; const sensor_info INFO)
-{
-
-    float sensor_zoom = INFO.zoom;
-    vector2 sensor_res = INFO.res;
-
-    vector myp_offset = {-1, -0.8, 1};
-    vector myp = p + myp_offset;
-
-    float resx, resy, w, resw;
-    resx = sensor_res[0];
-    resy = sensor_res[1];
-
-    w = 0.5;
-    resw = res_weight(resx, resy, w);
-
-    float sw, factor, scale;
-    sw = 60;
-    factor = 1.0 / float(sensor_zoom);
-    scale = factor * sw;
-    matrix m4_tx = maketransform(0, 0, 0, 0, factor);
-    matrix m4_scale = maketransform(0, 0, 0, 0, scale*resw);
-
-    vector pos_font = set(resx/2, -(resy/2), 0);
-    myp = myp * m4_scale + pos_font * m4_tx;
-
-    p = myp;
-}
-
 void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
 {
-    vector p = _bound_P;
-    sensor_info SENSOR_INFO;
-    SENSOR_INFO->sensor_info_DATA();
+    int mode;
+    float sensor_zoom, resx, resy, sw, factor, scale, w, resw;
+    vector pos_info, myp, myp_offset;
+    vector2 sensor_res;
 
-    if(chi("mode"))
-        _TFFAsensorInfoLogo(p, SENSOR_INFO);
-    else
-        _TFFAsensorInfoCamera(p, SENSOR_INFO);
-    _bound_P = p;
+    sensor_info INFO;
+    INFO->sensor_info_DATA();
+
+    mode = INFO.mode;
+    sensor_zoom = INFO.zoom;
+    sensor_res = INFO.res;
+    
+    resx = sensor_res[0];
+    resy = sensor_res[1];
+    
+    if(mode){
+        sw = 60;
+        myp_offset = {-1, -0.8, 1};
+        pos_info = set(resx/2, -(resy/2), 0);
+    }
+    else{
+        _bound_Cd = 2;
+        sw = 500;
+        myp_offset = {0, 0.05, 0.1};
+        pos_info = set(-(resx/2), resy/2, 0);
+    }
+    myp = _bound_P;
+    myp += myp_offset;
+
+    resx = sensor_res[0];
+    resy = sensor_res[1];
+
+    w = 0.5;
+    resw = res_weight(resx, resy, w);
+
+    factor = 1.0 / float(sensor_zoom);
+    scale = factor * sw;
+    matrix m4_tx = maketransform(0, 0, 0, 0, factor);
+    matrix m4_scale = maketransform(0, 0, 0, 0, scale*resw);
+
+    myp = myp * m4_scale + pos_info * m4_tx;
+
+    _bound_P = myp;
 }
+
 
 cvex
 TFFAsensorInfo( export vector P = 0;
