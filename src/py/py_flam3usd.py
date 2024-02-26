@@ -57,8 +57,6 @@ def autoSetRenderer_on_create(self: hou.LopNode) -> None:
             for n in self.type().instances():
                 n.setParms({"rndtype": 1}) # type: ignore
         elif "Storm" in cr:
-            print("PIZZA")
-            print(hou.pwd())
             hou.SceneViewer.setHydraRenderer(view, cr)
             # Sync FLAM3H nodes
             for n in self.type().instances():
