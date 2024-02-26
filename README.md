@@ -3,7 +3,7 @@
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
-## FLAM3 for SideFX Houdini v1.x
+## FLAM3 for SideFX Houdini v1.x ( aka: FLAM3H )
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
