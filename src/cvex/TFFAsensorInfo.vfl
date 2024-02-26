@@ -56,9 +56,9 @@ void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
     INFO->sensor_info_DATA();
 
     mode = INFO.mode;
-    sensor_zoom = INFO.zoom;
     sensor_res = INFO.res;
-    
+    sensor_zoom = INFO.zoom;
+
     resx = sensor_res[0];
     resy = sensor_res[1];
     
