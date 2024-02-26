@@ -79,7 +79,7 @@ def flam3USD_on_create(kwargs: dict) -> None:
     # Set about box
     flam3USD_about_msg(node)
 
-    # INITIALIZE ffx_CS
+    # INITIALIZE F3H_CS
     try:
         hou.session.flam3h_viewport_CS # type: ignore
     except:
