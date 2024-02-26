@@ -1320,6 +1320,14 @@ Reload preset with "Copy render properties on Load" changes:
 infos Tab:
     #id: IN
     Display information about the loaded Flame preset.
+
+    Those infos include all the Missing variations if any are found in the currently loaded Flame preset.
+
+    All of the variations that Fractorium has but FLAM3H does not are known as: Missing variations.
+
+    FLAM3H was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
+
+    Any variation that Fractorium is unaware of will slilently slip away without notice during load.
     
 :box:
     #display: rounded white
