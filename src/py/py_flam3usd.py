@@ -48,16 +48,19 @@ def autoSetRenderer_on_create(self: hou.LopNode) -> None:
         cr = hou.SceneViewer.currentHydraRenderer(view)
         if "Houdini" in cr:
             hou.SceneViewer.setHydraRenderer(view, cr)
+            # Sync FLAM3H nodes
             for n in self.type().instances():
                 n.setParms({"rndtype": 0}) # type: ignore
         elif "Karma" in cr:
             hou.SceneViewer.setHydraRenderer(view, cr)
+            # Sync FLAM3H nodes
             for n in self.type().instances():
                 n.setParms({"rndtype": 1}) # type: ignore
         elif "Storm" in cr:
             print("PIZZA")
             print(hou.pwd())
             hou.SceneViewer.setHydraRenderer(view, cr)
+            # Sync FLAM3H nodes
             for n in self.type().instances():
                 n.setParms({"rndtype": 2}) # type: ignore
             
