@@ -19,7 +19,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.0.5'
+FLAM3HUSD_VERSION = '0.0.6'
 
 PREFS_VIEWPORT_DARK = 'setdark'
 
@@ -44,11 +44,19 @@ def autoSetRenderer_on_create(self: hou.LopNode) -> None:
     for view in util_getSceneViewers():
         cr = hou.SceneViewer.currentHydraRenderer(view)
         if "Houdini" in cr:
-            self.setParms({"rndtype": 0}) # type: ignore
+            hou.SceneViewer.setHydraRenderer(view, cr)
+            for n in self.type().instances():
+                n.setParms({"rndtype": 0}) # type: ignore
         elif "Karma" in cr:
-            self.setParms({"rndtype": 1}) # type: ignore
+            hou.SceneViewer.setHydraRenderer(view, cr)
+            for n in self.type().instances():
+                n.setParms({"rndtype": 1}) # type: ignore
         elif "Storm" in cr:
-            self.setParms({"rndtype": 2}) # type: ignore
+            print("PIZZA")
+            print(hou.pwd())
+            hou.SceneViewer.setHydraRenderer(view, cr)
+            for n in self.type().instances():
+                n.setParms({"rndtype": 2}) # type: ignore
             
 
 def flam3USD_on_create(kwargs: dict) -> None:
