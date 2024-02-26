@@ -21,6 +21,8 @@ import hou
 
 FLAM3HUSD_VERSION = '0.0.6'
 
+PREFS_PARTICLE_TYPE = 'vptype'
+PREFS_PARTICLE_SIZE = 'vpptsize'
 PREFS_VIEWPORT_DARK = 'setdark'
 
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
@@ -28,6 +30,7 @@ MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 
 def houdini_version() -> int:
     return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+
 
 
 def util_getSceneViewers() -> list:
@@ -59,6 +62,7 @@ def autoSetRenderer_on_create(self: hou.LopNode) -> None:
                 n.setParms({"rndtype": 2}) # type: ignore
             
 
+
 def flam3USD_on_create(kwargs: dict) -> None:
     """
     Args:
@@ -77,6 +81,7 @@ def flam3USD_on_create(kwargs: dict) -> None:
         hou.session.flam3h_viewport_CS # type: ignore
     except:
         hou.session.flam3h_viewport_CS = [] # type: ignore
+
 
 
 def colorSchemeDark(self: hou.LopNode) -> None:
@@ -136,10 +141,16 @@ def colorSchemeDark(self: hou.LopNode) -> None:
                 elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
                     settings.setColorScheme(DarkGrey)
         count += 1
+        
+    # Sync FLAM3H nodes
+    all_f3h = self.type().instances()
+    if len(all_f3h) > 1:
+        [f3h.setParms({PREFS_VIEWPORT_DARK: setprm}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm]
     
     # Update history
     hou.session.flam3h_viewport_CS = [] # type: ignore
     hou.session.flam3h_viewport_CS = viewers_col # type: ignore
+
 
 
 def viewportParticleDisplay(self: hou.LopNode) -> None:
@@ -153,6 +164,12 @@ def viewportParticleDisplay(self: hou.LopNode) -> None:
             settings.particleDisplayType(Points)
         elif pttype == 1:
             settings.particleDisplayType(Pixels)
+            
+    # Sync FLAM3H nodes
+    all_f3h = self.type().instances()
+    if len(all_f3h) > 1:
+        [f3h.setParms({PREFS_PARTICLE_TYPE: pttype}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_PARTICLE_TYPE).eval() != pttype]
+
 
 
 def viewportParticleSize(self: hou.LopNode) -> None:
@@ -164,20 +181,38 @@ def viewportParticleSize(self: hou.LopNode) -> None:
         settings.particleDisplayType(Points)
         settings.particlePointSize(ptsize)
         
+    # Sync FLAM3H nodes
+    all_f3h = self.type().instances()
+    if len(all_f3h) > 1:
+        [f3h.setParms({PREFS_PARTICLE_SIZE: ptsize}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_PARTICLE_SIZE).eval() != ptsize]
+        
+        
         
 def setHydraRenderer(self: hou.LopNode) -> None:
     rndtype = self.parm("rndtype").evalAsInt()
     for view in util_getSceneViewers():
         if rndtype == 0:
             hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
+            # Sync FLAM3H nodes
+            for n in self.type().instances():
+                if n != self:
+                    n.setParms({"rndtype": 0}) # type: ignore
         elif rndtype == 1:
             if houdini_version() < 20:
                 hou.SceneViewer.setHydraRenderer(view, 'Karma')
             else:
                 # H20 changed this name so let use the new one
                 hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
+            # Sync FLAM3H nodes
+            for n in self.type().instances():
+                if n != self:
+                    n.setParms({"rndtype": 1}) # type: ignore
         elif rndtype == 2:
             hou.SceneViewer.setHydraRenderer(view, 'Storm')
+            # Sync FLAM3H nodes
+            for n in self.type().instances():
+                if n != self:
+                    n.setParms({"rndtype": 2}) # type: ignore
             
 
 
