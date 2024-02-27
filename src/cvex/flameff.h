@@ -281,7 +281,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
         }
         else{
             // 52 BENT2 ( parametric )
-            else if(T==52){
+            if(T==52){
                 vector2 bent2 = chu(concat(prx, "bent2xy"));
                 V_BENT2(p, _p, w, bent2);
                 return p; }
@@ -370,7 +370,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
     else{
         if(T<88){
             // 70 SCRY ( parametric )
-            else if(T==70){
+            if(T==70){
                 V_SCRY(p, _p, w);
                 return p; }
             // 71 SEPARATION ( parametric )
