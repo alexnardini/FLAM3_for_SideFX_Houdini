@@ -4101,8 +4101,8 @@ iterator_keep_last_weight(self) -> None:
             if flam3h_node_mp_id is not None:
                 # Check if the node still exist
                 try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                        flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
@@ -4141,8 +4141,8 @@ iterator_keep_last_weight(self) -> None:
             if flam3h_node_mp_id is not None:
                 # Check if the node still exist
                 try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                        flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
