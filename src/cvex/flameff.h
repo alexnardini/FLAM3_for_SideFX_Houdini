@@ -313,7 +313,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 V_EDISC(p, _p, w);
                 return p; }
             // 59 ELLIPTIC
-            if(T==59){
+            else if(T==59){
                 V_ELLIPTIC(p, _p, w);
                 return p; }
             // 60 NOISE
@@ -386,7 +386,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 V_SPLIT(p, _p, w, split);
                 return p; }
             // 73 SPLITS ( parametric )
-            if(T==73){
+            else if(T==73){
                 vector2 splits = chu(concat(prx, "splitsxyz"));
                 V_SPLITS(p, _p, w, splits);
                 return p; }
