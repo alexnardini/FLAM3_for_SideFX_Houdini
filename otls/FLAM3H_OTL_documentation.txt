@@ -210,6 +210,7 @@ RIP:
     
     NOTE:
         If rendering a flame seems unusually slow, it's probably because certain points wind up being really far from the zero world.
+
         Those points will be eliminated if this option is turned ON.
 
         
@@ -405,6 +406,7 @@ OUT Presets mini menu:
         
     NOTE:
         Saving Flames from this icon, will always use a default name that uses the current date and time.
+
         In case you'd like to give your flames a proper name, you can do so from inside the OUT Tab.
     
 OUT Save:
@@ -454,6 +456,7 @@ number of iterators:
     
     NOTE:
         The order of the iterators does not matter at all.
+
         For this reason, it is suggested to create them one after the other, sequentially.
     
 :box:
@@ -472,8 +475,13 @@ copy/paste:
     #id: FLAME
     [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
 
-    All the necessary methods for copy/paste iterator's data are contained in this icon. This icon allows you to mark an iterator for being copied, and then copy the data from the marked iterator into another iterator number — even if it is located inside a separate FLAM3H node.
-    When you paste the data, it wil copy everything from the marked iterator but not Xaos. Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including Xaos.
+    All the necessary methods for copy/paste iterator's data are contained in this icon.
+    
+    This icon allows you to mark an iterator for being copied, and then copy the data from the marked iterator into another iterator number — even if it is located inside a separate FLAM3H node.
+
+    When you paste the data, it wil copy everything from the marked iterator but not Xaos.
+    
+    Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including Xaos.
     
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -624,7 +632,9 @@ opacity:
     
     
     
-    NOTE:
+    TIP:
+        #display: orange
+
         _Each iterator allows up to 8 variations ( pre-blur var, 2 Pre vars, 4 Vars plus 1 Post var) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
@@ -707,9 +717,12 @@ pre affine:
         A linear transformation cannot be used to translate a set of points. 
         
         To translate a set of points, we need to use an *_affine transformation_*. 
+
         An _affine transformation_ multiplies a vector by a matrix, just as in a linear transformation, 
         and then adds a vector to the result ( the *`O`*._`xy`_ component ). 
+
         This added *`vector2`* carries out the translation. 
+
         By applying an _affine transformation_ to an image on the screen, we can do everything a linear transformation can do, 
         and also have the ability to move the image up or down and left or right.
 
@@ -815,7 +828,10 @@ FF: copy/paste:
     #id: FF
     [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
 
-    All the necessary methods for copy/paste FF's data are contained in this icon. This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
+    All the necessary methods for copy/paste FF's data are contained in this icon.
+    
+    This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
+
     Once the FF has been marked, you can use the mini menu next to the icon to copy individual sections from the marked FF.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
@@ -843,7 +859,9 @@ FF: copy/paste:
         - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
         - [Smallicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
     
-    NOTE:
+    TIP:
+        #display: orange
+        
         _FF iterator allow up to 5 variations ( 1 Pre var, 2 Vars plus 2 Post vars ) to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
@@ -867,6 +885,7 @@ FF POST tab:
     POST Variations for the FF iterator.
     
     These are applyed after the variations. They are the very last transformation.
+
     * When using parametric variations, their parameters will populate the *FF: PP VARS* Tab.
     
     The order of the POST variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
@@ -883,11 +902,13 @@ swap FF POST vars:
 FF: w:
     #id: FF
     The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
+
     Can be set higher than 1 and negative too.
     
     TIP:
         #display: orange
         In order to lower the cost of the computation, it is preferable to set a variation weight to zero rather than retaining it at extremely low values if their impact is negligible.
+
         The variation will be fully disregarded at zero.
 
 
@@ -971,6 +992,7 @@ FF: PP VARS Tab:
     *CP:* _Flame fractal color palette._
     
     The palette colors used in a successful fractal Flame are crucial.
+
     In addition to playing with the shader parameters for each iterator, fractal Flames can be transformed into something truly unique by trying out various color schemes.
    
 :box:
@@ -1217,6 +1239,7 @@ IN file ( *.flame type ):
     
     NOTE:
         FLAM3H does not deal with any image color correction curves that are present inside Fractorium for example.
+
         Every time you load a Flame authored with Fractorium, those curves' values will be discarded and internally reset to their default values. ( no color correction at all )
     
 Reload:
@@ -1260,7 +1283,9 @@ Iterations on Load (int):
         If "*auto add iter num to Flame name*" OUT Tab option is *OFF*:
     
         The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
+
         For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
+
         However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "*My_Awesome_GrandJulia::16*".
         and load it with an iteration count of 16.
         
@@ -1337,7 +1362,9 @@ infos Tab:
 Render infos:
     #id: IN
     Give details on the render settings for the loaded Flame preset.
+
     These characteristics are unique to the renderer of the program from which the loaded Flame was created or saved.
+
     Some of the characteristics are unique to the Fractorium application, which has served as my point of reference.
     
 Copy/Paste render properties:
@@ -1345,12 +1372,15 @@ Copy/Paste render properties:
     [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
     
     When you click this icon, those render properties will be copied and pasted into the render properties of the OUT tab.
+
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
     When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
     
     NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H. These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
+        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
+        
+        These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
@@ -1456,6 +1486,7 @@ OUT file ( *.flame type ):
     TIP:
         #display: orange
         When you have finished creating a FLAM3H library, you can rename the file to begin with "*F3H_LOCK*" to prevent any future alterations.
+
         You can rename a lib file, for instance, called "*my_grandJulia.flame*" to "*F3H_LOCK_my_grandJulia.flame*" to keep it secure.
         
     
@@ -1485,8 +1516,10 @@ Save Flame:
         
     NOTE:
         Keep in mind that you can only utilize a variation once in each of the available variations' sections. 
+
         While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( types: PRE, VAR, POST )
         or you won't be able to save the same result.
+
         Save the hip file instead.
         
         This is true also for applications like Apophysis and Fractorium as they obey the same rule.
@@ -1501,7 +1534,9 @@ Flame name ( preset ):
         If "*auto add iter num to Flame name*" is *OFF*:
     
         The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
+
         For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
+
         However, if the iteration number is added to the preset name after a double colon, as in "*My_Awesome_GrandJulia::16*," it will override all settings and load the preset with 16 as the iteration numbers.
         
         Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
@@ -1587,9 +1622,11 @@ use Fractorium parametric prm names:
 Edit render properties:
     #id: OUT
     Allow the editing of the render properties for the host application you will load the saved Flame file into.
+
     Fractorium is the suggested one, followed by Apophysis.
     
     Those properties are specific to the renderer of the application you will load the saved flame into.
+
     Some of the properties are specific to Fractorium applications, which has been my point of reference.
     
     They will control how the saved fractal flame will render inside other applications like Fractorium and Apophysis.
@@ -1598,6 +1635,7 @@ Edit render properties:
     
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
+
         These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
         
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
@@ -1626,7 +1664,9 @@ SHOW sensor viz:
     Activate FLAM3H Camera sensor visualization.
     
     All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
+
     A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
+
     The FLAM3H camera sensor will precisely display the image framing.
 
     _This is meant to be used only when you intend to load the saved fractal flame into third-party programs and you desire to setup the fractal flame image framing in Houdini first. Below a screenshot as an example:_
@@ -1656,12 +1696,15 @@ Copy/Paste render properties:
     When you load a flame file in the IN tab, this icon will become available.
     
     When you click this icon, the currently loaded IN flame preset render properties will be copied and pasted here.
+
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
     The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
     
     NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H. These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
+        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
+        
+        These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
     
@@ -1794,6 +1837,7 @@ cvex precision modes:
     
     NOTE:
         Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slowly."
+
         Unless you see some significant artifacts and you genuinely adore the fractal flame you are working on, always use 32-bit.
     
 :box:
@@ -1845,7 +1889,9 @@ amount:
 Dark:
     #id: prefs
     If it isn't already, change the viewport's color scheme to dark.
+
     If unchecked, it will remember the color scheme for every viewport and fall back on it.
+    
     Checking this box has no effect if the color scheme in a viewport is already dark.
     
 type:
@@ -2078,7 +2124,9 @@ _Dependent variation's affine coefficients:_
 
 _A list of all parametric variations and their parametric parameter's names._
 
-NOTE:
+TIP:
+    #display: orange
+
     _Repeated variations names indicate distinct Houdini parameters._
     _For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters._
 
@@ -2276,6 +2324,7 @@ NOTE:
     
 NOTE:
     _In order to improve speed, the Cvex code base has been scaled down to its bare minimum; this results in the least amount of code required to implement the entire algorithm._
+
     _Be as conservative as you can if you want to add anything._
 
 
