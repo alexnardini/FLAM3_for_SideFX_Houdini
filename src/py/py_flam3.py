@@ -4058,9 +4058,7 @@ iterator_keep_last_weight(self) -> None:
             div_weight = ' :'
         
         # unlock
-        # node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-        # node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(False)
         
         # init indexes
         idx_del_inbetween = None
@@ -4258,7 +4256,6 @@ iterator_keep_last_weight(self) -> None:
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         # lock
-        # node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
 
