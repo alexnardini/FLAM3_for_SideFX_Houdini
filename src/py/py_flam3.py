@@ -12,9 +12,11 @@ from math import sin
 from math import cos
 from math import fsum
 from re import sub as re_sub
+from numpy import pad as np_pad
+from numpy import resize as np_resize
+from numpy import transpose as np_transpose
 import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
-import numpy as np
 import platform
 import os
 import json
@@ -4077,7 +4079,7 @@ iterator_keep_last_weight(self) -> None:
         # collect all xaos
         val = out_flame_utils.out_xaos_collect(node, iter_num, flam3h_iterator_prm_names.xaos)
         # fill missing weights if any
-        fill_all_xaos = [np.pad(item, (0, iter_num-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill_all_xaos = [np_pad(item, (0, iter_num-len(item)), 'constant', constant_values=1).tolist() for item in val]
         
         # convert all xaos into array of strings
         xaos_str = []
@@ -9994,7 +9996,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tuple[str]: the xaos TO values to write out.
         """
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill = [np_pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
@@ -10008,8 +10010,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """
         val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np.pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        t = np.transpose(np.resize(fill, (self._iter_count, self._iter_count))).tolist()
+        fill = [np_pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        t = np_transpose(np_resize(fill, (self._iter_count, self._iter_count))).tolist()
         if mode:
             xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
