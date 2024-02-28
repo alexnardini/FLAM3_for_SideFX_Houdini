@@ -178,7 +178,7 @@ OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 
-# Those Null node names are hard code here and represent the nodes name's prefix.
+# Those Null node names are hard coded here and represent the nodes name's prefix.
 # If you change those Null node names inside the FLAM3H houdini HDA network, update those global variables as well.
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
 OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
@@ -4027,10 +4027,13 @@ iterator_keep_last_weight(self) -> None:
         # init/clear copy/paste iterator's data and prm
         self.flam3h_paste_reset_hou_session_data()
         
-        # Print to Houdini's status bar
-        _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
-        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-        flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle", 2)
+        # If the node has its display flag ON
+        if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+            # Print to Houdini's status bar
+            _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            # Run a flash message
+            flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle", 2)
         
 
 
@@ -4051,11 +4054,6 @@ iterator_keep_last_weight(self) -> None:
         if autodiv:
             div_xaos = 'xaos :'
             div_weight = ' :'
-        
-        # unlock
-        node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
-        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-        node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(False)
         
         # init indexes
         idx_del_inbetween = None
@@ -4242,9 +4240,6 @@ iterator_keep_last_weight(self) -> None:
         prm_xaos = flam3h_iterator_prm_names.xaos
         [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)]
             
-        # lock
-        node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
-            
         # reset iterator's mpmem prm
         [node.setParms({f"{prm_mp_mem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
         # update flam3h_xaos_mpmem
@@ -4252,9 +4247,7 @@ iterator_keep_last_weight(self) -> None:
         
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
-        # lock
-        node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
-        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+
 
 
     def iterators_count(self) -> None:
