@@ -15,14 +15,14 @@ from re import sub as re_sub
 from numpy import pad as np_pad
 from numpy import resize as np_resize
 from numpy import transpose as np_transpose
+from webbrowser import open as www_open
+from inspect import cleandoc as i_cleandoc
 import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
 import platform
 import os
 import json
 import colorsys
-import webbrowser
-import inspect
 import hou
 import nodesearch
 
@@ -5343,35 +5343,35 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
         """Open a web browser to the FLAM3H homepage.
         """        
         page = "https://www.alexnardini.net/"
-        webbrowser.open(page)
+        www_open(page)
         
 
     def flam3h_about_web_github(self) -> None:
         """Open a web browser to the FLAM3H github repository.
         """  
         page = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
-        webbrowser.open(page)
+        www_open(page)
         
 
     def flam3h_about_web_instagram(self) -> None:
         """Open a web browser to the FLAM3H instagram account.
         """  
         page = "https://www.instagram.com/alexnardini/"
-        webbrowser.open(page)
+        www_open(page)
 
 
     def flam3h_about_web_paper(self) -> None:
         """Open a web browser to the original "the fractal flame algorithm" publication/paper pdf.
         """  
         page = "https://flam3.com/flame_draves.pdf"
-        webbrowser.open(page)
+        www_open(page)
         
 
     def flam3h_about_web_flam3_github(self) -> None:
         """Open a web browser to the original FLAM3 github repository.
         """  
         page = "https://github.com/scottdraves/flam3"
-        webbrowser.open(page)
+        www_open(page)
 
 
 
@@ -6550,7 +6550,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                 
                 HEX = []
                 for line in palette_hex.splitlines():
-                    cleandoc = inspect.cleandoc(line)
+                    cleandoc = i_cleandoc(line)
                     if(len(cleandoc)>1):
                         [HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 try:
@@ -10374,7 +10374,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], in_flame_utils.in_util_make_PRE) + [name_PRE_BLUR]
         names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
         # Set unique 'plugins' used and 'new linear' as last
-        flame.set(XML_FLAME_PLUGINS, inspect.cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
+        flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
         return self.out_flam3_compatibility_check_and_msg(names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
