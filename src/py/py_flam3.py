@@ -769,6 +769,10 @@ flam3h_on_deleted(self) -> None:
 
 
 
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
     @property
     def kwargs(self):
         return self._kwargs
@@ -1419,6 +1423,12 @@ reset_PREFS(self, mode=0) -> None:
                         view_obj.setTranslation(_CAM_STASHED.translation())
 
 
+
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
 
     @property
     def kwargs(self):
@@ -2513,6 +2523,11 @@ iterator_keep_last_weight(self) -> None:
 
 
 
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
 
     @property
     def kwargs(self):
@@ -4405,7 +4420,7 @@ isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool], parm_path_name=CP_PALE
 
 rgb_to_hex(rgb: tuple) -> str:
 
-hex_to_rgb(hex: str):
+hex_to_rgb(hex: str) -> tuple:
 
 METHODS:
 
@@ -4558,13 +4573,17 @@ reset_CP(self, mode=0) -> None:
             rgb (tuple): the HEX color value to convert into HEX color value.
 
         Returns:
-            str: RGB color value
+            tuple: RGB color value
         """   
         return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
         
 
 
 
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
 
     @property
     def kwargs(self):
@@ -5219,6 +5238,11 @@ flam3h_about_web_flam3_github(self) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
         
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
         
     @property
     def kwargs(self):
@@ -5228,6 +5252,8 @@ flam3h_about_web_flam3_github(self) -> None:
     def node(self):
         return self._node
         
+
+
 
     def flam3h_about_msg(self) -> None:
         """Build and set the FLAM3H about message.
@@ -5378,7 +5404,13 @@ ui_active_iterator_infos(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        
+
+
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
         
     @property
     def kwargs(self):
@@ -5388,6 +5420,8 @@ ui_active_iterator_infos(self) -> None:
     def node(self):
         return self._node
         
+
+
 
     def ui_xaos_infos(self) -> None:
         
@@ -5957,6 +5991,11 @@ get_name(self, key=XML_XF_NAME) -> tuple
         self._tree = lxmlET.parse(xmlfile) # type: ignore
 
 
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
     @property
     def xml(self):
         return self._xml
@@ -6252,6 +6291,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """        
         return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
     
+    
+    
+    
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
 
     @property
     def node(self):
@@ -6683,6 +6728,11 @@ class in_flame_iter_data(in_flame):
         self._cp_flam3h_cp_samples = self._in_flame__get_cp_flam3h_samples(self._idx) # type: ignore
         self._prefs_flam3h_f3c = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
 
     @property
     def idx(self):
@@ -9720,6 +9770,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
 
 
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
     @property
     def kwargs(self):
         return self._kwargs
@@ -10693,6 +10748,11 @@ class out_flame_render_properties(out_flame_utils):
         self._flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
         
 
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
     @property
     def flame_name(self):
         return self._flame_name
@@ -10827,6 +10887,12 @@ class out_flame_xforms_data(out_flame_utils):
         self._finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
         self._finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine() # type: ignore
         self._finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine() # type: ignore
+
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
 
     @property
     def xf_name(self):
