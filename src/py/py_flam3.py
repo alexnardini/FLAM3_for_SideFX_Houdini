@@ -2802,7 +2802,7 @@ iterator_keep_last_weight(self) -> None:
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed -> Mark an existing iterator instead.", "" )
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> Mark an existing iterator instead.", "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed from node: ../{from_FLAM3H_NODE.parent()}/{str(from_FLAM3H_NODE)} -> Mark an existing iterator instead.", "" )
                     else:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}", "" )
                 
@@ -4057,6 +4057,11 @@ iterator_keep_last_weight(self) -> None:
             div_xaos = 'xaos :'
             div_weight = ' :'
         
+        # unlock
+        # node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
+        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+        # node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(False)
+        
         # init indexes
         idx_del_inbetween = None
         idx_add_inbetween = None
@@ -4242,6 +4247,9 @@ iterator_keep_last_weight(self) -> None:
         prm_xaos = flam3h_iterator_prm_names.xaos
         [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)]
             
+        # lock
+        node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
+            
         # reset iterator's mpmem prm
         [node.setParms({f"{prm_mp_mem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
         # update flam3h_xaos_mpmem
@@ -4249,7 +4257,9 @@ iterator_keep_last_weight(self) -> None:
         
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
-
+        # lock
+        # node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
+        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
 
 
     def iterators_count(self) -> None:
