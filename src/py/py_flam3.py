@@ -2071,11 +2071,11 @@ METHODS:
 
 menu_T_data(self) -> tuple[int, str]:
 
-menu_T_data_FF(self) -> tuple[int, str]:
+menu_T_FF_data(self) -> tuple[int, str]:
 
 menu_T(self, FF=False) -> list:
 
-menu_T_data_pb(self) -> str:
+menu_T_pb_data(self) -> str:
 
 menu_T_pb(self) -> list:
 
@@ -2569,7 +2569,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def menu_T_data_FF(self) -> tuple[int, str]:
+    def menu_T_FF_data(self) -> tuple[int, str]:
         """Rerturn the selected FF variation index and the correct bookmark icon to use
         based on its weight value.
 
@@ -2612,7 +2612,7 @@ iterator_keep_last_weight(self) -> None:
         if not FF:
             _TYPE, _ICON = self.menu_T_data()
         else:
-            _TYPE, _ICON = self.menu_T_data_FF()
+            _TYPE, _ICON = self.menu_T_FF_data()
             
         for i, item in flam3h_varsPRM().menu_vars_all_capitalize():
             if i == _TYPE:
@@ -2626,7 +2626,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def menu_T_data_pb(self) -> str:
+    def menu_T_pb_data(self) -> str:
         """Rerturn the bookmark icon to use for the Pre blur variation
         based on its weight value.
 
@@ -2658,7 +2658,7 @@ iterator_keep_last_weight(self) -> None:
             list: [return menu list]
         """
         menu=[]
-        _ICON = self.menu_T_data_pb()
+        _ICON = self.menu_T_pb_data()
         menu.append(0)
         menu.append(f"{_ICON} Pre blur                   ") # 19 times \s
             
