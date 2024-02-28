@@ -5305,7 +5305,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
                     )
         
         build_about_msg = "".join(build)
-        self.node.setParms({MSG_FLAM3H_ABOUT: build_about_msg}) # type: ignore
+        self.node.setParms({MSG_FLAM3H_ABOUT: build_about_msg})
 
 
     def flam3h_about_plugins_msg(self) -> None:
@@ -5314,9 +5314,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
         vars_sorted = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys())]
         n = 5
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
-        _vars = [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)]
-        vars_txt = "".join(_vars)
-        self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt}) # type: ignore
+        vars_txt = "".join( [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
+        self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt})
         
         
     def flam3h_about_web_msg(self) -> None:
@@ -5331,11 +5330,11 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
         _FLAM3PDF_MSG    = 'The Fractal Flame Algorithm pdf'
         _FLAM3GIT_MSG    = 'The Fractal Flame Algorithm github'
         
-        node.setParms({MSG_FLAM3H_WEB:   _FLAM3HWEB_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3H_GIT:   _FLAM3HGIT_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3_PDF:    _FLAM3PDF_MSG}) # type: ignore
-        node.setParms({MSG_FLAM3_GIT:    _FLAM3GIT_MSG}) # type: ignore
+        node.setParms({MSG_FLAM3H_WEB:   _FLAM3HWEB_MSG})
+        node.setParms({MSG_FLAM3H_GIT:   _FLAM3HGIT_MSG})
+        node.setParms({MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG})
+        node.setParms({MSG_FLAM3_PDF:    _FLAM3PDF_MSG})
+        node.setParms({MSG_FLAM3_GIT:    _FLAM3GIT_MSG})
         
 
     def flam3h_about_web_homepage(self) -> None:
@@ -7833,7 +7832,7 @@ reset_IN(self, mode=0) -> None:
 
     @staticmethod
     def in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
-        """Get the itaration number from the loaded Flame preset if any.
+        """Get the iteration number from the loaded Flame preset if any.
 
         Args:
             preset_name (str): The Flame preset name.
