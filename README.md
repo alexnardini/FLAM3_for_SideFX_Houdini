@@ -62,8 +62,8 @@ Karma interactive rendering in the Houdini's viewport:
 
 **Highly inspired by Apophysis software and its workflow design.**
 
-Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3 for Houdini.
-Or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3 for Houdini. But also the other way around, create your flames in Houdini and render them inside other applications. You've got choices.
+Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3H.
+Or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3H. But also the other way around, create your flames in Houdini and render them inside other applications. You've got choices.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
@@ -79,8 +79,8 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
-Following are some images showing FLAM3 for Houdini rendering some of the Fractorium's example flame files.
-Some have been modified to fit within FLAM3 for Houdini's available variations. The screenshots show
+Following are some images showing FLAM3H rendering some of the Fractorium's example flame files.
+Some have been modified to fit within FLAM3H's available variations. The screenshots show
 Houdini Karma interactive on the left, and Fractorium with the same flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
@@ -128,20 +128,20 @@ Some use less, and some use a bit more. A few exceptions went above 128 and up t
 
 Some flames need truly an high number of iterations to be resolved correctly.
 
-Listed below are presets from Chaotica software that were converted to FLAM3 for Houdini. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
+Listed below are presets from Chaotica software that were converted to FLAM3H. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
 Some require thousands of iterations to show you the proper results; some of them require hundreds, and some others are really quick.
 
 ### Lets start with this gnarl preset:
 
-Iterations needed in FLAM3 for Houdini to resolve: **1280**
+Iterations needed in FLAM3H to resolve: **1280**
 
 `ieddaka gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 ### The next two are a bit more speedy:
 
-Iterations needed in FLAM3 for Houdini to resolve: **512**
+Iterations needed in FLAM3H to resolve: **512**
 ( potentially a bit less are needed for those but just in case. )
 
 `blue modulus. Author: tatasz`
@@ -152,21 +152,21 @@ Iterations needed in FLAM3 for Houdini to resolve: **512**
 
 ### This one is quick and beautiful:
 
-Iterations needed in FLAM3 for Houdini to resolve: **64**
+Iterations needed in FLAM3H to resolve: **64**
 
 `majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 ### And the last one:
 
-Iterations needed in FLAM3 for Houdini to resolve: **32**
+Iterations needed in FLAM3H to resolve: **32**
 
 `blurry splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
-The following is another preset Chaotica software ship with I truly loved ported inside FLAM3 for Houdini and rendered with Karma renderer.
+The following is another preset Chaotica software ship with I truly loved ported inside FLAM3H and rendered with Karma renderer.
 
-Iterations needed in FLAM3 for Houdini to resolve: **64**
+Iterations needed in FLAM3H to resolve: **64**
 
 `Golden Dragon - Author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
@@ -176,7 +176,7 @@ especially when relying heavily on containers and such.
 
 However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal flames with just six iterations. Here is one I did:
 
-Iterations needed in FLAM3 for Houdini to resolve: **6**
+Iterations needed in FLAM3H to resolve: **6**
 
 `Knot clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_knotCluster_HQ_iter_6.jpg)
