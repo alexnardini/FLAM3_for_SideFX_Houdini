@@ -3059,13 +3059,6 @@ iterator_keep_last_weight(self) -> None:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, "", str(id), str(mp_id_from))
-                
-                # if node==from_FLAM3H_NODE:
-                #     _MSG = f"{str(node)}: Copied values from -> iterator.{str(mp_id_from)}"
-                #     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                # else:
-                #     _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}"
-                #     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
         else:      
             if isDELETED:
@@ -3266,9 +3259,6 @@ iterator_keep_last_weight(self) -> None:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
-                
-                # _MSG = f"{str(node)}: Copied values from -> {str(from_FLAM3H_NODE)}.FF"
-                # flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
         else:
             if isDELETED:
