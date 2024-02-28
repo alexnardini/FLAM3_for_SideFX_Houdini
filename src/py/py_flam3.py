@@ -1586,11 +1586,18 @@ reset_PREFS(self, mode=0) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt() and not self.node.parm(OUT_UPDATE_SENSOR).evalAsInt():
             self.util_set_clipping_viewers()
             self.util_set_front_viewer()
+        
         else:      
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+            
             if viewport.isCurrentTab():
+                
                 view = viewport.curViewport()
+                
+                # if view.type() != hou.geometryViewportType.Front: # type: ignore
+                #     view.changeType(hou.geometryViewportType.Front) # type: ignore
+                
                 if self.bbox_reframe_path is not None:
                     node_bbox = hou.node(self.bbox_reframe_path)
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
