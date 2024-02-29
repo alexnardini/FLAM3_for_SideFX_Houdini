@@ -84,7 +84,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.2.75'
+FLAM3H_VERSION = '1.2.85'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -2778,7 +2778,7 @@ iterator_keep_last_weight(self) -> None:
         
         if mp_id_from is not None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {str(id)}: Iterator marked.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {str(id)}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
                 menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
             else:
@@ -2849,7 +2849,7 @@ iterator_keep_last_weight(self) -> None:
             flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             if node == flam3node_FF:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  FF marked.\n-> Select a different FLAM3H node to paste those FF values.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.", "" )
             else:
                 parent = f".../{flam3node_FF.parent()}"
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
