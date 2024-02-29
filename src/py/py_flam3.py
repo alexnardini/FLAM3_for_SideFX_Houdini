@@ -2793,7 +2793,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if isDELETED:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  Marked iterator's node has been deleted.\n->Mark another iterator first.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  DELETED: Marked iterator's node has been deleted.\n->Mark another iterator first.", "" )
                 
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
@@ -2862,7 +2862,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if isDELETED:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  Marked FF's node has been deleted.\n-> Mark another FF first.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  DELETED: Marked FF's node has been deleted.\n-> Mark another FF first.", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
