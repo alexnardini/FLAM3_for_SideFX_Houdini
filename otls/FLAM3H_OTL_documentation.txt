@@ -40,7 +40,11 @@ At first, it was just a straightforward point wrangle exercise to experiment wit
 I didn't know much about the subject at the time, but as I began experimenting with some of the free and open-source fractal flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
-These days, this tool has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
+Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
+FLAM3H attempts to absorb as much informations as possible about its capabilities and incorporates all it can into its own toolkit.
+
+These days, FLAM3H has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
+
 Additionally, when combined with Houdini's procedural paradigm and toolsets, fractal flames reach previously unheard-of levels of possibilities.
 
 _Lights festival - author: Alessandro Nardini_
@@ -629,8 +633,10 @@ opacity:
         - [Smallicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Smallicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
         - [Smallicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
-    
-    
+        
+        Pre blur:
+        
+        - [Smallicon:opdef:.?icon_optionStarBeigeSVG.svg] when its weight is above 0.
     
     TIP:
         #display: orange
