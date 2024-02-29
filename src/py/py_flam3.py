@@ -8467,8 +8467,8 @@ reset_IN(self, mode=0) -> None:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only ecasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
-        Houdini will mix them up sometime, giving inconsistent results.
+        This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
+        Houdini will mix them up sometime, giving inconsistent results until I perform a new selection from the menu labels list.
 
         Note:
         If you change the icon gobal variable name inside here,
@@ -9347,7 +9347,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
         """It will check the passed Flame name 
         and update the iteration number when changing iterations.
-        If not iteration number is present in the passed Flame name
+        If no iteration number is present in the passed Flame name
         it will add it to the end of the Flame name.
 
         Args:
@@ -10381,7 +10381,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Args:
             kwargs (dict): _description_
             outpath (str): Current OUT flame full file path.
-        """        
+        """   
+        node = self.node
+           
         root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
         flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
@@ -10391,8 +10393,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tree = lxmlET.ElementTree(root)
             tree.write(outpath)
             
+            node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.flash_message(node, f"Flame SAVED", 2)
 
 
 
@@ -10401,6 +10405,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
         Args:
         """ 
+        node = self.node
+        
         root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         
         if self.out_build_XML(root):
@@ -10408,8 +10414,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
+            node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard", 2)
 
 
 
@@ -10424,6 +10432,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         # with ET since I have the XML tree already stored using its Element type
         # root = apo_data.tree.getroot()
         
+        node = self.node
+        
         # with lxmlET
         tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
         root = tree.getroot()
@@ -10435,8 +10445,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             tree = lxmlET.ElementTree(root)
             tree.write(out_path)
             
+            node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.flash_message(node, f"Flame SAVED: Append", 2)
 
 
 
@@ -10456,10 +10468,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             
             # Write to the clipboard
             if kwargs['alt']:
-                
                 self.out_new_XML_clipboard()
-                node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-                flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard", 2)
                 
             # Otherwise if the output path is valid
             elif out_path_checked is not False:
@@ -10476,6 +10485,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         # Print to Houdini's status bar
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"This Flame file is LOCKED", 2)
+                        
                         # Pop up message window
                         if hou.isUIAvailable():
                             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -10487,7 +10497,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         if kwargs["ctrl"]:
                             node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
                             self.out_new_XML(str(out_path_checked))
-                            node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                             
                         else:
                             apo_data = in_flame(self.node, str(out_path_checked))
@@ -10495,15 +10504,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                             
                             if apo_data.isvalidtree:
                                 self.out_append_XML(apo_data, str(out_path_checked))
-                                node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                                 
                             else:
                                 self.out_new_XML(str(out_path_checked))
-                                node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
                                 
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
-                        # flam3h_general_utils(kwargs).flam3h_init_presets(OUT_SYS_PRESETS)
-                        flam3h_general_utils.flash_message(node, f"Flame SAVED", 2)
 
             else:
                 _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
