@@ -1320,15 +1320,10 @@ reset_PREFS(self, mode=0) -> None:
             msg (str): The message string to print
             type (str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
         """
-        if type == 'MSG':
-            severityType = hou.severityType.Message # type: ignore
-        elif type == 'IMP':
-            severityType = hou.severityType.ImportantMessage # type: ignore
-        elif type == 'WARN':
-            severityType = hou.severityType.Warning # type: ignore
+        st = {  'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning}  # type: ignore
 
         if hou.isUIAvailable():
-            hou.ui.setStatusMessage(msg, severityType) # type: ignore
+            hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
 
 
     @staticmethod
@@ -2498,6 +2493,7 @@ iterator_keep_last_weight(self) -> None:
         data_to_prm = ' '.join([str(x) for x in data])
         # unlock
         node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
+        # set
         node.setParms({FLAM3H_DATA_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
         # lock
         node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
@@ -2518,6 +2514,7 @@ iterator_keep_last_weight(self) -> None:
         # to prm from: flam3_xaos_convert()
         if isinstance(data, tuple):
             data_to_prm = ':'.join(data)
+            # set
             node.setParms({FLAM3H_DATA_PRM_XAOS_PREV: data_to_prm}) # type: ignore
             # lock
             node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
@@ -2526,6 +2523,7 @@ iterator_keep_last_weight(self) -> None:
             for xaos in data:
                 collect.append(' '.join(xaos))
             data_to_prm = ':'.join(collect)
+            # set
             node.setParms({FLAM3H_DATA_PRM_XAOS_PREV: data_to_prm}) # type: ignore
             # lock
             node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
@@ -2595,7 +2593,7 @@ iterator_keep_last_weight(self) -> None:
             if w > 1:
                 _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
             else:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF
+                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
         elif w < 0:
             _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
             
@@ -2729,8 +2727,8 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         ptcount = node.parm(GLB_DENSITY).evalAsInt()
         sel = self.kwargs['parm'].evalAsInt()
-        vals = [500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000]
-        vals_name = ["Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points"]
+        vals = (500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000)
+        vals_name = ("Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points")
         
         if ptcount != vals[sel]:
             node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
@@ -2811,7 +2809,7 @@ iterator_keep_last_weight(self) -> None:
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed from node: ../{from_FLAM3H_NODE.parent()}/{str(from_FLAM3H_NODE)}\n-> Mark an existing iterator instead.", "" )
                     else:
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}", "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
                 
                     for i, item in enumerate(menuitems):
                         menu.append(i-1)
@@ -2819,7 +2817,7 @@ iterator_keep_last_weight(self) -> None:
                     return menu
                 
                 else:
-                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}", "" )
+                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
                 
                     for i, item in enumerate(menuitems):
                         menu.append(i-1)
@@ -2870,7 +2868,7 @@ iterator_keep_last_weight(self) -> None:
                     menu.append(item)
                 return menu    
             else:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_FF_MSG}", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_FF_MSG}.", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
@@ -2967,7 +2965,7 @@ iterator_keep_last_weight(self) -> None:
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, int(self.get_user_data(from_FLAM3H_NODE)))
 
 
-        if not isDELETED:
+        if isDELETED is False:
             if mp_id_from is not None and from_FLAM3H_NODE is not None:
                 if not self.exist_user_data(from_FLAM3H_NODE):
                     mp_id_from = None
@@ -3029,7 +3027,7 @@ iterator_keep_last_weight(self) -> None:
                 from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
 
 
-        if not isDELETED:
+        if isDELETED is False:
             if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
                 if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
                     from_FLAM3H_NODE_FF_CHECK = None
@@ -3944,6 +3942,7 @@ iterator_keep_last_weight(self) -> None:
         """
         
         node = self.node
+        
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
         # update xaos
@@ -6015,10 +6014,9 @@ get_name(self, key=XML_XF_NAME) -> tuple
         Returns:
             Union[tuple, None]: Flame presets names.
         """     
-        if os.path.isfile(self.xml):   
+        if os.path.isfile(self._xml):   
             root = self._tree.getroot()
-            names = [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root]
-            return tuple(names)
+            return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
         else:
             # For safety, lets turn off those toggles
             hou.pwd().setParm({IN_ISVALID_FILE: 0})
@@ -6161,8 +6159,7 @@ __get_flame_count(self, flames: list) -> int:
         """        
         if self._isvalidtree:
             root = self._tree.getroot()
-            names = [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root]
-            return tuple(names)
+            return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
         else:
             return () 
         
@@ -6178,7 +6175,7 @@ __get_flame_count(self, flames: list) -> int:
         """        
         if self._isvalidtree:
             root = self._tree.getroot()
-            return tuple([f for f in root.iter(key)])
+            return tuple( [f for f in root.iter(key)] )
         else:
             return None
 
