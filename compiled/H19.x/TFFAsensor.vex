@@ -9,10 +9,11 @@ source_filename = "TFFAsensor"
 @2 = private constant [15 x i8] c"../../outscale\00"
 @3 = private constant [16 x i8] c"../../outrotate\00"
 @4 = private constant [0 x <3 x double>] zeroinitializer
-@5 = private constant [9 x i8] c"polyline\00"
-@6 = private constant [3 x i8] c"Cd\00"
-@7 = private constant [4 x i8] c"set\00"
-@8 = private constant [5 x i8] c"poly\00"
+@5 = private constant [3 x i8] c"Cd\00"
+@6 = private constant [4 x i8] c"set\00"
+@7 = private constant [5 x i8] c"poly\00"
+@8 = private constant [2 x i8] c"P\00"
+@9 = private constant [5 x i8] c"mult\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"sensorDATA@Z6sensorM4N3resUN6centerUN4zoomFN3rotF"(%sensor* %this) #0 {
@@ -103,144 +104,146 @@ __llvm_entry:
   %return25 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %return11, <3 x double> %cast19, <3 x double> %return9)
   %return28 = call <3 x double> @"neg@VV"(<3 x double> %return11)
   %return31 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %return28, <3 x double> %cast19, <3 x double> %return9)
-  %return33 = call double @"getcomp@FUI"(<2 x double> %SENSOR2.fca.0.load, i64 0)
-  %return35 = call double @"getcomp@FUI"(<2 x double> %SENSOR2.fca.0.load, i64 1)
-  %output37 = call double @"div@FF"(double %return33, double 2.000000e+00)
-  %return38 = call double @"neg@FF"(double %output37)
-  %output40 = call double @"div@FF"(double %return35, double 2.000000e+00)
-  %return41 = call <3 x double> @"set@VFFF"(double %return38, double %output40, double 0.000000e+00)
-  %return46 = call <3 x double> @"set@VFFF"(double %output37, double %output40, double 0.000000e+00)
-  %return51 = call double @"neg@FF"(double %output40)
-  %return52 = call <3 x double> @"set@VFFF"(double %output37, double %return51, double 0.000000e+00)
-  %return59 = call <3 x double> @"set@VFFF"(double %return38, double %return51, double 0.000000e+00)
-  %return64 = call <3 x double>* @"array@[V:VVVV"(<3 x double> %return41, <3 x double> %return46, <3 x double> %return52, <3 x double> %return59)
+  %return34 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> <double 1.000000e+00, double -1.000000e+00, double 1.000000e+00>)
+  %return36 = call double @"getcomp@FUI"(<2 x double> %SENSOR2.fca.0.load, i64 0)
+  %return38 = call double @"getcomp@FUI"(<2 x double> %SENSOR2.fca.0.load, i64 1)
+  %output40 = call double @"div@FF"(double %return36, double 2.000000e+00)
+  %return41 = call double @"neg@FF"(double %output40)
+  %output43 = call double @"div@FF"(double %return38, double 2.000000e+00)
+  %return44 = call <3 x double> @"set@VFFF"(double %return41, double %output43, double 0.000000e+00)
+  %return49 = call <3 x double> @"set@VFFF"(double %output40, double %output43, double 0.000000e+00)
+  %return54 = call double @"neg@FF"(double %output43)
+  %return55 = call <3 x double> @"set@VFFF"(double %output40, double %return54, double 0.000000e+00)
+  %return62 = call <3 x double> @"set@VFFF"(double %return41, double %return54, double 0.000000e+00)
+  %return67 = call <3 x double>* @"array@[V:VVVV"(<3 x double> %return44, <3 x double> %return49, <3 x double> %return55, <3 x double> %return62)
   br label %cond
 
 cond:                                             ; preds = %body, %__llvm_entry
-  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output80, %body ]
-  %_points_tm.0 = phi <3 x double>* [ getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @4, i64 0, i64 0), %__llvm_entry ], [ %output77, %body ]
-  %return66 = call i64 @"lt@III"(i64 %i.0, i64 4)
-  %0 = icmp ne i64 %return66, 0
+  %_points_tm.0 = phi <3 x double>* [ getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @4, i64 0, i64 0), %__llvm_entry ], [ %output80, %body ]
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output83, %body ]
+  %return69 = call i64 @"lt@III"(i64 %i.0, i64 4)
+  %0 = icmp ne i64 %return69, 0
   br i1 %0, label %body, label %end
 
 body:                                             ; preds = %cond
-  %return69 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %return64, i64 %i.0)
-  %output73 = call <16 x double> @"mul@44"(<16 x double> %return16, <16 x double> %return31)
-  %output74 = call <3 x double> @"mul@V4"(<3 x double> %return69, <16 x double> %output73)
-  %output77 = call <3 x double>* @"append@[VV"(<3 x double>* %_points_tm.0, <3 x double> %output74)
-  %output80 = add i64 %i.0, 1
+  %return72 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %return67, i64 %i.0)
+  %output76 = call <16 x double> @"mul@44"(<16 x double> %return16, <16 x double> %return31)
+  %output77 = call <3 x double> @"mul@V4"(<3 x double> %return72, <16 x double> %output76)
+  %output80 = call <3 x double>* @"append@[VV"(<3 x double>* %_points_tm.0, <3 x double> %output77)
+  %output83 = add i64 %i.0, 1
   br label %cond
 
 end:                                              ; preds = %cond
-  br label %cond82
+  br label %cond85
 
-cond82:                                           ; preds = %body83, %end
-  %i81.0 = phi i64 [ 0, %end ], [ %output107, %body83 ]
-  %_points_tm.1 = phi <3 x double>* [ %_points_tm.0, %end ], [ %output104, %body83 ]
-  %return85 = call i64 @"lt@III"(i64 %i81.0, i64 4)
-  %1 = icmp ne i64 %return85, 0
-  br i1 %1, label %body83, label %end86
+cond85:                                           ; preds = %body86, %end
+  %_points_tm.1 = phi <3 x double>* [ %_points_tm.0, %end ], [ %output107, %body86 ]
+  %i84.0 = phi i64 [ 0, %end ], [ %output110, %body86 ]
+  %return88 = call i64 @"lt@III"(i64 %i84.0, i64 4)
+  %1 = icmp ne i64 %return88, 0
+  br i1 %1, label %body86, label %end89
 
-body83:                                           ; preds = %cond82
-  %return91 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 %i81.0)
-  %return95 = call <16 x double> @"invert@44"(<16 x double> %return20)
-  %output96 = call <3 x double> @"mul@V4"(<3 x double> %return91, <16 x double> %return95)
-  %return98 = call <16 x double> @"invert@44"(<16 x double> %return31)
-  %output99 = call <3 x double> @"mul@V4"(<3 x double> %output96, <16 x double> %return98)
-  %output101 = call <3 x double> @"add@VV"(<3 x double> %output99, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 1.000000e-01>)
-  %return102 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %_points_tm.1, <3 x double> %output101, i64 %i81.0)
-  %output104 = extractvalue { <3 x double>, <3 x double>* } %return102, 1
-  %output107 = add i64 %i81.0, 1
-  br label %cond82
+body86:                                           ; preds = %cond85
+  %return94 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 %i84.0)
+  %return98 = call <16 x double> @"invert@44"(<16 x double> %return20)
+  %output99 = call <3 x double> @"mul@V4"(<3 x double> %return94, <16 x double> %return98)
+  %return101 = call <16 x double> @"invert@44"(<16 x double> %return31)
+  %output102 = call <3 x double> @"mul@V4"(<3 x double> %output99, <16 x double> %return101)
+  %output104 = call <3 x double> @"add@VV"(<3 x double> %output102, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 1.000000e-01>)
+  %return105 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %_points_tm.1, <3 x double> %output104, i64 %i84.0)
+  %output107 = extractvalue { <3 x double>, <3 x double>* } %return105, 1
+  %output110 = add i64 %i84.0, 1
+  br label %cond85
 
-end86:                                            ; preds = %cond82
-  %return109 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 0)
-  %return111 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 1)
-  %output112 = call <3 x double> @"add@VV"(<3 x double> %return109, <3 x double> %return111)
-  %return114 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 2)
-  %output115 = call <3 x double> @"add@VV"(<3 x double> %output112, <3 x double> %return114)
-  %return117 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 3)
+end89:                                            ; preds = %cond85
+  %return112 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 0)
+  %return114 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 1)
+  %output115 = call <3 x double> @"add@VV"(<3 x double> %return112, <3 x double> %return114)
+  %return117 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 2)
   %output118 = call <3 x double> @"add@VV"(<3 x double> %output115, <3 x double> %return117)
-  %cast119 = call <3 x double> @"set@VF"(double 4.000000e+00)
-  %output120 = call <3 x double> @"div@VV"(<3 x double> %output118, <3 x double> %cast119)
-  %return124 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %output120, <3 x double> %cast, <3 x double> %cast19)
-  br label %cond126
+  %return120 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.1, i64 3)
+  %output121 = call <3 x double> @"add@VV"(<3 x double> %output118, <3 x double> %return120)
+  %cast122 = call <3 x double> @"set@VF"(double 4.000000e+00)
+  %output123 = call <3 x double> @"div@VV"(<3 x double> %output121, <3 x double> %cast122)
+  %return127 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %output123, <3 x double> %cast, <3 x double> %cast19)
+  br label %cond129
 
-cond126:                                          ; preds = %body127, %end86
-  %_points_tm_out.0 = phi <3 x double>* [ getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @4, i64 0, i64 0), %end86 ], [ %output154, %body127 ]
-  %i125.0 = phi i64 [ 0, %end86 ], [ %output157, %body127 ]
-  %_points_tm.2 = phi <3 x double>* [ %_points_tm.1, %end86 ], [ %output144, %body127 ]
-  %return129 = call i64 @"lt@III"(i64 %i125.0, i64 4)
-  %2 = icmp ne i64 %return129, 0
-  br i1 %2, label %body127, label %end130
+cond129:                                          ; preds = %body130, %end89
+  %_points_tm.2 = phi <3 x double>* [ %_points_tm.1, %end89 ], [ %output147, %body130 ]
+  %_points_tm_out.0 = phi <3 x double>* [ getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @4, i64 0, i64 0), %end89 ], [ %output157, %body130 ]
+  %i128.0 = phi i64 [ 0, %end89 ], [ %output160, %body130 ]
+  %return132 = call i64 @"lt@III"(i64 %i128.0, i64 4)
+  %2 = icmp ne i64 %return132, 0
+  br i1 %2, label %body130, label %end133
 
-body127:                                          ; preds = %cond126
-  %return135 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 %i125.0)
-  %return139 = call <16 x double> @"invert@44"(<16 x double> %return124)
-  %output140 = call <3 x double> @"mul@V4"(<3 x double> %return135, <16 x double> %return139)
-  %return142 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %_points_tm.2, <3 x double> %output140, i64 %i125.0)
-  %output144 = extractvalue { <3 x double>, <3 x double>* } %return142, 1
-  %return148 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %output144, i64 %i125.0)
-  %return149 = call <16 x double> @"ident@4"()
-  %output150 = call <16 x double> @"mul@4F"(<16 x double> %return149, double 1.000000e+03)
-  %output151 = call <3 x double> @"mul@V4"(<3 x double> %return148, <16 x double> %output150)
-  %output153 = call <3 x double> @"add@VV"(<3 x double> %output151, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 1.000000e-01>)
-  %output154 = call <3 x double>* @"append@[VV"(<3 x double>* %_points_tm_out.0, <3 x double> %output153)
-  %output157 = add i64 %i125.0, 1
-  br label %cond126
+body130:                                          ; preds = %cond129
+  %return138 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 %i128.0)
+  %return142 = call <16 x double> @"invert@44"(<16 x double> %return127)
+  %output143 = call <3 x double> @"mul@V4"(<3 x double> %return138, <16 x double> %return142)
+  %return145 = call { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>* %_points_tm.2, <3 x double> %output143, i64 %i128.0)
+  %output147 = extractvalue { <3 x double>, <3 x double>* } %return145, 1
+  %return151 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %output147, i64 %i128.0)
+  %return152 = call <16 x double> @"ident@4"()
+  %output153 = call <16 x double> @"mul@4F"(<16 x double> %return152, double 1.000000e+03)
+  %output154 = call <3 x double> @"mul@V4"(<3 x double> %return151, <16 x double> %output153)
+  %output156 = call <3 x double> @"add@VV"(<3 x double> %output154, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 1.000000e-01>)
+  %output157 = call <3 x double>* @"append@[VV"(<3 x double>* %_points_tm_out.0, <3 x double> %output156)
+  %output160 = add i64 %i128.0, 1
+  br label %cond129
 
-end130:                                           ; preds = %cond126
-  %return159 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 0)
-  %return160 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return159)
-  %return162 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 1)
+end133:                                           ; preds = %cond129
+  %return162 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 0)
   %return163 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return162)
-  %return165 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 2)
+  %return165 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 1)
   %return166 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return165)
-  %return168 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 3)
+  %return168 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 2)
   %return169 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return168)
-  %return175 = call i64* @"array@[I:IIIII"(i64 %return160, i64 %return163, i64 %return166, i64 %return169, i64 %return160)
-  %return176 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @5, i64 0, i64 0), i64* %return175)
-  %return178 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 0)
-  %return179 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return178)
-  %return181 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 1)
-  %return182 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return181)
-  %return184 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 2)
-  %return185 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return184)
-  %return187 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 3)
-  %return188 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return187)
-  %return194 = call i64* @"array@[I:IIIII"(i64 %return179, i64 %return182, i64 %return185, i64 %return188, i64 %return179)
-  %return195 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @5, i64 0, i64 0), i64* %return194)
-  %cast196 = call <3 x double> @"set@VF"(double 5.000000e-02)
-  %return205 = call i64* @"array@[I:IIIIIIII"(i64 %return160, i64 %return163, i64 %return166, i64 %return169, i64 %return179, i64 %return182, i64 %return185, i64 %return188)
-  %return207 = call i64 @"len@I[I"(i64* %return205)
-  br label %cond208
+  %return171 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm.2, i64 3)
+  %return172 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return171)
+  %return174 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 0)
+  %return175 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return174)
+  %return177 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 1)
+  %return178 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return177)
+  %return180 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 2)
+  %return181 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return180)
+  %return183 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 3)
+  %return184 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return183)
+  %cast185 = call <3 x double> @"set@VF"(double 5.000000e-02)
+  %return194 = call i64* @"array@[I:IIIIIIII"(i64 %return163, i64 %return166, i64 %return169, i64 %return172, i64 %return175, i64 %return178, i64 %return181, i64 %return184)
+  %return196 = call i64 @"len@I[I"(i64* %return194)
+  br label %cond197
 
-cond208:                                          ; preds = %body209, %end130
-  %__impl_foreach_index.0 = phi i64 [ 0, %end130 ], [ %output222, %body209 ]
-  %return212 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return207)
-  %3 = icmp ne i64 %return212, 0
-  br i1 %3, label %body209, label %end213
+cond197:                                          ; preds = %body198, %end133
+  %__impl_foreach_index.0 = phi i64 [ 0, %end133 ], [ %output211, %body198 ]
+  %return201 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return196)
+  %3 = icmp ne i64 %return201, 0
+  br i1 %3, label %body198, label %end202
 
-body209:                                          ; preds = %cond208
-  %return217 = call i64 @"getcomp@I[II"(i64* %return205, i64 %__impl_foreach_index.0)
-  %return220 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @6, i64 0, i64 0), i64 %return217, <3 x double> %cast196, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @7, i64 0, i64 0))
-  %output222 = add i64 %__impl_foreach_index.0, 1
-  br label %cond208
+body198:                                          ; preds = %cond197
+  %return206 = call i64 @"getcomp@I[II"(i64* %return194, i64 %__impl_foreach_index.0)
+  %return209 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @5, i64 0, i64 0), i64 %return206, <3 x double> %cast185, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0))
+  %output211 = add i64 %__impl_foreach_index.0, 1
+  br label %cond197
 
-end213:                                           ; preds = %cond208
-  %return228 = call i64* @"array@[I:IIIII"(i64 %return160, i64 %return163, i64 %return182, i64 %return179, i64 %return160)
-  %return229 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @8, i64 0, i64 0), i64* %return228)
-  %return235 = call i64* @"array@[I:IIIII"(i64 %return163, i64 %return166, i64 %return185, i64 %return182, i64 %return163)
-  %return236 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @8, i64 0, i64 0), i64* %return235)
-  %return242 = call i64* @"array@[I:IIIII"(i64 %return166, i64 %return169, i64 %return188, i64 %return185, i64 %return166)
-  %return243 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @8, i64 0, i64 0), i64* %return242)
-  %return249 = call i64* @"array@[I:IIIII"(i64 %return169, i64 %return160, i64 %return179, i64 %return188, i64 %return169)
-  %return250 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @8, i64 0, i64 0), i64* %return249)
-  %return252 = call <16 x double> @"invert@44"(<16 x double> %return20)
-  %output254 = call <16 x double> @"mul@44"(<16 x double> %return252, <16 x double> %return25)
-  %return256 = call <16 x double> @"invert@44"(<16 x double> %return124)
-  %output257 = call <16 x double> @"mul@44"(<16 x double> %output254, <16 x double> %return256)
-  call void @"packedtransform@II4"(i64 0, i64 0, <16 x double> %output257)
+end202:                                           ; preds = %cond197
+  %return217 = call i64* @"array@[I:IIIII"(i64 %return163, i64 %return166, i64 %return178, i64 %return175, i64 %return163)
+  %return218 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return217)
+  %return224 = call i64* @"array@[I:IIIII"(i64 %return166, i64 %return169, i64 %return181, i64 %return178, i64 %return166)
+  %return225 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return224)
+  %return231 = call i64* @"array@[I:IIIII"(i64 %return169, i64 %return172, i64 %return184, i64 %return181, i64 %return169)
+  %return232 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return231)
+  %return238 = call i64* @"array@[I:IIIII"(i64 %return172, i64 %return163, i64 %return175, i64 %return184, i64 %return172)
+  %return239 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return238)
+  %return242 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return218, <16 x double> %return34, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
+  %return245 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return225, <16 x double> %return34, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
+  %return248 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return232, <16 x double> %return34, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
+  %return251 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return239, <16 x double> %return34, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
+  %return253 = call <16 x double> @"invert@44"(<16 x double> %return20)
+  %output255 = call <16 x double> @"mul@44"(<16 x double> %return253, <16 x double> %return25)
+  %return257 = call <16 x double> @"invert@44"(<16 x double> %return127)
+  %output258 = call <16 x double> @"mul@44"(<16 x double> %output255, <16 x double> %return257)
+  %output260 = call <16 x double> @"mul@44"(<16 x double> %output258, <16 x double> %return34)
+  call void @"packedtransform@II4"(i64 0, i64 0, <16 x double> %output260)
   ret void
 }
 
@@ -311,12 +314,6 @@ declare <16 x double> @"mul@4F"(<16 x double>, double) #2
 declare i64 @"addpoint@IIV"(i64, <3 x double>) #2
 
 ; Function Attrs: nounwind readnone
-declare i64* @"array@[I:IIIII"(i64, i64, i64, i64, i64) #1
-
-; Function Attrs: nounwind
-declare i64 @"addprim@IIS[I"(i64, i8*, i64*) #2
-
-; Function Attrs: nounwind readnone
 declare i64* @"array@[I:IIIIIIII"(i64, i64, i64, i64, i64, i64, i64, i64) #1
 
 ; Function Attrs: nounwind readnone
@@ -327,6 +324,15 @@ declare i64 @"getcomp@I[II"(i64*, i64) #1
 
 ; Function Attrs: nounwind
 declare i64 @"setpointattrib@IISIVS"(i64, i8*, i64, <3 x double>, i8*) #2
+
+; Function Attrs: nounwind readnone
+declare i64* @"array@[I:IIIII"(i64, i64, i64, i64, i64) #1
+
+; Function Attrs: nounwind
+declare i64 @"addprim@IIS[I"(i64, i8*, i64*) #2
+
+; Function Attrs: nounwind
+declare i64 @"setprimattrib@IISI4S"(i64, i8*, i64, <16 x double>, i8*) #2
 
 ; Function Attrs: nounwind
 declare void @"packedtransform@II4"(i64, i64, <16 x double>) #2
@@ -353,7 +359,7 @@ attributes #2 = { nounwind }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.0.506"}
+!1 = !{!"20.0.625"}
 !2 = !{!"64"}
 
 ;_code_end
