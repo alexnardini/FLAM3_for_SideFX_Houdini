@@ -37,6 +37,8 @@
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
+float res_weight(const float x, y, w){ return ( x * 1+(y*w) ) / ( 1920 * 1+(1080*w) ); }
+
 float ATAN(const vector2 p){ return atan2(p[0], p[1]); }
 
 float ATANYX(const vector2 p){ return atan2(p[1], p[0]); }

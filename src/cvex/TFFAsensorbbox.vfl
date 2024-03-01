@@ -28,7 +28,7 @@
 #pragma opmaxinputs 1
 
 
-float res_weight(const float x, y, w){ return ( x * 1+(y*w) ) / ( 1920 * 1+(1080*w) ); }
+#include <functions.h>
 
 
 struct sensor_info{

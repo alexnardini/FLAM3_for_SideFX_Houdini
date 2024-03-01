@@ -24,6 +24,84 @@ __llvm_entry:
 ; Function Attrs: nounwind readnone
 declare double @"div@FF"(double, double) #1
 
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FUI"(<2 x double>, i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"atan2@FFF"(double, double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"sqrt@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"neg@FF"(double) #1
+
+; Function Attrs: nounwind
+declare double @"clamp@FFFF"(double, double, double) #2
+
+; Function Attrs: nounwind readnone
+declare double @"tan@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"neg@II"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"floor@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"sin@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"cos@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #1
+
+; Function Attrs: nounwind
+declare double @"abs@FF"(double) #2
+
+; Function Attrs: nounwind
+declare double @"nrandom@F:S"(i8*) #2
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"set@UFF"(double, double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"isfinite@IF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"not@II"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"or@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"isnan@IF"(double) #1
+
+; Function Attrs: nounwind
+declare double @"length@FU"(<2 x double>) #2
+
+; Function Attrs: nounwind
+declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #2
+
+; Function Attrs: nounwind readnone
+declare <4 x double> @"rotate@2F"(<4 x double>, double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"lt@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"getcomp@S[SI"(i8**, i64) #1
+
+; Function Attrs: nounwind
+declare i8** @"append@[SS"(i8**, i8*) #2
+
 ; Function Attrs: alwaysinline nounwind
 define private void @"sensor_info_DATA@Z11sensor_infoM3N4modeIN4zoomFN3resU"(%sensor_info* %this) #0 {
 __llvm_entry:
@@ -146,18 +224,6 @@ end11:                                            ; preds = %false, %true
   %output56 = add i64 %i.0, 1
   br label %cond
 }
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FUI"(<2 x double>, i64) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"lt@III"(i64, i64) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"not@II"(i64) #1
-
-; Function Attrs: nounwind readnone
-declare double @"neg@FF"(double) #1
 
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VFFF"(double, double, double) #1

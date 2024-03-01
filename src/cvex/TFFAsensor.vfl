@@ -34,8 +34,6 @@
 #pragma opmaxinputs 1
 
 
-#include <math.h>
-
 
 struct sensor{
     vector2 res, center;
@@ -71,7 +69,7 @@ void _TFFAsensor()
     m4_first_no_scale = maketransform(0, 0, translation, 0, 1);
     m4_second = maketransform(0, 0, 0, rotation, 1, translation);
     m4_second_sensor = maketransform(0, 0, 0, -rotation, 1, translation);
-    m4_flip = maketransform(0, 0, 0, 0, {1, -1, 1});
+    m4_flip = maketransform(0, 0, 0, 0, set(1, -1, 1));
     
     float resx = sensor_res[0];
     float resy = sensor_res[1];
