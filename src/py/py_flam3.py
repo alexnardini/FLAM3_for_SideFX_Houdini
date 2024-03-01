@@ -2807,7 +2807,7 @@ iterator_keep_last_weight(self) -> None:
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", "" )
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed from node: ../{from_FLAM3H_NODE.parent()}/{str(from_FLAM3H_NODE)}\n-> Mark an existing iterator instead.", "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  REMOVED: The marked iterator has been removed from node: .../{from_FLAM3H_NODE.parent()}/{str(from_FLAM3H_NODE)}\n-> Mark an existing iterator instead.", "" )
                     else:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
                 
