@@ -1,0 +1,56 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /
+ /  Title:      SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       February 2024, Last revised February 2024
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       SENSOR BBOX "CVEX"
+ /
+ /  Comment:    Compute sensor bbox.
+*/
+
+
+#define SCL 1.133333
+
+#pragma opname  "TFFAsensorbbox"
+#pragma oplabel "TFFAsensorbbox"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+void _TFFAsensorbbox()
+{
+    vector p1, p3, dir, piv;
+    // Get bbox data
+    p1 = point(1, "P", 1);
+    p3 = point(1, "P", 3);
+
+    // Screen diagonal
+    dir = p3-p1;
+    // Bias the pivot toward the uppber bound
+    piv = p1 + (normalize(dir) * length(dir*0.8));
+    matrix m4 = maketransform(0, 0, 0, 0, set(1, SCL, 1), piv);
+    
+    // Build bbox data
+    addpoint(0, p1*m4);
+    addpoint(0, p3*m4);  
+  
+}
+
+cvex
+TFFAsensorbbox()
+{
+    _TFFAsensorbbox();
+}

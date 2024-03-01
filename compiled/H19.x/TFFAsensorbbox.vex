@@ -1,0 +1,91 @@
+;_name	TFFAsensorbbox
+; ModuleID = 'TFFAsensorbbox'
+source_filename = "TFFAsensorbbox"
+
+@0 = private constant [2 x i8] c"P\00"
+
+; Function Attrs: alwaysinline nounwind
+define private void @_TFFAsensorbbox() #0 {
+__llvm_entry:
+  %return = call <3 x double> @"point@VISI"(i64 1, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @0, i64 0, i64 0), i64 1)
+  %return1 = call <3 x double> @"point@VISI"(i64 1, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @0, i64 0, i64 0), i64 3)
+  %output = call <3 x double> @"sub@VV"(<3 x double> %return1, <3 x double> %return)
+  %return6 = call <3 x double> @"normalize@VV"(<3 x double> %output)
+  %cast = call <3 x double> @"set@VF"(double 8.000000e-01)
+  %output8 = call <3 x double> @"mul@VV"(<3 x double> %output, <3 x double> %cast)
+  %return9 = call double @"length@FV"(<3 x double> %output8)
+  %cast10 = call <3 x double> @"set@VF"(double %return9)
+  %output11 = call <3 x double> @"mul@VV"(<3 x double> %return6, <3 x double> %cast10)
+  %output12 = call <3 x double> @"add@VV"(<3 x double> %return, <3 x double> %output11)
+  %cast13 = call <3 x double> @"set@VI"(i64 0)
+  %return15 = call <3 x double> @"set@VFFF"(double 1.000000e+00, double 1.133333e+00, double 1.000000e+00)
+  %return17 = call <16 x double> @"maketransform@4IIVVVV"(i64 0, i64 0, <3 x double> %cast13, <3 x double> %cast13, <3 x double> %return15, <3 x double> %output12)
+  %output20 = call <3 x double> @"mul@V4"(<3 x double> %return, <16 x double> %return17)
+  %return21 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output20)
+  %output24 = call <3 x double> @"mul@V4"(<3 x double> %return1, <16 x double> %return17)
+  %return25 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output24)
+  ret void
+}
+
+; Function Attrs: nounwind
+declare <3 x double> @"point@VISI"(i64, i8*, i64) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"sub@VV"(<3 x double>, <3 x double>) #2
+
+; Function Attrs: nounwind
+declare <3 x double> @"normalize@VV"(<3 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VF"(double) #2
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"mul@VV"(<3 x double>, <3 x double>) #2
+
+; Function Attrs: nounwind
+declare double @"length@FV"(<3 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"add@VV"(<3 x double>, <3 x double>) #2
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VI"(i64) #2
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VFFF"(double, double, double) #2
+
+; Function Attrs: nounwind readnone
+declare <16 x double> @"maketransform@4IIVVVV"(i64, i64, <3 x double>, <3 x double>, <3 x double>, <3 x double>) #2
+
+; Function Attrs: nounwind
+declare <3 x double> @"mul@V4"(<3 x double>, <16 x double>) #1
+
+; Function Attrs: nounwind
+declare i64 @"addpoint@IIV"(i64, <3 x double>) #1
+
+; Function Attrs: nounwind
+define void @TFFAsensorbbox() #1 {
+__llvm_entry:
+  call void @_TFFAsensorbbox()
+  ret void
+}
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFAsensorbbox()
+  ret void
+}
+
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind }
+attributes #2 = { nounwind readnone }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"20.0.625"}
+!2 = !{!"64"}
+
+;_code_end
