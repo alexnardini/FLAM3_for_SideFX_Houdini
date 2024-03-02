@@ -363,7 +363,7 @@ IN Presets mini menu:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - When loading a Flame from the clipboard, no bookmark icon will be displayed.
+    - [Smallicon:opdef:.?icon_optionFlameINEntrieCBSVG.svg] when a flame preset is loaded from the Clipboard.
     
     TIP:
         #display: orange
@@ -1277,7 +1277,7 @@ Presets:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - When loading a Flame from the clipboard, no bookmark icon will be displayed.
+    - [Smallicon:opdef:.?icon_optionFlameINEntrieCBSVG.svg] when a flame preset is loaded from the Clipboard.
     
 Iterations on Load (int):
     #id: IN

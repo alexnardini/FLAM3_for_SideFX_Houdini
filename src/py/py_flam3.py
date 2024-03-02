@@ -237,6 +237,7 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwa
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_LOAD_CB = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieCBSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG_disabled.svg]'
 FLAM3H_ICON_STAR_FLAME_SAVE = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteStarSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg]'
@@ -1707,31 +1708,37 @@ reset_PREFS(self, mode=0) -> None:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
+        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
+        
         prm = node.parm(IN_PRESETS)
         prm_off = node.parm(IN_PRESETS_OFF)
         prm.set('-1')
         prm_off.set('-1')
-        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
         
         xml = node.parm(IN_PATH).evalAsString()
         if os.path.isfile(xml):
             # We are using the class: _xml_tree becasue we really need to carefully validate the loaded flame file.
             # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
-            apo = _xml_tree(xml)
-            if not apo.isvalidtree:
+            # apo = _xml_tree(xml)
+            if not _xml_tree(xml).isvalidtree:
                 if clipboard:
-                    prm.set('-1')
-                    prm_off.set('-1')
                     node.setParms({IN_ISVALID_FILE: 0})
                 else:
-                    prm.set('-1')
-                    prm_off.set('-1')
                     node.setParms({IN_ISVALID_FILE: 0})
                     node.setParms({IN_ISVALID_PRESET: 0})
                     node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-                    node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
+                    
+                    node.setParms({MSG_FLAMESTATS: ""})
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                        
+                # If it is not a chaotica xml file do print out from here,
+                # other wise we are printing out from:
+                # class: _xml_tree(...) @staticmethod -> xmlfile_root_chk(...)
+                if not in_flame_utils.in_to_flam3h_is_CHAOS(xml):
+                    _MSG = "Flame IN -> Nothing to load"
+                    flam3h_general_utils.set_status_msg(f"{str(node)}: {_MSG}", 'MSG')
+                    flam3h_general_utils.flash_message(node, _MSG, 2)
             else:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
@@ -1743,11 +1750,10 @@ reset_PREFS(self, mode=0) -> None:
         else:
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
-                prm.set('-1')
-                prm_off.set('-1')
                 node.setParms({IN_ISVALID_FILE: 0})
                 node.setParms({IN_ISVALID_PRESET: 0})
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                
                 node.setParms({MSG_FLAMESTATS: ""})
                 node.setParms({MSG_FLAMERENDER: ""})
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""})
@@ -1756,8 +1762,6 @@ reset_PREFS(self, mode=0) -> None:
                     print(f'{str(node)}.IN: please select a valid file location.')
             else:
                 # Otherwise just mark the absence of a valid file and leave everything else untouched
-                prm.set('-1')
-                prm_off.set('-1')
                 node.setParms({IN_ISVALID_FILE: 0})
                 
         # Force preset menu to updated
@@ -6103,6 +6107,10 @@ __get_flame_count(self, flames: list) -> int:
                     return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
                 else:
                     if XML_VALID_CHAOS_ROOT_TAG in root_tag:
+                        # let us know
+                        _MSG = "Flame IN -> Chaotica XML not supported"
+                        print(f"{hou.pwd().name()}: {_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'MSG')
                         flam3h_general_utils.flash_message(hou.pwd(), f"Flame IN -> Chaotica XML not supported", 2)
                     return None
             else:
@@ -6869,6 +6877,10 @@ in_util_make_PRE(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Un
 
 in_util_make_POST(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
 
+in_to_flam3h_is_CHAOS(xml: str) -> bool:
+
+in_to_flam3h_clipboard_is_CHAOS() -> bool:
+
 in_get_xforms_var_keys( xforms: Union[tuple, None], 
                         vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
                         exclude_keys: tuple
@@ -7150,6 +7162,53 @@ reset_IN(self, mode=0) -> None:
             return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
         else:
             return None
+
+
+    @staticmethod
+    def in_to_flam3h_is_CHAOS(xml: str) -> bool:
+        """Load a flame preset from a file and tell us if it is a Chaotica flame preset or not.
+
+        Args:
+            xml (str): the xml file to load from.
+
+        Returns:
+            bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
+        """ 
+        try:
+            tree = lxmlET.parse(xml) # type: ignore
+        except:
+            tree = None
+              
+        if tree is not None:
+                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
+                    return True
+                else:
+                    return False
+        else:
+            return False
+
+
+    @staticmethod
+    def in_to_flam3h_clipboard_is_CHAOS() -> bool:
+        """Load a flame preset from the clipboard and tell us if it is a Chaotica flame preset or not.
+
+        Returns:
+            bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
+        """     
+        xml = hou.ui.getTextFromClipboard() # type: ignore
+        try:
+            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except:
+            tree = None
+        if tree is not None:
+                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
+                    return True
+                else:
+                    return False
+        else:
+            return False
+
+
 
     
     @staticmethod
@@ -8462,10 +8521,18 @@ reset_IN(self, mode=0) -> None:
         if node.parm(IN_ISVALID_FILE).eval():
             xml = node.parm(IN_PATH).evalAsString()
             for i, item in enumerate(_xml(xml).get_name()):
-                # ICON tag
+                # ICON bookmarks
+                
+                # If a flame preset from a file is loaded
                 if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                    
+                # If a flame preset from the clipboard is loaded
+                elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                    
                 else:
                     menu.append(i)
                     menu.append(item)
@@ -8474,7 +8541,7 @@ reset_IN(self, mode=0) -> None:
         else:
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
                 menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  Clipboard     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
                 return menu
             
             else:
@@ -8505,10 +8572,18 @@ reset_IN(self, mode=0) -> None:
         if node.parm(IN_ISVALID_FILE).eval():
             xml = node.parm(IN_PATH).evalAsString()
             for i, item in enumerate(_xml(xml).get_name()):
-                # ICON tag
+                # ICON bookmarks
+                
+                # If a flame preset from a file is loaded
                 if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                    
+                # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
+                # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                #     menu.append(i)
+                #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                    
                 else:
                     menu.append(i)
                     menu.append(item)
@@ -8517,7 +8592,7 @@ reset_IN(self, mode=0) -> None:
         else:
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
                 menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  Clipboard     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
                 return menu
             
             else:
@@ -8656,31 +8731,6 @@ reset_IN(self, mode=0) -> None:
             node.setParms({FLAME_ITERATORS_COUNT: in_flame_iter_count}) # type: ignore
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
             [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
-
-
-
-    def in_to_flam3h_is_CHAOS(self) -> bool:
-        """Load a flame preset from the clipboard and tell us if it is a Chaotica flame preset or not.
-
-        Args:
-            node (hou.SopNode): FLAM3H node to load the flame preset into.
-
-        Returns:
-            bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
-        """     
-        xml = hou.ui.getTextFromClipboard() # type: ignore
-        try:
-            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-        except:
-            tree = None
-        if tree is not None:
-                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
-                    return True
-                else:
-                    return False
-        else:
-            return False
-
 
 
 
@@ -8887,7 +8937,7 @@ reset_IN(self, mode=0) -> None:
         xml = node.parm(IN_PATH).evalAsString()
 
         # if _xml_tree(xml).isvalidtree:
-        if node.parm(IN_ISVALID_FILE).evalAsInt():
+        if xml and node.parm(IN_ISVALID_FILE).evalAsInt():
             if node.parm(IN_ISVALID_PRESET).evalAsInt():
                 preset_id = node.parm(IN_SYS_PRESETS).eval()
                 # Updated other PRESETS menu parameters
@@ -8901,7 +8951,7 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_PRESETS: preset_id}) # type: ignore
                 node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
         
-        self.in_to_flam3h()
+            self.in_to_flam3h()
 
     '''
         The following is the actual load preset/flame function to be used.
@@ -9078,70 +9128,52 @@ reset_IN(self, mode=0) -> None:
             ####################################################
             
         else:
-
-            in_xml = node.parm(IN_PATH).evalAsString()
             
-            if self.in_to_flam3h_is_CHAOS():
-                _MSG = f"{str(node)}: IN FLAME Clipboard -> Chaotica XML not supported"
+            if self.in_to_flam3h_clipboard_is_CHAOS():
+                _MSG = f"{node.name()}: Flame IN Clipboard -> Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"Flame LOAD -> Chaotica XML not supported", 2)
-
-            # The followings need some revisions...not a big deal but it would be nice to cleanup at some point.
+                flam3h_general_utils.flash_message(node, _MSG, 2)
 
             elif attempt_from_clipboard:
-                node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
-                flam3h_general_utils.flash_message(node, f"Flame IN Clipboard -> Nothing to load", 2)
-
-            elif clipboard and _xml_tree(in_xml).isvalidtree:
-                node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
-                _MSG = f"{str(node)}: IN FLAME Clipboard -> Nothing to load"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
-                
-            elif not clipboard and _xml_tree(in_xml).isvalidtree:
-                _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
-                
-            elif node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
-                _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
+                _MSG = "Flame IN Clipboard -> Nothing to load"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                flam3h_general_utils.flash_message(node, _MSG, 2)
                 
             else:
-                if clipboard:
-                    node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
-                    # Status Bar
-                    _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
-                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                    flam3h_general_utils.flash_message(node, f"Flame IN -> Select a valid Flame file", 2)
                 
-                else:
-                    node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
-                    node.setParms({IN_ISVALID_PRESET: 0}) #type: ignore
-                    node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
-                
-                    if not clipboard and xml is not None and os.path.isfile(xml) and os.path.getsize(xml)>0:
-                        node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
-                        node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-                        
-                        # Status Bar
-                        _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
-                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                        flam3h_general_utils.flash_message(node, f"Flame IN -> Select a valid Flame file", 2)
-                        
-                        # The following do not work, not sure why
-                        node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                in_xml = node.parm(IN_PATH).evalAsString()
+                    
+                if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                    node.setParms({IN_ISVALID_FILE: 0})
+                    
+                    if self.in_to_flam3h_is_CHAOS(in_xml):
+                        _MSG = f"Flame IN -> Chaotica XML not supported"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                        flam3h_general_utils.flash_message(node, _MSG, 2)
                         
                     else:
-                        node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
-                        node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-                        # The following do not work, not sure why
-                        node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                        _MSG = "Flame IN -> Nothing to load"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                        flam3h_general_utils.flash_message(node, _MSG, 2)
                         
-                        _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                        flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
+                else:
+                    node.setParms({IN_ISVALID_FILE: 0})
+                    node.setParms({IN_ISVALID_PRESET: 0})
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                    # clear info msgs
+                    node.setParms({MSG_FLAMESTATS: ""})
+                    node.setParms({MSG_FLAMERENDER: ""})
+                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                    
+                    if self.in_to_flam3h_is_CHAOS(in_xml):
+                        _MSG = f"Flame IN -> Chaotica XML not supported"
+                        flam3h_general_utils.set_status_msg(f"{str(node)}: {_MSG}", 'MSG')
+                        flam3h_general_utils.flash_message(node, _MSG, 2)
+                        
+                    else:
+                        _MSG = "Flame IN -> Nothing to load"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                        flam3h_general_utils.flash_message(node, _MSG, 2)
 
 
 
