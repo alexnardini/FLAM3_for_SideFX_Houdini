@@ -487,6 +487,8 @@ copy/paste:
     
     Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including Xaos.
     
+    Every item in the mini menu is named exactly like every folder an iterator posses.
+    
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
@@ -840,6 +842,8 @@ FF: copy/paste:
     This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
 
     Once the FF has been marked, you can use the mini menu next to the icon to copy individual sections from the marked FF.
+    
+    Every item in the mini menu is named exactly like every folder the FF iterator posses.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
