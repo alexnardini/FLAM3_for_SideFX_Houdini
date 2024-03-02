@@ -235,6 +235,7 @@ FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarB
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
+# ICON menu vars and palette
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
