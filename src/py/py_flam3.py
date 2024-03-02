@@ -5078,13 +5078,13 @@ reset_CP(self, mode=0) -> None:
         # Apply HSV if any is currently set
         self.palette_hsv()
         
-        if node.parm(CP_ISVALID_FILE).evalAsInt():
+        if node.parm(CP_ISVALID_FILE).eval():
             rmptmp = node.parm(CP_RAMP_TMP_NAME)
             if rmpsrc.evalAsRamp().keys() != rmptmp.evalAsRamp().keys() or rmpsrc.evalAsRamp().values() != rmptmp.evalAsRamp().values():
                 # Mark this as not a loaded palette preset
                 node.setParms({CP_ISVALID_PRESET: 0})
             else:
-                # Mark this as a loaded palette preset
+                # Mark this as a loaded palette preset since they match
                 node.setParms({CP_ISVALID_PRESET: 1})
             
 
@@ -8800,11 +8800,15 @@ reset_IN(self, mode=0) -> None:
                                                             
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
         """        
+        
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         flameFile_expandvars = os.path.expandvars(flameFile)
+        
         dir = os.path.dirname(flameFile_expandvars)
         if os.path.isdir(dir):
+            
             if _xml_tree(flameFile_expandvars).isvalidtree:
+                
                 node.setParms({IN_PATH: flameFile_expandvars}) # type: ignore
                 # Since this goes directly into: self.in_to_flam3h() definition only
                 # its argument is set to 0 so not to create a loop of loading processes
@@ -8818,8 +8822,10 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
                 
                 return flameFile_expandvars, False, 0, '', False
+            
             else:
                 return None, False, 0, '', False
+            
         else:
             return None, False, 0, '', False
         
