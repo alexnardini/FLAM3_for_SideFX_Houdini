@@ -34,7 +34,7 @@ import nodesearch
 #
 #   Title:      SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised February 2024
+#   date:       January 2023, Last revised March 2024
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
@@ -9130,8 +9130,8 @@ reset_IN(self, mode=0) -> None:
         else:
             
             if self.in_to_flam3h_clipboard_is_CHAOS():
-                _MSG = f"{node.name()}: Flame IN Clipboard -> Chaotica XML not supported"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                _MSG = "Flame IN Clipboard -> Chaotica XML not supported"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG, 2)
 
             elif attempt_from_clipboard:
