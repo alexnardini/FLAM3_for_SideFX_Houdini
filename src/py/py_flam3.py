@@ -1711,6 +1711,7 @@ reset_PREFS(self, mode=0) -> None:
         prm_off = node.parm(IN_PRESETS_OFF)
         prm.set('-1')
         prm_off.set('-1')
+        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
         
         xml = node.parm(IN_PATH).evalAsString()
         if os.path.isfile(xml):
@@ -1718,14 +1719,19 @@ reset_PREFS(self, mode=0) -> None:
             # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
             apo = _xml_tree(xml)
             if not apo.isvalidtree:
-                prm.set('-1')
-                prm_off.set('-1')
-                node.setParms({IN_ISVALID_FILE: 0})
-                node.setParms({IN_ISVALID_PRESET: 0})
-                node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-                node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
-                node.setParms({MSG_FLAMERENDER: ""})
-                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                if clipboard:
+                    prm.set('-1')
+                    prm_off.set('-1')
+                    node.setParms({IN_ISVALID_FILE: 0})
+                else:
+                    prm.set('-1')
+                    prm_off.set('-1')
+                    node.setParms({IN_ISVALID_FILE: 0})
+                    node.setParms({IN_ISVALID_PRESET: 0})
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                    node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."})
+                    node.setParms({MSG_FLAMERENDER: ""})
+                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
             else:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
@@ -1735,7 +1741,7 @@ reset_PREFS(self, mode=0) -> None:
                     # the IN_ISVALID_PRESET is set inside the following: in_flame_utils(self.kwargs).in_to_flam3h()
                     in_flame_utils(self.kwargs).in_to_flam3h()
         else:
-            clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
+            # If there is not a flame preset loaded from the clipboard
             if not clipboard:
                 prm.set('-1')
                 prm_off.set('-1')
@@ -1748,6 +1754,12 @@ reset_PREFS(self, mode=0) -> None:
                 # We do not want to print if the file path parameter is empty
                 if xml:
                     print(f'{str(node)}.IN: please select a valid file location.')
+            else:
+                # Otherwise just mark the absence of a valid file and leave everything else untouched
+                prm.set('-1')
+                prm_off.set('-1')
+                node.setParms({IN_ISVALID_FILE: 0})
+                
         # Force preset menu to updated
         prm.eval()
 
@@ -8443,24 +8455,33 @@ reset_IN(self, mode=0) -> None:
         Returns:
             list: the actual menu
         """
+        
+        node = self.node
 
         menu=[]
-        if self.node.parm(IN_ISVALID_FILE).eval():
-            xml = self.node.parm(IN_PATH).evalAsString()
+        if node.parm(IN_ISVALID_FILE).eval():
+            xml = node.parm(IN_PATH).evalAsString()
             for i, item in enumerate(_xml(xml).get_name()):
                 # ICON tag
-                if i == int(self.node.parm(IN_PRESETS).eval()) and self.node.parm(IN_ISVALID_PRESET).eval() and not self.node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                 else:
                     menu.append(i)
                     menu.append(item)
             return menu
+        
         else:
-            menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-                
-            return menu
+            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
+                menu.append(-1)
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  Clipboard     ")
+                return menu
+            
+            else:
+                menu.append(-1)
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
+                    
+                return menu
         
 
     def menu_in_presets_empty(self) -> list:
@@ -8478,23 +8499,32 @@ reset_IN(self, mode=0) -> None:
             list: the actual menu
         """
 
+        node = self.node
+        
         menu=[]
-        if self.node.parm(IN_ISVALID_FILE).eval():
-            xml = self.node.parm(IN_PATH).evalAsString()
+        if node.parm(IN_ISVALID_FILE).eval():
+            xml = node.parm(IN_PATH).evalAsString()
             for i, item in enumerate(_xml(xml).get_name()):
                 # ICON tag
-                if i == int(self.node.parm(IN_PRESETS).eval()) and not self.node.parm(IN_ISVALID_PRESET).eval() and not self.node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                 else:
                     menu.append(i)
                     menu.append(item)
             return menu
+        
         else:
-            menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-                
-            return menu
+            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
+                menu.append(-1)
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  Clipboard     ")
+                return menu
+            
+            else:
+                menu.append(-1)
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
+                    
+                return menu
         
         
     def set_iter_on_load_callback(self) -> None:
@@ -8629,7 +8659,32 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_to_flam3h_init_data_ALT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_is_CHAOS(self) -> bool:
+        """Load a flame preset from the clipboard and tell us if it is a Chaotica flame preset or not.
+
+        Args:
+            node (hou.SopNode): FLAM3H node to load the flame preset into.
+
+        Returns:
+            bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
+        """     
+        xml = hou.ui.getTextFromClipboard() # type: ignore
+        try:
+            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except:
+            tree = None
+        if tree is not None:
+                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
+                    return True
+                else:
+                    return False
+        else:
+            return False
+
+
+
+
+    def in_to_flam3h_init_data_ALT(self) -> tuple[Union[str, None], bool, int, str, bool]:
         """Load a flame preset from the clipboard.
 
         Args:
@@ -8659,8 +8714,6 @@ reset_IN(self, mode=0) -> None:
                 flame_name_clipboard = _xml_tree(xml).name[0]
                 return xml, True, 0, flame_name_clipboard, True
             else:
-                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag:
-                    flam3h_general_utils.flash_message(node, f"Flame LOAD -> Chaotica XML not supported", 2)
                 return None, False, 0, '', True
         else:
             return None, False, 0, '', True
@@ -8711,7 +8764,7 @@ reset_IN(self, mode=0) -> None:
         
         
         
-    def in_to_flam3h_init_data_CTRL(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_init_data_CTRL(self) -> tuple[Union[str, None], bool, int, str, bool]:
         """Load nothing with a mouse click as the kwargs['ctrl'] is not mapped to anything else yet.
 
         Args:
@@ -8802,7 +8855,7 @@ reset_IN(self, mode=0) -> None:
         if _K:
             # ALT - If we are loading a flame from the clipboard
             if self.kwargs['alt']:
-                return self.in_to_flam3h_init_data_ALT(node)
+                return self.in_to_flam3h_init_data_ALT()
                 
             # SHIFT - If we are selecting a flame file to load
             elif self.kwargs['shift']:
@@ -8810,7 +8863,7 @@ reset_IN(self, mode=0) -> None:
             
             # CTRL - not mapped yet...
             elif self.kwargs['ctrl']:
-                return self.in_to_flam3h_init_data_CTRL(node)
+                return self.in_to_flam3h_init_data_CTRL()
             
             else:
                 return self.in_to_flam3h_init_data_LMB(node)
@@ -8861,15 +8914,10 @@ reset_IN(self, mode=0) -> None:
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard = self.in_to_flam3h_init_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
-
-            node.setParms({IN_ISVALID_FILE: 1}) #type: ignore
-            if clipboard: node.setParms({IN_CLIPBOARD_TOGGLE: 1}) # type: ignore
-            else: node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
-            
-            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
             
             # Resets
             ####################################################
+            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
             flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
             flam3h_general_utils(self.kwargs).reset_MB()
             flam3h_general_utils(self.kwargs).reset_PREFS()
@@ -8961,10 +9009,12 @@ reset_IN(self, mode=0) -> None:
             ####################################################
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
+            
             # Update flame stats
             ####################################################
             node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+            
             
             # if we are loading from the clipboard, always copy the render settings on load
             ####################################################
@@ -8982,13 +9032,16 @@ reset_IN(self, mode=0) -> None:
                     self.in_copy_render_stats_msg(self.kwargs)
             ####################################################
             
+            
             # Update xaos
             ####################################################
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
+            
             # Update OUT Flame name iter num if any
             ####################################################
             out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
+            
             
             # F3C ( the if statement is for backward compatibility )
             ####################################################
@@ -9000,15 +9053,23 @@ reset_IN(self, mode=0) -> None:
             self.in_to_flam3h_reset_user_data()
             
             
-            node.setParms({IN_ISVALID_PRESET: 1}) #type: ignore
-            
-            # Print to status Bar
-            ####################################################
+            # Set toggles and MSG
             ####################################################
             if clipboard:
+                # If it is a valid preset from the clipboard, set the "valid preset" and "clipboard" toggles
+                # but do not change the "is valid file" toggle as we dnt know if a valid file is already loaded.
+                node.setParms({IN_ISVALID_PRESET: 1}) 
+                node.setParms({IN_CLIPBOARD_TOGGLE: 1})
+                
                 preset_name = flame_name_clipboard
                 _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
             else:
+                # Otherwise mean the preset is coming from a file,
+                # set all of them and uncheck the clipboard toggle just in case.
+                node.setParms({IN_ISVALID_FILE: 1})
+                node.setParms({IN_ISVALID_PRESET: 1})
+                node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                
                 # Get the correct menu parameter's preset menu label
                 preset_name = apo_data.name[preset_id]
                     
@@ -9017,12 +9078,17 @@ reset_IN(self, mode=0) -> None:
             ####################################################
             
         else:
-            
+
             in_xml = node.parm(IN_PATH).evalAsString()
+            
+            if self.in_to_flam3h_is_CHAOS():
+                _MSG = f"{str(node)}: IN FLAME Clipboard -> Chaotica XML not supported"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.flash_message(node, f"Flame LOAD -> Chaotica XML not supported", 2)
 
-            # Need to make some cleanup for the followings, but you know...for now
+            # The followings need some revisions...not a big deal but it would be nice to cleanup at some point.
 
-            if attempt_from_clipboard:
+            elif attempt_from_clipboard:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
                 flam3h_general_utils.flash_message(node, f"Flame IN Clipboard -> Nothing to load", 2)
 
@@ -9043,31 +9109,39 @@ reset_IN(self, mode=0) -> None:
                 flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
                 
             else:
-                node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
-                node.setParms({IN_ISVALID_PRESET: 0}) #type: ignore
-                node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
-            
-                if not clipboard and xml is not None and os.path.isfile(xml) and os.path.getsize(xml)>0:
-                    node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
-                    node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-                    
+                if clipboard:
+                    node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
                     # Status Bar
                     _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     flam3h_general_utils.flash_message(node, f"Flame IN -> Select a valid Flame file", 2)
-                    
-                    # The following do not work, not sure why
-                    node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-                    
+                
                 else:
-                    node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
-                    node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
-                    # The following do not work, not sure why
-                    node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-                    
-                    _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
-                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                    flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
+                    node.setParms({IN_ISVALID_FILE: 0}) #type: ignore
+                    node.setParms({IN_ISVALID_PRESET: 0}) #type: ignore
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 0}) # type: ignore
+                
+                    if not clipboard and xml is not None and os.path.isfile(xml) and os.path.getsize(xml)>0:
+                        node.setParms({MSG_FLAMESTATS: "Please load a valid *.flame file."}) # type: ignore
+                        node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                        
+                        # Status Bar
+                        _MSG = f"{str(node)}: FLAME: Please load a valid *.flame file."
+                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                        flam3h_general_utils.flash_message(node, f"Flame IN -> Select a valid Flame file", 2)
+                        
+                        # The following do not work, not sure why
+                        node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                        
+                    else:
+                        node.setParms({MSG_FLAMESTATS: ""}) # type: ignore
+                        node.setParms({MSG_FLAMERENDER: ""}) # type: ignore
+                        # The following do not work, not sure why
+                        node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+                        
+                        _MSG = f"{str(node)}: IN FLAME -> Nothing to load"
+                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                        flam3h_general_utils.flash_message(node, f"Flame IN -> Nothing to load", 2)
 
 
 
