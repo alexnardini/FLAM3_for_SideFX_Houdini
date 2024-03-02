@@ -128,7 +128,7 @@ density presets mini menu:
     
 Reset density:
     #id: Global
-    [Smallicon:opdef:.?icon_optionStarBeigeSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     Reset density to its default: 500k
         
@@ -363,7 +363,7 @@ IN Presets mini menu:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Smallicon:opdef:.?icon_optionFlameINEntrieCBSVG.svg] when a flame preset is loaded from the Clipboard.
+    - [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg] when a flame preset is loaded from the Clipboard.
     
     TIP:
         #display: orange
@@ -672,7 +672,7 @@ PRE tab:
     
 swap PRE vars:
     #id: FLAME
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     - ((LMB)) swap the order of the PRE Variations and their weights. 
     - ((CTRL)) + ((LMB)) swap only the variation names.
@@ -750,7 +750,7 @@ pre affine:
         
 pre affine reset:
     #id: FLAME
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     Reset this iterator's pre affine to their default values.
     
@@ -768,7 +768,7 @@ POST affine:
     
 post affine reset:
     #id: FLAME
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     Reset this iterator's post affine to their default values.
     
@@ -900,7 +900,7 @@ FF POST tab:
 
 swap FF POST vars:
     #id: FLAME
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     - ((LMB)) swap the order of the POST Variations and their weights. 
     - ((CTRL)) + ((LMB)) swap only the variation names.
@@ -937,7 +937,7 @@ FF: pre affine:
     
 FF pre affine reset:
     #id: FF
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     Reset the FF pre affine to their default values.
     
@@ -954,7 +954,7 @@ FF: POST affine:
     
 FF post affine reset:
     #id: FF
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     Reset the FF post affine to their default values.
     
@@ -1016,7 +1016,7 @@ HSV:
     
 HSV reset:
     #id: PALETTE
-    [Smallicon:opdef:.?icon_optionStarBeigeSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     Reset the HSV to their default values.
     
@@ -1045,7 +1045,7 @@ palette:
     
 palette reset:
     #id: PALETTE
-    [Smallicon:opdef:.?icon_optionStarBeigeSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     Reset the palette to its default values.
     
@@ -1324,7 +1324,7 @@ remap "pre_gaussian_blur":
         
 Reload preset with remap "pre_gaussian_blur" changes:
     #id: prefs
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to preform the same operation as above but loading a flame from the Clipboard instead.
@@ -1339,7 +1339,7 @@ Copy render properties on Load:
         
 Reload preset with "Copy render properties on Load" changes:
     #id: prefs
-    [Smallicon:opdef:.?icon_optionStarBeigeSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     Clicking this icon will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
 
@@ -1650,7 +1650,7 @@ Edit render properties:
     
 Reset render properties:
     #id: OUT
-    [Smallicon:opdef:.?icon_optionStarBeigeKwargsSVG.svg]
+    [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     - ((LMB)) to reset all OUT render properties.
     - ((CTRL)) + ((LMB)) to reset only the OUT Camera sensor properties.
