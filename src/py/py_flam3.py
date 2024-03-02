@@ -3082,7 +3082,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, "", str(id), str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_ALL, str(id), str(mp_id_from))
 
         else:      
             if isDELETED:
@@ -3282,7 +3282,7 @@ iterator_keep_last_weight(self) -> None:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
-                self.paste_set_note(node, from_FLAM3H_NODE, 1, "", "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 1, SEC_ALL, "", "")
 
         else:
             if isDELETED:
