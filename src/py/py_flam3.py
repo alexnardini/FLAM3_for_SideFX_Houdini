@@ -246,10 +246,12 @@ FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
+
 
 
 class flam3h_iterator_prm_names:
@@ -2662,8 +2664,11 @@ iterator_keep_last_weight(self) -> None:
         w = self.node.parm(prm_weight_name).eval()
 
         _ICON = FLAM3H_ICON_STAR_EMPTY
-        if self.node.parm(prm_weight_name).eval() > 0:
-            _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV
+        if w > 0:
+            if w > 1:
+                _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+            else:
+                _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV
             
         return _ICON
     
