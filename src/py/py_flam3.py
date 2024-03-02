@@ -1641,7 +1641,7 @@ reset_PREFS(self, mode=0) -> None:
             self.util_set_stashed_cam()
             self.util_clear_stashed_cam_data()
 
-            _MSG = f"{str(node)}: {prm.upper()} -> OFF"
+            _MSG = f"{node.name()}: {prm.upper()} -> OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -1654,12 +1654,12 @@ reset_PREFS(self, mode=0) -> None:
                 self.util_set_clipping_viewers()
                 self.util_set_front_viewer()
                 
-                _MSG = f"{str(node)}: {prm.upper()} -> ON"
+                _MSG = f"{node.name()}: {prm.upper()} -> ON"
                 self.set_status_msg(_MSG, 'MSG')
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                 node.setParms({prm: 0})
-                _MSG = f"{str(node)}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
+                _MSG = f"{node.name()}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
                 self.set_status_msg(_MSG, 'WARN')
 
 
@@ -1675,12 +1675,12 @@ reset_PREFS(self, mode=0) -> None:
         
         if toggle:
             node.setParms({prm: 0})
-            _MSG = f"{str(node)}: {prm.upper()} -> OFF"
+            _MSG = f"{node.name()}: {prm.upper()} -> OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
             node.setParms({prm: 1})
-            _MSG = f"{str(node)}: {prm.upper()} -> ON"
+            _MSG = f"{node.name()}: {prm.upper()} -> ON"
             self.set_status_msg(_MSG, 'MSG')
 
 
@@ -1739,7 +1739,7 @@ reset_PREFS(self, mode=0) -> None:
                 # class: _xml_tree(...) @staticmethod -> xmlfile_root_chk(...)
                 if not in_flame_utils.in_to_flam3h_is_CHAOS(xml):
                     _MSG = "Flame IN -> Nothing to load"
-                    flam3h_general_utils.set_status_msg(f"{str(node)}: {_MSG}", 'MSG')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG, 2)
             else:
                 # Only set when NOT on an: onLoaded python script
@@ -1761,7 +1761,7 @@ reset_PREFS(self, mode=0) -> None:
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                 # We do not want to print if the file path parameter is empty
                 if xml:
-                    print(f'{str(node)}.IN: please select a valid file location.')
+                    print(f'{node.name()}.IN: please select a valid file location.')
             else:
                 # Otherwise just mark the absence of a valid file and leave everything else untouched
                 node.setParms({IN_ISVALID_FILE: 0})
@@ -1804,7 +1804,7 @@ reset_PREFS(self, mode=0) -> None:
             node.setParms({MSG_OUT: ''})
             # We do not want to print if the file path parameter is empty
             if xml:
-                print(f'{str(node)}.OUT: please select a valid file location.')
+                print(f'{node.name()}.OUT: please select a valid file location.')
         # Force preset menu to updated
         prm.eval()
 
@@ -1860,7 +1860,7 @@ reset_PREFS(self, mode=0) -> None:
             
             # We do not want to print if the file path parameter is empty
             if json_path:
-                print(f'{str(node)}.PALETTE: please select a valid file location.')
+                print(f'{node.name()}.PALETTE: please select a valid file location.')
             else:
                 self.set_status_msg('', 'MSG')
         
@@ -2354,7 +2354,7 @@ iterator_keep_last_weight(self) -> None:
                     else:
                         prm_to.set(prm_from.eval())
         else:
-            _MSG = f"{str(node)} -> The FLAM3H node you are trying to copy data from do not exist"
+            _MSG = f"{node.name()} -> The FLAM3H node you are trying to copy data from do not exist"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
     
@@ -2435,14 +2435,14 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}iter.{id_from}{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.iter.{id}{str_section} -> Copied values from: iter.{id_from}{str_section}"
+                _MSG = f"{node.name()}.iter.{id}{str_section} -> Copied values from: iter.{id_from}{str_section}"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             else:
                 if len(_current_note) == 0:
                     node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.iter.{id}{str_section} -> Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
+                _MSG = f"{node.name()}.iter.{id}{str_section} -> Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         elif int_mode == 1:
             if node != flam3node:
@@ -2450,7 +2450,7 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
-                _MSG = f"{str(node)} -> Copied FF from: {str(flam3node)}.FF"
+                _MSG = f"{node.name()} -> Copied FF from: {str(flam3node)}.FF"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         elif int_mode == 2:
             if node != flam3node:
@@ -2458,7 +2458,7 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
                 else:
                     node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
-                _MSG = f"{str(node)}.FF{str_section} -> Copied from: {str(flam3node)}.FF{str_section}"
+                _MSG = f"{node.name()}.FF{str_section} -> Copied from: {str(flam3node)}.FF{str_section}"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
@@ -2750,7 +2750,7 @@ iterator_keep_last_weight(self) -> None:
         
         if ptcount != vals[sel]:
             node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
-            _MSG = f"{str(node)} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
+            _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
   
         # reset to null value so we can set the same preset again
@@ -2765,10 +2765,10 @@ iterator_keep_last_weight(self) -> None:
         ptcount = node.parm(GLB_DENSITY).evalAsInt()
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
-            _MSG = f"{str(node)} -> DENSITY preset: \" Default: 500K points \" -> SET"
+            _MSG = f"{node.name()} -> DENSITY preset: \" Default: 500K points \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
-            _MSG = f"{str(node)}: DENSITY -> already at its default value."
+            _MSG = f"{node.name()}: DENSITY -> already at its default value."
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
     
     
@@ -2800,8 +2800,9 @@ iterator_keep_last_weight(self) -> None:
             elif node == from_FLAM3H_NODE:
                 menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
             else:
+                assert from_FLAM3H_NODE is not None
                 parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
-                flam3nodeIter = f"{str(from_FLAM3H_NODE)}.iter."
+                flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
                 menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
             
             for i, item in enumerate(menuitems):
@@ -2820,13 +2821,14 @@ iterator_keep_last_weight(self) -> None:
                
             else:
                 if from_FLAM3H_NODE is not None:
+                    assert from_FLAM3H_NODE is not None
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", "" )
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                         parent = f".../{from_FLAM3H_NODE.parent()}"
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed from node: {parent}/{str(from_FLAM3H_NODE)}\n-> Mark an existing iterator instead.", "" )
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", "" )
                     else:
                         menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
                 
@@ -3069,7 +3071,7 @@ iterator_keep_last_weight(self) -> None:
         if mp_id_from is not None:
             
             if node==from_FLAM3H_NODE and id==mp_id_from:
-                _MSG = f"{str(node)}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
+                _MSG = f"{node.name()}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"This iterator is Marked", 2)
             else:
@@ -3079,7 +3081,7 @@ iterator_keep_last_weight(self) -> None:
 
         else:      
             if isDELETED:
-                _MSG = f"{str(node)}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
+                _MSG = f"{node.name()}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
                 flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted", 2)
                 
@@ -3087,11 +3089,11 @@ iterator_keep_last_weight(self) -> None:
                 if node == from_FLAM3H_NODE:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG = f"{str(node)} -> The marked iterator has been removed -> {MARK_ITER_MSG_STATUS_BAR}"
+                        _MSG = f"{node.name()} -> The marked iterator has been removed -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"Marked iterator has been removed", 2)
                     else:
-                        _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
+                        _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 elif node != from_FLAM3H_NODE:
@@ -3099,15 +3101,15 @@ iterator_keep_last_weight(self) -> None:
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG = f"{str(node)} -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} -> {MARK_ITER_MSG_STATUS_BAR}"
+                        _MSG = f"{node.name()} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"Marked iterator has been removed", 2)
                     else:
-                        _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
+                        _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 else:
-                    _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
+                    _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
@@ -3127,7 +3129,7 @@ iterator_keep_last_weight(self) -> None:
             assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
-                _MSG = f"{str(node)}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
+                _MSG = f"{node.name()}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
@@ -3139,9 +3141,9 @@ iterator_keep_last_weight(self) -> None:
             else:
                 _MSG = ''
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() == -1:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already:  {str(id)}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                    _MSG = f"{node.name()}: This iterator is Unmarked already:  {str(id)}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 else:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already -> {str(id)}"
+                    _MSG = f"{node.name()}: This iterator is Unmarked already -> {str(id)}"
                     
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
@@ -3151,7 +3153,7 @@ iterator_keep_last_weight(self) -> None:
                 
         else:
             if isDELETED:
-                _MSG = f"{str(node)}: Marked iterator's node has been deleted -> Mark a new iterator first."
+                _MSG = f"{node.name()}: Marked iterator's node has been deleted -> Mark a new iterator first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted", 2)
                 
@@ -3160,10 +3162,10 @@ iterator_keep_last_weight(self) -> None:
                 __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                 
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator has been removed from node: {str(from_FLAM3H_NODE)} ->  Mark an existing iterator instead." # type: ignore
+                    _MSG = f"{node.name()}: This iterator is Unmarked already -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 else:
-                    _MSG = f"{str(node)}: This iterator is Unmarked already -> The marked iterator is from node: {str(from_FLAM3H_NODE)}.iterator.{str(mp_id_from)}" # type: ignore
+                    _MSG = f"{node.name()}: This iterator is Unmarked already -> The marked iterator is from node: {from_FLAM3H_NODE.name()}.iterator.{str(mp_id_from)}" # type: ignore
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
 
@@ -3267,7 +3269,7 @@ iterator_keep_last_weight(self) -> None:
         if from_FLAM3H_NODE_FF_CHECK is not None:
             
             if node == from_FLAM3H_NODE:
-                _MSG = f"{str(node)}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
+                _MSG = f"{node.name()}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Select a different FLAM3H node's FF", 2)
             else:
@@ -3279,11 +3281,11 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             if isDELETED:
-                _MSG = f"{str(node)}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
+                _MSG = f"{node.name()}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Marked FF's node has been deleted", 2)
             else:
-                _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
+                _MSG = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
     
     
@@ -3299,7 +3301,8 @@ iterator_keep_last_weight(self) -> None:
             
         if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
             if node == from_FLAM3H_NODE:
-                _MSG = f"{str(node)} ->  Unmarked FF: {str(from_FLAM3H_NODE)}.FF" # type: ignore
+                assert from_FLAM3H_NODE is not None
+                _MSG = f"{node.name()} ->  Unmarked FF: {from_FLAM3H_NODE.name()}.FF" # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                 
@@ -3308,14 +3311,14 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"FF UNMARKED", 2)
             else:
-                _MSG = f"{str(node)}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
+                _MSG = f"{node.name()}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             if isDELETED:
-                _MSG = f"{str(node)} -> Marked FF's node has been deleted -> Mark a new FF first."
+                _MSG = f"{node.name()} -> Marked FF's node has been deleted -> Mark a new FF first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
-                _MSG = f"{str(node)}: This FF is Unmarked already"
+                _MSG = f"{node.name()}: This FF is Unmarked already"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -3454,7 +3457,7 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"{n.main_prmpastesel}_{str(id)}": 0})
             
         else:
-            _MSG = f"{str(node)} -> {MARK_ITER_MSG_STATUS_BAR}"
+            _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
@@ -3510,7 +3513,7 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": 0})
                     
         else:
-            _MSG = f"{str(node)} -> {MARK_FF_MSG_STATUS_BAR}"
+            _MSG = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
@@ -3545,10 +3548,10 @@ iterator_keep_last_weight(self) -> None:
                 
         # Get preference xaos mode and print to Houdini's status bar
         if f3d.xm:
-            _MSG = f"{str(node)}: XAOS Mode -> FROM"
+            _MSG = f"{node.name()}: XAOS Mode -> FROM"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
-            _MSG = f"{str(node)}: XAOS Mode -> TO"
+            _MSG = f"{node.name()}: XAOS Mode -> TO"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -3571,11 +3574,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.preaffine_x}_{str(id)}": hou.Vector2((1.0, 0.0))})
                     node.setParms({f"{n.preaffine_y}_{str(id)}": hou.Vector2((0.0, 1.0))})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine X, Y -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine X, Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine X, Y -> already at their default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
@@ -3584,10 +3587,10 @@ iterator_keep_last_weight(self) -> None:
                 check = False
                 node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
                 # Print to Houdini's status bar
-                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine O -> RESET"
+                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine O -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine O -> already at its default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine O -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
@@ -3596,10 +3599,10 @@ iterator_keep_last_weight(self) -> None:
                 check = False
                 node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
                 # Print to Houdini's status bar
-                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine Rotation Angle -> RESET"
+                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine Rotation Angle -> already at its default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine Rotation Angle -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -3613,11 +3616,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{n.preaffine_o}_{str(id)}": hou.Vector2((0.0, 0.0))})
                     node.setParms({f"{n.preaffine_ang}_{str(id)}": 0})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} PRE Affine -> already at their default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         
@@ -3641,11 +3644,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{n.postaffine_x}_{str(id)}": hou.Vector2(AFFINE_DEFAULTS[0])})
                         node.setParms({f"{n.postaffine_y}_{str(id)}": hou.Vector2(AFFINE_DEFAULTS[1])})
                         # Print to Houdini's status bar
-                        _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine X, Y -> RESET"
+                        _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine X, Y -> already at their default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
@@ -3656,10 +3659,10 @@ iterator_keep_last_weight(self) -> None:
                 if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                     node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2(AFFINE_DEFAULTS[2])})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine O -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine O -> already at its default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
@@ -3670,10 +3673,10 @@ iterator_keep_last_weight(self) -> None:
                 if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                     node.setParms({f"{n.postaffine_ang}_{str(id)}": AFFINE_DEFAULTS[3]})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default value."
+                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -3688,11 +3691,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{n.postaffine_o}_{str(id)}": hou.Vector2(AFFINE_DEFAULTS[2])})
                         node.setParms({f"{n.postaffine_ang}_{str(id)}": AFFINE_DEFAULTS[3]})
                         # Print to Houdini's status bar
-                        _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> RESET"
+                        _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} POST Affine -> already at their default values."
+                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         
@@ -3714,11 +3717,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2(AFFINE_DEFAULTS[0])})
                     node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2(AFFINE_DEFAULTS[1])})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: FF PRE Affine X, Y -> RESET"
+                    _MSG = f"{node.name()}: FF PRE Affine X, Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{str(node)}: FF PRE Affine X, Y -> already at their default values."
+                _MSG = f"{node.name()}: FF PRE Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         elif kwargs["ctrl"]:
@@ -3727,10 +3730,10 @@ iterator_keep_last_weight(self) -> None:
                 check = False
                 node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2(AFFINE_DEFAULTS[2])})
                 # Print to Houdini's status bar
-                _MSG = f"{str(node)}: FF PRE Affine O -> RESET"
+                _MSG = f"{node.name()}: FF PRE Affine O -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: FF PRE Affine O -> already at its default values."
+                _MSG = f"{node.name()}: FF PRE Affine O -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
@@ -3739,10 +3742,10 @@ iterator_keep_last_weight(self) -> None:
                 check = False
                 node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULTS[3]})
                 # Print to Houdini's status bar
-                _MSG = f"{str(node)}: FF PRE Affine Rotation Angle -> RESET"
+                _MSG = f"{node.name()}: FF PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: Iterator.{str(id)} FF PRE Affine Rotation Angle -> already at its default value."
+                _MSG = f"{node.name()}: Iterator.{str(id)} FF PRE Affine Rotation Angle -> already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -3756,11 +3759,11 @@ iterator_keep_last_weight(self) -> None:
                     node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2(AFFINE_DEFAULTS[2])})
                     node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULTS[3]})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: FF PRE Affine -> RESET"
+                    _MSG = f"{node.name()}: FF PRE Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{str(node)}: FF PRE Affine -> already at their default values."
+                _MSG = f"{node.name()}: FF PRE Affine -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -3782,11 +3785,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2(AFFINE_DEFAULTS[0])})
                         node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2(AFFINE_DEFAULTS[1])})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: FF POST Affine X, Y -> RESET"
+                    _MSG = f"{node.name()}: FF POST Affine X, Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{str(node)}: FF POST Affine X, Y -> already at their default values."
+                _MSG = f"{node.name()}: FF POST Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             
@@ -3797,10 +3800,10 @@ iterator_keep_last_weight(self) -> None:
                 if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                     node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2(AFFINE_DEFAULTS[2])})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: FF POST Affine O -> RESET"
+                    _MSG = f"{node.name()}: FF POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: FF POST Affine O -> already at their default values."
+                _MSG = f"{node.name()}: FF POST Affine O -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         elif kwargs["alt"]:
@@ -3810,10 +3813,10 @@ iterator_keep_last_weight(self) -> None:
                 if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                     node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULTS[3]})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> RESET"
+                    _MSG = f"{node.name()}: FF POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{str(node)}: FF POST Affine Rotation Angle -> already at their default value."
+                _MSG = f"{node.name()}: FF POST Affine Rotation Angle -> already at their default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         else:
@@ -3828,11 +3831,11 @@ iterator_keep_last_weight(self) -> None:
                         node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2(AFFINE_DEFAULTS[2])})
                         node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULTS[3]})
                     # Print to Houdini's status bar
-                    _MSG = f"{str(node)}: FF POST Affine -> RESET"
+                    _MSG = f"{node.name()}: FF POST Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{str(node)}: FF POST Affine -> already at their default values."
+                _MSG = f"{node.name()}: FF POST Affine -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -3840,7 +3843,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
-        _MSG = f"{str(node)}.iterator.{str(id)} PRE variations -> SWAP"
+        _MSG = f"{node.name()}.iterator.{str(id)} PRE variations -> SWAP"
         
         # Get prm names
         pvT = flam3h_iterator.sec_prevarsT
@@ -3881,7 +3884,7 @@ iterator_keep_last_weight(self) -> None:
     def swap_FF_post_vars(self) -> None:
         
         node = self.node
-        _MSG = f"{str(node)} FF POST variations -> SWAP"
+        _MSG = f"{node.name()} FF POST variations -> SWAP"
         
         # Get prm names
         pvT = flam3h_iterator_FF.sec_postvarsT_FF
@@ -4047,7 +4050,7 @@ iterator_keep_last_weight(self) -> None:
         # If the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
             # Print to Houdini's status bar
-            _MSG = f"{str(node)}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
+            _MSG = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             # Run a flash message
             flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle", 2)
@@ -4153,7 +4156,7 @@ iterator_keep_last_weight(self) -> None:
                             node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
                             self.del_comment_and_user_data_iterator(node)
                             # Let us know
-                            _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                            _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             
                         else:
@@ -4202,7 +4205,7 @@ iterator_keep_last_weight(self) -> None:
                             node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
                             self.del_comment_and_user_data_iterator(node)
                             # Let us know
-                            _MSG = f"{str(node)}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                            _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             
                         else:
@@ -4316,7 +4319,7 @@ iterator_keep_last_weight(self) -> None:
             self.flam3h_paste_reset_hou_session_data()
             
             # Print to Houdini's status bar
-            _MSG = f"{str(node)}: {_MSG_str}"
+            _MSG = f"{node.name()}: {_MSG_str}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Iterators count ZERO", 2)
             
@@ -4359,7 +4362,7 @@ iterator_keep_last_weight(self) -> None:
         if not va:
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"vactive_{str(id)}": 1})
-            _MSG = f"{str(node)}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
+            _MSG = f"{node.name()}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"iterator {str(id)} -> back to being Active", 2)
 
@@ -4402,7 +4405,7 @@ iterator_keep_last_weight(self) -> None:
             min_weight = 0.00000001
             id = self.kwargs['script_multiparm_index']
             node.setParms({f"iw_{str(id)}": min_weight})
-            _MSG = f"{str(node)}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
+            _MSG = f"{node.name()}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight -> back to being NON-ZERO", 2)
 
@@ -4546,7 +4549,7 @@ reset_CP(self, mode=0) -> None:
                         hex_values = data[CP_JSON_KEY_NAME_HEX]
                     except:
                         if msg:
-                            _MSG = f"{str(node)}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                            _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             flam3h_general_utils.flash_message(node, f"Palette LOAD -> Not a valid FLAM3H JSON palette file", 2)
                         del data
@@ -4741,7 +4744,7 @@ reset_CP(self, mode=0) -> None:
             # Clear up palette preset name if any
             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
             # Satus message
-            _MSG = f"{str(node)}: SAVE Palette Clipboard -> palette copied to the clipboard -> Completed"
+            _MSG = f"{node.name()}: SAVE Palette Clipboard -> palette copied to the clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             flam3h_general_utils.flash_message(node, f"Palette SAVED to the Clipboard", 2)
         
@@ -4762,7 +4765,7 @@ reset_CP(self, mode=0) -> None:
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Palette library is Locked."
                         ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
-                        _MSG = f"{str(node)}: PALETTE library file -> is LOCKED"
+                        _MSG = f"{node.name()}: PALETTE library file -> is LOCKED"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"This Palette file is LOCKED", 2)
                         if hou.isUIAvailable():
@@ -4821,7 +4824,7 @@ reset_CP(self, mode=0) -> None:
                         flam3h_general_utils.flash_message(node, f"Palette SAVED", 2)
                         
             else:
-                _MSG = f"{str(node)}: SAVE Palette -> Select a valid output file or a valid filename to create first."
+                _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"PALETTE -> Select a valid output file", 2)
 
@@ -4898,11 +4901,11 @@ reset_CP(self, mode=0) -> None:
                 self.palette_cp_to_tmp()
                 
                 # Print to status Bar
-                _MSG = f"{str(node)}: LOAD Palette preset: \"{preset}\" -> Completed"
+                _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
             else:
-                _MSG = f"{str(node)}: PALETTE -> Nothing to load"
+                _MSG = f"{node.name()}: PALETTE -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"PALETTE -> Nothing to load", 2)
 
@@ -4985,7 +4988,7 @@ reset_CP(self, mode=0) -> None:
                             isJSON_F3H = True
                         except:
                             isJSON_F3H = False
-                            _MSG = f"{str(node)}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                            _MSG = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             del data
                             
@@ -5034,16 +5037,16 @@ reset_CP(self, mode=0) -> None:
                             # reset tmp ramp palette
                             self.reset_CP_TMP()
                             
-                            _MSG = f"{str(node)}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
+                            _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
                             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                             
                     else:
-                        _MSG = f"{str(node)}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
+                        _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load", 2)
                         
                 else:
-                    _MSG = f"{str(node)}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
+                    _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load", 2)
 
@@ -5182,12 +5185,12 @@ reset_CP(self, mode=0) -> None:
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
             if _hsv[0] == _hsv[1] == _hsv[2] == 1:
-                _MSG = f"{str(node)}: PALETTE HSV -> already at its default values."
+                _MSG = f"{node.name()}: PALETTE HSV -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
                 # Print out to Houdini's status bar
-                _MSG = f"{str(node)}: PALETTE HSV -> RESET"
+                _MSG = f"{node.name()}: PALETTE HSV -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif mode == 3:
@@ -5201,7 +5204,7 @@ reset_CP(self, mode=0) -> None:
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Print out to Houdini's status bar
-            _MSG = f"{str(node)}:PALETTE -> RESET"
+            _MSG = f"{node.name()}:PALETTE -> RESET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         # Mark this as not a loaded preset
@@ -5494,14 +5497,14 @@ If you type a negative number, it will be reset to a value of: 1"""
                 node.setParms({PREFS_XAOS_AUTO_SPACE: 0})
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 
-                _MSG = f"{str(node)}: Xaos weights auto space: OFF"
+                _MSG = f"{node.name()}: Xaos weights auto space: OFF"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
                 node.setParms({PREFS_XAOS_AUTO_SPACE: 1})
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 
-                _MSG = f"{str(node)}: Xaos weights auto space: ON"
+                _MSG = f"{node.name()}: Xaos weights auto space: ON"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
             
@@ -7500,7 +7503,7 @@ reset_IN(self, mode=0) -> None:
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
-                        print(f"{str(node)}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+                        print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
 
         return VAR
@@ -7872,7 +7875,7 @@ reset_IN(self, mode=0) -> None:
             float: _description_
         """        
         if w < 0:
-            print(f"{str(node)} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
+            print(f"{node.name()} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
             return abs(w)
         else: return w
 
@@ -8330,7 +8333,7 @@ reset_IN(self, mode=0) -> None:
             # Affine ( PRE and POST) for iterator and FF
             self.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
             
-        _MSG = f"{str(node)}: Iterators and FF parameters SET -> Completed"
+        _MSG = f"{node.name()}: Iterators and FF parameters SET -> Completed"
         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -8665,20 +8668,20 @@ reset_IN(self, mode=0) -> None:
                 
             else:
                 if clipboard:
-                    _MSG = f"{str(node)}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have a \"pre_gaussian_blur\" variation in it."
+                    _MSG = f"{node.name()}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 else:
                     # Get the correct menu parameter's preset menu label
                     preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
 
-                    _MSG = f"{str(node)}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
+                    _MSG = f"{node.name()}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
         else:
             if load_from_clipboard:
-                _MSG = f"{str(node)}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
+                _MSG = f"{node.name()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
             else:
-                _MSG = f"{str(node)}: No valid flame file to load the flame from, load a valid flame file first."
+                _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
@@ -9115,7 +9118,7 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 1})
                 
                 preset_name = flame_name_clipboard
-                _MSG = f"{str(node)}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
+                _MSG = f"{node.name()}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
             else:
                 # Otherwise mean the preset is coming from a file,
                 # set all of them and uncheck the clipboard toggle just in case.
@@ -9170,7 +9173,7 @@ reset_IN(self, mode=0) -> None:
                     
                     if self.in_to_flam3h_is_CHAOS(in_xml):
                         _MSG = f"Flame IN -> Chaotica XML not supported"
-                        flam3h_general_utils.set_status_msg(f"{str(node)}: {_MSG}", 'MSG')
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                         flam3h_general_utils.flash_message(node, _MSG, 2)
                         
                     else:
@@ -9668,17 +9671,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 else:
                     # Print out proper msg based on file extension
                     if OUT_FLAM3_FILE_EXT == file_ext:
-                        print(f"{str(node)}.OUT: You selected an OUT file that is not a {prx} file type.")
+                        print(f"{node.name()}.OUT: You selected an OUT file that is not a {prx} file type.")
                     elif OUT_PALETTE_FILE_EXT == file_ext:
-                        print(f"{str(node)}.Palette: You selected an OUT file that is not a {prx} file type.")
+                        print(f"{node.name()}.Palette: You selected an OUT file that is not a {prx} file type.")
                     return False
             else:
                 # If the path string is empty we do not want to print out
                 if file:
                     if OUT_FLAM3_FILE_EXT == file_ext:
-                        print(f"{str(node)}.OUT: Select a valid OUT directory location.")
+                        print(f"{node.name()}.OUT: Select a valid OUT directory location.")
                     elif OUT_PALETTE_FILE_EXT == file_ext:
-                        print(f"{str(node)}.Palette: Select a valid OUT directory location.")
+                        print(f"{node.name()}.Palette: Select a valid OUT directory location.")
                 return False
         else:
             # just check if the user input is a valid file
@@ -9688,9 +9691,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 # If the path string is empty we do not want to print out
                 if file:
                     if OUT_FLAM3_FILE_EXT == file_ext:
-                        print(f"{str(node)}.OUT: Select a valid OUT directory location.")
+                        print(f"{node.name()}.OUT: Select a valid OUT directory location.")
                     elif OUT_PALETTE_FILE_EXT == file_ext:
-                        print(f"{str(node)}.Palette: Select a valid OUT directory location.")
+                        print(f"{node.name()}.Palette: Select a valid OUT directory location.")
                 return False
             
  
@@ -10318,7 +10321,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             
             node = self.node
             ui_text = "Multiple variations of the same type not allowed.\nShow Details to learn more."
-            ALL_msg = f"Node: {str(node)}\nType: Warning:\n"
+            ALL_msg = f"Node: {node.name()}\nType: Warning:\n"
             
             VARS_PRE_msg = f"\nPRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n-> {', '.join(VARS_PRE_duplicate)}\n"
             VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\n-> {', '.join(VARS_duplicate)}\n"
@@ -10342,7 +10345,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             
             ALL_msg += HELP_msg
             
-            _MSG = f"{str(node)}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
+            _MSG = f"{node.name()}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             if hou.isUIAvailable():
                 hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
@@ -10590,7 +10593,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flame library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-                        _MSG = f"{str(node)}: FLAME library file -> is LOCKED"
+                        _MSG = f"{node.name()}: FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"This Flame file is LOCKED", 2)
@@ -10620,7 +10623,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
 
             else:
-                _MSG = f"{str(node)}: SAVE Flame -> Select a valid output file or a valid filename to create first."
+                _MSG = f"{node.name()}: SAVE Flame -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Flame OUT -> Select a valid output file", 2)
 
