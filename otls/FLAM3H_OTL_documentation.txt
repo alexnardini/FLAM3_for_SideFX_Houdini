@@ -638,6 +638,7 @@ opacity:
         
         Pre blur:
         
+        - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
         - [Smallicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Smallicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above 1.
     
