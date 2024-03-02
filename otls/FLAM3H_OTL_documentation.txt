@@ -188,7 +188,7 @@ iterations:
     
 FLAM3H documentation:
     #id: SYS
-    [Smallicon:opdef:.?FLAM3H_iconSVG.svg]
+    [Smallicon:opdef:.?icon_F_docStarSVG.svg]
     
     Display this documentation.
     
@@ -500,7 +500,7 @@ Enable/Disable iterator:
     #id: FLAME
     
     - [Smallicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is OFF.
-    - [Smallicon:opdef:.?icon_optionStarYellowSVG.svg] This iterator is ON.
+    - [Smallicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is ON.
     
     Enable/Disable this iterator.
     
