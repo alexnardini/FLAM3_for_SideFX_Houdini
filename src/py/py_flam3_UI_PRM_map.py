@@ -56,7 +56,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile its definition\nfor this Houdini session.\n\nDepending on your PC configuration it can take up to 1 minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\nversion: {FLAM3H_VERSION}\nFLAM3H CVEX node need to cook once to compile its definition.\n\nDepending on your PC configuration it can take up to 1 minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
@@ -66,6 +66,7 @@ def flam3h_compile_first_time_msg() -> None:
 flam3h_first_time()
 flam3h_sys_updated_mode()
 flam3h_compile_first_time_msg()
+
 
 
 
