@@ -1,6 +1,7 @@
 from __future__ import division
 from __future__ import annotations
 from platform import python_version
+from platform import system as platform_system
 from typing import Union
 from typing import Callable
 from typing import KeysView
@@ -19,7 +20,6 @@ from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
 import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
-import platform
 import os
 import json
 import colorsys
@@ -1307,7 +1307,7 @@ reset_PREFS(self, mode=0) -> None:
                                         JAVA
                                         UNKNW
         """        
-        mysys = platform.system()
+        mysys = platform_system()
         if mysys == 'Windows':
             return 'WIN'
         elif mysys == 'Linux':
