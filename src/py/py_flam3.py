@@ -236,9 +236,6 @@ FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarB
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
-# ICON menu density
-FLAM3H_ICON_STAR_DENSITY_HIGH = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg]'
-
 # ICON menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
@@ -2645,11 +2642,12 @@ iterator_keep_last_weight(self) -> None:
             _TYPE, _ICON = self.menu_T_FF_data()
             
         for i, item in flam3h_varsPRM().menu_vars_all_capitalize():
+            
+            menu.append(i)
+            
             if i == _TYPE:
-                menu.append(i)
                 menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
             else:
-                menu.append(i)
                 menu.append(f"{item}          ") # 10 times \s
             
         return menu
@@ -2739,7 +2737,7 @@ iterator_keep_last_weight(self) -> None:
         menu=[]
         menuitems = ()
         if iterators:
-            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_DENSITY_HIGH}500M", f"{FLAM3H_ICON_STAR_DENSITY_HIGH}750M", f"{FLAM3H_ICON_STAR_DENSITY_HIGH}1 Billion", "" )
+            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}500M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}750M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}1 Billion", "" )
         else:
             menuitems = ("Please, add at least one iterator", "")
         for i, item in enumerate(menuitems):
@@ -4648,12 +4646,13 @@ reset_CP(self, mode=0) -> None:
                 menuitems = json.load(f).keys()
 
             for i, item in enumerate(menuitems):
+                
+                menu.append(i)
+                
                 # ICON tag
                 if i == int(self.node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
-                    menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                 else:
-                    menu.append(i)
                     menu.append(item)
         else:
             menu.append(-1)
@@ -4679,12 +4678,13 @@ reset_CP(self, mode=0) -> None:
                 menuitems = json.load(f).keys()
 
             for i, item in enumerate(menuitems):
+                
+                menu.append(i)
+                
                 # ICON tag
                 if i == int(self.node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
-                    menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                 else:
-                    menu.append(i)
                     menu.append(item)
         else:
             menu.append(-1)
@@ -8543,31 +8543,33 @@ reset_IN(self, mode=0) -> None:
         if node.parm(IN_ISVALID_FILE).eval():
             xml = node.parm(IN_PATH).evalAsString()
             for i, item in enumerate(_xml(xml).get_name()):
+                
+                menu.append(i)
+                
                 # ICON bookmarks
                 
                 # If a flame preset from a file is loaded
                 if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                    menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                     
                 # If a flame preset from the clipboard is loaded
                 elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                    menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
                     
                 else:
-                    menu.append(i)
                     menu.append(item)
             return menu
         
         else:
+            menu.append(-1)
+            
+            # ICON bookmarks
+            
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
-                menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
                 return menu
             
             else:
-                menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                     
                 return menu
@@ -8594,31 +8596,32 @@ reset_IN(self, mode=0) -> None:
         if node.parm(IN_ISVALID_FILE).eval():
             xml = node.parm(IN_PATH).evalAsString()
             for i, item in enumerate(_xml(xml).get_name()):
+                
+                menu.append(i)
+                
                 # ICON bookmarks
                 
                 # If a flame preset from a file is loaded
                 if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                    menu.append(i)
                     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                     
                 # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
                 # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                #     menu.append(i)
                 #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
                     
                 else:
-                    menu.append(i)
                     menu.append(item)
             return menu
         
         else:
+            
+            menu.append(-1)
+            
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
-                menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
                 return menu
             
             else:
-                menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                     
                 return menu
