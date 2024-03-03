@@ -221,12 +221,10 @@ RIP:
 F3C (flam3 compatibility):
     #id: SYS
     
-    - [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg] when F3C is OFF.
-    - [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg] when F3C is ON.
+    - [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
+    - [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Apophysis behavior.
     
     The behavior of the *Cos*, *Cosh*, *Cot*, *Coth*, *Csc*, *Csch*, *Sec*, *Sech*, *Sin*, *Sinh*, *Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
-    * *Checked*: use the Apophysis behavior.
-    * *Unchecked*: use the Chaotica behavior.
     
     TIP:
         #display: orange
@@ -254,6 +252,7 @@ TAG:
     * [Xaos|#FLAMEITERXAOS] (_when active_) will be next inside square brackets. Read the xaos documentation to know more about it.
     * Xaos TO will be: *Xt*
     * Xaos FROM wil be: *fX*
+    * RIP when the SYS option "Remove Invalid Points" is ON.
     * [F3C|#PREFSGENERAL] when the preference's option "flam3 compatibility" is ON.
     * [Motion blur|#MB] (_when active_) will be next inside square brackets.
     * [Iterator variations|#FLAMEITERVARS] are lowercase.
@@ -1283,7 +1282,7 @@ Presets:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Smallicon:opdef:.?icon_optionFlameINEntrieCBSVG.svg] when a flame preset is loaded from the Clipboard.
+    - [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg] when a flame preset is loaded from the Clipboard.
     
 Iterations on Load (int):
     #id: IN
