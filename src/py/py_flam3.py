@@ -8943,15 +8943,15 @@ reset_IN(self, mode=0) -> None:
         
         # Get the correct menu parameter's preset idx
         if node.parm(IN_ISVALID_PRESET).evalAsInt():
-            preset_id = int(node.parm(IN_PRESETS).eval())
+            preset_id = node.parm(IN_PRESETS).eval()
             # Update
-            node.setParms({IN_PRESETS_OFF: node.parm(IN_PRESETS).eval()}) # type: ignore
+            node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
         else:
-            preset_id = int(node.parm(IN_PRESETS_OFF).eval())
+            preset_id = node.parm(IN_PRESETS_OFF).eval()
             # Update
-            node.setParms({IN_PRESETS: node.parm(IN_PRESETS_OFF).eval()}) # type: ignore
+            node.setParms({IN_PRESETS: preset_id}) # type: ignore
             
-        return xml, False, preset_id, '', False, False
+        return xml, False, int(preset_id), '', False, False
 
 
 
