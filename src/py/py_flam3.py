@@ -3435,7 +3435,6 @@ iterator_keep_last_weight(self) -> None:
             
             # Get user selection of paste methods
             paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}").evalAsInt()
-            # Store user selection
             node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{str(id)}": paste_sel})
 
             # set ALL
@@ -3506,7 +3505,6 @@ iterator_keep_last_weight(self) -> None:
             
             # Get user selection of paste methods
             ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}").evalAsInt()
-            # Store user selection
             node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}": ff_paste_sel})
             
             # set FF ALL
