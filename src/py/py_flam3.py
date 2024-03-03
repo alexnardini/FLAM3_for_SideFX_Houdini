@@ -3500,14 +3500,12 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3H_NODE_FF_CHECK = None
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
-
-            n = flam3h_iterator_prm_names
             
             # Marked FF node
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             # Get user selection of paste methods
-            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
+            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}").evalAsInt()
             # Store user selection
             node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}": ff_paste_sel})
             
@@ -3538,7 +3536,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
 
-            node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": 0})
+            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}": 0})
                     
         else:
             _MSG = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
