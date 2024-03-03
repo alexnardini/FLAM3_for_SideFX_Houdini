@@ -644,7 +644,7 @@ opacity:
     TIP:
         #display: orange
 
-        _Each iterator allows up to 8 variations ( pre_blur, 2 PRE, 4 VAR and 1 POST) to be used._
+        _Each iterator allows up to 8 variations ( pre blur, 2 PRE, 4 VAR and 1 POST) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
@@ -1331,7 +1331,7 @@ Reload preset with remap "pre_gaussian_blur" changes:
     [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
-    - ((ALT)) + ((LMB)) to preform the same operation as above but loading a Flame from the Clipboard instead.
+    - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
 
     
 Copy render properties on Load:
@@ -1422,7 +1422,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.2.75" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.3.07" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1526,7 +1526,7 @@ Save Flame:
         - When saving out flames files, it will always sample and save the palette as a 256-color palette standard.
         
     NOTE:
-        Keep in mind that you can only utilize a variation once in each of the available variations' sections. 
+        Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
 
         While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( types: PRE, VAR, POST )
         or you won't be able to save the same result.
