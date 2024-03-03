@@ -236,6 +236,9 @@ FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarB
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
+# ICON menu density
+FLAM3H_ICON_STAR_DENSITY_HIGH = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg]'
+
 # ICON menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
@@ -252,6 +255,7 @@ FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionE
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
+
 
 
 
@@ -2735,7 +2739,7 @@ iterator_keep_last_weight(self) -> None:
         menu=[]
         menuitems = ()
         if iterators:
-            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}500M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}750M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}1 Billion", "" )
+            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_DENSITY_HIGH}500M", f"{FLAM3H_ICON_STAR_DENSITY_HIGH}750M", f"{FLAM3H_ICON_STAR_DENSITY_HIGH}1 Billion", "" )
         else:
             menuitems = ("Please, add at least one iterator", "")
         for i, item in enumerate(menuitems):
