@@ -2807,12 +2807,12 @@ iterator_keep_last_weight(self) -> None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {str(id)}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
             else:
                 assert from_FLAM3H_NODE is not None
                 parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
                 flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
@@ -8768,17 +8768,25 @@ reset_IN(self, mode=0) -> None:
             node (hou.SopNode): FLAM3H node to load the flame preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+                                                                    clipboard, 
+                                                                    preset_id, 
+                                                                    clipboard_flame_name, 
+                                                                    attempt_to_load_from_clipboard, 
+                                                                    chaos
+                                                                    )
             
-                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
-                                                            
-                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            
-                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            
-                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            
-                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    -> xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                                    
+                                                                    -> clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                                    
+                                                                    -> clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                    
+                                                                    -> attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """     
         xml = hou.ui.getTextFromClipboard() # type: ignore
         try:
@@ -8807,19 +8815,25 @@ reset_IN(self, mode=0) -> None:
             node (hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+                                                                    clipboard, 
+                                                                    preset_id, 
+                                                                    clipboard_flame_name, 
+                                                                    attempt_to_load_from_clipboard, 
+                                                                    chaos
+                                                                    )
             
-                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
-                                                            
-                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            
-                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            
-                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            
-                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            
-                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                                                    -> xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                                    
+                                                                    -> clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                                    
+                                                                    -> clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                    
+                                                                    -> attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """        
         
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
@@ -8856,25 +8870,28 @@ reset_IN(self, mode=0) -> None:
         
         
     def in_to_flam3h_init_data_CTRL(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
-        """Load nothing with a mouse click as the kwargs['ctrl'] is not mapped to anything else yet.
-
-        Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+        """Load nothing with as the kwargs['ctrl'] is not mapped to anything else yet so this is a place holder.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+                                                                    clipboard, 
+                                                                    preset_id, 
+                                                                    clipboard_flame_name, 
+                                                                    attempt_to_load_from_clipboard, 
+                                                                    chaos
+                                                                    )
             
-                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
-                                                            
-                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            
-                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            
-                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            
-                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            
-                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                                                    -> xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                                    
+                                                                    -> clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                                    
+                                                                    -> clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                    
+                                                                    -> attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         return None, False, 0, '', False, False
     
@@ -8887,19 +8904,25 @@ reset_IN(self, mode=0) -> None:
             node (hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+                                                                    clipboard, 
+                                                                    preset_id, 
+                                                                    clipboard_flame_name, 
+                                                                    attempt_to_load_from_clipboard, 
+                                                                    chaos
+                                                                    )
             
-                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
-                                                            
-                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            
-                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            
-                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            
-                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            
-                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                                                    -> xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                                    
+                                                                    -> clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                                    
+                                                                    -> clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                    
+                                                                    -> attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         xml = node.parm(IN_PATH).evalAsString()
         
@@ -8925,19 +8948,25 @@ reset_IN(self, mode=0) -> None:
             node (hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(xml, clipboard, preset_id, clipboard_flame_name, attempt_to_load_from_clipboard)
+            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+                                                                    clipboard, 
+                                                                    preset_id, 
+                                                                    clipboard_flame_name, 
+                                                                    attempt_to_load_from_clipboard, 
+                                                                    chaos
+                                                                    )
             
-                                                            xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
-                                                            
-                                                            clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            
-                                                            preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            
-                                                            clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            
-                                                            attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            
-                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                                                    -> xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                                    
+                                                                    -> clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                                    
+                                                                    -> clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                    
+                                                                    -> attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    
+                                                                    -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
@@ -8983,20 +9012,19 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         xml = node.parm(IN_PATH).evalAsString()
 
-        # if _xml_tree(xml).isvalidtree:
         if xml and node.parm(IN_ISVALID_FILE).evalAsInt():
             if node.parm(IN_ISVALID_PRESET).evalAsInt():
                 preset_id = node.parm(IN_SYS_PRESETS).eval()
                 # Updated other PRESETS menu parameters
-                node.setParms({IN_SYS_PRESETS_OFF: preset_id}) # type: ignore
-                node.setParms({IN_PRESETS: preset_id}) # type: ignore
-                node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
+                node.setParms({IN_SYS_PRESETS_OFF: preset_id})
+                node.setParms({IN_PRESETS: preset_id})
+                node.setParms({IN_PRESETS_OFF: preset_id})
             else:
                 preset_id = node.parm(IN_SYS_PRESETS_OFF).eval()
                 # Updated other PRESETS menu parameters
-                node.setParms({IN_SYS_PRESETS: preset_id}) # type: ignore
-                node.setParms({IN_PRESETS: preset_id}) # type: ignore
-                node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
+                node.setParms({IN_SYS_PRESETS: preset_id})
+                node.setParms({IN_PRESETS: preset_id})
+                node.setParms({IN_PRESETS_OFF: preset_id})
         
             self.in_to_flam3h()
 
@@ -9176,11 +9204,16 @@ reset_IN(self, mode=0) -> None:
             
         else:
             
+            # Is there is an already loaded file set in the parameter
+            in_xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+            
+            # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
                 _MSG = "Flame IN Clipboard -> Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG, 2)
 
+            # If we are trying to load from the Clipboard
             elif attempt_from_clipboard:
                 _MSG = "Flame IN Clipboard -> Nothing to load"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -9188,30 +9221,26 @@ reset_IN(self, mode=0) -> None:
                 
             else:
                 
-                in_xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+                # If we did try to load a chaotica XML style file
+                if chaos:
+                    _MSG = f"Flame IN -> Chaotica XML not supported"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.flash_message(node, _MSG, 2)
                 
-                if _xml_tree(in_xml).isvalidtree:
-                    
-                    if chaos:
-                        _MSG = f"Flame IN -> Chaotica XML not supported"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(node, _MSG, 2)
+                # If there was already a valid flame file
+                elif _xml_tree(in_xml).isvalidtree:
                     pass
                     
+                # If there was already a preset loaded from the clipboard
                 elif node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     
                     node.setParms({IN_ISVALID_FILE: 0})
-                    
-                    if chaos:
-                        _MSG = f"Flame IN -> Chaotica XML not supported"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(node, _MSG, 2)
-                        
-                    else:
-                        _MSG = "Flame IN -> Nothing to load"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(node, _MSG, 2)
-                        
+
+                    _MSG = "Flame IN -> Nothing to load"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                     
+                # Anything else   
                 else:
                     node.setParms({IN_ISVALID_FILE: 0})
                     node.setParms({IN_ISVALID_PRESET: 0})
@@ -9220,16 +9249,10 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({MSG_FLAMESTATS: ""})
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
-                    
-                    if chaos:
-                        _MSG = f"Flame IN -> Chaotica XML not supported"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(node, _MSG, 2)
-                        
-                    else:
-                        _MSG = "Flame IN -> Nothing to load"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(node, _MSG, 2)
+
+                    _MSG = "Flame IN -> Nothing to load"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.flash_message(node, _MSG, 2)
 
 
 
