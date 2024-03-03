@@ -84,7 +84,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.05'
+FLAM3H_VERSION = '1.3.07'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -269,6 +269,7 @@ class flam3h_iterator_prm_names:
     main_mpmem = 'mpmem' # auto set xaos: custom data
     main_note = 'note'
     main_prmpastesel = 'prmpastesel'
+    main_selmem = 'selmem' # custom data
     main_vactive = 'vactive'
     main_weight = 'iw'
     # Xaos
@@ -2802,6 +2803,12 @@ iterator_keep_last_weight(self) -> None:
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
         if mp_id_from is not None:
+            
+            prm_selmem = node.parm(f"{flam3h_iterator_prm_names.main_selmem}_{str(id)}")
+            if prm_selmem.evalAsInt() > 0:
+                node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}": 0})
+                prm_selmem.set(0)
+            
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {str(id)}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
@@ -2879,6 +2886,12 @@ iterator_keep_last_weight(self) -> None:
             if node == flam3node_FF:
                 menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.", "" )
             else:
+                
+                prm_selmem = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}")
+                if prm_selmem.evalAsInt() > 0:
+                    node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}": 0})
+                    prm_selmem.set(0)
+                
                 parent = f".../{flam3node_FF.parent()}"
                 flam3nodeFF = f"{str(flam3node_FF)}.FF"
                 # menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  {parent}/{flam3nodeFF}: ALL", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
@@ -3416,15 +3429,14 @@ iterator_keep_last_weight(self) -> None:
 
             # current iterator
             id = self.kwargs['script_multiparm_index']
-            
-            # FLAM3H parameter's names
-            n = flam3h_iterator_prm_names
 
             # Marked iterator node
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
             
             # Get user selection of paste methods
-            paste_sel = node.parm(f"{n.main_prmpastesel}_{str(id)}").evalAsInt()
+            paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}").evalAsInt()
+            # Store user selection
+            node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{str(id)}": paste_sel})
 
             # set ALL
             if paste_sel == 1:
@@ -3465,7 +3477,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, str(id), str(mp_id_from))
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, str(id), str(mp_id_from))
         
-            node.setParms({f"{n.main_prmpastesel}_{str(id)}": 0})
+            node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}": 0})
             
         else:
             _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -3496,6 +3508,8 @@ iterator_keep_last_weight(self) -> None:
             
             # Get user selection of paste methods
             ff_paste_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").evalAsInt()
+            # Store user selection
+            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}": ff_paste_sel})
             
             # set FF ALL
             if ff_paste_sel == 1:
