@@ -8663,7 +8663,7 @@ reset_IN(self, mode=0) -> None:
         If no pre_gaussian_blur variation is present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
         """ 
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard = self.in_to_flam3h_init_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
         
         # Here we are forced to use the class: _xml_tree(...) becasue a Flame can come from the clipboard
         # and we need to carefully validate it before proceding.
@@ -8693,7 +8693,12 @@ reset_IN(self, mode=0) -> None:
             if load_from_clipboard:
                 _MSG = f"{node.name()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
             else:
-                _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
+                if chaos:
+                    _MSG = f"Flame IN -> Chaotica XML not supported"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                else:
+                    _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
@@ -8752,7 +8757,7 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_to_flam3h_init_data_ALT(self) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_init_data_ALT(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame preset from the clipboard.
 
         Args:
@@ -8778,17 +8783,20 @@ reset_IN(self, mode=0) -> None:
             tree = None
         if tree is not None:
             assert xml is not None
-            if xml is not None and tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
+            if tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
                 flame_name_clipboard = _xml_tree(xml).name[0]
-                return xml, True, 0, flame_name_clipboard, True
+                return xml, True, 0, flame_name_clipboard, True, False
             else:
-                return None, False, 0, '', True
+                if self.in_to_flam3h_is_CHAOS(xml):
+                    return None, False, 0, '', True, True
+                else:
+                    return None, False, 0, '', True, False
         else:
-            return None, False, 0, '', True
+            return None, False, 0, '', True, False
 
 
 
-    def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame file from a file dialog.
 
         Args:
@@ -8806,6 +8814,8 @@ reset_IN(self, mode=0) -> None:
                                                             clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                             
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                            
+                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """        
         
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
@@ -8828,17 +8838,20 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
                 node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
                 
-                return flameFile_expandvars, False, 0, '', False
+                return flameFile_expandvars, False, 0, '', False, False
             
             else:
-                return None, False, 0, '', False
+                if self.in_to_flam3h_is_CHAOS(flameFile_expandvars):
+                    return None, False, 0, '', False, True
+                else:
+                    return None, False, 0, '', False, False
             
         else:
-            return None, False, 0, '', False
+            return None, False, 0, '', False, False
         
         
         
-    def in_to_flam3h_init_data_CTRL(self) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_init_data_CTRL(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load nothing with a mouse click as the kwargs['ctrl'] is not mapped to anything else yet.
 
         Args:
@@ -8856,12 +8869,14 @@ reset_IN(self, mode=0) -> None:
                                                             clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                             
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                            
+                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
-        return None, False, 0, '', False
+        return None, False, 0, '', False, False
     
     
     
-    def in_to_flam3h_init_data_LMB(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_init_data_LMB(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame preset with a mouse click, no kwargs.
 
         Args:
@@ -8879,6 +8894,8 @@ reset_IN(self, mode=0) -> None:
                                                             clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                             
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                            
+                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         xml = node.parm(IN_PATH).evalAsString()
         
@@ -8892,11 +8909,11 @@ reset_IN(self, mode=0) -> None:
             # Update
             node.setParms({IN_PRESETS: node.parm(IN_PRESETS_OFF).eval()}) # type: ignore
             
-        return xml, False, preset_id, '', False
+        return xml, False, preset_id, '', False, False
 
 
 
-    def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+    def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Check if we are able to load a flame from a selected file or to parse a flame from the clipboard
         and provide some output data to work with if any of those cases is true.
         
@@ -8915,6 +8932,8 @@ reset_IN(self, mode=0) -> None:
                                                             clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                             
                                                             attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                            
+                                                            chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
@@ -8985,7 +9004,7 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard = self.in_to_flam3h_init_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
             
@@ -9165,12 +9184,21 @@ reset_IN(self, mode=0) -> None:
                 
             else:
                 
-                in_xml = node.parm(IN_PATH).evalAsString()
+                in_xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+                
+                if _xml_tree(in_xml).isvalidtree:
                     
-                if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                    if chaos:
+                        _MSG = f"Flame IN -> Chaotica XML not supported"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                        flam3h_general_utils.flash_message(node, _MSG, 2)
+                    pass
+                    
+                elif node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                    
                     node.setParms({IN_ISVALID_FILE: 0})
                     
-                    if self.in_to_flam3h_is_CHAOS(in_xml):
+                    if chaos:
                         _MSG = f"Flame IN -> Chaotica XML not supported"
                         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                         flam3h_general_utils.flash_message(node, _MSG, 2)
@@ -9189,7 +9217,7 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                     
-                    if self.in_to_flam3h_is_CHAOS(in_xml):
+                    if chaos:
                         _MSG = f"Flame IN -> Chaotica XML not supported"
                         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                         flam3h_general_utils.flash_message(node, _MSG, 2)
