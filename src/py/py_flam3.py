@@ -8485,7 +8485,6 @@ reset_IN(self, mode=0) -> None:
             # The apo_data.name[idx] is used for the descriptive parameter
             # so to not print the icon path into the name.
             preset_name = apo_data.name[preset_id]
-            # preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
                 
         descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
                             f"{preset_name}", )

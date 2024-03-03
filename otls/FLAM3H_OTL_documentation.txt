@@ -36,8 +36,8 @@ _Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [
 _*Preface*_:
 
 The inception of this implementation dates back to 2020, during COVID-19. 
-At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal flame algorithm.
-I didn't know much about the subject at the time, but as I began experimenting with some of the free and open-source fractal flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
+At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
+I didn't know much about the subject at the time, but as I began experimenting with some of the free and open-source fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
 Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
@@ -62,15 +62,15 @@ _Individuals and fractal flames are alike. Each one has its own personality, hav
 _Consider the various formulas that make up fractal flames as different brushes or life event brushes._
 _Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._
 _This is akin to a person's genome, or DNA._
-_Together, all of these variables contribute to the interesting nature of the fractal flame discipline, with its seemingly endless possibilities, effects, and patterns._
+_Together, all of these variables contribute to the interesting nature of the fractal Flame discipline, with its seemingly endless possibilities, effects, and patterns._
 
-FLAM3H, as the name suggests, is the implementation of _the fractal flame algorithm_ inside SideFX Houdini. There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
+FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini. There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
-Fractal art is not easy at all. For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow design, but it has been biased in its underlying code toward Fractorium.
+Fractal art is not easy at all. For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow design, but it has been biased in its underlying code toward Fractorium.
 
 There is a very large, kind, and talented community out there that you can tap into and gather lots of information from to learn how to do fractal art.
 
-Generally speaking, and based on my own learning experiences, FLAM3H can complete every tutorial you can find for any of the existing fractal flame editors out there. The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a graphical user interface. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
+Generally speaking, and based on my own learning experiences, FLAM3H can complete every tutorial you can find for any of the existing fractal Flame editors out there. The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a graphical user interface. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
 
 Here a few at hand:
 
@@ -118,7 +118,7 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 density:
     #id: GLOBAL
-    Number of points to use. For high-quality fractals, start from 20M up to 500M and more, depending on the type of fractal flame you end up with. As a general rule, the more, the better.
+    Number of points to use. For high-quality fractals, start from 20M up to 500M and more, depending on the type of fractal Flame you end up with. As a general rule, the more, the better.
     * Must strike a balance between processing speed and quality.
 
     
@@ -162,7 +162,7 @@ iterations:
     TIP:
         #display: orange
         When: *Auto add iter num to Flame name* toggle is ON inside the OUT Tab,
-        changing the iteration's parameter will update the flame name, if any have been typed.
+        changing the iteration's parameter will update the Flame name, if any have been typed.
         
         
 
@@ -213,7 +213,7 @@ RIP:
     Turn this on while rendering ( particularly for a sequence ) to correct any failed or black frames that may appear.
     
     NOTE:
-        If rendering a flame seems unusually slow, it's probably because certain points wind up being really far from the zero world.
+        If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world.
 
         Those points will be eliminated if this option is turned ON.
 
@@ -236,7 +236,7 @@ F3C (flam3 compatibility):
     
     == SYS: Tag == (SYSTAG)
 [Image:opdef:.?FLAM3H_DOC_tag.svg]
-_The above tag reference's image shows a flame with two iterators ( the second one being disabled ) with the FF._
+_The above tag reference's image shows a Flame with two iterators ( the second one being disabled ) with the FF._
 
 TAG:
     #id: SYS
@@ -356,13 +356,13 @@ CP Preset reload:
 IN Presets mini menu:
     #id: SYS
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
-    This is being introduced since it is convenient to switch flame presets without constantly entering the IN Tab.
+    This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
     
     The selected menu entrie is tagged with an icon based on its state:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg] when a flame preset is loaded from the Clipboard.
+    - [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
     
     TIP:
         #display: orange
@@ -379,15 +379,15 @@ IN Preset reload:
     Usage:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
     - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
 
-    The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
+    The render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
 
     TIP:
         #display: orange
-        - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
-        - In Fractorium, you can alter the flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
+        - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
+        - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
 :box:
     #display: rounded white
@@ -416,10 +416,10 @@ OUT Save:
     #id: SYS
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
+    - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
-    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
     If the selected file does not exist, it will be created.
 
@@ -472,7 +472,7 @@ note:
     A name for this iterator.
     
     NOTE:
-        The text you write here will be stored with the flame file and also shown inside Apophysis and Fractorium as the iterator's name.
+        The text you write here will be stored with the Flame file and also shown inside Apophysis and Fractorium as the iterator's name.
     
 copy/paste:
     #id: FLAME
@@ -507,7 +507,7 @@ Enable/Disable iterator:
     
     TIP:
         #display: orange
-        If an iterator is disabled, it won't be included when saving the Flame out into a flame file.
+        If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
         In case you still want to include the inactive iterator in the file, set its weight to zero instead.
     
     
@@ -564,7 +564,7 @@ xaos:
         
     *How to set xaos in FLAM3H*:
         
-    - To set XAOS for a flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator's weight values separated by a colon: *xaos:1:2:3:4*.
+    - To set XAOS for a Flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator's weight values separated by a colon: *xaos:1:2:3:4*.
     - When the auto space xaos weights option is ON ( it is OFF by default ), the xaos keyword will look like this: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work.
     - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
     - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
@@ -585,7 +585,7 @@ xaos:
         only when needed. (ex: when one of its weights is set to a value different from the others, ex: *xaos:3:3:3:2.9* ).
         
     NOTE:
-        When saving out flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
         
 auto space xaos weights / xaos information tips:
     #id: FLAME
@@ -644,12 +644,12 @@ opacity:
     TIP:
         #display: orange
 
-        _Each iterator allows up to 8 variations ( pre-blur var, 2 Pre vars, 4 Vars plus 1 Post var) to be used._
+        _Each iterator allows up to 8 variations ( pre_blur, 2 PRE, 4 VAR and 1 POST) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
-        _When using parametric variations, their parameters in the VAR Tab will be shared between all of them._
-        _This means that if you use 2 pre Mobius, 4 Mobius and 1 post Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
+        _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
+        _This means that if you use 2 PRE Mobius, 4 VAR Mobius and 1 POST Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
 pre_blur:
     #id: FLAME
@@ -831,7 +831,7 @@ FF: note:
     A name for this FF iterator.
     
     NOTE:
-        The text you write here will be stored with the flame file and will also appear inside Apophysis and Fractorium as the name of the finalxform iterator.
+        The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalxform iterator.
     
 FF: copy/paste:
     #id: FF
@@ -873,7 +873,7 @@ FF: copy/paste:
     TIP:
         #display: orange
         
-        _FF iterator allow up to 5 variations ( 1 Pre var, 2 Vars plus 2 Post vars ) to be used._
+        _FF iterator allow up to 5 variations ( 1 PRE, 2 VAR and 2 POST ) to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
@@ -1032,16 +1032,16 @@ palette lookup samples:
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
     
-    The amount of linearly spaced color keys in a typical fractal flame is equivalent to 256, which is the default.
+    The amount of linearly spaced color keys in a typical fractal Flame is equivalent to 256, which is the default.
     
     However, if you create more than 256 color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
     
     In general, 256 lookup samples will always be good.
     
     NOTE:
-        Saving out a flame into a file, will also save the palette lookup samples value so that you can restore it once you load the flame back into FLAM3H.
+        Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
         
-        If you are loading a flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
+        If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
     
 palette:
     #id: PALETTE
@@ -1147,7 +1147,7 @@ save Palette HSV:
     
     Check this option to save the the color-corrected HSV ramp instead. 
     
-    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
+    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
     
 
@@ -1164,7 +1164,7 @@ save Palette HSV:
 
     *MB:* _Flame fractal moton blur._
     
-    When animating your fractal flame, turning this on will compute a proper temporal motion blur.
+    When animating your fractal Flame, turning this on will compute a proper temporal motion blur.
     
 
 :box:
@@ -1239,14 +1239,14 @@ viz mb:
 IN file ( *.flame type ):
     #id: IN
     
-    Load *.flame files authored with Apophysis, Fractorium and other flam3-compatible applications.
+    Load *.flame files. They can come from FLAM3H or also authored with Apophysis, Fractorium and other flam3-compatible applications.
     
     The only restrictions are:
     
-    - The flames contained in the file must use the same variations included inside FLAM3H. 
-    - A maximum of 4 VARS plus PRE_BLUR plus 2 PRE and 1 POST variations for each iterator are allowed. 
+    - The Flames contained in the file must use the same variations included inside FLAM3H. 
+    - A maximum of 3 PRE ( pre_blur plus 2 of your choise ), 4 VAR and 1 POST variations for each iterator are allowed. 
     ( for a total of 8 vars per iterator ). If it finds more on load, it will just discard the extra one.
-    - For FF ( FinalXForm ) you have 1 PRE, 2 VARS plus 2 POST available. If it finds more on load, it will just discard the extra one.
+    - For FF ( FinalXForm ) you have 1 PRE, 2 VAR and 2 POST available. If it finds more on load, it will just discard the extra one.
     
     NOTE:
         FLAM3H does not deal with any image color correction curves that are present inside Fractorium for example.
@@ -1262,38 +1262,38 @@ Reload:
     Usage:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to paste a flame from the clipboard.
+    - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
     - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
 
-    When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
+    When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
     
     TIP:
         #display: orange
-        - Loading a flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
-        - In Fractorium, you can alter the flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
+        - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
+        - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
 Presets:
     #id: IN
-    Every *.flame file can contain multiple flames.
-    As many entries as there are flames in the file you are loading will be added to this preset menu.
-    Each entry will display the flame's name.
+    Every *.flame file can contain multiple Flames.
+    As many entries as there are Flames in the file you are loading will be added to this preset menu.
+    Each entry will display the Flame's name.
     
     The selected menu entrie is tagged with an icon based on its state:
     
     - [Smallicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg] when a flame preset is loaded from the Clipboard.
+    - [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
     
 Iterations on Load (int):
     #id: IN
-    Set a number of iterations to use every time you load a flame from a *.flame file.
+    Set a number of iterations to use every time you load a Flame from a *.flame file.
     This will override the internal default value of 64 iterations.
     
     TIP:
         #display: orange
         If "*auto add iter num to Flame name*" OUT Tab option is *OFF*:
     
-        The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
+        The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
 
@@ -1331,7 +1331,7 @@ Reload preset with remap "pre_gaussian_blur" changes:
     [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
-    - ((ALT)) + ((LMB)) to preform the same operation as above but loading a flame from the Clipboard instead.
+    - ((ALT)) + ((LMB)) to preform the same operation as above but loading a Flame from the Clipboard instead.
 
     
 Copy render properties on Load:
@@ -1386,12 +1386,12 @@ Copy/Paste render properties:
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
+    When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
     
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
         
-        These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
+        These curves will be overwritten with their default values each time you save a Flame from FLAM3H. (no color correction)
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
@@ -1410,11 +1410,11 @@ Copy/Paste render properties:
 
     *OUT: Save* _*.flame file type to be loaded back inside Apophysis, Fractorium and others._
  
-    Inside here, you can export your fractal flame into an XML format. ( standard *.flame file format )
+    Inside here, you can export your fractal Flame into an XML format. ( standard *.flame file format )
     and reload it inside FLAM3H or inside Apophysis, Fractorium and others.
     
-    The flame file format does not support animations, but only static frames, so to speak.
-    If you animated your fractal flame, save the hip file from Houdini instead.
+    The Flame file format does not support animations, but only static frames, so to speak.
+    If you animated your fractal Flame, save the hip file from Houdini instead.
     
 
 _The following is an example of what the Sierpiński triangle preset looks like once saved :_
@@ -1479,7 +1479,7 @@ TIP:
     
     _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
     _you to bend this rule, enabling the use of the same variation multiple times within the same section ( Chaotica style ), but you won't be able to save out_
-    _the result in the standard flame file format._
+    _the result in the standard Flame file format._
 
     _*Save the hip file instead in those cases*._
 
@@ -1505,10 +1505,10 @@ Save Flame:
     #id: OUT
     [Smallicon:opdef:.?iconWhiteStarSVG.svg]
     
-    - ((LMB)) to save this flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
+    - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
-    - ((ALT)) + ((LMB)) to copy this flame into the clipboard.
+    - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
     - If the selected file does not exist, it will be created.
     - If the selected file is not a valid Flame file type, nothing will happen.
@@ -1537,14 +1537,14 @@ Save Flame:
     
 Flame name ( preset ):
     #id: OUT
-    Write a name to give to the selected flame when saving it out.
+    Write a name to give to the selected Flame when saving it out.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
     
     TIP:
         #display: orange
         If "*auto add iter num to Flame name*" is *OFF*:
     
-        The iteration number you want your fractal flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
+        The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
 
@@ -1576,33 +1576,33 @@ Save palette HSV (cc):
     #id: OUT
     OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
 
-    If enabled, all color adjustments you may have made to the flame's palette will be preserved saving the HSV ramp instead.
+    If enabled, all color adjustments you may have made to the Flame's palette will be preserved saving the HSV ramp instead.
 
     It is helpful if you want to maintain the color-corrected palette when you load the saved Flame into a different program, such as Fractorium or Apophysis.
 
-    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there.
+    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
 Auto add iter num to Flame name:
     #id: OUT
-    ON by default. It will automatically append the iteration number to the flame name you enter.
-    It will also autocorrect the flame name string based on internally defined rules.
+    ON by default. It will automatically append the iteration number to the Flame name you enter.
+    It will also autocorrect the Flame name string based on internally defined rules.
     
     TIP:
         #display: orange
-        When on, and once you type in a flame name, changing the iteration number will update the flame name too.
+        When on, and once you type in a Flame name, changing the iteration number will update the Flame name too.
         
 use Fractorium parametric prm names:
     #id: OUT
 
-    OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a flame.
+    OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a Flame.
 
-    *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
+    *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
     
     :dev:
     :disclosure:Technical note
     
-        When saving a flame out with this option on, the xml appliction key will change from:
+        When saving a Flame out with this option on, the xml appliction key will change from:
         
         {{{
         #!xml
@@ -1636,18 +1636,18 @@ Edit render properties:
 
     Fractorium is the suggested one, followed by Apophysis.
     
-    Those properties are specific to the renderer of the application you will load the saved flame into.
+    Those properties are specific to the renderer of the application you will load the saved Flame into.
 
     Some of the properties are specific to Fractorium applications, which has been my point of reference.
     
-    They will control how the saved fractal flame will render inside other applications like Fractorium and Apophysis.
+    They will control how the saved fractal Flame will render inside other applications like Fractorium and Apophysis.
     They are their renderer settings, and they will be exported into the XML file.
 
     
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
 
-        These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
+        These curves will be overwritten with their default values each time you save a Flame from FLAM3H. (no color correction)
         
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
@@ -1676,11 +1676,11 @@ SHOW sensor viz:
     
     All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
 
-    A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed.
+    A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
     The FLAM3H camera sensor will precisely display the image framing.
 
-    _This is meant to be used only when you intend to load the saved fractal flame into third-party programs and you desire to setup the fractal flame image framing in Houdini first. Below a screenshot as an example:_
+    _This is meant to be used only when you intend to load the saved fractal Flame into third-party programs and you desire to setup the fractal Flame image framing in Houdini first. Below a screenshot as an example:_
 
     _*[FLAM3H to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
 
@@ -1704,24 +1704,24 @@ Copy/Paste render properties:
     #id: IN
     [Smallicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
     
-    When you load a flame file in the IN tab, this icon will become available.
+    When you load a Flame file in the IN tab, this icon will become available.
     
-    When you click this icon, the currently loaded IN flame preset render properties will be copied and pasted here.
+    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    The render properties of a flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
+    The render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
     
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
         
-        These curves will be overwritten with their default values each time you save a flame from FLAM3H. (no color correction)
+        These curves will be overwritten with their default values each time you save a Flame from FLAM3H. (no color correction)
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
     
 Center:
     #id: OUT
-    Where the flame is centered, think of this as the look at camera point.
+    Where the Flame is centered, think of this as the look at camera point.
     
 Rotate:
     #id: OUT
@@ -1748,23 +1748,23 @@ Quality:
     
 Brightness:
     #id: OUT
-    The flame render setting: brightness.
+    The Flame render setting: brightness.
     
 Gamma:
     #id: OUT
-    The flame render setting: gamma.
+    The Flame render setting: gamma.
     
 Highlight power:
     #id: OUT
-    The flame render setting: highlight power.
+    The Flame render setting: highlight power.
     
 Logscale K2:
     #id: OUT
-    The flame render setting: Logscale K2.
+    The Flame render setting: Logscale K2.
     
 Vibrancy:
     #id: OUT
-    The flame render setting: vibrancy.
+    The Flame render setting: vibrancy.
 
 
 :box:
@@ -1772,7 +1772,7 @@ Vibrancy:
 
     == OUT: XML FLAM3H custom keys == (OUTF3HXMLKEYS)
     
-    _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H has loaded back the saved flame._
+    _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H has loaded back the saved Flame._
     
     _Below a list of FLAM3H custom XML keys that are currently implemented:_
 
@@ -1849,7 +1849,7 @@ cvex precision modes:
     NOTE:
         Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slowly."
 
-        Unless you see some significant artifacts and you genuinely adore the fractal flame you are working on, always use 32-bit.
+        Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
     
 :box:
     #display: rounded white
@@ -1873,7 +1873,7 @@ xaos modes:
             
 camera handle:
     #id: prefs
-    Display the viewport camera handle to help frame/center your fractal flame.
+    Display the viewport camera handle to help frame/center your fractal Flame.
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     
     :warning:
@@ -2280,7 +2280,7 @@ TIP:
         
         A non-deterministic random number generator was used to construct FLAM3H, and it lies at the heart of the algorithm.
         As a result, the points produced by FLAM3H nodes will always be in a little bit of a different location every time it cook.
-        This is perfect for cloning FLAM3H nodes and layering them into a single fractal flame to improve the quality of the final result.
+        This is perfect for cloning FLAM3H nodes and layering them into a single fractal Flame to improve the quality of the final result.
 
 
 == Rendering: Point size == (REND)
@@ -2313,7 +2313,7 @@ TIP:
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (Saturation) and, most crucially, the "*V*" (Value).
-    The more dense portions of the flame will get brighter if the Value in HSV is increased from the default value of 1.0, bringing the appearance of the flame closer to that of a typical fractal flame.
+    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of 1.0, bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
 
 
@@ -2528,12 +2528,12 @@ NOTE:
     This finalxform ( FF ) does not possess any color parameters in this implementation ( Chaotica style ).
 
     NOTE:
-        _When saving a flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
+        _When saving a Flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
         - Color -> 0.0
         - Color Speed -> 0.0 ( _this is the most important_ )
         - Direct Color -> 1.0
         
-        _This way, you won't add a color to the flame that FLAM3H won't be able to match._
+        _This way, you won't add a color to the Flame that FLAM3H won't be able to match._
         
         
 
