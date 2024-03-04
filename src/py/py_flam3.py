@@ -8198,6 +8198,12 @@ reset_IN(self, mode=0) -> None:
 
 
 
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+
     @property
     def kwargs(self):
         return self._kwargs
@@ -8205,7 +8211,8 @@ reset_IN(self, mode=0) -> None:
     @property
     def node(self):
         return self._node
-    
+
+
     
     
     def in_flam3h_set_iterators(self, 
