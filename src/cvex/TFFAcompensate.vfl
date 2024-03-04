@@ -18,7 +18,7 @@
  /
  /  Name:       COMPENSATE "CVEX"
  /
- /  Comment:    @pscale compensate for motion blur.
+ /  Comment:    @pscale compensate due to motion blur.
 */
 
 
