@@ -2950,12 +2950,17 @@ iterator_keep_last_weight(self) -> None:
             __FLAM3H_DATA_PRM_MPIDX = 0
             
         try:
+            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
+            assert from_FLAM3H_NODE is not None
+            __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+        except:
+            from_FLAM3H_NODE = None
+            __FLAM3H_DATA_PRM_MPIDX = 0
+            
+        try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-        except:
-            mp_id_from = None
             
-        if mp_id_from is not None:
             if node == from_FLAM3H_NODE:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
@@ -2981,7 +2986,8 @@ iterator_keep_last_weight(self) -> None:
                         assert from_FLAM3H_NODE is not None
                         self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                         
-        else:
+        except:
+            mp_id_from = None
             isDELETED = True
             
         # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
