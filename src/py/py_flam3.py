@@ -2952,7 +2952,10 @@ iterator_keep_last_weight(self) -> None:
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+        except:
+            mp_id_from = None
             
+        if mp_id_from is not None:
             if node == from_FLAM3H_NODE:
                 if _FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
@@ -2978,8 +2981,7 @@ iterator_keep_last_weight(self) -> None:
                         assert from_FLAM3H_NODE is not None
                         self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                         
-        except:
-            mp_id_from = None
+        else:
             isDELETED = True
             
         # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
@@ -4500,6 +4502,22 @@ reset_CP(self, mode=0) -> None:
         self._node = kwargs['node']
         
         
+    @staticmethod
+    def build_ramp_palette_default(ramp_parm: hou.Parm) -> None:
+        cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
+        cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
+        cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
+        ramp_parm.set(hou.Ramp(cp_def_bases, cp_def_keys, cp_def_values)) # type: ignore
+        
+        
+    @staticmethod
+    def build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
+        cp_tmp_bases = [hou.rampBasis.Linear] * 2  # type: ignore
+        cp_tmp_keys = [0.0, 1.0]
+        cp_tmp_values = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
+        ramp_tmp_parm.set(hou.Ramp(cp_tmp_bases, cp_tmp_keys, cp_tmp_values)) # type: ignore
+        
+        
     @staticmethod 
     def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
@@ -5177,10 +5195,7 @@ reset_CP(self, mode=0) -> None:
         ramp_tmp_parm = self.node.parm(CP_RAMP_TMP_NAME)
         ramp_tmp_parm.deleteAllKeyframes()
         # Build TMP ramp
-        cp_tmp_bases = [hou.rampBasis.Linear] * 2  # type: ignore
-        cp_tmp_keys = [0.0, 1.0]
-        cp_tmp_values = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
-        ramp_tmp_parm.set(hou.Ramp(cp_tmp_bases, cp_tmp_keys, cp_tmp_values))
+        self.build_ramp_palette_temp(ramp_tmp_parm)
 
 
 
@@ -5199,10 +5214,8 @@ reset_CP(self, mode=0) -> None:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
             # Build ramp
-            cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
-            cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
-            cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
-            ramp_parm.set(hou.Ramp(cp_def_bases, cp_def_keys, cp_def_values))
+            self.build_ramp_palette_default(ramp_parm)
+            
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Check if the palette msg need to be cleared
@@ -5223,10 +5236,8 @@ reset_CP(self, mode=0) -> None:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
             # Build ramp
-            cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
-            cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
-            cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
-            ramp_parm.set(hou.Ramp(cp_def_bases, cp_def_keys, cp_def_values))
+            self.build_ramp_palette_default(ramp_parm)
+            
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Print out to Houdini's status bar
