@@ -4458,6 +4458,10 @@ class flam3h_palette_utils
 
 STATIC METHODS:
 
+build_ramp_palette_default(ramp_parm: hou.Parm) -> None:
+
+build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
+
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
