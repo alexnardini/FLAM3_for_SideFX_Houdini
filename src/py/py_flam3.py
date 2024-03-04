@@ -2940,14 +2940,6 @@ iterator_keep_last_weight(self) -> None:
         
         isDELETED = False
         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        
-        try:
-            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
-            assert from_FLAM3H_NODE is not None
-            __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-        except:
-            from_FLAM3H_NODE = None
-            __FLAM3H_DATA_PRM_MPIDX = 0
             
         try:
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
