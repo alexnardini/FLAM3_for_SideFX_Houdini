@@ -582,7 +582,7 @@ xaos:
         #display: orange
     
         XAOS is off by default, and FLAM3H will activate it automatically
-        only when needed. (ex: when one of its weights is set to a value different from the others, ex: *xaos:3:3:3:2.9* ).
+        only when needed. (ex: when one of its weights is set to a value different from: *`1`* ).
         
     NOTE:
         When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
