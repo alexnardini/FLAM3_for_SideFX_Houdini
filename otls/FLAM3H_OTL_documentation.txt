@@ -220,11 +220,11 @@ RIP:
         
 F3C (flam3 compatibility):
     #id: SYS
-    
-    - [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
-    - [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Apophysis behavior.
-    
+
     The behavior of the *Cos*, *Cosh*, *Cot*, *Coth*, *Csc*, *Csch*, *Sec*, *Sech*, *Sin*, *Sinh*, *Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
+    
+    - [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Apophysis behavior.
+    - [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
     
     TIP:
         #display: orange
