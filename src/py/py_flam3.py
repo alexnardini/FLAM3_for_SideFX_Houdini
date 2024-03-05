@@ -3593,11 +3593,11 @@ iterator_keep_last_weight(self) -> None:
         
         if kwargs["shift"]:
             for key in list(AFFINE_DEFAULTS.keys())[:1]:
-                if current[key].eval() != AFFINE_DEFAULTS[key]:
+                if current[key].eval() != AFFINE_DEFAULTS.get(key):
                     check = False
                     # pre affine
-                    current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                    current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
+                    current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                    current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine X, Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3607,9 +3607,9 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
-            if current["affine_o"].eval() != AFFINE_DEFAULTS["affine_o"]:
+            if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
                 check = False
-                current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
+                current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                 # Print to Houdini's status bar
                 _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine O -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3618,9 +3618,9 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
-            if current["angle"].eval() != AFFINE_DEFAULTS["angle"]:
+            if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
                 check = False
-                current["angle"].set(AFFINE_DEFAULTS["angle"])
+                current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                 # Print to Houdini's status bar
                 _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3633,10 +3633,10 @@ iterator_keep_last_weight(self) -> None:
                 if current[key].eval() != AFFINE_DEFAULTS[key]:
                     check = False
                     # pre affine
-                    current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                    current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
-                    current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
-                    current["angle"].set(AFFINE_DEFAULTS["angle"])
+                    current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                    current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
+                    current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
+                    current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3664,8 +3664,8 @@ iterator_keep_last_weight(self) -> None:
                     check = False
                     if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                         # pre affine
-                        current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                        current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
+                        current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                        current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                         # Print to Houdini's status bar
                         _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3675,10 +3675,10 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
-            if current["affine_o"].eval() != AFFINE_DEFAULTS["affine_o"]:
+            if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
                 check = False
                 if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
-                    current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
+                    current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3687,11 +3687,11 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
-            if current["angle"].eval() != AFFINE_DEFAULTS["angle"]:
+            if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
                 check = False
                 # post affine
                 if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
-                    current["angle"].set(AFFINE_DEFAULTS["angle"])
+                    current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3705,10 +3705,10 @@ iterator_keep_last_weight(self) -> None:
                     check = False
                     # post affine
                     if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
-                        current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                        current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
-                        current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
-                        current["angle"].set(AFFINE_DEFAULTS["angle"])
+                        current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                        current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
+                        current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
+                        current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                         # Print to Houdini's status bar
                         _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3733,8 +3733,8 @@ iterator_keep_last_weight(self) -> None:
                 if current[key].eval() != AFFINE_DEFAULTS[key]:
                     check = False
                     # pre affine
-                    current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                    current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
+                    current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                    current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF PRE Affine X, Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3744,9 +3744,9 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         elif kwargs["ctrl"]:
-            if current["affine_o"].eval() != AFFINE_DEFAULTS["affine_o"]:
+            if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
                 check = False
-                current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
+                current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                 # Print to Houdini's status bar
                 _MSG = f"{node.name()}: FF PRE Affine O -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3755,9 +3755,9 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["alt"]:
-            if current["angle"].eval() != AFFINE_DEFAULTS["angle"]:
+            if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
                 check = False
-                current["angle"].set(AFFINE_DEFAULTS["angle"])
+                current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                 # Print to Houdini's status bar
                 _MSG = f"{node.name()}: FF PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3770,10 +3770,10 @@ iterator_keep_last_weight(self) -> None:
                 if current[key].eval() != AFFINE_DEFAULTS[key]:
                     check = False
                     # pre affine
-                    current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                    current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
-                    current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
-                    current["angle"].set(AFFINE_DEFAULTS["angle"])
+                    current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                    current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
+                    current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
+                    current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF PRE Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3799,8 +3799,8 @@ iterator_keep_last_weight(self) -> None:
                     check = False
                     if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                         # pre affine
-                        current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                        current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
+                        current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                        current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                         # Print to Houdini's status bar
                         _MSG = f"{node.name()}: FF POST Affine X, Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3810,10 +3810,10 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif kwargs["ctrl"]:
-            if current["affine_o"].eval() != AFFINE_DEFAULTS["affine_o"]:
+            if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
                 check = False
                 if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
-                    current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
+                    current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3822,11 +3822,11 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         elif kwargs["alt"]:
-            if current["angle"].eval() != AFFINE_DEFAULTS["angle"]:
+            if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
                 check = False
                 # post affine
                 if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
-                    current["angle"].set(AFFINE_DEFAULTS["angle"])
+                    current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3840,10 +3840,10 @@ iterator_keep_last_weight(self) -> None:
                     check = False
                     # post affine
                     if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
-                        current["affine_x"].set(AFFINE_DEFAULTS["affine_x"])
-                        current["affine_y"].set(AFFINE_DEFAULTS["affine_y"])
-                        current["affine_o"].set(AFFINE_DEFAULTS["affine_o"])
-                        current["angle"].set(AFFINE_DEFAULTS["angle"])
+                        current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
+                        current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
+                        current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
+                        current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF POST Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
