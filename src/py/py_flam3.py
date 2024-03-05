@@ -3100,7 +3100,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_ALL, str(id), str(mp_id_from))
 
-        else:      
+        else:
             if isDELETED:
                 _MSG = f"{node.name()}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
