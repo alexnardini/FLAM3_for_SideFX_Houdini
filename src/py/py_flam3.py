@@ -5666,10 +5666,10 @@ XML_VALID_FLAMES_ROOT_TAG = 'flames'
 XML_VALID_CHAOS_ROOT_TAG = 'ifs'
 
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
-XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity", "flatten")
 # Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
 # note: for FF I swap back to the above  XML_XF_KEY_EXCLUDE to make possible to load pre_gaussian_blur since FF do not posses an hard coded pre_blur.
-XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
+XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity", "flatten")
 
 # This has been fixed and now radial_blur variation matches all the other apps
 # but I leave it here just in case other variation will need it.
@@ -7229,15 +7229,15 @@ reset_IN(self, mode=0) -> None:
         if plugins:
             for var in plugins:
                 if str(var).startswith("pre"):
-                    name = in_flame_utils.in_util_make_VAR(var)
-                    if name not in VARS_FRACTORIUM_DICT[str(name)[0]]:
+                    name = str(in_flame_utils.in_util_make_VAR(var))
+                    if name.lower() not in VARS_FRACTORIUM_DICT[name[0].lower()]:
                         unknown.append(var.capitalize())
                 elif str(var).startswith("post"):
-                    name = in_flame_utils.in_util_make_VAR(var)
-                    if name not in VARS_FRACTORIUM_DICT[str(name)[0]]:
+                    name = str(in_flame_utils.in_util_make_VAR(var))
+                    if name.lower() not in VARS_FRACTORIUM_DICT[name[0].lower()]:
                         unknown.append(var.capitalize())
                 else:
-                    if var not in VARS_FRACTORIUM_DICT[str(var)[0]]:
+                    if str(var).lower() not in VARS_FRACTORIUM_DICT[str(var)[0].lower()]:
                         unknown.append(var.capitalize())
 
         return sorted(unknown, key=lambda var: var)
@@ -8564,12 +8564,15 @@ reset_IN(self, mode=0) -> None:
         if vars_missing:
             vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
+        
         # Build UNKNOWN
         vars_unknown = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        unknown_grp_fractorium = [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] 
+        
         vars_unknown_msg = ""
         if vars_unknown:
+            unknown_grp_fractorium = [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] 
             vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp(unknown_grp_fractorium)}"
+        
         
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).evalAsString()
