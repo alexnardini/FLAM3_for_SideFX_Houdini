@@ -5027,16 +5027,14 @@ reset_CP(self, mode=0) -> None:
                             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
                             ramp_parm.deleteAllKeyframes()
                             
-                            HEXs = []
                             hsv_vals = []
                             hsv_check = False
-                            hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
+                            HEXs = [hex for hex in wrap(f3h_palette_data[CP_JSON_KEY_NAME_HEX], 6)]
                             try:
                                 [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
                                 hsv_check = True
                             except:
                                 pass
-                            [HEXs.append(hex) for hex in wrap(hex_values, 6)]
                             
                             rgb_from_XML_PALETTE = []
                             for hex in HEXs:
@@ -6672,18 +6670,24 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         
         
     # custom to FLAM3H only
-    def __get_cp_flam3h_samples(self, idx: int) -> Union[int, bool, None]:
+    def __get_cp_flam3h_samples(self, idx: int) -> Union[int, bool]:
         """
         Args:
             self:
             idx (int): [flame idx out of all flames included in the loaded flame file]
 
         Returns:
-            Union[int, float, bool, None]: [FLAM3H palette lookup samples parameter values.]
+            Union[int, bool]: [FLAM3H palette lookup samples parameter values.]
         """   
         if self._isvalidtree:
-            if self._flam3h_cp_samples[idx]:
-                return int(self._flam3h_cp_samples[idx])
+            cp_samples_key = self._flam3h_cp_samples[idx]
+            if cp_samples_key:
+                samples = int(cp_samples_key)
+                if samples in (16, 32, 64, 128, 256, 512, 1024): # just make sure the lookup samples count is one of the valid options.
+                    return samples
+                else:
+                    # else return the default value
+                    return 256
             else:
                 # else return the default value
                 return 256
