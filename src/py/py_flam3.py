@@ -8542,7 +8542,6 @@ reset_IN(self, mode=0) -> None:
         vars_keys_from_fractorium_post = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
         
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
-        
         if ff_bool:
             vars_keys_from_fractorium_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
             vars_keys_from_fractorium_pre_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
@@ -8569,7 +8568,7 @@ reset_IN(self, mode=0) -> None:
         in_path = node.parm(IN_PATH).evalAsString()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
         
-        flame_lib_locked = ''
+        flame_lib_locked = ""
         if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"Flame lib file: LOCKED"
         
