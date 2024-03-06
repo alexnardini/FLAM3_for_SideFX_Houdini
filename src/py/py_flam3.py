@@ -230,6 +230,9 @@ FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_DATA_PRM_XAOS_PREV = 'flam3h_data_xaos'
 FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 
+# Flash messages timer
+FLAM3H_FLASH_MESSAGE_TIMER = 2
+
 # ICONS menu copy/paste bookmarks
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
@@ -1200,7 +1203,7 @@ class flam3h_general_utils
 
 STATIC METHODS:
 
-flash_message(node: hou.SopNode, msg: Union[str, None], timer: float) -> None:
+flash_message(node: hou.SopNode, msg: Union[str, None], timer: float, img=None) -> None:
 
 clamp(x, val_max=255) -> float:
 
@@ -1268,7 +1271,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float, img=None) -> None:
+    def flash_message(node: hou.SopNode, msg: Union[str, None], timer=FLAM3H_FLASH_MESSAGE_TIMER, img=None) -> None:
         
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             desktop = hou.ui.curDesktop() # type: ignore
@@ -1547,7 +1550,7 @@ reset_PREFS(self, mode=0) -> None:
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
                         if _SYS_FRAME_VIEW_SENSOR_prm:
-                            flam3h_general_utils.flash_message(self.node, f"Camera sensor REFRAMED", 2)
+                            flam3h_general_utils.flash_message(self.node, f"Camera sensor REFRAMED")
 
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
@@ -1565,7 +1568,7 @@ reset_PREFS(self, mode=0) -> None:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 
                                 if _SYS_FRAME_VIEW_SENSOR_prm:
-                                    flam3h_general_utils.flash_message(self.node, f"Camera sensor REFRAMED", 2)
+                                    flam3h_general_utils.flash_message(self.node, f"Camera sensor REFRAMED")
 
 
 
@@ -1606,7 +1609,7 @@ reset_PREFS(self, mode=0) -> None:
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                     # Set clipping planes just in case
                     self.util_set_clipping_viewers()
-                    flam3h_general_utils.flash_message(self.node, f"Viewport REFRAMED", 2)
+                    flam3h_general_utils.flash_message(self.node, f"Viewport REFRAMED")
 
 
 
@@ -1745,7 +1748,7 @@ reset_PREFS(self, mode=0) -> None:
                 if not in_flame_utils.in_to_flam3h_is_CHAOS(xml):
                     _MSG = "Flame IN -> Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                    flam3h_general_utils.flash_message(node, _MSG)
             else:
                 # Only set when NOT on an: onLoaded python script
                 if mode:
@@ -3094,7 +3097,7 @@ iterator_keep_last_weight(self) -> None:
             if node==from_FLAM3H_NODE and id==mp_id_from:
                 _MSG = f"{node.name()}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"This iterator is Marked", 2)
+                flam3h_general_utils.flash_message(node, f"This iterator is Marked")
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
@@ -3104,7 +3107,7 @@ iterator_keep_last_weight(self) -> None:
             if isDELETED:
                 _MSG = f"{node.name()}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
-                flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted", 2)
+                flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted")
                 
             else:
                 if node == from_FLAM3H_NODE:
@@ -3112,7 +3115,7 @@ iterator_keep_last_weight(self) -> None:
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{node.name()} -> The marked iterator has been removed -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Marked iterator has been removed", 2)
+                        flam3h_general_utils.flash_message(node, f"Marked iterator has been removed")
                     else:
                         _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -3124,7 +3127,7 @@ iterator_keep_last_weight(self) -> None:
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{node.name()} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Marked iterator has been removed", 2)
+                        flam3h_general_utils.flash_message(node, f"Marked iterator has been removed")
                     else:
                         _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -3156,7 +3159,7 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(node)
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"iterator UNMARKED", 2)
+                flam3h_general_utils.flash_message(node, f"iterator UNMARKED")
                 
                 
             else:
@@ -3176,7 +3179,7 @@ iterator_keep_last_weight(self) -> None:
             if isDELETED:
                 _MSG = f"{node.name()}: Marked iterator's node has been deleted -> Mark a new iterator first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted", 2)
+                flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted")
                 
             else:
                 assert from_FLAM3H_NODE is not None
@@ -3217,7 +3220,7 @@ iterator_keep_last_weight(self) -> None:
                 
                 _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2) # type: ignore
+                flam3h_general_utils.flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -3241,7 +3244,7 @@ iterator_keep_last_weight(self) -> None:
                 
             _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}", 2) # type: ignore
+            flam3h_general_utils.flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
 
 
     def prm_paste(self) -> None:
@@ -3292,7 +3295,7 @@ iterator_keep_last_weight(self) -> None:
             if node == from_FLAM3H_NODE:
                 _MSG = f"{node.name()}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Select a different FLAM3H node's FF", 2)
+                flam3h_general_utils.flash_message(node, f"Select a different FLAM3H node's FF")
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
@@ -3304,7 +3307,7 @@ iterator_keep_last_weight(self) -> None:
             if isDELETED:
                 _MSG = f"{node.name()}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Marked FF's node has been deleted", 2)
+                flam3h_general_utils.flash_message(node, f"Marked FF's node has been deleted")
             else:
                 _MSG = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -3330,7 +3333,7 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(node, "Marked FF")
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"FF UNMARKED", 2)
+                flam3h_general_utils.flash_message(node, f"FF UNMARKED")
             else:
                 _MSG = f"{node.name()}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3375,7 +3378,7 @@ iterator_keep_last_weight(self) -> None:
             
             _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"FF -> MARKED", 2)
+            flam3h_general_utils.flash_message(node, f"FF -> MARKED")
 
 
     def prm_paste_FF(self) -> None:
@@ -4059,7 +4062,7 @@ iterator_keep_last_weight(self) -> None:
             _MSG = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             # Run a flash message
-            flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle", 2)
+            flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle")
         
 
 
@@ -4327,7 +4330,7 @@ iterator_keep_last_weight(self) -> None:
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: {_MSG_str}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"Iterators count ZERO", 2)
+            flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
             
         else:
             # set xaos every time an iterator is added or removed
@@ -4370,7 +4373,7 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"vactive_{str(id)}": 1})
             _MSG = f"{node.name()}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"iterator {str(id)} -> back to being Active", 2)
+            flam3h_general_utils.flash_message(node, f"iterator {str(id)} -> back to being Active")
 
 
     def iterator_keep_last_vactive_STAR(self) -> None:
@@ -4413,7 +4416,7 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({f"iw_{str(id)}": min_weight})
             _MSG = f"{node.name()}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight -> back to being NON-ZERO", 2)
+            flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight -> back to being NON-ZERO")
 
 
 
@@ -4577,7 +4580,7 @@ reset_CP(self, mode=0) -> None:
                         if msg:
                             _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            flam3h_general_utils.flash_message(node, f"Palette LOAD -> Not a valid FLAM3H JSON palette file", 2)
+                            flam3h_general_utils.flash_message(node, f"Palette LOAD -> Not a valid FLAM3H JSON palette file")
                         del data
                         return False
                     
@@ -4774,7 +4777,7 @@ reset_CP(self, mode=0) -> None:
             # Satus message
             _MSG = f"{node.name()}: SAVE Palette Clipboard -> palette copied to the clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"Palette SAVED to the Clipboard", 2)
+            flam3h_general_utils.flash_message(node, f"Palette SAVED to the Clipboard")
         
         # Save palette into a file
         else:
@@ -4795,7 +4798,7 @@ reset_CP(self, mode=0) -> None:
                         ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                         _MSG = f"{node.name()}: PALETTE library file -> is LOCKED"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"This Palette file is LOCKED", 2)
+                        flam3h_general_utils.flash_message(node, f"This Palette file is LOCKED")
                         if hou.isUIAvailable():
                             hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         
@@ -4849,12 +4852,12 @@ reset_CP(self, mode=0) -> None:
                             
                         # Set the file path to the corrected one
                         node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
-                        flam3h_general_utils.flash_message(node, f"Palette SAVED", 2)
+                        flam3h_general_utils.flash_message(node, f"Palette SAVED")
                         
             else:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"PALETTE -> Select a valid output file", 2)
+                flam3h_general_utils.flash_message(node, f"PALETTE -> Select a valid output file")
 
 
 
@@ -4935,7 +4938,7 @@ reset_CP(self, mode=0) -> None:
             else:
                 _MSG = f"{node.name()}: PALETTE -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"PALETTE -> Nothing to load", 2)
+                flam3h_general_utils.flash_message(node, f"PALETTE -> Nothing to load")
 
 
 
@@ -5069,12 +5072,12 @@ reset_CP(self, mode=0) -> None:
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load", 2)
+                        flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load")
                         
                 else:
                     _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load", 2)
+                    flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load")
 
             # LMB - Load the currently selected palette preset
             else:   
@@ -6137,7 +6140,7 @@ __get_flame_count(self, flames: list) -> int:
                         _MSG = "Flame IN -> Chaotica XML not supported"
                         print(f"{hou.pwd().name()}: {_MSG}")
                         flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(hou.pwd(), f"Flame IN -> Chaotica XML not supported", 2)
+                        flam3h_general_utils.flash_message(hou.pwd(), f"Flame IN -> Chaotica XML not supported")
                     return None
             else:
                 # If there are flames, proceed
@@ -8217,7 +8220,7 @@ reset_IN(self, mode=0) -> None:
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
                 
-            flam3h_general_utils.flash_message(node, f"IN Render properties -> COPIED", 2)
+            flam3h_general_utils.flash_message(node, f"IN Render properties -> COPIED")
             
         else:
             pass
@@ -8771,7 +8774,7 @@ reset_IN(self, mode=0) -> None:
                 if chaos:
                     _MSG = f"Flame IN -> Chaotica XML not supported"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                    flam3h_general_utils.flash_message(node, _MSG)
                 else:
                     _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -9275,20 +9278,20 @@ reset_IN(self, mode=0) -> None:
             
         else:
             
-            # Is there is an already loaded file set in the parameter
+            # If there is an already loaded file set in the parameter
             in_xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
             
             # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
                 _MSG = "Flame IN Clipboard -> Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                flam3h_general_utils.flash_message(node, _MSG, 2)
+                flam3h_general_utils.flash_message(node, _MSG)
 
             # If we are trying to load from the Clipboard
             elif attempt_from_clipboard:
                 _MSG = "Flame IN Clipboard -> Nothing to load"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                flam3h_general_utils.flash_message(node, _MSG, 2)
+                flam3h_general_utils.flash_message(node, _MSG)
                 
             else:
                 
@@ -9296,7 +9299,7 @@ reset_IN(self, mode=0) -> None:
                 if chaos:
                     _MSG = f"Flame IN -> Chaotica XML not supported"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                    flam3h_general_utils.flash_message(node, _MSG)
                 
                 # If there was already a valid flame file
                 elif _xml_tree(in_xml).isvalidtree:
@@ -9309,7 +9312,7 @@ reset_IN(self, mode=0) -> None:
 
                     _MSG = "Flame IN -> Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                    flam3h_general_utils.flash_message(node, _MSG)
                      
                 # Anything else   
                 else:
@@ -9323,7 +9326,7 @@ reset_IN(self, mode=0) -> None:
 
                     _MSG = "Flame IN -> Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                    flam3h_general_utils.flash_message(node, _MSG, 2)
+                    flam3h_general_utils.flash_message(node, _MSG)
 
 
 
@@ -10187,16 +10190,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         if kwargs['ctrl']:
             self.reset_OUT_sensor()
-            flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor -> RESET", 2)
+            flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor -> RESET")
             
         elif kwargs['shift']:
             self.reset_OUT_render()
-            flam3h_general_utils.flash_message(self.node, f"OUT Render settings -> RESET", 2)
+            flam3h_general_utils.flash_message(self.node, f"OUT Render settings -> RESET")
             
         else:
             self.reset_OUT_sensor()
             self.reset_OUT_render()
-            flam3h_general_utils.flash_message(self.node, f"OUT Render properties -> RESET", 2)
+            flam3h_general_utils.flash_message(self.node, f"OUT Render properties -> RESET")
         
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
@@ -10652,7 +10655,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"Flame SAVED", 2)
+            flam3h_general_utils.flash_message(node, f"Flame SAVED")
 
 
 
@@ -10673,7 +10676,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard", 2)
+            flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
 
 
 
@@ -10704,7 +10707,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"Flame SAVED: Append", 2)
+            flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
 
 
 
@@ -10740,7 +10743,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         _MSG = f"{node.name()}: FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"This Flame file is LOCKED", 2)
+                        flam3h_general_utils.flash_message(node, f"This Flame file is LOCKED")
                         
                         # Pop up message window
                         if hou.isUIAvailable():
@@ -10769,7 +10772,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             else:
                 _MSG = f"{node.name()}: SAVE Flame -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Flame OUT -> Select a valid output file", 2)
+                flam3h_general_utils.flash_message(node, f"Flame OUT -> Select a valid output file")
 
 
 
