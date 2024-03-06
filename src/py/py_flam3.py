@@ -3584,14 +3584,13 @@ iterator_keep_last_weight(self) -> None:
         """Reset an iterator pre affine values to their defaults.
         """        
         node = self.node
-        kwargs = self.kwargs
         n = flam3h_iterator_prm_names
         id = self.kwargs['script_multiparm_index']
         check = True
         
         current = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{str(id)}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{str(id)}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{str(id)}"), "angle": node.parm(f"{n.preaffine_ang}_{str(id)}") }
         
-        if kwargs["shift"]:
+        if self.kwargs["shift"]:
             for key in list(AFFINE_DEFAULTS.keys())[:1]:
                 if current[key].eval() != AFFINE_DEFAULTS.get(key):
                     check = False
@@ -3606,7 +3605,7 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
-        elif kwargs["ctrl"]:
+        elif self.kwargs["ctrl"]:
             if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
                 check = False
                 current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
@@ -3617,7 +3616,7 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine O -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
-        elif kwargs["alt"]:
+        elif self.kwargs["alt"]:
             if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
                 check = False
                 current["angle"].set(AFFINE_DEFAULTS.get("angle"))
@@ -3651,18 +3650,18 @@ iterator_keep_last_weight(self) -> None:
         """Reset an iterator post affine values to their defaults.
         """        
         node = self.node
-        kwargs = self.kwargs
         n = flam3h_iterator_prm_names
         id = self.kwargs['script_multiparm_index']
-        check = True
         
-        current = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{str(id)}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{str(id)}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{str(id)}"), "angle": node.parm(f"{n.postaffine_ang}_{str(id)}") }
-        
-        if kwargs["shift"]:
-            for key in list(AFFINE_DEFAULTS.keys())[:1]:
-                if current[key].eval() != AFFINE_DEFAULTS[key]:
-                    check = False
-                    if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+        if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                
+            check = True
+            current = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{str(id)}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{str(id)}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{str(id)}"), "angle": node.parm(f"{n.postaffine_ang}_{str(id)}") }
+            
+            if self.kwargs["shift"]:
+                for key in list(AFFINE_DEFAULTS.keys())[:1]:
+                    if current[key].eval() != AFFINE_DEFAULTS[key]:
+                        check = False
                         # pre affine
                         current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
@@ -3670,41 +3669,38 @@ iterator_keep_last_weight(self) -> None:
                         _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
-            if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> already at their default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                
-        elif kwargs["ctrl"]:
-            if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
-                check = False
-                if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                if check:
+                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> already at their default values."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    
+            elif self.kwargs["ctrl"]:
+                if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
+                    check = False
                     current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> already at its default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                
-        elif kwargs["alt"]:
-            if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
-                check = False
-                # post affine
-                if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                if check:
+                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> already at its default values."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    
+            elif self.kwargs["alt"]:
+                if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
+                    check = False
+                    # post affine
                     current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default value."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            
-        else:
-            for key in list(AFFINE_DEFAULTS.keys()):
-                if current[key].eval() != AFFINE_DEFAULTS[key]:
-                    check = False
-                    # post affine
-                    if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                if check:
+                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default value."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                
+            else:
+                for key in list(AFFINE_DEFAULTS.keys()):
+                    if current[key].eval() != AFFINE_DEFAULTS[key]:
+                        check = False
+                        # post affine
                         current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                         current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
@@ -3713,22 +3709,21 @@ iterator_keep_last_weight(self) -> None:
                         _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
-            if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> already at their default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                if check:
+                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> already at their default values."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         
     def reset_preaffine_FF(self) -> None:
         """Reset FF pre affine values to their defaults.
         """        
         node = self.node
-        kwargs = self.kwargs
         n = flam3h_iterator_prm_names
         check = True
         
         current = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.preaffine_ang}") }
 
-        if kwargs["shift"]:
+        if self.kwargs["shift"]:
             for key in list(AFFINE_DEFAULTS.keys())[:1]:
                 if current[key].eval() != AFFINE_DEFAULTS[key]:
                     check = False
@@ -3743,7 +3738,7 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{node.name()}: FF PRE Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
-        elif kwargs["ctrl"]:
+        elif self.kwargs["ctrl"]:
             if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
                 check = False
                 current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
@@ -3754,7 +3749,7 @@ iterator_keep_last_weight(self) -> None:
                 _MSG = f"{node.name()}: FF PRE Affine O -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
-        elif kwargs["alt"]:
+        elif self.kwargs["alt"]:
             if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
                 check = False
                 current["angle"].set(AFFINE_DEFAULTS.get("angle"))
@@ -3787,17 +3782,17 @@ iterator_keep_last_weight(self) -> None:
         """Reset FF post affine values to their defaults.
         """        
         node = self.node
-        kwargs = self.kwargs
         n = flam3h_iterator_prm_names
-        check = True
         
-        current = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.postaffine_ang}") }
-        
-        if kwargs["shift"]:
-            for key in list(AFFINE_DEFAULTS.keys())[:1]:
-                if current[key].eval() != AFFINE_DEFAULTS[key]:
-                    check = False
-                    if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+        if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                
+            check = True
+            current = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.postaffine_ang}") }
+            
+            if self.kwargs["shift"]:
+                for key in list(AFFINE_DEFAULTS.keys())[:1]:
+                    if current[key].eval() != AFFINE_DEFAULTS[key]:
+                        check = False
                         # pre affine
                         current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
@@ -3805,52 +3800,49 @@ iterator_keep_last_weight(self) -> None:
                         _MSG = f"{node.name()}: FF POST Affine X, Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
-            if check:
-                _MSG = f"{node.name()}: FF POST Affine X, Y -> already at their default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                
-        elif kwargs["ctrl"]:
-            if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
-                check = False
-                if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                if check:
+                    _MSG = f"{node.name()}: FF POST Affine X, Y -> already at their default values."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    
+            elif self.kwargs["ctrl"]:
+                if current["affine_o"].eval() != AFFINE_DEFAULTS.get("affine_o"):
+                    check = False
                     current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            if check:
-                _MSG = f"{node.name()}: FF POST Affine O -> already at their default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            
-        elif kwargs["alt"]:
-            if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
-                check = False
-                # post affine
-                if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+                if check:
+                    _MSG = f"{node.name()}: FF POST Affine O -> already at their default values."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                
+            elif self.kwargs["alt"]:
+                if current["angle"].eval() != AFFINE_DEFAULTS.get("angle"):
+                    check = False
+                    # post affine
                     current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
                     _MSG = f"{node.name()}: FF POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            if check:
-                _MSG = f"{node.name()}: FF POST Affine Rotation Angle -> already at their default value."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                if check:
+                    _MSG = f"{node.name()}: FF POST Affine Rotation Angle -> already at their default value."
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
-        else:
-            for key in list(AFFINE_DEFAULTS.keys()):
-                if current[key].eval() != AFFINE_DEFAULTS[key]:
-                    check = False
-                    # post affine
-                    if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+            else:
+                for key in list(AFFINE_DEFAULTS.keys()):
+                    if current[key].eval() != AFFINE_DEFAULTS[key]:
+                        check = False
+                        # post affine
                         current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                         current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                         current["angle"].set(AFFINE_DEFAULTS.get("angle"))
-                    # Print to Houdini's status bar
-                    _MSG = f"{node.name()}: FF POST Affine -> RESET"
+                        # Print to Houdini's status bar
+                        _MSG = f"{node.name()}: FF POST Affine -> RESET"
+                        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                        break
+                if check:
+                    _MSG = f"{node.name()}: FF POST Affine -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                    break
-            if check:
-                _MSG = f"{node.name()}: FF POST Affine -> already at their default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
     def swap_iter_pre_vars(self) -> None:
