@@ -6915,6 +6915,8 @@ in_util_make_PRE(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Un
 
 in_util_make_POST(name: Union[str, Union[list[str], KeysView], tuple[str]]) -> Union[str, list[str], None]:
 
+in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list:
+
 in_to_flam3h_is_CHAOS(xml: str) -> bool:
 
 in_to_flam3h_clipboard_is_CHAOS() -> bool:
@@ -7093,8 +7095,7 @@ in_flam3h_set_iterators(self,
                         preset_id: int, 
                         exclude_keys: tuple
                         ) -> None:
-                        
-in_load_stats_unknown_vars(self, preset_id: int, apo_data: in_flame_iter_data) -> list:
+                    
 
 in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
 
@@ -7202,6 +7203,41 @@ reset_IN(self, mode=0) -> None:
             return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
         else:
             return None
+
+
+    @staticmethod
+    def in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list:
+        """Find all the variations that Fractorium lacks if any.
+        Those variations will be classified as: Unknown
+
+        Args:
+            preset_id (int): The loaded flame preset idx
+            apo_data (in_flame_iter_data): The loaded flame preset data from the xml
+
+        Returns:
+            list: List of sorted uinknown variations if any
+        """
+        if apo_data.plugins[preset_id]:
+            plugins = str(apo_data.plugins[preset_id]).split(" ")
+        else:
+            plugins = ()
+        
+        unknown = []
+        if plugins:
+            for var in plugins:
+                if str(var).startswith("pre"):
+                    name = in_flame_utils.in_util_make_VAR(var)
+                    if name not in VARS_FRACTORIUM_DICT[str(name)[0]]:
+                        unknown.append(var.capitalize())
+                elif str(var).startswith("post"):
+                    name = in_flame_utils.in_util_make_VAR(var)
+                    if name not in VARS_FRACTORIUM_DICT[str(name)[0]]:
+                        unknown.append(var.capitalize())
+                else:
+                    if var not in VARS_FRACTORIUM_DICT[str(var)[0]]:
+                        unknown.append(var.capitalize())
+
+        return sorted(unknown, key=lambda var: var)
 
 
     @staticmethod
@@ -8379,40 +8415,6 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def in_load_stats_unknown_vars(self, preset_id: int, apo_data: in_flame_iter_data) -> list:
-        """Find all the variations that Fractorium lacks if any.
-        Those variations will be classified as: Unknown
-
-        Args:
-            preset_id (int): The loaded flame preset idx
-            apo_data (in_flame_iter_data): The loaded flame preset data from the xml
-
-        Returns:
-            list: List of sorted uinknown variations if any
-        """
-        if apo_data.plugins[preset_id]:
-            plugins = str(apo_data.plugins[preset_id]).split(" ")
-        else:
-            plugins = ()
-        
-        unknown = []
-        if plugins:
-            for var in plugins:
-                if str(var).startswith("pre"):
-                    name = self.in_util_make_VAR(var)
-                    if name not in VARS_FRACTORIUM_DICT[str(name)[0]]:
-                        unknown.append(var.capitalize())
-                elif str(var).startswith("post"):
-                    name = self.in_util_make_VAR(var)
-                    if name not in VARS_FRACTORIUM_DICT[str(name)[0]]:
-                        unknown.append(var.capitalize())
-                else:
-                    if var not in VARS_FRACTORIUM_DICT[str(var)[0]]:
-                        unknown.append(var.capitalize())
-
-        return sorted(unknown, key=lambda var: var)
-
-
     def in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
 
@@ -8560,7 +8562,7 @@ reset_IN(self, mode=0) -> None:
             vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
         # Build UNKNOWN
-        vars_unknown = self.in_load_stats_unknown_vars(preset_id, apo_data)
+        vars_unknown = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
         unknown_grp_fractorium = [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] 
         vars_unknown_msg = ""
         if vars_unknown:
