@@ -7094,6 +7094,8 @@ in_flam3h_set_iterators(self,
                         exclude_keys: tuple
                         ) -> None:
                         
+in_load_stats_unknown_vars(self, preset_id: int, apo_data: in_flame_iter_data) -> list:
+
 in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
 
 menu_in_presets(self) -> list:
