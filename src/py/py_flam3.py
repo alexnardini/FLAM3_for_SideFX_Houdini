@@ -5701,9 +5701,10 @@ XML_APP_NAME_FRACTORIUM = 'EMBER'
 # This is used as a faster idx lookup table.
 # From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3 for houdini var idx it is mapped to.
 # The key names matter and must match the variation's names as known by other apps ( in my case: Apophysis and Fratorium )
+#
 # _NOTE:
-#       Variation name "linear3d" has been added to this dict as it is often used in old Flames and we are remapping it to "linear"
-#       so we dnt need to open Fractorium for example and swap it there, save it and reload it back inside FLAM3H.
+#       Variation name "linear3d" has been added to this dict as it is often used in old Flames and we are remapping it to "linear" on load.
+
 VARS_FLAM3_DICT_IDX = { "linear": 0, 
                         "linear3d": 0, 
                         "sinusoidal": 1,
