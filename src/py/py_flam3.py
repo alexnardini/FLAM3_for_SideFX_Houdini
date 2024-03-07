@@ -5666,10 +5666,10 @@ XML_VALID_FLAMES_ROOT_TAG = 'flames'
 XML_VALID_CHAOS_ROOT_TAG = 'ifs'
 
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
-XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity", "flatten")
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
 # Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
 # note: for FF I swap back to the above  XML_XF_KEY_EXCLUDE to make possible to load pre_gaussian_blur since FF do not posses an hard coded pre_blur.
-XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity", "flatten")
+XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
 
 # This has been fixed and now radial_blur variation matches all the other apps
 # but I leave it here just in case other variation will need it.
