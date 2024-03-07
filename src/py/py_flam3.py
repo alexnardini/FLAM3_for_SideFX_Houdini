@@ -7228,13 +7228,13 @@ reset_IN(self, mode=0) -> None:
         unknown = []
         if plugins:
             for var in plugins:
-                if str(var).startswith("pre"):
-                    name = str(in_flame_utils.in_util_make_VAR(var))
-                    if name.lower() not in VARS_FRACTORIUM_DICT[name[0].lower()]:
+                if str(var).startswith(V_PRX_PRE):
+                    name = str(in_flame_utils.in_util_make_VAR(var)).lower()
+                    if name not in VARS_FRACTORIUM_DICT[name[0]]:
                         unknown.append(var.capitalize())
-                elif str(var).startswith("post"):
-                    name = str(in_flame_utils.in_util_make_VAR(var))
-                    if name.lower() not in VARS_FRACTORIUM_DICT[name[0].lower()]:
+                elif str(var).startswith(V_PRX_POST):
+                    name = str(in_flame_utils.in_util_make_VAR(var)).lower()
+                    if name not in VARS_FRACTORIUM_DICT[name[0]]:
                         unknown.append(var.capitalize())
                 else:
                     if str(var).lower() not in VARS_FRACTORIUM_DICT[str(var)[0].lower()]:
