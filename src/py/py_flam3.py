@@ -1649,8 +1649,9 @@ reset_PREFS(self, mode=0) -> None:
             self.util_set_stashed_cam()
             self.util_clear_stashed_cam_data()
 
-            _MSG = f"{node.name()}: {prm.upper()} -> OFF"
-            self.set_status_msg(_MSG, 'MSG')
+            _MSG = f"Sensor viz -> OFF"
+            self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+            flam3h_general_utils.flash_message(node, _MSG)
             
         else:
             node.setParms({prm: 1})
@@ -1662,8 +1663,9 @@ reset_PREFS(self, mode=0) -> None:
                 self.util_set_clipping_viewers()
                 self.util_set_front_viewer()
                 
-                _MSG = f"{node.name()}: {prm.upper()} -> ON"
-                self.set_status_msg(_MSG, 'MSG')
+                _MSG = f"Sensor viz -> ON"
+                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                flam3h_general_utils.flash_message(node, _MSG)
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                 node.setParms({prm: 0})
@@ -6067,10 +6069,18 @@ get_name(self, key=XML_XF_NAME) -> tuple
             root = self._tree.getroot()
             return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
         else:
-            # For safety, lets turn off those toggles
-            hou.pwd().setParm({IN_ISVALID_FILE: 0})
-            hou.pwd().setParm({IN_ISVALID_PRESET: 0})
-            return ()
+            # inside a try/except block because it happened that when Houdini is busy like for example computing the flame while it is in camera sensor mode,
+            # this failed on me once and it could not evaluate the hou.pwd() properly.
+            try:
+                # For safety, lets turn off those toggles
+                hou.pwd().setParm({IN_ISVALID_FILE: 0})
+                hou.pwd().setParm({IN_ISVALID_PRESET: 0})
+                return ()
+            except:
+                _MSG = ("\nFLAM3H -> warning: Could not evaluate the current hou.SopNode. Class _xml(...).get_name(...)\n")
+                print(_MSG)
+                flam3h_general_utils.set_status_msg(f"{_MSG}", 'WARN')
+                return ()
 
 
 
@@ -7284,6 +7294,7 @@ reset_IN(self, mode=0) -> None:
             tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
         except:
             tree = None
+        
         if tree is not None:
                 if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
                     return True
