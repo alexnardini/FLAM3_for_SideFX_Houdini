@@ -8660,6 +8660,7 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
+                menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 return menu
         
@@ -8718,6 +8719,7 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
+                menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 return menu
         
