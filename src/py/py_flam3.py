@@ -7244,13 +7244,13 @@ reset_IN(self, mode=0) -> None:
             list: List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
-            plugins = str(apo_data.plugins[preset_id]).split(" ")
+            plugins = [p for p in str(apo_data.plugins[preset_id]).split(" ") if p]
         else:
             plugins = ()
         
         unknown = []
         if plugins:
-            for var in [p for p in plugins if p]:
+            for var in plugins:
                 if str(var).startswith(V_PRX_PRE):
                     name = str(in_flame_utils.in_util_make_VAR(var)).lower()
                     if name not in VARS_FRACTORIUM_DICT[name[0]]:
