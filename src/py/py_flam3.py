@@ -7250,7 +7250,7 @@ reset_IN(self, mode=0) -> None:
         
         unknown = []
         if plugins:
-            for var in plugins:
+            for var in [p for p in plugins if p]:
                 if str(var).startswith(V_PRX_PRE):
                     name = str(in_flame_utils.in_util_make_VAR(var)).lower()
                     if name not in VARS_FRACTORIUM_DICT[name[0]]:
@@ -8596,7 +8596,6 @@ reset_IN(self, mode=0) -> None:
         if vars_unknown:
             unknown_grp_fractorium = [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] 
             vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp(unknown_grp_fractorium)}"
-        
         
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).evalAsString()
