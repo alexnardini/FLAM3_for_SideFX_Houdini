@@ -84,7 +84,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.15'
+FLAM3H_VERSION = '1.3.20'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -7244,7 +7244,7 @@ reset_IN(self, mode=0) -> None:
             list: List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
-            plugins = [p for p in str(apo_data.plugins[preset_id]).split(" ") if p]
+            plugins = [p.strip() for p in str(apo_data.plugins[preset_id]).split(" ") if p]
         else:
             plugins = ()
         
