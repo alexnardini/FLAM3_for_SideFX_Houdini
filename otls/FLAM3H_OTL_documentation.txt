@@ -1878,6 +1878,10 @@ camera handle:
     Display the viewport camera handle to help frame/center your fractal Flame.
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     
+    NOTE:
+        The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera.
+    
+    
     :warning:
         *TURN THIS OFF WHEN RENDERING.*
 
