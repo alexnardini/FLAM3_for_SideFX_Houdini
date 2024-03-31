@@ -36,6 +36,9 @@ source_filename = "TFFAxaos"
 @26 = private constant [4 x i8] c"XST\00"
 
 ; Function Attrs: nounwind readnone
+declare double @"div@FF"(double, double) #0
+
+; Function Attrs: nounwind readnone
 declare double @"getcomp@FUI"(<2 x double>, i64) #0
 
 ; Function Attrs: nounwind readnone
@@ -55,9 +58,6 @@ declare double @"tan@FF"(double) #0
 
 ; Function Attrs: nounwind readnone
 declare i64 @"neg@II"(i64) #0
-
-; Function Attrs: nounwind readnone
-declare double @"div@FF"(double, double) #0
 
 ; Function Attrs: nounwind readnone
 declare double @"floor@FF"(double) #0
@@ -700,7 +700,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"19.5.435"}
+!1 = !{!"19.0.720"}
 !2 = !{!"64"}
 !3 = !{!""}
 

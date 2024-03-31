@@ -5,7 +5,7 @@
  /
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised December 2022
+ /  date:       October 2020, Last revised March 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -57,11 +57,11 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(sIDX, FF);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res, PFF; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL; PFF=GEM.PFF;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], _CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast FF
-    int     fp1t, fv1t, fv2t, fP1t, fP2t; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t;
+    int     fp1t, fv1t, fv2t, fP1t, fP2t, PFF; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t; PFF=GEM.PFF;
     float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
     vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
