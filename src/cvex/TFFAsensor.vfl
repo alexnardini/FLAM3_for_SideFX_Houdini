@@ -61,8 +61,8 @@ void _TFFAsensor()
     // FLAM3H CAMERA Sensor
     vector translation, rotation;
     translation = set(sensor_center[0], sensor_center[1], 0);
-    rotation = set(0, 0, float(sensor_rot));
-    float factor = 1.0 / float(sensor_zoom);
+    rotation = set(0, 0, sensor_rot);
+    float factor = 1.0 / sensor_zoom;
     
     matrix m4_first, m4_second, m4_first_no_scale, m4_second_sensor, m4_flip;
     m4_first = maketransform(0, 0, translation, 0, factor);
