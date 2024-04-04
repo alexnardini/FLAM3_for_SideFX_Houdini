@@ -2400,7 +2400,7 @@ NOTE:
     
     You just need to click it once, and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
     
-    Once clicked and as soon as FLAM3H cook again, it will Re-Compile all FLAM3H CVEX nodes. Depending on your PC configuration it can take anywhere between 30s and 1 minute. It is a one time compile process.
+    Once clicked and as soon as FLAM3H cook again, it will Re-Compile all FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process.
 
 
 
