@@ -8591,7 +8591,6 @@ reset_IN(self, mode=0) -> None:
         
         # Build UNKNOWN
         vars_unknown = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        
         vars_unknown_msg = ""
         if vars_unknown:
             unknown_grp_fractorium = [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] 
