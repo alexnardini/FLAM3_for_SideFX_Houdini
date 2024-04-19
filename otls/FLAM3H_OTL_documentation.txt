@@ -508,7 +508,7 @@ Enable/Disable iterator:
     TIP:
         #display: orange
         If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
-        In case you still want to include the inactive iterator in the file, set its weight to zero instead.
+        In case you still want to include the inactive iterator in the file, set its Weight to zero instead.
     
     
 A tip:
