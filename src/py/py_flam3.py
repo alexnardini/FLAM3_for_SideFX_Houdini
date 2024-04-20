@@ -7432,10 +7432,10 @@ reset_IN(self, mode=0) -> None:
         prx_prm = ""
         if mode == 1:
             prx = PRX_FF_PRM
-            prx_prm = PRX_FF_PRM + "_"
+            prx_prm = f"{PRX_FF_PRM}_"
         if mode == 2:
             prx = PRX_FF_PRM
-            prx_prm = PRX_FF_PRM_POST + "_"
+            prx_prm = f"{PRX_FF_PRM_POST}_"
         return prx, prx_prm
     
     
@@ -7584,9 +7584,9 @@ reset_IN(self, mode=0) -> None:
             tuple: Expected data type of the collected parametric variation's parameters values.
         """   
         
-        iter_type = f"Iterator.{mp_idx+1}:"
+        iter_type = f"Iterator.{mp_idx+1}"
         if mode:
-            iter_type = 'FF:'
+            iter_type = 'FF'
 
         VAR: list = []
         for names in apo_prm[1:-1]:
@@ -7600,7 +7600,7 @@ reset_IN(self, mode=0) -> None:
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
-                        print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type} variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+                        print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type}: variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
 
         return VAR

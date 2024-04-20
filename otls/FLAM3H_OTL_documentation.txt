@@ -270,7 +270,8 @@ TAG:
         
         - [Smallicon:opdef:.?icon_TagOBlueSVG.svg]: when the Tag is ON ( _default_ ).
         - [Smallicon:opdef:.?icon_TagOBlueSVG_disabled.svg]: when the Tag is OFF.
-        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when the OUT Camera sensor viz mode is ON.
+        - [Smallicon:opdef:.?icon_TagORedSVG.svg]: when the OUT Camera sensor viz mode is ON and update sensor option is ON.
+        - [Smallicon:opdef:.?icon_TagORedOffSVG.svg]: when the OUT Camera sensor viz mode is ON and update sensor option is OFF.
         - [Smallicon:opdef:.?icon_TagOSVG.svg]: when iterator's count is zero and when Xaos is active but you cross the 20 iterators limit. ( _only in the viewport Tag_ )
         
         When in OUT Camera sensor mode, the Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
@@ -1670,7 +1671,8 @@ SHOW sensor viz:
     #id: OUT
     
     - [Smallicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is OFF.
-    - [Smallicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is ON.
+    - [Smallicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is ON and update sensor option is ON.
+    - [Smallicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is ON and update sensor option is OFF.
     
     Activate FLAM3H Camera sensor visualization.
     

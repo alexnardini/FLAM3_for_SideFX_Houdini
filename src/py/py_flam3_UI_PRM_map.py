@@ -163,6 +163,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
 
 
+# SYS Tab: SENSOR
+'parameter name     sys_out_sensorviz_off'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
+
+
 # SYS Tab: TAG
 'parameter name     sys_tag_off'
 'script type:       Callback Script'
@@ -477,6 +483,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 
 'parameter name:    out_sensorviz'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
+
+
+'parameter name:    out_sensorviz_off'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle()
 
