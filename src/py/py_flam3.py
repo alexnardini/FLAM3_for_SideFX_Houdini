@@ -1931,21 +1931,12 @@ reset_PREFS(self, mode=0) -> None:
                     if col == Light or col == Grey or col == DarkGrey:
                         settings.setColorScheme(Dark)
                     elif col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
-                        if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
-                            settings.setColorScheme(Light)
-                        elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
-                            settings.setColorScheme(Grey)
-                        elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
-                            settings.setColorScheme(DarkGrey)
+                        settings.setColorScheme(hou.session.flam3h_viewport_CS[count]) # type: ignore
 
             else:
                 if col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
-                        settings.setColorScheme(Light)
-                    elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
-                        settings.setColorScheme(Grey)
-                    elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
-                        settings.setColorScheme(DarkGrey)
+                    settings.setColorScheme(hou.session.flam3h_viewport_CS[count]) # type: ignore
+                    
             count += 1
             
         if update_others:
