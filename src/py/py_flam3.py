@@ -8072,7 +8072,11 @@ reset_IN(self, mode=0) -> None:
         """
         # Get the correct menu parameter's preset menu label
         if node.parm(IN_ISVALID_PRESET).evalAsInt():
-            return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
+            
+            if node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
+                return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
+            else:
+                return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
         else:
             return str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
     
@@ -8801,7 +8805,7 @@ reset_IN(self, mode=0) -> None:
                 else:
                     # Get the correct menu parameter's preset menu label
                     preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
-
+                        
                     _MSG = f"{node.name()}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
