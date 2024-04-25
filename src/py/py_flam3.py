@@ -3128,6 +3128,7 @@ iterator_keep_last_weight(self) -> None:
                     else:
                         _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, MARK_ITER_MSG)
                         
                 elif node != from_FLAM3H_NODE:
                     assert from_FLAM3H_NODE is not None
@@ -3140,10 +3141,12 @@ iterator_keep_last_weight(self) -> None:
                     else:
                         _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, MARK_ITER_MSG)
                         
                 else:
                     _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    flam3h_general_utils.flash_message(node, MARK_ITER_MSG)
 
 
     def prm_paste_SHIFT(self, id: int) -> None:
@@ -3323,6 +3326,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 _MSG = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.flash_message(node, MARK_FF_MSG)
     
     
     def prm_paste_FF_SHIFT(self) -> None:
