@@ -498,6 +498,10 @@ copy/paste:
     - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     - ((SHIFT)) + ((LMB)) to unmark this FLAM3H node marked iterator for being copied.
     
+    Additionally:
+    
+    - ((ALT)) + ((LMB)) to reset this iterator to its default values.
+    
 Enable/Disable iterator:
     #id: FLAME
     
@@ -854,6 +858,10 @@ FF: copy/paste:
     - ((LMB)) to mark this FF for being copied. If already marked, it will unmark it.
     - ((CTRL)) + ((LMB)) to copy the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
     - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
+    
+    Additionally:
+    
+    - ((ALT)) + ((LMB)) to reset this FF to its default values.
     
     
 :box:

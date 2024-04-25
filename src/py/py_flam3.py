@@ -2150,9 +2150,15 @@ reset_preaffine_FF(self) -> None:
 
 reset_postaffine_FF(self) -> None:
 
+swap_iter_pre_vars(self) -> None:
+
+swap_FF_post_vars(self) -> None:
+
 reset_FF(self) -> None:
 
 flam3h_default(self) -> None:
+
+flam3h_reset_iterator(self) -> None:
 
 auto_set_xaos(self) -> None:
 
@@ -3270,9 +3276,12 @@ iterator_keep_last_weight(self) -> None:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {str(id)}"): # type: ignore
                 self.prm_paste_SHIFT(id)
                 
+        # Adding ability to reset the current iterator to its default values.      
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H unmark iterator ALT {str(id)}"): # type: ignore
-                self.prm_paste_SHIFT(id)
+            with hou.undos.group(f"FLAM3H reset iterator {str(id)}"): # type: ignore
+                self.flam3h_reset_iterator()
+                _MSG = f"{node.name()}: Iterator {str(id)} -> RESET"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
@@ -3402,10 +3411,13 @@ iterator_keep_last_weight(self) -> None:
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark FF SHIFT"): # type: ignore
                 self.prm_paste_FF_SHIFT()
-                
+
+        # Adding ability to reset the FF to its default values. 
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H unmark FF ALT"): # type: ignore
-                self.prm_paste_FF_SHIFT()
+            with hou.undos.group(f"FLAM3H FF RESET"): # type: ignore
+                self.reset_FF()
+                _MSG = f"{node.name()}: FF -> RESET"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
         else:
             if self.exist_user_data(node, "Marked FF") and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
@@ -4066,6 +4078,52 @@ iterator_keep_last_weight(self) -> None:
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             # Run a flash message
             flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle")
+            
+            
+    def flam3h_reset_iterator(self) -> None:
+        
+        node = self.node
+        id = self.kwargs['script_multiparm_index']
+        # iterator prm names
+        n = flam3h_iterator_prm_names
+        
+        # iter 1
+        #
+        # main
+        node.setParms({f"{n.main_note}_{str(id)}": f"iterator_{str(id)}"}) # type: ignore
+        node.setParms({f"{n.main_weight}_{str(id)}": 0.5}) # type: ignore
+        # shader
+        node.setParms({f"{n.shader_color}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.shader_alpha}_{str(id)}": 1.0}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_blur}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.prevar_weight_blur}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.prevar_type_1}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.prevar_weight_1}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.prevar_weight_2}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_1}_{str(id)}": 1.0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_2}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_3}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_4}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.postvar_weight_1}_{str(id)}": 0.0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_{str(id)}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_{str(id)}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_{str(id)}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
+        node.setParms({f"{n.preaffine_ang}_{str(id)}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
+        # post affine
+        node.setParms({f"{n.postaffine_do}_{str(id)}": 0}) # type: ignore
+        node.setParms({f"{n.postaffine_x}_{str(id)}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
+        node.setParms({f"{n.postaffine_y}_{str(id)}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
+        node.setParms({f"{n.postaffine_o}_{str(id)}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
+        node.setParms({f"{n.postaffine_ang}_{str(id)}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
         
 
 
