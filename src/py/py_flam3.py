@@ -8060,8 +8060,9 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod
     def in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
-        """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not.
-        Those need to be queried separately, this definition will query the currently visible one.
+        """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not
+        plus when a it can also be that a preset from the clipboard has been loaded, introducing a new bookmark icon.
+        Those need to be queried separately, this definition will query the currently visible one and account for the clipboard case as well.
 
         Args:
             node (hou.SopNode): This FLAM3H node
