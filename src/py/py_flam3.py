@@ -4617,6 +4617,7 @@ reset_CP(self, mode=0) -> None:
             return False
 
 
+
     @staticmethod
     def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
         """Check if the loaded palette lib file is a valid FLAM3H palette json file.
@@ -4789,15 +4790,10 @@ reset_CP(self, mode=0) -> None:
             str: indented json data as string
         """
         node = self.node
-        
         # get user's preset name or build an automated one
-        name = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
-        if not name:
-            now = datetime.now()
-            presetname = now.strftime("Palette_%b-%d-%Y_%H%M%S")
-        else:
-            # otherwise get that name and use it
-            presetname = name
+        presetname = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
+        if not presetname:
+            presetname = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
 
         # Updated HSV ramp before getting it
         self.palette_lock()
@@ -4917,7 +4913,8 @@ reset_CP(self, mode=0) -> None:
                             node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
                             # Clearup the Palette name if any were given
                             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
-                            # Mark this as the currently loaded preset as it is the preset we just saved
+                            # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
+                            node.setParms({CP_ISVALID_FILE: 1})
                             node.setParms({CP_ISVALID_PRESET: 1})
                             # Make sure to update the tmp ramp with the just saved one
                             self.palette_cp_to_tmp()
@@ -9655,8 +9652,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 
                 splt = ':'
                 div = '::'
-                now = datetime.now()
-                flame_name_new = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+                flame_name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
                 
                 rp = flame_name.split(splt)
                 rp[:] = [item for item in rp if item]
@@ -9763,8 +9759,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             str: _description_
         """        
-        now = datetime.now()
-        flame_name = now.strftime("Flame_%b-%d-%Y_%H%M%S")
+        flame_name = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
         iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
         return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
@@ -9878,8 +9873,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             Union[str, bool]: Either a corrected/valid file path or False if not valid.
         """        
-        now = datetime.now()
-        new_name = now.strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+        new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
         
         file = os.path.expandvars(infile)
         file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
@@ -10113,7 +10107,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """Reformat the XML data in a pretty way.
 
         Args:
-            current (_type_): The Flame XML root with want to reformat.
+            current (_type_): The Flame XML root we want to reformat.
             parent (_type_, optional): _description_. Defaults to None.
             index (int, optional): _description_. Defaults to -1.
             depth (int, optional): _description_. Defaults to 0.
@@ -10666,7 +10660,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
         Args:
             kwargs (dict): _description_
-            root (lxmlET.Element): The root of the either the flame to be written out or the flame file to append the new flame to.
+            root (lxmlET.Element): The root of either the flame to be written out or the flame file to append the new flame to.
 
         Returns:
             bool: return True if the Flame is a compatible FLAM3 flame or False if not.
