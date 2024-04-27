@@ -84,7 +84,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.20'
+FLAM3H_VERSION = '1.3.33'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1836,7 +1836,9 @@ reset_PREFS(self, mode=0) -> None:
         json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
-            if flam3h_palette_utils.isJSON_F3H(node, json_path):
+            
+            json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
+            if json_file and f3h_json_file:
                 # CP is valid file
                 node.setParms({CP_ISVALID_FILE: 1})
                 # Only set when NOT on an: onLoaded python script
@@ -4514,7 +4516,7 @@ get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
 
-isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool], parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
 
 rgb_to_hex(rgb: tuple) -> str:
 
@@ -4619,7 +4621,7 @@ reset_CP(self, mode=0) -> None:
 
 
     @staticmethod
-    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> bool:
+    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
         """Check if the loaded palette lib file is a valid FLAM3H palette json file.
 
         Args:
@@ -4648,7 +4650,7 @@ reset_CP(self, mode=0) -> None:
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             flam3h_general_utils.flash_message(node, f"Palette LOAD -> Not a valid FLAM3H JSON palette file")
                         del data
-                        return False
+                        return True, False
                     
                     # Validate the file path setting it
                     node.setParms({parm_path_name: filepath}) #type: ignore
@@ -4656,13 +4658,13 @@ reset_CP(self, mode=0) -> None:
                     if sm[0] and msg:
                         flam3h_general_utils.set_status_msg('', 'MSG')
                     del data
-                    return True
+                    return True, True
             else:
                 flam3h_general_utils.set_status_msg('', 'MSG')
-                return False
+                return False, False
         else:
             flam3h_general_utils.set_status_msg('', 'MSG')
-            return False
+            return False, False
         
         
     @staticmethod
@@ -4861,7 +4863,7 @@ reset_CP(self, mode=0) -> None:
                     flam3h_general_utils.util_open_file_explorer(out_path_checked)
                     
                 else:
-                        
+                    
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Palette library is Locked."
                         ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
@@ -4875,16 +4877,26 @@ reset_CP(self, mode=0) -> None:
                         flam3h_general_utils.set_status_msg('', 'MSG')
                         
                     else:
+                        
+                        # F3H palette json file checks
+                        json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
+                        
                         # build palette data to save
                         json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
 
                         if self.kwargs["ctrl"]:
-                            os.remove(str(out_path_checked))
-                            with open(str(out_path_checked),'w') as w:
-                                w.write(json_data)
+                            if json_file and f3h_json_file:
+                                os.remove(str(out_path_checked))
+                                with open(str(out_path_checked),'w') as w:
+                                    w.write(json_data)
+                            else:
+                                _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                                flam3h_general_utils.flash_message(node, f"Palette SAVE -> Not a valid FLAM3H JSON palette file")
+                                
                         else:
                             # if the file exist and is a valid JSON file
-                            if self.isJSON_F3H(node, out_path_checked, False):
+                            if json_file and f3h_json_file:
                                 with open(str(out_path_checked),'r') as r:
                                     prevdata = json.load(r)
                                 with open(str(out_path_checked), 'w') as w:
@@ -4899,30 +4911,45 @@ reset_CP(self, mode=0) -> None:
                             # def out_flame_utils.out_check_outpath(...)
                             # so to not override something else by accident
                             else:
-                                with open(str(out_path_checked),'w') as w:
-                                    w.write(json_data)
+                                # If the file do not exist, lets create it and save the palette in it
+                                if not os.path.isfile(out_path_checked):
+                                    with open(str(out_path_checked),'w') as w:
+                                        w.write(json_data)
 
-                        # Set some parameters
-                        with open(out_path_checked) as f:
-                            data = json.load(f)
-                            preset_last_idx = str(len(data.keys())-1)
-                            # Set all CP preset menus parameter index
-                            node.setParms({CP_PALETTE_PRESETS: preset_last_idx })
-                            node.setParms({CP_PALETTE_PRESETS_OFF: preset_last_idx })
-                            node.setParms({CP_SYS_PALETTE_PRESETS: preset_last_idx })
-                            node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
-                            # Clearup the Palette name if any were given
-                            node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
-                            # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
-                            node.setParms({CP_ISVALID_FILE: 1})
-                            node.setParms({CP_ISVALID_PRESET: 1})
-                            # Make sure to update the tmp ramp with the just saved one
-                            self.palette_cp_to_tmp()
-                            del data
-                            
-                        # Set the file path to the corrected one
-                        node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
-                        flam3h_general_utils.flash_message(node, f"Palette SAVED")
+                        # We do this again so we can read the newly created file if any 
+                        json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
+                        if json_file:
+                            if f3h_json_file:
+                                # Set some parameters
+                                with open(out_path_checked) as f:
+                                    data = json.load(f)
+                                    preset_last_idx = str(len(data.keys())-1)
+                                    # Set all CP preset menus parameter index
+                                    node.setParms({CP_PALETTE_PRESETS: preset_last_idx })
+                                    node.setParms({CP_PALETTE_PRESETS_OFF: preset_last_idx })
+                                    node.setParms({CP_SYS_PALETTE_PRESETS: preset_last_idx })
+                                    node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
+                                    # Clearup the Palette name if any were given
+                                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+                                    # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
+                                    node.setParms({CP_ISVALID_FILE: 1})
+                                    node.setParms({CP_ISVALID_PRESET: 1})
+                                    # Make sure to update the tmp ramp with the just saved one
+                                    self.palette_cp_to_tmp()
+                                    del data
+                                    
+                                # Set the file path to the corrected one
+                                node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
+                                flam3h_general_utils.flash_message(node, f"Palette SAVED")
+                                
+                            else:
+                                # Just in case lets set those
+                                node.setParms({CP_ISVALID_FILE: 0})
+                                node.setParms({CP_ISVALID_PRESET: 0})
+                                
+                                _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                                flam3h_general_utils.flash_message(node, f"Palette SAVE -> Not a valid FLAM3H JSON palette file")
                         
             else:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
@@ -4944,7 +4971,7 @@ reset_CP(self, mode=0) -> None:
             
             filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
             
-            if os.path.isfile(filepath) and os.path.getsize(filepath)>0:
+            if os.path.isfile(filepath) and os.path.getsize(filepath)>0 and node.parm(CP_ISVALID_FILE).evalAsInt():
 
                 HEXs = []
                 hsv_vals = []
@@ -5237,7 +5264,7 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-        if self.isJSON_F3H(node, filepath, False):
+        if self.isJSON_F3H(node, filepath, False)[0]:
             if flam3h_general_utils.isLOCK(filepath) is False:
                 node.setParms({MSG_PALETTE: ''})
         else:
