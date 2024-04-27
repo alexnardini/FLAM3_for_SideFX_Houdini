@@ -4885,10 +4885,16 @@ reset_CP(self, mode=0) -> None:
                         json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
 
                         if self.kwargs["ctrl"]:
-                            if json_file and f3h_json_file:
+                            
+                            if not os.path.exists(out_path_checked):
+                                with open(str(out_path_checked),'w') as w:
+                                    w.write(json_data)
+                                    
+                            elif json_file and f3h_json_file:
                                 os.remove(str(out_path_checked))
                                 with open(str(out_path_checked),'w') as w:
                                     w.write(json_data)
+                                    
                             else:
                                 _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
