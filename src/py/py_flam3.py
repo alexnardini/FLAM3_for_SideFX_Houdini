@@ -2809,6 +2809,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
+        idx = str(id)
         
         if self.exist_user_data(node):
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
@@ -2818,13 +2819,13 @@ iterator_keep_last_weight(self) -> None:
         
         if mp_id_from is not None:
             
-            prm_selmem = node.parm(f"{flam3h_iterator_prm_names.main_selmem}_{str(id)}")
+            prm_selmem = node.parm(f"{flam3h_iterator_prm_names.main_selmem}_{idx}")
             if prm_selmem.evalAsInt() > 0:
-                node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}": 0})
+                node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
                 prm_selmem.set(0)
             
             if node == from_FLAM3H_NODE and id==mp_id_from:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {str(id)}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
                 menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
             else:
@@ -3270,30 +3271,31 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
+        idx = str(id)
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H paste iterator data CTRL {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H paste iterator data CTRL {idx}"): # type: ignore
                 self.prm_paste_CTRL(id)
                 
         elif self.kwargs["shift"]:
-            with hou.undos.group(f"FLAM3H unmark iterator SHIFT {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H unmark iterator SHIFT {idx}"): # type: ignore
                 self.prm_paste_SHIFT(id)
                 
         # Adding ability to reset the current iterator to its default values.      
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H reset iterator {str(id)}"): # type: ignore
+            with hou.undos.group(f"FLAM3H reset iterator {idx}"): # type: ignore
                 self.flam3h_reset_iterator()
-                _MSG = f"{node.name()}: Iterator {str(id)} -> RESET"
+                _MSG = f"{node.name()}: Iterator {idx} -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H unmark iterator CLICK {str(id)}"): # type: ignore
+                with hou.undos.group(f"FLAM3H unmark iterator CLICK {idx}"): # type: ignore
                     self.prm_paste_SHIFT(id)
             else:
-                with hou.undos.group(f"FLAM3H mark iterator CLICK {str(id)}"): # type: ignore
+                with hou.undos.group(f"FLAM3H mark iterator CLICK {idx}"): # type: ignore
                     self.prm_paste_CLICK(id)
     
     
@@ -3453,54 +3455,55 @@ iterator_keep_last_weight(self) -> None:
 
             # current iterator
             id = self.kwargs['script_multiparm_index']
+            idx = str(id)
 
             # Marked iterator node
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
             
             # Get user selection of paste methods
-            paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}").evalAsInt()
-            node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{str(id)}": paste_sel})
+            paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}").evalAsInt()
+            node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
 
             # set ALL
             if paste_sel == 1:
                 self.prm_paste_CTRL(id)
             # set MAIN
             elif paste_sel == 2:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_main, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_MAIN, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_main, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_MAIN, idx, str(mp_id_from))
             # set XML_XF_XAOS
             elif paste_sel == 3:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_xaos, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_xaos, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, idx, str(mp_id_from))
             # set SHADER 
             elif paste_sel == 4:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_shader, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_SHADER, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_shader, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_SHADER, idx, str(mp_id_from))
             # set PRE VARS
             elif paste_sel == 5:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsW, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREVARS, str(id), str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsW, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREVARS, idx, str(mp_id_from))
             # set VARS
             elif paste_sel == 6:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsW, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_VARS, str(id), str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsW, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_VARS, idx, str(mp_id_from))
             # set POST VARS
             elif paste_sel == 7:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsW, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTVARS, str(id), str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsW, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTVARS, idx, str(mp_id_from))
             # set PRE AFFINE
             elif paste_sel == 8:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, idx, str(mp_id_from))
             # set POST AFFINE
             elif paste_sel == 9:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, str(id), str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, str(mp_id_from))
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, str(mp_id_from))
         
-            node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{str(id)}": 0})
+            node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
             
         else:
             _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -3610,9 +3613,10 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         n = flam3h_iterator_prm_names
         id = self.kwargs['script_multiparm_index']
+        idx = str(id)
         check = True
         
-        current = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{str(id)}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{str(id)}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{str(id)}"), "angle": node.parm(f"{n.preaffine_ang}_{str(id)}") }
+        current = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{idx}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{idx}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{idx}"), "angle": node.parm(f"{n.preaffine_ang}_{idx}") }
         
         if self.kwargs["shift"]:
             for key in list(AFFINE_DEFAULTS.keys())[:1]:
@@ -3622,11 +3626,11 @@ iterator_keep_last_weight(self) -> None:
                     current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
                     current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                     # Print to Houdini's status bar
-                    _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine X, Y -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{idx} PRE Affine X, Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine X, Y -> already at their default values."
+                _MSG = f"{node.name()}: Iterator.{idx} PRE Affine X, Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["ctrl"]:
@@ -3634,10 +3638,10 @@ iterator_keep_last_weight(self) -> None:
                 check = False
                 current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                 # Print to Houdini's status bar
-                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine O -> RESET"
+                _MSG = f"{node.name()}: Iterator.{idx} PRE Affine O -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine O -> already at its default values."
+                _MSG = f"{node.name()}: Iterator.{idx} PRE Affine O -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
@@ -3645,10 +3649,10 @@ iterator_keep_last_weight(self) -> None:
                 check = False
                 current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                 # Print to Houdini's status bar
-                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine Rotation Angle -> RESET"
+                _MSG = f"{node.name()}: Iterator.{idx} PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine Rotation Angle -> already at its default values."
+                _MSG = f"{node.name()}: Iterator.{idx} PRE Affine Rotation Angle -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -3661,11 +3665,11 @@ iterator_keep_last_weight(self) -> None:
                     current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                     current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{idx} PRE Affine -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG = f"{node.name()}: Iterator.{str(id)} PRE Affine -> already at their default values."
+                _MSG = f"{node.name()}: Iterator.{idx} PRE Affine -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -3676,11 +3680,12 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         n = flam3h_iterator_prm_names
         id = self.kwargs['script_multiparm_index']
+        idx = str(id)
         
-        if node.parm(f"{n.postaffine_do}_{str(id)}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+        if node.parm(f"{n.postaffine_do}_{idx}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
             check = True
-            current = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{str(id)}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{str(id)}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{str(id)}"), "angle": node.parm(f"{n.postaffine_ang}_{str(id)}") }
+            current = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{idx}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{idx}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{idx}"), "angle": node.parm(f"{n.postaffine_ang}_{idx}") }
             
             if self.kwargs["shift"]:
                 for key in list(AFFINE_DEFAULTS.keys())[:1]:
@@ -3690,11 +3695,11 @@ iterator_keep_last_weight(self) -> None:
                         current["affine_x"].set(AFFINE_DEFAULTS.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULTS.get("affine_y"))
                         # Print to Houdini's status bar
-                        _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> RESET"
+                        _MSG = f"{node.name()}: Iterator.{idx} POST Affine X, Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine X, Y -> already at their default values."
+                    _MSG = f"{node.name()}: Iterator.{idx} POST Affine X, Y -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
@@ -3702,10 +3707,10 @@ iterator_keep_last_weight(self) -> None:
                     check = False
                     current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                     # Print to Houdini's status bar
-                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{idx} POST Affine O -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine O -> already at its default values."
+                    _MSG = f"{node.name()}: Iterator.{idx} POST Affine O -> already at its default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["alt"]:
@@ -3714,10 +3719,10 @@ iterator_keep_last_weight(self) -> None:
                     # post affine
                     current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> RESET"
+                    _MSG = f"{node.name()}: Iterator.{idx} POST Affine Rotation Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine Rotation Angle -> already at its default value."
+                    _MSG = f"{node.name()}: Iterator.{idx} POST Affine Rotation Angle -> already at its default value."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
@@ -3730,11 +3735,11 @@ iterator_keep_last_weight(self) -> None:
                         current["affine_o"].set(AFFINE_DEFAULTS.get("affine_o"))
                         current["angle"].set(AFFINE_DEFAULTS.get("angle"))
                         # Print to Houdini's status bar
-                        _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> RESET"
+                        _MSG = f"{node.name()}: Iterator.{idx} POST Affine -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG = f"{node.name()}: Iterator.{str(id)} POST Affine -> already at their default values."
+                    _MSG = f"{node.name()}: Iterator.{idx} POST Affine -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         
@@ -3873,40 +3878,41 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
-        _MSG = f"{node.name()}.iterator.{str(id)} PRE variations -> SWAP"
+        idx = str(id)
+        _MSG = f"{node.name()}.iterator.{idx} PRE variations -> SWAP"
         
         # Get prm names
         pvT = flam3h_iterator.sec_prevarsT
         pvW = flam3h_iterator.sec_prevarsW[1:]
 
         # Get values
-        pvT_vals = (node.parm(f"{pvT[0]}{str(id)}").eval(), node.parm(f"{pvT[1]}{str(id)}").eval())
-        pvW_vals = (node.parm(f"{pvW[0][0]}{str(id)}").eval(), node.parm(f"{pvW[1][0]}{str(id)}").eval())
+        pvT_vals = (node.parm(f"{pvT[0]}{idx}").eval(), node.parm(f"{pvT[1]}{idx}").eval())
+        pvW_vals = (node.parm(f"{pvW[0][0]}{idx}").eval(), node.parm(f"{pvW[1][0]}{idx}").eval())
         
         if self.kwargs["ctrl"]:
             # Swap types
             if pvT_vals[0] != pvT_vals[1]:
-                node.setParms({f"{pvT[0]}{str(id)}": pvT_vals[1]})
-                node.setParms({f"{pvT[1]}{str(id)}": pvT_vals[0]})
+                node.setParms({f"{pvT[0]}{idx}": pvT_vals[1]})
+                node.setParms({f"{pvT[1]}{idx}": pvT_vals[0]})
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             # Swap types
             if pvT_vals[0] != pvT_vals[1]:
-                node.setParms({f"{pvT[0]}{str(id)}": pvT_vals[1]})
-                node.setParms({f"{pvT[1]}{str(id)}": pvT_vals[0]})
+                node.setParms({f"{pvT[0]}{idx}": pvT_vals[1]})
+                node.setParms({f"{pvT[1]}{idx}": pvT_vals[0]})
             
                 # Swap weights
                 if fsum(pvW_vals) > 0:
-                    node.setParms({f"{pvW[0][0]}{str(id)}": pvW_vals[1]})
-                    node.setParms({f"{pvW[1][0]}{str(id)}": pvW_vals[0]})
+                    node.setParms({f"{pvW[0][0]}{idx}": pvW_vals[1]})
+                    node.setParms({f"{pvW[1][0]}{idx}": pvW_vals[0]})
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 # Swap weights only
                 if fsum(pvW_vals) > 0:
-                    node.setParms({f"{pvW[0][0]}{str(id)}": pvW_vals[1]})
-                    node.setParms({f"{pvW[1][0]}{str(id)}": pvW_vals[0]})
+                    node.setParms({f"{pvW[0][0]}{idx}": pvW_vals[1]})
+                    node.setParms({f"{pvW[1][0]}{idx}": pvW_vals[0]})
                     
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
@@ -4090,46 +4096,47 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
+        idx = str(id)
         # iterator prm names
         n = flam3h_iterator_prm_names
         
         # iter 1
         #
         # main
-        node.setParms({f"{n.main_note}_{str(id)}": f"iterator_{str(id)}"}) # type: ignore
-        node.setParms({f"{n.main_weight}_{str(id)}": 0.5}) # type: ignore
+        node.setParms({f"{n.main_note}_{idx}": f"iterator_{idx}"}) # type: ignore
+        node.setParms({f"{n.main_weight}_{idx}": 0.5}) # type: ignore
         # shader
-        node.setParms({f"{n.shader_color}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.shader_speed}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.shader_alpha}_{str(id)}": 1.0}) # type: ignore
+        node.setParms({f"{n.shader_color}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.shader_alpha}_{idx}": 1.0}) # type: ignore
         # vars
-        node.setParms({f"{n.prevar_blur}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.prevar_weight_blur}_{str(id)}": 0.0}) # type: ignore
-        node.setParms({f"{n.prevar_type_1}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.prevar_weight_1}_{str(id)}": 0.0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.prevar_weight_2}_{str(id)}": 0.0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_1}_{str(id)}": 1.0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_2}_{str(id)}": 0.0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_3}_{str(id)}": 0.0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_4}_{str(id)}": 0.0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.postvar_weight_1}_{str(id)}": 0.0}) # type: ignore
+        node.setParms({f"{n.prevar_blur}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.prevar_weight_blur}_{idx}": 0.0}) # type: ignore
+        node.setParms({f"{n.prevar_type_1}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.prevar_weight_1}_{idx}": 0.0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.prevar_weight_2}_{idx}": 0.0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_1}_{idx}": 1.0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_2}_{idx}": 0.0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_3}_{idx}": 0.0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.var_weight_4}_{idx}": 0.0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.postvar_weight_1}_{idx}": 0.0}) # type: ignore
         # pre affine
-        node.setParms({f"{n.preaffine_x}_{str(id)}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_{str(id)}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_{str(id)}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
-        node.setParms({f"{n.preaffine_ang}_{str(id)}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
+        node.setParms({f"{n.preaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
+        node.setParms({f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
         # post affine
-        node.setParms({f"{n.postaffine_do}_{str(id)}": 0}) # type: ignore
-        node.setParms({f"{n.postaffine_x}_{str(id)}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
-        node.setParms({f"{n.postaffine_y}_{str(id)}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
-        node.setParms({f"{n.postaffine_o}_{str(id)}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
-        node.setParms({f"{n.postaffine_ang}_{str(id)}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
+        node.setParms({f"{n.postaffine_do}_{idx}": 0}) # type: ignore
+        node.setParms({f"{n.postaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
+        node.setParms({f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
+        node.setParms({f"{n.postaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
+        node.setParms({f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
         
 
 
@@ -4573,7 +4580,7 @@ reset_CP(self, mode=0) -> None:
         
         
     @staticmethod 
-    def get_ramp_keys_count(ramp: hou.Ramp) -> str:
+    def get_ramp_keys_count(node: hou.SopNode, ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
         select a palette colors/keys count preset to use for better resample it.
 
@@ -4813,7 +4820,7 @@ reset_CP(self, mode=0) -> None:
         HEXs = []
         # Force palette keys count to always be: 256
         # keys_count = 256
-        keys_count = self.get_ramp_keys_count(ramp)
+        keys_count = self.get_ramp_keys_count(node, ramp)
         POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
         for p in POSs:
             clr = tuple(ramp.lookup(p))
