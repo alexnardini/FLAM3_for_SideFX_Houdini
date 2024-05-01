@@ -91,13 +91,18 @@ FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
-# Defaults global
+# Default globals
 FLAM3H_DEFAULT_GLB_DENSITY = 500000
 FLAM3H_DEFAULT_GLB_ITERATIONS = 10
 # On IN Flame preset load set the iteration number to use to this value.
 # This setting will be overwritten if the IN Tab "force iterations on Load" option is turned ON.
 # All of the above settings will be overwritten if the iteration number to use is baked into the Flame preset's name.
 FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD = 64
+
+# User data
+FLAM3H_USER_DATA_PRX = "nodeinfo_"
+FLAM3H_USER_DATA_ITER = "Marked iterator"
+FLAM3H_USER_DATA_FF = "Marked FF"
 
 # Default affine values
 AFFINE_DEFAULTS = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
@@ -1047,7 +1052,7 @@ flam3h_on_deleted(self) -> None:
         
         # Remove any comment and user data from the node
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
-        flam3h_iterator_utils.del_comment_and_user_data_iterator(node, "Marked FF")
+        flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
 
 
 
@@ -1145,8 +1150,8 @@ flam3h_on_deleted(self) -> None:
             # Remove any comment and user data from the node
             if flam3h_iterator_utils.exist_user_data(node):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
-            if flam3h_iterator_utils.exist_user_data(node, "Marked FF"):
-                flam3h_iterator_utils.del_comment_and_user_data_iterator(node, "Marked FF")
+            if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
+                flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
 
 
     # Wip
@@ -2179,10 +2184,9 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def get_user_data(node: hou.SopNode, data="Marked iterator") -> Union[int, bool]:
-        d_type = "nodeinfo_"
+    def get_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
         
-        data_name = f"{d_type}{data}"
+        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
         data = node.userData(f"{data_name}")
         if data is not None:
             return data
@@ -2191,10 +2195,9 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def exist_user_data(node: hou.SopNode, data="Marked iterator") -> bool:
-        d_type = "nodeinfo_"
+    def exist_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> bool:
         
-        data_name = f"{d_type}{data}"
+        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
         if node.userData(f"{data_name}") is None:
             return False
         else:
@@ -2202,13 +2205,11 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data="Marked iterator") -> None:
+    def set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data=FLAM3H_USER_DATA_ITER) -> None:
         
-        d_type = "nodeinfo_"
-        
-        data_name = f"{d_type}{data}"
-        data_iter_name = f"{d_type}Marked iterator"
-        data_FF_name = f"{d_type}Marked FF"
+        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
+        data_iter_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}"
+        data_FF_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_FF}"
         
         if data_name == data_iter_name:
             
@@ -2244,13 +2245,11 @@ iterator_keep_last_weight(self) -> None:
 
         
     @staticmethod
-    def del_comment_and_user_data_iterator(node: hou.SopNode, data="Marked iterator") -> None:
+    def del_comment_and_user_data_iterator(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> None:
         
-        d_type = "nodeinfo_"
-        
-        data_name = f"{d_type}{data}"
-        data_iter_name = f"{d_type}Marked iterator"
-        data_FF_name = f"{d_type}Marked FF"
+        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
+        data_iter_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}"
+        data_FF_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_FF}"
         
         if data_name == data_iter_name:
             if node.userData(f"{data_FF_name}") is None:
@@ -2736,7 +2735,7 @@ iterator_keep_last_weight(self) -> None:
                     
         # Remove any comment and user data from the node
         self.del_comment_and_user_data_iterator(node)
-        self.del_comment_and_user_data_iterator(node, "Marked FF")
+        self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
     
 
     def menu_global_density(self) -> list:
@@ -3068,25 +3067,25 @@ iterator_keep_last_weight(self) -> None:
         # -> def menu_copypaste_FF(self) -> list:
         if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
             # Mark, mark another node, Undos
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF") is False:
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF) is False:
                 for f3h in node.type().instances():
-                    if f3h != node and self.exist_user_data(f3h, "Marked FF"):
+                    if f3h != node and self.exist_user_data(f3h, FLAM3H_USER_DATA_FF):
                         from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE = f3h # type: ignore
                         from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
                         break
             # Mark, mark another node, Undo, Redos
-            elif node != from_FLAM3H_NODE and self.exist_user_data(node, "Marked FF"):
+            elif node != from_FLAM3H_NODE and self.exist_user_data(node, FLAM3H_USER_DATA_FF):
                 from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                 from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
         # Mark, unmark, Undos
         elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
-            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+            if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                 from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
 
 
         if isDELETED is False:
             if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
-                if not self.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
+                if not self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                     from_FLAM3H_NODE_FF_CHECK = None
                     
         return from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED
@@ -3350,7 +3349,7 @@ iterator_keep_last_weight(self) -> None:
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                 
-                self.del_comment_and_user_data_iterator(node, "Marked FF")
+                self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"FF UNMARKED")
@@ -3376,7 +3375,7 @@ iterator_keep_last_weight(self) -> None:
         # Updated data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
         
-        if self.exist_user_data(node, "Marked FF"):
+        if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
             if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
             
@@ -3388,13 +3387,13 @@ iterator_keep_last_weight(self) -> None:
             # Remove the FF data and comment from the other node
             if from_FLAM3H_NODE is not None:
                 
-                self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
+                self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF)
                 
             hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
             hou.session.FLAM3H_MARKED_FF_NODE = self.node # type: ignore
             
-            self.del_comment_and_user_data_iterator(node, "Marked FF")
-            self.set_comment_and_user_data_iterator(node, "Yes", "Marked FF")
+            self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+            self.set_comment_and_user_data_iterator(node, "Yes", FLAM3H_USER_DATA_FF)
             
             _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3428,7 +3427,7 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
         else:
-            if self.exist_user_data(node, "Marked FF") and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
+            if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark FF CLICK"): # type: ignore
                     self.prm_paste_FF_SHIFT()
             else:
@@ -5319,13 +5318,15 @@ reset_CP(self, mode=0) -> None:
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
             if _hsv[0] == _hsv[1] == _hsv[2] == 1:
-                _MSG = f"{node.name()}: PALETTE HSV -> already at its default values."
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                _MSG = f"PALETTE HSV -> already at its default values."
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                flam3h_general_utils.flash_message(node, _MSG)
             else:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
                 # Print out to Houdini's status bar
-                _MSG = f"{node.name()}: PALETTE HSV -> RESET"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                _MSG = f"PALETTE HSV -> RESET"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                flam3h_general_utils.flash_message(node, _MSG)
                 
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
@@ -5336,8 +5337,9 @@ reset_CP(self, mode=0) -> None:
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Print out to Houdini's status bar
-            _MSG = f"{node.name()}:PALETTE -> RESET"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            _MSG = f"PALETTE HSV -> RESET"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+            flam3h_general_utils.flash_message(node, _MSG)
             
         # Mark this as not a loaded preset
         node.setParms({CP_ISVALID_PRESET: 0})
@@ -8944,8 +8946,8 @@ reset_IN(self, mode=0) -> None:
         # Reset FF user data if needed
         from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
-            if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, "Marked FF"):
-                flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, "Marked FF")
+            if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
+                flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF)
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
