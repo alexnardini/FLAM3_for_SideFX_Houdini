@@ -2767,12 +2767,12 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         ptcount = node.parm(GLB_DENSITY).evalAsInt()
         sel = self.kwargs['parm'].evalAsInt()
-        vals = (500000, 1000000, 2000000, 5000000, 15000000, 25000000, 50000000, 100000000, 150000000, 250000000, 500000000, 750000000, 1000000000)
-        vals_name = ("Default: 500K points", "1 Millions points", "2 Millions points", "5 Millions points", "15 Millions points", "25 Millions points", "50 Millions points", "100 Millions points", "150 Millions points", "250 Millions points", "500 Millions points", "750 Millions points", "1 Billions points")
+        vals = { 0: 500000, 1: 1000000, 2: 2000000, 3: 5000000, 4: 15000000, 5: 25000000, 6: 50000000, 7: 100000000, 8: 150000000, 9: 250000000, 10: 500000000, 11: 750000000, 12: 1000000000}
+        vals_name = { 0: "Default: 500K points", 1: "1 Millions points", 2: "2 Millions points", 3: "5 Millions points", 4: "15 Millions points", 5: "25 Millions points", 6: "50 Millions points", 7: "100 Millions points", 8: "150 Millions points", 9: "250 Millions points", 10: "500 Millions points", 11: "750 Millions points", 12: "1 Billions points"}
         
         if ptcount != vals[sel]:
-            node.setParms({GLB_DENSITY: vals[sel]}) # type: ignore
-            _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name[sel]} \" -> SET"
+            node.setParms({GLB_DENSITY: vals.get(sel)}) # type: ignore
+            _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name.get(sel)} \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
   
         # reset to null value so we can set the same preset again
@@ -10251,19 +10251,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
     def menu_sensor_resolution_set(self, update=True) -> None:
         """Set sensor resolution parameter based on user choice.
-        
         """        
         node = self.node
         sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
-        sel_null = (0, 5, 10, 18)
         null = (0, 0)
-        res = (null, (640, 480), (1280, 720), (1920, 1080), (3840, 2160), null, # 1 2 3 4
-               (640, 486), (720, 486), (768, 586), (1024, 576), null, # 6 7 8 9
-               (4096, 3112), (2048, 1556), (3656, 2664), (1828, 1332), (3656, 3112), (1828, 1556), (3072, 2048), null, # 11 12 13 14 15 16 17
-               (256, 256), (512, 512), (1024, 1024), (2048, 2048), (4096, 4096) ) # 19 20 21 22 23
+        res = { -1: null, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), -1: null, # 1 2 3 4
+                6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), -1: null, # 6 7 8 9
+                11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), -1: null, # 11 12 13 14 15 16 17
+                19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096) } # 19 20 21 22 23
  
-        if sel not in sel_null:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res[sel])}) # type: ignore
+        if res.get(sel) is not None:
+            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
 
             if update:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
