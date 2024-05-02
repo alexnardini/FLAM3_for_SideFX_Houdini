@@ -66,6 +66,7 @@ LIST OF CLASSES:
     flam3h_about_utils
     flam3h_ui_msg_utils
 
+    flam3h_varsPRM_APO
     _xml
     _xml_tree
     in_flame(_xml_tree)
@@ -99,7 +100,7 @@ FLAM3H_DEFAULT_GLB_ITERATIONS = 10
 # All of the above settings will be overwritten if the iteration number to use is baked into the Flame preset's name.
 FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD = 64
 
-# User data
+# Node user data
 FLAM3H_USER_DATA_PRX = "nodeinfo_"
 FLAM3H_USER_DATA_ITER = "Marked iterator"
 FLAM3H_USER_DATA_FF = "Marked FF"
@@ -10254,11 +10255,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """        
         node = self.node
         sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
-        null = (0, 0)
-        res = { -1: null, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), -1: null, # 1 2 3 4
-                6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), -1: null, # 6 7 8 9
-                11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), -1: null, # 11 12 13 14 15 16 17
-                19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096) } # 19 20 21 22 23
+        res = { -1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
+                -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
+                -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
+                -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096) } # 19 20 21 22 23
  
         if res.get(sel) is not None:
             self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
