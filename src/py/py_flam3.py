@@ -2444,6 +2444,7 @@ iterator_keep_last_weight(self) -> None:
         """ 
         
         n = flam3h_iterator_prm_names
+        node_name = str(flam3node)
         _current_note_FF = node.parm("ffnote").evalAsString()
 
         if int_mode == 0:
@@ -2458,26 +2459,26 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             else:
                 if len(_current_note) == 0:
-                    node.setParms({f"{n.main_note}_{id}": f"{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
+                    node.setParms({f"{n.main_note}_{id}": f"{node_name}.iter.{id_from}{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{str(flam3node)}.iter.{id_from}{str_section}"}) # type: ignore
-                _MSG = f"{node.name()}.iter.{id}{str_section} -> Copied values from: {str(flam3node)}.iter.{id_from}{str_section}"
+                    node.setParms({f"{n.main_note}_{id}": f"{flam3h_iterator_utils.paste_save_note(_current_note)}{node_name}.iter.{id_from}{str_section}"}) # type: ignore
+                _MSG = f"{node.name()}.iter.{id}{str_section} -> Copied values from: {node_name}.iter.{id_from}{str_section}"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         elif int_mode == 1:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF"}) # type: ignore
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{node_name}.FF"}) # type: ignore
                 else:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF"}) # type: ignore
-                _MSG = f"{node.name()} -> Copied FF from: {str(flam3node)}.FF"
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{node_name}.FF"}) # type: ignore
+                _MSG = f"{node.name()} -> Copied FF from: {node_name}.FF"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         elif int_mode == 2:
             if node != flam3node:
                 if len(_current_note_FF) == 0:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{str(flam3node)}.FF{str_section}"}) # type: ignore
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{node_name}.FF{str_section}"}) # type: ignore
                 else:
-                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{str(flam3node)}.FF{str_section}"}) # type: ignore
-                _MSG = f"{node.name()}.FF{str_section} -> Copied from: {str(flam3node)}.FF{str_section}"
+                    node.setParms({f"{PRX_FF_PRM}{n.main_note}": f"{flam3h_iterator_utils.paste_save_note(_current_note_FF)}{node_name}.FF{str_section}"}) # type: ignore
+                _MSG = f"{node.name()}.FF{str_section} -> Copied from: {node_name}.FF{str_section}"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
@@ -2819,6 +2820,8 @@ iterator_keep_last_weight(self) -> None:
         
         if mp_id_from is not None:
             
+            idx_from = str(mp_id_from)
+            
             prm_selmem = node.parm(f"{flam3h_iterator_prm_names.main_selmem}_{idx}")
             if prm_selmem.evalAsInt() > 0:
                 node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
@@ -2827,12 +2830,12 @@ iterator_keep_last_weight(self) -> None:
             if node == from_FLAM3H_NODE and id==mp_id_from:
                 menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
             elif node == from_FLAM3H_NODE:
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: post affine", "" )
             else:
                 assert from_FLAM3H_NODE is not None
                 parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
                 flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{str(mp_id_from)}: post affine", "" )
+                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: post affine", "" )
             
             for i, item in enumerate(menuitems):
                 menu.append(i)
@@ -3106,14 +3109,17 @@ iterator_keep_last_weight(self) -> None:
                 
         if mp_id_from is not None:
             
+            idx = str(id)
+            idx_from = str(mp_id_from)
+            
             if node==from_FLAM3H_NODE and id==mp_id_from:
-                _MSG = f"{node.name()}: This iterator is marked: {str(mp_id_from)} -> Select a different iterator number or a different FLAM3H node to paste its values."
+                _MSG = f"{node.name()}: This iterator is marked: {idx_from} -> Select a different iterator number or a different FLAM3H node to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"This iterator is Marked")
             else:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, str(id), str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, str(id), str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_ALL, str(id), str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_ALL, idx, idx_from)
 
         else:
             if isDELETED:
@@ -3456,6 +3462,7 @@ iterator_keep_last_weight(self) -> None:
             # current iterator
             id = self.kwargs['script_multiparm_index']
             idx = str(id)
+            idx_from = str(mp_id_from)
 
             # Marked iterator node
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
@@ -3469,39 +3476,39 @@ iterator_keep_last_weight(self) -> None:
                 self.prm_paste_CTRL(id)
             # set MAIN
             elif paste_sel == 2:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_main, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_MAIN, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_main, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_MAIN, idx, idx_from)
             # set XML_XF_XAOS
             elif paste_sel == 3:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_xaos, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_xaos, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, idx, idx_from)
             # set SHADER 
             elif paste_sel == 4:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_shader, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_SHADER, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_shader, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_SHADER, idx, idx_from)
             # set PRE VARS
             elif paste_sel == 5:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, idx, str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsW, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREVARS, idx, str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsW, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREVARS, idx, idx_from)
             # set VARS
             elif paste_sel == 6:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, idx, str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsW, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_VARS, idx, str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsW, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_VARS, idx, idx_from)
             # set POST VARS
             elif paste_sel == 7:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, idx, str(mp_id_from))
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsW, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTVARS, idx, str(mp_id_from))
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsW, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTVARS, idx, idx_from)
             # set PRE AFFINE
             elif paste_sel == 8:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, idx, idx_from)
             # set POST AFFINE
             elif paste_sel == 9:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, str(mp_id_from))
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, str(mp_id_from))
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, idx_from)
         
             node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
             
@@ -5032,10 +5039,11 @@ reset_CP(self, mode=0) -> None:
                 self.palette_lock()
                 
                 # Store selection into all preset menu just in case ;)
-                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)})
-                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: str(preset_id)})
-                node.setParms({CP_PALETTE_PRESETS: str(preset_id)})
-                node.setParms({CP_PALETTE_PRESETS_OFF: str(preset_id)})
+                pidx = str(preset_id)
+                node.setParms({CP_SYS_PALETTE_PRESETS: pidx})
+                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: pidx})
+                node.setParms({CP_PALETTE_PRESETS: pidx})
+                node.setParms({CP_PALETTE_PRESETS_OFF: pidx})
                 
                 # Mark this as loaded preset
                 node.setParms({CP_ISVALID_PRESET: 1})
@@ -7560,6 +7568,7 @@ reset_IN(self, mode=0) -> None:
             n (flam3h_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[in_flame_iter_data]]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
+        idx = str(mp_idx+1)
         if mode:
             node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
             node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
@@ -7570,15 +7579,15 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
         else:
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][0]}) # type: ignore
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][1]}) # type: ignore
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_o}_{str(mp_idx+1)}": apo_data.coefs[mp_idx][2]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}_{idx}": apo_data.coefs[mp_idx][0]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}_{idx}": apo_data.coefs[mp_idx][1]}) # type: ignore
+            node.setParms({f"{prx}{flam3h_prm_names.preaffine_o}_{idx}": apo_data.coefs[mp_idx][2]}) # type: ignore
             if apo_data.post is not None:
                 if apo_data.post[mp_idx]:
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{str(mp_idx+1)}": 1}) # type: ignore
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_x}_{str(mp_idx+1)}": apo_data.post[mp_idx][0]}) # type: ignore
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}_{str(mp_idx+1)}": apo_data.post[mp_idx][1]}) # type: ignore
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}_{str(mp_idx+1)}": apo_data.post[mp_idx][2]}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_x}_{idx}": apo_data.post[mp_idx][0]}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}_{idx}": apo_data.post[mp_idx][1]}) # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}_{idx}": apo_data.post[mp_idx][2]}) # type: ignore
 
 
     @staticmethod
@@ -7749,13 +7758,14 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_NULL)
 
-        [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        idx = str(mp_idx+1)
+        [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{idx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         if mode:
             node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
             node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
         else:
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
+            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{idx}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{idx}": v_weight}) # type: ignore
             
             
     @staticmethod
@@ -7798,10 +7808,11 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_PRE)
         
-        [node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        idx = str(mp_idx+1)
+        [node.setParms({f"{prx_prm}{prm[0]}{idx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on pre variations with parametric so:
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore 
+        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{idx}": v_weight}) # type: ignore 
 
 
     @staticmethod
@@ -7844,10 +7855,11 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_POST)
         
-        [node.setParms({f"{prx_prm}{prm[0]}{str(mp_idx+1)}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        idx = str(mp_idx+1)
+        [node.setParms({f"{prx_prm}{prm[0]}{idx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}": v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{idx}": v_weight}) # type: ignore
     
     
     @staticmethod    
@@ -7954,8 +7966,9 @@ reset_IN(self, mode=0) -> None:
             node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
             node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
         else:
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+            idx = str(mp_idx+1)
+            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{idx}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{idx}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -7976,9 +7989,10 @@ reset_IN(self, mode=0) -> None:
             v_type (int): [Current variation type index]
             weight (float): [Current variation weight]
         """
+        idx = str(mp_idx+1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{idx}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -7999,9 +8013,10 @@ reset_IN(self, mode=0) -> None:
             v_type (int): [Current variation type index]
             weight (float): [Current variation weight]
         """
+        idx = str(mp_idx+1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{str(mp_idx+1)}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{str(mp_idx+1)}":v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{idx}":v_weight}) # type: ignore
 
 
     @staticmethod
