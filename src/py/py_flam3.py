@@ -6186,7 +6186,12 @@ get_name(self, key=XML_XF_NAME) -> tuple
         """     
         if os.path.isfile(self._xml):   
             root = self._tree.getroot()
-            return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
+            if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
+                return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
+            else:
+                newroot = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+                newroot.insert(0, root)
+                return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in newroot] )
         else:
             # inside a try/except block because it happened that when Houdini is busy like for example computing the flame while it is in camera sensor mode,
             # this failed on me once and it could not evaluate the hou.pwd() properly.
