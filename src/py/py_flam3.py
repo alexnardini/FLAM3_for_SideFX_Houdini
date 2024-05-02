@@ -7763,14 +7763,14 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_NULL)
 
-        idx = str(mp_idx+1)
-        [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{idx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        mpidx = str(mp_idx+1)
+        [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         if mode:
             node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
             node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
         else:
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{idx}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{idx}": v_weight}) # type: ignore
+            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{mpidx}": v_type}) # type: ignore
+            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{mpidx}": v_weight}) # type: ignore
             
             
     @staticmethod
@@ -7813,11 +7813,11 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_PRE)
         
-        idx = str(mp_idx+1)
-        [node.setParms({f"{prx_prm}{prm[0]}{idx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        mpidx = str(mp_idx+1)
+        [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on pre variations with parametric so:
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{idx}": v_weight}) # type: ignore 
+        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{mpidx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{mpidx}": v_weight}) # type: ignore 
 
 
     @staticmethod
@@ -7860,11 +7860,11 @@ reset_IN(self, mode=0) -> None:
                                                          v_type, 
                                                          in_flame_utils.in_util_make_POST)
         
-        idx = str(mp_idx+1)
-        [node.setParms({f"{prx_prm}{prm[0]}{idx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        mpidx = str(mp_idx+1)
+        [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{idx}": v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{mpidx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{mpidx}": v_weight}) # type: ignore
     
     
     @staticmethod    
