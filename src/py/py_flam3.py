@@ -10237,10 +10237,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         menu=[]
         menuitems = ()
         if outedit:
-            menuitems = (   "", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", "", # 1 2 3 4
-                            "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", "", # 6 7 8 9
-                            "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", "", # 11 12 13 14 15 16 17
-                            "256^2", "512^2", "1024^2", "2048^2", "4096^2"  ) # 19 20 21 22 23
+            menuitems = (   "", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", # 1 2 3 4
+                            "", "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", # 6 7 8 9
+                            "", "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", # 11 12 13 14 15 16 17
+                            "", "256^2", "512^2", "1024^2", "2048^2", "4096^2"  ) # 19 20 21 22 23
         else:
             menuitems = ( "", )
             
