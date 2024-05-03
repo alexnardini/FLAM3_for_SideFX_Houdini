@@ -5210,7 +5210,7 @@ reset_CP(self, mode=0) -> None:
 
 
     def palette_cp(self) -> None:
-        """Force the HSV palette colors/keys to march the source palette colors/keys.
+        """Force the HSV palette colors/keys to match the source palette colors/keys.
         
         """    
         node = self.node
