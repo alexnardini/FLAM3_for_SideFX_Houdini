@@ -1158,6 +1158,13 @@ save Palette HSV:
     
     This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
+HSV keep values on Load:
+    #id: PALETTE
+    OFF by default.
+    
+    When loading a palette, FLAM3H will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
+    
+    Check this option to keep the current HSV values unchanged after loading a palette preset.
     
 
 

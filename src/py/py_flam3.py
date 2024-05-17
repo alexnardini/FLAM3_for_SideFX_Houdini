@@ -155,6 +155,7 @@ CP_RAMP_TMP_NAME = 'palettetmp'
 CP_RAMP_HSV_NAME = 'palettehsv'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_RESET_ON_LOAD = 'resethsv'
+CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
 MB_DO = 'domb'
 MB_FPS = 'fps'
@@ -4546,6 +4547,8 @@ flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 
 flam3h_ramp_save(self) -> None:
 
+json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals) -> None:
+
 json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 
 json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
@@ -4975,6 +4978,17 @@ reset_CP(self, mode=0) -> None:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"PALETTE -> Select a valid output file")
+                
+                
+                
+    def json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals) -> None:
+            keep_hsv = node.parm(CP_RAMP_HSV_KEEP_ON_LOAD).eval()
+            if not keep_hsv:
+                if hsv_check:
+                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+                else:
+                    # This is for backward compatibility ( when the hsv data wasn't being exported yet )
+                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
 
 
@@ -5028,12 +5042,8 @@ reset_CP(self, mode=0) -> None:
                 ramp_parm.set(ramp)
                 # Set lookup samples to the default value of: 256
                 node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
-
-                if hsv_check:
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
-                else:
-                    # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+                
+                self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
                 # Update palette
                 self.palette_lock()
@@ -5170,11 +5180,7 @@ reset_CP(self, mode=0) -> None:
                             # Set lookup samples to the default value of: 256
                             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
 
-                            if hsv_check:
-                                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
-                            else:
-                                # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
                             # Make sure we update the HSV palette
                             self.palette_lock()
