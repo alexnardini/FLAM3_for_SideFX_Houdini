@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.3.35 - Gold
+#version: 1.3.36 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -1020,6 +1020,14 @@ FF: PP VARS Tab:
     
     == CP: Palette ramps == (CPRAMPS)
     
+HSV keep values on Load:
+    #id: PALETTE
+    OFF by default.
+    
+    When loading a palette, FLAM3H will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
+    
+    Check this option to keep the current HSV values unchanged after loading a palette preset.
+    
 HSV:
     #id: PALETTE
     
@@ -1157,14 +1165,6 @@ save Palette HSV:
     Check this option to save the the color-corrected HSV ramp instead. 
     
     This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
-    
-HSV keep values on Load:
-    #id: PALETTE
-    OFF by default.
-    
-    When loading a palette, FLAM3H will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
-    
-    Check this option to keep the current HSV values unchanged after loading a palette preset.
     
 
 
@@ -1438,7 +1438,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.3.35" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.3.36" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1623,7 +1623,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.3.35" ... >
+          <flame version="FLAM3H-WIN-1.3.36" ... >
               ...
         }}}
         
@@ -1632,7 +1632,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.3.35" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.3.36" ... >
               ...
         }}}
         

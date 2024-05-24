@@ -85,7 +85,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.35'
+FLAM3H_VERSION = '1.3.36'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -4547,7 +4547,9 @@ flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 
 flam3h_ramp_save(self) -> None:
 
-json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals) -> None:
+json_to_flam3h_ramp_initialize_ramp(self, rgb_from_XML_PALETTE: list) -> hou.Ramp:
+
+json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
 
 json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 
@@ -4978,10 +4980,19 @@ reset_CP(self, mode=0) -> None:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"PALETTE -> Select a valid output file")
+
+
                 
-                
-                
-    def json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals) -> None:
+    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> hou.Ramp:
+        POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+        # Set lookup samples to the default value of: 256
+        self.node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+        return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+
+
+
+    def json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
             keep_hsv = node.parm(CP_RAMP_HSV_KEEP_ON_LOAD).eval()
             if not keep_hsv:
                 if hsv_check:
@@ -5035,14 +5046,10 @@ reset_CP(self, mode=0) -> None:
                     x = self.hex_to_rgb(hex)
                     rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                 
-                # Initialize new ramp.
-                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-                ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-                ramp_parm.set(ramp)
-                # Set lookup samples to the default value of: 256
-                node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+                # Initialize new ramp
+                ramp_parm.set(self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE))
                 
+                # Set HSV values
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
                 # Update palette
@@ -5173,13 +5180,9 @@ reset_CP(self, mode=0) -> None:
                                 rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                             
                             # Initialize new ramp.
-                            POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                            BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-                            ramp = hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
-                            ramp_parm.set(ramp)
-                            # Set lookup samples to the default value of: 256
-                            node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
-
+                            ramp_parm.set(self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE))
+                            
+                            # Set HSV values
                             self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
                             # Make sure we update the HSV palette
@@ -10629,6 +10632,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
             
         # Build messages accordinlgy
+        # This need a bit more work in the way it is formatted and presented to the user.
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
             
             node = self.node
