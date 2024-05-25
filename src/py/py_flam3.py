@@ -85,7 +85,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.36'
+FLAM3H_VERSION = '1.3.37'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -10754,6 +10754,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
                 xf.set(XML_XF_COLOR, f3d.xf_color[iter])
                 xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+                if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
+                    xf.set(XML_XF_COLOR_SPEED, str((1.0-float(f3d.xf_symmetry[iter]))/2.0))
                 if f3d.xf_pre_blur[iter]:
                     name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
