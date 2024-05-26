@@ -842,7 +842,7 @@ flam3h_on_deleted(self) -> None:
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
+                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {FLAM3H_VERSION}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -902,7 +902,7 @@ flam3h_on_deleted(self) -> None:
             
             if cvex_precision == 32:
                 _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE\nversion: {FLAM3H_VERSION}"
+                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {FLAM3H_VERSION}"
             else:
                 _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
