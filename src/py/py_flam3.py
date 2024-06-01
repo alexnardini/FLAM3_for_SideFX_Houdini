@@ -5454,7 +5454,7 @@ Fractorium :: (GPL v3)"""
         example_flames = """Example flames:
 C-91, Gabor Timar, Golubaja, Pillemaster,
 Plangkye, Tatasz, Triptychaos, TyrantWave,
-Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
+Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
         Houdini_version = f"Host:\nSideFX Houdini {h_version}"
@@ -5486,7 +5486,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen"""
         vars_sorted = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys())]
         n = 5
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
-        vars_txt = "".join( [", ".join(grp) if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
+        vars_txt = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
         self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt})
         
         
@@ -6288,7 +6288,7 @@ __get_flame_count(self, flames: list) -> int:
                         _MSG = "Flame IN -> Chaotica XML not supported"
                         print(f"{hou.pwd().name()}: {_MSG}")
                         flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'MSG')
-                        flam3h_general_utils.flash_message(hou.pwd(), f"Flame IN -> Chaotica XML not supported")
+                        flam3h_general_utils.flash_message(hou.pwd(), _MSG)
                     return None
             else:
                 # If there are flames, proceed
@@ -8163,7 +8163,7 @@ reset_IN(self, mode=0) -> None:
         Returns:
             str: The final message without the extra empty line at the end.
         """     
-        vars = [", ".join(grp) + "\n" if id < len(groups)-1 else ", ".join(grp) for id, grp in enumerate(groups)]   
+        vars = [", ".join(grp) + "\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
         return ''.join(vars)
 
 
