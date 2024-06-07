@@ -3124,17 +3124,19 @@ iterator_keep_last_weight(self) -> None:
 
         else:
             if isDELETED:
-                _MSG = f"{node.name()}: Marked iterator's node has been deleted -> {MARK_ITER_MSG_STATUS_BAR}"
+                _MSG_DEL = "Marked iterator's node has been deleted"
+                _MSG = f"{node.name()}: {_MSG_DEL} -> {MARK_ITER_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
-                flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted")
+                flam3h_general_utils.flash_message(node, _MSG_DEL)
                 
             else:
+                _MSG_REM = "Marked iterator has been removed"
                 if node == from_FLAM3H_NODE:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG = f"{node.name()} -> The marked iterator has been removed -> {MARK_ITER_MSG_STATUS_BAR}"
+                        _MSG = f"{node.name()} -> {_MSG_REM} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Marked iterator has been removed")
+                        flam3h_general_utils.flash_message(node, _MSG_REM)
                     else:
                         _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -3145,9 +3147,9 @@ iterator_keep_last_weight(self) -> None:
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                     
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG = f"{node.name()} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
+                        _MSG = f"{node.name()} -> {_MSG_REM} from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Marked iterator has been removed")
+                        flam3h_general_utils.flash_message(node, _MSG_REM)
                     else:
                         _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -3172,6 +3174,7 @@ iterator_keep_last_weight(self) -> None:
 
         if node == from_FLAM3H_NODE: # type: ignore
             
+            _MSG_UNMARKED = "This iterator is Unmarked already"
             assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
@@ -3185,11 +3188,10 @@ iterator_keep_last_weight(self) -> None:
                 
                 
             else:
-                _MSG = ''
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() == -1:
-                    _MSG = f"{node.name()}: This iterator is Unmarked already:  {str(id)}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                    _MSG = f"{node.name()}: {_MSG_UNMARKED}:  {str(id)}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 else:
-                    _MSG = f"{node.name()}: This iterator is Unmarked already -> {str(id)}"
+                    _MSG = f"{node.name()}: {_MSG_UNMARKED} -> {str(id)}"
                     
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
@@ -3199,19 +3201,20 @@ iterator_keep_last_weight(self) -> None:
                 
         else:
             if isDELETED:
-                _MSG = f"{node.name()}: Marked iterator's node has been deleted -> Mark a new iterator first."
+                _MSG_DEL = "Marked iterator's node has been deleted"
+                _MSG = f"{node.name()}: {_MSG_DEL} -> Mark a new iterator first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Marked iterator's node has been deleted")
+                flam3h_general_utils.flash_message(node, _MSG_DEL)
                 
             else:
                 assert from_FLAM3H_NODE is not None
                 __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                 
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
-                    _MSG = f"{node.name()}: This iterator is Unmarked already -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
+                    _MSG = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 else:
-                    _MSG = f"{node.name()}: This iterator is Unmarked already -> The marked iterator is from node: {from_FLAM3H_NODE.name()}.iterator.{str(mp_id_from)}" # type: ignore
+                    _MSG = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator is from node: {from_FLAM3H_NODE.name()}.iterator.{str(mp_id_from)}" # type: ignore
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
 
@@ -6934,6 +6937,7 @@ class in_flame_iter_data(in_flame):
 
 
 
+
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -7057,6 +7061,8 @@ class in_flame_utils:
 class in_flame_utils
 
 STATIC METHODS:
+
+in_util_key_name_isalnum(key_name: str) -> str:
 
 in_util_make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
 
@@ -7282,6 +7288,11 @@ reset_IN(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+        
+        
+    @staticmethod
+    def in_util_key_name_isalnum(key_name: str) -> str:
+        return ''.join(letter for letter in key_name.strip() if letter.isalnum())
     
     
     @staticmethod
