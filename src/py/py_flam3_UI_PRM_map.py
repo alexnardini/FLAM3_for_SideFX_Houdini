@@ -563,6 +563,8 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 'parameter name:    vpptsize'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)
 
 
 

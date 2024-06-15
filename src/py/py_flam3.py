@@ -1993,9 +1993,12 @@ reset_PREFS(self, mode=0) -> None:
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
                 
                 
-    def viewportParticleSize(self) -> None:
+    def viewportParticleSize(self, reset_val=None) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
+        
+        reset_val -> can be either "None" or a float value.
+                     If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
         """        
         node = self.node
         Points = hou.viewportParticleDisplay.Points # type: ignore
@@ -2004,11 +2007,17 @@ reset_PREFS(self, mode=0) -> None:
         for view in self.util_getSceneViewers():
             settings = view.curViewport().settings()
             settings.particleDisplayType(Points)
-            settings.particlePointSize(ptsize)
+            if reset_val is None:
+                settings.particlePointSize(ptsize)
+            else:
+                ptsize = float(reset_val)
+                settings.particlePointSize(ptsize)
+                node.setParms({self.kwargs['parmtuple'].name(): ptsize})
             
         # Updated Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
             [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in self.node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
+            
             
             
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
