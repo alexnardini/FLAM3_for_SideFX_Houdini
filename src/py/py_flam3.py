@@ -1279,11 +1279,8 @@ reset_PREFS(self, mode=0) -> None:
 
     @staticmethod
     def flash_message(node: hou.SopNode, msg: Union[str, None], timer=FLAM3H_FLASH_MESSAGE_TIMER, img=None) -> None:
-        
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
-            desktop = hou.ui.curDesktop() # type: ignore
-            ne = desktop.paneTabOfType(hou.paneTabType.NetworkEditor) # type: ignore
-            if ne is not None:
+            for ne in [p for p in hou.ui.curDesktop().paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: # type: ignore
                 ne.flashMessage(img, msg, timer)
 
 
