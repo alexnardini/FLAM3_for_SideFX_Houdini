@@ -4700,7 +4700,7 @@ reset_CP(self, mode=0) -> None:
         """Convert a RGB color value into HEX color value.
 
         Args:
-            rgb (tuple): the RGB color value to convert into HEX color value.
+            rgb (tuple): the RGB color value to convert.
 
         Returns:
             str: HEX color value
@@ -4715,7 +4715,7 @@ reset_CP(self, mode=0) -> None:
         """Convert a HEX color value into RGB color value.
 
         Args:
-            rgb (tuple): the HEX color value to convert into HEX color value.
+            rgb (tuple): the HEX color value to convert.
 
         Returns:
             tuple: RGB color value
