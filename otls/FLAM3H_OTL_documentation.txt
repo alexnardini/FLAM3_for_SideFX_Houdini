@@ -1051,7 +1051,7 @@ palette lookup samples:
     
     The amount of linearly spaced color keys in a typical fractal Flame is equivalent to 256, which is the default.
     
-    However, if you create more than 256 color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
+    However, if you create a palette with more than 256 color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
     
     In general, 256 lookup samples will always be good.
     
