@@ -5608,7 +5608,7 @@ ui_active_iterator_infos(self) -> None:
         ALL_msg = """The default mode is \"xaos TO\".\nYou can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
 Xaos is fully automatic,
-howver below are some general rules on how it work:
+however below are some general rules on how it work:
 
 
 XAOS USAGE:
