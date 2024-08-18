@@ -195,9 +195,12 @@ FLAM3H documentation:
 mini-menu Select Iterator:
     #id: SYS
 
-    A quick shortcut mini-menu to quickly change focus to a selected multi-parameter tab number.
+    A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number.
 
     This is handy when many iterators are created for the fractal flame you are working on.
+
+    TIP:
+        The menu entries are populated using each iterator's note.
     
 FF:
     #id: SYS
