@@ -8942,7 +8942,7 @@ reset_IN(self, mode=0) -> None:
             if iternumonload == iter:
                 pass
             elif iternumonload > iter:
-                node.setParms({GLB_ITERATIONS: iter})
+                # node.setParms({GLB_ITERATIONS: iter})
                 node.setParms({IN_ITER_NUM_ON_LOAD: iter})
             else:
                 node.setParms({GLB_ITERATIONS: iternumonload})
