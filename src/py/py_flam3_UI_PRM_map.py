@@ -124,6 +124,15 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help()
 
 
+# SYS Tab: Select iterator
+'parameter name     iterlist'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_select_iterator()
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_SEL_ITER()
+return menu
+
+
 # SYS Tab: FF
 'parameter name     doff_sysdisabled'
 'script type:       Callback Script'

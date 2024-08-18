@@ -191,6 +191,13 @@ FLAM3H documentation:
     [Largeicon:opdef:.?icon_F_docStarSVG.svg]
     
     Display this documentation.
+
+mini-menu Select Iterator:
+    #id: SYS
+
+    A quick shortcut mini-menu to quickly change focus to a selected multi-parameter tab number.
+
+    This is handy when many iterators are created for the fractal flame you are working on.
     
 FF:
     #id: SYS

@@ -135,6 +135,7 @@ PALETTE_FORMAT = 'RGB'
 GLB_DENSITY = 'ptcount'
 GLB_DENSITY_PRESETS = 'ptcount_presets'
 GLB_ITERATIONS = 'iter'
+SYS_SELECT_ITERATOR = 'iterlist'
 SYS_DO_FF = 'doff'
 SYS_RIP = 'rip'
 SYS_TAG = 'tag'
@@ -2125,6 +2126,10 @@ menu_T_pb_data(self) -> str:
 
 menu_T_pb(self) -> list:
 
+menu_SEL_ITER(self) -> list:
+
+prm_select_iterator(self) -> list:
+
 flam3h_paste_reset_hou_session_data(self) -> None:
 
 menu_global_density(self) -> list:
@@ -2717,7 +2722,38 @@ iterator_keep_last_weight(self) -> None:
         menu.append(f"{_ICON} Pre blur                   ") # 19 times \s
             
         return menu
+
+
+    def menu_SEL_ITER(self) -> list:
+        node = self.node
+        
+        menu = []
+        # append an empty line to reset to after selection.
+        menu.append(0)
+        menu.append("")
+
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        for i in range(iter_count):
+            
+            menu.append(i+1)
+            
+            idx = str(i+1)
+            note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').evalAsString()
+            menu.append(f"{idx}: {note}")
+                
+        return menu
     
+    
+    
+    def prm_select_iterator(self) -> list:
+        node = self.node
+        prm = node.parm(FLAME_ITERATORS_COUNT)
+        preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
+        hou.ui.setMultiParmTabInEditors(prm, preset_id-1)
+        
+        # reset selection
+        node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
+        
     
     
     
