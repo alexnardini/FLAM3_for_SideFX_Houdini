@@ -122,7 +122,7 @@ density:
     * Must strike a balance between processing speed and quality.
 
     
-density presets mini menu:
+mini-menu density presets:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
     
@@ -336,7 +336,7 @@ frame viewport:
     
     == SYS: Color palette == (SYSCP)
     
-CP Presets mini menu:
+mini-menu CP Presets:
     #id: SYS
     Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
@@ -372,7 +372,7 @@ CP Preset reload:
     
     == SYS: IN Presets == (SYSIN)
     
-IN Presets mini menu:
+mini-menu IN Presets:
     #id: SYS
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
@@ -413,7 +413,7 @@ IN Preset reload:
     
     == SYS: OUT Flame presets == (SYSOUT)
     
-OUT Presets mini menu:
+mini-menu OUT Presets:
     #id: SYS
     This menu is simply provided as information only.
 
@@ -503,9 +503,9 @@ copy/paste:
 
     When you paste the data, it wil copy everything from the marked iterator but not Xaos.
     
-    Once an iterator has been marked, you can use the mini menu next to the icon to copy individual sections from the marked iterator, including Xaos.
+    Once an iterator has been marked, you can use the mini-menu next to the icon to copy individual sections from the marked iterator, including Xaos.
     
-    Every item in the mini menu is named exactly like every folder an iterator posses.
+    Every item in the mini-menu is named exactly like every folder an iterator posses.
     
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -864,9 +864,9 @@ FF: copy/paste:
     
     This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
 
-    Once the FF has been marked, you can use the mini menu next to the icon to copy individual sections from the marked FF.
+    Once the FF has been marked, you can use the mini-menu next to the icon to copy individual sections from the marked FF.
     
-    Every item in the mini menu is named exactly like every folder the FF iterator posses.
+    Every item in the mini-menu is named exactly like every folder the FF iterator posses.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
