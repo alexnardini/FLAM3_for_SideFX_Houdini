@@ -199,6 +199,13 @@ mini-menu Select Iterator:
 
     This is handy when many iterators are created for the fractal flame you are working on.
 
+    The bookmark icon will display the status of each iterator:
+
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is ACTIVE.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and marked for being copied.
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when an iterator is OFF and marked for being copied.
+
     TIP:
         The menu entries are populated using each iterator's note.
     

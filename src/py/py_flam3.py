@@ -263,6 +263,7 @@ FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionE
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
 
 
 
@@ -2731,7 +2732,15 @@ iterator_keep_last_weight(self) -> None:
         # append an empty line to reset to after selection.
         menu.append(0)
         menu.append("")
-
+        
+        # get copy/paste iterator's data
+        mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
+        try:
+            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+        except:
+            from_FLAM3HNODE = None
+            
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         for i in range(iter_count):
             
@@ -2739,7 +2748,20 @@ iterator_keep_last_weight(self) -> None:
             
             idx = str(i+1)
             note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').evalAsString()
-            menu.append(f"{idx}: {note}")
+            
+            # Check if this iterator is active and use the proper bookmark icon
+            if node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval():
+                # check if it is marked for being copied
+                if node == from_FLAM3HNODE and str(mp_idx) == idx:
+                    menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {note}")
+                else:
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {note}")
+            else:
+                # check if it is marked for being copied
+                if node == from_FLAM3HNODE and str(mp_idx) == idx:
+                    menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {note}")
+                else:
+                    menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {note}")
                 
         return menu
     
