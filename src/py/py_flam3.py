@@ -273,7 +273,24 @@ class flam3h_iterator_prm_names:
     '''
     Mostly, handy to have all those packed into one class
     for easy access everywhere is needed and better readability.
-
+    
+    Note:
+        The following definitions:
+        
+            flam3h_iterator_utils.iterator_keep_last_vactive(self) -> None:
+            flam3h_iterator_utils.iterator_keep_last_vactive_STAR(self) -> None:
+            flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
+            
+        have houdini parameter's names hard coded inside as they are not using
+        this class to try to speed up a tiny, tiny bit.
+        
+        The hard coded parameter's names are:
+        
+            flam3h_iterator_prm_names.main_vactive = 'vactive'
+            flam3h_iterator_prm_names.main_weight = 'iw'
+            
+        If you update/change those, please update inside the above mentioned functions.
+    
     '''
     # ITERATOR
     #
