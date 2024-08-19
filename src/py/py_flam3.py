@@ -85,7 +85,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.44'
+FLAM3H_VERSION = '1.3.45'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -104,6 +104,9 @@ FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD = 64
 FLAM3H_USER_DATA_PRX = "nodeinfo_"
 FLAM3H_USER_DATA_ITER = "Marked iterator"
 FLAM3H_USER_DATA_FF = "Marked FF"
+
+# Main tab in the UI
+FLAM3H_ITERATORS_TAB = "f_flam3h"
 
 # Default affine values
 AFFINE_DEFAULTS = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
@@ -2804,6 +2807,8 @@ iterator_keep_last_weight(self) -> None:
             prm = node.parm(FLAME_ITERATORS_COUNT)
             preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
             hou.ui.setMultiParmTabInEditors(prm, preset_id-1)
+            # Change focus back to the FLAME's Tab
+            node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
         
         # reset selection
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
