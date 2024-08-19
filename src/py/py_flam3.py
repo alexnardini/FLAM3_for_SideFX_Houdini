@@ -2729,9 +2729,6 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         
         menu = []
-        # append an empty line to reset to after selection.
-        menu.append(0)
-        menu.append("")
         
         # get copy/paste iterator's data
         mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
@@ -2740,28 +2737,43 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         except:
             from_FLAM3HNODE = None
-            
+        
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        for i in range(iter_count):
+        if iter_count:
             
-            menu.append(i+1)
+            # append an empty line to reset to after selection.
+            menu.append(0)
+            menu.append("")
             
-            idx = str(i+1)
-            note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').evalAsString()
-            
-            # Check if this iterator is active and use the proper bookmark icon
-            if node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval():
-                # check if it is marked for being copied
-                if node == from_FLAM3HNODE and str(mp_idx) == idx:
-                    menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {note}")
+            for i in range(iter_count):
+                
+                menu.append(i+1)
+                
+                idx = str(i+1)
+                note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').evalAsString()
+                
+                # Check if this iterator is active and use the proper bookmark icon
+                if node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval():
+                    
+                    # check if it is marked for being copied
+                    if node == from_FLAM3HNODE and str(mp_idx) == idx:
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {note}")
+                    else:
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {note}")
+                        
                 else:
-                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {note}")
-            else:
-                # check if it is marked for being copied
-                if node == from_FLAM3HNODE and str(mp_idx) == idx:
-                    menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {note}")
-                else:
-                    menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {note}")
+                    
+                    # check if it is marked for being copied
+                    if node == from_FLAM3HNODE and str(mp_idx) == idx:
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {note}")
+                    else:
+                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {note}")
+                        
+        else:
+            menu.append(0)
+            menu.append(f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create some iterators first.")
+            menu.append(1)
+            menu.append("")
                 
         return menu
     
@@ -2769,14 +2781,16 @@ iterator_keep_last_weight(self) -> None:
     
     def prm_select_iterator(self) -> list:
         node = self.node
-        prm = node.parm(FLAME_ITERATORS_COUNT)
-        preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
-        hou.ui.setMultiParmTabInEditors(prm, preset_id-1)
+        
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        if iter_count:
+            prm = node.parm(FLAME_ITERATORS_COUNT)
+            preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
+            hou.ui.setMultiParmTabInEditors(prm, preset_id-1)
         
         # reset selection
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
         
-    
     
     
     def flam3h_paste_reset_hou_session_data(self) -> None:
@@ -2804,6 +2818,7 @@ iterator_keep_last_weight(self) -> None:
         self.del_comment_and_user_data_iterator(node)
         self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
     
+
 
     def menu_global_density(self) -> list:
         """Build density menu parameter with a list of options.
