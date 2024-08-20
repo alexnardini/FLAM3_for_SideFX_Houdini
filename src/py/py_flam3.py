@@ -1311,7 +1311,6 @@ reset_PREFS(self, mode=0) -> None:
     def houdini_version() -> int:
         return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
 
-
     @staticmethod  
     def clamp(x, val_max=255) -> float:
         """clamp a value to be between Zero and 255.
@@ -2752,7 +2751,7 @@ iterator_keep_last_weight(self) -> None:
         menu = []
         
         # get copy/paste iterator's data
-        mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
+        mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
@@ -2800,14 +2799,14 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def prm_select_iterator(self) -> list:
+    def prm_select_iterator(self) -> None:
         node = self.node
         
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iter_count:
             prm = node.parm(FLAME_ITERATORS_COUNT)
             preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
-            hou.ui.setMultiParmTabInEditors(prm, preset_id-1)
+            hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
             # Change focus back to the FLAME's Tab
             node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
         
