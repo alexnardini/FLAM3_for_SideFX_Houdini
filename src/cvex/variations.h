@@ -5,6 +5,7 @@
  /  Tested on:  Houdini 19.x
  /              Houdini 19.5
  /              Houdini 20.x
+ /              Houdini 20.5
  /
  /  Title:      SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
