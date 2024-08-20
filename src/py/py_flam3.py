@@ -1576,7 +1576,7 @@ reset_PREFS(self, mode=0) -> None:
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
                         if _SYS_FRAME_VIEW_SENSOR_prm:
-                            flam3h_general_utils.flash_message(self.node, f"Camera sensor REFRAMED")
+                            self.flash_message(self.node, f"Camera sensor REFRAMED")
 
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
@@ -1594,7 +1594,7 @@ reset_PREFS(self, mode=0) -> None:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 
                                 if _SYS_FRAME_VIEW_SENSOR_prm:
-                                    flam3h_general_utils.flash_message(self.node, f"Camera sensor REFRAMED")
+                                    self.flash_message(self.node, f"Camera sensor REFRAMED")
 
 
 
@@ -1635,7 +1635,7 @@ reset_PREFS(self, mode=0) -> None:
                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                     # Set clipping planes just in case
                     self.util_set_clipping_viewers()
-                    flam3h_general_utils.flash_message(self.node, f"Viewport REFRAMED")
+                    self.flash_message(self.node, f"Viewport REFRAMED")
 
 
 
@@ -1677,7 +1677,7 @@ reset_PREFS(self, mode=0) -> None:
 
             _MSG = f"Sensor viz -> OFF"
             self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-            flam3h_general_utils.flash_message(node, _MSG)
+            self.flash_message(node, _MSG)
             
         else:
             node.setParms({prm: 1})
@@ -1691,12 +1691,13 @@ reset_PREFS(self, mode=0) -> None:
                 
                 _MSG = f"Sensor viz -> ON"
                 self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                flam3h_general_utils.flash_message(node, _MSG)
+                self.flash_message(node, _MSG)
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                 node.setParms({prm: 0})
-                _MSG = f"{node.name()}: {prm.upper()} -> This node display flag is turned OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
-                self.set_status_msg(_MSG, 'WARN')
+                _MSG = f"This node display flag is OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
+                self.set_status_msg(f"{node.name()}: {prm.upper()} -> {_MSG}", 'WARN')
+                self.flash_message(node, f"{_MSG[:30]}")
 
 
 
