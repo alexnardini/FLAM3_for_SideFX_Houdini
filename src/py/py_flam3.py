@@ -5542,7 +5542,7 @@ flam3h_about_web_flam3_github(self) -> None:
         year = datetime.now().strftime("%Y")
         
         flam3h_cvex_version = f"Code language: CVEX H19.x.x"
-        hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+        hou_version = flam3h_general_utils.houdini_version()
         if hou_version >= 19:
             flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
