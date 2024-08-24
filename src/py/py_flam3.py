@@ -665,7 +665,7 @@ class flam3h_iterator_FF:
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
         plus the string "ff" added at the beginning of their names. parametric variation's parameters have the string  "ff_" instead.
-        If you create new parameters inside the FF, or change the parameters names inside the flam3 iterator,
+        If you create new parameters inside the FF, or change the parameters names inside the FLAM3H iterator,
         please be sure to follow the same nameing convetion so to keep the flam3h_varsPRM: class as the only source for their names.
     """
     n = flam3h_iterator_prm_names
@@ -983,7 +983,7 @@ flam3h_on_deleted(self) -> None:
             if len(node_instances) == 1:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
 
-        # FLAM3 node for FF.
+        # FLAM3H node for FF.
         # This is to make sure the hou.session's data is at least initialized.
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
 
@@ -997,7 +997,7 @@ flam3h_on_deleted(self) -> None:
             if len(node_instances) == 1:
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                 
-        # Initialize flam3 viewport Color Scheme
+        # Initialize FLAM3H viewport Color Scheme
         try:
             hou.session.flam3h_viewport_CS # type: ignore
         except:
@@ -2531,7 +2531,7 @@ iterator_keep_last_weight(self) -> None:
 
         if int_mode == 0:
             _current_note = node.parm(f"note_{id}").evalAsString()
-            # If on the same FLAM3 node
+            # If on the same FLAM3H node
             if node == flam3node:
                 if len(_current_note) == 0:
                     node.setParms({f"{n.main_note}_{id}": f"iter.{id_from}{str_section}"}) # type: ignore
@@ -5866,7 +5866,7 @@ If you type a negative number, it will be reset to a value of: 1"""
 
             
     def ui_OUT_presets_name_infos(self) -> None:
-        ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3 for Houdini
+        ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3H
 can be baked into the preset name you choose for it. 
 
 For instance,
@@ -6002,7 +6002,7 @@ XML_VALID_CHAOS_ROOT_TAG = 'ifs'
 
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
-# Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3 for Houdini if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
+# Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3H if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
 # note: for FF I swap back to the above  XML_XF_KEY_EXCLUDE to make possible to load pre_gaussian_blur since FF do not posses an hard coded pre_blur.
 XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
 
@@ -6034,7 +6034,7 @@ XML_APP_NAME_FRACTORIUM = 'EMBER'
 # XML_APP_NAME_APO = 'Apophysis'
 
 # This is used as a faster idx lookup table.
-# From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3 for houdini var idx it is mapped to.
+# From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3H var idx it is mapped to.
 # The key names matter and must match the variation's names as known by other apps ( in my case: Apophysis and Fratorium )
 #
 # _NOTE:
@@ -6197,7 +6197,7 @@ class flam3h_varsPRM_APO:
     
     There are a few exceptions so far witch I handled simply for now, but it work.
     
-    They are grouped as follow and based on the FLAM3 Houdini node parametric parameters:
+    They are grouped as follow and based on the FLAM3H node parametric parameters:
     
     for generic variation:
     ("variation name", bool: (parametric or not parametric)),
@@ -6899,7 +6899,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                             continue
                     else:
                         # Fractorium always remap pre_blur to pre_gaussian_blur when you load a flame in.
-                        # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3 for Houdini.
+                        # Lets do the same but we will remap pre_gaussian_blur back to pre_blur when we load a flame back in FLAM3H.
                         # An IN Tab load option is provided to change this behavior and load/use the pre_gaussian_blur variation instead on load.
                         pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
@@ -6911,7 +6911,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                                 continue
                         # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                         # seem not to include those keys if not used or left at default values.
-                        # We set them here so we can use them inside FLAM3 for Houdini on load.
+                        # We set them here so we can use them inside FLAM3H on load.
                         elif key in XML_XF_OPACITY:
                             keyvalues.append(float(1))
                             continue
@@ -6965,7 +6965,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     hou.pwd().setParms({MSG_DESCRIPTIVE_PRM: "Error: IN->PALETTE\nHEX values not valid."})
                     if hou.isUIAvailable():
                         ui_text = "Flame's Palette hex values not valid."
-                        palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3 Houdini."
+                        palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3H."
                         hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
                         return None
                     else:
@@ -7789,10 +7789,10 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             prx (str): [parameter name prefix]
             apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
-            n (flam3h_iterator_prm_names): [FLAM3 houdini node iterator parameter's names from: class[in_flame_iter_data]]
+            n (flam3h_iterator_prm_names): [FLAM3H node iterator parameter's names from: class[in_flame_iter_data]]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
         idx = str(mp_idx+1)
@@ -7838,7 +7838,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             prx (str): [parameter name prefix]
             apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
             prm_name (str): [parameter name for the current data we want to set]
@@ -7911,7 +7911,7 @@ reset_IN(self, mode=0) -> None:
         especially considering having many iterators each with parametric variations at the same time.
         
         Args:
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mode (int): [0 for iterator. 1 for FF]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
@@ -7963,13 +7963,13 @@ reset_IN(self, mode=0) -> None:
         Args:
             app (str): [What software were used to generate this flame preset]
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
             weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
+            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
@@ -8013,13 +8013,13 @@ reset_IN(self, mode=0) -> None:
         Args:
             app (str): [What software were used to generate this flame preset]
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
             weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
+            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
@@ -8060,13 +8060,13 @@ reset_IN(self, mode=0) -> None:
         Args:
             app (str): [What software were used to generate this flame preset]
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
             weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
+            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
@@ -8109,7 +8109,7 @@ reset_IN(self, mode=0) -> None:
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
             weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
+            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
         """
         # Exceptions: check if this flame need different parameters names based on detected exception
@@ -8144,12 +8144,12 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             app (str): [What software were used to generate this flame preset]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_postvarsT_FF, flam3h_iterator.sec_postvarsW_FF]
             xform (dict): [current xform we are processing to the relative key names and values for the iterator]
             v_type (int): [the current variation type index]
             weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3 node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
+            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
             apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
         """
         # Exceptions: check if this flame need different parameters names based on detected exception
@@ -8181,7 +8181,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
@@ -8210,7 +8210,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
@@ -8234,7 +8234,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
@@ -8255,7 +8255,7 @@ reset_IN(self, mode=0) -> None:
         """Set a FLAM3H FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
             weight (float): [Current variation weight]
@@ -8273,7 +8273,7 @@ reset_IN(self, mode=0) -> None:
         """Set a FLAM3H FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
             v_type (int): [Current variation type index]
             weight (float): [Current variation weight]
@@ -8292,7 +8292,7 @@ reset_IN(self, mode=0) -> None:
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3 houdini node]
+            node (hou.SopNode): [Current FLAM3H node]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
             pb_weights (tuple): [all iterators pre_blur weight values]
         """
