@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.3.45 - Gold'
+FLAM3H_VERSION = '1.3.50 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -274,13 +274,13 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 
 'parameter name:    doiter_disabled_#'
-'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
 
 
 'parameter name:    doiter_#'
-'script type:       Callback Script'
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
 
 
 'parameter name:    activetip_#'
@@ -327,9 +327,19 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
 
 
+'parameter name:    cppostaffine_#'
+'script type:       Action Button'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine()
+
+
 'parameter name:    pang_#'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()
+
+
+'parameter name:    cppreaffine_#'
+'script type:       Action Button'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine()
 
 
 
@@ -359,9 +369,19 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()
 
 
+'parameter name:    cpffpostaffine'
+'script type:       Action Button'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine_FF()
+
+
 'parameter name:    ffpang'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()
+
+
+'parameter name:    cpffpreaffine'
+'script type:       Action Button'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()
 
 
 

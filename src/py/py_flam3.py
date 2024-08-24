@@ -86,7 +86,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.45'
+FLAM3H_VERSION = '1.3.50'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1619,7 +1619,7 @@ reset_PREFS(self, mode=0) -> None:
             self.util_set_clipping_viewers()
             self.util_set_front_viewer()
         
-        else:      
+        else:
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
@@ -2120,7 +2120,9 @@ flam3h_init_hou_session_ff_data(node) -> None:
 
 iterator_mpidx_mem_set(node, data: int) -> None:
 
-paste_from_list(node: hou.SopNode, flam3node: hou.SopNode, prm_list: tuple, id: str, id_from: str) -> None:
+paste_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prm_list: tuple, id: str, id_from: str) -> None:
+
+paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
 
 pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 
@@ -2179,6 +2181,14 @@ prm_paste(self) -> None:
 prm_paste_FF(self) -> None:
 
 prm_paste_sel(self) -> None:
+
+prm_paste_sel_pre_affine(self) -> None:
+
+prm_paste_sel_post_affine(self) -> None:
+
+prm_paste_sel_pre_affine_FF(self) -> None:
+
+prm_paste_sel_post_affine_FF(self) -> None:
 
 prm_paste_sel_FF(self) -> None:
 
@@ -2409,6 +2419,44 @@ iterator_keep_last_weight(self) -> None:
         else:
             _MSG = f"{node.name()} -> The FLAM3H node you are trying to copy data from do not exist"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+            
+            
+    @staticmethod
+    def paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
+        """Paste value from the post affine into the pre affine and viceversa ( just swap  )
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+            prm_list_affine_to (tuple): [parameters list to query and set for the either the PRE or POST affine]
+            prm_list_affine_from (tuple): [parameters list to query and set for the either the PRE or POST affine]
+            id (str): [current multiparamter index]
+        """    
+        
+        if node is not None:
+            
+            for idx, prm in enumerate(prm_list_affine_to):
+                # if a tuple
+                if prm[1]:
+                    prm_from = node.parmTuple(f"{prm[0]}{id}")
+                    prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
+                    prm_idx = 0
+                    for p in prm_from:
+                        if len(p.keyframes()):
+                            [prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()]
+                        else:
+                            prm_to[prm_idx].set(p.eval())
+                        prm_idx += 1
+                else:
+                    prm_from = node.parm(f"{prm[0]}{id}")
+                    prm_to = node.parm(f"{prm_list_affine_from[idx][0]}{id}")
+                    if len(prm_from.keyframes()):
+                        [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
+                    else:
+                        prm_to.set(prm_from.eval())
+        else:
+            _MSG = f"{node.name()} -> The FLAM3H node you are trying to copy data from do not exist"
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+            
                 
     
     @staticmethod           
@@ -2792,7 +2840,7 @@ iterator_keep_last_weight(self) -> None:
                         
         else:
             menu.append(0)
-            menu.append(f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create some iterators first.")
+            menu.append(f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create at least one iterator or load a IN flame file first.")
             menu.append(1)
             menu.append("")
                 
@@ -3547,7 +3595,8 @@ iterator_keep_last_weight(self) -> None:
                 with hou.undos.group(f"FLAM3H mark FF CLICK"): # type: ignore
                     self.prm_paste_FF_CLICK()
 
-    
+
+
     def prm_paste_sel(self) -> None:
         """Paste only sections of an iterator.
         
@@ -3621,7 +3670,58 @@ iterator_keep_last_weight(self) -> None:
         else:
             _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+            
 
+
+    def prm_paste_sel_pre_affine(self) -> None:
+        """Paste only either the POST affine.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        # current iterator
+        id = self.kwargs['script_multiparm_index']
+        idx = str(id)
+        
+        self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:], flam3h_iterator.sec_preAffine, idx)
+        
+        
+        
+    def prm_paste_sel_post_affine(self) -> None:
+        """Paste only either the PRE affine.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        # current iterator
+        id = self.kwargs['script_multiparm_index']
+        idx = str(id)
+        
+        self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine, flam3h_iterator.sec_postAffine[1:], idx)
+        
+        
+        
+    def prm_paste_sel_pre_affine_FF(self) -> None:
+        """Paste only either the FF POST affine.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        
+        self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:], flam3h_iterator_FF.sec_preAffine_FF, "")
+        
+        
+        
+    def prm_paste_sel_post_affine_FF(self) -> None:
+        """Paste only either the FF PRE affine.
+        
+        Args:
+            kwargs (dict): [kwargs[] dictionary]
+        """    
+        
+        self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF, flam3h_iterator_FF.sec_postAffine_FF[1:], "")
+            
+            
 
     def prm_paste_sel_FF(self) -> None:
         """Paste only sections of a FF.
