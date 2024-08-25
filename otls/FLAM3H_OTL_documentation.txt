@@ -210,6 +210,7 @@ mini-menu Select Iterator:
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
 
     TIP:
+        #display: orange
         The menu entries are populated using each iterator's note.
     
 FF:
