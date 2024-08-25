@@ -6632,11 +6632,11 @@ __is_valid_idx(self, idx: int) -> int:
 
 __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
 
-__get_xaos(self, xforms: list, key=XML_XF_XAOS) -> Union[tuple, None]:
+__get_xaos(self, xforms: Union[list, None], key=XML_XF_XAOS) -> Union[tuple, None]:
 
-__get_affine(self, xforms: list, key: str) -> Union[tuple, None]:
+__get_affine(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
 
-__get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
+__get_keyvalue(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
 
 __get_palette(self, idx: int, key=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
 
@@ -6837,7 +6837,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
     
     
-    def __get_xaos(self, xforms: list, key=XML_XF_XAOS) -> Union[tuple, None]:
+    def __get_xaos(self, xforms: Union[list, None], key=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
             self:
@@ -6848,6 +6848,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             Union[tuple, None]: [either a list of xaos strings or None]
         """        
         if  self._isvalidtree:
+            assert xforms is not None
             xaos = [f"xaos:{':'.join(xf.get(key).split())}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))):
                 return None
@@ -6857,7 +6858,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
 
 
-    def __get_affine(self, xforms: list, key: str) -> Union[tuple, None]:
+    def __get_affine(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
         """
         Args:
             self:
@@ -6878,7 +6879,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
 
 
-    def __get_keyvalue(self, xforms: list, key: str) -> Union[tuple, None]:
+    def __get_keyvalue(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
         """
         Args:
             self:
