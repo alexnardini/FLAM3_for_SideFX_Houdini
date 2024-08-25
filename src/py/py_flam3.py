@@ -769,6 +769,8 @@ flam3h_on_deleted(self) -> None:
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
+                # Print to the Houdini console
+                print(f"\nFLAM3H CVEX node compile: DONE\n")
                 
             flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         else:
@@ -865,7 +867,7 @@ flam3h_on_deleted(self) -> None:
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {FLAM3H_VERSION}"
+                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore

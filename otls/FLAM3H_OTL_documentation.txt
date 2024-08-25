@@ -28,7 +28,7 @@ _*A bit of history* ( from wikipedia )_:
 
 _*Main source code references*_:
 
-_The original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
+_Github of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
 
 _Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
 
