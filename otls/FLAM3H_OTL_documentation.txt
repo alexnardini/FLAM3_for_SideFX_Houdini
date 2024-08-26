@@ -1329,6 +1329,8 @@ Reload:
     - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
 
     When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
+
+    If a Flame preset contain more variations than the allowed number in any of the available sections (PRE, VAR, POST) in an iterator or FF, the variations in excess will be skipped and printed to the console.
     
     TIP:
         #display: orange

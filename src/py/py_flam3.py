@@ -8644,6 +8644,9 @@ reset_IN(self, mode=0) -> None:
             preset_id (int): the flame preset we are loading out of all the presets included in the flame file
             exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
         """ 
+        
+        # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
+        
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
         vars_keys = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
@@ -8661,6 +8664,17 @@ reset_IN(self, mode=0) -> None:
         
         # Set variations ( iterator and FF )
         for mp_idx, xform in enumerate(xforms):
+            
+            iterator_vars_skipped = []
+            FF_vars_skipped = []
+            
+            # Collect iterator or FF vars in excess  
+            if len(vars_keys[mp_idx]) > _MAX_VARS_MODE:
+                if mode:
+                    FF_vars_skipped.append(f"\n\t\tFF VAR -> {', '.join(vars_keys[mp_idx][_MAX_VARS_MODE:])}")
+                else:
+                    iterator_vars_skipped.append(f"\n\t\tVAR -> {', '.join(vars_keys[mp_idx][_MAX_VARS_MODE:])}")
+            
             for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
                 v_type = self.in_get_idx_by_key(key_name)
                 if v_type is not None:
@@ -8690,6 +8704,14 @@ reset_IN(self, mode=0) -> None:
                 # Set finalxform name first if any
                 if apo_data.finalxform_name[0]:
                     node.setParms({f"{prx}{iterator_names.main_note}": apo_data.finalxform_name[0]}) # type: ignore
+                    
+                # Collect FF PRE vars in excess  
+                if len(vars_keys_pre[mp_idx]) > MAX_FF_VARS_PRE:
+                    if FF_vars_skipped:
+                        FF_vars_skipped.insert(0, f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][MAX_FF_VARS_PRE:])}")
+                    else:
+                        FF_vars_skipped.append(f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][MAX_FF_VARS_PRE:])}")
+                    
                 # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
@@ -8709,6 +8731,11 @@ reset_IN(self, mode=0) -> None:
                                                             )
                             else:
                                 self.in_v_generic_PRE_FF(node, t_idx, v_type, v_weight)
+                         
+                # Collect FF POST vars in excess       
+                if len(vars_keys_post[mp_idx]) > MAX_FF_VARS_POST:
+                    FF_vars_skipped.append(f"\n\t\tFF POST -> {', '.join(vars_keys_post[mp_idx][MAX_FF_VARS_POST:])}")
+                
                 # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
                 if vars_keys_post[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
@@ -8728,8 +8755,21 @@ reset_IN(self, mode=0) -> None:
                                                              )
                             else:
                                 self.in_v_generic_POST_FF(node, t_idx, v_type, v_weight)
-                                
+                
+                # Store all skipped FF vars if any
+                if FF_vars_skipped:
+                    build = f"WARNING: {self.node}.FF\n\tThe following variations are in excess and skipped:{''.join(FF_vars_skipped)}\n"
+                    print(build)
+                
             else:
+                
+                # Collect iterator PRE vars in excess
+                if len(vars_keys_pre[mp_idx]) > MAX_ITER_VARS_PRE:
+                    if iterator_vars_skipped:
+                        iterator_vars_skipped.insert(0, f"\n\t\tPRE -> {', '.join(vars_keys_pre[mp_idx][MAX_ITER_VARS_PRE:])}")
+                    else:
+                        iterator_vars_skipped.append(f"\n\t\tPRE -> {', '.join(vars_keys_pre[mp_idx][MAX_ITER_VARS_PRE:])}")
+
                 # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
@@ -8751,7 +8791,11 @@ reset_IN(self, mode=0) -> None:
                                                          )
                             else:
                                 self.in_v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
-                                
+                
+                # Collect iterator POST vars in excess
+                if len(vars_keys_post[mp_idx]) > MAX_ITER_VARS_POST:
+                    iterator_vars_skipped.append(f"\n\t\tPOST -> {', '.join(vars_keys_post[mp_idx][MAX_ITER_VARS_POST:])}")
+
                 # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
                 if vars_keys_post[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
@@ -8773,6 +8817,11 @@ reset_IN(self, mode=0) -> None:
                                                           )
                             else:
                                 self.in_v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
+                       
+                # Store all skipped iterators vars if any
+                if iterator_vars_skipped:
+                    build = f"WARNING: {self.node}.iterator.{mp_idx+1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
+                    print(build)
                                 
                 # Activate iterator, just in case...
                 node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
