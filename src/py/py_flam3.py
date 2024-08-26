@@ -8756,7 +8756,7 @@ reset_IN(self, mode=0) -> None:
                             else:
                                 self.in_v_generic_POST_FF(node, t_idx, v_type, v_weight)
                 
-                # Store all skipped FF vars if any
+                # Print all skipped FF vars if any
                 if FF_vars_skipped:
                     build = f"WARNING: {self.node}.FF\n\tThe following variations are in excess and skipped:{''.join(FF_vars_skipped)}\n"
                     print(build)
@@ -8818,7 +8818,7 @@ reset_IN(self, mode=0) -> None:
                             else:
                                 self.in_v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
                        
-                # Store all skipped iterators vars if any
+                # Print all skipped iterators vars if any
                 if iterator_vars_skipped:
                     build = f"WARNING: {self.node}.iterator.{mp_idx+1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
                     print(build)
