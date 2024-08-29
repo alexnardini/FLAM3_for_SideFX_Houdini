@@ -8827,8 +8827,11 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
                 # Set the rest of the iterators
                 if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
+                    # This and its toggle should be removed as they are not needed anymore. However I am leaving it here
+                    # Just in case I'd like to experiment more with this XML key and its effect on the coloration of the Flame.
                     self.in_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
                 else: 
+                    # For now this is the default parameter that FLAM3H will always use when loading IN a Flame.
                     self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
