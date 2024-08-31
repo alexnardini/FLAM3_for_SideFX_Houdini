@@ -39,9 +39,9 @@
 void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
-    int idx, FF, RIP, MB, iter, f3c;
+    int XS, idx, FF, RIP, MB, iter, f3c;
     float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
-    vector2 tmp;
+    vector2 tmp, mem;
     // SYS
     FF   = _bound_SYS[0];
     RIP  = _bound_SYS[1];
@@ -75,8 +75,8 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
     P1GMP->gemPrmBuild(sIDX, res, P1t, P1w);
     // CHAOS game
-    vector2 mem=biunit();
-    int XS=_bound_XS;
+    mem=biunit();
+    XS=_bound_XS;
     // If XAOS, pick a starting iterator from distribution
     if(XS) idx=sample_cdf((float[])_bound_IW, nrandom('twister'));
 

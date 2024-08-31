@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.3.56 - Gold'
+FLAM3H_VERSION = '1.3.62 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -316,7 +316,14 @@ return menu
 
 
 'All ITERATORS variations type parameters'
-'parameter name:    pre1type_#, pre2type_#, v1type_#, v2type_#, v3type_#, v4type_#, p1type_#'
+'parameter name:    pre1type_#, pre2type_#, p1type_#'
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
+return menu
+
+
+'All ITERATORS variations type parameters'
+'parameter name:    v1type_#, v2type_#, v3type_#, v4type_#'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
 return menu
@@ -358,7 +365,14 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 
 'All FF variations type parameters'
-"parameter name:    ffpre1type, ffv1type, ffv2type, ffp1type, ffp2type"
+"parameter name:    ffpre1type, ffp1type, ffp2type"
+'script type:       Callback Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T_PP(True)
+return menu
+
+
+'All FF variations type parameters'
+"parameter name:    ffv1type, ffv2type"
 'script type:       Callback Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(True)
 return menu

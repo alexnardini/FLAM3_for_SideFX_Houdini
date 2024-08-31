@@ -86,7 +86,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.56'
+FLAM3H_VERSION = '1.3.62'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -2144,7 +2144,11 @@ METHODS:
 
 menu_T_data(self) -> tuple[int, str]:
 
+menu_T_PP_data(self) -> tuple[int, str]:
+
 menu_T_FF_data(self) -> tuple[int, str]:
+
+menu_T_PP_FF_data(self) -> tuple[int, str]:
 
 menu_T(self, FF=False) -> list:
 
@@ -2404,13 +2408,14 @@ iterator_keep_last_weight(self) -> None:
                 if prm[1]:
                     prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
                     prm_to = node.parmTuple(f"{prm[0]}{id}")
-                    prm_idx = 0
-                    for p in prm_from:
-                        if len(p.keyframes()):
-                            [prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()]
-                        else:
-                            prm_to[prm_idx].set(p.eval())
-                        prm_idx += 1
+                    [[prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()] if len(p.keyframes()) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
+                    # prm_idx = 0
+                    # for p in prm_from:
+                    #     if len(p.keyframes()):
+                    #         [prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()]
+                    #     else:
+                    #         prm_to[prm_idx].set(p.eval())
+                    #     prm_idx += 1
                 else:
                     prm_from = flam3node.parm(f"{prm[0]}{id_from}")
                     prm_to = node.parm(f"{prm[0]}{id}")
@@ -2434,34 +2439,30 @@ iterator_keep_last_weight(self) -> None:
             id (str): [current multiparamter index]
         """    
         
-        if node is not None:
-            
-            for idx, prm in enumerate(prm_list_affine_to):
-                # if a tuple
-                if prm[1]:
-                    prm_from = node.parmTuple(f"{prm[0]}{id}")
-                    prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
-                    prm_idx = 0
-                    for p in prm_from:
-                        if len(p.keyframes()):
-                            [prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()]
-                        else:
-                            prm_to[prm_idx].set(p.eval())
-                        prm_idx += 1
+        for idx, prm in enumerate(prm_list_affine_to):
+            # if a tuple
+            if prm[1]:
+                prm_from = node.parmTuple(f"{prm[0]}{id}")
+                prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
+                [[prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()] if len(p.keyframes()) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
+                # prm_idx = 0
+                # for p in prm_from:
+                #     if len(p.keyframes()):
+                #         [prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()]
+                #     else:
+                #         prm_to[prm_idx].set(p.eval())
+                #     prm_idx += 1
+            else:
+                prm_from = node.parm(f"{prm[0]}{id}")
+                prm_to = node.parm(f"{prm_list_affine_from[idx][0]}{id}")
+                if len(prm_from.keyframes()):
+                    [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
                 else:
-                    prm_from = node.parm(f"{prm[0]}{id}")
-                    prm_to = node.parm(f"{prm_list_affine_from[idx][0]}{id}")
-                    if len(prm_from.keyframes()):
-                        [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
-                    else:
-                        prm_to.set(prm_from.eval())
-        else:
-            _MSG = f"{node.name()} -> The FLAM3H node you are trying to copy data from do not exist"
-            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    prm_to.set(prm_from.eval())
             
                 
     
-    @staticmethod           
+    @staticmethod
     def pastePRM_T_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
         """Paste variation parameter values
         between different multiparameter indexes.
@@ -2683,16 +2684,39 @@ iterator_keep_last_weight(self) -> None:
             
         w = self.node.parm(prm_weight_name).eval()
 
-        _ICON = FLAM3H_ICON_STAR_EMPTY
         if w > 0:
             if w > 1:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
             else:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV
         elif w < 0:
-            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
+            return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
             
-        return _TYPE, _ICON
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY
+
+
+    
+    def menu_T_PP_data(self) -> tuple[int, str]:
+        """Rerturn the selected variation index and the correct bookmark icon to use
+        based on its weight value.
+
+        Returns:
+            tuple[int, str]: int: variation idx.    str: icon
+        """        
+        _TYPE = self.kwargs['parm'].eval()
+        idx = self.kwargs['script_multiparm_index']
+        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
+        prm_weight_name = f"{prm_prefix}weight_{str(idx)}"
+            
+        w = self.node.parm(prm_weight_name).eval()
+
+        if w > 0:
+            if w > 1:
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+            else:
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV
+            
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY
     
     
     
@@ -2710,16 +2734,38 @@ iterator_keep_last_weight(self) -> None:
             
         w = self.node.parm(prm_weight_name).eval()
 
-        _ICON = FLAM3H_ICON_STAR_EMPTY
         if w > 0:
             if w > 1:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
             else:
-                _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV
         elif w < 0:
-            _ICON = FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
+            return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
             
-        return _TYPE, _ICON
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY
+    
+    
+    def menu_T_PP_FF_data(self) -> tuple[int, str]:
+        """Rerturn the selected FF variation index and the correct bookmark icon to use
+        based on its weight value.
+
+        Returns:
+            tuple[int, str]: int: variation idx.    str: icon
+        """        
+
+        _TYPE = self.kwargs['parm'].eval()
+        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
+        prm_weight_name = f"{prm_prefix}weight"
+            
+        w = self.node.parm(prm_weight_name).eval()
+
+        if w > 0:
+            if w > 1:
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+            else:
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV
+            
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY
     
     
     
@@ -2752,6 +2798,37 @@ iterator_keep_last_weight(self) -> None:
             
         return menu
     
+
+
+    def menu_T_PP(self, FF=False) -> list:
+        """Populate variation names parameter menu list.
+        Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+
+        Returns:
+            list: [return menu list]
+        """
+        menu=[]
+        if not FF:
+            _TYPE, _ICON = self.menu_T_PP_data()
+        else:
+            _TYPE, _ICON = self.menu_T_PP_FF_data()
+            
+        for i, item in flam3h_varsPRM().menu_vars_all_capitalize():
+            
+            menu.append(i)
+            
+            if i == _TYPE:
+                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
+            else:
+                menu.append(f"{item}          ") # 10 times \s
+            
+        return menu
+    
     
     
     def menu_T_pb_data(self) -> str:
@@ -2766,14 +2843,13 @@ iterator_keep_last_weight(self) -> None:
 
         w = self.node.parm(prm_weight_name).eval()
 
-        _ICON = FLAM3H_ICON_STAR_EMPTY
         if w > 0:
             if w > 1:
-                _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+                return FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
             else:
-                _ICON = FLAM3H_ICON_STAR_FLAME_PB_ACTV
+                return FLAM3H_ICON_STAR_FLAME_PB_ACTV
             
-        return _ICON
+        return FLAM3H_ICON_STAR_EMPTY
     
     
     
@@ -2997,7 +3073,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if isDELETED:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  DELETED: Marked iterator's node has been deleted.\n->Mark another iterator first.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", "" )
                 
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
@@ -3337,7 +3413,6 @@ iterator_keep_last_weight(self) -> None:
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"iterator UNMARKED")
-                
                 
             else:
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() == -1:
@@ -6889,7 +6964,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [description]
         """        
-        if  self._isvalidtree:
+        if self._isvalidtree:
             if xforms is not None:
                 keyvalues = []
                 for xform in xforms:
@@ -8828,7 +8903,7 @@ reset_IN(self, mode=0) -> None:
                 # Set the rest of the iterators
                 if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
                     # This and its toggle should be removed as they are not needed anymore. However I am leaving it here
-                    # Just in case I'd like to experiment more with this XML key and its effect on the coloration of the Flame.
+                    # Just in case I'd like to experiment more with this XML key.
                     self.in_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
                 else: 
                     # For now this is the default parameter that FLAM3H will always use when loading IN a Flame.
@@ -8914,7 +8989,6 @@ reset_IN(self, mode=0) -> None:
         if flam3h_mb_bool:
             mb = f"Motion blur{nnl}"
             
-        
         ff_msg = ""
         if ff_bool:
             ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
@@ -9773,7 +9847,7 @@ reset_IN(self, mode=0) -> None:
 
 
     def reset_IN(self, mode=0) -> None:
-        """Reset the FLAM3H OUT Tab parameters.
+        """Reset the FLAM3H IN Tab parameters.
 
         Args:
             mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
@@ -11022,8 +11096,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
                 xf.set(XML_XF_COLOR, f3d.xf_color[iter])
                 xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
-                if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
-                    xf.set(XML_XF_COLOR_SPEED, str((1.0-float(f3d.xf_symmetry[iter]))/2.0))
+                xf.set(XML_XF_COLOR_SPEED, str((1.0-float(f3d.xf_symmetry[iter]))/2.0))
                 if f3d.xf_pre_blur[iter]:
                     name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
