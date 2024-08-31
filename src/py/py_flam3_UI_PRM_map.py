@@ -307,22 +307,22 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
-
-'All ITERATORS PRE and POST variations type parameters'
+# The following can probably be removed
+'All ITERATORS PRE BLUR variation type parameter'
 'parameter name:    preblurtype_#'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
 return menu
 
 
-'All ITERATORS VAR variations type parameters'
+'All ITERATORS PRE and POST variations type parameters'
 'parameter name:    pre1type_#, pre2type_#, p1type_#'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
 return menu
 
 
-'All ITERATORS variations type parameters'
+'All ITERATORS VAR variations type parameters'
 'parameter name:    v1type_#, v2type_#, v3type_#, v4type_#'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
