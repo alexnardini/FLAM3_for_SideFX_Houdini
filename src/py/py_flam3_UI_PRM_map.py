@@ -308,14 +308,14 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
 
-'All ITERATORS variations type parameters'
+'All ITERATORS PRE and POST variations type parameters'
 'parameter name:    preblurtype_#'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
 return menu
 
 
-'All ITERATORS variations type parameters'
+'All ITERATORS VAR variations type parameters'
 'parameter name:    pre1type_#, pre2type_#, p1type_#'
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
@@ -364,14 +364,14 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 
-'All FF variations type parameters'
+'All FF PRE and POST variations type parameters'
 "parameter name:    ffpre1type, ffp1type, ffp2type"
 'script type:       Callback Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T_PP(True)
 return menu
 
 
-'All FF variations type parameters'
+'All FF VAR variations type parameters'
 "parameter name:    ffv1type, ffv2type"
 'script type:       Callback Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(True)
