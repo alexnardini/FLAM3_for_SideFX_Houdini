@@ -18,8 +18,7 @@ from numpy import resize as np_resize
 from numpy import transpose as np_transpose
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
-import lxml.etree as lxmlET    # This becasue in H19.0.x with Python 3.7.13 will keep the XML keys ordered as I create them.
-import xml.etree.ElementTree as ET  # This will do the same but starting from Python 3.8 and up. Preview versions are unordered.
+import lxml.etree as lxmlET
 import os
 import json
 import colorsys
@@ -6233,9 +6232,9 @@ VARS_FLAM3_DICT_IDX = { "linear": 0,
 # All of the variations that Fractorium has but FLAM3H does not are known as: Missing variations.
 # FLAM3H was designed to work in tandem with Fractorium,
 # and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
-# All of the variations that Fractorium lacks will slilently slip away without notice during load.
+# All of the variations that Fractorium lacks will be categorized as: Unknown variations.
 #
-# If you want an unknown variation to be recognized by FLAM3H, add it here inside the corresponding dictionary letter entrie based on its name.
+# If you want an Unknown variation to be recognized by FLAM3H, add it here inside the corresponding dictionary letter entrie based on its name.
 
 VARS_FRACTORIUM_DICT = {"a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"),
                         "b": ( "barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"),
@@ -6529,14 +6528,14 @@ __get_flame_count(self, flames: list) -> int:
         self._xmlfile_data_clipboard = self.xmlfile_root_chk(self._xmlfile, True)
         self._isvalidtree = self.xmlfile_isvalidtree_chk(self._xmlfile)
         if self._xmlfile_data_clipboard is not None:
-            self._tree = ET.ElementTree(ET.fromstring(self._xmlfile_data_clipboard))
+            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self._xmlfile_data_clipboard)) # type: ignore
             self._isvalidtree = True
         elif self._xmlfile_data is not None:
-            self._tree = ET.ElementTree(ET.fromstring(self._xmlfile_data))
+            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self._xmlfile_data)) # type: ignore
             self._isvalidtree = True
         else:
             if self._isvalidtree:
-                self._tree = ET.parse(xmlfile)
+                self._tree = lxmlET.parse(xmlfile) # type: ignore
                 
         # This not private as its cheaper to have it evaluate from this parent class.
         self._name = self.get_name()
@@ -6545,7 +6544,7 @@ __get_flame_count(self, flames: list) -> int:
 
 
     @staticmethod
-    def xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
+    def xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
         try:
             if clipboard:
                 if xmlfile is not None:
@@ -6587,8 +6586,8 @@ __get_flame_count(self, flames: list) -> int:
     @staticmethod
     def xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
         try:
-            tree = ET.parse(xmlfile)
-            if isinstance(tree, ET.ElementTree):
+            tree = lxmlET.parse(xmlfile) # type: ignore
+            if isinstance(tree, lxmlET.ElementTree): # type: ignore
                 root = tree.getroot()
                 if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                     # If there are flames, proceed
@@ -8592,10 +8591,13 @@ reset_IN(self, mode=0) -> None:
         if apo_data.out_vibrancy[preset_id]:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
         
-        build = (size, nl,
+        build = (f"CAMERA SENSOR:{nl}",
+                 size, nl,
                  center, nl,
                  rotate, nl,
                  scale, nl,
+                 nl,
+                 f"RENDER SETTINGS:{nl}",
                  quality, nl,
                  brightness, nl,
                  gamma, nl,
