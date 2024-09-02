@@ -1109,9 +1109,9 @@ palette lookup samples:
     In general, 256 lookup samples will always be good.
     
     NOTE:
-        Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
-        
-        If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
+        - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
+        - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
+        - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, *save the hip file instead*.
     
 palette:
     #id: PALETTE
@@ -1165,9 +1165,9 @@ Save Palette:
         - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
         - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
         - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
-        
+
     NOTE:
-        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, save the hip file instead.
+        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, *save the hip file instead*.
         - When saving out a palette file, it will try to downsample the usual 256 color count standard.
         - When saving out flames files from the OUT tab, it will always sample and save the palette as a 256-color palette standard.
     
@@ -1595,6 +1595,7 @@ Save Flame:
         *Also*:
     
         - When saving out flames files, it will always sample and save the palette as a 256-color palette standard.
+        - If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, *save the hip file instead*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 

@@ -4873,7 +4873,7 @@ reset_CP(self, mode=0) -> None:
         
         
     @staticmethod 
-    def get_ramp_keys_count(node: hou.SopNode, ramp: hou.Ramp) -> str:
+    def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
         select a palette colors/keys count preset to use for better resample it.
 
@@ -5109,15 +5109,9 @@ reset_CP(self, mode=0) -> None:
         else:
             ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
-        json_dict = {}
-        HEXs = []
-        # Force palette keys count to always be: 256
-        # keys_count = 256
-        keys_count = self.get_ramp_keys_count(node, ramp)
+        keys_count = self.get_ramp_keys_count(ramp) # This need to be upgraded
         POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-        for p in POSs:
-            clr = tuple(ramp.lookup(p))
-            HEXs.append(self.rgb_to_hex(clr))
+        HEXs = [self.rgb_to_hex(ramp.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
             json_dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
@@ -8591,13 +8585,13 @@ reset_IN(self, mode=0) -> None:
         if apo_data.out_vibrancy[preset_id]:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
         
-        build = (f"CAMERA SENSOR:{nl}",
+        build = (f"CAMERA SENSOR{nl}",
                  size, nl,
                  center, nl,
                  rotate, nl,
                  scale, nl,
                  nl,
-                 f"RENDER SETTINGS:{nl}",
+                 f"RENDER SETTINGS{nl}",
                  quality, nl,
                  brightness, nl,
                  gamma, nl,
@@ -11026,11 +11020,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         It will also return a list of used variations in the provided iterator/xform.
         
         Args:
-            node (hou.SopNode): FLAM3H houdini node
             varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
             TYPES_tuple (tuple): FLAM3H variation's types parameters names.
             WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
             XFORM (lxmlET.Element): The current xform (lxmlET.Element) to populate.
+            MP_IDX (str): Current multiparameter index
             FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
 
         Returns:
@@ -11132,7 +11126,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         # Build palette
         palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
         palette.tag = XML_PALETTE
-        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256)
+        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256) # When saving a Flame out, we always use a 256 color palette
         palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
         palette.text = f3d.palette_hex
 
@@ -11254,10 +11248,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Flame library is Locked."
                         ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
-                        _MSG = f"{node.name()}: FLAME library file -> is LOCKED"
+                        _MSG = "FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"This Flame file is LOCKED")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+                        flam3h_general_utils.flash_message(node, _MSG)
                         
                         # Pop up message window
                         if hou.isUIAvailable():
