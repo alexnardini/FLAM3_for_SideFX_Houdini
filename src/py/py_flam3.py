@@ -7054,7 +7054,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             idx (int): [flame idx out of all flames included in the loaded flame file]
 
         Returns:
-            hou.Vector3 or False: [a hou.Vector3 of HSV vals or False]
+            hou.Vector3 or False: [a hou.Vector3 of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
         """   
         if self._isvalidtree:
             palette_hsv_xml_list = self._flam3h_hsv[idx]
