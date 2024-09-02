@@ -126,7 +126,8 @@ SEC_PREAFFINE = '.pre affine'
 SEC_POSTAFFINE = '.post affine'
 
 # Saving flames out will always use the standard PALETTE_COUNT_256
-# but saving palette out will downsample if possible to save some data.
+# but saving palette out will downsample if possible to save some data but with an allowed MAX of 256...for now.
+# def get_ramp_keys_count(ramp: hou.Ramp) -> str: -> need to be reworked to allow more than 256. Same goes to the OUT flame palette.
 PALETTE_COUNT_64 = '64'
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
@@ -10442,6 +10443,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
                     else:
+                        # Otherwise reset to all values of 1
                         val.append([])
                         
                 # if the first element of the strip is: "xaos"
@@ -11406,6 +11408,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         
     def __out_palette_hex(self) -> str:
+        # The following need a bit of thinking as Apophysis do not accept palette with more than 256 color keys
+        # but Fractorium work with any number of color keys...so probably need some OUT tab options or something for the user to decide.
+        # Will come back to this at some point and make it work for the OUT Flame and OUT CP as well.
+        # _PALETTE_KEYS = max(256, len(self._palette.keys()))
+        
         POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
         HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))) for p in POSs]
         n = 8
