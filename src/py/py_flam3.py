@@ -1831,8 +1831,8 @@ reset_PREFS(self, mode=0) -> None:
                 prm_sys.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
                 if self.isLOCK(xml_checked):
-                    flame_lib_locked = f"Flame lib file: LOCKED"
-                    node.setParms({MSG_OUT: flame_lib_locked})
+                    _MSG = f"Flame lib file: LOCKED"
+                    node.setParms({MSG_OUT: _MSG})
                 else:
                     node.setParms({MSG_OUT: ''})
             else:
@@ -8988,7 +8988,7 @@ reset_IN(self, mode=0) -> None:
             
         ff_msg = ""
         if ff_bool:
-            ff_msg = f"FF: YES\nFF post affine: {ff_post_bool_msg}"
+            ff_msg = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
         else:
             ff_msg = f"FF: NO\n"
             
@@ -9019,7 +9019,7 @@ reset_IN(self, mode=0) -> None:
             vars_keys_PRE_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             vars_keys_POST_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             
-        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST +  vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
+        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         
         if pb_bool:
             vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
