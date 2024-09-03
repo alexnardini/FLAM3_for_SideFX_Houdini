@@ -16,6 +16,7 @@ from re import sub as re_sub
 from numpy import pad as np_pad
 from numpy import resize as np_resize
 from numpy import transpose as np_transpose
+from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 import lxml.etree as lxmlET
@@ -85,7 +86,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.3.62'
+FLAM3H_VERSION = '1.3.70'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -131,6 +132,8 @@ SEC_POSTAFFINE = '.post affine'
 PALETTE_COUNT_64 = '64'
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
+PALETTE_OUT_MENU_OPTIONS = (256, 512, 1024)
+PALETTE_PLUS_MSG = '[256+]'
 # The following will always be used for now
 # even tho we check for the XML palette format on load.
 PALETTE_FORMAT = 'RGB'
@@ -145,7 +148,7 @@ SYS_RIP = 'rip'
 SYS_TAG = 'tag'
 SYS_TAG_SIZE = 'tagsize'
 SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
-FLAME_ITERATORS_COUNT = "flamefunc"
+FLAME_ITERATORS_COUNT = 'flamefunc'
 CP_ISVALID_FILE = 'cpisvalidfile'
 CP_ISVALID_PRESET = 'cpisvalidpreset'
 CP_PALETTE_LIB_PATH = 'palettefile'
@@ -158,6 +161,7 @@ CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
 CP_RAMP_HSV_NAME = 'palettehsv'
+CP_PALETTE_256_PLUS = 'cppaletteplus'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
@@ -185,6 +189,7 @@ OUT_SYS_PRESETS = 'sys_outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_UPDATE_SENSOR = 'outsensorupdate'
+OUT_PALETTE_256_PLUS = 'outpaletteplus'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
 OUT_PALETTE_FILE_EXT = '.json'
@@ -1878,24 +1883,24 @@ reset_PREFS(self, mode=0) -> None:
                     node.setParms({CP_ISVALID_PRESET: 0})
                     # check if the selected palette file is locked
                     if self.isLOCK(json_path_checked):
-                        palette_lib_locked = f"Palette lib file: LOCKED"
-                        node.setParms({MSG_PALETTE: palette_lib_locked})
+                        _MSG = f"Palette lib file: LOCKED"
+                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, _MSG)
                     else:
-                        node.setParms({MSG_PALETTE: ''})
+                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
                 
             else:
                 prm.set('-1')
                 prm_off.set('-1')
                 # CP not a valid file
                 node.setParms({CP_ISVALID_FILE: 0})
-                node.setParms({MSG_PALETTE: ''})
+                flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
                 # Mark this as not a loaded preset
                 node.setParms({CP_ISVALID_PRESET: 0})
 
         else:
             # CP not a valid file
             node.setParms({CP_ISVALID_FILE: 0})
-            node.setParms({MSG_PALETTE: ''})
+            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
             # Mark this as not a loaded preset
             node.setParms({CP_ISVALID_PRESET: 0})
             
@@ -4819,6 +4824,12 @@ rgb_to_hex(rgb: tuple) -> str:
 
 hex_to_rgb(hex: str) -> tuple:
 
+find_nearest_idx(array: Union[list, tuple], value: Union[int, float]) -> Union[int, float]:
+
+json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list) -> None:
+
+json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
+
 METHODS:
 
 menu_ramp_presets(self) -> list:
@@ -4855,6 +4866,7 @@ reset_CP(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+        self._palette_plus_do = self._node.parm(CP_PALETTE_256_PLUS).eval()
         
         
     @staticmethod
@@ -4994,6 +5006,44 @@ reset_CP(self, mode=0) -> None:
             tuple: RGB color value
         """   
         return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+    
+    
+    @staticmethod
+    def find_nearest_idx(array: Union[list, tuple], value: Union[int, float]) -> Union[int, float]:
+        """Given a value, find the closest value in the array that is bigger than the value passed in.
+        Args:
+            array (list, tuple): the array of values to search into.
+            value: (int, float): The value to use to find its closest and bigger value into the array.
+
+        Returns:
+            int, float: the closest value in the array that is bigger than the value passed in.
+        """   
+        idx = np_searchsorted(array, value, side="left")
+        return array[idx]
+    
+    
+    @staticmethod
+    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list) -> None:
+
+        palette_msg = node.parm(MSG_PALETTE).evalAsString()
+        if len(HEXs) > 256:
+            if PALETTE_PLUS_MSG in palette_msg:
+                pass
+            else:
+                node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"}) # type: ignore
+        else:
+            if PALETTE_PLUS_MSG in palette_msg:
+                node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
+            else:
+                pass
+            
+    @staticmethod 
+    def json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
+        palette_msg = node.parm(MSG_PALETTE).evalAsString()
+        if PALETTE_PLUS_MSG in palette_msg:
+            node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
+        else:
+            node.setParms({MSG_PALETTE: f"{_MSG}"}) # type: ignore
         
 
 
@@ -5010,6 +5060,10 @@ reset_CP(self, mode=0) -> None:
     @property
     def node(self):
         return self._node
+    
+    @property
+    def palette_plus_do(self):
+        return self._palette_plus_do
 
 
 
@@ -5101,18 +5155,17 @@ reset_CP(self, mode=0) -> None:
         # Updated HSV ramp before getting it
         self.palette_lock()
 
-        ramp = hou.Ramp()
         hsv_vals = []
         hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
         if node.parm(CP_RAMP_SAVE_HSV).eval():
-            ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+            palette = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
             hsv_vals_prm = [1.0, 1.0, 1.0]
         else:
-            ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+            palette =  node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
-        keys_count = self.get_ramp_keys_count(ramp) # This need to be upgraded
+        keys_count = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
         POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-        HEXs = [self.rgb_to_hex(ramp.lookup(p)) for p in POSs]
+        HEXs = [self.rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
             json_dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
@@ -5331,6 +5384,11 @@ reset_CP(self, mode=0) -> None:
                 # Update palette
                 self.palette_lock()
                 
+                self.palette_cp_to_tmp()
+                
+                # Update/Set palette MSG
+                flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
+                
                 # Store selection into all preset menu just in case ;)
                 pidx = str(preset_id)
                 node.setParms({CP_SYS_PALETTE_PRESETS: pidx})
@@ -5340,7 +5398,6 @@ reset_CP(self, mode=0) -> None:
                 
                 # Mark this as loaded preset
                 node.setParms({CP_ISVALID_PRESET: 1})
-                self.palette_cp_to_tmp()
                 
                 # Print to status Bar
                 _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
@@ -5378,7 +5435,6 @@ reset_CP(self, mode=0) -> None:
             node.setParms({CP_PALETTE_PRESETS: str(preset_id)})
             node.setParms({CP_PALETTE_PRESETS_OFF: str(preset_id)}) 
             self.json_to_flam3h_ramp(use_kwargs)
-
 
 
     def json_to_flam3h_ramp(self, use_kwargs=True) -> None:
@@ -5464,10 +5520,14 @@ reset_CP(self, mode=0) -> None:
                             # Make sure we update the HSV palette
                             self.palette_lock()
                             
-                            # Mark this as not a loaded preset
-                            node.setParms({CP_ISVALID_PRESET: 0})
                             # reset tmp ramp palette
                             self.reset_CP_TMP()
+                            
+                            # Update/Set palette MSG
+                            flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
+                            
+                            # Mark this as not a loaded preset
+                            node.setParms({CP_ISVALID_PRESET: 0})
                             
                             _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
                             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -5513,6 +5573,19 @@ reset_CP(self, mode=0) -> None:
             else:
                 # Mark this as a loaded palette preset since they match
                 node.setParms({CP_ISVALID_PRESET: 1})
+
+        # Update/Set palette MSG
+        palette_msg = node.parm(MSG_PALETTE).evalAsString()
+        if len(node.parm(CP_RAMP_HSV_NAME).evalAsRamp().keys()) > 256:
+            if PALETTE_PLUS_MSG in palette_msg:
+                pass
+            else:
+                node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
+        else:
+            if PALETTE_PLUS_MSG in palette_msg:
+                node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG):].strip()}"})
+            else:
+                flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, palette_msg)
             
 
 
@@ -5565,6 +5638,9 @@ reset_CP(self, mode=0) -> None:
 
     def reset_CP_LOCK_MSG(self) -> None:
         """Clearup the palette lib LOCK message if there is a need to do so.
+        
+        With the add of the palette [256+] feature,
+        this definition will probably need an updated. Will come back to investigate on this...
 
         Args:
         """
@@ -9079,6 +9155,13 @@ reset_IN(self, mode=0) -> None:
         flame_lib_locked = ""
         if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"Flame lib file: LOCKED"
+        # If the Flame use a 256+ palette, update the CP palette MSG
+        if apo_data.palette[1] > 256:
+            palette_msg = node.parm(MSG_PALETTE).evalAsString()
+            if PALETTE_PLUS_MSG in palette_msg:
+                pass
+            else:
+                node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
         
         # build full stats msg
         build = (   flame_lib_locked, nl, sw, nnl,
@@ -9937,6 +10020,8 @@ _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
 METHODS:
 
+out_palette_keys_count(self, _MSG = True) -> str:
+
 menu_sensor_resolution(self) -> list:
 
 menu_sensor_resolution_set(self) -> None:
@@ -10031,6 +10116,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         self._palette = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
+        self._palette_plus_do = self._node.parm(OUT_PALETTE_256_PLUS).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
             flam3h_palette_utils(self.kwargs).palette_lock()
@@ -10042,7 +10128,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         self._flam3h_f3c = self._node.parm(PREFS_F3C).evalAsInt()
         self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
         
-        
+    
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
         """It will check the passed Flame name 
@@ -10557,6 +10643,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return self._flam3h_iter
     
     @property
+    def flam3h_iter_FF(self):
+        return self._flam3h_iter_FF
+    
+    @property
     def flam3h_do_FF(self):
         return self._flam3h_do_FF
 
@@ -10571,6 +10661,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     @property
     def palette_hsv_do(self):
         return self._palette_hsv_do
+    
+    @property
+    def palette_plus_do(self):
+        return self._palette_plus_do
     
     @property
     def xm(self):
@@ -10595,6 +10689,42 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return self._flam3h_cp_lookup_samples
 
 
+
+    def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
+        """This is used to find the number of colors we want to export when saving out a Flame file.
+        We need to always export as many colors to include the current color keys count in the palette based on a predefined set of value:
+        So for example, if the current palette posses 270 color keys, we will export using the closest but greater menu entry whitch is: 512 (the smaller being: 256).
+        The minimum will always be clamped at: 256
+
+        Args:
+            palette_plus (bool): "save palette 256+" toggle parameter value.
+            keys (int): number of color keys in the palette.
+            type (int): 0 for a Flame and 1 for a Palette.
+            _MSG: (bool): Print a warning message or not. Default to: True
+
+        Returns:
+            str: number of color to export
+        """  
+
+        if palette_plus:
+            if keys <= 1024:
+                if keys <= 256:
+                    if not type:
+                        # For a Flame
+                        return PALETTE_COUNT_256
+                    else:
+                        # For a palette
+                        return flam3h_palette_utils.get_ramp_keys_count(self.palette)
+                else:
+                    return str(flam3h_palette_utils.find_nearest_idx(PALETTE_OUT_MENU_OPTIONS, keys))
+            else:
+                # Otherwise clamp to 1024 color keys
+                if _MSG:
+                    print(f"{str(self.node)}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024")
+                return '1024'
+        else:
+            # Otherwise always export the Flame with 256 color palette
+            return PALETTE_COUNT_256
 
 
     def menu_sensor_resolution(self) -> list:
@@ -11128,7 +11258,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         # Build palette
         palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
         palette.tag = XML_PALETTE
-        palette.set(XML_PALETTE_COUNT, PALETTE_COUNT_256) # When saving a Flame out, we always use a 256 color palette
+        palette.set(XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
         palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
         palette.text = f3d.palette_hex
 
@@ -11383,8 +11513,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
 
     def __out_finalxf_preaffine(self) -> str:
-        collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self._flam3h_iter_FF.sec_preAffine_FF[:-1]]
-        angleDeg = self._node.parm(f"{self._flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
+        collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
+        angleDeg = self._node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         if angleDeg != 0.0:
             affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
@@ -11395,8 +11525,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     def __out_finalxf_postaffine(self) -> Union[str, bool]:
         if self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.postaffine_do}").eval():
-            collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self._flam3h_iter_FF.sec_postAffine_FF[1:-1]]
-            angleDeg = self._node.parm(f"{self._flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
+            collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
+            angleDeg = self._node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if angleDeg != 0.0:
                 affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
             else:
@@ -11408,13 +11538,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         
     def __out_palette_hex(self) -> str:
-        # The following need a bit of thinking as Apophysis do not accept palette with more than 256 color keys
-        # but Fractorium work with any number of color keys...so probably need some OUT tab options or something for the user to decide.
-        # Will come back to this at some point and make it work for the OUT Flame and OUT CP as well.
-        # _PALETTE_KEYS = max(256, len(self._palette.keys()))
+
+        _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
         
-        POSs = list(iter_islice(iter_count(0, 1.0/(int(PALETTE_COUNT_256)-1)), int(PALETTE_COUNT_256)))
-        HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self._palette.lookup(p))) for p in POSs]
+        POSs = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
+        HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n = 8
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)] 
         hex_join = ["      " + "".join(grp) + "\n" for grp in hex_grp] # 6 time \s
@@ -11449,7 +11577,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
         if self._flam3h_mb_do:
             try:
-                return self.out_util_round_float(self._node.parm(prm_name).eval())
+                return self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
                 print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
@@ -11464,10 +11592,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     # custom to FLAM3H only
     def __out_flame_palette_lookup_samples(self) -> Union[str, bool, None]:
-        if self._flam3h_cp_lookup_samples == 256:
-            return False
+        if self._palette_plus_do:
+            keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
+            if int(keys) == 256:
+                return False
+            else:
+                return keys
         else:
-            return str(self._flam3h_cp_lookup_samples)
+            if self._flam3h_cp_lookup_samples == 256:
+                return False
+            else:
+                return str(self._flam3h_cp_lookup_samples)
 
 
 
