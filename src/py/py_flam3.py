@@ -132,6 +132,8 @@ SEC_POSTAFFINE = '.post affine'
 PALETTE_COUNT_64 = '64'
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
+PALETTE_COUNT_512 = '512'
+PALETTE_COUNT_1024 = '1024'
 PALETTE_OUT_MENU_OPTIONS = (256, 512, 1024)
 PALETTE_PLUS_MSG = '[256+]'
 # The following will always be used for now
@@ -5389,6 +5391,11 @@ reset_CP(self, mode=0) -> None:
                 # Update/Set palette MSG
                 flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                 
+                # Set palette lookup samples
+                # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
+                keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(ramp_parm.evalAsRamp().keys()), 0, False)
+                node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
+                
                 # Store selection into all preset menu just in case ;)
                 pidx = str(preset_id)
                 node.setParms({CP_SYS_PALETTE_PRESETS: pidx})
@@ -5396,7 +5403,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_PALETTE_PRESETS: pidx})
                 node.setParms({CP_PALETTE_PRESETS_OFF: pidx})
                 
-                # Mark this as loaded preset
+                # Mark this as a loaded preset
                 node.setParms({CP_ISVALID_PRESET: 1})
                 
                 # Print to status Bar
@@ -5526,7 +5533,12 @@ reset_CP(self, mode=0) -> None:
                             # Update/Set palette MSG
                             flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                             
-                            # Mark this as not a loaded preset
+                            # Set palette lookup samples
+                            # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
+                            keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(ramp_parm.evalAsRamp().keys()), 0, False)
+                            node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
+                            
+                            # Mark this as not a loaded preset since it is coming from the Clipboard
                             node.setParms({CP_ISVALID_PRESET: 0})
                             
                             _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
@@ -10721,7 +10733,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 # Otherwise clamp to 1024 color keys
                 if _MSG:
                     print(f"{str(self.node)}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024")
-                return '1024'
+                return PALETTE_COUNT_1024
         else:
             # Otherwise always export the Flame with 256 color palette
             return PALETTE_COUNT_256
