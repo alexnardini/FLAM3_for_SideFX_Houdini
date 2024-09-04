@@ -79,7 +79,8 @@ LIST OF CLASSES:
     out_flame_xforms_data(out_flame_utils)
 
     _NOTE:
-        Class @properties are always defined inbetween the @staticmethods and the class methods.
+        - Class @properties are always defined inbetween the @staticmethods and the class methods.
+        - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
 '''
 
