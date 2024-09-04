@@ -4895,6 +4895,10 @@ reset_CP(self, mode=0) -> None:
     def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
         select a palette colors/keys count preset to use for better resample it.
+        
+        _NOTE:
+            This need to be revised and smartened up a little as there may be cases where it will fail
+            to sample the palette enough to collect the proper colors based on their location and proxymity to each other in the ramp.
 
         Args:
             ramp (hou.Ramp): The current ramp being considered.
