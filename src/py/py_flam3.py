@@ -132,7 +132,7 @@ SEC_POSTAFFINE = '.post affine'
 PALETTE_COUNT_64 = '64'
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
-PALETTE_COUNT_512 = '512'
+PALETTE_COUNT_512 = '512' # not used
 PALETTE_COUNT_1024 = '1024'
 PALETTE_OUT_MENU_OPTIONS = (256, 512, 1024)
 PALETTE_PLUS_MSG = '[256+]'
@@ -2165,7 +2165,7 @@ menu_T_pb(self) -> list:
 
 menu_SEL_ITER(self) -> list:
 
-prm_select_iterator(self) -> list:
+prm_select_iterator(self) -> None:
 
 flam3h_paste_reset_hou_session_data(self) -> None:
 
@@ -2940,13 +2940,16 @@ iterator_keep_last_weight(self) -> None:
         if iter_count:
             prm = node.parm(FLAME_ITERATORS_COUNT)
             preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
+            
             hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
+            _MSG = f"iterator: {preset_id}"
+            flam3h_general_utils.flash_message(node, _MSG)
+            
             # Change focus back to the FLAME's Tab
             node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
         
-        # reset selection
+        # reset selection to null value
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
-        
     
     
     def flam3h_paste_reset_hou_session_data(self) -> None:
@@ -5811,7 +5814,7 @@ flam3h_about_web_flam3_github(self) -> None:
         Implementation_build = f"{flam3h_author}\n{flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         
         code_references = """Code references:
-flam3 :: (GPL v2)
+Flam3 :: (GPL v2)
 Apophysis :: (GPL)
 Fractorium :: (GPL v3)"""
 
