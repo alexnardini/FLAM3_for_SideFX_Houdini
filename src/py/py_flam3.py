@@ -6966,7 +6966,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             int: [clamped idx value just in case the user pass an invalid idx to this function]
         """     
-        return 0 if idx < 0 else 0 if self._flame_count == 1 else self._flame_count - 1 if idx > self._flame_count - 1 else idx
+        return 0 if idx < 0 else 0 if self._flame_count == 1 else self._flame_count-1 if idx > self._flame_count-1 else idx
 
 
     def __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
