@@ -5818,18 +5818,18 @@ flam3h_about_web_flam3_github(self) -> None:
         Implementation_years = f"2020/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         
-        code_references = """Code references:
+        code_references = """CODE REFERENCES
 Flam3 :: (GPL v2)
 Apophysis :: (GPL)
 Fractorium :: (GPL v3)"""
 
-        example_flames = """Example flames:
+        example_flames = """EXAMPLE FLAMES
 C-91, Gabor Timar, Golubaja, Pillemaster,
 Plangkye, Tatasz, Triptychaos, TyrantWave,
 Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+        Houdini_version = f"HOST\nSideFX Houdini {h_version}"
         Python_version = f"Python: {python_version()}"
         license_type = str(hou.licenseCategory()).split(".")[-1]
         Houdini_license = f"License: {license_type}"
@@ -6565,8 +6565,8 @@ get_name(self, key=XML_XF_NAME) -> tuple
         Returns:
             Union[tuple, None]: Flame presets names.
         """     
-        if os.path.isfile(self._xml):   
-            root = self._tree.getroot()
+        if os.path.isfile(self.xml):   
+            root = self.tree.getroot()
             if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                 return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
             else:
@@ -6732,8 +6732,8 @@ __get_flame_count(self, flames: list) -> int:
         Returns:
             Union[tuple, None]: Flame presets names.
         """        
-        if self._isvalidtree:
-            root = self._tree.getroot()
+        if self.isvalidtree:
+            root = self.tree.getroot()
             return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
         else:
             return () 
@@ -6748,8 +6748,8 @@ __get_flame_count(self, flames: list) -> int:
         Returns:
             Union[tuple, None]: Flames objects data.
         """        
-        if self._isvalidtree:
-            root = self._tree.getroot()
+        if self.isvalidtree:
+            root = self.tree.getroot()
             return tuple( [f for f in root.iter(key)] )
         else:
             return None
@@ -6764,7 +6764,7 @@ __get_flame_count(self, flames: list) -> int:
         Returns:
             int: Number of Flames.
         """        
-        if self._isvalidtree:
+        if self.isvalidtree:
             return len(flames)
         return 0
 
@@ -6971,7 +6971,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             int: [clamped idx value just in case the user pass an invalid idx to this function]
         """     
-        return 0 if idx < 0 else 0 if self._flame_count == 1 else self._flame_count-1 if idx > self._flame_count-1 else idx
+        return 0 if idx < 0 else 0 if self.flame_count == 1 else self.flame_count-1 if idx > self.flame_count-1 else idx
 
 
     def __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
@@ -6986,8 +6986,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             tuple: [a tuple of all xforms inside the selected flame or None]
         """
-        if  self._isvalidtree:
-            xforms = [xf.attrib for xf in self._flame[idx].iter(key)]
+        if  self.isvalidtree:
+            xforms = [xf.attrib for xf in self.flame[idx].iter(key)]
             xforms_lower = []
             if xforms:
                 for xf in xforms:
@@ -7012,7 +7012,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [either a list of xaos strings or None]
         """        
-        if  self._isvalidtree:
+        if  self.isvalidtree:
             assert xforms is not None
             xaos = [f"xaos:{':'.join(xf.get(key).split())}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))):
@@ -7033,7 +7033,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
         """           
-        if  self._isvalidtree:
+        if  self.isvalidtree:
             if xforms is not None:
                 coefs = [tuple(self.affine_coupling([float(x) for x in xform.get(key).split()])) if xform.get(key) is not None else [] for xform in xforms ]
                 if not max(list(map(lambda x: len(x), coefs))):
@@ -7054,7 +7054,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [description]
         """        
-        if self._isvalidtree:
+        if self.isvalidtree:
             if xforms is not None:
                 keyvalues = []
                 for xform in xforms:
@@ -7071,7 +7071,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                         # An IN Tab load option is provided to change this behavior and load/use the pre_gaussian_blur variation instead on load.
                         pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
                         if pre_gaussian_blur is not None:
-                            if self._node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                            if self.node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
                                 keyvalues.append(float(pre_gaussian_blur))
                                 continue
                             else:
@@ -7108,14 +7108,14 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
         """        
-        if  self._isvalidtree:
+        if  self.isvalidtree:
             try:
-                palette_attrib = self._flame[idx].find(key).attrib
+                palette_attrib = self.flame[idx].find(key).attrib
             except:
                 palette_attrib = None
                 
             if palette_attrib is not None:
-                palette_hex = self._flame[idx].find(key).text
+                palette_hex = self.flame[idx].find(key).text
                 format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                 
                 HEX = []
@@ -7153,8 +7153,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             hou.Vector3 or False: [a hou.Vector3 of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
         """   
-        if self._isvalidtree:
-            palette_hsv_xml_list = self._flam3h_hsv[idx]
+        if self.isvalidtree:
+            palette_hsv_xml_list = self.flam3h_hsv[idx]
             if palette_hsv_xml_list:
                 palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s)))
@@ -7179,8 +7179,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[int, float, bool, None]: [FLAM3H motion blur parameter's values.]
         """   
-        if self._isvalidtree:
-            mb_do = self._flam3h_mb[idx]
+        if self.isvalidtree:
+            mb_do = self.flam3h_mb[idx]
             # self._flam3h_mb[idx] can also be an empty list, hence the double check
             if mb_do is not None and mb_do:
                 if key == OUT_XML_FLMA3H_MB_FPS:
@@ -7189,9 +7189,9 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     except:
                         return False
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
-                    return int(self._flam3h_mb_samples[idx])
+                    return int(self.flam3h_mb_samples[idx])
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
-                    return float(self._flam3h_mb_shutter[idx])
+                    return float(self.flam3h_mb_shutter[idx])
                 else:
                     return False
             else:
@@ -7210,8 +7210,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[int, bool]: [FLAM3H palette lookup samples parameter values.]
         """   
-        if self._isvalidtree:
-            cp_samples_key = self._flam3h_cp_samples[idx]
+        if self.isvalidtree:
+            cp_samples_key = self.flam3h_cp_samples[idx]
             if cp_samples_key:
                 samples = int(cp_samples_key)
                 if samples in (16, 32, 64, 128, 256, 512, 1024): # just make sure the lookup samples count is one of the valid options.
@@ -7237,7 +7237,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             Union[int, None]: This flame toggle
         """        
 
-        if self._isvalidtree:
+        if self.isvalidtree:
             # f3c = self._flam3h_prefs_f3c[idx]
             # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
             if toggle is not None and toggle:
@@ -10705,7 +10705,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         return self._flam3h_rip
     
     @property
-    def flam3h_cp_samples(self):
+    def flam3h_cp_lookup_samples(self):
         return self._flam3h_cp_lookup_samples
 
 
@@ -10913,9 +10913,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             tuple[str]: the xaos TO values to write out.
         """
-        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np_pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
-        xaos_vactive = self.out_xaos_collect_vactive(self._node, fill, self._flam3h_iter_prm_names.main_vactive)
+        val = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        xaos_vactive = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
 
@@ -10927,11 +10927,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
         """
-        val = self.out_xaos_collect(self._node, self._iter_count, self._flam3h_iter_prm_names.xaos)
-        fill = [np_pad(item, (0,self._iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        t = np_transpose(np_resize(fill, (self._iter_count, self._iter_count))).tolist()
+        val = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        t = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         if mode:
-            xaos_vactive = self.out_xaos_collect_vactive(self._node, t, self._flam3h_iter_prm_names.main_vactive)
+            xaos_vactive = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
         else:
             return tuple([" ".join(x) for x in self.out_util_round_floats(t)])
@@ -11278,7 +11278,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         # Build palette
         palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
         palette.tag = XML_PALETTE
-        palette.set(XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
+        palette.set(XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
         palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
         palette.text = f3d.palette_hex
 
@@ -11347,15 +11347,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             kwargs (dict): _description_
             apo_data (in_flame): Current OUT flame lib file data for all its flame presets.
             out_path (str): Current OUT flame full file path.
-        """        
-        # with ET since I have the XML tree already stored using its Element type
-        # root = apo_data.tree.getroot()
-        
+        """                
         node = self.node
         
         # with lxmlET
-        tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
-        root = tree.getroot()
+        # tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
+        # root = tree.getroot()
+        root = apo_data.tree.getroot()
+        
         flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
         
@@ -11454,56 +11453,56 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         if prm_name:
             prm_type = False
             try:
-                prm = self._node.parmTuple(prm_name)
+                prm = self.node.parmTuple(prm_name)
                 prm_type = True
             except:
-                prm = self._node.parm(prm_name)
+                prm = self.node.parm(prm_name)
             if prm_type:
                 return ' '.join([str(self.out_util_round_float(x.eval())) for x in prm])
             else:
                 if type(prm) is not str:
-                    return str(self._node.parm(prm_name).eval())
+                    return str(self.node.parm(prm_name).eval())
                 else:
-                    return self.out_util_round_float(self._node.parm(prm_name).eval())
+                    return self.out_util_round_float(self.node.parm(prm_name).eval())
         else:
             print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
             return ''
 
 
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
-        flame_name = self._node.parm(prm_name).eval()
-        autoadd = self._node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+        flame_name = self.node.parm(prm_name).eval()
+        autoadd = self.node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
         
         if not flame_name:
-            return self.out_flame_default_name(self._node, autoadd)
+            return self.out_flame_default_name(self.node, autoadd)
         else:
             # otherwise get that name and use it
-            iter_num = self._node.parm(GLB_ITERATIONS).evalAsInt()
+            iter_num = self.node.parm(GLB_ITERATIONS).evalAsInt()
             return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         
         
     def __out_xf_data(self, prm_name: str) -> tuple:
-        val = [str(self.out_util_round_float(self._node.parm(f"{prm_name}_{iter+1}").eval())) for iter in range(self._iter_count)]
+        val = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter+1}").eval())) for iter in range(self.iter_count)]
         return tuple(val)
 
 
     def __out_xf_name(self) -> tuple:
-        val = [self._node.parm(f"{self._flam3h_iter_prm_names.main_note}_{iter+1}").eval() for iter in range(self._iter_count)]
+        val = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter+1}").eval() for iter in range(self._iter_count)]
         return tuple(val)
     
     
     def __out_finalxf_name(self) -> str:
-        FF_name = self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.main_note}").eval()
+        FF_name = self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.main_note}").eval()
         return FF_name
 
     
     def __out_xf_pre_blur(self) -> tuple:
-        val = [str( self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() ) if self._node.parm(f"{self._flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() > 0 else '' for iter in range(self._iter_count)]
+        val = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() > 0 else '' for iter in range(self.iter_count)]
         return tuple(val)
 
 
     def __out_xf_xaos(self) -> tuple:
-        if self._xm:
+        if self.xm:
             return self.out_xf_xaos_from(1)
         else:
             return self.out_xf_xaos_to()
@@ -11511,9 +11510,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
     def __out_xf_preaffine(self) -> tuple:
         val = []
-        for iter in range(self._iter_count):
-            collect = [self._node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self._flam3h_iter.sec_preAffine[:-1]]
-            angleDeg = self._node.parm(f"{self._flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
+        for iter in range(self.iter_count):
+            collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
+            angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
             flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             val.append([str(x) for x in flatten])
         return tuple([" ".join(x) for x in self.out_util_round_floats(val)])
@@ -11521,10 +11520,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     def __out_xf_postaffine(self) -> tuple:
         val = []
-        for iter in range(self._iter_count):
-            if self._node.parm(f"{self._flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
-                collect = [self._node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self._flam3h_iter.sec_postAffine[1:-1]]
-                angleDeg = self._node.parm(f"{self._flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
+        for iter in range(self.iter_count):
+            if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
+                collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
+                angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
                 flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
                 val.append([str(x) for x in flatten])
             else:
@@ -11533,8 +11532,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
 
     def __out_finalxf_preaffine(self) -> str:
-        collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
-        angleDeg = self._node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
+        collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
+        angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         if angleDeg != 0.0:
             affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
@@ -11544,9 +11543,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     
     def __out_finalxf_postaffine(self) -> Union[str, bool]:
-        if self._node.parm(f"{PRX_FF_PRM}{self._flam3h_iter_prm_names.postaffine_do}").eval():
-            collect = [self._node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
-            angleDeg = self._node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
+        if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
+            collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
+            angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if angleDeg != 0.0:
                 affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
             else:
@@ -11577,11 +11576,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             # If we are saving out a flame with the HSV ramp, 
             # we do not want to export the HSV values in the XML file anymore
             # so to not overimpose a color correction once we load it back.
-            if self._palette_hsv_do:
+            if self.palette_hsv_do:
                 return False
             else:
                 # Here we go ahead since we know the prm CP_RAMP_HSV_VAL_NAME is a tuple
-                prm = self._node.parmTuple(prm_name).eval()
+                prm = self.node.parmTuple(prm_name).eval()
                 # If the HSV values are at their defaults, do not export them into the XML file
                 if prm[0] == prm[1] == prm[2] == 1:
                     return False
@@ -11595,7 +11594,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     # custom to FLAM3H only
     def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
 
-        if self._flam3h_mb_do:
+        if self.flam3h_mb_do:
             try:
                 return self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
@@ -11612,17 +11611,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
     
     # custom to FLAM3H only
     def __out_flame_palette_lookup_samples(self) -> Union[str, bool, None]:
-        if self._palette_plus_do:
+        if self.palette_plus_do:
             keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
             if int(keys) == 256:
                 return False
             else:
                 return keys
         else:
-            if self._flam3h_cp_lookup_samples == 256:
+            if self.flam3h_cp_lookup_samples == 256:
                 return False
             else:
-                return str(self._flam3h_cp_lookup_samples)
+                return str(self.flam3h_cp_lookup_samples)
 
 
 
@@ -11803,13 +11802,13 @@ class out_flame_xforms_data(out_flame_utils):
         super().__init__(kwargs)
         # FLAM3 data
         self._xf_name = self._out_flame_utils__out_xf_name() # type: ignore
-        self._xf_vactive = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.main_vactive) # type: ignore
-        self._xf_weight = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.main_weight) # type: ignore
+        self._xf_vactive = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_vactive) # type: ignore
+        self._xf_weight = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_weight) # type: ignore
         self._xf_xaos = self._out_flame_utils__out_xf_xaos() # type: ignore
         self._xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
-        self._xf_color = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_color) # type: ignore
-        self._xf_symmetry = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_speed) # type: ignore
-        self._xf_opacity = self._out_flame_utils__out_xf_data(self._flam3h_iter_prm_names.shader_alpha) # type: ignore
+        self._xf_color = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
+        self._xf_symmetry = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
+        self._xf_opacity = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
         self._xf_preaffine = self._out_flame_utils__out_xf_preaffine() # type: ignore
         self._xf_postaffine = self._out_flame_utils__out_xf_postaffine() # type: ignore
         self._palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
