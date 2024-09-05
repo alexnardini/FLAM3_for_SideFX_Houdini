@@ -78,6 +78,18 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 ![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_03_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
+## Camera sensor
+
+All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
+
+A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
+
+The FLAM3H camera sensor will precisely display the image framing.
+
+![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
+![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
+`Camera sensor: FLAM3H to Fractorium`
+
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
 Following are some images showing FLAM3H rendering some of the Fractorium's example flame files.
