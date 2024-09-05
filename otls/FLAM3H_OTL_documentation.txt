@@ -1808,6 +1808,8 @@ SHOW sensor viz:
 
     _*[FLAM3H to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
 
+    _*[FLAM3H to Fractorium, camera sensor framing|https://github.com/user-attachments/assets/53624d53-4eed-4889-9e14-61e9222d17e6]*_
+
     When multiple FLAM3H node are present in the scene, FLAM3H ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
     
     TIP:
