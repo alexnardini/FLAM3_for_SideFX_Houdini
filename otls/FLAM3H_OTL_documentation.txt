@@ -1111,7 +1111,7 @@ palette lookup samples:
     NOTE:
         - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
-        - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, *turn on the OUT options tab toggle -> `save palette 256+`*.
+        - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`save palette 256+`*.
     
 palette:
     #id: PALETTE
@@ -1167,9 +1167,9 @@ Save Palette:
         - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
 
     NOTE:
-        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, *turn on the CP options tab toggle -> `save palette 256+`*.
+        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, turn ON the *CP options* tab toggle -> *`save palette 256+`*.
         - When saving out a palette file, it will try to downsample the usual 256 color count standard.
-        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you *turn on the OUT options tab toggle -> `save palette 256+`*.
+        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`save palette 256+`*.
     
 Palette name ( preset ):
     #id: PALETTE
@@ -1457,6 +1457,11 @@ infos Tab:
     FLAM3H was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
 
     All of the variations that Fractorium lacks will be classified as: Unknown variations.
+
+    TIP:
+        #display: orange
+        - Next and at the end of the *`Software`* info, the text *`-> Clipboard`* will appear when loading a Flame preset from the clipboard.
+        - Next and at the end of the *`Palette count`* info, the text *`-> HSV`* will appear if the loaded Flame preset is using HSV values different from defaults.
     
 :box:
     #display: rounded white
@@ -1616,7 +1621,7 @@ Save Flame:
         
         *Also*:
     
-        - When saving out Flame files, if you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, *turn on the OUT options tab toggle -> `save palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`save palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
