@@ -810,6 +810,7 @@ flam3h_on_deleted(self) -> None:
 
         hou.setUpdateMode(sys_updated_mode) # type: ignore
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
+        print(f"\nFLAM3H CVEX node compile: DONE\n")
         
         
     @staticmethod
@@ -2885,12 +2886,17 @@ iterator_keep_last_weight(self) -> None:
         
         menu = []
         
-        # get copy/paste iterator's data
-        mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+        # get/init copy/paste iterator's data.
+        #
+        # This try/except block is to avoid an error on loading an hip file from a fresh Houdini session complaining about the: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
+        # Strange as we are initializing all is needed inside: def flam3h_on_loaded(self) -> None:
+        # Seem to fix the problem but need more investigation to find out the why was erroring on load, it should have not.
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
             from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         except:
+            mp_idx = None
             from_FLAM3HNODE = None
         
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
