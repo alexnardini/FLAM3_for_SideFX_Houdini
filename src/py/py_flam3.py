@@ -2881,7 +2881,7 @@ iterator_keep_last_weight(self) -> None:
         return menu
 
 
-    def menu_SEL_ITER(self) -> list:
+    def menu_select_iterator(self) -> list:
         
         node = self.node
         menu = []
@@ -2889,6 +2889,7 @@ iterator_keep_last_weight(self) -> None:
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iter_count:
             
+            # This definition probably can be made more lighter for this particular case
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             
             # append an empty line to reset to after selection.
