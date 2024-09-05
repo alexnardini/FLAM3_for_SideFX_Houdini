@@ -2882,25 +2882,14 @@ iterator_keep_last_weight(self) -> None:
 
 
     def menu_SEL_ITER(self) -> list:
+        
         node = self.node
-        
         menu = []
-        
-        # get/init copy/paste iterator's data.
-        #
-        # This try/except block is to avoid an error on loading an hip file from a fresh Houdini session complaining about the: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
-        # Strange as we are initializing all is needed inside: def flam3h_on_loaded(self) -> None:
-        # Seem to fix the problem but need more investigation to find out the why was erroring on load, it should have not.
-        try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            mp_idx = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-            from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-        except:
-            mp_idx = None
-            from_FLAM3HNODE = None
         
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iter_count:
+            
+            from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             
             # append an empty line to reset to after selection.
             menu.append(0)
@@ -2917,7 +2906,7 @@ iterator_keep_last_weight(self) -> None:
                 if node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval():
                     
                     # check if it is marked for being copied
-                    if node == from_FLAM3HNODE and str(mp_idx) == idx:
+                    if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
                         menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {note}")
                     else:
                         menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {note}")
@@ -2925,7 +2914,7 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     
                     # check if it is marked for being copied
-                    if node == from_FLAM3HNODE and str(mp_idx) == idx:
+                    if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
                         menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {note}")
                     else:
                         menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {note}")
