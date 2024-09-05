@@ -1616,8 +1616,7 @@ Save Flame:
         
         *Also*:
     
-        - When saving out Flame files, it will always sample and save the palette as a 256-color palette standard, unless you *turn on the OUT options tab toggle -> `save palette 256+`*.
-        - If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, *turn on the OUT options tab toggle -> `save palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, *turn on the OUT options tab toggle -> `save palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
