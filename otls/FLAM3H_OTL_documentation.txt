@@ -1165,6 +1165,7 @@ Save Palette:
         - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
         - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
         - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
+        - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
 
     NOTE:
         - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, turn ON the *CP options* tab toggle -> *`save palette 256+`*.
