@@ -6594,8 +6594,6 @@ STATIC METHODS:
 
 xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
 
-xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
-
 METHODS:
 
 get_name(self, key=XML_XF_NAME) -> tuple:
