@@ -1244,7 +1244,7 @@ class flam3h_general_utils
 
 STATIC METHODS:
 
-flash_message(node: hou.SopNode, msg: Union[str, None], timer: float, img=None) -> None:
+flash_message(node: hou.SopNode, msg: Union[str, None], timer=FLAM3H_FLASH_MESSAGE_TIMER, img=None) -> None:
 
 clamp(x, val_max=255) -> float:
 
@@ -1264,7 +1264,7 @@ util_set_stashed_cam() -> None:
 
 METHODS:
 
-get_bbox_node_path(self) -> Union[str, None]:
+get_bbox_node_path(self, node_name: str) -> Union[str, None]:
 
 util_set_clipping_viewers(self) -> None:
 
@@ -1294,7 +1294,7 @@ colorSchemeDark(self, update_others=True) -> None:
 
 viewportParticleDisplay(self) -> None:
 
-viewportParticleSize(self) -> None:
+viewportParticleSize(self, reset_val=None) -> None:
 
 reset_SYS(self, density: int, iter: int, mode: int) -> None:
 
@@ -2117,17 +2117,17 @@ class flam3h_iterator_utils
 
 STATIC METHODS:
 
-get_user_data(node: hou.SopNode, data="Marked iterator") -> Union[int, bool]:
+get_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
 
-exist_user_data(node: hou.SopNode, data="Marked iterator") -> bool:
+exist_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> bool:
 
-set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data="Marked iterator") -> None:
+set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data=FLAM3H_USER_DATA_ITER) -> None:
 
-del_comment_and_user_data_iterator(node: hou.SopNode, data="Marked iterator") -> None:
+del_comment_and_user_data_iterator(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> None:
 
-flam3h_init_hou_session_iterator_data(node) -> None:
+flam3h_init_hou_session_iterator_data(node: hou.SopNode) -> None:
 
-flam3h_init_hou_session_ff_data(node) -> None:
+flam3h_init_hou_session_ff_data(node: hou.SopNode) -> None:
 
 iterator_mpidx_mem_set(node, data: int) -> None:
 
@@ -2135,11 +2135,11 @@ paste_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prm_list
 
 paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
 
-pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
+pastePRM_T_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 
 paste_save_note(_note: str) -> str:
 
-paste_set_note(node: hou.SopNode, flam3node: hou.SopNode, int_mode: int, str_section: str, id: str, id_from: str) -> None:
+paste_set_note(node: hou.SopNode, flam3node: Union[hou.SopNode, None], int_mode: int, str_section: str, id: str, id_from: str) -> None:
 
 auto_set_xaos_data_get_MP_MEM(node: hou.SopNode) -> Union[list, None]:
 
@@ -2165,7 +2165,7 @@ menu_T_pb_data(self) -> str:
 
 menu_T_pb(self) -> list:
 
-menu_SEL_ITER(self) -> list:
+menu_select_iterator(self) -> list:
 
 prm_select_iterator(self) -> None:
 
@@ -4842,7 +4842,7 @@ flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 
 flam3h_ramp_save(self) -> None:
 
-json_to_flam3h_ramp_initialize_ramp(self, rgb_from_XML_PALETTE: list) -> hou.Ramp:
+json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> hou.Ramp:
 
 json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
 
@@ -4860,7 +4860,7 @@ palette_hsv(self) -> None:
 
 palette_lock(self) -> None:
 
-reset_CP_LOCK_MSG(self, filepath='') -> None:
+reset_CP_LOCK_MSG(self) -> None:
 
 reset_CP(self, mode=0) -> None:
     """
@@ -6592,9 +6592,9 @@ class _xml_tree
 
 STATIC METHODS:
 
-xmlfile_root_chk(xmlfile: str, clipboard=False) -> Union[str, None]:
+xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
 
-xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
+xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
 
 METHODS:
 
@@ -6603,6 +6603,7 @@ get_name(self, key=XML_XF_NAME) -> tuple:
 __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
 
 __get_flame_count(self, flames: list) -> int:
+
 """
 
     def __init__(self, xmlfile: str) -> None:
@@ -7597,7 +7598,7 @@ in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
 
 in_util_join_vars_grp(groups: list) -> str:
 
-in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable) -> list[str]:
+in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable, capitalize=False) -> list[str]:
 
 in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
 
@@ -7642,13 +7643,14 @@ in_to_flam3h_init_data_ALT(self, node: hou.SopNode) -> tuple[Union[str, None], b
 
 in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
 
-in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool]:
+in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
 
 in_to_flam3h_sys(self) -> None:
 
 in_to_flam3h(self) -> None:
 
 reset_IN(self, mode=0) -> None:
+
     """
     
     def __init__(self, kwargs: dict) -> None:
@@ -10016,9 +10018,9 @@ out_util_round_float(VAL) -> str:
 
 out_util_round_floats(VAL_LIST: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
 
-def out_util_check_duplicate_var_section(vars: list) -> bool:
+out_util_check_duplicate_var_section(vars: list) -> bool:
 
-out_util_check_duplicate(vars: list) -> bool:
+out_util_iterators_vars_duplicate(vars: list) -> list:
 
 out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 
@@ -10036,11 +10038,11 @@ _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
 METHODS:
 
-out_palette_keys_count(self, _MSG = True) -> str:
+out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
 
 menu_sensor_resolution(self) -> list:
 
-menu_sensor_resolution_set(self) -> None:
+menu_sensor_resolution_set(self, update=True) -> None:
 
 reset_OUT_sensor(self) -> None:
 
@@ -10064,16 +10066,18 @@ out_auto_add_iter_num_to_prm(self) -> None:
 
 out_auto_change_iter_num_to_prm(self) -> None:
 
-out_flame_properties_build(kwargs: dict) -> dict:
+out_flame_properties_build(self) -> dict:
 
-out_flam3_compatibility_check_and_msg(node: hou.SopNode, 
-                                      names_VARS: list, 
-                                      names_VARS_PRE: list, 
-                                      flam3h_do_FF: list, 
-                                      names_VARS_FF: list, 
-                                      names_VARS_POST_FF: list) -> bool:
+out_flam3_compatibility_check_and_msg(self,
+                                        names_VARS_PRE: list, 
+                                        names_VARS: list, 
+                                        names_VARS_POST: list, 
+                                        flam3h_do_FF: list, 
+                                        names_VARS_PRE_FF: list, 
+                                        names_VARS_FF: list, 
+                                        names_VARS_POST_FF: list) -> bool:
                                       
-out_populate_xform_vars_XML(node: hou.SopNode, 
+out_populate_xform_vars_XML(self, 
                             varsPRM: tuple, 
                             TYPES_tuple: tuple, 
                             WEIGHTS_tuple: tuple, 
@@ -10081,13 +10085,13 @@ out_populate_xform_vars_XML(node: hou.SopNode,
                             MP_IDX: str, 
                             FUNC: Callable) -> list[str]:
 
-out_build_XML(kwargs: dict, root: lxmlET.Element) -> bool:
+out_build_XML(self, flame: lxmlET.Element) -> bool:
 
-out_new_XML(kwargs: dict, outpath: str) -> None:
+out_new_XML(self, outpath: str) -> None:
 
 out_new_XML_clipboard(self) -> None:
 
-out_append_XML(kwargs: dict, apo_data: in_flame, out_path: str) -> None:
+out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
 
 out_XML(self) -> None:
 
