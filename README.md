@@ -86,6 +86,8 @@ A portion of the render parameters deal with the camera and how the fractal Flam
 
 The FLAM3H camera sensor will precisely display the image framing.
 
+Once framed, you can save the Flame and be sure it will be framed the same in other applications like Apophysis, Fractorium and others.
+
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 ![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 `Camera sensor: FLAM3H to Fractorium`
