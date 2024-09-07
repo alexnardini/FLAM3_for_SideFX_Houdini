@@ -5356,18 +5356,26 @@ reset_CP(self, mode=0) -> None:
                 HEXs = []
                 hsv_vals = []
                 
-                # get current preset
+                # get current preset name
                 if node.parm(CP_ISVALID_PRESET).evalAsInt():
                     preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
                     preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
                 else:
                     preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
                     preset = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
+                    
+                # Remove the enumeration menu index string from the preset name.
+                #
+                # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
+                # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+                preset_clean = ':'.join(str(preset).split(':')[1:]).lstrip()
                 
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
+                
                 with open(filepath, 'r') as r:
-                    data = json.load(r)[preset]
+                    
+                    data = json.load(r)[preset_clean]
                     hex_values = data[CP_JSON_KEY_NAME_HEX]
                     try:
                         [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
@@ -5411,7 +5419,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_ISVALID_PRESET: 1})
                 
                 # Print to status Bar
-                _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
+                _MSG = f"{node.name()}: LOAD Palette preset: \"{preset_clean}\" -> Completed"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
             else:
@@ -8510,7 +8518,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_get_preset_name_iternum(preset_name: str) -> Union[int, None]:
+    def in_get_preset_name_iternum(menu_label: str) -> Union[int, None]:
         """Get the iteration number from the loaded Flame preset if any.
 
         Args:
@@ -8519,12 +8527,10 @@ reset_IN(self, mode=0) -> None:
         Returns:
             Union[int, None]: The iteration number or none.
         """        
-        splt = preset_name.split("::")
-        if len(splt) > 1:
-            try:
-                return int(splt[-1])
-            except:
-                return None
+        splt = list(menu_label.rpartition('::'))
+        if len([item for item in splt if item]) > 1:
+            try: return int(splt[-1])
+            except: return None
         else:
             return None
 
@@ -8583,11 +8589,20 @@ reset_IN(self, mode=0) -> None:
         if node.parm(IN_ISVALID_PRESET).evalAsInt():
             
             if node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
-                return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
+                menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
+                # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
+                # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+                return ':'.join(str(menu_label).split(':')[1:]).lstrip()
             else:
-                return str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
+                menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
+                # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
+                # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+                return ':'.join(str(menu_label).split(':')[1:]).lstrip()
         else:
-            return str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
+            menu_label = str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
+            # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
+            # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+            return ':'.join(str(menu_label).split(':')[1:]).lstrip()
     
     
     @staticmethod
