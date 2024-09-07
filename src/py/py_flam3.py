@@ -4723,7 +4723,7 @@ iterator_keep_last_weight(self) -> None:
         This will prevent the last active iterator to being disabled.
         
         _NOTE:
-            The parameters names is hard coded here to try to speed up even if a tiny bit.
+            The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """    
         node = self.node
@@ -5096,9 +5096,9 @@ reset_CP(self, mode=0) -> None:
                     
                     # ICON tag
                     if i == int(self.node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                     else:
-                        menu.append(item)
+                        menu.append(f"{str(i)}:  {item}")
             else:
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
@@ -5132,9 +5132,9 @@ reset_CP(self, mode=0) -> None:
                     
                     # ICON tag
                     if i == int(self.node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                     else:
-                        menu.append(item)
+                        menu.append(f"{str(i)}:  {item}")
             else:
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
@@ -9222,14 +9222,14 @@ reset_IN(self, mode=0) -> None:
                     
                     # If a flame preset from a file is loaded
                     if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                         
                     # If a flame preset from the clipboard is loaded
                     elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                         
                     else:
-                        menu.append(item)
+                        menu.append(f"{str(i)}:  {item}")
                 return menu
             
             else:
@@ -9281,14 +9281,14 @@ reset_IN(self, mode=0) -> None:
                     
                     # If a flame preset from a file is loaded
                     if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                         
                     # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
                     # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
                         
                     else:
-                        menu.append(item)
+                        menu.append(f"{str(i)}:  {item}")
                 return menu
             
             else:
@@ -10949,7 +10949,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         if apo.isvalidtree:
             for i, item in enumerate(apo.name):
                 menu.append(i)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
             return menu
         else:
             menu.append(-1)
