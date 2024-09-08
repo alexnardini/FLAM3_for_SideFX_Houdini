@@ -210,6 +210,7 @@ OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 PREFS_TOGGLE = 'showprefs'
 PREFS_FLASH_MSG = 'flashmsg'
 PREFS_F3C = 'f3c'
+PREFS_ENUMERATE_MENU = 'enumeratemenu'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_CVEX_PRECISION = 'vex_precision'
 PREFS_XAOS_MODE = 'xm'
@@ -1264,6 +1265,8 @@ util_set_stashed_cam() -> None:
 
 METHODS:
 
+menus_refresh_enum_prefs(self) -> None:
+
 get_bbox_node_path(self, node_name: str) -> Union[str, None]:
 
 util_set_clipping_viewers(self) -> None:
@@ -1368,9 +1371,9 @@ reset_PREFS(self, mode=0) -> None:
             msg (str): The message string to print
             type (str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
         """
-        st = {  'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning}  # type: ignore
 
         if hou.isUIAvailable():
+            st = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
             hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
 
 
@@ -1492,6 +1495,38 @@ reset_PREFS(self, mode=0) -> None:
         return self._bbox_reframe_path
 
 
+
+    def menus_refresh_enum_prefs(self) -> None:
+        """Refresh and force presets menus names to update
+        after the preference's option "enumerate presets menu" has been toggled ON or OFF
+        """ 
+        node = self.node
+        
+        # CP PRESETS menus
+        prm_CP_PALETTE_PRESETS = node.parm(CP_PALETTE_PRESETS)
+        prm_CP_PALETTE_PRESETS.set(prm_CP_PALETTE_PRESETS.eval())
+        prm_CP_PALETTE_PRESETS_OFF = node.parm(CP_PALETTE_PRESETS_OFF)
+        prm_CP_PALETTE_PRESETS_OFF.set(prm_CP_PALETTE_PRESETS_OFF.eval())
+        prm_CP_SYS_PALETTE_PRESETS = node.parm(CP_SYS_PALETTE_PRESETS)
+        prm_CP_SYS_PALETTE_PRESETS.set(prm_CP_SYS_PALETTE_PRESETS.eval())
+        prm_CP_SYS_PALETTE_PRESETS_OFF = node.parm(CP_SYS_PALETTE_PRESETS_OFF)
+        prm_CP_SYS_PALETTE_PRESETS_OFF.set(prm_CP_SYS_PALETTE_PRESETS_OFF.eval())
+        
+        # IN PRESETS menus
+        prm_IN_PRESETS = node.parm(IN_PRESETS)
+        prm_IN_PRESETS.set(prm_IN_PRESETS.eval())
+        prm_IN_PRESETS_OFF = node.parm(IN_PRESETS_OFF)
+        prm_IN_PRESETS_OFF.set(prm_IN_PRESETS_OFF.eval())
+        prm_IN_SYS_PRESETS = node.parm(IN_SYS_PRESETS)
+        prm_IN_SYS_PRESETS.set(prm_IN_SYS_PRESETS.eval())
+        prm_IN_SYS_PRESETS_OFF = node.parm(IN_SYS_PRESETS_OFF)
+        prm_IN_SYS_PRESETS_OFF.set(prm_IN_SYS_PRESETS_OFF.eval())
+        
+        # OUT PRESETS menus
+        prm_OUT_PRESETS = node.parm(OUT_PRESETS)
+        prm_OUT_PRESETS.set(prm_OUT_PRESETS.eval())
+        prm_OUT_SYS_PRESETS = node.parm(OUT_SYS_PRESETS)
+        prm_OUT_SYS_PRESETS.set(prm_OUT_SYS_PRESETS.eval())
 
 
     def get_bbox_node_path(self, node_name: str) -> Union[str, None]:
@@ -5031,7 +5066,7 @@ reset_CP(self, mode=0) -> None:
     @staticmethod
     def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list) -> None:
 
-        palette_msg = node.parm(MSG_PALETTE).evalAsString()
+        palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
         if len(HEXs) > 256:
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
@@ -5082,29 +5117,47 @@ reset_CP(self, mode=0) -> None:
         Returns:
             list: _description_
         """
-
+        node = self.node
         menu=[]
-        if self.node.parm(CP_ISVALID_FILE).eval():
-            filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+        if node.parm(CP_ISVALID_FILE).eval():
+            
+            filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+            
             if os.path.isfile(filepath):
+                
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
 
-                for i, item in enumerate(menuitems):
+                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    menu.append(i)
+                    for i, item in enumerate(menuitems):
+                        
+                        menu.append(i)
+                        
+                        # ICON tag
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                        else:
+                            menu.append(f"{str(i)}:  {item}")
+                else:
                     
-                    # ICON tag
-                    if i == int(self.node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                    for i, item in enumerate(menuitems):
+                        
+                        menu.append(i)
+                        
+                        # ICON tag
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                        else:
+                            menu.append(f"{item}")
+                    
             else:
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
+            
         return menu
     
 
@@ -5118,29 +5171,48 @@ reset_CP(self, mode=0) -> None:
         Returns:
             list: _description_
         """
-        
+        node = self.node
         menu=[]
         if self.node.parm(CP_ISVALID_FILE).eval():
+            
             filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+            
             if os.path.isfile(filepath):
+                
                 with open(filepath) as f:
+                    
                     menuitems = json.load(f).keys()
 
-                for i, item in enumerate(menuitems):
+                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    menu.append(i)
+                    for i, item in enumerate(menuitems):
+                        
+                        menu.append(i)
+                        
+                        # ICON tag
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                        else:
+                            menu.append(f"{str(i)}:  {item}")
+                            
+                else:
                     
-                    # ICON tag
-                    if i == int(self.node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                    for i, item in enumerate(menuitems):
+                        
+                        menu.append(i)
+                        
+                        # ICON tag
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                        else:
+                            menu.append(f"{item}")
             else:
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
+            
         return menu
 
 
@@ -5359,23 +5431,26 @@ reset_CP(self, mode=0) -> None:
                 # get current preset name
                 if node.parm(CP_ISVALID_PRESET).evalAsInt():
                     preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                    preset = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
+                    menu_label = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
                 else:
                     preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
-                    preset = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
+                    menu_label = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
                     
                 # Remove the enumeration menu index string from the preset name.
                 #
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                preset_clean = ':'.join(str(preset).split(':')[1:]).lstrip()
+                if node.parm(PREFS_ENUMERATE_MENU).eval():
+                    preset = ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                else:
+                    preset = menu_label
                 
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
                 
                 with open(filepath, 'r') as r:
                     
-                    data = json.load(r)[preset_clean]
+                    data = json.load(r)[preset]
                     hex_values = data[CP_JSON_KEY_NAME_HEX]
                     try:
                         [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
@@ -5419,7 +5494,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_ISVALID_PRESET: 1})
                 
                 # Print to status Bar
-                _MSG = f"{node.name()}: LOAD Palette preset: \"{preset_clean}\" -> Completed"
+                _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             
             else:
@@ -5599,7 +5674,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_ISVALID_PRESET: 1})
 
         # Update/Set palette MSG
-        palette_msg = node.parm(MSG_PALETTE).evalAsString()
+        palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
         if len(node.parm(CP_RAMP_HSV_NAME).evalAsRamp().keys()) > 256:
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
@@ -5607,7 +5682,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
         else:
             if PALETTE_PLUS_MSG in palette_msg:
-                node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG):].strip()}"})
+                node.setParms({MSG_PALETTE: f"{str(palette_msg[len(PALETTE_PLUS_MSG):]).strip()}"})
             else:
                 flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, palette_msg)
             
@@ -5700,9 +5775,9 @@ reset_CP(self, mode=0) -> None:
             node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
             # CP->ramp
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
             # Build ramp
             self.build_ramp_palette_default(ramp_parm)
+            ramp_parm.deleteAllKeyframes()
             
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
@@ -5724,9 +5799,9 @@ reset_CP(self, mode=0) -> None:
                 
         elif mode == 3:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
             # Build ramp
             self.build_ramp_palette_default(ramp_parm)
+            ramp_parm.deleteAllKeyframes()
             
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
@@ -8585,24 +8660,35 @@ reset_IN(self, mode=0) -> None:
         Returns:
             str: The selected menu preset menu label string
         """
-        # Get the correct menu parameter's preset menu label
+
+        toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
+        
         if node.parm(IN_ISVALID_PRESET).evalAsInt():
             
             if node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
                 menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                if toggle_PREFS_ENUMERATE_MENU:
+                    return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                else:
+                    return menu_label
             else:
                 menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                if toggle_PREFS_ENUMERATE_MENU:
+                    return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                else:
+                    return menu_label
         else:
             menu_label = str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
             # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
             # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-            return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+            if toggle_PREFS_ENUMERATE_MENU:
+                return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+            else:
+                return menu_label
     
     
     @staticmethod
@@ -9188,7 +9274,7 @@ reset_IN(self, mode=0) -> None:
             flame_lib_locked = f"Flame lib file: LOCKED"
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette[1] > 256:
-            palette_msg = node.parm(MSG_PALETTE).evalAsString()
+            palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
             else:
@@ -9227,24 +9313,49 @@ reset_IN(self, mode=0) -> None:
 
         menu=[]
         if node.parm(IN_ISVALID_FILE).eval():
+            
             xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+            
             if os.path.isfile(xml):
-                for i, item in enumerate(_xml(xml).get_name()):
+                
+                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    menu.append(i)
-                    
-                    # ICON bookmarks
-                    
-                    # If a flame preset from a file is loaded
-                    if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                    for i, item in enumerate(_xml(xml).get_name()):
                         
-                    # If a flame preset from the clipboard is loaded
-                    elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(i)
                         
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                        # ICON bookmarks
+                        
+                        # If a flame preset from a file is loaded
+                        if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        # If a flame preset from the clipboard is loaded
+                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        else:
+                            menu.append(f"{str(i)}:  {item}")
+                            
+                else:
+                    
+                    for i, item in enumerate(_xml(xml).get_name()):
+                        
+                        menu.append(i)
+                        
+                        # ICON bookmarks
+                        
+                        # If a flame preset from a file is loaded
+                        if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        # If a flame preset from the clipboard is loaded
+                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        else:
+                            menu.append(f"{item}")
+                        
                 return menu
             
             else:
@@ -9286,24 +9397,48 @@ reset_IN(self, mode=0) -> None:
         
         menu=[]
         if node.parm(IN_ISVALID_FILE).eval():
+            
             xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+            
             if os.path.isfile(xml):
-                for i, item in enumerate(_xml(xml).get_name()):
+                
+                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    menu.append(i)
-                    
-                    # ICON bookmarks
-                    
-                    # If a flame preset from a file is loaded
-                    if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                    for i, item in enumerate(_xml(xml).get_name()):
                         
-                    # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
-                    # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                    #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                        menu.append(i)
                         
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                        # ICON bookmarks
+                        
+                        # If a flame preset from a file is loaded
+                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
+                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        else:
+                            menu.append(f"{str(i)}:  {item}")
+                else:
+                    
+                    for i, item in enumerate(_xml(xml).get_name()):
+                        
+                        menu.append(i)
+                        
+                        # ICON bookmarks
+                        
+                        # If a flame preset from a file is loaded
+                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
+                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                            
+                        else:
+                            menu.append(f"{item}")
+                            
                 return menu
             
             else:
@@ -9330,6 +9465,7 @@ reset_IN(self, mode=0) -> None:
         """        
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
+        
         
     def use_iter_on_load_callback(self) -> None:
         """When the IN tab "force iterations on Load" option is turned ON it will set the initial iteration number wisely.
@@ -10557,7 +10693,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 strip = iter_xaos.split(':')
                 
                 # if you just type "xaos" only
-                if iter_xaos.lower().strip() == 'xaos':
+                if str(iter_xaos.lower()).strip() == 'xaos':
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
@@ -10568,7 +10704,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 # if the first element of the strip is: "xaos"
                 elif strip[0].lower().strip() == 'xaos':
                     try:
-                        build_strip = [str(float(x.strip())) if float(x.strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
+                        build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
                         val.append([float(x.strip()) for x in build_strip])
                     except:
                         # ( Assuming the "xaos:" keyword is present )
@@ -10581,7 +10717,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                             val.append([])
                             
                 # If the split fail to validate and it just start with the word: 'xaos'
-                elif str(iter_xaos.lower().strip()).startswith('xaos'):
+                elif str(iter_xaos.lower()).strip().startswith('xaos'):
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
@@ -10592,14 +10728,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 else:
                     isNUM = False
                     try:
-                        if isinstance(float(iter_xaos.lower().strip()), float):
+                        if isinstance(float(str(iter_xaos.lower()).strip()), float):
                             isNUM = True
                     except:
                         pass
                     # If a number is typed, fill all xaos weights with that number.
                     # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
                     if isNUM:
-                        v = [str(int((float(iter_xaos.lower().strip())))) if float(iter_xaos.lower().strip()) >= 0 else '1' for x in range(iter_count)]
+                        v = [str(int((float(str(iter_xaos.lower()).strip())))) if float(str(iter_xaos.lower()).strip()) >= 0 else '1' for x in range(iter_count)]
                         val.append(v)
                     else:
                         # Otherwise reset to all values of 1
@@ -10956,16 +11092,28 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         Returns:
             list: _description_
         """
+        node = self.node
         menu=[]
-        xml = self.node.parm(OUT_PATH).evalAsString()
+        xml = node.parm(OUT_PATH).evalAsString()
         # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
         # Instead of the lightweight version class: _xml(...)
         apo = _xml_tree(xml)
+        
         if apo.isvalidtree:
-            for i, item in enumerate(apo.name):
-                menu.append(i)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
+            
+            if node.parm(PREFS_ENUMERATE_MENU).eval():
+                
+                for i, item in enumerate(apo.name):
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
+            else:
+                
+                for i, item in enumerate(apo.name):
+                    menu.append(i)
+                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
+                    
             return menu
+        
         else:
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Empty     ")

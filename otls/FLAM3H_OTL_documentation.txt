@@ -1941,16 +1941,6 @@ display prefs:
     #display: round white
     
     == Prefs: General == (PREFSGENERAL)
-
-viewport bbox size:
-    #id: prefs
-    
-    The bounding box size that will be viewport framed when the SYS Tab frameview icon is clicked.
-    
-    A value of 1 should work well in every situation, but you can increase it if you'd like.
-    
-    Consider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.
-    Once this value is changed, Click the SYS Tab Frame viewport to see the new framing.
     
 flash messages (network editor):
     #id: prefs
@@ -1958,19 +1948,18 @@ flash messages (network editor):
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
+
+Enumerate presets menu:
+    #id: prefs
+    ON by default. Causes the presets menus inside the CP, IN and OUT tab to be enumerated.
+    
+    This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.
+    
+    Turn this OFF to only display the raw preset names.
         
 Auto correct output paths:
     #id: prefs
     ON by default. This is a simple autocorrection of the output file paths for the CP and OUT Tabs.
-    
-cvex precision modes:
-    #id: prefs
-    Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
-    
-    NOTE:
-        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slowly."
-
-        Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
     
 :box:
     #display: rounded white

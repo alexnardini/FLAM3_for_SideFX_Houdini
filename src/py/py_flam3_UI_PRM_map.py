@@ -578,6 +578,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 # PREFERENCES ( prefs Tab )
 #######################################################
 
+
+'parameter name:    enumeratemenu'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs()
+
+
 'parameter name:    xm'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert()
