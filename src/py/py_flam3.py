@@ -10709,7 +10709,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                         val.append([])
                         
                 # if the first element of the strip is: "xaos"
-                elif strip[0].lower().strip() == 'xaos':
+                elif str(strip[0].lower()).strip() == 'xaos':
                     try:
                         build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
                         val.append([float(x.strip()) for x in build_strip])
