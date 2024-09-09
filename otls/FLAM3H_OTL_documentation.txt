@@ -1402,6 +1402,14 @@ Force iterations on Load:
     #id: IN
     When *.flame files are loaded, FLAM3H immediately sets the iteration number to 64, which seems like a reasonable count to resolve the majority of them rather effectively.
     However, if you need to act quickly, you can use this number to override the iterations set on load.
+
+    If the iterations number is baked into the Flame preset name, it will override this setting.
+
+    Turn ON "override iterations from Flame name" to override the iterations number baked into the Flame preset name.
+
+override iterations from Flame name
+    #id: IN
+    It will override the iterations number coming from the Flame preset name if any.
     
 :box:
     #display: rounded white

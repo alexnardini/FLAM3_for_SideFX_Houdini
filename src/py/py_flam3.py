@@ -182,6 +182,7 @@ IN_PRESETS_OFF = "inpresets_disabled"
 IN_SYS_PRESETS = 'sys_inpresets'
 IN_SYS_PRESETS_OFF = 'sys_inpresets_disabled'
 IN_USE_ITER_ON_LOAD = 'useiteronload'
+IN_OVERRIDE_ITER_FLAME_NAME = 'oritername'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 IN_USE_FRACTORIUM_COLOR_SPEED = 'fcs'
@@ -8713,13 +8714,18 @@ reset_IN(self, mode=0) -> None:
         
         iter_on_load_preset = in_flame_utils.in_get_preset_name_iternum(preset_name)
         if iter_on_load_preset is not None:
-            node.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
-            node.setParms({IN_USE_ITER_ON_LOAD: 0}) # type: ignore
-            iter_on_load = iter_on_load_preset
+            # override iterations from the Flame preset name
+            if use_iter_on_load and node.parm(IN_OVERRIDE_ITER_FLAME_NAME).eval():
+                return node.parm(IN_ITER_NUM_ON_LOAD).evalAsInt()
+            else:
+                node.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
+                node.setParms({IN_USE_ITER_ON_LOAD: 0}) # type: ignore
+                return iter_on_load_preset
         else:
             if not use_iter_on_load:
                 node.setParms({IN_ITER_NUM_ON_LOAD: FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD}) # type: ignore
-                iter_on_load = FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD
+                return FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD
+            
         return iter_on_load 
 
 
