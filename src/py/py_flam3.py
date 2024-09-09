@@ -1179,7 +1179,7 @@ flam3h_on_deleted(self) -> None:
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                 
-            # Init xaos
+            # INIT XAOS - this probably is not needed but I leave it for now
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
             # Reset memory mpidx prm data
@@ -1198,6 +1198,7 @@ flam3h_on_deleted(self) -> None:
         """        
 
         if len(self.node.type().instances()) == 1:
+            
             try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             except:
@@ -1206,14 +1207,16 @@ flam3h_on_deleted(self) -> None:
                         hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
                 except:
                     pass
+                
             try:
-                hou.session.FLAM3H_MARKED_FF_NODE.type # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
             except:
                 try:
                     if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
                         hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
                 except:
                     pass
+                
             try:
                 del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
             except:
@@ -5662,7 +5665,7 @@ reset_CP(self, mode=0) -> None:
         rmpsrc = node.parm(CP_RAMP_SRC_NAME)
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
-        # Apply HSV if any is currently set
+        # Apply HSV if any
         self.palette_hsv()
         
         if node.parm(CP_ISVALID_FILE).eval():
@@ -5711,15 +5714,11 @@ reset_CP(self, mode=0) -> None:
         rmpsrc = node.parm(CP_RAMP_SRC_NAME)
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
         hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
+        # Convert to HSV
         hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
-        
-        rgb = []
-        for item in hsv:
-            h = item[0] + hsvprm[0].eval()
-            s = item[1] * hsvprm[1].eval()
-            v = item[2] * hsvprm[2].eval()
-            rgb.append(colorsys.hsv_to_rgb(h, s, v))
-        
+        # Apply color correction
+        rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm[0].eval(), item[1]*hsvprm[1].eval(), item[2]*hsvprm[2].eval() ) for item in hsv]
+        # Set the ramp
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
 
 
@@ -5939,7 +5938,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         n = 5
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
         vars_txt = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
-        self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt})
+        vars_txt_MSG = f"They are also available as PRE and POST:\n\n{vars_txt}"
+        self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt_MSG})
         
         
     def flam3h_about_web_msg(self) -> None:
