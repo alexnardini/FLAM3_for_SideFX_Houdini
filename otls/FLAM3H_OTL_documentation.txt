@@ -1407,7 +1407,7 @@ Force iterations on Load:
 
     Turn ON "override iterations from Flame name" to override the iterations number baked into the Flame preset name.
 
-override iterations from Flame name
+override iterations from Flame name:
     #id: IN
     It will override the iterations number coming from the Flame preset name if any.
     
