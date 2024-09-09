@@ -9471,6 +9471,7 @@ reset_IN(self, mode=0) -> None:
         """        
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
+        out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         
         
     def use_iter_on_load_callback(self) -> None:
