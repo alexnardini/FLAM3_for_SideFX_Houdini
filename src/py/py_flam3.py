@@ -9471,6 +9471,7 @@ reset_IN(self, mode=0) -> None:
         """        
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
+        # updated Flame preset name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         
         
@@ -9489,6 +9490,8 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_ITER_NUM_ON_LOAD: iter})
             else:
                 node.setParms({GLB_ITERATIONS: iternumonload})
+                # updated Flame preset name if any
+                out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
 
 
     def in_to_flam3h_toggle(self, prm: str) -> None:
@@ -11160,9 +11163,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         """Change the iteration number string to the OUT Flame name when you change FLAM3H iterations.
         """      
         node = self.node
-        iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
-        node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+        if node.parm(OUT_AUTO_ADD_ITER_NUM).eval():
+            iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
+            flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+            node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
 
