@@ -472,6 +472,10 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 
 
+'parameter name:    oritername'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
+
 'parameter name:    remappgb'
 'script type:       Menu Script'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_pgb()
@@ -511,6 +515,11 @@ menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_content
 return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+
+
+'parameter name:    autoadditer'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 
 
 'parameter name:    outedit'
