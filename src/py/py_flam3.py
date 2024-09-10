@@ -3099,64 +3099,67 @@ iterator_keep_last_weight(self) -> None:
         # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
-        if mp_id_from is not None:
+        # This undo's disabler is needed to make the undo work in H20.5
+        with hou.undos.disabler(): # type: ignore
             
-            idx_from = str(mp_id_from)
-            
-            prm_selmem = node.parm(f"{flam3h_iterator_prm_names.main_selmem}_{idx}")
-            if prm_selmem.evalAsInt() > 0:
-                node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
-                prm_selmem.set(0)
-            
-            if node == from_FLAM3H_NODE and id==mp_id_from:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
-            elif node == from_FLAM3H_NODE:
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: post affine", "" )
-            else:
-                assert from_FLAM3H_NODE is not None
-                parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
-                flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: post affine", "" )
-            
-            for i, item in enumerate(menuitems):
-                menu.append(i)
-                menu.append(item)
-            return menu
-        
-        else:
-            if isDELETED:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", "" )
+            if mp_id_from is not None:
+                
+                idx_from = str(mp_id_from)
+                
+                prm_selmem = node.parm(f"{flam3h_iterator_prm_names.main_selmem}_{idx}")
+                if prm_selmem.evalAsInt() > 0:
+                    node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
+                    prm_selmem.set(0)
+                
+                if node == from_FLAM3H_NODE and id==mp_id_from:
+                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
+                elif node == from_FLAM3H_NODE:
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: post affine", "" )
+                else:
+                    assert from_FLAM3H_NODE is not None
+                    parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
+                    flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: post affine", "" )
                 
                 for i, item in enumerate(menuitems):
-                    menu.append(i-1)
+                    menu.append(i)
                     menu.append(item)
                 return menu
-               
+            
             else:
-                if from_FLAM3H_NODE is not None:
-                    assert from_FLAM3H_NODE is not None
-                    _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                    if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", "" )
-                    elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                        parent = f".../{from_FLAM3H_NODE.parent()}"
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", "" )
-                    else:
-                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
-                
+                if isDELETED:
+                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", "" )
+                    
                     for i, item in enumerate(menuitems):
                         menu.append(i-1)
                         menu.append(item)
                     return menu
                 
                 else:
-                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
-                
-                    for i, item in enumerate(menuitems):
-                        menu.append(i-1)
-                        menu.append(item)
-                    return menu
+                    if from_FLAM3H_NODE is not None:
+                        assert from_FLAM3H_NODE is not None
+                        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                        __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                        if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
+                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", "" )
+                        elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
+                            parent = f".../{from_FLAM3H_NODE.parent()}"
+                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", "" )
+                        else:
+                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
+                    
+                        for i, item in enumerate(menuitems):
+                            menu.append(i-1)
+                            menu.append(item)
+                        return menu
+                    
+                    else:
+                        menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
+                    
+                        for i, item in enumerate(menuitems):
+                            menu.append(i-1)
+                            menu.append(item)
+                        return menu
 
 
     def menu_copypaste_FF(self) -> list:
@@ -3182,24 +3185,27 @@ iterator_keep_last_weight(self) -> None:
 
             flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
-            if node == flam3node_FF:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.", "" )
-            else:
-                
-                prm_selmem = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}")
-                if prm_selmem.evalAsInt() > 0:
-                    node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}": 0})
-                    prm_selmem.set(0)
-                
-                parent = f".../{flam3node_FF.parent()}"
-                flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                # menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  {parent}/{flam3nodeFF}: ALL", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
-                menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
-            for i, item in enumerate(menuitems):
-                menu.append(i)
-                menu.append(item)
-                
-            return menu
+            # This undo's disabler is needed to make the undo work in H20.5
+            with hou.undos.disabler(): # type: ignore
+            
+                if node == flam3node_FF:
+                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.", "" )
+                else:
+                    
+                    prm_selmem = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}")
+                    if prm_selmem.evalAsInt() > 0:
+                        node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}": 0})
+                        prm_selmem.set(0)
+                    
+                    parent = f".../{flam3node_FF.parent()}"
+                    flam3nodeFF = f"{str(flam3node_FF)}.FF"
+                    # menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  {parent}/{flam3nodeFF}: ALL", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
+                for i, item in enumerate(menuitems):
+                    menu.append(i)
+                    menu.append(item)
+                    
+                return menu
         
         else:
             if isDELETED:
@@ -3795,6 +3801,7 @@ iterator_keep_last_weight(self) -> None:
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, idx_from)
         
             node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
+            node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
             
         else:
             _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
