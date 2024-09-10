@@ -2232,6 +2232,12 @@ prm_paste_CLICK(self, id: int) -> None:
 
 prm_paste(self) -> None:
 
+prm_paste_FF_CTRL(self) -> None:
+
+prm_paste_FF_SHIFT(self) -> None:
+
+prm_paste_FF_CLICK(self) -> None:
+
 prm_paste_FF(self) -> None:
 
 prm_paste_sel(self) -> None:
