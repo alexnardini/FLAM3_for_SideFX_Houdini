@@ -288,6 +288,10 @@ class flam3h_iterator_prm_names:
     Mostly, handy to have all those packed into one class
     for easy access everywhere is needed and better readability.
     
+    The parameter names for the FF(finalXform) are the same but with a string prefix: 'ff'
+    The FF parametric parameter names are as well the same but with a string presfix: 'ff_'
+    Main, Xaos and Shader parameters are not included in the FF but only: Pre, Var, post, Pre affine and Post affine.
+    
     Note:
         The following definitions:
         
@@ -296,7 +300,7 @@ class flam3h_iterator_prm_names:
             flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
             
         have houdini parameter's names hard coded inside as they are not using
-        this class to try to speed up a tiny, tiny bit.
+        this class in an attempt to try to speed up a tiny, tiny bit.
         
         The hard coded parameter's names are:
         
