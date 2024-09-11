@@ -10246,6 +10246,8 @@ out_flam3_compatibility_check_and_msg(self,
                                         names_VARS_PRE_FF: list, 
                                         names_VARS_FF: list, 
                                         names_VARS_POST_FF: list) -> bool:
+                                        
+out_collect_var_section_names(self, _SECTION='VAR') -> Union[list[str], None]:
                                       
 out_populate_xform_vars_XML(self, 
                             varsPRM: tuple, 
@@ -11184,7 +11186,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                 self.node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
 
 
-
     def out_flame_properties_build(self) -> dict:
         """Return a dictionary with all the flame properties to written out.
 
@@ -11347,6 +11348,46 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         else:
             return True
         
+        
+    # Not used yet
+    def out_collect_var_section_names(self, var_section='VAR') -> Union[list[str], None]:
+        """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
+        Remeber to pass in the proper: TYPES_tuple: tuple, WEIGHTS_tuple: tuple -> based on the var section you want to collect.
+        
+        Args:
+            section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
+
+        Returns:
+            list[str]: List of used variation in this iterator/xform
+        """
+        # Build var parameter's sections
+        prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
+        prm_sections_W = {'VAR': flam3h_iterator.sec_varsW, 'PRE': flam3h_iterator.sec_prevarsW[1:], 'POST': flam3h_iterator.sec_postvarsW}
+        
+        # Get correct parameter's names based on the desired var section
+        T_tuple = prm_sections_T.get(var_section)
+        W_tuple = prm_sections_W.get(var_section)
+        
+        _CHECK = False
+        if T_tuple is not None and W_tuple is not None: _CHECK = True
+        
+        if _CHECK:
+            assert T_tuple is not None
+            assert W_tuple is not None
+            node = self.node
+            names = []
+            for iter in range(node.parm(FLAME_ITERATORS_COUNT).evalAsInt()):
+                _MP_IDX = str(int(iter + 1))
+                for idx, prm in enumerate(W_tuple):
+                    prm_w = node.parm(f"{prm[0]}{_MP_IDX}").eval()
+                    if prm_w != 0:
+                        v_type = node.parm(f"{T_tuple[idx]}{_MP_IDX}").eval()
+                        names.append(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))
+                    
+            return names
+        else:
+            return None
+        
 
     def out_populate_xform_vars_XML(self, 
                                     varsPRM: tuple, 
@@ -11417,7 +11458,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
                 flame.set(key, value)
         # Build xforms
-        name_PRE_BLUR = ''
+        name_PRE_BLUR = ""
         names_VARS = []
         names_VARS_PRE = []
         names_VARS_POST = []
@@ -11471,9 +11512,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
         # Get unique plugins used
         names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
-        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF], in_flame_utils.in_util_make_PRE) + [name_PRE_BLUR]
+        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+[in_flame_utils.in_util_make_VAR([name_PRE_BLUR])], in_flame_utils.in_util_make_PRE)
         names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
-        # Set unique 'plugins' used and 'new linear' as last
+        # Set unique used 'plugins' and 'new linear' as last
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
