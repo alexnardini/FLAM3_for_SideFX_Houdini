@@ -185,7 +185,6 @@ IN_USE_ITER_ON_LOAD = 'useiteronload'
 IN_OVERRIDE_ITER_FLAME_NAME = 'oritername'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
-IN_USE_FRACTORIUM_COLOR_SPEED = 'fcs'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
@@ -7885,10 +7884,10 @@ reset_IN(self, mode=0) -> None:
             tree = None
               
         if tree is not None:
-                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
-                    return True
-                else:
-                    return False
+            if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -7907,10 +7906,10 @@ reset_IN(self, mode=0) -> None:
             tree = None
         
         if tree is not None:
-                if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
-                    return True
-                else:
-                    return False
+            if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
+                return True
+            else:
+                return False
         else:
             return False
 
@@ -9113,21 +9112,15 @@ reset_IN(self, mode=0) -> None:
                                 
                 # Activate iterator, just in case...
                 node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
-                # Set the rest of the iterators
-                if node.parm(IN_USE_FRACTORIUM_COLOR_SPEED).eval():
-                    # This and its toggle should be removed as they are not needed anymore. However I am leaving it here
-                    # Just in case I'd like to experiment more with this XML key.
-                    self.in_set_data(mode, node, prx, apo_data.color_speed, iterator_names.shader_speed, mp_idx)
-                else: 
-                    # For now this is the default parameter that FLAM3H will always use when loading IN a Flame.
-                    self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
+                # Set the rest of the iterator or FF parameters
+                self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
                 self.in_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
             
-            # Affine ( PRE and POST) for iterator and FF
+            # Set Affine ( PRE and POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
             
         _MSG = f"{node.name()}: Iterators and FF parameters SET -> Completed"
