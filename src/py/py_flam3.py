@@ -10476,7 +10476,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
     @staticmethod
     def out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
-        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
+        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
             VAL_LIST (list[list[str]]): A list of list[str] of values to rounds
