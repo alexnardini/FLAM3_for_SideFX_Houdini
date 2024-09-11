@@ -7544,7 +7544,7 @@ in_to_flam3h_is_CHAOS(xml: str) -> bool:
 in_to_flam3h_clipboard_is_CHAOS() -> bool:
 
 in_get_xforms_var_keys( xforms: Union[tuple, None], 
-                        vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
+                        vars: Union[str, list[str], tuple[str], dict[str, int], dict[str, tuple], KeysView, None], 
                         exclude_keys: tuple
                         ) -> Union[list[str], None]:
                             
@@ -7918,7 +7918,7 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod
     def in_get_xforms_var_keys( xforms: Union[tuple, None], 
-                                vars: Union[str, list[str], tuple[str], dict[str, int], KeysView, None], 
+                                vars: Union[str, list[str], tuple[str], dict[str, int], dict[str, tuple], KeysView, None], 
                                 exclude_keys: tuple
                                 ) -> Union[list, None]:
         """Return a list of all the variation names included in all xforms compared against the available FLAM3H variations.
@@ -11797,7 +11797,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
     
     # custom to FLAM3H only
-    def __out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool, None]:
+    def __out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool]:
 
         if prm_name == CP_RAMP_HSV_VAL_NAME:
             # This is only for OUT ramp HSV vals.
@@ -11820,7 +11820,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         
     # custom to FLAM3H only
-    def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
+    def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool]:
 
         if self.flam3h_mb_do:
             try:
@@ -11833,12 +11833,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         
         
     # custom to FLAM3H only
-    def __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
+    def __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         return str(toggle)
     
     
     # custom to FLAM3H only
-    def __out_flame_palette_lookup_samples(self) -> Union[str, bool, None]:
+    def __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         if self.palette_plus_do:
             keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
             if int(keys) == 256:
