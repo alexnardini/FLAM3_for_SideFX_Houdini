@@ -11512,7 +11512,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
 
         # Get unique plugins used
         names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
-        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+[in_flame_utils.in_util_make_VAR([name_PRE_BLUR])], in_flame_utils.in_util_make_PRE)
+        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
         names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
         # Set unique used 'plugins' and 'new linear' as last
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
