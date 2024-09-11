@@ -9294,7 +9294,7 @@ reset_IN(self, mode=0) -> None:
         
         flame_lib_locked = ""
         if flam3h_general_utils.isLOCK(in_path_checked):
-            flame_lib_locked = f"Flame lib file: LOCKED"
+            flame_lib_locked = f"-> LOCKED"
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette[1] > 256:
             palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
@@ -11185,6 +11185,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
             iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
             flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
             node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+            
+            # Update "iter num on load" if "force iterations on Load" toggle is ON 
+            if node.parm(IN_USE_ITER_ON_LOAD).eval():
+                self.node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
 
 
 
