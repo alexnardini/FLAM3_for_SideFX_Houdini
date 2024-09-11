@@ -634,15 +634,15 @@ auto space xaos weights / xaos information tips:
 
     == Iterator: Shader == (FLAMEITERSHADER)
 
-location:
+Location:
     #id: FLAME
     The color location in the ramp *{0:1}*.
     
-speed:
+Speed:
     #id: FLAME
     Speed of color blending between iterations. Values above 0 attract the selected color while values below 0 will repel it.
     
-opacity:
+Opacity:
     #id: FLAME
     This iterator's opacity. It will be fully opaque at opacity 1 and completely transparent at opacity 0. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's weight.
     

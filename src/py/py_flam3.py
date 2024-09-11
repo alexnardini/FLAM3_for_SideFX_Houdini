@@ -9304,8 +9304,9 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
         
         # build full stats msg
-        build = (   flame_lib_locked, nl, sw, nnl,
-                    name, nl,
+        build = (   flame_lib_locked, nl,
+                    sw, nl,
+                    name, nnl,
                     palette_count_format, nl,
                     mb,
                     iter_count, nl,
