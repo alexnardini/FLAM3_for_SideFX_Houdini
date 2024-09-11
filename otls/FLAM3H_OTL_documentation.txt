@@ -607,7 +607,7 @@ xaos:
         only when needed. (ex: when one of its weights is set to a value different from: *`1`* ).
         
     NOTE:
-        When saving out Flame files, XAOS FROM mode will internally be converted into XAOS TO on save and reloaded as XAOS TO.
+        When saving out Flame files, XAOS FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
 auto space xaos weights / xaos information tips:
     #id: FLAME
