@@ -648,7 +648,7 @@ Opacity:
     
     TIP:
         #display: orange
-        When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore).
+        When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore).
 :box:
     #display: rounded white
 
