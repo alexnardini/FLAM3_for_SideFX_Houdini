@@ -11247,7 +11247,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
                                               names_VARS_PRE: list, 
                                               names_VARS: list, 
                                               names_VARS_POST: list, 
-                                              flam3h_do_FF: list, 
+                                              flam3h_do_FF: bool, 
                                               names_VARS_PRE_FF: list, 
                                               names_VARS_FF: list, 
                                               names_VARS_POST_FF: list) -> bool:
