@@ -3103,7 +3103,7 @@ iterator_keep_last_weight(self) -> None:
         # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
-        # This undo's disabler is needed to make the undo work in H20.5
+        # This undo's disabler is needed to make the undo work in H20.5 ater copy/paste an iterator's section from the mini-menu.
         with hou.undos.disabler(): # type: ignore
             
             if mp_id_from is not None:
@@ -3189,7 +3189,7 @@ iterator_keep_last_weight(self) -> None:
 
             flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
-            # This undo's disabler is needed to make the undo work in H20.5
+            # This undo's disabler is needed to make the undo work in H20.5 after copy/paste an FF's section from the mini-menu.
             with hou.undos.disabler(): # type: ignore
             
                 if node == flam3node_FF:

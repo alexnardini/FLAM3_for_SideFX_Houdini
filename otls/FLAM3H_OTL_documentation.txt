@@ -1981,7 +1981,7 @@ xaos modes:
     - Switching between xaos modes will convert and reset the xaos: string values inside each iterator so that you can see how the new weights adjusted to fit the new mode.
     
     NOTE:
-        XAOS FROM mode will internally be changed into XAOS TO on save and reloaded as XAOS TO when saving out Flame files.
+        Xaos FROM mode will internally be changed into xaos TO on save and reloaded as xaos TO when saving out Flame files.
 
 
 :box:
