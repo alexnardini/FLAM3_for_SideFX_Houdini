@@ -10242,7 +10242,7 @@ out_flam3_compatibility_check_and_msg(self,
                                         names_VARS_PRE: list, 
                                         names_VARS: list, 
                                         names_VARS_POST: list, 
-                                        flam3h_do_FF: list, 
+                                        flam3h_do_FF: bool, 
                                         names_VARS_PRE_FF: list, 
                                         names_VARS_FF: list, 
                                         names_VARS_POST_FF: list) -> bool:
@@ -10291,11 +10291,11 @@ __out_finalxf_postaffine(self) -> Union[str, bool]:
 
 __out_palette_hex(self) -> str:
 
-__out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool, None]:
+__out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool]:
 
-__out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool, None]:
+__out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool]:
 
-__out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
+__out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     """
 
     def __init__(self, kwargs: dict) -> None:
@@ -10306,18 +10306,18 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         self._flam3h_iter_FF = flam3h_iterator_FF()
         self._flam3h_do_FF = self._node.parm(SYS_DO_FF).eval()
         self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
-        self._palette = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+        self._palette: hou.Ramp = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
         self._palette_plus_do = self._node.parm(OUT_PALETTE_256_PLUS).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
             flam3h_palette_utils(self.kwargs).palette_lock()
-            self._palette = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+            self._palette: hou.Ramp = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
-        self._flam3h_rip = self._node.parm(SYS_RIP).evalAsInt()
-        self._flam3h_mb_do = self._node.parm(MB_DO).evalAsInt()
-        self._flam3h_f3c = self._node.parm(PREFS_F3C).evalAsInt()
+        self._flam3h_rip = self._node.parm(SYS_RIP).eval()
+        self._flam3h_mb_do = self._node.parm(MB_DO).eval()
+        self._flam3h_f3c = self._node.parm(PREFS_F3C).eval()
         self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
         
     
@@ -11368,10 +11368,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> Union[str, None]:
         T_tuple = prm_sections_T.get(var_section)
         W_tuple = prm_sections_W.get(var_section)
         
-        _CHECK = False
-        if T_tuple is not None and W_tuple is not None: _CHECK = True
-        
-        if _CHECK:
+        if T_tuple is not None and W_tuple is not None:
             assert T_tuple is not None
             assert W_tuple is not None
             node = self.node
