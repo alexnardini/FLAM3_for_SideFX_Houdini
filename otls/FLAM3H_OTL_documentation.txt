@@ -1661,19 +1661,25 @@ Flame name ( preset ):
         
         If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
-Flame name tip:
-    #id: OUT
-    [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
-    
-    Show Flame name's informations and tips.
-    
 OUT file contents ( info ):
     #id: OUT
     This menu is simply provided as information.
     If there are any Flames in the chosen output file, they will be displayed.
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
+
+Copy selected preset name / Flame name informations and tips:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
+
+    Copy the selected OUT preset name into the Flame name string field.
+
+    This is handy if you are saving variations of the same flame and you want to quickly get the same Flame name to save instead of typing it every time.
     
+    - ((LMB)) to copy the selected OUT preset name into the Flame name string field.
+    
+    - ((CTRL)) + ((LMB)) to show the Flame name informations and tips.
+
 :box:
     #display: rounded white
 

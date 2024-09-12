@@ -187,6 +187,7 @@ IN_OVERRIDE_ITER_FLAME_NAME = 'oritername'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
+OUT_ISVALID_FILE = 'outisvalidfile'
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_SYS_PRESETS = 'sys_outpresets'
@@ -1887,12 +1888,15 @@ reset_PREFS(self, mode=0) -> None:
                     node.setParms({MSG_OUT: _MSG})
                 else:
                     node.setParms({MSG_OUT: ''})
+                node.setParms({OUT_ISVALID_FILE: 1})
             else:
                 prm.set('-1')
                 prm_sys.set('-1')
                 node.setParms({MSG_OUT: ''})
+                node.setParms({OUT_ISVALID_FILE: 0})
         else:
             node.setParms({MSG_OUT: ''})
+            node.setParms({OUT_ISVALID_FILE: 0})
             # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{node.name()}.OUT: please select a valid file location.')
@@ -10211,6 +10215,10 @@ _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
 
 METHODS:
 
+out_presets_get_selected_menu_label(self) -> Union[str, None]:
+
+out_presets_copy_menu_label_callback(self) -> None:
+
 out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
 
 menu_sensor_resolution(self) -> list:
@@ -10322,6 +10330,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         self._flam3h_mb_do = self._node.parm(MB_DO).eval()
         self._flam3h_f3c = self._node.parm(PREFS_F3C).eval()
         self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
+        
+    
         
     
     @staticmethod
@@ -10917,6 +10927,55 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         return self._flam3h_cp_lookup_samples
 
 
+    def out_presets_get_selected_menu_label(self) -> Union[str, None]:
+        """Get the currently selected OUT preset menu label string.
+
+        Returns:
+            str: The selected menu preset menu label string if any or None
+        """
+        node = self.node
+
+        if node.parm(OUT_ISVALID_FILE).eval():
+            toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
+            preset_id = int(node.parm(OUT_PRESETS).eval())
+            menu_label = str(node.parm(OUT_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE)[-1].strip()
+            # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
+            # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+            if toggle_PREFS_ENUMERATE_MENU:
+                flame_name = ':'.join(str(menu_label).split(':')[1:]).lstrip()
+            else:
+                flame_name = menu_label
+                
+            flam3h_general_utils.flash_message(node, f"Flame name -> COPIED")
+            return flame_name
+        
+        else:
+            _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name."
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.flash_message(node, f"COPY Flame name -> Select an exisiting preset name")
+            return None
+    
+    
+    def out_presets_copy_menu_label_callback(self) -> None:
+        """Get the currently selected OUT preset menu label string and copy it into the OUT Flame name string field.
+
+        """
+        
+        node = self.node
+        kwargs = self.kwargs
+        
+        if kwargs['ctrl']:
+            flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+        else:
+            menu_label = self.out_presets_get_selected_menu_label()
+            if menu_label is not None:
+                flame_name = self.out_remove_iter_num(menu_label)
+                iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
+                autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+                flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
+                
+            
 
     def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
         """This is used to find the number of colors we want to export when saving out a Flame file.

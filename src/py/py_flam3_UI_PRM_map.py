@@ -514,7 +514,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_label_callback()
 
 
 'parameter name:    autoadditer'
