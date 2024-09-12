@@ -1713,7 +1713,7 @@ Save palette HSV (cc):
 
     This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
-Auto add iter num to Flame name:
+Auto add iter num to Flame name (hidden):
     #id: OUT
     ON by default. It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
@@ -1949,6 +1949,16 @@ display prefs:
     #display: round white
     
     == Prefs: General == (PREFSGENERAL)
+
+viewport bbox size (hidden):
+    #id: prefs
+    
+    The bounding box size that will be viewport framed when the SYS Tab frameview icon is clicked.
+    
+    A value of 1 should work well in every situation, but you can increase it if you'd like.
+    
+    Consider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.
+    Once this value is changed, Click the SYS Tab Frame viewport to see the new framing.
     
 flash messages (network editor):
     #id: prefs
@@ -1968,6 +1978,15 @@ Enumerate presets menu:
 Auto correct output paths:
     #id: prefs
     ON by default. This is a simple autocorrection of the output file paths for the CP and OUT Tabs.
+
+cvex precision modes (hidden):
+    #id: prefs
+    Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
+    
+    NOTE:
+        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slowly."
+
+        Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
     
 :box:
     #display: rounded white

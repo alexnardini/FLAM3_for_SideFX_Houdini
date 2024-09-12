@@ -10182,6 +10182,8 @@ out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
 out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
+out_remove_iter_num(flame_name: str) -> str:
+
 out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 
 out_util_round_float(VAL) -> str:
@@ -10431,6 +10433,42 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     return flame_name_changed
                 else:
                     return flame_name
+            else:
+                return flame_name
+        else:
+            return flame_name
+        
+        
+    @staticmethod 
+    def out_remove_iter_num(flame_name: str) -> str:
+        """Remove the iterations number from the Flame name if any
+
+        Args:
+            flame_name (str): The Flame name to check
+
+        Returns:
+            str: A new Flame name without the iter num if any.
+        """
+            
+        flame_name = flame_name.strip()
+        
+        if flame_name:
+            
+            div = '::'
+            rp = flame_name.rpartition(div)
+
+            is_int = False
+            try:
+                if rp[-1] != flame_name:
+                    int(rp[-1])
+                    is_int = True
+                else:
+                    pass
+            except:
+                pass
+            
+            if is_int:
+                return ''.join(rp[:-2])
             else:
                 return flame_name
         else:
@@ -11176,14 +11214,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Change the iteration number string to the OUT Flame name when you change FLAM3H iterations.
         """      
         node = self.node
-        if node.parm(OUT_AUTO_ADD_ITER_NUM).eval():
-            iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
+        iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
+        if autoadd:
             flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
             node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
             
             # Update "iter num on load" if "force iterations on Load" toggle is ON 
             if node.parm(IN_USE_ITER_ON_LOAD).eval():
                 self.node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
+        else:
+            name_no_iter = self.out_remove_iter_num(flame_name)
+            node.setParms({OUT_FLAME_PRESET_NAME: name_no_iter}) #type: ignore
 
 
     def out_flame_properties_build(self) -> dict:
