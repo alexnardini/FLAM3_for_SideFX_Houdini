@@ -101,6 +101,7 @@ FLAM3H_DEFAULT_GLB_ITERATIONS = 10
 # This setting will be overwritten if the IN Tab "force iterations on Load" option is turned ON.
 # All of the above settings will be overwritten if the iteration number to use is baked into the Flame preset's name.
 FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD = 64
+FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV = '::'
 
 # Node user data
 FLAM3H_USER_DATA_PRX = "nodeinfo_"
@@ -8619,7 +8620,7 @@ reset_IN(self, mode=0) -> None:
         Returns:
             Union[int, None]: The iteration number or none.
         """        
-        splt = list(menu_label.rpartition('::'))
+        splt = list(menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV))
         if len([item for item in splt if item]) > 1:
             try: return int(splt[-1])
             except: return None
@@ -10342,7 +10343,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             if flame_name:
                 
                 splt = ':'
-                div = '::'
                 flame_name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
                 
                 rp = flame_name.split(splt)
@@ -10380,12 +10380,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     
                 if is_int is False:
                     rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
-                    flame_name_new = ' '.join(rp_clean) + div + str(iter_num)
+                    flame_name_new = ' '.join(rp_clean) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
                     return flame_name_new.strip()
                 else:
                     splt = flame_name.split(":")
                     if len(splt)>1:
-                        return ''.join([item.strip() for item in splt[:-1]]) + div + str(iter_num)
+                        return ''.join([item.strip() for item in splt[:-1]]) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
                     else:
                         return flame_name
             else:
@@ -10414,9 +10414,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             flame_name = flame_name.strip()
             if flame_name:
                 
-                div = '::'
                 flame_name = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-                rp = str(flame_name).rpartition(div)
+                rp = str(flame_name).rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
 
                 is_int = False
                 try:
@@ -10454,8 +10453,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         if flame_name:
             
-            div = '::'
-            rp = flame_name.rpartition(div)
+            rp = flame_name.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
 
             is_int = False
             try:
