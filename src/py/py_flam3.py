@@ -10948,7 +10948,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             else:
                 flame_name = menu_label
                 
-            flam3h_general_utils.flash_message(node, f"Flame name -> COPIED")
             return flame_name
         
         else:
@@ -10976,6 +10975,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
                 flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                 node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
+                _MSG = f"{node.name()}: COPY Flame name -> {flame_name_new}"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             
 
