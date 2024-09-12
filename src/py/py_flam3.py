@@ -10950,7 +10950,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             return flame_name
         
         else:
-            _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name."
+            _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             flam3h_general_utils.flash_message(node, f"COPY Flame name -> Select an exisiting preset name")
             return None
