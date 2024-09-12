@@ -11450,7 +11450,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     # Not used yet
     def out_collect_var_section_names(self, var_section='VAR') -> Union[list[str], None]:
         """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
-        Remeber to pass in the proper: TYPES_tuple: tuple, WEIGHTS_tuple: tuple -> based on the var section you want to collect.
         
         Args:
             section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
