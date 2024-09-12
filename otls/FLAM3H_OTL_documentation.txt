@@ -1418,14 +1418,22 @@ Override iterations from Flame name:
     
 remap "pre_gaussian_blur":
     #id: prefs
-    On Flame load, the "pre_gaussian_blur" variation will be remapped to the "pre_blur" variation.
+    This option is specific while working back and forth with Fractorium.
+
+    Fractorium always remap *`pre_blur`* to *`pre_gaussian_blur`* when you load a Flame in.
+    This mean that every time you save the Flame again from Fractorium and load it back into FLAM3H you loose a PRE variation's slot.
+
+    When this toggle is ON, the *`pre_gaussian_blur`* variation will be remapped to the *`pre_blur`* variation on Flame load.
     
-    ON by default since the chaos game in this implementation has the "pre_blur" variation hard coded to be as quick as possible.
-    
-    If you'd rather want to use "pre_gaussian_blur" and have it behave as a pre variation (not cumulative/additive), turn it OFF.
+    ON by default since also the chaos game in this implementation has the *`pre_blur`* variation hard coded to be as quick as possible.
+
+    However, depending of the orther of the PRE variations in the Flame you are trying to load, you sometime want to retain it.
+    If you'd rather want to use *`pre_gaussian_blur`* and have it behave as a pre variation (not cumulative/additive), turn it OFF.
     
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
+
+        If the Flame you are trying to load do not posses a *`pre_gaussian_blur`* variation, this option will have no effect.
         
         
 Reload preset with remap "pre_gaussian_blur" changes:
