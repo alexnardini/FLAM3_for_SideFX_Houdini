@@ -698,7 +698,7 @@ PRE tab:
     #id: FLAME
     PRE variations for the selected iterator.
     
-    The order of the PRE variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
+    The order of the PRE variations matter. For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
 
     
 swap PRE vars:
@@ -949,7 +949,7 @@ FF POST tab:
 
     * When using parametric variations, their parameters will populate the *FF: PP VARS* Tab.
     
-    The order of the POST variations matter; for example, if you do Pie first and then Spherical, the outcomes will differ from the other way around.
+    The order of the POST variations matter. For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
     
 
 swap FF POST vars:
@@ -1537,7 +1537,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.4.00" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.4.01" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1757,7 +1757,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.4.00" ... >
+          <flame version="FLAM3H-WIN-1.4.01" ... >
               ...
         }}}
         
@@ -1766,7 +1766,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.4.00" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.4.01" ... >
               ...
         }}}
         
@@ -2254,7 +2254,7 @@ _A list of all variations included with FLAM3H:_
     *Wedge*, 
     *Wedgejulia*, 
     *Wedgesph*, 
-    *Whorl*
+    *Whorl*.
 
 
 
@@ -2299,103 +2299,103 @@ TIP:
 :box:
     #display: rounded gray
     
-    - *Auger*           ->      _Frequency, Scale, Symmetry, Weight_
+    - *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
     
-    - *Bent2*           ->      _X, Y_
+    - *Bent2*           ->      _`X`*,* `Y`_
     
-    - *Bipolar*         ->      _Shift_
+    - *Bipolar*         ->      _`Shift`_
     
-    - *Blob*            ->      _Low, High, Waves_
+    - *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
     
-    - *Bwraps*          ->      _Size, Space, Gain_
+    - *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_
     
-    - *Bwraps*          ->      _In twist, Out twist_
+    - *Bwraps*          ->      _`In twist`*,* `Out twist`_
     
-    - *Cell*            ->      _Size_
+    - *Cell*            ->      _`Size`_
     
-    - *Conic*           ->      _Eccentricity, Holes_
+    - *Conic*           ->      _`Eccentricity`*,* `Holes`_
     
-    - *Cpow*            ->      _Pow, r, i_
+    - *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
     
-    - *Crop*            ->      _Left, Top, Right, Bottom_
+    - *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_
     
-    - *Crop*            ->      _Area, Zero_
+    - *Crop*            ->      _`Area`*,* `Zero`_
     
-    - *Curl*            ->      _C1, C2_
+    - *Curl*            ->      _`C1`*,* `C2`_
     
-    - *Curve*           ->      _Lenght X, Lenght Y_
+    - *Curve*           ->      _`Lenght X`*,* `Lenght Y`_
     
-    - *Curve*           ->      _Amplitude X, Amplitude Y_
+    - *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
     
-    - *Disc2*           ->      _Rotation, Twist_
+    - *Disc2*           ->      _`Rotation`*,* `Twist`_
     
-    - *Escher*          ->      _Beta_
+    - *Escher*          ->      _`Beta`_
     
-    - *Fan2*            ->      _X, Y_
+    - *Fan2*            ->      _`X`*,* `Y`_
     
-    - *Flower*          ->      _Petals, Holes_
+    - *Flower*          ->      _`Petals`*,* `Holes`_
     
-    - *Flux*            ->      _Spread_
+    - *Flux*            ->      _`Spread`_
     
-    - *JuliaN*          ->      _Power, Distance_
+    - *JuliaN*          ->      _`Power`*,* `Distance`_
     
-    - *JuliaScope*      ->      _Power, Distance_
+    - *JuliaScope*      ->      _`Power`*,* `Distance`_
     
-    - *Lazysusan*       ->      _X, Y_
+    - *Lazysusan*       ->      _`X`*,* `Y`_
     
-    - *Lazysusan*       ->      _Spin, Twist, Space_
+    - *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
     
-    - *Mobius*          ->      _Re A, Re B, Re C, Re D_
+    - *Mobius*          ->      _`Re A`*,* `Re B`*,* `Re C`*,* `Re D`_
     
-    - *Mobius*          ->      _Im A, Im B, Im C, Im D_
+    - *Mobius*          ->      _`Im A`*,* `Im B`*,* `Im C`*,* `Im D`_
     
-    - *Modulus*         ->      _X, Y_
+    - *Modulus*         ->      _`X`*,* `Y`_
     
-    - *Ngon*            ->      _Power, Side, Corners, Circle_
+    - *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
     
-    - *Oscope*          ->      _Frequency, Amplitude, Damping, Separation_
+    - *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
     
-    - *Parabola*        ->      _Height, Width_
+    - *Parabola*        ->      _`Height`*,* `Width`_
     
-    - *Pdj*             ->      _w A, w B, w C, w D_
+    - *Pdj*             ->      _`w A`*,* `w B`*,* `w C`*,* `w D`_
     
-    - *Perspective*     ->      _Angle, Distance_
+    - *Perspective*     ->      _`Angle`*,* `Distance`_
     
-    - *Pie*             ->      _Slice, Thickness, Rotation_
+    - *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
     
-    - *Polynomial*      ->      _Pow X, Pow Y_
+    - *Polynomial*      ->      _`Pow X`*,* `Pow Y`_
     
-    - *Polynomial*      ->      _Lc X, Lc Y_
+    - *Polynomial*      ->      _`Lc X`*,* `Lc Y`_
     
-    - *Polynomial*      ->      _Sc X, Sc Y_
+    - *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
     
-    - *Point Symmetry*  ->      _Order, Center X, Center Y_
+    - *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
     
-    - *Radial Blur*     ->      _Angle_
+    - *Radial Blur*     ->      _`Angle`_
     
-    - *Rectangles*      ->      _X, Y_
+    - *Rectangles*      ->      _`X`*,* `Y`_
     
-    - *Rings2*          ->      _Val_
+    - *Rings2*          ->      _`Val`_
     
-    - *Separation*      ->      _X, Y_
+    - *Separation*      ->      _`X`*,* `Y`_
     
-    - *Separation*      ->      _Inside X, Inside Y_
+    - *Separation*      ->      _`Inside X`*,* `Inside Y`_
     
-    - *Split*           ->      _X, Y_
+    - *Split*           ->      _`X`*,* `Y`_
     
-    - *Splits*          ->      _X, Y_
+    - *Splits*          ->      _`X`*,* `Y`_
     
-    - *Waves2*          ->      _Scale X, Scale Y_
+    - *Waves2*          ->      _`Scale X`*,* `Scale Y`_
     
-    - *Waves2*          ->      _Frequency X, Frequency Y_
+    - *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
     
-    - *Wedge*           ->      _Swirl, Angle, Hole, Count_
+    - *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
     
-    - *WedgeJulia*      ->      _Power, Angle, Distance, Count_
+    - *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
     
-    - *WedgeSph*        ->      _Swirl, Angle, Hole, Count_
+    - *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
     
-    - *Whorl*           ->      _In, Out_
+    - *Whorl*           ->      _`In`*,* `Out`_
 
 
 :box:
