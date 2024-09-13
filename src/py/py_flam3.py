@@ -264,6 +264,7 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwa
 
 # ICONS menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
+FLAM3H_ICON_STAR_EMPTY_OPACITY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_CB = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]'
@@ -2754,7 +2755,7 @@ iterator_keep_last_weight(self) -> None:
         elif w < 0:
             return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
             
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
 
 
     
@@ -2778,7 +2779,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV
             
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
     
@@ -2804,7 +2805,7 @@ iterator_keep_last_weight(self) -> None:
         elif w < 0:
             return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
             
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
     def menu_T_PP_FF_data(self) -> tuple[int, str]:
@@ -2827,7 +2828,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV
             
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY
+        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
     
@@ -2911,7 +2912,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 return FLAM3H_ICON_STAR_FLAME_PB_ACTV
             
-        return FLAM3H_ICON_STAR_EMPTY
+        return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
     
