@@ -87,7 +87,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.4.00'
+FLAM3H_VERSION = '1.4.01'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -10941,9 +10941,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
             preset_id = int(node.parm(OUT_PRESETS).eval())
             menu_label = str(node.parm(OUT_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE)[-1].strip()
-            # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
-            # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+
             if toggle_PREFS_ENUMERATE_MENU:
+                # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
+                # and there are only the leading white spaces left from the menu enumaration index number string to remove.
                 flame_name = ':'.join(str(menu_label).split(':')[1:]).lstrip()
             else:
                 flame_name = menu_label
@@ -10951,9 +10952,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             return flame_name
         
         else:
-            _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"COPY Flame name -> Select an exisiting preset name")
             return None
     
     
@@ -10978,6 +10976,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 
                 _MSG = f"{node.name()}: COPY Flame name -> {flame_name_new}"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.flash_message(node, f"{flame_name_new}")
+                
+            else:
+                _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                # flam3h_general_utils.flash_message(node, f"COPY Flame name -> Select an exisiting preset name")
                 
             
 

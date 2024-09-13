@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.4.00 - Gold
+#version: 1.4.01 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -274,7 +274,7 @@ TAG:
     * [Motion blur|#MB] (_when active_) will be next inside square brackets.
     * [Iterator variations|#FLAMEITERVARS] are lowercase.
     * [FF variations|#FFVARS] are UPPER CASE.
-    * "*pre_blur*" will be indicated witn an asterisk * at the beginning of each iterator and before all variations.
+    * *`pre_blur`* will be indicated witn an asterisk * at the beginning of each iterator and before all variations.
     * PRE variations will be inside square brackets at the beginning of each iterator, or FF.
     * POST variations will be inside square brackets at the end of each iterator, or FF
     * The [iterator's weight|#FLAMEITER] value will be the last in each iterator.
@@ -673,7 +673,7 @@ Opacity:
     TIP:
         #display: orange
 
-        _Each iterator allows up to 8 variations ( pre blur, 2 PRE, 4 VAR and 1 POST) to be used._
+        _Each iterator allows up to 8 variations ( *`pre blur`*, 2 PRE, 4 VAR and 1 POST) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
@@ -684,13 +684,13 @@ pre_blur:
     #id: FLAME
     Enable pre_blur variation.
     
-    Pre_blur variation in this implementation is hard-coded inside the chaos game to be as fast as it can possibly be.
+    *`Pre_blur`* variation in this implementation is hard-coded inside the chaos game to be as fast as it can possibly be.
     It will always be the first pre-variation the algorithm runs.
     
     TIP:
         #display: orange
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H
-        remeber that the variation "pre_gaussian_blur" will be remapped to "pre_blur" on Flame load by default.
+        remeber that the variation "pre_gaussian_blur" will be remapped to *`pre_blur`* on Flame load by default.
         
         You can change this beahavior and load the "pre_gaussian_blur" variation instead, if any, inside the IN Tab.
     
@@ -1331,7 +1331,7 @@ IN file ( *.flame type ):
     The only restrictions are:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H. 
-    - A maximum of 3 PRE ( pre_blur plus 2 of your choise ), 4 VAR and 1 POST variations for each iterator are allowed. 
+    - A maximum of 3 PRE ( *`pre_blur`* plus 2 of your choise ), 4 VAR and 1 POST variations for each iterator are allowed. 
     ( for a total of 8 vars per iterator ). If it finds more on load, it will just discard the extra one.
     - For FF ( FinalXForm ) you have 1 PRE, 2 VAR and 2 POST available. If it finds more on load, it will just discard the extra one.
     
@@ -1741,7 +1741,7 @@ use Fractorium parametric prm names:
 
     OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a Flame.
 
-    *_This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
+    *_This is only useful if you use *`Mobius`* or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
     NOTE:
         When this option is ON, an extra XML key will be added to each xforms with the name of: *`color_speed`*
@@ -2587,9 +2587,9 @@ NOTE:
     PRE variations:
         #id: Limitations
     
-    Every iterator is capable of 3 PRE variations, with one ( the first one to always be executed ) being: pre_blur, followed by the other two.
+    Every iterator is capable of 3 PRE variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
     
-    It is really pre_blur + 2 variations of your choice.
+    It is really *`pre_blur`* + 2 variations of your choice.
     
     NOTE:
         _*The weight of the PRE variations can not be negative* in FLAM3H._
