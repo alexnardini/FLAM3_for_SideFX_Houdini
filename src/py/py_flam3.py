@@ -9256,7 +9256,7 @@ reset_IN(self, mode=0) -> None:
             preset_name = apo_data.name[preset_id]
                 
         descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
-                            f"{preset_name}", )
+                            f"{out_flame_utils.out_remove_iter_num(preset_name)}", )
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
         # Build MISSING
@@ -10981,6 +10981,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             else:
                 _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                
                 
 
     def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
