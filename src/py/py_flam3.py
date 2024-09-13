@@ -10981,9 +10981,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             else:
                 _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                # flam3h_general_utils.flash_message(node, f"COPY Flame name -> Select an exisiting preset name")
                 
-            
 
     def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
         """This is used to find the number of colors we want to export when saving out a Flame file.
