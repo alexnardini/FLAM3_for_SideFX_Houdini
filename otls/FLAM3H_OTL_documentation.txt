@@ -2286,7 +2286,7 @@ _Dependent variation's affine coefficients:_
 :box:
     #display: rounded white
     
-    == Variations: Parametrics == (VARDLIST)
+    == Variations: Parametrics == (VARPRM)
 
 _A list of all parametric variations and their parametric parameter's names._
 
