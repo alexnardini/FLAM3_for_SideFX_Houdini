@@ -10063,7 +10063,7 @@ reset_IN(self, mode=0) -> None:
                 # Get the correct menu parameter's preset menu label
                 preset_name = apo_data.name[preset_id]
                     
-            _MSG = f"Preset: \"{preset_name}\" -> Loaded"
+            _MSG = f"Preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Loaded"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             ####################################################
             
