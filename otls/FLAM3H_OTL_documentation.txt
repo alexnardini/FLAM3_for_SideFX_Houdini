@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.4.05 - Gold
+#version: 1.4.15 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -800,6 +800,8 @@ pre affine:
     Each iterator( xform ) has an affine transform that is always applied on every iteration.
     This is known as the pre affine becasue it is applied before the variations. There is also an optional affine applied after the variations known as the post affine.
 
+    For speed purpose, only the very basic parameters of the affine are provided, plus a rotation parameter to make life a little easier. Below a basic guideline on how to use the affine parameters:
+
     - With *`X`*._`xy`_ and *`Y`*._`xy`_ you will apply rotation and scale/shear while with *`O`*._`xy`_ you will apply translation/offset.
     - They compose a 2x3 matrix ( *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ ).
     - The rotation parameter will take the values of *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ and rotate them ( *`O`*._`xy`_ being the pivot).
@@ -832,7 +834,7 @@ copy post affine values:
 POST affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
-    * See above affine description for more informations.
+    * See above [affine|#FLAMEITERAFFINE] description for more informations.
     
 post affine reset:
     #id: FLAME
@@ -1020,7 +1022,7 @@ FF: pre affine:
     #id: FF
     Affine coefficients for the current FF iterator ( FF - finalxform ). Those are applied before the variations.
 
-    - *See the above iterator's affine description for more information*.
+    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
     
 FF pre affine reset:
     #id: FF
@@ -1043,7 +1045,7 @@ FF: POST affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
     
-    - *See the above iterator's affine description for more information*.
+    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
     
 FF post affine reset:
     #id: FF
@@ -1581,7 +1583,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.4.05" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.4.15" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1803,7 +1805,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.4.05" ... >
+          <flame version="FLAM3H-WIN-1.4.15" ... >
               ...
         }}}
         
@@ -1812,7 +1814,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.4.05" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.4.15" ... >
               ...
         }}}
         

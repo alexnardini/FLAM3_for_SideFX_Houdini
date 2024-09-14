@@ -87,7 +87,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.4.05'
+FLAM3H_VERSION = '1.4.15'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -2997,7 +2997,11 @@ iterator_keep_last_weight(self) -> None:
             
             hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
             _MSG = f"iterator: {preset_id}"
-            flam3h_general_utils.flash_message(node, _MSG)
+            active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
+            if active:
+                flam3h_general_utils.flash_message(node, _MSG)
+            else:
+                flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
             
             # Change focus back to the FLAME's Tab
             node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
