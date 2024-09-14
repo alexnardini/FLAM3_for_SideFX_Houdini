@@ -535,8 +535,10 @@ class flam3h_iterator:
     # SECTIONS method lists
     #
     # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
+    
     # sec_main = ( (f"{n.main_vactive}_", 0), (f"{n.main_weight}_", 0) )
-    sec_main = ( (f"{n.main_weight}_", 0), )
+    
+    sec_main = ( (f"{n.main_weight}_", 0), ) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
     sec_xaos = ( (f"{n.xaos}_", 0), )
     sec_shader = ( (f"{n.shader_color}_", 0), (f"{n.shader_speed}_", 0), (f"{n.shader_alpha}_", 0) )
     sec_prevarsT = ( f"{n.prevar_type_1}_", f"{n.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
