@@ -4896,7 +4896,7 @@ hex_to_rgb(hex: str) -> tuple:
 
 find_nearest_idx(array: Union[list, tuple], value: Union[int, float]) -> Union[int, float]:
 
-json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list) -> None:
+json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode=False) -> None:
 
 json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 
