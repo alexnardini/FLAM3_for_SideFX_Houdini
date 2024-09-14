@@ -11172,6 +11172,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Reset the OUT save options tab parameters.
         """
         node = self.node
+        node.setParms({OUT_PALETTE_256_PLUS: 0})
         node.setParms({OUT_HSV_PALETTE_DO: 0})
         node.setParms({OUT_AUTO_ADD_ITER_NUM: 1})
         node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 1})
