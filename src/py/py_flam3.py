@@ -5090,8 +5090,20 @@ reset_CP(self, mode=0) -> None:
     
     
     @staticmethod
-    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list) -> None:
+    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode=False) -> None:
+        """Given a value, find the closest value in the array that is bigger than the value passed in.
+        I am using a manual f-string build here. Probably dynamically build a list would be better but if i'll need to add more strings i'll look into it.
+        
+        Args:
+            node (hou.SopNode): The current FLAM3H node.
+            HEXs (list): The array/list of hex colors.
+                         In case of: palette_cp(self) definition -> this argument will be the number of the (source)palette color keys 
+                                                                    and it is used only to check if we need to update the palette message while editing it.
+            mode (bool): (default to False) For now True only to use inside: palette_cp(self) -> None:
 
+        Returns:
+            None: 
+        """  
         palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
         if len(HEXs) > 256:
             if PALETTE_PLUS_MSG in palette_msg:
@@ -5102,10 +5114,31 @@ reset_CP(self, mode=0) -> None:
             if PALETTE_PLUS_MSG in palette_msg:
                 node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
             else:
-                pass
-            
+                if not mode:
+                    pass
+                else:
+                    # I do not remember why I am doing this else statement
+                    # ...I leave it here for now as there must be a reason for this to exist ;)
+                    #
+                    # I think it was becasue from inside the palette_cp(self) definition we are constantly checking
+                    # if the current number of color keys are greater than 256 and adjust the palette msg on the fly.
+                    flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, palette_msg)
+                
+    
+    
     @staticmethod 
     def json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
+        """Check is the plaette plus str "[256+]" is displayed already and add a custom string message(_MSG) to it.
+        This is used inside: flam3h_init_presets_CP_PALETTE_PRESETS(self, mode=1) and its run everytime we load a palette file while the presets menu is being initialized.
+        
+        Args:
+            node (hou.SopNode): The current FLAM3H node.
+            _MSG (str): The message to add
+            
+        Returns:
+            None: 
+        """  
+        
         palette_msg = node.parm(MSG_PALETTE).evalAsString()
         if PALETTE_PLUS_MSG in palette_msg:
             node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
@@ -5700,18 +5733,7 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_ISVALID_PRESET: 1})
 
         # Update/Set palette MSG
-        palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
-        if len(node.parm(CP_RAMP_HSV_NAME).evalAsRamp().keys()) > 256:
-            if PALETTE_PLUS_MSG in palette_msg:
-                pass
-            else:
-                node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
-        else:
-            if PALETTE_PLUS_MSG in palette_msg:
-                node.setParms({MSG_PALETTE: f"{str(palette_msg[len(PALETTE_PLUS_MSG):]).strip()}"})
-            else:
-                flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, palette_msg)
-            
+        flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, rmpsrc.evalAsRamp().keys(), True)    
 
 
     def palette_cp_to_tmp(self) -> None:
