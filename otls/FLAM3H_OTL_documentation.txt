@@ -1772,9 +1772,11 @@ Auto add iter num to Flame name (hidden):
 use Fractorium parametric prm names:
     #id: OUT
 
-    OFF by default. To export the parameter names for parametric variations to the one that Fractorium uses, check this toggle ON when saving out a Flame.
+    ON by default. To export the parameter names for parametric variations to the one that Fractorium uses.
 
-    *_This is only useful if you use *`Mobius`* or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
+    *_This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
+
+    Check this toggle OFF when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations.
 
     NOTE:
         When this option is ON, an extra XML key will be added to each xforms with the name of: *`color_speed`*
@@ -2722,7 +2724,7 @@ NOTE:
         - Direct Color -> 1.0
         
         _This way, you won't add a color to the Flame that FLAM3H won't be able to match._
-        
+
         
 :box:
     #display: rounded white
