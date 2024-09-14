@@ -942,14 +942,14 @@ FF: copy/paste:
         
         The selected variation name in each of their menu parameter posses a bookmark icon next to its label to display their state:
         
-        - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
         - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
 
         Pre and Post types:
         
-        - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when its weight is 0.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
         - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above 0 and less or equal to 1.
         - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above 1.
     
