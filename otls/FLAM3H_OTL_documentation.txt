@@ -474,7 +474,17 @@ number of iterators:
     This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
+
+    - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
+    - [Largeicon:BUTTONS/minus] to remove the selected iterator.
+
+    Additionaly:
+
+    - [Largeicon:BUTTONS/multi_remove] to remove the selected iterator.
+    - [Largeicon:BUTTONS/multi_insertbefore] to insert a new iterator before the selected iterator.
     
+
+
     NOTE:
         The order of the iterators does not matter at all.
 
