@@ -1126,6 +1126,16 @@ HSV reset:
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     Reset the HSV to their default values.
+
+palette HSV (viz only):
+    #id: PALETTE
+    When changing the HSV values from their defaults, this palette will preview the output of the final color corrected colors.
+
+    *It is meant for preview only and you can not edit this palette*.
+
+    Additionally the palette parameter come with the following tool icon:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to updated the HSV color correction in case it was not already.
     
 palette lookup samples:
     #id: PALETTE
@@ -1148,13 +1158,14 @@ palette lookup samples:
     
 palette:
     #id: PALETTE
-    the actual color palette.
-    
-palette reset:
-    #id: PALETTE
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
-    
-    Reset the palette to its default values.
+    The actual color palette being used by the Flame you are working on.
+
+    Additionally the palette parameter come with the following tool icons:
+
+    - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (ex. Black will become White).
+    - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
+    - [Largeicon:BUTTONS/gear] mini-menu [Smallicon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to reset the palette to its default values.
     
 :box:
     #display: rounded white
