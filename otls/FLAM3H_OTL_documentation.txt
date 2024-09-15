@@ -715,7 +715,7 @@ Opacity:
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
         _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
-        _This means that if you use 2 PRE Mobius, 4 VAR Mobius and 1 POST Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
+        _This means that if you use *`2 PRE Mobius`,* *`4 VAR Mobius`* and *`1 POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
 pre_blur:
     #id: FLAME
@@ -727,9 +727,9 @@ pre_blur:
     TIP:
         #display: orange
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H
-        remeber that the variation "pre_gaussian_blur" will be remapped to *`pre_blur`* on Flame load by default.
+        remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default.
         
-        You can change this beahavior and load the "pre_gaussian_blur" variation instead, if any, inside the IN Tab.
+        You can change this beahavior and load the *`pre_gaussian_blur`* variation instead, if any, inside the IN Tab.
     
 PRE tab:
     #id: FLAME
@@ -1986,7 +1986,7 @@ Vibrancy:
         
         - *`flam3h_rip`* -> _Remove invalid points_
         - *`flam3h_f3c`* -> _Flam3 compatibility_
-        - *`flam3h_hsv`* -> _Palette HSV_
+        - *`flam3h_hsv`* -> _Palette HSV values_
         - *`flam3h_mb_fps`* -> _Motion blur frames per second_
         - *`flam3h_mb_samples`* -> _Motion blur samples_
         - *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
@@ -2345,7 +2345,7 @@ TIP:
     #display: orange
 
     _Repeated variations names indicate distinct Houdini parameters._
-    _For example Mobius variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._
+    _For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._
 
 :box:
     #display: rounded gray
