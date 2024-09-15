@@ -231,7 +231,7 @@ RIP:
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this ON to get rid of those points.
-    - When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore).
+    - When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned ON.
 
         
@@ -481,6 +481,7 @@ number of iterators:
 
     - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by 1. It will remove one from the end.
+    - *CLEAR* button -> to remove all the iterators in one go.
 
     Additionaly, each iterator posses the following control icons:
 
@@ -491,6 +492,8 @@ number of iterators:
 
     NOTE:
         The order of the iterators does not matter at all.
+
+        Based on each iterator's Weight and combined with their xaos settings, the algorithm will select and execute them based on your logic.
 
         For this reason, it is suggested to create them one after the other, sequentially.
     
@@ -601,7 +604,7 @@ xaos:
     *How to set xaos in FLAM3H*:
         
     - To set XAOS for a Flame with 4 iterators, use the "*xaos:*" keyword followed by each iterator's weight values separated by a colon: *xaos:1:2:3:4*.
-    - When the auto space xaos weights option is ON ( it is OFF by default ), the xaos keyword will look like this: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work.
+    - When the auto space xaos weights option is ON ( it is by default ), the xaos keyword will look like this: "*xaos :*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *xaos:* ".
     - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are 1.0, the equivalent of: *xaos:1:1:1:1*
     - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of 1.0. *xaos:0:0* will be interpreted as *xaos:0:0:1:1*
     - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
@@ -662,7 +665,7 @@ Opacity:
     
     TIP:
         #display: orange
-        When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you dnt need them anymore).
+        When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
 :box:
     #display: rounded white
 
@@ -707,7 +710,7 @@ Opacity:
     TIP:
         #display: orange
 
-        _Each iterator allows up to 8 variations ( *`pre blur`*, 2 PRE, 4 VAR and 1 POST) to be used._
+        _Each iterator allows up to 8 variations ( *`pre blur`,* *`2 PRE`,* *`4 VAR`*  and *`1 POST`* ) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
@@ -960,7 +963,7 @@ FF: copy/paste:
     TIP:
         #display: orange
         
-        _FF iterator allow up to 5 variations ( 1 PRE, 2 VAR and 2 POST ) to be used._
+        _FF iterator allow up to 5 variations ( *`1 PRE`,* *`2 VAR`*  and *`2 POST`* ) to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
@@ -2342,7 +2345,7 @@ TIP:
     #display: orange
 
     _Repeated variations names indicate distinct Houdini parameters._
-    _For example Mobius variation has two: *Re ABCD* and *Im ABCD*. They are two distinct *`vector4`* parameters._
+    _For example Mobius variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._
 
 :box:
     #display: rounded gray
