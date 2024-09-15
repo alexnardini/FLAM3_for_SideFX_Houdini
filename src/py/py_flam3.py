@@ -165,9 +165,8 @@ CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
 CP_RAMP_HSV_NAME = 'palettehsv'
-CP_PALETTE_256_PLUS = 'cppaletteplus'
+CP_RAMP_SAVE_256_PLUS = 'cppaletteplus'
 CP_RAMP_SAVE_HSV = 'savehsv'
-CP_RAMP_HSV_RESET_ON_LOAD = 'resethsv'
 CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
 MB_DO = 'domb'
@@ -4936,7 +4935,7 @@ reset_CP(self, mode=0) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._palette_plus_do = self._node.parm(CP_PALETTE_256_PLUS).eval()
+        self._palette_plus_do = self._node.parm(CP_RAMP_SAVE_256_PLUS).eval()
         
         
     @staticmethod
@@ -5810,6 +5809,15 @@ reset_CP(self, mode=0) -> None:
         ramp_tmp_parm.deleteAllKeyframes()
         # Build TMP ramp
         self.build_ramp_palette_temp(ramp_tmp_parm)
+        
+        
+        
+    def reset_CP_options(self) -> None:
+        node = self.node
+        node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+        node.setParms({CP_RAMP_SAVE_256_PLUS: 1})
+        node.setParms({CP_RAMP_SAVE_HSV: 0})
+        self.reset_CP_LOCK_MSG()
 
 
 
@@ -5829,11 +5837,8 @@ reset_CP(self, mode=0) -> None:
             # Build ramp
             self.build_ramp_palette_default(ramp_parm)
             ramp_parm.deleteAllKeyframes()
-            
-            # Set lookup samples to the default value of: 256
-            node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
-            # Check if the palette msg need to be cleared
-            self.reset_CP_LOCK_MSG()
+            # Reset CP options tab
+            self.reset_CP_options()
                 
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
