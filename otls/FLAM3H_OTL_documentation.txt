@@ -1170,6 +1170,10 @@ palette:
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
     - [Largeicon:BUTTONS/gear] mini-menu [Smallicon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to reset the palette to its default values.
+
+    TIP:
+        #display: orange
+        When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
 :box:
     #display: rounded white
@@ -1273,7 +1277,7 @@ save palette 256+ (CP):
 
     TIP:
         #display: orange
-        When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: `[256+]`
+        When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
 save Palette HSV:
     #id: PALETTE
@@ -1759,7 +1763,7 @@ save palette 256+ (OUT):
     TIP:
         #display: orange
         - Fractorium will work properly when loading a Flame with more than 256 colors.
-        - When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: `[256+]`
+        - When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
 
     :warning:
         *Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.*
@@ -1793,12 +1797,6 @@ use Fractorium parametric prm names:
 
     Check this toggle OFF when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations.
 
-    NOTE:
-        When this option is ON, an extra XML key will be added to each xforms with the name of: *`color_speed`*
-
-        This extra key value is used by Fractorium to properly re-set its own iterator's colors to match what you had inside FLAM3H in Houdini.
-
-    
     :dev:
     :disclosure:Technical note
     
