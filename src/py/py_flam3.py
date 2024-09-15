@@ -4929,6 +4929,10 @@ palette_lock(self) -> None:
 
 reset_CP_LOCK_MSG(self) -> None:
 
+reset_CP_TMP(self) -> None:
+
+reset_CP_options(self) -> None:
+
 reset_CP(self, mode=0) -> None:
     """
     
