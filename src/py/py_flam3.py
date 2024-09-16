@@ -5281,7 +5281,7 @@ reset_CP(self, mode=0) -> None:
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
             menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
+            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
             
         return menu
     
@@ -5336,7 +5336,7 @@ reset_CP(self, mode=0) -> None:
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
             menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
+            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
             
         return menu
 
@@ -9500,7 +9500,7 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
                     
                 return menu
         
@@ -9582,7 +9582,7 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
                     
                 return menu
         
@@ -11345,7 +11345,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         else:
             menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Empty     ")
+            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
             return menu
 
     
