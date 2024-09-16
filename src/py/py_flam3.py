@@ -3013,26 +3013,24 @@ iterator_keep_last_weight(self) -> None:
         """init/clear copy/paste iterator's data and prm
         """        
         node = self.node
-        exist_DATA = False
         
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-            exist_DATA = True
         except:
             from_FLAM3HNODE = None
         
-        if exist_DATA:
-            if node == from_FLAM3HNODE:  # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
-                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
-                if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
-                    self.iterator_mpidx_mem_set(node, 0)
+        if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+            hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+            # Reset internal mpidx memory to a None value
+            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+                self.iterator_mpidx_mem_set(node, 0)
                     
-        # Remove any comment and user data from the node
-        self.del_comment_and_user_data_iterator(node)
-        self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+            # Remove any comment and user data from the node
+            self.del_comment_and_user_data_iterator(node)
+            self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
     
 
 
@@ -4446,8 +4444,8 @@ iterator_keep_last_weight(self) -> None:
         
         # init/clear copy/paste iterator's data and prm
         #
-        # This was causing some issues.
-        # self.flam3h_paste_reset_hou_session_data()
+        # This was causing some issues and got updated.
+        self.flam3h_paste_reset_hou_session_data()
         
         # If the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
