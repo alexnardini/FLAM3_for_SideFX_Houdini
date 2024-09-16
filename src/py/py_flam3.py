@@ -1171,6 +1171,8 @@ flam3h_on_deleted(self) -> None:
             
             # init/clear copy/paste iterator's data and prm
             # This is being run also from inside: def flam3h_default() - so probably not needed but its not bad to have either.
+            #
+            # This was causing some issues and got updated.
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
             
             # Finally reset the hou.session data 
@@ -3041,16 +3043,18 @@ iterator_keep_last_weight(self) -> None:
             preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
             
             hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
+            
             _MSG = f"iterator: {preset_id}"
             active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
-            if active:
-                if node == from_FLAM3H_NODE and mp_id_from == preset_id:
+            
+            if node == from_FLAM3H_NODE and mp_id_from == preset_id:
+                if active:
                     flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
                 else:
-                    flam3h_general_utils.flash_message(node, _MSG)
-            else:
-                if node == from_FLAM3H_NODE and mp_id_from == preset_id:
                     flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+            else:
+                if active:
+                    flam3h_general_utils.flash_message(node, _MSG)
                 else:
                     flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
             
