@@ -11525,7 +11525,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             HELP_msg  = ""
             HELP_msg += f"\nNOTE:\n"
-            HELP_msg += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VARS section.\nYou can however use one Spherical variation inside the VARS section, one Spherical inside the PRE section and one inside the POST section.\n"
+            HELP_msg += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\nYou can however use one Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n"
             HELP_msg += f"\nTIP:\n"
             HELP_msg += f"Save the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
             
@@ -11551,14 +11551,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         
     # Not used yet
-    def out_collect_var_section_names(self, var_section='VAR') -> Union[list[str], None]:
+    def out_collect_var_section_names(self, var_section="VAR") -> Union[list[str], None]:
         """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
         
         Args:
             section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
-            list[str]: List of used variation in this iterator/xform
+            list[str]: List of used variations in this iterator/xform
         """
         # Build var parameter's sections
         prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
