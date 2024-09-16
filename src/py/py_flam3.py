@@ -5278,10 +5278,10 @@ reset_CP(self, mode=0) -> None:
                     
             else:
                 menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
             menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
             
         return menu
     
@@ -5333,10 +5333,10 @@ reset_CP(self, mode=0) -> None:
                             menu.append(f"{item}")
             else:
                 menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
             menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
             
         return menu
 
@@ -5755,6 +5755,7 @@ reset_CP(self, mode=0) -> None:
                             
                             _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
                             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                            flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
                             
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
@@ -9479,7 +9480,7 @@ reset_IN(self, mode=0) -> None:
             
             else:
                 menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 return menu
         
         else:
@@ -9492,7 +9493,7 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                     
                 return menu
         
@@ -9562,7 +9563,7 @@ reset_IN(self, mode=0) -> None:
             
             else:
                 menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 return menu
         
         else:
@@ -9574,7 +9575,7 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                     
                 return menu
         
@@ -10007,16 +10008,18 @@ reset_IN(self, mode=0) -> None:
             flam3h_general_utils(self.kwargs).reset_MB()
             flam3h_general_utils(self.kwargs).reset_PREFS()
 
+            # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
+            ####################################################
+            exclude_keys = XML_XF_KEY_EXCLUDE
+            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
+
+
             # ITERATOR
             ####################################################
             ####################################################
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
-            
-            # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
-            exclude_keys = XML_XF_KEY_EXCLUDE
-            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
             
             # prepare iterators
             self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
@@ -10145,7 +10148,7 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 1})
                 
                 preset_name = flame_name_clipboard
-                _MSG = f"{node.name()}: LOAD Flame preset from Clipboard: \"{preset_name}\" -> Completed"
+                _MSG = f"{node.name()}: LOAD Flame preset from Clipboard: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             else:
                 # Otherwise mean the preset is coming from a file,
                 # set all of them and uncheck the clipboard toggle just in case.
@@ -11335,7 +11338,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         else:
             menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE}  Empty     ")
             return menu
 
     
