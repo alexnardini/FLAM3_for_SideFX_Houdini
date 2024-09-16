@@ -4445,7 +4445,9 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
         # init/clear copy/paste iterator's data and prm
-        self.flam3h_paste_reset_hou_session_data()
+        #
+        # This was causing some issues.
+        # self.flam3h_paste_reset_hou_session_data()
         
         # If the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
