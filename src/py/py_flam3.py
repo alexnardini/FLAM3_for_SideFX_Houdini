@@ -1170,6 +1170,7 @@ flam3h_on_deleted(self) -> None:
             node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
             
             # init/clear copy/paste iterator's data and prm
+            # This is being run also from inside: def flam3h_default() - so probably not needed but its not bad to have either.
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
             
             # Finally reset the hou.session data 
