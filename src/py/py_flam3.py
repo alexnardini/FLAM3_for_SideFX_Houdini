@@ -10156,9 +10156,9 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({IN_CLIPBOARD_TOGGLE: 0})
                 
                 # Get the correct menu parameter's preset menu label
-                preset_name = apo_data.name[preset_id]
-                    
-            _MSG = f"LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
+                preset_name = apo_data.name[preset_id] 
+                _MSG = f"LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
+                
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             ####################################################
             
