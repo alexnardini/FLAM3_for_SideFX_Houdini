@@ -5903,13 +5903,13 @@ reset_CP(self, mode=0) -> None:
         elif mode == 2:
             _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
             if _hsv[0] == _hsv[1] == _hsv[2] == 1:
-                _MSG = f"CP HSV -> already at its default values."
+                _MSG = f"CP HSV: already at its default values."
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
             else:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
                 # Print out to Houdini's status bar
-                _MSG = f"CP HSV -> RESET"
+                _MSG = f"CP HSV RESET"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
                 
@@ -5922,7 +5922,7 @@ reset_CP(self, mode=0) -> None:
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
             # Print out to Houdini's status bar
-            _MSG = f"CP Palette -> RESET"
+            _MSG = f"CP Palette RESET"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             flam3h_general_utils.flash_message(node, _MSG)
             
