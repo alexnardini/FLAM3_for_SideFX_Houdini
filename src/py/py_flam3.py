@@ -4442,7 +4442,7 @@ iterator_keep_last_weight(self) -> None:
         
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
-        # init/clear copy/paste iterator's data and prm
+        # init/clear copy/paste iterator's data and prm if needed.
         #
         # This was causing some issues and got updated.
         self.flam3h_paste_reset_hou_session_data()
