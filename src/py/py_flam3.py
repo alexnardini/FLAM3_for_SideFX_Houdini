@@ -5356,7 +5356,7 @@ reset_CP(self, mode=0) -> None:
             presetname = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
 
         # Updated HSV ramp before getting it
-        self.palette_lock()
+        self.palette_cp()
 
         hsv_vals = []
         hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
@@ -5596,7 +5596,7 @@ reset_CP(self, mode=0) -> None:
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
                 # Update palette
-                self.palette_lock()
+                self.palette_cp()
                 
                 self.palette_cp_to_tmp()
                 
@@ -5737,7 +5737,7 @@ reset_CP(self, mode=0) -> None:
                             self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
                             # Make sure we update the HSV palette
-                            self.palette_lock()
+                            self.palette_cp()
                             
                             # reset tmp ramp palette
                             self.reset_CP_TMP()
@@ -5788,6 +5788,10 @@ reset_CP(self, mode=0) -> None:
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
         rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
         # Apply HSV if any
+        #
+        # self.palette_hsv is running also inside self.palette_lock()
+        # becasue it used to get call also from other Houdini parameter's callback scripts.
+        # Need to come back and make changes...
         self.palette_hsv()
         
         if node.parm(CP_ISVALID_FILE).eval():
@@ -5842,6 +5846,9 @@ reset_CP(self, mode=0) -> None:
             kwargs (dict): [kwargs[] dictionary]
         """    
         self.palette_cp()
+        # self.palette_hsv is running also inside self.palette_cp()
+        # becasue it get call also from other Houdini parameter's callback scripts.
+        # Need to come back and make changes...
         self.palette_hsv()
 
 
@@ -5934,7 +5941,7 @@ reset_CP(self, mode=0) -> None:
         self.reset_CP_TMP()
             
         # Update palette py
-        self.palette_lock()
+        self.palette_cp()
 
 
 
@@ -10081,7 +10088,7 @@ reset_IN(self, mode=0) -> None:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             ramp_parm.deleteAllKeyframes()
             ramp_parm.set(apo_data.palette[0])
-            flam3h_palette_utils(self.kwargs).palette_lock()
+            flam3h_palette_utils(self.kwargs).palette_cp()
             # Set palette lookup samples
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples})
             # Mark this as not a loaded palette preset
@@ -10420,7 +10427,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         self._palette_plus_do = self._node.parm(OUT_PALETTE_256_PLUS).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
-            flam3h_palette_utils(self.kwargs).palette_lock()
+            flam3h_palette_utils(self.kwargs).palette_cp()
             self._palette: hou.Ramp = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
