@@ -3597,9 +3597,9 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
-                _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                _MSG = f"{str(self.node)}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
+                flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -3621,9 +3621,9 @@ iterator_keep_last_weight(self) -> None:
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
-            _MSG = f"{str(self.node)}: iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+            _MSG = f"{str(self.node)}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"iterator MARKED -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
+            flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
 
 
     def prm_paste(self) -> None:
