@@ -10007,18 +10007,16 @@ reset_IN(self, mode=0) -> None:
             flam3h_general_utils(self.kwargs).reset_MB()
             flam3h_general_utils(self.kwargs).reset_PREFS()
 
-            # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
-            ####################################################
-            exclude_keys = XML_XF_KEY_EXCLUDE
-            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-
-
             # ITERATOR
             ####################################################
             ####################################################
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
+            
+            # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
+            exclude_keys = XML_XF_KEY_EXCLUDE
+            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
             
             # prepare iterators
             self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
