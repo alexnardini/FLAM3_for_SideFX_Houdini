@@ -717,7 +717,7 @@ Opacity:
         _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
         _This means that if you use *`2 PRE Mobius`,* *`4 VAR Mobius`* and *`1 POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
-pre_blur:
+menu pre_blur [Smallicon:BUTTONS/pane_menu]:
     #id: FLAME
     Enable pre_blur variation.
     
@@ -731,7 +731,7 @@ pre_blur:
         
         You can change this beahavior and load the *`pre_gaussian_blur`* variation instead, if any, inside the IN Tab.
     
-PRE tab:
+menu PRE [Smallicon:BUTTONS/pane_menu]:
     #id: FLAME
     PRE variations for the selected iterator.
     
@@ -746,7 +746,7 @@ swap PRE vars:
     - ((CTRL)) + ((LMB)) swap only the variation names.
     
     
-VAR tab:
+menu VAR [Smallicon:BUTTONS/pane_menu]:
     #id: FLAME
     Variations for the selected iterator.
     
@@ -756,7 +756,7 @@ VAR tab:
         Laying down a new FLAM3H node and activating the Final Flame transform with the default Sierpiński triangle (*FF*) will allow you to experiment with the variations and see what happens.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
-POST tab:
+menu POST [Smallicon:BUTTONS/pane_menu]:
     #id: FLAME
     POST Variation for the selected iterator.
     
@@ -967,7 +967,7 @@ FF: copy/paste:
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
-FF PRE tab:
+menu FF PRE [Smallicon:BUTTONS/pane_menu]:
     #id: FF
     PRE variation for the FF iterator.
     
@@ -975,13 +975,13 @@ FF PRE tab:
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
     
     
-FF VAR tab:
+menu FF VAR [Smallicon:BUTTONS/pane_menu]:
     #id: FF
     Variations for the FF iterator.
     
     * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
 
-FF POST tab:
+menu FF POST [Smallicon:BUTTONS/pane_menu]:
     #id: FF
     POST Variations for the FF iterator.
     
@@ -1241,7 +1241,7 @@ Palette name ( preset ):
     
     == CP: Presets == (CPPRESETS)
         
-LIB contents ( presets ) [Smallicon:BUTTONS/pane_menu]:
+menu LIB contents ( presets ) [Smallicon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
@@ -1424,7 +1424,7 @@ Reload:
         - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
-Presets [Smallicon:BUTTONS/pane_menu]:
+menu Presets [Smallicon:BUTTONS/pane_menu]:
     #id: IN
     Every *.flame file can contain multiple Flames.
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
@@ -1735,7 +1735,7 @@ Flame name ( preset ):
         
         If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
-OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
+menu OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
     #id: OUT
     This menu is simply provided as information.
     If there are any Flames in the chosen output file, they will be displayed.
@@ -2069,7 +2069,7 @@ cvex precision modes (hidden):
 
     == Prefs: Xaos == (PREFSXAOS)
         
-xaos modes [Smallicon:BUTTONS/pane_menu]:
+menu xaos modes [Smallicon:BUTTONS/pane_menu]:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
@@ -2122,7 +2122,7 @@ Dark:
     
     Checking this box has no effect if the color scheme in a viewport is already dark.
     
-type [Smallicon:BUTTONS/pane_menu]:
+menu type [Smallicon:BUTTONS/pane_menu]:
     #id: prefs
     Set the viewport particle display mode to either points or pixels.
     
