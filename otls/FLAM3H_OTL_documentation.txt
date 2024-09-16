@@ -294,7 +294,7 @@ TAG:
         When in OUT Camera sensor mode, the Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon.
          
-TAG size:
+mini-menu TAG size [Smallicon:BUTTONS/pane_menu]:
     #id: SYS
     Set different viewport TAG sizes.
     
@@ -1186,9 +1186,11 @@ palette:
 JSON file:
     #id: PALETTE
     
+    [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+
     Load an already-created json palette library file or choose the path and name of a new one to create.
 
-    - [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+    The mini-menu [Smallicon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     TIP:
         #display: orange
@@ -1239,7 +1241,7 @@ Palette name ( preset ):
     
     == CP: Presets == (CPPRESETS)
         
-LIB contents ( presets ):
+LIB contents ( presets ) [Smallicon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
@@ -1383,9 +1385,11 @@ viz mb:
 IN file ( *.flame type ):
     #id: IN
     
+    [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+
     Load *.flame files. They can come from FLAM3H or also authored with Apophysis, Fractorium and other flam3-compatible applications.
 
-    - [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+    The mini-menu [Smallicon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     The only restrictions are:
     
@@ -1420,7 +1424,7 @@ Reload:
         - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
-Presets:
+Presets [Smallicon:BUTTONS/pane_menu]:
     #id: IN
     Every *.flame file can contain multiple Flames.
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
@@ -1665,10 +1669,11 @@ TIP:
 OUT file ( *.flame type ):
     #id: OUT
     
-    Select a file name to save your Flame into.
-    If the selected file does not exist, it will be created.
+    [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
 
-    - [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+    Select a file name to save your Flame into. If the selected file does not exist, it will be created.
+
+    The mini-menu [Smallicon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     TIP:
         #display: orange
@@ -1730,7 +1735,7 @@ Flame name ( preset ):
         
         If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
-OUT file contents ( info ):
+OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
     #id: OUT
     This menu is simply provided as information.
     If there are any Flames in the chosen output file, they will be displayed.
@@ -2064,7 +2069,7 @@ cvex precision modes (hidden):
 
     == Prefs: Xaos == (PREFSXAOS)
         
-xaos modes:
+xaos modes [Smallicon:BUTTONS/pane_menu]:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
@@ -2117,7 +2122,7 @@ Dark:
     
     Checking this box has no effect if the color scheme in a viewport is already dark.
     
-type:
+type [Smallicon:BUTTONS/pane_menu]:
     #id: prefs
     Set the viewport particle display mode to either points or pixels.
     
