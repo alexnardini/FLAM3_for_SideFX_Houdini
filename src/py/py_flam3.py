@@ -2302,6 +2302,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def get_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
+        """Get the node user data associated to the copy/paste data.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to get. 
+        """   
         
         data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
         data = node.userData(f"{data_name}")
@@ -2313,7 +2319,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def exist_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> bool:
+        """Confirm the node user data associated to the copy/paste data Exist.
         
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to get. For FF it wil be: " FLAM3H_USER_DATA_FF "
+        """   
         data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
         if node.userData(f"{data_name}") is None:
             return False
@@ -2323,6 +2334,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data=FLAM3H_USER_DATA_ITER) -> None:
+        """Set the node comment associated to the copy/paste data. It can be for an iterator number or for the FF.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to set the comment for. 
+        """   
         
         data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
         data_iter_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}"
@@ -2363,6 +2380,12 @@ iterator_keep_last_weight(self) -> None:
         
     @staticmethod
     def del_comment_and_user_data_iterator(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> None:
+        """Delete the node comment associated to the copy/paste data. It can be for an iterator number or for the FF.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to delete the comment for. 
+        """   
         
         data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
         data_iter_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}"
@@ -2407,6 +2430,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod            
     def flam3h_init_hou_session_iterator_data(node: hou.SopNode) -> None:
+        """Initialize the copy/paste data need by FLAM3H iterators and stored into the current hou.session.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+        """   
+        
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
@@ -2426,6 +2455,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def flam3h_init_hou_session_ff_data(node: hou.SopNode) -> None:
+        """Initialize the copy/paste data need by FLAM3H FF and stored into the current hou.session.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+        """   
+        
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
@@ -2445,6 +2480,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def iterator_mpidx_mem_set(node, data: int) -> None:
+        """Work as an history space to store the marked iterator info in it.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+            data (int): Marked iterator number and info. The possible option are from 1 to n for the number of the marked iterator. 0 to signal no iterator has been marked. -1 if a marked iterator has been deleted.
+        """   
         # unlock
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
         # set
