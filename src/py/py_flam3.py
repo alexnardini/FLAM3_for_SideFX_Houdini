@@ -3033,6 +3033,10 @@ iterator_keep_last_weight(self) -> None:
         
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iter_count:
+            
+            # This definition probably can be made more light-weight for this particular case
+            from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+            
             prm = node.parm(FLAME_ITERATORS_COUNT)
             preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
             
@@ -3040,9 +3044,15 @@ iterator_keep_last_weight(self) -> None:
             _MSG = f"iterator: {preset_id}"
             active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
             if active:
-                flam3h_general_utils.flash_message(node, _MSG)
+                if node == from_FLAM3H_NODE and mp_id_from == preset_id:
+                    flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                else:
+                    flam3h_general_utils.flash_message(node, _MSG)
             else:
-                flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                if node == from_FLAM3H_NODE and mp_id_from == preset_id:
+                    flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                else:
+                    flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
             
             # Change focus back to the FLAME's Tab
             node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
