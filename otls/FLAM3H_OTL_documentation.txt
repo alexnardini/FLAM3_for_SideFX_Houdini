@@ -1136,9 +1136,9 @@ HSV reset:
 
 palette HSV (viz only):
     #id: PALETTE
-    When changing the HSV values from their defaults, this palette will preview the output of the final color corrected colors.
-
     *It is meant for preview only and you can not edit this palette*.
+    
+    When changing the HSV values from their defaults, this palette will preview the output of the final color corrected colors.
 
     Additionally the palette parameter come with the following tool icon:
 
