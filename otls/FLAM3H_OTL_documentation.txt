@@ -344,7 +344,7 @@ mini-menu CP Presets [Smallicon:BUTTONS/pane_menu]:
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded or a palette has been loaded from the Clipboard.
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
@@ -1241,13 +1241,14 @@ Palette name ( preset ):
     
     == CP: Presets == (CPPRESETS)
         
-menu LIB contents ( presets ) [Smallicon:BUTTONS/pane_menu]:
+menu CP file contents [Smallicon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded or a palette has been loaded from the clipboard.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
@@ -1255,8 +1256,8 @@ menu LIB contents ( presets ) [Smallicon:BUTTONS/pane_menu]:
 Reload preset ( presets ):
     #id: PALETTE
 
-    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when no Palette preset has been loaded.
-    - [Largeicon:opdef:.?icon_optionCPSVG.svg] when you load a Palette preset.
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
     Usage:
     
@@ -1403,6 +1404,19 @@ IN file ( *.flame type ):
 
         Every time you load a Flame authored with Fractorium, those curves' values will be discarded and internally reset to their default values. ( no color correction at all )
     
+menu IN file contents [Smallicon:BUTTONS/pane_menu]:
+    #id: IN
+    Every *.flame file can contain multiple Flames.
+    As many entries as there are Flames in the file you are loading will be added to this preset menu.
+    Each entry will display the Flame's name.
+    
+    The selected menu entrie is tagged with an icon based on its state:
+    
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
+
 Reload:
     #id: IN
 
@@ -1423,18 +1437,6 @@ Reload:
         #display: orange
         - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
-    
-menu Presets [Smallicon:BUTTONS/pane_menu]:
-    #id: IN
-    Every *.flame file can contain multiple Flames.
-    As many entries as there are Flames in the file you are loading will be added to this preset menu.
-    Each entry will display the Flame's name.
-    
-    The selected menu entrie is tagged with an icon based on its state:
-    
-    - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
-    - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
 
 :box:
     #display: rounded white
@@ -1741,6 +1743,9 @@ menu OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
     If there are any Flames in the chosen output file, they will be displayed.
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
+
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
 
 Copy selected preset name / Flame name informations and tips:
     #id: FLAME
