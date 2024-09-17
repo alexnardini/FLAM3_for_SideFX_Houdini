@@ -238,7 +238,7 @@ RIP:
 F3C (flam3 compatibility):
     #id: SYS
 
-    The behavior of the *Cos*, *Cosh*, *Cot*, *Coth*, *Csc*, *Csch*, *Sec*, *Sech*, *Sin*, *Sinh*, *Tan* and *Tanh* variations are different in flam3/Apophysis versus Chaotica.
+    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in flam3/Apophysis versus Chaotica.
     
     - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Apophysis behavior.
     - [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
@@ -344,6 +344,7 @@ mini-menu CP Presets [Smallicon:BUTTONS/pane_menu]:
     
     The selected menu entrie is tagged with an icon based on its state:
     
+    - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
@@ -380,6 +381,7 @@ mini-menu IN Presets [Smallicon:BUTTONS/pane_menu]:
     
     The selected menu entrie is tagged with an icon based on its state:
     
+    - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
@@ -421,6 +423,9 @@ mini-menu OUT Presets [Smallicon:BUTTONS/pane_menu]:
     If there are any Flames in the chosen output file, they will be displayed.
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
+
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
     
     TIP:
         #display: orange
