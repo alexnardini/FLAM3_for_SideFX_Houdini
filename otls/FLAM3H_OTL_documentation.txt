@@ -344,7 +344,7 @@ mini-menu CP Presets [Smallicon:BUTTONS/pane_menu]:
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
@@ -381,7 +381,7 @@ mini-menu IN Presets [Smallicon:BUTTONS/pane_menu]:
     
     The selected menu entrie is tagged with an icon based on its state:
     
-    - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
