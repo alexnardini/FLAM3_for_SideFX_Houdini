@@ -7000,11 +7000,11 @@ __is_valid_idx(self, idx: int) -> int:
 
 __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
 
-__get_xaos(self, xforms: Union[list, None], key=XML_XF_XAOS) -> Union[tuple, None]:
+__get_xaos(self, xforms: Union[tuple, None], key=XML_XF_XAOS) -> Union[tuple, None]:
 
-__get_affine(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
+__get_affine(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
 
-__get_keyvalue(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
+__get_keyvalue(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
 
 __get_palette(self, idx: int, key=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
 
@@ -7205,7 +7205,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
     
     
-    def __get_xaos(self, xforms: Union[list, None], key=XML_XF_XAOS) -> Union[tuple, None]:
+    def __get_xaos(self, xforms: Union[tuple, None], key=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
             self:
@@ -7226,7 +7226,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
 
 
-    def __get_affine(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
+    def __get_affine(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
         """
         Args:
             self:
@@ -7247,7 +7247,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
 
 
-    def __get_keyvalue(self, xforms: Union[list, None], key: str) -> Union[tuple, None]:
+    def __get_keyvalue(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
         """
         Args:
             self:
@@ -7294,7 +7294,15 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                         else:
                             keyvalues.append([])
                             continue
-                        
+                
+                # CHECKS
+                # If all iterators have their weights set to: 0.0(ZERO), set the first one to a very small number instead because Houdini was crashing in this case.
+                if key in XML_XF_WEIGHT:
+                    if min(keyvalues) == max(keyvalues) == 0:
+                        min_weight = 0.00000001
+                        keyvalues[0] = min_weight
+                        _MSG = f"{self.node.name()}:\nThe loaded Flame preset have all iterator's weights set to: 0.0(Zero).\nIterator 1 has been reverted back to a value of: {min_weight}\nThere must always be at least one active iterator's weight above 0.0(Zero).\n"
+                        print(f"{_MSG}")
                 return tuple(keyvalues)
             
             else:
@@ -9223,11 +9231,11 @@ reset_IN(self, mode=0) -> None:
                 # Activate iterator, just in case...
                 node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
                 # Set the rest of the iterator or FF parameters
-                self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
                 self.in_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-                self.in_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)       
+                self.in_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)
+                self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)    
                 self.in_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
             
             # Set Affine ( PRE and POST) for this iterator or FF
