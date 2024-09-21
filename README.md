@@ -12,6 +12,8 @@
 
 **[FLAM3H website](https://www.alexnardini.net/flame-home/)**
 
+**[FLAM3H tutorials](https://www.youtube.com/@alexnardiniITALY/videos)**
+
 **[FLAM3H instagram](https://www.instagram.com/alexnardini/)**
 
 ### Premise
