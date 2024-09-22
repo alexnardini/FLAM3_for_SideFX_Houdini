@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.4.31 - Gold'
+FLAM3H_VERSION = '1.4.35 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -487,6 +487,21 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("pro
 
 
 'parameter name:    cprendervals'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs)
+
+
+'parameter name:    cprendervals_cb'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs)
+
+
+'parameter name:    icon_in_infos_sensor'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
+
+
+'parameter name:    icon_in_infos_render'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 

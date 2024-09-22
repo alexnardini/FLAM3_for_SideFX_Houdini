@@ -87,7 +87,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.4.31'
+FLAM3H_VERSION = '1.4.35'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -225,6 +225,7 @@ PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 # Message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
+MSG_FLAMESENSOR = 'flamesensor_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
 MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
 MSG_PALETTE = 'palettemsg'
@@ -1830,6 +1831,7 @@ reset_PREFS(self, mode=0) -> None:
                     
                     node.setParms({MSG_FLAMESTATS: ""})
                     node.setParms({MSG_FLAMERENDER: ""})
+                    node.setParms({MSG_FLAMESENSOR: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                         
                 # If it is not a chaotica xml file do print out from here,
@@ -1856,6 +1858,7 @@ reset_PREFS(self, mode=0) -> None:
                 
                 node.setParms({MSG_FLAMESTATS: ""})
                 node.setParms({MSG_FLAMERENDER: ""})
+                node.setParms({MSG_FLAMESENSOR: ""})
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                 # We do not want to print if the file path parameter is empty
                 if xml:
@@ -4436,6 +4439,7 @@ iterator_keep_last_weight(self) -> None:
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
         node.setParms({MSG_FLAMESTATS: ""})
         node.setParms({MSG_FLAMERENDER: ""})
+        node.setParms({MSG_FLAMESENSOR: ""})
         # node.setParms({MSG_PALETTE: ''})
         # node.setParms({MSG_OUT: ''})
         
@@ -5397,8 +5401,8 @@ reset_CP(self, mode=0) -> None:
             # Clear up palette preset name if any
             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
             # Satus message
-            _MSG = f"{node.name()}: SAVE Palette Clipboard -> palette copied to the clipboard -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            _MSG = f"{node.name()}: SAVE Palette Clipboard. Palette copied to the clipboard -> Completed"
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Palette SAVED to the Clipboard")
         
         # Save palette into a file
@@ -5497,6 +5501,9 @@ reset_CP(self, mode=0) -> None:
                                     
                                 # Set the file path to the corrected one
                                 node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
+                                
+                                _MSG = f"Palette SAVED"
+                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                                 flam3h_general_utils.flash_message(node, f"Palette SAVED")
                                 
                             else:
@@ -7848,7 +7855,13 @@ in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
 
 in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 
+in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+
+in_copy_render_all_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+
+in_copy_sensor_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
 
 in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
 
@@ -8889,7 +8902,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+    def in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
 
         Args:
@@ -8920,6 +8933,34 @@ reset_IN(self, mode=0) -> None:
         if apo_data.out_scale[preset_id]:
             scale = f"Scale: {apo_data.out_scale[preset_id]}"
         
+        
+        build = (size, nl,
+                 center, nl,
+                 rotate, nl,
+                 scale, nl,
+                 )
+        
+        build_render_stats_msg = "".join(build)
+        return build_render_stats_msg
+
+
+    
+    @staticmethod
+    def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+        """Collect and write a summuary of the loaded IN Flame file preset render properties.
+
+        Args:
+            preset_id (int): The loaded XML Flame preset id to gather the data from.
+            apo_data (in_flame_iter_data): The XML Flame file data
+
+        Returns:
+            str: A string to be used to set the IN Render properties data parameter message.
+        """        
+        # spacers
+        nl = "\n"
+        nnl = "\n\n"
+        na = 'n/a'
+        
         quality = f'Quality: {na}'
         if apo_data.out_quality[preset_id]:
             quality = f"Quality: {apo_data.out_quality[preset_id]}"
@@ -8944,14 +8985,7 @@ reset_IN(self, mode=0) -> None:
         if apo_data.out_vibrancy[preset_id]:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
         
-        build = (f"CAMERA SENSOR{nl}",
-                 size, nl,
-                 center, nl,
-                 rotate, nl,
-                 scale, nl,
-                 nl,
-                 f"RENDER SETTINGS{nl}",
-                 quality, nl,
+        build = (quality, nl,
                  brightness, nl,
                  gamma, nl,
                  highlight, nl,
@@ -8964,8 +8998,8 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
-        """Copy the loaded IN Flame preset render properties into the OUT Flame render properties to be written out. 
+    def in_copy_render_all_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+        """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
 
         Args:
             kwargs (hou.SopNode): houdini kwargs.
@@ -9027,10 +9061,127 @@ reset_IN(self, mode=0) -> None:
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
                 
-            flam3h_general_utils.flash_message(node, f"IN Render properties -> COPIED")
+            _MSG = f"IN Preset properties -> COPIED"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.flash_message(node, _MSG)
             
         else:
             pass
+
+
+    @staticmethod
+    def in_copy_sensor_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+        """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
+
+        Args:
+            kwargs (hou.SopNode): houdini kwargs.
+            clipboard (bool): True: load from clipboard. False: load from disk file.
+            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+        """        
+        node = kwargs['node']
+        
+        if clipboard:
+            preset_id = 0
+            f3r = apo_data
+        else:
+            xml = node.parm(IN_PATH).evalAsString()
+            
+            # Get the correct menu parameter's preset idx
+            if node.parm(IN_ISVALID_PRESET).evalAsInt():
+                preset_id = int(node.parm(IN_PRESETS).eval())
+            else:
+                preset_id = int(node.parm(IN_PRESETS_OFF).eval())
+                
+            f3r = in_flame_iter_data(node, xml, preset_id)
+            
+        assert f3r is not None
+        if f3r.isvalidtree:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
+            except:
+                pass
+            
+            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
+            
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                flam3h_general_utils(kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(kwargs).util_set_front_viewer()
+                
+            _MSG = f"IN SENSOR properties -> COPIED"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.flash_message(node, _MSG)
+            
+        else:
+            pass
+
+
+    @staticmethod
+    def in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
+
+        Args:
+            kwargs (hou.SopNode): houdini kwargs.
+            clipboard (bool): True: load from clipboard. False: load from disk file.
+            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+        """        
+        node = kwargs['node']
+        
+        if clipboard:
+            preset_id = 0
+            f3r = apo_data
+        else:
+            xml = node.parm(IN_PATH).evalAsString()
+            
+            # Get the correct menu parameter's preset idx
+            if node.parm(IN_ISVALID_PRESET).evalAsInt():
+                preset_id = int(node.parm(IN_PRESETS).eval())
+            else:
+                preset_id = int(node.parm(IN_PRESETS_OFF).eval())
+                
+            f3r = in_flame_iter_data(node, xml, preset_id)
+            
+        assert f3r is not None
+        if f3r.isvalidtree:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
+            except:
+                pass
+            
+            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
+            
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                flam3h_general_utils(kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(kwargs).util_set_front_viewer()
+                
+            _MSG = f"IN RENDER properties -> COPIED"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.flash_message(node, _MSG)
+            
+        else:
+            pass
+        
 
         
     @staticmethod
@@ -10139,6 +10290,7 @@ reset_IN(self, mode=0) -> None:
             # Update flame stats
             ####################################################
             node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
             
@@ -11780,7 +11932,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED")
 
 
@@ -11801,7 +11953,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
 
 
@@ -11831,7 +11983,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
             _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
 
 
