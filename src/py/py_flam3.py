@@ -6994,6 +6994,8 @@ STATIC METHODS:
 
 affine_coupling(affine: list) -> list:
 
+check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
+
 METHODS:
 
 __is_valid_idx(self, idx: int) -> int:
@@ -7065,6 +7067,25 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
     
     
+    
+    @staticmethod
+    def check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
+        """If all iterators have their weights set to: 0.0(ZERO), set the first one to a very small number instead because Houdini was crashing otherwise.
+        It will modify the passed keyvalues arg.
+        
+        Args:
+            self:
+            node (hou.SopNode): Current FLAM3H node we are loading a Flame preset from.
+            kevalues (list): list of all iterators key values, in this case all iterator;s weights values.
+
+        Returns:
+           None
+        """   
+        if min(keyvalues) == max(keyvalues) == 0:
+            min_weight = 0.00000001
+            keyvalues[0] = min_weight
+            _MSG = f"{node.name()}:\nThe loaded Flame preset have all iterator's weights set to: 0.0(Zero).\nIterator 1 has been reverted back to a value of: {min_weight}\nThere must always be at least one active iterator's weight above 0.0(Zero).\n"
+            print(f"{_MSG}")
     
     
     # CLASS: PROPERTIES
@@ -7215,13 +7236,15 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [either a list of xaos strings or None]
         """        
-        if  self.isvalidtree:
-            assert xforms is not None
+        if  self.isvalidtree and xforms is not None:
+
             xaos = [f"xaos:{':'.join(xf.get(key).split())}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))):
                 return None
+            
             else:
                 return tuple(xaos)
+            
         else:
             return None
 
@@ -7236,13 +7259,15 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
         """           
-        if  self.isvalidtree:
-            if xforms is not None:
-                coefs = [tuple(self.affine_coupling([float(x) for x in xform.get(key).split()])) if xform.get(key) is not None else [] for xform in xforms ]
-                if not max(list(map(lambda x: len(x), coefs))):
-                    return None
-                else:
-                    return tuple(coefs)
+        if  self.isvalidtree and xforms is not None:
+            
+            coefs = [tuple(self.affine_coupling([float(x) for x in xform.get(key).split()])) if xform.get(key) is not None else [] for xform in xforms ]
+            if not max(list(map(lambda x: len(x), coefs))):
+                return None
+            
+            else:
+                return tuple(coefs)
+            
         else:
             return None
 
@@ -7257,56 +7282,59 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             Union[tuple, None]: [description]
         """        
-        if self.isvalidtree:
-            if xforms is not None:
-                keyvalues = []
-                for xform in xforms:
-                    if xform.get(key) is not None:
-                        if key in XML_XF_NAME:
-                            keyvalues.append(xform.get(key))
-                            continue
-                        else:
-                            keyvalues.append(float(xform.get(key)))
-                            continue
+        if self.isvalidtree and xforms is not None:
+            
+            keyvalues = []
+            for xform in xforms:
+                
+                if xform.get(key) is not None:
+                    
+                    if key in XML_XF_NAME:
+                        keyvalues.append(xform.get(key))
+                        continue
+                    
                     else:
-                        # Fractorium always remap "pre_blur" to "pre_gaussian_blur" when you load a flame in.
-                        # This mean that every time you save the Flame again from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
-                        #
-                        # Lets do the same but we will remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H.
-                        # An IN Tab load option is provided to change this behavior and load/use the "pre_gaussian_blur" variation instead on load.
-                        pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
-                        if pre_gaussian_blur is not None:
-                            if self.node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                                keyvalues.append(float(pre_gaussian_blur))
-                                continue
-                            else:
-                                keyvalues.append(float(0))
-                                continue
-                        # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
-                        # seem not to include those keys if not used or left at default values.
-                        # We set them here so we can use them inside FLAM3H on load.
-                        elif key in XML_XF_OPACITY:
-                            keyvalues.append(float(1))
+                        keyvalues.append(float(xform.get(key)))
+                        continue
+                    
+                else:
+                    # Fractorium always remap "pre_blur" to "pre_gaussian_blur" when you load a flame in.
+                    # This mean that every time you save the Flame again from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
+                    #
+                    # Lets do the same but we will remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H.
+                    # An IN Tab load option is provided to change this behavior and load/use the "pre_gaussian_blur" variation instead on load.
+                    pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
+                    if pre_gaussian_blur is not None:
+                        
+                        if self.node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                            keyvalues.append(float(pre_gaussian_blur))
                             continue
-                        elif key in XML_XF_SYMMETRY:
+                        
+                        else:
                             keyvalues.append(float(0))
                             continue
-                        else:
-                            keyvalues.append([])
-                            continue
-                
-                # CHECKS
-                # If all iterators have their weights set to: 0.0(ZERO), set the first one to a very small number instead because Houdini was crashing in this case.
-                if key in XML_XF_WEIGHT:
-                    if min(keyvalues) == max(keyvalues) == 0:
-                        min_weight = 0.00000001
-                        keyvalues[0] = min_weight
-                        _MSG = f"{self.node.name()}:\nThe loaded Flame preset have all iterator's weights set to: 0.0(Zero).\nIterator 1 has been reverted back to a value of: {min_weight}\nThere must always be at least one active iterator's weight above 0.0(Zero).\n"
-                        print(f"{_MSG}")
-                return tuple(keyvalues)
+                        
+                    # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
+                    # seem not to include those keys if not used or left at default values.
+                    # We set them here so we can use them inside FLAM3H on load.
+                    elif key in XML_XF_OPACITY:
+                        keyvalues.append(float(1))
+                        continue
+                    
+                    elif key in XML_XF_SYMMETRY:
+                        keyvalues.append(float(0))
+                        continue
+                    
+                    else:
+                        keyvalues.append([])
+                        continue
             
-            else:
-                return None
+            # CHECKS
+            if key in XML_XF_WEIGHT:
+                in_flame.check_all_iterator_weights(self.node, keyvalues)
+                
+            return tuple(keyvalues)
+        
         else:
             return None
 
@@ -7331,13 +7359,13 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                 palette_hex = self.flame[idx].find(key).text
                 format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                 
-                HEX = []
+                _HEX = []
                 for line in palette_hex.splitlines():
                     cleandoc = i_cleandoc(line)
                     if(len(cleandoc)>1):
-                        [HEX.append(hex) for hex in wrap(cleandoc, 6)]
+                        [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 try:
-                    rgb_from_XML_PALETTE = [(flam3h_palette_utils.hex_to_rgb(hex)[0]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[1]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[2]/(255 + 0.0)) for hex in HEX]
+                    rgb_from_XML_PALETTE = [(flam3h_palette_utils.hex_to_rgb(hex)[0]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[1]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[2]/(255 + 0.0)) for hex in _HEX]
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
@@ -7385,9 +7413,9 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             idx (int): [flame idx out of all flames included in the loaded flame file]
             key (str): the flame XML motion blur tag name you are interested to get:
             
-            OUT_XML_FLMA3H_MB_FPS
-            OUT_XML_FLMA3H_MB_SAMPLES
-            OUT_XML_FLMA3H_MB_SHUTTER
+            OUT_XML_FLMA3H_MB_FPS -> flam3h_mb_fps
+            OUT_XML_FLMA3H_MB_SAMPLES -> flam3h_mb_samples
+            OUT_XML_FLMA3H_MB_SHUTTER -> flam3h_mb_shutter
 
         Returns:
             Union[int, float, bool, None]: [FLAM3H motion blur parameter's values.]
@@ -8178,25 +8206,21 @@ reset_IN(self, mode=0) -> None:
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
         idx = str(mp_idx+1)
+        pre_affine = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
+        post_affine = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
+        
         if mode:
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}": apo_data.finalxform_coefs[mp_idx][0]}) # type: ignore
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}": apo_data.finalxform_coefs[mp_idx][1]}) # type: ignore
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_o}": apo_data.finalxform_coefs[mp_idx][2]}) # type: ignore
+            [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
             if apo_data.finalxform_post is not None:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}": 1}) # type: ignore
-                node.setParms({f"{prx}{flam3h_prm_names.postaffine_x}": apo_data.finalxform_post[mp_idx][0]}) # type: ignore
-                node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}": apo_data.finalxform_post[mp_idx][1]}) # type: ignore
-                node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}": apo_data.finalxform_post[mp_idx][2]}) # type: ignore
+                [node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_post[mp_idx][id]}) for id in range(3)] # type: ignore
+                
         else:
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_x}_{idx}": apo_data.coefs[mp_idx][0]}) # type: ignore
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_y}_{idx}": apo_data.coefs[mp_idx][1]}) # type: ignore
-            node.setParms({f"{prx}{flam3h_prm_names.preaffine_o}_{idx}": apo_data.coefs[mp_idx][2]}) # type: ignore
-            if apo_data.post is not None:
-                if apo_data.post[mp_idx]:
+            [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+            if apo_data.post is not None and apo_data.post[mp_idx]:
                     node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_x}_{idx}": apo_data.post[mp_idx][0]}) # type: ignore
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_y}_{idx}": apo_data.post[mp_idx][1]}) # type: ignore
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_o}_{idx}": apo_data.post[mp_idx][2]}) # type: ignore
+                    [node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.post[mp_idx][id]}) for id in range(3)] # type: ignore
+
 
 
     @staticmethod
@@ -8322,6 +8346,7 @@ reset_IN(self, mode=0) -> None:
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
                         print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type}: variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+                        
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
 
         return VAR
