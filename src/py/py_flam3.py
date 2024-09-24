@@ -2991,7 +2991,7 @@ iterator_keep_last_weight(self) -> None:
         """
         node = self.node
         menu = []
-        
+
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iter_count:
             
@@ -3107,7 +3107,11 @@ iterator_keep_last_weight(self) -> None:
                         
                         # Need to investigate more how to control the floating Parameter Dialog displayed when pressing the "p" key
                         
-                        # TMP
+                        #
+                        if hou.isUIAvailable():
+                            _MSG = "This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key.\nPlease, open a Parameter Editor in its on pane tab or floating panel for this feature to work."
+                            hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Select Iterator mini-menu", details=None, details_label=None, details_expanded=False) # type: ignore
+                        
                         _MSG = "Selection do not work over Network Editors"
                         flam3h_general_utils.flash_message(node, f"{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}: Iterator's {_MSG.lower()}.", 'IMP')
@@ -3115,12 +3119,12 @@ iterator_keep_last_weight(self) -> None:
                     else:
                         _MSG = "Ops! That did not work!"
                         flam3h_general_utils.flash_message(node, f"{_MSG}")
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane.", 'IMP')
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'IMP')
                     
                 else:
                     _MSG = "Ops! That did not work!"
                     flam3h_general_utils.flash_message(node, f"{_MSG}")
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane.", 'IMP')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'IMP')
         
         # reset selection to null value
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
