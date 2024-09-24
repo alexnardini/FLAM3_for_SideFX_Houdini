@@ -2985,7 +2985,10 @@ iterator_keep_last_weight(self) -> None:
 
 
     def menu_select_iterator(self) -> list:
-        
+        """Build a menu of iterators using their states as bookmark icon
+
+        Returns:
+        """
         node = self.node
         menu = []
         
@@ -2995,7 +2998,7 @@ iterator_keep_last_weight(self) -> None:
             # This definition probably can be made more light-weight for this particular case
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             
-            # append an empty line to reset to after selection.
+            # append an empty line to reset to after selection (Null value).
             menu.append(0)
             menu.append("")
             
@@ -3016,7 +3019,6 @@ iterator_keep_last_weight(self) -> None:
                         menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {note}")
                         
                 else:
-                    
                     # check if it is marked for being copied
                     if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
                         menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {note}")
@@ -3032,11 +3034,18 @@ iterator_keep_last_weight(self) -> None:
         return menu
     
     
-    
     def prm_select_iterator(self) -> None:
-        node = self.node
+        """Change multi-parameter index focus based on the selected iterator number from: def menu_select_iterator(self) -> list:
         
+        _NOTE:
+            Need to investigate more how to control the Network Editor's Parameter Dialog displayed when pressing the "p" key.
+            For now, it will just do nothing and let the user know.
+
+        Returns:
+        """
+        node = self.node
         iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+
         if iter_count:
             
             # This definition probably can be made more light-weight for this particular case
@@ -3045,27 +3054,77 @@ iterator_keep_last_weight(self) -> None:
             prm = node.parm(FLAME_ITERATORS_COUNT)
             preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
             
-            hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
-            
-            _MSG = f"iterator: {preset_id}"
-            active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
-            
-            if node == from_FLAM3H_NODE and mp_id_from == preset_id:
-                if active:
-                    flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+            try:
+                # We first try to set them all with this
+                hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
+                _CHECK = True
+            except:
+                _CHECK = False
+
+            if _CHECK:
+                
+                # Change focus back to the FLAME's Tab
+                node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+                
+                _MSG = f"iterator: {preset_id}"
+                active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
+                
+                if node == from_FLAM3H_NODE and mp_id_from == preset_id:
+                    if active: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                    else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                    
                 else:
-                    flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                    if active: flam3h_general_utils.flash_message(node, _MSG)
+                    else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                
             else:
-                if active:
-                    flam3h_general_utils.flash_message(node, _MSG)
+                # If we can not set them all, lets see different cases one by one
+                
+                paneTab_uc = hou.ui.paneTabUnderCursor() # type: ignore
+
+                if paneTab_uc is not None:
+
+                    if paneTab_uc.type() == hou.paneTabType.Parm: # type: ignore
+                        
+                        paneTab_uc.setMultiParmTab(prm.name(), preset_id-1)
+                        
+                        # Change focus back to the FLAME's Tab
+                        node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+                        
+                        _MSG = f"iterator: {preset_id}"
+                        active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
+                        
+                        if node == from_FLAM3H_NODE and mp_id_from == preset_id:
+                            if active: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                            else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                                
+                        else:
+                            if active: flam3h_general_utils.flash_message(node, _MSG)
+                            else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                        
+                        
+                    elif paneTab_uc.type() == hou.paneTabType.NetworkEditor: # type: ignore
+                        
+                        # Need to investigate more how to control the floating Parameter Dialog displayed when pressing the "p" key
+                        
+                        # TMP
+                        _MSG = "Selection do not work over Network Editors"
+                        flam3h_general_utils.flash_message(node, f"{_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: Iterator's {_MSG.lower()}.", 'IMP')
+                        
+                    else:
+                        _MSG = "Ops! That did not work!"
+                        flam3h_general_utils.flash_message(node, f"{_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane.", 'IMP')
+                    
                 else:
-                    flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
-            
-            # Change focus back to the FLAME's Tab
-            node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+                    _MSG = "Ops! That did not work!"
+                    flam3h_general_utils.flash_message(node, f"{_MSG}")
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane.", 'IMP')
         
         # reset selection to null value
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
+    
     
     
     def flam3h_paste_reset_hou_session_data(self) -> None:
@@ -3234,6 +3293,7 @@ iterator_keep_last_weight(self) -> None:
                         return menu
 
 
+
     def menu_copypaste_FF(self) -> list:
         """Build copy/paste FF parameter menu entries.
         
@@ -3293,6 +3353,7 @@ iterator_keep_last_weight(self) -> None:
                     menu.append(item)
                     
                 return menu
+        
         
         
     def prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
@@ -4652,22 +4713,19 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_node = None
                     
                 # If the node exist
-                if flam3h_node_mp_id is not None:
-                    
-                    # and if it is the selected one
-                    if node == flam3h_node:
+                if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                        if (idx_del_inbetween+1) == flam3h_node_mp_id: # just in case..
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
-                            # set
-                            node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
-                            self.del_comment_and_user_data_iterator(node)
-                            # Let us know
-                            _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
-                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            
-                        else:
-                            pass
+                    if (idx_del_inbetween+1) == flam3h_node_mp_id: # just in case..
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                        # set
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
+                        self.del_comment_and_user_data_iterator(node)
+                        # Let us know
+                        _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        
+                    else:
+                        pass
         
         # DEL
         elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
@@ -4691,32 +4749,29 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_node_mp_id = None
                     flam3h_node = None
                     
-                # If the node exist
-                if flam3h_node_mp_id is not None:
-                    
-                    # and if it is the selected one
-                    if node == flam3h_node:
+                # If the node exist and if it is the selected one
+                if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                        if (idx_del_inbetween+1) < flam3h_node_mp_id:
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
-                            # set
-                            idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() - 1
-                            node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
-                            self.del_comment_and_user_data_iterator(node)
-                            self.set_comment_and_user_data_iterator(node, str(idx_new))
+                    if (idx_del_inbetween+1) < flam3h_node_mp_id:
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
+                        # set
+                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() - 1
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
+                        self.del_comment_and_user_data_iterator(node)
+                        self.set_comment_and_user_data_iterator(node, str(idx_new))
 
-                        elif (idx_del_inbetween+1) == flam3h_node_mp_id:
-                            
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
-                            # set
-                            node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
-                            self.del_comment_and_user_data_iterator(node)
-                            # Let us know
-                            _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
-                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            
-                        else:
-                            pass
+                    elif (idx_del_inbetween+1) == flam3h_node_mp_id:
+                        
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                        # set
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
+                        self.del_comment_and_user_data_iterator(node)
+                        # Let us know
+                        _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        
+                    else:
+                        pass
 
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
@@ -4744,22 +4799,19 @@ iterator_keep_last_weight(self) -> None:
                     flam3h_node_mp_id = None
                     flam3h_node = None
                     
-                # If the node exist
-                if flam3h_node_mp_id is not None:
-                    
-                    # and if it is the selected one
-                    if node == flam3h_node:
+                # If the node exist and if it is the selected one
+                if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                        if (idx_add_inbetween+1) <= flam3h_node_mp_id:
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
-                            # set
-                            idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() + 1
-                            node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
-                            self.del_comment_and_user_data_iterator(node)
-                            self.set_comment_and_user_data_iterator(node, str(idx_new))
-                            
-                        else:
-                            pass
+                    if (idx_add_inbetween+1) <= flam3h_node_mp_id:
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
+                        # set
+                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() + 1
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
+                        self.del_comment_and_user_data_iterator(node)
+                        self.set_comment_and_user_data_iterator(node, str(idx_new))
+                        
+                    else:
+                        pass
             
         else:
             # updated CachedUserData: flam3h_xaos_iterators_prev
