@@ -3109,7 +3109,7 @@ iterator_keep_last_weight(self) -> None:
                         
                         #
                         if hou.isUIAvailable():
-                            _MSG = "This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key.\nPlease, open a Parameter Editor in its on pane tab or floating panel for this feature to work."
+                            _MSG = "This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key.\nPlease, open a Parameter Editor in its own pane tab or floating panel for this feature to work."
                             hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Select Iterator mini-menu", details=None, details_label=None, details_expanded=False) # type: ignore
                         
                         _MSG = "Selection do not work over Network Editors"
