@@ -2188,6 +2188,10 @@ Web links:
     [Largeicon:opdef:.?iconInstagramSVG.svg] 
     
     Open a web browser to the FLAM3H instagram account. 
+
+    [Largeicon:opdef:.?icon_youtube_red_play.svg] 
+    
+    Open a web browser to the FLAM3H youtube video tutorials. 
      
      
     [Largeicon:opdef:.?iconWhiteSVG.svg] 
