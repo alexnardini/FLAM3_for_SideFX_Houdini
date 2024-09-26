@@ -6147,12 +6147,12 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FLAM3PDF_MSG = 'The Fractal Flame Algorithm pdf'
         _FLAM3GIT_MSG = 'The Fractal Flame Algorithm github'
         
-        node.setParms({MSG_FLAM3H_WEB:   _FLAM3HWEB_MSG})
-        node.setParms({MSG_FLAM3H_GIT:   _FLAM3HGIT_MSG})
+        node.setParms({MSG_FLAM3H_WEB: _FLAM3HWEB_MSG})
+        node.setParms({MSG_FLAM3H_GIT: _FLAM3HGIT_MSG})
         node.setParms({MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG})
         node.setParms({MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG})
-        node.setParms({MSG_FLAM3_PDF:    _FLAM3PDF_MSG})
-        node.setParms({MSG_FLAM3_GIT:    _FLAM3GIT_MSG})
+        node.setParms({MSG_FLAM3_PDF: _FLAM3PDF_MSG})
+        node.setParms({MSG_FLAM3_GIT: _FLAM3GIT_MSG})
         
 
     def flam3h_about_web_homepage(self) -> None:
