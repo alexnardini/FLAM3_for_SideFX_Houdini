@@ -259,6 +259,7 @@ FLAM3H_FLASH_MESSAGE_TIMER = 2
 # ICONS menu copy/paste bookmarks
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
@@ -280,6 +281,9 @@ FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
+# high tier
+FLAM3H_ICON_COPY_PASTE_INFO_RED = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg]'
+
 
 
 
@@ -3169,7 +3173,7 @@ iterator_keep_last_weight(self) -> None:
         menu=[]
         menuitems = ()
         if iterators:
-            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}500M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}750M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}1 Billion", "" )
+            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}500M", f"{FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE}750M", f"{FLAM3H_ICON_COPY_PASTE_INFO_RED}1 Billion", "" )
         else:
             menuitems = ("Please, add at least one iterator", "")
         for i, item in enumerate(menuitems):
@@ -3263,7 +3267,7 @@ iterator_keep_last_weight(self) -> None:
             
             else:
                 if isDELETED:
-                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", "" )
+                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", "" )
                     
                     for i, item in enumerate(menuitems):
                         menu.append(i-1)
@@ -3276,10 +3280,10 @@ iterator_keep_last_weight(self) -> None:
                         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                         __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                         if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", "" )
+                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", "" )
                         elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                             parent = f".../{from_FLAM3H_NODE.parent()}"
-                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", "" )
+                            menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", "" )
                         else:
                             menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", "" )
                     
@@ -3345,7 +3349,7 @@ iterator_keep_last_weight(self) -> None:
         
         else:
             if isDELETED:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  DELETED: Marked FF's node has been deleted.\n-> Mark another FF first.", "" )
+                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  DELETED: Marked FF's node has been deleted.\n-> Mark another FF first.", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i-1)
                     menu.append(item)
