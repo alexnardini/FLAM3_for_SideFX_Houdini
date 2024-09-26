@@ -236,6 +236,7 @@ MSG_FLAM3H_PLUGINS = 'flam3plugins_msg'
 MSG_FLAM3H_WEB = 'flam3h_heading_web'
 MSG_FLAM3H_GIT = 'flam3h_heading_git'
 MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
+MSG_FLAM3H_YOUTUBE = 'flam3h_heading_youtube'
 MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
 # Message Mark iterators
@@ -6041,6 +6042,8 @@ flam3h_about_web_github(self) -> None:
 
 flam3h_about_web_instagram(self) -> None:
 
+flam3h_about_web_youtube(self) -> None:
+
 flam3h_about_web_paper(self) -> None:
 
 flam3h_about_web_flam3_github(self) -> None:
@@ -6137,15 +6140,17 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
         node = self.node
         
-        _FLAM3HWEB_MSG   = 'FLAM3H web'
-        _FLAM3HGIT_MSG   = 'FLAM3H github'
+        _FLAM3HWEB_MSG = 'FLAM3H web'
+        _FLAM3HGIT_MSG = 'FLAM3H github'
         _FLAM3HINSTA_MSG = 'FLAM3H instagram'
-        _FLAM3PDF_MSG    = 'The Fractal Flame Algorithm pdf'
-        _FLAM3GIT_MSG    = 'The Fractal Flame Algorithm github'
+        _FLAM3HYOUTUBE_MSG = 'FLAM3H video tutorials'
+        _FLAM3PDF_MSG = 'The Fractal Flame Algorithm pdf'
+        _FLAM3GIT_MSG = 'The Fractal Flame Algorithm github'
         
         node.setParms({MSG_FLAM3H_WEB:   _FLAM3HWEB_MSG})
         node.setParms({MSG_FLAM3H_GIT:   _FLAM3HGIT_MSG})
         node.setParms({MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG})
+        node.setParms({MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG})
         node.setParms({MSG_FLAM3_PDF:    _FLAM3PDF_MSG})
         node.setParms({MSG_FLAM3_GIT:    _FLAM3GIT_MSG})
         
@@ -6168,6 +6173,12 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the FLAM3H instagram account.
         """  
         page = "https://www.instagram.com/alexnardini/"
+        www_open(page)
+        
+    def flam3h_about_web_youtube(self) -> None:
+        """Open a web browser to the FLAM3H instagram account.
+        """  
+        page = "https://www.youtube.com/@alexnardiniITALY/videos"
         www_open(page)
 
 
