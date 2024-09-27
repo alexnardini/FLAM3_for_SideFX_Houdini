@@ -659,6 +659,11 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_git
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_instagram()
 
 
+'parameter name:    flam3youtube'
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_youtube()
+
+
 'parameter name:    tffa_pdf'
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_paper()
