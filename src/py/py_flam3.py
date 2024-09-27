@@ -1213,8 +1213,10 @@ flam3h_on_deleted(self) -> None:
     def flam3h_on_deleted(self) -> None:
         """Cleanup the data on deletion.
         """        
-
-        if len(self.node.type().instances()) == 1:
+        node = self.node
+        node_instances = node.type().instances()
+        
+        if len(node_instances) == 1:
             
             try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
@@ -1241,6 +1243,19 @@ flam3h_on_deleted(self) -> None:
             
             # Delete all data related to the Camera sensor viz
             flam3h_general_utils.util_clear_stashed_cam_data()
+            
+        else:
+            
+            if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
+                from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+                
+                if node == from_FLAM3H_NODE and node_instances:
+                    hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_NODE = node_instances[0] # type: ignore
+                    
+                    _MSG = f"The FLAM3H node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameter from."
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                    flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
 
 
 
@@ -6178,7 +6193,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         www_open(page)
         
     def flam3h_about_web_youtube(self) -> None:
-        """Open a web browser to the FLAM3H instagram account.
+        """Open a web browser to the FLAM3H youtube video tutorials.
         """  
         page = "https://www.youtube.com/@alexnardiniITALY/videos"
         www_open(page)
