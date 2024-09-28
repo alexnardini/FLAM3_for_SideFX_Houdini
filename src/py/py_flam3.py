@@ -7996,10 +7996,9 @@ reset_IN(self, mode=0) -> None:
 
     """
     
-    def __init__(self, kwargs: dict, node_b = None) -> None:
+    def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._node_b = node_b
         
         
     @staticmethod
