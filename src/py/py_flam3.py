@@ -6061,9 +6061,11 @@ flam3h_about_web_instagram(self) -> None:
 
 flam3h_about_web_youtube(self) -> None:
 
-flam3h_about_web_paper(self) -> None:
+flam3h_about_web_flam3_paper(self) -> None:
 
 flam3h_about_web_flam3_github(self) -> None:
+
+flam3h_web_run(self, key: str) -> None:
     """
     
     def __init__(self, kwargs: dict) -> None:
@@ -6199,7 +6201,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         www_open(page)
 
 
-    def flam3h_about_web_paper(self) -> None:
+    def flam3h_about_web_flam3_paper(self) -> None:
         """Open a web browser to the original "the fractal flame algorithm" publication/paper pdf.
         """  
         page = "https://flam3.com/flame_draves.pdf"
@@ -6211,6 +6213,19 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """  
         page = "https://github.com/scottdraves/flam3"
         www_open(page)
+        
+        
+    def flam3h_web_run(self, key: str) -> None:
+        
+        web = {'web': self.flam3h_about_web_homepage,
+               'git': self.flam3h_about_web_github,
+               'insta': self.flam3h_about_web_instagram,
+               'youtube': self.flam3h_about_web_youtube,
+               'paper': self.flam3h_about_web_flam3_paper,
+               'flam3git': self.flam3h_about_web_flam3_github}
+        
+        run = web.get(key)
+        if run is not None: run()
 
 
 

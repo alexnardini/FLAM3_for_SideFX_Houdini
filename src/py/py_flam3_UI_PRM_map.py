@@ -646,30 +646,30 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 #######################################################
 
 'parameter name:    flam3homepage'
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_homepage()
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web')
 
 
 'parameter name:    flam3github'
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_github()
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git')
 
 
 'parameter name:    flam3insta'
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_instagram()
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('insta')
 
 
 'parameter name:    flam3youtube'
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_youtube()
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')
 
 
 'parameter name:    tffa_pdf'
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_paper()
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('paper')
 
 
 'parameter name:    tffa_flam3github'
 'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_about_web_flam3_github()
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')
 
