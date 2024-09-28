@@ -1253,7 +1253,7 @@ flam3h_on_deleted(self) -> None:
                     hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
                     hou.session.FLAM3H_MARKED_FF_NODE = node_instances[0] # type: ignore
                     
-                    _MSG = f"The FLAM3H node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameter from."
+                    _MSG = f"The FLAM3H node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
 
@@ -7996,9 +7996,10 @@ reset_IN(self, mode=0) -> None:
 
     """
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict, node_b = None) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+        self._node_b = node_b
         
         
     @staticmethod
