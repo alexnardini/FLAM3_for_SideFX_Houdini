@@ -1203,9 +1203,9 @@ JSON file:
     
     TIP:
         #display: orange
-        Once you are happy with a palette library you built, you can rename the file to start with: "*F3H_LOCK*"
-        to prevent any further modifications to it. For example, if you have a lib file called "*my_rainbows_colors.json*"
-        you can rename it to: "*F3H_LOCK_my_rainbows_colors.json*" to keep it safe.
+        Once you are happy with a palette library you built, you can rename the file to start with: "*`F3H_LOCK`*"
+        to prevent any further modifications to it. For example, if you have a lib file called "_*my_rainbows_colors.json*_"
+        you can rename it to: "*`F3H_LOCK`*_*_my_rainbows_colors.json*_" to keep it safe.
     
 :box:
     #display: rounded white
@@ -1463,9 +1463,9 @@ Iterations on Load (int):
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
-        For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
+        For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
 
-        However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "*My_Awesome_GrandJulia::16*".
+        However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*".
         and load it with an iteration count of 16.
         
         Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
@@ -1705,9 +1705,9 @@ OUT file ( *.flame type ):
     
     TIP:
         #display: orange
-        When you have finished creating a FLAM3H library, you can rename the file to begin with "*F3H_LOCK*" to prevent any future alterations.
+        When you have finished creating a FLAM3H library, you can rename the file to begin with "*`F3H_LOCK`*" to prevent any future alterations.
 
-        You can rename a lib file, for instance, called "*my_grandJulia.flame*" to "*F3H_LOCK_my_grandJulia.flame*" to keep it secure.
+        You can rename a lib file, for instance, called "_*my_grandJulia.flame*_" to "*`F3H_LOCK`*_*_my_grandJulia.flame*_" to keep it secure.
         
     
 Save Flame:
@@ -1755,9 +1755,9 @@ Flame name ( preset ):
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
-        For instance, the Flame preset "*My_Awesome_GrandJulia*" will be loaded with 64 iterations by default.
+        For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
 
-        However, if the iteration number is added to the preset name after a double colon, as in "*My_Awesome_GrandJulia::16*," it will override all settings and load the preset with 16 as the iteration numbers.
+        However, if the iteration number is added to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*," it will override all settings and load the preset with 16 as the iteration numbers.
         
         Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
         
