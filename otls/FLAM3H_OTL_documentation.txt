@@ -2043,7 +2043,8 @@ Vibrancy:
     :box:
         #display: rounded gray
     
-        
+        _*General Flame system option*_:
+
         - *`flam3h_rip`* -> _Remove invalid points_
         - *`flam3h_f3c`* -> _Flam3 compatibility_
         - *`flam3h_hsv`* -> _Palette HSV values_
@@ -2051,6 +2052,15 @@ Vibrancy:
         - *`flam3h_mb_samples`* -> _Motion blur samples_
         - *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
         - *`flam3h_cp_samples`* -> _Palette lookup samples_
+
+        _*xforms*_:
+
+        - *`f3h_coefs`* -> _F3H pre affine style values_
+        - *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
+        - *`f3h_post`* -> _F3H post affine style values_
+        - *`f3h_post_angle`* -> _F3H post affine style angle value_
+
+
 
 
 
