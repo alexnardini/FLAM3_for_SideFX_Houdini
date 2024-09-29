@@ -2636,9 +2636,9 @@ NOTE:
     
     - For FLAM3H, the output file name must be the same as the input source file name ( only the file extension will be different, of course ).
     
-        - Source -> _TheFractalFlameAlgorithm_._*vfl*_ 
+        - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
     
-        - Output -> _TheFractalFlameAlgorithm_._*vex*_
+        - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
     
 == Cvex: How to update FLAM3H node == (UPDATE)
     
@@ -2656,7 +2656,7 @@ NOTE:
     # Once you are ready, remove the old compiled Cvex file from: *FLAM3H*->*Type properties*->*extra files*.
     # Locate the new compiled Cvex file and load it back inside *FLAM3H*->*Type properties*->*extra files* section.
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
-        - ex: From: _*TheFractalFlameAlgorithm.vex*_ To: _*TheFractalFlameAlgorithm*_
+        - ex: From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
     # Click *Apply* or *Accept* to confirm your changes.
     # Go inside the FLAM3H node and on any of the wrangle core nodes, click the:
     

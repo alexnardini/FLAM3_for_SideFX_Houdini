@@ -269,7 +269,6 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwa
 # ICONS menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 FLAM3H_ICON_STAR_EMPTY_OPACITY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
-FLAM3H_ICON_STAR_EMPTY_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_CB = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteSVG_disabled.svg]'
@@ -277,12 +276,11 @@ FLAM3H_ICON_STAR_FLAME_SAVE = '![opdef:/alexnardini::Sop/FLAM3H?iconWhiteStarSVG
 FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_PB_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
-FLAM3H_ICON_STAR_FLAME_VAR_ACTV_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
 
 # High tier menu entrie
@@ -2846,9 +2844,9 @@ iterator_keep_last_weight(self) -> None:
 
         if w > 0:
             if w > 1:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
             else:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
             
         return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
     
@@ -2895,9 +2893,9 @@ iterator_keep_last_weight(self) -> None:
 
         if w > 0:
             if w > 1:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
             else:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_PB_ACTV
+                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
             
         return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
     
@@ -2979,9 +2977,9 @@ iterator_keep_last_weight(self) -> None:
 
         if w > 0:
             if w > 1:
-                return FLAM3H_ICON_STAR_FLAME_PB_ACTV_OVER_ONE
+                return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
             else:
-                return FLAM3H_ICON_STAR_FLAME_PB_ACTV
+                return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
             
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
