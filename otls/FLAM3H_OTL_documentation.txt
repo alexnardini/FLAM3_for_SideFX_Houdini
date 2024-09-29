@@ -128,6 +128,8 @@ mini-menu density presets [Smallicon:BUTTONS/pane_menu]:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
 
+    Some menu presets posses a bookmark icon:
+
     [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
 Reset density:
@@ -1160,6 +1162,8 @@ menu lookup samples [Smallicon:BUTTONS/pane_menu]:
     
     The amount of lookup samples to use to sample this palette.
 
+    Some menu presets posses a bookmark icon:
+
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
     - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
@@ -1284,7 +1288,7 @@ Reload preset ( presets ):
 
     == CP: Options == (CPOPTIONS)
 
-save palette 256+ (CP):
+palette 256+ (CP):
     #id: PALETTE
     ON by default.
 
@@ -1495,19 +1499,19 @@ Override iterations from Flame name:
 
     == IN: options == (INOPTIONS)
     
-FLAM3H affine style (IN):
+F3H affine style (IN):
     #id: IN
-    To be used when loading Flame presets that posses FLAM3H affine style format in it.
+    To be used when loading Flame presets that posses F3H affine style format in it.
     
     If not nothing will happen and FLAM3H will load the Flame preset using the standard Flam3 affine style.
     
-    FLAM3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
+    F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
     
     NOTE:
-        FLAM3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab "FLAM3H affine style" Option whitch is ON by default.
+        F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is ON by default.
 
 
-remap "pre_gaussian_blur":
+remap "pre gaussian blur"":
     #id: prefs
     This option is specific while working back and forth with Fractorium.
 
@@ -1795,7 +1799,7 @@ Copy selected preset name / Flame name informations and tips:
 
     == OUT: options == (OUTOPTIONS)
 
-save palette 256+ (OUT):
+palette 256+ (OUT):
     #id: PALETOUTTE
     OFF by default.
 
@@ -1819,7 +1823,7 @@ save palette 256+ (OUT):
         *Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.*
         
         
-Save palette HSV (cc):
+palette HSV (cc):
     #id: OUT
     OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
 
@@ -1829,14 +1833,14 @@ Save palette HSV (cc):
 
     This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
-FLAM3H affine style (OUT):
+F3H affine style (OUT):
     #id: OUT
-    Save the Flame out with also the FLAM3H affine style format.
+    Save the Flame out with also the F3H affine style format.
     
-    FLAM3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H.
+    F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H.
     
     NOTE:
-        When this toggle is ON, both affine and FLAM3H affine style formats are saved with the Flame preset so that you can still load the saved Flame into other applications.
+        When this toggle is ON, both affine and F3H affine style formats are saved with the Flame preset so that you can still load the saved Flame into other applications.
 
 Auto add iter num to Flame name (hidden):
     #id: OUT
