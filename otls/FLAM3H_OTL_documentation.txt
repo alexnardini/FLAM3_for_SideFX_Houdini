@@ -127,6 +127,8 @@ density:
 mini-menu density presets [Smallicon:BUTTONS/pane_menu]:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
+
+    [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
 Reset density:
     #id: Global
@@ -1153,10 +1155,13 @@ palette HSV (viz only):
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to updated the HSV color correction in case it was not already.
     
-palette lookup samples:
+menu lookup samples [Smallicon:BUTTONS/pane_menu]:
     #id: PALETTE
     
     The amount of lookup samples to use to sample this palette.
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
