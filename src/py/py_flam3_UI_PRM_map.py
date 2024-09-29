@@ -476,6 +476,12 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 
+
+'parameter name:    in_f3h_affine'
+'script type:       Menu Script'
+kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()
+
+
 'parameter name:    remappgb'
 'script type:       Menu Script'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_pgb()
