@@ -184,6 +184,7 @@ IN_SYS_PRESETS_OFF = 'sys_inpresets_disabled'
 IN_USE_ITER_ON_LOAD = 'useiteronload'
 IN_OVERRIDE_ITER_FLAME_NAME = 'oritername'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
+IN_FLAM3H_AFFINE_STYLE = 'in_f3h_affine'
 IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_ISVALID_FILE = 'outisvalidfile'
@@ -195,6 +196,7 @@ OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_UPDATE_SENSOR = 'outsensorupdate'
 OUT_PALETTE_256_PLUS = 'outpaletteplus'
 OUT_HSV_PALETTE_DO = 'outpalette'
+OUT_FLAM3H_AFFINE_STYLE = 'out_f3h_affine'
 OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
@@ -6409,8 +6411,17 @@ XML_XF_WEIGHT = 'weight'
 XML_XF_NAME = 'name'
 XML_XF_PB = 'pre_blur'
 XML_FF = 'finalxform'
+
 XML_PRE_AFFINE = 'coefs'
+# OUT custom to FLAM3H only
+XML_FLAM3H_PRE_AFFINE = 'f3h_coefs'
+XML_FLAM3H_PRE_AFFINE_ANGLE = 'f3h_coefs_angle'
+
 XML_POST_AFFINE = 'post'
+# OUT custom to FLAM3H only
+XML_FLAM3H_POST_AFFINE = 'f3h_post'
+XML_FLAM3H_POST_AFFINE_ANGLE = 'f3h_post_angle'
+
 XML_XF_XAOS = 'chaos'
 XML_PALETTE = 'palette'
 XML_PALETTE_COUNT = 'count'
@@ -6420,7 +6431,7 @@ XML_XF_VAR_COLOR = 'var_color'
 XML_XF_SYMMETRY = 'symmetry'
 XML_XF_COLOR_SPEED = 'color_speed'
 XML_XF_OPACITY = 'opacity'
-# OUT custom to FLAM3H only
+# OUT SYS custom to FLAM3H only
 OUT_XML_FLAM3H_SYS_RIP = 'flam3h_rip'
 OUT_XML_FLAM3H_HSV = 'flam3h_hsv'
 OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
@@ -7635,10 +7646,18 @@ class in_flame_iter_data(in_flame):
         self._pre_blur = self._in_flame__get_keyvalue(self._xforms, XML_XF_PB) # type: ignore
         self._xaos  = self._in_flame__get_xaos(self._xforms) # type: ignore
         self._coefs = self._in_flame__get_affine(self._xforms, XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs = self._in_flame__get_affine(self._xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._f3h_coefs_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
         self._post  = self._in_flame__get_affine(self._xforms, XML_POST_AFFINE) # type: ignore
+        self._f3h_post  = self._in_flame__get_affine(self._xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._f3h_post_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         self._finalxform = self._in_flame__get_xforms(self._idx, XML_FF) # type: ignore
         self._finalxform_coefs = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE) # type: ignore
+        self._finalxform_f3h_coefs = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._finalxform_f3h_coefs_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
         self._finalxform_post  = self._in_flame__get_affine(self._finalxform, XML_POST_AFFINE) # type: ignore
+        self._finalxform_f3h_post = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._finalxform_f3h_post_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         self._finalxform_name = self._in_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
         self._palette = self._in_flame__get_palette(self._idx) # type: ignore
         self._color = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
@@ -7696,18 +7715,50 @@ class in_flame_iter_data(in_flame):
     @property
     def coefs(self):
         return self._coefs
+    
+    @property
+    def f3h_coefs(self):
+        return self._f3h_coefs
+    
+    @property
+    def f3h_coefs_angle(self):
+        return self._f3h_coefs_angle
         
     @property
     def post(self):
         return self._post
     
     @property
+    def f3h_post(self):
+        return self._f3h_post
+    
+    @property
+    def f3h_post_angle(self):
+        return self._f3h_post_angle
+    
+    @property
     def finalxform_coefs(self):
         return self._finalxform_coefs
+    
+    @property
+    def finalxform_f3h_coefs(self):
+        return self._finalxform_f3h_coefs
+    
+    @property
+    def finalxform_f3h_coefs_angle(self):
+        return self._finalxform_f3h_coefs_angle
         
     @property
     def finalxform_post(self):
         return self._finalxform_post
+    
+    @property
+    def finalxform_f3h_post(self):
+        return self._finalxform_f3h_post
+    
+    @property
+    def finalxform_f3h_post_angle(self):
+        return self._finalxform_f3h_post_angle
     
     @property
     def palette(self):
@@ -7992,6 +8043,8 @@ use_iter_on_load_callback(self) -> None:
 in_to_flam3h_toggle(self, prm: str) -> None:
 
 in_to_flam3h_toggle_pgb(self) -> None:
+
+in_to_flam3h_toggle_f3h_affine(self) -> None:
 
 in_to_flam3h_reset_user_data(self) -> None:
 
@@ -8322,17 +8375,38 @@ reset_IN(self, mode=0) -> None:
         idx = str(mp_idx+1)
         pre_affine = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
         post_affine = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
+        f3h_affine = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
         
         if mode:
-            [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+            
+            if f3h_affine and apo_data.finalxform_f3h_coefs is not None:
+                [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}": apo_data.finalxform_f3h_coefs_angle[mp_idx]}) # type: ignore
+            else:
+                [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                
             if apo_data.finalxform_post is not None:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}": 1}) # type: ignore
-                [node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_post[mp_idx][id]}) for id in range(3)] # type: ignore
+                if f3h_affine and apo_data.finalxform_f3h_post is not None:
+                    [node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_f3h_post[mp_idx][id]}) for id in range(3)] # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}": apo_data.finalxform_f3h_post_angle[mp_idx]}) # type: ignore
+                else:
+                    [node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_post[mp_idx][id]}) for id in range(3)] # type: ignore
                 
         else:
-            [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+            
+            if f3h_affine and apo_data.f3h_coefs is not None:
+                [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}_{idx}": apo_data.f3h_coefs_angle[mp_idx]}) # type: ignore
+            else:
+                [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                
             if apo_data.post is not None and apo_data.post[mp_idx]:
-                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
+                node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
+                if f3h_affine and apo_data.f3h_post is not None:
+                    [node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.f3h_post[mp_idx][id]}) for id in range(3)] # type: ignore
+                    node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}_{idx}": apo_data.f3h_post_angle[mp_idx]}) # type: ignore
+                else:
                     [node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.post[mp_idx][id]}) for id in range(3)] # type: ignore
 
 
@@ -9914,7 +9988,7 @@ reset_IN(self, mode=0) -> None:
 
 
     def in_to_flam3h_toggle_pgb(self) -> None:
-        """When loading a flame preset that use  a pre_gaussian_blur variation, this function will reload it
+        """When loading a flame preset that use a pre_gaussian_blur variation, this function will reload it
         and switch the "remap pre_gaussian_blur" toggle ON/OFF on the fly.
         
         If no pre_gaussian_blur variation is present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
@@ -9957,6 +10031,50 @@ reset_IN(self, mode=0) -> None:
                 else:
                     _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+            
+
+
+    def in_to_flam3h_toggle_f3h_affine(self) -> None:
+        """When loading a flame preset that use FLAM3H affine style, this function will reload it
+        and switch the "FLAM3H affine style" toggle ON/OFF on the fly.
+        
+        If no FLAM3H affine style are present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
+        """ 
+        node = self.node
+        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
+        
+        # Here we are forced to use the class: _xml_tree(...) becasue a Flame can come from the clipboard
+        # and we need to carefully validate it before proceding.
+        if xml is not None and _xml_tree(xml).isvalidtree:
+            
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            if apo_data.f3h_coefs is not None:
+                flam3h_general_utils(self.kwargs).flam3h_toggle(IN_FLAM3H_AFFINE_STYLE)
+                self.in_to_flam3h()
+                
+            else:
+                if clipboard:
+                    _MSG = f"{node.name()}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have FLAM3H affine style."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                else:
+                    # Get the correct menu parameter's preset menu label
+                    preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+                        
+                    _MSG = f"{node.name()}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have FLAM3H affine style."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                
+        else:
+            if load_from_clipboard:
+                _MSG = f"{node.name()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
+            else:
+                if chaos:
+                    _MSG = f"Flame IN -> Chaotica XML not supported"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.flash_message(node, _MSG)
+                else:
+                    _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
+            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+            
 
 
     def in_to_flam3h_reset_user_data(self) -> None:
@@ -10715,6 +10833,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             # Update hsv ramp before storing it.
             flam3h_palette_utils(self.kwargs).palette_cp()
             self._palette: hou.Ramp = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+        self._f3h_affine: bool = self._node.parm(OUT_FLAM3H_AFFINE_STYLE).eval()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
         self._flam3h_rip = self._node.parm(SYS_RIP).eval()
@@ -11294,6 +11413,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     @property
     def palette_plus_do(self):
         return self._palette_plus_do
+    
+    @property
+    def f3h_affine(self):
+        return self._f3h_affine
     
     @property
     def xm(self):
@@ -11972,8 +12095,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
                 xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
+                xf.set(XML_FLAM3H_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
+                xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.xf_f3h_preaffine_angle[iter])
                 if f3d.xf_postaffine[iter]:
                     xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
+                    xf.set(XML_FLAM3H_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
+                    xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.xf_f3h_postaffine_angle[iter])
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
@@ -11993,8 +12120,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             finalxf.set(XML_XF_COLOR_SPEED, '0')
             finalxf.set(XML_XF_SYMMETRY, '1')
             finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
+            if f3d.f3h_affine:
+                finalxf.set(XML_FLAM3H_PRE_AFFINE, f3d.finalxf_f3h_preaffine)
+                finalxf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.finalxf_f3h_preaffine_angle)
             if f3d.finalxf_postaffine:
                 finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
+                if f3d.f3h_affine:
+                    finalxf.set(XML_FLAM3H_POST_AFFINE, f3d.finalxf_f3h_postaffine)
+                    finalxf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
             names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
@@ -12231,54 +12364,74 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             return self.out_xf_xaos_to()
 
 
-    def __out_xf_preaffine(self) -> tuple:
+    def __out_xf_preaffine(self) -> tuple[tuple, tuple, tuple]:
         val = []
+        f3h_val = []
+        f3h_angleDeg = []
         for iter in range(self.iter_count):
             collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
             angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
+            f3h_angleDeg.append(str(round(self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval(), ROUND_DECIMAL_COUNT)))
             flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
+            f3h_flatten = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
-        return tuple([" ".join(x) for x in self.out_util_round_floats(val)])
+            f3h_val.append([str(x) for x in f3h_flatten])
+        return tuple([" ".join(x) for x in self.out_util_round_floats(val)]), tuple([" ".join(x) for x in self.out_util_round_floats(f3h_val)]), tuple(f3h_angleDeg)
     
     
-    def __out_xf_postaffine(self) -> tuple:
+    def __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
         val = []
+        f3h_val = []
+        f3h_angleDeg = []
         for iter in range(self.iter_count):
             if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
                 collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
                 angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
+                f3h_angleDeg.append(str(round(self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval(), ROUND_DECIMAL_COUNT)))
                 flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
+                f3h_flatten = [item for sublist in collect for item in sublist]
                 val.append([str(x) for x in flatten])
+                f3h_val.append([str(x) for x in f3h_flatten])
             else:
                 val.append([])
-        return tuple([" ".join(x) for x in self.out_util_round_floats(val)])
+                f3h_val.append([])
+                f3h_angleDeg.append([])
+        return tuple([" ".join(x) for x in self.out_util_round_floats(val)]), tuple([" ".join(x) for x in self.out_util_round_floats(f3h_val)]), tuple(f3h_angleDeg)
 
 
-    def __out_finalxf_preaffine(self) -> str:
+    def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
         collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
+        f3h_angleDeg = str(angleDeg)
+        f3h_affine = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
             affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine = self.out_util_round_floats(collect)
+            affine = f3h_affine
         flatten = [item for sublist in affine for item in sublist]
-        return " ".join(flatten)
+        f3h_flatten = [item for sublist in f3h_affine for item in sublist]
+        return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
     
     
-    def __out_finalxf_postaffine(self) -> Union[str, bool]:
+    def __out_finalxf_postaffine(self) -> tuple[str, str, str]:
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
             collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
             angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
+            f3h_angleDeg = str(angleDeg)
+            f3h_affine = self.out_util_round_floats(collect)
             if angleDeg != 0.0:
                 affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
             else:
-                affine = self.out_util_round_floats(collect)
+                affine = f3h_affine
             flatten = [item for sublist in affine for item in sublist]
-            return " ".join(flatten)
+            f3h_flatten = [item for sublist in f3h_affine for item in sublist]
+            return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
         else:
-            return False
-        
-        
+            return '', '', ''
+        # else:
+        #     return False
+    
+    
     def __out_palette_hex(self) -> str:
 
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
@@ -12532,12 +12685,20 @@ class out_flame_xforms_data(out_flame_utils):
         self._xf_color = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
         self._xf_symmetry = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
         self._xf_opacity = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
-        self._xf_preaffine = self._out_flame_utils__out_xf_preaffine() # type: ignore
-        self._xf_postaffine = self._out_flame_utils__out_xf_postaffine() # type: ignore
+        self._xf_preaffine = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
+        self._xf_f3h_preaffine = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
+        self._xf_f3h_preaffine_angle = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
+        self._xf_postaffine = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
+        self._xf_f3h_postaffine = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
+        self._xf_f3h_postaffine_angle = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
         self._palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
         self._finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
-        self._finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine() # type: ignore
-        self._finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine() # type: ignore
+        self._finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine()[0] # type: ignore
+        self._finalxf_f3h_preaffine = self._out_flame_utils__out_finalxf_preaffine()[1] # type: ignore
+        self._finalxf_f3h_preaffine_angle = self._out_flame_utils__out_finalxf_preaffine()[2] # type: ignore
+        self._finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine()[0] # type: ignore
+        self._finalxf_f3h_postaffine = self._out_flame_utils__out_finalxf_postaffine()[1] # type: ignore
+        self._finalxf_f3h_postaffine_angle = self._out_flame_utils__out_finalxf_postaffine()[2] # type: ignore
 
 
 
@@ -12582,8 +12743,24 @@ class out_flame_xforms_data(out_flame_utils):
         return self._xf_preaffine
     
     @property
+    def xf_f3h_preaffine(self):
+        return self._xf_f3h_preaffine
+    
+    @property
+    def xf_f3h_preaffine_angle(self):
+        return self._xf_f3h_preaffine_angle
+    
+    @property
     def xf_postaffine(self):
         return self._xf_postaffine
+    
+    @property
+    def xf_f3h_postaffine(self):
+        return self._xf_f3h_postaffine
+    
+    @property
+    def xf_f3h_postaffine_angle(self):
+        return self._xf_f3h_postaffine_angle
     
     @property
     def palette_hex(self):
@@ -12598,5 +12775,21 @@ class out_flame_xforms_data(out_flame_utils):
         return self._finalxf_preaffine
     
     @property
+    def finalxf_f3h_preaffine(self):
+        return self._finalxf_f3h_preaffine
+    
+    @property
+    def finalxf_f3h_preaffine_angle(self):
+        return self._finalxf_f3h_preaffine_angle
+    
+    @property
     def finalxf_postaffine(self):
         return self._finalxf_postaffine
+    
+    @property
+    def finalxf_f3h_postaffine(self):
+        return self._finalxf_f3h_postaffine
+    
+    @property
+    def finalxf_f3h_postaffine_angle(self):
+        return self._finalxf_f3h_postaffine_angle
