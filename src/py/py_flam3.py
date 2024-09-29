@@ -11675,10 +11675,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             # Update "iter num on load" if "force iterations on Load" toggle is ON 
             if node.parm(IN_USE_ITER_ON_LOAD).eval():
-                self.node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
+                node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
         else:
-            name_no_iter = self.out_remove_iter_num(flame_name)
-            node.setParms({OUT_FLAME_PRESET_NAME: name_no_iter}) #type: ignore
+            flame_name_new = self.out_remove_iter_num(flame_name)
+            node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+            
+        # Flash message if needed
+        if flame_name_new:
+            flam3h_general_utils.flash_message(node, f"{flame_name_new}")
 
 
     def out_flame_properties_build(self) -> dict:
