@@ -128,9 +128,9 @@ mini-menu density presets [Smallicon:BUTTONS/pane_menu]:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
 
-    Some menu presets posses a bookmark icon:
+    _Some of the menu labels posses a bookmark icon_:
 
-    [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
+    [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] _indicate a more computational expensive preset_.
     
 Reset density:
     #id: Global
@@ -1162,10 +1162,10 @@ menu lookup samples [Smallicon:BUTTONS/pane_menu]:
     
     The amount of lookup samples to use to sample this palette.
 
-    Some menu presets posses a bookmark icon:
+    _Some of the menu labels posses a bookmark icon_:
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] _indicate a more computational expensive preset_.
     
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
@@ -1503,7 +1503,7 @@ F3H affine style (IN):
     #id: IN
     To be used when loading Flame presets that posses F3H affine style format in it.
     
-    If not nothing will happen and FLAM3H will load the Flame preset using the standard Flam3 affine style.
+    If no F3H affine style are found nothing will happen and FLAM3H will load the Flame preset using the standard affine style instead.
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
     
@@ -1526,10 +1526,11 @@ F3H affine style (IN):
 
     When this option is ON (it is ON by default) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when OFF it will use the standard version.
 
-
-
     NOTE:
         F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is ON by default.
+
+        The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
+        
 
 
 remap "pre gaussian blur"":
@@ -2086,7 +2087,8 @@ Vibrancy:
     :box:
         #display: rounded gray
     
-        _*General Flame system option*_:
+        _*General*_<br /> 
+        _flame system option_:
 
         - *`flam3h_rip`* -> _Remove invalid points_
         - *`flam3h_f3c`* -> _Flam3 compatibility_
@@ -2096,7 +2098,8 @@ Vibrancy:
         - *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
         - *`flam3h_cp_samples`* -> _Palette lookup samples_
 
-        _*xforms*_:
+        _*xforms*_<br /> 
+        _only exported when the Rotation angle parameter is different from Zero_:
 
         - *`f3h_coefs`* -> _F3H pre affine style values_
         - *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
