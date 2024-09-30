@@ -1507,6 +1507,27 @@ F3H affine style (IN):
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
     
+    _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
+
+    _*F3H affine style*_
+
+    *X*: *`1`*, *`0`* <br />
+    *Y*: *`0`*, *`1`* <br />
+    *O*: *`0`*, *`0`* <br />
+    *Rot*: *`45`* 
+
+    _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
+
+    _*standard affine style*_
+
+    *X*: *`0.707107`*, *`-0.707107`* <br />
+    *Y*: *`0.707107`*, *`0.707107`* <br />
+    *O*: *`0`*, *`0`* 
+
+    When this option is ON (it is ON by default) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when OFF it will use the standard version.
+
+
+
     NOTE:
         F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is ON by default.
 
@@ -1839,8 +1860,27 @@ F3H affine style (OUT):
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H.
     
-    NOTE:
-        When this toggle is ON, both affine and F3H affine style formats are saved with the Flame preset so that you can still load the saved Flame into other applications.
+    When saving an iterator out into a Flame file whitch uses the Rotation angle paramter, FLAM3H will transform the affine values by it before saving them out so that it is possible to load the saved Flame inside other applications.
+
+    _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
+
+    _*F3H affine style*_
+
+    *X*: *`1`*, *`0`* <br />
+    *Y*: *`0`*, *`1`* <br />
+    *O*: *`0`*, *`0`* <br />
+    *Rot*: *`45`* 
+
+    _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
+
+    _*standard affine style*_
+
+    *X*: *`0.707107`*, *`-0.707107`* <br />
+    *Y*: *`0.707107`*, *`0.707107`* <br />
+    *O*: *`0`*, *`0`* 
+
+    When this option is ON (it is ON by default), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
+
 
 Auto add iter num to Flame name (hidden):
     #id: OUT
