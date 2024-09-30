@@ -12467,8 +12467,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 return '', '', ''
         else:
             return '', '', ''
-        # else:
-        #     return False
     
     
     def __out_palette_hex(self) -> str:
