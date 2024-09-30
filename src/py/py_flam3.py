@@ -7180,8 +7180,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
         Returns:
             list: [a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms]
-        """        
-        return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
+        """      
+        if len(affine) == 6:  
+            return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
+        else:
+            return []
     
     
     
@@ -8361,6 +8364,7 @@ reset_IN(self, mode=0) -> None:
                       mp_idx: int
                       ) -> None:
         """Set the affine values based on the loaded flame preset affine values for an iterator or the FF.
+        Added the ability to set parameters based also on the F3H affine style format if included in the loaded Flame preset.
         
         Args:
             mode (int): [0 for iterator. 1 for FF]
@@ -8377,7 +8381,7 @@ reset_IN(self, mode=0) -> None:
         
         if mode:
             
-            if f3h_affine and apo_data.finalxform_f3h_coefs is not None:
+            if f3h_affine and apo_data.finalxform_f3h_coefs is not None and apo_data.finalxform_f3h_coefs[mp_idx]:
                 [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}": apo_data.finalxform_f3h_coefs_angle[mp_idx]}) # type: ignore
             else:
@@ -8385,7 +8389,7 @@ reset_IN(self, mode=0) -> None:
                 
             if apo_data.finalxform_post is not None:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}": 1}) # type: ignore
-                if f3h_affine and apo_data.finalxform_f3h_post is not None:
+                if f3h_affine and apo_data.finalxform_f3h_post is not None and apo_data.finalxform_f3h_post[mp_idx]:
                     [node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_f3h_post[mp_idx][id]}) for id in range(3)] # type: ignore
                     node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}": apo_data.finalxform_f3h_post_angle[mp_idx]}) # type: ignore
                 else:
@@ -8393,7 +8397,7 @@ reset_IN(self, mode=0) -> None:
                 
         else:
             
-            if f3h_affine and apo_data.f3h_coefs is not None:
+            if f3h_affine and apo_data.f3h_coefs is not None and apo_data.f3h_coefs[mp_idx]:
                 [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}_{idx}": apo_data.f3h_coefs_angle[mp_idx]}) # type: ignore
             else:
@@ -8401,7 +8405,7 @@ reset_IN(self, mode=0) -> None:
                 
             if apo_data.post is not None and apo_data.post[mp_idx]:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
-                if f3h_affine and apo_data.f3h_post is not None:
+                if f3h_affine and apo_data.f3h_post is not None and apo_data.f3h_post[mp_idx]:
                     [node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.f3h_post[mp_idx][id]}) for id in range(3)] # type: ignore
                     node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}_{idx}": apo_data.f3h_post_angle[mp_idx]}) # type: ignore
                 else:
@@ -12093,12 +12097,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
                 xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
-                xf.set(XML_FLAM3H_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
-                xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.xf_f3h_preaffine_angle[iter])
+                if f3d.f3h_affine and float(f3d.xf_f3h_preaffine_angle[iter]) != 0:
+                    xf.set(XML_FLAM3H_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
+                    xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.xf_f3h_preaffine_angle[iter])
                 if f3d.xf_postaffine[iter]:
                     xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
-                    xf.set(XML_FLAM3H_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
-                    xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.xf_f3h_postaffine_angle[iter])
+                    if f3d.f3h_affine and float(f3d.xf_f3h_postaffine_angle[iter]) != 0:
+                        xf.set(XML_FLAM3H_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
+                        xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.xf_f3h_postaffine_angle[iter])
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
@@ -12118,12 +12124,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             finalxf.set(XML_XF_COLOR_SPEED, '0')
             finalxf.set(XML_XF_SYMMETRY, '1')
             finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
-            if f3d.f3h_affine:
+            if f3d.f3h_affine and float(f3d.finalxf_f3h_preaffine_angle) != 0:
                 finalxf.set(XML_FLAM3H_PRE_AFFINE, f3d.finalxf_f3h_preaffine)
                 finalxf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.finalxf_f3h_preaffine_angle)
             if f3d.finalxf_postaffine:
                 finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
-                if f3d.f3h_affine:
+                if f3d.f3h_affine and float(f3d.finalxf_f3h_postaffine_angle) != 0:
                     finalxf.set(XML_FLAM3H_POST_AFFINE, f3d.finalxf_f3h_postaffine)
                     finalxf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
