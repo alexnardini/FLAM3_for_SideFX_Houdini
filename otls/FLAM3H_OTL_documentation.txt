@@ -1527,10 +1527,20 @@ F3H affine style (IN):
     When this option is ON (it is ON by default) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when OFF it will use the standard version.
 
     NOTE:
+        *You need to reload the current Flame preset for this change to take place*.
+
         F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is ON by default.
 
         The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
-        
+
+
+Reload preset with "F3H affine style" changes:
+    #id: IN
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+    
+    - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
+    - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
+
 
 
 remap "pre gaussian blur"":
