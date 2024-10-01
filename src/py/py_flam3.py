@@ -5600,8 +5600,15 @@ reset_CP(self, mode=0) -> None:
 
                 
     def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> hou.Ramp:
-        POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-        BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+        try:
+            POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+            BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+        except:
+            # If something goes wrong...set one RED key only
+            rgb_from_XML_PALETTE = [(1,0,0)]
+            POSs = [0]
+            BASEs = [hou.rampBasis.Linear] # type: ignore
+            
         # Set lookup samples to the default value of: 256
         self.node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
         return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
@@ -5802,7 +5809,6 @@ reset_CP(self, mode=0) -> None:
                             
                             hsv_vals = []
                             hsv_check = False
-                            HEXs = [hex for hex in wrap(f3h_palette_data[CP_JSON_KEY_NAME_HEX], 6)]
                             try:
                                 [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
                                 hsv_check = True
@@ -5810,6 +5816,7 @@ reset_CP(self, mode=0) -> None:
                                 pass
                             
                             rgb_from_XML_PALETTE = []
+                            HEXs = [hex for hex in wrap(f3h_palette_data[CP_JSON_KEY_NAME_HEX], 6)]
                             for hex in HEXs:
                                 x = self.hex_to_rgb(hex)
                                 rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
@@ -7155,11 +7162,11 @@ class in_flame
 
 STATIC METHODS:
 
-xf_val_cleanup_str(val: str) -> str:
+xf_val_cleanup_str(val: str, default_val: str = '0') -> str:
 
-xf_list_cleanup(affine: list) -> list:
+xf_list_cleanup(affine: list, default_val: str = '0') -> list:
 
-xf_list_cleanup_str(affine: list) -> str:
+xf_list_cleanup_str(affine: list, default_val: str = '0') -> str:
 
 affine_coupling(affine: list, key='', mp_idx=None, type: int=0) -> list:
 
@@ -7226,7 +7233,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
 
     @staticmethod
-    def xf_val_cleanup_str(val: str) -> str:
+    def xf_val_cleanup_str(val: str, default_val: str = '0') -> str:
         """ Attempt to remove invalid characters from the passed value.
         
         Args:
@@ -7241,11 +7248,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             float(new_val)
             return new_val
         except:
-            return '0'
+            return default_val
 
 
     @staticmethod
-    def xf_list_cleanup(affine: list) -> list:
+    def xf_list_cleanup(affine: list, default_val: str = '0') -> list:
         """ Attempt to remove invalid characters from the list values and return a list.
         
         Args:
@@ -7262,12 +7269,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                 float(new_val)
                 new.append(new_val)
             except:
-                new.append('0')
+                new.append(default_val)
         return new
     
     
     @staticmethod
-    def xf_list_cleanup_str(affine: list) -> str:
+    def xf_list_cleanup_str(affine: list, default_val: str = '0') -> str:
         """ Attempt to remove invalid characters from the list values and return a joined string
         
         Args:
@@ -7284,7 +7291,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                 float(new_val)
                 new.append(new_val)
             except:
-                new.append('0')
+                new.append(default_val)
         return ' '.join(new)
 
 
