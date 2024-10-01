@@ -7110,7 +7110,7 @@ class in_flame
 
 STATIC METHODS:
 
-affine_coupling(node, affine: list, key='', mp_idx=None) -> list:
+affine_coupling(affine: list, key='', mp_idx=None, type: int=0) -> list:
 
 check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
 
@@ -7122,7 +7122,7 @@ __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
 
 __get_xaos(self, xforms: Union[tuple, None], key=XML_XF_XAOS) -> Union[tuple, None]:
 
-__get_affine(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
+__get_affine(self, xforms: Union[tuple, None], key: str, type: int=0) -> Union[tuple, None]:
 
 __get_keyvalue(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
 
