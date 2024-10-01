@@ -91,6 +91,7 @@ FLAM3H_VERSION = '1.4.56'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
+CHARACTERS_ALLOWED_XFORM_VAL = "0123456789.-e"
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 
@@ -6924,6 +6925,10 @@ METHODS:
 
 get_name(self, key=XML_XF_NAME) -> tuple:
 
+__get_name_val_str(self, key: str) -> tuple:
+
+__get_name_list_str(self, key: str) -> tuple:
+
 __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
 
 __get_flame_count(self, flames: list) -> int:
@@ -6952,6 +6957,8 @@ __get_flame_count(self, flames: list) -> int:
         # This not private as its cheaper to have it evaluate from this parent class.
         self._name = self.get_name()
         self._plugins = self.get_name(XML_FLAME_PLUGINS)
+        self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
+        # self._flame_plugins = self.get_name(XML_FLAME_PLUGINS) # type: ignore
 
 
 
@@ -7039,6 +7046,12 @@ __get_flame_count(self, flames: list) -> int:
     @property
     def plugins(self):
         return self._plugins
+    
+    @property
+    def sw_version(self):
+        return self._sw_version
+    
+    
 
 
 
@@ -7056,6 +7069,38 @@ __get_flame_count(self, flames: list) -> int:
         if self.isvalidtree:
             root = self.tree.getroot()
             return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
+        else:
+            return () 
+        
+        
+    def __get_name_val_str(self, key: str) -> tuple:
+        """Collect all Flame presets single value from the XML Flame file.
+
+        Args:
+            key (str): _description_. Defaults to XML_XF_NAME. The XML Flame's name key.
+
+        Returns:
+            Union[tuple, None]: Flame presets names.
+        """        
+        if self.isvalidtree:
+            root = self.tree.getroot()
+            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key)).strip()) if name.get(key) is not None else [] for name in root] )
+        else:
+            return () 
+        
+        
+    def __get_name_list_str(self, key: str) -> tuple:
+        """Collect all Flame presets list values from the XML Flame file.
+
+        Args:
+            key (str): _description_. Defaults to XML_XF_NAME. The XML Flame's name key.
+
+        Returns:
+            Union[tuple, None]: Flame presets names.
+        """        
+        if self.isvalidtree:
+            root = self.tree.getroot()
+            return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split())) if name.get(key) is not None else [] for name in root] )
         else:
             return () 
         
@@ -7110,6 +7155,12 @@ class in_flame
 
 STATIC METHODS:
 
+xf_val_cleanup_str(val: str) -> str:
+
+xf_list_cleanup(affine: list) -> list:
+
+xf_list_cleanup_str(affine: list) -> str:
+
 affine_coupling(affine: list, key='', mp_idx=None, type: int=0) -> list:
 
 check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
@@ -7146,32 +7197,95 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         super().__init__(xmlfile)
         self._node = node
         # self._name = self._xml_tree__get_name() # type: ignore
-        self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
+        # self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
+        # self._flame_plugins = self.get_name(XML_FLAME_PLUGINS) # type: ignore
         self._flame = self._xml_tree__get_flame() # type: ignore
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
-        self._flame_plugins = self.get_name(XML_FLAME_PLUGINS) # type: ignore
         # render properties
-        self._out_size = self.get_name(OUT_XML_FLAME_SIZE) # type: ignore
-        self._out_center = self.get_name(OUT_XML_FLAME_CENTER) # type: ignore
-        self._out_rotate = self.get_name(OUT_XML_FLAME_ROTATE) # type: ignore
-        self._out_scale = self.get_name(OUT_XML_FLAME_SCALE) # type: ignore
-        self._out_quality = self.get_name(OUT_XML_FLAME_QUALITY) # type: ignore
-        self._out_brightness = self.get_name(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
-        self._out_gamma = self.get_name(OUT_XML_FLAME_GAMMA) # type: ignore
-        self._out_highlight_power = self.get_name(OUT_XML_FLAME_POWER) # type: ignore
-        self._out_logscale_k2 = self.get_name(OUT_XML_FLAME_K2) # type: ignore
-        self._out_vibrancy = self.get_name(OUT_XML_FLAME_VIBRANCY) # type: ignore
+        self._out_size = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
+        self._out_center = self._xml_tree__get_name_val_str(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_rotate = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE) # type: ignore
+        self._out_scale = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SCALE) # type: ignore
+        self._out_quality = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY) # type: ignore
+        self._out_brightness = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
+        self._out_gamma = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA) # type: ignore
+        self._out_highlight_power = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER) # type: ignore
+        self._out_logscale_k2 = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2) # type: ignore
+        self._out_vibrancy = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY) # type: ignore
         # custom to FLAM3H only
-        self._flam3h_sys_rip = self.get_name(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
-        self._flam3h_hsv = self.get_name(OUT_XML_FLAM3H_HSV) # type: ignore
+        self._flam3h_sys_rip = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
+        self._flam3h_hsv = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb = self.get_name(OUT_XML_FLMA3H_MB_FPS) # type: ignore
-        self._flam3h_mb_samples = self.get_name(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
-        self._flam3h_mb_shutter = self.get_name(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._flam3h_cp_samples = self.get_name(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
-        self._flam3h_prefs_f3c = self.get_name(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
+        self._flam3h_mb = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._flam3h_mb_samples = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._flam3h_mb_shutter = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
+        self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
 
+
+
+    @staticmethod
+    def xf_val_cleanup_str(val: str) -> str:
+        """ Attempt to remove invalid characters from the passed value.
+        
+        Args:
+            val (str): [value from the xml]
+
+        Returns:
+            str: [value cleaned up from invalid characters]
+        """  
+        clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+        new_val = ''.join(clean)
+        try:
+            float(new_val)
+            return new_val
+        except:
+            return '0'
+
+
+    @staticmethod
+    def xf_list_cleanup(affine: list) -> list:
+        """ Attempt to remove invalid characters from the list values and return a list.
+        
+        Args:
+            affine (list): [affine values from the xml]
+
+        Returns:
+            list: [a list of affine values cleaned up from invalid characters]
+        """  
+        new = []
+        for val in affine:
+            clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            new_val = ''.join(clean)
+            try:
+                float(new_val)
+                new.append(new_val)
+            except:
+                new.append('0')
+        return new
+    
+    
+    @staticmethod
+    def xf_list_cleanup_str(affine: list) -> str:
+        """ Attempt to remove invalid characters from the list values and return a joined string
+        
+        Args:
+            affine (list): [affine values from the xml]
+
+        Returns:
+            str: [a string of joined affine values cleaned up from invalid characters]
+        """  
+        new = []
+        for val in affine:
+            clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            new_val = ''.join(clean)
+            try:
+                float(new_val)
+                new.append(new_val)
+            except:
+                new.append('0')
+        return ' '.join(new)
 
 
     @staticmethod
@@ -7202,11 +7316,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                 else: iter_type = None
             
             if key in [XML_PRE_AFFINE, XML_POST_AFFINE]:
-                if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have {len(affine)} values. Expeted are: 6\n\t:Reverted to default values instead."
+                if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have {len(affine)} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
                 else:_MSG = f"\t{sel_key} have {len(affine)} values. Expeted are: 6\n\t:Reverted to default values instead."
                 print(_MSG)
                 
-                return [hou.Vector2((tuple([1, 0, 0, 1, 0, 0][i:i+2]))) for i in (0, 2, 4)]
+                return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, len(affine))), 'constant', constant_values=0).tolist()[i:i+2] ))) for i in (0, 2, 4)]
             
             if sel_key is not None:
                 if iter_type is not None:
@@ -7251,10 +7365,6 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     # @property
     # def name(self):
     #     return self._name
-    
-    @property
-    def sw_version(self):
-        return self._sw_version
 
     @property
     def flame(self):
@@ -7263,10 +7373,6 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     @property
     def flame_count(self):
         return self._flame_count
-    
-    @property
-    def flame_plugins(self):
-        return self._flame_plugins
     
     @property
     def out_size(self):
@@ -7337,7 +7443,6 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
 
 
-
     def __is_valid_idx(self, idx: int) -> int:
         """Make sure the fractal flame's idx passed in will always be valid and never out of range.
 
@@ -7390,7 +7495,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """        
         if  self.isvalidtree and xforms is not None:
 
-            xaos = [f"xaos:{':'.join(xf.get(key).split())}" if xf.get(key) is not None else [] for xf in xforms]
+            xaos = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split()))}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))):
                 return None
             
@@ -7413,8 +7518,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             Union[tuple, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
         """           
         if  self.isvalidtree and xforms is not None:
-            
-            coefs = [tuple(self.affine_coupling([float(x) for x in xf.get(key).split()], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
+            coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split())], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
             if not max(list(map(lambda x: len(x), coefs))):
                 return None
             
@@ -7447,7 +7551,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                         continue
                     
                     else:
-                        keyvalues.append(float(xform.get(key)))
+                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key))))
                         continue
                     
                 else:
@@ -7460,7 +7564,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     if pre_gaussian_blur is not None:
                         
                         if self.node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                            keyvalues.append(float(pre_gaussian_blur))
+                            keyvalues.append(float(self.xf_val_cleanup_str(pre_gaussian_blur)))
                             continue
                         
                         else:
@@ -7550,8 +7654,9 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         if self.isvalidtree:
             palette_hsv_xml_list = self.flam3h_hsv[idx]
             if palette_hsv_xml_list:
-                palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
-                return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s)))
+                palette_hsv_xml_s = self.xf_list_cleanup(str(palette_hsv_xml_list).split(" "))
+                if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
+                return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             else:
                 return False
         else:
@@ -8563,7 +8668,7 @@ reset_IN(self, mode=0) -> None:
                 # If one of the FLAM3H parameter is not in the xform, skip it and set it to ZERO for now.
                 n = func(n)
                 if xform.get(n) is not None:
-                    var_prm_vals.append(float(str(xform.get(n))))
+                    var_prm_vals.append(float(in_flame.xf_val_cleanup_str(str(xform.get(n)))))
                 else:
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
