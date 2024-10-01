@@ -9625,7 +9625,7 @@ reset_IN(self, mode=0) -> None:
                 self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)    
                 self.in_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
             
-            # Set Affine ( PRE, POST and F3H_PRE, 3H_POST) for this iterator or FF
+            # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
             
         _MSG = f"{node.name()}: Iterators and FF parameters SET -> Completed"
