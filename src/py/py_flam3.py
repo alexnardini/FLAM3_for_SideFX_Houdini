@@ -5020,6 +5020,8 @@ build_ramp_palette_default(ramp_parm: hou.Parm) -> None:
 
 build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
 
+build_ramp_palette_error() -> tuple[list, list, list]
+
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
@@ -5095,6 +5097,12 @@ reset_CP(self, mode=0) -> None:
         ramp_tmp_parm.set(hou.Ramp(cp_tmp_bases, cp_tmp_keys, cp_tmp_values)) # type: ignore
         
         
+    @staticmethod
+    def build_ramp_palette_error() -> tuple[list, list, list]:
+        return [(1,0,0)], [0], [hou.rampBasis.Linear] # type: ignore
+        
+
+
     @staticmethod 
     def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
@@ -5599,19 +5607,25 @@ reset_CP(self, mode=0) -> None:
 
 
                 
-    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> hou.Ramp:
-        try:
-            POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-            BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
-        except:
-            # If something goes wrong...set one RED key only
-            rgb_from_XML_PALETTE = [(1,0,0)]
-            POSs = [0]
-            BASEs = [hou.rampBasis.Linear] # type: ignore
+    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, bool]:
+        _CHECK = True
+        if rgb_from_XML_PALETTE:
+            
+            try:
+                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+            except:
+                # If something goes wrong...set one RED key only
+                rgb_from_XML_PALETTE, POSs, BASEs = self.build_ramp_palette_error()
+                _CHECK = False
+                
+        else:
+            rgb_from_XML_PALETTE, POSs, BASEs = self.build_ramp_palette_error()
+            _CHECK = False
             
         # Set lookup samples to the default value of: 256
         self.node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
-        return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE)
+        return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE), _CHECK
 
 
 
@@ -5680,8 +5694,9 @@ reset_CP(self, mode=0) -> None:
                     x = self.hex_to_rgb(hex)
                     rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                 
-                # Initialize new ramp
-                ramp_parm.set(self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE))
+                # Initialize and SET new ramp
+                _RAMP, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                ramp_parm.set(_RAMP)
                 
                 # Set HSV values
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
@@ -5706,12 +5721,22 @@ reset_CP(self, mode=0) -> None:
                 node.setParms({CP_PALETTE_PRESETS: pidx})
                 node.setParms({CP_PALETTE_PRESETS_OFF: pidx})
                 
-                # Mark this as a loaded preset
-                node.setParms({CP_ISVALID_PRESET: 1})
+                # Mark this as a loaded preset if valid
+                if _CHECK: node.setParms({CP_ISVALID_PRESET: 1})
+                else: node.setParms({CP_ISVALID_PRESET: 0})
                 
                 # Print to status Bar
                 _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                
+                if _CHECK:
+                    _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                    flam3h_general_utils.flash_message(node, f"Palette LOADED")
+                else:
+                    _MSG = f"{node.name()}: PALETTE -> ERROR on preset: \"{preset}\""
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    flam3h_general_utils.flash_message(node, f"Palette ERROR")
             
             else:
                 _MSG = f"{node.name()}: PALETTE -> Nothing to load"
@@ -5821,8 +5846,9 @@ reset_CP(self, mode=0) -> None:
                                 x = self.hex_to_rgb(hex)
                                 rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                             
-                            # Initialize new ramp.
-                            ramp_parm.set(self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE))
+                            # Initialize and SET new ramp.
+                            _RAMP, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                            ramp_parm.set(_RAMP)
                             
                             # Set HSV values
                             self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
@@ -5844,9 +5870,14 @@ reset_CP(self, mode=0) -> None:
                             # Mark this as not a loaded preset since it is coming from the Clipboard
                             node.setParms({CP_ISVALID_PRESET: 0})
                             
-                            _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
-                            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                            flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
+                            if _CHECK:
+                                _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
+                                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                                flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
+                            else:
+                                _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\""
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                                flam3h_general_utils.flash_message(node, f"Palette ERROR from the Clipboard")
                             
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
