@@ -7175,7 +7175,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
 
     @staticmethod
-    def affine_coupling(affine: list, key='', mp_idx=None) -> list:
+    def affine_coupling(affine: list, key='', mp_idx=None, type: int=0) -> list:
         """ Build proper affine values composed of hou.Vector2 tuples.
         It will also check the affine passed in and provide an alternative defaults affine values if not correct and print out messages to inform the user about different cases.
         
@@ -7195,16 +7195,22 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             sel = {XML_PRE_AFFINE: f"Pre affine", XML_POST_AFFINE: f"Post affine", XML_FLAM3H_PRE_AFFINE: f"F3H Pre affine", XML_FLAM3H_POST_AFFINE: f"F3H Post affine"}
             sel_key = sel.get(key)
             
+            # Is it an iterator or an FF or None ?
+            if mp_idx is not None:
+                if type == 0: iter_type = mp_idx
+                elif type == 1: iter_type = 'FF'
+                else: iter_type = None
+            
             if key in [XML_PRE_AFFINE, XML_POST_AFFINE]:
-                if mp_idx is not None: _MSG = f"\t{sel_key} on iterator {mp_idx}, have {len(affine)} values. Expeted are: 6\n\t:Reverted to default values instead."
+                if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have {len(affine)} values. Expeted are: 6\n\t:Reverted to default values instead."
                 else:_MSG = f"\t{sel_key} have {len(affine)} values. Expeted are: 6\n\t:Reverted to default values instead."
                 print(_MSG)
                 
                 return [hou.Vector2((tuple([1, 0, 0, 1, 0, 0][i:i+2]))) for i in (0, 2, 4)]
             
             if sel_key is not None:
-                if mp_idx is not None:
-                    _MSG = f"\t{sel_key} on iterator {mp_idx}, have {len(affine)} values. Expeted are: 6\n\t:Skipped"
+                if iter_type is not None:
+                    _MSG = f"\t{sel_key} on iterator {iter_type}, have {len(affine)} values. Expeted are: 6\n\t:Skipped"
                     print(_MSG)
                 else:
                     _MSG = f"\t{sel_key} have {len(affine)} values. Expeted are: 6\n\t:Skipped"
@@ -7395,19 +7401,20 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
 
 
-    def __get_affine(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
+    def __get_affine(self, xforms: Union[tuple, None], key: str, type: int=0) -> Union[tuple, None]:
         """
         Args:
             self:
             xforms (list): [list of all xforms contained inside this flame]
             key (str): [affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine]
+            type (int): [Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1]
 
         Returns:
             Union[tuple, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
         """           
         if  self.isvalidtree and xforms is not None:
             
-            coefs = [tuple(self.affine_coupling([float(x) for x in xf.get(key).split()], key, int(idx+1))) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
+            coefs = [tuple(self.affine_coupling([float(x) for x in xf.get(key).split()], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
             if not max(list(map(lambda x: len(x), coefs))):
                 return None
             
@@ -7679,11 +7686,11 @@ class in_flame_iter_data(in_flame):
         self._f3h_post  = self._in_flame__get_affine(self._xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
         self._f3h_post_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         self._finalxform = self._in_flame__get_xforms(self._idx, XML_FF) # type: ignore
-        self._finalxform_coefs = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE) # type: ignore
-        self._finalxform_f3h_coefs = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._finalxform_coefs = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
         self._finalxform_f3h_coefs_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._finalxform_post  = self._in_flame__get_affine(self._finalxform, XML_POST_AFFINE) # type: ignore
-        self._finalxform_f3h_post = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._finalxform_post  = self._in_flame__get_affine(self._finalxform, XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
         self._finalxform_f3h_post_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         self._finalxform_name = self._in_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
         self._palette = self._in_flame__get_palette(self._idx) # type: ignore
