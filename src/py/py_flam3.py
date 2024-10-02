@@ -35,7 +35,7 @@ import nodesearch
 #
 #   Title:      SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised September 2024
+#   date:       January 2023, Last revised October 2024
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
@@ -87,13 +87,13 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.4.56'
+FLAM3H_VERSION = '1.4.60'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
-CHARACTERS_ALLOWED_XFORM_VAL = "0123456789.-e"
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
+CHARACTERS_ALLOWED_XFORM_VAL = "0123456789.-e"
 
 # Default globals
 FLAM3H_DEFAULT_GLB_DENSITY: int = 500000
@@ -101,7 +101,7 @@ FLAM3H_DEFAULT_GLB_ITERATIONS: int = 10
 # On IN Flame preset load set the iteration number to use to this value.
 # This setting will be overwritten if the IN Tab "force iterations on Load" option is turned ON.
 # All of the above settings will be overwritten if the iteration number to use is baked into the Flame preset's name.
-FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD = 64
+FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD: int = 64
 FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV = '::'
 
 # Node user data
@@ -115,6 +115,7 @@ FLAM3H_ITERATORS_TAB = "f_flam3h"
 # Default affine values
 AFFINE_DEFAULTS: dict = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
 AFFINE_IDENT: list = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
+
 DPT = '*'
 PRM = '...'
 PRX_FF_PRM = 'ff'
@@ -265,6 +266,7 @@ FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPa
 FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteZeroWSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
 # ICONS menu vars and palette bookmarks
@@ -3028,23 +3030,34 @@ iterator_keep_last_weight(self) -> None:
                 menu.append(i+1)
                 
                 idx = str(i+1)
-                note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').evalAsString()
                 
-                # Check if this iterator is active and use the proper bookmark icon
-                if node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval():
-                    
+                note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').eval()
+                active = node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval()
+                weight = node.parm(f'{flam3h_iterator_prm_names.main_weight}_{idx}').eval()
+                
+                shader_opacity = node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx}').eval()
+                _OPACITY_MSG = ""
+                if shader_opacity == 0: _OPACITY_MSG = "[ZERO opacity] "
+                
+                if active and weight > 0:
                     # check if it is marked for being copied
                     if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {note}")
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {_OPACITY_MSG}{note}")
                     else:
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {note}")
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {_OPACITY_MSG}{note}")
                         
+                elif active and weight == 0:
+                    # check if it is marked for being copied
+                    if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO}  {idx}:  {_OPACITY_MSG}{note}")
+                    else:
+                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  {idx}:  {_OPACITY_MSG}{note}")
                 else:
                     # check if it is marked for being copied
                     if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {note}")
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {_OPACITY_MSG}{note}")
                     else:
-                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {note}")
+                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note}")
                         
         else:
             menu.append(0)
@@ -3089,13 +3102,16 @@ iterator_keep_last_weight(self) -> None:
                 
                 _MSG = f"iterator: {preset_id}"
                 active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
+                weight = node.parm(f"{flam3h_iterator_prm_names.main_weight}_{preset_id}").eval()
                 
                 if node == from_FLAM3H_NODE and mp_id_from == preset_id:
-                    if active: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                    if active and weight>0: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                    elif active and weight==0: flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight and Marked)")
                     else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
                     
                 else:
-                    if active: flam3h_general_utils.flash_message(node, _MSG)
+                    if active and weight>0: flam3h_general_utils.flash_message(node, _MSG)
+                    elif active and weight==0: flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight)")
                     else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
                 
             else:
@@ -3259,6 +3275,7 @@ iterator_keep_last_weight(self) -> None:
         with hou.undos.disabler(): # type: ignore
             
             if mp_id_from is not None:
+                assert from_FLAM3H_NODE is not None
                 
                 idx_from = str(mp_id_from)
                 
@@ -3266,16 +3283,23 @@ iterator_keep_last_weight(self) -> None:
                 if prm_selmem.evalAsInt() > 0:
                     node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
                     prm_selmem.set(0)
+                    
+                # Menu entrie sections bookmark icon
+                active = from_FLAM3H_NODE.parm(f"{flam3h_iterator_prm_names.main_vactive}_{idx_from}").eval()
+                weight = from_FLAM3H_NODE.parm(f"{flam3h_iterator_prm_names.main_weight}_{idx_from}").eval()
+                if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
+                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
                 
+                # Build menu
                 if node == from_FLAM3H_NODE and id==mp_id_from:
                     menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
                 elif node == from_FLAM3H_NODE:
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx_from}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{_ICON}  {idx_from}", f"{_ICON}  {idx_from}: xaos:", f"{_ICON}  {idx_from}: shader", f"{_ICON}  {idx_from}: PRE", f"{_ICON}  {idx_from}: VAR", f"{_ICON}  {idx_from}: POST", f"{_ICON}  {idx_from}: pre affine", f"{_ICON}  {idx_from}: post affine", "" )
                 else:
                     assert from_FLAM3H_NODE is not None
                     parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
                     flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: xaos:", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: shader", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {parent}/{flam3nodeIter}{idx_from}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: xaos:", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: shader", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: PRE", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: VAR", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: POST", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: pre affine", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: post affine", "" )
                 
                 for i, item in enumerate(menuitems):
                     menu.append(i)
@@ -3344,6 +3368,11 @@ iterator_keep_last_weight(self) -> None:
             
             # This undo's disabler is needed to make the undo work in H20.5 after copy/paste an FF's section from the mini-menu.
             with hou.undos.disabler(): # type: ignore
+                
+                # Menu entrie sections bookmark icon
+                active = flam3node_FF.parm(SYS_DO_FF).eval()
+                if active: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_FF
+                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
             
                 if node == flam3node_FF:
                     menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.", "" )
@@ -3357,7 +3386,7 @@ iterator_keep_last_weight(self) -> None:
                     parent = f".../{flam3node_FF.parent()}"
                     flam3nodeFF = f"{str(flam3node_FF)}.FF"
                     # menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  {parent}/{flam3nodeFF}: ALL", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{_ICON}  {parent}/{flam3nodeFF}: PRE", f"{_ICON}  {parent}/{flam3nodeFF}: VAR", f"{_ICON}  {parent}/{flam3nodeFF}: POST", f"{_ICON}  {parent}/{flam3nodeFF}: pre affine", f"{_ICON}  {parent}/{flam3nodeFF}: post affine", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
@@ -5435,8 +5464,7 @@ reset_CP(self, mode=0) -> None:
         """Build palette data to save out into a *.json file
 
         Returns:
-            dict: Raw json data dictionary
-            str: indented json data as string
+            tuple (dict, str): (dict): Raw json data dictionary. (str): indented json data as string
         """
         node = self.node
         # get user's preset name or build an automated one
@@ -5607,7 +5635,13 @@ reset_CP(self, mode=0) -> None:
 
 
                 
-    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, bool]:
+    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
+        """It will check the passed list of colors for validity and build a Houdini ramp parameter's values from it.
+        If not valid, or only one coclor is included, it will output one RED color and mark this palette as an Error.
+
+        Args:
+            rgb_from_XML_PALETTE (list): a list of colors collected from the palette json file preset (from file or from Clipboard)
+        """  
         _CHECK = True
         if rgb_from_XML_PALETTE:
             
@@ -5625,7 +5659,7 @@ reset_CP(self, mode=0) -> None:
             
         # Set lookup samples to the default value of: 256
         self.node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
-        return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE), _CHECK
+        return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE), len(POSs), _CHECK
 
 
 
@@ -5695,12 +5729,23 @@ reset_CP(self, mode=0) -> None:
                     rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                 
                 # Initialize and SET new ramp
-                _RAMP, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                 ramp_parm.set(_RAMP)
                 
+                # Make sure we update the HSV palette
+                self.palette_cp()
+                # Update palette temp
+                self.palette_cp_to_tmp()
                 # Set HSV values
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
+
+                # Update palette
+                self.palette_cp()
+                
+                self.palette_cp_to_tmp()
+                
+                
                 # Update palette
                 self.palette_cp()
                 
@@ -5710,8 +5755,8 @@ reset_CP(self, mode=0) -> None:
                 flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                 
                 # Set palette lookup samples
-                # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
-                keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(ramp_parm.evalAsRamp().keys()), 0, False)
+                # Note we are setting the function type to: Flame(0) so we always clamp at the minimun of 256 lookup samples
+                keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
                 node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
                 
                 # Store selection into all preset menu just in case ;)
@@ -5847,24 +5892,22 @@ reset_CP(self, mode=0) -> None:
                                 rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                             
                             # Initialize and SET new ramp.
-                            _RAMP, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                            _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                             ramp_parm.set(_RAMP)
                             
-                            # Set HSV values
-                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
-
                             # Make sure we update the HSV palette
                             self.palette_cp()
-                            
-                            # reset tmp ramp palette
+                            # Update palette tmp
                             self.reset_CP_TMP()
+                            # Set HSV values
+                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                             
                             # Update/Set palette MSG
                             flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                             
                             # Set palette lookup samples
                             # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
-                            keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(ramp_parm.evalAsRamp().keys()), 0, False)
+                            keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
                             node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
                             
                             # Mark this as not a loaded preset since it is coming from the Clipboard
@@ -7106,7 +7149,8 @@ __get_flame_count(self, flames: list) -> int:
         """        
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
+            if key == XML_XF_NAME: return tuple( [str(name.get(key)).strip() if name.get(key) is not None else '[]' for name in root] )
+            else: return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
         else:
             return () 
         
@@ -7241,7 +7285,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
         # render properties
         self._out_size = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
-        self._out_center = self._xml_tree__get_name_val_str(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_center = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
         self._out_rotate = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE) # type: ignore
         self._out_scale = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SCALE) # type: ignore
         self._out_quality = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY) # type: ignore
@@ -7306,13 +7350,13 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     
     @staticmethod
     def xf_list_cleanup_str(affine: list, default_val: str = '0') -> str:
-        """ Attempt to remove invalid characters from the list values and return a joined string
+        """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
         
         Args:
             affine (list): [affine values from the xml]
 
         Returns:
-            str: [a string of joined affine values cleaned up from invalid characters]
+            str: [a string of spaced joined affine values cleaned up from invalid characters]
         """  
         new = []
         for val in affine:
@@ -7339,11 +7383,13 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             list: [a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms, or an empty list if something is wrong]
         """      
-        if len(affine) == 6:
+        affine_count = len(affine)
+        if affine_count == 6:
             return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
         
         else:
             print(datetime.now().strftime('%b-%d-%Y %H:%M:%S'))
+            
             sel = {XML_PRE_AFFINE: f"Pre affine", XML_POST_AFFINE: f"Post affine", XML_FLAM3H_PRE_AFFINE: f"F3H Pre affine", XML_FLAM3H_POST_AFFINE: f"F3H Post affine"}
             sel_key = sel.get(key)
             
@@ -7354,18 +7400,23 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                 else: iter_type = None
             
             if key in [XML_PRE_AFFINE, XML_POST_AFFINE]:
-                if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have {len(affine)} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
-                else:_MSG = f"\t{sel_key} have {len(affine)} values. Expeted are: 6\n\t:Reverted to default values instead."
-                print(_MSG)
-                
-                return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, len(affine))), 'constant', constant_values=0).tolist()[i:i+2] ))) for i in (0, 2, 4)]
+                if affine_count == 0:
+                    if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have no affine values. Expeted are: 6\n\t:Reverted back to default affine values."
+                    else:_MSG = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Reverted back to default affine values."
+                    print(_MSG)
+                    return [hou.Vector2((tuple( AFFINE_IDENT[i:i+2] ))) for i in (0, 2, 4)]
+                else:
+                    if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
+                    else:_MSG = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
+                    print(_MSG)
+                    return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, affine_count)), 'constant', constant_values=0).tolist()[i:i+2] ))) for i in (0, 2, 4)]
             
             if sel_key is not None:
                 if iter_type is not None:
-                    _MSG = f"\t{sel_key} on iterator {iter_type}, have {len(affine)} values. Expeted are: 6\n\t:Skipped"
+                    _MSG = f"\t{sel_key} on iterator {iter_type}, have {affine_count} values. Expeted are: 6\n\t:Skipped"
                     print(_MSG)
                 else:
-                    _MSG = f"\t{sel_key} have {len(affine)} values. Expeted are: 6\n\t:Skipped"
+                    _MSG = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Skipped"
                     print(_MSG)
                     
             return []
@@ -7557,11 +7608,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """           
         if  self.isvalidtree and xforms is not None:
             coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split())], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
-            if not max(list(map(lambda x: len(x), coefs))):
-                return None
+            
+            if max(list(map(lambda x: len(x), coefs))):
+                return tuple(coefs)
             
             else:
-                return tuple(coefs)
+                return None
             
         else:
             return None
@@ -7589,7 +7641,9 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                         continue
                     
                     else:
-                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key))))
+                        if key in XML_XF_OPACITY: default_val = '1'
+                        else: default_val = '0'
+                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val)))
                         continue
                     
                 else:
@@ -8561,7 +8615,13 @@ reset_IN(self, mode=0) -> None:
                 [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}": apo_data.finalxform_f3h_coefs_angle[mp_idx]}) # type: ignore
             else:
-                [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                if apo_data.finalxform_coefs is not None:
+                    # The affine XML key: "coefs" must always be present in the XML file.
+                    [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                else:
+                    # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
+                    # Doing so it wont error out on load and it will act as a warning sign.
+                    [node.setParms({f"{prx}{pre_affine[id]}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i+2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.finalxform_post is not None:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}": 1}) # type: ignore
@@ -8577,7 +8637,13 @@ reset_IN(self, mode=0) -> None:
                 [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}_{idx}": apo_data.f3h_coefs_angle[mp_idx]}) # type: ignore
             else:
-                [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                if apo_data.coefs[mp_idx] and apo_data.coefs[mp_idx] is not None:
+                    # The affine XML key: "coefs" must always be present in the XML file.
+                    [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                else:
+                    # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
+                    # Doing so it wont error out on load and it will act as a warning sign.
+                    [node.setParms({f"{prx}{pre_affine[id]}_{idx}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i+2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.post is not None and apo_data.post[mp_idx]:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
@@ -9360,7 +9426,7 @@ reset_IN(self, mode=0) -> None:
             apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
         """        
         node = kwargs['node']
-        
+
         if clipboard:
             preset_id = 0
             f3r = apo_data
@@ -9423,7 +9489,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_copy_sensor_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+    def in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
         """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
 
         Args:
@@ -9483,7 +9549,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+    def in_copy_sensor_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
         """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
 
         Args:
@@ -9558,6 +9624,13 @@ reset_IN(self, mode=0) -> None:
         return self._node
 
 
+    def in_copy_section_render_stats_msg(self) -> None:
+        
+        kwargs = self.kwargs
+        if kwargs["ctrl"]:
+            self.in_copy_render_stats_msg(kwargs)
+        else:
+            self.in_copy_sensor_stats_msg(kwargs)
     
     
     def in_flam3h_set_iterators(self, 
@@ -10696,7 +10769,7 @@ reset_IN(self, mode=0) -> None:
             ####################################################
             ####################################################
             if clipboard:
-                self.in_copy_render_stats_msg(self.kwargs, clipboard, apo_data)
+                self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
             else:
                 # If not from clipboard
                 # Update SYS inpresets parameters

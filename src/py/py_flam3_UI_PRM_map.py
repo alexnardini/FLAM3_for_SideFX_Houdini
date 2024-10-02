@@ -2,7 +2,7 @@
 
 #   Title:      SideFX Houdini FLAM3: MAP PRM Definitions
 #   Author:     Alessandro Nardini
-#   date:       April 2023, Last revised September 2024
+#   date:       April 2023, Last revised October 2024
 #
 #   Name:       PY_MAP "Whatever"
 #
@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.4.56 - Gold'
+FLAM3H_VERSION = '1.4.65 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -103,9 +103,11 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 'parameter name:    ptcount_presets'
 'script type:       callback script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set()
-'Menu script'
+'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
 return menu
+'script type:       Action Script'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set_default()
 
 
 'parameter name:    iter'

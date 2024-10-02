@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.4.56 - Gold
+#version: 1.4.65 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -208,9 +208,18 @@ mini-menu Select Iterator [Smallicon:BUTTONS/pane_menu]:
     The bookmark icon will display the status of each iterator:
 
     - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is ACTIVE.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and marked for being copied.
-    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when an iterator is OFF and marked for being copied.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is ACTIVE and 0(Zero) Weight.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when an iterator is ACTIVE, 0(Zero) Weight and Marked.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and Marked.
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF/Disabled.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when an iterator is OFF/Disabled and Marked.
+
+    When an iterator shader's opacity is set to 0(Zero),<br />
+    its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
+    This is handy also when you load or build a Flame that uses containers so to easily spot the intermediary iterators used in the construction.
+
+    Additionally, when there are 0(Zero) iterators, an info message is displayed instead:
+
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
 
     TIP:
@@ -375,7 +384,7 @@ CP Preset reload:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
-    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a palette *.json file.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
     
 :box:
     #display: rounded white
@@ -410,7 +419,7 @@ IN Preset reload:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
-    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
 
     The render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
 
@@ -534,8 +543,12 @@ copy/paste:
     
     Once an iterator has been marked, you can use the mini-menu [Smallicon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked iterator, including Xaos.
     
-    Every item in the mini-menu [Smallicon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.
-    
+    Every item in the mini-menu [Smallicon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
+    The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
+
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or Zero weight.
+
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
@@ -747,8 +760,14 @@ menu pre_blur [Smallicon:BUTTONS/pane_menu]:
 menu PRE [Smallicon:BUTTONS/pane_menu]:
     #id: FLAME
     PRE variations for the selected iterator.
+
+    These are applyed before the VAR variations. It is the very first transformation when used.
+
+    There are 2 PRE variations available. The order to whitch you apply them matter.
     
-    The order of the PRE variations matter. For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
+    For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
+
+    * When using parametric variations, their parameters will populate the *VARS* Tab.
 
     
 swap PRE vars:
@@ -762,7 +781,13 @@ swap PRE vars:
 menu VAR [Smallicon:BUTTONS/pane_menu]:
     #id: FLAME
     Variations for the selected iterator.
-    
+
+    There are 4 VAR variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+
+    - If you have a *`Linear`* *variation in slot 1*, and you add a *`Spherical`* *variation in slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* *variation in slot 1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* *variation in slot 1* and a *`Linear`* *in slot 2*, the result will be identical assuming both retain the same weight values.
+    * When using parametric variations, their parameters will populate the *VARS* Tab.
+
     TIP:
         #display: orange
     
@@ -774,6 +799,10 @@ menu POST [Smallicon:BUTTONS/pane_menu]:
     POST Variation for the selected iterator.
     
     For speed purpose only one post variation is allowed at the moment.
+
+    This is applyed after the variations. It is the very last transformation.
+
+    * When using parametric variations, their parameters will populate the *VARS* Tab.
         
 w:
     #id: FLAME
@@ -936,7 +965,11 @@ FF: copy/paste:
 
     Once the FF has been marked, you can use the mini-menu [Smallicon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
     
-    Every item in the mini-menu [Smallicon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.
+    Every item in the mini-menu [Smallicon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
+    The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
+
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is ACTIVE.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked FF is OFF/Disabled.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -984,25 +1017,33 @@ menu FF PRE [Smallicon:BUTTONS/pane_menu]:
     #id: FF
     PRE variation for the FF iterator.
     
-    This is applyed before the variations. It is the very first transformation when used.
+    This is applyed before the VAR variations. It is the very first transformation when used.
+    
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
     
     
 menu FF VAR [Smallicon:BUTTONS/pane_menu]:
     #id: FF
     Variations for the FF iterator.
+
+    There are 2 VAR variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+
+    - If you have a *`Linear`* *variation in slot 1*, and you add a *`Spherical`* *variation in slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* *variation in slot 1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* *variation in slot 1* and a *`Linear`* *in slot 2*, the result will be identical assuming both retain the same weight values.
     
     * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
 
 menu FF POST [Smallicon:BUTTONS/pane_menu]:
     #id: FF
     POST Variations for the FF iterator.
+
+    There are 2 POST variations available. The order to whitch you apply them matter.
+
+    For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
     
-    These are applyed after the variations. They are the very last transformation.
+    These are applyed after the VAR variations. They are the very last transformation.
 
     * When using parametric variations, their parameters will populate the *FF: PP VARS* Tab.
-    
-    The order of the POST variations matter. For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
     
 
 swap FF POST vars:
@@ -1179,7 +1220,7 @@ menu lookup samples [Smallicon:BUTTONS/pane_menu]:
     NOTE:
         - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
-        - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`save palette 256+`*.
+        - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
 palette:
     #id: PALETTE
@@ -1245,9 +1286,9 @@ Save Palette:
         - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
 
     NOTE:
-        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, turn ON the *CP options* tab toggle -> *`save palette 256+`*.
+        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, turn ON the *CP options* tab toggle -> *`palette 256+`*.
         - When saving out a palette file, it will try to downsample the usual 256 color count standard.
-        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`save palette 256+`*.
+        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
 Palette name ( preset ):
     #id: PALETTE
@@ -1281,7 +1322,7 @@ Reload preset ( presets ):
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
-    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a palette *.json file.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
     
 :box:
     #display: rounded white
@@ -1445,7 +1486,7 @@ Reload:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
-    - ((SHIFT)) + ((LMB)) Open a file dialog window to load a *.flame file.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
 
     When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
 
@@ -1669,7 +1710,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.4.56" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.4.65" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1773,7 +1814,7 @@ Save Flame:
         
         *Also*:
     
-        - When saving out Flame files, if you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`save palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
@@ -1922,7 +1963,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.4.56" ... >
+          <flame version="FLAM3H-WIN-1.4.65" ... >
               ...
         }}}
         
@@ -1931,7 +1972,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.4.56" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.4.65" ... >
               ...
         }}}
         
@@ -2016,10 +2057,10 @@ Resolution:
 mini-menu Resolution presets [Smallicon:BUTTONS/pane_menu]:
     #id: OUT
     Select a resolution out of some pre made presets.
-    
+
     
 Copy/Paste render properties:
-    #id: IN
+    #id: OUT
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
     
     When you load a Flame file in the IN tab, this icon will become available.
@@ -2062,7 +2103,7 @@ update camera sensor:
     
 Quality:
     #id: OUT
-    The render quality. Think of this as how many points are used inside Fractorium to render the final image. The cleaner the final image.
+    The render quality. Think of this as how many points are used inside Fractorium to render the final image.
     
 Brightness:
     #id: OUT
@@ -2109,7 +2150,7 @@ Vibrancy:
         - *`flam3h_cp_samples`* -> _Palette lookup samples_
 
         _*xforms*_<br /> 
-        _only exported when the Rotation angle parameter is different from Zero_:
+        _only exported when the Rotation angle parameter is different from Zero and the OUT tab option: "F3H affine style" toggle is ON_:
 
         - *`f3h_coefs`* -> _F3H pre affine style values_
         - *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
