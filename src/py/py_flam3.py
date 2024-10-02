@@ -8244,9 +8244,9 @@ in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
 
 in_copy_render_all_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
 
-in_copy_sensor_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+in_copy_sensor_stats_msg(kwargs: dict) -> None:
 
-in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+in_copy_render_stats_msg(kwargs: dict) -> None:
 
 in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 
@@ -9489,32 +9489,77 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_copy_render_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+    def in_copy_sensor_stats_msg(kwargs: dict) -> None:
+        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
+
+        Args:
+            kwargs (hou.SopNode): houdini kwargs.
+        """        
+        node = kwargs['node']
+        
+        inisvalidfile = node.parm(IN_ISVALID_FILE).eval()
+        inisvalidpreset = node.parm(IN_ISVALID_PRESET).eval()
+        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).eval()
+        
+        if inisvalidfile and inisvalidpreset and not clipboard:
+            
+            # Get the correct menu parameter's preset idx
+            preset_id = int(node.parm(IN_PRESETS).eval())
+
+            xml = node.parm(IN_PATH).evalAsString()
+            f3r = in_flame_iter_data(node, xml, preset_id)
+            
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
+            except:
+                pass
+            
+            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
+            
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                flam3h_general_utils(kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(kwargs).util_set_front_viewer()
+                
+            _MSG = f"IN SENSOR settings: COPIED"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.flash_message(node, _MSG)
+            
+        else:
+            _MSG = f"Load a valid IN Preset first"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+            flam3h_general_utils.flash_message(node, _MSG)
+        
+
+
+    @staticmethod
+    def in_copy_render_stats_msg(kwargs: dict) -> None:
         """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
 
         Args:
             kwargs (hou.SopNode): houdini kwargs.
-            clipboard (bool): True: load from clipboard. False: load from disk file.
-            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
         """        
         node = kwargs['node']
         
-        if clipboard:
-            preset_id = 0
-            f3r = apo_data
-        else:
-            xml = node.parm(IN_PATH).evalAsString()
+        inisvalidfile = node.parm(IN_ISVALID_FILE).eval()
+        inisvalidpreset = node.parm(IN_ISVALID_PRESET).eval()
+        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).eval()
+        
+        if inisvalidfile and inisvalidpreset and not clipboard:
             
             # Get the correct menu parameter's preset idx
-            if node.parm(IN_ISVALID_PRESET).evalAsInt():
-                preset_id = int(node.parm(IN_PRESETS).eval())
-            else:
-                preset_id = int(node.parm(IN_PRESETS_OFF).eval())
-                
+            preset_id = int(node.parm(IN_PRESETS).eval())
+
+            xml = node.parm(IN_PATH).evalAsString()
             f3r = in_flame_iter_data(node, xml, preset_id)
-            
-        assert f3r is not None
-        if f3r.isvalidtree:
+                
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
             except:
                 pass
@@ -9536,71 +9581,19 @@ reset_IN(self, mode=0) -> None:
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
                 
-            _MSG = f"IN SENSOR properties -> COPIED"
+            _MSG = f"IN RENDER settings: COPIED"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             flam3h_general_utils.flash_message(node, _MSG)
             
         else:
-            pass
-
-
-    @staticmethod
-    def in_copy_sensor_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
-        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
-
-        Args:
-            kwargs (hou.SopNode): houdini kwargs.
-            clipboard (bool): True: load from clipboard. False: load from disk file.
-            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
-        """        
-        node = kwargs['node']
-        
-        if clipboard:
-            preset_id = 0
-            f3r = apo_data
-        else:
-            xml = node.parm(IN_PATH).evalAsString()
-            
-            # Get the correct menu parameter's preset idx
-            if node.parm(IN_ISVALID_PRESET).evalAsInt():
-                preset_id = int(node.parm(IN_PRESETS).eval())
-            else:
-                preset_id = int(node.parm(IN_PRESETS_OFF).eval())
-                
-            f3r = in_flame_iter_data(node, xml, preset_id)
-            
-        assert f3r is not None
-        if f3r.isvalidtree:
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
-            except:
-                pass
-            
-            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
-            
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
-                flam3h_general_utils(kwargs).util_set_clipping_viewers()
-                flam3h_general_utils(kwargs).util_set_front_viewer()
-                
-            _MSG = f"IN RENDER properties -> COPIED"
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            _MSG = f"Load a valid IN Preset first"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
             flam3h_general_utils.flash_message(node, _MSG)
-            
-        else:
-            pass
-        
+
 
         
     @staticmethod
