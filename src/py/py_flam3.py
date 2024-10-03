@@ -7746,7 +7746,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         if self.isvalidtree:
             palette_hsv_xml_list = self.flam3h_hsv[idx]
             if palette_hsv_xml_list:
-                palette_hsv_xml_s = self.xf_list_cleanup(str(palette_hsv_xml_list).split(" "))
+                palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
                 if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             else:
@@ -9480,7 +9480,7 @@ reset_IN(self, mode=0) -> None:
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
                 
-            _MSG = f"IN Preset properties -> COPIED"
+            _MSG = f"IN Preset properties: COPIED"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             flam3h_general_utils.flash_message(node, _MSG)
             
