@@ -5732,25 +5732,13 @@ reset_CP(self, mode=0) -> None:
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                 ramp_parm.set(_RAMP)
                 
+                # Set HSV values
+                self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                 # Make sure we update the HSV palette
                 self.palette_cp()
                 # Update palette temp
                 self.palette_cp_to_tmp()
-                # Set HSV values
-                self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
 
-
-                # Update palette
-                self.palette_cp()
-                
-                self.palette_cp_to_tmp()
-                
-                
-                # Update palette
-                self.palette_cp()
-                
-                self.palette_cp_to_tmp()
-                
                 # Update/Set palette MSG
                 flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                 
@@ -5895,12 +5883,12 @@ reset_CP(self, mode=0) -> None:
                             _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                             ramp_parm.set(_RAMP)
                             
+                            # Set HSV values
+                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                             # Make sure we update the HSV palette
                             self.palette_cp()
                             # Update palette tmp
                             self.reset_CP_TMP()
-                            # Set HSV values
-                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                             
                             # Update/Set palette MSG
                             flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
