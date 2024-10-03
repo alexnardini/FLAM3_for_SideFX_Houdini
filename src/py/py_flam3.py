@@ -2859,6 +2859,7 @@ iterator_keep_last_weight(self) -> None:
 
     
     def refresh_iterator_vars_menu(self) -> None:
+        
         node = self.node
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -2866,8 +2867,15 @@ iterator_keep_last_weight(self) -> None:
             node.type().definition().updateFromNode(node)
             node.matchCurrentDefinition()
             
-        # For some reasons the FF menus do not update so we force them to
-        node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_1}").pressButton()
+        else:
+            node.destroyCachedUserData('vars_menu_all_simple')
+            
+            # For some reasons the FF menus do not update so we force them to
+            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.prevar_type_1}").pressButton()
+            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_1}").pressButton()
+            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_2}").pressButton()
+            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_1}").pressButton()
+            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_2}").pressButton()
         # Change focus back to the FLAME's Tab
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
 
@@ -3018,7 +3026,6 @@ iterator_keep_last_weight(self) -> None:
                 menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
             else:
                 menu.append(f"{item}          ") # 10 times \s
-
         return menu
 
 
@@ -3065,6 +3072,7 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
+        self.node.setCachedUserData('vars_menu_all_simple', VARS_MENU_ALL_SIMPLE)
         return VARS_MENU_ALL_SIMPLE
     
     
@@ -3080,9 +3088,17 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        _ICONS_TOGGLE = self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-        run = (self.menu_T_simple, self.menu_T_ICON)
-        return run[_ICONS_TOGGLE](FF)
+        node = self.node
+        
+        # This data get created inside: menu_T_simple(self, FF=False) -> list:
+        # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
+        data = node.cachedUserData('vars_menu_all_simple')
+        if data is not None:
+            return data
+        else:
+            run = (self.menu_T_simple, self.menu_T_ICON)
+            _ICONS_TOGGLE = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+            return run[_ICONS_TOGGLE](FF)
 
     
     
@@ -3098,9 +3114,16 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        _ICONS_TOGGLE = self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-        run = (self.menu_T_simple, self.menu_T_PP_ICON)
-        return run[_ICONS_TOGGLE](FF)
+        node = self.node
+        # This data get created inside: menu_T_simple(self, FF=False) -> list:
+        # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
+        data = node.cachedUserData('vars_menu_all_simple')
+        if data is not None:
+            return data
+        else:
+            run = (self.menu_T_simple, self.menu_T_PP_ICON)
+            _ICONS_TOGGLE = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+            return run[_ICONS_TOGGLE](FF)
     
     
     
@@ -5476,12 +5499,10 @@ reset_CP(self, mode=0) -> None:
                 return menu
                     
             else:
-                node.destroyCachedUserData('cp_presets_menu_idx')
                 node.destroyCachedUserData('cp_presets_menu')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
-            node.destroyCachedUserData('cp_presets_menu_idx')
             node.destroyCachedUserData('cp_presets_menu')
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
@@ -5512,14 +5533,12 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
-        if self.node.parm(CP_ISVALID_FILE).eval() and not self.node.parm(CP_ISVALID_PRESET).eval():
+        if node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
             
             filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
-            
             if os.path.isfile(filepath):
                 
                 with open(filepath) as f:
-                    
                     menuitems = json.load(f).keys()
 
                 if node.parm(PREFS_ENUMERATE_MENU).eval():
@@ -5551,12 +5570,10 @@ reset_CP(self, mode=0) -> None:
                 return menu
                 
             else:
-                node.destroyCachedUserData('cp_presets_menu_off_idx')
                 node.destroyCachedUserData('cp_presets_menu_off')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
-            node.destroyCachedUserData('cp_presets_menu_off_idx')
             node.destroyCachedUserData('cp_presets_menu_off')
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
@@ -10146,7 +10163,6 @@ reset_IN(self, mode=0) -> None:
         Returns:
             list: the actual menu
         """
-        
         node = self.node
 
         menu=[]
@@ -10176,7 +10192,6 @@ reset_IN(self, mode=0) -> None:
                             
                         else:
                             menu.append(f"{str(i)}:  {item}")
-                    node.setCachedUserData('in_presets_menu', menu)
                             
                 else:
                     
@@ -10198,19 +10213,17 @@ reset_IN(self, mode=0) -> None:
                             
                         else:
                             menu.append(f"{item}")
-                    node.setCachedUserData('in_presets_menu', menu)
-                        
+                            
+                node.setCachedUserData('in_presets_menu', menu)   
                 return menu
             
             else:
-                node.destroyCachedUserData('in_presets_menu_idx')
                 node.destroyCachedUserData('in_presets_menu')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 return menu
         
         else:
-            node.destroyCachedUserData('in_presets_menu_idx')
             node.destroyCachedUserData('in_presets_menu')
             menu.append(-1)
             
@@ -10250,7 +10263,6 @@ reset_IN(self, mode=0) -> None:
         Returns:
             list: the actual menu
         """
-
         node = self.node
         
         menu=[]
@@ -10304,14 +10316,12 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                node.destroyCachedUserData('in_presets_menu_off_idx')
                 node.destroyCachedUserData('in_presets_menu_off')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
                 return menu
         
         else:
-            node.destroyCachedUserData('in_presets_menu_off_idx')
             node.destroyCachedUserData('in_presets_menu_off')
             
             menu.append(-1)
