@@ -5362,10 +5362,9 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
-        if node.parm(CP_ISVALID_FILE).eval():
+        if node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
             
             filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).evalAsString())
-            
             if os.path.isfile(filepath):
                 
                 with open(filepath) as f:
@@ -5378,7 +5377,7 @@ reset_CP(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
                             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                         else:
                             menu.append(f"{str(i)}:  {item}")
@@ -5389,7 +5388,7 @@ reset_CP(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and self.node.parm(CP_ISVALID_PRESET).eval():
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
                             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                         else:
                             menu.append(f"{item}")
@@ -5416,7 +5415,7 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
-        if self.node.parm(CP_ISVALID_FILE).eval():
+        if self.node.parm(CP_ISVALID_FILE).eval() and not self.node.parm(CP_ISVALID_PRESET).eval():
             
             filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
             
@@ -5433,7 +5432,7 @@ reset_CP(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
                             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                         else:
                             menu.append(f"{str(i)}:  {item}")
@@ -5445,7 +5444,7 @@ reset_CP(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()) and not self.node.parm(CP_ISVALID_PRESET).eval():
+                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
                             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                         else:
                             menu.append(f"{item}")
@@ -10030,10 +10029,10 @@ reset_IN(self, mode=0) -> None:
         node = self.node
 
         menu=[]
-        if node.parm(IN_ISVALID_FILE).eval():
+        if node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
+            # This is really to force an extra check
             xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
-            
             if os.path.isfile(xml):
                 
                 if node.parm(PREFS_ENUMERATE_MENU).eval():
@@ -10045,11 +10044,11 @@ reset_IN(self, mode=0) -> None:
                         # ICON bookmarks
                         
                         # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                             
                         # If a flame preset from the clipboard is loaded
-                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                             
                         else:
@@ -10064,11 +10063,11 @@ reset_IN(self, mode=0) -> None:
                         # ICON bookmarks
                         
                         # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                             
                         # If a flame preset from the clipboard is loaded
-                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
                             
                         else:
@@ -10086,7 +10085,7 @@ reset_IN(self, mode=0) -> None:
             
             # ICON bookmarks
             
-            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
+            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
                 return menu
             
@@ -10114,10 +10113,10 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         
         menu=[]
-        if node.parm(IN_ISVALID_FILE).eval():
+        if node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
             
+            # This is really to force an extra check
             xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
-            
             if os.path.isfile(xml):
                 
                 if node.parm(PREFS_ENUMERATE_MENU).eval():
@@ -10129,11 +10128,11 @@ reset_IN(self, mode=0) -> None:
                         # ICON bookmarks
                         
                         # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                             
                         # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
-                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                         #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
                             
                         else:
@@ -10147,11 +10146,11 @@ reset_IN(self, mode=0) -> None:
                         # ICON bookmarks
                         
                         # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                             
                         # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
-                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_ISVALID_PRESET).eval() and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                         #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
                             
                         else:
@@ -10168,7 +10167,7 @@ reset_IN(self, mode=0) -> None:
             
             menu.append(-1)
             
-            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE):
+            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
                 return menu
             
