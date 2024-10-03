@@ -7027,7 +7027,6 @@ __get_flame_count(self, flames: list) -> int:
         self._name = self.get_name()
         self._plugins = self.get_name(XML_FLAME_PLUGINS)
         self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
-        # self._flame_plugins = self.get_name(XML_FLAME_PLUGINS) # type: ignore
 
 
 
