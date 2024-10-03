@@ -215,6 +215,7 @@ OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 PREFS_TOGGLE = 'showprefs'
 PREFS_FLASH_MSG = 'flashmsg'
 PREFS_F3C = 'f3c'
+PREFS_ITERATOR_BOOKMARK_ICONS = 'itericons'
 PREFS_ENUMERATE_MENU = 'enumeratemenu'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_CVEX_PRECISION = 'vex_precision'
@@ -289,6 +290,11 @@ FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_option
 # High tier menu entrie
 FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]'
 
+# The following are pre baked for the generations of the variation's menus to speed up.
+# VARS_MENU_ALL -> is used as a base for the generation of the dynamic bookmark icons menus.
+# VARS_MENU_ALL_SIMPLE -> is a static pre built menu data for the menu without the bookmark icons.
+VARS_MENU_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian_blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (105, 'Pt_symmetry...'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
+VARS_MENU_ALL_SIMPLE: list = [0, 'Linear     ', 39, 'Arch          ', 94, 'Auger...          ', 14, 'Bent          ', 52, 'Bent2...          ', 53, 'Bipolar...          ', 43, 'Blade          ', 30, 'Blob...          ', 26, 'Blur          ', 54, 'Boarders          ', 23, 'Bubble          ', 55, 'Butterfly          ', 99, 'Bwraps...          ', 56, 'Cell...          ', 50, 'Conic...          ', 83, 'Cos          ', 89, 'Cosh          ', 20, 'Cosine          ', 87, 'Cot          ', 93, 'Coth          ', 57, 'Cpow...          ', 102, 'Crop...          ', 46, 'Cross          ', 86, 'Csc          ', 92, 'Csch          ', 27, 'Curl...          ', 97, 'Curve...          ', 24, 'Cylinder          ', 11, 'Diamond          ', 8, 'Disc          ', 47, 'Disc2...          ', 58, 'Edisc          ', 59, 'Elliptic          ', 61, 'Escher...          ', 12, 'Ex          ', 80, 'Exp          ', 18, 'Exponential          ', 25, 'Eyefish          ', 22, 'Fan*          ', 34, 'Fan2...          ', 16, 'Fisheye          ', 49, 'Flower...          ', 95, 'Flux...          ', 62, 'Foci          ', 33, 'Gaussian_blur          ', 104, 'Glynnia          ', 6, 'Handkerchief          ', 7, 'Heart          ', 100, 'Hemisphere          ', 4, 'Horseshoe          ', 10, 'Hyperbolic          ', 13, 'Julia          ', 31, 'JuliaN...          ', 32, 'Juliascope...          ', 63, 'Lazysusan...          ', 81, 'Log          ', 64, 'Loonie          ', 96, 'Mobius...          ', 66, 'Modulus...          ', 28, 'Ngon...          ', 60, 'Noise          ', 67, 'Oscope...          ', 51, 'Parabola...          ', 29, 'Pdj...          ', 98, 'Perspective...          ', 38, 'Pie...          ', 5, 'Polar          ', 68, 'Polar2          ', 101, 'Polynomial...          ', 17, 'Popcorn*          ', 69, 'Popcorn2...          ', 19, 'Power          ', 105, 'Pt_symmetry...          ', 37, 'Radialblur...          ', 42, 'Rays          ', 36, 'Rectangles...          ', 21, 'Rings*          ', 35, 'Rings2...          ', 70, 'Scry          ', 85, 'Sec          ', 44, 'Secant2          ', 91, 'Sech          ', 71, 'Separation...          ', 82, 'Sin          ', 88, 'Sinh          ', 1, 'Sinusoidal          ', 2, 'Spherical          ', 9, 'Spiral          ', 72, 'Split...          ', 73, 'Splits...          ', 41, 'Square          ', 74, 'Stripes...          ', 48, 'Supershape...          ', 3, 'Swirl          ', 84, 'Tan          ', 40, 'Tangent          ', 90, 'Tanh          ', 45, 'Twintrian          ', 103, 'Unpolar          ', 15, 'Waves*          ', 79, 'Waves2...          ', 75, 'Wedge...          ', 76, 'Wedgejulia...          ', 77, 'Wedgesph...          ', 78, 'Whorl...          ']
 
 
 
@@ -373,159 +379,135 @@ class flam3h_varsPRM:
 
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
     # Those names are what it will appear inside each variation's menu.
-    varsPRM = ( ("linear", 0), 
-                ("sinusoidal", 0), 
-                ("spherical", 0), 
-                ("swirl", 0), 
-                ("horseshoe", 0), 
-                ("polar", 0), 
-                ("handkerchief", 0), 
-                ("heart", 0), 
-                ("disc", 0), 
-                ("spiral", 0), 
-                ("hyperbolic", 0), 
-                ("diamond", 0), 
-                ("ex", 0), 
-                ("julia", 0), 
-                ("bent", 0), 
-                (f"waves{DPT}", 0), 
-                ("fisheye", 0), 
-                (f"popcorn{DPT}", 0), 
-                ("exponential", 0), 
-                ("power", 0), 
-                ("cosine", 0), 
-                (f"rings{DPT}", 0), 
-                (f"fan{DPT}", 0), 
-                ("bubble", 0), 
-                ("cylinder", 0), 
-                ("eyefish", 0), 
-                ("blur", 0), 
-                (f"curl{PRM}", ("curlc_", 1), 1), 
-                (f"ngon{PRM}", ("ngon_", 1), 1), 
-                (f"pdj{PRM}", ("pdjw_", 1), 1), 
-                (f"blob{PRM}", ("blob_", 1), 1), 
-                (f"juliaN{PRM}", ("julian_", 1), 1), 
-                (f"juliascope{PRM}", ("juliascope_", 1), 1), 
-                ("gaussian_blur", 0), 
-                (f"fan2{PRM}", ("fan2_", 1), 1), 
-                (f"rings2{PRM}", ("rings2val_", 0), 1), 
-                (f"rectangles{PRM}", ("rectangles_", 1), 1), 
-                (f"radialblur{PRM}", ("radialblur_", 0), 1), 
-                (f"pie{PRM}", ("pie_", 1), 1), 
-                ("arch", 0), 
-                ("tangent", 0), 
-                ("square", 0), 
-                ("rays", 0), 
-                ("blade", 0), 
-                ("secant2", 0), 
-                ("twintrian", 0), 
-                ("cross", 0), 
-                (f"disc2{PRM}", ("disc2_", 1), 1), 
-                (f"supershape{PRM}", ("supershape_", 1), ("supershapen_", 1), 1), 
-                (f"flower{PRM}", ("flower_", 1), 1), 
-                (f"conic{PRM}", ("conic_", 1), 1), 
-                (f"parabola{PRM}", ("parabola_", 1), 1), 
-                (f"bent2{PRM}", ("bent2xy_", 1), 1), 
-                (f"bipolar{PRM}", ("bipolarshift_", 0), 1),
-                ("boarders", 0),
-                ("butterfly", 0), 
-                (f"cell{PRM}", ("cellsize_", 0), 1), 
-                (f"cpow{PRM}", ("cpow_", 1), 1), 
-                ("edisc", 0), 
-                ("elliptic", 0), 
-                ("noise", 0), 
-                (f"escher{PRM}", ("escherbeta_", 0), 1), 
-                ("foci", 0), 
-                (f"lazysusan{PRM}", ("lazysusanxyz_", 1), ("lazysusan_", 1), 1), 
-                ("loonie", 0), 
-                ("pre blur", 0), 
-                (f"modulus{PRM}", ("modulusXYZ_", 1), 1), 
-                (f"oscope{PRM}", ("oscope_", 1), 1), 
-                ("polar2", 0), 
-                (f"popcorn2{PRM}", ("popcorn2xyz_", 1), ("popcorn2c_", 0), 1), 
-                ("scry", 0), 
-                (f"separation{PRM}", ("separationxyz_", 1), ("separationinsidexyz_", 1), 1), 
-                (f"split{PRM}", ("splitxyz_", 1), 1), 
-                (f"splits{PRM}", ("splitsxyz_", 1), 1), 
-                (f"stripes{PRM}", ("stripes_", 1), 1), 
-                (f"wedge{PRM}", ("wedge_", 1), 1), 
-                (f"wedgejulia{PRM}", ("wedgejulia_", 1), 1), 
-                (f"wedgesph{PRM}", ("wedgesph_", 1), 1), 
-                (f"whorl{PRM}", ("whorl_", 1), 1), 
-                (f"waves2{PRM}", ("waves2scalexyz_", 1), ("waves2freqxyz_", 1), 1), 
-                ("exp", 0), 
-                ("log", 0), 
-                ("sin", 0), 
-                ("cos", 0), 
-                ("tan", 0), 
-                ("sec", 0), 
-                ("csc", 0), 
-                ("cot", 0), 
-                ("sinh", 0), 
-                ("cosh", 0), 
-                ("tanh", 0), 
-                ("sech", 0), 
-                ("csch", 0), 
-                ("coth", 0), 
-                (f"auger{PRM}", ("auger_", 1), 1), 
-                (f"flux{PRM}", ("fluxspread_", 0), 1), 
-                (f"mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
-                (f"curve{PRM}", ("curvexyzlenght_", 1), ("curvexyzamp_", 1), 1), 
-                (f"perspective{PRM}", ("persp_", 1), 1), 
-                (f"bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
-                ("hemisphere", 0), 
-                (f"polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
-                (f"crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1),
-                ("unpolar", 0), 
-                ("glynnia", 0),
-                (f"pt_symmetry{PRM}", ("ptsym_", 1), 1)
+    varsPRM = ( ("Linear", 0), 
+                ("Sinusoidal", 0), 
+                ("Spherical", 0), 
+                ("Swirl", 0), 
+                ("Horseshoe", 0), 
+                ("Polar", 0), 
+                ("Handkerchief", 0), 
+                ("Heart", 0), 
+                ("Disc", 0), 
+                ("Spiral", 0), 
+                ("Hyperbolic", 0), 
+                ("Diamond", 0), 
+                ("Ex", 0), 
+                ("Julia", 0), 
+                ("Bent", 0), 
+                (f"Waves{DPT}", 0), 
+                ("Fisheye", 0), 
+                (f"Popcorn{DPT}", 0), 
+                ("Exponential", 0), 
+                ("Power", 0), 
+                ("Cosine", 0), 
+                (f"Rings{DPT}", 0), 
+                (f"Fan{DPT}", 0), 
+                ("Bubble", 0), 
+                ("Cylinder", 0), 
+                ("Eyefish", 0), 
+                ("Blur", 0), 
+                (f"Curl{PRM}", ("curlc_", 1), 1), 
+                (f"Ngon{PRM}", ("ngon_", 1), 1), 
+                (f"Pdj{PRM}", ("pdjw_", 1), 1), 
+                (f"Blob{PRM}", ("blob_", 1), 1), 
+                (f"JuliaN{PRM}", ("julian_", 1), 1), 
+                (f"Juliascope{PRM}", ("juliascope_", 1), 1), 
+                ("Gaussian_blur", 0), 
+                (f"Fan2{PRM}", ("fan2_", 1), 1), 
+                (f"Rings2{PRM}", ("rings2val_", 0), 1), 
+                (f"Rectangles{PRM}", ("rectangles_", 1), 1), 
+                (f"Radialblur{PRM}", ("radialblur_", 0), 1), 
+                (f"Pie{PRM}", ("pie_", 1), 1), 
+                ("Arch", 0), 
+                ("Tangent", 0), 
+                ("Square", 0), 
+                ("Rays", 0), 
+                ("Blade", 0), 
+                ("Secant2", 0), 
+                ("Twintrian", 0), 
+                ("Cross", 0), 
+                (f"Disc2{PRM}", ("disc2_", 1), 1), 
+                (f"Supershape{PRM}", ("supershape_", 1), ("supershapen_", 1), 1), 
+                (f"Flower{PRM}", ("flower_", 1), 1), 
+                (f"Conic{PRM}", ("conic_", 1), 1), 
+                (f"Parabola{PRM}", ("parabola_", 1), 1), 
+                (f"Bent2{PRM}", ("bent2xy_", 1), 1), 
+                (f"Bipolar{PRM}", ("bipolarshift_", 0), 1),
+                ("Boarders", 0),
+                ("Butterfly", 0), 
+                (f"Cell{PRM}", ("cellsize_", 0), 1), 
+                (f"Cpow{PRM}", ("cpow_", 1), 1), 
+                ("Edisc", 0), 
+                ("Elliptic", 0), 
+                ("Noise", 0), 
+                (f"Escher{PRM}", ("escherbeta_", 0), 1), 
+                ("Foci", 0), 
+                (f"Lazysusan{PRM}", ("lazysusanxyz_", 1), ("lazysusan_", 1), 1), 
+                ("Loonie", 0), 
+                ("Pre blur", 0), 
+                (f"Modulus{PRM}", ("modulusXYZ_", 1), 1), 
+                (f"Oscope{PRM}", ("oscope_", 1), 1), 
+                ("Polar2", 0), 
+                (f"Popcorn2{PRM}", ("popcorn2xyz_", 1), ("popcorn2c_", 0), 1), 
+                ("Scry", 0), 
+                (f"Separation{PRM}", ("separationxyz_", 1), ("separationinsidexyz_", 1), 1), 
+                (f"Split{PRM}", ("splitxyz_", 1), 1), 
+                (f"Splits{PRM}", ("splitsxyz_", 1), 1), 
+                (f"Stripes{PRM}", ("stripes_", 1), 1), 
+                (f"Wedge{PRM}", ("wedge_", 1), 1), 
+                (f"Wedgejulia{PRM}", ("wedgejulia_", 1), 1), 
+                (f"Wedgesph{PRM}", ("wedgesph_", 1), 1), 
+                (f"Whorl{PRM}", ("whorl_", 1), 1), 
+                (f"Waves2{PRM}", ("waves2scalexyz_", 1), ("waves2freqxyz_", 1), 1), 
+                ("Exp", 0), 
+                ("Log", 0), 
+                ("Sin", 0), 
+                ("Cos", 0), 
+                ("Tan", 0), 
+                ("Sec", 0), 
+                ("Csc", 0), 
+                ("Cot", 0), 
+                ("Sinh", 0), 
+                ("Cosh", 0), 
+                ("Tanh", 0), 
+                ("Sech", 0), 
+                ("Csch", 0), 
+                ("Coth", 0), 
+                (f"Auger{PRM}", ("auger_", 1), 1), 
+                (f"Flux{PRM}", ("fluxspread_", 0), 1), 
+                (f"Mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
+                (f"Curve{PRM}", ("curvexyzlenght_", 1), ("curvexyzamp_", 1), 1), 
+                (f"Perspective{PRM}", ("persp_", 1), 1), 
+                (f"Bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
+                ("Hemisphere", 0), 
+                (f"Polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
+                (f"Crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1),
+                ("Unpolar", 0), 
+                ("Glynnia", 0),
+                (f"Pt_symmetry{PRM}", ("ptsym_", 1), 1)
                 )
-
-
-    # def vars_all(self) -> list:
-    #     """
-    #     Returns:
-    #         list: [return a list of all the variation names properly ordered as per flame*.h files]
-    #     """
-
-    #     return list(map(lambda x: x[0], self.varsPRM))
     
     
-    def vars_all_capitalize(self) -> list:
+    
+    def vars_all(self) -> list:
         """
         Returns:
             list: [return a list of all the variation names properly ordered as per flame*.h files]
         """
 
-        return list(map(lambda x: x[0].capitalize(), self.varsPRM))
-
-
-    # def menu_vars_all(self) -> list:
-    #     """
-    #     Returns:
-    #         list: [return an enumerated variations menu list with "linear" being the first one for convenience]
-    #     """        
-
-    #     vars = self.vars_all()
-    #     vars_no_lin = list(enumerate(vars))[1:]
-    #     vars_no_lin.remove((65, 'pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
-    #     vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
-
-    #     return list(enumerate(['linear'])) + vars_sorted
+        return list(map(lambda x: x[0], self.varsPRM))
     
     
-    def menu_vars_all_capitalize(self) -> list:
+    def menu_vars_all(self) -> list:
         """
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience]
         """        
 
-        vars = self.vars_all_capitalize()
-        vars_no_lin = list(enumerate(vars))[1:]
-        vars_no_lin.remove((65, 'pre blur'.capitalize())) # remove "pre blur" as it is hard coded into the chaos game.
+        vars_no_lin = list(enumerate(self.vars_all()))[1:]
+        vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
         vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
-
-        return list(enumerate(['linear'.capitalize()])) + vars_sorted
+        return list(enumerate(['Linear'])) + vars_sorted
 
     
     # def menu_vars_no_PRM(self) -> list:
@@ -2232,6 +2214,8 @@ auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) ->
 
 METHODS:
 
+refresh_iterator_vars_menu(self) -> None:
+
 menu_T_data(self) -> tuple[int, str]:
 
 menu_T_PP_data(self) -> tuple[int, str]:
@@ -2240,9 +2224,15 @@ menu_T_FF_data(self) -> tuple[int, str]:
 
 menu_T_PP_FF_data(self) -> tuple[int, str]:
 
-menu_T(self, FF=False) -> list:
-
 menu_T_pb_data(self) -> str:
+
+menu_T_ICON(self, FF=False) -> list:
+
+menu_T_PP_ICON(self, FF=False) -> list:
+
+menu_T_simple(self, FF=False) -> list:
+
+menu_T(self, FF=False) -> list:
 
 menu_T_pb(self) -> list:
 
@@ -2863,8 +2853,21 @@ iterator_keep_last_weight(self) -> None:
     @property
     def node(self):
         return self._node
+
     
-    
+    def refresh_iterator_vars_menu(self) -> None:
+        node = self.node
+        if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
+            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+            # This is the only way I found to update the menus, for now.
+            node.type().definition().updateFromNode(node)
+            node.matchCurrentDefinition()
+            
+        # For some reasons the FF menus do not update so we force them to
+        node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_1}").pressButton()
+        # Change focus back to the FLAME's Tab
+        node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+
     
     
     def menu_T_data(self) -> tuple[int, str]:
@@ -2965,69 +2968,6 @@ iterator_keep_last_weight(self) -> None:
         return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
-    
-    def menu_T(self, FF=False) -> list:
-        """Populate variation names parameter menu list.
-        Differentiate iterators and FF
-        
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
-
-        Returns:
-            list: [return menu list]
-        """
-        menu=[]
-        if not FF:
-            _TYPE, _ICON = self.menu_T_data()
-        else:
-            _TYPE, _ICON = self.menu_T_FF_data()
-            
-        for i, item in flam3h_varsPRM().menu_vars_all_capitalize():
-            
-            menu.append(i)
-            
-            if i == _TYPE:
-                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
-            else:
-                menu.append(f"{item}          ") # 10 times \s
-            
-        return menu
-    
-
-
-    def menu_T_PP(self, FF=False) -> list:
-        """Populate variation names parameter menu list.
-        Differentiate iterators and FF
-        
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
-
-        Returns:
-            list: [return menu list]
-        """
-        menu=[]
-        if not FF:
-            _TYPE, _ICON = self.menu_T_PP_data()
-        else:
-            _TYPE, _ICON = self.menu_T_PP_FF_data()
-            
-        for i, item in flam3h_varsPRM().menu_vars_all_capitalize():
-            
-            menu.append(i)
-            
-            if i == _TYPE:
-                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
-            else:
-                menu.append(f"{item}          ") # 10 times \s
-            
-        return menu
-    
-    
-    
     def menu_T_pb_data(self) -> str:
         """Rerturn the bookmark icon to use for the Pre blur variation
         based on its weight value.
@@ -3047,6 +2987,117 @@ iterator_keep_last_weight(self) -> None:
                 return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
             
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
+    
+    
+    def menu_T_ICON(self, FF=False) -> list:
+        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
+        Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+
+        Returns:
+            list: [return menu list]
+        """
+        menu=[]
+        if not FF:
+            _TYPE, _ICON = self.menu_T_data()
+        else:
+            _TYPE, _ICON = self.menu_T_FF_data()
+            
+        for i, item in VARS_MENU_ALL:
+            
+            menu.append(i)
+            
+            if i == _TYPE:
+                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
+            else:
+                menu.append(f"{item}          ") # 10 times \s
+
+        return menu
+
+
+
+    def menu_T_PP_ICON(self, FF=False) -> list:
+        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
+        Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+
+        Returns:
+            list: [return menu list]
+        """
+        menu=[]
+        if not FF:
+            _TYPE, _ICON = self.menu_T_PP_data()
+        else:
+            _TYPE, _ICON = self.menu_T_PP_FF_data()
+            
+        for i, item in VARS_MENU_ALL:
+            
+            menu.append(i)
+            
+            if i == _TYPE:
+                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
+            else:
+                menu.append(f"{item}          ") # 10 times \s
+            
+        return menu
+    
+    
+    def menu_T_simple(self, FF=False) -> list:
+        """Populate variation names parameter menu list.
+        Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+
+        Returns:
+            list: [return menu list]
+        """
+        return VARS_MENU_ALL_SIMPLE
+    
+    
+    def menu_T(self, FF=False) -> list:
+        """Populate variation names parameter menu list.
+        Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+
+        Returns:
+            list: [return menu list]
+        """
+        _ICONS_TOGGLE = self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        run = (self.menu_T_simple, self.menu_T_ICON)
+        return run[_ICONS_TOGGLE](FF)
+
+    
+    
+    def menu_T_PP(self, FF=False) -> list:
+        """Populate variation names parameter menu list.
+        Differentiate iterators and FF
+        
+        _NOTE:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+
+        Returns:
+            list: [return menu list]
+        """
+        _ICONS_TOGGLE = self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        run = (self.menu_T_simple, self.menu_T_PP_ICON)
+        return run[_ICONS_TOGGLE](FF)
     
     
     
@@ -4642,6 +4693,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
+        
         # iterator prm names
         n = flam3h_iterator_prm_names
         
