@@ -2196,6 +2196,8 @@ class flam3h_iterator_utils
 
 STATIC METHODS:
 
+flam3h_default_sierpinski_settings(node: hou.SopNode) -> None:
+
 get_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
 
 exist_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> bool:
@@ -2326,6 +2328,66 @@ iterator_keep_last_weight(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
+
+
+    @staticmethod
+    def flam3h_default_sierpinski_settings(node: hou.SopNode) -> None:
+        # iterator prm names
+        n = flam3h_iterator_prm_names
+
+        # iter 1
+        #
+        # shader
+        node.setParms({f"{n.shader_color}_1": 0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_1": -0.5}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_type_1}_1": 0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_1": 0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_1": 0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_1": 0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))}) # type: ignore
+
+        # iter 2
+        #
+        # shader
+        node.setParms({f"{n.shader_color}_2": 0.5}) # type: ignore
+        node.setParms({f"{n.shader_speed}_2": -0.5}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_type_1}_2": 0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_2": 0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_2": 0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_2": 0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))}) # type: ignore
+
+        # iter 3
+        #
+        # shader
+        node.setParms({f"{n.shader_color}_3": 1.0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_3": -0.5}) # type: ignore
+        # vars
+        node.setParms({f"{n.prevar_type_1}_3": 0}) # type: ignore
+        node.setParms({f"{n.prevar_type_2}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_1}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_2}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_3}_3": 0}) # type: ignore
+        node.setParms({f"{n.var_type_4}_3": 0}) # type: ignore
+        node.setParms({f"{n.postvar_type_1}_3": 0}) # type: ignore
+        # pre affine
+        node.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))}) # type: ignore
+        node.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
+        node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
 
 
     @staticmethod
@@ -4527,6 +4589,7 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0}) # type: ignore
 
 
+
     def flam3h_default(self) -> None:
         """Sierpiński triangle parameters vaule.
         This is used to reset back FLAM3H node entire parameter template.
@@ -4539,6 +4602,7 @@ iterator_keep_last_weight(self) -> None:
         
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
+        
         # update xaos
         self.auto_set_xaos()
 
@@ -4557,69 +4621,12 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({MSG_FLAMESENSOR: ""})
         # node.setParms({MSG_PALETTE: ''})
         # node.setParms({MSG_OUT: ''})
-        
-        # iterator prm names
-        n = flam3h_iterator_prm_names
-
-        # iter 1
-        #
-        # shader
-        node.setParms({f"{n.shader_color}_1": 0}) # type: ignore
-        node.setParms({f"{n.shader_speed}_1": -0.5}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_type_1}_1": 0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_1": 0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_1": 0}) # type: ignore
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))}) # type: ignore
-
-        # iter 2
-        #
-        # shader
-        node.setParms({f"{n.shader_color}_2": 0.5}) # type: ignore
-        node.setParms({f"{n.shader_speed}_2": -0.5}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_type_1}_2": 0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_2": 0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_2": 0}) # type: ignore
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))}) # type: ignore
-
-        # iter 3
-        #
-        # shader
-        node.setParms({f"{n.shader_color}_3": 1.0}) # type: ignore
-        node.setParms({f"{n.shader_speed}_3": -0.5}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_type_1}_3": 0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_3": 0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_3": 0}) # type: ignore
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
-        
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
+        # Sierpiński triangle settings
+        self.flam3h_default_sierpinski_settings(node)
+        
         # init/clear copy/paste iterator's data and prm if needed.
-        #
-        # This was causing some issues and got updated.
         self.flam3h_paste_reset_hou_session_data()
         
         # If the node has its display flag ON
@@ -4627,7 +4634,6 @@ iterator_keep_last_weight(self) -> None:
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            # Run a flash message
             flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle")
             
             
@@ -6438,7 +6444,7 @@ and change the flame → “name” key afterwards.
 
     
     def ui_active_iterator_infos(self) -> None:
-        ALL_msg = """If an iterator is disabled,
+        ALL_msg = """If an xform/iterator is disabled,
 it wont be included when saving the Flame out into a flame file.
 
 In case you still want to include the inactive iterator into the file,
