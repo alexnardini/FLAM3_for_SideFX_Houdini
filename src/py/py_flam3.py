@@ -2196,7 +2196,7 @@ class flam3h_iterator_utils
 
 STATIC METHODS:
 
-flam3h_default_sierpinski_settings(node: hou.SopNode) -> None:
+sierpinski_settings(node: hou.SopNode) -> None:
 
 get_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
 
@@ -2331,7 +2331,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def flam3h_default_sierpinski_settings(node: hou.SopNode) -> None:
+    def sierpinski_settings(node: hou.SopNode) -> None:
         # iterator prm names
         n = flam3h_iterator_prm_names
 
@@ -4624,7 +4624,7 @@ iterator_keep_last_weight(self) -> None:
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         
         # Sierpiński triangle settings
-        self.flam3h_default_sierpinski_settings(node)
+        self.sierpinski_settings(node)
         
         # init/clear copy/paste iterator's data and prm if needed.
         self.flam3h_paste_reset_hou_session_data()
