@@ -3417,6 +3417,7 @@ iterator_keep_last_weight(self) -> None:
         vals_name = { 0: "Default: 500K points", 1: "1 Millions points", 2: "2 Millions points", 3: "5 Millions points", 4: "15 Millions points", 5: "25 Millions points", 6: "50 Millions points", 7: "100 Millions points", 8: "150 Millions points", 9: "250 Millions points", 10: "500 Millions points", 11: "750 Millions points", 12: "1 Billions points"}
         
         if ptcount != vals[sel]:
+            node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: vals.get(sel)}) # type: ignore
             _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name.get(sel)} \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -3432,6 +3433,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         ptcount = node.parm(GLB_DENSITY).evalAsInt()
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
+            node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             _MSG = f"{node.name()} -> DENSITY preset: \" Default: 500K points \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
