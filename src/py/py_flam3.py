@@ -2247,7 +2247,11 @@ menu_T(self, FF=False) -> list:
 
 menu_T_pb(self) -> list:
 
+menu_select_iterator_data(self) -> list:
+
 menu_select_iterator(self) -> list:
+
+menu_select_iterator_destroy_data(self) -> None:
 
 prm_select_iterator(self) -> None:
 
@@ -3154,7 +3158,7 @@ iterator_keep_last_weight(self) -> None:
         return menu
 
 
-    def menu_select_iterator(self) -> list:
+    def menu_select_iterator_data(self) -> list:
         """Build a menu of iterators using their states as bookmark icon
 
         Returns:
@@ -3212,7 +3216,20 @@ iterator_keep_last_weight(self) -> None:
             menu.append(1)
             menu.append("")
                 
+        node.setCachedUserData('iter_sel', menu)
         return menu
+    
+    
+    def menu_select_iterator(self) -> list:
+        data = self.node.cachedUserData('iter_sel')
+        if data is not None:
+            return data
+        else:
+            return self.menu_select_iterator_data()
+        
+        
+    def menu_select_iterator_destroy_data(self) -> None:
+        self.node.destroyCachedUserData('iter_sel')
     
     
     def prm_select_iterator(self) -> None:
@@ -3912,6 +3929,7 @@ iterator_keep_last_weight(self) -> None:
         """    
         
         node = self.node
+        node.destroyCachedUserData('iter_sel')
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
         # This is to make sure the hou.session's data is at least initialized.
@@ -4697,6 +4715,7 @@ iterator_keep_last_weight(self) -> None:
         """
         
         node = self.node
+        node.destroyCachedUserData('iter_sel')
         
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
@@ -4855,6 +4874,8 @@ iterator_keep_last_weight(self) -> None:
         
         # DEL -> ONLY LAST ITERATOR
         if idx_del_inbetween is not None and idx_del_inbetween == iter_num:
+            
+            node.destroyCachedUserData('iter_sel')
 
             # updated CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
@@ -4888,6 +4909,8 @@ iterator_keep_last_weight(self) -> None:
         
         # DEL
         elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
+            
+            node.destroyCachedUserData('iter_sel')
 
             xaos_str = xaos_str_hou_get
             del xaos_str[idx_del_inbetween]
@@ -4935,6 +4958,8 @@ iterator_keep_last_weight(self) -> None:
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
         elif idx_add_inbetween is not None:
+            
+            node.destroyCachedUserData('iter_sel')
 
             for xidx, x in enumerate(xaos_str):
                 if xidx != idx_add_inbetween:
@@ -5005,6 +5030,8 @@ iterator_keep_last_weight(self) -> None:
         _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
 
         node = self.node
+        node.destroyCachedUserData('iter_sel')
+        
         iterators_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
         if not iterators_count:
@@ -5042,6 +5069,7 @@ iterator_keep_last_weight(self) -> None:
             flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
             
         else:
+            
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
             
@@ -5064,7 +5092,10 @@ iterator_keep_last_weight(self) -> None:
             The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """    
+        
         node = self.node
+        node.destroyCachedUserData('iter_sel')
+        
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
         # The following will collect the active iterator bool value if and only if the iterator is active and its weight is above zero.
@@ -5109,6 +5140,7 @@ iterator_keep_last_weight(self) -> None:
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """  
         node = self.node
+        node.destroyCachedUserData('iter_sel')
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         W = [int(node.parm(f"iw_{str(mp_idx+1)}").eval()) 
             for mp_idx in range(iter_num) 
@@ -10908,6 +10940,7 @@ reset_IN(self, mode=0) -> None:
             self.in_to_flam3h_reset_user_data()
             
             # Clear menu caches
+            node.destroyCachedUserData('iter_sel')
             node.destroyCachedUserData('in_presets_menu')
             node.destroyCachedUserData('in_presets_menu_idx')
             node.destroyCachedUserData('in_presets_menu_off')
