@@ -1856,6 +1856,9 @@ reset_PREFS(self, mode=0) -> None:
         Args:
         """    
         node = self.node
+        # Force menu update
+        node.destroyCachedUserData('out_presets_menu')
+        
         prm = node.parm(OUT_PRESETS)
         prm_sys = node.parm(OUT_SYS_PRESETS)
         prm.set('-1')
@@ -1877,14 +1880,14 @@ reset_PREFS(self, mode=0) -> None:
                     node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 1})
             else:
-                node.destroyCachedUserData('out_presets_menu')
+                # node.destroyCachedUserData('out_presets_menu')
                 
                 prm.set('-1')
                 prm_sys.set('-1')
                 node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 0})
         else:
-            node.destroyCachedUserData('out_presets_menu')
+            # node.destroyCachedUserData('out_presets_menu')
             
             node.setParms({MSG_OUT: ''})
             node.setParms({OUT_ISVALID_FILE: 0})
@@ -1915,6 +1918,8 @@ reset_PREFS(self, mode=0) -> None:
             
             json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
             if json_file and f3h_json_file:
+                # Force menu update
+                node.destroyCachedUserData('cp_presets_menu_off')
                 # CP is valid file
                 node.setParms({CP_ISVALID_FILE: 1})
                 # Only set when NOT on an: onLoaded python script
@@ -3229,6 +3234,10 @@ iterator_keep_last_weight(self) -> None:
         
         
     def menu_select_iterator_destroy_data(self) -> None:
+        """This is to be run as a callback script inside parms that are responsible to update the menu:
+
+        Returns:
+        """
         self.node.destroyCachedUserData('iter_sel')
     
     
@@ -3929,7 +3938,9 @@ iterator_keep_last_weight(self) -> None:
         """    
         
         node = self.node
+        # Clear menu cache
         node.destroyCachedUserData('iter_sel')
+        
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
         # This is to make sure the hou.session's data is at least initialized.
@@ -4715,6 +4726,7 @@ iterator_keep_last_weight(self) -> None:
         """
         
         node = self.node
+        # Clear menu cache
         node.destroyCachedUserData('iter_sel')
         
         # Iterators reset
@@ -4875,6 +4887,7 @@ iterator_keep_last_weight(self) -> None:
         # DEL -> ONLY LAST ITERATOR
         if idx_del_inbetween is not None and idx_del_inbetween == iter_num:
             
+            # Clear menu cache
             node.destroyCachedUserData('iter_sel')
 
             # updated CachedUserData: flam3h_xaos_iterators_prev
@@ -4910,6 +4923,7 @@ iterator_keep_last_weight(self) -> None:
         # DEL
         elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
             
+            # Clear menu cache
             node.destroyCachedUserData('iter_sel')
 
             xaos_str = xaos_str_hou_get
@@ -4959,6 +4973,7 @@ iterator_keep_last_weight(self) -> None:
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
         elif idx_add_inbetween is not None:
             
+            # Clear menu cache
             node.destroyCachedUserData('iter_sel')
 
             for xidx, x in enumerate(xaos_str):
@@ -5030,6 +5045,7 @@ iterator_keep_last_weight(self) -> None:
         _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
 
         node = self.node
+        # Clear menu cache
         node.destroyCachedUserData('iter_sel')
         
         iterators_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
@@ -5094,6 +5110,7 @@ iterator_keep_last_weight(self) -> None:
         """    
         
         node = self.node
+        # Clear menu cache
         node.destroyCachedUserData('iter_sel')
         
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
@@ -5140,7 +5157,9 @@ iterator_keep_last_weight(self) -> None:
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
         """  
         node = self.node
+        # Clear menu cache
         node.destroyCachedUserData('iter_sel')
+        
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         W = [int(node.parm(f"iw_{str(mp_idx+1)}").eval()) 
             for mp_idx in range(iter_num) 
