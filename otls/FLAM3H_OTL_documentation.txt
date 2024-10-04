@@ -2224,7 +2224,7 @@ Iterator menus bookmark icons:
     
     This mode will change each variation's menu based of the value of its weight hence it will take a hit on the UI performance.
     
-    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab and remove the bookmark icons. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
+    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
 
 
 cvex precision modes (hidden):
