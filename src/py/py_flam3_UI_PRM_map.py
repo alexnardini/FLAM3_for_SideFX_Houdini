@@ -309,6 +309,12 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
+
+'parameter name:    alpha_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_data(kwargs['node'], 'iter_sel')
+
+
 # The following can probably be removed
 'All ITERATORS PRE BLUR variation type parameter'
 'parameter name:    preblurtype_#'

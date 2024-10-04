@@ -2231,6 +2231,8 @@ auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: Union[list, tuple]) -> No
 
 auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) -> None:
 
+destroy_data(node, data: str) -> None:
+
 METHODS:
 
 refresh_iterator_vars_menu(self) -> None:
@@ -2258,8 +2260,6 @@ menu_T_pb(self) -> list:
 menu_select_iterator_data(self) -> list:
 
 menu_select_iterator(self) -> list:
-
-menu_select_iterator_destroy_data(self) -> None:
 
 prm_select_iterator(self) -> None:
 
@@ -2862,6 +2862,14 @@ iterator_keep_last_weight(self) -> None:
             node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
 
 
+    @staticmethod
+    def destroy_data(node, data: str) -> None:
+        """This is to be run as a callback script inside parms that are responsible to update the menu.
+        For now: Iterator shader's opacity  
+
+        Returns:
+        """
+        node.destroyCachedUserData(data)
 
 
 
@@ -3234,15 +3242,6 @@ iterator_keep_last_weight(self) -> None:
             return data
         else:
             return self.menu_select_iterator_data()
-        
-        
-    def menu_select_iterator_destroy_data(self) -> None:
-        """This is to be run as a callback script inside parms that are responsible to update the menu.
-        For now: Iterator shader's opacity  
-
-        Returns:
-        """
-        self.node.destroyCachedUserData('iter_sel')
     
     
     def prm_select_iterator(self) -> None:
