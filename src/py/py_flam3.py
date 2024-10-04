@@ -290,15 +290,16 @@ FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_option
 # High tier menu entrie
 FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]'
 
-# The following are pre built for the generations of the menus to speed up.
+# The following are pre built to speed up the generations of the menus.
 #
-# VARS_MENU_ALL -> is used as a base for the generation of the dynamic bookmark icons menus.
-# VARS_MENU_ALL_SIMPLE -> is a static pre built menu data for the menu without the bookmark icons.
-# DENSITY_MENU -> is a static pre built menu data for the density menu presets.
-VARS_MENU_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian_blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (105, 'Pt_symmetry...'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
-VARS_MENU_ALL_SIMPLE: list = [0, 'Linear     ', 39, 'Arch          ', 94, 'Auger...          ', 14, 'Bent          ', 52, 'Bent2...          ', 53, 'Bipolar...          ', 43, 'Blade          ', 30, 'Blob...          ', 26, 'Blur          ', 54, 'Boarders          ', 23, 'Bubble          ', 55, 'Butterfly          ', 99, 'Bwraps...          ', 56, 'Cell...          ', 50, 'Conic...          ', 83, 'Cos          ', 89, 'Cosh          ', 20, 'Cosine          ', 87, 'Cot          ', 93, 'Coth          ', 57, 'Cpow...          ', 102, 'Crop...          ', 46, 'Cross          ', 86, 'Csc          ', 92, 'Csch          ', 27, 'Curl...          ', 97, 'Curve...          ', 24, 'Cylinder          ', 11, 'Diamond          ', 8, 'Disc          ', 47, 'Disc2...          ', 58, 'Edisc          ', 59, 'Elliptic          ', 61, 'Escher...          ', 12, 'Ex          ', 80, 'Exp          ', 18, 'Exponential          ', 25, 'Eyefish          ', 22, 'Fan*          ', 34, 'Fan2...          ', 16, 'Fisheye          ', 49, 'Flower...          ', 95, 'Flux...          ', 62, 'Foci          ', 33, 'Gaussian_blur          ', 104, 'Glynnia          ', 6, 'Handkerchief          ', 7, 'Heart          ', 100, 'Hemisphere          ', 4, 'Horseshoe          ', 10, 'Hyperbolic          ', 13, 'Julia          ', 31, 'JuliaN...          ', 32, 'Juliascope...          ', 63, 'Lazysusan...          ', 81, 'Log          ', 64, 'Loonie          ', 96, 'Mobius...          ', 66, 'Modulus...          ', 28, 'Ngon...          ', 60, 'Noise          ', 67, 'Oscope...          ', 51, 'Parabola...          ', 29, 'Pdj...          ', 98, 'Perspective...          ', 38, 'Pie...          ', 5, 'Polar          ', 68, 'Polar2          ', 101, 'Polynomial...          ', 17, 'Popcorn*          ', 69, 'Popcorn2...          ', 19, 'Power          ', 105, 'Pt_symmetry...          ', 37, 'Radialblur...          ', 42, 'Rays          ', 36, 'Rectangles...          ', 21, 'Rings*          ', 35, 'Rings2...          ', 70, 'Scry          ', 85, 'Sec          ', 44, 'Secant2          ', 91, 'Sech          ', 71, 'Separation...          ', 82, 'Sin          ', 88, 'Sinh          ', 1, 'Sinusoidal          ', 2, 'Spherical          ', 9, 'Spiral          ', 72, 'Split...          ', 73, 'Splits...          ', 41, 'Square          ', 74, 'Stripes...          ', 48, 'Supershape...          ', 3, 'Swirl          ', 84, 'Tan          ', 40, 'Tangent          ', 90, 'Tanh          ', 45, 'Twintrian          ', 103, 'Unpolar          ', 15, 'Waves*          ', 79, 'Waves2...          ', 75, 'Wedge...          ', 76, 'Wedgejulia...          ', 77, 'Wedgesph...          ', 78, 'Whorl...          ']
-DENSITY_MENU = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '50M', 7, '100M', 8, '150M', 9, '250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
-
+# MENU_VARS_ALL -> is used as a base for the generation of the dynamic bookmark icons menus.
+# MENU_VARS_ALL_SIMPLE -> is a static pre built menu data for the menu without the bookmark icons.
+# MENU_DENSITY -> is a static pre built menu data for the density menu presets.
+MENU_VARS_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian_blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (105, 'Pt_symmetry...'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
+MENU_VARS_ALL_SIMPLE: list = [0, 'Linear     ', 39, 'Arch          ', 94, 'Auger...          ', 14, 'Bent          ', 52, 'Bent2...          ', 53, 'Bipolar...          ', 43, 'Blade          ', 30, 'Blob...          ', 26, 'Blur          ', 54, 'Boarders          ', 23, 'Bubble          ', 55, 'Butterfly          ', 99, 'Bwraps...          ', 56, 'Cell...          ', 50, 'Conic...          ', 83, 'Cos          ', 89, 'Cosh          ', 20, 'Cosine          ', 87, 'Cot          ', 93, 'Coth          ', 57, 'Cpow...          ', 102, 'Crop...          ', 46, 'Cross          ', 86, 'Csc          ', 92, 'Csch          ', 27, 'Curl...          ', 97, 'Curve...          ', 24, 'Cylinder          ', 11, 'Diamond          ', 8, 'Disc          ', 47, 'Disc2...          ', 58, 'Edisc          ', 59, 'Elliptic          ', 61, 'Escher...          ', 12, 'Ex          ', 80, 'Exp          ', 18, 'Exponential          ', 25, 'Eyefish          ', 22, 'Fan*          ', 34, 'Fan2...          ', 16, 'Fisheye          ', 49, 'Flower...          ', 95, 'Flux...          ', 62, 'Foci          ', 33, 'Gaussian_blur          ', 104, 'Glynnia          ', 6, 'Handkerchief          ', 7, 'Heart          ', 100, 'Hemisphere          ', 4, 'Horseshoe          ', 10, 'Hyperbolic          ', 13, 'Julia          ', 31, 'JuliaN...          ', 32, 'Juliascope...          ', 63, 'Lazysusan...          ', 81, 'Log          ', 64, 'Loonie          ', 96, 'Mobius...          ', 66, 'Modulus...          ', 28, 'Ngon...          ', 60, 'Noise          ', 67, 'Oscope...          ', 51, 'Parabola...          ', 29, 'Pdj...          ', 98, 'Perspective...          ', 38, 'Pie...          ', 5, 'Polar          ', 68, 'Polar2          ', 101, 'Polynomial...          ', 17, 'Popcorn*          ', 69, 'Popcorn2...          ', 19, 'Power          ', 105, 'Pt_symmetry...          ', 37, 'Radialblur...          ', 42, 'Rays          ', 36, 'Rectangles...          ', 21, 'Rings*          ', 35, 'Rings2...          ', 70, 'Scry          ', 85, 'Sec          ', 44, 'Secant2          ', 91, 'Sech          ', 71, 'Separation...          ', 82, 'Sin          ', 88, 'Sinh          ', 1, 'Sinusoidal          ', 2, 'Spherical          ', 9, 'Spiral          ', 72, 'Split...          ', 73, 'Splits...          ', 41, 'Square          ', 74, 'Stripes...          ', 48, 'Supershape...          ', 3, 'Swirl          ', 84, 'Tan          ', 40, 'Tangent          ', 90, 'Tanh          ', 45, 'Twintrian          ', 103, 'Unpolar          ', 15, 'Waves*          ', 79, 'Waves2...          ', 75, 'Wedge...          ', 76, 'Wedgejulia...          ', 77, 'Wedgesph...          ', 78, 'Whorl...          ']
+MENU_DENSITY = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '50M', 7, '100M', 8, '150M', 9, '250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
+MENU_PRESETS_EMPTY = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_IN_PRESETS_EMPTY_CB = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
 
 
 class flam3h_iterator_prm_names:
@@ -1526,6 +1527,13 @@ reset_PREFS(self, mode=0) -> None:
         """ 
         node = self.node
         
+        # Clear menu caches
+        node.destroyCachedUserData('cp_presets_menu')
+        node.destroyCachedUserData('cp_presets_menu_off')
+        node.destroyCachedUserData('in_presets_menu')
+        node.destroyCachedUserData('in_presets_menu_off')
+        node.destroyCachedUserData('out_presets_menu')
+        
         # CP PRESETS menus
         prm_CP_PALETTE_PRESETS = node.parm(CP_PALETTE_PRESETS)
         prm_CP_PALETTE_PRESETS.set(prm_CP_PALETTE_PRESETS.eval())
@@ -1907,11 +1915,15 @@ reset_PREFS(self, mode=0) -> None:
                     node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 1})
             else:
+                node.destroyCachedUserData('out_presets_menu')
+                
                 prm.set('-1')
                 prm_sys.set('-1')
                 node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 0})
         else:
+            node.destroyCachedUserData('out_presets_menu')
+            
             node.setParms({MSG_OUT: ''})
             node.setParms({OUT_ISVALID_FILE: 0})
             # We do not want to print if the file path parameter is empty
@@ -3018,7 +3030,7 @@ iterator_keep_last_weight(self) -> None:
         else:
             _TYPE, _ICON = self.menu_T_FF_data()
             
-        for i, item in VARS_MENU_ALL:
+        for i, item in MENU_VARS_ALL:
             
             menu.append(i)
             
@@ -3048,7 +3060,7 @@ iterator_keep_last_weight(self) -> None:
         else:
             _TYPE, _ICON = self.menu_T_PP_FF_data()
             
-        for i, item in VARS_MENU_ALL:
+        for i, item in MENU_VARS_ALL:
             
             menu.append(i)
             
@@ -3072,8 +3084,8 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        self.node.setCachedUserData('vars_menu_all_simple', VARS_MENU_ALL_SIMPLE)
-        return VARS_MENU_ALL_SIMPLE
+        self.node.setCachedUserData('vars_menu_all_simple', MENU_VARS_ALL_SIMPLE)
+        return MENU_VARS_ALL_SIMPLE
     
     
     def menu_T(self, FF=False) -> list:
@@ -3365,7 +3377,7 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        return DENSITY_MENU
+        return MENU_DENSITY
     
     
     def menu_global_density_set(self) -> None:
@@ -5494,19 +5506,13 @@ reset_CP(self, mode=0) -> None:
                             node.setCachedUserData('cp_presets_menu_idx', str(i))
                             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                         else:
-                            menu.append(f"{item}") 
+                            menu.append(f"{item}")
+                            
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
-                    
-            else:
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
-        else:
-            menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
 
         node.destroyCachedUserData('cp_presets_menu')
-        return menu
+        return MENU_PRESETS_EMPTY
     
     
     def menu_ramp_presets(self) -> list:
@@ -5565,25 +5571,19 @@ reset_CP(self, mode=0) -> None:
                             menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                         else:
                             menu.append(f"{item}")
+                
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
-                
-            else:
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
-        else:
-            menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
             
         node.destroyCachedUserData('cp_presets_menu_off')
-        return menu
+        return MENU_PRESETS_EMPTY
     
     
     def menu_ramp_presets_empty(self) -> list:
         node = self.node
         data = node.cachedUserData('cp_presets_menu_off')
         data_idx = node.cachedUserData('cp_presets_menu_off_idx')
-        preset_idx = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
+        preset_idx = node.parm(CP_PALETTE_PRESETS_OFF).eval()
         if data is not None and data_idx == preset_idx:
             return data
         else:
@@ -10214,23 +10214,11 @@ reset_IN(self, mode=0) -> None:
                             
                 node.setCachedUserData('in_presets_menu', menu)   
                 return menu
-            
-            else:
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
         
-        else:
-            menu.append(-1)
-            # ICON bookmarks
-            if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
-            
-            else:
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
-                    
         node.destroyCachedUserData('in_presets_menu')
-        return menu
-            
+        return MENU_PRESETS_EMPTY
+
+
             
     def menu_in_presets(self) -> list:
         node = self.node
@@ -10278,11 +10266,7 @@ reset_IN(self, mode=0) -> None:
                         if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_off_idx', str(i))
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                            
-                        # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
-                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
-                            
+
                         else:
                             menu.append(f"{str(i)}:  {item}")
 
@@ -10298,32 +10282,20 @@ reset_IN(self, mode=0) -> None:
                         if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_off_idx', str(i))
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
-                            
-                        # If a flame preset from the clipboard is loaded ( Not needed for this menu but I leave it here )
-                        # elif i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        #     menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
-                            
+
                         else:
                             menu.append(f"{item}")
                             
                 node.setCachedUserData('in_presets_menu_off', menu)            
                 return menu
             
-            else:
-                menu.append(-1)
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-        
         else:
-            menu.append(-1)
-            
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
-            
-            else:
-                menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
+                return MENU_IN_PRESETS_EMPTY_CB
                     
-        node.destroyCachedUserData('in_presets_menu_off')
-        return menu
+        node.destroyCachedUserData('in_presets_menu')
+        return MENU_PRESETS_EMPTY
+
             
             
     def menu_in_presets_empty(self) -> list:
@@ -10939,6 +10911,12 @@ reset_IN(self, mode=0) -> None:
             # Reset iterator and FF user data if needed
             ####################################################
             self.in_to_flam3h_reset_user_data()
+            
+            # Clear menu caches
+            node.destroyCachedUserData('in_presets_menu')
+            node.destroyCachedUserData('in_presets_menu_idx')
+            node.destroyCachedUserData('in_presets_menu_off')
+            node.destroyCachedUserData('in_presets_menu_off_idx')
             
             
             # Set toggles and MSG
@@ -12148,9 +12126,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         else:
             node.destroyCachedUserData('out_presets_menu')
-            menu.append(-1)
-            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
-            return menu
+            return MENU_PRESETS_EMPTY
+        
         
         
     def menu_out_contents_presets(self) -> list:

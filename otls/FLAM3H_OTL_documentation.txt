@@ -720,7 +720,7 @@ Opacity:
         
         _Variations bookmark icons._
 
-        When the preference's option: " *iterator bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
@@ -993,7 +993,7 @@ FF: copy/paste:
     :box:
         #display: rounded gray
         
-        When the preference's option: " *iterator bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
@@ -2182,6 +2182,7 @@ display prefs:
     
     == Prefs: General == (PREFSGENERAL)
 
+
 viewport bbox size (hidden):
     #id: prefs
     
@@ -2192,6 +2193,7 @@ viewport bbox size (hidden):
     Consider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.
     Once this value is changed, Click the SYS Tab Frame viewport to see the new framing.
     
+
 flash messages (network editor):
     #id: prefs
     
@@ -2199,15 +2201,6 @@ flash messages (network editor):
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
 
-Iterator bookmark icons:
-    #id: prefs
-    OFF by default to speedup the UI as it is now using a pre built menu data.
-    
-    When you turn this toggle ON causes the variation menus inside each iterator to have a bookmark icon (FLAME and FF tab)
-    
-    This mode will change each variation's menu based of the value of its weight hence it will take a hit on the UI performance.
-    
-    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab and remove the bookmark icons. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
 
 Enumerate presets menu:
     #id: prefs
@@ -2217,19 +2210,33 @@ Enumerate presets menu:
     
     Turn this OFF to only display the raw preset names.
         
+
 Auto correct output paths:
     #id: prefs
     ON by default. This is a simple autocorrection of the output file paths for the CP and OUT Tabs.
+
+
+Iterator menus bookmark icons:
+    #id: prefs
+    OFF by default to speedup the UI as it is now using a pre built menu data.
+    
+    When you turn this toggle ON causes the variation menus inside each iterator to have a bookmark icon (FLAME and FF tab)
+    
+    This mode will change each variation's menu based of the value of its weight hence it will take a hit on the UI performance.
+    
+    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab and remove the bookmark icons. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
+
 
 cvex precision modes (hidden):
     #id: prefs
     Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
     
     NOTE:
-        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slowly."
+        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slow."
 
         Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
     
+
 :box:
     #display: rounded white
 
