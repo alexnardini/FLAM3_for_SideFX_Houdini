@@ -5167,7 +5167,7 @@ json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 
 METHODS:
 
-menu_ramp_presets_empty_data(self) -> list:
+menu_ramp_presets_data(self) -> list:
 
 menu_ramp_presets(self) -> list:
 
@@ -5499,14 +5499,13 @@ reset_CP(self, mode=0) -> None:
                 return menu
                     
             else:
-                node.destroyCachedUserData('cp_presets_menu')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
-            node.destroyCachedUserData('cp_presets_menu')
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
 
+        node.destroyCachedUserData('cp_presets_menu')
         return menu
     
     
@@ -5570,14 +5569,13 @@ reset_CP(self, mode=0) -> None:
                 return menu
                 
             else:
-                node.destroyCachedUserData('cp_presets_menu_off')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  Empty     ")
         else:
-            node.destroyCachedUserData('cp_presets_menu_off')
             menu.append(-1)
             menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
             
+        node.destroyCachedUserData('cp_presets_menu_off')
         return menu
     
     
@@ -10179,7 +10177,7 @@ reset_IN(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON bookmarks
-                        
+                        #
                         # If a flame preset from a file is loaded
                         if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_idx', str(i))
@@ -10200,7 +10198,7 @@ reset_IN(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON bookmarks
-                        
+                        #
                         # If a flame preset from a file is loaded
                         if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_idx', str(i))
@@ -10218,24 +10216,20 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                node.destroyCachedUserData('in_presets_menu')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-                return menu
         
         else:
-            node.destroyCachedUserData('in_presets_menu')
             menu.append(-1)
-            
             # ICON bookmarks
-            
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  Clipboard     ")
             
             else:
                 menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
                     
-            return menu
+        node.destroyCachedUserData('in_presets_menu')
+        return menu
             
             
     def menu_in_presets(self) -> list:
@@ -10279,9 +10273,9 @@ reset_IN(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON bookmarks
-                        
+                        #
                         # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_off_idx', str(i))
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                             
@@ -10299,9 +10293,9 @@ reset_IN(self, mode=0) -> None:
                         menu.append(i)
                         
                         # ICON bookmarks
-                        
+                        #
                         # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_off_idx', str(i))
                             menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                             
@@ -10316,14 +10310,10 @@ reset_IN(self, mode=0) -> None:
                 return menu
             
             else:
-                node.destroyCachedUserData('in_presets_menu_off')
                 menu.append(-1)
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  Empty     ")
-                return menu
         
         else:
-            node.destroyCachedUserData('in_presets_menu_off')
-            
             menu.append(-1)
             
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
@@ -10332,7 +10322,8 @@ reset_IN(self, mode=0) -> None:
             else:
                 menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  Empty     ")
                     
-            return menu
+        node.destroyCachedUserData('in_presets_menu_off')
+        return menu
             
             
     def menu_in_presets_empty(self) -> list:
