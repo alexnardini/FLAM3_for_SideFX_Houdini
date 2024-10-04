@@ -1856,8 +1856,10 @@ reset_PREFS(self, mode=0) -> None:
         Args:
         """    
         node = self.node
-        # Force menu update
+        # Clear menu caches
         node.destroyCachedUserData('out_presets_menu')
+        node.destroyCachedUserData('in_presets_menu')
+        node.destroyCachedUserData('in_presets_menu_off')
         
         prm = node.parm(OUT_PRESETS)
         prm_sys = node.parm(OUT_SYS_PRESETS)
@@ -1879,21 +1881,20 @@ reset_PREFS(self, mode=0) -> None:
                 else:
                     node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 1})
-            else:
-                # node.destroyCachedUserData('out_presets_menu')
                 
+            else:
                 prm.set('-1')
                 prm_sys.set('-1')
                 node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 0})
+                
         else:
-            # node.destroyCachedUserData('out_presets_menu')
-            
             node.setParms({MSG_OUT: ''})
             node.setParms({OUT_ISVALID_FILE: 0})
             # We do not want to print if the file path parameter is empty
             if xml:
                 print(f'{node.name()}.OUT: please select a valid file location.')
+                
         # Force preset menu to updated
         prm.eval()
 
@@ -1918,8 +1919,10 @@ reset_PREFS(self, mode=0) -> None:
             
             json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
             if json_file and f3h_json_file:
-                # Force menu update
+                
+                # Clear menu cache
                 node.destroyCachedUserData('cp_presets_menu_off')
+                
                 # CP is valid file
                 node.setParms({CP_ISVALID_FILE: 1})
                 # Only set when NOT on an: onLoaded python script
@@ -3234,7 +3237,8 @@ iterator_keep_last_weight(self) -> None:
         
         
     def menu_select_iterator_destroy_data(self) -> None:
-        """This is to be run as a callback script inside parms that are responsible to update the menu:
+        """This is to be run as a callback script inside parms that are responsible to update the menu.
+        For now: Iterator shader's opacity  
 
         Returns:
         """
@@ -3943,6 +3947,7 @@ iterator_keep_last_weight(self) -> None:
         
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
+        
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
