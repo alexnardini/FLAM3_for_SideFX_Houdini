@@ -1921,6 +1921,7 @@ reset_PREFS(self, mode=0) -> None:
             if json_file and f3h_json_file:
                 
                 # Clear menu cache
+                flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
                 flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
                 
                 # CP is valid file
@@ -10352,7 +10353,7 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
                     
-        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
 
         return MENU_PRESETS_EMPTY
 
