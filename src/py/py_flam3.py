@@ -1490,11 +1490,11 @@ reset_PREFS(self, mode=0) -> None:
         node = self.node
         
         # Clear menu caches
-        node.destroyCachedUserData('cp_presets_menu')
-        node.destroyCachedUserData('cp_presets_menu_off')
-        node.destroyCachedUserData('in_presets_menu')
-        node.destroyCachedUserData('in_presets_menu_off')
-        node.destroyCachedUserData('out_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
+        flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
         
         # CP PRESETS menus
         prm_CP_PALETTE_PRESETS = node.parm(CP_PALETTE_PRESETS)
@@ -1857,9 +1857,9 @@ reset_PREFS(self, mode=0) -> None:
         """    
         node = self.node
         # Clear menu caches
-        node.destroyCachedUserData('out_presets_menu')
-        node.destroyCachedUserData('in_presets_menu')
-        node.destroyCachedUserData('in_presets_menu_off')
+        flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
         
         prm = node.parm(OUT_PRESETS)
         prm_sys = node.parm(OUT_SYS_PRESETS)
@@ -1921,7 +1921,7 @@ reset_PREFS(self, mode=0) -> None:
             if json_file and f3h_json_file:
                 
                 # Clear menu cache
-                node.destroyCachedUserData('cp_presets_menu_off')
+                flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
                 
                 # CP is valid file
                 node.setParms({CP_ISVALID_FILE: 1})
@@ -2231,7 +2231,7 @@ auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: Union[list, tuple]) -> No
 
 auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) -> None:
 
-destroy_data(node, data: str) -> None:
+destroy_data(node, data: str, must_exist: bool = False) -> None:
 
 METHODS:
 
@@ -2863,13 +2863,17 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def destroy_data(node, data: str) -> None:
+    def destroy_data(node, data: str, must_exist: bool = False) -> None:
         """This is to be run as a callback script inside parms that are responsible to update the menu.
         For now: Iterator shader's opacity  
 
         Returns:
         """
-        node.destroyCachedUserData(data)
+        if not must_exist:
+            try: node.destroyCachedUserData(data)
+            except: pass
+        else: node.destroyCachedUserData(data)
+            
 
 
 
@@ -2896,7 +2900,7 @@ iterator_keep_last_weight(self) -> None:
             node.matchCurrentDefinition()
             
         else:
-            node.destroyCachedUserData('vars_menu_all_simple')
+            self.destroy_data(node, 'vars_menu_all_simple')
             
             # For some reasons the FF menus do not update so we force them to
             node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.prevar_type_1}").pressButton()
@@ -3944,7 +3948,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         # Clear menu cache
-        node.destroyCachedUserData('iter_sel')
+        self.destroy_data(node, 'iter_sel')
         
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
@@ -4733,7 +4737,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         # Clear menu cache
-        node.destroyCachedUserData('iter_sel')
+        self.destroy_data(node, 'iter_sel')
         
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
@@ -4894,7 +4898,7 @@ iterator_keep_last_weight(self) -> None:
         if idx_del_inbetween is not None and idx_del_inbetween == iter_num:
             
             # Clear menu cache
-            node.destroyCachedUserData('iter_sel')
+            self.destroy_data(node, 'iter_sel')
 
             # updated CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
@@ -4930,7 +4934,7 @@ iterator_keep_last_weight(self) -> None:
         elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
             
             # Clear menu cache
-            node.destroyCachedUserData('iter_sel')
+            self.destroy_data(node, 'iter_sel')
 
             xaos_str = xaos_str_hou_get
             del xaos_str[idx_del_inbetween]
@@ -4980,7 +4984,7 @@ iterator_keep_last_weight(self) -> None:
         elif idx_add_inbetween is not None:
             
             # Clear menu cache
-            node.destroyCachedUserData('iter_sel')
+            self.destroy_data(node, 'iter_sel')
 
             for xidx, x in enumerate(xaos_str):
                 if xidx != idx_add_inbetween:
@@ -5052,7 +5056,7 @@ iterator_keep_last_weight(self) -> None:
 
         node = self.node
         # Clear menu cache
-        node.destroyCachedUserData('iter_sel')
+        self.destroy_data(node, 'iter_sel')
         
         iterators_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
@@ -5117,7 +5121,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         # Clear menu cache
-        node.destroyCachedUserData('iter_sel')
+        self.destroy_data(node, 'iter_sel')
         
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
@@ -5164,7 +5168,7 @@ iterator_keep_last_weight(self) -> None:
         """  
         node = self.node
         # Clear menu cache
-        node.destroyCachedUserData('iter_sel')
+        self.destroy_data(node, 'iter_sel')
         
         iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         W = [int(node.parm(f"iw_{str(mp_idx+1)}").eval()) 
@@ -5563,7 +5567,7 @@ reset_CP(self, mode=0) -> None:
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
 
-        node.destroyCachedUserData('cp_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
         return MENU_PRESETS_EMPTY
     
     
@@ -5627,7 +5631,7 @@ reset_CP(self, mode=0) -> None:
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
             
-        node.destroyCachedUserData('cp_presets_menu_off')
+        flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
         return MENU_PRESETS_EMPTY
     
     
@@ -10270,7 +10274,7 @@ reset_IN(self, mode=0) -> None:
                 node.setCachedUserData('in_presets_menu', menu)   
                 return menu
         
-        node.destroyCachedUserData('in_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
         return MENU_PRESETS_EMPTY
 
 
@@ -10348,7 +10352,8 @@ reset_IN(self, mode=0) -> None:
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
                     
-        node.destroyCachedUserData('in_presets_menu')
+        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
+
         return MENU_PRESETS_EMPTY
 
             
@@ -10968,11 +10973,12 @@ reset_IN(self, mode=0) -> None:
             self.in_to_flam3h_reset_user_data()
             
             # Clear menu caches
-            node.destroyCachedUserData('iter_sel')
-            node.destroyCachedUserData('in_presets_menu')
-            node.destroyCachedUserData('in_presets_menu_idx')
-            node.destroyCachedUserData('in_presets_menu_off')
-            node.destroyCachedUserData('in_presets_menu_off_idx')
+            flam3h_iterator_utils.destroy_data(node, 'iter_sel')
+            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
+            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_idx')
+            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
+            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off_idx')
+
             
             
             # Set toggles and MSG
@@ -12181,7 +12187,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             return menu
         
         else:
-            node.destroyCachedUserData('out_presets_menu')
+            flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
             return MENU_PRESETS_EMPTY
         
         
