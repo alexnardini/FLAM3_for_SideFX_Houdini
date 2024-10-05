@@ -411,6 +411,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_aff
 # PARAMETRS COLOR PALETTE ( CP Tab )
 #######################################################
 
+
 'parameter name:    hsv'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_hsv()
