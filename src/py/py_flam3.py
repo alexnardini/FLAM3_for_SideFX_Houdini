@@ -955,7 +955,6 @@ flam3h_on_deleted(self) -> None:
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
         except:
-            print('')
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
             # Lets initialize back to himself.
@@ -2191,6 +2190,8 @@ MENU_VARS_ALL_SIMPLE: list = [0, 'Linear     ', 39, 'Arch          ', 94, 'Auger
 MENU_DENSITY = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '50M', 7, '100M', 8, '150M', 9, '250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
 MENU_PRESETS_EMPTY = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 MENU_IN_PRESETS_EMPTY_CB = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
+MENU_FF_COPY_PASTE_EMPTY = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
+MENU_FF_COPY_PASTE_SELECT = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
 
 class flam3h_iterator_utils:
@@ -3538,8 +3539,8 @@ iterator_keep_last_weight(self) -> None:
                             menu.append(item)
                         return menu
 
-
-
+    
+    
     def menu_copypaste_FF(self) -> list:
         """Build copy/paste FF parameter menu entries.
         
@@ -3565,15 +3566,15 @@ iterator_keep_last_weight(self) -> None:
             
             # This undo's disabler is needed to make the undo work in H20.5 after copy/paste an FF's section from the mini-menu.
             with hou.undos.disabler(): # type: ignore
-                
-                # Menu entrie sections bookmark icon
-                active = flam3node_FF.parm(SYS_DO_FF).eval()
-                if active: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_FF
-                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
             
                 if node == flam3node_FF:
-                    menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.", "" )
+                    return MENU_FF_COPY_PASTE_SELECT
+
                 else:
+                    # Menu entrie sections bookmark icon
+                    active = flam3node_FF.parm(SYS_DO_FF).eval()
+                    if active: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_FF
+                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
                     
                     prm_selmem = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}")
                     if prm_selmem.evalAsInt() > 0:
@@ -3582,28 +3583,16 @@ iterator_keep_last_weight(self) -> None:
                     
                     parent = f".../{flam3node_FF.parent()}"
                     flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                    # menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  {parent}/{flam3nodeFF}: ALL", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", f"{_ICON}  {parent}/{flam3nodeFF}:  POST", f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", "" )
-                for i, item in enumerate(menuitems):
-                    menu.append(i)
-                    menu.append(item)
-                    
-                return menu
+                    menuitems = ( (0, ""), (1, f"{FLAM3H_ICON_COPY_PASTE}  All"), (2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE"), (3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR"), (4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST"), (5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine"), (6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine"), (7, "") )
+                
+                    for i, item in menuitems:
+                        menu.append(i)
+                        menu.append(item)
+
+                    return menu
         
         else:
-            if isDELETED:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  DELETED: Marked FF's node has been deleted.\n-> Mark another FF first.", "" )
-                for i, item in enumerate(menuitems):
-                    menu.append(i-1)
-                    menu.append(item)
-                return menu    
-            else:
-                menuitems = ( f"{FLAM3H_ICON_COPY_PASTE}  {MARK_FF_MSG}.", "" )
-                for i, item in enumerate(menuitems):
-                    menu.append(i-1)
-                    menu.append(item)
-                    
-                return menu
+            return MENU_FF_COPY_PASTE_EMPTY
         
         
         
