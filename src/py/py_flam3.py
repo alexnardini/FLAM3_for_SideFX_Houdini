@@ -2904,13 +2904,18 @@ iterator_keep_last_weight(self) -> None:
             
             # Remove any comment and user data from the node
             if self.exist_user_data(node):
+                self.destroy_data(node, 'iter_sel')
                 self.del_comment_and_user_data_iterator(node)
             if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
                 self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
             
-            # This is the only way I found to update the menus, for now.
+            # This is the only way I found to update the FLAME tab multiparameter's menus, for now...
             node.type().definition().updateFromNode(node)
             node.matchCurrentDefinition()
+            
+            _MSG = "Iterator var menus: SIMPLE"
+            flam3h_general_utils.flash_message(node, f"{_MSG}")
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             
         else:
             self.destroy_data(node, 'vars_menu_all_simple')
@@ -2921,6 +2926,11 @@ iterator_keep_last_weight(self) -> None:
             node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_2}").pressButton()
             node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_1}").pressButton()
             node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_2}").pressButton()
+            
+            _MSG = "Iterator var menus: ICONS"
+            flam3h_general_utils.flash_message(node, f"{_MSG}")
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            
         # Change focus back to the FLAME's Tab
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
 
