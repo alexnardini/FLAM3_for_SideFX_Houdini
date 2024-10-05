@@ -2898,6 +2898,16 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+            
+            # Reset memory mpidx prm data
+            flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
+            
+            # Remove any comment and user data from the node
+            if self.exist_user_data(node):
+                self.del_comment_and_user_data_iterator(node)
+            if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
+                self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+            
             # This is the only way I found to update the menus, for now.
             node.type().definition().updateFromNode(node)
             node.matchCurrentDefinition()
