@@ -3485,12 +3485,12 @@ iterator_keep_last_weight(self) -> None:
                 if node == from_FLAM3H_NODE and id==mp_id_from:
                     menuitems = ( f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", "" )
                 elif node == from_FLAM3H_NODE:
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{_ICON}  {idx_from}", f"{_ICON}  {idx_from}: xaos:", f"{_ICON}  {idx_from}: shader", f"{_ICON}  {idx_from}: PRE", f"{_ICON}  {idx_from}: VAR", f"{_ICON}  {idx_from}: POST", f"{_ICON}  {idx_from}: pre affine", f"{_ICON}  {idx_from}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{_ICON}  {idx_from}", f"{_ICON}  {idx_from}:  xaos:", f"{_ICON}  {idx_from}:  shader", f"{_ICON}  {idx_from}:  PRE", f"{_ICON}  {idx_from}:  VAR", f"{_ICON}  {idx_from}:  POST", f"{_ICON}  {idx_from}:  pre affine", f"{_ICON}  {idx_from}:  post affine", "" )
                 else:
                     assert from_FLAM3H_NODE is not None
                     parent = f".../{from_FLAM3H_NODE.parent()}" # type: ignore
                     flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: xaos:", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: shader", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: PRE", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: VAR", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: POST", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: pre affine", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  xaos:", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  shader", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  PRE", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  VAR", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  POST", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  pre affine", f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  post affine", "" )
                 
                 for i, item in enumerate(menuitems):
                     menu.append(i)
@@ -3577,7 +3577,7 @@ iterator_keep_last_weight(self) -> None:
                     parent = f".../{flam3node_FF.parent()}"
                     flam3nodeFF = f"{str(flam3node_FF)}.FF"
                     # menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  {parent}/{flam3nodeFF}: ALL", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: PRE", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: VAR", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: POST", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: pre affine", f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_FF}  {parent}/{flam3nodeFF}: post affine", "" )
-                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{_ICON}  {parent}/{flam3nodeFF}: PRE", f"{_ICON}  {parent}/{flam3nodeFF}: VAR", f"{_ICON}  {parent}/{flam3nodeFF}: POST", f"{_ICON}  {parent}/{flam3nodeFF}: pre affine", f"{_ICON}  {parent}/{flam3nodeFF}: post affine", "" )
+                    menuitems = ( "", f"{FLAM3H_ICON_COPY_PASTE}  All", f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", f"{_ICON}  {parent}/{flam3nodeFF}:  POST", f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", "" )
                 for i, item in enumerate(menuitems):
                     menu.append(i)
                     menu.append(item)
