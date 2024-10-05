@@ -6232,6 +6232,7 @@ reset_CP(self, mode=0) -> None:
             mode (int, optional): _description_. Defaults to 0. 2 to reset the HSV vals. 3 to reset the palette to its default colors/keys.
         """        
         node = self.node
+        hsv_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
         
         if not mode:
             # CP
@@ -6245,13 +6246,15 @@ reset_CP(self, mode=0) -> None:
             self.reset_CP_options()
                 
         elif mode == 2:
-            _hsv = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
+            _hsv = hsv_prm.eval()
             if _hsv[0] == _hsv[1] == _hsv[2] == 1:
+                hsv_prm.deleteAllKeyframes()
                 _MSG = f"CP HSV: already at its default values."
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
             else:
-                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+                hsv_prm.deleteAllKeyframes()
+                hsv_prm.set(hou.Vector3((1.0, 1.0, 1.0)))
                 # Print out to Houdini's status bar
                 _MSG = f"CP HSV RESET"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
