@@ -955,6 +955,7 @@ flam3h_on_deleted(self) -> None:
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
         except:
+            print('')
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
             # Lets initialize back to himself.
