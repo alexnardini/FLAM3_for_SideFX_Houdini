@@ -178,6 +178,7 @@ MB_SHUTTER = 'shutter'
 IN_ISVALID_FILE = 'inisvalidfile'
 IN_ISVALID_PRESET = 'inisvalidpreset'
 IN_CLIPBOARD_TOGGLE = 'inclipboard'
+IN_CLIPBOARD_LABEL_MSG = '[CLIPBOARD]'
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
 IN_PRESETS_OFF = "inpresets_disabled"
@@ -10256,7 +10257,7 @@ reset_IN(self, mode=0) -> None:
                         # If a flame preset from the clipboard is loaded
                         elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                             node.setCachedUserData('in_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                             
                         else:
                             menu.append(f"{str(i)}:  {item}")

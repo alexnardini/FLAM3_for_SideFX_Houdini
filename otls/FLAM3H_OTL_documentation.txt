@@ -401,7 +401,7 @@ mini-menu IN Presets [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard. If a valid Flame file was already loaded, the current menu label will be prefixed with: *`[CLIPBOARD]`*
     
     TIP:
         #display: orange
@@ -1474,7 +1474,7 @@ menu IN file contents [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard. If a valid Flame file was already loaded, the current menu label will be prefixed with: *`[CLIPBOARD]`*
 
 Reload:
     #id: IN
@@ -2222,7 +2222,7 @@ Iterator menus bookmark icons:
     
     When you turn this toggle ON causes the variation menus inside each iterator to have a bookmark icon (FLAME and FF tab)
     
-    This mode will change each variation's menu based of the value of its weight hence it will take a hit on the UI performance.
+    This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
     
     When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
 
