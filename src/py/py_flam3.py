@@ -3210,12 +3210,12 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         menu = []
 
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
             
             # This definition probably can be made more light-weight for this particular case
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
-            
+            node.setCachedUserData('iter_sel_id', mp_id_from)
             # append an empty line to reset to after selection (Null value).
             menu.append(0)
             menu.append("")
@@ -3265,11 +3265,16 @@ iterator_keep_last_weight(self) -> None:
     
     
     def menu_select_iterator(self) -> list:
-        data = self.node.cachedUserData('iter_sel')
+        node = self.node
+        data = node.cachedUserData('iter_sel')
+        id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+        if node.cachedUserData('iter_sel_id') != id and id:
+            self.destroy_data(node, 'iter_sel')
         if data is not None:
             return data
         else:
             return self.menu_select_iterator_data()
+        
     
     
     def prm_select_iterator(self) -> None:
@@ -3638,12 +3643,12 @@ iterator_keep_last_weight(self) -> None:
         """        
         
         isDELETED = False
-        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             
         try:
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
             assert from_FLAM3H_NODE is not None
-            __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+            __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
         except:
             from_FLAM3H_NODE = None
             __FLAM3H_DATA_PRM_MPIDX = 0
@@ -3659,10 +3664,12 @@ iterator_keep_last_weight(self) -> None:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from  # type: ignore
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(mp_id_from))
+                        self.destroy_data(node, 'iter_sel')
                 else:
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
                         self.del_comment_and_user_data_iterator(node)
+                        self.destroy_data(node, 'iter_sel')
             else:
                 if __FLAM3H_DATA_PRM_MPIDX > 0:
                     if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
@@ -3671,15 +3678,18 @@ iterator_keep_last_weight(self) -> None:
                         assert from_FLAM3H_NODE is not None
                         self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                         self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
+                        self.destroy_data(node, 'iter_sel')
                 else:
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         mp_id_from = None
                         assert from_FLAM3H_NODE is not None
                         self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
+                        self.destroy_data(node, 'iter_sel')
                         
         except:
             mp_id_from = None
             isDELETED = True
+            self.destroy_data(self.node, 'iter_sel')
             
         # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
         # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
@@ -3692,24 +3702,28 @@ iterator_keep_last_weight(self) -> None:
                         from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = f3h # type: ignore
                         mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(f3h) # type: ignore
                         self.iterator_mpidx_mem_set(f3h, int(self.get_user_data(f3h)))
+                        self.destroy_data(node, 'iter_sel')
                         break
             # Mark, mark another node, Undo, Redo
             elif node != from_FLAM3H_NODE and self.exist_user_data(node):
                 from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
                 mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(node) # type: ignore
                 self.iterator_mpidx_mem_set(node, int(self.get_user_data(node)))
+                self.destroy_data(node, 'iter_sel')
 
         # Mark, Clear, Mark, Undo
         elif mp_id_from is None and from_FLAM3H_NODE is not None:
             if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
                 mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(from_FLAM3H_NODE) # type: ignore
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, int(self.get_user_data(from_FLAM3H_NODE)))
+                self.destroy_data(node, 'iter_sel')
 
 
         if isDELETED is False:
             if mp_id_from is not None and from_FLAM3H_NODE is not None:
                 if not self.exist_user_data(from_FLAM3H_NODE):
                     mp_id_from = None
+                    self.destroy_data(node, 'iter_sel')
         
         return from_FLAM3H_NODE, mp_id_from, isDELETED
 
