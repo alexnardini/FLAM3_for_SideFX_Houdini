@@ -3226,7 +3226,9 @@ iterator_keep_last_weight(self) -> None:
             
             # This definition probably can be made more light-weight for this particular case
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+            # Store the most updated version of this data
             node.setCachedUserData('iter_sel_id', mp_id_from)
+            
             # append an empty line to reset to after selection (Null value).
             menu.append(0)
             menu.append("")
@@ -3276,9 +3278,8 @@ iterator_keep_last_weight(self) -> None:
 
         # compare old data_* against current data_*
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-        data_awo = ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))
         data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
-        [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in data_awo]
+        [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
         
         menu = node.cachedUserData('iter_sel')
         if menu is not None:
