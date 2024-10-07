@@ -365,7 +365,7 @@ mini-menu CP Presets [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
     TIP:
         #display: orange
@@ -1310,7 +1310,7 @@ menu CP file contents [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
 Reload preset ( presets ):
     #id: PALETTE
