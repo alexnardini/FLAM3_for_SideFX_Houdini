@@ -3278,7 +3278,8 @@ iterator_keep_last_weight(self) -> None:
         if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
             self.destroy_data(node, 'iter_sel')
 
-        # compare old data_* against current data_*
+        # For undos: compare old data_* against current data_*
+        # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
         [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
