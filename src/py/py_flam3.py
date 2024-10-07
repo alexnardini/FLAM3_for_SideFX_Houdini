@@ -3607,13 +3607,7 @@ iterator_keep_last_weight(self) -> None:
                     
                     parent = f".../{flam3node_FF.parent()}"
                     flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                    menuitems = ( (0, ""), (1, f"{FLAM3H_ICON_COPY_PASTE}  All"), (2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE"), (3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR"), (4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST"), (5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine"), (6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine"), (7, "") )
-                
-                    for i, item in menuitems:
-                        menu.append(i)
-                        menu.append(item)
-
-                    return menu
+                    return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All", 2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", 3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", 4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST", 5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", 6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", 7, "" ]
         
         else:
             return MENU_FF_COPY_PASTE_EMPTY
