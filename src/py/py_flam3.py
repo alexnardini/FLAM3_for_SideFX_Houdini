@@ -3694,6 +3694,7 @@ iterator_keep_last_weight(self) -> None:
                         from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = f3h # type: ignore
                         mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(f3h) # type: ignore
                         self.iterator_mpidx_mem_set(f3h, int(self.get_user_data(f3h)))
+                        # Always on ourself since we dnt care about others FLAM3H nodes SYS tab's Select Iterator mini-menus
                         self.destroy_data(node, 'iter_sel')
                         break
             # Mark, mark another node, Undo, Redo
