@@ -5241,6 +5241,8 @@ build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
 
 build_ramp_palette_error() -> tuple[list, list, list]
 
+delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
+
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
@@ -5323,8 +5325,15 @@ reset_CP(self, mode=0) -> None:
     @staticmethod
     def build_ramp_palette_error() -> tuple[list, list, list]:
         return [(1,0,0)], [0], [hou.rampBasis.Linear] # type: ignore
-        
+    
+    
+    @staticmethod
+    def delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
+        posList = ramp_parm.evalAsRamp().keys()
+        [hou.parm(f"{ramp_parm.path()}{str(i+1)}pos").deleteAllKeyframes() for i in range(0, len(posList))]
+        [hou.parmTuple(f"{ramp_parm.path()}{str(i+1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
 
+        
 
     @staticmethod 
     def get_ramp_keys_count(ramp: hou.Ramp) -> str:
@@ -5894,7 +5903,10 @@ reset_CP(self, mode=0) -> None:
             
             # get ramp parm
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
+            # Reset ramps to default
+            self.build_ramp_palette_default(ramp_parm)
+            self.delete_ramp_all_keyframes(ramp_parm)
+            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
             
             filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
             
@@ -6074,7 +6086,11 @@ reset_CP(self, mode=0) -> None:
                             
                             # get ramp parm
                             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-                            ramp_parm.deleteAllKeyframes()
+                            # Reset ramps to default
+                            self.build_ramp_palette_default(ramp_parm)
+                            self.delete_ramp_all_keyframes(ramp_parm)
+                            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+
                             
                             hsv_vals = []
                             hsv_check = False
@@ -6238,7 +6254,7 @@ reset_CP(self, mode=0) -> None:
     def reset_CP_TMP(self) -> None:
         # CP->tmp ramp RESET
         ramp_tmp_parm = self.node.parm(CP_RAMP_TMP_NAME)
-        ramp_tmp_parm.deleteAllKeyframes()
+        self.delete_ramp_all_keyframes(ramp_tmp_parm)
         # Build TMP ramp
         self.build_ramp_palette_temp(ramp_tmp_parm)
         
@@ -6269,7 +6285,9 @@ reset_CP(self, mode=0) -> None:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             # Build ramp
             self.build_ramp_palette_default(ramp_parm)
-            ramp_parm.deleteAllKeyframes()
+            self.delete_ramp_all_keyframes(ramp_parm)
+            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+
             # Reset CP options tab
             self.reset_CP_options()
                 
@@ -6292,7 +6310,8 @@ reset_CP(self, mode=0) -> None:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             # Build ramp
             self.build_ramp_palette_default(ramp_parm)
-            ramp_parm.deleteAllKeyframes()
+            self.delete_ramp_all_keyframes(ramp_parm)
+            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
             
             # Set lookup samples to the default value of: 256
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
@@ -6307,7 +6326,7 @@ reset_CP(self, mode=0) -> None:
         # CP->tmp ramp RESET
         self.reset_CP_TMP()
             
-        # Update palette py
+        # # Update palette py
         self.palette_cp()
 
 
@@ -10936,7 +10955,11 @@ reset_IN(self, mode=0) -> None:
             
             # Set XML palette data
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            ramp_parm.deleteAllKeyframes()
+            # Reset ramps to default
+            flam3h_palette_utils.build_ramp_palette_default(ramp_parm)
+            flam3h_palette_utils.delete_ramp_all_keyframes(ramp_parm)
+            flam3h_palette_utils.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+            
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             # Set palette lookup samples
