@@ -2073,6 +2073,7 @@ reset_PREFS(self, mode=0) -> None:
         # Updated Point Display type preference's option toggle on other FLAM3H nodes instances
         all_f3h = self.node.type().instances()
         if len(all_f3h) > 1:
+            [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
                 
                 
@@ -2101,8 +2102,8 @@ reset_PREFS(self, mode=0) -> None:
             
         # Updated Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
-            [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in self.node.type().instances()]
-            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in self.node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
+            [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in node.type().instances()]
+            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
             
             
             
