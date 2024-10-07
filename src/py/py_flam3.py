@@ -2095,7 +2095,9 @@ reset_PREFS(self, mode=0) -> None:
             else:
                 ptsize = float(reset_val)
                 settings.particlePointSize(ptsize)
-                node.setParms({self.kwargs['parmtuple'].name(): ptsize})
+                prm = node.parm(self.kwargs['parmtuple'].name())
+                prm.deleteAllKeyframes()
+                prm.set(ptsize)
             
         # Updated Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
