@@ -5297,6 +5297,12 @@ reset_CP_TMP(self) -> None:
 
 reset_CP_options(self) -> None:
 
+reset_CP_run_0(self) -> None:
+
+reset_CP_run_2(self) -> None:
+
+reset_CP_run_3(self) -> None:
+
 reset_CP(self, mode=0) -> None:
     """
     
@@ -6268,66 +6274,76 @@ reset_CP(self, mode=0) -> None:
         self.reset_CP_LOCK_MSG()
 
 
-
-    def reset_CP(self, mode=0) -> None:
-        """Reset the FLAM3H CP Tabs parameter values.
-
-        Args:
-            mode (int, optional): _description_. Defaults to 0. 2 to reset the HSV vals. 3 to reset the palette to its default colors/keys.
-        """        
+    def reset_CP_run_0(self) -> None:
+        node = self.node
+        # CP
+        node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
+        # CP->ramp
+        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+        # Reset ramps
+        self.build_ramp_palette_default(ramp_parm)
+        self.palette_cp()
+        self.delete_ramp_all_keyframes(ramp_parm)
+        self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+        # Reset CP options tab
+        self.reset_CP_options()
+        # CP->tmp ramp RESET
+        self.reset_CP_TMP()
+        # Mark this as not a loaded preset
+        node.setParms({CP_ISVALID_PRESET: 0})
+        
+        
+    def reset_CP_run_2(self) -> None:
         node = self.node
         hsv_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
-        
-        if not mode:
-            # CP
-            node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
-            # CP->ramp
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            # Build ramp
-            self.build_ramp_palette_default(ramp_parm)
-            self.delete_ramp_all_keyframes(ramp_parm)
-            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
-
-            # Reset CP options tab
-            self.reset_CP_options()
-                
-        elif mode == 2:
-            _hsv = hsv_prm.eval()
-            if _hsv[0] == _hsv[1] == _hsv[2] == 1:
-                hsv_prm.deleteAllKeyframes()
-                _MSG = f"CP HSV: already at its default values."
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                flam3h_general_utils.flash_message(node, _MSG)
-            else:
-                hsv_prm.deleteAllKeyframes()
-                hsv_prm.set(hou.Vector3((1.0, 1.0, 1.0)))
-                # Print out to Houdini's status bar
-                _MSG = f"CP HSV RESET"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                flam3h_general_utils.flash_message(node, _MSG)
-                
-        elif mode == 3:
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            # Build ramp
-            self.build_ramp_palette_default(ramp_parm)
-            self.delete_ramp_all_keyframes(ramp_parm)
-            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
-            
-            # Set lookup samples to the default value of: 256
-            node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+        _hsv = hsv_prm.eval()
+        if _hsv[0] == _hsv[1] == _hsv[2] == 1:
+            hsv_prm.deleteAllKeyframes()
+            _MSG = f"CP HSV: already at its default values."
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+            flam3h_general_utils.flash_message(node, _MSG)
+        else:
+            hsv_prm.deleteAllKeyframes()
+            hsv_prm.set(hou.Vector3((1.0, 1.0, 1.0)))
             # Print out to Houdini's status bar
-            _MSG = f"CP Palette RESET"
+            _MSG = f"CP HSV RESET"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             flam3h_general_utils.flash_message(node, _MSG)
             
+        # CP->tmp ramp RESET
+        self.reset_CP_TMP()
+        # # Update palette py
+        self.palette_cp()
         # Mark this as not a loaded preset
         node.setParms({CP_ISVALID_PRESET: 0})
 
+
+    def reset_CP_run_3(self) -> None:
+        node = self.node
+        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+        # Build ramp
+        self.build_ramp_palette_default(ramp_parm)
+        self.palette_cp()
+        self.delete_ramp_all_keyframes(ramp_parm)
+        self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
         # CP->tmp ramp RESET
         self.reset_CP_TMP()
-            
-        # # Update palette py
-        self.palette_cp()
+        # Mark this as not a loaded preset
+        node.setParms({CP_ISVALID_PRESET: 0})
+        # Set lookup samples to the default value of: 256
+        node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+        
+        # Print out to Houdini's status bar
+        _MSG = f"CP Palette RESET"
+        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+        flam3h_general_utils.flash_message(node, _MSG)
+        
+    
+    def reset_CP(self, mode=0) -> None:
+        func_list = {0: self.reset_CP_run_0, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
+        run = func_list.get(mode)
+        if run is not None: run()
+        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP python definition have nothing to run with the passed mode value.", 'MSG')
 
 
 
