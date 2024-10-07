@@ -3198,12 +3198,9 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        menu=[]
         _ICON = self.menu_T_pb_data()
-        menu.append(0)
-        menu.append(f"{_ICON} Pre blur                   ") # 19 times \s
-            
-        return menu
+        return [ 0,  f"{_ICON} Pre blur                   "] # 19 times \s
+
 
 
     def menu_select_iterator_data(self) -> list:
