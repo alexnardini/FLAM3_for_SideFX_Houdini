@@ -2101,6 +2101,7 @@ reset_PREFS(self, mode=0) -> None:
             
         # Updated Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
+            [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in self.node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in self.node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
             
             
