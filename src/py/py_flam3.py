@@ -281,6 +281,8 @@ class flam3h_iterator_prm_names:
             flam3h_iterator_utils.iterator_keep_last_vactive(self) -> None:
             flam3h_iterator_utils.iterator_keep_last_vactive_STAR(self) -> None:
             flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
+            flam3h_iterator_utils.menu_select_iterator_data(self) -> list:
+            flam3h_iterator_utils.menu_select_iterator(self) -> list:
             
         have houdini parameter's names hard coded inside as they are not using
         this class in an attempt to try to speed up a tiny, tiny bit.
@@ -3213,11 +3215,11 @@ iterator_keep_last_weight(self) -> None:
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
             
-            note = [node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx+1}').eval() for idx in range(iter_count)]
+            note = [node.parm(f'note_{idx+1}').eval() for idx in range(iter_count)]
             
-            active: list = [node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx+1}').eval() for idx in range(iter_count)]
-            weight: list = [node.parm(f'{flam3h_iterator_prm_names.main_weight}_{idx+1}').eval() for idx in range(iter_count)]
-            shader_opacity: list = [node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]
+            active: list = [node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)]
+            weight: list = [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)]
+            shader_opacity: list = [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]
             node.setCachedUserData('iter_sel_a', active)
             node.setCachedUserData('iter_sel_w', weight)
             node.setCachedUserData('iter_sel_o', shader_opacity)
@@ -3273,20 +3275,13 @@ iterator_keep_last_weight(self) -> None:
         mem_id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
         if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
             self.destroy_data(node, 'iter_sel')
-            
-        data_active: list = node.cachedUserData('iter_sel_a')
-        data_weight: list = node.cachedUserData('iter_sel_w')
-        data_opacity: list = node.cachedUserData('iter_sel_o')
 
         # compare old data_* against current data_*
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-        if data_active != [node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx+1}').eval() for idx in range(iter_count)]:
-            self.destroy_data(node, 'iter_sel')
-        if data_weight != [node.parm(f'{flam3h_iterator_prm_names.main_weight}_{idx+1}').eval() for idx in range(iter_count)]:
-            self.destroy_data(node, 'iter_sel')
-        if data_opacity != [node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]:
-            self.destroy_data(node, 'iter_sel')
-            
+        data_awo = [(0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o'))]
+        data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
+        [self.destroy_data(node, 'iter_sel') if data != data_awo_now[idx] else ... for idx, data in data_awo]
+        
         menu = node.cachedUserData('iter_sel')
         if menu is not None:
             return menu
