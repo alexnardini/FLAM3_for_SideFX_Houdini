@@ -6209,7 +6209,6 @@ reset_CP(self, mode=0) -> None:
         """Apply a HSV to the paltte colors/keys.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
         """  
         node = self.node
         rmpsrc = node.parm(CP_RAMP_SRC_NAME)
@@ -6229,7 +6228,6 @@ reset_CP(self, mode=0) -> None:
         This is also used to updated the palette HSV to keep it up to date with the source palette.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
         """    
         self.palette_cp()
         # self.palette_hsv is running also inside self.palette_cp()
@@ -6258,6 +6256,10 @@ reset_CP(self, mode=0) -> None:
 
 
     def reset_CP_TMP(self) -> None:
+        """Reset the TEMP palette to its defaults.
+
+        Args:
+        """
         # CP->tmp ramp RESET
         ramp_tmp_parm = self.node.parm(CP_RAMP_TMP_NAME)
         self.delete_ramp_all_keyframes(ramp_tmp_parm)
@@ -6267,6 +6269,10 @@ reset_CP(self, mode=0) -> None:
         
         
     def reset_CP_options(self) -> None:
+        """Reset the CP tab options toggles to their defaults.
+
+        Args:
+        """
         node = self.node
         node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
         node.setParms({CP_RAMP_SAVE_256_PLUS: 1})
@@ -6275,6 +6281,10 @@ reset_CP(self, mode=0) -> None:
 
 
     def reset_CP_run_0(self) -> None:
+        """Reset the CP tab parameters to their defaults.
+
+        Args:
+        """
         node = self.node
         # CP
         node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
@@ -6294,6 +6304,10 @@ reset_CP(self, mode=0) -> None:
         
         
     def reset_CP_run_2(self) -> None:
+        """Reset the CP tab HSV value to their defaults.
+
+        Args:
+        """
         node = self.node
         hsv_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
         _hsv = hsv_prm.eval()
@@ -6319,6 +6333,10 @@ reset_CP(self, mode=0) -> None:
 
 
     def reset_CP_run_3(self) -> None:
+        """Reset the CP tab Palette ramp to its defaults.
+
+        Args:
+        """
         node = self.node
         ramp_parm = node.parm(CP_RAMP_SRC_NAME)
         # Build ramp
@@ -6340,10 +6358,15 @@ reset_CP(self, mode=0) -> None:
         
     
     def reset_CP(self, mode=0) -> None:
+        """Run the desired reset definition.
+
+        Args:
+            mode (int): definition idx to run
+        """
         func_list = {0: self.reset_CP_run_0, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
         run = func_list.get(mode)
         if run is not None: run()
-        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP python definition have nothing to run with the passed mode value.", 'MSG')
+        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP python definition have nothing to run with the passed mode value.", 'WARN')
 
 
 
