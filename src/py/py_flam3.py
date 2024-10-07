@@ -3278,7 +3278,7 @@ iterator_keep_last_weight(self) -> None:
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         data_awo = ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))
         data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
-        [self.destroy_data(node, 'iter_sel') if data != data_awo_now[idx] else ... for idx, data in data_awo]
+        [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in data_awo]
         
         menu = node.cachedUserData('iter_sel')
         if menu is not None:
