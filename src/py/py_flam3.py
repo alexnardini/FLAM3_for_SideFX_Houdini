@@ -4360,23 +4360,23 @@ iterator_keep_last_weight(self) -> None:
         xaos_new = f3d.out_xf_xaos_from(0)
         # updated CachedUserData: flam3h_xaos_iterators_prev
         self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_new)
-        
         prm_xaos = flam3h_iterator_prm_names.xaos
-        for iter in range(f3d.iter_count):
-            if xaos_new[iter]:
-                xs = div_xaos + div_weight.join(xaos_new[iter].split(" "))
-                node.setParms({f"{prm_xaos}_{str(iter+1)}": xs})
-            else:
-                # I dnt think this is needed anymore but i leave it here.
-                node.setParms({f"{prm_xaos}_{str(iter+1)}": div_xaos})
-                
+        [node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos + div_weight.join(xaos_new[idx].split(" "))}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos}) for idx in range(f3d.iter_count)]
+        
+        # for idx in range(f3d.iter_count):
+        #     if xaos_new[idx]:
+        #         xs = div_xaos + div_weight.join(xaos_new[idx].split(" "))
+        #         node.setParms({f"{prm_xaos}_{str(idx+1)}": xs})
+        #     else:
+        #         # I dnt think this is needed anymore but i leave it here.
+        #         node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos})
+
         # Get preference xaos mode and print to Houdini's status bar
         if f3d.xm:
             _MSG = f"{node.name()}: XAOS Mode -> FROM"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             _MSG = f"{node.name()}: XAOS Mode -> TO"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
 
