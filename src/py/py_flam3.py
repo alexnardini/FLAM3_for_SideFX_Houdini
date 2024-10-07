@@ -3213,6 +3213,15 @@ iterator_keep_last_weight(self) -> None:
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
             
+            note = [node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx+1}').eval() for idx in range(iter_count)]
+            
+            active: list = [node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx+1}').eval() for idx in range(iter_count)]
+            weight: list = [node.parm(f'{flam3h_iterator_prm_names.main_weight}_{idx+1}').eval() for idx in range(iter_count)]
+            shader_opacity: list = [node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]
+            node.setCachedUserData('iter_sel_a', active)
+            node.setCachedUserData('iter_sel_w', weight)
+            node.setCachedUserData('iter_sel_o', shader_opacity)
+            
             # This definition probably can be made more light-weight for this particular case
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             node.setCachedUserData('iter_sel_id', mp_id_from)
@@ -3222,37 +3231,31 @@ iterator_keep_last_weight(self) -> None:
             
             for i in range(iter_count):
                 
-                menu.append(i+1)
-                
-                idx = str(i+1)
-                
-                note = node.parm(f'{flam3h_iterator_prm_names.main_note}_{idx}').eval()
-                active = node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx}').eval()
-                weight = node.parm(f'{flam3h_iterator_prm_names.main_weight}_{idx}').eval()
-                
-                shader_opacity = node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx}').eval()
+                idx = i+1
+                menu.append(idx)
+
                 _OPACITY_MSG = ""
-                if shader_opacity == 0: _OPACITY_MSG = "[ZERO opacity] "
+                if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
                 
-                if active and weight > 0:
+                if active[i] and weight[i] > 0:
                     # check if it is marked for being copied
-                    if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {_OPACITY_MSG}{note}")
+                    if node == from_FLAM3H_NODE and mp_id_from == idx:
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {_OPACITY_MSG}{note[i]}")
                     else:
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {_OPACITY_MSG}{note}")
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {_OPACITY_MSG}{note[i]}")
                         
-                elif active and weight == 0:
+                elif active[i] and weight[i] == 0:
                     # check if it is marked for being copied
-                    if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO}  {idx}:  {_OPACITY_MSG}{note}")
+                    if node == from_FLAM3H_NODE and mp_id_from == idx:
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO}  {idx}:  {_OPACITY_MSG}{note[i]}")
                     else:
-                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  {idx}:  {_OPACITY_MSG}{note}")
+                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  {idx}:  {_OPACITY_MSG}{note[i]}")
                 else:
                     # check if it is marked for being copied
-                    if node == from_FLAM3H_NODE and str(mp_id_from) == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {_OPACITY_MSG}{note}")
+                    if node == from_FLAM3H_NODE and mp_id_from == idx:
+                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {_OPACITY_MSG}{note[i]}")
                     else:
-                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note}")
+                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note[i]}")
                         
         else:
             menu.append(0)
@@ -3266,12 +3269,27 @@ iterator_keep_last_weight(self) -> None:
     
     def menu_select_iterator(self) -> list:
         node = self.node
-        data = node.cachedUserData('iter_sel')
-        id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
-        if node.cachedUserData('iter_sel_id') != id and id:
+        
+        mem_id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+        if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
             self.destroy_data(node, 'iter_sel')
-        if data is not None:
-            return data
+            
+        data_active: list = node.cachedUserData('iter_sel_a')
+        data_weight: list = node.cachedUserData('iter_sel_w')
+        data_opacity: list = node.cachedUserData('iter_sel_o')
+
+        # compare old data_* against current data_*
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        if data_active != [node.parm(f'{flam3h_iterator_prm_names.main_vactive}_{idx+1}').eval() for idx in range(iter_count)]:
+            self.destroy_data(node, 'iter_sel')
+        if data_weight != [node.parm(f'{flam3h_iterator_prm_names.main_weight}_{idx+1}').eval() for idx in range(iter_count)]:
+            self.destroy_data(node, 'iter_sel')
+        if data_opacity != [node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]:
+            self.destroy_data(node, 'iter_sel')
+            
+        menu = node.cachedUserData('iter_sel')
+        if menu is not None:
+            return menu
         else:
             return self.menu_select_iterator_data()
         
