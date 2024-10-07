@@ -3417,6 +3417,8 @@ iterator_keep_last_weight(self) -> None:
         """Build density menu parameter with a list of options.
         This is obsolete now and replaced with: def menu_global_density(self) -> None
         
+        NOT USED ANYMORE
+        
         Args:
             NONE (None): [description.]
 
