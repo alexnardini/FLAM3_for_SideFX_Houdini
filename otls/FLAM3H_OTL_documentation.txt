@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.4.77 - Gold
+#version: 1.4.80 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -1710,7 +1710,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.4.77" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.4.80" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1963,7 +1963,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.4.77" ... >
+          <flame version="FLAM3H-WIN-1.4.80" ... >
               ...
         }}}
         
@@ -1972,7 +1972,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.4.77" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.4.80" ... >
               ...
         }}}
         
@@ -2182,7 +2182,6 @@ display prefs:
     
     == Prefs: General == (PREFSGENERAL)
 
-
 viewport bbox size (hidden):
     #id: prefs
     
@@ -2200,7 +2199,17 @@ flash messages (network editor):
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
+        
 
+Auto correct output paths:
+    #id: prefs
+    ON by default. This is a simple autocorrection of the output file paths for the CP and OUT Tabs.
+
+
+:box:
+    #display: round white
+    
+    == Prefs: UI == (PREFSUI)
 
 Enumerate presets menu:
     #id: prefs
@@ -2209,11 +2218,6 @@ Enumerate presets menu:
     This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.
     
     Turn this OFF to only display the raw preset names.
-        
-
-Auto correct output paths:
-    #id: prefs
-    ON by default. This is a simple autocorrection of the output file paths for the CP and OUT Tabs.
 
 
 Iterator menus bookmark icons:
@@ -2226,6 +2230,10 @@ Iterator menus bookmark icons:
     
     When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
 
+:box:
+    #display: round white
+    
+    == Prefs: CVEX (hidden)== (PREFSCVEX)
 
 cvex precision modes (hidden):
     #id: prefs
@@ -2235,7 +2243,6 @@ cvex precision modes (hidden):
         Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slow."
 
         Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
-    
 
 :box:
     #display: rounded white
@@ -2250,7 +2257,6 @@ menu xaos modes [Smallicon:BUTTONS/pane_menu]:
     
     NOTE:
         Xaos FROM mode will internally be changed into xaos TO on save and reloaded as xaos TO when saving out Flame files.
-
 
 :box:
     #display: rounded white
@@ -2303,8 +2309,6 @@ size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
         
-    
-    
 :box:
     #display: rounded white
 
