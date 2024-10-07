@@ -3260,13 +3260,11 @@ iterator_keep_last_weight(self) -> None:
                         menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note[i]}")
                         
         else:
-            menu.append(0)
-            menu.append(f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create at least one iterator or load a IN flame file first.")
-            menu.append(1)
-            menu.append("")
+            menu = [0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create at least one iterator or load a IN flame file first.", 1, ""]
                 
         node.setCachedUserData('iter_sel', menu)
         return menu
+    
     
     
     def menu_select_iterator(self) -> list:
