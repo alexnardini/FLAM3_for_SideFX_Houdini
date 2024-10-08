@@ -2351,7 +2351,15 @@ auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) ->
 
 destroy_data(node, data: str, must_exist: bool = False) -> None:
 
+menu_T_get_type_icon(w: float) -> str:
+
+menu_T_PP_get_type_icon(w: float) -> str:
+
+menu_T_FF_get_var_data(self) -> tuple[int, float]:
+
 METHODS:
+
+menu_T_get_var_data(self) -> tuple[int, float]:
 
 refresh_iterator_vars_menu(self) -> None:
 
@@ -2993,6 +3001,29 @@ iterator_keep_last_weight(self) -> None:
         else: node.destroyCachedUserData(data)
             
 
+    @staticmethod
+    def menu_T_get_type_icon(w: float) -> str:
+        if w > 0:
+            if w > 1:
+                return FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+            else:
+                return FLAM3H_ICON_STAR_FLAME_VAR_ACTV
+        elif w < 0:
+            return FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
+            
+        return FLAM3H_ICON_STAR_EMPTY_OPACITY
+    
+    
+    @staticmethod
+    def menu_T_PP_get_type_icon(w: float) -> str:
+        if w > 0:
+            if w > 1:
+                return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
+            else:
+                return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
+            
+        return FLAM3H_ICON_STAR_EMPTY_OPACITY
+
 
 
     # CLASS: PROPERTIES
@@ -3006,10 +3037,41 @@ iterator_keep_last_weight(self) -> None:
     @property
     def node(self):
         return self._node
+    
+    
+    
+    def menu_T_get_var_data(self) -> tuple[int, float]:
+        """Get this menu variation type idx and its weight value.
+
+        Returns:
+            tuple[int, float]: int: variation idx.    float: weight value
+        """  
+        _TYPE = self.kwargs['parm'].eval()
+        idx = self.kwargs['script_multiparm_index']
+        prm_weight_name = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{str(idx)}"
+        return _TYPE, self.node.parm(prm_weight_name).eval()
+    
+    
+    
+    def menu_T_FF_get_var_data(self) -> tuple[int, float]:
+        """Get this FF menu variation type idx and its weight value.
+
+        Returns:
+            tuple[int, float]: int: variation idx.    float: weight value
+        """  
+        _TYPE = self.kwargs['parm'].eval()
+        prm_weight_name = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
+        return _TYPE, self.node.parm(prm_weight_name).eval()
+        
 
     
     def refresh_iterator_vars_menu(self) -> None:
-        
+        """Refresh the iterator (FLAME and FF tabs) menus
+        to update to the new menu style mode.
+
+        Returns:
+            None: int:
+        """  
         node = self.node
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -3058,22 +3120,8 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             tuple[int, str]: int: variation idx.    str: icon
         """        
-        _TYPE = self.kwargs['parm'].eval()
-        idx = self.kwargs['script_multiparm_index']
-        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
-        prm_weight_name = f"{prm_prefix}weight_{str(idx)}"
-            
-        w = self.node.parm(prm_weight_name).eval()
-
-        if w > 0:
-            if w > 1:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
-            else:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV
-        elif w < 0:
-            return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
-            
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
+        _TYPE, w = self.menu_T_get_var_data()
+        return _TYPE, self.menu_T_get_type_icon(w)
 
 
     
@@ -3084,20 +3132,8 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             tuple[int, str]: int: variation idx.    str: icon
         """        
-        _TYPE = self.kwargs['parm'].eval()
-        idx = self.kwargs['script_multiparm_index']
-        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
-        prm_weight_name = f"{prm_prefix}weight_{str(idx)}"
-            
-        w = self.node.parm(prm_weight_name).eval()
-
-        if w > 0:
-            if w > 1:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
-            else:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
-            
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
+        _TYPE, w = self.menu_T_get_var_data()
+        return _TYPE, self.menu_T_PP_get_type_icon(w)
     
     
     
@@ -3108,22 +3144,9 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             tuple[int, str]: int: variation idx.    str: icon
         """        
-
-        _TYPE = self.kwargs['parm'].eval()
-        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
-        prm_weight_name = f"{prm_prefix}weight"
-            
-        w = self.node.parm(prm_weight_name).eval()
-
-        if w > 0:
-            if w > 1:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
-            else:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV
-        elif w < 0:
-            return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
-            
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
+        _TYPE, w = self.menu_T_FF_get_var_data()
+        return _TYPE, self.menu_T_get_type_icon(w)
+    
     
     
     def menu_T_PP_FF_data(self) -> tuple[int, str]:
@@ -3133,20 +3156,9 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             tuple[int, str]: int: variation idx.    str: icon
         """        
-
-        _TYPE = self.kwargs['parm'].eval()
-        prm_prefix = str(self.kwargs['parm'].name()).split('type')[0]
-        prm_weight_name = f"{prm_prefix}weight"
-            
-        w = self.node.parm(prm_weight_name).eval()
-
-        if w > 0:
-            if w > 1:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
-            else:
-                return _TYPE, FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
-            
-        return _TYPE, FLAM3H_ICON_STAR_EMPTY_OPACITY
+        _TYPE, w = self.menu_T_FF_get_var_data()
+        return _TYPE, self.menu_T_PP_get_type_icon(w)
+    
     
     
     def menu_T_pb_data(self) -> str:
