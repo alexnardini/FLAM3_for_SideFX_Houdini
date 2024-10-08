@@ -12,6 +12,7 @@ from datetime import datetime
 from math import sin
 from math import cos
 from math import fsum
+from copy import copy
 from re import sub as re_sub
 from numpy import pad as np_pad
 from numpy import resize as np_resize
@@ -2202,6 +2203,111 @@ MENU_IN_PRESETS_EMPTY_CB = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionSta
 MENU_FF_COPY_PASTE_EMPTY = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
+MENU_VARS_INDEXES: dict = { 0: 1, 
+                            39: 3, 
+                            94: 5, 
+                            14: 7, 
+                            52: 9, 
+                            53: 11, 
+                            43: 13, 
+                            30: 15, 
+                            26: 17, 
+                            54: 19, 
+                            23: 21, 
+                            55: 23, 
+                            99: 25, 
+                            56: 27, 
+                            50: 29, 
+                            83: 31, 
+                            89: 33, 
+                            20: 35, 
+                            87: 37, 
+                            93: 39, 
+                            57: 41, 
+                            102: 43, 
+                            46: 45, 
+                            86: 47, 
+                            92: 49, 
+                            27: 51, 
+                            97: 53, 
+                            24: 55, 
+                            11: 57, 
+                            8: 59, 
+                            47: 61, 
+                            58: 63, 
+                            59: 65, 
+                            61: 67, 
+                            12: 69, 
+                            80: 71, 
+                            18: 73, 
+                            25: 75, 
+                            22: 77, 
+                            34: 79, 
+                            16: 81, 
+                            49: 83, 
+                            95: 85, 
+                            62: 87, 
+                            33: 89, 
+                            104: 91, 
+                            6: 93, 
+                            7: 95, 
+                            100: 97, 
+                            4: 99, 
+                            10: 101, 
+                            13: 103, 
+                            31: 105, 
+                            32: 107, 
+                            63: 109, 
+                            81: 111, 
+                            64: 113, 
+                            96: 115, 
+                            66: 117, 
+                            28: 119, 
+                            60: 121, 
+                            67: 123, 
+                            51: 125, 
+                            29: 127, 
+                            98: 129, 
+                            38: 131, 
+                            5: 133, 
+                            68: 135, 
+                            101: 137, 
+                            17: 139, 
+                            69: 141, 
+                            19: 143, 
+                            105: 145, 
+                            37: 147, 
+                            42: 149, 
+                            36: 151, 
+                            21: 153, 
+                            35: 155, 
+                            70: 157, 
+                            85: 159, 
+                            44: 161, 
+                            91: 163, 
+                            71: 165, 
+                            82: 167, 
+                            88: 169, 
+                            1: 171, 
+                            2: 173, 
+                            9: 175, 
+                            72: 177, 
+                            73: 179, 
+                            41: 181, 
+                            74: 183, 
+                            48: 185, 
+                            3: 187, 
+                            84: 189, 
+                            40: 191, 
+                            90: 193, 
+                            45: 195, 
+                            103: 197, 
+                            15: 199, 
+                            79: 201, 
+                            75: 203, 
+                            76: 205, 
+                            77: 207, 
+                            78: 209 }
 
 class flam3h_iterator_utils:
     """
@@ -3064,6 +3170,7 @@ iterator_keep_last_weight(self) -> None:
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
+    
     def menu_T_ICON(self, FF=False) -> list:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
@@ -3076,20 +3183,12 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        menu=[]
-        if not FF:
-            _TYPE, _ICON = self.menu_T_data()
-        else:
-            _TYPE, _ICON = self.menu_T_FF_data()
-            
-        for i, item in MENU_VARS_ALL:
-            
-            menu.append(i)
-            
-            if i == _TYPE:
-                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
-            else:
-                menu.append(f"{item}          ") # 10 times \s
+        menu = copy(MENU_VARS_ALL_SIMPLE)
+        if not FF: _TYPE, _ICON = self.menu_T_data()
+        else: _TYPE, _ICON = self.menu_T_FF_data()
+        var = MENU_VARS_INDEXES.get(_TYPE)
+        if var is not None: menu[var] = f"{_ICON} {menu[var][:13]}     "
+
         return menu
 
 
@@ -3106,22 +3205,14 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        menu=[]
-        if not FF:
-            _TYPE, _ICON = self.menu_T_PP_data()
-        else:
-            _TYPE, _ICON = self.menu_T_PP_FF_data()
-            
-        for i, item in MENU_VARS_ALL:
-            
-            menu.append(i)
-            
-            if i == _TYPE:
-                menu.append(f"{_ICON} {item[:13]}     ") # 5 times \s
-            else:
-                menu.append(f"{item}          ") # 10 times \s
+        menu = copy(MENU_VARS_ALL_SIMPLE)
+        if not FF: _TYPE, _ICON = self.menu_T_PP_data()
+        else: _TYPE, _ICON = self.menu_T_PP_FF_data()
+        var = MENU_VARS_INDEXES.get(_TYPE)
+        if var is not None: menu[var] = f"{_ICON} {menu[var][:13]}     "
             
         return menu
+    
     
     
     def menu_T_simple(self, FF=False) -> list:
@@ -6281,7 +6372,7 @@ reset_CP(self, mode=0) -> None:
 
 
     def reset_CP_run_0(self) -> None:
-        """Reset the CP tab parameters to their defaults.
+        """Reset the CP tab to its defaults.
 
         Args:
         """
@@ -6304,7 +6395,7 @@ reset_CP(self, mode=0) -> None:
         
         
     def reset_CP_run_2(self) -> None:
-        """Reset the CP tab HSV value to their defaults.
+        """Reset the CP tab HSV values to their defaults.
 
         Args:
         """
@@ -6333,7 +6424,7 @@ reset_CP(self, mode=0) -> None:
 
 
     def reset_CP_run_3(self) -> None:
-        """Reset the CP tab Palette ramp to its defaults.
+        """Reset the CP tab Palette ramp to its defaults ( and the HSV palette too ).
 
         Args:
         """
@@ -6358,7 +6449,7 @@ reset_CP(self, mode=0) -> None:
         
     
     def reset_CP(self, mode: int=0) -> None:
-        """Run the desired reset definition.
+        """Run the desired reset_CP(...) definition.
 
         Args:
             mode (int): definition idx to run
@@ -6366,7 +6457,7 @@ reset_CP(self, mode=0) -> None:
         func_list = {0: self.reset_CP_run_0, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
         run = func_list.get(mode)
         if run is not None: run()
-        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP python definition have nothing to run with the passed mode value.", 'WARN')
+        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP(...) python definition have nothing to run with the passed \"mode\" value.", 'WARN')
 
 
 
@@ -8570,6 +8661,14 @@ reset_IN(self, mode=0) -> None:
     
     @staticmethod
     def in_util_make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
+        """This definition is used as a place holder.
+
+        Args:
+            name (Union[str, list[str], tuple[str]]): name or names to convert.
+
+        Returns:
+            Union[Union[str, list[str]], None]: The untouched name's value passed in as argument.
+        """       
         return name
 
 
@@ -10998,7 +11097,6 @@ reset_IN(self, mode=0) -> None:
             flam3h_palette_utils.build_ramp_palette_default(ramp_parm)
             flam3h_palette_utils.delete_ramp_all_keyframes(ramp_parm)
             flam3h_palette_utils.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
-            
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             # Set palette lookup samples
@@ -12405,6 +12503,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         """Check if the Flame we want to write out is compatible with the FLAM3 flame format.
         If not, print out details to let us know what is wrong with it.
+        
+        _NOTE:
+            This need a bit more work to format the collected data better.
 
         Args:
             names_VARS_PRE (list): A list of all iterators PRE variations used.
