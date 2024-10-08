@@ -482,6 +482,14 @@ class flam3h_varsPRM:
         return list(enumerate(['Linear'])) + vars_sorted
     
     
+    def menu_vars_no_PRM(self) -> list:
+        """
+        Returns:
+            list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
+        """   
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
+    
+    
     def build_menu_vars_indexes(self) -> dict[int, int]:
         """
         Returns:
@@ -503,13 +511,6 @@ class flam3h_varsPRM:
                 
         return dict(zip(keys, values))
 
-    
-    def menu_vars_no_PRM(self) -> list:
-        """
-        Returns:
-            list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
-        """   
-        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
 
 
 class flam3h_iterator:
