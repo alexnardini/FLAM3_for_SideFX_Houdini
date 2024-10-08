@@ -359,7 +359,7 @@ class flam3h_varsPRM
 
 STATIC METHODS:
 
-append_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
+populate_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
 
 METHODS:
 
@@ -487,7 +487,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     
     @staticmethod
-    def append_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
+    def populate_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
         """ Populate the keys and values lists. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
         
@@ -553,7 +553,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         """   
         keys = []
         values = []
-        [self.append_keys_and_values(item, id, keys, values) for id, item in enumerate(self.menu_vars_all_linear())]
+        [self.populate_keys_and_values(item, id, keys, values) for id, item in enumerate(self.menu_vars_all_linear())]
         return dict(zip(keys, values))
 
 
