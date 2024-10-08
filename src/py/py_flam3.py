@@ -117,10 +117,11 @@ FLAM3H_ITERATORS_TAB = "f_flam3h"
 AFFINE_DEFAULTS: dict = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
 AFFINE_IDENT: list = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
 
-DPT = '*'
-PRM = '...'
+# FF parametric parameter's prefixes
 PRX_FF_PRM = 'ff'
 PRX_FF_PRM_POST = 'fp1'
+
+# copy/paste set note sections names
 SEC_ALL = '.ALL'
 SEC_MAIN = '.main'
 SEC_XAOS = '.xaos'
@@ -349,6 +350,8 @@ class flam3h_iterator_prm_names:
 
 class flam3h_varsPRM:
 
+    DPT = '*'
+    PRM = '...'
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
     # Those names are what it will appear inside each variation's menu.
     varsPRM = ( ("Linear", 0), 
@@ -487,7 +490,15 @@ class flam3h_varsPRM:
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
         """   
-        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=self.PRM, self.menu_vars_all())))
+    
+    
+    def menu_vars_all_linear(self) -> list:
+        linear = []
+        for idx, item in self.menu_vars_all():
+            linear.append(idx)
+            linear.append(item)
+        return linear
     
     
     def build_menu_vars_indexes(self) -> dict[int, int]:
@@ -495,14 +506,9 @@ class flam3h_varsPRM:
         Returns:
             dict: [a dictionary for the variation indexes used by the menu_T_ICONS definitions]
         """   
-        menu = []
-        for idx, item in self.menu_vars_all():
-            menu.append(idx)
-            menu.append(item)
-        
         keys = []
         values = []
-        for id, var in enumerate(menu):
+        for id, var in enumerate(self.menu_vars_all_linear()):
             try:
                 int(var)
                 keys.append(var)
