@@ -355,9 +355,9 @@ class flam3h_varsPRM
 
 STATIC METHODS:
 
-populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
+__populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
 
-populate_linear_list(linear: list, item: str, id: int) -> None:
+__populate_linear_list(linear: list, item: str, id: int) -> None:
 
 METHODS:
 
@@ -485,7 +485,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     
     @staticmethod
-    def populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
+    def __populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
         """ Populate the keys and values lists. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
         
@@ -503,7 +503,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
             
             
     @staticmethod
-    def populate_linear_list(linear: list, item: str, id: int) -> None:
+    def __populate_linear_list(linear: list, item: str, id: int) -> None:
         """ Populate linear list. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self) -> list:
         
@@ -551,7 +551,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
             list: [return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data]
         """  
         linear = []
-        [self.populate_linear_list(linear, item, id) for id, item in self.menu_vars_all()]
+        [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all()]
         return linear
     
     
@@ -562,7 +562,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         """   
         keys = []
         values = []
-        [self.populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear())]
+        [self.__populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear())]
         return dict(zip(keys, values))
 
 
@@ -2436,9 +2436,11 @@ menu_T_FF_get_var_data(self) -> tuple[int, float]:
 
 METHODS:
 
+refresh_iterator_vars_menu(self) -> None:
+
 menu_T_get_var_data(self) -> tuple[int, float]:
 
-refresh_iterator_vars_menu(self) -> None:
+menu_T_FF_get_var_data(self) -> tuple[int, float]:
 
 menu_T_data(self) -> tuple[int, str]:
 
@@ -3114,31 +3116,6 @@ iterator_keep_last_weight(self) -> None:
     @property
     def node(self):
         return self._node
-    
-    
-    
-    def menu_T_get_var_data(self) -> tuple[int, float]:
-        """Get this menu variation type idx and its weight value.
-
-        Returns:
-            tuple[int, float]: int: variation idx.    float: weight value
-        """  
-        _TYPE = self.kwargs['parm'].eval()
-        idx = self.kwargs['script_multiparm_index']
-        prm_weight_name = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{str(idx)}"
-        return _TYPE, self.node.parm(prm_weight_name).eval()
-    
-    
-    
-    def menu_T_FF_get_var_data(self) -> tuple[int, float]:
-        """Get this FF menu variation type idx and its weight value.
-
-        Returns:
-            tuple[int, float]: int: variation idx.    float: weight value
-        """  
-        _TYPE = self.kwargs['parm'].eval()
-        prm_weight_name = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
-        return _TYPE, self.node.parm(prm_weight_name).eval()
         
 
     
@@ -3187,6 +3164,30 @@ iterator_keep_last_weight(self) -> None:
             
         # Change focus back to the FLAME's Tab
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+        
+        
+    def menu_T_get_var_data(self) -> tuple[int, float]:
+        """Get this menu variation type idx and its weight value.
+
+        Returns:
+            tuple[int, float]: int: variation idx.    float: weight value
+        """  
+        _TYPE = self.kwargs['parm'].eval()
+        idx = self.kwargs['script_multiparm_index']
+        prm_weight_name = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{str(idx)}"
+        return _TYPE, self.node.parm(prm_weight_name).eval()
+    
+    
+    
+    def menu_T_FF_get_var_data(self) -> tuple[int, float]:
+        """Get this FF menu variation type idx and its weight value.
+
+        Returns:
+            tuple[int, float]: int: variation idx.    float: weight value
+        """  
+        _TYPE = self.kwargs['parm'].eval()
+        prm_weight_name = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
+        return _TYPE, self.node.parm(prm_weight_name).eval()
 
     
     
