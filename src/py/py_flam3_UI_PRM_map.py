@@ -623,6 +623,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs()
 
 
+'parameter name:    itericons'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu()
+
+
 'parameter name:    xm'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert()
