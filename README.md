@@ -131,6 +131,7 @@ There are no switch/case constructors or other types of pointer functions in the
 
 Python run single threaded here, now that this tool has lots of python code running or when many iterators are created, Houdini's FLAM3H user interface becames slow.
 I made some effort to make it better, and from [v1.4.75](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.75) I was finally able to start improving the UI performance a fair bit.
+
 All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot.
 There is also a big chunk of python code that deal with making the UI pretty and nice to look at, with lots of icons changing based on the user actions.
 A computer processor with strong single-threaded performance would be very helpful here.
