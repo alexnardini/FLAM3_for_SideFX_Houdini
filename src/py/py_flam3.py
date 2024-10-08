@@ -480,14 +480,36 @@ class flam3h_varsPRM:
         vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
         vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
         return list(enumerate(['Linear'])) + vars_sorted
+    
+    
+    def build_menu_vars_indexes(self) -> dict[int, int]:
+        """
+        Returns:
+            dict: [a dictionary for the variation indexes used by the menu_T_ICONS definitions]
+        """   
+        menu = []
+        for idx, item in self.menu_vars_all():
+            menu.append(idx)
+            menu.append(item)
+        
+        keys = []
+        values = []
+        for id, var in enumerate(menu):
+            try:
+                int(var)
+                keys.append(var)
+            except:
+                values.append(id)
+                
+        return dict(zip(keys, values))
 
     
-    # def menu_vars_no_PRM(self) -> list:
-    #     """
-    #     Returns:
-    #         list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
-    #     """   
-    #     return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
+    def menu_vars_no_PRM(self) -> list:
+        """
+        Returns:
+            list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
+        """   
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
 
 
 class flam3h_iterator:
@@ -2195,13 +2217,13 @@ FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_option
 FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]'
 
 # The following are pre built to speed up the generations of the menus.
-MENU_VARS_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian_blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (105, 'Pt_symmetry...'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
+# MENU_VARS_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian_blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (105, 'Pt_symmetry...'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
 MENU_VARS_ALL_SIMPLE: list = [0, 'Linear     ', 39, 'Arch          ', 94, 'Auger...          ', 14, 'Bent          ', 52, 'Bent2...          ', 53, 'Bipolar...          ', 43, 'Blade          ', 30, 'Blob...          ', 26, 'Blur          ', 54, 'Boarders          ', 23, 'Bubble          ', 55, 'Butterfly          ', 99, 'Bwraps...          ', 56, 'Cell...          ', 50, 'Conic...          ', 83, 'Cos          ', 89, 'Cosh          ', 20, 'Cosine          ', 87, 'Cot          ', 93, 'Coth          ', 57, 'Cpow...          ', 102, 'Crop...          ', 46, 'Cross          ', 86, 'Csc          ', 92, 'Csch          ', 27, 'Curl...          ', 97, 'Curve...          ', 24, 'Cylinder          ', 11, 'Diamond          ', 8, 'Disc          ', 47, 'Disc2...          ', 58, 'Edisc          ', 59, 'Elliptic          ', 61, 'Escher...          ', 12, 'Ex          ', 80, 'Exp          ', 18, 'Exponential          ', 25, 'Eyefish          ', 22, 'Fan*          ', 34, 'Fan2...          ', 16, 'Fisheye          ', 49, 'Flower...          ', 95, 'Flux...          ', 62, 'Foci          ', 33, 'Gaussian_blur          ', 104, 'Glynnia          ', 6, 'Handkerchief          ', 7, 'Heart          ', 100, 'Hemisphere          ', 4, 'Horseshoe          ', 10, 'Hyperbolic          ', 13, 'Julia          ', 31, 'JuliaN...          ', 32, 'Juliascope...          ', 63, 'Lazysusan...          ', 81, 'Log          ', 64, 'Loonie          ', 96, 'Mobius...          ', 66, 'Modulus...          ', 28, 'Ngon...          ', 60, 'Noise          ', 67, 'Oscope...          ', 51, 'Parabola...          ', 29, 'Pdj...          ', 98, 'Perspective...          ', 38, 'Pie...          ', 5, 'Polar          ', 68, 'Polar2          ', 101, 'Polynomial...          ', 17, 'Popcorn*          ', 69, 'Popcorn2...          ', 19, 'Power          ', 105, 'Pt_symmetry...          ', 37, 'Radialblur...          ', 42, 'Rays          ', 36, 'Rectangles...          ', 21, 'Rings*          ', 35, 'Rings2...          ', 70, 'Scry          ', 85, 'Sec          ', 44, 'Secant2          ', 91, 'Sech          ', 71, 'Separation...          ', 82, 'Sin          ', 88, 'Sinh          ', 1, 'Sinusoidal          ', 2, 'Spherical          ', 9, 'Spiral          ', 72, 'Split...          ', 73, 'Splits...          ', 41, 'Square          ', 74, 'Stripes...          ', 48, 'Supershape...          ', 3, 'Swirl          ', 84, 'Tan          ', 40, 'Tangent          ', 90, 'Tanh          ', 45, 'Twintrian          ', 103, 'Unpolar          ', 15, 'Waves*          ', 79, 'Waves2...          ', 75, 'Wedge...          ', 76, 'Wedgejulia...          ', 77, 'Wedgesph...          ', 78, 'Whorl...          ']
-MENU_DENSITY = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '50M', 7, '100M', 8, '150M', 9, '250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
-MENU_PRESETS_EMPTY = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
-MENU_IN_PRESETS_EMPTY_CB = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
-MENU_FF_COPY_PASTE_EMPTY = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
-MENU_FF_COPY_PASTE_SELECT = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
+MENU_DENSITY: list = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '50M', 7, '100M', 8, '150M', 9, '250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
+MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
+MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
 MENU_VARS_INDEXES: dict = { 0: 1, 
                             39: 3, 
