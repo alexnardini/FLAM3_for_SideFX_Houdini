@@ -6357,7 +6357,7 @@ reset_CP(self, mode=0) -> None:
         flam3h_general_utils.flash_message(node, _MSG)
         
     
-    def reset_CP(self, mode=0) -> None:
+    def reset_CP(self, mode: int=0) -> None:
         """Run the desired reset definition.
 
         Args:
