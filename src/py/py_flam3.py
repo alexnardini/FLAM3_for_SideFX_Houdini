@@ -3278,7 +3278,7 @@ iterator_keep_last_weight(self) -> None:
         else: _TYPE, _ICON = self.menu_T_FF_data()
         var = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None
-        menu[var] = f"{_ICON} {menu[var][:13]}     "
+        menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
 
         return menu
 
@@ -3301,7 +3301,7 @@ iterator_keep_last_weight(self) -> None:
         else: _TYPE, _ICON = self.menu_T_PP_FF_data()
         var = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None
-        menu[var] = f"{_ICON} {menu[var][:13]}     "
+        menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
             
         return menu
     
@@ -4507,7 +4507,7 @@ iterator_keep_last_weight(self) -> None:
     def flam3h_xaos_convert(self) -> None:
         """Here I am using a class function call from: out_flame_utils.out_xf_xaos_from()
         down below inside the save XML/FLAME file section of this file.
-        The class function: out_flame_utils.out_xf_xaos_from() convert xaos from TO to FROM and back in one call.
+        The class function: out_flame_utils.out_xf_xaos_from(0) convert xaos from TO to FROM and back in one call.
         """
         node = self.node
         autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
