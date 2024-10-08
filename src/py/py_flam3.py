@@ -355,7 +355,9 @@ class flam3h_varsPRM
 
 STATIC METHODS:
 
-populate_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
+populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
+
+populate_linear_list(linear: list, item: str, id: int) -> None:
 
 METHODS:
 
@@ -365,7 +367,7 @@ menu_vars_all(self) -> list:
 
 menu_vars_no_PRM(self) -> list:
 
-menu_vars_all_linear(self) -> list:
+build_menu_vars_all_linear(self) -> list:
 
 build_menu_vars_indexes(self) -> dict[int, int]:
 
@@ -483,7 +485,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     
     @staticmethod
-    def populate_keys_and_values(item: Union[int, str], id: int, keys: list, values: list) -> None:
+    def populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
         """ Populate the keys and values lists. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
         
@@ -498,7 +500,20 @@ build_menu_vars_indexes(self) -> dict[int, int]:
             keys.append(item)
         except:
             values.append(id)
-    
+            
+            
+    @staticmethod
+    def populate_linear_list(linear: list, item: str, id: int) -> None:
+        """ Populate linear list. This is to be used inside a loop.
+        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self) -> list:
+        
+        Args:
+            linear (list): [the empty list to populate]
+            item (str): [The current item]
+            id (int): [The current index]
+        """
+        linear.append(id)
+        linear.append(item)
     
     
     def vars_all(self) -> list:
@@ -530,15 +545,13 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
     
     
-    def menu_vars_all_linear(self) -> list:
+    def build_menu_vars_all_linear(self) -> list:
         """This is used to generate the following list: MENU_VARS_ALL_SIMPLE
         Returns:
             list: [return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data]
         """  
         linear = []
-        for idx, item in self.menu_vars_all():
-            linear.append(idx)
-            linear.append(item)
+        [self.populate_linear_list(linear, item, id) for id, item in self.menu_vars_all()]
         return linear
     
     
@@ -549,7 +562,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         """   
         keys = []
         values = []
-        [self.populate_keys_and_values(item, id, keys, values) for id, item in enumerate(self.menu_vars_all_linear())]
+        [self.populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear())]
         return dict(zip(keys, values))
 
 
