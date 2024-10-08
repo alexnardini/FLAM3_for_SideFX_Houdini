@@ -293,15 +293,11 @@ class flam3h_iterator_prm_names:
             flam3h_iterator_utils.menu_copypaste(self) -> list:
             flam3h_iterator_utils.menu_copypaste_FF(self) -> list:
             
-        have houdini parameter's names hard coded inside as they are not using
-        this class in an attempt to try to speed up a tiny, tiny bit.
-        
-        The hard coded parameter's names are:
-        
-            flam3h_iterator_prm_names.main_vactive = 'vactive'
-            flam3h_iterator_prm_names.main_weight = 'iw'
+        are not using this class
+        but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
             
-        If you update/change those, please update inside the above mentioned functions.
+        If you update/change the following values and the FLAM3H HDA parameter's names,
+        please update inside the above mentioned functions as well.
     
     '''
     # ITERATOR
