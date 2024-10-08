@@ -494,6 +494,10 @@ class flam3h_varsPRM:
     
     
     def menu_vars_all_linear(self) -> list:
+        """
+        Returns:
+            list: [return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data]
+        """  
         linear = []
         for idx, item in self.menu_vars_all():
             linear.append(idx)
