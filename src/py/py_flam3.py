@@ -118,8 +118,13 @@ AFFINE_DEFAULTS: dict = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Ve
 AFFINE_IDENT: list = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
 
 # FF parametric parameter's prefixes
+# FF posses two sets of parametric variations parameters, one for the VAR named "VARS" and one for the PRE and POST, named "PP: VARS"
 PRX_FF_PRM = 'ff'
 PRX_FF_PRM_POST = 'fp1'
+
+# vars names identifiers for parametrics and dependants
+DPT = '*'
+PRM = '...'
 
 # copy/paste set note sections names
 SEC_ALL = '.ALL'
@@ -349,9 +354,27 @@ class flam3h_iterator_prm_names:
     
 
 class flam3h_varsPRM:
+    """
+class flam3h_varsPRM
 
-    DPT = '*'
-    PRM = '...'
+STATIC METHODS:
+
+append_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
+
+METHODS:
+
+vars_all(self) -> list:
+
+menu_vars_all(self) -> list:
+
+menu_vars_no_PRM(self) -> list:
+
+menu_vars_all_linear(self) -> list:
+
+build_menu_vars_indexes(self) -> dict[int, int]:
+
+    """ 
+
     # Collect all variations and their parametric parameters properly ordered as per flame*.h files
     # Those names are what it will appear inside each variation's menu.
     varsPRM = ( ("Linear", 0), 
@@ -463,6 +486,24 @@ class flam3h_varsPRM:
                 )
     
     
+    @staticmethod
+    def append_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
+        """ Populate the keys and values lists. This is to be used inside a loop.
+        Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
+        
+        Args:
+            var (str): [The current item]
+            id (int): [The current index]
+            keys (str): [the keys empty list to populate]
+            values (str): [the values empty list to populate]
+        """
+        try:
+            int(var)
+            keys.append(var)
+        except:
+            values.append(id)
+    
+    
     
     def vars_all(self) -> list:
         """
@@ -474,7 +515,7 @@ class flam3h_varsPRM:
     
     
     def menu_vars_all(self) -> list:
-        """
+        """This is used to generate the following list: MENU_VARS_ALL
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience]
         """        
@@ -490,11 +531,11 @@ class flam3h_varsPRM:
         Returns:
             list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
         """   
-        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=self.PRM, self.menu_vars_all())))
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
     
     
     def menu_vars_all_linear(self) -> list:
-        """
+        """This is used to generate the following list: MENU_VARS_ALL_SIMPLE
         Returns:
             list: [return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data]
         """  
@@ -506,19 +547,13 @@ class flam3h_varsPRM:
     
     
     def build_menu_vars_indexes(self) -> dict[int, int]:
-        """
+        """This is used to generate the following dict: MENU_VARS_INDEXES
         Returns:
             dict: [a dictionary for the variation indexes used by the menu_T_ICONS definitions]
         """   
         keys = []
         values = []
-        for id, var in enumerate(self.menu_vars_all_linear()):
-            try:
-                int(var)
-                keys.append(var)
-            except:
-                values.append(id)
-                
+        [self.append_keys_and_values(item, id, keys, values) for id, item in enumerate(self.menu_vars_all_linear())]
         return dict(zip(keys, values))
 
 
