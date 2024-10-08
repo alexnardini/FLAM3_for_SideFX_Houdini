@@ -3187,7 +3187,8 @@ iterator_keep_last_weight(self) -> None:
         if not FF: _TYPE, _ICON = self.menu_T_data()
         else: _TYPE, _ICON = self.menu_T_FF_data()
         var = MENU_VARS_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:13]}     "
+        assert var is not None
+        menu[var] = f"{_ICON} {menu[var][:13]}     "
 
         return menu
 
@@ -3209,7 +3210,8 @@ iterator_keep_last_weight(self) -> None:
         if not FF: _TYPE, _ICON = self.menu_T_PP_data()
         else: _TYPE, _ICON = self.menu_T_PP_FF_data()
         var = MENU_VARS_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:13]}     "
+        assert var is not None
+        menu[var] = f"{_ICON} {menu[var][:13]}     "
             
         return menu
     
