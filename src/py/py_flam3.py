@@ -487,19 +487,19 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     
     @staticmethod
-    def populate_keys_and_values(var: Union[int, str], id: int, keys: list, values: list) -> None:
+    def populate_keys_and_values(item: Union[int, str], id: int, keys: list, values: list) -> None:
         """ Populate the keys and values lists. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
         
         Args:
-            var (str): [The current item]
+            item (str): [The current item]
             id (int): [The current index]
             keys (str): [the keys empty list to populate]
             values (str): [the values empty list to populate]
         """
         try:
-            int(var)
-            keys.append(var)
+            int(item)
+            keys.append(item)
         except:
             values.append(id)
     
