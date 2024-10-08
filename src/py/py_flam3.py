@@ -3217,12 +3217,6 @@ iterator_keep_last_weight(self) -> None:
     
     def menu_T_simple(self, FF=False) -> list:
         """Populate variation names parameter menu list.
-        Differentiate iterators and FF
-        
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
 
         Returns:
             list: [return menu list]
