@@ -503,7 +503,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
             
             
     @staticmethod
-    def __populate_linear_list(linear: list, item: str, id: int) -> None:
+    def __populate_linear_list(linear: list, item: str, id: int, spacer=True) -> None:
         """ Populate linear list. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self) -> list:
         
@@ -511,9 +511,11 @@ build_menu_vars_indexes(self) -> dict[int, int]:
             linear (list): [the empty list to populate]
             item (str): [The current item]
             id (int): [The current index]
+            spacer (bool): [Default to: True. Add a spcer to the ent of the item to conform with the desired menu label length]
         """
         linear.append(id)
-        linear.append(item)
+        if spacer: linear.append(f"{item}          ") # 10 times \s
+        else: linear.append(item)
     
     
     def vars_all(self) -> list:
