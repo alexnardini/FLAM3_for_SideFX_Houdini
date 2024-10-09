@@ -11287,7 +11287,7 @@ reset_IN(self, mode=0) -> None:
                 elif node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                     
                     node.setParms({IN_ISVALID_FILE: 0})
-
+                        
                     _MSG = "Flame IN -> Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
@@ -11301,6 +11301,9 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({MSG_FLAMESTATS: ""})
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                    # If iterator's count is 0(Zero), change focus back to the IN's Tab
+                    if node.parm(FLAME_ITERATORS_COUNT).eval() == 0:
+                        node.parmTuple(FLAM3H_ITERATORS_TAB).set((1,))
 
                     _MSG = "Flame IN -> Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
