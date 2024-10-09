@@ -50,6 +50,17 @@ import nodesearch
 #               - Tool's user experience
 #               
 #               Everything is then glued together inside Houdini.
+#
+#               _NOTE:
+#                   Some definitions are ran directly from inside the FLAM3H parameters.
+#                   Please check the file: ../py_flam3_UI_PRM_map.py
+#                   to see if any of the definition you are curious about is being used inside any of the FLAM3H parameters directly.
+#                   The file include a list/map of all the definitions used directly inside FLAM3H and categorized as:
+#                       
+#                       - callback script
+#                       - menu script
+#                       - action button script
+#
 
 
 
