@@ -1,0 +1,112 @@
+;_name	TFFAcamcull
+; ModuleID = 'TFFAcamcull'
+source_filename = "TFFAcamcull"
+
+@0 = private constant [2 x i8] c".\00"
+@1 = private constant [8 x i8] c"../fcam\00"
+@2 = private constant [14 x i8] c"../cullamount\00"
+@P = external global <3 x double>
+@ptnum = external global i64
+@3 = private constant [2 x i8] c"P\00"
+@4 = private constant [6 x i8] c"ptnum\00"
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAcamcull@VI"(<3 x double>* %_bound_P, i64* %_bound_ptnum) #0 {
+__llvm_entry:
+  %_bound_P1 = load <3 x double>, <3 x double>* %_bound_P
+  %return = call i8* @"opfullpath@SS"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @0, i64 0, i64 0))
+  %return2 = call i8* @"chs@SS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @1, i64 0, i64 0))
+  %return3 = call i8* @"relativepath@SSS"(i8* %return, i8* %return2)
+  %return6 = call <3 x double> @"toNDC@VSV"(i8* %return3, <3 x double> %_bound_P1)
+  %return7 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @2, i64 0, i64 0))
+  %output = fsub double 1.000000e+00, %return7
+  %return9 = call double @"getcomp@FVI"(<3 x double> %return6, i64 0)
+  %output11 = fsub double 0.000000e+00, %output
+  %return12 = fcmp olt double %return9, %output11
+  %return13 = zext i1 %return12 to i64
+  %output17 = fadd double 1.000000e+00, %output
+  %return18 = fcmp ogt double %return9, %output17
+  %return19 = zext i1 %return18 to i64
+  %return20 = call i64 @"or@III"(i64 %return13, i64 %return19)
+  %return22 = call double @"getcomp@FVI"(<3 x double> %return6, i64 1)
+  %return25 = fcmp olt double %return22, %output11
+  %return26 = zext i1 %return25 to i64
+  %return27 = call i64 @"or@III"(i64 %return20, i64 %return26)
+  %return32 = fcmp ogt double %return22, %output17
+  %return33 = zext i1 %return32 to i64
+  %return34 = call i64 @"or@III"(i64 %return27, i64 %return33)
+  %0 = icmp ne i64 %return34, 0
+  br i1 %0, label %true, label %end
+
+true:                                             ; preds = %__llvm_entry
+  %_bound_ptnum35 = load i64, i64* %_bound_ptnum
+  %return36 = call i64 @"removepoint@III"(i64 0, i64 %_bound_ptnum35)
+  br label %end
+
+end:                                              ; preds = %true, %__llvm_entry
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare i8* @"opfullpath@SS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"chs@SS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"relativepath@SSS"(i8*, i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"toNDC@VSV"(i8*, <3 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare double @"chf@FS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"or@III"(i64, i64) #1
+
+; Function Attrs: nounwind
+declare i64 @"removepoint@III"(i64, i64) #2
+
+; Function Attrs: nounwind
+define void @TFFAcamcull(<3 x double> %P, i64 %ptnum) #2 {
+__llvm_entry:
+  %0 = alloca <3 x double>
+  %1 = alloca i64
+  store <3 x double> %P, <3 x double>* %0
+  store i64 %ptnum, i64* %1
+  call void @"_TFFAcamcull@VI"(<3 x double>* %0, i64* %1)
+  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @3, i64 0, i64 0), <3 x double> %P) #3
+  %gvalue4 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @4, i64 0, i64 0), i64 %ptnum) #3
+  store <3 x double> %gvalue, <3 x double>* @P
+  store i64 %gvalue4, i64* @ptnum
+  ret void
+}
+
+declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
+
+declare i64 @"_export@ISI"(i8*, i64)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFAcamcull(<3 x double> zeroinitializer, i64 0)
+  ret void
+}
+
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind readnone }
+attributes #2 = { nounwind }
+attributes #3 = { nounwind readonly }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"19.0.720"}
+!2 = !{!"64"}
+
+;_code_end
