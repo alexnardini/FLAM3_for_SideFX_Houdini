@@ -11113,7 +11113,6 @@ reset_IN(self, mode=0) -> None:
 
             # ITERATOR
             ####################################################
-            ####################################################
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
@@ -11130,11 +11129,8 @@ reset_IN(self, mode=0) -> None:
 
             # Set iterators
             self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
-            ####################################################
-            
             
             # FF
-            ####################################################
             ####################################################
             if apo_data.finalxform is not None:
                 # get keys to exclude
@@ -11147,11 +11143,8 @@ reset_IN(self, mode=0) -> None:
             else:
                 flam3h_iterator_utils(self.kwargs).reset_FF()
                 node.setParms({SYS_DO_FF: 0}) # type: ignore
-            ####################################################
-            
             
             # MB
-            ####################################################
             ####################################################
             if apo_data.mb_flam3h_fps is not False:
                 node.setParms({MB_DO: 1}) # type: ignore
@@ -11160,11 +11153,8 @@ reset_IN(self, mode=0) -> None:
                 node.setParms({MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
             else:
                 flam3h_general_utils(self.kwargs).reset_MB()
-            ####################################################
-            
             
             # PALETTE
-            ####################################################
             ####################################################
             # if CP HSV vals
             if apo_data.cp_flam3h_hsv is not False:
@@ -11187,7 +11177,6 @@ reset_IN(self, mode=0) -> None:
             node.setParms({CP_ISVALID_PRESET: 0})
             # reset tmp ramp palette
             flam3h_palette_utils(self.kwargs).reset_CP_TMP()
-            ####################################################
             
             
             # Set density back to default on load
@@ -11204,7 +11193,6 @@ reset_IN(self, mode=0) -> None:
             
             # if we are loading from the clipboard, always copy the render settings on load
             ####################################################
-            ####################################################
             if clipboard:
                 self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
             else:
@@ -11216,18 +11204,14 @@ reset_IN(self, mode=0) -> None:
                 # if "copy render properties on Load" is checked
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
                     self.in_copy_render_stats_msg(self.kwargs)
-            ####################################################
-            
             
             # Update xaos
             ####################################################
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
-            
             # Update OUT Flame name iter num if any
             ####################################################
             out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
-            
             
             # F3C ( the if statement is for backward compatibility )
             ####################################################
@@ -11239,13 +11223,13 @@ reset_IN(self, mode=0) -> None:
             self.in_to_flam3h_reset_user_data()
             
             # Clear menu caches
+            ####################################################
             flam3h_iterator_utils.destroy_data(node, 'iter_sel')
             flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
             flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_idx')
             flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
             flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off_idx')
 
-            
             
             # Set toggles and MSG
             ####################################################
@@ -11269,7 +11253,6 @@ reset_IN(self, mode=0) -> None:
                 _MSG = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
                 
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            ####################################################
             
         else:
             
