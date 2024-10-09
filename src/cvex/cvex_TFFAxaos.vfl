@@ -68,7 +68,13 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
         append(IW, chf(concat("../iw_", iIDX)));
         append(sIDX, iIDX);
     }
-
+    // This is to prevent Houdini from crashing
+    if(len(IW) == 0){
+        append(IW, 0.00000001);
+        append(sIDX, itoa(1));
+        warning("\nAll iterators are inactive or their Weight set to: 0(Zero)\nOne iterator's Weight internally set to: 1e-08");
+    }
+    
     // XAOS
     int x_chk = 0;
     int res = len(sIDX);
