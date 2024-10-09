@@ -10734,7 +10734,7 @@ reset_IN(self, mode=0) -> None:
         if xml is not None and _xml_tree(xml).isvalidtree:
             
             apo_data = in_flame_iter_data(node, xml, preset_id)
-            if apo_data.f3h_coefs is not None or apo_data.f3h_post is not None:
+            if apo_data.f3h_coefs is not None or apo_data.f3h_post is not None or apo_data.finalxform_f3h_coefs is not None or apo_data.finalxform_f3h_post:
                 flam3h_general_utils(self.kwargs).flam3h_toggle(IN_FLAM3H_AFFINE_STYLE)
                 self.in_to_flam3h()
                 
