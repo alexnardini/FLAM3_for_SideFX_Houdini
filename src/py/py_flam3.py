@@ -803,6 +803,11 @@ flam3h_on_deleted(self) -> None:
 
     @staticmethod
     def set_first_instance_global_var(cvex_precision: int) -> None:
+        """Set the hou.session variable to hold the cvex precision being used on first instance node creation time.
+
+        Args:
+            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
+        """  
         if cvex_precision == 32:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
         elif cvex_precision == 64:
@@ -867,6 +872,15 @@ flam3h_on_deleted(self) -> None:
         
     @staticmethod
     def flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
+        """Set the hou.session variable to hold the cvex precision being used during the Houdini session.
+
+        Args:
+            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            
+            first_instance_32bit (bool): 32bit or 64bit - Was this FLAM3H node instance created with this cvex precision ?
+            
+            first_instance_64bit (bool): 32bit or 64bit - Was this FLAM3H node instance created with this cvex precision ?
+        """  
         if cvex_precision == 32 and first_instance_32bit is True:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
         elif cvex_precision == 64 and first_instance_64bit is True:
@@ -1387,7 +1401,18 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def flash_message(node: hou.SopNode, msg: Union[str, None], timer=FLAM3H_FLASH_MESSAGE_TIMER, img=None) -> None:
+    def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img=None) -> None:
+        """Cause a message to appear on the top left of the network editor.
+
+        Args:
+            node (hou.SopNode): the current FLAM3H node.
+            msg (Union[str, None]): The string message to print or None.
+            timer (float): How long the printed message stay before it fade away.
+            img (str): specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+
+        Returns:
+            int: major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+        """  
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: # type: ignore
                 ne.flashMessage(img, msg, timer)
@@ -1395,6 +1420,13 @@ reset_PREFS(self, mode=0) -> None:
 
     @staticmethod
     def houdini_version() -> int:
+        """Retrieve the major Houdini version number currently in use.
+
+        Args:
+
+        Returns:
+            int: major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+        """  
         return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
 
     @staticmethod  
@@ -1406,7 +1438,7 @@ reset_PREFS(self, mode=0) -> None:
             val_max (int/float): Default to: 255. Max value to clamp to.
 
         Returns:
-            _type_: value clamped between Zero and 255.
+            float: value clamped between Zero and 255.
         """        
         return max(0, min(x, val_max))
 
@@ -1469,6 +1501,9 @@ reset_PREFS(self, mode=0) -> None:
 
         Args:
             filepath_name (_type_): The currently loaded file name full path.
+            
+        Returns:
+            None
         """
         # If it is an exisiting valid file path
         if os.path.isfile(filepath_name):
@@ -1494,6 +1529,13 @@ reset_PREFS(self, mode=0) -> None:
 
     @staticmethod
     def util_clear_stashed_cam_data() -> None:
+        """Clear the stored stashed cam data.
+
+        Args:
+            
+        Returns:
+            None
+        """
         try:
             del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
         except:
@@ -1506,6 +1548,13 @@ reset_PREFS(self, mode=0) -> None:
 
     @staticmethod
     def util_set_stashed_cam() -> None:
+        """Set/Load the stored stashed camera if a stashed camera data is available.
+
+        Args:
+            
+        Returns:
+            None
+        """
         desktop = hou.ui.curDesktop() # type: ignore
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
@@ -2046,6 +2095,13 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def flam3h_display_help(self) -> None:
+        """Open the Houdini help browser to display the FLAM3H node documentation.
+
+        Args:
+            
+        Returns:
+            None
+        """
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
 
 
@@ -2546,6 +2602,13 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def sierpinski_settings(node: hou.SopNode) -> None:
+        """Set all the parameter to build a sierpinski triangle.
+
+        Args:
+            
+        Returns:
+            None
+        """
         # iterator prm names
         n = flam3h_iterator_prm_names
 
@@ -3384,6 +3447,7 @@ iterator_keep_last_weight(self) -> None:
         """Build a menu of iterators using their states as bookmark icon
 
         Returns:
+            list: [return menu list]
         """
         node = self.node
         menu = []
@@ -3446,6 +3510,11 @@ iterator_keep_last_weight(self) -> None:
     
     
     def menu_select_iterator(self) -> list:
+        """Cache or rebuild the menu on demand.
+
+        Returns:
+            list: [return menu list]
+        """
         node = self.node
         
         mem_id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
@@ -3597,7 +3666,6 @@ iterator_keep_last_weight(self) -> None:
         NOT USED ANYMORE
         
         Args:
-            NONE (None): [description.]
 
         Returns:
             list: [return menu list]
@@ -3666,10 +3734,13 @@ iterator_keep_last_weight(self) -> None:
     
     
     def menu_copypaste(self) -> list:
-        """Build copy/paste parameter menu entries.
+        """
+        Build copy/paste parameter menu entries and eventually update its data if needed.
+        This menu, together with: def menu_copypaste_FF(self) -> list: , are the only two menus not being cached for reuse.
+        It is important not to play the cache/destroy data mechanism on those two because we need them to always evaluate to help us update other data as well.
+        They are our sentinels and always vigilant.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
 
         Returns:
             list: [return menu list]
@@ -3743,10 +3814,13 @@ iterator_keep_last_weight(self) -> None:
     
     
     def menu_copypaste_FF(self) -> list:
-        """Build copy/paste FF parameter menu entries.
+        """
+        Build copy/paste FF parameter menu entries and eventually update its data if needed.
+        This menu, together with: def menu_copypaste(self) -> list: , are the only two menus not being cached for reuse.
+        It is important not to play the cache/destroy data mechanism on those two because we need them to always evaluate to help us update other data as well.
+        They are our sentinels and always vigilant.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
 
         Returns:
             list: [return menu list]
@@ -4807,6 +4881,11 @@ iterator_keep_last_weight(self) -> None:
 
 
     def swap_iter_pre_vars(self) -> None:
+        """Swap the selected iterator PRE vars order or swap only their names.
+        
+        Args:
+        
+        """
         
         node = self.node
         id = self.kwargs['script_multiparm_index']
@@ -4850,6 +4929,11 @@ iterator_keep_last_weight(self) -> None:
                 
                 
     def swap_FF_post_vars(self) -> None:
+        """Swap the FF iterator POST vars order or swap only their names.
+        
+        Args:
+        
+        """
         
         node = self.node
         _MSG = f"{node.name()} FF POST variations -> SWAP"
@@ -4925,7 +5009,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     def flam3h_default(self) -> None:
-        """Sierpiński triangle parameters vaule.
+        """Default Flame preset and FLAM3H settings parameters vaules on creation.
         This is used to reset back FLAM3H node entire parameter template.
         
         Args:
@@ -4974,7 +5058,11 @@ iterator_keep_last_weight(self) -> None:
             
             
     def flam3h_reset_iterator(self) -> None:
+        """Reset selected iterator to its default parameter's values.
         
+        Args:
+        
+        """
         node = self.node
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
@@ -5487,6 +5575,11 @@ reset_CP(self, mode=0) -> None:
         
     @staticmethod
     def build_ramp_palette_default(ramp_parm: hou.Parm) -> None:
+        """Build a ramp data with default value for the FLAM3H main palette and set it.
+        
+        Args:
+            ramp_parm (hou.Parm): The ramp parameter to set the default data to. Note this is a hou.Parm and not a hou.Ramp
+        """
         cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
         cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
         cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
@@ -5495,6 +5588,11 @@ reset_CP(self, mode=0) -> None:
         
     @staticmethod
     def build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
+        """Build a ramp data with default value for the FLAM3H temp palette and set it.
+        
+        Args:
+            ramp_tmp_parm (hou.Parm): The ramp parameter to set the default data to. Note this is a hou.Parm and not a hou.Ramp
+        """
         cp_tmp_bases = [hou.rampBasis.Linear] * 2  # type: ignore
         cp_tmp_keys = [0.0, 1.0]
         cp_tmp_values = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
@@ -5503,11 +5601,20 @@ reset_CP(self, mode=0) -> None:
         
     @staticmethod
     def build_ramp_palette_error() -> tuple[list, list, list]:
+        """Build a ramp data with value the signify an error has accurred.
+        
+        Args:
+        """
         return [(1,0,0)], [0], [hou.rampBasis.Linear] # type: ignore
     
     
     @staticmethod
     def delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
+        """Delete all ramp keyframes for all its positon and color keys values.
+        
+        Args:
+            ramp_parm (hou.Parm): The ramp parameter to clear from all its keyframes if any. Note this is a hou.Parm and not a hou.Ramp
+        """
         posList = ramp_parm.evalAsRamp().keys()
         [hou.parm(f"{ramp_parm.path()}{str(i+1)}pos").deleteAllKeyframes() for i in range(0, len(posList))]
         [hou.parmTuple(f"{ramp_parm.path()}{str(i+1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
@@ -5784,6 +5891,13 @@ reset_CP(self, mode=0) -> None:
     
     
     def menu_ramp_presets(self) -> list:
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+
+        Args:
+
+        Returns:
+            list: Return a menu
+        """
         node = self.node
         data = node.cachedUserData('cp_presets_menu')
         data_idx = node.cachedUserData('cp_presets_menu_idx')
@@ -5848,6 +5962,13 @@ reset_CP(self, mode=0) -> None:
     
     
     def menu_ramp_presets_empty(self) -> list:
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+
+        Args:
+
+        Returns:
+            list: Return a menu
+        """
         node = self.node
         data = node.cachedUserData('cp_presets_menu_off')
         data_idx = node.cachedUserData('cp_presets_menu_off_idx')
@@ -6063,18 +6184,34 @@ reset_CP(self, mode=0) -> None:
 
 
     def json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
-            keep_hsv = node.parm(CP_RAMP_HSV_KEEP_ON_LOAD).eval()
-            if not keep_hsv:
-                if hsv_check:
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
-                else:
-                    # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                    node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
+        """Set the HSV values to either the one comeing from the loaded palette preset or to default values.
+
+        Args:
+            node (hou.SopNode): The current FLAM3H node.
+            hsv_check (bool): True if the loaded palette preset posses its own HSV values or False if not.
+            hsv_vals (list): If hsv_check is True, this will hold the values to be used to set the HSV parameter's values.
+
+        Returns:
+            None:
+        """
+        keep_hsv = node.parm(CP_RAMP_HSV_KEEP_ON_LOAD).eval()
+        if not keep_hsv:
+            if hsv_check:
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
+            else:
+                # This is for backward compatibility ( when the hsv data wasn't being exported yet )
+                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
 
 
     def json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
+        """From the loaded palette preset data finally set the palette.
 
+        Args:
+
+        Returns:
+            None:
+        """
         node = self.node
         
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
@@ -6731,7 +6868,14 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
         
     def flam3h_web_run(self, key: str) -> None:
-        
+        """Select the appropriate web open definition to run.
+
+        Args:
+            key (str): The key value that define whitch web definition to run.
+
+        Returns:
+            None:
+        """
         web = {'web': self.flam3h_about_web_homepage,
                'git': self.flam3h_about_web_github,
                'insta': self.flam3h_about_web_instagram,
@@ -6794,6 +6938,13 @@ ui_active_iterator_infos(self) -> None:
 
 
     def ui_xaos_infos(self) -> None:
+        """Open a message window with informations/tips about setting Flame names in the OUT tab.
+
+        Args:
+
+        Returns:
+            None:
+        """
         
         ALL_msg = """The default mode is \"xaos TO\".\nYou can change it to use \"xaos FROM\" mode instead in the preferences tab.
 
@@ -6860,6 +7011,8 @@ If you type a negative number, it will be reset to a value of: 1"""
 
             
     def ui_OUT_presets_name_infos(self) -> None:
+
+        
         ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3H
 can be baked into the preset name you choose for it. 
 
@@ -6884,6 +7037,14 @@ and change the flame → “name” key afterwards.
 
     
     def ui_active_iterator_infos(self) -> None:
+        """Open a message window with informations/tips turning iterators ON or OFF and their consequences.
+
+        Args:
+
+        Returns:
+            None:
+        """
+        
         ALL_msg = """If an xform/iterator is disabled,
 it wont be included when saving the Flame out into a flame file.
 
@@ -7476,7 +7637,22 @@ __get_flame_count(self, flames: list) -> int:
 
 
     @staticmethod
-    def xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
+    def xmlfile_root_chk(xmlfile: Union[str, None], clipboard: bool=False) -> Union[str, None]:
+        """When loading a Flame files, it can contain many flame presets in it.
+        When multiple flame presets are present into the file, they will all be grouped under a root with a name.
+        However, when you save a flame into the clipboard ( from FLAM3H but also from Apophysis, Fractorium and other)
+        the saved Flame wont be grouped under a root, but it will be rootless.
+        
+        This definition will check if the loaded preset (from a file or from the Clipboard) leaves under a root or not
+        and perform the necessary operation to be loaded inside FLAM3H either ways.
+
+        Args:
+            xmlfile (Union[str, None]): The flame file full path string we are trying to load.
+            clipboard (bool): True if the flame preset is being loaded from the clipboard and False if not.
+            
+        Returns:
+            (Union[str, None]): A new flame preset data valid to be loaded in.
+        """
         try:
             if clipboard:
                 if xmlfile is not None:
@@ -7517,6 +7693,15 @@ __get_flame_count(self, flames: list) -> int:
 
     @staticmethod
     def xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
+        """When loading a Flame files, this definition will check their data
+        and tell us if what we are trying to load is actually a valid flame data to be loaded.
+
+        Args:
+            xmlfile (Union[str, None]): The flame file full path string we are trying to load.
+            
+        Returns:
+            (bool): True if it is a valid flame preset data or False if Not
+        """
         try:
             tree = lxmlET.parse(xmlfile) # type: ignore
             if isinstance(tree, lxmlET.ElementTree): # type: ignore
@@ -10062,7 +10247,14 @@ reset_IN(self, mode=0) -> None:
 
 
     def in_copy_section_render_stats_msg(self) -> None:
-        
+        """Copy either the SENSOR or the RENDER settings from the loaded flame preset
+        into the OUT tab properties.
+
+        Args:
+            
+        Returns:
+            (None):
+        """
         kwargs = self.kwargs
         if kwargs["ctrl"]:
             self.in_copy_render_stats_msg(kwargs)
@@ -10543,6 +10735,13 @@ reset_IN(self, mode=0) -> None:
 
             
     def menu_in_presets(self) -> list:
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+
+        Args:
+
+        Returns:
+            list: Return a menu
+        """
         node = self.node
         data = node.cachedUserData('in_presets_menu')
         data_idx = node.cachedUserData('in_presets_menu_idx')
@@ -10622,6 +10821,13 @@ reset_IN(self, mode=0) -> None:
             
             
     def menu_in_presets_empty(self) -> list:
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+
+        Args:
+
+        Returns:
+            list: Return a menu
+        """
         node = self.node
         data = node.cachedUserData('in_presets_menu_off')
         data_idx = node.cachedUserData('in_presets_menu_off_idx')
@@ -10661,7 +10867,14 @@ reset_IN(self, mode=0) -> None:
 
 
     def in_to_flam3h_toggle(self, prm: str) -> None:
-        
+        """Given a FLAM3H parameter name, toggle it ON or OFF and reload the currently selected flame preset right after.
+
+        Args:
+            prm (str): The strin parameter name (toggle parameter) we desire to switch either ON or OFF before reloading the selected flame preset.
+            
+        Returns:
+            (None)
+        """
         xml = self.node.parm(IN_PATH).evalAsString()
         # Here we could take a shortcut and use: if node.parm(IN_ISVALID_FILE).eval(): instead,
         # but for now we keep it safe and use the class: _xml_tree(..) instead.
@@ -10764,7 +10977,14 @@ reset_IN(self, mode=0) -> None:
 
 
     def in_to_flam3h_reset_user_data(self) -> None:
-        
+        """Every time we load a flame preset, this definition will reset all FLAM3H data
+        so not to clash or cause conflict with the new data generated by the new loaded flame preset.
+
+        Args:
+            
+        Returns:
+            (None)
+        """
         node = self.node
         
         # lets initialize those to default values in case their data no longer exist.
@@ -12445,6 +12665,13 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         
     def menu_out_contents_presets(self) -> list:
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+
+        Args:
+
+        Returns:
+            list: Return a menu
+        """
         node = self.node
         data = node.cachedUserData('out_presets_menu')
         if data is not None:
