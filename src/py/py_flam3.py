@@ -501,8 +501,8 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
         
         Args:
-            item (str): [The current item]
-            id (int): [The current index]
+            item (str): [The current loop iteration item]
+            id (int): [The current loop iteration index]
             keys (str): [the keys empty list to populate]
             values (str): [the values empty list to populate]
         """
@@ -520,8 +520,8 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         
         Args:
             linear (list): [the empty list to populate]
-            item (str): [The current item]
-            id (int): [The current index]
+            item (str): [The current loop iteration item]
+            id (int): [The current loop iteration index]
             spacer (bool): [Default to: True. Add a spacer to the ent of the item to conform with the desired menu label length]
         """
         linear.append(id)
