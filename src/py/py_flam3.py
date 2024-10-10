@@ -5550,6 +5550,14 @@ json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode=False) -> No
 
 json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 
+menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
+menu_cp_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
+menu_cp_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
+menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
 METHODS:
 
 menu_ramp_presets_data(self) -> list:
@@ -5847,6 +5855,106 @@ reset_CP(self, mode=0) -> None:
             node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
         else:
             node.setParms({MSG_PALETTE: f"{_MSG}"}) # type: ignore
+            
+            
+            
+    @staticmethod
+    def menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(str(i))
+        
+        # ICON tag
+        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
+            node.setCachedUserData('cp_presets_menu_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+        else:
+            menu.append(f"{item}")
+            
+            
+            
+    @staticmethod
+    def menu_cp_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(str(i))
+        
+        # ICON tag
+        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
+            node.setCachedUserData('cp_presets_menu_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+        else:
+            menu.append(f"{str(i)}:  {item}")
+            
+            
+            
+    @staticmethod
+    def menu_cp_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(i)
+        
+        # ICON tag
+        if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
+            node.setCachedUserData('cp_presets_menu_off_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+        else:
+            menu.append(f"{item}")
+            
+            
+            
+    @staticmethod
+    def menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+            
+        menu.append(i)
+        
+        # ICON tag
+        if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
+            node.setCachedUserData('cp_presets_menu_off_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+        else:
+            menu.append(f"{str(i)}:  {item}")
         
 
 
@@ -5889,29 +5997,11 @@ reset_CP(self, mode=0) -> None:
 
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                for i, item in enumerate(menuitems):
-                    
-                    menu.append(str(i))
-                    
-                    # ICON tag
-                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
-                        node.setCachedUserData('cp_presets_menu_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                [self.menu_cp_presets_loop_enum(node, menu, i, item) for i, item in enumerate(menuitems)]
 
             else:
                 
-                for i, item in enumerate(menuitems):
-                    
-                    menu.append(str(i))
-                    
-                    # ICON tag
-                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
-                        node.setCachedUserData('cp_presets_menu_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(f"{item}")
+                [self.menu_cp_presets_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                         
             node.setCachedUserData('cp_presets_menu', menu)
             return menu
@@ -5919,7 +6009,7 @@ reset_CP(self, mode=0) -> None:
         flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
         if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
             return MENU_PRESETS_SAVEONE
-        elif filepath and not os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+        elif filepath and not os.path.isfile(filepath):
             return MENU_PRESETS_INVALID
         else:
             return MENU_PRESETS_EMPTY
@@ -5976,29 +6066,11 @@ reset_CP(self, mode=0) -> None:
 
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                for i, item in enumerate(menuitems):
-                    
-                    menu.append(i)
-                    
-                    # ICON tag
-                    if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
-                        node.setCachedUserData('cp_presets_menu_off_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                [self.menu_cp_presets_empty_loop_enum(node, menu, i, item) for i, item in enumerate(menuitems)]
                         
             else:
                 
-                for i, item in enumerate(menuitems):
-                    
-                    menu.append(i)
-                    
-                    # ICON tag
-                    if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
-                        node.setCachedUserData('cp_presets_menu_off_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
-                    else:
-                        menu.append(f"{item}")
+                [self.menu_cp_presets_empty_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
             
             node.setCachedUserData('cp_presets_menu_off', menu)
             return menu
@@ -6006,7 +6078,7 @@ reset_CP(self, mode=0) -> None:
         flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
         if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
             return MENU_PRESETS_SAVEONE
-        if filepath and not os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+        if filepath and not os.path.isfile(filepath):
             return MENU_PRESETS_INVALID
         else:
             return MENU_PRESETS_EMPTY
@@ -8934,6 +9006,14 @@ in_copy_render_stats_msg(kwargs: dict) -> None:
 
 in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 
+menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
+menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
+menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
+menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+
 METHODS:
 
 in_flam3h_set_iterators(self, 
@@ -10298,6 +10378,127 @@ reset_IN(self, mode=0) -> None:
 
 
 
+    @staticmethod
+    def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(i)
+        
+        # ICON bookmarks
+        #
+        # If a flame preset from a file is loaded
+        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+            node.setCachedUserData('in_presets_menu_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+            
+        # If a flame preset from the clipboard is loaded
+        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+            node.setCachedUserData('in_presets_menu_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+            
+        else:
+            menu.append(f"{item}")
+            
+            
+            
+    @staticmethod
+    def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(i)
+        
+        # ICON bookmarks
+        #
+        # If a flame preset from a file is loaded
+        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+            node.setCachedUserData('in_presets_menu_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+            
+        # If a flame preset from the clipboard is loaded
+        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+            node.setCachedUserData('in_presets_menu_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
+            
+        else:
+            menu.append(f"{str(i)}:  {item}")
+            
+            
+            
+    @staticmethod
+    def menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(i)
+        
+        # ICON bookmarks
+        #
+        # If a flame preset from a file is loaded
+        if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+            node.setCachedUserData('in_presets_menu_off_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+
+        else:
+            menu.append(f"{item}")
+            
+            
+            
+    @staticmethod
+    def menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+            
+        menu.append(i)
+        
+        # ICON bookmarks
+        #
+        # If a flame preset from a file is loaded
+        if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+            node.setCachedUserData('in_presets_menu_off_idx', str(i))
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+
+        else:
+            menu.append(f"{str(i)}:  {item}")
+
+
 
     # CLASS: PROPERTIES
     ##########################################
@@ -10747,49 +10948,15 @@ reset_IN(self, mode=0) -> None:
         menu=[]
         xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
 
-        if os.path.isfile(xml) and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
+        if node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                for i, item in enumerate(_xml(xml).get_name()):
-                    
-                    menu.append(i)
-                    
-                    # ICON bookmarks
-                    #
-                    # If a flame preset from a file is loaded
-                    if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        node.setCachedUserData('in_presets_menu_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                        
-                    # If a flame preset from the clipboard is loaded
-                    elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        node.setCachedUserData('in_presets_menu_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
-                        
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                [self.menu_in_presets_loop_enum(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
                         
             else:
                 
-                for i, item in enumerate(_xml(xml).get_name()):
-                    
-                    menu.append(i)
-                    
-                    # ICON bookmarks
-                    #
-                    # If a flame preset from a file is loaded
-                    if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        node.setCachedUserData('in_presets_menu_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
-                        
-                    # If a flame preset from the clipboard is loaded
-                    elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        node.setCachedUserData('in_presets_menu_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
-                        
-                    else:
-                        menu.append(f"{item}")
+                [self.menu_in_presets_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
                         
             node.setCachedUserData('in_presets_menu', menu)   
             return menu
@@ -10854,35 +11021,11 @@ reset_IN(self, mode=0) -> None:
                 
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                for i, item in enumerate(_xml(xml).get_name()):
-                    
-                    menu.append(i)
-                    
-                    # ICON bookmarks
-                    #
-                    # If a flame preset from a file is loaded
-                    if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        node.setCachedUserData('in_presets_menu_off_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-
-                    else:
-                        menu.append(f"{str(i)}:  {item}")
+                [self.menu_in_presets_empty_loop_enum(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
 
             else:
                 
-                for i, item in enumerate(_xml(xml).get_name()):
-                    
-                    menu.append(i)
-                    
-                    # ICON bookmarks
-                    #
-                    # If a flame preset from a file is loaded
-                    if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                        node.setCachedUserData('in_presets_menu_off_idx', str(i))
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
-
-                    else:
-                        menu.append(f"{item}")
+                [self.menu_in_presets_empty_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
                         
             node.setCachedUserData('in_presets_menu_off', menu)            
             return menu
@@ -11709,7 +11852,11 @@ out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]
 
 out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
 
-_out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
+_out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
+
+menu_out_presets_loop(menu: list, i: int, item: str) -> None:
+
+menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
 
 METHODS:
 
@@ -12357,6 +12504,42 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 parent[index - 1].tail = '\n' + ('  ' * depth)
             if index == len(parent) - 1:
                 current.tail = '\n' + ('  ' * (depth - 1))
+                
+                
+                
+    @staticmethod
+    def menu_out_presets_loop(menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(str(i))
+        menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
+
+            
+            
+    @staticmethod
+    def menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
+        """This is spcifically to be run inside a list comprehension.
+
+        Args:
+            menu (list): the menu list to populate.
+            i (int): The outer loop index/iteration.
+            item (str): The outer loop item at index/iteration.
+
+        Returns:
+            (None):
+        """  
+        
+        menu.append(str(i))
+        menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
 
 
 
@@ -12733,14 +12916,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                for i, item in enumerate(apo.name):
-                    menu.append(str(i))
-                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
+                [self.menu_out_presets_loop_enum(menu, i, item) for i, item in enumerate(apo.name)]
+
             else:
                 
-                for i, item in enumerate(apo.name):
-                    menu.append(str(i))
-                    menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
+                [self.menu_out_presets_loop(menu, i, item) for i, item in enumerate(apo.name)]
                     
             node.setCachedUserData('out_presets_menu', menu)
             return menu
@@ -12749,7 +12929,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
             if xml and os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
                 return MENU_PRESETS_SAVEONE
-            elif xml and not os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
+            elif xml and not os.path.isfile(xml):
                 return MENU_PRESETS_INVALID
             else:
                 return MENU_PRESETS_EMPTY
