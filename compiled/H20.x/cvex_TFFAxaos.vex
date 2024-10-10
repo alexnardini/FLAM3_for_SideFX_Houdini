@@ -14,16 +14,16 @@ source_filename = "TFFAxaos"
 @9 = private constant [1 x i8] zeroinitializer
 @10 = private constant [12 x i8] c"../vactive_\00"
 @11 = private constant [7 x i8] c"../iw_\00"
-@12 = private constant [107 x i8] c"\0AAll iterators are inactive or their Weight set to: 0(Zero)\0AOne iterator's Weight internally set to: 1e-08\00"
-@13 = private constant [9 x i8] c"../xaos_\00"
-@14 = private constant [2 x i8] c":\00"
-@15 = private constant [5 x i8] c"XAOS\00"
-@16 = private constant [2 x i8] c".\00"
-@17 = private constant [2 x i8] c"-\00"
-@18 = private constant [40 x i8] c"\0ANegative xaos values inside iterator: \00"
-@19 = private constant [62 x i8] c".\0AThis iterator will be reset to a default xaos value of 1's.\00"
-@20 = private constant [41 x i8] c"\0ANon digit xaos values inside iterator: \00"
-@21 = private constant [2 x i8] c"1\00"
+@12 = private constant [2 x i8] c"1\00"
+@13 = private constant [107 x i8] c"\0AAll iterators are inactive or their Weight set to: 0(Zero)\0AOne iterator's Weight internally set to: 1e-08\00"
+@14 = private constant [9 x i8] c"../xaos_\00"
+@15 = private constant [2 x i8] c":\00"
+@16 = private constant [5 x i8] c"XAOS\00"
+@17 = private constant [2 x i8] c".\00"
+@18 = private constant [2 x i8] c"-\00"
+@19 = private constant [40 x i8] c"\0ANegative xaos values inside iterator: \00"
+@20 = private constant [62 x i8] c".\0AThis iterator will be reset to a default xaos value of 1's.\00"
+@21 = private constant [41 x i8] c"\0ANon digit xaos values inside iterator: \00"
 @22 = private constant [6 x i8] c"../xm\00"
 @sIDX = external global i8**
 @SYS = external global i64*
@@ -224,328 +224,327 @@ end39:                                            ; preds = %end29
 
 true53:                                           ; preds = %end
   %output56 = call double* @"append@[FF"(double* %IW.0, double 1.000000e-08)
-  %return58 = call i8* @"itoa@SI"(i64 1)
-  %output59 = call i8** @"append@[SS"(i8** %sIDX.0, i8* %return58)
-  call void @"warning@S"(i8* getelementptr inbounds ([107 x i8], [107 x i8]* @12, i64 0, i64 0))
+  %output58 = call i8** @"append@[SS"(i8** %sIDX.0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @12, i64 0, i64 0))
+  call void @"warning@S"(i8* getelementptr inbounds ([107 x i8], [107 x i8]* @13, i64 0, i64 0))
   br label %end54
 
 end54:                                            ; preds = %true53, %end
-  %sIDX.2 = phi i8** [ %output59, %true53 ], [ %sIDX.0, %end ]
+  %sIDX.2 = phi i8** [ %output58, %true53 ], [ %sIDX.0, %end ]
   %IW.2 = phi double* [ %output56, %true53 ], [ %IW.0, %end ]
-  %return61 = call i64 @"len@I[S"(i8** %sIDX.2)
+  %return60 = call i64 @"len@I[S"(i8** %sIDX.2)
   store i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @8, i64 0, i64 0), i8*** %xaos_tos_t, !vex-initializer-store !3
-  br label %cond63
+  br label %cond62
 
-cond63:                                           ; preds = %end261, %end54
-  %x_chk.0 = phi i64 [ 0, %end54 ], [ %x_chk.1, %end261 ]
-  %XAOS_TO.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %end54 ], [ %XAOS_TO.1, %end261 ]
-  %xaos_tos.0 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @8, i64 0, i64 0), %end54 ], [ %output230, %end261 ]
-  %i62.0 = phi i64 [ 0, %end54 ], [ %output290, %end261 ]
-  %return67 = call i64 @"lt@III"(i64 %i62.0, i64 %return61)
-  %5 = icmp ne i64 %return67, 0
-  br i1 %5, label %body64, label %end68
+cond62:                                           ; preds = %end260, %end54
+  %x_chk.0 = phi i64 [ 0, %end54 ], [ %x_chk.1, %end260 ]
+  %XAOS_TO.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %end54 ], [ %XAOS_TO.1, %end260 ]
+  %xaos_tos.0 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @8, i64 0, i64 0), %end54 ], [ %output229, %end260 ]
+  %i61.0 = phi i64 [ 0, %end54 ], [ %output289, %end260 ]
+  %return66 = call i64 @"lt@III"(i64 %i61.0, i64 %return60)
+  %5 = icmp ne i64 %return66, 0
+  br i1 %5, label %body63, label %end67
 
-body64:                                           ; preds = %cond63
-  %return72 = call i8* @"getcomp@S[SI"(i8** %sIDX.2, i64 %i62.0)
-  %return73 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @13, i64 0, i64 0), i8* %return72)
-  %return74 = call i8* @"chs@SS"(i8* %return73)
-  %return76 = call i8** @"split@[SSS"(i8* %return74, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @14, i64 0, i64 0))
-  %return78 = call i64 @"len@I[S"(i8** %return76)
-  br label %cond79
+body63:                                           ; preds = %cond62
+  %return71 = call i8* @"getcomp@S[SI"(i8** %sIDX.2, i64 %i61.0)
+  %return72 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @14, i64 0, i64 0), i8* %return71)
+  %return73 = call i8* @"chs@SS"(i8* %return72)
+  %return75 = call i8** @"split@[SSS"(i8* %return73, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @15, i64 0, i64 0))
+  %return77 = call i64 @"len@I[S"(i8** %return75)
+  br label %cond78
 
-end68:                                            ; preds = %cond63
-  %return291 = call i64 @"chi@IS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @22, i64 0, i64 0))
-  %return294 = call i64 @"and@III"(i64 %return291, i64 %x_chk.0)
-  %6 = icmp ne i64 %return294, 0
-  br i1 %6, label %true295, label %end296
+end67:                                            ; preds = %cond62
+  %return290 = call i64 @"chi@IS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @22, i64 0, i64 0))
+  %return293 = call i64 @"and@III"(i64 %return290, i64 %x_chk.0)
+  %6 = icmp ne i64 %return293, 0
+  br i1 %6, label %true294, label %end295
 
-cond79:                                           ; preds = %body80, %body64
-  %varxaos_strip.0 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @8, i64 0, i64 0), %body64 ], [ %output92, %body80 ]
-  %__impl_foreach_index.0 = phi i64 [ 0, %body64 ], [ %output94, %body80 ]
-  %return83 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return78)
-  %7 = icmp ne i64 %return83, 0
-  br i1 %7, label %body80, label %end84
+cond78:                                           ; preds = %body79, %body63
+  %varxaos_strip.0 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @8, i64 0, i64 0), %body63 ], [ %output91, %body79 ]
+  %__impl_foreach_index.0 = phi i64 [ 0, %body63 ], [ %output93, %body79 ]
+  %return82 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return77)
+  %7 = icmp ne i64 %return82, 0
+  br i1 %7, label %body79, label %end83
 
-body80:                                           ; preds = %cond79
-  %return88 = call i8* @"getcomp@S[SI"(i8** %return76, i64 %__impl_foreach_index.0)
-  %return91 = call i8* @"strip@SS"(i8* %return88)
-  %output92 = call i8** @"append@[SS"(i8** %varxaos_strip.0, i8* %return91)
-  %output94 = add i64 %__impl_foreach_index.0, 1
-  br label %cond79
+body79:                                           ; preds = %cond78
+  %return87 = call i8* @"getcomp@S[SI"(i8** %return75, i64 %__impl_foreach_index.0)
+  %return90 = call i8* @"strip@SS"(i8* %return87)
+  %output91 = call i8** @"append@[SS"(i8** %varxaos_strip.0, i8* %return90)
+  %output93 = add i64 %__impl_foreach_index.0, 1
+  br label %cond78
 
-end84:                                            ; preds = %cond79
-  %return96 = call i8* @"getcomp@S[SI"(i8** %varxaos_strip.0, i64 0)
-  %return97 = call i8* @"toupper@SS"(i8* %return96)
-  %return98 = call i64 @"eq@ISS"(i8* %return97, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @15, i64 0, i64 0))
-  %8 = icmp ne i64 %return98, 0
+end83:                                            ; preds = %cond78
+  %return95 = call i8* @"getcomp@S[SI"(i8** %varxaos_strip.0, i64 0)
+  %return96 = call i8* @"toupper@SS"(i8* %return95)
+  %return97 = call i64 @"eq@ISS"(i8* %return96, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0))
+  %8 = icmp ne i64 %return97, 0
   %. = select i1 %8, i64 1, i64 0
-  %return102 = call i8** @"slice@[S[SIIIIII"(i8** %varxaos_strip.0, i64 1, i64 1, i64 0, i64 0, i64 0, i64 0)
-  %return103 = call i64 @"len@I[S"(i8** %return102)
-  br label %cond104
+  %return101 = call i8** @"slice@[S[SIIIIII"(i8** %varxaos_strip.0, i64 1, i64 1, i64 0, i64 0, i64 0, i64 0)
+  %return102 = call i64 @"len@I[S"(i8** %return101)
+  br label %cond103
 
-cond104:                                          ; preds = %end129, %end84
-  %__impl_foreach_index_1.0 = phi i64 [ 0, %end84 ], [ %output152, %end129 ]
-  %return108 = call i64 @"lt@III"(i64 %__impl_foreach_index_1.0, i64 %return103)
-  %9 = icmp ne i64 %return108, 0
-  br i1 %9, label %body105, label %end109
+cond103:                                          ; preds = %end128, %end83
+  %__impl_foreach_index_1.0 = phi i64 [ 0, %end83 ], [ %output151, %end128 ]
+  %return107 = call i64 @"lt@III"(i64 %__impl_foreach_index_1.0, i64 %return102)
+  %9 = icmp ne i64 %return107, 0
+  br i1 %9, label %body104, label %end108
 
-body105:                                          ; preds = %cond104
-  %return112 = call i8** @"slice@[S[SIIIIII"(i8** %varxaos_strip.0, i64 1, i64 1, i64 0, i64 0, i64 0, i64 0)
-  %return114 = call i8* @"getcomp@S[SI"(i8** %return112, i64 %__impl_foreach_index_1.0)
-  %return116 = call i8** @"split@[SSS"(i8* %return114, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @16, i64 0, i64 0))
-  %return117 = call i8* @"join@S[SS"(i8** %return116, i8* getelementptr inbounds ([1 x i8], [1 x i8]* @9, i64 0, i64 0))
-  %return120 = call i8* @"getcomp@SSI"(i8* %return117, i64 0)
-  %return121 = call i64 @"eq@ISS"(i8* %return120, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @17, i64 0, i64 0))
-  %return122 = call i64 @"and@III"(i64 1, i64 %return121)
-  %return124 = call i8* @"slice@SSIIIIII"(i8* %return117, i64 1, i64 1, i64 0, i64 0, i64 0, i64 0)
-  %return125 = call i64 @"isdigit@IS"(i8* %return124)
-  %return126 = call i64 @"and@III"(i64 %return122, i64 %return125)
-  %10 = icmp ne i64 %return126, 0
-  br i1 %10, label %true127, label %false128
+body104:                                          ; preds = %cond103
+  %return111 = call i8** @"slice@[S[SIIIIII"(i8** %varxaos_strip.0, i64 1, i64 1, i64 0, i64 0, i64 0, i64 0)
+  %return113 = call i8* @"getcomp@S[SI"(i8** %return111, i64 %__impl_foreach_index_1.0)
+  %return115 = call i8** @"split@[SSS"(i8* %return113, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @17, i64 0, i64 0))
+  %return116 = call i8* @"join@S[SS"(i8** %return115, i8* getelementptr inbounds ([1 x i8], [1 x i8]* @9, i64 0, i64 0))
+  %return119 = call i8* @"getcomp@SSI"(i8* %return116, i64 0)
+  %return120 = call i64 @"eq@ISS"(i8* %return119, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @18, i64 0, i64 0))
+  %return121 = call i64 @"and@III"(i64 1, i64 %return120)
+  %return123 = call i8* @"slice@SSIIIIII"(i8* %return116, i64 1, i64 1, i64 0, i64 0, i64 0, i64 0)
+  %return124 = call i64 @"isdigit@IS"(i8* %return123)
+  %return125 = call i64 @"and@III"(i64 %return121, i64 %return124)
+  %10 = icmp ne i64 %return125, 0
+  br i1 %10, label %true126, label %false127
 
-end109:                                           ; preds = %true145, %true131, %cond104
-  %isDigit.0 = phi i64 [ 0, %true131 ], [ 0, %true145 ], [ 1, %cond104 ]
-  %return155 = call i64 @"and@III"(i64 %., i64 %isDigit.0)
-  %11 = icmp ne i64 %return155, 0
-  br i1 %11, label %true156, label %false157
+end108:                                           ; preds = %true144, %true130, %cond103
+  %isDigit.0 = phi i64 [ 0, %true130 ], [ 0, %true144 ], [ 1, %cond103 ]
+  %return154 = call i64 @"and@III"(i64 %., i64 %isDigit.0)
+  %11 = icmp ne i64 %return154, 0
+  br i1 %11, label %true155, label %false156
 
-true127:                                          ; preds = %body105
-  br i1 %8, label %true131, label %end129
+true126:                                          ; preds = %body104
+  br i1 %8, label %true130, label %end128
 
-false128:                                         ; preds = %body105
-  %return139 = call i64 @"isdigit@IS"(i8* %return117)
-  %return140 = call i64 @"not@II"(i64 %return139)
-  %return141 = call i64 @"and@III"(i64 1, i64 %return140)
-  %12 = icmp ne i64 %return141, 0
+false127:                                         ; preds = %body104
+  %return138 = call i64 @"isdigit@IS"(i8* %return116)
+  %return139 = call i64 @"not@II"(i64 %return138)
+  %return140 = call i64 @"and@III"(i64 1, i64 %return139)
+  %12 = icmp ne i64 %return140, 0
   %or.cond = and i1 %12, %8
-  br i1 %or.cond, label %true145, label %end129
+  br i1 %or.cond, label %true144, label %end128
 
-end129:                                           ; preds = %false128, %true127
-  %output152 = add i64 %__impl_foreach_index_1.0, 1
-  br label %cond104
+end128:                                           ; preds = %false127, %true126
+  %output151 = add i64 %__impl_foreach_index_1.0, 1
+  br label %cond103
 
-true131:                                          ; preds = %true127
-  %output134 = add i64 %i62.0, 1
-  %return135 = call i8* @"itoa@SI"(i64 %output134)
-  %return136 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([40 x i8], [40 x i8]* @18, i64 0, i64 0), i8* %return135, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @19, i64 0, i64 0))
-  call void @"warning@S"(i8* %return136)
-  br label %end109
+true130:                                          ; preds = %true126
+  %output133 = add i64 %i61.0, 1
+  %return134 = call i8* @"itoa@SI"(i64 %output133)
+  %return135 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([40 x i8], [40 x i8]* @19, i64 0, i64 0), i8* %return134, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @20, i64 0, i64 0))
+  call void @"warning@S"(i8* %return135)
+  br label %end108
 
-true145:                                          ; preds = %false128
-  %output148 = add i64 %i62.0, 1
-  %return149 = call i8* @"itoa@SI"(i64 %output148)
-  %return150 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([41 x i8], [41 x i8]* @20, i64 0, i64 0), i8* %return149, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @19, i64 0, i64 0))
-  call void @"warning@S"(i8* %return150)
-  br label %end109
+true144:                                          ; preds = %false127
+  %output147 = add i64 %i61.0, 1
+  %return148 = call i8* @"itoa@SI"(i64 %output147)
+  %return149 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([41 x i8], [41 x i8]* @21, i64 0, i64 0), i8* %return148, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @20, i64 0, i64 0))
+  call void @"warning@S"(i8* %return149)
+  br label %end108
 
-true156:                                          ; preds = %end109
-  %return160 = call { i8*, i8** } @"pop@S[SI"(i8** %varxaos_strip.0, i64 0)
-  %output162 = extractvalue { i8*, i8** } %return160, 1
-  %return164 = call i64 @"len@I[S"(i8** %output162)
-  br label %cond165
+true155:                                          ; preds = %end108
+  %return159 = call { i8*, i8** } @"pop@S[SI"(i8** %varxaos_strip.0, i64 0)
+  %output161 = extractvalue { i8*, i8** } %return159, 1
+  %return163 = call i64 @"len@I[S"(i8** %output161)
+  br label %cond164
 
-false157:                                         ; preds = %end109
-  %output190 = call double* @"resize@[FIF"(double* getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), i64 %return11, double 1.000000e+00)
-  %output192 = call i8** @"resize@[SI"(i8** %varxaos_strip.0, i64 0)
-  %output195 = call i8** @"resize@[SIS"(i8** %output192, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @21, i64 0, i64 0))
-  br label %end158
+false156:                                         ; preds = %end108
+  %output189 = call double* @"resize@[FIF"(double* getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), i64 %return11, double 1.000000e+00)
+  %output191 = call i8** @"resize@[SI"(i8** %varxaos_strip.0, i64 0)
+  %output194 = call i8** @"resize@[SIS"(i8** %output191, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @12, i64 0, i64 0))
+  br label %end157
 
-end158:                                           ; preds = %false157, %end170
-  %xaos.0 = phi double* [ %output184, %end170 ], [ %output190, %false157 ]
-  %varxaos_strip.1 = phi i8** [ %output187, %end170 ], [ %output195, %false157 ]
-  br label %cond196
+end157:                                           ; preds = %false156, %end169
+  %xaos.0 = phi double* [ %output183, %end169 ], [ %output189, %false156 ]
+  %varxaos_strip.1 = phi i8** [ %output186, %end169 ], [ %output194, %false156 ]
+  br label %cond195
 
-cond165:                                          ; preds = %body166, %true156
-  %xaos.1 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %true156 ], [ %output179, %body166 ]
-  %__impl_foreach_index_2.0 = phi i64 [ 0, %true156 ], [ %output181, %body166 ]
-  %return169 = call i64 @"lt@III"(i64 %__impl_foreach_index_2.0, i64 %return164)
-  %13 = icmp ne i64 %return169, 0
-  br i1 %13, label %body166, label %end170
+cond164:                                          ; preds = %body165, %true155
+  %xaos.1 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %true155 ], [ %output178, %body165 ]
+  %__impl_foreach_index_2.0 = phi i64 [ 0, %true155 ], [ %output180, %body165 ]
+  %return168 = call i64 @"lt@III"(i64 %__impl_foreach_index_2.0, i64 %return163)
+  %13 = icmp ne i64 %return168, 0
+  br i1 %13, label %body165, label %end169
 
-body166:                                          ; preds = %cond165
-  %return174 = call i8* @"getcomp@S[SI"(i8** %output162, i64 %__impl_foreach_index_2.0)
-  %return177 = call double @"atof@FS"(i8* %return174)
-  %return178 = call double @"max@FFF"(double %return177, double 0.000000e+00)
-  %output179 = call double* @"append@[FF"(double* %xaos.1, double %return178)
-  %output181 = add i64 %__impl_foreach_index_2.0, 1
-  br label %cond165
+body165:                                          ; preds = %cond164
+  %return173 = call i8* @"getcomp@S[SI"(i8** %output161, i64 %__impl_foreach_index_2.0)
+  %return176 = call double @"atof@FS"(i8* %return173)
+  %return177 = call double @"max@FFF"(double %return176, double 0.000000e+00)
+  %output178 = call double* @"append@[FF"(double* %xaos.1, double %return177)
+  %output180 = add i64 %__impl_foreach_index_2.0, 1
+  br label %cond164
 
-end170:                                           ; preds = %cond165
-  %output184 = call double* @"resize@[FIF"(double* %xaos.1, i64 %return11, double 1.000000e+00)
-  %output187 = call i8** @"resize@[SIS"(i8** %output162, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @21, i64 0, i64 0))
-  br label %end158
+end169:                                           ; preds = %cond164
+  %output183 = call double* @"resize@[FIF"(double* %xaos.1, i64 %return11, double 1.000000e+00)
+  %output186 = call i8** @"resize@[SIS"(i8** %output161, i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @12, i64 0, i64 0))
+  br label %end157
 
-cond196:                                          ; preds = %end208, %end158
-  %xaos.2 = phi double* [ %xaos.0, %end158 ], [ %xaos.3, %end208 ]
-  %varxaos_strip.2 = phi i8** [ %varxaos_strip.1, %end158 ], [ %varxaos_strip.3, %end208 ]
-  %trace.0 = phi i64 [ 0, %end158 ], [ %trace.1, %end208 ]
-  %j.0 = phi i64 [ 0, %end158 ], [ %output227, %end208 ]
-  %return200 = call i64 @"lt@III"(i64 %j.0, i64 %return11)
-  %14 = icmp ne i64 %return200, 0
-  br i1 %14, label %body197, label %end201
+cond195:                                          ; preds = %end207, %end157
+  %xaos.2 = phi double* [ %xaos.0, %end157 ], [ %xaos.3, %end207 ]
+  %varxaos_strip.2 = phi i8** [ %varxaos_strip.1, %end157 ], [ %varxaos_strip.3, %end207 ]
+  %trace.0 = phi i64 [ 0, %end157 ], [ %trace.1, %end207 ]
+  %j.0 = phi i64 [ 0, %end157 ], [ %output226, %end207 ]
+  %return199 = call i64 @"lt@III"(i64 %j.0, i64 %return11)
+  %14 = icmp ne i64 %return199, 0
+  br i1 %14, label %body196, label %end200
 
-body197:                                          ; preds = %cond196
-  %return205 = call i64 @"getcomp@I[II"(i64* %va.0, i64 %j.0)
-  %return206 = call i64 @"not@II"(i64 %return205)
-  %15 = icmp ne i64 %return206, 0
-  br i1 %15, label %true207, label %end208
+body196:                                          ; preds = %cond195
+  %return204 = call i64 @"getcomp@I[II"(i64* %va.0, i64 %j.0)
+  %return205 = call i64 @"not@II"(i64 %return204)
+  %15 = icmp ne i64 %return205, 0
+  br i1 %15, label %true206, label %end207
 
-end201:                                           ; preds = %cond196
-  %output230 = call i8** @"append@[S[S"(i8** %xaos_tos.0, i8** %varxaos_strip.2)
-  br label %cond231
+end200:                                           ; preds = %cond195
+  %output229 = call i8** @"append@[S[S"(i8** %xaos_tos.0, i8** %varxaos_strip.2)
+  br label %cond230
 
-true207:                                          ; preds = %body197
-  %output212 = sub i64 %j.0, %trace.0
-  %return213 = call { double, double* } @"pop@F[FI"(double* %xaos.2, i64 %output212)
-  %output215 = extractvalue { double, double* } %return213, 1
-  %return220 = call { i8*, i8** } @"pop@S[SI"(i8** %varxaos_strip.2, i64 %output212)
-  %output222 = extractvalue { i8*, i8** } %return220, 1
-  %output225 = add i64 %trace.0, 1
-  br label %end208
+true206:                                          ; preds = %body196
+  %output211 = sub i64 %j.0, %trace.0
+  %return212 = call { double, double* } @"pop@F[FI"(double* %xaos.2, i64 %output211)
+  %output214 = extractvalue { double, double* } %return212, 1
+  %return219 = call { i8*, i8** } @"pop@S[SI"(i8** %varxaos_strip.2, i64 %output211)
+  %output221 = extractvalue { i8*, i8** } %return219, 1
+  %output224 = add i64 %trace.0, 1
+  br label %end207
 
-end208:                                           ; preds = %true207, %body197
-  %xaos.3 = phi double* [ %output215, %true207 ], [ %xaos.2, %body197 ]
-  %varxaos_strip.3 = phi i8** [ %output222, %true207 ], [ %varxaos_strip.2, %body197 ]
-  %trace.1 = phi i64 [ %output225, %true207 ], [ %trace.0, %body197 ]
-  %output227 = add i64 %j.0, 1
-  br label %cond196
+end207:                                           ; preds = %true206, %body196
+  %xaos.3 = phi double* [ %output214, %true206 ], [ %xaos.2, %body196 ]
+  %varxaos_strip.3 = phi i8** [ %output221, %true206 ], [ %varxaos_strip.2, %body196 ]
+  %trace.1 = phi i64 [ %output224, %true206 ], [ %trace.0, %body196 ]
+  %output226 = add i64 %j.0, 1
+  br label %cond195
 
-cond231:                                          ; preds = %body232, %end201
-  %IW_xaos.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %end201 ], [ %output250, %body232 ]
-  %k.0 = phi i64 [ 0, %end201 ], [ %output252, %body232 ]
-  %return235 = call i64 @"lt@III"(i64 %k.0, i64 %return61)
-  %16 = icmp ne i64 %return235, 0
-  br i1 %16, label %body232, label %end236
+cond230:                                          ; preds = %body231, %end200
+  %IW_xaos.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %end200 ], [ %output249, %body231 ]
+  %k.0 = phi i64 [ 0, %end200 ], [ %output251, %body231 ]
+  %return234 = call i64 @"lt@III"(i64 %k.0, i64 %return60)
+  %16 = icmp ne i64 %return234, 0
+  br i1 %16, label %body231, label %end235
 
-body232:                                          ; preds = %cond231
-  %return241 = call double @"getcomp@F[FI"(double* %IW.2, i64 %i62.0)
-  %return244 = call double @"getcomp@F[FI"(double* %IW.2, i64 %k.0)
-  %output245 = fmul double %return241, %return244
-  %return248 = call double @"getcomp@F[FI"(double* %xaos.2, i64 %k.0)
-  %output249 = fmul double %output245, %return248
-  %output250 = call double* @"append@[FF"(double* %IW_xaos.0, double %output249)
-  %output252 = add i64 %k.0, 1
-  br label %cond231
+body231:                                          ; preds = %cond230
+  %return240 = call double @"getcomp@F[FI"(double* %IW.2, i64 %i61.0)
+  %return243 = call double @"getcomp@F[FI"(double* %IW.2, i64 %k.0)
+  %output244 = fmul double %return240, %return243
+  %return247 = call double @"getcomp@F[FI"(double* %xaos.2, i64 %k.0)
+  %output248 = fmul double %output244, %return247
+  %output249 = call double* @"append@[FF"(double* %IW_xaos.0, double %output248)
+  %output251 = add i64 %k.0, 1
+  br label %cond230
 
-end236:                                           ; preds = %cond231
-  %return254 = call double @"min@F[F"(double* %xaos.2)
-  %return256 = call double @"max@F[F"(double* %xaos.2)
-  %return257 = fcmp oeq double %return254, %return256
-  br i1 %return257, label %true259, label %false260
+end235:                                           ; preds = %cond230
+  %return253 = call double @"min@F[F"(double* %xaos.2)
+  %return255 = call double @"max@F[F"(double* %xaos.2)
+  %return256 = fcmp oeq double %return253, %return255
+  br i1 %return256, label %true258, label %false259
 
-true259:                                          ; preds = %end236
-  %return263 = call double @"min@F[F"(double* %xaos.2)
-  %return264 = fcmp oeq double %return263, 1.000000e+00
-  br i1 %return264, label %true266, label %false267
+true258:                                          ; preds = %end235
+  %return262 = call double @"min@F[F"(double* %xaos.2)
+  %return263 = fcmp oeq double %return262, 1.000000e+00
+  br i1 %return263, label %true265, label %false266
 
-false260:                                         ; preds = %end236
-  %return283 = call double* @"create_cdf@[F[F"(double* %IW_xaos.0)
-  %output284 = call double* @"append@[F[F"(double* %XAOS_TO.0, double* %return283)
-  %return286 = call i64 @"not@II"(i64 %x_chk.0)
-  %17 = icmp ne i64 %return286, 0
-  br i1 %17, label %true287, label %end261
+false259:                                         ; preds = %end235
+  %return282 = call double* @"create_cdf@[F[F"(double* %IW_xaos.0)
+  %output283 = call double* @"append@[F[F"(double* %XAOS_TO.0, double* %return282)
+  %return285 = call i64 @"not@II"(i64 %x_chk.0)
+  %17 = icmp ne i64 %return285, 0
+  br i1 %17, label %true286, label %end260
 
-end261:                                           ; preds = %false260, %true287, %false267, %true279, %true266
-  %x_chk.1 = phi i64 [ %x_chk.0, %true266 ], [ 1, %true279 ], [ %x_chk.0, %false267 ], [ 1, %true287 ], [ %x_chk.0, %false260 ]
-  %XAOS_TO.1 = phi double* [ %output272, %true266 ], [ %output276, %true279 ], [ %output276, %false267 ], [ %output284, %true287 ], [ %output284, %false260 ]
-  %output290 = add i64 %i62.0, 1
-  br label %cond63
+end260:                                           ; preds = %false259, %true286, %false266, %true278, %true265
+  %x_chk.1 = phi i64 [ %x_chk.0, %true265 ], [ 1, %true278 ], [ %x_chk.0, %false266 ], [ 1, %true286 ], [ %x_chk.0, %false259 ]
+  %XAOS_TO.1 = phi double* [ %output271, %true265 ], [ %output275, %true278 ], [ %output275, %false266 ], [ %output283, %true286 ], [ %output283, %false259 ]
+  %output289 = add i64 %i61.0, 1
+  br label %cond62
 
-true266:                                          ; preds = %true259
-  %return271 = call double* @"create_cdf@[F[F"(double* %IW.2)
-  %output272 = call double* @"append@[F[F"(double* %XAOS_TO.0, double* %return271)
-  br label %end261
+true265:                                          ; preds = %true258
+  %return270 = call double* @"create_cdf@[F[F"(double* %IW.2)
+  %output271 = call double* @"append@[F[F"(double* %XAOS_TO.0, double* %return270)
+  br label %end260
 
-false267:                                         ; preds = %true259
-  %return275 = call double* @"create_cdf@[F[F"(double* %IW_xaos.0)
-  %output276 = call double* @"append@[F[F"(double* %XAOS_TO.0, double* %return275)
-  %return278 = call i64 @"not@II"(i64 %x_chk.0)
-  %18 = icmp ne i64 %return278, 0
-  br i1 %18, label %true279, label %end261
+false266:                                         ; preds = %true258
+  %return274 = call double* @"create_cdf@[F[F"(double* %IW_xaos.0)
+  %output275 = call double* @"append@[F[F"(double* %XAOS_TO.0, double* %return274)
+  %return277 = call i64 @"not@II"(i64 %x_chk.0)
+  %18 = icmp ne i64 %return277, 0
+  br i1 %18, label %true278, label %end260
 
-true279:                                          ; preds = %false267
-  br label %end261
+true278:                                          ; preds = %false266
+  br label %end260
 
-true287:                                          ; preds = %false260
-  br label %end261
+true286:                                          ; preds = %false259
+  br label %end260
 
-true295:                                          ; preds = %end68
+true294:                                          ; preds = %end67
   store i8** %xaos_tos.0, i8*** %0
-  store i64 %return61, i64* %1
+  store i64 %return60, i64* %1
   call void @"XAOS_transpose_s@[S[SI"(i8*** %0, i8*** %xaos_tos_t, i64* %1)
-  %output300 = call double* @"resize@[FI"(double* %XAOS_TO.0, i64 0)
-  br label %cond302
+  %output299 = call double* @"resize@[FI"(double* %XAOS_TO.0, i64 0)
+  br label %cond301
 
-end296:                                           ; preds = %cond302, %end68
-  %XAOS_TO.2 = phi double* [ %XAOS_TO.3, %cond302 ], [ %XAOS_TO.0, %end68 ]
+end295:                                           ; preds = %cond301, %end67
+  %XAOS_TO.2 = phi double* [ %XAOS_TO.3, %cond301 ], [ %XAOS_TO.0, %end67 ]
   store i8** %sIDX.2, i8*** %_bound_sIDX
-  %return370 = call double* @"create_cdf@[F[F"(double* %IW.2)
-  store double* %return370, double** %_bound_IW
+  %return369 = call double* @"create_cdf@[F[F"(double* %IW.2)
+  store double* %return369, double** %_bound_IW
   %19 = icmp ne i64 %x_chk.0, 0
-  br i1 %19, label %true372, label %end373
+  br i1 %19, label %true371, label %end372
 
-cond302:                                          ; preds = %end345, %true295
-  %XAOS_TO.3 = phi double* [ %output300, %true295 ], [ %output365, %end345 ]
-  %i301.0 = phi i64 [ 0, %true295 ], [ %output367, %end345 ]
-  %return306 = call i64 @"lt@III"(i64 %i301.0, i64 %return61)
-  %20 = icmp ne i64 %return306, 0
-  br i1 %20, label %body303, label %end296
+cond301:                                          ; preds = %end344, %true294
+  %XAOS_TO.3 = phi double* [ %output299, %true294 ], [ %output364, %end344 ]
+  %i300.0 = phi i64 [ 0, %true294 ], [ %output366, %end344 ]
+  %return305 = call i64 @"lt@III"(i64 %i300.0, i64 %return60)
+  %20 = icmp ne i64 %return305, 0
+  br i1 %20, label %body302, label %end295
 
-body303:                                          ; preds = %cond302
-  %output311 = mul i64 %i301.0, %return61
-  %xaos_tos_t312 = load i8**, i8*** %xaos_tos_t
-  %output316 = add i64 %output311, %return61
-  %return317 = call i8** @"slice@[S[SIIIIII"(i8** %xaos_tos_t312, i64 1, i64 %output311, i64 1, i64 %output316, i64 0, i64 0)
-  %return320 = call i64 @"len@I[S"(i8** %return317)
-  br label %cond321
+body302:                                          ; preds = %cond301
+  %output310 = mul i64 %i300.0, %return60
+  %xaos_tos_t311 = load i8**, i8*** %xaos_tos_t
+  %output315 = add i64 %output310, %return60
+  %return316 = call i8** @"slice@[S[SIIIIII"(i8** %xaos_tos_t311, i64 1, i64 %output310, i64 1, i64 %output315, i64 0, i64 0)
+  %return319 = call i64 @"len@I[S"(i8** %return316)
+  br label %cond320
 
-cond321:                                          ; preds = %body322, %body303
-  %xaos_froms.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %body303 ], [ %output335, %body322 ]
-  %__impl_foreach_index_3.0 = phi i64 [ 0, %body303 ], [ %output337, %body322 ]
-  %return325 = call i64 @"lt@III"(i64 %__impl_foreach_index_3.0, i64 %return320)
-  %21 = icmp ne i64 %return325, 0
-  br i1 %21, label %body322, label %end326
+cond320:                                          ; preds = %body321, %body302
+  %xaos_froms.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %body302 ], [ %output334, %body321 ]
+  %__impl_foreach_index_3.0 = phi i64 [ 0, %body302 ], [ %output336, %body321 ]
+  %return324 = call i64 @"lt@III"(i64 %__impl_foreach_index_3.0, i64 %return319)
+  %21 = icmp ne i64 %return324, 0
+  br i1 %21, label %body321, label %end325
 
-body322:                                          ; preds = %cond321
-  %return330 = call i8* @"getcomp@S[SI"(i8** %return317, i64 %__impl_foreach_index_3.0)
-  %return333 = call double @"atof@FS"(i8* %return330)
-  %return334 = call double @"max@FFF"(double %return333, double 0.000000e+00)
-  %output335 = call double* @"append@[FF"(double* %xaos_froms.0, double %return334)
-  %output337 = add i64 %__impl_foreach_index_3.0, 1
-  br label %cond321
+body321:                                          ; preds = %cond320
+  %return329 = call i8* @"getcomp@S[SI"(i8** %return316, i64 %__impl_foreach_index_3.0)
+  %return332 = call double @"atof@FS"(i8* %return329)
+  %return333 = call double @"max@FFF"(double %return332, double 0.000000e+00)
+  %output334 = call double* @"append@[FF"(double* %xaos_froms.0, double %return333)
+  %output336 = add i64 %__impl_foreach_index_3.0, 1
+  br label %cond320
 
-end326:                                           ; preds = %cond321
-  br label %cond340
+end325:                                           ; preds = %cond320
+  br label %cond339
 
-cond340:                                          ; preds = %body341, %end326
-  %IW_xaos338.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %end326 ], [ %output359, %body341 ]
-  %k339.0 = phi i64 [ 0, %end326 ], [ %output361, %body341 ]
-  %return344 = call i64 @"lt@III"(i64 %k339.0, i64 %return61)
-  %22 = icmp ne i64 %return344, 0
-  br i1 %22, label %body341, label %end345
+cond339:                                          ; preds = %body340, %end325
+  %IW_xaos337.0 = phi double* [ getelementptr inbounds ([0 x double], [0 x double]* @7, i64 0, i64 0), %end325 ], [ %output358, %body340 ]
+  %k338.0 = phi i64 [ 0, %end325 ], [ %output360, %body340 ]
+  %return343 = call i64 @"lt@III"(i64 %k338.0, i64 %return60)
+  %22 = icmp ne i64 %return343, 0
+  br i1 %22, label %body340, label %end344
 
-body341:                                          ; preds = %cond340
-  %return350 = call double @"getcomp@F[FI"(double* %IW.2, i64 %i301.0)
-  %return353 = call double @"getcomp@F[FI"(double* %IW.2, i64 %k339.0)
-  %output354 = fmul double %return350, %return353
-  %return357 = call double @"getcomp@F[FI"(double* %xaos_froms.0, i64 %k339.0)
-  %output358 = fmul double %output354, %return357
-  %output359 = call double* @"append@[FF"(double* %IW_xaos338.0, double %output358)
-  %output361 = add i64 %k339.0, 1
-  br label %cond340
+body340:                                          ; preds = %cond339
+  %return349 = call double @"getcomp@F[FI"(double* %IW.2, i64 %i300.0)
+  %return352 = call double @"getcomp@F[FI"(double* %IW.2, i64 %k338.0)
+  %output353 = fmul double %return349, %return352
+  %return356 = call double @"getcomp@F[FI"(double* %xaos_froms.0, i64 %k338.0)
+  %output357 = fmul double %output353, %return356
+  %output358 = call double* @"append@[FF"(double* %IW_xaos337.0, double %output357)
+  %output360 = add i64 %k338.0, 1
+  br label %cond339
 
-end345:                                           ; preds = %cond340
-  %return364 = call double* @"create_cdf@[F[F"(double* %IW_xaos338.0)
-  %output365 = call double* @"append@[F[F"(double* %XAOS_TO.3, double* %return364)
-  %output367 = add i64 %i301.0, 1
-  br label %cond302
+end344:                                           ; preds = %cond339
+  %return363 = call double* @"create_cdf@[F[F"(double* %IW_xaos337.0)
+  %output364 = call double* @"append@[F[F"(double* %XAOS_TO.3, double* %return363)
+  %output366 = add i64 %i300.0, 1
+  br label %cond301
 
-true372:                                          ; preds = %end296
+true371:                                          ; preds = %end295
   store i64 1, i64* %_bound_XS
   store double* %XAOS_TO.2, double** %_bound_XST
-  br label %end373
+  br label %end372
 
-end373:                                           ; preds = %true372, %end296
+end372:                                           ; preds = %true371, %end295
   ret void
 }
 
