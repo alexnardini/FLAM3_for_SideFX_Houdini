@@ -290,8 +290,8 @@ class flam3h_iterator_prm_names:
     for easy access everywhere is needed and better readability.
     
     The parameter names for the FF(finalXform) are the same but with a string prefix: 'ff'
-    The FF parametric parameter names are as well the same but with a string presfix: 'ff_'
-    Main, Xaos and Shader parameters are not included in the FF but only: Pre, Var, post, Pre affine and Post affine.
+    The FF parametric parameter names are as well the same but with a string prefix: 'ff_'
+    Main, Xaos and Shader parameters are not included in the FF but only: PRE, VAR, POST, pre affine and post affine.
     
     Note:
         The following definitions:
@@ -308,7 +308,7 @@ class flam3h_iterator_prm_names:
         but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
             
         If you update/change the following values and the FLAM3H HDA parameter's names,
-        please update inside the above mentioned functions as well.
+        please update inside the above mentioned definitions as well.
     
     '''
     # ITERATOR
@@ -514,7 +514,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
             
             
     @staticmethod
-    def __populate_linear_list(linear: list, item: str, id: int, spacer=True) -> None:
+    def __populate_linear_list(linear: list, item: str, id: int, spacer: bool=True) -> None:
         """ Populate linear list. This is to be used inside a loop.
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self) -> list:
         
@@ -915,7 +915,7 @@ flam3h_on_deleted(self) -> None:
 
 
 
-    def flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
+    def flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool=True) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
         messages in the Houdini status bar.
@@ -1412,7 +1412,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img=None) -> None:
+    def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
         """Cause a message to appear on the top left of the network editor.
 
         Args:
@@ -1441,7 +1441,7 @@ reset_PREFS(self, mode=0) -> None:
         return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
 
     @staticmethod  
-    def clamp(x, val_max=255) -> float:
+    def clamp(x, val_max: float=255) -> float:
         """clamp a value to be between Zero and 255.
 
         Args:
@@ -1487,7 +1487,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def isLOCK(filepath: Union[str, bool], prx=FLAM3H_LIB_LOCK) -> bool:
+    def isLOCK(filepath: Union[str, bool], prx: str=FLAM3H_LIB_LOCK) -> bool:
         """Check if the loaded lib file ( Palette or flame XML ) is locked .
 
         Args:
@@ -1507,7 +1507,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
     @staticmethod
-    def util_open_file_explorer(filepath_name) -> None:
+    def util_open_file_explorer(filepath_name: str) -> None:
         """Open the file explorer to the currently loaded file location.
 
         Args:
@@ -1699,7 +1699,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def util_set_front_viewer(self, update=True) -> None:
+    def util_set_front_viewer(self, update: bool=True) -> None:
         """Set front view when entering the camera sensor mode.
         This include storing and restoring the current viewport prior to entering the camera sensor mode.
         
@@ -1838,7 +1838,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def flam3h_outsensor_toggle(self, prm=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+    def flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
         Args:
@@ -1880,7 +1880,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def flam3h_toggle(self, prm=SYS_TAG) -> None:
+    def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
         Args:
@@ -1919,7 +1919,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def flam3h_init_presets_IN_PRESETS(self, mode=1) -> None:
+    def flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
         """Initialize parameter's menu presets for the IN tab.
         
         Args:
@@ -2039,7 +2039,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def flam3h_init_presets_CP_PALETTE_PRESETS(self, mode=1) -> None:
+    def flam3h_init_presets_CP_PALETTE_PRESETS(self, mode: int=1) -> None:
         """Initialize parameter's menu presets for the CP tab.
         
         Args:
@@ -2117,7 +2117,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def colorSchemeDark(self, update_others=True) -> None:
+    def colorSchemeDark(self, update_others: bool=True) -> None:
         """Change viewport color scheme to dark
         and remember the current color scheme so to switch back to it when unchecked.
         If the viewport color scheme is already dark, checking this option will do nothing. 
@@ -2218,7 +2218,7 @@ reset_PREFS(self, mode=0) -> None:
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
                 
                 
-    def viewportParticleSize(self, reset_val=None) -> None:
+    def viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
         
@@ -2277,7 +2277,7 @@ reset_PREFS(self, mode=0) -> None:
         node.setParms({MB_SHUTTER: 0.5})
 
 
-    def reset_PREFS(self, mode=0) -> None:
+    def reset_PREFS(self, mode: int=0) -> None:
         """Reset the FLAM3H PREFS Tab parameters.
 
         Args:
@@ -2679,7 +2679,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def get_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
+    def get_user_data(node: hou.SopNode, data_name: str=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
         """Get the node user data associated to the copy/paste data.
         
         Args:
@@ -2687,8 +2687,8 @@ iterator_keep_last_weight(self) -> None:
             data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to get. 
         """   
         
-        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
-        data = node.userData(f"{data_name}")
+        name = f"{FLAM3H_USER_DATA_PRX}{data_name}"
+        data = node.userData(f"{name}")
         if data is not None:
             return data
         else:
@@ -2696,7 +2696,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def exist_user_data(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> bool:
+    def exist_user_data(node: hou.SopNode, data: str=FLAM3H_USER_DATA_ITER) -> bool:
         """Confirm the node user data associated to the copy/paste data Exist.
         
         Args:
@@ -2711,7 +2711,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data=FLAM3H_USER_DATA_ITER) -> None:
+    def set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data: str=FLAM3H_USER_DATA_ITER) -> None:
         """Set the node comment associated to the copy/paste data. It can be for an iterator number or for the FF.
         
         Args:
@@ -2757,7 +2757,7 @@ iterator_keep_last_weight(self) -> None:
 
         
     @staticmethod
-    def del_comment_and_user_data_iterator(node: hou.SopNode, data=FLAM3H_USER_DATA_ITER) -> None:
+    def del_comment_and_user_data_iterator(node: hou.SopNode, data: str=FLAM3H_USER_DATA_ITER) -> None:
         """Delete the node comment associated to the copy/paste data. It can be for an iterator number or for the FF.
         
         Args:
@@ -3138,7 +3138,7 @@ iterator_keep_last_weight(self) -> None:
 
 
     @staticmethod
-    def destroy_data(node, data: str, must_exist: bool = False) -> None:
+    def destroy_data(node, data: str, must_exist: bool=False) -> None:
         """This is to be run as a callback script inside parms that are responsible to update the menu.
         For now: Iterator shader's opacity  
 
@@ -3331,7 +3331,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def menu_T_ICON(self, FF=False) -> list:
+    def menu_T_ICON(self, FF: bool=False) -> list:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
         
@@ -3354,7 +3354,7 @@ iterator_keep_last_weight(self) -> None:
 
 
 
-    def menu_T_PP_ICON(self, FF=False) -> list:
+    def menu_T_PP_ICON(self, FF: bool=False) -> list:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
         
@@ -3377,7 +3377,7 @@ iterator_keep_last_weight(self) -> None:
     
     
     
-    def menu_T_simple(self, FF=False) -> list:
+    def menu_T_simple(self, FF: bool=False) -> list:
         """Populate variation names parameter menu list.
 
         Returns:
@@ -3387,7 +3387,7 @@ iterator_keep_last_weight(self) -> None:
         return MENU_VARS_ALL_SIMPLE
     
     
-    def menu_T(self, FF=False) -> list:
+    def menu_T(self, FF: bool=False) -> list:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
         
@@ -3413,7 +3413,7 @@ iterator_keep_last_weight(self) -> None:
 
     
     
-    def menu_T_PP(self, FF=False) -> list:
+    def menu_T_PP(self, FF: bool=False) -> list:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
         
@@ -5685,7 +5685,7 @@ reset_CP(self, mode=0) -> None:
 
 
     @staticmethod
-    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg=True, parm_path_name=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
+    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool=True, parm_path_name: str=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
         """Check if the loaded palette lib file is a valid FLAM3H palette json file.
 
         Args:
@@ -5774,7 +5774,7 @@ reset_CP(self, mode=0) -> None:
     
     
     @staticmethod
-    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode=False) -> None:
+    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False) -> None:
         """Given a value, find the closest value in the array that is bigger than the value passed in.
         I am using a manual f-string build here. Probably dynamically build a list would be better but if i'll need to add more strings i'll look into it.
         
@@ -6053,9 +6053,10 @@ reset_CP(self, mode=0) -> None:
         else:
             node = self.node
             palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
-            out_path_checked = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+            out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
             if out_path_checked is not False:
+                assert out_path_checked is str
                 
                 # SHIFT - Open a file explorer to the file location
                 if self.kwargs['shift']:
@@ -6086,12 +6087,12 @@ reset_CP(self, mode=0) -> None:
                         if self.kwargs["ctrl"]:
                             
                             if not os.path.exists(out_path_checked):
-                                with open(str(out_path_checked),'w') as w:
+                                with open(out_path_checked,'w') as w:
                                     w.write(json_data)
                                     
                             elif json_file and f3h_json_file:
-                                os.remove(str(out_path_checked))
-                                with open(str(out_path_checked),'w') as w:
+                                os.remove(out_path_checked)
+                                with open(out_path_checked,'w') as w:
                                     w.write(json_data)
                                     
                             else:
@@ -6102,9 +6103,9 @@ reset_CP(self, mode=0) -> None:
                         else:
                             # if the file exist and is a valid JSON file
                             if json_file and f3h_json_file:
-                                with open(str(out_path_checked),'r') as r:
+                                with open(out_path_checked,'r') as r:
                                     prevdata = json.load(r)
-                                with open(str(out_path_checked), 'w') as w:
+                                with open(out_path_checked, 'w') as w:
                                     newdata = json_dict
                                     prevdata.update(newdata)
                                     data = json.dumps(prevdata,indent = 4)
@@ -6118,7 +6119,7 @@ reset_CP(self, mode=0) -> None:
                             else:
                                 # If the file do not exist, lets create it and save the palette in it
                                 if not os.path.isfile(out_path_checked):
-                                    with open(str(out_path_checked),'w') as w:
+                                    with open(out_path_checked,'w') as w:
                                         w.write(json_data)
 
                         # We do this again so we can read the newly created file if any 
@@ -6144,7 +6145,7 @@ reset_CP(self, mode=0) -> None:
                                     del data
                                     
                                 # Set the file path to the corrected one
-                                node.setParms({CP_PALETTE_LIB_PATH: str(out_path_checked)})
+                                node.setParms({CP_PALETTE_LIB_PATH: out_path_checked})
                                 
                                 _MSG = f"Palette SAVED"
                                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
@@ -6328,7 +6329,7 @@ reset_CP(self, mode=0) -> None:
 
 
 
-    def json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
+    def json_to_flam3h_ramp_sys(self, use_kwargs: bool=True) -> None:
         """Load the selected palette preset from the provided json file
         using the SYS load palette button.
 
@@ -6355,7 +6356,7 @@ reset_CP(self, mode=0) -> None:
             self.json_to_flam3h_ramp(use_kwargs)
 
 
-    def json_to_flam3h_ramp(self, use_kwargs=True) -> None:
+    def json_to_flam3h_ramp(self, use_kwargs: bool=True) -> None:
         """Load the selected palette preset from the provided json file
         
         Args:
@@ -7562,7 +7563,7 @@ get_name(self, key=XML_XF_NAME) -> tuple
         return self._tree
         
         
-    def get_name(self, key=XML_XF_NAME) -> tuple:
+    def get_name(self, key: str=XML_XF_NAME) -> tuple:
         """Collect all Flame presets name from the XML Flame file.
         
         This is being added as a quick and cheap way to do so making some assumption ahead of time.
@@ -7766,7 +7767,7 @@ __get_flame_count(self, flames: list) -> int:
 
 
     # This not private as its cheaper to have it evaluate from this parent class.
-    def get_name(self, key=XML_XF_NAME) -> tuple:
+    def get_name(self, key: str=XML_XF_NAME) -> tuple:
         """Collect all Flame presets name from the XML Flame file.
 
         Args:
@@ -7815,7 +7816,7 @@ __get_flame_count(self, flames: list) -> int:
             return () 
         
         
-    def __get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
+    def __get_flame(self, key: str=XML_FLAME_NAME) -> Union[tuple, None]:
         """Collect the actual Flame presets object data from the XML file.
 
         Args:
@@ -7936,7 +7937,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
 
     @staticmethod
-    def xf_val_cleanup_str(val: str, default_val: str = '0') -> str:
+    def xf_val_cleanup_str(val: str, default_val: str='0') -> str:
         """ Attempt to remove invalid characters from the passed value.
         
         Args:
@@ -7955,7 +7956,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
 
     @staticmethod
-    def xf_list_cleanup(affine: list, default_val: str = '0') -> list:
+    def xf_list_cleanup(affine: list, default_val: str='0') -> list:
         """ Attempt to remove invalid characters from the list values and return a list.
         
         Args:
@@ -7977,7 +7978,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     
     
     @staticmethod
-    def xf_list_cleanup_str(affine: list, default_val: str = '0') -> str:
+    def xf_list_cleanup_str(affine: list, default_val: str='0') -> str:
         """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
         
         Args:
@@ -7999,7 +8000,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
 
     @staticmethod
-    def affine_coupling(affine: list, key='', mp_idx=None, type: int=0) -> list:
+    def affine_coupling(affine: list, key: str='', mp_idx: Union[int, None]=None, type: int=0) -> list:
         """ Build proper affine values composed of hou.Vector2 tuples.
         It will also check the affine passed in and provide an alternative defaults affine values if not correct and print out messages to inform the user about different cases.
         
@@ -8200,7 +8201,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
     
     
-    def __get_xaos(self, xforms: Union[tuple, None], key=XML_XF_XAOS) -> Union[tuple, None]:
+    def __get_xaos(self, xforms: Union[tuple, None], key: str=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
             self:
@@ -8316,7 +8317,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             return None
 
         
-    def __get_palette(self, idx: int, key=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
+    def __get_palette(self, idx: int, key: str=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
         """
         Args:
             self:
@@ -8384,7 +8385,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     
     
     # custom to FLAM3H only
-    def __get_mb_flam3h_mb(self, idx: int, key='') -> Union[int, float, bool, None]:
+    def __get_mb_flam3h_mb(self, idx: int, key: str='') -> Union[int, float, bool, None]:
         """
         Args:
             self:
@@ -8491,7 +8492,7 @@ class in_flame_iter_data(in_flame):
         in_flame ([class]): [inherit properties methods from the in_flame class]
     """  
     
-    def __init__(self, node: hou.SopNode, xmlfile: str, idx=0) -> None:
+    def __init__(self, node: hou.SopNode, xmlfile: str, idx: int=0) -> None:
         """
         Args:
             xmlfile (str): xmlfile (str): [xml flame v_type file to load]
@@ -9858,7 +9859,7 @@ reset_IN(self, mode=0) -> None:
 
 
     @staticmethod
-    def in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable, capitalize=False) -> list[str]:
+    def in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable, capitalize: bool=False) -> list[str]:
         """Return a flattened list of unique and sorted items without duplicates.
 
         Args:
@@ -10057,7 +10058,7 @@ reset_IN(self, mode=0) -> None:
     
     
     @staticmethod
-    def in_copy_render_all_stats_msg(kwargs: dict, clipboard=False, apo_data=None) -> None:
+    def in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
 
         Args:
@@ -11542,7 +11543,7 @@ reset_IN(self, mode=0) -> None:
 
 
 
-    def reset_IN(self, mode=0) -> None:
+    def reset_IN(self, mode: int=0) -> None:
         """Reset the FLAM3H IN Tab parameters.
 
         Args:
@@ -12265,7 +12266,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
 
     @staticmethod
-    def _out_pretty_print(current, parent=None, index=-1, depth=0) -> None:
+    def _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
         """Reformat the XML data in a pretty way.
 
         Args:
@@ -13176,7 +13177,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if iterators_num:
             
             out_path = node.parm(OUT_PATH).evalAsString()
-            out_path_checked = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+            out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
             
             # Write to the clipboard
             if kwargs['alt']:
@@ -13184,6 +13185,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 
             # Otherwise if the output path is valid
             elif out_path_checked is not False:
+                assert out_path_checked is str
                 
                 if kwargs['shift']:
                     flam3h_general_utils.util_open_file_explorer(out_path_checked)
@@ -13207,18 +13209,18 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     else:
                         
                         if kwargs["ctrl"]:
-                            node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
-                            self.out_new_XML(str(out_path_checked))
+                            node.setParms({OUT_PATH: out_path_checked}) #type: ignore
+                            self.out_new_XML(out_path_checked)
                             
                         else:
-                            apo_data = in_flame(self.node, str(out_path_checked))
-                            node.setParms({OUT_PATH: str(out_path_checked)}) #type: ignore
+                            apo_data = in_flame(self.node, out_path_checked)
+                            node.setParms({OUT_PATH: out_path_checked}) #type: ignore
                             
                             if apo_data.isvalidtree:
-                                self.out_append_XML(apo_data, str(out_path_checked))
+                                self.out_append_XML(apo_data, out_path_checked)
                                 
                             else:
-                                self.out_new_XML(str(out_path_checked))
+                                self.out_new_XML(out_path_checked)
                                 
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
 
