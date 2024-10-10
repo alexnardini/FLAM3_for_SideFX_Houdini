@@ -1931,7 +1931,7 @@ reset_PREFS(self, mode=0) -> None:
         prm.set('-1')
         prm_off.set('-1')
         
-        xml = node.parm(IN_PATH).evalAsString()
+        xml = node.parm(IN_PATH).eval()
         if os.path.isfile(xml):
             # We are using the class: _xml_tree becasue we really need to carefully validate the loaded flame file.
             # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
@@ -2001,7 +2001,7 @@ reset_PREFS(self, mode=0) -> None:
         prm.set('-1')
         prm_sys.set('-1')
         
-        xml = node.parm(OUT_PATH).evalAsString()
+        xml = node.parm(OUT_PATH).eval()
         xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
         if xml_checked is not False:
             node.setParms({OUT_PATH: xml_checked}) 
@@ -2050,7 +2050,7 @@ reset_PREFS(self, mode=0) -> None:
         prm.set('-1')
         prm_off.set('-1')
 
-        json_path = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        json_path = node.parm(CP_PALETTE_LIB_PATH).eval()
         json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
@@ -3014,10 +3014,10 @@ iterator_keep_last_weight(self) -> None:
         
         n = flam3h_iterator_prm_names
         node_name = str(flam3node)
-        _current_note_FF = node.parm("ffnote").evalAsString()
+        _current_note_FF = node.parm("ffnote").eval()
 
         if int_mode == 0:
-            _current_note = node.parm(f"note_{id}").evalAsString()
+            _current_note = node.parm(f"note_{id}").eval()
             # If on the same FLAM3H node
             if node == flam3node:
                 if len(_current_note) == 0:
@@ -5815,7 +5815,7 @@ reset_CP(self, mode=0) -> None:
         Returns:
             None: 
         """  
-        palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
+        palette_msg: str = node.parm(MSG_PALETTE).eval()
         if len(HEXs) > 256:
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
@@ -5850,7 +5850,7 @@ reset_CP(self, mode=0) -> None:
             None: 
         """  
         
-        palette_msg = node.parm(MSG_PALETTE).evalAsString()
+        palette_msg = node.parm(MSG_PALETTE).eval()
         if PALETTE_PLUS_MSG in palette_msg:
             node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
         else:
@@ -5987,7 +5987,7 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
-        filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+        filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
         head_tail = os.path.split(filepath)
         
         if node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
@@ -6029,7 +6029,7 @@ reset_CP(self, mode=0) -> None:
         preset_idx = node.parm(CP_PALETTE_PRESETS).eval()
         
         # Double check 
-        json = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        json = node.parm(CP_PALETTE_LIB_PATH).eval()
         is_valid = os.path.isfile(os.path.expandvars(json))
         if json and not is_valid:
             node.setParms({CP_ISVALID_FILE: 0})
@@ -6056,7 +6056,7 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
-        filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+        filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
         head_tail = os.path.split(filepath)
 
         if os.path.isfile(filepath) and node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
@@ -6098,7 +6098,7 @@ reset_CP(self, mode=0) -> None:
         preset_idx = node.parm(CP_PALETTE_PRESETS_OFF).eval()
         
         # Double check 
-        json = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        json = node.parm(CP_PALETTE_LIB_PATH).eval()
         is_valid = os.path.isfile(os.path.expandvars(json))
         if json and not is_valid:
             node.setParms({CP_ISVALID_FILE: 0})
@@ -6177,7 +6177,7 @@ reset_CP(self, mode=0) -> None:
         
         # Save palette into a file
         else:
-            palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+            palettepath = node.parm(CP_PALETTE_LIB_PATH).eval()
             out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
             if out_path_checked is not False:
@@ -6361,7 +6361,7 @@ reset_CP(self, mode=0) -> None:
             self.delete_ramp_all_keyframes(ramp_parm)
             self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
             
-            filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+            filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
             
             if os.path.isfile(filepath) and os.path.getsize(filepath)>0 and node.parm(CP_ISVALID_FILE).evalAsInt():
 
@@ -6695,7 +6695,7 @@ reset_CP(self, mode=0) -> None:
         Args:
         """
         node = self.node
-        filepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
         if self.isJSON_F3H(node, filepath, False)[0]:
             if flam3h_general_utils.isLOCK(filepath) is False:
                 node.setParms({MSG_PALETTE: ''})
@@ -10207,7 +10207,7 @@ reset_IN(self, mode=0) -> None:
             preset_id = 0
             f3r = apo_data
         else:
-            xml = node.parm(IN_PATH).evalAsString()
+            xml = node.parm(IN_PATH).eval()
             
             # Get the correct menu parameter's preset idx
             if node.parm(IN_ISVALID_PRESET).evalAsInt():
@@ -10282,7 +10282,7 @@ reset_IN(self, mode=0) -> None:
             # Get the correct menu parameter's preset idx
             preset_id = int(node.parm(IN_PRESETS).eval())
 
-            xml = node.parm(IN_PATH).evalAsString()
+            xml = node.parm(IN_PATH).eval()
             f3r = in_flame_iter_data(node, xml, preset_id)
             
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
@@ -10333,7 +10333,7 @@ reset_IN(self, mode=0) -> None:
             # Get the correct menu parameter's preset idx
             preset_id = int(node.parm(IN_PRESETS).eval())
 
-            xml = node.parm(IN_PATH).evalAsString()
+            xml = node.parm(IN_PATH).eval()
             f3r = in_flame_iter_data(node, xml, preset_id)
                 
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
@@ -10900,7 +10900,7 @@ reset_IN(self, mode=0) -> None:
             vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp(unknown_grp_fractorium)}"
         
         # Check if the loaded Flame file is locked.
-        in_path = node.parm(IN_PATH).evalAsString()
+        in_path = node.parm(IN_PATH).eval()
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
         
         flame_lib_locked = ""
@@ -10908,7 +10908,7 @@ reset_IN(self, mode=0) -> None:
             flame_lib_locked = f"-> LOCKED"
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette[1] > 256:
-            palette_msg: str = node.parm(MSG_PALETTE).evalAsString()
+            palette_msg: str = node.parm(MSG_PALETTE).eval()
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
             else:
@@ -10946,7 +10946,7 @@ reset_IN(self, mode=0) -> None:
         node = self.node
 
         menu=[]
-        xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
         if node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
@@ -10983,7 +10983,7 @@ reset_IN(self, mode=0) -> None:
         preset_idx = node.parm(IN_PRESETS).eval()
         
         # Double check 
-        xml = node.parm(IN_PATH).evalAsString()
+        xml = node.parm(IN_PATH).eval()
         is_valid = os.path.isfile(os.path.expandvars(xml))
         if xml and not is_valid:
             node.setParms({IN_ISVALID_FILE: 0})
@@ -11015,7 +11015,7 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         
         menu=[]
-        xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
         if node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
                 
@@ -11056,7 +11056,7 @@ reset_IN(self, mode=0) -> None:
         preset_idx = node.parm(IN_PRESETS_OFF).eval()
         
         # Double check 
-        xml = node.parm(IN_PATH).evalAsString()
+        xml = node.parm(IN_PATH).eval()
         is_valid = os.path.isfile(os.path.expandvars(xml))
         if xml and not is_valid:
             node.setParms({IN_ISVALID_FILE: 0})
@@ -11108,7 +11108,7 @@ reset_IN(self, mode=0) -> None:
         Returns:
             (None)
         """
-        xml = self.node.parm(IN_PATH).evalAsString()
+        xml = self.node.parm(IN_PATH).eval()
         # Here we could take a shortcut and use: if node.parm(IN_ISVALID_FILE).eval(): instead,
         # but for now we keep it safe and use the class: _xml_tree(..) instead.
         if _xml_tree(xml).isvalidtree:
@@ -11434,7 +11434,7 @@ reset_IN(self, mode=0) -> None:
                                                                     
                                                                     -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
-        xml = node.parm(IN_PATH).evalAsString()
+        xml = node.parm(IN_PATH).eval()
         
         # Get the correct menu parameter's preset idx
         if node.parm(IN_ISVALID_PRESET).evalAsInt():
@@ -11520,7 +11520,7 @@ reset_IN(self, mode=0) -> None:
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
-        xml = node.parm(IN_PATH).evalAsString()
+        xml = node.parm(IN_PATH).eval()
 
         if xml and node.parm(IN_ISVALID_FILE).evalAsInt():
             if node.parm(IN_ISVALID_PRESET).evalAsInt():
@@ -11706,7 +11706,7 @@ reset_IN(self, mode=0) -> None:
         else:
             
             # If there is an already loaded file set in the parameter
-            in_xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+            in_xml = os.path.expandvars(node.parm(IN_PATH).eval())
             
             # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
@@ -12906,7 +12906,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         node = self.node
         menu=[]
-        xml = os.path.expandvars(node.parm(OUT_PATH).evalAsString())
+        xml = os.path.expandvars(node.parm(OUT_PATH).eval())
         head_tail = os.path.split(xml)
         # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
         # Instead of the lightweight version class: _xml(...)
@@ -12948,7 +12948,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         data = node.cachedUserData('out_presets_menu')
         
         # Double check
-        xml = node.parm(OUT_PATH).evalAsString()
+        xml = node.parm(OUT_PATH).eval()
         is_valid = os.path.isfile(os.path.expandvars(xml))
         if xml and not is_valid:
             node.setParms({OUT_ISVALID_FILE: 0})
@@ -13449,7 +13449,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         # if there is at least one iterator
         if iterators_num:
             
-            out_path = node.parm(OUT_PATH).evalAsString()
+            out_path = node.parm(OUT_PATH).eval()
             out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
             
             # Write to the clipboard
