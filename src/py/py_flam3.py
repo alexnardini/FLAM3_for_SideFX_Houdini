@@ -2339,6 +2339,8 @@ MENU_VARS_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent
 MENU_VARS_ALL_SIMPLE: list = [0, 'Linear          ', 39, 'Arch          ', 94, 'Auger...          ', 14, 'Bent          ', 52, 'Bent2...          ', 53, 'Bipolar...          ', 43, 'Blade          ', 30, 'Blob...          ', 26, 'Blur          ', 54, 'Boarders          ', 23, 'Bubble          ', 55, 'Butterfly          ', 99, 'Bwraps...          ', 56, 'Cell...          ', 50, 'Conic...          ', 83, 'Cos          ', 89, 'Cosh          ', 20, 'Cosine          ', 87, 'Cot          ', 93, 'Coth          ', 57, 'Cpow...          ', 102, 'Crop...          ', 46, 'Cross          ', 86, 'Csc          ', 92, 'Csch          ', 27, 'Curl...          ', 97, 'Curve...          ', 24, 'Cylinder          ', 11, 'Diamond          ', 8, 'Disc          ', 47, 'Disc2...          ', 58, 'Edisc          ', 59, 'Elliptic          ', 61, 'Escher...          ', 12, 'Ex          ', 80, 'Exp          ', 18, 'Exponential          ', 25, 'Eyefish          ', 22, 'Fan*          ', 34, 'Fan2...          ', 16, 'Fisheye          ', 49, 'Flower...          ', 95, 'Flux...          ', 62, 'Foci          ', 33, 'Gaussian_blur          ', 104, 'Glynnia          ', 6, 'Handkerchief          ', 7, 'Heart          ', 100, 'Hemisphere          ', 4, 'Horseshoe          ', 10, 'Hyperbolic          ', 13, 'Julia          ', 31, 'JuliaN...          ', 32, 'Juliascope...          ', 63, 'Lazysusan...          ', 81, 'Log          ', 64, 'Loonie          ', 96, 'Mobius...          ', 66, 'Modulus...          ', 28, 'Ngon...          ', 60, 'Noise          ', 67, 'Oscope...          ', 51, 'Parabola...          ', 29, 'Pdj...          ', 98, 'Perspective...          ', 38, 'Pie...          ', 5, 'Polar          ', 68, 'Polar2          ', 101, 'Polynomial...          ', 17, 'Popcorn*          ', 69, 'Popcorn2...          ', 19, 'Power          ', 105, 'Pt_symmetry...          ', 37, 'Radialblur...          ', 42, 'Rays          ', 36, 'Rectangles...          ', 21, 'Rings*          ', 35, 'Rings2...          ', 70, 'Scry          ', 85, 'Sec          ', 44, 'Secant2          ', 91, 'Sech          ', 71, 'Separation...          ', 82, 'Sin          ', 88, 'Sinh          ', 1, 'Sinusoidal          ', 2, 'Spherical          ', 9, 'Spiral          ', 72, 'Split...          ', 73, 'Splits...          ', 41, 'Square          ', 74, 'Stripes...          ', 48, 'Supershape...          ', 3, 'Swirl          ', 84, 'Tan          ', 40, 'Tangent          ', 90, 'Tanh          ', 45, 'Twintrian          ', 103, 'Unpolar          ', 15, 'Waves*          ', 79, 'Waves2...          ', 75, 'Wedge...          ', 76, 'Wedgejulia...          ', 77, 'Wedgesph...          ', 78, 'Whorl...          ']
 MENU_DENSITY: list = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '50M', 7, '100M', 8, '150M', 9, '250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
 MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
 MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
@@ -5860,45 +5862,49 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
+        filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+        head_tail = os.path.split(filepath)
         if node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
-            
-            filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).evalAsString())
-            if os.path.isfile(filepath):
                 
-                with open(filepath) as f:
-                    menuitems = json.load(f).keys()
+            with open(filepath) as f:
+                menuitems = json.load(f).keys()
 
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
+            if node.parm(PREFS_ENUMERATE_MENU).eval():
+                
+                for i, item in enumerate(menuitems):
                     
-                    for i, item in enumerate(menuitems):
-                        
-                        menu.append(str(i))
-                        
-                        # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
-                            node.setCachedUserData('cp_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                        else:
-                            menu.append(f"{str(i)}:  {item}")
-
-                else:
+                    menu.append(str(i))
                     
-                    for i, item in enumerate(menuitems):
-                        
-                        menu.append(str(i))
-                        
-                        # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
-                            node.setCachedUserData('cp_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
-                        else:
-                            menu.append(f"{item}")
-                            
-                node.setCachedUserData('cp_presets_menu', menu)
-                return menu
+                    # ICON tag
+                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
+                        node.setCachedUserData('cp_presets_menu_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                    else:
+                        menu.append(f"{str(i)}:  {item}")
 
+            else:
+                
+                for i, item in enumerate(menuitems):
+                    
+                    menu.append(str(i))
+                    
+                    # ICON tag
+                    if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
+                        node.setCachedUserData('cp_presets_menu_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                    else:
+                        menu.append(f"{item}")
+                        
+            node.setCachedUserData('cp_presets_menu', menu)
+            return menu
+        
         flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
-        return MENU_PRESETS_EMPTY
+        if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+            return MENU_PRESETS_SAVEONE
+        elif filepath and not os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+            return MENU_PRESETS_INVALID
+        else:
+            return MENU_PRESETS_EMPTY
     
     
     def menu_ramp_presets(self) -> list:
@@ -5931,45 +5937,49 @@ reset_CP(self, mode=0) -> None:
         """
         node = self.node
         menu=[]
+        filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
+        head_tail = os.path.split(filepath)
         if node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
-            
-            filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
-            if os.path.isfile(filepath):
                 
-                with open(filepath) as f:
-                    menuitems = json.load(f).keys()
+            with open(filepath) as f:
+                menuitems = json.load(f).keys()
 
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
-                    
-                    for i, item in enumerate(menuitems):
-                        
-                        menu.append(i)
-                        
-                        # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
-                            node.setCachedUserData('cp_presets_menu_off_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                        else:
-                            menu.append(f"{str(i)}:  {item}")
-                            
-                else:
-                    
-                    for i, item in enumerate(menuitems):
-                        
-                        menu.append(i)
-                        
-                        # ICON tag
-                        if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
-                            node.setCachedUserData('cp_presets_menu_off_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
-                        else:
-                            menu.append(f"{item}")
+            if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                node.setCachedUserData('cp_presets_menu_off', menu)
-                return menu
+                for i, item in enumerate(menuitems):
+                    
+                    menu.append(i)
+                    
+                    # ICON tag
+                    if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
+                        node.setCachedUserData('cp_presets_menu_off_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                    else:
+                        menu.append(f"{str(i)}:  {item}")
+                        
+            else:
+                
+                for i, item in enumerate(menuitems):
+                    
+                    menu.append(i)
+                    
+                    # ICON tag
+                    if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
+                        node.setCachedUserData('cp_presets_menu_off_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                    else:
+                        menu.append(f"{item}")
+            
+            node.setCachedUserData('cp_presets_menu_off', menu)
+            return menu
             
         flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
-        return MENU_PRESETS_EMPTY
+        if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+            return MENU_PRESETS_SAVEONE
+        if filepath and not os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+            return MENU_PRESETS_INVALID
+        else:
+            return MENU_PRESETS_EMPTY
     
     
     def menu_ramp_presets_empty(self) -> list:
@@ -6056,7 +6066,7 @@ reset_CP(self, mode=0) -> None:
             out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
             if out_path_checked is not False:
-                assert out_path_checked is str
+                assert isinstance(out_path_checked, str)
                 
                 # SHIFT - Open a file explorer to the file location
                 if self.kwargs['shift']:
@@ -10690,59 +10700,60 @@ reset_IN(self, mode=0) -> None:
         node = self.node
 
         menu=[]
+        xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+
         if node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
-            # This is really to force an extra check
-            xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
-            if os.path.isfile(xml):
+            if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
+                for i, item in enumerate(_xml(xml).get_name()):
                     
-                    for i, item in enumerate(_xml(xml).get_name()):
-                        
-                        menu.append(i)
-                        
-                        # ICON bookmarks
-                        #
-                        # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                            node.setCachedUserData('in_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-                            
-                        # If a flame preset from the clipboard is loaded
-                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                            node.setCachedUserData('in_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
-                            
-                        else:
-                            menu.append(f"{str(i)}:  {item}")
-                            
-                else:
+                    menu.append(i)
                     
-                    for i, item in enumerate(_xml(xml).get_name()):
+                    # ICON bookmarks
+                    #
+                    # If a flame preset from a file is loaded
+                    if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        node.setCachedUserData('in_presets_menu_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
                         
-                        menu.append(i)
+                    # If a flame preset from the clipboard is loaded
+                    elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        node.setCachedUserData('in_presets_menu_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                         
-                        # ICON bookmarks
-                        #
-                        # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                            node.setCachedUserData('in_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
-                            
-                        # If a flame preset from the clipboard is loaded
-                        elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                            node.setCachedUserData('in_presets_menu_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
-                            
-                        else:
-                            menu.append(f"{item}")
-                            
-                node.setCachedUserData('in_presets_menu', menu)   
-                return menu
+                    else:
+                        menu.append(f"{str(i)}:  {item}")
+                        
+            else:
+                
+                for i, item in enumerate(_xml(xml).get_name()):
+                    
+                    menu.append(i)
+                    
+                    # ICON bookmarks
+                    #
+                    # If a flame preset from a file is loaded
+                    if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        node.setCachedUserData('in_presets_menu_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
+                        
+                    # If a flame preset from the clipboard is loaded
+                    elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        node.setCachedUserData('in_presets_menu_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                        
+                    else:
+                        menu.append(f"{item}")
+                        
+            node.setCachedUserData('in_presets_menu', menu)   
+            return menu
         
         flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
-        return MENU_PRESETS_EMPTY
+        if xml and not os.path.isfile(xml):
+            return MENU_PRESETS_INVALID
+        else:
+            return MENU_PRESETS_EMPTY
 
 
             
@@ -10781,54 +10792,53 @@ reset_IN(self, mode=0) -> None:
         node = self.node
         
         menu=[]
+        xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
         if node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
-            
-            # This is really to force an extra check
-            xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
-            if os.path.isfile(xml):
                 
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
+            if node.parm(PREFS_ENUMERATE_MENU).eval():
+                
+                for i, item in enumerate(_xml(xml).get_name()):
                     
-                    for i, item in enumerate(_xml(xml).get_name()):
-                        
-                        menu.append(i)
-                        
-                        # ICON bookmarks
-                        #
-                        # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                            node.setCachedUserData('in_presets_menu_off_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
-
-                        else:
-                            menu.append(f"{str(i)}:  {item}")
-
-                else:
+                    menu.append(i)
                     
-                    for i, item in enumerate(_xml(xml).get_name()):
-                        
-                        menu.append(i)
-                        
-                        # ICON bookmarks
-                        #
-                        # If a flame preset from a file is loaded
-                        if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                            node.setCachedUserData('in_presets_menu_off_idx', str(i))
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+                    # ICON bookmarks
+                    #
+                    # If a flame preset from a file is loaded
+                    if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        node.setCachedUserData('in_presets_menu_off_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
 
-                        else:
-                            menu.append(f"{item}")
-                            
-                node.setCachedUserData('in_presets_menu_off', menu)            
-                return menu
+                    else:
+                        menu.append(f"{str(i)}:  {item}")
+
+            else:
+                
+                for i, item in enumerate(_xml(xml).get_name()):
+                    
+                    menu.append(i)
+                    
+                    # ICON bookmarks
+                    #
+                    # If a flame preset from a file is loaded
+                    if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_CLIPBOARD_TOGGLE).eval():
+                        node.setCachedUserData('in_presets_menu_off_idx', str(i))
+                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
+
+                    else:
+                        menu.append(f"{item}")
+                        
+            node.setCachedUserData('in_presets_menu_off', menu)            
+            return menu
             
         else:
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
                     
         flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
-
-        return MENU_PRESETS_EMPTY
+        if xml and not os.path.isfile(xml):
+            return MENU_PRESETS_INVALID
+        else:
+            return MENU_PRESETS_EMPTY
 
             
             
@@ -12650,6 +12660,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         node = self.node
         menu=[]
         xml = node.parm(OUT_PATH).evalAsString()
+        head_tail = os.path.split(xml)
         # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
         # Instead of the lightweight version class: _xml(...)
         apo = _xml_tree(xml)
@@ -12672,7 +12683,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         else:
             flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
-            return MENU_PRESETS_EMPTY
+            if xml and os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
+                return MENU_PRESETS_SAVEONE
+            elif xml and not os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
+                return MENU_PRESETS_INVALID
+            else:
+                return MENU_PRESETS_EMPTY
         
         
         
@@ -13185,7 +13201,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 
             # Otherwise if the output path is valid
             elif out_path_checked is not False:
-                assert out_path_checked is str
+                assert isinstance(out_path_checked, str)
                 
                 if kwargs['shift']:
                     flam3h_general_utils.util_open_file_explorer(out_path_checked)
