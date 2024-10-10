@@ -99,7 +99,7 @@ LIST OF CLASSES:
 
 
 
-FLAM3H_VERSION = '1.4.88'
+FLAM3H_VERSION = '1.4.90'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1627,13 +1627,8 @@ reset_PREFS(self, mode=0) -> None:
         after the preference's option "enumerate presets menu" has been toggled ON or OFF
         """ 
         node = self.node
-        
         # Clear menu caches
-        flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
-        flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
-        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
-        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
-        flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         # CP PRESETS menus
         prm_CP_PALETTE_PRESETS = node.parm(CP_PALETTE_PRESETS)
@@ -1926,6 +1921,9 @@ reset_PREFS(self, mode=0) -> None:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
+        # Clear menu caches
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        
         clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
         
         prm = node.parm(IN_PRESETS)
@@ -1996,9 +1994,7 @@ reset_PREFS(self, mode=0) -> None:
         """    
         node = self.node
         # Clear menu caches
-        flam3h_iterator_utils.destroy_data(node, 'out_presets_menu')
-        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
-        flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         prm = node.parm(OUT_PRESETS)
         prm_sys = node.parm(OUT_SYS_PRESETS)
@@ -2046,6 +2042,9 @@ reset_PREFS(self, mode=0) -> None:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
         """    
         node = self.node
+        # Clear menu cache
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        
         prm = node.parm(CP_PALETTE_PRESETS)
         prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
         prm.set('-1')
@@ -2058,10 +2057,6 @@ reset_PREFS(self, mode=0) -> None:
             
             json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
             if json_file and f3h_json_file:
-                
-                # Clear menu cache
-                flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu')
-                flam3h_iterator_utils.destroy_data(node, 'cp_presets_menu_off')
                 
                 # CP is valid file
                 node.setParms({CP_ISVALID_FILE: 1})
@@ -2500,6 +2495,8 @@ menu_T_PP_get_type_icon(w: float) -> str:
 menu_T_FF_get_var_data(self) -> tuple[int, float]:
 
 METHODS:
+
+destroy_all_menus_data(self) -> None:
 
 refresh_iterator_vars_menu(self) -> None:
 
@@ -3190,13 +3187,33 @@ iterator_keep_last_weight(self) -> None:
         return self._node
         
 
+    def destroy_all_menus_data(self, node: hou.SopNode) -> None:
+        """Force all presets menus to update.
+        This is being added so we can force the presets menus to be rebuilt
+        everywhere we need to help keep them up to date in case the user
+        make any hand made modifications to the loaded files.
+
+        Returns:
+            (None):
+        """  
+        self.destroy_data(node, 'cp_presets_menu')
+        self.destroy_data(node, 'cp_presets_menu_off')
+        # self.destroy_data(node, 'cp_presets_menu_idx')
+        # self.destroy_data(node, 'cp_presets_menu_off_idx')
+        self.destroy_data(node, 'in_presets_menu')
+        self.destroy_data(node, 'in_presets_menu_off')
+        # self.destroy_data(node, 'in_presets_menu_idx')
+        # self.destroy_data(node, 'in_presets_menu_off_idx')
+        self.destroy_data(node, 'out_presets_menu')
+
+
     
     def refresh_iterator_vars_menu(self) -> None:
         """Refresh the iterator (FLAME and FF tabs) menus
         to update to the new menu style mode.
 
         Returns:
-            None: int:
+            (None):
         """  
         node = self.node
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
@@ -5031,7 +5048,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         # Clear menu cache
-        self.destroy_data(node, 'iter_sel')
+        self.destroy_all_menus_data(node)
         
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
@@ -5864,6 +5881,7 @@ reset_CP(self, mode=0) -> None:
         menu=[]
         filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).evalAsString())
         head_tail = os.path.split(filepath)
+        
         if node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
                 
             with open(filepath) as f:
@@ -5919,6 +5937,17 @@ reset_CP(self, mode=0) -> None:
         data = node.cachedUserData('cp_presets_menu')
         data_idx = node.cachedUserData('cp_presets_menu_idx')
         preset_idx = node.parm(CP_PALETTE_PRESETS).eval()
+        
+        # Double check 
+        json = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        is_valid = os.path.isfile(os.path.expandvars(json))
+        if json and not is_valid:
+            node.setParms({CP_ISVALID_FILE: 0})
+            node.setParms({CP_ISVALID_PRESET: 0})
+            data = None
+        elif json and is_valid:
+            node.setParms({CP_ISVALID_FILE: 1})
+            
         if data is not None and data_idx == preset_idx:
             return data
         else:
@@ -5939,7 +5968,8 @@ reset_CP(self, mode=0) -> None:
         menu=[]
         filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).evalAsString())
         head_tail = os.path.split(filepath)
-        if node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
+
+        if os.path.isfile(filepath) and node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
                 
             with open(filepath) as f:
                 menuitems = json.load(f).keys()
@@ -5994,6 +6024,17 @@ reset_CP(self, mode=0) -> None:
         data = node.cachedUserData('cp_presets_menu_off')
         data_idx = node.cachedUserData('cp_presets_menu_off_idx')
         preset_idx = node.parm(CP_PALETTE_PRESETS_OFF).eval()
+        
+        # Double check 
+        json = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
+        is_valid = os.path.isfile(os.path.expandvars(json))
+        if json and not is_valid:
+            node.setParms({CP_ISVALID_FILE: 0})
+            node.setParms({CP_ISVALID_PRESET: 0})
+            data = None
+        elif json and is_valid:
+            node.setParms({CP_ISVALID_FILE: 1})
+            
         if data is not None and data_idx == preset_idx:
             return data
         else:
@@ -6047,9 +6088,12 @@ reset_CP(self, mode=0) -> None:
         as when saving the HSV palette, its colors will be clamped. [0-255]
         """
         
+        node = self.node
+        # Force this data to be rebuilt
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        
         # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
-            node =  self.node
             json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
             hou.ui.copyTextToClipboard(json_data) # type: ignore
             # Clear up palette preset name if any
@@ -6061,7 +6105,6 @@ reset_CP(self, mode=0) -> None:
         
         # Save palette into a file
         else:
-            node = self.node
             palettepath = node.parm(CP_PALETTE_LIB_PATH).evalAsString()
             out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
 
@@ -6374,6 +6417,8 @@ reset_CP(self, mode=0) -> None:
         """
         
         node = self.node
+        # Force this data to be rebuilt
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         # KWARGS
         if use_kwargs:
@@ -10702,7 +10747,7 @@ reset_IN(self, mode=0) -> None:
         menu=[]
         xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
 
-        if node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
+        if os.path.isfile(xml) and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
@@ -10769,6 +10814,17 @@ reset_IN(self, mode=0) -> None:
         data = node.cachedUserData('in_presets_menu')
         data_idx = node.cachedUserData('in_presets_menu_idx')
         preset_idx = node.parm(IN_PRESETS).eval()
+        
+        # Double check 
+        xml = node.parm(IN_PATH).evalAsString()
+        is_valid = os.path.isfile(os.path.expandvars(xml))
+        if xml and not is_valid:
+            node.setParms({IN_ISVALID_FILE: 0})
+            node.setParms({IN_ISVALID_PRESET: 0})
+            data = None
+        elif xml and is_valid:
+            node.setParms({IN_ISVALID_FILE: 1})
+            
         if data is not None and data_idx == preset_idx:
             return data
         else:
@@ -10793,6 +10849,7 @@ reset_IN(self, mode=0) -> None:
         
         menu=[]
         xml = os.path.expandvars(node.parm(IN_PATH).evalAsString())
+
         if node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
                 
             if node.parm(PREFS_ENUMERATE_MENU).eval():
@@ -10854,6 +10911,17 @@ reset_IN(self, mode=0) -> None:
         data = node.cachedUserData('in_presets_menu_off')
         data_idx = node.cachedUserData('in_presets_menu_off_idx')
         preset_idx = node.parm(IN_PRESETS_OFF).eval()
+        
+        # Double check 
+        xml = node.parm(IN_PATH).evalAsString()
+        is_valid = os.path.isfile(os.path.expandvars(xml))
+        if xml and not is_valid:
+            node.setParms({IN_ISVALID_FILE: 0})
+            node.setParms({IN_ISVALID_PRESET: 0})
+            data = None
+        elif xml and is_valid:
+            node.setParms({IN_ISVALID_FILE: 1})
+            
         if data is not None and data_idx == preset_idx:
             return data
         else:
@@ -11467,12 +11535,8 @@ reset_IN(self, mode=0) -> None:
             # Clear menu caches
             ####################################################
             flam3h_iterator_utils.destroy_data(node, 'iter_sel')
-            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
-            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_idx')
-            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
-            flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off_idx')
+            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
 
-            
             # Set toggles and MSG
             ####################################################
             if clipboard:
@@ -12659,7 +12723,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         node = self.node
         menu=[]
-        xml = node.parm(OUT_PATH).evalAsString()
+        xml = os.path.expandvars(node.parm(OUT_PATH).evalAsString())
         head_tail = os.path.split(xml)
         # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
         # Instead of the lightweight version class: _xml(...)
@@ -12702,6 +12766,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         node = self.node
         data = node.cachedUserData('out_presets_menu')
+        
+        # Double check
+        xml = node.parm(OUT_PATH).evalAsString()
+        is_valid = os.path.isfile(os.path.expandvars(xml))
+        if xml and not is_valid:
+            node.setParms({OUT_ISVALID_FILE: 0})
+            data = None
+        elif xml and is_valid:
+            node.setParms({OUT_ISVALID_FILE: 1})
+            
         if data is not None:
             return data
         else:
@@ -13186,6 +13260,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         It allow for writing out a new file or append to the current XML flame file.
         """        
         node = self.node
+        # Force this data to be rebuilt
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        
         kwargs = self.kwargs
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         
