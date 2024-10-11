@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.4.88 - Gold
+#version: 1.4.94 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -175,7 +175,7 @@ iterations:
 :box:
     #display: rounded white
 
-== SYS parameters == (SYS)
+== SYS: System options and utils == (SYS)
 
 ~~~
 :box:
@@ -352,18 +352,23 @@ frame viewport:
 :box:
     #display: rounded white
     
-    == SYS: Color palette == (SYSCP)
+    == SYS: CP color palette == (SYSCP)
     
 mini-menu CP Presets [Smallicon:BUTTONS/pane_menu]:
     #id: SYS
     Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
-    The selected menu entrie is tagged with an icon based on its state:
+    The selected menu entrie posses a bookmark icon based on its state:
     
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
+
+    Additionally:
+
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
@@ -389,20 +394,24 @@ CP Preset reload:
 :box:
     #display: rounded white
     
-    == SYS: IN Presets == (SYSIN)
+    == SYS: IN Flame presets == (SYSIN)
     
 mini-menu IN Presets [Smallicon:BUTTONS/pane_menu]:
     #id: SYS
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
     
-    The selected menu entrie is tagged with an icon based on its state:
+    The selected menu entrie posses a bookmark icon based on its state:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard. If a valid Flame file was already loaded, the current menu label will be prefixed with: *`[CLIPBOARD]`*
     
+    Additionally:
+
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+
     TIP:
         #display: orange
         To populate this menu, load a valid *.flame file first inside the IN Tab,
@@ -414,7 +423,7 @@ IN Preset reload:
     
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
-    
+
     Usage:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
@@ -441,8 +450,13 @@ mini-menu OUT Presets [Smallicon:BUTTONS/pane_menu]:
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
 
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
+
+    Additionally:
+
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
     
     TIP:
         #display: orange
@@ -1304,11 +1318,16 @@ menu CP file contents [Smallicon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
-    The selected menu entrie is tagged with an icon based on its state:
+    The selected menu entrie posses a bookmark icon based on its state:
     
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
+
+    Additionally:
+    
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
@@ -1469,12 +1488,16 @@ menu IN file contents [Smallicon:BUTTONS/pane_menu]:
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
     Each entry will display the Flame's name.
     
-    The selected menu entrie is tagged with an icon based on its state:
+    The selected menu entrie posses a bookmark icon based on its state:
     
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard. If a valid Flame file was already loaded, the current menu label will be prefixed with: *`[CLIPBOARD]`*
+
+    Additionally:
+    
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
 Reload:
     #id: IN
@@ -1710,7 +1733,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.4.88" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.4.94" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1852,8 +1875,13 @@ menu OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
 
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
+
+    Additionally:
+    
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
 Copy selected preset name / Flame name informations and tips:
     #id: FLAME
@@ -1963,7 +1991,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.4.88" ... >
+          <flame version="FLAM3H-WIN-1.4.94" ... >
               ...
         }}}
         
@@ -1972,7 +2000,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.4.88" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.4.94" ... >
               ...
         }}}
         
@@ -2181,16 +2209,6 @@ display prefs:
     #display: round white
     
     == Prefs: General == (PREFSGENERAL)
-
-viewport bbox size (hidden):
-    #id: prefs
-    
-    The bounding box size that will be viewport framed when the SYS Tab frameview icon is clicked.
-    
-    A value of 1 should work well in every situation, but you can increase it if you'd like.
-    
-    Consider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.
-    Once this value is changed, Click the SYS Tab Frame viewport to see the new framing.
     
 
 flash messages (network editor):
@@ -2199,11 +2217,6 @@ flash messages (network editor):
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
-        
-
-Auto correct output paths:
-    #id: prefs
-    ON by default. This is a simple autocorrection of the output file paths for the CP and OUT Tabs.
 
 
 :box:
