@@ -3422,7 +3422,7 @@ iterator_keep_last_weight(self) -> None:
         
         # This data get created inside: menu_T_simple(self, FF=False) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data = node.cachedUserData('vars_menu_all_simple')
+        data: Union[list, None] = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
             return data
         else:
@@ -3447,7 +3447,7 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         # This data get created inside: menu_T_simple(self, FF=False) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data = node.cachedUserData('vars_menu_all_simple')
+        data: Union[list, None] = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
             return data
         else:
@@ -3557,7 +3557,7 @@ iterator_keep_last_weight(self) -> None:
         data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
         [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
         
-        menu = node.cachedUserData('iter_sel')
+        menu: Union[list, None] = node.cachedUserData('iter_sel')
         if menu is not None:
             return menu
         else:
@@ -6024,8 +6024,8 @@ reset_CP(self, mode=0) -> None:
             list: Return a menu
         """
         node = self.node
-        data = node.cachedUserData('cp_presets_menu')
-        data_idx = node.cachedUserData('cp_presets_menu_idx')
+        data: Union[list, None] = node.cachedUserData('cp_presets_menu')
+        data_idx: Union[str, None] = node.cachedUserData('cp_presets_menu_idx')
         preset_idx = node.parm(CP_PALETTE_PRESETS).eval()
         
         # Double check 
@@ -6093,8 +6093,8 @@ reset_CP(self, mode=0) -> None:
             list: Return a menu
         """
         node = self.node
-        data = node.cachedUserData('cp_presets_menu_off')
-        data_idx = node.cachedUserData('cp_presets_menu_off_idx')
+        data: Union[list, None] = node.cachedUserData('cp_presets_menu_off')
+        data_idx: Union[str, None] = node.cachedUserData('cp_presets_menu_off_idx')
         preset_idx = node.parm(CP_PALETTE_PRESETS_OFF).eval()
         
         # Double check 
@@ -10978,8 +10978,8 @@ reset_IN(self, mode=0) -> None:
             list: Return a menu
         """
         node = self.node
-        data = node.cachedUserData('in_presets_menu')
-        data_idx = node.cachedUserData('in_presets_menu_idx')
+        data: Union[list, None] = node.cachedUserData('in_presets_menu')
+        data_idx: Union[str, None] = node.cachedUserData('in_presets_menu_idx')
         preset_idx = node.parm(IN_PRESETS).eval()
         
         # Double check 
@@ -11051,8 +11051,8 @@ reset_IN(self, mode=0) -> None:
             list: Return a menu
         """
         node = self.node
-        data = node.cachedUserData('in_presets_menu_off')
-        data_idx = node.cachedUserData('in_presets_menu_off_idx')
+        data: Union[list, None] = node.cachedUserData('in_presets_menu_off')
+        data_idx: Union[str, None] = node.cachedUserData('in_presets_menu_off_idx')
         preset_idx = node.parm(IN_PRESETS_OFF).eval()
         
         # Double check 
@@ -12945,7 +12945,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             list: Return a menu
         """
         node = self.node
-        data = node.cachedUserData('out_presets_menu')
+        data: Union[list, None] = node.cachedUserData('out_presets_menu')
         
         # Double check
         xml = node.parm(OUT_PATH).eval()
