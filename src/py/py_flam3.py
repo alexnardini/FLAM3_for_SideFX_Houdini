@@ -52,7 +52,7 @@ import nodesearch
 #               Everything is then glued together inside Houdini.
 #
 #               _NOTE:
-#                   Some definitions are ran directly from inside the FLAM3H parameters.
+#                   Some definitions run directly from inside the FLAM3H parameters.
 #                   Please check the file: ../py_flam3_UI_PRM_map.py
 #                   to see if any of the definition you are curious about is being used inside any of the FLAM3H parameters directly.
 #                   The file include a list/map of all the definitions used directly inside FLAM3H and categorized as:
@@ -5561,13 +5561,13 @@ menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str
 
 METHODS:
 
-menu_ramp_presets_data(self) -> list:
+menu_cp_presets_data(self) -> list:
 
-menu_ramp_presets(self) -> list:
+menu_cp_presets(self) -> list:
 
-menu_ramp_presets_empty_data(self) -> list:
+menu_cp_presets_empty_data(self) -> list:
 
-menu_ramp_presets_empty(self) -> list:
+menu_cp_presets_empty(self) -> list:
 
 flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 
@@ -5979,7 +5979,7 @@ reset_CP(self, mode=0) -> None:
 
 
 
-    def menu_ramp_presets_data(self) -> list:
+    def menu_cp_presets_data(self) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
 
@@ -6016,7 +6016,7 @@ reset_CP(self, mode=0) -> None:
             return MENU_PRESETS_EMPTY
     
     
-    def menu_ramp_presets(self) -> list:
+    def menu_cp_presets(self) -> list:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
@@ -6042,15 +6042,15 @@ reset_CP(self, mode=0) -> None:
         if data is not None and data_idx == preset_idx:
             return data
         else:
-            return self.menu_ramp_presets_data()
+            return self.menu_cp_presets_data()
     
 
-    def menu_ramp_presets_empty_data(self) -> list:
+    def menu_cp_presets_empty_data(self) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only becasue if I change the icon dynamically inside: def menu_ramp_presets(self) -> list:
-        Houdini not updated them until I dnt execute a "next" selection in the menu parameter.
+        This definition exist only becasue if I change the icon dynamically inside: def menu_cp_presets(self) -> list:
+        Houdini will not update them until I dnt execute a "next" selection in the menu parameter.
 
         Returns:
             list: _description_
@@ -6085,7 +6085,7 @@ reset_CP(self, mode=0) -> None:
             return MENU_PRESETS_EMPTY
     
     
-    def menu_ramp_presets_empty(self) -> list:
+    def menu_cp_presets_empty(self) -> list:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
@@ -6111,7 +6111,7 @@ reset_CP(self, mode=0) -> None:
         if data is not None and data_idx == preset_idx:
             return data
         else:
-            return self.menu_ramp_presets_empty_data()
+            return self.menu_cp_presets_empty_data()
 
 
 

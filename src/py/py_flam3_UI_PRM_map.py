@@ -32,7 +32,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 """
 Inside: OTL->type_properties->Scripts->PreFirstCreate
 """
-FLAM3H_VERSION = '1.4.88 - Gold'
+FLAM3H_VERSION = '1.4.90 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -216,7 +216,7 @@ n = None
 
 'parameter name:    sys_palettepresets_off'
 'script type:       Menu Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets_empty()
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
 'script type:       Action Script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
@@ -226,7 +226,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False)
 'script type:       Menu Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
 'script type:       Action Script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
@@ -440,11 +440,21 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
 
+'parameter name:    palettepresets_off'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False)
+'script type:       Menu Script'
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
+return menu
+'script type:       Action Button'
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
+
+
 'parameter name:    palettepresets'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False)
 'script type:       Menu Script'
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_ramp_presets()
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
 'script type:       Action Button'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
