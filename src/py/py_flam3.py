@@ -5048,6 +5048,7 @@ iterator_keep_last_weight(self) -> None:
         
         node = self.node
         # Clear menu cache
+        self.destroy_data(node, 'iter_sel')
         self.destroy_all_menus_data(node)
         
         # Iterators reset
