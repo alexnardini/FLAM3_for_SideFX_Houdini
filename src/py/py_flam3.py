@@ -3151,6 +3151,12 @@ iterator_keep_last_weight(self) -> None:
 
     @staticmethod
     def menu_T_get_type_icon(w: float) -> str:
+        """Return the proper bookmark icon to use in the menu label for the selected variation and weight.
+        This is to be used for the VAR section in the iterator (FLAME and FF tabs) 
+
+        Returns:
+            w (float): The selected variation type weight parameter's value.
+        """
         if w > 0:
             if w > 1:
                 return FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
@@ -3164,6 +3170,12 @@ iterator_keep_last_weight(self) -> None:
     
     @staticmethod
     def menu_T_PP_get_type_icon(w: float) -> str:
+        """Return the proper bookmark icon to use in the menu label for the selected PRE or POST variation and weight.
+        This is to be used for the PRE and POST sections in the iterator (FLAME and FF tabs) 
+
+        Returns:
+            w (float): The selected variation type weight parameter's value.
+        """
         if w > 0:
             if w > 1:
                 return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
