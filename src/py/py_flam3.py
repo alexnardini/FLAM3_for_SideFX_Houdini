@@ -2496,7 +2496,15 @@ menu_T_FF_get_var_data(self) -> tuple[int, float]:
 
 METHODS:
 
-destroy_all_menus_data(self) -> None:
+iterator_affine_scale(self) -> None:
+
+iterator_post_affine_scale(self) -> None:
+
+iterator_FF_affine_scale(self) -> None:
+
+iterator_FF_post_affine_scale(self) -> None:
+
+destroy_all_menus_data(self, node: hou.SopNode) -> None:
 
 refresh_iterator_vars_menu(self) -> None:
 
@@ -3197,6 +3205,103 @@ iterator_keep_last_weight(self) -> None:
     @property
     def node(self):
         return self._node
+    
+    
+    def iterator_affine_scale(self) -> None:
+        """Scale the affine X and Y of an amount.
+        The default value is: 1 whitch mean 100% and so no scale.
+        Once changed it will scale the affine values and reset itself back to being: 1
+        For example if you type a value of: 1.2, it will scale the affine up by 20%.
+        It is an initial test, and it may or may not change/improve with time.
+
+        Returns:
+            (None):
+        """  
+        idx = self.kwargs['script_multiparm_index']
+        scl: float = hou.parm(f"scl_{idx}").eval()
+        x: tuple = hou.parmTuple(f"x_{idx}").eval()
+        y: tuple = hou.parmTuple(f"y_{idx}").eval()
+        m2 = hou.Matrix2((x, y))
+        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
+        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        self.node.setParms({f"x_{idx}": hou.Vector2((m2_new[0]))})
+        self.node.setParms({f"y_{idx}": hou.Vector2((m2_new[1]))})
+        # Reset to no-scale value (1 being 100%)
+        self.node.setParms({f"scl_{idx}": 1})
+        
+        
+    def iterator_post_affine_scale(self) -> None:
+        """Scale the affine X and Y of an amount.
+        The default value is: 1 whitch mean 100% and so no scale.
+        Once changed it will scale the affine values and reset itself back to being: 1
+        For example if you type a value of: 1.2, it will scale the affine up by 20%.
+        The best way to use it is to click in the numeric field and use the mouse wheel to scale up and down.
+        Holding [SHIFT] will scale with an increment of: 0.01
+        
+        It is an initial test, and it may or may not change/improve with time.
+
+
+        Returns:
+            (None):
+        """  
+        idx = self.kwargs['script_multiparm_index']
+        scl: float = hou.parm(f"pscl_{idx}").eval()
+        x: tuple = hou.parmTuple(f"px_{idx}").eval()
+        y: tuple = hou.parmTuple(f"py_{idx}").eval()
+        m2 = hou.Matrix2((x, y))
+        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
+        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        self.node.setParms({f"px_{idx}": hou.Vector2((m2_new[0]))})
+        self.node.setParms({f"py_{idx}": hou.Vector2((m2_new[1]))})
+        # Reset to no-scale value (1 being 100%)
+        self.node.setParms({f"pscl_{idx}": 1})
+        
+        
+    def iterator_FF_affine_scale(self) -> None:
+        """Scale the affine X and Y of an amount.
+        The default value is: 1 whitch mean 100% and so no scale.
+        Once changed it will scale the affine values and reset itself back to being: 1
+        For example if you type a value of: 1.2, it will scale the affine up by 20%.
+        It is an initial test, and it may or may not change/improve with time.
+
+        Returns:
+            (None):
+        """  
+        scl: float = hou.parm("ffscl").eval()
+        x: tuple = hou.parmTuple("ffx").eval()
+        y: tuple = hou.parmTuple("ffy").eval()
+        m2 = hou.Matrix2((x, y))
+        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
+        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        self.node.setParms({"ffx": hou.Vector2((m2_new[0]))})
+        self.node.setParms({"ffy": hou.Vector2((m2_new[1]))})
+        # Reset to no-scale value (1 being 100%)
+        self.node.setParms({"ffscl": 1})
+        
+        
+    def iterator_FF_post_affine_scale(self) -> None:
+        """Scale the affine X and Y of an amount.
+        The default value is: 1 whitch mean 100% and so no scale.
+        Once changed it will scale the affine values and reset itself back to being: 1
+        For example if you type a value of: 1.2, it will scale the affine up by 20%.
+        It is an initial test, and it may or may not change/improve with time.
+
+        Returns:
+            (None):
+        """  
+        scl: float = hou.parm("ffpscl").eval()
+        x: tuple = hou.parmTuple("ffpx").eval()
+        y: tuple = hou.parmTuple("ffpy").eval()
+        m2 = hou.Matrix2((x, y))
+        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
+        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        self.node.setParms({"ffpx": hou.Vector2((m2_new[0]))})
+        self.node.setParms({"ffpy": hou.Vector2((m2_new[1]))})
+        # Reset to no-scale value (1 being 100%)
+        self.node.setParms({"ffpscl": 1})
+
+        
+        
         
 
     def destroy_all_menus_data(self, node: hou.SopNode) -> None:
