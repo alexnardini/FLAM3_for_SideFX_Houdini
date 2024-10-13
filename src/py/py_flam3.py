@@ -34,7 +34,7 @@ import nodesearch
 #               PYTHON v3.10.10 (H20)
 #               PYTHON v3.11.7  (H20.5)
 #
-#   Title:      SideFX Houdini FLAM3: PYTHON
+#   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
 #   date:       January 2023, Last revised October 2024
 #
@@ -3315,12 +3315,8 @@ iterator_keep_last_weight(self) -> None:
         """  
         self.destroy_data(node, 'cp_presets_menu')
         self.destroy_data(node, 'cp_presets_menu_off')
-        # self.destroy_data(node, 'cp_presets_menu_idx')
-        # self.destroy_data(node, 'cp_presets_menu_off_idx')
         self.destroy_data(node, 'in_presets_menu')
         self.destroy_data(node, 'in_presets_menu_off')
-        # self.destroy_data(node, 'in_presets_menu_idx')
-        # self.destroy_data(node, 'in_presets_menu_off_idx')
         self.destroy_data(node, 'out_presets_menu')
 
 

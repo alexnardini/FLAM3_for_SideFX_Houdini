@@ -1,6 +1,6 @@
 
 
-#   Title:      SideFX Houdini FLAM3: MAP PRM Definitions
+#   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini
 #   date:       April 2023, Last revised October 2024
 #
