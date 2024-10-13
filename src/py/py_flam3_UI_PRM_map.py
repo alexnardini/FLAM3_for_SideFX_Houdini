@@ -210,7 +210,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # SYS Tab: CP
 'parameter name:    sys_palettepresets_disabled'
-'script type:       Action Button'
+'script type:       Action Button script'
 n = None
 
 
@@ -237,7 +237,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 n = None
 
 
@@ -247,13 +247,13 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 
 # SYS Tab: OUT
 'parameter name:    sys_outpresets_disabled'
-'script type:       Action Button'
+'script type:       Action Button script'
 n = None
 
 
@@ -261,7 +261,7 @@ n = None
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 
 
@@ -276,12 +276,12 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 
 'parameter name:    doiter_disabled_#'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
 
 
 'parameter name:    doiter_#'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vactive_STAR()
 
 
@@ -301,12 +301,12 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 
 
 'parameter name:    xaos_#'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
 
@@ -337,24 +337,28 @@ menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
 return menu
 
 
-'parameter name:    ang_#'
-'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
-
-
-'parameter name:    cppostaffine_#'
-'script type:       Action Button'
+'parameter name:    scl_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_affine_scale()
+'script type:       Action Button script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine()
 
 
-'parameter name:    pang_#'
-'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()
+'parameter name:    ang_#'
+'script type:       Action Button script'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
 
 
-'parameter name:    cppreaffine_#'
-'script type:       Action Button'
+'parameter name:    pscl_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_post_affine_scale()
+'script type:       Action Button script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine()
+
+
+'parameter name:    pang_#'
+'script type:       Action Button script'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()
 
 
 
@@ -368,7 +372,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 
@@ -386,23 +390,32 @@ menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(True)
 return menu
 
 
-'parameter name:    ffang'
-'script type:       Action Button'
-kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()
-
-
-'parameter name:    cpffpostaffine'
-'script type:       Action Button'
+'parameter name:    ffscl_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_scale()
+'script type:       Action Button script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine_FF()
 
 
+'parameter name:    ffang'
+'script type:       Action Button script'
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()
+
+
+'parameter name:    ffpscl_#'
+'script type:       Callback Script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affine_scale()
+'script type:       Action Button script'
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()
+
+
 'parameter name:    ffpang'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()
 
 
 'parameter name:    cpffpreaffine'
-'script type:       Action Button'
+'script type:       Action Button script'
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()
 
 
@@ -411,32 +424,31 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_aff
 # PARAMETRS COLOR PALETTE ( CP Tab )
 #######################################################
 
-
 'parameter name:    hsv'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_hsv()
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 
 
 'parameter name:    palettehsv'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_lock()
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 
 
 'parameter name:    palette'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 
 
 'parameter name:    palettefile'
 'script type:       Callbac Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
 
@@ -446,7 +458,7 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(Fal
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 
 
@@ -456,7 +468,7 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(Fal
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 
 
@@ -464,7 +476,6 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 #######################################################
 # PARAMETERS LOAD FLAMES ( IN Tab )
 #######################################################
-
 
 'parameter name:    inpath'
 'script type:       Callback Script'
@@ -477,7 +488,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 
@@ -536,7 +547,6 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 # PARAMETERS SAVE FLAMES ( OUT Tab )
 #######################################################
 
-
 'parameter name:    outpath'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
@@ -545,7 +555,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT
 'parameter name:    outname'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 
@@ -553,7 +563,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 'script type:       Menu Script'
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_label_callback()
 
 
@@ -565,7 +575,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 'parameter name:    outedit'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_off("outsensor")
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()
 
 
@@ -627,7 +637,6 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 # PREFERENCES ( prefs Tab )
 #######################################################
 
-
 'parameter name:    enumeratemenu'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs()
@@ -666,7 +675,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 'parameter name:    vpptsize'
 'script type:       Callback Script'
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)
 
 
@@ -680,26 +689,26 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web'
 
 
 'parameter name:    flam3github'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git')
 
 
 'parameter name:    flam3insta'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('insta')
 
 
 'parameter name:    flam3youtube'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')
 
 
 'parameter name:    tffa_pdf'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('paper')
 
 
 'parameter name:    tffa_flam3github'
-'script type:       Action Button'
+'script type:       Action Button script'
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')
 
