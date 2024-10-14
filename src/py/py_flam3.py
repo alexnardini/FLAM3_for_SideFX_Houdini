@@ -11281,10 +11281,10 @@ reset_IN(self, mode=0) -> None:
 
 
     def in_to_flam3h_toggle_f3h_affine(self) -> None:
-        """When loading a flame preset that use FLAM3H affine style, this function will reload it
-        and switch the "FLAM3H affine style" toggle ON/OFF on the fly.
+        """When loading a flame preset that use F3H affine style, this function will reload it
+        and switch the "F3H affine style" toggle ON/OFF on the fly.
         
-        If no FLAM3H affine style are present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
+        If no F3H affine style are present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
         """ 
         node = self.node
         xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
@@ -11300,13 +11300,13 @@ reset_IN(self, mode=0) -> None:
                 
             else:
                 if clipboard:
-                    _MSG = f"{node.name()}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have FLAM3H affine style."
+                    _MSG = f"{node.name()}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have F3H affine style."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 else:
                     # Get the correct menu parameter's preset menu label
                     preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
                         
-                    _MSG = f"{node.name()}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have FLAM3H affine style."
+                    _MSG = f"{node.name()}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have F3H affine style."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 
         else:
