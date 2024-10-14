@@ -5695,7 +5695,7 @@ json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 
 json_to_flam3h_ramp_sys(self, use_kwargs=True) -> None:
 
-json_to_flam3h_ramp(self, use_kwargs=True) -> None:
+json_to_flam3h_ramp(self, use_kwargs: bool=True) -> None:
 
 palette_cp(self) -> None:
 
