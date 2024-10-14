@@ -849,7 +849,7 @@ pre affine - Scale:
     # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
     # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
 
-    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to a value of: *`1`* (100% -> no scale)
+    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to the default value of: *`1`* (100% -> no scale)
 
     When using the ((mouse_wheel)):
     - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
@@ -924,7 +924,7 @@ post affine - Scale:
     # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
     # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
 
-    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to a value of: *`1`* (100% -> no scale)
+    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to the default value of: *`1`* (100% -> no scale)
 
     When using the ((mouse_wheel)):
     - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
