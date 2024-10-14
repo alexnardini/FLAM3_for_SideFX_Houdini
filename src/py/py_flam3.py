@@ -1370,7 +1370,7 @@ util_set_clipping_viewers(self) -> None:
 
 util_set_front_viewer(self, update: bool=True) -> bool:
 
-util_set_front_viewer_all(self) -> bool:
+util_set_front_viewer_all(self, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
 
 util_viewport_bbox_frame(self) -> None:
 
@@ -1693,27 +1693,6 @@ reset_PREFS(self, mode=0) -> None:
             settings.clipPlanes()
 
 
-    def util_set_front_viewer_check_is_loading_hip_file(self, view, _SYS_FRAME_VIEW_SENSOR_prm: bool) -> bool:
-        
-        if self.bbox_sensor_path is not None:
-            node_bbox = hou.node(self.bbox_sensor_path)
-            if hou.hipFile.isLoadingHipFile(): # type: ignore
-                try:
-                    # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                    # but work on H20.0.590 and up, hence the try/except block
-                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                except:
-                    self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                    return False
-            else:
-                view.frameBoundingBox(node_bbox.geometry().boundingBox())
-
-            if _SYS_FRAME_VIEW_SENSOR_prm:
-                self.flash_message(self.node, f"Camera sensor REFRAMED")
-                
-            return True
-
-
 
     def util_set_front_viewer(self, update: bool=True) -> bool:
         """Set front view when entering the camera sensor mode.
@@ -1735,11 +1714,13 @@ reset_PREFS(self, mode=0) -> None:
         """     
            
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            node = self.node
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             # check if there are more than one viewport available
             viewports = self.util_getSceneViewers()
             
+            # Get some data for down the line condition checks
             update_sensor = self.node.parm(OUT_UPDATE_SENSOR).eval()
             _SYS_FRAME_VIEW_SENSOR_prm = False
             try:
@@ -1776,13 +1757,13 @@ reset_PREFS(self, mode=0) -> None:
                                 # but work on H20.0.590 and up, hence the try/except block
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
                             except:
-                                self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                 return False
                         else:
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
                         if _SYS_FRAME_VIEW_SENSOR_prm:
-                            self.flash_message(self.node, f"Camera sensor REFRAMED")
+                            self.flash_message(node, f"Camera sensor REFRAMED")
                             
                         return True
 
@@ -1797,23 +1778,24 @@ reset_PREFS(self, mode=0) -> None:
                                     # but work on H20.0.590 and up, hence the try/except block
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 except:
-                                    self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                    node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                     return False
                             else:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 
                                 if _SYS_FRAME_VIEW_SENSOR_prm:
-                                    self.flash_message(self.node, f"Camera sensor REFRAMED")
+                                    self.flash_message(node, f"Camera sensor REFRAMED")
                                     
                             return True
                         
                 return False
-                
-            # Otherwise set them all without storing any stashed camera data       
+                     
             else:
-                if self.util_set_front_viewer_all(update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
+                # Otherwise set them all without storing any stashed camera data  
+                if self.util_set_front_viewer_all(node, update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
                     return True
                 else:
+                    # Or just exit the Sensor Viz mode
                     self.flam3h_other_sensor_viz_off(self.node)
                     self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                     return False
@@ -1821,19 +1803,24 @@ reset_PREFS(self, mode=0) -> None:
         return False
 
 
-    def util_set_front_viewer_all(self, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
+    def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
         """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
         It will activate the Sensor Viz in all available viewports but without storing and restoring a stashed camera.
 
         Args:
-            (None):
+            node(hou.SopNode): FLAM3H node
+            update_sensor(bool): Is the force sensor update toggle ON or OFF ?
+            _SYS_FRAME_VIEW_SENSOR_prm(bool): Is this being run from the SYS tab reframe viewport icon ?
+            update(bool): Is the updated Sensor Viz toggle ON or OFF ?
             
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
         """ 
-        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            
             viewports = self.util_getSceneViewers()
             if len(viewports):
+                # Set them all without storing any stashed camera data 
                 self.util_set_clipping_viewers()
                 for v in self.util_getSceneViewers():
                         view = v.curViewport()
@@ -1848,7 +1835,7 @@ reset_PREFS(self, mode=0) -> None:
                                         # but work on H20.0.590 and up, hence the try/except block
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     except:
-                                        self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                        node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                         return False
                                 else:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -1876,8 +1863,8 @@ reset_PREFS(self, mode=0) -> None:
                 return True
             
             else:
-                node = self.node
-                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                # Exit the Sensor Viz mode
+                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                 
                 _MSG = f"No viewports in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the Sensor Viz to work.", 'WARN')
