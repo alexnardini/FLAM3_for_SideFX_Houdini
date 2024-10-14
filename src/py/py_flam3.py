@@ -63,7 +63,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.4.94'
+FLAM3H_VERSION = '1.4.95'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1368,9 +1368,9 @@ get_bbox_node_path(self, node_name: str) -> Union[str, None]:
 
 util_set_clipping_viewers(self) -> None:
 
-util_set_front_viewer(self, update=True) -> None:
+util_set_front_viewer(self, update: bool=True) -> bool:
 
-util_set_front_viewer_all(self) -> None:
+util_set_front_viewer_all(self) -> bool:
 
 util_viewport_bbox_frame(self) -> None:
 
@@ -1569,7 +1569,7 @@ reset_PREFS(self, mode=0) -> None:
         desktop = hou.ui.curDesktop() # type: ignore
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
-        if viewport.isCurrentTab():
+        if viewport is not None and viewport.isCurrentTab():
             view = viewport.curViewport()
             
             try:
@@ -1694,7 +1694,7 @@ reset_PREFS(self, mode=0) -> None:
 
 
 
-    def util_set_front_viewer(self, update: bool=True) -> None:
+    def util_set_front_viewer(self, update: bool=True) -> bool:
         """Set front view when entering the camera sensor mode.
         This include storing and restoring the current viewport prior to entering the camera sensor mode.
         
@@ -1712,7 +1712,10 @@ reset_PREFS(self, mode=0) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
-            if viewport.isCurrentTab():
+
+            # If the viewport is: viewport.isCurrentTab()
+            # give its best and store all the viewport data to be restored
+            if viewport is not None and viewport.isCurrentTab():
                 
                 _SYS_FRAME_VIEW_SENSOR_prm = False
                 try:
@@ -1751,6 +1754,8 @@ reset_PREFS(self, mode=0) -> None:
 
                         if _SYS_FRAME_VIEW_SENSOR_prm:
                             self.flash_message(self.node, f"Camera sensor REFRAMED")
+                            
+                        return True
 
                 else:
                     update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
@@ -1769,21 +1774,44 @@ reset_PREFS(self, mode=0) -> None:
                                 
                                 if _SYS_FRAME_VIEW_SENSOR_prm:
                                     self.flash_message(self.node, f"Camera sensor REFRAMED")
+                                    
+                            return True
+                        
+                return False
+                
+            # Otherwise set them all without storing any stashed camera data       
+            else:
+                if self.util_set_front_viewer_all():
+                    return True
+                else:
+                    self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                    return False
+                
+        return False
 
 
-
-    # Wip and not currently used.
-    def util_set_front_viewer_all(self) -> None:
+    def util_set_front_viewer_all(self) -> bool:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
-            self.util_set_clipping_viewers()
-            for v in self.util_getSceneViewers():
-                view = v.curViewport()
-                if view.type() != hou.geometryViewportType.Front: # type: ignore
-                    view.changeType(hou.geometryViewportType.Front) # type: ignore
-                if self.bbox_sensor_path is not None:
-                    node_bbox = hou.node(self.bbox_sensor_path)
-                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
-
+            viewports = self.util_getSceneViewers()
+            if len(viewports):
+                self.util_set_clipping_viewers()
+                for v in self.util_getSceneViewers():
+                    view = v.curViewport()
+                    if view.type() != hou.geometryViewportType.Front: # type: ignore
+                        view.changeType(hou.geometryViewportType.Front) # type: ignore
+                    if self.bbox_sensor_path is not None:
+                        node_bbox = hou.node(self.bbox_sensor_path)
+                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                return True
+            else:
+                node = self.node
+                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                _MSG = f"No viewports in the current Houdini Desktop."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the Sensor Viz to work.", 'WARN')
+                self.flash_message(node, f"{node.name()}: No viewports in the current Houdini Desktop.")
+                return False
+            
+        return False
 
 
     def util_viewport_bbox_frame(self) -> None:
@@ -1861,11 +1889,12 @@ reset_PREFS(self, mode=0) -> None:
                 self.flam3h_other_sensor_viz_off(node)
                 # Set this FLAM3H node to enter the camera sensor viz mode
                 self.util_set_clipping_viewers()
-                self.util_set_front_viewer()
+                msg = self.util_set_front_viewer()
                 
-                _MSG = f"Sensor viz: ON"
-                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                self.flash_message(node, _MSG)
+                if msg:
+                    _MSG = f"Sensor viz: ON"
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    self.flash_message(node, _MSG)
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                 node.setParms({prm: 0})
@@ -13615,7 +13644,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             else:
                 _MSG = f"{node.name()}: SAVE Flame -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Flame OUT -> Select a valid output file")
+                flam3h_general_utils.flash_message(node, f"Flame OUT: Select a valid output file")
 
 
 
