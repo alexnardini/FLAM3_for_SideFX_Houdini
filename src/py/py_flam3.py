@@ -1696,7 +1696,8 @@ reset_PREFS(self, mode=0) -> None:
 
     def util_set_front_viewer(self, update: bool=True) -> bool:
         """Set front view when entering the camera sensor mode.
-        This include storing and restoring the current viewport prior to entering the camera sensor mode.
+        This include storing and restoring the current viewport prior to entering the camera sensor mode if there is only one and is: viewport.isCurrentTab().
+        Otherwise it will set them all if multiple viewports are present but without the ability to store and restore a stashed camera.
         
         This definition is multipurpose, it is run from multiple parameters:
         - When run from the SYS prm: _SYS_FRAME_VIEW_SENSOR_prm it will also print a flash message.
@@ -1715,10 +1716,11 @@ reset_PREFS(self, mode=0) -> None:
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
-
+            # check if there are more than one viewport available
+            viewports = self.util_getSceneViewers()
             # If the viewport is: viewport.isCurrentTab()
             # give its best and store all the viewport data to be restored
-            if viewport is not None and viewport.isCurrentTab():
+            if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
                 _SYS_FRAME_VIEW_SENSOR_prm = False
                 try:
@@ -1798,7 +1800,7 @@ reset_PREFS(self, mode=0) -> None:
 
     def util_set_front_viewer_all(self) -> bool:
         """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
-        It will activate the Sensor Viz in all available viewports.
+        It will activate the Sensor Viz in all available viewports but without storing and restoring a stashed camera.
 
         Args:
             (None):
@@ -1818,12 +1820,15 @@ reset_PREFS(self, mode=0) -> None:
                         node_bbox = hou.node(self.bbox_sensor_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                 return True
+            
             else:
                 node = self.node
                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                
                 _MSG = f"No viewports in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the Sensor Viz to work.", 'WARN')
                 self.flash_message(node, f"{node.name()}: No viewports in the current Houdini Desktop.")
+                
                 return False
             
         return False
