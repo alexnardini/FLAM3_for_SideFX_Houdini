@@ -1849,7 +1849,7 @@ reset_PREFS(self, mode=0) -> None:
             self.util_set_stashed_cam()
             self.util_clear_stashed_cam_data()
 
-            _MSG = f"Sensor viz -> OFF"
+            _MSG = f"Sensor viz: OFF"
             self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             self.flash_message(node, _MSG)
             
@@ -1863,7 +1863,7 @@ reset_PREFS(self, mode=0) -> None:
                 self.util_set_clipping_viewers()
                 self.util_set_front_viewer()
                 
-                _MSG = f"Sensor viz -> ON"
+                _MSG = f"Sensor viz: ON"
                 self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 self.flash_message(node, _MSG)
             else:
