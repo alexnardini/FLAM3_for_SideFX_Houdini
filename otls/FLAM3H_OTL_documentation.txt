@@ -406,7 +406,7 @@ mini-menu IN Presets [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard. If a valid Flame file was already loaded, the current menu label will be prefixed with: *`[CLIPBOARD]`*
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.<br />If a valid Flame file was already loaded, the selected menu label will be prefixed with: *`[CLIPBOARD]`*
     
     Additionally:
 
@@ -422,7 +422,7 @@ IN Preset reload:
     #id: SYS
     
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
-    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.<br />This indicate that a Flame preset stats infos are visible inside the IN Tab.
 
     Usage:
     
@@ -561,7 +561,7 @@ copy/paste:
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or Zero weight.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or Zero Weight.
 
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -1408,7 +1408,7 @@ palette 256+ (CP):
         #display: orange
         When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
-save Palette HSV:
+palette HSV (CP):
     #id: PALETTE
     OFF by default.
     
@@ -1536,7 +1536,7 @@ menu IN file contents [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard. If a valid Flame file was already loaded, the current menu label will be prefixed with: *`[CLIPBOARD]`*
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.<br />If a valid Flame file was already loaded, the selected menu label will be prefixed with: *`[CLIPBOARD]`*
 
     Additionally:
     
@@ -1546,7 +1546,7 @@ Reload:
     #id: IN
 
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
-    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.<br />This indicate that a Flame preset stats infos are visible inside the IN Tab.
     
     Usage:
     
@@ -1967,7 +1967,7 @@ palette 256+ (OUT):
         *Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.*
         
         
-palette HSV (cc):
+palette HSV (OUT):
     #id: OUT
     OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
 
