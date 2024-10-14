@@ -835,10 +835,34 @@ w:
 
     == Iterator: Affine == (FLAMEITERAFFINE)
     
-        
 post:
     #id: FLAME
     Enable post affine.
+
+
+pre affine - Scale:
+    #id: FLAME
+
+    Scale the affine values (X and Y) by an amount with a value of 1 (100% -> no scale) being the default.
+
+    The are two ways to use this parameter.
+    - Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
+    - ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
+
+    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to a value of: *`1`* (100% -> no scale)
+
+    When using the ((mouse_wheel)):
+    - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
+    - ((SHIFT)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.01`*
+    - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
+
+
+copy post affine values:
+    #id: FLAME
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
+     
+    Copy the values from the POST Affine.
+
     
 pre affine:
     #id: FLAME
@@ -885,17 +909,34 @@ pre affine reset:
     - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
     - ((CTRL)) + ((LMB)) to reset only the affine O value.
     - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
-    
-copy post affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
-     
-    Copy the values from the POST Affine.
         
 POST affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
     * See above [affine|#FLAMEITERAFFINE] description for more informations.
+
+post affine - Scale:
+    #id: FLAME
+
+    Scale the affine values (X and Y) by an amount with a value of 1 (100% -> no scale) being the default.
+
+    The are two ways to use this parameter.
+    - Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
+    - ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
+
+    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to a value of: *`1`* (100% -> no scale)
+
+    When using the ((mouse_wheel)):
+    - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
+    - ((SHIFT)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.01`*
+    - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
+    
+
+copy pre affine values:
+    #id: FLAME
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
+     
+    Copy the values from the PRE Affine.
     
 post affine reset:
     #id: FLAME
@@ -907,12 +948,6 @@ post affine reset:
     - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
     - ((CTRL)) + ((LMB)) to reset only the affine O value.
     - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
-    
-copy pre affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
-     
-    Copy the values from the PRE Affine.
     
     
 :box:
@@ -1090,6 +1125,19 @@ FF: w:
 FF: post:
     #id: FF
     Enable post affine.
+
+FF pre affine - Scale:
+    #id: FLAME
+
+    Scale the affine values (X and Y) by an amount with a value of 1 (100%, no scale) being the default.
+
+    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+
+copy FF post affine values:
+    #id: FLAME
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
+     
+    Copy the values from the FF POST Affine.
     
 FF: pre affine:
     #id: FF
@@ -1103,22 +1151,26 @@ FF pre affine reset:
     
     Reset the FF pre affine to their default values.
     
-    - ((LMB)) to reset all affine values.
-    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
-    - ((CTRL)) + ((LMB)) to reset only the affine O value.
-    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
-
-copy FF post affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
-     
-    Copy the values from the FF POST Affine.
+    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
     
 FF: POST affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
     
     - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+
+FF pre affine - Scale:
+    #id: FLAME
+
+    Scale the affine values (X and Y) by an amount with a value of 1 (100%, no scale) being the default.
+
+    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+
+copy FF pre affine values:
+    #id: FLAME
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
+     
+    Copy the values from the FF PRE Affine.
     
 FF post affine reset:
     #id: FF
@@ -1126,16 +1178,7 @@ FF post affine reset:
     
     Reset the FF post affine to their default values.
     
-    - ((LMB)) to reset all affine values.
-    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
-    - ((CTRL)) + ((LMB)) to reset only the affine O value.
-    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
-
-copy FF pre affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
-     
-    Copy the values from the FF PRE Affine.
+    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
         
 :box:
     #display: rounded white
@@ -2114,7 +2157,7 @@ Rotate:
     #id: OUT
     The camera rotation.
     
-Scale:
+Scale(lens):
     #id: OUT
     Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
     
