@@ -846,8 +846,8 @@ pre affine - Scale:
     Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
 
     The are two ways to use this parameter.
-    - Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
-    - ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
+    # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
+    # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
 
     Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to a value of: *`1`* (100% -> no scale)
 
@@ -861,7 +861,7 @@ copy post affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
      
-    Copy the values from the POST Affine.
+    Copy the values from the POST Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
 
     
 pre affine:
@@ -921,8 +921,8 @@ post affine - Scale:
     Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
 
     The are two ways to use this parameter.
-    - Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
-    - ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
+    # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
+    # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
 
     Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to a value of: *`1`* (100% -> no scale)
 
@@ -936,7 +936,7 @@ copy pre affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
      
-    Copy the values from the PRE Affine.
+    Copy the values from the PRE Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
     
 post affine reset:
     #id: FLAME
@@ -1137,7 +1137,7 @@ copy FF post affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
      
-    Copy the values from the FF POST Affine.
+    Copy the values from the FF POST Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
     
 FF: pre affine:
     #id: FF
@@ -1170,7 +1170,7 @@ copy FF pre affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
      
-    Copy the values from the FF PRE Affine.
+    Copy the values from the FF PRE Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
     
 FF post affine reset:
     #id: FF
@@ -1919,7 +1919,7 @@ menu OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
     It will always be set to the last Flame’s name you saved.
 
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
-    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
+    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file.<br />Each Flame preset in the file will be marked with this icon.
 
     Additionally:
     
