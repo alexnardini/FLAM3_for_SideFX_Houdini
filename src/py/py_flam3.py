@@ -1707,6 +1707,9 @@ reset_PREFS(self, mode=0) -> None:
 
         Args:
             update (bool, optional): _description_. Defaults to True.
+            
+        Returns:
+            (bool): True if the Sensor Viz is being activated. False if not.
         """     
            
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
@@ -1784,6 +1787,7 @@ reset_PREFS(self, mode=0) -> None:
                 if self.util_set_front_viewer_all():
                     return True
                 else:
+                    self.flam3h_other_sensor_viz_off(self.node)
                     self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                     return False
                 
@@ -1791,6 +1795,15 @@ reset_PREFS(self, mode=0) -> None:
 
 
     def util_set_front_viewer_all(self) -> bool:
+        """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
+        It will activate the Sensor Viz in all available viewports.
+
+        Args:
+            (None):
+            
+        Returns:
+            (bool): True if the Sensor Viz is being activated. False if not.
+        """ 
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             viewports = self.util_getSceneViewers()
             if len(viewports):
