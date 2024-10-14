@@ -1752,6 +1752,7 @@ reset_PREFS(self, mode=0) -> None:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
                             except:
                                 self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                return False
                         else:
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
@@ -1772,6 +1773,7 @@ reset_PREFS(self, mode=0) -> None:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 except:
                                     self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                    return False
                             else:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 
