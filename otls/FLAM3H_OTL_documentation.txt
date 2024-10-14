@@ -843,7 +843,7 @@ post:
 pre affine - Scale:
     #id: FLAME
 
-    Scale the affine values (X and Y) by an amount with a value of 1 (100% -> no scale) being the default.
+    Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
 
     The are two ways to use this parameter.
     - Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
@@ -918,7 +918,7 @@ POST affine:
 post affine - Scale:
     #id: FLAME
 
-    Scale the affine values (X and Y) by an amount with a value of 1 (100% -> no scale) being the default.
+    Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
 
     The are two ways to use this parameter.
     - Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
