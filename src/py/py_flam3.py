@@ -2337,6 +2337,8 @@ MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDis
 MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
 MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
+MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
+MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
@@ -3942,17 +3944,16 @@ iterator_keep_last_weight(self) -> None:
                         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                         __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
                         if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                            menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.", 1, "" ]
+                            menu = MENU_ITER_COPY_PASTE_REMOVED
                         elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                             parent = f".../{from_FLAM3H_NODE.parent()}"
                             menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", 1, "" ]
                         else:
-                            menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", 1, "" ]
-                    
+                            menu = MENU_ITER_COPY_PASTE_EMPTY
                         return menu
                     
                     else:
-                        return [ 0, f"{FLAM3H_ICON_COPY_PASTE}  {MARK_ITER_MSG}.", 1, "" ]
+                        return MENU_ITER_COPY_PASTE_EMPTY
 
     
     
