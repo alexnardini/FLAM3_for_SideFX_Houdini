@@ -9,7 +9,7 @@
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised February 2024
+ /  date:       October 2020, Last revised October 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -1469,7 +1469,7 @@ void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
 void V_POINT_SYMMETRY(vector2 p; const vector2 _p; const float w, m_Order, m_X, m_Y){
     float angle, dx, dy, cosa, sina, m_TwoPiDivOrder;
     // precalc
-    m_TwoPiDivOrder = M_2PI / Zeps(m_Order);
+    m_TwoPiDivOrder = M_PI2 / Zeps(m_Order);
     // compute
     angle = floor(nrandom("twister") * m_Order) * m_TwoPiDivOrder;
     dx = (_p[0] - m_X) * w;

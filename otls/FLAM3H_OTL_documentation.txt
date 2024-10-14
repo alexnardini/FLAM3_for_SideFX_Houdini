@@ -914,7 +914,7 @@ POST affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
 
-    *See the above [affine|#FLAMEITERAFFINE] description for more informations.*
+    *See the above [pre affine|#FLAMEITERAFFINE] description for more informations.*
 
 post affine - Scale:
     #id: FLAME
@@ -1123,7 +1123,7 @@ FF pre affine - Scale:
 
     Scale the affine values (X and Y) by an amount, with a value of 1 (100%, no scale) being the default.
 
-    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine - Scale|#FLAMEITERAFFINE] description for more information*.
 
 copy FF post affine values:
     #id: FLAME
@@ -1135,7 +1135,7 @@ FF: pre affine:
     #id: FF
     Affine coefficients for the current FF iterator ( FF - finalxform ). Those are applied before the variations.
 
-    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
     
 FF pre affine reset:
     #id: FF
@@ -1143,20 +1143,20 @@ FF pre affine reset:
     
     Reset the FF pre affine to their default values.
     
-    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
     
 FF: POST affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
     
-    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
 
 FF pre affine - Scale:
     #id: FLAME
 
     Scale the affine values (X and Y) by an amount, with a value of 1 (100%, no scale) being the default.
 
-    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine - Scale|#FLAMEITERAFFINE] description for more information*.
 
 copy FF pre affine values:
     #id: FLAME
@@ -1170,7 +1170,7 @@ FF post affine reset:
     
     Reset the FF post affine to their default values.
     
-    - *See the above [iterator's affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
         
 :box:
     #display: rounded white

@@ -9,7 +9,7 @@
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised May 2022
+ /  date:       October 2020, Last revised October 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -32,7 +32,7 @@
 
 #define LIMIT   1000
 #define EPS     2.220446049250313e-016
-#define M_2PI   PI*2.0f
+#define M_PI2   6.28318530717958647692
 #define M_1_PI  0.318309886183790671538
 #define M_2_PI  0.636619772367581343076
 #define FLOAT_MAX_TAN 8388607.0f
@@ -114,7 +114,7 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
 vector2 biunit(){ return set(2*nrandom('twister')-1, 2*nrandom('twister')-1); }
 
 int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
-    if(ACTIVE){ if( !isfinite(vec[0]) || !isfinite(vec[1]) || isnan(vec[0]) || isnan(vec[1]) || length(vec)>LIMIT || alpha==0 ) return 1; }
+    if(ACTIVE){ float val=vec[0]+vec[1]; if( !isfinite(val) || isnan(val) || length(vec)>LIMIT || alpha==0 ) return 1; }
     return 0;
 }
 

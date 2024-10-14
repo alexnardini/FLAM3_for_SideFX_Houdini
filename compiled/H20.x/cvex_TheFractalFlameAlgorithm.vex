@@ -3139,25 +3139,21 @@ __llvm_entry:
 true:                                             ; preds = %__llvm_entry
   %vec2 = load <2 x double>, <2 x double>* %vec
   %return = call double @"getcomp@FUI"(<2 x double> %vec2, i64 0)
-  %return3 = call i64 @"isfinite@IF"(double %return)
-  %return4 = call i64 @"not@II"(i64 %return3)
-  %return6 = call double @"getcomp@FUI"(<2 x double> %vec2, i64 1)
-  %return7 = call i64 @"isfinite@IF"(double %return6)
-  %return8 = call i64 @"not@II"(i64 %return7)
-  %return9 = call i64 @"or@III"(i64 %return4, i64 %return8)
-  %return12 = call i64 @"isnan@IF"(double %return)
-  %return13 = call i64 @"or@III"(i64 %return9, i64 %return12)
-  %return16 = call i64 @"isnan@IF"(double %return6)
-  %return17 = call i64 @"or@III"(i64 %return13, i64 %return16)
-  %return19 = call double @"length@FU"(<2 x double> %vec2)
-  %return20 = fcmp ogt double %return19, 1.000000e+03
-  %return21 = zext i1 %return20 to i64
-  %return22 = call i64 @"or@III"(i64 %return17, i64 %return21)
-  %alpha23 = load double, double* %alpha
-  %return24 = fcmp oeq double %alpha23, 0.000000e+00
-  %return25 = zext i1 %return24 to i64
-  %return26 = call i64 @"or@III"(i64 %return22, i64 %return25)
-  %1 = icmp ne i64 %return26, 0
+  %return4 = call double @"getcomp@FUI"(<2 x double> %vec2, i64 1)
+  %output = fadd double %return, %return4
+  %return6 = call i64 @"isfinite@IF"(double %output)
+  %return7 = call i64 @"not@II"(i64 %return6)
+  %return9 = call i64 @"isnan@IF"(double %output)
+  %return10 = call i64 @"or@III"(i64 %return7, i64 %return9)
+  %return12 = call double @"length@FU"(<2 x double> %vec2)
+  %return13 = fcmp ogt double %return12, 1.000000e+03
+  %return14 = zext i1 %return13 to i64
+  %return15 = call i64 @"or@III"(i64 %return10, i64 %return14)
+  %alpha16 = load double, double* %alpha
+  %return17 = fcmp oeq double %alpha16, 0.000000e+00
+  %return18 = zext i1 %return17 to i64
+  %return19 = call i64 @"or@III"(i64 %return15, i64 %return18)
+  %1 = icmp ne i64 %return19, 0
   %. = select i1 %1, i64 1, i64 0
   br label %end
 
@@ -3173,10 +3169,10 @@ declare i64 @"isfinite@IF"(double) #1
 declare i64 @"not@II"(i64) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"or@III"(i64, i64) #1
+declare i64 @"isnan@IF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"isnan@IF"(double) #1
+declare i64 @"or@III"(i64, i64) #1
 
 ; Function Attrs: nounwind
 declare double @"length@FU"(<2 x double>) #2
@@ -10653,7 +10649,7 @@ __llvm_entry:
   %m_Order1 = load double, double* %m_Order
   store double %m_Order1, double* %0
   %Zeps = call double @"Zeps@FF"(double* %0)
-  %output = call double @"div@FF"(double 0x401921FB4D12D84A, double %Zeps)
+  %output = call double @"div@FF"(double 0x401921FB54442D18, double %Zeps)
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %m_Order2 = load double, double* %m_Order
   %output3 = fmul double %return, %m_Order2
