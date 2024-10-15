@@ -2349,6 +2349,10 @@ menu xaos modes [Smallicon:BUTTONS/pane_menu]:
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
     - Switching between xaos modes will convert and reset the xaos: string values inside each iterator so that you can see how the new weights adjusted to fit the new mode.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
     
     NOTE:
         Xaos FROM mode will internally be changed into xaos TO on save and reloaded as xaos TO when saving out Flame files.
@@ -2398,7 +2402,11 @@ Dark:
     
 menu type [Smallicon:BUTTONS/pane_menu]:
     #id: prefs
-    Set the viewport particle display mode to either points or pixels.
+    Set the viewport particle display mode to either *`points`* or *`pixels`*.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
     
 size:
     #id: prefs
@@ -2881,9 +2889,9 @@ NOTE:
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
         - ex: From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
     # Click *Apply* or *Accept* to confirm your changes.
-    # Go inside the FLAM3H node and on any of the wrangle core nodes, click the:
-    
-        * "Reload CVEX" icon: [Largeicon:opdef:.?icon_TagORedSVG.svg]
+    # Go inside the FLAM3H node and on any of the *`wrangle core`* nodes, click the:
+        
+        * *`Reload CVEX`* icon: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
     
     You just need to click it once, and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
     
