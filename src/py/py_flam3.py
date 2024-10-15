@@ -11932,13 +11932,13 @@ reset_IN(self, mode=0) -> None:
             # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
                 _MSG = "Flame IN Clipboard: Chaotica XML not supported"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                 flam3h_general_utils.flash_message(node, _MSG)
 
             # If we are trying to load from the Clipboard
             elif attempt_from_clipboard:
                 _MSG = "Flame IN Clipboard: Nothing to load"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                 flam3h_general_utils.flash_message(node, _MSG)
                 
             else:
@@ -11946,7 +11946,7 @@ reset_IN(self, mode=0) -> None:
                 # If we did try to load a chaotica XML style file
                 if chaos:
                     _MSG = f"Flame IN: Chaotica XML not supported"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                     flam3h_general_utils.flash_message(node, _MSG)
                 
                 # If there was already a valid flame file
@@ -11959,7 +11959,7 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({IN_ISVALID_FILE: 0})
                         
                     _MSG = "Flame IN: Nothing to load"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, _MSG)
                      
                 # Anything else   
@@ -11978,7 +11978,7 @@ reset_IN(self, mode=0) -> None:
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((1,))
                     else: _MSG = "Flame IN: Nothing to load"
 
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, _MSG)
 
 
