@@ -1041,7 +1041,7 @@ FF: note:
     
 FF: copy/paste:
     #id: FF
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteFFSVG.svg]
 
     All the necessary methods for copy/paste FF's data are contained in this icon.
     

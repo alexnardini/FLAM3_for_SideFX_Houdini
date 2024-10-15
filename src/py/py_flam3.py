@@ -2421,6 +2421,7 @@ FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarB
 FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteZeroWSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
 # ICONS menu vars and palette bookmarks
@@ -2452,7 +2453,7 @@ MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
 MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
 MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
-MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark the FF first.', 0, '']
+MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
 MENU_VARS_INDEXES: dict = { 0: 1, 
@@ -4115,7 +4116,7 @@ iterator_keep_last_weight(self) -> None:
                     
                     parent = f".../{flam3node_FF.parent()}"
                     flam3nodeFF = f"{str(flam3node_FF)}.FF"
-                    return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All", 2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", 3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", 4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST", 5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", 6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", 7, "" ]
+                    return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", 3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", 4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST", 5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", 6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", 7, "" ]
         
         else:
             return MENU_FF_COPY_PASTE_EMPTY
