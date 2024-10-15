@@ -2416,10 +2416,10 @@ reset_PREFS(self, mode: int=0) -> None:
 
 # ICONS menu copy/paste bookmarks
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
-FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
-FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteZeroWSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
@@ -3592,7 +3592,7 @@ iterator_keep_last_weight(self) -> None:
         if not FF: _TYPE, _ICON = self.menu_T_data()
         else: _TYPE, _ICON = self.menu_T_FF_data()
         var = MENU_VARS_INDEXES.get(_TYPE)
-        assert var is not None
+        assert var is not None # I can assert this becasue I tested all of them myself ;)
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
 
         return menu
@@ -3615,7 +3615,7 @@ iterator_keep_last_weight(self) -> None:
         if not FF: _TYPE, _ICON = self.menu_T_PP_data()
         else: _TYPE, _ICON = self.menu_T_PP_FF_data()
         var = MENU_VARS_INDEXES.get(_TYPE)
-        assert var is not None
+        assert var is not None # I can assert this becasue I tested all of them myself ;)
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
             
         return menu
@@ -3652,9 +3652,8 @@ iterator_keep_last_weight(self) -> None:
         if data is not None:
             return data
         else:
-            run = (self.menu_T_simple, self.menu_T_ICON)
             _ICONS_TOGGLE = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return run[_ICONS_TOGGLE](FF)
+            return (self.menu_T_simple, self.menu_T_ICON)[_ICONS_TOGGLE](FF)
 
     
     
@@ -3677,9 +3676,8 @@ iterator_keep_last_weight(self) -> None:
         if data is not None:
             return data
         else:
-            run = (self.menu_T_simple, self.menu_T_PP_ICON)
             _ICONS_TOGGLE = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return run[_ICONS_TOGGLE](FF)
+            return (self.menu_T_simple, self.menu_T_PP_ICON)[_ICONS_TOGGLE](FF)
     
     
     
