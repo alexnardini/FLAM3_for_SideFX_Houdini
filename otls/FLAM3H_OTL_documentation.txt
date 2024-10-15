@@ -833,14 +833,19 @@ w:
 :box:
     #display: rounded white
 
-    == Iterator: Affine == (FLAMEITERAFFINE)
+    == Iterator: Affine - Activate post affine == (FLAMEITERACTIVATEPOST)
     
 post:
     #id: FLAME
     Enable post affine.
 
+:box:
+    #display: rounded white
 
-pre affine - Scale:
+    == Iterator: Affine - pre affine Scale == (FLAMEITERPRESCALE)
+
+
+pre affine Scale:
     #id: FLAME
 
     Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
@@ -857,6 +862,12 @@ pre affine - Scale:
     - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
 
 
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - pre affine copy post affine == (FLAMEITERCOPYPOST)
+
+
 copy post affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
@@ -864,6 +875,12 @@ copy post affine values:
     Copy the values from the POST Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
 
     
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - pre affine == (FLAMEITERPREAFFINE)
+
+
 pre affine:
     #id: FLAME
 
@@ -899,6 +916,11 @@ pre affine:
     NOTE:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
         
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - pre affine reset == (FLAMEITERPREAFFINERESET)
+
 pre affine reset:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
@@ -909,20 +931,38 @@ pre affine reset:
     - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
     - ((CTRL)) + ((LMB)) to reset only the affine O value.
     - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - post affine == (FLAMEITERPOSTAFFINE)
         
 POST affine:
     #id: FLAME
     Post affine coefficients for the current variations. Those are applied after the variations.
 
-    *See the above [pre affine|#FLAMEITERAFFINE] description for more informations.*
+    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
-post affine - Scale:
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - post affine Scale == (FLAMEITERPOSTSCALE)
+
+
+post affine Scale:
     #id: FLAME
 
     Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
 
-    *See the above [pre affine - Scale|#FLAMEITERAFFINE] parameter description for more informations.*
+    *See the above [pre affine Scale|#FLAMEITERPRESCALE] parameter description for more informations.*
     
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - post affine copy pre affine == (FLAMEITERCOPYPRE)
+
 
 copy pre affine values:
     #id: FLAME
@@ -930,16 +970,19 @@ copy pre affine values:
      
     Copy the values from the PRE Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
     
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - post affine reset == (FLAMEITERPOSTAFFINERESET)
+
 post affine reset:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     Reset this iterator's post affine to their default values.
     
-    - ((LMB)) to reset all affine values.
-    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
-    - ((CTRL)) + ((LMB)) to reset only the affine O value.
-    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
+    *See the above [pre affine reset|#FLAMEITERPREAFFINERESET] parameter description for more informations.*
     
     
 :box:
@@ -1118,12 +1161,12 @@ FF: post:
     #id: FF
     Enable post affine.
 
-FF pre affine - Scale:
+FF pre affine Scale:
     #id: FLAME
 
     Scale the affine values (X and Y) by an amount, with a value of 1 (100%, no scale) being the default.
 
-    - *See the above [iterator's pre affine - Scale|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine Scale|#FLAMEITERPRESCALE] description for more information*.
 
 copy FF post affine values:
     #id: FLAME
@@ -1135,7 +1178,7 @@ FF: pre affine:
     #id: FF
     Affine coefficients for the current FF iterator ( FF - finalxform ). Those are applied before the variations.
 
-    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine|#FLAMEITERPREAFFINE] description for more information*.
     
 FF pre affine reset:
     #id: FF
@@ -1143,20 +1186,20 @@ FF pre affine reset:
     
     Reset the FF pre affine to their default values.
     
-    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine reset|#FLAMEITERPREAFFINERESET] description for more information*.
     
 FF: POST affine:
     #id: FF
     Post affine coefficients for the current variations. Those are applied after the variations.
     
-    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine|#FLAMEITERPREAFFINE] description for more information*.
 
-FF pre affine - Scale:
+FF pre affine Scale:
     #id: FLAME
 
     Scale the affine values (X and Y) by an amount, with a value of 1 (100%, no scale) being the default.
 
-    - *See the above [iterator's pre affine - Scale|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine Scale|#FLAMEITERPRESCALE] description for more information*.
 
 copy FF pre affine values:
     #id: FLAME
@@ -1170,7 +1213,7 @@ FF post affine reset:
     
     Reset the FF post affine to their default values.
     
-    - *See the above [iterator's pre affine|#FLAMEITERAFFINE] description for more information*.
+    - *See the above [iterator's pre affine reset|#FLAMEITERPREAFFINERESET] description for more information*.
         
 :box:
     #display: rounded white
