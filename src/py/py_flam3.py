@@ -1671,17 +1671,16 @@ reset_PREFS(self, mode: int=0) -> None:
         """Find the full path of the bbox data null node
         inside the current FLAM3H node.
         
-        The Null node name prefixex to search are stored inside the global variables:
+        The Null node names prefixes to search are stored inside the global variables:
         
         OUT_BBOX_NODE_NAME_SENSOR
         OUT_BBOX_NODE_NAME_REFRAME
 
         Returns:
             Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
-        """        
+        """       
         matcher = nodesearch.Name(node_name, exact=True)
-        # Using hou.pwd() instead of self.node make this work also on creation from my tests.
-        search = matcher.nodes(hou.pwd(), recursive=True)
+        search = matcher.nodes(self.kwargs['node'], recursive=True)
         if search:
             return search[0].path()
         else:
