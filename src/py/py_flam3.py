@@ -616,7 +616,10 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
         """
         Args:
             prx (str): [parameter name prefix string]
-        """        
+        """       
+        # The FF posses two sets of parameteric parameters; 
+        # One for the VAR variations and one for the PRE and POST variations.
+        # This prefix will help us pick either one or the other. 
         self.prx = prx
 
     def varsPRM_FF(self) -> tuple:
