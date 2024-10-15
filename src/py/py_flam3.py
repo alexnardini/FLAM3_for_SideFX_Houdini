@@ -238,7 +238,6 @@ OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
 OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 
-PREFS_TOGGLE = 'showprefs'
 PREFS_FLASH_MSG = 'flashmsg'
 PREFS_F3C = 'f3c'
 PREFS_ITERATOR_BOOKMARK_ICONS = 'itericons'
@@ -2391,7 +2390,6 @@ reset_PREFS(self, mode: int=0) -> None:
             mode (int, optional): _description_. Defaults to 0.
         """        
         node = self.node
-        node.setParms({PREFS_TOGGLE: 1})
         node.setParms({PREFS_XAOS_MODE: 0})
         node.setParms({PREFS_CAMERA_HANDLE: 0})
         node.setParms({PREFS_CAMERA_CULL: 0})
@@ -5618,7 +5616,6 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({IN_ISVALID_PRESET: 0})
             node.setParms({IN_CLIPBOARD_TOGGLE: 0})
             # prefs
-            node.setParms({PREFS_TOGGLE: 1}) # type: ignore
             node.setParms({PREFS_CAMERA_HANDLE: 0}) # type: ignore
             node.setParms({PREFS_CAMERA_CULL: 0}) # type: ignore
 
