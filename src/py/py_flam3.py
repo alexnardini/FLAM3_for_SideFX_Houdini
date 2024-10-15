@@ -2422,7 +2422,7 @@ FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteZeroWSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]'
-FLAM3H_ICON_COPY_PASTE_ENTRIE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_FF_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
 
 # ICONS menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
@@ -4106,7 +4106,7 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     # Menu entrie sections bookmark icon
                     active = flam3node_FF.parm(SYS_DO_FF).eval()
-                    if active: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_FF
+                    if active: _ICON = FLAM3H_ICON_COPY_PASTE_FF_ENTRIE
                     else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
                     
                     prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
