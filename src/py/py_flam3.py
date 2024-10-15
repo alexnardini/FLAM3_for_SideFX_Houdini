@@ -48,6 +48,7 @@ import nodesearch
 #               - Load/Save palettes
 #               - Fully automated UX Xaos
 #               - Tool's user experience
+#               - and more...
 #               
 #               Everything is then glued together inside Houdini.
 #
