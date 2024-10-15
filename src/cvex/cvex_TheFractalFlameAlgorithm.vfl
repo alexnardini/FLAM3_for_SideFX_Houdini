@@ -75,8 +75,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     v4GMP->gemPrmBuild(sIDX, res, v4t, v4w);
     P1GMP->gemPrmBuild(sIDX, res, P1t, P1w);
     // CHAOS game
-    mem=biunit();
-    XS=_bound_XS;
+    mem=biunit(); XS=_bound_XS;
     // If XAOS, pick a starting iterator from distribution
     if(XS) idx=sample_cdf((float[])_bound_IW, nrandom('twister'));
 
