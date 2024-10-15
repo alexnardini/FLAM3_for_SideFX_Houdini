@@ -43,7 +43,7 @@ struct gem{
         resize(v1t, res); v2t=v3t=v4t=p1t=p2t=P1t=PPL=v1t;
         resize(v1w, res); v2w=v3w=v4w=p1w=p2w=P1w=pbw=CLR=OM=A=v1w;
         resize(x,   res); y=o=px=py=po=x;
-        float   _a, clr, spd;
+        float _a, clr, spd;
         vector2 _x, _y;
         matrix2 _m2;
         string  idx;
@@ -217,8 +217,9 @@ struct gemPrm{
                         else if(T==38){ pie[i] = chv(concat("../pie_", idx)); continue; }
                     }
                     else{
-                        // 47 DISC2 ( This seem to be the only one to benefit from the precalc: 18% faster. )
+                        // 47 DISC2
                         if(T==47){
+                            //( This seem to be the only one to benefit from the precalc: 18% faster. )
                             disc2[i] = chu(concat("../disc2_", idx));
                             float rot=disc2[i][0]; float twist=disc2[i][1];
                             vector calc; precalc_V_DISC2(calc, rot, twist);
@@ -272,9 +273,9 @@ struct gemPrm{
                         else if(T==74){ stripes[i] = chu(concat("../stripes_", idx)); continue; }
                         // 75 WEDGE
                         else if(T==75){ wedge[i] = chp(concat("../wedge_", idx)); continue; }
-                        // 76 WEDGE JULIA ( The precalc made it 10% slower, I dnt know why...odd. )
+                        // 76 WEDGE JULIA
                         else if(T==76){ wedgejulia[i] = chp(concat("../wedgejulia_", idx));
-                            // precalc
+                            // precalc ( The precalc made it 10% slower, I dnt know why...odd. )
                             // float power=wedgejulia[i][0]; float angle= wedgejulia[i][1]; float dist=wedgejulia[i][2]; float count=wedgejulia[i][3];
                             // vector calc; precalc_V_WEDGEJULIA(calc, power, angle, dist, count);
                             // pc_WEDGEJULIA[i] = calc;
@@ -303,11 +304,11 @@ struct gemPrm{
                             curve_amp[i]    = chu(concat("../curvexyzamp_", idx)); continue; }
                         // 98 PERSPECTIVE
                         else if(T==98){ persp[i] = chu(concat("../persp_", idx)); continue; }
-                        // 99 BWRAPS ( The precalc made it 15% slower, I dnt know why...odd. )
+                        // 99 BWRAPS
                         else if(T==99){
                             bwraps[i] = chv(concat("../bwraps_", idx));
                             bwrapstwist[i] = chu(concat("../bwrapstwist_", idx));
-                            // precalc
+                            // precalc ( The precalc made it 15% slower, I dnt know why...odd. )
                             // float cellsize=bwraps[i][0]; float space=bwraps[i][1]; float gain=bwraps[i][2];
                             // vector calc; precalc_V_BWRAPS(calc, cellsize, space, gain);
                             // pc_BWRAPS[i] = calc;
