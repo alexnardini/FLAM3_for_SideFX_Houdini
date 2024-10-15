@@ -61,6 +61,12 @@ import nodesearch
 #                       - menu script
 #                       - action button script
 #
+#               INTERACTIVE Section:
+#                   The interactive python side for this tool is not done;
+#                   If you select a FLAM3H node and press the "enter" key over a viewer nothing will happen.
+#                   It is something nice to try to implement but at the moment, it is not a deal breaker at all
+#                   and the current implementation of the UX is far more than enough to enjoy the fractal art workflow.
+#
 
 
 FLAM3H_VERSION = '1.4.95'
