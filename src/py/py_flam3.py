@@ -11931,13 +11931,13 @@ reset_IN(self, mode=0) -> None:
             
             # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
-                _MSG = "Flame IN Clipboard -> Chaotica XML not supported"
+                _MSG = "Flame IN Clipboard: Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
 
             # If we are trying to load from the Clipboard
             elif attempt_from_clipboard:
-                _MSG = "Flame IN Clipboard -> Nothing to load"
+                _MSG = "Flame IN Clipboard: Nothing to load"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
                 
@@ -11945,7 +11945,7 @@ reset_IN(self, mode=0) -> None:
                 
                 # If we did try to load a chaotica XML style file
                 if chaos:
-                    _MSG = f"Flame IN -> Chaotica XML not supported"
+                    _MSG = f"Flame IN: Chaotica XML not supported"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
                 
@@ -11958,7 +11958,7 @@ reset_IN(self, mode=0) -> None:
                     
                     node.setParms({IN_ISVALID_FILE: 0})
                         
-                    _MSG = "Flame IN -> Nothing to load"
+                    _MSG = "Flame IN: Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
                      
@@ -11972,10 +11972,12 @@ reset_IN(self, mode=0) -> None:
                     node.setParms({MSG_FLAMERENDER: ""})
                     node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                     # If iterator's count is 0(Zero), change focus back to the IN's Tab
+                    # And let the user know it should load a flame file first
                     if node.parm(FLAME_ITERATORS_COUNT).eval() == 0:
+                        _MSG = "Flame IN: Load an IN flame file first"
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((1,))
+                    else: _MSG = "Flame IN: Nothing to load"
 
-                    _MSG = "Flame IN -> Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
 
