@@ -1719,6 +1719,7 @@ reset_PREFS(self, mode: int=0) -> None:
             
                     def flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
                     def iterators_count(self) -> None:
+                    def util_viewport_bbox_frame(self) -> None:
                     def in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
                     def in_copy_sensor_stats_msg(kwargs: dict) -> None:
                     def in_copy_render_stats_msg(kwargs: dict) -> None:
@@ -1903,6 +1904,8 @@ reset_PREFS(self, mode: int=0) -> None:
         """  
         node = self.node
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval() and not node.parm(OUT_UPDATE_SENSOR).eval():
+            # This condition probably will never evaluate to True as when in Sensor Viz mode
+            # a new reframe icon will be displayed with the proper definition, but its good to make this icon multipurpose anyway.
             self.util_set_clipping_viewers()
             self.util_set_front_viewer()
         
