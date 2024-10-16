@@ -915,6 +915,19 @@ pre affine:
     
     NOTE:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - pre affine Rot == (FLAMEITERPREROT)
+
+pre affine Rot:
+    #id: FLAME
+    Rotate affine in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.
+    
+    NOTE:
+        The resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.
+
         
 :box:
     #display: rounded white
@@ -931,17 +944,6 @@ pre affine reset:
     - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
     - ((CTRL)) + ((LMB)) to reset only the affine O value.
     - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
-
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - post affine == (FLAMEITERPOSTAFFINE)
-        
-POST affine:
-    #id: FLAME
-    Post affine coefficients for the current variations. Those are applied after the variations.
-
-    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
 
 :box:
@@ -969,6 +971,30 @@ copy pre affine values:
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
      
     Copy the values from the PRE Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
+
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - post affine == (FLAMEITERPOSTAFFINE)
+        
+POST affine:
+    #id: FLAME
+    Post affine coefficients for the current variations. Those are applied after the variations.
+
+    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+
+
+:box:
+    #display: rounded white
+
+    == Iterator: Affine - post affine Rot == (FLAMEITERPOSTROT)
+
+pre affine Rot:
+    #id: FLAME
+    Rotate affine in angle degrees.
+    
+    *See the above [pre affine Rot|#FLAMEITERPREROT] description for more informations.*
     
 
 :box:
