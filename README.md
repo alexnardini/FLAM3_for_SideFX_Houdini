@@ -77,7 +77,7 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
-![FLAM3HOUDINI viewport](./FLAM3H_Hviewport_03_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 ## Camera sensor
