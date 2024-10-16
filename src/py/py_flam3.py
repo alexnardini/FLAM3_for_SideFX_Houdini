@@ -1632,26 +1632,26 @@ reset_PREFS(self, mode: int=0) -> None:
                             
         else:
             try:
-                _STASH_DICT: Union[dict, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+                _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
             except:
-                _STASH_DICT: Union[dict, None] = None
+                _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = None
             try:
-                _TYPE_DICT: Union[dict, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+                _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
             except:
-                _TYPE_DICT: Union[dict, None] = None
+                _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = None
                 
             if _STASH_DICT is not None and _TYPE_DICT is not None:
                 for v in flam3h_general_utils.util_getSceneViewers():
                     view = v.curViewport()
                     key = v.name()
-                    _STASH = _STASH_DICT.get(key)
+                    _STASH: Union[hou.GeometryViewportCamera, None] = _STASH_DICT.get(key)
                     if _STASH is not None:
                         if _STASH.isPerspective():
                             view.changeType(hou.geometryViewportType.Perspective) # type: ignore
                             view.setDefaultCamera(_STASH) # type: ignore
                             
                         elif _STASH.isOrthographic:
-                            _TYPE = _TYPE_DICT.get(key)
+                            _TYPE: Union[hou.geometryViewportType, None] = _TYPE_DICT.get(key)
                             if _TYPE is not None:
                                 view.changeType(_TYPE) # type: ignore
                                 view_obj = view.defaultCamera()
@@ -1759,9 +1759,9 @@ reset_PREFS(self, mode: int=0) -> None:
         """  
         # Do this only once; when we enter the sensor viz
         if self.kwargs['parm'].name() == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
-            views_cam  = []
-            views_keys = []
-            views_type = []
+            views_cam: list[hou.GeometryViewportCamera]  = []
+            views_keys: list[str] = []
+            views_type: list[hou.geometryViewportType] = []
             for v in self.util_getSceneViewers():
                 view = v.curViewport()
                 views_cam.append(view.defaultCamera().stash())
@@ -1769,9 +1769,9 @@ reset_PREFS(self, mode: int=0) -> None:
                 views_type.append(view.type())
                 
             # Store everything into the hou.session so we can retrieve them later
-            hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT = len(views_cam) # type: ignore
-            hou.session.FLAM3H_SENSOR_CAM_STASH_DICT = dict(zip(views_keys, views_cam)) # type: ignore
-            hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT = dict(zip(views_keys, views_type)) # type: ignore
+            hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
+            hou.session.FLAM3H_SENSOR_CAM_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_cam)) # type: ignore
+            hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
 
 
 
@@ -1839,8 +1839,8 @@ reset_PREFS(self, mode: int=0) -> None:
                         
                     if _CAM_STASHED is None:
                         cam = view.defaultCamera()
-                        hou.session.FLAM3H_SENSOR_CAM_STASH = cam.stash() # type: ignore
-                        hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE = view.type() # type: ignore
+                        hou.session.FLAM3H_SENSOR_CAM_STASH: hou.GeometryViewportCamera = cam.stash() # type: ignore
+                        hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE: hou.geometryViewportType = view.type() # type: ignore
                 
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
