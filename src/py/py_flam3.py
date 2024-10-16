@@ -230,6 +230,7 @@ OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
+OUT_RENDER_PROPERTIES_SENSOR_ENTER = 'out_sensorviz_disabled'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 
 # Those Null node names are hard coded here and represent the nodes name's prefix.
@@ -1377,6 +1378,8 @@ get_bbox_node_path(self, node_name: str) -> Union[str, None]:
 
 util_set_clipping_viewers(self) -> None:
 
+util_store_all_viewers(self) -> None:
+
 util_set_front_viewer(self, update: bool=True) -> bool:
 
 util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
@@ -1549,7 +1552,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
     @staticmethod
     def util_clear_stashed_cam_data() -> None:
-        """Clear the stored stashed cam data.
+        """Clear the stored stashed cam/cams data.
 
         Args:
             
@@ -1564,11 +1567,25 @@ reset_PREFS(self, mode: int=0) -> None:
             del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
         except:
             pass
+        try:
+            del hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        except:
+            pass
+        try:
+            del hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+        except:
+            pass
+        try:
+            del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+        except:
+            pass
+
 
 
     @staticmethod
     def util_set_stashed_cam() -> None:
         """Set/Load the stored stashed camera if a stashed camera data is available.
+        It will also restore multiple stashed cameras if multiple viewers were open when entering the Sensor Viz mode.
 
         Args:
             
@@ -1578,33 +1595,68 @@ reset_PREFS(self, mode: int=0) -> None:
         desktop = hou.ui.curDesktop() # type: ignore
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
-        if viewport is not None and viewport.isCurrentTab():
-            view = viewport.curViewport()
+        try:
+            _CAMS = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        except:
+            _CAMS = None
+        
+        if _CAMS is None:
             
-            try:
-                _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-            except:
-                _CAM_STASHED = None
+            if viewport is not None and viewport.isCurrentTab():
                 
-            if _CAM_STASHED is not None:
+                view = viewport.curViewport()
                 
-                if _CAM_STASHED.isPerspective():
-                    view.changeType(hou.geometryViewportType.Perspective) # type: ignore
-                    view.setDefaultCamera(_CAM_STASHED) # type: ignore
+                try:
+                    _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                except:
+                    _CAM_STASHED = None
                     
-                elif _CAM_STASHED.isOrthographic:
+                if _CAM_STASHED is not None:
                     
-                    try:
-                        _CAM_STASHED_TYPE = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
-                    except:
-                        _CAM_STASHED_TYPE = None
+                    if _CAM_STASHED.isPerspective():
+                        view.changeType(hou.geometryViewportType.Perspective) # type: ignore
+                        view.setDefaultCamera(_CAM_STASHED) # type: ignore
                         
-                    if _CAM_STASHED_TYPE is not None:
-                        view.changeType(_CAM_STASHED_TYPE) # type: ignore
-                        view_obj = view.defaultCamera()
-                        view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
-                        view_obj.setTranslation(_CAM_STASHED.translation())
-
+                    elif _CAM_STASHED.isOrthographic:
+                        
+                        try:
+                            _CAM_STASHED_TYPE = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+                        except:
+                            _CAM_STASHED_TYPE = None
+                            
+                        if _CAM_STASHED_TYPE is not None:
+                            view.changeType(_CAM_STASHED_TYPE) # type: ignore
+                            view_obj = view.defaultCamera()
+                            view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
+                            view_obj.setTranslation(_CAM_STASHED.translation())
+                            
+        else:
+            try:
+                _STASH_DICT: Union[dict, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+            except:
+                _STASH_DICT: Union[dict, None] = None
+            try:
+                _TYPE_DICT: Union[dict, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+            except:
+                _TYPE_DICT: Union[dict, None] = None
+                
+            if _STASH_DICT is not None and _TYPE_DICT is not None:
+                for v in flam3h_general_utils.util_getSceneViewers():
+                    view = v.curViewport()
+                    key = v.name()
+                    _STASH = _STASH_DICT.get(key)
+                    if _STASH is not None:
+                        if _STASH.isPerspective():
+                            view.changeType(hou.geometryViewportType.Perspective) # type: ignore
+                            view.setDefaultCamera(_STASH) # type: ignore
+                            
+                        elif _STASH.isOrthographic:
+                            _TYPE = _TYPE_DICT.get(key)
+                            if _TYPE is not None:
+                                view.changeType(_TYPE) # type: ignore
+                                view_obj = view.defaultCamera()
+                                view_obj.setOrthoWidth(_STASH.orthoWidth())
+                                view_obj.setTranslation(_STASH.translation())
 
 
 
@@ -1702,6 +1754,27 @@ reset_PREFS(self, mode: int=0) -> None:
 
 
 
+    def util_store_all_viewers(self) -> None:
+        """Store dictionaries of viewers cameras and their types
+        """  
+        # Do this only once; when we enter the sensor viz
+        if self.kwargs['parm'].name() == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
+            views_cam  = []
+            views_keys = []
+            views_type = []
+            for v in self.util_getSceneViewers():
+                view = v.curViewport()
+                views_cam.append(view.defaultCamera().stash())
+                views_keys.append(v.name())
+                views_type.append(view.type())
+                
+            # Store everything into the hou.session so we can retrieve them later
+            hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT = len(views_cam) # type: ignore
+            hou.session.FLAM3H_SENSOR_CAM_STASH_DICT = dict(zip(views_keys, views_cam)) # type: ignore
+            hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT = dict(zip(views_keys, views_type)) # type: ignore
+
+
+
     def util_set_front_viewer(self, update: bool=True) -> bool:
         """Set front view when entering the camera sensor mode.
         This include storing and restoring the current viewport prior to entering the camera sensor mode if there is only one and is: viewport.isCurrentTab().
@@ -1735,7 +1808,7 @@ reset_PREFS(self, mode: int=0) -> None:
             (bool): True if the Sensor Viz is being activated. False if not.
         """     
            
-        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             node = self.node
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
@@ -1756,16 +1829,18 @@ reset_PREFS(self, mode: int=0) -> None:
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
                 view = viewport.curViewport()
-
-                try:
-                    _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-                except:
-                    _CAM_STASHED = None
-                    
-                if _CAM_STASHED is None:
-                    cam = view.defaultCamera()
-                    hou.session.FLAM3H_SENSOR_CAM_STASH = cam.stash() # type: ignore
-                    hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE = view.type() # type: ignore
+                
+                # Do this only once; when we enter the sensor viz
+                if self.kwargs['parm'].name() == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
+                    try:
+                        _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                    except:
+                        _CAM_STASHED = None
+                        
+                    if _CAM_STASHED is None:
+                        cam = view.defaultCamera()
+                        hou.session.FLAM3H_SENSOR_CAM_STASH = cam.stash() # type: ignore
+                        hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE = view.type() # type: ignore
                 
                 if view.type() != hou.geometryViewportType.Front: # type: ignore
                     view.changeType(hou.geometryViewportType.Front) # type: ignore
@@ -1813,6 +1888,8 @@ reset_PREFS(self, mode: int=0) -> None:
                 return False
                      
             else:
+                self.util_store_all_viewers()
+
                 # Otherwise set them all without storing any stashed camera data  
                 if self.util_set_front_viewer_all(node, update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
                     return True
@@ -1841,7 +1918,7 @@ reset_PREFS(self, mode: int=0) -> None:
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
         """ 
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             
             viewports = self.util_getSceneViewers()
             if len(viewports):
