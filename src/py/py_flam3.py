@@ -1892,7 +1892,7 @@ reset_PREFS(self, mode: int=0) -> None:
                 
                 _MSG = f"No viewports in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the Sensor Viz to work.", 'WARN')
-                self.flash_message(node, f"{node.name()}: No viewports in the current Houdini Desktop.")
+                self.flash_message(node, f"Sensor Viz: {_MSG}")
                 return False
             
         return False
@@ -1901,27 +1901,27 @@ reset_PREFS(self, mode: int=0) -> None:
     def util_viewport_bbox_frame(self) -> None:
         """Re-frame the current viewport based on camera sensor node's bounding box.
         """  
-        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt() and not self.node.parm(OUT_UPDATE_SENSOR).evalAsInt():
+        node = self.node
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval() and not node.parm(OUT_UPDATE_SENSOR).eval():
             self.util_set_clipping_viewers()
             self.util_set_front_viewer()
         
         else:
-            desktop = hou.ui.curDesktop() # type: ignore
-            viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
-            
-            if viewport.isCurrentTab():
-                
-                view = viewport.curViewport()
-                
-                # if view.type() != hou.geometryViewportType.Front: # type: ignore
-                #     view.changeType(hou.geometryViewportType.Front) # type: ignore
-                
-                if self.bbox_reframe_path is not None:
-                    node_bbox = hou.node(self.bbox_reframe_path)
-                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                    # Set clipping planes just in case
-                    self.util_set_clipping_viewers()
-                    self.flash_message(self.node, f"Viewport REFRAMED")
+            viewports = self.util_getSceneViewers()
+            if len(viewports):
+                self.util_set_clipping_viewers()
+                for v in self.util_getSceneViewers():
+                    view = v.curViewport()
+                    if self.bbox_reframe_path is not None:
+                        node_bbox = hou.node(self.bbox_reframe_path)
+                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                        # Set clipping planes just in case
+                        self.util_set_clipping_viewers()
+                        self.flash_message(node, f"Viewport REFRAMED")
+            else:
+                _MSG = f"No viewports in the current Houdini Desktop."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the reframe to work.", 'IMP')
+                self.flash_message(node, f"Sensor Viz: {_MSG}")
 
 
 
