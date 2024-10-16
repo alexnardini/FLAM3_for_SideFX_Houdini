@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.4.95'
+FLAM3H_VERSION = '1.5.00'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -856,7 +856,7 @@ flam3h_on_deleted(self) -> None:
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 # Print to the Houdini console
-                print(f"\nFLAM3H CVEX node compile: DONE\n")
+                print(f"\nFLAM3H CVEX nodes compile: DONE\n")
                 
             flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         else:
@@ -962,8 +962,8 @@ flam3h_on_deleted(self) -> None:
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
+                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -976,8 +976,8 @@ flam3h_on_deleted(self) -> None:
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
+                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit nodes. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {FLAM3H_VERSION}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -1596,9 +1596,9 @@ reset_PREFS(self, mode: int=0) -> None:
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
         try:
-            _CAMS = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+            _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except:
-            _CAMS = None
+            _CAMS: Union[int, None]  = None
         
         if _CAMS is None:
             
@@ -1607,9 +1607,9 @@ reset_PREFS(self, mode: int=0) -> None:
                 view = viewport.curViewport()
                 
                 try:
-                    _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                    _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
                 except:
-                    _CAM_STASHED = None
+                    _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
                     
                 if _CAM_STASHED is not None:
                     
@@ -1620,9 +1620,9 @@ reset_PREFS(self, mode: int=0) -> None:
                     elif _CAM_STASHED.isOrthographic:
                         
                         try:
-                            _CAM_STASHED_TYPE = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+                            _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
                         except:
-                            _CAM_STASHED_TYPE = None
+                            _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = None
                             
                         if _CAM_STASHED_TYPE is not None:
                             view.changeType(_CAM_STASHED_TYPE) # type: ignore
@@ -1778,7 +1778,7 @@ reset_PREFS(self, mode: int=0) -> None:
     def util_set_front_viewer(self, update: bool=True) -> bool:
         """Set front view when entering the camera sensor mode.
         This include storing and restoring the current viewport prior to entering the camera sensor mode if there is only one and is: viewport.isCurrentTab().
-        Otherwise it will set them all if multiple viewports are present but without the ability to store and restore a stashed camera.
+        Otherwise it will set them all if multiple viewports are present and restore them all on exit.
         
         This definition is multipurpose, it is run from multiple parameters:
         - When run from the SYS prm: _SYS_FRAME_VIEW_SENSOR_prm it will also print a flash message.
@@ -1833,9 +1833,9 @@ reset_PREFS(self, mode: int=0) -> None:
                 # Do this only once; when we enter the sensor viz
                 if self.kwargs['parm'].name() == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
                     try:
-                        _CAM_STASHED = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                        _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
                     except:
-                        _CAM_STASHED = None
+                        _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
                         
                     if _CAM_STASHED is None:
                         cam = view.defaultCamera()
@@ -1905,9 +1905,6 @@ reset_PREFS(self, mode: int=0) -> None:
     def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
         """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
         It will activate the Sensor Viz in all available viewports but without the ability of storing and restoring a stashed camera for each
-        
-        This is also mostly becasue I have been lazy to store all the data for each available viewers, for now...
-        ...and I will be back to this at some point as there are many things I would like to implement that can improve the UX.
 
         Args:
             node(hou.SopNode): FLAM3H node
@@ -6653,16 +6650,16 @@ reset_CP(self, mode: int=0) -> None:
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
         if iterators_num:
             
-            # get ramp parm
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            # Reset ramps to default
-            self.build_ramp_palette_default(ramp_parm)
-            self.delete_ramp_all_keyframes(ramp_parm)
-            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
-            
             filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
             
             if os.path.isfile(filepath) and os.path.getsize(filepath)>0 and node.parm(CP_ISVALID_FILE).evalAsInt():
+                
+                # get ramp parm
+                ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                # Reset ramps to default
+                self.build_ramp_palette_default(ramp_parm)
+                self.delete_ramp_all_keyframes(ramp_parm)
+                self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
 
                 HEXs = []
                 hsv_vals = []
