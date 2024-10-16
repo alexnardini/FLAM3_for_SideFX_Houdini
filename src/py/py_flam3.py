@@ -7206,7 +7206,7 @@ flam3h_web_run(self, key: str) -> None:
             flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
         flam3h_python_version = f"Python 3.7.13"
-        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD} (GPL v3)"
+        flam3h_houdini_version = f"Version: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD} :: (GPL v3)"
         Implementation_years = f"2020/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_cvex_version}, {flam3h_python_version}\n{flam3h_houdini_version}\n{Implementation_years}"
         
