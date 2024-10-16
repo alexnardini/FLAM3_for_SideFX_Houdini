@@ -13898,7 +13898,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         for iter in range(self.iter_count):
             collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
             angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
-            f3h_angleDeg.append(str(round(self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval(), ROUND_DECIMAL_COUNT)))
+            f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
             flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             f3h_flatten = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
@@ -13915,7 +13915,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
                 angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
                 if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
-                    f3h_angleDeg.append(str(round(self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval(), ROUND_DECIMAL_COUNT)))
+                    f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
                     flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
                     f3h_flatten = [item for sublist in collect for item in sublist]
                     val.append([str(x) for x in flatten])
