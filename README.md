@@ -154,7 +154,7 @@ Some require thousands of iterations to show you the proper results; some of the
 Iterations needed in FLAM3H to resolve: **1280**
 
 `ieddaka gnarl. Author: zuek`
-![Chaotica to FLAM3HOUDINI 00](./main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
+![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 ### The next two are a bit more speedy:
 
@@ -162,17 +162,17 @@ Iterations needed in FLAM3H to resolve: **512**
 ( potentially a bit less are needed for those but just in case. )
 
 `blue modulus. Author: tatasz`
-![Chaotica to FLAM3HOUDINI 01](./main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
+![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
 `lazyswirls. Author: meckie`
-![Chaotica to FLAM3HOUDINI 02](./main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
+![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 ### This one is quick and beautiful:
 
 Iterations needed in FLAM3H to resolve: **64**
 
 `majestic. Author: tatasz`
-![Chaotica to FLAM3HOUDINI 03](./main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
+![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 ### And the last one:
 
