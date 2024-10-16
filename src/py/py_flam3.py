@@ -1591,16 +1591,16 @@ reset_PREFS(self, mode: int=0) -> None:
             
         Returns:
             None
-        """
-        desktop = hou.ui.curDesktop() # type: ignore
-        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
-        
+        """        
         try:
             _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except:
             _CAMS: Union[int, None]  = None
         
         if _CAMS is None:
+            
+            desktop = hou.ui.curDesktop() # type: ignore
+            viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
             if viewport is not None and viewport.isCurrentTab():
                 
@@ -1758,7 +1758,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Store dictionaries of viewers cameras and their types
         """  
         # Do this only once; when we enter the sensor viz
-        if self.kwargs['parm'].name() == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
+        parm = self.kwargs['parm']
+        _ENTER_PRM = None
+        if parm is not None: _ENTER_PRM = parm.name()
+        if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
             views_cam: list[hou.GeometryViewportCamera]  = []
             views_keys: list[str] = []
             views_type: list[hou.geometryViewportType] = []
@@ -1772,7 +1775,7 @@ reset_PREFS(self, mode: int=0) -> None:
             hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
             hou.session.FLAM3H_SENSOR_CAM_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_cam)) # type: ignore
             hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
-
+            
 
 
     def util_set_front_viewer(self, update: bool=True) -> bool:
@@ -1807,8 +1810,8 @@ reset_PREFS(self, mode: int=0) -> None:
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
         """     
-           
-        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        node = self.node
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             node = self.node
             desktop = hou.ui.curDesktop() # type: ignore
             viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
@@ -1825,13 +1828,15 @@ reset_PREFS(self, mode: int=0) -> None:
                 pass
             
             # If the viewport is: viewport.isCurrentTab()
-            # give its best and store all the viewport data to be restored on exit
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
                 view = viewport.curViewport()
                 
                 # Do this only once; when we enter the sensor viz
-                if self.kwargs['parm'].name() == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
+                parm = self.kwargs['parm']
+                _ENTER_PRM = None
+                if parm is not None: _ENTER_PRM = parm.name()
+                if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
                     try:
                         _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
                     except:
@@ -1889,17 +1894,17 @@ reset_PREFS(self, mode: int=0) -> None:
                      
             else:
                 self.util_store_all_viewers()
-
-                # Otherwise set them all without storing any stashed camera data  
                 if self.util_set_front_viewer_all(node, update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
                     return True
                 else:
                     # Or just exit the Sensor Viz mode
                     self.flam3h_other_sensor_viz_off(self.node)
                     self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                    self.util_clear_stashed_cam_data()
                     return False
                 
         return False
+
 
 
     def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
@@ -2006,7 +2011,6 @@ reset_PREFS(self, mode: int=0) -> None:
 
         Args:
             node (hou.SopNode): This FLAM3H node
-            prm (_type_, optional): Defaults to OUT_RENDER_PROPERTIES_SENSOR.
         """
         all_f3h = node.type().instances()
         if len(all_f3h) > 1:
@@ -2110,7 +2114,7 @@ reset_PREFS(self, mode: int=0) -> None:
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
-        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt()
+        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).eval()
         
         prm = node.parm(IN_PRESETS)
         prm_off = node.parm(IN_PRESETS_OFF)
@@ -2162,6 +2166,7 @@ reset_PREFS(self, mode: int=0) -> None:
                 node.setParms({MSG_FLAMESENSOR: ""})
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                 # We do not want to print if the file path parameter is empty
+                # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
                 if xml:
                     print(f'{node.name()}.IN: please select a valid file location.')
             else:
@@ -2213,6 +2218,7 @@ reset_PREFS(self, mode: int=0) -> None:
             node.setParms({MSG_OUT: ''})
             node.setParms({OUT_ISVALID_FILE: 0})
             # We do not want to print if the file path parameter is empty
+            # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
             if xml:
                 print(f'{node.name()}.OUT: please select a valid file location.')
                 
@@ -2276,6 +2282,7 @@ reset_PREFS(self, mode: int=0) -> None:
             node.setParms({CP_ISVALID_PRESET: 0})
             
             # We do not want to print if the file path parameter is empty
+            # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
             if json_path:
                 print(f'{node.name()}.PALETTE: please select a valid file location.')
             else:
@@ -4803,6 +4810,8 @@ iterator_keep_last_weight(self) -> None:
         idx = str(id)
         
         self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:], flam3h_iterator.sec_preAffine, idx)
+        _MSG = f"iterator.{id} - Post affine values copied into the Pre affine."
+        flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
         
@@ -4817,6 +4826,8 @@ iterator_keep_last_weight(self) -> None:
         idx = str(id)
         
         self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine, flam3h_iterator.sec_postAffine[1:], idx)
+        _MSG = f"iterator.{id} - Pre affine values copied into the Post affine."
+        flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
         
@@ -4828,6 +4839,8 @@ iterator_keep_last_weight(self) -> None:
         """    
         
         self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:], flam3h_iterator_FF.sec_preAffine_FF, "")
+        _MSG = f"FF - Post affine values copied into the Pre affine."
+        flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
         
@@ -4839,6 +4852,8 @@ iterator_keep_last_weight(self) -> None:
         """    
         
         self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF, flam3h_iterator_FF.sec_postAffine_FF[1:], "")
+        _MSG = f"FF - Pre affine values copied into the Post affine"
+        flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
             
             
 
@@ -6652,7 +6667,7 @@ reset_CP(self, mode: int=0) -> None:
             
             filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
             
-            if os.path.isfile(filepath) and os.path.getsize(filepath)>0 and node.parm(CP_ISVALID_FILE).evalAsInt():
+            if os.path.isfile(filepath) and os.path.getsize(filepath)>0 and node.parm(CP_ISVALID_FILE).eval():
                 
                 # get ramp parm
                 ramp_parm = node.parm(CP_RAMP_SRC_NAME)
@@ -6665,7 +6680,7 @@ reset_CP(self, mode: int=0) -> None:
                 hsv_vals = []
                 
                 # get current preset name
-                if node.parm(CP_ISVALID_PRESET).evalAsInt():
+                if node.parm(CP_ISVALID_PRESET).eval():
                     preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
                     menu_label = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
                 else:
@@ -6765,7 +6780,7 @@ reset_CP(self, mode: int=0) -> None:
             
         else:
             node = self.node
-            if node.parm(CP_ISVALID_PRESET).evalAsInt():
+            if node.parm(CP_ISVALID_PRESET).eval():
                 preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
                 node.setParms({CP_SYS_PALETTE_PRESETS_OFF: str(preset_id)})
             else:
@@ -10327,9 +10342,9 @@ reset_IN(self, mode: int=0) -> None:
 
         toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
         
-        if node.parm(IN_ISVALID_PRESET).evalAsInt():
+        if node.parm(IN_ISVALID_PRESET).eval():
             
-            if node.parm(IN_CLIPBOARD_TOGGLE).evalAsInt():
+            if node.parm(IN_CLIPBOARD_TOGGLE).eval():
                 menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
@@ -10506,7 +10521,7 @@ reset_IN(self, mode: int=0) -> None:
             xml = node.parm(IN_PATH).eval()
             
             # Get the correct menu parameter's preset idx
-            if node.parm(IN_ISVALID_PRESET).evalAsInt():
+            if node.parm(IN_ISVALID_PRESET).eval():
                 preset_id = int(node.parm(IN_PRESETS).eval())
             else:
                 preset_id = int(node.parm(IN_PRESETS_OFF).eval())
@@ -10562,7 +10577,7 @@ reset_IN(self, mode: int=0) -> None:
 
     @staticmethod
     def in_copy_sensor_stats_msg(kwargs: dict) -> None:
-        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
+        """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
 
         Args:
             kwargs (hou.SopNode): houdini kwargs.
@@ -10613,7 +10628,7 @@ reset_IN(self, mode: int=0) -> None:
 
     @staticmethod
     def in_copy_render_stats_msg(kwargs: dict) -> None:
-        """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
+        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
 
         Args:
             kwargs (hou.SopNode): houdini kwargs.
@@ -10653,6 +10668,7 @@ reset_IN(self, mode: int=0) -> None:
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
+            # This is not needed for just the RENDER properties, but it casue no harm, so...
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
@@ -11733,7 +11749,7 @@ reset_IN(self, mode: int=0) -> None:
         xml = node.parm(IN_PATH).eval()
         
         # Get the correct menu parameter's preset idx
-        if node.parm(IN_ISVALID_PRESET).evalAsInt():
+        if node.parm(IN_ISVALID_PRESET).eval():
             preset_id = node.parm(IN_PRESETS).eval()
             # Update
             node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
@@ -11818,8 +11834,8 @@ reset_IN(self, mode: int=0) -> None:
         node = self.node
         xml = node.parm(IN_PATH).eval()
 
-        if xml and node.parm(IN_ISVALID_FILE).evalAsInt():
-            if node.parm(IN_ISVALID_PRESET).evalAsInt():
+        if xml and node.parm(IN_ISVALID_FILE).eval():
+            if node.parm(IN_ISVALID_PRESET).eval():
                 preset_id = node.parm(IN_SYS_PRESETS).eval()
                 # Updated other PRESETS menu parameters
                 node.setParms({IN_SYS_PRESETS_OFF: preset_id})
@@ -13017,7 +13033,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             menuitems = (   "", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", # 1 2 3 4
                             "", "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", # 6 7 8 9
                             "", "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", # 11 12 13 14 15 16 17
-                            "", "256^2", "512^2", "1024^2", "2048^2", "4096^2"  ) # 19 20 21 22 23
+                            "", "256^2", "512^2", "1024^2", "2048^2", "4096^2", ""  ) # 19 20 21 22 23
         else:
             menuitems = ( "", )
             

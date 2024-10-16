@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.4.95 - Gold
+#version: 1.5.00 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -848,7 +848,7 @@ post:
 pre affine Scale:
     #id: FLAME
 
-    Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
+    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100% -> no scale) being the default.
 
     The are two ways to use this parameter.
     # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
@@ -955,7 +955,7 @@ pre affine reset:
 post affine Scale:
     #id: FLAME
 
-    Scale the affine values (X and Y) by an amount, with a value of 1 (100% -> no scale) being the default.
+    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100% -> no scale) being the default.
 
     *See the above [pre affine Scale|#FLAMEITERPRESCALE] parameter description for more informations.*
     
@@ -1190,7 +1190,7 @@ FF: post:
 FF: pre affine Scale:
     #id: FLAME
 
-    Scale the affine values (X and Y) by an amount, with a value of 1 (100%, no scale) being the default.
+    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100%, no scale) being the default.
 
     - *See the above [iterator's pre affine Scale|#FLAMEITERPRESCALE] description for more information*.
 
@@ -1223,7 +1223,7 @@ FF: pre affine reset:
 FF: post affine Scale:
     #id: FLAME
 
-    Scale the affine values (X and Y) by an amount, with a value of 1 (100%, no scale) being the default.
+    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100%, no scale) being the default.
 
     - *See the above [iterator's pre affine Scale|#FLAMEITERPRESCALE] description for more information*.
 
@@ -1805,7 +1805,7 @@ Render infos:
     
 Copy/Paste preset properties:
     #id: IN
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg]
     
     When you click this icon, all those render properties (SENSOR and RENDER) will be copied and pasted into the render properties of the OUT tab.
 
@@ -1852,7 +1852,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.4.95" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.00" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2110,7 +2110,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.4.95" ... >
+          <flame version="FLAM3H-WIN-1.5.00" ... >
               ...
         }}}
         
@@ -2119,7 +2119,7 @@ use Fractorium parametric prm names:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.4.95" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.00" ... >
               ...
         }}}
         
@@ -2197,8 +2197,7 @@ SHOW sensor viz:
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
 
     NOTE:
-        When entering the Sensor Viz mode, if there is only one pane tab of type viewer, FLAM3H will store the viewport data prior to entering the mode and restore it on exit.<br />
-        However, as of now if multiple viewers are present in the current Houdini session, FLAM3H will activate the Sensor Viz mode on all of them but it wont be able to restore them to their preview state on exit.
+        When entering the Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit.<br />
     
 Resolution:
     #id: OUT
@@ -2212,7 +2211,7 @@ mini-menu Resolution presets [Smallicon:BUTTONS/pane_menu]:
     
 Copy/Paste render properties:
     #id: OUT
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg]
+    [Largeicon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg]
     
     When you load a Flame file in the IN tab, this icon will become available.
     
@@ -2448,8 +2447,15 @@ menu type [Smallicon:BUTTONS/pane_menu]:
     _Some of the menu labels posses a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
-    
-size:
+
+    TIP:
+        #display: orange
+        At the moment of this writing, if you are using H20 and up<br />
+        it is suggested to go to: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to *`OpenGL`* as it is much much faster with higher points count in the viewport.<br />
+        
+        A restart of Houdini is required for this change to take effect.
+
+Size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
         
