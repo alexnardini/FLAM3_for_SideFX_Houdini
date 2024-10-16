@@ -1,5 +1,5 @@
 # The Fractal Flame Algorithm
-![FLAM3 Intro image](https://github.com/alexnardini/FLAM3/blob/main/img/GITHUB_intro_img.jpg)
+![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
@@ -7,7 +7,7 @@
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
-  <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
+  <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
 **[FLAM3H website](https://www.alexnardini.net/flame-home/)**
@@ -29,7 +29,7 @@ It was important, so I could shape and steer this tool in the right direction.
 ### Description
 
 `FLAM3H node OTL documentation.`
-![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_OTL_documentation_H19.jpg)
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation_H19.jpg)
 
 CVEX has been used to implement the algorithm in its entirety.
 Although it's not a real-time thing, it will be a lot of fun if you have a powerful CPU (two powerful CPUs are even better).
@@ -57,10 +57,10 @@ A custom shader could, in theory, implement a log density display and some form 
 Karma interactive rendering in the Houdini's viewport:
 
 `the Queen's eggs - Author: Alessandro Nardini`
-![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_Karma_H19.jpg)
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_Karma_H19.jpg)
 
 `Lights festival - Author: Alessandro Nardini`
-![FLAM3HOUDINI Karma rendering viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_02_Karma_H19.jpg)
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma_H19.jpg)
 
 **Highly inspired by Apophysis software and its workflow design.**
 
@@ -74,10 +74,10 @@ Or you can use Apophysis or Fractorium to author your flames first and load them
 ## Viewport live point cloud
 
 Imagine the possibilities using Houdini procedural paradigm and toolsets to control all aspects of your Flame.
-![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_01_H19.jpg)
-![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_02_H19.jpg)
-![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_04_H19.jpg)
-![FLAM3HOUDINI viewport](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_Hviewport_03_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
+![FLAM3HOUDINI viewport](./FLAM3H_Hviewport_03_H19.jpg)
 `FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
 
 ## Camera sensor
@@ -90,8 +90,8 @@ The FLAM3H camera sensor will precisely display the image framing.
 
 Once framed, you can save the Flame and be sure it will be framed the same in other applications like Apophysis, Fractorium and others.
 
-![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
-![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
+![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
+![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 `Camera sensor: FLAM3H to Fractorium`
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
@@ -101,13 +101,13 @@ Some have been modified to fit within FLAM3H's available variations. The screens
 Houdini Karma interactive on the left, and Fractorium with the same flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
-![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_03.jpg)
+![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
 `Mountain by tatasz. Source: Fractorium`
-![Fractorium to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_01.jpg)
+![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_01.jpg)
 `Bipolar by tatasz. Source: Fractorium`
-![Fractorium to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_02.jpg)
+![Fractorium to FLAM3HOUDINI 02](./img/FractoriumToFLAM3HOUDINI_02.jpg)
 `Flipped disk. Source: Fractorium`
-![Fractorium to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/FractoriumToFLAM3HOUDINI_00.jpg)
+![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 
 ## List of all available variations/plugins:
@@ -154,7 +154,7 @@ Some require thousands of iterations to show you the proper results; some of the
 Iterations needed in FLAM3H to resolve: **1280**
 
 `ieddaka gnarl. Author: zuek`
-![Chaotica to FLAM3HOUDINI 00](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
+![Chaotica to FLAM3HOUDINI 00](./main/img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 ### The next two are a bit more speedy:
 
@@ -162,24 +162,24 @@ Iterations needed in FLAM3H to resolve: **512**
 ( potentially a bit less are needed for those but just in case. )
 
 `blue modulus. Author: tatasz`
-![Chaotica to FLAM3HOUDINI 01](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
+![Chaotica to FLAM3HOUDINI 01](./main/img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
 `lazyswirls. Author: meckie`
-![Chaotica to FLAM3HOUDINI 02](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
+![Chaotica to FLAM3HOUDINI 02](./main/img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 ### This one is quick and beautiful:
 
 Iterations needed in FLAM3H to resolve: **64**
 
 `majestic. Author: tatasz`
-![Chaotica to FLAM3HOUDINI 03](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
+![Chaotica to FLAM3HOUDINI 03](./main/img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 ### And the last one:
 
 Iterations needed in FLAM3H to resolve: **32**
 
 `blurry splits. Author: tatasz`
-![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/ChaoticaToFLAM3HOUDINI_04.jpg)
+![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 The following is another preset Chaotica software ship with I truly loved ported inside FLAM3H and rendered with Karma renderer.
 
@@ -196,7 +196,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 Iterations needed in FLAM3H to resolve: **6**
 
 `Knot clusters - Author: Alessandro Nardini`
-![Chaotica to FLAM3HOUDINI 04](https://github.com/alexnardini/FLAM3/blob/main/img/FLAM3H_knotCluster_HQ_iter_6.jpg)
+![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
 I could add a lot more functionalities, but this project consumed me for a very long time.
 Every aspect of this algorithm, once understood, looks simple on the surface, but they all present challenges on their own. It has been quite a crazy ride to pack everything into this implementation.
