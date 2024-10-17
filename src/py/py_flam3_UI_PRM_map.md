@@ -142,7 +142,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_select_iterator()
 ```
 ### Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_SEL_ITER()
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_select_iterator()
 return menu
 ```
 # SYS Tab
@@ -203,7 +203,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
 # parameter name:    `sys_tag`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_sys_tag()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
 ```
 # SYS Tab
 # parameter name:    `loaddef`
