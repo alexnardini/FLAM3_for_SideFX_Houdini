@@ -231,6 +231,10 @@ n = None
 ```
 # SYS Tab
 # parameter name:    `sys_palettepresets_off`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False)
+```
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
@@ -257,6 +261,10 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 ```
 # SYS Tab
 # parameter name:    `sys_inpresets_disabled`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
+```
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
@@ -264,7 +272,7 @@ return menu
 ```
 ### Action Button script
 ```python
-n = None
+kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 ```
 # SYS Tab
 # parameter name:    `sys_inpresets`
@@ -296,7 +304,7 @@ return menu
 ```
 ### Action Button script
 ```python
-kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
+kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 ```
 
 <br>
@@ -333,7 +341,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_vac
 hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
 ```
 # FLAME Tab
-### parameter name:    `iw_#`
+# parameter name:    `iw_#`
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_keep_last_weight()
@@ -355,7 +363,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 return menu
 ```
 # FLAME Tab
-### parameter name:    `xaos_#`
+# parameter name:    `xaos_#`
 ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
@@ -368,7 +376,7 @@ return menu
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_data(kwargs['node'], 'iter_sel')
 ```
 # FLAME Tab
-### parameter name:    `preblurtype_#`
+# parameter name:    `preblurtype_#`
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
