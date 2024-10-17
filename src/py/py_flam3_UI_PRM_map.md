@@ -431,7 +431,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine(
 <br>
 
 # FF Tab
-# parameter name:    `ffprmpastesel_#`
+# parameter name:    `ffprmpastesel`
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
@@ -460,7 +460,7 @@ menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(True)
 return menu
 ```
 # FF Tab
-# parameter name:    `ffscl_#`
+# parameter name:    `ffscl`
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_scale()
@@ -485,8 +485,6 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affin
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()
 ```
-
-
 # FF Tab
 # parameter name:    `ffpang`
 ### Action Button script
