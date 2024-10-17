@@ -833,19 +833,14 @@ w:
 :box:
     #display: rounded white
 
-    == Iterator: Affine - Activate post affine == (FLAMEITERACTIVATEPOST)
+    == Iterator: Pre Affine== (FLAMEITERPREAFFINE)
     
 post:
     #id: FLAME
     Enable post affine.
 
-:box:
-    #display: rounded white
 
-    == Iterator: Affine - pre affine Scale == (FLAMEITERPRESCALE)
-
-
-pre affine Scale:
+affine Scale:
     #id: FLAME
 
     Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100% -> no scale) being the default.
@@ -862,26 +857,14 @@ pre affine Scale:
     - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
 
 
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - pre affine copy post affine == (FLAMEITERCOPYPOST)
-
-
 copy post affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
      
     Copy the values from the POST Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
 
-    
-:box:
-    #display: rounded white
 
-    == Iterator: Affine - pre affine == (FLAMEITERPREAFFINE)
-
-
-pre affine:
+affine:
     #id: FLAME
 
     Affine transformation's coefficients for the current iterator ( xform ).
@@ -916,25 +899,14 @@ pre affine:
     NOTE:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
 
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - pre affine Rot == (FLAMEITERPREROT)
-
-pre affine Rot:
+affine Rot:
     #id: FLAME
     Rotate affine in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.
     
     NOTE:
         The resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.
 
-        
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - pre affine reset == (FLAMEITERPREAFFINERESET)
-
-pre affine reset:
+affine reset:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
@@ -949,67 +921,13 @@ pre affine reset:
 :box:
     #display: rounded white
 
-    == Iterator: Affine - post affine Scale == (FLAMEITERPOSTSCALE)
-
-
-post affine Scale:
-    #id: FLAME
-
-    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100% -> no scale) being the default.
-
-    *See the above [pre affine Scale|#FLAMEITERPRESCALE] parameter description for more informations.*
-    
-
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - post affine copy pre affine == (FLAMEITERCOPYPRE)
-
-
-copy pre affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
-     
-    Copy the values from the PRE Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
-
-
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - post affine == (FLAMEITERPOSTAFFINE)
+    == Iterator: Post Affine == (FLAMEITERPOSTAFFINE)
         
 POST affine:
     #id: FLAME
-    Post affine coefficients for the current variations. Those are applied after the variations.
 
     *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
-
-
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - post affine Rot == (FLAMEITERPOSTROT)
-
-pre affine Rot:
-    #id: FLAME
-    Rotate affine in angle degrees.
-    
-    *See the above [pre affine Rot|#FLAMEITERPREROT] description for more informations.*
-    
-
-:box:
-    #display: rounded white
-
-    == Iterator: Affine - post affine reset == (FLAMEITERPOSTAFFINERESET)
-
-post affine reset:
-    #id: FLAME
-    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
-    
-    Reset this iterator's post affine to their default values.
-    
-    *See the above [pre affine reset|#FLAMEITERPREAFFINERESET] parameter description for more informations.*
-    
+ 
     
 :box:
     #display: rounded white
@@ -1177,84 +1095,22 @@ FF: w:
         The variation will be fully disregarded at zero.
 
 
-    
 :box:
     #display: rounded white
 
-    == FF: Affine == (FFAFFINE)
+    == FF: Affine == (FFPREAFFINE)
         
-FF: post:
-    #id: FF
-    Enable post affine.
-
-FF: pre affine Scale:
-    #id: FLAME
-
-    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100%, no scale) being the default.
-
-    - *See the above [iterator's pre affine Scale|#FLAMEITERPRESCALE] description for more information*.
-
-FF: copy post affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
-     
-    Copy the values from the FF POST Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
     
 FF: pre affine:
     #id: FF
-    Affine coefficients for the current FF iterator ( FF - finalxform ). Those are applied before the variations.
 
-    - *See the above [iterator's pre affine|#FLAMEITERPREAFFINE] description for more information*.
-
-FF: pre affine Rot:
-    #id: FLAME
-    Rotate affine in angle degrees.
-    
-    *See the above [pre affine Rot|#FLAMEITERPREROT] description for more informations.*
-    
-FF: pre affine reset:
-    #id: FF
-    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
-    
-    Reset the FF pre affine to their default values.
-    
-    - *See the above [iterator's pre affine reset|#FLAMEITERPREAFFINERESET] description for more information*.
-
-FF: post affine Scale:
-    #id: FLAME
-
-    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100%, no scale) being the default.
-
-    - *See the above [iterator's pre affine Scale|#FLAMEITERPRESCALE] description for more information*.
-
-FF: copy pre affine values:
-    #id: FLAME
-    [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg]
-     
-    Copy the values from the FF PRE Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
-
+    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
 FF: post affine:
     #id: FF
-    Post affine coefficients for the current variations. Those are applied after the variations.
     
-    - *See the above [iterator's pre affine|#FLAMEITERPREAFFINE] description for more information*.
+    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
-
-FF: post affine Rot:
-    #id: FLAME
-    Rotate affine in angle degrees.
-    
-    *See the above [pre affine Rot|#FLAMEITERPREROT] description for more informations.*
-
-    
-FF: post affine reset:
-    #id: FF
-    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
-    
-    Reset the FF post affine to their default values.
-    
-    - *See the above [iterator's pre affine reset|#FLAMEITERPREAFFINERESET] description for more information*.
         
 :box:
     #display: rounded white
