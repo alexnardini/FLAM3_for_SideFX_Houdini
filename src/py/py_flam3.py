@@ -516,8 +516,7 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         try:
             int(item)
             keys.append(item)
-        except:
-            values.append(id)
+        except: values.append(id)
             
             
     @staticmethod
@@ -943,14 +942,12 @@ flam3h_on_deleted(self) -> None:
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
             first_instance_32bit = False
-        except:
-            first_instance_32bit = True
+        except: first_instance_32bit = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
             first_instance_64bit = False
-        except:
-            first_instance_64bit = True
+        except: first_instance_64bit = True
             
         node = self.node
         cvex_precision = int( node.parm(PREFS_CVEX_PRECISION).eval() )
@@ -1004,14 +1001,12 @@ flam3h_on_deleted(self) -> None:
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
             first_instance_32bit = False
-        except:
-            first_instance_32bit = True
+        except: first_instance_32bit = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
             first_instance_64bit = False
-        except:
-            first_instance_64bit = True
+        except: first_instance_64bit = True
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
 
@@ -1072,8 +1067,7 @@ flam3h_on_deleted(self) -> None:
         flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
 
         # If an iterator was copied from a node that has been deleted
-        try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+        try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
         except:
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
@@ -1086,8 +1080,7 @@ flam3h_on_deleted(self) -> None:
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
 
         # If the FF was copied from a node that has been deleted
-        try:
-            hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+        try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
         except:
             hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
@@ -1096,10 +1089,8 @@ flam3h_on_deleted(self) -> None:
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                 
         # Initialize FLAM3H viewport Color Scheme
-        try:
-            hou.session.flam3h_viewport_CS # type: ignore
-        except:
-            hou.session.flam3h_viewport_CS = [] # type: ignore
+        try: hou.session.flam3h_viewport_CS # type: ignore
+        except: hou.session.flam3h_viewport_CS = [] # type: ignore
 
 
 
@@ -1289,28 +1280,22 @@ flam3h_on_deleted(self) -> None:
         
         if len(node_instances) == 1:
             
-            try:
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             except:
                 try:
                     if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
                         hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
-                except:
-                    pass
+                except: pass
                 
-            try:
-                hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+            try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
             except:
                 try:
                     if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
                         hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
-                except:
-                    pass
+                except: pass
                 
-            try:
-                del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
-            except:
-                pass
+            try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+            except: pass
             
             # Delete all data related to the Camera sensor viz
             flam3h_general_utils.util_clear_stashed_cam_data()
@@ -1559,26 +1544,16 @@ reset_PREFS(self, mode: int=0) -> None:
         Returns:
             None
         """
-        try:
-            del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-        except:
-            pass
-        try:
-            del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
-        except:
-            pass
-        try:
-            del hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
-        except:
-            pass
-        try:
-            del hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
-        except:
-            pass
-        try:
-            del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
-        except:
-            pass
+        try: del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+        except: pass
+        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+        except: pass
+        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        except: pass
+        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+        except: pass
+        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+        except: pass
 
 
 
@@ -1592,10 +1567,8 @@ reset_PREFS(self, mode: int=0) -> None:
         Returns:
             None
         """        
-        try:
-            _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
-        except:
-            _CAMS: Union[int, None]  = None
+        try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        except: _CAMS: Union[int, None]  = None
         
         if _CAMS is None:
             
@@ -1606,10 +1579,8 @@ reset_PREFS(self, mode: int=0) -> None:
                 
                 view = viewport.curViewport()
                 
-                try:
-                    _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-                except:
-                    _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
+                try: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                except: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
                     
                 if _CAM_STASHED is not None:
                     
@@ -1619,10 +1590,8 @@ reset_PREFS(self, mode: int=0) -> None:
                         
                     elif _CAM_STASHED.isOrthographic:
                         
-                        try:
-                            _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
-                        except:
-                            _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = None
+                        try: _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+                        except: _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = None
                             
                         if _CAM_STASHED_TYPE is not None:
                             view.changeType(_CAM_STASHED_TYPE) # type: ignore
@@ -1631,14 +1600,10 @@ reset_PREFS(self, mode: int=0) -> None:
                             view_obj.setTranslation(_CAM_STASHED.translation())
                             
         else:
-            try:
-                _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
-            except:
-                _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = None
-            try:
-                _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
-            except:
-                _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = None
+            try: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+            except: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = None
+            try: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+            except: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = None
                 
             if _STASH_DICT is not None and _TYPE_DICT is not None:
                 for v in flam3h_general_utils.util_getSceneViewers():
@@ -1825,8 +1790,7 @@ reset_PREFS(self, mode: int=0) -> None:
             try:
                 if self.kwargs['parm'].name() == SYS_FRAME_VIEW_SENSOR:
                     _SYS_FRAME_VIEW_SENSOR_prm =True
-            except:
-                pass
+            except: pass
             
             # If the viewport is: viewport.isCurrentTab()
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
@@ -1839,10 +1803,8 @@ reset_PREFS(self, mode: int=0) -> None:
                 _ENTER_PRM = None
                 if parm is not None: _ENTER_PRM = parm.name()
                 if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
-                    try:
-                        _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-                    except:
-                        _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
+                    try: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                    except: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
                         
                     if _CAM_STASHED is None:
                         cam = view.defaultCamera()
@@ -1856,10 +1818,9 @@ reset_PREFS(self, mode: int=0) -> None:
                     if self.bbox_sensor_path is not None:
                         node_bbox = hou.node(self.bbox_sensor_path)
                         if hou.hipFile.isLoadingHipFile(): # type: ignore
-                            try:
-                                # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                                # but work on H20.0.590 and up, hence the try/except block
-                                view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                            # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                            # but work on H20.0.590 and up, hence the try/except block
+                            try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                             except:
                                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                 return False
@@ -1877,10 +1838,9 @@ reset_PREFS(self, mode: int=0) -> None:
                         if self.bbox_sensor_path is not None:
                             node_bbox = hou.node(self.bbox_sensor_path)
                             if hou.hipFile.isLoadingHipFile(): # type: ignore
-                                try:
-                                    # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                                    # but work on H20.0.590 and up, hence the try/except block
-                                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                # but work on H20.0.590 and up, hence the try/except block
+                                try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 except:
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                     return False
@@ -1936,10 +1896,9 @@ reset_PREFS(self, mode: int=0) -> None:
                         if self.bbox_sensor_path is not None:
                             node_bbox = hou.node(self.bbox_sensor_path)
                             if hou.hipFile.isLoadingHipFile(): # type: ignore
-                                try:
-                                    # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                                    # but work on H20.0.590 and up, hence the try/except block
-                                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                # but work on H20.0.590 and up, hence the try/except block
+                                try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 except:
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                     return False
@@ -1954,10 +1913,9 @@ reset_PREFS(self, mode: int=0) -> None:
                             if self.bbox_sensor_path is not None:
                                 node_bbox = hou.node(self.bbox_sensor_path)
                                 if hou.hipFile.isLoadingHipFile(): # type: ignore
-                                    try:
-                                        # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                                        # but work on H20.0.590 and up, hence the try/except block
-                                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                    # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                    # but work on H20.0.590 and up, hence the try/except block
+                                    try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     except:
                                         self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                         return False
@@ -2316,10 +2274,8 @@ reset_PREFS(self, mode: int=0) -> None:
         """
         node = self.node
         
-        try:
-            module_test = hou.session.flam3h_viewport_CS # type: ignore
-        except:
-            hou.session.flam3h_viewport_CS = [] # type: ignore
+        try: module_test = hou.session.flam3h_viewport_CS # type: ignore
+        except: hou.session.flam3h_viewport_CS = [] # type: ignore
 
         count = 0
         viewers_col = []
@@ -2339,8 +2295,7 @@ reset_PREFS(self, mode: int=0) -> None:
             settings = view.curViewport().settings()
             col = settings.colorScheme()
             viewers_col.append(col)
-            try:
-                idx_test = hou.session.flam3h_viewport_CS[count] # type: ignore
+            try: idx_test = hou.session.flam3h_viewport_CS[count] # type: ignore
             except:
                 if len(hou.session.flam3h_viewport_CS) > 0: # type: ignore
                     hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
@@ -3021,18 +2976,12 @@ iterator_keep_last_weight(self) -> None:
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
-        try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-        try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
-        try:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+        try: hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+        except: hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+        try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+        except: hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+        try: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+        except: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
 
 
     @staticmethod
@@ -3046,18 +2995,12 @@ iterator_keep_last_weight(self) -> None:
         # The following try/except blocks are not really needed
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
-        try:
-            hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-        try:
-            hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
-        try:
-            hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
-        except:
-            hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+        try: hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+        except: hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+        try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+        except: hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
+        try: hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+        except: hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
     @staticmethod
@@ -4335,8 +4278,7 @@ iterator_keep_last_weight(self) -> None:
         
         
         isDELETED = False
-        try:
-            from_FLAM3H_NODE.type()
+        try: from_FLAM3H_NODE.type()
         except:
             from_FLAM3H_NODE_FF_CHECK = None
             from_FLAM3H_NODE = None
@@ -4736,10 +4678,8 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
-        try:
-            mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-        except:
-            mp_id_from = None
+        try: mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+        except: mp_id_from = None
 
         if mp_id_from is not None:
 
@@ -4871,10 +4811,8 @@ iterator_keep_last_weight(self) -> None:
         node = self.node
 
         # Marked FF check ( not needed but just in case lets "try" so to speak )
-        try:
-            from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
-        except:
-            from_FLAM3H_NODE_FF_CHECK = None
+        try: from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+        except: from_FLAM3H_NODE_FF_CHECK = None
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
             
@@ -6021,8 +5959,7 @@ reset_CP(self, mode: int=0) -> None:
                 data = json.load(r)
             # get the first preset of them all
             return list(data.keys())[0]
-        except:
-            return False
+        except: return False
 
 
 
@@ -6048,8 +5985,7 @@ reset_CP(self, mode: int=0) -> None:
                 with open(filepath, 'r') as r:
                     data = json.load(r)[preset]
                     # This is the moment of the truth ;)
-                    try:
-                        hex_values = data[CP_JSON_KEY_NAME_HEX]
+                    try: hex_values = data[CP_JSON_KEY_NAME_HEX]
                     except:
                         if msg:
                             _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
@@ -6710,8 +6646,7 @@ reset_CP(self, mode: int=0) -> None:
                     try:
                         [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                         hsv_check = True
-                    except:
-                        pass
+                    except: pass
                     [HEXs.append(hex) for hex in wrap(hex_values, 6)]
                     
                 rgb_from_XML_PALETTE = []
@@ -6824,18 +6759,14 @@ reset_CP(self, mode: int=0) -> None:
             elif self.kwargs['alt']:
                 
                 palette = hou.ui.getTextFromClipboard() # type: ignore
-                try:
-                    data = json.loads(palette)
-                except:
-                    data = None
+                try: data = json.loads(palette)
+                except: data = None
                 
                 # If it is a valid json data
                 if data is not None:
                     
-                    try:
-                        preset = list(data.keys())[0]
-                    except:
-                        preset = None
+                    try: preset = list(data.keys())[0]
+                    except: preset = None
                         
                     if preset is not None:
                         
@@ -6867,8 +6798,7 @@ reset_CP(self, mode: int=0) -> None:
                             try:
                                 [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
                                 hsv_check = True
-                            except:
-                                pass
+                            except: pass
                             
                             rgb_from_XML_PALETTE = []
                             HEXs = [hex for hex in wrap(f3h_palette_data[CP_JSON_KEY_NAME_HEX], 6)]
@@ -8140,8 +8070,7 @@ __get_flame_count(self, flames: list) -> int:
                     return lxmlET.tostring(root, encoding="unicode") # type: ignore
                 else:
                     return None
-        except:
-            return None
+        except: return None
 
 
 
@@ -8170,8 +8099,7 @@ __get_flame_count(self, flames: list) -> int:
                     return False
             else:
                 return False
-        except:
-            return False
+        except: return False
 
 
 
@@ -8393,8 +8321,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         try:
             float(new_val)
             return new_val
-        except:
-            return default_val
+        except: return default_val
 
 
     @staticmethod
@@ -8414,8 +8341,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             try:
                 float(new_val)
                 new.append(new_val)
-            except:
-                new.append(default_val)
+            except: new.append(default_val)
         return new
     
     
@@ -8436,8 +8362,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             try:
                 float(new_val)
                 new.append(new_val)
-            except:
-                new.append(default_val)
+            except: new.append(default_val)
         return ' '.join(new)
 
 
@@ -8770,10 +8695,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
         """        
         if  self.isvalidtree:
-            try:
-                palette_attrib = self.flame[idx].find(key).attrib
-            except:
-                palette_attrib = None
+            try: palette_attrib = self.flame[idx].find(key).attrib
+            except: palette_attrib = None
                 
             if palette_attrib is not None:
                 palette_hex = self.flame[idx].find(key).text
@@ -8846,10 +8769,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             # self._flam3h_mb[idx] can also be an empty list, hence the double check
             if mb_do is not None and mb_do:
                 if key == OUT_XML_FLMA3H_MB_FPS:
-                    try:
-                        return int(mb_do)
-                    except:
-                        return False
+                    try: return int(mb_do)
+                    except: return False
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
                     return int(self.flam3h_mb_samples[idx])
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
@@ -8903,10 +8824,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             # f3c = self._flam3h_prefs_f3c[idx]
             # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
             if toggle is not None and toggle:
-                try:
-                    return int(toggle)
-                except:
-                    return None
+                try: return int(toggle)
+                except: return None
             else:
                 return None
         else:
@@ -9513,10 +9432,8 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """ 
-        try:
-            tree = lxmlET.parse(xml) # type: ignore
-        except:
-            tree = None
+        try: tree = lxmlET.parse(xml) # type: ignore
+        except: tree = None
               
         if tree is not None:
             if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
@@ -9535,10 +9452,8 @@ reset_IN(self, mode: int=0) -> None:
             bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """     
         xml = hou.ui.getTextFromClipboard() # type: ignore
-        try:
-            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-        except:
-            tree = None
+        try: tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except: tree = None
         
         if tree is not None:
             if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
@@ -11615,10 +11530,8 @@ reset_IN(self, mode: int=0) -> None:
                                                                     -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """     
         xml = hou.ui.getTextFromClipboard() # type: ignore
-        try:
-            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-        except:
-            tree = None
+        try: tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except: tree = None
         if tree is not None:
             assert xml is not None
             if tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
@@ -11800,8 +11713,7 @@ reset_IN(self, mode: int=0) -> None:
         try:
             self.kwargs['alt']
             _K = True
-        except:
-            _K = False
+        except: _K = False
 
         # if kwargs
         if _K:
@@ -12351,8 +12263,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         int(rp[-1].strip())
                     else:
                         is_int = False
-                except:
-                    is_int = False
+                except: is_int = False
                     
                 if is_int is False:
                     rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
@@ -12400,8 +12311,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         is_int = True
                     else:
                         pass
-                except:
-                    pass
+                except: pass
                 
                 if is_int:
                     flame_name_changed = ''.join(rp[:-1]) + str(iter_num)
@@ -12438,8 +12348,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     is_int = True
                 else:
                     pass
-            except:
-                pass
+            except: pass
             
             if is_int:
                 return ''.join(rp[:-2])
@@ -12765,8 +12674,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     try:
                         if isinstance(float(str(iter_xaos.lower()).strip()), float):
                             isNUM = True
-                    except:
-                        pass
+                    except: pass
                     # If a number is typed, fill all xaos weights with that number.
                     # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
                     if isNUM:
@@ -13842,8 +13750,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             try:
                 prm = self.node.parmTuple(prm_name)
                 prm_type = True
-            except:
-                prm = self.node.parm(prm_name)
+            except: prm = self.node.parm(prm_name)
             if prm_type:
                 return ' '.join([str(self.out_util_round_float(x.eval())) for x in prm])
             else:
@@ -14008,8 +13915,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool]:
 
         if self.flam3h_mb_do:
-            try:
-                return self.out_util_round_float(self.node.parm(prm_name).eval())
+            try: return self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
                 print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
