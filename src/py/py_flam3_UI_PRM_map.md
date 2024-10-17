@@ -766,7 +766,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 ```
 # OUT Tab
 # parameter name:    `outrespresets`
-### Callback Script'
+### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False)
 ```
@@ -795,7 +795,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 ```
 # OUT Tab
 # parameter name:    `outscale`
-### Callback Script'
+### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
@@ -899,7 +899,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('inst
 ```
 # about Tab
 # parameter name:    `flam3youtube`
-'script type:       Action Button script'
+### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')
 ```
