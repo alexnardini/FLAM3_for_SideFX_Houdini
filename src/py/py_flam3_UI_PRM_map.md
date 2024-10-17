@@ -5,7 +5,7 @@
 #   Author:     Alessandro Nardini
 #   date:       April 2023, Last revised October 2024
 #
-#   Name:       PY_MAP "Whatever"
+#   Name:       PY_FLAM3_UI_PRM_MAP
 #
 #   Comment:    List of all UI parameters wired with a python definition
 #               and the command string they actually run and from where.
@@ -14,21 +14,21 @@
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
 
-The file **`py_flam3.py`** is loaded inside the Extra Files section. Renamed as **`py_flam3`** (no extension).
+
+
+The file **`py_flam3.py`** is loaded inside the **Extra Files** section. Renamed as **`py_flam3`** (no extension).
 
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
-the FLAM3 module is created out of the py_flam3's renamed file inside the Extra Files section.
+the FLAM3 module is created out of the **`py_flam3`** renamed file inside the **Extra Files** section.
 
 ```python
 import toolutils
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 ```
+
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
@@ -86,11 +86,14 @@ When deleting a FLAM3H node.
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 # GLOBAL Tab
@@ -115,11 +118,14 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_densi
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 # SYS Tab
 # parameter name:    `sys_help`
@@ -292,12 +298,14 @@ return menu
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML(kwargs)
 ```
 
-#
-#
-#
-#
-#
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 # FLAME Tab
 # parameter name:    `flamefunc`
@@ -412,12 +420,14 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_aff
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()
 ```
 
-#
-#
-#
-#
-#
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 # FF Tab
 # parameter name:    `ffprmpastesel_#`
@@ -483,12 +493,14 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_aff
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()
 ```
 
-#
-#
-#
-#
-#
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 # CP Tab
 # parameter name:    `hsv`
@@ -561,11 +573,15 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp()
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 # IN Tab
 # parameter name:    `inpath`
@@ -664,11 +680,15 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 # OUT Tab
 # parameter name:    `outpath`
@@ -779,11 +799,15 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 # prefs Tab
 # parameter name:    `enumeratemenu`
@@ -838,11 +862,15 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
 kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)
 ```
 
-#
-#
-#
-#
-#
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 
 # about Tab
 # parameter name:    `flam3homepage`
