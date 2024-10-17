@@ -646,19 +646,20 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 ```
 # IN Tab
 # parameter name:    `in_f3h_affine`
-### Menu Script
+### Action Button script
 ```python
+kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()
 ```
 # IN Tab
 # parameter name:    `remappgb`
-### Menu Script
+### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_pgb()
 ```
 # IN Tab
 # parameter name:    `propertiescp`
-### Menu Script
+### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("propertiescp")
 ```
