@@ -1758,7 +1758,8 @@ reset_PREFS(self, mode: int=0) -> None:
         """Store dictionaries of viewers cameras and their types
         """  
         # Do this only once; when we enter the sensor viz
-        parm = self.kwargs['parm']
+        try: parm = self.kwargs['parm']
+        except: parm = None
         _ENTER_PRM = None
         if parm is not None: _ENTER_PRM = parm.name()
         if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
@@ -1833,7 +1834,8 @@ reset_PREFS(self, mode: int=0) -> None:
                 view = viewport.curViewport()
                 
                 # Do this only once; when we enter the sensor viz
-                parm = self.kwargs['parm']
+                try: parm = self.kwargs['parm']
+                except: parm = None
                 _ENTER_PRM = None
                 if parm is not None: _ENTER_PRM = parm.name()
                 if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
@@ -10511,7 +10513,7 @@ reset_IN(self, mode: int=0) -> None:
             kwargs (hou.SopNode): houdini kwargs.
             clipboard (bool): True: load from clipboard. False: load from disk file.
             apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
-        """        
+        """       
         node = kwargs['node']
 
         if clipboard:
