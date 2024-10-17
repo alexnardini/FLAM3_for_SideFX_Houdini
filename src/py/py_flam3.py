@@ -1970,7 +1970,9 @@ reset_PREFS(self, mode: int=0) -> None:
             
             else:
                 # Exit the Sensor Viz mode
-                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
+                self.flam3h_other_sensor_viz_off(self.node)
+                self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                self.util_clear_stashed_cam_data()
                 
                 _MSG = f"No viewports in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the Sensor Viz to work.", 'WARN')
