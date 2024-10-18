@@ -1260,7 +1260,6 @@ flam3h_on_deleted(self) -> None:
                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                 # Restore anc clear stashed cams data
                 flam3h_general_utils.util_set_stashed_cam()
-                flam3h_general_utils.util_clear_stashed_cam_data() # This probably not needed as we do the same in the next definition
                 flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
                 
             # INIT XAOS - this probably is not needed but I leave it for now
