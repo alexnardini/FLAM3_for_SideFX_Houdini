@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.00'
+FLAM3H_VERSION = '1.5.05'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1092,6 +1092,8 @@ flam3h_on_deleted(self) -> None:
 
     def flam3h_on_create_set_prefs_viewport(self) -> None:
         """Initialize the necessary data for the viewport display preference's option on creation.
+        
+        This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
         """        
         
         node = self.node

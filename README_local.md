@@ -127,7 +127,7 @@ The main benefits of being inside Houdini are numerous. Consider the options ava
 
 Karma and the built-in Nvidia Optix denoiser make a fantastic combination for rendering fractal flame images.
 
-There are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
+As far as I know, there are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
 Python run single threaded here, now that this tool has lots of python code running or when many iterators are created, Houdini's FLAM3H user interface becames slow.
 I made some effort to make it better, and from [v1.4.75](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.75) I was finally able to start improving the UI performance a fair bit.
