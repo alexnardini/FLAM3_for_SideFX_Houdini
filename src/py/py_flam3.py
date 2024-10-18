@@ -12047,6 +12047,8 @@ VARS_FRACTORIUM_DICT_POST: dict = in_flame_utils.in_util_vars_dict_type_maker(VA
 ##########################################
 ##########################################
 
+MENU_SENSOR_RESOLUTIONS = [0, '', 1, '640x480', 2, 'HDTV 720', 3, 'HDTV 1080', 4, 'HDTV 2160 (4K)', 5, '', 6, 'NTSC', 7, 'NTSC D1', 8, 'PAL', 9, 'PAL 16:9 (1 to 1)', 10, '', 11, 'Full Ap 4K', 12, 'Full Ap 2K', 13, 'Acad 4K', 14, 'Acad 2K', 15, 'Scope 4K', 16, 'Scope 2K', 17, 'Vista 2K', 18, '', 19, '256^2', 20, '512^2', 21, '1024^2', 22, '2048^2', 23, '4096^2', 24, '']
+
 
 class out_flame_utils:
     """
@@ -12933,8 +12935,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             return PALETTE_COUNT_256
 
 
-    def menu_sensor_resolution(self) -> list:
-        """Build sensor resolution menu parameter with a list of options.
+    def __menu_sensor_resolution(self) -> list:
+        """ This is not used anymore as the menu is now pre compute inside: MENU_SENSOR_RESOLUTIONS
+        Build sensor resolution menu parameter with a list of options.
         
         """
 
@@ -12953,6 +12956,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             menu.append(i)
             menu.append(item)
         return menu
+    
+    
+    def menu_sensor_resolution(self) -> list:
+        """ Pre computed menu: MENU_SENSOR_RESOLUTIONS
+        The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> list: (just above)
+        
+        """
+        return MENU_SENSOR_RESOLUTIONS
 
 
     def menu_sensor_resolution_set(self, update=True) -> None:
