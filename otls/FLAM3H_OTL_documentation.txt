@@ -251,6 +251,10 @@ RIP:
     - When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned ON.
 
+    TIP:
+        #display: orange
+        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0.0`* ( *ZERO* ) and if so, it will switch this toggle ON.<br />
+
         
 F3C (flam3 compatibility):
     #id: SYS
