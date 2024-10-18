@@ -96,6 +96,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 <br>
 <br>
 
+_Parameters to define the quality of the fractal Flame algorithm solution._
 
 # GLOBAL Tab
 # parameter name:    `ptcount_presets`
@@ -127,6 +128,9 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 <br>
 <br>
 <br>
+
+_Tools available to enhance and speed up the workflow.<br>
+I keep changing and adding functionalities, it is still a work in progress, but thus far, this most recent configuration has been successful._
 
 # SYS Tab
 # parameter name:    `sys_help`
@@ -316,6 +320,9 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 <br>
 <br>
 
+_This is where you’ll spend the majority of your time, along with the FF Tab.<br>
+Here you will create your fractal Flame logic.<br>Since every parameter has the same name inside, if you have ever used Apophysis, Fractorium, or other fractal Flame editors, you will almost immediately feel at home. The logic you will operate with will be the same._
+
 # FLAME Tab
 # parameter name:    `flamefunc`
 ### Callback Script
@@ -383,7 +390,7 @@ menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb(
 return menu
 ```
 # FLAME Tab
-# parameter name:    `pre1type_#`, `pre2type_#`, `p1type_#`
+# parameter name:    `pre1type_#`, `pre2type_#` and `p1type_#`
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
@@ -438,6 +445,9 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine(
 <br>
 <br>
 
+_Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
+It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
+
 # FF Tab
 # parameter name:    `ffprmpastesel`
 ### Callback Script
@@ -454,7 +464,7 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 ```
 # FF Tab
-# parameter name:    `ffpre1type`, `ffp1type`, `ffp2type`
+# parameter name:    `ffpre1type` and `ffp1type`, `ffp2type`
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T_PP(True)
@@ -508,6 +518,9 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_
 <br>
 <br>
 <br>
+
+_The palette colors used in a successful fractal Flame are crucial.<br>
+In addition to playing with the shader parameters for each iterator, fractal Flames can be transformed into something truly unique by trying out various color schemes._
 
 # CP Tab
 # parameter name:    `hsv`
@@ -589,6 +602,8 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 <br>
 <br>
 
+_Load *.flame files created with Apophysis, Fractorium and others.<br>
+A *.flame file is an XML-formatted type of file._
 
 # IN Tab
 # parameter name:    `inpath`
@@ -696,6 +711,8 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 <br>
 <br>
 
+_Inside here, you can export your fractal Flame into an XML format ( standard *.flame file format ) and reload it inside FLAM3H or inside Apophysis, Fractorium and others.<br>
+The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead._
 
 # OUT Tab
 # parameter name:    `outpath`
