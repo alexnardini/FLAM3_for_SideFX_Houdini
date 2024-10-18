@@ -13015,12 +13015,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096) } # 19 20 21 22 23
  
         if res.get(sel) is not None:
-            self.node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
 
             if update:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
             else:
-                update_sensor = self.node.parm(OUT_UPDATE_SENSOR).evalAsInt()
+                update_sensor = node.parm(OUT_UPDATE_SENSOR).evalAsInt()
                 if update_sensor:
                     flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
@@ -13083,16 +13083,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         if kwargs['ctrl']:
             self.reset_OUT_sensor()
-            flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor -> RESET")
+            flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor: RESET")
             
         elif kwargs['shift']:
             self.reset_OUT_render()
-            flam3h_general_utils.flash_message(self.node, f"OUT Render settings -> RESET")
+            flam3h_general_utils.flash_message(self.node, f"OUT Render settings: RESET")
             
         else:
             self.reset_OUT_sensor()
             self.reset_OUT_render()
-            flam3h_general_utils.flash_message(self.node, f"OUT Render properties -> RESET")
+            flam3h_general_utils.flash_message(self.node, f"OUT Render properties: RESET")
         
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
@@ -13298,13 +13298,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """   
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
-        if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
-            XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
-        else:
-            XML_APP_NAME = XML_APP_NAME_FLAM3H
+        if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt(): _XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
+        else: _XML_APP_NAME = XML_APP_NAME_FLAM3H
              
         f3p = out_flame_render_properties(self.kwargs)
-        return {OUT_XML_VERSION: f'{XML_APP_NAME}-{flam3h_general_utils.my_system()}-{FLAM3H_VERSION}',
+        return {OUT_XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{FLAM3H_VERSION}',
                 XML_XF_NAME: f3p.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
                 OUT_XML_FLAM3H_HSV: f3p.flam3h_cp_hsv, # custom to FLAM3H only
@@ -13476,7 +13474,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             assert W_tuple is not None
             node = self.node
             names = []
-            for iter in range(node.parm(FLAME_ITERATORS_COUNT).evalAsInt()):
+            for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
                 _MP_IDX = str(int(iter + 1))
                 for idx, prm in enumerate(W_tuple):
                     prm_w = node.parm(f"{prm[0]}{_MP_IDX}").eval()
