@@ -1307,6 +1307,11 @@ flam3h_on_deleted(self) -> None:
             flam3h_general_utils.util_clear_stashed_cam_data()
             
         else:
+            # If we are deleting a FLAM3H node in camera Sensor Viz mode,
+            # restore the viewers to their preview states and clear all the stashed cams data
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                flam3h_general_utils.util_set_stashed_cam()
+                flam3h_general_utils.util_clear_stashed_cam_data()
             
             if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
                 from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
