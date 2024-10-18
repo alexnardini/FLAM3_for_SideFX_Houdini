@@ -2202,7 +2202,7 @@ flash messages (network editor):
     
     == Prefs: UI == (PREFSUI)
 
-Enumerate presets menu:
+Enumerate presets menus:
     #id: prefs
     ON by default. Causes the presets menus inside the CP, IN and OUT tab to be enumerated.
     
