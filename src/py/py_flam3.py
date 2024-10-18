@@ -12937,7 +12937,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
     def __menu_sensor_resolution(self) -> list:
         """ THIS IS NOT USED ANYMORE and it has been prefixed with two underscores (__)
-        as the menu is now pre computet inside: MENU_SENSOR_RESOLUTIONS
+        as the menu is now pre computed inside: MENU_SENSOR_RESOLUTIONS
         I leave it here for future needs to re-generate the menu with new entries.
         
         Build sensor resolution menu parameter with a list of options.
@@ -12964,6 +12964,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def menu_sensor_resolution(self) -> list:
         """ Pre computed menu: MENU_SENSOR_RESOLUTIONS
         The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> list: (just above)
+        
+        Output sensor resolution menu parameter with a list of options.
         
         """
         return MENU_OUT_SENSOR_RESOLUTIONS
