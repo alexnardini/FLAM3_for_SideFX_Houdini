@@ -797,8 +797,6 @@ flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNod
 
 flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 
-...
-
 METHODS:
 
 flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
@@ -905,8 +903,6 @@ flam3h_on_deleted(self) -> None:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
         elif cvex_precision == 64 and first_instance_64bit is True:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
-
-
 
 
     # CLASS: PROPERTIES
@@ -1187,31 +1183,35 @@ flam3h_on_deleted(self) -> None:
             # Updated FLAM3H viewport preferences
             self.flam3h_on_create_set_prefs_viewport()
             
-            #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+            # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS(0)
-            #  mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+            # inti IN PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
-            
+            # init OUT PRESETS
             flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
-
+            # init xaos
+            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+            # init RIP: Remove Invalid Points
+            flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
+            
             # update about tab just in case
             flam3h_about_utils(self.kwargs).flam3h_about_msg()
             flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
             flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-            
-            # Init xaos
-            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
             # CAMERA SENSOR
             #
             # If a FLAM3H node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
             # This work with multiple FLAM3H node becasue there can only be one FLAM3H node in camera sensor mode at any given time.
             if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt(): # type: ignore
-                flam3h_general_utils(self.kwargs).util_set_front_viewer(False)
+                flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
             else:
                 # Otherwise just turn the camera sensor mode OFF.
                 if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                    # Clear stashed cams data
+                    flam3h_general_utils.util_clear_stashed_cam_data()
             
             # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
             # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
@@ -1254,9 +1254,14 @@ flam3h_on_deleted(self) -> None:
             
         else:
             # CAMERA SENSOR
-            # If camera sensor is ON, lets turn it OFF.
+            # If camera sensor is ON
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                # lets turn it OFF.
                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                # Restore anc clear stashed cams data
+                flam3h_general_utils.util_set_stashed_cam()
+                flam3h_general_utils.util_clear_stashed_cam_data() # This probably not needed as we do the same in the next definition
+                flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
                 
             # INIT XAOS - this probably is not needed but I leave it for now
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
@@ -1694,7 +1699,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
         Returns:
             Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
-        """       
+        """     
         matcher = nodesearch.Name(node_name, exact=True)
         search = matcher.nodes(self.kwargs['node'], recursive=True)
         if search:
@@ -1823,6 +1828,7 @@ reset_PREFS(self, mode: int=0) -> None:
                             try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                             except:
                                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                self.util_clear_stashed_cam_data()
                                 return False
                         else:
                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -1843,6 +1849,7 @@ reset_PREFS(self, mode: int=0) -> None:
                                 try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 except:
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                    self.util_clear_stashed_cam_data()
                                     return False
                             else:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -1901,6 +1908,7 @@ reset_PREFS(self, mode: int=0) -> None:
                                 try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                 except:
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
+                                    self.util_clear_stashed_cam_data()
                                     return False
                             else:
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -1918,6 +1926,7 @@ reset_PREFS(self, mode: int=0) -> None:
                                     try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     except:
                                         self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                        self.util_clear_stashed_cam_data()
                                         return False
                                 else:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -2640,6 +2649,8 @@ auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: Union[list, tuple]) -> No
 
 auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) -> None:
 
+flam3h_on_load_opacity_zero(node: hou.SopNode) -> None:
+
 destroy_data(node, data: str, must_exist: bool=False) -> None:
 
 menu_T_get_type_icon(w: float) -> str:
@@ -3253,8 +3264,8 @@ iterator_keep_last_weight(self) -> None:
         # lock
         node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
                 
-                
-                
+
+
     @staticmethod
     def auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) -> None:
         """Set the data_name data into FLAM3H data parameters.
@@ -3282,6 +3293,20 @@ iterator_keep_last_weight(self) -> None:
             node.setParms({FLAM3H_DATA_PRM_XAOS_PREV: data_to_prm}) # type: ignore
             # lock
             node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
+            
+            
+            
+    @staticmethod
+    def flam3h_on_load_opacity_zero(node: hou.SopNode) -> None:
+        """Check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP)
+
+        Args:
+            node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
+        """  
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        if min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]) == 0: node.setParms({SYS_RIP: 1}) # type: ignore
+
+            
 
 
     @staticmethod
