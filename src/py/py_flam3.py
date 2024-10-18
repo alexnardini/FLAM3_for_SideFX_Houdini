@@ -1269,7 +1269,9 @@ flam3h_on_deleted(self) -> None:
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
             
-            # Remove any comment and user data from the node
+            # Clear menu caches
+            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+            # Clear any comment and user data from the node
             if flam3h_iterator_utils.exist_user_data(node):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
             if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
