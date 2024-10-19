@@ -5371,7 +5371,7 @@ iterator_keep_last_weight(self) -> None:
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"Flame LOAD -> Sierpiński triangle")
+            flam3h_general_utils.flash_message(node, f"Flame LOAD: Sierpiński triangle")
             
             
     def flam3h_reset_iterator(self) -> None:
