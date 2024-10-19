@@ -1713,7 +1713,7 @@ reset_PREFS(self, mode: int=0) -> None:
         if search:
             return search[0].path()
         else:
-            _MSG = f"{str(self.node)} -> Camera sensor BBOX data node not found."
+            _MSG = f"{self.node.name()} -> Camera sensor BBOX data node not found."
             self.set_status_msg(_MSG, 'WARN')
             return None
 
@@ -4493,7 +4493,7 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
-                _MSG = f"{str(self.node)}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                _MSG = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
                 
@@ -4502,7 +4502,7 @@ iterator_keep_last_weight(self) -> None:
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
-                _MSG = f"{str(self.node)} -> This iterator is already Marked." # type: ignore
+                _MSG = f"{self.node.name()} -> This iterator is already Marked." # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -4517,7 +4517,7 @@ iterator_keep_last_weight(self) -> None:
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
-            _MSG = f"{str(self.node)}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+            _MSG = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
 
@@ -4610,7 +4610,7 @@ iterator_keep_last_weight(self) -> None:
         if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
             if node == from_FLAM3H_NODE:
                 assert from_FLAM3H_NODE is not None
-                _MSG = f"{node.name()} ->  Unmarked FF: {from_FLAM3H_NODE.name()}.FF" # type: ignore
+                _MSG = f"{node.name()}: FF UNMARKED: {from_FLAM3H_NODE.name()}.FF" # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                 
@@ -4645,7 +4645,7 @@ iterator_keep_last_weight(self) -> None:
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
             
         if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
-            _MSG = f"{str(self.node)} -> This FF is already Marked." # type: ignore
+            _MSG = f"{self.node.name()} -> This FF is already Marked." # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         else:
@@ -4660,9 +4660,9 @@ iterator_keep_last_weight(self) -> None:
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
             self.set_comment_and_user_data_iterator(node, "Yes", FLAM3H_USER_DATA_FF)
             
-            _MSG = f"{str(self.node)}: FF MARKED" # type: ignore
+            _MSG = f"{self.node.name()}: FF MARKED" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-            flam3h_general_utils.flash_message(node, f"FF -> MARKED")
+            flam3h_general_utils.flash_message(node, f"FF MARKED")
 
 
     def prm_paste_FF(self) -> None:
@@ -4688,7 +4688,7 @@ iterator_keep_last_weight(self) -> None:
         elif self.kwargs["alt"]:
             with hou.undos.group(f"FLAM3H FF RESET"): # type: ignore
                 self.reset_FF()
-                _MSG = f"{node.name()}: FF -> RESET"
+                _MSG = f"{node.name()}: FF RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
         else:
@@ -11379,7 +11379,7 @@ reset_IN(self, mode: int=0) -> None:
             flam3h_general_utils(self.kwargs).flam3h_toggle(prm)
             self.in_to_flam3h()
         else:
-            _MSG = f"{str(self.node)}: {prm.upper()}: No valid flame file to load the flame from, load a valid flame file first."
+            _MSG = f"{self.node.name()}: {prm.upper()}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
 
@@ -12966,7 +12966,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             else:
                 # Otherwise clamp to 1024 color keys
                 if _MSG:
-                    print(f"{str(self.node)}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024")
+                    print(f"{self.node.name()}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024")
                 return PALETTE_COUNT_1024
         else:
             # Otherwise always export the Flame with 256 color palette
@@ -13656,7 +13656,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             tree.write(outpath)
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-            _MSG = f"{str(self.node)}: SAVE Flame: New -> Completed"
+            _MSG = f"{self.node.name()}: SAVE Flame: New -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED")
 
@@ -13677,7 +13677,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-            _MSG = f"{str(self.node)}: SAVE Flame: Clipboard -> Completed"
+            _MSG = f"{self.node.name()}: SAVE Flame: Clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
 
@@ -13707,7 +13707,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             tree.write(out_path)
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-            _MSG = f"{str(self.node)}: SAVE Flame: Append -> Completed"
+            _MSG = f"{self.node.name()}: SAVE Flame: Append -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
 
@@ -13811,7 +13811,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 else:
                     return self.out_util_round_float(self.node.parm(prm_name).eval())
         else:
-            print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
+            print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
             return ''
 
 
@@ -13959,7 +13959,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 else:
                     return ' '.join([self.out_util_round_float(x) for x in prm])
         else:
-            print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
+            print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
             return False
         
         
@@ -13969,7 +13969,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if self.flam3h_mb_do:
             try: return self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
-                print(f"{str(self.node)}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
+                print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
         else:
             return False
