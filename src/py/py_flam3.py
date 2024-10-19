@@ -12640,17 +12640,22 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Collect all xaos command string weights.
         Provide also a form of Undo in the case we enter non numeric characters instead.
         
-        Allow for different combinations as:
-        
-        - Undo to preview state.
-        
-        - Fill with all: 1
-        
-        - Fill with all: 0 ( Zero )
-        
-        - Check for negative xaos values
-        
-        Negative values will be reset to a value of: 1
+        XAOS COMMAND OPTIONS:
+
+            If you type a non-numeric character in any of the xaos's weights,
+            FLAM3H will undo to what you had before.
+
+            If you dnt use the “ xaos: ” keywork at the beginning,
+            the entire xaos string will be reset to all weights with value: 1
+
+            If you type a number,
+            the entire xaos string will be reset to all weights set to that number.
+
+            If you type a floating point number,
+            the entire xaos string will be reset to all weights set to the integer part of that number.
+            ex: 123.876 will become -> 123
+
+            If you type a negative number, it will be reset to a value of: 1
 
         Args:
             node (hou.SopNode): FLAM3H node
