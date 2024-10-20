@@ -4170,7 +4170,7 @@ iterator_keep_last_weight(self) -> None:
                         prm_selmem.set(0)
                     
                     parent = f".../{flam3node_FF.parent()}"
-                    flam3nodeFF = f"{str(flam3node_FF)}.FF"
+                    flam3nodeFF = f"{flam3node_FF.name()}.FF"
                     return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", 3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", 4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST", 5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", 6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", 7, "" ]
         
         else:
@@ -6655,17 +6655,17 @@ reset_CP(self, mode: int=0) -> None:
                 # get current preset name
                 if node.parm(CP_ISVALID_PRESET).eval():
                     preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                    menu_label = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
+                    menu_label: str = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
                 else:
                     preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
-                    menu_label = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
+                    menu_label: str = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
                     
                 # Remove the enumeration menu index string from the preset name.
                 #
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
                 if node.parm(PREFS_ENUMERATE_MENU).eval():
-                    preset = ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                    preset = ':'.join(menu_label.split(':')[1:]).lstrip()
                 else:
                     preset = menu_label
                 
@@ -6754,13 +6754,13 @@ reset_CP(self, mode: int=0) -> None:
             node = self.node
             if node.parm(CP_ISVALID_PRESET).eval():
                 preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
-                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: str(preset_id)})
+                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_id})
             else:
                 preset_id = node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()
-                node.setParms({CP_SYS_PALETTE_PRESETS: str(preset_id)})
+                node.setParms({CP_SYS_PALETTE_PRESETS: preset_id})
                 
-            node.setParms({CP_PALETTE_PRESETS: str(preset_id)})
-            node.setParms({CP_PALETTE_PRESETS_OFF: str(preset_id)}) 
+            node.setParms({CP_PALETTE_PRESETS: preset_id})
+            node.setParms({CP_PALETTE_PRESETS_OFF: preset_id}) 
             self.json_to_flam3h_ramp(use_kwargs)
 
 
