@@ -1019,7 +1019,7 @@ flam3h_on_deleted(self) -> None:
                 _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up tp 1 minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
             
-            density = node.parm(GLB_DENSITY).evalAsInt()
+            density = node.parm(GLB_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
@@ -1109,7 +1109,7 @@ flam3h_on_deleted(self) -> None:
 
             for f3h in all_f3h:
                 if f3h != node:
-                    all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat())
+                    all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval())
                     all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt())
                     if f3h.parm(PREFS_VIEWPORT_DARK).eval():
                         node.setParms({PREFS_VIEWPORT_DARK: 1})
@@ -1205,12 +1205,12 @@ flam3h_on_deleted(self) -> None:
             #
             # If a FLAM3H node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
             # This work with multiple FLAM3H node becasue there can only be one FLAM3H node in camera sensor mode at any given time.
-            if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt(): # type: ignore
+            if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
                 flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
             else:
                 # Otherwise just turn the camera sensor mode OFF.
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                     # Clear stashed cams data
                     flam3h_general_utils.util_clear_stashed_cam_data()
@@ -1257,7 +1257,7 @@ flam3h_on_deleted(self) -> None:
         else:
             # CAMERA SENSOR
             # If camera sensor is ON
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                 # lets turn it OFF.
                 node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                 # Restore anc clear stashed cams data
@@ -1995,7 +1995,7 @@ reset_PREFS(self, mode: int=0) -> None:
         if len(all_f3h) > 1:
             for f3h in all_f3h:
                 if f3h != node:
-                    if f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+                    if f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                         f3h.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         # If another FLAM3H node is in Camera Sensor mode, clear up its data.
                         self.util_clear_stashed_cam_data()
@@ -2011,7 +2011,7 @@ reset_PREFS(self, mode: int=0) -> None:
         """        
         
         node = self.node
-        toggle = node.parm(prm).evalAsInt()
+        toggle = node.parm(prm).eval()
         
         if toggle:
             node.setParms({prm: 0})
@@ -2051,7 +2051,7 @@ reset_PREFS(self, mode: int=0) -> None:
             prm (_type_, optional): _description_. Defaults to SYS_TAG. Toggle parameter name to use.
         """        
         node = self.node
-        toggle = node.parm(prm).evalAsInt()
+        toggle = node.parm(prm).eval()
         
         if toggle:
             node.setParms({prm: 0})
@@ -2071,7 +2071,7 @@ reset_PREFS(self, mode: int=0) -> None:
         Args:
             prm (str): Toggle parameter name to use
         """        
-        toggle = self.node.parm(prm).evalAsInt()
+        toggle = self.node.parm(prm).eval()
         
         if toggle:
             self.node.setParms({prm: 0})
@@ -3859,7 +3859,7 @@ iterator_keep_last_weight(self) -> None:
         Returns:
         """
         node = self.node
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
 
         if iter_count:
             
@@ -3984,7 +3984,7 @@ iterator_keep_last_weight(self) -> None:
         Returns:
             list: [return menu list]
         """
-        iterators = self.node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iterators = self.node.parm(FLAME_ITERATORS_COUNT).eval()
         menu=[]
         menuitems = ()
         if iterators:
@@ -4016,7 +4016,7 @@ iterator_keep_last_weight(self) -> None:
         
         """        
         node = self.node
-        ptcount = node.parm(GLB_DENSITY).evalAsInt()
+        ptcount = node.parm(GLB_DENSITY).eval()
         sel = self.kwargs['parm'].evalAsInt()
         vals = { 0: 500000, 1: 1000000, 2: 2000000, 3: 5000000, 4: 15000000, 5: 25000000, 6: 50000000, 7: 100000000, 8: 150000000, 9: 250000000, 10: 500000000, 11: 750000000, 12: 1000000000}
         vals_name = { 0: "Default: 500K points", 1: "1 Millions points", 2: "2 Millions points", 3: "5 Millions points", 4: "15 Millions points", 5: "25 Millions points", 6: "50 Millions points", 7: "100 Millions points", 8: "150 Millions points", 9: "250 Millions points", 10: "500 Millions points", 11: "750 Millions points", 12: "1 Billions points"}
@@ -4036,7 +4036,7 @@ iterator_keep_last_weight(self) -> None:
         """Revert density parameter to its default value.
         """        
         node = self.node
-        ptcount = node.parm(GLB_DENSITY).evalAsInt()
+        ptcount = node.parm(GLB_DENSITY).eval()
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
             node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -4080,7 +4080,7 @@ iterator_keep_last_weight(self) -> None:
                 idx_from = str(mp_id_from)
                 
                 prm_selmem = node.parm(f"selmem_{idx}")
-                if prm_selmem.evalAsInt() > 0:
+                if prm_selmem.eval() > 0:
                     node.setParms({f"prmpastesel_{idx}": 0})
                     prm_selmem.set(0)
                     
@@ -4110,8 +4110,8 @@ iterator_keep_last_weight(self) -> None:
                 else:
                     if from_FLAM3H_NODE is not None:
                         assert from_FLAM3H_NODE is not None
-                        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
-                        __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                        __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                         if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                             menu = MENU_ITER_COPY_PASTE_REMOVED
                         elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
@@ -4165,7 +4165,7 @@ iterator_keep_last_weight(self) -> None:
                     else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
                     
                     prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
-                    if prm_selmem.evalAsInt() > 0:
+                    if prm_selmem.eval() > 0:
                         node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
                         prm_selmem.set(0)
                     
@@ -4383,7 +4383,7 @@ iterator_keep_last_weight(self) -> None:
             else:
                 _MSG_REM = "Marked iterator has been removed"
                 if node == from_FLAM3H_NODE:
-                    _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{node.name()} -> {_MSG_REM} -> {MARK_ITER_MSG_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -4395,7 +4395,7 @@ iterator_keep_last_weight(self) -> None:
                         
                 elif node != from_FLAM3H_NODE:
                     assert from_FLAM3H_NODE is not None
-                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     
                     if __FLAM3H_DATA_PRM_MPIDX == -1:
                         _MSG = f"{node.name()} -> {_MSG_REM} from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -4438,7 +4438,7 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.flash_message(node, f"iterator UNMARKED")
                 
             else:
-                if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() == -1:
+                if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval() == -1:
                     _MSG = f"{node.name()}: {_MSG_UNMARKED}:  {str(id)}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 else:
                     _MSG = f"{node.name()}: {_MSG_UNMARKED} -> {str(id)}"
@@ -4458,7 +4458,7 @@ iterator_keep_last_weight(self) -> None:
                 
             else:
                 assert from_FLAM3H_NODE is not None
-                __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt()
+                __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                 
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
                     _MSG = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
@@ -4725,7 +4725,7 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
             
             # Get user selection of paste methods
-            paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}").evalAsInt()
+            paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}").eval()
             node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
 
             # set ALL
@@ -4853,7 +4853,7 @@ iterator_keep_last_weight(self) -> None:
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             # Get user selection of paste methods
-            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}").evalAsInt()
+            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}").eval()
             node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}": ff_paste_sel})
             
             # set FF ALL
@@ -4896,7 +4896,7 @@ iterator_keep_last_weight(self) -> None:
         The class function: out_flame_utils.out_xf_xaos_from(0) convert xaos from TO to FROM and back in one call.
         """
         node = self.node
-        autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
+        autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).eval()
         div_xaos = 'xaos:'
         div_weight = ':'
         if autodiv:
@@ -5436,9 +5436,9 @@ iterator_keep_last_weight(self) -> None:
 
         node = self.node
         
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).evalAsInt()
+        autodiv = node.parm(PREFS_XAOS_AUTO_SPACE).eval()
         div_xaos = 'xaos:'
         div_weight = ':'
         if autodiv:
@@ -5563,7 +5563,7 @@ iterator_keep_last_weight(self) -> None:
                     if (idx_del_inbetween+1) < flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
                         # set
-                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() - 1
+                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).eval() - 1
                         node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
@@ -5616,7 +5616,7 @@ iterator_keep_last_weight(self) -> None:
                     if (idx_add_inbetween+1) <= flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
                         # set
-                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() + 1
+                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).eval() + 1
                         node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
@@ -5660,7 +5660,7 @@ iterator_keep_last_weight(self) -> None:
         # Clear menu cache
         self.destroy_data(node, 'iter_sel')
         
-        iterators_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iterators_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         if not iterators_count:
             
@@ -5705,7 +5705,7 @@ iterator_keep_last_weight(self) -> None:
                 flam3h_general_utils.set_status_msg('', 'MSG')
                 
         # If OUT Camera sensor viz mode is ON.
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             # We can avoid to set the clipping planes as they are already set
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
@@ -5724,7 +5724,7 @@ iterator_keep_last_weight(self) -> None:
         # Clear menu cache
         self.destroy_data(node, 'iter_sel')
         
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         # The following will collect the active iterator bool value if and only if the iterator is active and its weight is above zero.
         # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
@@ -5771,7 +5771,7 @@ iterator_keep_last_weight(self) -> None:
         # Clear menu cache
         self.destroy_data(node, 'iter_sel')
         
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         W = [int(node.parm(f"iw_{str(mp_idx+1)}").eval()) 
             for mp_idx in range(iter_num) 
                 if node.parm(f"iw_{str(mp_idx+1)}").eval() == 0 
@@ -6635,7 +6635,7 @@ reset_CP(self, mode: int=0) -> None:
         """
         node = self.node
         
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
             
             filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
@@ -10346,7 +10346,7 @@ reset_IN(self, mode: int=0) -> None:
         if iter_on_load_preset is not None:
             # override iterations from the Flame preset name
             if use_iter_on_load and node.parm(IN_OVERRIDE_ITER_FLAME_NAME).eval():
-                return node.parm(IN_ITER_NUM_ON_LOAD).evalAsInt()
+                return node.parm(IN_ITER_NUM_ON_LOAD).eval()
             else:
                 node.setParms({IN_ITER_NUM_ON_LOAD: iter_on_load_preset}) # type: ignore
                 node.setParms({IN_USE_ITER_ON_LOAD: 0}) # type: ignore
@@ -10515,7 +10515,7 @@ reset_IN(self, mode: int=0) -> None:
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
                 
@@ -11496,7 +11496,7 @@ reset_IN(self, mode: int=0) -> None:
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
         
         # Reset mp idx flam3h mem parameter
-        if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+        if node.parm(FLAM3H_DATA_PRM_MPIDX).eval() != 0:
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
         
         # Reset FF user data if needed
@@ -11517,7 +11517,7 @@ reset_IN(self, mode: int=0) -> None:
             in_flame_iter_count (int): IN flame iterator's count ( number of xforms )
         """        
         # iterators
-        flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         if in_flame_iter_count > flam3h_iter_count:
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
@@ -12228,7 +12228,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         self._flam3h_iter = flam3h_iterator()
         self._flam3h_iter_FF = flam3h_iterator_FF()
         self._flam3h_do_FF = self._node.parm(SYS_DO_FF).eval()
-        self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).eval()
         self._palette: hou.Ramp = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
         self._palette_plus_do = self._node.parm(OUT_PALETTE_256_PLUS).eval()
@@ -12337,7 +12337,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             if flame_name:
                 
                 flame_name = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-                rp = str(flame_name).rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
+                rp = flame_name.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
 
                 is_int = False
                 try:
@@ -12405,7 +12405,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             str: _description_
         """        
         flame_name = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
-        iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
+        iter_num = node.parm(GLB_ITERATIONS).eval()
         return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
     
     
@@ -12523,7 +12523,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         file = os.path.expandvars(infile)
         file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
         
-        autopath = node.parm(PREFS_AUTO_PATH_CORRECTION).evalAsInt()
+        autopath = node.parm(PREFS_AUTO_PATH_CORRECTION).eval()
 
         if autopath:
             
@@ -12670,14 +12670,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         val_prev = flam3h_iterator_utils.auto_set_xaos_data_get_XAOS_PREV(node)
         
         for iter in range(iter_count):
-            iter_xaos = node.parm(f"{prm}_{iter+1}").eval()
+            iter_xaos: str = node.parm(f"{prm}_{iter+1}").eval()
             
             # If the xaos string is not empty
             if iter_xaos:
-                strip = iter_xaos.split(':')
+                strip: list[str] = iter_xaos.split(':')
                 
                 # if you just type "xaos" only
-                if str(iter_xaos.lower()).strip() == 'xaos':
+                if iter_xaos.lower().strip() == 'xaos':
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
@@ -12686,7 +12686,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         val.append([])
                         
                 # if the first element of the strip is: "xaos"
-                elif str(strip[0].lower()).strip() == 'xaos':
+                elif strip[0].lower().strip() == 'xaos':
                     try:
                         build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
                         val.append([float(x.strip()) for x in build_strip])
@@ -12701,7 +12701,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                             val.append([])
                             
                 # If the split fail to validate and it just start with the word: 'xaos'
-                elif str(iter_xaos.lower()).strip().startswith('xaos'):
+                elif iter_xaos.lower().strip().startswith('xaos'):
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
@@ -12718,7 +12718,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     # If a number is typed, fill all xaos weights with that number.
                     # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
                     if isNUM:
-                        v = [str(int((float(str(iter_xaos.lower()).strip())))) if float(str(iter_xaos.lower()).strip()) >= 0 else '1' for x in range(iter_count)]
+                        v = [str(int((float(str(iter_xaos.lower()).strip())))) if float(iter_xaos.lower().strip()) >= 0 else '1' for x in range(iter_count)]
                         val.append(v)
                     else:
                         # Otherwise reset to all values of 1
@@ -12921,8 +12921,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             menu_label = self.out_presets_get_selected_menu_label()
             if menu_label is not None:
                 flame_name = self.out_remove_iter_num(menu_label)
-                iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
-                autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+                iter_num = node.parm(GLB_ITERATIONS).eval()
+                autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
                 flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                 node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
                 
@@ -12982,7 +12982,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         """
 
-        outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).evalAsInt()
+        outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).eval()
         menu=[]
         menuitems = ()
         if outedit:
@@ -13025,7 +13025,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             if update:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
             else:
-                update_sensor = node.parm(OUT_UPDATE_SENSOR).evalAsInt()
+                update_sensor = node.parm(OUT_UPDATE_SENSOR).eval()
                 if update_sensor:
                     flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
@@ -13099,7 +13099,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             self.reset_OUT_render()
             flam3h_general_utils.flash_message(self.node, f"OUT Render properties: RESET")
         
-        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
 
@@ -13128,7 +13128,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         self.reset_OUT_render()
         
         # If we are in sensor viz and we reset, make sure the sensor is framed properly.
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).evalAsInt():
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
         # I do not think this is used anymore but I leave it here 
@@ -13254,9 +13254,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             tuple[int, str, int]: A tuple with the needed data
         """        
         node = self.node
-        iter_num = node.parm(GLB_ITERATIONS).evalAsInt()
+        iter_num = node.parm(GLB_ITERATIONS).eval()
         flame_name = str(node.parm(OUT_FLAME_PRESET_NAME).eval()).strip()
-        autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+        autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
         return iter_num, flame_name, autoadd
 
 
@@ -13303,7 +13303,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """   
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
-        if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt(): _XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
+        if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
         else: _XML_APP_NAME = XML_APP_NAME_FLAM3H
              
         f3p = out_flame_render_properties(self.kwargs)
@@ -13529,7 +13529,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     # If OUT Tab -> USE_FRACTORIUM_PRM_NAMES toggle is ON
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
                     apo_prm = flam3h_varsPRM_APO.varsPRM[v_type]
-                    if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).evalAsInt():
+                    if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).eval():
                         out_prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
                         out_prm = apo_prm[1:-1]
@@ -13722,7 +13722,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         kwargs = self.kwargs
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).evalAsInt()
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         # if there is at least one iterator
         if iterators_num:
@@ -13817,13 +13817,13 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
     def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         flame_name = self.node.parm(prm_name).eval()
-        autoadd = self.node.parm(OUT_AUTO_ADD_ITER_NUM).evalAsInt()
+        autoadd = self.node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
         
         if not flame_name:
             return self.out_flame_default_name(self.node, autoadd)
         else:
             # otherwise get that name and use it
-            iter_num = self.node.parm(GLB_ITERATIONS).evalAsInt()
+            iter_num = self.node.parm(GLB_ITERATIONS).eval()
             return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         
         
