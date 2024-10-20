@@ -12533,7 +12533,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             if autopath:
                 
                 # Just in case lets check is a valid location
-                if os.path.isdir(file_s[0]):
+                if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
 
                     file_new = ''
                     new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
@@ -12577,8 +12577,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     if file_new:
                         # This is really a patch instead of rewriting this entire definition...
                         # Will allow network paths to work as well.
-                        if os.path.isdir(os.path.split(file_new)[0]): return file_new # Lets first check if the generated output path is a valid location
-                        else: return f"{file_s[0]}{os.path.split(file_new)[-1]}" # Otherwise get the current validated location and append the new filename to it
+                        if os.path.isdir(os.path.split(file)[0]): return f"{os.path.split(file)[0]}{os.path.split(file_new)[-1]}" # Lets check if the original output path is a valid location
+                        elif os.path.isdir(os.path.split(file_new)[0]): return file_new # Otherwise lets check if the generated output path is a valid location
+                        else: return f"{file_s[0]}{os.path.split(file_new)[-1]}" # Otherwise get the expanded and corrected infile location and append the new filename to it
                     else: return False
 
                 else:
