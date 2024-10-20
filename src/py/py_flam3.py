@@ -12080,6 +12080,7 @@ VARS_FRACTORIUM_DICT_POST: dict = in_flame_utils.in_util_vars_dict_type_maker(VA
 ##########################################
 ##########################################
 
+# this has been pre-built to work with: menu_sensor_resolution_set(self, update=True) -> None:
 MENU_OUT_SENSOR_RESOLUTIONS = [0, '', 1, '640x480', 2, 'HDTV 720', 3, 'HDTV 1080', 4, 'HDTV 2160 (4K)', 5, '', 6, 'NTSC', 7, 'NTSC D1', 8, 'PAL', 9, 'PAL 16:9 (1 to 1)', 10, '', 11, 'Full Ap 4K', 12, 'Full Ap 2K', 13, 'Acad 4K', 14, 'Acad 2K', 15, 'Scope 4K', 16, 'Scope 2K', 17, 'Vista 2K', 18, '', 19, '256^2', 20, '512^2', 21, '1024^2', 22, '2048^2', 23, '4096^2', 24, '']
 
 
@@ -13017,7 +13018,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         res = { -1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
                 -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
                 -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
-                -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096) } # 19 20 21 22 23
+                -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096),
+                -1: None } # 19 20 21 22 23
  
         if res.get(sel) is not None:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
