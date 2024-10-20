@@ -12591,7 +12591,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     return False
             else:
                 # just check if the user input is a valid location
-                if os.path.isfile(file_s[0]):
+                if os.path.isdir(file_s[0]):
                     return infile
                 else:
                     # If the path string is empty we do not want to print out
