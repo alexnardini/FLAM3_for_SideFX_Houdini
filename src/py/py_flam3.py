@@ -310,6 +310,10 @@ class flam3h_iterator_prm_names:
             flam3h_iterator_utils.menu_select_iterator(self) -> list:
             flam3h_iterator_utils.menu_copypaste(self) -> list:
             flam3h_iterator_utils.menu_copypaste_FF(self) -> list:
+            flam3h_iterator_utils.iterator_affine_scale(self) -> None:
+            flam3h_iterator_utils.iterator_post_affine_scale(self) -> None:
+            flam3h_iterator_utils.iterator_FF_affine_scale(self) -> None:
+            flam3h_iterator_utils.iterator_FF_post_affine_scale(self) -> None:
             
         are not using this class
         but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
@@ -333,14 +337,14 @@ class flam3h_iterator_prm_names:
     shader_color = 'clr'
     shader_speed = 'clrspeed'
     shader_alpha = 'alpha'
-    # Pre 
+    # PRE 
     prevar_blur = 'preblurtype' # this can be omitted as it is always zero
     prevar_weight_blur = 'preblurweight'
     prevar_type_1 = 'pre1type'
     prevar_type_2 = 'pre2type'
     prevar_weight_1 = 'pre1weight'
     prevar_weight_2 = 'pre2weight'
-    # Var
+    # VAR
     var_type_1 = 'v1type'
     var_type_2 = 'v2type'
     var_type_3 = 'v3type'
@@ -349,18 +353,20 @@ class flam3h_iterator_prm_names:
     var_weight_2 = 'v2weight'
     var_weight_3 = 'v3weight'
     var_weight_4 = 'v4weight'
-    # Post
+    # POST
     postvar_type_1 = 'p1type'
     postvar_type_2 = 'p2type'
     postvar_weight_1 = 'p1weight'
     postvar_weight_2 = 'p2weight'
     # Pre affine
+    preaffine_scale = 'scl' # this do not really need to be stored/copied as it modify the pre affine only.
     preaffine_x = 'x'
     preaffine_y = 'y'
     preaffine_o = 'o'
     preaffine_ang = 'ang'
     # post affine
     postaffine_do = 'dopost'
+    postaffine_scale = 'pscl' # this do not really need to be stored/copied as it modify the post affine only.
     postaffine_x = 'px'
     postaffine_y = 'py'
     postaffine_o = 'po'
