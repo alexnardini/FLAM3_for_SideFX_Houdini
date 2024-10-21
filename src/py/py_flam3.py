@@ -13948,13 +13948,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def __out_palette_hex(self) -> str:
 
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
-        
         POSs = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n = 8
-        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)] 
-        hex_join = ["      " + "".join(grp) + "\n" for grp in hex_grp] # 6 time \s
-        return "\n" + "".join(hex_join) + "    " # 4 times \s
+        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]
+        hex_join = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 time \s
+        return f"\n{''.join(hex_join)}    " # 4 times \s
         
     
     # custom to FLAM3H only
