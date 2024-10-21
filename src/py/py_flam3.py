@@ -13952,7 +13952,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n = 8
         hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]
-        hex_join = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 time \s
+        hex_join = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 times \s
         return f"\n{''.join(hex_join)}    " # 4 times \s
         
     
