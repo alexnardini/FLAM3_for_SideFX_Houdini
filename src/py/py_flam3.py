@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.06'
+FLAM3H_VERSION = '1.5.10'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -270,6 +270,7 @@ MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
 MSG_FLAM3H_YOUTUBE = 'flam3h_heading_youtube'
 MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
+MSG_BITBUCKET_GIT = 'fract_heading_bit'
 # Message Mark iterators
 MARK_ITER_MSG = "Please, mark an iterator first"
 MARK_ITER_MSG_STATUS_BAR = f"{MARK_ITER_MSG} to copy parameter's values from."
@@ -7246,6 +7247,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FLAM3HYOUTUBE_MSG = 'FLAM3H video tutorials'
         _FLAM3PDF_MSG = 'The Fractal Flame Algorithm pdf'
         _FLAM3GIT_MSG = 'The Fractal Flame Algorithm github'
+        _BITBUCKETGIT_MSG = 'Fractorium bitbucket'
         
         node.setParms({MSG_FLAM3H_WEB: _FLAM3HWEB_MSG})
         node.setParms({MSG_FLAM3H_GIT: _FLAM3HGIT_MSG})
@@ -7253,6 +7255,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         node.setParms({MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG})
         node.setParms({MSG_FLAM3_PDF: _FLAM3PDF_MSG})
         node.setParms({MSG_FLAM3_GIT: _FLAM3GIT_MSG})
+        node.setParms({MSG_BITBUCKET_GIT: _BITBUCKETGIT_MSG})
         
 
     def flam3h_about_web_homepage(self) -> None:
@@ -7295,6 +7298,12 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         page = "https://github.com/scottdraves/flam3"
         www_open(page)
         
+    def flam3h_about_web_bitbucket(self) -> None:
+        """Open a web browser to the Fractorium Bitbucket repository.
+        """  
+        page = "https://bitbucket.org/mfeemster/fractorium/src/master/"
+        www_open(page)
+        
         
     def flam3h_web_run(self, key: str) -> None:
         """Select the appropriate web open definition to run.
@@ -7310,7 +7319,9 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                'insta': self.flam3h_about_web_instagram,
                'youtube': self.flam3h_about_web_youtube,
                'paper': self.flam3h_about_web_flam3_paper,
-               'flam3git': self.flam3h_about_web_flam3_github}
+               'flam3git': self.flam3h_about_web_flam3_github,
+               'bitbucket': self.flam3h_about_web_bitbucket,
+               }
         
         run = web.get(key)
         if run is not None: run()

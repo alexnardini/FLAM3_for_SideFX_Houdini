@@ -24,6 +24,12 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>
+<p align="center">icon_bitbucketLogoSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_cvex_compileSVG.svg" /></p>
 <p align="center">icon_cvex_compileSVG.svg</p>
 <p align="center">.</p>

@@ -33,7 +33,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.5.06 - Gold'
+FLAM3H_VERSION = '1.5.10 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -932,3 +932,10 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('pape
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')
 ```
+# about Tab
+# parameter name:    `fract_bit`
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('bitbucket')
+```
+
