@@ -7190,6 +7190,9 @@ Flam3 :: (GPL v2)
 Apophysis :: (GPL)
 Fractorium :: (GPL v3)"""
 
+        special_thanks = """SPECIAL THANKS
+Praveen Brijwal"""
+
         example_flames = """EXAMPLE FLAMES
 C-91, Gabor Timar, Golubaja, Pillemaster,
 Plangkye, Tatasz, Triptychaos, TyrantWave,
@@ -7206,6 +7209,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
         build = (   Implementation_build, nnl,
                     code_references, nnl,
+                    special_thanks, nnl,
                     example_flames, nnl,
                     Houdini_version, nl,
                     Houdini_license, nl,
