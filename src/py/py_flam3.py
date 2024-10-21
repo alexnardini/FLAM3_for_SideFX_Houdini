@@ -2717,6 +2717,8 @@ prm_select_iterator(self) -> None:
 
 flam3h_paste_reset_hou_session_data(self) -> None:
 
+__menu_global_density(self) -> list:
+
 menu_global_density(self) -> list:
 
 menu_global_density_set(self) -> None:
@@ -3979,7 +3981,7 @@ iterator_keep_last_weight(self) -> None:
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
     
 
-    def menu_global_density_py(self) -> list:
+    def __menu_global_density(self) -> list:
         """Build density menu parameter with a list of options.
         This is obsolete now and replaced with: def menu_global_density(self) -> None
         
