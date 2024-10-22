@@ -307,6 +307,7 @@ class flam3h_iterator_prm_names:
             flam3h_iterator_utils.iterator_keep_last_vactive(self) -> None:
             flam3h_iterator_utils.iterator_keep_last_vactive_STAR(self) -> None:
             flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
+            flam3h_iterator_utils.iterator_vactive_and_update(self) -> None:
             flam3h_iterator_utils.menu_select_iterator_data(self) -> list:
             flam3h_iterator_utils.menu_select_iterator(self) -> list:
             flam3h_iterator_utils.menu_copypaste(self) -> list:
@@ -1893,7 +1894,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
     def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
         """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
-        It will activate the Sensor Viz in all available viewports but without the ability of storing and restoring a stashed camera for each
+        It will activate the Sensor Viz in all available viewports with the ability of storing and restoring a stashed camera for each.
 
         Args:
             node(hou.SopNode): FLAM3H node
@@ -2791,6 +2792,8 @@ iterator_keep_last_vactive(self) -> None:
 iterator_keep_last_vactive_STAR(self) -> None:
 
 iterator_keep_last_weight(self) -> None:
+
+iterator_vactive_and_update(self) -> None:
     """    
     
     def __init__(self, kwargs: dict) -> None:
@@ -5720,7 +5723,9 @@ iterator_keep_last_weight(self) -> None:
 
 
     def iterator_keep_last_vactive(self) -> None:
-        """While it is possible to delete all iterators,
+        """ NOT USED ANYMORE
+        
+        While it is possible to delete all iterators,
         we must always have at least one active iterator, if at least one iterator is present and its weight above Zero.
         This will prevent the last active iterator to being disabled.
         
@@ -5754,7 +5759,9 @@ iterator_keep_last_weight(self) -> None:
 
 
     def iterator_keep_last_vactive_STAR(self) -> None:
-        """This is the actual definition that run in a callback script.
+        """ NOT USED ANYMORE
+        
+        This is the actual definition that run in a callback script.
         It will prevent the lasct active iterator to be turned OFF.
         
         _NOTE:
@@ -5768,7 +5775,9 @@ iterator_keep_last_weight(self) -> None:
 
 
     def iterator_keep_last_weight(self) -> None:
-        """While it is possible to delete all iterators,
+        """ NOT USED ANYMORE
+        
+        While it is possible to delete all iterators,
         we must always have at least one iterator's weight above Zero, if at least one iterator is present or active.
         This will prevent to set the last active iterator's Weight to be Zero.
         
@@ -5797,6 +5806,21 @@ iterator_keep_last_weight(self) -> None:
             _MSG = f"{node.name()}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight -> back to being NON-ZERO")
+            
+            
+            
+    def iterator_vactive_and_update(self) -> None:
+        """Force menu updates and toggle ON/OFF if the correct parameter is being used.
+        """  
+        node = self.node
+        # Clear menu cache
+        self.destroy_data(node, 'iter_sel')
+        
+        # Do toggle ON/OFF if the correct parameter is being used
+        if 'doiter_' in self.kwargs['parm'].name():
+            id: int = self.kwargs['script_multiparm_index']
+            vactive_prm_name: str = f"vactive_{str(id)}"
+            flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
 
 
 
@@ -8489,9 +8513,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
            None
         """   
         if min(keyvalues) == max(keyvalues) == 0:
-            min_weight = 0.00000001
-            keyvalues[0] = min_weight
-            _MSG = f"{node.name()}:\nThe loaded Flame preset have all iterator's weights set to: 0.0(Zero).\nIterator 1 has been reverted back to a value of: {min_weight}\nThere must always be at least one active iterator's weight above 0.0(Zero).\n"
+            # Since this case is now being addressed directly in the CVEX code,
+            # it is not necessary anymore to revert the value to a non-zero value anymore, but I leave the message here for the user to know anyway.
+            # min_weight = 0.00000001
+            # keyvalues[0] = min_weight
+            _MSG = f"{node.name()}:\nThe loaded Flame preset have all iterator's weights set to: 0.0(Zero).\n"
             print(f"{_MSG}")
     
     
@@ -8732,6 +8758,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             
             # CHECKS
             if key in XML_XF_WEIGHT:
+                # Let the user know
                 in_flame.check_all_iterator_weights(self.node, keyvalues)
                 
             return tuple(keyvalues)
@@ -12615,7 +12642,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     return False
             else:
                 # just check if the user input is a valid location
-                if os.path.isdir(file_s[0]):
+                if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
                     return infile
                 else:
                     # If the path string is empty we do not want to print out
