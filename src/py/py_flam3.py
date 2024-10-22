@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.10'
+FLAM3H_VERSION = '1.5.15'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -3986,10 +3986,10 @@ iterator_vactive_and_update(self) -> None:
     
 
     def __menu_global_density(self) -> list:
-        """Build density menu parameter with a list of options.
-        This is obsolete now and replaced with: def menu_global_density(self) -> None
+        """ NOT USED ANYMORE
         
-        NOT USED ANYMORE
+        Build density menu parameter with a list of options.
+        This is obsolete now and replaced with: def menu_global_density(self) -> None
         
         Args:
 
@@ -6062,7 +6062,7 @@ reset_CP(self, mode: int=0) -> None:
                         if msg:
                             _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            flam3h_general_utils.flash_message(node, f"Palette LOAD -> Not a valid FLAM3H JSON palette file")
+                            flam3h_general_utils.flash_message(node, f"Palette LOAD: Not a valid FLAM3H JSON palette file")
                         del data
                         return True, False
                     
@@ -6148,8 +6148,7 @@ reset_CP(self, mode: int=0) -> None:
             if PALETTE_PLUS_MSG in palette_msg:
                 node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
             else:
-                if not mode:
-                    pass
+                if not mode: pass
                 else:
                     # I do not remember why I am doing this else statement
                     # ...I leave it here for now as there must be a reason for this to exist ;)
@@ -6544,9 +6543,9 @@ reset_CP(self, mode: int=0) -> None:
                                     w.write(json_data)
                                     
                             else:
-                                _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                                _MSG = f"{node.name()}: Palette JSON SAVE: Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVE -> Not a valid FLAM3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid FLAM3H JSON palette file")
                                 
                         else:
                             # if the file exist and is a valid JSON file
@@ -6606,12 +6605,12 @@ reset_CP(self, mode: int=0) -> None:
                                 
                                 _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVE -> Not a valid FLAM3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid FLAM3H JSON palette file")
                         
             else:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"PALETTE -> Select a valid output file")
+                flam3h_general_utils.flash_message(node, f"PALETTE: Select a valid output file")
 
 
                 
@@ -6772,7 +6771,7 @@ reset_CP(self, mode: int=0) -> None:
             else:
                 _MSG = f"{node.name()}: PALETTE -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"PALETTE -> Nothing to load")
+                flam3h_general_utils.flash_message(node, f"PALETTE: Nothing to load")
 
 
 
@@ -6912,12 +6911,12 @@ reset_CP(self, mode: int=0) -> None:
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load")
+                        flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
                         
                 else:
                     _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    flam3h_general_utils.flash_message(node, f"Palette Clipboard -> Nothing to load")
+                    flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
 
             # LMB - Load the currently selected palette preset
             else:   
@@ -7545,6 +7544,7 @@ set its Weight to Zero instead."""
 # I am limiting this to max 8 decimals on export so not to have the xml file explode with trailing floats...
 # Increase this if for some reason you need more precision.
 ROUND_DECIMAL_COUNT: int = 8
+
 # XML
 XML_FLAME_NAME = 'flame'
 XML_FLAME_VERSION = 'version'
@@ -13043,7 +13043,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
 
     def __menu_sensor_resolution(self) -> list:
-        """ THIS IS NOT USED ANYMORE and it has been prefixed with two underscores (__)
+        """ NOT USED ANYMORE
+        and it has been prefixed with two underscores (__)
         as the menu is now pre computed inside: MENU_SENSOR_RESOLUTIONS
         I leave it here for future needs to re-generate the menu with new entries.
         
