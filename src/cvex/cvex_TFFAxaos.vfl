@@ -76,8 +76,10 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     }
     
     // XAOS
-    int x_chk = 0;
-    int res = len(sIDX);
+    int isX, x_chk, res;
+    isX = 1;
+    x_chk = 0;
+    res = len(sIDX);
     float XAOS_TO[];
     // For "xaos FROM" string
     string xaos_tos[], xaos_tos_t[];
@@ -93,6 +95,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             append(varxaos_strip, strip(vx));
         }
         int isXAOS = (toupper(varxaos_strip[0])=="XAOS") ? 1 : 0;
+        if(!isXAOS) warning(concat("\nIterator: ", itoa(i+1), " -> without a valid \" xaos: \" command string."));
         int isDigit = 1;
         foreach( string vxs; varxaos_strip[1:]){
             string new_vxs = join(split(vxs, "."), "");
@@ -165,6 +168,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             append(XAOS_TO, create_cdf((float[])IW_xaos));
         }
     }
+
     // OUT
     _bound_sIDX = sIDX;
     _bound_IW = create_cdf(IW);
