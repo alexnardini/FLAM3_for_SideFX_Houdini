@@ -8517,7 +8517,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             # it is not necessary anymore to revert the value to a non-zero value anymore, but I leave the message here for the user to know anyway.
             # min_weight = 0.00000001
             # keyvalues[0] = min_weight
-            _MSG = f"{node.name()}:\nThe loaded Flame preset have all iterator's weights set to: 0.0(Zero).\n"
+            _MSG = f"{node.name()}:\nThe loaded Flame preset have all iterators Weight set to: 0.0(Zero).\n"
             print(f"{_MSG}")
     
     
