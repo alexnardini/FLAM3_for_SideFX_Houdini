@@ -10491,9 +10491,9 @@ reset_IN(self, mode: int=0) -> None:
         if apo_data.out_highlight_power[preset_id]:
             highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
             
-        K2 = f'Logscale K2: {na}'
+        _K2 = f'Logscale K2: {na}'
         if apo_data._out_logscale_k2[preset_id]:
-            K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
+            _K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
             
         vibrancy = f'Vibrancy: {na}'
         if apo_data.out_vibrancy[preset_id]:
@@ -10503,7 +10503,7 @@ reset_IN(self, mode: int=0) -> None:
                  brightness, nl,
                  gamma, nl,
                  highlight, nl,
-                 K2, nl,
+                 _K2, nl,
                  vibrancy
                  )
         
