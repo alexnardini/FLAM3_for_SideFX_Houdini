@@ -13112,20 +13112,20 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         
         node = self.node
+
+        prms_out_sensor_names   = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
         
-        prms_out_sensor = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
+        prms_out_sensor_vals    = ( hou.Vector2((1024, 1024)),
+                                    hou.Vector2((0, 0)),
+                                    0,
+                                    400 )
         
-        prms_out_sensor_tuple = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),
-                                  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER) )
-        
-        # Sensor
-        [node.parm(name).deleteAllKeyframes() for name in prms_out_sensor]
-        [node.parmTuple(name).deleteAllKeyframes() for name in prms_out_sensor_tuple]
-        node.setParms({prms_out_sensor_tuple[0]: hou.Vector2((1024, 1024))})
-        node.setParms({prms_out_sensor_tuple[1]: hou.Vector2((0, 0))})
-        node.setParms({prms_out_sensor[0]: 0})
-        node.setParms({prms_out_sensor[1]: 400})
+        # Clear and set
+        [node.parmTuple(name).deleteAllKeyframes() if isinstance(node.parmTuple(name).eval(), tuple) else node.parm(name).deleteAllKeyframes() for name in prms_out_sensor_names]
+        [node.setParms({prms_out_sensor_names[idx]: prms_out_sensor_vals[idx]}) for idx in range(len(prms_out_sensor_names))]
 
 
         
@@ -13134,21 +13134,23 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         node = self.node
         
-        prms_out_render = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY),
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS),
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA),
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER),
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2),
-                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY) )
+        prms_out_render_names   = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2),
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY) )
         
-        # Render
-        [node.parm(name).deleteAllKeyframes() for name in prms_out_render]
-        node.setParms({prms_out_render[0]: 1000})
-        node.setParms({prms_out_render[1]: 3})
-        node.setParms({prms_out_render[2]: 2.5})
-        node.setParms({prms_out_render[3]: 1})
-        node.setParms({prms_out_render[4]: 0})
-        node.setParms({prms_out_render[5]: 0.333333})
+        prms_out_render_vals    = ( 1000, 
+                                    3, 
+                                    2.5, 
+                                    1, 
+                                    0, 
+                                    0.33333333 )
+        
+        # Clear and set
+        [node.parm(name).deleteAllKeyframes() for name in prms_out_render_names]
+        [node.setParms({prms_out_render_names[idx]: prms_out_render_vals[idx]}) for idx in range(len(prms_out_render_names))]
 
 
 
@@ -13202,6 +13204,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         # If we are in sensor viz and we reset, make sure the sensor is framed properly.
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+            flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
         # I do not think this is used anymore but I leave it here 
