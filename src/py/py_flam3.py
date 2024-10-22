@@ -10883,7 +10883,7 @@ reset_IN(self, mode: int=0) -> None:
         app = apo_data.sw_version[preset_id]
         var_prm: tuple = flam3h_varsPRM.varsPRM
         apo_prm: tuple = flam3h_varsPRM_APO.varsPRM
-        iterator_names = flam3h_iterator_prm_names()
+        n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
         
         # Set variations ( iterator and FF )
@@ -10928,7 +10928,7 @@ reset_IN(self, mode: int=0) -> None:
             if mode:
                 # Set finalxform name first if any
                 if apo_data.finalxform_name[0]:
-                    node.setParms({f"{prx}{iterator_names.main_note}": apo_data.finalxform_name[0]}) # type: ignore
+                    node.setParms({f"{prx}{n.main_note}": apo_data.finalxform_name[0]}) # type: ignore
                     
                 # Collect FF PRE vars in excess  
                 if len(vars_keys_pre[mp_idx]) > MAX_FF_VARS_PRE:
@@ -11049,17 +11049,14 @@ reset_IN(self, mode: int=0) -> None:
                     print(build)
                                 
                 # Activate iterator, just in case...
-                node.setParms({f"{iterator_names.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
-                # Set the rest of the iterator or FF parameters
-                self.in_set_data(mode, node, prx, apo_data.xf_name, iterator_names.main_note, mp_idx)
-                self.in_set_data(mode, node, prx, apo_data.weight, iterator_names.main_weight, mp_idx)
-                self.in_set_data(mode, node, prx, apo_data.xaos, iterator_names.xaos, mp_idx)
-                self.in_set_data(mode, node, prx, apo_data.color, iterator_names.shader_color, mp_idx)
-                self.in_set_data(mode, node, prx, apo_data.symmetry, iterator_names.shader_speed, mp_idx)    
-                self.in_set_data(mode, node, prx, apo_data.opacity, iterator_names.shader_alpha, mp_idx)
+                node.setParms({f"{n.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
+                # Set the rest of the iterator(FLAME or FF) parameters
+                apo_data_collection: tuple = (apo_data.xf_name, apo_data.weight, apo_data.xaos, apo_data.color, apo_data.symmetry, apo_data.opacity)
+                apo_data_prm_names: tuple  = (n.main_note, n.main_weight, n.xaos, n.shader_color, n.shader_speed, n.shader_alpha)
+                [self.in_set_data(mode, node, prx, apo_data_collection[idx], apo_data_prm_names[idx], mp_idx) for idx in range(len(apo_data_collection))]
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
-            self.in_set_affine(mode, node, prx, apo_data, iterator_names, mp_idx)
+            self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
             
         _MSG = f"{node.name()}: Iterators and FF parameters SET -> Completed"
         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
