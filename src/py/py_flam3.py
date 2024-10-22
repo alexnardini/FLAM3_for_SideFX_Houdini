@@ -5724,6 +5724,8 @@ iterator_vactive_and_update(self) -> None:
 
     def iterator_keep_last_vactive(self) -> None:
         """ NOT USED ANYMORE
+                Since this case is now being addressed directly in the CVEX code,
+                it is not necessary anymore to revert the last iterator to being active anymore.
         
         While it is possible to delete all iterators,
         we must always have at least one active iterator, if at least one iterator is present and its weight above Zero.
@@ -5760,6 +5762,8 @@ iterator_vactive_and_update(self) -> None:
 
     def iterator_keep_last_vactive_STAR(self) -> None:
         """ NOT USED ANYMORE
+                Since this case is now being addressed directly in the CVEX code,
+                it is not necessary anymore to revert the last iterator to being active anymore.
         
         This is the actual definition that run in a callback script.
         It will prevent the lasct active iterator to be turned OFF.
@@ -5776,6 +5780,8 @@ iterator_vactive_and_update(self) -> None:
 
     def iterator_keep_last_weight(self) -> None:
         """ NOT USED ANYMORE
+                Since this case is now being addressed directly in the CVEX code,
+                it is not necessary anymore to revert the value to a non-zero value anymore.
         
         While it is possible to delete all iterators,
         we must always have at least one iterator's weight above Zero, if at least one iterator is present or active.
