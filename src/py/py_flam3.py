@@ -13069,13 +13069,13 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     # Not used yet
     @staticmethod
     def out_collect_var_section_names(node: hou.SopNode, var_section="VAR") -> Union[list[str], None]:
-        """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
+        """Collect all the variation's names inside any of the available iterator's sections (PRE, VAR, POST)
         
         Args:
             section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
-            list[str]: List of used variations in this iterator/xform
+            list[str]: List of used variations in this iterator/xform section
         """
         # Build var parameter's sections
         prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
@@ -13115,7 +13115,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             var_section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
-            Union[dict[str, list[str]], bool]: A dictionary of used variations in this iterator/xform/FF or Faqlso if none.
+            Union[dict[str, list[str]], bool]: A dictionary of used variations in this iterator/xform/FF or Falso if none in the desired section (VAR, PRE, POST)
         """
         # Build var parameter's sections
         if not mode:
