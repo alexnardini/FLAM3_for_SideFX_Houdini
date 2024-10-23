@@ -9793,8 +9793,7 @@ reset_IN(self, mode: int=0) -> None:
             prm_name (str): [parameter name for the current data we want to set]
             mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
         """
-        if mode:
-            pass
+        if mode: pass
         else:
             if apo_data is not None:
                 n = flam3h_iterator_prm_names
