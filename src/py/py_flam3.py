@@ -12346,6 +12346,8 @@ out_util_check_duplicate_var_section(vars: list) -> bool:
 
 out_util_iterators_vars_duplicate(vars: list) -> list:
 
+out_util_vars_duplicate(vars: list) -> list:
+
 out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 
 out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
@@ -12406,14 +12408,7 @@ out_auto_change_iter_num_to_prm(self) -> None:
 
 out_flame_properties_build(self) -> dict:
 
-out_flam3_compatibility_check_and_msg(self,
-                                        names_VARS_PRE: list, 
-                                        names_VARS: list, 
-                                        names_VARS_POST: list, 
-                                        flam3h_do_FF: bool, 
-                                        names_VARS_PRE_FF: list, 
-                                        names_VARS_FF: list, 
-                                        names_VARS_POST_FF: list) -> bool:
+out_flam3_compatibility_check_and_msg(self) -> bool:
                                       
 out_populate_xform_vars_XML(self, 
                             varsPRM: tuple, 
@@ -12698,6 +12693,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         return False
     
     
+    # not used
     @staticmethod
     def out_util_iterators_vars_duplicate(vars: list) -> list:
         """Collect duplicate variation's names per each iterator.
@@ -12721,6 +12717,30 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             duplicate.append(d)
         
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
+    
+    
+    
+    @staticmethod
+    def out_util_vars_duplicate(vars: list) -> list:
+        """Collect duplicate variation's names per each iterator.
+
+        Args:
+            VARS (list): List of all variation's list names
+
+        Returns:
+            list: duplicate variation's names per each iterator
+        """
+        v = []
+        d = []
+        for var in vars:
+            if var not in v:
+                v.append(var)
+            else:
+                if var not in d:
+                    d.append(var)
+        
+        return d
+    
 
     
 
@@ -13072,6 +13092,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Collect all the variation's names inside any of the available iterator's sections (PRE, VAR, POST)
         
         Args:
+            node (hou.SopNode): FLAM3H node
             section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
@@ -13111,6 +13132,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         
         Args:
+            node (hou.SopNode): FLAM3H node
             mode (bool): Default to: 'False'. False for iterators and True for FF.
             var_section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
@@ -13139,20 +13161,24 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             if mode:
                 # FF
-                _MP_IDX = 'FF'
-                names_collect_values = []
-                for idx, prm in enumerate(W_tuple):
-                    prm_w = node.parm(f"{prm[0]}").eval()
-                    if prm_w != 0:
-                        v_type = node.parm(f"{T_tuple[idx]}").eval()
-                        var_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
-                        names_collect_values.append(var_name)
-                     
-                if names_collect_values:   
-                    names_idx[_MP_IDX] = names_collect_values
+                if node.parm(SYS_DO_FF).eval():
                     
-                if not names_idx: return False
-                else: return names_idx
+                    _MP_IDX = 'FF'
+                    names_collect_values = []
+                    for idx, prm in enumerate(W_tuple):
+                        prm_w = node.parm(f"{prm[0]}").eval()
+                        if prm_w != 0:
+                            v_type = node.parm(f"{T_tuple[idx]}").eval()
+                            var_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                            names_collect_values.append(var_name)
+                        
+                    if names_collect_values:   
+                        names_idx[_MP_IDX] = names_collect_values
+                        
+                    if not names_idx: return False
+                    else: return names_idx
+                    
+                else: return False
                 
             else:
                 # iterators
@@ -13719,111 +13745,119 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 }
         
 
-    def out_flam3_compatibility_check_and_msg(self,
-                                              names_VARS_PRE: list, 
-                                              names_VARS: list, 
-                                              names_VARS_POST: list, 
-                                              flam3h_do_FF: bool, 
-                                              names_VARS_PRE_FF: list, 
-                                              names_VARS_FF: list, 
-                                              names_VARS_POST_FF: list) -> bool:
-        
+    def out_flam3_compatibility_check_and_msg(self) -> bool:
         """Check if the Flame we want to write out is compatible with the FLAM3 flame format.
         If not, print out details to let us know what is wrong with it.
-        
-        _NOTE:
-            This need a bit more work to format the collected data better.
 
         Args:
-            names_VARS_PRE (list): A list of all iterators PRE variations used.
-            names_VARS (list): A list of all iterators variations used.
-            names_VARS_POST (list): A list of all iterators POST variations used.
-            flam3h_do_FF (list): Is FF active or not.
-            names_VARS_PRE_FF (list): A list of all iterators FF PRE variations used.
-            names_VARS_FF (list): A list of all iterators FF variations used.
-            names_VARS_POST_FF (list): A list of all iterators FF POST variations used.
 
         Returns:
             bool: Return True if the Flame is valid or False if not.
         """        
+        node = self.node
         
         # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
         # just in case in the future I add more.
         bool_VARS_PRE = bool_VARS = bool_VARS_POST = bool_VARS_PRE_FF = bool_VARS_FF = bool_VARS_POST_FF = False
         
-        # ITERATORS dublicate vars check
-        pre_vars_duplicate_idx = []
-        for idx, n in enumerate(names_VARS_PRE):
-            if n:
-                check = self.out_util_check_duplicate_var_section(n)
-                if check:
-                    pre_vars_duplicate_idx.append(str(idx+1))
-                    if bool_VARS_PRE is False:
-                        bool_VARS_PRE = True
-        VARS_PRE_duplicate = []
-        if bool_VARS_PRE:
-            VARS_PRE_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([self.out_util_iterators_vars_duplicate(names_VARS_PRE)], in_flame_utils.in_util_make_PRE)
+        # Iterators: duplicates check
+        #############################################################################
+        iter_VAR: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'VAR')
+        iter_PRE: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'PRE')
         
-        vars_duplicate_idx = []
-        for idx, n in enumerate(names_VARS):
-            if n:
-                check = self.out_util_check_duplicate_var_section(n)
-                if check:
-                    vars_duplicate_idx.append(str(idx+1))
-                    if bool_VARS is False:
-                        bool_VARS = True
-        VARS_duplicate = []
-        if bool_VARS:
-            VARS_duplicate = self.out_util_iterators_vars_duplicate(names_VARS)
-
-        # FF dublicate vars check
-        VARS_FF_duplicate = []
-        VARS_POST_FF_duplicate = []
-        if flam3h_do_FF:
-            bool_VARS_FF = self.out_util_check_duplicate_var_section(names_VARS_FF)
-            if bool_VARS_FF:
-                VARS_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_FF], in_flame_utils.in_util_make_NULL)
-                
-            bool_VARS_POST_FF = self.out_util_check_duplicate_var_section(names_VARS_POST_FF)
-            if bool_VARS_POST_FF:
-                VARS_POST_FF_duplicate = in_flame_utils.in_util_vars_flatten_unique_sorted([names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        
+        iter_VAR_dup = {}
+        if iter_VAR is not False:
+            assert isinstance(iter_VAR, dict)
             
-        # Build messages accordinlgy
-        # This need a bit more work in the way it is formatted and presented to the user.
+            for iter in range(iter_count):
+                key = str(iter+1)
+                vars = iter_VAR.get(key)
+                if vars is not None:
+                    dup = self.out_util_vars_duplicate(vars)
+                    if dup:
+                        iter_VAR_dup[key] = dup
+                        if bool_VARS is False: bool_VARS = True
+                    
+        iter_PRE_dup = {}
+        if iter_PRE is not False:
+            assert isinstance(iter_PRE, dict)
+            for iter in range(iter_count):
+                key = str(iter+1)
+                vars = iter_PRE.get(key)
+                if vars is not None:
+                    dup = self.out_util_vars_duplicate(vars)
+                    if dup:
+                        iter_PRE_dup[key] = dup
+                        if bool_VARS_PRE is False: bool_VARS_PRE = True
+        
+        
+        # FF: duplicates check
+        #############################################################################
+        _FF_VAR_dup = {}
+        _FF_POST_dup = {}
+        key = 'FF'
+        if node.parm(SYS_DO_FF).eval():
+            _FF_VAR: Union[dict[str, list[str]], bool]  = self.out_collect_var_section_names_dict(node, 1, 'VAR')
+            _FF_POST: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 1, 'POST')
+            if _FF_VAR is not False:
+                assert isinstance(_FF_VAR, dict)
+                vars = _FF_VAR.get(key)
+                if vars is not None:
+                    dup = self.out_util_vars_duplicate(vars)
+                    if dup:
+                        _FF_VAR_dup[key] = dup
+                        bool_VARS_FF = True
+                    
+            if _FF_POST is not False:
+                assert isinstance(_FF_POST, dict)
+                vars = _FF_POST.get(key)
+                if vars is not None:
+                    dup = self.out_util_vars_duplicate(vars)
+                    if dup:
+                        _FF_POST_dup[key] = dup
+                        bool_VARS_POST_FF = True
+        
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
             
-            node = self.node
-            ui_text = "Multiple variations of the same type not allowed.\nShow Details to learn more."
-            ALL_msg = f"Node: {node.name()}\nType: Warning:\n"
-            
-            VARS_PRE_msg = f"\nPRE:\nYou are using the same PRE variation multiple times inside iterator:\n-> {', '.join(pre_vars_duplicate_idx)}\n-> {', '.join(VARS_PRE_duplicate)}\n"
-            VARS_msg = f"VAR:\nYou are using the same variation multiple times inside iterator:\n-> {', '.join(vars_duplicate_idx)}\n-> {', '.join(VARS_duplicate)}\n"
-            VARS_FF_msg = f"FF VAR:\nYou are using the same variation multiple times inside the FF VAR section.\n-> {', '.join(VARS_FF_duplicate)}\n"
-            VARS_POST_FF_msg = f"FF POST:\nYou are using the same POST variation multiple times inside the FF POST section.\n-> {', '.join(VARS_POST_FF_duplicate)}\n"
-            
-            HELP_msg  = ""
-            HELP_msg += f"\nNOTE:\n"
-            HELP_msg += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\nYou can however use one Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n"
-            HELP_msg += f"\nTIP:\n"
-            HELP_msg += f"Save the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
-            
+            _MSG_PRE = _MSG_VAR = ''
             if bool_VARS_PRE:
-                ALL_msg += VARS_PRE_msg
-            if bool_VARS:
-                ALL_msg += "\n" + VARS_msg
-            if bool_VARS_FF:
-                ALL_msg += "\n" + VARS_FF_msg
-            if bool_VARS_POST_FF:
-                ALL_msg += "\n" + VARS_POST_FF_msg
+                dup = ''.join(f"iterator.{key} -> {str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
+                _MSG_PRE = f"\nPRE\n{dup}"
             
-            ALL_msg += HELP_msg
+            if bool_VARS:
+                dup = ''.join(f"iterator.{key} -> {str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
+                _MSG_VAR = f"\nVAR\n{dup}"
+                
+            _MSG_FF_VAR = _MSG_FF_POST = ''
+            if bool_VARS_FF:
+                dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_VAR_dup.values())
+                _MSG_FF_VAR = f"\nFF VAR -> {dup}"
+            
+            if bool_VARS_POST_FF:
+                dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_POST_dup.values())
+                _MSG_FF_POST = f"\nFF POST -> {dup}"
+                
+            _MSG_INTRO = f"You are using the same variation multiple times\ninside the following iterators/FF sections (PRE, VAR, POST):\n"
+            _MSG_ALL_DUP = f"{_MSG_INTRO}{_MSG_PRE}{_MSG_VAR}{_MSG_FF_VAR}{_MSG_FF_POST}"
+            
+            _HELP_MSG  = "\n"
+            _HELP_MSG += f"NOTE:\n"
+            _HELP_MSG += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\nYou can however use\none Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n\n"
+            _HELP_MSG += f"TIP:\n"
+            _HELP_MSG += f"Save the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+            
+            _MSG_ALL = f"{_MSG_ALL_DUP}{_HELP_MSG}"
             
             _MSG = f"{node.name()}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             if hou.isUIAvailable():
-                hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                _MSG_UI = "Multiple variations of the same type not allowed.\nShow Details to learn more."
+                hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=_MSG_ALL, details_label=None, details_expanded=False) # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False
+        
         else:
             return True
         
@@ -13971,7 +14005,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
-        return self.out_flam3_compatibility_check_and_msg(names_VARS_PRE, names_VARS, names_VARS_POST, f3d.flam3h_do_FF, names_VARS_PRE_FF, names_VARS_FF, names_VARS_POST_FF)
+        return self.out_flam3_compatibility_check_and_msg()
 
 
 
