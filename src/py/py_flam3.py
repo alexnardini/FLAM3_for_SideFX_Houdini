@@ -11224,7 +11224,7 @@ reset_IN(self, mode: int=0) -> None:
         if flam3h_general_utils.isLOCK(in_path_checked):
             flame_lib_locked = f"-> LOCKED"
         # If the Flame use a 256+ palette, update the CP palette MSG
-        if apo_data.palette[1] > 256:
+        if apo_data.palette is not None and apo_data.palette[1] > 256:
             palette_msg: str = node.parm(MSG_PALETTE).eval()
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
@@ -11863,159 +11863,171 @@ reset_IN(self, mode: int=0) -> None:
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
 
         if xml is not None and _xml_tree(xml).isvalidtree:
-            
-            # Resets
-            ####################################################
-            iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
-            flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
-            flam3h_general_utils(self.kwargs).reset_MB()
-            flam3h_general_utils(self.kwargs).reset_PREFS()
 
-            # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
-            ####################################################
-            exclude_keys = XML_XF_KEY_EXCLUDE
-            if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-
-
-            # ITERATOR
-            ####################################################
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
-            # prepare iterators
-            self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
-            
-            # RIP: if there are ZERO opacities, always turn RIP toggle ON
-            if min(apo_data.opacity) == 0.0:
-                node.setParms({SYS_RIP: 1}) # type: ignore
-            else:
-                # Otherwise set RIP toggle accordingly from the XML data if any
-                if apo_data.sys_flam3h_rip is not None:
-                    node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
-
-            # Set iterators
-            self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
-            
-            # FF
-            ####################################################
-            if apo_data.finalxform is not None:
-                # get keys to exclude
-                # FF do not posses an hard coded pre_blur so lets restore the standard exclude_keys so we can have pre_gaussian_blur included.
-                exclude_keys = XML_XF_KEY_EXCLUDE
-                flam3h_iterator_utils(self.kwargs).reset_FF()
-                node.setParms({SYS_DO_FF: 1}) # type: ignore
-                # Set FF
-                self.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
-            else:
-                flam3h_iterator_utils(self.kwargs).reset_FF()
-                node.setParms({SYS_DO_FF: 0}) # type: ignore
-            
-            # MB
-            ####################################################
-            if apo_data.mb_flam3h_fps is not False:
-                node.setParms({MB_DO: 1}) # type: ignore
-                node.setParms({MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
-                node.setParms({MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
-                node.setParms({MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
-            else:
+            # If there are xforms/iterators
+            if apo_data.xforms is not None:
+                
+                # Resets
+                ####################################################
+                iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
+                flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
                 flam3h_general_utils(self.kwargs).reset_MB()
-            
-            # PALETTE
-            ####################################################
-            # if CP HSV vals
-            if apo_data.cp_flam3h_hsv is not False:
-                node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.cp_flam3h_hsv}) # type: ignore
-            else:
-            # CP HSV default vals
-                node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
-            
-            # Set XML palette data
-            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-            # Reset ramps to default
-            flam3h_palette_utils.build_ramp_palette_default(ramp_parm)
-            flam3h_palette_utils.delete_ramp_all_keyframes(ramp_parm)
-            flam3h_palette_utils.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
-            ramp_parm.set(apo_data.palette[0])
-            flam3h_palette_utils(self.kwargs).palette_cp()
-            # Set palette lookup samples
-            node.setParms({CP_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples})
-            # Mark this as not a loaded palette preset
-            node.setParms({CP_ISVALID_PRESET: 0})
-            # reset tmp ramp palette
-            flam3h_palette_utils(self.kwargs).reset_CP_TMP()
-            
-            
-            # Set density back to default on load
-            ####################################################
-            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
-            
-            
-            # Update flame stats
-            ####################################################
-            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
-            node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
-            node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
-            
-            
-            # if we are loading from the clipboard, always copy the render settings on load
-            ####################################################
-            if clipboard:
-                self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
-            else:
-                # If not from clipboard
-                # Update SYS inpresets parameters
-                node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
-                node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
-                
-                # if "copy render properties on Load" is checked
-                if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                    self.in_copy_render_stats_msg(self.kwargs)
-            
-            # Update xaos
-            ####################################################
-            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
-            
-            # Update OUT Flame name iter num if any
-            ####################################################
-            out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
-            
-            # F3C ( the if statement is for backward compatibility )
-            ####################################################
-            if apo_data.prefs_flam3h_f3c is not None:
-                node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
-            
-            # Reset iterator and FF user data if needed
-            ####################################################
-            self.in_to_flam3h_reset_user_data()
-            
-            # Clear menu caches
-            ####################################################
-            flam3h_iterator_utils.destroy_data(node, 'iter_sel')
-            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+                flam3h_general_utils(self.kwargs).reset_PREFS()
 
-            # Set toggles and MSG
-            ####################################################
-            if clipboard:
-                # If it is a valid preset from the clipboard, set the "valid preset" and "clipboard" toggles
-                # but do not change the "is valid file" toggle as we dnt know if a valid file is already loaded.
-                node.setParms({IN_ISVALID_PRESET: 1}) 
-                node.setParms({IN_CLIPBOARD_TOGGLE: 1})
+                # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
+                ####################################################
+                exclude_keys = XML_XF_KEY_EXCLUDE
+                if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
+                    exclude_keys = XML_XF_KEY_EXCLUDE_PGB
                 
-                preset_name = flame_name_clipboard
-                _MSG = f"{node.name()}: LOAD Flame preset from Clipboard: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
+                # ITERATOR
+                ####################################################
+                # prepare iterators
+                self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
+                
+                # RIP: if there are ZERO opacities, always turn RIP toggle ON
+                if min(apo_data.opacity) == 0.0:
+                    node.setParms({SYS_RIP: 1}) # type: ignore
+                else:
+                    # Otherwise set RIP toggle accordingly from the XML data if any
+                    if apo_data.sys_flam3h_rip is not None:
+                        node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
+
+                # Set iterators
+                self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
+                
+                # FF
+                ####################################################
+                if apo_data.finalxform is not None:
+                    # get keys to exclude
+                    # FF do not posses an hard coded pre_blur so lets restore the standard exclude_keys so we can have pre_gaussian_blur included.
+                    exclude_keys = XML_XF_KEY_EXCLUDE
+                    flam3h_iterator_utils(self.kwargs).reset_FF()
+                    node.setParms({SYS_DO_FF: 1}) # type: ignore
+                    # Set FF
+                    self.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
+                else:
+                    flam3h_iterator_utils(self.kwargs).reset_FF()
+                    node.setParms({SYS_DO_FF: 0}) # type: ignore
+                
+                # MB
+                ####################################################
+                if apo_data.mb_flam3h_fps is not False:
+                    node.setParms({MB_DO: 1}) # type: ignore
+                    node.setParms({MB_FPS: apo_data.mb_flam3h_fps}) # type: ignore
+                    node.setParms({MB_SAMPLES: apo_data.mb_flam3h_samples}) # type: ignore
+                    node.setParms({MB_SHUTTER: apo_data.mb_flam3h_shutter}) # type: ignore
+                else:
+                    flam3h_general_utils(self.kwargs).reset_MB()
+                
+                # PALETTE
+                ####################################################
+                if apo_data.palette is not None:
+                    
+                    # if CP HSV vals
+                    if apo_data.cp_flam3h_hsv is not False: node.setParms({CP_RAMP_HSV_VAL_NAME: apo_data.cp_flam3h_hsv}) # type: ignore
+                    else: node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))}) # type: ignore
+                    
+                    # Set XML palette data
+                    ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                    # Reset ramps to default
+                    flam3h_palette_utils.build_ramp_palette_default(ramp_parm)
+                    flam3h_palette_utils.delete_ramp_all_keyframes(ramp_parm)
+                    flam3h_palette_utils.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+                    ramp_parm.set(apo_data.palette[0])
+                    flam3h_palette_utils(self.kwargs).palette_cp()
+                    # Set palette lookup samples
+                    node.setParms({CP_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples})
+                    # Mark this as not a loaded palette preset
+                    node.setParms({CP_ISVALID_PRESET: 0})
+                    # reset tmp ramp palette
+                    flam3h_palette_utils(self.kwargs).reset_CP_TMP()
+                    
+                else:
+                    ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                    _COLORs, _POSs, _BASEs = flam3h_palette_utils.build_ramp_palette_error()
+                    ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
+                    
+                    if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset do not have Palette data."
+                    else: _MSG = "\nFlame IN: The loaded Flame preset do not have Palette data."
+                    print(f"{node.name()}: {_MSG}")
+
+                # Set density back to default on load
+                ####################################################
+                node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+                
+                # Update flame stats
+                ####################################################
+                node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
+                node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
+                node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+                
+                # if we are loading from the clipboard, always copy the render settings on load
+                ####################################################
+                if clipboard:
+                    self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
+                else:
+                    # If not from clipboard
+                    # Update SYS inpresets parameters
+                    node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
+                    node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
+                    
+                    # if "copy render properties on Load" is checked
+                    if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+                        self.in_copy_render_stats_msg(self.kwargs)
+                
+                # Update xaos
+                ####################################################
+                flam3h_iterator_utils(self.kwargs).auto_set_xaos()
+                
+                # Update OUT Flame name iter num if any
+                ####################################################
+                out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
+                
+                # F3C ( the if statement is for backward compatibility )
+                ####################################################
+                if apo_data.prefs_flam3h_f3c is not None:
+                    node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
+                
+                # Reset iterator and FF user data if needed
+                ####################################################
+                self.in_to_flam3h_reset_user_data()
+                
+                # Clear menu caches
+                ####################################################
+                flam3h_iterator_utils.destroy_data(node, 'iter_sel')
+                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+
+                # Set toggles and MSG
+                ####################################################
+                if clipboard:
+                    # If it is a valid preset from the clipboard, set the "valid preset" and "clipboard" toggles
+                    # but do not change the "is valid file" toggle as we dnt know if a valid file is already loaded.
+                    node.setParms({IN_ISVALID_PRESET: 1}) 
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 1})
+                    
+                    preset_name = flame_name_clipboard
+                    _MSG = f"{node.name()}: LOAD Flame preset from Clipboard: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
+                else:
+                    # Otherwise mean the preset is coming from a file,
+                    # set all of them and uncheck the clipboard toggle just in case.
+                    node.setParms({IN_ISVALID_FILE: 1})
+                    node.setParms({IN_ISVALID_PRESET: 1})
+                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                    
+                    # Get the correct menu parameter's preset menu label
+                    preset_name = apo_data.name[preset_id] 
+                    _MSG = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
+                    
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                
             else:
-                # Otherwise mean the preset is coming from a file,
-                # set all of them and uncheck the clipboard toggle just in case.
-                node.setParms({IN_ISVALID_FILE: 1})
-                node.setParms({IN_ISVALID_PRESET: 1})
-                node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-                
-                # Get the correct menu parameter's preset menu label
-                preset_name = apo_data.name[preset_id] 
-                _MSG = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
-                
-            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
+                else: _MSG = "Flame IN: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
             
         else:
             
