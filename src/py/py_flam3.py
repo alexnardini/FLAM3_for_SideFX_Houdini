@@ -12169,6 +12169,7 @@ reset_IN(self, mode: int=0) -> None:
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
+                # Transfer the data from the stored XML into FLAM3H
                 self.in_to_flam3h_resets(node, _FLAM3H_INIT_DATA)
                 self.in_to_flam3h_set_iterators(node, apo_data, _FLAM3H_INIT_DATA)
                 self.in_to_flam3h_set_motion_blur(node, apo_data)
@@ -12176,6 +12177,7 @@ reset_IN(self, mode: int=0) -> None:
                 self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA)
                 self.in_to_flam3h_reset_user_data()
                 self.in_to_flam3h_toggles_and_msg(node, apo_data, _FLAM3H_INIT_DATA)
+                # Updates
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
                 flam3h_iterator_utils.destroy_data(node, 'iter_sel')
