@@ -13843,18 +13843,18 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             _MSG_INTRO = f"You are using the same variation multiple times\ninside the following iterators/FF types (PRE, VAR, POST):\n"
             _MSG_ALL_DUP = f"{_MSG_INTRO}{_MSG_PRE}{_MSG_VAR}{_MSG_FF_VAR}{_MSG_FF_POST}"
             
-            _HELP_MSG  = "\n"
-            _HELP_MSG += f"DOC:\n"
-            _HELP_MSG += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n\n"
-            _HELP_MSG += f"TIP:\n"
-            _HELP_MSG += f"\tSave the hip file instead if you desire to keep the Flame result as it is now.\n\tFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+            _MSG_HELP  = "\n"
+            _MSG_HELP += f"DOC:\n"
+            _MSG_HELP += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n\n"
+            _MSG_HELP += f"TIP:\n"
+            _MSG_HELP += f"\tSave the hip file instead if you desire to keep the Flame result as it is now.\n\tFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
             
-            _MSG_ALL = f"{_MSG_ALL_DUP}{_HELP_MSG}"
+            _MSG_ALL = f"{_MSG_ALL_DUP}{_MSG_HELP}"
             
             _MSG = f"{node.name()}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             if hou.isUIAvailable():
-                _MSG_UI = "Multiple variations of the same type not allowed.\nShow Details to learn more."
+                _MSG_UI = "Duplicates variations of the same type not allowed.\nShow Details to learn more."
                 hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=_MSG_ALL, details_label=None, details_expanded=False) # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False
