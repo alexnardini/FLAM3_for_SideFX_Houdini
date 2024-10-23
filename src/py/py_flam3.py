@@ -11887,6 +11887,9 @@ reset_IN(self, mode: int=0) -> None:
 
     def in_to_flam3h_init_data_ALT(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame preset from the clipboard.
+        This definition will be used inside: def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
+        
+        It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Args:
             node (hou.SopNode): FLAM3H node to load the flame preset into.
@@ -11932,6 +11935,9 @@ reset_IN(self, mode: int=0) -> None:
 
     def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame file from a file dialog.
+        This definition will be used inside: def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
+        
+        It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Args:
             node (hou.SopNode): FLAM3H node to load the flame file/preset into.
@@ -11993,6 +11999,9 @@ reset_IN(self, mode: int=0) -> None:
         
     def in_to_flam3h_init_data_CTRL(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load nothing with as the kwargs['ctrl'] is not mapped to anything else yet so this is a place holder.
+        This definition will be used inside: def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
+        
+        It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Returns:
             tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
@@ -12021,6 +12030,9 @@ reset_IN(self, mode: int=0) -> None:
     
     def in_to_flam3h_init_data_LMB(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame preset with a mouse click, no kwargs.
+        This definition will be used inside: def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
+        
+        It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Args:
             node (hou.SopNode): FLAM3H node to load the flame file/preset into.
