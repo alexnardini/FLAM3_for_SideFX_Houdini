@@ -13298,8 +13298,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         node = self.node
 
-        prms_out_sensor_names   = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER),
+        prms_out_sensor_names   = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),    # tuple
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER),  # tuple
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
         
