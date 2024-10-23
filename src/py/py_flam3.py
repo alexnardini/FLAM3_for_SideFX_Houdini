@@ -13303,8 +13303,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
         
-        prms_out_sensor_vals    = ( hou.Vector2((1024, 1024)),
-                                    hou.Vector2((0, 0)),
+        prms_out_sensor_vals    = ( hou.Vector2((1024, 1024)),  # tuple
+                                    hou.Vector2((0, 0)),        # tuple
                                     0,
                                     400 )
         
@@ -13639,7 +13639,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
         # just in case in the future I add more.
         bool_VARS_PRE = bool_VARS = bool_VARS_POST = bool_VARS_PRE_FF = bool_VARS_FF = bool_VARS_POST_FF = False
-
+        
         # ITERATORS dublicate vars check
         pre_vars_duplicate_idx = []
         for idx, n in enumerate(names_VARS_PRE):
@@ -13752,6 +13752,80 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         else:
             return None
         
+    
+    # Not used yet
+    def out_collect_var_section_names_dict(self, mode: int=False, var_section="VAR") -> Union[dict[str, list[str]], bool]:
+        """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
+        They will be built inside a dict with the keys representing the irterator number and the value the used variations collected inside a list.
+        For the FF, the dictionary key will always be 'FF'
+        
+        
+        Args:
+            mode (bool): Default to: 'False'. False for iterators and True for FF.
+            var_section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
+
+        Returns:
+            Union[dict[str, list[str]], bool]: A dictionary of used variations in this iterator/xform/FF or Faqlso if none.
+        """
+        # Build var parameter's sections
+        if not mode:
+            # Iterator
+            prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
+            prm_sections_W = {'VAR': flam3h_iterator.sec_varsW, 'PRE': flam3h_iterator.sec_prevarsW[1:], 'POST': flam3h_iterator.sec_postvarsW}
+        else:
+            # FF
+            prm_sections_T = {'VAR': flam3h_iterator_FF.sec_varsT_FF, 'PRE': flam3h_iterator_FF.sec_prevarsT_FF, 'POST': flam3h_iterator_FF.sec_postvarsT_FF}
+            prm_sections_W = {'VAR': flam3h_iterator_FF.sec_varsW_FF, 'PRE': flam3h_iterator_FF.sec_prevarsW_FF, 'POST': flam3h_iterator_FF.sec_postvarsW_FF}
+        
+        # Get correct parameter's names based on the desired var section and mode
+        T_tuple = prm_sections_T.get(var_section)
+        W_tuple = prm_sections_W.get(var_section)
+        
+        # Just double checking
+        if T_tuple is not None and W_tuple is not None:
+            assert T_tuple is not None
+            assert W_tuple is not None
+            node = self.node
+            names_idx: dict = {}
+            
+            if mode:
+                # FF
+                _MP_IDX = 'FF'
+                names_collect_values = []
+                for idx, prm in enumerate(W_tuple):
+                    prm_w = node.parm(f"{prm[0]}").eval()
+                    if prm_w != 0:
+                        v_type = node.parm(f"{T_tuple[idx]}").eval()
+                        var_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                        names_collect_values.append(var_name)
+                     
+                if names_collect_values:   
+                    names_idx[_MP_IDX] = names_collect_values
+                    
+                if not names_idx: return False
+                else: return names_idx
+                
+            else:
+                # iterators
+                for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
+                    _MP_IDX = str(int(iter + 1))
+                    names_collect_values = []
+                    for idx, prm in enumerate(W_tuple):
+                        prm_w = node.parm(f"{prm[0]}{_MP_IDX}").eval()
+                        if prm_w != 0:
+                            v_type = node.parm(f"{T_tuple[idx]}{_MP_IDX}").eval()
+                            var_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                            names_collect_values.append(var_name)
+                        
+                    if names_collect_values:   
+                        names_idx[_MP_IDX] = names_collect_values
+
+                if not names_idx: return False
+                else: return names_idx
+        else:
+            return False
+        
+        
 
     def out_populate_xform_vars_XML(self, 
                                     varsPRM: tuple, 
@@ -13803,6 +13877,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         else:
                             val = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                             XFORM.set(FUNC(p[0]), self.out_util_round_float(val))
+                            
         return names
 
 
