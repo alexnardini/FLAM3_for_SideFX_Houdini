@@ -13823,30 +13823,30 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             _MSG_PRE = _MSG_VAR = ''
             if bool_VARS_PRE:
-                dup = ''.join(f"iterator.{key} -> {str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
+                dup = ''.join(f"\titerator.{key}    {str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
                 _MSG_PRE = f"\nPRE\n{dup}"
             
             if bool_VARS:
-                dup = ''.join(f"iterator.{key} -> {str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
+                dup = ''.join(f"\titerator.{key}    {str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
                 _MSG_VAR = f"\nVAR\n{dup}"
                 
             _MSG_FF_VAR = _MSG_FF_POST = ''
             if bool_VARS_FF:
                 dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_VAR_dup.values())
-                _MSG_FF_VAR = f"\nFF VAR -> {dup}"
+                _MSG_FF_VAR = f"\nFF VAR\n\t{dup}"
             
             if bool_VARS_POST_FF:
                 dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_POST_dup.values())
-                _MSG_FF_POST = f"\nFF POST -> {dup}"
+                _MSG_FF_POST = f"\nFF POST\n\t{dup}"
                 
-            _MSG_INTRO = f"You are using the same variation multiple times\ninside the following iterators/FF sections (PRE, VAR, POST):\n"
+            _MSG_INTRO = f"You are using the same variation multiple times\ninside the following iterators/FF types (PRE, VAR, POST):\n"
             _MSG_ALL_DUP = f"{_MSG_INTRO}{_MSG_PRE}{_MSG_VAR}{_MSG_FF_VAR}{_MSG_FF_POST}"
             
             _HELP_MSG  = "\n"
-            _HELP_MSG += f"NOTE:\n"
-            _HELP_MSG += f"While this is doable within the tool, it is not compatible with FLAM3 file format.\nIt require that a variation is used only once per type ( types: PRE, VAR, POST )\notherwise you wont be able to save out the same result neither to load it back.\nFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\nYou can however use\none Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n\n"
+            _HELP_MSG += f"DOC:\n"
+            _HELP_MSG += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n\n"
             _HELP_MSG += f"TIP:\n"
-            _HELP_MSG += f"Save the hip file instead if you desire to keep the Flame result as it is now.\nFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+            _HELP_MSG += f"\tSave the hip file instead if you desire to keep the Flame result as it is now.\n\tFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
             
             _MSG_ALL = f"{_MSG_ALL_DUP}{_HELP_MSG}"
             
