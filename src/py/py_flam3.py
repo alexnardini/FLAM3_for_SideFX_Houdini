@@ -5967,8 +5967,11 @@ reset_CP(self, mode: int=0) -> None:
         """Build a ramp data with value the signify an error has accurred.
         
         Args:
+        
+        Returns:
+            tuple: BASEs, POSs, COLORs for the ramp to be build.
         """
-        return [(1,0,0)], [0], [hou.rampBasis.Linear] # type: ignore
+        return [hou.rampBasis.Linear], [0], [(1,0,0)] # type: ignore
     
     
     @staticmethod
@@ -6629,11 +6632,11 @@ reset_CP(self, mode: int=0) -> None:
                 BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
             except:
                 # If something goes wrong...set one RED key only
-                rgb_from_XML_PALETTE, POSs, BASEs = self.build_ramp_palette_error()
+                BASEs, POSs, rgb_from_XML_PALETTE = self.build_ramp_palette_error()
                 _CHECK = False
                 
         else:
-            rgb_from_XML_PALETTE, POSs, BASEs = self.build_ramp_palette_error()
+            BASEs, POSs, rgb_from_XML_PALETTE = self.build_ramp_palette_error()
             _CHECK = False
             
         # Set lookup samples to the default value of: 256
@@ -11949,7 +11952,7 @@ reset_IN(self, mode: int=0) -> None:
                     
                 else:
                     ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-                    _COLORs, _POSs, _BASEs = flam3h_palette_utils.build_ramp_palette_error()
+                    _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
                     ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
                     
                     if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset do not have Palette data."
