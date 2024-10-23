@@ -13750,7 +13750,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         If not, print out details to let us know what is wrong with it.
 
         Args:
-
+            (None):
+            
         Returns:
             bool: Return True if the Flame is valid or False if not.
         """        
