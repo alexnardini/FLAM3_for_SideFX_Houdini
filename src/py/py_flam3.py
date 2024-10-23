@@ -12412,6 +12412,8 @@ out_flam3_compatibility_check_and_msg(self,
                                         names_VARS_POST_FF: list) -> bool:
                                         
 out_collect_var_section_names(self, var_section="VAR") -> Union[list[str], None]:
+
+out_collect_var_section_names_dict(self, mode: int=False, var_section="VAR") -> Union[dict[str, list[str]], bool]:
                                       
 out_populate_xform_vars_XML(self, 
                             varsPRM: tuple, 
