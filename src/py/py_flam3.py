@@ -8535,7 +8535,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def node(self):
         return self._node
     
-    # @property
+    # @property # This is now stored from inside: class _xml_tree:
     # def name(self):
     #     return self._name
 
@@ -8782,11 +8782,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
         Returns:
             hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
-        """        
+        """     
+           
         if  self.isvalidtree:
             try: palette_attrib = self.flame[idx].find(key).attrib
             except: palette_attrib = None
-                
+
             if palette_attrib is not None:
                 palette_hex = self.flame[idx].find(key).text
                 format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
