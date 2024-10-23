@@ -12722,7 +12722,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     @staticmethod
     def out_util_vars_duplicate(vars: list) -> list:
-        """Collect duplicate variation's names per each iterator.
+        """Collect duplicate variation's names in an iterator.
 
         Args:
             VARS (list): List of all variation's list names
