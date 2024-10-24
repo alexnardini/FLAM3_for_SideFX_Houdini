@@ -13824,11 +13824,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             _MSG_PRE = _MSG_VAR = ''
             if bool_VARS_PRE:
-                dup = ''.join(f"\titerator.{key}    {str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
+                dup = ''.join(f"\titerator.{key}\n\t\t{str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
                 _MSG_PRE = f"\nPRE\n{dup}"
             
             if bool_VARS:
-                dup = ''.join(f"\titerator.{key}    {str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
+                dup = ''.join(f"\titerator.{key}\n\t\t{str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
                 _MSG_VAR = f"\nVAR\n{dup}"
                 
             _MSG_FF_VAR = _MSG_FF_POST = ''
@@ -13845,7 +13845,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             
             _MSG_HELP  = "\n"
             _MSG_HELP += f"DOC:\n"
-            _MSG_HELP += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one Spherical inside the PRE section and one inside the POST section.\n\n"
+            _MSG_HELP += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one inside the PRE and one inside the POST.\n\n"
             _MSG_HELP += f"TIP:\n"
             _MSG_HELP += f"\tSave the hip file instead if you desire to keep the Flame result as it is now.\n\tFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
             
