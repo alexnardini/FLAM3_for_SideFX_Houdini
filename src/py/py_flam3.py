@@ -3332,7 +3332,20 @@ iterator_vactive_and_update(self) -> None:
     @staticmethod
     def destroy_data(node, data: str, must_exist: bool=False) -> None:
         """This is to be run as a callback script inside parms that are responsible to update the menu.
-        For now: Iterator shader's opacity  
+        For now: Iterator shader's opacity
+        
+        So far the data names being used are:
+        
+            - iter_sel
+            - cp_presets_menu
+            - cp_presets_menu_idx
+            - cp_presets_menu_off
+            - cp_presets_menu_off_idx
+            - in_presets_menu
+            - in_presets_menu_idx
+            - in_presets_menu_off
+            - in_presets_menu_off_idx
+            - vars_menu_all_simple
 
         Returns:
         """
