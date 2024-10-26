@@ -13466,9 +13466,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         prms_out_render_vals    = ( 1000, 
                                     3, 
                                     2.5, 
-                                    1, 
+                                    5, 
                                     0, 
-                                    0.33333333 )
+                                    0.3333 )
         
         # Clear and set
         [node.parm(name).deleteAllKeyframes() for name in prms_out_render_names]
