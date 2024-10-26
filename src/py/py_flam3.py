@@ -13440,6 +13440,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
         
+        # Any changes to the following defaults must follow the same changes
+        # inside the HDA->Edit Operator Type Properties->Parameter Name->Channel defaults values.
         prms_out_sensor_vals    = ( hou.Vector2((1024, 1024)),  # tuple
                                     hou.Vector2((0, 0)),        # tuple
                                     0,
@@ -13463,6 +13465,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2),
                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY) )
         
+        # Any changes to the following defaults must follow the same changes
+        # inside the HDA->Edit Operator Type Properties->Parameter Name->Channel defaults values.
         prms_out_render_vals    = ( 1000, 
                                     3, 
                                     2.5, 
