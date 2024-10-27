@@ -556,7 +556,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 # parameter name:    `palettefile`
 ### Callbac Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS()
 ```
 ### Action Button script
 ```python

@@ -1194,7 +1194,7 @@ flam3h_on_deleted(self) -> None:
             self.flam3h_on_create_set_prefs_viewport()
             
             # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-            flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS(0)
+            flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS(0)
             # inti IN PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
             # init OUT PRESETS
@@ -1404,7 +1404,7 @@ flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
 
 flam3h_init_presets_OUT_PRESETS(self) -> None:
 
-flam3h_init_presets_CP_PALETTE_PRESETS(self, mode: int=1) -> None:
+flam3h_init_presets_CP_PRESETS(self, mode: int=1) -> None:
 
 flam3h_display_help(self) -> None:
 
@@ -2214,7 +2214,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
 
 
-    def flam3h_init_presets_CP_PALETTE_PRESETS(self, mode: int=1) -> None:
+    def flam3h_init_presets_CP_PRESETS(self, mode: int=1) -> None:
         """Initialize parameter's menu presets for the CP tab.
         
         Args:
@@ -6178,7 +6178,7 @@ reset_CP(self, mode: int=0) -> None:
     @staticmethod 
     def json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
         """Check is the plaette plus str "[256+]" is displayed already and add a custom string message(_MSG) to it.
-        This is used inside: flam3h_init_presets_CP_PALETTE_PRESETS(self, mode=1) and its run everytime we load a palette file while the presets menu is being initialized.
+        This is used inside: flam3h_init_presets_CP_PRESETS(self, mode=1) and its run everytime we load a palette file while the presets menu is being initialized.
         
         Args:
             node (hou.SopNode): The current FLAM3H node.
@@ -6840,7 +6840,7 @@ reset_CP(self, mode: int=0) -> None:
                 if os.path.isdir(dir):
                     node.setParms({CP_PALETTE_LIB_PATH: filepath_expandvars})
                     # The following definition use the default arg's value so it can set the proper ramp message if needed.
-                    flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PALETTE_PRESETS()
+                    flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
                 
             # ALT - If we are loading a palette from the clipboard
             elif self.kwargs['alt']:
