@@ -259,8 +259,11 @@ MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMESENSOR = 'flamesensor_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
 MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
+# Presets PRM and MSG
 MSG_PALETTE = 'palettemsg'
+MSG_PALETTE_MSG = 'Palette lib file: LOCKED'
 MSG_OUT = 'outmsg'
+MSG_OUT_MSG = 'Flame lib file: LOCKED'
 # Message About Tab parameters
 MSG_FLAM3H_ABOUT = 'flam3about_msg'
 MSG_FLAM3H_PLUGINS = 'flam3plugins_msg'
@@ -1506,7 +1509,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
     @staticmethod
     def isLOCK(filepath: Union[str, bool], prx: str=FLAM3H_LIB_LOCK) -> bool:
-        """Check if the loaded lib file ( Palette or flame XML ) is locked .
+        """Check if the loaded lib file ( Palette or flame XML ) is locked.
 
         Args:
             filepath (Union[str, bool]): the full lib file path.
@@ -2189,7 +2192,7 @@ reset_PREFS(self, mode: int=0) -> None:
                 prm_sys.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
                 if self.isLOCK(xml_checked):
-                    _MSG = f"Flame lib file: LOCKED"
+                    _MSG = MSG_OUT_MSG
                     node.setParms({MSG_OUT: _MSG})
                 else:
                     node.setParms({MSG_OUT: ''})
@@ -2247,7 +2250,7 @@ reset_PREFS(self, mode: int=0) -> None:
                     node.setParms({CP_ISVALID_PRESET: 0})
                     # check if the selected palette file is locked
                     if self.isLOCK(json_path_checked):
-                        _MSG = f"Palette lib file: LOCKED"
+                        _MSG = MSG_PALETTE_MSG
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, _MSG)
                     else:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
