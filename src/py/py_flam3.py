@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.22'
+FLAM3H_VERSION = '1.5.26'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1369,7 +1369,7 @@ my_system() -> str:
 
 set_status_msg(msg: str, type: str) -> None:
 
-isLOCK(filepath: Union[str, bool], prx: str=FLAM3H_LIB_LOCK) -> bool:
+isLOCK(filepath: Union[str, bool]) -> bool:
 
 util_open_file_explorer(filepath_name: str) -> None:
 
@@ -1508,7 +1508,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
 
     @staticmethod
-    def isLOCK(filepath: Union[str, bool], prx: str=FLAM3H_LIB_LOCK) -> bool:
+    def isLOCK(filepath: Union[str, bool]) -> bool:
         """Check if the loaded lib file ( Palette or flame XML ) is locked.
 
         Args:
@@ -1519,7 +1519,7 @@ reset_PREFS(self, mode: int=0) -> None:
             bool: True if locked. False if not.
         """        
         if filepath is not False:
-            if os.path.split(str(filepath))[-1].startswith(prx):
+            if os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
                 return True
             else:
                 return False
@@ -6370,8 +6370,8 @@ reset_CP(self, mode: int=0) -> None:
         preset_idx = node.parm(CP_PALETTE_PRESETS).eval()
         
         # Double check 
-        json = node.parm(CP_PALETTE_LIB_PATH).eval()
-        is_valid = os.path.isfile(os.path.expandvars(json))
+        json = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+        is_valid = os.path.isfile(json)
         if json and not is_valid:
             node.setParms({CP_ISVALID_FILE: 0})
             node.setParms({CP_ISVALID_PRESET: 0})
@@ -6400,7 +6400,7 @@ reset_CP(self, mode: int=0) -> None:
         filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
         head_tail = os.path.split(filepath)
 
-        if os.path.isfile(filepath) and node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
+        if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
                 
             with open(filepath) as f:
                 menuitems = json.load(f).keys()
@@ -6439,13 +6439,15 @@ reset_CP(self, mode: int=0) -> None:
         preset_idx = node.parm(CP_PALETTE_PRESETS_OFF).eval()
         
         # Double check 
-        json = node.parm(CP_PALETTE_LIB_PATH).eval()
-        is_valid = os.path.isfile(os.path.expandvars(json))
+        json = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+        is_valid = os.path.isfile(json)
         if json and not is_valid:
             node.setParms({CP_ISVALID_FILE: 0})
             node.setParms({CP_ISVALID_PRESET: 0})
             data = None
         elif json and is_valid:
+            # This caused some pain becasue it was forcing us not to tell the truth
+            # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({CP_ISVALID_FILE: 1})
             
         if data is not None and data_idx == preset_idx:
@@ -6695,9 +6697,8 @@ reset_CP(self, mode: int=0) -> None:
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
             
-            filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
-            
-            if os.path.isfile(filepath) and os.path.getsize(filepath)>0 and node.parm(CP_ISVALID_FILE).eval():
+            filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            if self.isJSON_F3H(node, filepath, False)[-1]:
                 
                 # get ramp parm
                 ramp_parm = node.parm(CP_RAMP_SRC_NAME)
@@ -11331,8 +11332,8 @@ reset_IN(self, mode: int=0) -> None:
         preset_idx = node.parm(IN_PRESETS).eval()
         
         # Double check 
-        xml = node.parm(IN_PATH).eval()
-        is_valid = os.path.isfile(os.path.expandvars(xml))
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
+        is_valid = os.path.isfile(xml)
         if xml and not is_valid:
             node.setParms({IN_ISVALID_FILE: 0})
             node.setParms({IN_ISVALID_PRESET: 0})
@@ -11365,7 +11366,7 @@ reset_IN(self, mode: int=0) -> None:
         menu=[]
         xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
-        if node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
+        if _xml_tree(xml).isvalidtree and node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
                 
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
@@ -11404,13 +11405,15 @@ reset_IN(self, mode: int=0) -> None:
         preset_idx = node.parm(IN_PRESETS_OFF).eval()
         
         # Double check 
-        xml = node.parm(IN_PATH).eval()
-        is_valid = os.path.isfile(os.path.expandvars(xml))
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
+        is_valid = os.path.isfile(xml)
         if xml and not is_valid:
             node.setParms({IN_ISVALID_FILE: 0})
             node.setParms({IN_ISVALID_PRESET: 0})
             data = None
         elif xml and is_valid:
+            # This caused some pain becasue it was forcing us not to tell the truth
+            # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({IN_ISVALID_FILE: 1})
             
         if data is not None and data_idx == preset_idx:
@@ -12073,7 +12076,7 @@ reset_IN(self, mode: int=0) -> None:
                                                                     
                                                                     -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
-        xml = node.parm(IN_PATH).eval()
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
         
         # Get the correct menu parameter's preset idx
         if node.parm(IN_ISVALID_PRESET).eval():
@@ -12803,8 +12806,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """        
         
         file = os.path.expandvars(infile)
-        if os.path.isfile(file): return file
+        
+        if prx == 'Palette' and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]: _CHK = True
+        elif prx == 'Flame' and _xml_tree(file).isvalidtree: _CHK = True
+        else: _CHK = False
+        
+        # If the input file is a valid one lets use it.
+        if _CHK: return file
         else:
+            # Otherwise lets be sure to build a proper output path and file name.
+            # This will need some more work to make it more sophisticated and remove the unnecessary eventually.
             file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
             
             autopath = node.parm(PREFS_AUTO_PATH_CORRECTION).eval()
@@ -12855,9 +12866,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     if file_new:
                         # This is really a patch instead of rewriting this entire definition...
                         # Will allow network paths to work as well.
-                        if os.path.isdir(os.path.split(file)[0]): return f"{os.path.split(file)[0]}{os.path.split(file_new)[-1]}" # Lets check if the original output path is a valid location
+                        if os.path.isdir(os.path.split(file)[0]): return f"{os.path.split(file)[0]}/{os.path.split(file_new)[-1]}" # Lets check if the original output path is a valid location
                         elif os.path.isdir(os.path.split(file_new)[0]): return file_new # Otherwise lets check if the generated output path is a valid location
-                        else: return f"{file_s[0]}{os.path.split(file_new)[-1]}" # Otherwise get the expanded and corrected infile location and append the new filename to it
+                        else: return f"{file_s[0]}/{os.path.split(file_new)[-1]}" # Otherwise get the expanded and corrected infile location and append the new filename to it
                     else: return False
 
                 else:
@@ -13646,12 +13657,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         data: Union[list, None] = node.cachedUserData('out_presets_menu')
         
         # Double check
-        xml = node.parm(OUT_PATH).eval()
-        is_valid = os.path.isfile(os.path.expandvars(xml))
+        xml = os.path.expandvars(node.parm(OUT_PATH).eval())
+        is_valid = os.path.isfile(xml)
         if xml and not is_valid:
             node.setParms({OUT_ISVALID_FILE: 0})
             data = None
         elif xml and is_valid:
+            # This caused some pain becasue it was forcing us not to tell the truth
+            # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({OUT_ISVALID_FILE: 1})
             
         if data is not None:
