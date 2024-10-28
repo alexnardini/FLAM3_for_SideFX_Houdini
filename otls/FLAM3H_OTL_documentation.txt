@@ -2015,7 +2015,7 @@ Edit render properties:
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
     
-Reset render properties:
+Render properties utils:
     #id: OUT
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
@@ -2025,7 +2025,7 @@ Reset render properties:
 
     _Additionally_:
 
-    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load a Flame preset in, but just to updated the Render Properties only.
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties only.
     
     
 :box:
