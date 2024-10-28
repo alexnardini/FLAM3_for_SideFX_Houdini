@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.26'
+FLAM3H_VERSION = '1.5.30'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -2161,8 +2161,8 @@ reset_PREFS(self, mode: int=0) -> None:
                 node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                 # We do not want to print if the file path parameter is empty
                 # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
-                if xml:
-                    print(f'{node.name()}.IN: please select a valid file location.')
+                # if xml:
+                #     print(f'{node.name()}.IN: please select a valid file location.')
             else:
                 # Otherwise just mark the absence of a valid file and leave everything else untouched
                 node.setParms({IN_ISVALID_FILE: 0})
@@ -2213,8 +2213,8 @@ reset_PREFS(self, mode: int=0) -> None:
             node.setParms({OUT_ISVALID_FILE: 0})
             # We do not want to print if the file path parameter is empty
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
-            if xml:
-                print(f'{node.name()}.OUT: please select a valid file location.')
+            # if xml:
+            #     print(f'{node.name()}.OUT: please select a valid file location.')
                 
         # Force preset menu to updated
         prm.eval()
@@ -2278,9 +2278,7 @@ reset_PREFS(self, mode: int=0) -> None:
             
             # We do not want to print if the file path parameter is empty
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
-            if json_path:
-                print(f'{node.name()}.PALETTE: please select a valid file location.')
-            else:
+            if not json_path:
                 self.set_status_msg('', 'MSG')
         
         # Force preset menu to updated
@@ -6077,7 +6075,7 @@ reset_CP(self, mode: int=0) -> None:
             preset = flam3h_palette_utils.isJSON_F3H_get_first_preset(filepath)
             if preset is not False:
                 # If we made it this far, mean we loaded a valid JSON file,
-                # lets now check if the preset is actually a FLAM3H Palette preset.
+                # lets now check if the preset is actually a F3H Palette preset.
                 with open(filepath, 'r') as r:
                     data = json.load(r)[preset]
                     # This is the moment of the truth ;)
@@ -6098,7 +6096,8 @@ reset_CP(self, mode: int=0) -> None:
                     del data
                     return True, True
             else:
-                flam3h_general_utils.set_status_msg('', 'MSG')
+                # The following is clearing up status messages it should have not
+                # flam3h_general_utils.set_status_msg('', 'MSG')
                 return False, False
         else:
             flam3h_general_utils.set_status_msg('', 'MSG')
@@ -8176,8 +8175,7 @@ __get_flame_count(self, flames: list) -> int:
                     if XML_VALID_CHAOS_ROOT_TAG in root_tag:
                         # let us know
                         _MSG = "Flame IN -> Chaotica XML not supported"
-                        print(f"{hou.pwd().name()}: {_MSG}")
-                        flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'MSG')
+                        flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'WARN')
                         flam3h_general_utils.flash_message(hou.pwd(), _MSG)
                     return None
             else:
@@ -12380,6 +12378,8 @@ out_util_vars_duplicate(vars: list) -> list:
 
 out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 
+out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
+
 out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
 
 out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
@@ -12773,7 +12773,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
 
     
-
     @staticmethod
     def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
         """Used in conjuction with: def out_check_outpath()
@@ -12799,12 +12798,50 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         return "/".join(build_f_s_cleaned) + file_ext
     
     
+    
+    @staticmethod
+    def out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
+        """Print out some messages in the console and in the status bar.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node.
+            infile (str): THe file path to check.
+            file_new (str): The new generated file full path
+            file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file. 
+            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
+
+        Returns:
+            (None):
+        """  
+        # Print out proper msg based on file extension
+        if OUT_FLAM3_FILE_EXT == file_ext:
+            if os.path.isfile(infile) and os.path.getsize(infile) > 0:
+                _MSG = f"OUT: You selected an OUT file that is not a {prx} file type."
+                print(f"{node.name()}.{_MSG}")
+                flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+            else:
+                if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
+                    _MSG = 'OUT: Save to create this file.'
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'IMP')
+        elif OUT_PALETTE_FILE_EXT == file_ext:
+            if os.path.isfile(infile) and os.path.getsize(infile) > 0:
+                _MSG = f"Palette: You selected an OUT file that is not a {prx} file type."
+                print(f"{node.name()}.{_MSG}")
+                flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+            else:
+                if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
+                    _MSG = 'Palette: Save to create this file.'
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'IMP')
+                    
+    
+    
+    
     @staticmethod
     def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
         """Check for the validity of the provided output file path.
         
         _NOTE:
-            This definition is very old, really need work to clearup some mess...
+            This definition was very old and I am improving it, really need work to clearup some mess...
 
         Args:
             node (hou.SopNode): Current FLAM3H node.
@@ -12834,7 +12871,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 
                 # Just in case lets check is a valid location
                 if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
-
+                    
                     file_new = ''
                     new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
                     filename_s = os.path.splitext(file_s[-1].strip())
@@ -12845,6 +12882,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         build_f_s[:] = [item for item in build_f_s if item]
                         build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
                         file_new = "/".join(build_f_s)
+                        # Print out proper msg based on file extension
+                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                     
                     elif not filename_s[-1] and filename_s[0]:
                         # this is done in case only the extension is left in the prm field
@@ -12855,9 +12894,13 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                                 file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
                             else:
                                 file_new = out_flame_utils.out_check_build_file(file_s, file_s[-1], file_ext)
+                        # Print out proper msg based on file extension
+                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                         
                     elif not filename_s[-1] and not filename_s[0]:
                         file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                        # Print out proper msg based on file extension
+                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                     
                     # this as last for now
                     #
@@ -12867,14 +12910,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     # otherwise the above if/elif statements would have executed already.
                     elif len(filename_s) > 1 and filename_s[-1] in file_ext:
                         file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
+                        # Print out proper msg based on file extension
+                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
+
                     else:
                         if not os.path.exists(file):
                             file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
                         # Print out proper msg based on file extension
-                        if OUT_FLAM3_FILE_EXT == file_ext:
-                            print(f"{node.name()}.OUT: You selected an OUT file that is not a {prx} file type.")
-                        elif OUT_PALETTE_FILE_EXT == file_ext:
-                            print(f"{node.name()}.Palette: You selected an OUT file that is not a {prx} file type.")
+                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                     
                     if file_new:
                         # This is really a patch instead of rewriting this entire definition...
@@ -12894,24 +12937,39 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     else: return False
 
                 else:
-                    # If the path string is empty we do not want to print out
                     if file:
                         if OUT_FLAM3_FILE_EXT == file_ext:
-                            print(f"{node.name()}.OUT: Select a valid OUT directory location.")
+                            _MSG = f"OUT: Select a valid OUT directory location."
+                            print(f"{node.name()}.{_MSG}")
+                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                         elif OUT_PALETTE_FILE_EXT == file_ext:
-                            print(f"{node.name()}.Palette: Select a valid OUT directory location.")
+                            _MSG = f"Palette: Select a valid OUT directory location."
+                            print(f"{node.name()}.{_MSG}")
+                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                    else:
+                        # If the path string is empty we do not want to print out
+                        flam3h_general_utils.set_status_msg('', 'MSG')
                     return False
+                
+            # The following else statement is not really needed anymore
+            # but until I do not remove the hidden toggle I leave it here.
             else:
                 # just check if the user input is a valid location
                 if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
                     return infile
                 else:
-                    # If the path string is empty we do not want to print out
                     if file:
                         if OUT_FLAM3_FILE_EXT == file_ext:
-                            print(f"{node.name()}.OUT: Select a valid OUT directory location.")
+                            _MSG = f"OUT: Select a valid OUT directory location."
+                            print(f"{node.name()}.{_MSG}")
+                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                         elif OUT_PALETTE_FILE_EXT == file_ext:
-                            print(f"{node.name()}.Palette: Select a valid OUT directory location.")
+                            _MSG = f"Palette: Select a valid OUT directory location."
+                            print(f"{node.name()}.{_MSG}")
+                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                    else:
+                        # If the path string is empty we do not want to print out
+                        flam3h_general_utils.set_status_msg('', 'MSG')
                     return False
             
  
