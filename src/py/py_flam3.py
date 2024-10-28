@@ -2238,6 +2238,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
         json_path = node.parm(CP_PALETTE_LIB_PATH).eval()
         json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
+
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             
@@ -6627,9 +6628,16 @@ reset_CP(self, mode: int=0) -> None:
                             node.setParms({CP_ISVALID_FILE: 0})
                             node.setParms({CP_ISVALID_PRESET: 0})
                             
-                            _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid F3H JSON palette file")
+                            if json_file:
+                                # If it is a legitimate JSON file
+                                _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid F3H Palette data."
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid F3H JSON palette file")
+                            else:
+                                # If it is any other file
+                                _MSG = f"{node.name()}: Palette JSON SAVE -> CP file not a valid PALETTE F3H file."
+                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid F3H JSON palette file")
                         
             else:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
@@ -12847,9 +12855,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                                 file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
                             else:
                                 file_new = out_flame_utils.out_check_build_file(file_s, file_s[-1], file_ext)
-                    
+                        
                     elif not filename_s[-1] and not filename_s[0]:
-                        return out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                        file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
                     
                     # this as last for now
                     #
@@ -12860,18 +12868,29 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     elif len(filename_s) > 1 and filename_s[-1] in file_ext:
                         file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
                     else:
+                        if not os.path.exists(file):
+                            file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
                         # Print out proper msg based on file extension
                         if OUT_FLAM3_FILE_EXT == file_ext:
                             print(f"{node.name()}.OUT: You selected an OUT file that is not a {prx} file type.")
                         elif OUT_PALETTE_FILE_EXT == file_ext:
                             print(f"{node.name()}.Palette: You selected an OUT file that is not a {prx} file type.")
-                            
+                    
                     if file_new:
                         # This is really a patch instead of rewriting this entire definition...
                         # Will allow network paths to work as well.
-                        if os.path.isdir(os.path.split(file)[0]): return f"{os.path.split(file)[0]}/{os.path.split(file_new)[-1]}" # Lets check if the original output path is a valid location
-                        elif os.path.isdir(os.path.split(file_new)[0]): return file_new # Otherwise lets check if the generated output path is a valid location
-                        else: return f"{file_s[0]}/{os.path.split(file_new)[-1]}" # Otherwise get the expanded and corrected infile location and append the new filename to it
+                        file_dir_out = os.path.split(file)[0]
+                        # Lets check if the original output path is a valid location
+                        if os.path.isdir(file_dir_out):
+                            if f"{file_dir_out}"[-1] == '/': return f"{file_dir_out}{os.path.split(file_new)[-1]}"
+                            else: return f"{file_dir_out}/{os.path.split(file_new)[-1]}"
+                        # Otherwise lets check if the generated output path is a valid location
+                        elif os.path.isdir(os.path.split(file_new)[0]): return file_new
+                        # Otherwise get the expanded and corrected infile location and append the new filename to it
+                        else:
+                            if f"{file_s[0]}"[-1] == '/': return f"{file_s[0]}{os.path.split(file_new)[-1]}"
+                            else: return f"{file_s[0]}/{os.path.split(file_new)[-1]}"
+                            
                     else: return False
 
                 else:
