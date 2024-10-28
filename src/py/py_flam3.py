@@ -12316,7 +12316,7 @@ reset_IN(self, mode: int=0) -> None:
             apo_data = in_flame_iter_data(node, xml, preset_id)
             
             # Transfer the data from the stored XML Render Properties from the Clipboard into FLAM3H               
-            self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA, self.kwargs)
+            self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA, True)
             flam3h_general_utils.flash_message(self.node, f"Render Properties Clipboard: COPIED")
             
         else:
