@@ -13584,10 +13584,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         node = self.node
         
-        prms_out_sensor_data   = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
+        prms_out_sensor_data: dict = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
         
         # Clear and set
         [node.parmTuple(key).deleteAllKeyframes() if isinstance(node.parmTuple(key).eval(), tuple) else node.parm(key).deleteAllKeyframes() for key in prms_out_sensor_data.keys()]
@@ -13600,12 +13600,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         node = self.node
         
-        prms_out_render_data   = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0,
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333 }
+        prms_out_render_data: dict = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0,
+                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333 }
         
         # Clear and set
         [node.parm(key).deleteAllKeyframes() for key in prms_out_render_data.keys()]
