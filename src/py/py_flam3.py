@@ -11092,9 +11092,14 @@ reset_IN(self, mode: int=0) -> None:
                 # Activate iterator, just in case...
                 node.setParms({f"{n.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
                 # Set the rest of the iterator(FLAME or FF) parameters
-                apo_data_collection: tuple = (apo_data.xf_name, apo_data.weight, apo_data.xaos, apo_data.color, apo_data.symmetry, apo_data.opacity)
-                apo_data_prm_names: tuple  = (n.main_note, n.main_weight, n.xaos, n.shader_color, n.shader_speed, n.shader_alpha)
-                [self.in_set_data(mode, node, prx, apo_data_collection[idx], apo_data_prm_names[idx], mp_idx) for idx in range(len(apo_data_collection))]
+                apo_data_set: dict = {  n.main_note: apo_data.xf_name, 
+                                        n.main_weight: apo_data.weight,
+                                        n.xaos: apo_data.xaos,
+                                        n.shader_color: apo_data.color,
+                                        n.shader_speed: apo_data.symmetry,
+                                        n.shader_alpha: apo_data.opacity
+                                    }
+                [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
