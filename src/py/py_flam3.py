@@ -169,6 +169,10 @@ PALETTE_PLUS_MSG = '[256+]'
 # even tho we check for the XML palette format on load.
 PALETTE_FORMAT = 'RGB'
 
+# Automated CP or OUT names
+AUTO_NAME_CP = 'Palette'
+AUTO_NAME_OUT = 'Flame'
+
 # Parameters at hand
 GLB_DENSITY = 'ptcount'
 GLB_DENSITY_PRESETS = 'ptcount_presets'
@@ -2183,7 +2187,7 @@ reset_PREFS(self, mode: int=0) -> None:
         prm_sys.set('-1')
         
         xml = node.parm(OUT_PATH).eval()
-        xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, 'Flame')
+        xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
         if xml_checked is not False:
             node.setParms({OUT_PATH: xml_checked}) 
             apo = _xml_tree(xml_checked) #type: ignore
@@ -2233,7 +2237,7 @@ reset_PREFS(self, mode: int=0) -> None:
         prm_off.set('-1')
 
         json_path = node.parm(CP_PALETTE_LIB_PATH).eval()
-        json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, 'Palette')
+        json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             
@@ -6521,7 +6525,7 @@ reset_CP(self, mode: int=0) -> None:
         # Save palette into a file
         else:
             palettepath = node.parm(CP_PALETTE_LIB_PATH).eval()
-            out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, 'Palette')
+            out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
 
             if out_path_checked is not False:
                 assert isinstance(out_path_checked, str)
@@ -11250,7 +11254,7 @@ reset_IN(self, mode: int=0) -> None:
         
         # Check if the loaded Flame file is locked.
         in_path = node.parm(IN_PATH).eval()
-        in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, 'Flame')
+        in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
         
         flame_lib_locked = ""
         if flam3h_general_utils.isLOCK(in_path_checked):
@@ -12798,8 +12802,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Args:
             node (hou.SopNode): Current FLAM3H node.
             infile (str): THe file path to check.
-            file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file.
-            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file.
+            file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file. 
+            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame'
 
         Returns:
             Union[str, bool]: Either a corrected/valid file path or False if not valid.
@@ -14134,7 +14138,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if iterators_num:
             
             out_path = node.parm(OUT_PATH).eval()
-            out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, 'Flame')
+            out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
             
             # Write to the clipboard
             if kwargs['alt']:
