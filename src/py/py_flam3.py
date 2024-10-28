@@ -11833,7 +11833,7 @@ reset_IN(self, mode: int=0) -> None:
                                                                                                 
                                                                                                 -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
                                                                                                 
-            copy_only (dict): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste. Default to: False
+            copy_only (bool): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste. Default to: False
 
         Returns:
             (None):
