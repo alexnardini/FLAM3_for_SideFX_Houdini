@@ -12821,8 +12821,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
-                    _MSG = 'OUT: Save to create this file.'
-                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'IMP')
+                    _MSG = 'OUT: Save to create this file'
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
         elif OUT_PALETTE_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile) > 0:
                 _MSG = f"Palette: You selected an OUT file that is not a {prx} file type."
@@ -12830,8 +12830,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
-                    _MSG = 'Palette: Save to create this file.'
-                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'IMP')
+                    _MSG = 'Palette: Save to create this file'
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
                     
     
     
@@ -12882,8 +12882,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         build_f_s[:] = [item for item in build_f_s if item]
                         build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
                         file_new = "/".join(build_f_s)
-                        # Print out proper msg based on file extension
-                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                     
                     elif not filename_s[-1] and filename_s[0]:
                         # this is done in case only the extension is left in the prm field
@@ -12899,8 +12897,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         
                     elif not filename_s[-1] and not filename_s[0]:
                         file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
-                        # Print out proper msg based on file extension
-                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                     
                     # this as last for now
                     #
@@ -12910,14 +12906,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     # otherwise the above if/elif statements would have executed already.
                     elif len(filename_s) > 1 and filename_s[-1] in file_ext:
                         file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
-                        # Print out proper msg based on file extension
-                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
 
                     else:
                         if not os.path.exists(file):
                             file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
-                        # Print out proper msg based on file extension
-                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                     
                     if file_new:
                         # This is really a patch instead of rewriting this entire definition...
@@ -12925,14 +12917,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         file_dir_out = os.path.split(file)[0]
                         # Lets check if the original output path is a valid location
                         if os.path.isdir(file_dir_out):
-                            if f"{file_dir_out}"[-1] == '/': return f"{file_dir_out}{os.path.split(file_new)[-1]}"
-                            else: return f"{file_dir_out}/{os.path.split(file_new)[-1]}"
+                            if f"{file_dir_out}"[-1] == '/': out_file = f"{file_dir_out}{os.path.split(file_new)[-1]}"
+                            else: out_file = f"{file_dir_out}/{os.path.split(file_new)[-1]}"
                         # Otherwise lets check if the generated output path is a valid location
-                        elif os.path.isdir(os.path.split(file_new)[0]): return file_new
+                        elif os.path.isdir(os.path.split(file_new)[0]): out_file = file_new
                         # Otherwise get the expanded and corrected infile location and append the new filename to it
                         else:
-                            if f"{file_s[0]}"[-1] == '/': return f"{file_s[0]}{os.path.split(file_new)[-1]}"
-                            else: return f"{file_s[0]}/{os.path.split(file_new)[-1]}"
+                            if f"{file_s[0]}"[-1] == '/': out_file = f"{file_s[0]}{os.path.split(file_new)[-1]}"
+                            else: out_file = f"{file_s[0]}/{os.path.split(file_new)[-1]}"
+                        
+                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
+                        return out_file
                             
                     else: return False
 
