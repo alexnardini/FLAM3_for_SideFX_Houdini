@@ -9410,7 +9410,7 @@ in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_da
 
 in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
 
-in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
+in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], kwargs=None) -> None:
 
 in_to_flam3h_toggles_and_msg(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
 
@@ -10615,7 +10615,7 @@ reset_IN(self, mode: int=0) -> None:
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
-                
+            
             _MSG = f"IN Preset properties: COPIED"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             flam3h_general_utils.flash_message(node, _MSG)
@@ -11807,7 +11807,7 @@ reset_IN(self, mode: int=0) -> None:
             
             
 
-    def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
+    def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], kwargs=None) -> None:
         """Set all the loaded Flame preset stats/infos and copy its render properties if needed ionto the OUT tab.
         
         Args:
@@ -11832,28 +11832,38 @@ reset_IN(self, mode: int=0) -> None:
                                                                                                 -> attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                                                                 
                                                                                                 -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                                                                                
+            kwargs (dict): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste
 
         Returns:
             (None):
         """ 
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
-        # Update flame stats
-        node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
-        node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
-        node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
-        
-        # if we are loading from the clipboard, always copy the render settings on load
-        if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
-        else:
-            # If not from clipboard
-            # Update SYS inpresets parameters
-            node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
-            node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
+        # This for when we are loading aq Flame preset in full
+        if kwargs is None:
+            # Update flame stats
+            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
-            # if "copy render properties on Load" is checked
-            if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                self.in_copy_render_stats_msg(self.kwargs)
+            # if we are loading from the clipboard, always copy the render settings on load
+            if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
+            else:
+                # If not from clipboard
+                # Update SYS inpresets parameters
+                node.setParms({IN_SYS_PRESETS: str(preset_id)}) # type: ignore
+                node.setParms({IN_SYS_PRESETS_OFF: str(preset_id)}) # type: ignore
+                
+                # if "copy render properties on Load" is checked
+                if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
+                    self.in_copy_render_stats_msg(self.kwargs)
+                    
+        # And this when we are loading a Flame preset to only copy the Render properties     
+        else:
+            # if we are loading from the clipboard (in this case we always are), copy all the Render Properties
+            if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
+            
                 
 
 
@@ -12288,6 +12298,39 @@ reset_IN(self, mode: int=0) -> None:
 
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, _MSG)
+                    
+                    
+                    
+    def in_to_flam3h_render_properties_only(self) -> None:
+        """Load a Flame preset into FLAM3H.
+        This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
+        """
+        node = self.node
+        
+        _FLAM3H_INIT_DATA: tuple = self.in_to_flam3h_init_data(node)
+        xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
+
+        if xml is not None and _xml_tree(xml).isvalidtree:
+
+            # IN flame preset data
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            
+            # Transfer the data from the stored XML Render Properties from the Clipboard into FLAM3H               
+            self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA, self.kwargs)
+            flam3h_general_utils.flash_message(self.node, f"Render settings Clipboard: COPIED")
+            
+        else:
+            
+            # If we loaded a Chaotica XML style preset from the Clipboard 
+            if self.in_to_flam3h_clipboard_is_CHAOS():
+                _MSG = "Render settings Clipboard: Chaotica XML not supported"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+                flam3h_general_utils.flash_message(node, _MSG)
+                
+            else:
+                _MSG = "Render settings Clipboard: Nothing to load"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                flam3h_general_utils.flash_message(node, _MSG)
 
 
 
@@ -13587,16 +13630,23 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         
         kwargs = self.kwargs
-        
-        if kwargs['ctrl']:
-            self.reset_OUT_sensor()
-            flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor: RESET")
             
-        elif kwargs['shift']:
+        if kwargs['shift']:
+            # Reset only the Render settings
             self.reset_OUT_render()
             flam3h_general_utils.flash_message(self.node, f"OUT Render settings: RESET")
             
+        elif kwargs['ctrl']:
+            # Reset only the Camera Sensor
+            self.reset_OUT_sensor()
+            flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor: RESET")
+            
+        elif kwargs['alt']:
+            # Copy only the Render Properties of a Flame preset from the Clipboard
+            in_flame_utils(self.kwargs).in_to_flam3h_render_properties_only()
+            
         else:
+            # Reset all render properties
             self.reset_OUT_sensor()
             self.reset_OUT_render()
             flam3h_general_utils.flash_message(self.node, f"OUT Render properties: RESET")

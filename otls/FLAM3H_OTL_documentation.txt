@@ -2022,6 +2022,10 @@ Reset render properties:
     - ((LMB)) to reset all OUT render properties.
     - ((CTRL)) + ((LMB)) to reset only the OUT Camera sensor properties.
     - ((SHIFT)) + ((LMB)) to reset only the OUT Render settings properties.
+
+    _Additionally_:
+
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load a Flame preset in, but just to updated the Render Properties only.
     
     
 :box:
