@@ -12803,7 +12803,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             node (hou.SopNode): Current FLAM3H node.
             infile (str): THe file path to check.
             file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file. 
-            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame'
+            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
 
         Returns:
             Union[str, bool]: Either a corrected/valid file path or False if not valid.
@@ -12811,8 +12811,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         file = os.path.expandvars(infile)
         
-        if prx == 'Palette' and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]: _CHK = True
-        elif prx == 'Flame' and _xml_tree(file).isvalidtree: _CHK = True
+        if prx == AUTO_NAME_CP and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]: _CHK = True
+        elif prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree: _CHK = True
         else: _CHK = False
         
         # If the input file is a valid one lets use it.
