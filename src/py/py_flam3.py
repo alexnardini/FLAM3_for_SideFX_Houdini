@@ -13583,22 +13583,15 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         
         node = self.node
-
-        prms_out_sensor_names   = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE),    # tuple
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER),  # tuple
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE) )
         
-        # Any changes to the following defaults must follow the same changes
-        # inside the HDA->Edit Operator Type Properties->Parameter Name->Channel defaults values.
-        prms_out_sensor_vals    = ( hou.Vector2((1024, 1024)),  # tuple
-                                    hou.Vector2((0, 0)),        # tuple
-                                    0,
-                                    400 )
+        prms_out_sensor_data   = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
         
         # Clear and set
-        [node.parmTuple(name).deleteAllKeyframes() if isinstance(node.parmTuple(name).eval(), tuple) else node.parm(name).deleteAllKeyframes() for name in prms_out_sensor_names]
-        [node.setParms({prms_out_sensor_names[idx]: prms_out_sensor_vals[idx]}) for idx in range(len(prms_out_sensor_names))]
+        [node.parmTuple(key).deleteAllKeyframes() if isinstance(node.parmTuple(key).eval(), tuple) else node.parm(key).deleteAllKeyframes() for key in prms_out_sensor_data.keys()]
+        [node.setParms({key: value}) for key, value in prms_out_sensor_data.items()]
 
 
         
@@ -13607,25 +13600,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """
         node = self.node
         
-        prms_out_render_names   = ( OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2),
-                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY) )
-        
-        # Any changes to the following defaults must follow the same changes
-        # inside the HDA->Edit Operator Type Properties->Parameter Name->Channel defaults values.
-        prms_out_render_vals    = ( 1000, 
-                                    3, 
-                                    2.5, 
-                                    5, 
-                                    0, 
-                                    0.3333 )
+        prms_out_render_data   = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0,
+                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333 }
         
         # Clear and set
-        [node.parm(name).deleteAllKeyframes() for name in prms_out_render_names]
-        [node.setParms({prms_out_render_names[idx]: prms_out_render_vals[idx]}) for idx in range(len(prms_out_render_names))]
+        [node.parm(key).deleteAllKeyframes() for key in prms_out_render_data.keys()]
+        [node.setParms({key: value}) for key, value in prms_out_render_data.items()]
 
 
 
