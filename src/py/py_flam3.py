@@ -12815,7 +12815,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """  
         # Print out proper msg based on file extension
         if OUT_FLAM3_FILE_EXT == file_ext:
-            if os.path.isfile(infile) and os.path.getsize(infile) > 0:
+            if os.path.isfile(infile) and os.path.exists(infile) > 0:
                 _MSG = f"OUT: You selected an OUT file that is not a {prx} file type."
                 print(f"{node.name()}.{_MSG}")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
@@ -12824,7 +12824,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     _MSG = 'OUT: Save to create this file.'
                     flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'IMP')
         elif OUT_PALETTE_FILE_EXT == file_ext:
-            if os.path.isfile(infile) and os.path.getsize(infile) > 0:
+            if os.path.isfile(infile) and os.path.exists(infile) > 0:
                 _MSG = f"Palette: You selected an OUT file that is not a {prx} file type."
                 print(f"{node.name()}.{_MSG}")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
@@ -14245,13 +14245,13 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     else:
                         
                         node.setParms({OUT_PATH: out_path_checked})
-                        file_size = os.path.getsize(out_path_checked)
+                        exist = os.path.exists(out_path_checked)
                         apo_data = in_flame(self.node, out_path_checked)
                         _CHK = True
                         
                         if kwargs["ctrl"]:
                             
-                            if file_size:
+                            if exist:
                                 if apo_data.isvalidtree:
                                     self.out_new_XML(out_path_checked)
                                 else:
@@ -14261,7 +14261,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                             
                         else:
                             
-                            if file_size:
+                            if exist:
                                 if apo_data.isvalidtree:
                                     self.out_append_XML(apo_data, out_path_checked)
                                 else:
