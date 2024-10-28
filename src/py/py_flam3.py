@@ -12317,18 +12317,18 @@ reset_IN(self, mode: int=0) -> None:
             
             # Transfer the data from the stored XML Render Properties from the Clipboard into FLAM3H               
             self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA, self.kwargs)
-            flam3h_general_utils.flash_message(self.node, f"Render settings Clipboard: COPIED")
+            flam3h_general_utils.flash_message(self.node, f"Render Properties Clipboard: COPIED")
             
         else:
             
             # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
-                _MSG = "Render settings Clipboard: Chaotica XML not supported"
+                _MSG = "Render Properties Clipboard: Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                 flam3h_general_utils.flash_message(node, _MSG)
                 
             else:
-                _MSG = "Render settings Clipboard: Nothing to load"
+                _MSG = "Render Properties Clipboard: Nothing to load"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                 flam3h_general_utils.flash_message(node, _MSG)
 
