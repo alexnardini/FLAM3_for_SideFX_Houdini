@@ -13186,8 +13186,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         # Just double checking
         if T_tuple is not None and W_tuple is not None:
-            assert T_tuple is not None
-            assert W_tuple is not None
+
             names_idx: dict = {}
             
             if mode:
