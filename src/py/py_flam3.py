@@ -9410,7 +9410,7 @@ in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_da
 
 in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
 
-in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], kwargs=None) -> None:
+in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], copy_only: bool=False) -> None:
 
 in_to_flam3h_toggles_and_msg(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
 
@@ -11807,7 +11807,7 @@ reset_IN(self, mode: int=0) -> None:
             
             
 
-    def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], kwargs=None) -> None:
+    def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], copy_only: bool=False) -> None:
         """Set all the loaded Flame preset stats/infos and copy its render properties if needed ionto the OUT tab.
         
         Args:
@@ -11833,7 +11833,7 @@ reset_IN(self, mode: int=0) -> None:
                                                                                                 
                                                                                                 -> chaos ( bool ): Is it a chaotica XML file type ? True or False.
                                                                                                 
-            kwargs (dict): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste
+            copy_only (dict): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste. Default to: False
 
         Returns:
             (None):
@@ -11841,7 +11841,7 @@ reset_IN(self, mode: int=0) -> None:
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
         # This for when we are loading aq Flame preset in full
-        if kwargs is None:
+        if copy_only is False:
             # Update flame stats
             node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
@@ -11859,7 +11859,7 @@ reset_IN(self, mode: int=0) -> None:
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
                     self.in_copy_render_stats_msg(self.kwargs)
                     
-        # And this when we are loading a Flame preset to only copy the Render properties     
+        # And this when we are loading a Flame preset from the Clipboard to only copy its Render properties
         else:
             # if we are loading from the clipboard (in this case we always are), copy all the Render Properties
             if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
