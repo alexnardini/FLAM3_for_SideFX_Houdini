@@ -6582,7 +6582,7 @@ reset_CP(self, mode: int=0) -> None:
                                     prevdata.update(newdata)
                                     data = json.dumps(prevdata,indent = 4)
                                     w.write(data)
-                            # Otherwise mean it is either empty or not exist,
+                            # Otherwise mean it is either not a F3H json file, empty or not exist,
                             # just create one with the current ramp in it
                             #
                             # Note that we already checked for a proper file extension with:
@@ -6596,41 +6596,40 @@ reset_CP(self, mode: int=0) -> None:
 
                         # We do this again so we can read the newly created file if any 
                         json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
-                        if json_file:
-                            if f3h_json_file:
-                                # Set some parameters
-                                with open(out_path_checked) as f:
-                                    data = json.load(f)
-                                    preset_last_idx = str(len(data.keys())-1)
-                                    # Set all CP preset menus parameter index
-                                    node.setParms({CP_PALETTE_PRESETS: preset_last_idx })
-                                    node.setParms({CP_PALETTE_PRESETS_OFF: preset_last_idx })
-                                    node.setParms({CP_SYS_PALETTE_PRESETS: preset_last_idx })
-                                    node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
-                                    # Clearup the Palette name if any were given
-                                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
-                                    # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
-                                    node.setParms({CP_ISVALID_FILE: 1})
-                                    node.setParms({CP_ISVALID_PRESET: 1})
-                                    # Make sure to update the tmp ramp with the just saved one
-                                    self.palette_cp_to_tmp()
-                                    del data
-                                    
-                                # Set the file path to the corrected one
-                                node.setParms({CP_PALETTE_LIB_PATH: out_path_checked})
+                        if json_file and f3h_json_file:
+                            # Set some parameters
+                            with open(out_path_checked) as f:
+                                data = json.load(f)
+                                preset_last_idx = str(len(data.keys())-1)
+                                # Set all CP preset menus parameter index
+                                node.setParms({CP_PALETTE_PRESETS: preset_last_idx })
+                                node.setParms({CP_PALETTE_PRESETS_OFF: preset_last_idx })
+                                node.setParms({CP_SYS_PALETTE_PRESETS: preset_last_idx })
+                                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
+                                # Clearup the Palette name if any were given
+                                node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+                                # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
+                                node.setParms({CP_ISVALID_FILE: 1})
+                                node.setParms({CP_ISVALID_PRESET: 1})
+                                # Make sure to update the tmp ramp with the just saved one
+                                self.palette_cp_to_tmp()
+                                del data
                                 
-                                _MSG = f"Palette SAVED"
-                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVED")
-                                
-                            else:
-                                # Just in case lets set those
-                                node.setParms({CP_ISVALID_FILE: 0})
-                                node.setParms({CP_ISVALID_PRESET: 0})
-                                
-                                _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid FLAM3H JSON palette file")
+                            # Set the file path to the corrected one
+                            node.setParms({CP_PALETTE_LIB_PATH: out_path_checked})
+                            
+                            _MSG = f"Palette SAVED"
+                            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                            flam3h_general_utils.flash_message(node, f"Palette SAVED")
+                            
+                        else:
+                            # Just in case lets set those
+                            node.setParms({CP_ISVALID_FILE: 0})
+                            node.setParms({CP_ISVALID_PRESET: 0})
+                            
+                            _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                            flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid F3H JSON palette file")
                         
             else:
                 _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
@@ -14136,7 +14135,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         # if there is at least one iterator
         if iterators_num:
             
-            out_path = node.parm(OUT_PATH).eval()
+            out_path = os.path.expandvars(node.parm(OUT_PATH).eval())
             out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
             
             # Write to the clipboard
@@ -14168,19 +14167,35 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         
                     else:
                         
+                        node.setParms({OUT_PATH: out_path_checked})
+                        file_size = os.path.getsize(out_path_checked)
+                        apo_data = in_flame(self.node, out_path_checked)
+                        _CHK = True
+                        
                         if kwargs["ctrl"]:
-                            node.setParms({OUT_PATH: out_path_checked}) #type: ignore
-                            self.out_new_XML(out_path_checked)
                             
-                        else:
-                            apo_data = in_flame(self.node, out_path_checked)
-                            node.setParms({OUT_PATH: out_path_checked}) #type: ignore
-                            
-                            if apo_data.isvalidtree:
-                                self.out_append_XML(apo_data, out_path_checked)
-                                
+                            if file_size:
+                                if apo_data.isvalidtree:
+                                    self.out_new_XML(out_path_checked)
+                                else:
+                                    _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
+                            
+                        else:
+                            
+                            if file_size:
+                                if apo_data.isvalidtree:
+                                    self.out_append_XML(apo_data, out_path_checked)
+                                else:
+                                    _CHK = False
+                            else:
+                                self.out_new_XML(out_path_checked)
+                                
+                        if not _CHK:
+                            _MSG = "OUT File not a FLAME file"
+                            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+                            flam3h_general_utils.flash_message(node, _MSG)
                                 
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
 
