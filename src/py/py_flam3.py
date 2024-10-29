@@ -6381,6 +6381,8 @@ reset_CP(self, mode: int=0) -> None:
             node.setParms({CP_ISVALID_PRESET: 0})
             data = None
         elif json and is_valid:
+            # This caused some pain becasue it was forcing us not to tell the truth
+            # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({CP_ISVALID_FILE: 1})
             
         if data is not None and data_idx == preset_idx:
@@ -11353,6 +11355,8 @@ reset_IN(self, mode: int=0) -> None:
             node.setParms({IN_ISVALID_PRESET: 0})
             data = None
         elif xml and is_valid:
+            # This caused some pain becasue it was forcing us not to tell the truth
+            # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({IN_ISVALID_FILE: 1})
             
         if data is not None and data_idx == preset_idx:
