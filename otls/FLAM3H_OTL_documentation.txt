@@ -1676,7 +1676,7 @@ Copy/Paste preset properties:
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
         
-        These curves will be overwritten with their default values each time you save a Flame from FLAM3H. (no color correction)
+        These curves will be overwritten with their default values each time you save a Flame out from FLAM3H. (no color correction)
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
@@ -1990,7 +1990,7 @@ use Fractorium parametric prm names:
 :box:
     #display: rounded white
 
-    == OUT: Edit properties == (OUTEDIT)
+    == OUT: Edit render properties == (OUTEDIT)
 
     
 Edit render properties:
@@ -2010,7 +2010,7 @@ Edit render properties:
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
 
-        These curves will be overwritten with their default values each time you save a Flame from FLAM3H. (no color correction)
+        These curves will be overwritten with their default values each time you save a Flame out from FLAM3H. (no color correction)
         
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
@@ -2088,7 +2088,7 @@ Copy/Paste render properties:
     NOTE:
         Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
         
-        These curves will be overwritten with their default values each time you save a Flame from FLAM3H. (no color correction)
+        These curves will be overwritten with their default values each time you save a Flame out from FLAM3H. (no color correction)
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
     

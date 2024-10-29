@@ -13909,8 +13909,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         # Iterators: duplicates check
         #############################################################################
-        iter_VAR: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'VAR')
         iter_PRE: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'PRE')
+        iter_VAR: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'VAR')
         
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         
