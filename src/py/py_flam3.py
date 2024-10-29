@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.30'
+FLAM3H_VERSION = '1.5.33'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1286,6 +1286,8 @@ flam3h_on_deleted(self) -> None:
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
             
             # Clear menu caches
+            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+            # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
             # Clear any comment and user data from the node
             if flam3h_iterator_utils.exist_user_data(node):
@@ -1411,7 +1413,7 @@ flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
 
 flam3h_init_presets_OUT_PRESETS(self) -> None:
 
-flam3h_init_presets_CP_PRESETS(self, mode: int=1) -> None:
+flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
 
 flam3h_display_help(self) -> None:
 
@@ -2223,7 +2225,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
 
 
-    def flam3h_init_presets_CP_PRESETS(self, mode: int=1) -> None:
+    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
         """Initialize parameter's menu presets for the CP tab.
         
         _NOTE:
@@ -2232,23 +2234,28 @@ reset_PREFS(self, mode: int=0) -> None:
         
         Args:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
+            destroy (bool): Destroy menu presets cached data. True or False.
+            json_file (Union[bool, None]): Default to None. Is it a json file ?
+            f3h_json_file (Union[bool, None]): Default to None. Is it a F3H json file ?
         """    
         node = self.node
-        # Clear menu cache
-        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         prm = node.parm(CP_PALETTE_PRESETS)
         prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
         prm.set('-1')
         prm_off.set('-1')
+        
+        # Clear menu cache
+        if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
 
-        json_path = node.parm(CP_PALETTE_LIB_PATH).eval()
-        json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
+        if json_path_checked is None:
+            json_path = node.parm(CP_PALETTE_LIB_PATH).eval()
+            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
 
         if json_path_checked is not False:
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             
-            json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
+            if json_file is None and f3h_json_file is None: json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
             if json_file and f3h_json_file:
                 
                 # CP is valid file
@@ -2288,9 +2295,6 @@ reset_PREFS(self, mode: int=0) -> None:
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
             if not json_path:
                 self.set_status_msg('', 'MSG')
-        
-        # Force preset menu to updated
-        prm.eval()
 
 
 
@@ -3514,8 +3518,6 @@ iterator_vactive_and_update(self) -> None:
 
         
         
-        
-
     def destroy_all_menus_data(self, node: hou.SopNode) -> None:
         """Force all presets menus to update.
         This is being added so we can force the presets menus to be rebuilt
@@ -6056,11 +6058,8 @@ reset_CP(self, mode: int=0) -> None:
             Union[str, bool]: The preset name, or False if not.
         """        
         try:
-            # get presets if any
             with open(filepath, 'r') as r:
-                data = json.load(r)
-            # get the first preset of them all
-            return list(data.keys())[0]
+                return list(json.load(r).keys())[0]
         except: return False
 
 
@@ -6343,7 +6342,7 @@ reset_CP(self, mode: int=0) -> None:
         filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
         head_tail = os.path.split(filepath)
         
-        if node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
+        if os.path.exists(filepath) and node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
                 
             with open(filepath) as f:
                 menuitems = json.load(f).keys()
@@ -6389,7 +6388,7 @@ reset_CP(self, mode: int=0) -> None:
             node.setParms({CP_ISVALID_PRESET: 0})
             data = None
         elif json and is_valid:
-            # This caused some pain becasue it was forcing us not to tell the truth
+            # This caused some pain becasue it is forcing us not to tell the truth sometime
             # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({CP_ISVALID_FILE: 1})
             
@@ -6460,7 +6459,7 @@ reset_CP(self, mode: int=0) -> None:
             node.setParms({CP_ISVALID_PRESET: 0})
             data = None
         elif json and is_valid:
-            # This caused some pain becasue it was forcing us not to tell the truth
+            # This caused some pain becasue it is forcing us not to tell the truth sometime
             # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({CP_ISVALID_FILE: 1})
             
@@ -6632,7 +6631,7 @@ reset_CP(self, mode: int=0) -> None:
                             # Something odd in how the messages are running, need to investigate why
                             _MSG = f"Palette SAVED"
                             if _isNEW and flam3h_palette_utils.isJSON_F3H(node, out_path_checked):
-                                flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
+                                flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS(1, True, json_file, f3h_json_file, out_path_checked)
                                 # Mark this as a valid file and as the currently loaded preset as it is the first ever preset we just saved into this file
                                 node.setParms({CP_ISVALID_FILE: 1})
                                 node.setParms({CP_ISVALID_PRESET: 1})
@@ -6734,12 +6733,10 @@ reset_CP(self, mode: int=0) -> None:
                 
                 # get ramp parm
                 ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                
                 # Reset ramps to default
                 self.build_ramp_palette_default(ramp_parm)
                 self.delete_ramp_all_keyframes(ramp_parm)
-
-                HEXs = []
-                hsv_vals = []
                 
                 # get current preset name
                 if node.parm(CP_ISVALID_PRESET).eval():
@@ -6753,11 +6750,12 @@ reset_CP(self, mode: int=0) -> None:
                 #
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
-                    preset = ':'.join(menu_label.split(':')[1:]).lstrip()
-                else:
-                    preset = menu_label
+                if node.parm(PREFS_ENUMERATE_MENU).eval(): preset = ':'.join(menu_label.split(':')[1:]).lstrip()
+                else: preset = menu_label
                 
+                HEXs = []
+                hsv_vals = []
+                rgb_from_XML_PALETTE = []
                 # The following 'hsv_check' is for backward compatibility
                 hsv_check = False
                 
@@ -6771,12 +6769,11 @@ reset_CP(self, mode: int=0) -> None:
                     except: pass
                     [HEXs.append(hex) for hex in wrap(hex_values, 6)]
                     
-                rgb_from_XML_PALETTE = []
                 for hex in HEXs:
                     x = self.hex_to_rgb(hex)
                     rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
                 
-                # Initialize and SET new ramp
+                # Initialize and SET new ramp first
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                 ramp_parm.set(_RAMP)
                 
@@ -6787,7 +6784,6 @@ reset_CP(self, mode: int=0) -> None:
                 self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
                 # Update palette temp
                 self.palette_cp_to_tmp()
-
                 # Update/Set palette MSG
                 flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                 
@@ -6795,27 +6791,22 @@ reset_CP(self, mode: int=0) -> None:
                 # Note we are setting the function type to: Flame(0) so we always clamp at the minimun of 256 lookup samples
                 keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
                 node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
-                
                 # Store selection into all preset menu just in case ;)
                 pidx = str(preset_id)
-                node.setParms({CP_SYS_PALETTE_PRESETS: pidx})
-                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: pidx})
-                node.setParms({CP_PALETTE_PRESETS: pidx})
-                node.setParms({CP_PALETTE_PRESETS_OFF: pidx})
+                [prm.set(pidx) for prm in (node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF), node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF))]
                 
-                # Mark this as a loaded preset if valid
-                if _CHECK: node.setParms({CP_ISVALID_PRESET: 1})
-                else: node.setParms({CP_ISVALID_PRESET: 0})
-                
-                # Print to status Bar
-                _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                # Force this data to be rebuilt
+                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+                # (ex. the user perform hand made modifications like renaming a Preset and such).
+                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
                 
                 if _CHECK:
+                    node.setParms({CP_ISVALID_PRESET: 1})
                     _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
                     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                     flam3h_general_utils.flash_message(node, f"Palette LOADED")
                 else:
+                    node.setParms({CP_ISVALID_PRESET: 0})
                     _MSG = f"{node.name()}: PALETTE -> ERROR on preset: \"{preset}\""
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"Palette ERROR")
@@ -6862,8 +6853,6 @@ reset_CP(self, mode: int=0) -> None:
         """
         
         node = self.node
-        # Force this data to be rebuilt
-        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         # KWARGS
         if use_kwargs:
@@ -6913,9 +6902,7 @@ reset_CP(self, mode: int=0) -> None:
                             # Reset ramps to default
                             self.build_ramp_palette_default(ramp_parm)
                             self.delete_ramp_all_keyframes(ramp_parm)
-                            
 
-                            
                             hsv_vals = []
                             hsv_check = False
                             try:
@@ -9447,6 +9434,8 @@ in_to_flam3h_sys(self) -> None:
 
 in_to_flam3h(self) -> None:
 
+in_to_flam3h_render_properties_only(self) -> None:
+
 reset_IN(self, mode: int=0) -> None:
 
     """
@@ -11334,7 +11323,7 @@ reset_IN(self, mode: int=0) -> None:
         menu=[]
         xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
-        if node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
+        if os.path.isfile(xml) and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
@@ -11376,7 +11365,7 @@ reset_IN(self, mode: int=0) -> None:
             node.setParms({IN_ISVALID_PRESET: 0})
             data = None
         elif xml and is_valid:
-            # This caused some pain becasue it was forcing us not to tell the truth
+            # This caused some pain becasue it is forcing us not to tell the truth sometime
             # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({IN_ISVALID_FILE: 1})
             
@@ -11451,7 +11440,7 @@ reset_IN(self, mode: int=0) -> None:
             node.setParms({IN_ISVALID_PRESET: 0})
             data = None
         elif xml and is_valid:
-            # This caused some pain becasue it was forcing us not to tell the truth
+            # This caused some pain becasue it is forcing us not to tell the truth sometime
             # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({IN_ISVALID_FILE: 1})
             
@@ -12260,6 +12249,8 @@ reset_IN(self, mode: int=0) -> None:
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
                 flam3h_iterator_utils.destroy_data(node, 'iter_sel')
+                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+                # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
                 
                 # F3C ( the if statement is for backward compatibility )
@@ -13809,7 +13800,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             node.setParms({OUT_ISVALID_FILE: 0})
             data = None
         elif xml and is_valid:
-            # This caused some pain becasue it was forcing us not to tell the truth
+            # This caused some pain becasue it is forcing us not to tell the truth sometime
             # but its quick and we added double check for each file types (Palette or Flame) inside eache menus empty presets (CP, IN and OUT)
             node.setParms({OUT_ISVALID_FILE: 1})
             
@@ -14271,6 +14262,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """        
         node = self.node
         # Force this data to be rebuilt
+        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+        # (ex. the user perform hand made modifications like renaming a Preset and such).
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
         kwargs = self.kwargs
