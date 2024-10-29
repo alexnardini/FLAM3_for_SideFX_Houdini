@@ -2196,8 +2196,10 @@ reset_PREFS(self, mode: int=0) -> None:
                 prm_sys.set(f'{len(apo.name)-1}')
                 # check if the selected Flame file is locked
                 if self.isLOCK(xml_checked):
-                    _MSG = MSG_OUT_MSG
-                    node.setParms({MSG_OUT: _MSG})
+                    node.setParms({MSG_OUT: MSG_OUT_MSG})
+                    # Lets print to the status bar as well
+                    _MSG = f"OUT: {MSG_OUT_MSG}"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'IMP')
                 else:
                     node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 1})
@@ -2255,8 +2257,10 @@ reset_PREFS(self, mode: int=0) -> None:
                     node.setParms({CP_ISVALID_PRESET: 0})
                     # check if the selected palette file is locked
                     if self.isLOCK(json_path_checked):
-                        _MSG = MSG_PALETTE_MSG
-                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, _MSG)
+                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
+                        # Lets print to the status bar as well
+                        _MSG = f"Palette: {MSG_PALETTE_MSG}"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'IMP')
                     else:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
                 
@@ -12867,23 +12871,31 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """  
         # Print out proper msg based on file extension
         if OUT_FLAM3_FILE_EXT == file_ext:
-            if os.path.isfile(infile) and os.path.exists(infile) > 0:
+            if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG = f"OUT: You selected an OUT file that is not a {prx} file type."
                 print(f"{node.name()}.{_MSG}")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
-                    _MSG = 'OUT: Save to create this file'
-                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
+                    if flam3h_general_utils.isLOCK(os.path.split(file_new)[1]):
+                        _MSG = 'OUT: Flame lib file: LOCKED'
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
+                    else:
+                        _MSG = 'OUT: Save to create this file'
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
         elif OUT_PALETTE_FILE_EXT == file_ext:
-            if os.path.isfile(infile) and os.path.exists(infile) > 0:
+            if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG = f"Palette: You selected an OUT file that is not a {prx} file type."
                 print(f"{node.name()}.{_MSG}")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
-                    _MSG = 'Palette: Save to create this file'
-                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
+                    if flam3h_general_utils.isLOCK(os.path.split(file_new)[1]):
+                        _MSG = 'Palette: Flame lib file: LOCKED'
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
+                    else:
+                        _MSG = 'Palette: Save to create this file'
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
                     
     
     
