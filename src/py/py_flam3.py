@@ -1523,7 +1523,7 @@ reset_PREFS(self, mode: int=0) -> None:
             bool: True if locked. False if not.
         """        
         if filepath is not False:
-            if os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
+            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
                 return True
             else:
                 return False
@@ -2199,7 +2199,7 @@ reset_PREFS(self, mode: int=0) -> None:
                     node.setParms({MSG_OUT: MSG_OUT_MSG})
                     # Lets print to the status bar as well
                     _MSG = f"OUT: {MSG_OUT_MSG}"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'IMP')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'WARN')
                 else:
                     node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 1})
@@ -2225,6 +2225,10 @@ reset_PREFS(self, mode: int=0) -> None:
 
     def flam3h_init_presets_CP_PRESETS(self, mode: int=1) -> None:
         """Initialize parameter's menu presets for the CP tab.
+        
+        _NOTE:
+            This definition is very old and I keep adding here and there but in reality,
+            it need a rewrite ;)  One day I'll get back to this, good for now until it keep holding up.
         
         Args:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
@@ -2260,7 +2264,7 @@ reset_PREFS(self, mode: int=0) -> None:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
                         # Lets print to the status bar as well
                         _MSG = f"Palette: {MSG_PALETTE_MSG}"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'IMP')
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
                     else:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
                 
@@ -6555,7 +6559,7 @@ reset_CP(self, mode: int=0) -> None:
                         flam3h_general_utils.set_status_msg('', 'MSG')
                         
                     else:
-                        
+                        _isNEW = False
                         # F3H palette json file checks
                         json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
                         
@@ -6599,6 +6603,7 @@ reset_CP(self, mode: int=0) -> None:
                                 if not os.path.isfile(out_path_checked):
                                     with open(out_path_checked,'w') as w:
                                         w.write(json_data)
+                                    _isNEW = True
 
                         # We do this again so we can read the newly created file if any 
                         json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
@@ -6624,9 +6629,20 @@ reset_CP(self, mode: int=0) -> None:
                             # Set the file path to the corrected one
                             node.setParms({CP_PALETTE_LIB_PATH: out_path_checked})
                             
+                            # Something odd in how the messages are running, need to investigate why
                             _MSG = f"Palette SAVED"
-                            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-                            flam3h_general_utils.flash_message(node, f"Palette SAVED")
+                            if _isNEW and flam3h_palette_utils.isJSON_F3H(node, out_path_checked):
+                                flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
+                                # Mark this as a valid file and as the currently loaded preset as it is the first ever preset we just saved into this file
+                                node.setParms({CP_ISVALID_FILE: 1})
+                                node.setParms({CP_ISVALID_PRESET: 1})
+                                if flam3h_general_utils.isLOCK(out_path_checked):
+                                    flam3h_general_utils.flash_message(node, f"{_MSG} and LOCKED")
+                                else:
+                                    flam3h_general_utils.flash_message(node, _MSG)
+                            else:
+                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                                flam3h_general_utils.flash_message(node, _MSG)
                             
                         else:
                             # Just in case lets set those
