@@ -6737,7 +6737,6 @@ reset_CP(self, mode: int=0) -> None:
                 # Reset ramps to default
                 self.build_ramp_palette_default(ramp_parm)
                 self.delete_ramp_all_keyframes(ramp_parm)
-                self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
 
                 HEXs = []
                 hsv_vals = []
@@ -6785,6 +6784,7 @@ reset_CP(self, mode: int=0) -> None:
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                 # Make sure we update the HSV palette
                 self.palette_cp()
+                self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
                 # Update palette temp
                 self.palette_cp_to_tmp()
 
@@ -6913,7 +6913,7 @@ reset_CP(self, mode: int=0) -> None:
                             # Reset ramps to default
                             self.build_ramp_palette_default(ramp_parm)
                             self.delete_ramp_all_keyframes(ramp_parm)
-                            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+                            
 
                             
                             hsv_vals = []
@@ -6937,6 +6937,7 @@ reset_CP(self, mode: int=0) -> None:
                             self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                             # Make sure we update the HSV palette
                             self.palette_cp()
+                            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
                             # Update palette tmp
                             self.reset_CP_TMP()
                             
