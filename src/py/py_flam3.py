@@ -5959,6 +5959,8 @@ reset_CP_run_2(self) -> None:
 reset_CP_run_3(self) -> None:
 
 reset_CP(self, mode: int=0) -> None:
+
+reset_CP_palette_action(self) -> None:
     """
     
     def __init__(self, kwargs: dict) -> None:
@@ -7150,6 +7152,22 @@ reset_CP(self, mode: int=0) -> None:
         node.setParms({CP_ISVALID_PRESET: 0})
         
         
+        
+    def reset_CP_run_1(self) -> None:
+        """Delete all ramps keyframes (Palette and HSV Palette)
+
+        Args:
+        """
+        node = self.node
+        # CP->ramp
+        rmp_scr = node.parm(CP_RAMP_SRC_NAME)
+        rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
+        # Reset ramps
+        self.delete_ramp_all_keyframes(rmp_scr)
+        self.delete_ramp_all_keyframes(rmp_hsv)
+
+        
+        
     def reset_CP_run_2(self) -> None:
         """Reset the CP tab HSV values to their defaults.
 
@@ -7210,10 +7228,20 @@ reset_CP(self, mode: int=0) -> None:
         Args:
             mode (int): definition idx to run
         """
-        func_list = {0: self.reset_CP_run_0, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
+        func_list = {0: self.reset_CP_run_0, 1: self.reset_CP_run_1, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
         run = func_list.get(mode)
         if run is not None: run()
         else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP(...) python definition have nothing to run with the passed \"mode\" value.", 'WARN')
+        
+        
+    def reset_CP_palette_action(self) -> None:
+        """Run the desired reset_CP(...) from the Palette action button.
+
+        Args:
+            (None):
+        """
+        if self.kwargs['ctrl']: self.reset_CP(1)
+        else: self.reset_CP(3)
 
 
 

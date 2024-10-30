@@ -1181,7 +1181,7 @@ HSV reset:
     
     Reset the HSV to their default values.
 
-palette HSV (viz only):
+HSV palette [Icon:DATATYPES/ramp]:
     #id: PALETTE
     *It is meant for preview only and you can not edit this palette*.
     
@@ -1215,7 +1215,7 @@ menu lookup samples [Smallicon:BUTTONS/pane_menu]:
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
         - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
-palette:
+palette [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual color palette being used by the Flame you are working on.
 
@@ -1224,7 +1224,12 @@ palette:
     - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (ex. Black will become White).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
     - [Largeicon:BUTTONS/gear] mini-menu [Smallicon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any for this Palette and the HSV Palette as well.
+
+    _Additionally_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg] to reset the palette to its default values.<br />
+    - ((LMB)) to Reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any for this Palette and the HSV Palette as well.
+    - ((CTRL)) + ((LMB)) to only remove and clear all keyframes/expressions if any int this Palette and/or in the HSV Palette as well, keeping them both untouched.
 
     TIP:
         #display: orange
@@ -2155,21 +2160,21 @@ Vibrancy:
         _*General*_<br /> 
         _flame system option_:
 
-        - *`flam3h_rip`* -> _Remove invalid points_
-        - *`flam3h_f3c`* -> _Flam3 compatibility_
-        - *`flam3h_hsv`* -> _Palette HSV values_
-        - *`flam3h_mb_fps`* -> _Motion blur frames per second_
-        - *`flam3h_mb_samples`* -> _Motion blur samples_
-        - *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
-        - *`flam3h_cp_samples`* -> _Palette lookup samples_
+        - [Icon:TOP/xmlinput] *`flam3h_rip`* -> _Remove invalid points_
+        - [Icon:TOP/xmlinput] *`flam3h_f3c`* -> _Flam3 compatibility_
+        - [Icon:TOP/xmlinput] *`flam3h_hsv`* -> _Palette HSV values_
+        - [Icon:TOP/xmlinput] *`flam3h_mb_fps`* -> _Motion blur frames per second_
+        - [Icon:TOP/xmlinput] *`flam3h_mb_samples`* -> _Motion blur samples_
+        - [Icon:TOP/xmlinput] *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
+        - [Icon:TOP/xmlinput] *`flam3h_cp_samples`* -> _Palette lookup samples_
 
         _*xforms*_<br /> 
         _only exported when the Rotation angle parameter is different from Zero and the OUT tab option: "F3H affine style" toggle is ON_:
 
-        - *`f3h_coefs`* -> _F3H pre affine style values_
-        - *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
-        - *`f3h_post`* -> _F3H post affine style values_
-        - *`f3h_post_angle`* -> _F3H post affine style angle value_
+        - [Icon:TOP/xmlinput] *`f3h_coefs`* -> _F3H pre affine style values_
+        - [Icon:TOP/xmlinput] *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
+        - [Icon:TOP/xmlinput] *`f3h_post`* -> _F3H post affine style values_
+        - [Icon:TOP/xmlinput] *`f3h_post_angle`* -> _F3H post affine style angle value_
 
 
 
