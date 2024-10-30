@@ -2137,7 +2137,7 @@ reset_PREFS(self, mode: int=0) -> None:
         prm.set('-1')
         prm_off.set('-1')
         
-        xml = node.parm(IN_PATH).eval()
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
         if os.path.isfile(xml):
             # We are using the class: _xml_tree becasue we really need to carefully validate the loaded flame file.
             # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
