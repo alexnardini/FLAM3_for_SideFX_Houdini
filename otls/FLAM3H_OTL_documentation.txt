@@ -139,7 +139,7 @@ Reset density:
     Reset density to its default: 500k
         
     
-iterations:
+iterations [Icon:TOP/xmlinput]:
     #id: GLOBAL
     Number of iterations to use.
     
@@ -230,7 +230,7 @@ mini-menu Select Iterator [Smallicon:BUTTONS/pane_menu]:
         Selecting an iterator using the Parameter Dialog over the network editor wont work. You must place the Parameter Editor in its on pane or floating pane tab for this feature to work.
 
 
-FF:
+FF [Icon:TOP/xmlinput]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
@@ -239,7 +239,7 @@ FF:
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
-RIP:
+RIP [Icon:TOP/xmlinput]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
@@ -256,7 +256,7 @@ RIP:
         When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0.0`* ( *ZERO* ) and if so, it will switch this toggle ON.<br />
 
         
-F3C (flam3 compatibility):
+F3C (flam3 compatibility) [Icon:TOP/xmlinput]:
     #id: SYS
 
     The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in flam3/Apophysis versus Chaotica.
@@ -1168,7 +1168,7 @@ HSV keep values on Load:
     
     Check this option to keep the current HSV values unchanged after loading a palette preset.
     
-HSV:
+HSV [Icon:TOP/xmlinput]:
     #id: PALETTE
     
     Hue/Saturation/Value of the palette's colors.
@@ -1191,7 +1191,7 @@ HSV palette [Icon:DATATYPES/ramp]:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to updated the HSV color correction in case it was not already.
     
-menu lookup samples [Smallicon:BUTTONS/pane_menu]:
+menu lookup samples  [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
     #id: PALETTE
     
     The amount of lookup samples to use to sample this palette.
@@ -1215,7 +1215,7 @@ menu lookup samples [Smallicon:BUTTONS/pane_menu]:
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
         - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
-palette [Icon:DATATYPES/ramp]:
+palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual color palette being used by the Flame you are working on.
 
@@ -1398,15 +1398,15 @@ on [Icon:NETVIEW/time_dependent_badge]:
 
     == MB: Settings == (MBSETTINGS)
 
-fps:
+fps [Icon:TOP/xmlinput]:
     #id: MB
     desired Frames per second.
     
-samples:
+samples [Icon:TOP/xmlinput]:
     #id: MB
     Motion blur samples.
     
-shutter offset:
+shutter offset [Icon:TOP/xmlinput]:
     #id: MB
     Shutter time.
 
@@ -1547,7 +1547,7 @@ Override iterations from Flame name:
 
     == IN: options == (INOPTIONS)
     
-F3H affine style (IN):
+F3H affine style (IN) [Icon:TOP/xmlinput]:
     #id: IN
     To be used when loading Flame presets that posses F3H affine style format in it.
     
@@ -1591,7 +1591,7 @@ Reload preset with "F3H affine style" changes:
 
 
 
-remap "pre gaussian blur"":
+remap pre_gaussian_blur:
     #id: prefs
     This option is specific while working back and forth with Fractorium.
 
@@ -1918,7 +1918,7 @@ palette HSV (OUT):
 
     This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
-F3H affine style (OUT):
+F3H affine style (OUT) [Icon:TOP/xmlinput]:
     #id: OUT
     Save the Flame out with also the F3H affine style format.
     
@@ -2068,7 +2068,7 @@ SHOW sensor viz:
     NOTE:
         When entering the Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit.<br />
     
-Resolution:
+Resolution [Icon:TOP/xmlinput]:
     #id: OUT
     The image resolution.
     
@@ -2097,15 +2097,15 @@ Copy/Paste render properties:
 
         This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
     
-Center:
+Center [Icon:TOP/xmlinput]:
     #id: OUT
     Where the Flame is centered, think of this as the look at camera point.
     
-Rotate:
+Rotate [Icon:TOP/xmlinput]:
     #id: OUT
     The camera rotation.
     
-Scale(lens):
+Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
     Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
     
@@ -2120,27 +2120,27 @@ update camera sensor:
     == OUT: XML render settings == (OUTEDITRENSETTINGS)
     
     
-Quality:
+Quality [Icon:TOP/xmlinput]:
     #id: OUT
     The render quality. Think of this as how many points are used inside Fractorium to render the final image.
     
-Brightness:
+Brightness [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame render setting: brightness.
     
-Gamma:
+Gamma [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame render setting: gamma.
     
-Highlight power:
+Highlight power [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame render setting: highlight power.
     
-Logscale K2:
+Logscale K2 [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame render setting: Logscale K2.
     
-Vibrancy:
+Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame render setting: vibrancy.
 
