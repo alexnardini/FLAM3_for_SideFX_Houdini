@@ -1381,7 +1381,7 @@ palette HSV (CP):
 
     == MB == (MBPRM)
 
-on:
+on [Icon:NETVIEW/time_dependent_badge]:
     #id: MB
     Enable motion blur.
     
