@@ -7166,7 +7166,7 @@ reset_CP_palette_action(self) -> None:
         self.delete_ramp_all_keyframes(rmp_scr)
         self.delete_ramp_all_keyframes(rmp_hsv)
         # Messages
-        _MSG = f"PALETTE Keyframes: DELETED"
+        _MSG = f"CP Palette Keyframes: DELETED"
         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
         flam3h_general_utils.flash_message(node, _MSG)
 
