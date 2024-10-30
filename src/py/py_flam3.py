@@ -5894,6 +5894,8 @@ isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
 
 isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool=True, parm_path_name: str=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
 
+isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: Union[str, bool],  msg: bool=True, parm_path_name: str=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
+
 rgb_to_hex(rgb: tuple) -> str:
 
 hex_to_rgb(hex: str) -> tuple:
