@@ -1369,6 +1369,8 @@ STATIC METHODS:
 
 flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
 
+remove_locked_from_flame_stats(node) -> None:
+
 clamp(x, val_max: float=255) -> float:
 
 my_system() -> str:
@@ -1454,6 +1456,24 @@ reset_PREFS(self, mode: int=0) -> None:
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: # type: ignore
                 ne.flashMessage(img, msg, timer)
+
+
+    @staticmethod
+    def remove_locked_from_flame_stats(node) -> None:
+        """When loading a flame preset from the clipboard while a valid locked flame library is loaded,
+        deleting the path string will leave the text: -> LOCKED inside the stats.
+        This definition will remove it.
+
+        Args:
+            node (hou.SopNode): This FLAM3H node
+        Returns:
+            (None):
+        """  
+        stats = node.parm(MSG_FLAMESTATS).eval()
+        lines = stats.splitlines()
+        if lines[0] == f"-> LOCKED": lines[0] = ''
+        node.setParms({MSG_FLAMESTATS: "\n".join(lines)})
+
 
 
     @staticmethod
@@ -2124,6 +2144,7 @@ reset_PREFS(self, mode: int=0) -> None:
             # apo = _xml_tree(xml)
             if not _xml_tree(xml).isvalidtree:
                 if clipboard:
+                    self.remove_locked_from_flame_stats(node)
                     node.setParms({IN_ISVALID_FILE: 0})
                 else:
                     node.setParms({IN_ISVALID_FILE: 0})
@@ -2166,6 +2187,7 @@ reset_PREFS(self, mode: int=0) -> None:
                 # if xml:
                 #     print(f'{node.name()}.IN: please select a valid file location.')
             else:
+                self.remove_locked_from_flame_stats(node)
                 # Otherwise just mark the absence of a valid file and leave everything else untouched
                 node.setParms({IN_ISVALID_FILE: 0})
                 
