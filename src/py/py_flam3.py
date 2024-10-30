@@ -11419,7 +11419,7 @@ reset_IN(self, mode: int=0) -> None:
         menu=[]
         xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
-        if os.path.isfile(xml) and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
+        if _xml_tree(xml).isvalidtree and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
             
             if node.parm(PREFS_ENUMERATE_MENU).eval():
                 
@@ -11458,7 +11458,7 @@ reset_IN(self, mode: int=0) -> None:
         is_valid = os.path.isfile(xml)
         if xml and not is_valid:
             node.setParms({IN_ISVALID_FILE: 0})
-            node.setParms({IN_ISVALID_PRESET: 0})
+            if not node.parm(IN_CLIPBOARD_TOGGLE).eval(): node.setParms({IN_ISVALID_PRESET: 0})
             data = None
         elif xml and is_valid:
             # This caused some pain becasue it is forcing us not to tell the truth sometime
@@ -11533,7 +11533,7 @@ reset_IN(self, mode: int=0) -> None:
         is_valid = os.path.isfile(xml)
         if xml and not is_valid:
             node.setParms({IN_ISVALID_FILE: 0})
-            node.setParms({IN_ISVALID_PRESET: 0})
+            if not node.parm(IN_CLIPBOARD_TOGGLE).eval(): node.setParms({IN_ISVALID_PRESET: 0})
             data = None
         elif xml and is_valid:
             # This caused some pain becasue it is forcing us not to tell the truth sometime
