@@ -7189,7 +7189,7 @@ reset_CP_palette_action(self) -> None:
             hsv_prm.deleteAllKeyframes()
             hsv_prm.set(hou.Vector3((1.0, 1.0, 1.0)))
             # Print out to Houdini's status bar
-            _MSG = f"CP HSV RESET"
+            _MSG = f"CP HSV: RESET"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             flam3h_general_utils.flash_message(node, _MSG)
             
@@ -7221,7 +7221,7 @@ reset_CP_palette_action(self) -> None:
         node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
         
         # Print out to Houdini's status bar
-        _MSG = f"CP Palette RESET"
+        _MSG = f"CP Palette: RESET"
         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
         flam3h_general_utils.flash_message(node, _MSG)
         

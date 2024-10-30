@@ -1187,7 +1187,7 @@ HSV palette [Icon:DATATYPES/ramp]:
     
     When changing the HSV values from their defaults, this palette will preview the output of the final color corrected colors.
 
-    Additionally the palette parameter come with the following tool icon:
+    The palette parameter come with the following tool icon:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to updated the HSV color correction in case it was not already.
     
@@ -1219,7 +1219,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual color palette being used by the Flame you are working on.
 
-    Additionally the palette parameter come with the following tool icons:
+    The palette parameter come with the following tool icons:
 
     - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (ex. Black will become White).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
@@ -1228,8 +1228,8 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg] to reset the palette to its default values.<br />
-    - ((LMB)) to Reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any for this Palette and the HSV Palette as well.
-    - ((CTRL)) + ((LMB)) to only remove and clear all keyframes/expressions if any int this Palette and/or in the HSV Palette as well, keeping them both untouched.
+    - ((LMB)) to Reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well.
+    - ((CTRL)) + ((LMB)) to only remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well, keeping them both untouched.
 
     TIP:
         #display: orange
