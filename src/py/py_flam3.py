@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.35'
+FLAM3H_VERSION = '1.5.37'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -6106,9 +6106,37 @@ reset_CP(self, mode: int=0) -> None:
                 # The following is clearing up status messages it should have not
                 # flam3h_general_utils.set_status_msg('', 'MSG')
                 return False, False
+        
         else:
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False, False
+        
+        
+    @staticmethod
+    def isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: Union[str, bool],  msg: bool=True, parm_path_name: str=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
+        """This the same as: def isJSON_F3H(...) but wit a few condition to try to speedup things a little.
+
+        Args:
+            node (hou.SopNode): current FLAM3H node
+            filepath (Union[str, bool]): Palette lib full file path.
+            msg (bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
+            parm_path_name (str): Default to global: CP_PALETTE_LIB_PATH. The actual Houdini's palette file parameter name.
+
+        Returns:
+            bool: True if valid. False if not valid.
+        """      
+        if not node.parm(CP_ISVALID_PRESET).eval():
+            return flam3h_palette_utils.isJSON_F3H(node, filepath, msg, parm_path_name)
+            
+        elif node.parm(CP_ISVALID_FILE).eval() and node.parm(CP_ISVALID_PRESET).eval():
+            # If a preset has been loaded already, we assume it mean the loaded lib file is valid.
+            # This is risky but it make things faster
+            return True, True
+        
+        else:
+            flam3h_general_utils.set_status_msg('', 'MSG')
+            return False, False
+        
         
         
     @staticmethod
@@ -6729,18 +6757,19 @@ reset_CP(self, mode: int=0) -> None:
         if iterators_num:
             
             filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
-            if self.isJSON_F3H(node, filepath, False)[-1]:
+            if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                 
                 # lambda util
                 lambda_rmp_build = lambda rmp : hou.Ramp(rmp.evalAsRamp().basis(), rmp.evalAsRamp().keys(), rmp.evalAsRamp().values())
                 # get ramps parm
                 rmp_src = node.parm(CP_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
-                # Reset ramps to default
-                self.build_ramp_palette_default(rmp_src)
-                rmp_hsv.set(lambda_rmp_build(rmp_src))
-                self.delete_ramp_all_keyframes(rmp_src)
-                self.delete_ramp_all_keyframes(rmp_hsv)
+                # Reset ramps to default.
+                # The following is slowing down too much and I commented it out and we can still use the reset palette action button to remove keyframes/expressions from the ramp's keys/values.
+                # self.build_ramp_palette_default(rmp_src)
+                # rmp_hsv.set(lambda_rmp_build(rmp_src))
+                # self.delete_ramp_all_keyframes(rmp_src)
+                # self.delete_ramp_all_keyframes(rmp_hsv)
                 
                 # get current preset name
                 if node.parm(CP_ISVALID_PRESET).eval():
@@ -6807,7 +6836,7 @@ reset_CP(self, mode: int=0) -> None:
                 if _CHECK:
                     node.setParms({CP_ISVALID_PRESET: 1})
                     _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
-                    # flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                     flam3h_general_utils.flash_message(node, f"Palette LOADED")
                 else:
                     node.setParms({CP_ISVALID_PRESET: 0})
@@ -6817,7 +6846,7 @@ reset_CP(self, mode: int=0) -> None:
             
             else:
                 _MSG = f"{node.name()}: PALETTE -> Nothing to load"
-                # flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"PALETTE: Nothing to load")
 
 
@@ -6907,10 +6936,11 @@ reset_CP(self, mode: int=0) -> None:
                             rmp_src = node.parm(CP_RAMP_SRC_NAME)
                             rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
                             # Reset ramps to default
-                            self.build_ramp_palette_default(rmp_src)
-                            rmp_hsv.set(lambda_rmp_build(rmp_src))
-                            self.delete_ramp_all_keyframes(rmp_src)
-                            self.delete_ramp_all_keyframes(rmp_hsv)
+                            # The following is slowing down too much and I commented it out and we can still use the reset palette action button to remove keyframes/expressions from the ramp's keys/values.
+                            # self.build_ramp_palette_default(rmp_src)
+                            # rmp_hsv.set(lambda_rmp_build(rmp_src))
+                            # self.delete_ramp_all_keyframes(rmp_src)
+                            # self.delete_ramp_all_keyframes(rmp_hsv)
 
                             hsv_vals = []
                             hsv_check = False
@@ -6950,7 +6980,7 @@ reset_CP(self, mode: int=0) -> None:
                             
                             if _CHECK:
                                 _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
-                                # flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                                 flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
                             else:
                                 _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\""
@@ -6959,12 +6989,12 @@ reset_CP(self, mode: int=0) -> None:
                             
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
-                        # flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
                         
                 else:
                     _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
-                    # flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
 
             # LMB - Load the currently selected palette preset
