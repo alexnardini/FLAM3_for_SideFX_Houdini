@@ -2566,103 +2566,103 @@ TIP:
 :box:
     #display: rounded gray
     
-    - *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
+    - [Smallicon:BUTTONS/show_parms] *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
     
-    - *Bent2*           ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Bent2*           ->      _`X`*,* `Y`_
     
-    - *Bipolar*         ->      _`Shift`_
+    - [Smallicon:BUTTONS/show_parms] *Bipolar*         ->      _`Shift`_
     
-    - *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
+    - [Smallicon:BUTTONS/show_parms] *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
     
-    - *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_
+    - [Smallicon:BUTTONS/show_parms] *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_
     
-    - *Bwraps*          ->      _`In twist`*,* `Out twist`_
+    - [Smallicon:BUTTONS/show_parms] *Bwraps*          ->      _`In twist`*,* `Out twist`_
     
-    - *Cell*            ->      _`Size`_
+    - [Smallicon:BUTTONS/show_parms] *Cell*            ->      _`Size`_
     
-    - *Conic*           ->      _`Eccentricity`*,* `Holes`_
+    - [Smallicon:BUTTONS/show_parms] *Conic*           ->      _`Eccentricity`*,* `Holes`_
     
-    - *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
+    - [Smallicon:BUTTONS/show_parms] *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
     
-    - *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_
+    - [Smallicon:BUTTONS/show_parms] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_
     
-    - *Crop*            ->      _`Area`*,* `Zero`_
+    - [Smallicon:BUTTONS/show_parms] *Crop*            ->      _`Area`*,* `Zero`_
     
-    - *Curl*            ->      _`C1`*,* `C2`_
+    - [Smallicon:BUTTONS/show_parms] *Curl*            ->      _`C1`*,* `C2`_
     
-    - *Curve*           ->      _`Lenght X`*,* `Lenght Y`_
+    - [Smallicon:BUTTONS/show_parms] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_
     
-    - *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
+    - [Smallicon:BUTTONS/show_parms] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
     
-    - *Disc2*           ->      _`Rotation`*,* `Twist`_
+    - [Smallicon:BUTTONS/show_parms] *Disc2*           ->      _`Rotation`*,* `Twist`_
     
-    - *Escher*          ->      _`Beta`_
+    - [Smallicon:BUTTONS/show_parms] *Escher*          ->      _`Beta`_
     
-    - *Fan2*            ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Fan2*            ->      _`X`*,* `Y`_
     
-    - *Flower*          ->      _`Petals`*,* `Holes`_
+    - [Smallicon:BUTTONS/show_parms] *Flower*          ->      _`Petals`*,* `Holes`_
     
-    - *Flux*            ->      _`Spread`_
+    - [Smallicon:BUTTONS/show_parms] *Flux*            ->      _`Spread`_
     
-    - *JuliaN*          ->      _`Power`*,* `Distance`_
+    - [Smallicon:BUTTONS/show_parms] *JuliaN*          ->      _`Power`*,* `Distance`_
     
-    - *JuliaScope*      ->      _`Power`*,* `Distance`_
+    - [Smallicon:BUTTONS/show_parms] *JuliaScope*      ->      _`Power`*,* `Distance`_
     
-    - *Lazysusan*       ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Lazysusan*       ->      _`X`*,* `Y`_
     
-    - *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
+    - [Smallicon:BUTTONS/show_parms] *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
     
-    - *Mobius*          ->      _`Re A`*,* `Re B`*,* `Re C`*,* `Re D`_
+    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`Re A`*,* `Re B`*,* `Re C`*,* `Re D`_
     
-    - *Mobius*          ->      _`Im A`*,* `Im B`*,* `Im C`*,* `Im D`_
+    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`Im A`*,* `Im B`*,* `Im C`*,* `Im D`_
     
-    - *Modulus*         ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Modulus*         ->      _`X`*,* `Y`_
     
-    - *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
+    - [Smallicon:BUTTONS/show_parms] *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
     
-    - *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
+    - [Smallicon:BUTTONS/show_parms] *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
     
-    - *Parabola*        ->      _`Height`*,* `Width`_
+    - [Smallicon:BUTTONS/show_parms] *Parabola*        ->      _`Height`*,* `Width`_
     
-    - *Pdj*             ->      _`w A`*,* `w B`*,* `w C`*,* `w D`_
+    - [Smallicon:BUTTONS/show_parms] *Pdj*             ->      _`w A`*,* `w B`*,* `w C`*,* `w D`_
     
-    - *Perspective*     ->      _`Angle`*,* `Distance`_
+    - [Smallicon:BUTTONS/show_parms] *Perspective*     ->      _`Angle`*,* `Distance`_
     
-    - *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
+    - [Smallicon:BUTTONS/show_parms] *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
     
-    - *Polynomial*      ->      _`Pow X`*,* `Pow Y`_
+    - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Pow X`*,* `Pow Y`_
     
-    - *Polynomial*      ->      _`Lc X`*,* `Lc Y`_
+    - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Lc X`*,* `Lc Y`_
     
-    - *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
+    - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
     
-    - *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
+    - [Smallicon:BUTTONS/show_parms] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
     
-    - *Radial Blur*     ->      _`Angle`_
+    - [Smallicon:BUTTONS/show_parms] *Radial Blur*     ->      _`Angle`_
     
-    - *Rectangles*      ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Rectangles*      ->      _`X`*,* `Y`_
     
-    - *Rings2*          ->      _`Val`_
+    - [Smallicon:BUTTONS/show_parms] *Rings2*          ->      _`Val`_
     
-    - *Separation*      ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Separation*      ->      _`X`*,* `Y`_
     
-    - *Separation*      ->      _`Inside X`*,* `Inside Y`_
+    - [Smallicon:BUTTONS/show_parms] *Separation*      ->      _`Inside X`*,* `Inside Y`_
     
-    - *Split*           ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Split*           ->      _`X`*,* `Y`_
     
-    - *Splits*          ->      _`X`*,* `Y`_
+    - [Smallicon:BUTTONS/show_parms] *Splits*          ->      _`X`*,* `Y`_
     
-    - *Waves2*          ->      _`Scale X`*,* `Scale Y`_
+    - [Smallicon:BUTTONS/show_parms] *Waves2*          ->      _`Scale X`*,* `Scale Y`_
     
-    - *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
+    - [Smallicon:BUTTONS/show_parms] *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
     
-    - *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+    - [Smallicon:BUTTONS/show_parms] *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
     
-    - *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
+    - [Smallicon:BUTTONS/show_parms] *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
     
-    - *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+    - [Smallicon:BUTTONS/show_parms] *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
     
-    - *Whorl*           ->      _`In`*,* `Out`_
+    - [Smallicon:BUTTONS/show_parms] *Whorl*           ->      _`In`*,* `Out`_
 
 
 :box:
