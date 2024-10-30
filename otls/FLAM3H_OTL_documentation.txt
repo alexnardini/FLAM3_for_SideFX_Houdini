@@ -802,8 +802,8 @@ menu VAR [Smallicon:BUTTONS/pane_menu]:
 
     There are 4 VAR variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
-    - If you have a *`Linear`* *variation in slot 1*, and you add a *`Spherical`* *variation in slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* *variation in slot 1*, and so on for the other available slots.<br />
-    - If you do the opposite, a *`Spherical`* *variation in slot 1* and a *`Linear`* *in slot 2*, the result will be identical assuming both retain the same weight values.
+    - If you have a *`Linear`* variation in slot *1*, and you add a *`Spherical`* variation in slot *2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in slot *1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* variation in slot *1* and a *`Linear`* in slot *2*, the result will be identical assuming both retain the same weight values.
     * When using parametric variations, their parameters will populate the *VARS* Tab.
 
     TIP:
@@ -1060,8 +1060,8 @@ menu FF VAR [Smallicon:BUTTONS/pane_menu]:
 
     There are 2 VAR variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
-    - If you have a *`Linear`* *variation in slot 1*, and you add a *`Spherical`* *variation in slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* *variation in slot 1*, and so on for the other available slots.<br />
-    - If you do the opposite, a *`Spherical`* *variation in slot 1* and a *`Linear`* *in slot 2*, the result will be identical assuming both retain the same weight values.
+    - If you have a *`Linear`* variation in slot *1*, and you add a *`Spherical`* variation in slot *2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in slot *1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* variation in slot *1* and a *`Linear`* in slot *2*, the result will be identical assuming both retain the same weight values.
     
     * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
 
