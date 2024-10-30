@@ -6731,12 +6731,16 @@ reset_CP(self, mode: int=0) -> None:
             filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             if self.isJSON_F3H(node, filepath, False)[-1]:
                 
-                # get ramp parm
-                ramp_parm = node.parm(CP_RAMP_SRC_NAME)
-                
+                # lambda util
+                lambda_rmp_build = lambda rmp : hou.Ramp(rmp.evalAsRamp().basis(), rmp.evalAsRamp().keys(), rmp.evalAsRamp().values())
+                # get ramps parm
+                rmp_src = node.parm(CP_RAMP_SRC_NAME)
+                rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
                 # Reset ramps to default
-                self.build_ramp_palette_default(ramp_parm)
-                self.delete_ramp_all_keyframes(ramp_parm)
+                self.build_ramp_palette_default(rmp_src)
+                rmp_hsv.set(lambda_rmp_build(rmp_src))
+                self.delete_ramp_all_keyframes(rmp_src)
+                self.delete_ramp_all_keyframes(rmp_hsv)
                 
                 # get current preset name
                 if node.parm(CP_ISVALID_PRESET).eval():
@@ -6775,13 +6779,13 @@ reset_CP(self, mode: int=0) -> None:
                 
                 # Initialize and SET new ramp first
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
-                ramp_parm.set(_RAMP)
+                rmp_src.set(_RAMP)
                 
                 # Set HSV values
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                 # Make sure we update the HSV palette
-                self.palette_cp()
-                self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+                rmp_hsv.set(lambda_rmp_build(rmp_src))
+                self.palette_hsv()
                 # Update palette temp
                 self.palette_cp_to_tmp()
                 # Update/Set palette MSG
@@ -6803,7 +6807,7 @@ reset_CP(self, mode: int=0) -> None:
                 if _CHECK:
                     node.setParms({CP_ISVALID_PRESET: 1})
                     _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
-                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                    # flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                     flam3h_general_utils.flash_message(node, f"Palette LOADED")
                 else:
                     node.setParms({CP_ISVALID_PRESET: 0})
@@ -6813,7 +6817,7 @@ reset_CP(self, mode: int=0) -> None:
             
             else:
                 _MSG = f"{node.name()}: PALETTE -> Nothing to load"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                # flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"PALETTE: Nothing to load")
 
 
@@ -6897,11 +6901,16 @@ reset_CP(self, mode: int=0) -> None:
                         # If it is a valid FLAM3H Palette JSON data
                         if isJSON_F3H:
                             
-                            # get ramp parm
-                            ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+                            # lambda util
+                            lambda_rmp_build = lambda rmp : hou.Ramp(rmp.evalAsRamp().basis(), rmp.evalAsRamp().keys(), rmp.evalAsRamp().values())
+                            # get ramps parm
+                            rmp_src = node.parm(CP_RAMP_SRC_NAME)
+                            rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
                             # Reset ramps to default
-                            self.build_ramp_palette_default(ramp_parm)
-                            self.delete_ramp_all_keyframes(ramp_parm)
+                            self.build_ramp_palette_default(rmp_src)
+                            rmp_hsv.set(lambda_rmp_build(rmp_src))
+                            self.delete_ramp_all_keyframes(rmp_src)
+                            self.delete_ramp_all_keyframes(rmp_hsv)
 
                             hsv_vals = []
                             hsv_check = False
@@ -6918,13 +6927,13 @@ reset_CP(self, mode: int=0) -> None:
                             
                             # Initialize and SET new ramp.
                             _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
-                            ramp_parm.set(_RAMP)
+                            rmp_src.set(_RAMP)
                             
                             # Set HSV values
                             self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                             # Make sure we update the HSV palette
-                            self.palette_cp()
-                            self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+                            rmp_hsv.set(lambda_rmp_build(rmp_src))
+                            self.palette_hsv()
                             # Update palette tmp
                             self.reset_CP_TMP()
                             
@@ -6941,7 +6950,7 @@ reset_CP(self, mode: int=0) -> None:
                             
                             if _CHECK:
                                 _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
-                                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                                # flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                                 flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
                             else:
                                 _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\""
@@ -6950,12 +6959,12 @@ reset_CP(self, mode: int=0) -> None:
                             
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        # flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
                         
                 else:
                     _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
-                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    # flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
 
             # LMB - Load the currently selected palette preset
@@ -7016,15 +7025,16 @@ reset_CP(self, mode: int=0) -> None:
         Args:
         """  
         node = self.node
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
-        rmphsv = node.parm(CP_RAMP_HSV_NAME)
         hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
-        # Convert to HSV
-        hsv = list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))
-        # Apply color correction
-        rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm[0].eval(), item[1]*hsvprm[1].eval(), item[2]*hsvprm[2].eval() ) for item in hsv]
-        # Set the ramp
-        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
+        hsvprm_vals = hsvprm.eval()
+        if min(hsvprm_vals) != max(hsvprm_vals):
+            
+            rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+            rmphsv = node.parm(CP_RAMP_HSV_NAME)
+            # Apply color correction
+            rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm[0].eval(), item[1]*hsvprm[1].eval(), item[2]*hsvprm[2].eval() ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))]
+            # Set the ramp
+            rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
 
 
 
