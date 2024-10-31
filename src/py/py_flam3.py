@@ -13610,12 +13610,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if kwargs['ctrl']:
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
         else:
-            
-            xml = os.path.expandvars(node.parm(OUT_PATH).eval())
-            # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
-            # Instead of the lightweight version class: _xml(...)
-            apo_data = _xml_tree(xml)
-            if apo_data.isvalidtree:
+            if node.parm(OUT_ISVALID_FILE).eval():
                 menu_label = self.out_presets_get_selected_menu_label()
                 if menu_label is not None:
                     flame_name = self.out_remove_iter_num(menu_label)
