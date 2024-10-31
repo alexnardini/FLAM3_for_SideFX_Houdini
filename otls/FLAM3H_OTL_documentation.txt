@@ -580,7 +580,7 @@ copy/paste:
     
     - ((ALT)) + ((LMB)) to reset this iterator to its default values.
     
-Enable/Disable iterator:
+Enable/Disable iterator [Icon:TOP/xmlinput]:
     #id: FLAME
     
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is OFF.
