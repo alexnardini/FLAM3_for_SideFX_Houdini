@@ -434,11 +434,13 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.<br />If a valid Flame file was already loaded, the selected menu label will be prefixed with: *`[CLIPBOARD]`*
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
     
     Additionally:
 
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+
+    When a Flame preset has been loaded from the clipboard, the menu labels will be prefixed with: *`[CLIPBOARD]`*
 
     TIP:
         #display: orange
@@ -1501,11 +1503,13 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.<br />If a valid Flame file was already loaded, the selected menu label will be prefixed with: *`[CLIPBOARD]`*
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
 
     Additionally:
     
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+
+    When a Flame preset has been loaded from the clipboard, the menu labels will be prefixed with: *`[CLIPBOARD]`*
 
 Reload:
     #id: IN
