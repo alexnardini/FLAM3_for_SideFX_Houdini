@@ -258,7 +258,9 @@ PREFS_CAMERA_CULL_AMOUNT = 'cullamount'
 PREFS_VIEWPORT_DARK = 'setdark'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
-# Message parameters
+# Flame stats locked message string
+MSG_FLAMESTATS_LOCK = '-> LOCKED'
+# Flame stats message parameters
 MSG_FLAMESTATS = 'flamestats_msg'
 MSG_FLAMESENSOR = 'flamesensor_msg'
 MSG_FLAMERENDER = 'flamerender_msg'
@@ -1471,7 +1473,7 @@ reset_PREFS(self, mode: int=0) -> None:
         """  
         stats = node.parm(MSG_FLAMESTATS).eval()
         lines = stats.splitlines()
-        if lines[0] == f"-> LOCKED": lines[0] = ''
+        if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
         node.setParms({MSG_FLAMESTATS: "\n".join(lines)})
 
 
@@ -11376,7 +11378,7 @@ reset_IN(self, mode: int=0) -> None:
         
         flame_lib_locked = ""
         if flam3h_general_utils.isLOCK(in_path_checked):
-            flame_lib_locked = f"-> LOCKED"
+            flame_lib_locked = MSG_FLAMESTATS_LOCK
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette is not None and apo_data.palette[1] > 256:
             palette_msg: str = node.parm(MSG_PALETTE).eval()
