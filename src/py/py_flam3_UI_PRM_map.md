@@ -546,7 +546,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 # parameter name:    `palette`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp(True)
 ```
 ### Action Button script
 ```python

@@ -5927,7 +5927,7 @@ hex_to_rgb(hex: str) -> tuple:
 
 find_nearest_idx(array: Union[list, tuple], value: Union[int, float]) -> Union[int, float]:
 
-json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False) -> None:
+json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False, palette_plus_msg: bool=False) -> None:
 
 json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 
@@ -5963,7 +5963,7 @@ json_to_flam3h_ramp_sys(self, use_kwargs: bool=True) -> None:
 
 json_to_flam3h_ramp(self, use_kwargs: bool=True) -> None:
 
-palette_cp(self) -> None:
+palette_cp(self, palette_plus_msg: bool=False) -> None:
 
 palette_cp_to_tmp(self) -> None:
 
@@ -6211,7 +6211,7 @@ reset_CP_palette_action(self) -> None:
     
     
     @staticmethod
-    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False) -> None:
+    def json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False, palette_plus_msg: bool=False) -> None:
         """Given a value, find the closest value in the array that is bigger than the value passed in.
         I am using a manual f-string build here. Probably dynamically build a list would be better but if i'll need to add more strings i'll look into it.
         
@@ -6232,7 +6232,7 @@ reset_CP_palette_action(self) -> None:
             else:
                 node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"}) # type: ignore
                 
-                if node.parm(OUT_PALETTE_256_PLUS).eval():
+                if palette_plus_msg and node.parm(OUT_PALETTE_256_PLUS).eval():
                     _MSG = f"OUT Palette 256+: ACTIVE"
                     flam3h_general_utils.flash_message(node, _MSG)
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
@@ -6240,7 +6240,7 @@ reset_CP_palette_action(self) -> None:
             if PALETTE_PLUS_MSG in palette_msg:
                 node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
                 
-                if node.parm(OUT_PALETTE_256_PLUS).eval():
+                if palette_plus_msg and node.parm(OUT_PALETTE_256_PLUS).eval():
                     _MSG = f"OUT Palette 256+: OFF"
                     flam3h_general_utils.flash_message(node, _MSG)
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -7036,7 +7036,7 @@ reset_CP_palette_action(self) -> None:
 
 
 
-    def palette_cp(self) -> None:
+    def palette_cp(self, palette_plus_msg: bool=False) -> None:
         """Force the HSV palette colors/keys to match the source palette colors/keys.
         
         """    
@@ -7061,7 +7061,7 @@ reset_CP_palette_action(self) -> None:
                 node.setParms({CP_ISVALID_PRESET: 1})
 
         # Update/Set palette MSG
-        flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, rmpsrc.evalAsRamp().keys(), True)    
+        flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, rmpsrc.evalAsRamp().keys(), True, palette_plus_msg)    
 
 
     def palette_cp_to_tmp(self) -> None:
