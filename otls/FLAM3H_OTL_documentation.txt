@@ -1417,7 +1417,7 @@ shutter offset [Icon:TOP/xmlinput]:
 
     == MB: Viz == (MBVIZ)
     
-viz mb:
+viz mb [Icon:DATATYPES/boolean]:
     #id: MB
     Visualize motion blur using color. (Set the viewport background to black for better viewing )
     
