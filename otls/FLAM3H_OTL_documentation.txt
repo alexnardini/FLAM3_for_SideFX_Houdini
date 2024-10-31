@@ -1253,7 +1253,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 
     _Additionally_:
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg] to reset the palette to its default values.<br />
+    - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     - ((LMB)) to Reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well.
     - ((CTRL)) + ((LMB)) to only remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well, keeping them both untouched.
 
