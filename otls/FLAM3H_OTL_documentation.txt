@@ -109,7 +109,7 @@ Below a list of the currently adopted badges and their meaning:
 
 - [Icon:NETVIEW/time_dependent_badge] it is time dependant.
 
-- [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
+- [Icon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
 
 _Note that some parameters may use one or more of those badges_.
 
@@ -620,7 +620,7 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         In case you still want to include the inactive iterator in the file, set its Weight to zero instead.
     
     
-A tip [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]:
+A tip [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
 
@@ -696,7 +696,7 @@ xaos [Icon:TOP/xmlinput]:
     NOTE:
         When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
-auto space xaos weights / xaos information tips [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
+auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
     
@@ -1895,7 +1895,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
-Copy selected preset name / Flame name informations and tips [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]:
+Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
 
