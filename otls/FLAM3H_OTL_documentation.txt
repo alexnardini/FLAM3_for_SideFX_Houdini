@@ -1314,7 +1314,7 @@ Save Palette:
         - When saving out a palette file, it will try to downsample the usual 256 color count standard.
         - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
-Palette name ( preset ):
+Palette name:
     #id: PALETTE
     Write a name to give to the selected palette when saving it.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
@@ -1341,7 +1341,7 @@ menu CP file contents [Icon:BUTTONS/pane_menu]:
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     
-Reload preset ( presets ):
+Reload preset:
     #id: PALETTE
 
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
@@ -1537,7 +1537,7 @@ Reload:
 
     == IN: prefs == (INPREFS)
     
-Iterations on Load (int):
+Iterations on Load:
     #id: IN
     Set a number of iterations to use every time you load a Flame from a *.flame file.
     This will override the internal default value of 64 iterations.
