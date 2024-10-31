@@ -1547,7 +1547,7 @@ Override iterations from Flame name:
 
     == IN: options == (INOPTIONS)
     
-F3H affine style (IN) [Icon:TOP/xmlinput]:
+F3H affine style (IN):
     #id: IN
     To be used when loading Flame presets that posses F3H affine style format in it.
     
