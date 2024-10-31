@@ -230,7 +230,7 @@ mini-menu Select Iterator [Smallicon:BUTTONS/pane_menu]:
         Selecting an iterator using the Parameter Dialog over the network editor wont work. You must place the Parameter Editor in its on pane or floating pane tab for this feature to work.
 
 
-FF [Icon:TOP/xmlinput]:
+FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
@@ -239,7 +239,7 @@ FF [Icon:TOP/xmlinput]:
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
-RIP [Icon:TOP/xmlinput]:
+RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
@@ -256,7 +256,7 @@ RIP [Icon:TOP/xmlinput]:
         When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0.0`* ( *ZERO* ) and if so, it will switch this toggle ON.<br />
 
         
-F3C [Icon:TOP/xmlinput]:
+F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
 
     Flam3 compatibility.
@@ -278,7 +278,7 @@ F3C [Icon:TOP/xmlinput]:
 [Image:opdef:.?FLAM3H_DOC_tag.svg]
 _The above tag reference's image shows a Flame with two iterators ( the second one being disabled ) with the FF._
 
-TAG:
+TAG [Icon:DATATYPES/boolean]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is OFF.
@@ -582,7 +582,7 @@ copy/paste:
     
     - ((ALT)) + ((LMB)) to reset this iterator to its default values.
     
-Enable/Disable iterator [Icon:TOP/xmlinput]:
+Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
     
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is OFF.
@@ -596,7 +596,7 @@ Enable/Disable iterator [Icon:TOP/xmlinput]:
         In case you still want to include the inactive iterator in the file, set its Weight to zero instead.
     
     
-A tip:
+A tip [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
 
@@ -672,7 +672,7 @@ xaos [Icon:TOP/xmlinput]:
     NOTE:
         When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
-auto space xaos weights / xaos information tips:
+auto space xaos weights / xaos information tips [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
     
@@ -841,7 +841,7 @@ w [Icon:TOP/xmlinput]:
 
     == Iterator: Pre Affine== (FLAMEITERPREAFFINE)
     
-post [Icon:TOP/xmlinput]:
+post [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
     Enable post affine.
 
@@ -974,7 +974,7 @@ VARS Tab [Icon:TOP/xmlinput]:
 
     == FF == (FFMAIN)
     
-FF [Icon:TOP/xmlinput]:
+FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
@@ -1162,7 +1162,7 @@ FF: PP VARS Tab [Icon:TOP/xmlinput]:
     
     == CP: Palette ramps == (CPRAMPS)
     
-HSV keep values on Load:
+HSV keep values on Load [Icon:DATATYPES/boolean]:
     #id: PALETTE
     OFF by default.
     
@@ -1334,7 +1334,7 @@ Reload preset ( presets ):
 
     == CP: Options == (CPOPTIONS)
 
-palette 256+ (CP):
+palette 256+ (CP) [Icon:DATATYPES/boolean]:
     #id: PALETTE
     ON by default.
 
@@ -1351,7 +1351,7 @@ palette 256+ (CP):
         #display: orange
         When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
-palette HSV (CP):
+palette HSV (CP) [Icon:DATATYPES/boolean]:
     #id: PALETTE
     OFF by default.
     
@@ -1383,7 +1383,7 @@ palette HSV (CP):
 
     == MB == (MBPRM)
 
-on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput]:
+on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: MB
     Enable motion blur.
     
@@ -1531,7 +1531,7 @@ Iterations on Load (int):
         
         If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
-Force iterations on Load:
+Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
     When *.flame files are loaded, FLAM3H immediately sets the iteration number to 64, which seems like a reasonable count to resolve the majority of them rather effectively.
     However, if you need to act quickly, you can use this number to override the iterations set on load.
@@ -1540,7 +1540,7 @@ Force iterations on Load:
 
     Turn ON "override iterations from Flame name" to override the iterations number baked into the Flame preset name.
 
-Override iterations from Flame name:
+Override iterations from Flame name [Icon:DATATYPES/boolean]:
     #id: IN
     It will override the iterations number baked into the Flame preset name if any.
     
@@ -1549,7 +1549,7 @@ Override iterations from Flame name:
 
     == IN: options == (INOPTIONS)
     
-F3H affine style (IN):
+F3H affine style (IN) [Icon:DATATYPES/boolean]:
     #id: IN
     To be used when loading Flame presets that posses F3H affine style format in it.
     
@@ -1593,7 +1593,7 @@ Reload preset with "F3H affine style" changes:
 
 
 
-remap pre_gaussian_blur:
+remap pre_gaussian_blur [Icon:DATATYPES/boolean]:
     #id: prefs
     This option is specific while working back and forth with Fractorium.
 
@@ -1621,7 +1621,7 @@ Reload preset with remap "pre_gaussian_blur" changes:
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
 
     
-Copy render properties on Load:
+Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
     OFF by default. If ON, it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
     
@@ -1869,7 +1869,7 @@ menu OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
-Copy selected preset name / Flame name informations and tips:
+Copy selected preset name / Flame name informations and tips [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
 
@@ -1886,7 +1886,7 @@ Copy selected preset name / Flame name informations and tips:
 
     == OUT: options == (OUTOPTIONS)
 
-palette 256+ (OUT) [Icon:TOP/xmlinput]:
+palette 256+ (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: PALETOUTTE
     OFF by default.
 
@@ -1910,7 +1910,7 @@ palette 256+ (OUT) [Icon:TOP/xmlinput]:
         *Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.*
         
         
-palette HSV (OUT) [Icon:TOP/xmlinput]:
+palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
 
@@ -1920,7 +1920,7 @@ palette HSV (OUT) [Icon:TOP/xmlinput]:
 
     This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
-F3H affine style (OUT) [Icon:TOP/xmlinput]:
+F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     Save the Flame out with also the F3H affine style format.
     
@@ -1951,7 +1951,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput]:
         There are no reasons to turn this toggle OFF as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this OFF.
 
 
-Auto add iterations to Flame name [Icon:TOP/xmlinput]:
+Auto add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     ON by default. It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
@@ -1960,7 +1960,7 @@ Auto add iterations to Flame name [Icon:TOP/xmlinput]:
         #display: orange
         When on, and once you type in a Flame name, changing the iteration number will update the Flame name too.
         
-use Fractorium parametric prm names [Icon:TOP/xmlinput]:
+use Fractorium parametric prm names [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
 
     ON by default. To export the parameter names for parametric variations to the one that Fractorium uses.
@@ -2000,7 +2000,7 @@ use Fractorium parametric prm names [Icon:TOP/xmlinput]:
     == OUT: Edit render properties == (OUTEDIT)
 
     
-Edit render properties:
+Edit render properties [Icon:DATATYPES/boolean]:
     #id: OUT
     Allow the editing of the render properties for the host application you will load the saved Flame file into.
 
@@ -2040,7 +2040,7 @@ Render properties utils:
 
     == OUT: XML camera sensor == (OUTEDITCAMSENSOR)
     
-SHOW sensor viz:
+SHOW sensor viz [Icon:DATATYPES/boolean]:
     #id: OUT
     
     - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is OFF.
@@ -2111,7 +2111,7 @@ Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
     Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
     
-update camera sensor:
+update camera sensor [Icon:DATATYPES/boolean]:
     #id: OUT
     ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
     
@@ -2193,18 +2193,9 @@ Vibrancy [Icon:TOP/xmlinput]:
     #display: inverted teal
 
     *prefs:* _Tool's preferences._
-
-display prefs:
-    #id: prefs
-    Display preferences.
-    
-:box:
-    #display: round white
-    
-    == Prefs: General == (PREFSGENERAL)
     
 
-flash messages (network editor):
+flash messages (network editor) [Icon:DATATYPES/boolean]:
     #id: prefs
     
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
@@ -2217,7 +2208,7 @@ flash messages (network editor):
     
     == Prefs: UI == (PREFSUI)
 
-Enumerate presets menus:
+Enumerate presets menus [Icon:DATATYPES/boolean]:
     #id: prefs
     ON by default. Causes the presets menus inside the CP, IN and OUT tab to be enumerated.
     
@@ -2226,7 +2217,7 @@ Enumerate presets menus:
     Turn this OFF to only display the raw preset names.
 
 
-Iterator menus bookmark icons:
+Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     #id: prefs
     OFF by default to speedup the UI as it is now using a pre built menu data.
     
@@ -2241,7 +2232,7 @@ Iterator menus bookmark icons:
     
     == Prefs: CVEX (hidden)== (PREFSCVEX)
 
-cvex precision modes (hidden):
+cvex precision modes (hidden) [Icon:DATATYPES/boolean]:
     #id: prefs
     Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
     
@@ -2273,7 +2264,7 @@ menu xaos modes [Smallicon:BUTTONS/pane_menu]:
 
     == Prefs: Camera == (PREFSCAM)
             
-camera handle:
+camera handle [Icon:DATATYPES/boolean]:
     #id: prefs
     Display the viewport camera handle to help frame/center your fractal Flame.
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
@@ -2286,7 +2277,7 @@ camera handle:
         *TURN THIS OFF WHEN RENDERING.*
 
     
-camera cull:
+camera cull [Icon:DATATYPES/boolean]:
     #id: prefs
     Enable culling based on camera view.
     
@@ -2303,7 +2294,7 @@ amount:
 
     == Prefs: Viewport == (PREFSVIEW)
     
-Dark:
+Dark [Icon:DATATYPES/boolean]:
     #id: prefs
     If it isn't already, change the viewport's color scheme to dark.
 
@@ -2352,7 +2343,6 @@ Plugins:
 Web links:
     #id: about
     A list of useful web links to check out.
-    
     
     [Largeicon:opdef:.?iconSVG.svg] 
     
