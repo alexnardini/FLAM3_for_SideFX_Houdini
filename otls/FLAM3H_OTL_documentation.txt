@@ -189,7 +189,7 @@ iterations [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
-        When: *Auto add iter num to Flame name* toggle is ON inside the OUT Tab,
+        When: *add iterations to Flame name* toggle is ON inside the OUT Tab,
         changing the iteration's parameter will update the Flame name, if any have been typed.
         
         
@@ -1544,7 +1544,7 @@ Iterations on Load (int):
     
     TIP:
         #display: orange
-        If "*auto add iter num to Flame name*" OUT Tab option is *OFF*:
+        If *add iterations to Flame name* OUT Tab option is *OFF*:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
@@ -1868,7 +1868,7 @@ Flame name [Icon:TOP/xmlinput]:
     
     TIP:
         #display: orange
-        If "*auto add iter num to Flame name*" is *OFF*:
+        If *add iterations to Flame name* is *OFF*:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
