@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.41 - Gold
+#version: 1.5.42 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -92,6 +92,29 @@ A considerable amount of effort has been allocated to ensure that, assuming that
 Being inside Houdini has its advantages, just think of the possibilities of utilizing his procedural paradigm and tool sets to animate your fractal Flames. It also makes it very easy to build a pipeline around this tool using Houdini’s Python HOM libraries.
 
 
+
+@Badges
+
+This documentation adopt the use of badges to signal some parameter's types and their scope.
+
+Below a list of the currently adopted badges and their meaning:
+
+- [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
+
+- [Icon:DATATYPES/boolean] it is a toggle.
+
+- [Icon:DATATYPES/ramp] it is a ramp.
+
+- [Icon:TOP/xmlinput] the data this parameter represent or enable will be stored into the XML flame file on save.
+
+- [Icon:NETVIEW/time_dependent_badge] it is time dependant.
+
+- [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
+
+_Note that some parameters may use one or more of those badges_.
+
+
+
 @Platforms
 
 :platform:Windows
@@ -103,7 +126,6 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 :platform:Mac
 
 :platform:Linux
-
 
 
 @parameters FLAM3H Tabs parameters
@@ -124,7 +146,7 @@ density:
     * Must strike a balance between processing speed and quality.
 
     
-mini-menu density presets [Smallicon:BUTTONS/pane_menu]:
+mini-menu density presets [Icon:BUTTONS/pane_menu]:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
 
@@ -198,7 +220,7 @@ FLAM3H documentation:
     
     Display this documentation.
 
-mini-menu Select Iterator [Smallicon:BUTTONS/pane_menu]:
+mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     #id: SYS
 
     A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number.
@@ -317,7 +339,7 @@ TAG [Icon:DATATYPES/boolean]:
         When in OUT Camera sensor mode, the Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon.
          
-mini-menu TAG size [Smallicon:BUTTONS/pane_menu]:
+mini-menu TAG size [Icon:BUTTONS/pane_menu]:
     #id: SYS
     Set different viewport TAG sizes.
     
@@ -360,7 +382,7 @@ frame viewport:
     
     == SYS: CP color palette == (SYSCP)
     
-mini-menu CP Presets [Smallicon:BUTTONS/pane_menu]:
+mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
     Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
@@ -402,7 +424,7 @@ CP Preset reload:
     
     == SYS: IN Flame presets == (SYSIN)
     
-mini-menu IN Presets [Smallicon:BUTTONS/pane_menu]:
+mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
@@ -448,7 +470,7 @@ IN Preset reload:
     
     == SYS: OUT Flame presets == (SYSOUT)
     
-mini-menu OUT Presets [Smallicon:BUTTONS/pane_menu]:
+mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
     This menu is simply provided as information only.
 
@@ -561,9 +583,9 @@ copy/paste:
 
     When you paste the data, it wil copy everything from the marked iterator but not Xaos.
     
-    Once an iterator has been marked, you can use the mini-menu [Smallicon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked iterator, including Xaos.
+    Once an iterator has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked iterator, including Xaos.
     
-    Every item in the mini-menu [Smallicon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
@@ -763,7 +785,7 @@ Opacity [Icon:TOP/xmlinput]:
         _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
         _This means that if you use *`2 PRE Mobius`,* *`4 VAR Mobius`* and *`1 POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
-menu pre_blur [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     Enable pre_blur variation.
     
@@ -777,7 +799,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
         
         You can change this beahavior and load the *`pre_gaussian_blur`* variation instead, if any, inside the IN Tab.
     
-menu PRE [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     PRE variations for the selected iterator.
 
@@ -798,7 +820,7 @@ swap PRE vars:
     - ((CTRL)) + ((LMB)) swap only the variation names.
     
     
-menu VAR [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     Variations for the selected iterator.
 
@@ -814,7 +836,7 @@ menu VAR [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
         Laying down a new FLAM3H node and activating the Final Flame transform with the default Sierpiński triangle (*FF*) will allow you to experiment with the variations and see what happens.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
-menu POST [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     POST Variation for the selected iterator.
     
@@ -997,9 +1019,9 @@ FF: copy/paste:
     
     This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
 
-    Once the FF has been marked, you can use the mini-menu [Smallicon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
+    Once the FF has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
     
-    Every item in the mini-menu [Smallicon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is ACTIVE.
@@ -1047,7 +1069,7 @@ FF: copy/paste:
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
-menu FF PRE [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
     PRE variation for the FF iterator.
     
@@ -1056,7 +1078,7 @@ menu FF PRE [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
     
     
-menu FF VAR [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
     Variations for the FF iterator.
 
@@ -1067,7 +1089,7 @@ menu FF VAR [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
     
     * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
 
-menu FF POST [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
     POST Variations for the FF iterator.
 
@@ -1193,7 +1215,7 @@ HSV palette [Icon:DATATYPES/ramp]:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to updated the HSV color correction in case it was not already.
     
-menu lookup samples  [Icon:TOP/xmlinput] [Smallicon:BUTTONS/pane_menu]:
+menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
     
     The amount of lookup samples to use to sample this palette.
@@ -1225,7 +1247,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 
     - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (ex. Black will become White).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
-    - [Largeicon:BUTTONS/gear] mini-menu [Smallicon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
+    - [Largeicon:BUTTONS/gear] mini-menu [Icon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
 
     _Additionally_:
 
@@ -1249,7 +1271,7 @@ JSON file:
 
     Load an already-created json palette library file or choose the path and name of a new one to create.
 
-    The mini-menu [Smallicon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
+    The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     TIP:
         #display: orange
@@ -1300,7 +1322,7 @@ Palette name ( preset ):
     
     == CP: Presets == (CPPRESETS)
         
-menu CP file contents [Smallicon:BUTTONS/pane_menu]:
+menu CP file contents [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
@@ -1454,7 +1476,7 @@ IN file ( *.flame type ):
 
     Load *.flame files. They can come from FLAM3H or also authored with Apophysis, Fractorium and other flam3-compatible applications.
 
-    The mini-menu [Smallicon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
+    The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     The only restrictions are:
     
@@ -1468,7 +1490,7 @@ IN file ( *.flame type ):
 
         Every time you load a Flame authored with Fractorium, those curves' values will be discarded and internally reset to their default values. ( no color correction at all )
     
-menu IN file contents [Smallicon:BUTTONS/pane_menu]:
+menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
     Every *.flame file can contain multiple Flames.
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
@@ -1719,7 +1741,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.41" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.42" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1792,7 +1814,7 @@ OUT file ( *.flame type ):
 
     Select a file name to save your Flame into. If the selected file does not exist, it will be created.
 
-    The mini-menu [Smallicon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
+    The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     TIP:
         #display: orange
@@ -1854,7 +1876,7 @@ Flame name [Icon:TOP/xmlinput]:
         
         If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
-menu OUT file contents ( info ) [Smallicon:BUTTONS/pane_menu]:
+menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     #id: OUT
     This menu is simply provided as information.
     If there are any Flames in the chosen output file, they will be displayed.
@@ -1951,7 +1973,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         There are no reasons to turn this toggle OFF as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this OFF.
 
 
-Auto add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     ON by default. It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
@@ -1977,7 +1999,7 @@ use Fractorium parametric prm names [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.41" ... >
+          <flame version="FLAM3H-WIN-1.5.42" ... >
               ...
         }}}
         
@@ -1986,7 +2008,7 @@ use Fractorium parametric prm names [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.41" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.42" ... >
               ...
         }}}
         
@@ -2075,7 +2097,7 @@ Resolution [Icon:TOP/xmlinput]:
     The image resolution.
     
     
-mini-menu Resolution presets [Smallicon:BUTTONS/pane_menu]:
+mini-menu Resolution presets [Icon:BUTTONS/pane_menu]:
     #id: OUT
     Select a resolution out of some pre made presets.
 
@@ -2246,7 +2268,7 @@ cvex precision modes (hidden) [Icon:DATATYPES/boolean]:
 
     == Prefs: Xaos == (PREFSXAOS)
         
-menu xaos modes [Smallicon:BUTTONS/pane_menu]:
+menu xaos modes [Icon:BUTTONS/pane_menu]:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
@@ -2302,7 +2324,7 @@ Dark [Icon:DATATYPES/boolean]:
     
     Checking this box has no effect if the color scheme in a viewport is already dark.
     
-menu type [Smallicon:BUTTONS/pane_menu]:
+menu type [Icon:BUTTONS/pane_menu]:
     #id: prefs
     Set the viewport particle display mode to either *`points`* or *`pixels`*.
 
