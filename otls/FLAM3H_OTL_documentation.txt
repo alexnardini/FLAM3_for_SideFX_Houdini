@@ -1861,7 +1861,7 @@ Save Flame:
         
         This is true also for applications like Apophysis and Fractorium as they obey the same rule.
     
-Flame name [Icon:TOP/xmlinput]:
+Flame name (OUT) [Icon:TOP/xmlinput]:
     #id: OUT
     Write a name to give to the selected Flame when saving it out.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
@@ -1976,7 +1976,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     NOTE:
         There are no reasons to turn this toggle OFF as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this OFF.
         
-use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
 
     ON by default.<br />
@@ -2011,7 +2011,7 @@ use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         
         This way once we load it back FLAM3H will remap those parameteric variations parameter's names to the proper one.
 
-add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     ON by default. It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
