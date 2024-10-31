@@ -6231,9 +6231,20 @@ reset_CP_palette_action(self) -> None:
                 pass
             else:
                 node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"}) # type: ignore
+                
+                if node.parm(OUT_PALETTE_256_PLUS).eval():
+                    _MSG = f"OUT Palette 256+: ACTIVE"
+                    flam3h_general_utils.flash_message(node, _MSG)
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
         else:
             if PALETTE_PLUS_MSG in palette_msg:
                 node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
+                
+                if node.parm(OUT_PALETTE_256_PLUS).eval():
+                    _MSG = f"OUT Palette 256+: OFF"
+                    flam3h_general_utils.flash_message(node, _MSG)
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                
             else:
                 if not mode: pass
                 else:
