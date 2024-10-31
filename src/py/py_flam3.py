@@ -2555,7 +2555,8 @@ MENU_DENSITY: list = [0, '', 1, '1M', 2, '2M', 3, '5M', 4, '15M', 5, '25M', 6, '
 MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
-MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  Clipboard     ']
+MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD]Invalid file path     ']
+MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
 MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
 MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
@@ -11495,7 +11496,8 @@ reset_IN(self, mode: int=0) -> None:
             
         else:
             if node.parm(IN_ISVALID_PRESET).eval() and node.parm(IN_CLIPBOARD_TOGGLE).eval():
-                return MENU_IN_PRESETS_EMPTY_CB
+                if xml and not os.path.isfile(xml): return MENU_PRESETS_INVALID_CB
+                else: return MENU_IN_PRESETS_EMPTY_CB
                     
         flam3h_iterator_utils.destroy_data(node, 'in_presets_menu_off')
         if xml and not os.path.isfile(xml):
