@@ -2220,6 +2220,10 @@ Vibrancy [Icon:TOP/xmlinput]:
 
     *prefs:* _Tool's preferences._
     
+:box:
+    #display: rounded white
+
+    == Prefs: General == (PREFSGENERAL)
 
 flash messages (network editor) [Icon:DATATYPES/boolean]:
     #id: prefs
@@ -2258,7 +2262,7 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     
     == Prefs: CVEX (hidden)== (PREFSCVEX)
 
-cvex precision modes (hidden) [Icon:DATATYPES/boolean]:
+cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
     #id: prefs
     Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
     
