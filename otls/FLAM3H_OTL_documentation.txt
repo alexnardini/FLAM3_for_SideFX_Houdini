@@ -97,7 +97,7 @@ Being inside Houdini has its advantages, just think of the possibilities of util
 
 This documentation adopt the use of badges to signal some parameter's types and their scope.
 
-Below a list of the currently adopted badges and their meaning:
+_Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
 
@@ -152,7 +152,7 @@ mini-menu density presets [Icon:BUTTONS/pane_menu]:
 
     _Some of the menu labels posses a bookmark icon_:
 
-    [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] _indicate a more computational expensive preset_.
+    [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
 Reset density:
     #id: Global
@@ -1224,8 +1224,8 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     _Some of the menu labels posses a bookmark icon_:
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] _indicate a more computational expensive preset_.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
