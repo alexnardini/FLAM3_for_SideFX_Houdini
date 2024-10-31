@@ -14156,7 +14156,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             if hou.isUIAvailable():
                 _MSG_UI = "Duplicates variations of the same type not allowed.\nShow Details to learn more."
-                hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=_MSG_ALL, details_label=None, details_expanded=False) # type: ignore
+                hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Compatibility", details=_MSG_ALL, details_label=None, details_expanded=False) # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False
         
