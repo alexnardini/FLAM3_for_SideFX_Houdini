@@ -13610,21 +13610,31 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if kwargs['ctrl']:
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
         else:
-            menu_label = self.out_presets_get_selected_menu_label()
-            if menu_label is not None:
-                flame_name = self.out_remove_iter_num(menu_label)
-                iter_num = node.parm(GLB_ITERATIONS).eval()
-                autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
-                flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-                node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
-                
-                _MSG = f"{node.name()}: COPY Flame name -> {flame_name_new}"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"{flame_name_new}")
-                
+            
+            xml = os.path.expandvars(node.parm(OUT_PATH).eval())
+            # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
+            # Instead of the lightweight version class: _xml(...)
+            apo_data = _xml_tree(xml)
+            if apo_data.isvalidtree:
+                menu_label = self.out_presets_get_selected_menu_label()
+                if menu_label is not None:
+                    flame_name = self.out_remove_iter_num(menu_label)
+                    iter_num = node.parm(GLB_ITERATIONS).eval()
+                    autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
+                    flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                    node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
+                    
+                    _MSG = f"{node.name()}: COPY Flame name -> {flame_name_new}"
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    flam3h_general_utils.flash_message(node, f"{flame_name_new}")
+                    
+                else:
+                    _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
-                _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
-                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                _MSG = f"Load a valid OUT flame file first"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} to COPY its Flame preset names into the Flame name string parameter.", 'WARN')
+                flam3h_general_utils.flash_message(node, f"{_MSG}")
                 
                 
 
