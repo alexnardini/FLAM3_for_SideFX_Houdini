@@ -227,7 +227,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     This is handy when many iterators are created for the fractal flame you are working on.
 
-    The bookmark icon will display the status of each iterator:
+    _The bookmark icon will display the status of each iterator_:
 
     - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is ACTIVE.
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is ACTIVE and 0(Zero) Weight.
@@ -240,7 +240,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
     This is handy also when you load or build a Flame that uses containers so to easily spot the intermediary iterators used in the construction.
 
-    Additionally, when there are 0(Zero) iterators, an info message is displayed instead:
+    _Additionally, when there are 0(Zero) iterators, an info message is displayed instead_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
 
@@ -387,13 +387,13 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
-    The selected menu entrie posses a bookmark icon based on its state:
+    _The selected menu entrie posses a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
 
-    Additionally:
+    _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
@@ -413,7 +413,7 @@ CP Preset reload:
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when no Palette preset has been loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when you load a Palette preset.
     
-    Usage:
+    _Usage_:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
@@ -429,14 +429,14 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
     
-    The selected menu entrie posses a bookmark icon based on its state:
+    _The selected menu entrie posses a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
     
-    Additionally:
+    _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
@@ -454,7 +454,7 @@ IN Preset reload:
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.<br />This indicate that a Flame preset stats infos are visible inside the IN Tab.
 
-    Usage:
+    _Usage_:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
@@ -483,7 +483,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
 
-    Additionally:
+    _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
@@ -596,13 +596,13 @@ copy/paste:
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
-    Below are the different options on how you can use this icon:
+    _Below are the different options on how you can use this icon_:
     
     - ((LMB)) to mark this iterator for being copied. If already marked, it will unmark it.
     - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     - ((SHIFT)) + ((LMB)) to unmark this FLAM3H node marked iterator for being copied.
     
-    Additionally:
+    _Additionally_:
     
     - ((ALT)) + ((LMB)) to reset this iterator to its default values.
     
@@ -1032,13 +1032,13 @@ FF: copy/paste:
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
 
-    Below are the different options on how you can use this icon:
+    _Below are the different options on how you can use this icon_:
     
     - ((LMB)) to mark this FF for being copied. If already marked, it will unmark it.
     - ((CTRL)) + ((LMB)) to copy the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
     - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
     
-    Additionally:
+    _Additionally_:
     
     - ((ALT)) + ((LMB)) to reset this FF to its default values.
     
@@ -1328,13 +1328,13 @@ menu CP file contents [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
-    The selected menu entrie posses a bookmark icon based on its state:
+    _The selected menu entrie posses a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
 
-    Additionally:
+    _Additionally_:
     
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
@@ -1347,7 +1347,7 @@ Reload preset ( presets ):
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
     
-    Usage:
+    _Usage_:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
@@ -1498,14 +1498,14 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
     Each entry will display the Flame's name.
     
-    The selected menu entrie posses a bookmark icon based on its state:
+    _The selected menu entrie posses a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
 
-    Additionally:
+    _Additionally_:
     
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
@@ -1517,7 +1517,7 @@ Reload:
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
     - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.<br />This indicate that a Flame preset stats infos are visible inside the IN Tab.
     
-    Usage:
+    _Usage_:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
     - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
@@ -1890,7 +1890,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file.<br />Each Flame preset in the file will be marked with this icon.
 
-    Additionally:
+    _Additionally_:
     
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
