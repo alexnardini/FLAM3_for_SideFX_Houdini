@@ -6386,7 +6386,6 @@ reset_CP_palette_action(self) -> None:
         return self._palette_plus_do
 
 
-
     def menu_cp_presets_data(self) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
@@ -12554,6 +12553,8 @@ out_collect_var_section_names_dict(node: hou.SopNode, mode: int=False, var_secti
 
 METHODS:
 
+out_palette_256_plus_check(self) -> None:
+
 out_presets_get_selected_menu_label(self) -> Union[str, None]:
 
 out_presets_copy_menu_label_callback(self) -> None:
@@ -13533,6 +13534,32 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     @property
     def flam3h_cp_lookup_samples(self):
         return self._flam3h_cp_lookup_samples
+
+
+
+    def out_palette_256_plus_check(self) -> None:
+        """When activating the OUT option: palette 256+ toggle,
+        let the user knows if the current palette posses enough colors and give some infos
+
+        Returns:
+            (None):
+        """
+        node = self.node
+        prm_prefs_256_plus = self.kwargs['parm']
+        rmp_src = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+        if prm_prefs_256_plus.eval():
+            if len(rmp_src.keys()) <= 256:
+                _MSG = f"OUT: Palette do not have more than 256 color keys"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with 256 color keys.", 'WARN')
+            else:
+                _MSG = f"OUT Palette 256+: ACTIVE"
+                flam3h_general_utils.flash_message(node, _MSG)
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+        else:
+            _MSG = f"OUT Palette 256+: OFF"
+            flam3h_general_utils.flash_message(node, _MSG)
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+
 
 
     def out_presets_get_selected_menu_label(self) -> Union[str, None]:
