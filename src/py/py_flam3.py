@@ -6619,7 +6619,7 @@ reset_CP_palette_action(self) -> None:
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"This Palette file is LOCKED")
                         if hou.isUIAvailable():
-                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         
                         # Clear up status bar msg
                         flam3h_general_utils.set_status_msg('', 'MSG')
@@ -8944,7 +8944,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     if hou.isUIAvailable():
                         ui_text = "Flame's Palette hex values not valid."
                         palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3H."
-                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
+                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
                         return None
                     else:
                         return None
@@ -14429,7 +14429,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         
                         # Pop up message window
                         if hou.isUIAvailable():
-                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
+                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Lib Lock", details=ALL_msg, details_label=None, details_expanded=False) # type: ignore
                         # Clear up Houdini's status bar msg
                         flam3h_general_utils.set_status_msg('', 'MSG')
                         
