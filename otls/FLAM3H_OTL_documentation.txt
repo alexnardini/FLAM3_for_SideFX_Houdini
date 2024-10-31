@@ -543,13 +543,13 @@ number of iterators [Icon:TOP/xmlinput]:
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
 
-    The following control icons are provided:
+    _The following control icons are provided_:
 
     - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by 1. It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
-    Additionaly, each iterator posses the following control icons:
+    _Additionaly, each iterator posses the following control icons_:
 
     - [Largeicon:BUTTONS/multi_remove] to remove the selected iterator.
     - [Largeicon:BUTTONS/multi_insertbefore] to insert a new iterator before the selected iterator.
@@ -1245,7 +1245,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual color palette being used by the Flame you are working on.
 
-    The palette parameter come with the following tool icons:
+    _The palette parameter come with the following tool icons_:
 
     - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (ex. Black will become White).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
