@@ -1619,7 +1619,7 @@ Reload preset with "F3H affine style" changes:
 
 
 
-remap pre_gaussian_blur [Icon:DATATYPES/boolean]:
+Remap pre_gaussian_blur [Icon:DATATYPES/boolean]:
     #id: prefs
     This option is specific while working back and forth with Fractorium.
 
