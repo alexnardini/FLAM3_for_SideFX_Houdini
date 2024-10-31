@@ -6792,12 +6792,6 @@ reset_CP_palette_action(self) -> None:
                 # get ramps parm
                 rmp_src = node.parm(CP_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
-                # Reset ramps to default.
-                # The following is slowing down too much and I commented it out and we can still use the reset palette action button to remove keyframes/expressions from the ramp's keys/values.
-                # self.build_ramp_palette_default(rmp_src)
-                # rmp_hsv.set(lambda_rmp_build(rmp_src))
-                # self.delete_ramp_all_keyframes(rmp_src)
-                # self.delete_ramp_all_keyframes(rmp_hsv)
                 
                 # get current preset name
                 if node.parm(CP_ISVALID_PRESET).eval():
@@ -6963,12 +6957,6 @@ reset_CP_palette_action(self) -> None:
                             # get ramps parm
                             rmp_src = node.parm(CP_RAMP_SRC_NAME)
                             rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
-                            # Reset ramps to default
-                            # The following is slowing down too much and I commented it out and we can still use the reset palette action button to remove keyframes/expressions from the ramp's keys/values.
-                            # self.build_ramp_palette_default(rmp_src)
-                            # rmp_hsv.set(lambda_rmp_build(rmp_src))
-                            # self.delete_ramp_all_keyframes(rmp_src)
-                            # self.delete_ramp_all_keyframes(rmp_hsv)
 
                             hsv_vals = []
                             hsv_check = False
