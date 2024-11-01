@@ -2072,7 +2072,7 @@ reset_PREFS(self, mode: int=0) -> None:
                 self.util_set_clipping_viewers()
                 if self.util_set_front_viewer():
                     _MSG = f"Sensor viz: ON"
-                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     self.flash_message(node, _MSG)
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
@@ -2094,13 +2094,13 @@ reset_PREFS(self, mode: int=0) -> None:
         
         if toggle:
             node.setParms({prm: 0})
-            _MSG = f"{node.name()}: {prm.upper()} -> OFF"
+            _MSG = f"{node.name()}: {prm.upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
             node.setParms({prm: 1})
-            _MSG = f"{node.name()}: {prm.upper()} -> ON"
-            self.set_status_msg(_MSG, 'MSG')
+            _MSG = f"{node.name()}: {prm.upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
 
 
 
@@ -7613,7 +7613,7 @@ If you type a negative number, it will be reset to a value of: 1"""
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 
                 _MSG = f"{node.name()}: Xaos weights auto space: ON"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
             
     def ui_OUT_presets_name_infos(self) -> None:
