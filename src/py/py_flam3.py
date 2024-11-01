@@ -11273,7 +11273,7 @@ reset_IN(self, mode: int=0) -> None:
             
         # build msgs
         cb = ''
-        if clipboard: cb =  " -> Clipboard"
+        if clipboard: cb =  " [CLIPBOARD]"
         sw = f"Software: {apo_data.sw_version[preset_id]}{cb}"
         name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"Iterators count: {str(len(apo_data.xforms))}"
@@ -11294,7 +11294,7 @@ reset_IN(self, mode: int=0) -> None:
         if palette_bool:
             if apo_data.cp_flam3h_hsv is not False:
                 # custom to FLAM3H only
-                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} -> HSV"
+                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} [HSV]"
             else:
                 palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
         else:
