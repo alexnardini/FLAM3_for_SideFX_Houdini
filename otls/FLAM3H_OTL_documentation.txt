@@ -502,14 +502,15 @@ OUT Save:
     #id: SYS
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
     
+    _Usage_:
+
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
-    If the selected file does not exist, it will be created.
-
-    If the selected file is not a valid Flame file type, nothing will happen.
+    - _If the selected file does not exist, it will be created_.
+    - _If the selected file is not a valid Flame file type, nothing will happen_.
     
 
 
@@ -596,7 +597,7 @@ copy/paste:
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
-    _Below are the different options on how you can use this icon_:
+    _Usage_:
     
     - ((LMB)) to mark this iterator for being copied. If already marked, it will unmark it.
     - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
@@ -701,6 +702,8 @@ auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlu
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
     
     Activate/Deactivate auto space xaos weights option.
+
+    _Usage_:
     
     - ((LMB)) will space the xaos weights for easy read and count ( ON/OFF )
     
@@ -817,6 +820,8 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 swap PRE vars:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) swap the order of the PRE Variations and their weights. 
     - ((CTRL)) + ((LMB)) swap only the variation names.
@@ -875,13 +880,13 @@ affine Scale:
 
     Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100% -> no scale) being the default.
 
-    The are two ways to use this parameter.
+    _The are two ways to use this parameter_.
     # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
     # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
 
     Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to the default value of: *`1`* (100% -> no scale)
 
-    When using the ((mouse_wheel)):
+    _When using the_ ((mouse_wheel)):
     - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
     - ((SHIFT)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.01`*
     - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
@@ -941,6 +946,8 @@ affine reset:
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     Reset this iterator's pre affine to their default values.
+
+    _Usage_:
     
     - ((LMB)) to reset all affine values.
     - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
@@ -1032,7 +1039,7 @@ FF: copy/paste:
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
 
-    _Below are the different options on how you can use this icon_:
+    _Usage_:
     
     - ((LMB)) to mark this FF for being copied. If already marked, it will unmark it.
     - ((CTRL)) + ((LMB)) to copy the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
@@ -1107,6 +1114,8 @@ menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 swap FF POST vars:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) swap the order of the POST Variations and their weights. 
     - ((CTRL)) + ((LMB)) swap only the variation names.
@@ -1254,6 +1263,9 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
+
     - ((LMB)) to Reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well.
     - ((CTRL)) + ((LMB)) to only remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well, keeping them both untouched.
 
@@ -1290,15 +1302,17 @@ Save Palette:
     #id: PALETTE
     
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) to save the current palette into the selected OUT file.
-        - If the selected file does not exist, it will be created.
-        - If the selected file already contains some palettes, it will append the current one.
+        - _If the selected file does not exist, it will be created_.
+        - _If the selected file already contains some palettes, it will append the current one_.
     - ((ALT)) + ((LMB)) to save the current palette into the clipboard.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
 
-    _If the selected file is not a valid Palette JSON file type, nothing will happen._
+    - _If the selected file is not a valid Palette JSON file type, nothing will happen._
     
     TIP:
         #display: orange
@@ -1613,6 +1627,8 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
 Reload preset with "F3H affine style" changes:
     #id: IN
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
@@ -1642,6 +1658,8 @@ Remap pre_gaussian_blur [Icon:DATATYPES/boolean]:
 Reload preset with remap "pre_gaussian_blur" changes:
     #id: IN
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
@@ -1830,14 +1848,16 @@ OUT file ( *.flame type ):
 Save Flame:
     #id: OUT
     [Largeicon:opdef:.?iconWhiteStarSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
-    - If the selected file does not exist, it will be created.
-    - If the selected file is not a valid Flame file type, nothing will happen.
+    - _If the selected file does not exist, it will be created_.
+    - _If the selected file is not a valid Flame file type, nothing will happen_.
     
     TIP:
         #display: orange
@@ -1902,6 +1922,8 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
     Copy the selected OUT preset name into the Flame name string field.
 
     This is handy if you are saving variations of the same flame and you want to quickly get the same Flame name to save instead of typing it every time.
+
+    _Usage_:
     
     - ((LMB)) to copy the selected OUT preset name into the Flame name string field.
     
@@ -2051,6 +2073,8 @@ Edit render properties [Icon:DATATYPES/boolean]:
 Render properties utils:
     #id: OUT
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
     
     - ((LMB)) to reset all OUT render properties.
     - ((CTRL)) + ((LMB)) to reset only the OUT Camera sensor properties.
