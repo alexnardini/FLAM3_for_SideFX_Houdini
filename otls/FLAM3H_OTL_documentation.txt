@@ -454,7 +454,7 @@ IN Preset reload:
     #id: SYS
     
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
-    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.<br />This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset IN: infos are visible inside.
 
     _Usage_:
     
@@ -462,7 +462,10 @@ IN Preset reload:
     - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
 
-    The render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
+    _Additionally_:
+
+    - When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (PRE, VAR, POST) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
 
     TIP:
         #display: orange
@@ -1531,7 +1534,7 @@ Reload:
     #id: IN
 
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when no Flame preset has been loaded.
-    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset.<br />This indicate that a Flame preset stats infos are visible inside the IN Tab.
+    - [Largeicon:opdef:.?iconWhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset IN: infos are visible inside.
     
     _Usage_:
     
@@ -1539,9 +1542,10 @@ Reload:
     - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
 
-    When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load.
+    _Additionally_:
 
-    If a Flame preset contain more variations than the allowed number in any of the available sections (PRE, VAR, POST) in an iterator or FF, the variations in excess will be skipped and printed to the console.
+    - When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (PRE, VAR, POST) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
     
     TIP:
         #display: orange
@@ -1684,7 +1688,7 @@ Reload preset with "Copy render properties on Load" changes:
 :box:
     #display: rounded white
 
-    == IN: Preset infos == (INPRESETINFOS)
+    == IN: infos == (INPRESETINFOS)
     
 infos Tab:
     #id: IN
@@ -1700,8 +1704,8 @@ infos Tab:
 
     TIP:
         #display: orange
-        - Next and at the end of the *`Software`* info, the text *`-> Clipboard`* will appear when loading a Flame preset from the clipboard.
-        - Next and at the end of the *`Palette count`* info, the text *`-> HSV`* will appear if the loaded Flame preset is using HSV values different from defaults.
+        - Next and at the end of the *`Software`* info, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
+        - Next and at the end of the *`Palette count`* info, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
     
 :box:
     #display: rounded white
