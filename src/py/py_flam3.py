@@ -13561,7 +13561,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if prm_prefs_256_plus.eval():
             if len(rmp_src.keys()) <= 256:
                 _MSG = f"OUT: Palette do not have more than 256 color keys"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with 256 color keys.", 'WARN')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with 256 color keys.", 'IMP')
             else:
                 _MSG = f"OUT Palette 256+: ACTIVE"
                 flam3h_general_utils.flash_message(node, _MSG)
