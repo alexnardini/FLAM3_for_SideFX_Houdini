@@ -107,6 +107,8 @@ _Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:TOP/xmlinput] the data this parameter represent or enable will be stored into the XML flame file on save.
 
+- [Icon:DATATYPES/string] it is a string.
+
 - [Icon:NETVIEW/time_dependent_badge] it is time dependant.
 
 - [Icon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
@@ -569,7 +571,7 @@ number of iterators [Icon:TOP/xmlinput]:
     
     == Iterator == (FLAMEITER)
 
-note [Icon:TOP/xmlinput]:
+note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     A name for this iterator.
     
@@ -636,7 +638,7 @@ W [Icon:TOP/xmlinput]:
 
     == Iterator: Xaos == (FLAMEITERXAOS)
     
-xaos [Icon:TOP/xmlinput]:
+xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     
     _From Fractorium help page._
@@ -1013,7 +1015,7 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     Enable and disable [finalXform|#FF] transform/iterator.
         
-FF: note [Icon:TOP/xmlinput]:
+FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
     A name for this FF iterator.
     
@@ -1278,7 +1280,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     
     == CP: Load/Save file == (CPLOAD)
     
-JSON file:
+JSON file [Icon:DATATYPES/string]:
     #id: PALETTE
     
     [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
@@ -1328,7 +1330,7 @@ Save Palette:
         - When saving out a palette file, it will try to downsample the usual 256 color count standard.
         - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
-Palette name:
+Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
     Write a name to give to the selected palette when saving it.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
@@ -1485,7 +1487,7 @@ viz mb [Icon:DATATYPES/boolean]:
 
     == IN == (INF)
 
-IN file ( *.flame type ):
+IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     #id: IN
     
     [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
@@ -1829,7 +1831,7 @@ TIP:
 
     == OUT == (OUTF)
     
-OUT file ( *.flame type ):
+OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
     #id: OUT
     
     [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
@@ -1881,7 +1883,7 @@ Save Flame:
         
         This is true also for applications like Apophysis and Fractorium as they obey the same rule.
     
-Flame name (OUT) [Icon:TOP/xmlinput]:
+Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: OUT
     Write a name to give to the selected Flame when saving it out.
     If no name is provided, an automated name composed of today's date and current time will be used instead.
