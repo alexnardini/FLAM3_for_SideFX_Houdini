@@ -13560,14 +13560,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         rmp_src = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         if prm_prefs_256_plus.eval():
             if len(rmp_src.keys()) <= 256:
-                _MSG = f"OUT: Palette do not have more than 256 color keys"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with a Palette sampled at 256 color keys.", 'IMP')
+                _MSG = f"OUT: CP palette do not have more than 256 color keys"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with a Palette sampled at 256 color keys, which is the standard for fractal flames.", 'IMP')
             else:
-                _MSG = f"OUT Palette 256+: ACTIVE"
+                _MSG = f"OUT palette 256+: ACTIVE"
                 flam3h_general_utils.flash_message(node, _MSG)
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
         else:
-            _MSG = f"OUT Palette 256+: OFF"
+            _MSG = f"OUT palette 256+: OFF"
             flam3h_general_utils.flash_message(node, _MSG)
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
 
