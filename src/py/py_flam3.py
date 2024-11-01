@@ -3587,7 +3587,7 @@ iterator_vactive_and_update(self) -> None:
             
             _MSG = "Iterator var menus: SIMPLE"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             
         else:
             self.destroy_data(node, 'vars_menu_all_simple')
@@ -4003,12 +4003,12 @@ iterator_vactive_and_update(self) -> None:
                     else:
                         _MSG = "Ops! That did not work!"
                         flam3h_general_utils.flash_message(node, f"{_MSG}")
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'IMP')
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'WARN')
                     
                 else:
                     _MSG = "Ops! That did not work!"
                     flam3h_general_utils.flash_message(node, f"{_MSG}")
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'IMP')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'WARN')
         
         # reset selection to null value
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
@@ -4091,7 +4091,7 @@ iterator_vactive_and_update(self) -> None:
             node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: vals.get(sel)}) # type: ignore
             _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name.get(sel)} \" -> SET"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
   
         # reset to null value so we can set the same preset again
         node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
@@ -4528,10 +4528,10 @@ iterator_vactive_and_update(self) -> None:
                 
                 if __FLAM3H_DATA_PRM_MPIDX == -1:
                     _MSG = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
-                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 else:
                     _MSG = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator is from node: {from_FLAM3H_NODE.name()}.iterator.{str(mp_id_from)}" # type: ignore
-                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
 
     def prm_paste_CLICK(self, id: int) -> None:
@@ -4560,7 +4560,7 @@ iterator_vactive_and_update(self) -> None:
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
                 
             else:
@@ -4569,7 +4569,7 @@ iterator_vactive_and_update(self) -> None:
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
                 _MSG = f"{self.node.name()} -> This iterator is already Marked." # type: ignore
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
         else:
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = id # type: ignore
@@ -4584,7 +4584,7 @@ iterator_vactive_and_update(self) -> None:
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
             _MSG = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
 
 
@@ -4618,7 +4618,7 @@ iterator_vactive_and_update(self) -> None:
             with hou.undos.group(f"FLAM3H reset iterator {idx}"): # type: ignore
                 self.flam3h_reset_iterator()
                 _MSG = f"{node.name()}: Iterator {idx} -> RESET"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
@@ -4727,7 +4727,7 @@ iterator_vactive_and_update(self) -> None:
             self.set_comment_and_user_data_iterator(node, "Yes", FLAM3H_USER_DATA_FF)
             
             _MSG = f"{self.node.name()}: FF MARKED" # type: ignore
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"FF MARKED")
 
 
@@ -4991,7 +4991,7 @@ iterator_vactive_and_update(self) -> None:
             _MSG = f"{node.name()}: XAOS Mode -> FROM"
         else:
             _MSG = f"{node.name()}: XAOS Mode -> TO"
-        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
 
@@ -6233,7 +6233,7 @@ reset_CP_palette_action(self) -> None:
                 node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"}) # type: ignore
                 
                 if palette_plus_msg and node.parm(OUT_PALETTE_256_PLUS).eval():
-                    _MSG = f"OUT Palette 256+: ACTIVE"
+                    _MSG = f"OUT Palette 256+: ON"
                     flam3h_general_utils.flash_message(node, _MSG)
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
         else:
@@ -13563,7 +13563,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 _MSG = f"OUT: CP palette do not have more than 256 color keys"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with a Palette sampled at 256 color keys, which is the standard for fractal flames.", 'IMP')
             else:
-                _MSG = f"OUT palette 256+: ACTIVE"
+                _MSG = f"OUT palette 256+: ON"
                 flam3h_general_utils.flash_message(node, _MSG)
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
         else:
