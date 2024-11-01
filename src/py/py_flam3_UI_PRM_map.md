@@ -742,6 +742,12 @@ return menu
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_label_callback()
 ```
 # OUT Tab
+# parameter name:    `outpaletteplus`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
+```
+# OUT Tab
 # parameter name:    `autoadditer`
 ### Callback Script
 ```python
