@@ -11273,8 +11273,8 @@ reset_IN(self, mode: int=0) -> None:
             
         # build msgs
         cb = ''
-        if clipboard: cb =  " [CLIPBOARD]"
-        sw = f"Software: {apo_data.sw_version[preset_id]}{cb}"
+        if clipboard: cb =  "[CLIPBOARD]"
+        sw = f"Software: {apo_data.sw_version[preset_id]} {cb}"
         name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"Iterators count: {str(len(apo_data.xforms))}"
         post = f"Post affine: {post_bool_msg}"
