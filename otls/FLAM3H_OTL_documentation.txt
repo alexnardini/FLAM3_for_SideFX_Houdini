@@ -2291,9 +2291,9 @@ cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
     Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
     
     :warning:
-        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "incredibly slow".
+        Double precision 64 bits will be really slow. I'm saying it again: "really slow".
 
-        Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
+        Unless you notice some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit which is the default.
 
 :box:
     #display: rounded white
