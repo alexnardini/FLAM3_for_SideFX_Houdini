@@ -12448,7 +12448,7 @@ reset_IN(self, mode: int=0) -> None:
                 
             else:
                 _MSG = "Render Properties Clipboard: Nothing to load"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. Copy a Flame into the clipboard first to copy its render properties into here.", 'IMP')
                 flam3h_general_utils.flash_message(node, _MSG)
 
 
