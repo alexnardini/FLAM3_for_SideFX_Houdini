@@ -2290,8 +2290,8 @@ cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
     #id: prefs
     Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
     
-    NOTE:
-        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "Really slow."
+    :warning:
+        Double accuracy in 64 bits will be incredibly slow. I'll say it again: "incredibly slow".
 
         Unless you see some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit.
 
@@ -2308,7 +2308,7 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
 
     _Some of the menu labels posses a bookmark icon_:
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
     
     NOTE:
         Xaos FROM mode will internally be changed into xaos TO on save and reloaded as xaos TO when saving out Flame files.
@@ -2328,7 +2328,7 @@ camera handle [Icon:DATATYPES/boolean]:
     
     
     :warning:
-        *TURN THIS OFF WHEN RENDERING.*
+        Turn this OFF when rendering.
 
     
 camera cull [Icon:DATATYPES/boolean]:
@@ -2362,11 +2362,11 @@ menu type [Icon:BUTTONS/pane_menu]:
 
     _Some of the menu labels posses a bookmark icon_:
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] _mark the default preset_.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
 
     TIP:
         #display: orange
-        At the moment of this writing, if you are using H20 and up<br />
+        At the moment of this writing, if you are using H20.5 and up<br />
         it is suggested to go to: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to *`OpenGL`* as it is much much faster with higher points count in the viewport.<br />
         
         A restart of Houdini is required for this change to take effect.
