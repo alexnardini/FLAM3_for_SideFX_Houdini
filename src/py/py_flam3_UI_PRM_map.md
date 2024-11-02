@@ -33,7 +33,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.5.50 - Gold'
+FLAM3H_VERSION = '1.5.52 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -827,6 +827,42 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
+```
+# OUT Tab
+# parameter name:    `icon_f3h_cc_modified_reset`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node'])
+```
+# OUT Tab
+# parameter name:    `outcurvesval`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+```
+# OUT Tab
+# parameter name:    `outcurveoverallval`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+```
+# OUT Tab
+# parameter name:    `outcurveredval`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+```
+# OUT Tab
+# parameter name:    `outcurvegreenval`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+```
+# OUT Tab
+# parameter name:    `outcurveblueval`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 
 <br>

@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.50'
+FLAM3H_VERSION = '1.5.52'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -238,6 +238,8 @@ OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_SENSOR_ENTER = 'out_sensorviz_disabled'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
 # Curves
+OUT_TOGGLE_CC_DEFAULTS_MSG = 'outccdefault'
+OUT_LABEL_CC_DEFAULTS_MSG = 'label_outccdefault'
 OUT_RENDER_PROPERTIES_CURVES = 'outcurvesval'
 OUT_RENDER_PROPERTIES_CURVE_OVERALL = 'outcurveoverallval'
 OUT_RENDER_PROPERTIES_CURVE_RED = 'outcurveredval'
@@ -1191,8 +1193,7 @@ flam3h_on_deleted(self) -> None:
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
         
         # OUT render curves reset and set
-        out_flame_utils.out_render_curves_set_defaults(node)
-        out_flame_utils.out_render_curves_retrive_data(node)
+        out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
 
 
 
@@ -5441,8 +5442,7 @@ iterator_vactive_and_update(self) -> None:
         self.sierpinski_settings(node)
         
         # OUT render curves reset and set
-        out_flame_utils.out_render_curves_set_defaults(node)
-        out_flame_utils.out_render_curves_retrive_data(node)
+        out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
 
         # init/clear copy/paste iterator's data and prm if needed.
         self.flam3h_paste_reset_hou_session_data()
@@ -5772,8 +5772,7 @@ iterator_vactive_and_update(self) -> None:
             self.flam3h_paste_reset_hou_session_data()
             
             # OUT render curves reset and set
-            out_flame_utils.out_render_curves_set_defaults(node)
-            out_flame_utils.out_render_curves_retrive_data(node)
+            out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
             
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: {_MSG_str}"
@@ -10759,6 +10758,7 @@ reset_IN(self, mode: int=0) -> None:
         return build_render_stats_msg
     
     
+    
     @staticmethod
     def in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
@@ -10835,6 +10835,8 @@ reset_IN(self, mode: int=0) -> None:
             
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
+            # Check if the CC curves are at their default values or not and set the toggle
+            out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
@@ -10843,7 +10845,8 @@ reset_IN(self, mode: int=0) -> None:
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
             
-            _MSG = f"IN Preset properties: COPIED"
+            if clipboard: _MSG = f"IN Preset render properties from Clipboard: COPIED"
+            else: _MSG = f"IN Preset render properties: COPIED"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             flam3h_general_utils.flash_message(node, _MSG)
             
@@ -10960,6 +10963,8 @@ reset_IN(self, mode: int=0) -> None:
             
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
+            # Check if the CC curves are at their default values or not and set the toggle
+            out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
@@ -12636,6 +12641,10 @@ out_render_curves_set_defaults(node: hou.SopNode) -> None:
 
 out_render_curves_retrive_data(node: hou.SopNode) -> None:
 
+out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
+
+out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
+
 out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
 out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -12796,6 +12805,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     @staticmethod
     def out_render_curves_set_defaults(node: hou.SopNode) -> None:
+        """Set the defaults values into the color correction curves data parameters.
+
+        Args:
+            (None):
+
+        Returns:
+            (None):
+        """
         # render curves
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
@@ -12806,6 +12823,15 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
     @staticmethod
     def out_render_curves_retrive_data(node: hou.SopNode) -> None:
+        """Retrieve the data from color correction curves data parameters
+        and copy it into the correcsponding color correction curves UI parameters.
+
+        Args:
+            (None):
+
+        Returns:
+            (None):
+        """
         # render curves data
         prm_data: dict[str, hou.parm()] = { 'prm_curves': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)), # type: ignore
                                             'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
@@ -12822,11 +12848,50 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                                             'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
                                         }
         
+        # Unlock, Set and Lock again
         [prm.lock(False) for prm in prm_ui.values()]
         [prm_ui.get(key).set(prm_data.get(key).eval()) for key in prm_ui.keys()] # type: ignore
         [prm.lock(True) for prm in prm_ui.values()]
         
     
+    @staticmethod
+    def out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
+        """Set the defaults values into the color correction curves data parameters
+        and copy it into the correcsponding color correction curves UI parameters.
+
+        Args:
+            (None):
+
+        Returns:
+            (None):
+        """
+        out_flame_utils.out_render_curves_set_defaults(node)
+        out_flame_utils.out_render_curves_retrive_data(node)
+        node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
+        node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
+
+        
+    @staticmethod
+    def out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
+        """Check if the color correction curves data parameters are at their default values
+        and set the UI heading label parameter accordingly.
+
+        Args:
+            (None):
+
+        Returns:
+            (None):
+        """
+        cc_o = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
+        cc_r = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
+        cc_g = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
+        cc_b = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
+        if cc_o == cc_r == cc_g == cc_b:
+            node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
+            node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
+        else:
+            node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset'}) # type: ignore
+            node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 1}) # type: ignore
         
     
     @staticmethod
@@ -13926,14 +13991,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         kwargs = self.kwargs
             
         if kwargs['shift']:
-            # Reset only the Render settings
-            self.reset_OUT_render()
-            flam3h_general_utils.flash_message(self.node, f"OUT Render settings: RESET")
-            
-        elif kwargs['ctrl']:
             # Reset only the Camera Sensor
             self.reset_OUT_sensor()
             flam3h_general_utils.flash_message(self.node, f"OUT Camera sensor: RESET")
+            
+        elif kwargs['ctrl']:
+            # Reset only the Render settings
+            self.reset_OUT_render()
+            flam3h_general_utils.flash_message(self.node, f"OUT Render settings: RESET")
             
         elif kwargs['alt']:
             # Copy only the Render Properties of a Flame preset from the Clipboard
@@ -13943,6 +14008,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             # Reset all render properties
             self.reset_OUT_sensor()
             self.reset_OUT_render()
+            self.out_render_curves_set_and_retrieve_defaults(kwargs['node'])
             flam3h_general_utils.flash_message(self.node, f"OUT Render properties: RESET")
         
         if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():

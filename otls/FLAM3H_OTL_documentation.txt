@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.50 - Gold
+#version: 1.5.52 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -1721,11 +1721,11 @@ Copy/Paste preset properties:
     #id: IN
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg]
     
-    When you click this icon, all those render properties (SENSOR and RENDER) will be copied and pasted into the render properties of the OUT tab.
+    When you click this icon, all those render properties (SENSOR, RENDER and CURVES settings) will be copied and pasted into the render properties of the OUT tab.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
+    When loading a Flame preset from the clipboard, all its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
         
 
 Copy/Paste SENSOR/RENDER settings:
@@ -1759,7 +1759,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.50" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.52" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2012,7 +2012,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.50" ... >
+          <flame version="FLAM3H-WIN-1.5.52" ... >
               ...
         }}}
         
@@ -2021,7 +2021,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.50" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.52" ... >
               ...
         }}}
         
@@ -2065,12 +2065,12 @@ Render properties utils:
     _Usage_:
     
     - ((LMB)) to reset all OUT render properties.
-    - ((CTRL)) + ((LMB)) to reset only the OUT Camera sensor properties.
-    - ((SHIFT)) + ((LMB)) to reset only the OUT Render settings properties.
+    - ((CTRL)) + ((LMB)) to reset only the OUT Render settings properties.
+    - ((SHIFT)) + ((LMB)) to reset only the OUT Camera sensor properties.
 
     _Additionally_:
 
-    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (SENSOR, RENDER and CURVES setttings). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
     
     
 :box:
@@ -2124,11 +2124,11 @@ Copy/Paste render properties:
     
     When you load a Flame file in the IN tab, this icon will become available.
     
-    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here.
+    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (SENSOR, RENDER and CURVES settings).
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    The render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
+    All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
     
 Center [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2183,30 +2183,44 @@ Vibrancy [Icon:TOP/xmlinput]:
 
     == OUT: XML render color correction curves == (OUTEDITRENCCCURVES)
 
-    _FLAM3H is able to load in the color correction curves data coming from Fractorium. They will be stored inside here so that if you then make any modification to the Flame, the color corrections will be kept once you save the Flame out againf from FLAM3H._
+Reset curves:
+    #id: OUT
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    - It indicate that the color correction curves are at their default values (no color correction).
 
-    _When you load a Flame, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings._
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg]
+    - It indicate that the color correction curves are different from their default values (color correction is active).
+    - ((LMB)) to Reset all the render color correction curves data to their defaults (no color correction).
+
+
+:box:
+    #display: rounded gray
+
+    *Color correction curves* [Icon:TOP/xmlinput] [Icon:DATATYPES/string]<br /><br />
+    FLAM3H is able to load in the color correction curves data coming from Fractorium. They will be stored inside here so that if you then make any modification to the loaded Flame preset, the color corrections curves will be kept once you save the Flame out again from FLAM3H.
+
+    When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
     
-    _Please remeber that every time you load a Flame IN from a file, the render properties wont be loaded just yet, but you will have to manually click the copy render properties button yourself._<br />
-    _(You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR])._
+    Please remember that every time you load a Flame IN from a file, the render properties wont be loaded just yet, but you will have to manually click the copy render properties button yourself after so that it wont modify settings you have been working on everytime you load a Flame preset in but if you desire to do so, you can toggle ON the IN option: *copy render properties on load*.<br />
+    ( You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR] ).
     
-    _When a Flame is loaded from the clipboard, if it posses any color correction curves data it will automatically be stored inside here._
+    When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
 
-    _If a Flame do not posses any color correction curves data, default values (no color correction) will be used instead._
+    If a Flame preset do not posses any color correction curves data, default values (no color correction) will be used instead.
 
-    _Below a list of Fractorium  color correction curves XML keys being used:_
+_Below a list of Fractorium  color correction curves XML keys being used:_
 
-    :box:
-        #display: rounded gray
+:box:
+    #display: rounded gray
 
-        _*Fractorium CC*_<br /> 
-        _color correction curves_:
+    _*Fractorium CC*_<br /> 
+    _color correction curves_:
 
-        - [Icon:TOP/xmlinput] *`curves`* -> _Store all curves data all together_
-        - [Icon:TOP/xmlinput] *`overall_curve`* -> _Store the Overall curve data (Luminance)_
-        - [Icon:TOP/xmlinput] *`red_curve`* -> _Store the Red curve data_
-        - [Icon:TOP/xmlinput] *`green_curve`* -> _Store the Green curve data_
-        - [Icon:TOP/xmlinput] *`blue_curve`* -> _Store the Blue curve data_
+    - [Icon:TOP/xmlinput] *`curves`* -> _Store all curves data_
+    - [Icon:TOP/xmlinput] *`overall_curve`* -> _Store the Overall curve data (Luminance)_
+    - [Icon:TOP/xmlinput] *`red_curve`* -> _Store the Red curve data_
+    - [Icon:TOP/xmlinput] *`green_curve`* -> _Store the Green curve data_
+    - [Icon:TOP/xmlinput] *`blue_curve`* -> _Store the Blue curve data_
 
 
 :box:
