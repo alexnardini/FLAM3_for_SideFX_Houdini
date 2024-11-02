@@ -357,7 +357,7 @@ loaddef:
     
     Load/reset to default Sierpiński triangle preset.
 
-    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults.
+    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (SENSOR, RENDER and CURVES settings).
 
 :box:
     #display: rounded white
@@ -548,6 +548,8 @@ number of iterators [Icon:TOP/xmlinput]:
     This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
+
+    When the number of iterators is set to *`0`*(Zero), it will also reset the FLAM3H UI to its defaults including the OUT render properties (SENSOR, RENDER and CURVES settings).
 
     _The following control icons are provided_:
 
@@ -2174,6 +2176,37 @@ Logscale K2 [Icon:TOP/xmlinput]:
 Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame render setting: vibrancy.
+
+
+:box:
+    #display: rounded white
+
+    == OUT: XML render color correction curves == (OUTEDITRENCCCURVES)
+
+    _FLAM3H is able to load in the color correction curves data coming from Fractorium. They will be stored inside here so that if you then make any modification to the Flame, the color corrections will be kept once you save the Flame out againf from FLAM3H._
+
+    _When you load a Flame, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings._
+    
+    _Please remeber that every time you load a Flame IN from a file, the render properties wont be loaded just yet, but you will have to manually click the copy render properties button yourself._<br />
+    _(You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR])._
+    
+    _When a Flame is loaded from the clipboard, if it posses any color correction curves data it will automatically be stored inside here._
+
+    _If a Flame do not posses any color correction curves data, default values (no color correction) will be used instead._
+
+    _Below a list of Fractorium  color correction curves XML keys being used:_
+
+    :box:
+        #display: rounded gray
+
+        _*Fractorium CC*_<br /> 
+        _color correction curves_:
+
+        - [Icon:TOP/xmlinput] *`curves`* -> _Store all curves data all together_
+        - [Icon:TOP/xmlinput] *`overall_curve`* -> _Store the Overall curve data (Luminance)_
+        - [Icon:TOP/xmlinput] *`red_curve`* -> _Store the Red curve data_
+        - [Icon:TOP/xmlinput] *`green_curve`* -> _Store the Green curve data_
+        - [Icon:TOP/xmlinput] *`blue_curve`* -> _Store the Blue curve data_
 
 
 :box:
