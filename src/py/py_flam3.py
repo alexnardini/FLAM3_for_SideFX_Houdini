@@ -11243,34 +11243,23 @@ reset_IN(self, mode: int=0) -> None:
             if item:
                 pb_bool = True
                 break
-        if min(apo_data.opacity) == 0.0:
-            opacity_bool = True
-        if apo_data.post is not None:
-            post_bool = True
-        if apo_data.xaos is not None:
-            xaos_bool = True
-        if apo_data.palette is not None:
-            palette_bool = True
-        if apo_data.finalxform is not None:
-            ff_bool = True
-        if apo_data.finalxform_post is not None:
-            ff_post_bool = True
+        
+        if min(apo_data.opacity) == 0.0: opacity_bool = True
+        if apo_data.post is not None: post_bool = True
+        if apo_data.xaos is not None: xaos_bool = True
+        if apo_data.palette is not None: palette_bool = True
+        if apo_data.finalxform is not None: ff_bool = True
+        if apo_data.finalxform_post is not None: ff_post_bool = True
         # custom to FLAM3H only
-        if apo_data.mb_flam3h_fps is not False:
-            flam3h_mb_bool = True
+        if apo_data.mb_flam3h_fps is not False: flam3h_mb_bool = True
             
         # checks msgs
         opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
         
-        if opacity_bool:
-            opacity_bool_msg = "YES"
-        if post_bool:
-            post_bool_msg = "YES"
-        if xaos_bool:
-            xaos_bool_msg = "YES"
-        if ff_post_bool:
-            ff_post_bool_msg = "YES"
-
+        if opacity_bool: opacity_bool_msg = "YES"
+        if post_bool: post_bool_msg = "YES"
+        if xaos_bool: xaos_bool_msg = "YES"
+        if ff_post_bool: ff_post_bool_msg = "YES"
             
         # build msgs
         cb = ''
@@ -11283,23 +11272,16 @@ reset_IN(self, mode: int=0) -> None:
         xaos = f"Xaos: {xaos_bool_msg}"
         
         mb = nnl
-        if flam3h_mb_bool:
-            mb = f"Motion blur{nnl}"
+        if flam3h_mb_bool: mb = f"Motion blur{nnl}"
             
         ff_msg = ""
-        if ff_bool:
-            ff_msg = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
-        else:
-            ff_msg = f"FF: NO\n"
+        if ff_bool: ff_msg = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
+        else: ff_msg = f"FF: NO\n"
             
         if palette_bool:
-            if apo_data.cp_flam3h_hsv is not False:
-                # custom to FLAM3H only
-                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}"
-            else:
-                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
-        else:
-            palette_count_format = f"Palette not found."
+            if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}" # custom to FLAM3H only
+            else: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+        else: palette_count_format = f"Palette not found."
         
         # ITERATOR COLLECT
         exclude_keys = XML_XF_KEY_EXCLUDE
@@ -11321,8 +11303,7 @@ reset_IN(self, mode: int=0) -> None:
             
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         
-        if pb_bool:
-            vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
+        if pb_bool: vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
             
         result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
@@ -11333,14 +11314,11 @@ reset_IN(self, mode: int=0) -> None:
         
         # Build and set descriptive parameter msg
         if clipboard: preset_name = apo_data.name[0]
-        else:
-            # Get the correct menu parameter's preset menu label
-            # The apo_data.name[idx] is used for the descriptive parameter
-            # so to not print the icon path into the name.
-            preset_name = apo_data.name[preset_id]
+        else: preset_name = apo_data.name[preset_id]    # Get the correct menu parameter's preset menu label
+                                                        # The apo_data.name[idx] is used for the descriptive parameter
+                                                        # so to not print the icon path into the name.
                 
-        descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n",
-                            f"{out_flame_utils.out_remove_iter_num(preset_name)}", )
+        descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}", )
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
         # Build MISSING
@@ -11361,8 +11339,7 @@ reset_IN(self, mode: int=0) -> None:
         vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
         vars_missing_msg = ""
-        if vars_missing:
-            vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+        if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
         
         # Build UNKNOWN
@@ -11377,8 +11354,7 @@ reset_IN(self, mode: int=0) -> None:
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
         
         flame_lib_locked = ""
-        if flam3h_general_utils.isLOCK(in_path_checked):
-            flame_lib_locked = MSG_FLAMESTATS_LOCK
+        if flam3h_general_utils.isLOCK(in_path_checked): flame_lib_locked = MSG_FLAMESTATS_LOCK
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette is not None and apo_data.palette[1] > 256:
             palette_msg: str = node.parm(MSG_PALETTE).eval()
