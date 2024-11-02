@@ -10774,7 +10774,7 @@ reset_IN(self, mode: int=0) -> None:
             preset_id = 0
             f3r = apo_data
         else:
-            xml = node.parm(IN_PATH).eval()
+            xml = os.path.expandvars(node.parm(IN_PATH).eval())
             
             # Get the correct menu parameter's preset idx
             if node.parm(IN_ISVALID_PRESET).eval():
@@ -12092,7 +12092,7 @@ reset_IN(self, mode: int=0) -> None:
                 
                 # if "copy render properties on Load" is checked
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                    self.in_copy_render_stats_msg(self.kwargs)
+                    self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
                     
         # And this when we are loading a Flame preset from the Clipboard to only copy its Render properties
         else:
