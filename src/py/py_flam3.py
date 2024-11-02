@@ -237,6 +237,12 @@ OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_SENSOR_ENTER = 'out_sensorviz_disabled'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
+# Curves
+OUT_RENDER_PROPERTIES_CURVES = 'outcurvesval'
+OUT_RENDER_PROPERTIES_CURVE_OVERALL = 'outcurveoverallval'
+OUT_RENDER_PROPERTIES_CURVE_RED = 'outcurveredval'
+OUT_RENDER_PROPERTIES_CURVE_GREEN = 'outcurvegreenval'
+OUT_RENDER_PROPERTIES_CURVE_BLUE = 'outcurveblueval'
 
 # Those Null node names are hard coded here and represent the nodes name's prefix.
 # If you change those Null node names inside the FLAM3H houdini HDA network, update those global variables as well.
@@ -1183,6 +1189,10 @@ flam3h_on_deleted(self) -> None:
         # Remove any comment and user data from the node
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+        
+        # OUT render curves reset and set
+        out_flame_utils.out_render_curves_set_defaults(node)
+        out_flame_utils.out_render_curves_retrive_data(node)
 
 
 
@@ -5430,6 +5440,10 @@ iterator_vactive_and_update(self) -> None:
         # Sierpiński triangle settings
         self.sierpinski_settings(node)
         
+        # OUT render curves reset and set
+        out_flame_utils.out_render_curves_set_defaults(node)
+        out_flame_utils.out_render_curves_retrive_data(node)
+
         # init/clear copy/paste iterator's data and prm if needed.
         self.flam3h_paste_reset_hou_session_data()
         
@@ -5756,6 +5770,10 @@ iterator_vactive_and_update(self) -> None:
             
             # init/clear copy/paste iterator's data and prm
             self.flam3h_paste_reset_hou_session_data()
+            
+            # OUT render curves reset and set
+            out_flame_utils.out_render_curves_set_defaults(node)
+            out_flame_utils.out_render_curves_retrive_data(node)
             
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: {_MSG_str}"
@@ -7746,11 +7764,11 @@ OUT_XML_FLAME_INTERPOLATION_TYPE = 'interpolation_type'
 # OUT XML Curves
 OUT_XML_FLAME_RENDER_CURVES = 'curves'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT = "0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 "
-OUT_XML_FLAME_RENDER_CURVE_DEFAULT = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
 OUT_XML_FLAME_RENDER_CURVE_OVERALL = 'overall_curve'
 OUT_XML_FLAME_RENDER_CURVE_RED = 'red_curve'
 OUT_XML_FLAME_RENDER_CURVE_GREEN = 'green_curve'
 OUT_XML_FLAME_RENDER_CURVE_BLUE = 'blue_curve'
+OUT_XML_FLAME_RENDER_CURVE_DEFAULT = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1 "
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
 # Note that those are the FLAM3H UI parameter's names for the OUT Render properties tab.
@@ -7764,7 +7782,12 @@ OUT_XML_RENDER_HOUDINI_DICT: dict = {   XML_XF_NAME: OUT_FLAME_PRESET_NAME,
                                         OUT_XML_FLAME_GAMMA: 'outgamma',
                                         OUT_XML_FLAME_POWER: 'outhighlight',
                                         OUT_XML_FLAME_K2: 'outk2',
-                                        OUT_XML_FLAME_VIBRANCY: 'outvibrancy'  
+                                        OUT_XML_FLAME_VIBRANCY: 'outvibrancy',
+                                        OUT_XML_FLAME_RENDER_CURVES: 'outcurves',
+                                        OUT_XML_FLAME_RENDER_CURVE_OVERALL: 'outcurveoverall',
+                                        OUT_XML_FLAME_RENDER_CURVE_RED: 'outcurvered',
+                                        OUT_XML_FLAME_RENDER_CURVE_GREEN: 'outcurvegreen',
+                                        OUT_XML_FLAME_RENDER_CURVE_BLUE: 'outcurveblue'
                                     }
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
@@ -8208,7 +8231,9 @@ METHODS:
 
 get_name(self, key=XML_XF_NAME) -> tuple:
 
-__get_name_val_str(self, key: str) -> tuple:
+__get_name_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
+
+__get_name_curve_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
 
 __get_name_list_str(self, key: str) -> tuple:
 
@@ -8355,9 +8380,7 @@ __get_flame_count(self, flames: list) -> int:
         return self._sw_version
     
     
-
-
-
+    
 
     # This not private as its cheaper to have it evaluate from this parent class.
     def get_name(self, key: str=XML_XF_NAME) -> tuple:
@@ -8377,7 +8400,7 @@ __get_flame_count(self, flames: list) -> int:
             return () 
         
         
-    def __get_name_val_str(self, key: str) -> tuple:
+    def __get_name_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
         """Collect all Flame presets single value from the XML Flame file.
 
         Args:
@@ -8385,10 +8408,26 @@ __get_flame_count(self, flames: list) -> int:
 
         Returns:
             Union[tuple, None]: Flame presets names.
-        """        
+        """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key)).strip()) if name.get(key) is not None else [] for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key)).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
+        else:
+            return () 
+        
+        
+    def __get_name_curve_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
+        """Collect all Flame presets single value from the XML Flame file.
+
+        Args:
+            key (str): _description_. Defaults to XML_XF_NAME. The XML Flame's name key.
+
+        Returns:
+            Union[tuple, None]: Flame presets names.
+        """      
+        if self.isvalidtree:
+            root = self.tree.getroot()
+            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key)).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
         else:
             return () 
         
@@ -8459,6 +8498,8 @@ class in_flame
 
 STATIC METHODS:
 
+xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
+
 xf_val_cleanup_str(val: str, default_val: str='0') -> str:
 
 xf_list_cleanup(affine: list, default_val: str='0') -> list:
@@ -8516,6 +8557,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         self._out_highlight_power = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER) # type: ignore
         self._out_logscale_k2 = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2) # type: ignore
         self._out_vibrancy = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY) # type: ignore
+        # render curves
+        self._out_curves = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
+        self._out_curve_overall = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_red = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_green = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_blue = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
         self._flam3h_hsv = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
@@ -8527,6 +8574,30 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
         self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
 
+
+    @staticmethod
+    def xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
+        """ Attempt to remove invalid characters from the passed value.
+        This is specifically for the XML curves data.
+        It will split each knots value and check for invalid chars and if the result is a valid float. If not it will return a '0' string.
+        In the end it will re-join everything for output.
+        
+        Args:
+            val (str): [value from the xml]
+
+        Returns:
+            str: [value cleaned up from invalid characters]
+        """  
+        new = []
+        knots = val.split(' ')
+        for k in knots:
+            clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            new_val = ''.join(clean)
+            try:
+                float(new_val)
+                new.append(new_val)
+            except: new.append(default_val)
+        return ' '.join(new)
 
 
     @staticmethod
@@ -8719,6 +8790,28 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     @property
     def out_vibrancy(self):
         return self._out_vibrancy
+    
+    # render curves
+    
+    @property
+    def out_curves(self):
+        return self._out_curves
+    
+    @property
+    def out_curve_overall(self):
+        return self._out_curve_overall
+    
+    @property
+    def out_curve_red(self):
+        return self._out_curve_red
+    
+    @property
+    def out_curve_green(self):
+        return self._out_curve_green
+    
+    @property
+    def out_curve_blue(self):
+        return self._out_curve_blue
     
     # custom to FLAM3H only
 
@@ -10649,13 +10742,17 @@ reset_IN(self, mode: int=0) -> None:
         vibrancy = f'Vibrancy: {na}'
         if apo_data.out_vibrancy[preset_id]:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
+            
+        if apo_data.out_curve_overall==apo_data.out_curve_red==apo_data.out_curve_green==apo_data.out_curve_blue: curves = f"COLOR CORRECTION: Default"
+        else: curves = f"COLOR CORRECTION:\nCurves, Overall, Red, Green, Blue"
         
         build = (quality, nl,
                  brightness, nl,
                  gamma, nl,
                  highlight, nl,
                  _K2, nl,
-                 vibrancy
+                 vibrancy, nnl,
+                 curves
                  )
         
         build_render_stats_msg = "".join(build)
@@ -10719,6 +10816,26 @@ reset_IN(self, mode: int=0) -> None:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
             except:
                 pass
+            # render curves
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
+            except:
+                pass
+            
+            # OUT render curves ui parm set
+            out_flame_utils.out_render_curves_retrive_data(node)
+            
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
@@ -10824,6 +10941,25 @@ reset_IN(self, mode: int=0) -> None:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
             except:
                 pass
+            # render curves
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
+            except:
+                pass
+            
+            # OUT render curves ui parm set
+            out_flame_utils.out_render_curves_retrive_data(node)
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
@@ -12308,7 +12444,6 @@ reset_IN(self, mode: int=0) -> None:
 
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
-            
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
@@ -12497,6 +12632,10 @@ class out_flame_utils
 
 STATIC METHODS:
 
+out_render_curves_set_defaults(node: hou.SopNode) -> None:
+
+out_render_curves_retrive_data(node: hou.SopNode) -> None:
+
 out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
 out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -12652,6 +12791,40 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         self._flam3h_mb_do = self._node.parm(MB_DO).eval()
         self._flam3h_f3c = self._node.parm(PREFS_F3C).eval()
         self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
+        
+    
+    
+    @staticmethod
+    def out_render_curves_set_defaults(node: hou.SopNode) -> None:
+        # render curves
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        
+        
+    @staticmethod
+    def out_render_curves_retrive_data(node: hou.SopNode) -> None:
+        # render curves data
+        prm_data: dict[str, hou.parm()] = { 'prm_curves': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)), # type: ignore
+                                            'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
+                                            'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
+                                            'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
+                                            'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
+                                        }
+        
+        # render curves parms
+        prm_ui: dict[str, hou.parm()] = {   'prm_curves': node.parm(OUT_RENDER_PROPERTIES_CURVES), # type: ignore
+                                            'prm_curve_overall': node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
+                                            'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
+                                            'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
+                                            'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
+                                        }
+        
+        [prm.lock(False) for prm in prm_ui.values()]
+        [prm_ui.get(key).set(prm_data.get(key).eval()) for key in prm_ui.keys()] # type: ignore
+        [prm.lock(True) for prm in prm_ui.values()]
         
     
         
@@ -14012,14 +14185,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 OUT_XML_FLAME_PALETTE_MODE: 'linear',
                 OUT_XML_FLAME_INTERPOLATION: 'linear',
                 OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
-                
-                # The following are not really needed for our purpose and we assume all curves are defaults to start with.
-                
-                # OUT_XML_FLAME_RENDER_CURVES: f3p.flame_render_curves,
-                # OUT_XML_FLAME_RENDER_OVERALL_CURVE: f3p.flame_overall_curve,
-                # OUT_XML_FLAME_RENDER_RED_CURVE: f3p.flame_red_curve,
-                # OUT_XML_FLAME_RENDER_GREEN_CURVE: f3p.flame_green_curve,
-                # OUT_XML_FLAME_RENDER_BLUE_CURVE: f3p.flame_blue_curve
                 }
         
 
@@ -14217,6 +14382,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         names_VARS_PRE = []
         names_VARS_POST = []
         f3d = out_flame_xforms_data(self.kwargs)
+        f3r = out_flame_render_properties(self.kwargs)
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
@@ -14280,10 +14446,18 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
         names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
         names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
-        # Set unique used 'plugins' and 'new linear' as last
+        # Set unique used 'plugins' and 'new linear'
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
+        # OUT render curves as last
+        flame.set(OUT_XML_FLAME_RENDER_CURVES, f3r.flame_render_curves)
+        flame.set(OUT_XML_FLAME_RENDER_CURVE_OVERALL, f3r.flame_overall_curve)
+        flame.set(OUT_XML_FLAME_RENDER_CURVE_RED, f3r.flame_red_curve)
+        flame.set(OUT_XML_FLAME_RENDER_CURVE_GREEN, f3r.flame_green_curve)
+        flame.set(OUT_XML_FLAME_RENDER_CURVE_BLUE, f3r.flame_blue_curve)
+        
+        # return if this flame is a valid 'flam3'
         return self.out_flam3_compatibility_check_and_msg()
 
 
@@ -14697,13 +14871,13 @@ class out_flame_render_properties(out_flame_utils):
         self._flame_vibrancy = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
         self._flame_highlight = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
         
-        # The following are not really needed for our purpose and we assume all curves are defaults to start with.
-
-        # self._flame_render_curves = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        # self._flame_overall_curve = OUT_XML_FLAME_RENDER_OVERALL_CURVE_VAL
-        # self._flame_red_curve = OUT_XML_FLAME_RENDER_RED_CURVE_VAL
-        # self._flame_green_curve = OUT_XML_FLAME_RENDER_GREEN_CURVE_VAL
-        # self._flame_blue_curve = OUT_XML_FLAME_RENDER_BLUE_CURVE_VAL
+        # OUT render curves
+        # We can directly get the data from the FLAM3H UI parameters since they have been checked on creation already.
+        self._flame_render_curves = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)).eval()
+        self._flame_overall_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()
+        self._flame_red_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()
+        self._flame_green_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()
+        self._flame_blue_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()
         
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
@@ -14764,27 +14938,27 @@ class out_flame_render_properties(out_flame_utils):
     def flame_highlight(self):
         return self._flame_highlight
     
-    # The following are not really needed for our purpose and we assume all curves are defaults to start with.
+    # OUT render curves
     
-    # @property
-    # def flame_render_curves(self):
-    #     return self._flame_render_curves
+    @property
+    def flame_render_curves(self):
+        return self._flame_render_curves
     
-    # @property
-    # def flame_overall_curve(self):
-    #     return self._flame_overall_curve
+    @property
+    def flame_overall_curve(self):
+        return self._flame_overall_curve
     
-    # @property
-    # def flame_red_curve(self):
-    #     return self._flame_red_curve
+    @property
+    def flame_red_curve(self):
+        return self._flame_red_curve
     
-    # @property
-    # def flame_green_curve(self):
-    #     return self._flame_green_curve
+    @property
+    def flame_green_curve(self):
+        return self._flame_green_curve
     
-    # @property
-    # def flame_blue_curve(self):
-    #     return self._flame_blue_curve
+    @property
+    def flame_blue_curve(self):
+        return self._flame_blue_curve
     
     # custom to FLAM3H only
     
