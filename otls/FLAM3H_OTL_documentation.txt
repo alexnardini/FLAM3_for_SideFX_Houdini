@@ -1505,11 +1505,6 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     - A maximum of 3 PRE ( *`pre_blur`* plus 2 of your choise ), 4 VAR and 1 POST variations for each iterator are allowed. 
     ( for a total of 8 vars per iterator ). If it finds more on load, it will just discard the extra one.
     - For FF ( FinalXForm ) you have 1 PRE, 2 VAR and 2 POST available. If it finds more on load, it will just discard the extra one.
-
-    NOTE:
-        FLAM3H does not deal with any image color correction curves that are present inside Fractorium for example.
-
-        Every time you load a Flame authored with Fractorium, those curves' values will be discarded and internally reset to their default values. ( no color correction at all )
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
@@ -1729,13 +1724,6 @@ Copy/Paste preset properties:
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
     When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
-    
-    NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
-        
-        These curves will be overwritten with their default values each time you save a Flame out from FLAM3H. (no color correction)
-
-        This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
 
 Copy/Paste SENSOR/RENDER settings:
@@ -2066,14 +2054,6 @@ Edit render properties [Icon:DATATYPES/boolean]:
     
     They will control how the saved fractal Flame will render inside other applications like Fractorium and Apophysis.
     They are their renderer settings, and they will be exported into the XML file.
-
-    
-    NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
-
-        These curves will be overwritten with their default values each time you save a Flame out from FLAM3H. (no color correction)
-        
-        This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
         
     
 Render properties utils:
@@ -2147,13 +2127,6 @@ Copy/Paste render properties:
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
     The render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load, disabling this icon.
-    
-    NOTE:
-        Any image color correcting curves, such as those found in Fractorium, are not handled by FLAM3H.
-        
-        These curves will be overwritten with their default values each time you save a Flame out from FLAM3H. (no color correction)
-
-        This means that if you save a Flame out again from FLAM3H after loading a Flame created with Fractorium that makes use of its color correcting curves, those curves will be lost.
     
 Center [Icon:TOP/xmlinput]:
     #id: OUT
