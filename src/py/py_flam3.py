@@ -208,6 +208,7 @@ IN_ISVALID_FILE = 'inisvalidfile'
 IN_ISVALID_PRESET = 'inisvalidpreset'
 IN_CLIPBOARD_TOGGLE = 'inclipboard'
 IN_CLIPBOARD_LABEL_MSG = '[CLIPBOARD]'
+IN_HSV_LABEL_MSG = '[HSV]'
 IN_PATH = 'inpath'
 IN_PRESETS = 'inpresets'
 IN_PRESETS_OFF = "inpresets_disabled"
@@ -11273,7 +11274,7 @@ reset_IN(self, mode: int=0) -> None:
             
         # build msgs
         cb = ''
-        if clipboard: cb =  "[CLIPBOARD]"
+        if clipboard: cb =  IN_CLIPBOARD_LABEL_MSG
         sw = f"Software: {apo_data.sw_version[preset_id]} {cb}"
         name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"Iterators count: {str(len(apo_data.xforms))}"
@@ -11294,7 +11295,7 @@ reset_IN(self, mode: int=0) -> None:
         if palette_bool:
             if apo_data.cp_flam3h_hsv is not False:
                 # custom to FLAM3H only
-                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} [HSV]"
+                palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}"
             else:
                 palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
         else:
