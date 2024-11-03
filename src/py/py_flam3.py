@@ -11412,8 +11412,15 @@ reset_IN(self, mode: int=0) -> None:
         opacity = f"Opacity: {opacity_bool_msg}"
         xaos = f"Xaos: {xaos_bool_msg}"
         
-        mb = nnl
-        if flam3h_mb_bool: mb = f"Motion blur{nnl}"
+        # CC (Color correction curves)
+        if apo_data.out_curve_overall == apo_data.out_curve_red == apo_data.out_curve_green == apo_data.out_curve_blue: cc = ''
+        else: cc = 'CC'
+        
+        # MB (Motion blur)
+        if flam3h_mb_bool:
+            if cc: mb = f", MB{nnl}" # not that elegant, but...
+            else: mb = f"MB{nnl}"
+        else: mb = nnl
             
         ff_msg = ""
         if ff_bool: ff_msg = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
@@ -11509,7 +11516,7 @@ reset_IN(self, mode: int=0) -> None:
                     sw, nl,
                     name, nnl,
                     palette_count_format, nl,
-                    mb,
+                    cc, mb,
                     iter_count, nl,
                     post, nl,
                     opacity, nl,
