@@ -13115,7 +13115,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     # not used
     @staticmethod
     def out_util_iterators_vars_duplicate(vars: list) -> list:
-        """Collect duplicate variation's names per each iterator.
+        """NOT USED ANYMORE.
+        Collect duplicate variation's names per each iterator.
 
         Args:
             VARS (list): List of all variation's list names
@@ -13636,7 +13637,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             var_section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
-            Union[dict[str, list[str]], bool]: A dictionary of used variations in this iterator/xform/FF or Falso if none in the desired section (VAR, PRE, POST)
+            Union[dict[str, list[str]], bool]: A dictionary of used variations in this iterator/xform/FF or False if none in the desired section (VAR, PRE, POST)
         """
         # Build var parameter's sections
         if not mode:
