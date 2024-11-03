@@ -1225,6 +1225,9 @@ flam3h_on_deleted(self) -> None:
             # init RIP: Remove Invalid Points
             flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
             
+            # Set color correction curves to their defaults if there is need to do it (ex: hip files with older version of FLAM3H)
+            out_flame_utils.out_render_curves_set_defaults_on_load(node)
+            
             # update about tab just in case
             flam3h_about_utils(self.kwargs).flam3h_about_msg()
             flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
@@ -12654,6 +12657,8 @@ out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
 
 out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
 
+out_render_curves_set_defaults_on_load(node: hou.SopNode):
+
 out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
 out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -12830,6 +12835,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         
         
+        
     @staticmethod
     def out_render_curves_retrive_data(node: hou.SopNode) -> None:
         """Retrieve the data from color correction curves data parameters
@@ -12862,6 +12868,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         [prm_ui.get(key).set(prm_data.get(key).eval()) for key in prm_ui.keys()] # type: ignore
         [prm.lock(True) for prm in prm_ui.values()]
         
+        
     
     @staticmethod
     def out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
@@ -12879,6 +12886,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
         node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
 
+        
         
     @staticmethod
     def out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
@@ -12901,6 +12909,51 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         else:
             node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset'}) # type: ignore
             node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 1}) # type: ignore
+            
+            
+            
+    @staticmethod
+    def out_render_curves_set_defaults_on_load(node: hou.SopNode):
+        """This is for backward compatibility when loading hip files with older version of FLAM3H nodes.
+        it will set proper color correction curves default values if needed.
+
+        Args:
+            (None):
+
+        Returns:
+            (None):
+        """
+        # render curves data
+        prm_curves_data: hou.Parm = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES))
+        prm_data: dict[str, hou.parm()] = { 'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
+                                            'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
+                                            'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
+                                            'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
+                                        }
+        
+        # render curves parms
+        prm_curves_ui: hou.Parm = node.parm(OUT_RENDER_PROPERTIES_CURVES) # type: ignore
+        prm_ui: dict[str, hou.parm()] = {   'prm_curve_overall': node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
+                                            'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
+                                            'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
+                                            'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
+                                        }
+        
+        # Set the prm data defaults first
+        prm_curves_ui.lock(False)
+        if len(prm_curves_data.eval())<2:
+            prm_curves_ui.set(OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
+            # Update CC label and toggle to their defaults
+            node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
+            node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
+        prm_curves_ui.lock(True)
+        [prm_data.get(key).set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT) if len(prm_data.get(key).eval())==1 else ... for key in prm_ui.keys()] # type: ignore
+
+        # Set the prm ui defaults
+        [prm.lock(False) for prm in prm_ui.values()]
+        [prm_ui.get(key).set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT) if len(prm_data.get(key).eval())==1 else ... for key in prm_data.keys()] # type: ignore
+        [prm.lock(True) for prm in prm_ui.values()]
+            
         
     
     @staticmethod
