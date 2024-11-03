@@ -1670,7 +1670,11 @@ Reload preset with remap "pre_gaussian_blur" changes:
     
 Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
-    OFF by default. If ON, it will automatically copy the render properties into the OUT render properties every time you load a Flame preset.
+    OFF by default.
+    
+    When ON, It will automatically copy all the render properties (SENSOR, RENDER and CURVES) into the OUT render properties every time you load a Flame preset in.
+
+    All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
     
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
