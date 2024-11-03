@@ -7363,8 +7363,7 @@ flam3h_web_run(self, key: str) -> None:
         
         flam3h_cvex_version = f"Code language: CVEX H19.x.x"
         hou_version = flam3h_general_utils.houdini_version()
-        if hou_version >= 19:
-            flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
+        if hou_version >= 19: flam3h_cvex_version = f"Code language: CVEX H{str(hou_version)}.x.x"
         flam3h_author = f"Author: Alessandro Nardini ( Italy )"
         flam3h_python_version = f"Python 3.7.13"
         flam3h_houdini_version = f"Version: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD} :: (GPL v3)"
@@ -8715,8 +8714,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     
     @staticmethod
     def check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
-        """If all iterators have their weights set to: 0.0(ZERO), set the first one to a very small number instead because Houdini was crashing otherwise.
-        It will modify the passed keyvalues arg.
+        """If all iterators have their weights set to: 0.0(ZERO), let the user know.
         
         Args:
             self:
@@ -10673,6 +10671,7 @@ reset_IN(self, mode: int=0) -> None:
         # spacers
         nl = "\n"
         nnl = "\n\n"
+        
         na = 'n/a'
         
         size = f'Resolution: {na}'
@@ -12548,7 +12547,7 @@ reset_IN(self, mode: int=0) -> None:
                     
                     
     def in_to_flam3h_render_properties_only(self) -> None:
-        """Load a Flame preset into FLAM3H.
+        """Load a Flame preset render properties into FLAM3H.
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
         """
         node = self.node
