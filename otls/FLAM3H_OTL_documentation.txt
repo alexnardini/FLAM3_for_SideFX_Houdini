@@ -1703,10 +1703,12 @@ infos Tab:
 
     All of the variations that Fractorium lacks will be classified as: Unknown variations.
 
-    TIP:
-        #display: orange
-        - Next and at the end of the *`Software`* info, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
-        - Next and at the end of the *`Palette count`* info, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
+    _Below some infos about some of the data included based on the loaded Flame preset settings_:
+
+    - Next and at the end of the *`Software`* info line, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
+    - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
+    - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
+    - Below the *`Palette count`* info line (and next to the *`CC`* if present), the text *`MB`* will appear if the loaded Flame preset use motion blur.
     
 :box:
     #display: rounded white
