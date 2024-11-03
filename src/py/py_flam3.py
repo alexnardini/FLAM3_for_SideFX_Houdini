@@ -11413,7 +11413,7 @@ reset_IN(self, mode: int=0) -> None:
         xaos = f"Xaos: {xaos_bool_msg}"
         
         # CC (Color correction curves)
-        if apo_data.out_curve_overall == apo_data.out_curve_red == apo_data.out_curve_green == apo_data.out_curve_blue: cc = ''
+        if str(apo_data.out_curve_overall[preset_id]).strip() == str(apo_data.out_curve_red[preset_id]).strip() == str(apo_data.out_curve_green[preset_id]).strip() == str(apo_data.out_curve_blue[preset_id]).strip(): cc = ''
         else: cc = 'CC'
         
         # MB (Motion blur)
@@ -12889,11 +12889,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             (None):
         """
-        cc_o = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
-        cc_r = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
-        cc_g = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
-        cc_b = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
-        if cc_o == cc_r == cc_g == cc_b:
+        cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
+        cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
+        cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
+        cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
+        if cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip():
             node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
             node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
         else:
