@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.53 - Gold
+#version: 1.5.53b - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -1763,7 +1763,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.53" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.53b" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2016,7 +2016,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.53" ... >
+          <flame version="FLAM3H-WIN-1.5.53b" ... >
               ...
         }}}
         
@@ -2025,7 +2025,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.53" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.53b" ... >
               ...
         }}}
         
@@ -2187,13 +2187,13 @@ Vibrancy [Icon:TOP/xmlinput]:
 
     == OUT: XML render color correction curves == (OUTEDITRENCCCURVES)
 
+    _This collapsible folder posses a header's toggle to signal when a color correction is Active(*ON*) or at its default values(*OFF*)._
+
 Reset curves:
     #id: OUT
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
-    - It indicate that the color correction curves are at their default values (no color correction).
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is OFF (Default values).
 
-    [Largeicon:opdef:.?icon_optionStarRedSVG.svg]
-    - It indicate that the color correction curves are different from their default values (color correction is active).
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is ON (Active).
     - ((LMB)) to Reset all the render color correction curves data to their defaults (no color correction).
 
 
@@ -2205,12 +2205,11 @@ Reset curves:
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
     
-    Please remember that every time you load a Flame IN from a file, the render properties wont be loaded just yet, but you will have to manually click the copy render properties button yourself after so that it wont modify settings you have been working on everytime you load a Flame preset in but if you desire to do so, you can toggle ON the IN option: *copy render properties on load*.<br />
+    They can not be edited and when you load a Flame preset in from a file, the render properties won't be loaded just yet, but you will have to manually click the copy render properties button [Icon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset, but if you desire to do so you can toggle ON the IN Tab option: *copy render properties on Load*.<br />
     ( You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR] ).
     
-    When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
-
-    If a Flame preset do not posses any color correction curves data, default values (no color correction) will be used instead.
+    - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
+    - If a Flame preset do not posses any color correction curves data, default values (no color correction) will be used instead.
 
 _Below a list of Fractorium  color correction curves XML keys being used:_
 
