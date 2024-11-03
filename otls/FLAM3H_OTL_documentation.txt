@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.53c - Gold
+#version: 1.5.54 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -1691,7 +1691,7 @@ Reload preset with "Copy render properties on Load" changes:
 
     == IN: infos == (INPRESETINFOS)
     
-infos Tab:
+IN infos [Icon:DATATYPES/string]:
     #id: IN
     Display informations about the loaded Flame preset.
 
@@ -1703,8 +1703,13 @@ infos Tab:
 
     All of the variations that Fractorium lacks will be classified as: Unknown variations.
 
-    _Below some infos about some of the data included based on the loaded Flame preset settings_:
+_Below some infos about some of the data included based on the loaded Flame preset settings_:
 
+:box:
+    #display: rounded gray
+
+    *IN infos: tips* [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/string]<br /><br />
+    - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appeat in the very first line at the top.
     - Next and at the end of the *`Software`* info line, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
     - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
     - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
@@ -1738,7 +1743,10 @@ Copy/Paste SENSOR/RENDER settings:
     #id: IN
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
 
-    When you click one of those icons, only the SENSOR or the RENDER properties will be copied into the OUT render properties.
+    When you click one of those icons, only the SENSOR or the RENDER settings will be copied into the OUT render properties.
+
+    Under the RENDER settings in the COLOR CORRECTION section:
+    - Only the curves different from their default values will be listed.
     
 
 
@@ -1765,7 +1773,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.53c" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.54" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2018,7 +2026,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.53c" ... >
+          <flame version="FLAM3H-WIN-1.5.54" ... >
               ...
         }}}
         
@@ -2027,7 +2035,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.53c" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.54" ... >
               ...
         }}}
         
@@ -2202,7 +2210,7 @@ Reset curves:
 :box:
     #display: rounded gray
 
-    *Color correction curves* [Icon:TOP/xmlinput] [Icon:DATATYPES/string]<br /><br />
+    *Color correction curves* [Icon:TOP/xmlinput] [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/string]<br /><br />
     FLAM3H is able to load in the color correction curves data coming from Fractorium. They will be stored inside here so that if you then make any modification to the loaded Flame preset, the color corrections curves will be kept once you save the Flame out again from FLAM3H.
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
