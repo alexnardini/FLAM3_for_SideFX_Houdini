@@ -14902,6 +14902,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         if self.palette_plus_do:
             keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
+            if self.flam3h_cp_lookup_samples > int(keys): keys = str(self.flam3h_cp_lookup_samples)
             if int(keys) == 256:
                 return False
             else:
