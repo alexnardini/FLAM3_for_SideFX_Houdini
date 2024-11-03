@@ -1729,7 +1729,7 @@ Copy/Paste preset properties:
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a Flame preset from the clipboard, all its render properties will be automatically copied into the OUT render propperties on load and this icon will become disabled.
+    When loading a Flame preset from the clipboard, all its render properties will be automatically copied into the OUT render propperties on load. disabling this icon.
         
 
 Copy/Paste SENSOR/RENDER settings:
