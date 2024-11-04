@@ -6083,11 +6083,7 @@ reset_CP_palette_action(self) -> None:
             str: a palette colors/keys count string preset.
         """        
         keys_count = len(ramp.keys())
-        if keys_count <= 32:
-            return PALETTE_COUNT_64
-        elif keys_count == 64:
-            return PALETTE_COUNT_64
-        elif keys_count <= 128:
+        if keys_count <= 128:
             return PALETTE_COUNT_128
         elif keys_count <= 256:
             return PALETTE_COUNT_256
