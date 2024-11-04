@@ -9108,6 +9108,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Args:
             self:
             idx (int): [flame idx out of all flames included in the loaded flame file]
+                        palette: (Union[tuple[hou.Ramp, int, str]): The loaded Flame palette data if any[palette hou ramp parm, colors count, format], otherwise: None
 
         Returns:
             Union[int, bool]: [FLAM3H palette lookup samples parameter values.]
