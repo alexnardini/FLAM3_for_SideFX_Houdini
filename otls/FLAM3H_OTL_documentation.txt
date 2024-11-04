@@ -659,26 +659,21 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     Xaos specifies how likely a xform is to be chosen based on the previous xform that was chosen.
     Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
     These two methods of stating xaos are known as “from” and “to”.
-        
     
     [Image:opdef:.?FLAM3H_DOC_xaos_pathsSVG.svg]
     _The above image shows five iterators with one variation each and how they are connected to each other through a hypothetical Xaos setting._
-        
-
     
     The default mode is xaos TO. You can change it to use xaos FROM mode instead in the preferences tab.
     
-    _xaos TO and xaos FROM are at their core each other's reflections. This means they are the same data, but one is the transpose of the other._
+    Xaos TO and xaos FROM are at their core each other's reflections. This means they are the same data, but one is the transpose of the other.
     
-    _A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite points of view._
+    A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite points of view.
     
-    Looking from an iterator's point of view:
-    - When in xaos_TO mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
-    - When in xaos_FROM mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
-    - Note _that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *Curl* variation in the above diagram/image. )_
+    _Looking from an iterator's point of view_:
+    - When in *`xaos TO`* mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
+    - When in *`xaos FROM`* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
+    - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *`Curl`* variation in the above diagram/image. )
     
-
-        
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
         
     - To set XAOS for a Flame with 4 iterators, use the "*`xaos:`*" keyword followed by each iterator's weight values separated by a colon: *`xaos:`* *1:2:3:4*.
