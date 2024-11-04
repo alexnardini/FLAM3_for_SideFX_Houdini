@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.56 - Gold
+#version: 1.5.60 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -891,12 +891,16 @@ affine Scale:
     # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
     # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
 
-    Every time you either input a value or use the ((mouse_wheel)), the Scale value will reset back to the default value of: *`1`* (100% -> no scale)
+    Every time you either input a value, drag the slider or use the ((mouse_wheel)), the Scale value will reset back to the default value of: *`1`* (100% -> no scale)
 
     _When using the_ ((mouse_wheel)):
     - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
     - ((SHIFT)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.01`*
     - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
+
+    _Additionally_:
+
+    The parameter's slider ranges are between *`0.975`* and *`1.025`* to allow for precise and versy small value changes when dragged left or right.
 
 
 copy post affine values:
@@ -1710,7 +1714,7 @@ _Below some infos about some of the data included based on the loaded Flame pres
 :box:
     #display: rounded gray
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos: tips*<br /><br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos: tips*<br />
     - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appeat in the very first line at the top.
     - Next and at the end of the *`Software`* info line, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
     - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
@@ -1775,7 +1779,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.56" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2028,7 +2032,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.56" ... >
+          <flame version="FLAM3H-WIN-1.5.60" ... >
               ...
         }}}
         
@@ -2037,7 +2041,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.56" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.60" ... >
               ...
         }}}
         
@@ -2204,7 +2208,8 @@ Vibrancy [Icon:TOP/xmlinput]:
 Reset curves:
     #id: OUT
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is OFF (Default values).
-
+    - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
+    
     [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is ON (Active).
     - ((LMB)) to Reset all the render color correction curves data to their defaults (no color correction).
 
@@ -2213,11 +2218,10 @@ Reset curves:
     #display: rounded gray
 
     [Icon:TOP/xmlinput] [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/string] *Color correction curves*<br /><br />
-    FLAM3H is able to load in the color correction curves data coming from Fractorium. They will be stored inside here so that if you then make any modification to the loaded Flame preset, the color corrections curves will be kept once you save the Flame out again from FLAM3H.
+    FLAM3H is able to load in the color correction curves data coming from Fractorium.<br />
+    These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H so to keep and preserve the original color correction data intact.
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
-    
-    These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H so to keep and preserve the original color correction data intact.
 
     When you load a Flame preset in from a file, the render properties won't be loaded just yet, but you will have to manually click the copy render properties button [Icon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset, but if you desire to do so you can toggle ON the IN Tab option: *copy render properties on Load*.<br />
     ( You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR] ).
@@ -2230,7 +2234,7 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
 :box:
     #display: rounded gray
 
-    _*Fractorium CC*_<br /> 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Fractorium CC*_<br /> 
     _color correction curves_:
 
     - [Icon:TOP/xmlinput] *`curves`* -> _Store all curves data_
@@ -2252,7 +2256,7 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
     :box:
         #display: rounded gray
     
-        _*General*_<br /> 
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*General*_<br /> 
         _flame system option_:
 
         - [Icon:TOP/xmlinput] *`flam3h_rip`* -> _Remove invalid points_
@@ -2263,7 +2267,7 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
         - [Icon:TOP/xmlinput] *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
         - [Icon:TOP/xmlinput] *`flam3h_cp_samples`* -> _Palette lookup samples_
 
-        _*xforms*_<br /> 
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*xforms*_<br /> 
         _only exported when the Rotation angle parameter is different from Zero and the OUT tab option: "F3H affine style" toggle is ON_:
 
         - [Icon:TOP/xmlinput] *`f3h_coefs`* -> _F3H pre affine style values_
@@ -2773,7 +2777,7 @@ TIP:
 :box:
     #display: rounded gray
     
-    Workflow tips:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Workflow tips:
         #id: rendering
     
     You can keep the FLAM3H node live without the need to bake the processed point cloud while rendering
@@ -2799,7 +2803,7 @@ TIP:
 :box:
     #display: rounded gray
     
-    Point size:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Point size:
         #id: rendering
     
     For simplicity, FLAM3H sets all *`@pscale`* to a value of *`0.001`*.
@@ -2816,7 +2820,7 @@ TIP:
 :box:
     #display: rounded gray
     
-    Karma/Mantra tips:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Karma/Mantra tips:
         #id: Karma/Mantra tips
     
     - When rendering with Karma, remember to turn on the "_Simplified lighting_"/"_Disable lighting_" option to be sure to render the points with their full color values.
@@ -2855,10 +2859,10 @@ NOTE:
 :box:
     #display: rounded gray
     
-    Compile CVEX:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile CVEX:
         #id: CVEX
     
-    *SideFX made this part very easy*:
+    _SideFX made this part very easy_:
     
     # Open a Houdini 19 or higher, Command line Tools shell
     # Navigate into the directory where the cvex source files are located
@@ -2886,7 +2890,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    Reload CVEX:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload CVEX:
         #id: CVEX
     
     Inside the FLAM3H node, you will find many wrangle core nodes running a compiled Cvex file.
@@ -2928,7 +2932,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    Iterator's count:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Iterator's count:
         #id: Limitations
     
     FLAM3H allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of 20 iterators.
@@ -2940,7 +2944,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    PRE variations:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
         #id: Limitations
     
     Every iterator is capable of 3 PRE variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
@@ -2953,7 +2957,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    VAR variations:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] VAR variations:
         #id: Limitations
     
     Every iterator is capable of 4 variations.
@@ -2961,7 +2965,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    POST variations:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] POST variations:
         #id: Limitations
     
     Every iterator is capable of 1 POST variation.
@@ -2972,7 +2976,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    Parametric variation parameters:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Parametric variation parameters:
         #id: Limitations
     
     Each iterator has only one set of parametric variation parameters shared within the PRE, VAR and POST variations.
@@ -2986,7 +2990,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    FF PRE variations:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF PRE variations:
         #id: Limitations
     
     FF iterator is capable of 1 PRE variation.
@@ -2998,7 +3002,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    FF VAR variations:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF VAR variations:
         #id: Limitations
     
     FF iterator is capable of 2 variations.
@@ -3007,7 +3011,7 @@ NOTE:
 :box:
     #display: rounded gray
     
-    FF POST variations:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF POST variations:
         #id: Limitations
     
     FF iterator is capable of 2 POST variations.
@@ -3018,7 +3022,7 @@ NOTE:
 :box:
     #display: rounded gray
         
-    FF Parametric variation parameters:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Parametric variation parameters:
         #id: Limitations
     
     FF iterator has two sets of parametric variation parameters.
@@ -3033,7 +3037,7 @@ NOTE:
 :box:
     #display: rounded gray
 
-    FF Shader:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Shader:
         #id: Limitations
     
     This finalxform ( FF ) does not possess any color parameters in this implementation ( Chaotica style ).
@@ -3057,7 +3061,7 @@ NOTE:
 
 = _Alessandro Nardini_ =
 
-Mini bio:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] Mini bio:
     #id: Author
     
 :box:

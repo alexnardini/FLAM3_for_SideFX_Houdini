@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.56'
+FLAM3H_VERSION = '1.5.60'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -9564,6 +9564,8 @@ in_copy_sensor_stats_msg(kwargs: dict) -> None:
 
 in_copy_render_stats_msg(kwargs: dict) -> None:
 
+in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
+
 in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 
 menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
@@ -10755,7 +10757,7 @@ reset_IN(self, mode: int=0) -> None:
         if apo_data.out_curve_red[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT: cc_curves.append('Red')
         if apo_data.out_curve_green[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT: cc_curves.append('Green')
         if apo_data.out_curve_blue[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT: cc_curves.append('Blue')
-        if not cc_curves: cc = f"COLOR CORRECTION: Default"
+        if not cc_curves: cc = f"COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
         else: cc = f"COLOR CORRECTION:\n{', '.join(cc_curves)}"
         
         build = (quality, nl,
@@ -10993,6 +10995,73 @@ reset_IN(self, mode: int=0) -> None:
         else:
             _MSG = f"Load a valid IN Preset first"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+            flam3h_general_utils.flash_message(node, _MSG)
+            
+            
+            
+    @staticmethod
+    def in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
+        """Copy the loaded IN Flame preset CC CURVES data into the OUT Flame render color correction curves properties to be written out. 
+
+        Args:
+            kwargs (hou.SopNode): houdini kwargs.
+        """        
+        node = kwargs['node']
+
+        inisvalidfile = node.parm(IN_ISVALID_FILE).eval()
+        inisvalidpreset = node.parm(IN_ISVALID_PRESET).eval()
+        clipboard = node.parm(IN_CLIPBOARD_TOGGLE).eval()
+        
+        if inisvalidfile and inisvalidpreset and not clipboard:
+            
+            # Get the correct menu parameter's preset idx
+            preset_id = int(node.parm(IN_PRESETS).eval())
+
+            xml = node.parm(IN_PATH).eval()
+            f3r = in_flame_iter_data(node, xml, preset_id)
+                
+            # render curves
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
+            except:
+                pass
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
+            except:
+                pass
+            
+            cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
+            cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
+            cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
+            cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
+            if cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT:
+                node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
+                node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
+                _MSG = f"IN CC Curves:"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. Copy SKIPPED", 'IMP')
+                flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
+            else:
+                # OUT render curves ui parm set
+                out_flame_utils.out_render_curves_retrive_data(node)
+                # Check if the CC curves are at their default values or not and set the toggle
+                out_flame_utils.out_render_curves_compare_and_set_toggle(node)
+                    
+                    
+                menu_label = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+                _MSG = f"IN CC Curves: COPIED"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} from the IN Flame preset: {menu_label}", 'IMP')
+                flam3h_general_utils.flash_message(node, _MSG)
+            
+        else:
+            _MSG = f"Load a valid IN Preset first"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} to copy color correction curves data from.", 'WARN')
             flam3h_general_utils.flash_message(node, _MSG)
 
 
@@ -12908,7 +12977,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
         cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
         cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
-        if cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip():
+        if cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT:
             node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
             node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
         else:
@@ -12959,7 +13028,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         [prm_ui.get(key).set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT) if len(prm_data.get(key).eval())==1 else ... for key in prm_data.keys()] # type: ignore
         [prm.lock(True) for prm in prm_ui.values()]
             
-        
+            
     
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
