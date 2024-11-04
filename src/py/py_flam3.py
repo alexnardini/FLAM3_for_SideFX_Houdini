@@ -6088,6 +6088,7 @@ reset_CP_palette_action(self) -> None:
         elif keys_count <= 256:
             return PALETTE_COUNT_256
         else:
+            # This message when the CP options: palette 256+ toggle is OFF
             _MSG = f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.'
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             print(_MSG)
