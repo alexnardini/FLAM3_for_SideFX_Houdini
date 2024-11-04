@@ -1386,7 +1386,7 @@ palette 256+ (CP) [Icon:DATATYPES/boolean]:
 
     Allow the palette to be saved with more than the standard 256 colors assuming you created a palette with those many colors.
 
-    It will use a banding system to determine how many colors/samples to use:
+    _It will use a banding system to determine how many colors/samples to use_:
 
     - Anything below 256, it will try to downsample based on internally defined rules.
     - Anything above 256 and below/equal 512, it will use 512 colors/samples on save.
@@ -1502,7 +1502,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
-    The only restrictions are:
+    _The only restrictions are_:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H. 
     - A maximum of 3 PRE ( *`pre_blur`* plus 2 of your choise ), 4 VAR and 1 POST variations for each iterator are allowed. 
@@ -1601,18 +1601,16 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
     
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
     _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
-
-    _*F3H affine style*_
 
     *X*: *`1`*, *`0`* <br />
     *Y*: *`0`*, *`1`* <br />
     *O*: *`0`*, *`0`* <br />
     *Rot*: *`45`* 
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *standard affine style*<br />
     _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
-
-    _*standard affine style*_
 
     *X*: *`0.707107`*, *`-0.707107`* <br />
     *Y*: *`0.707107`*, *`0.707107`* <br />
@@ -1746,7 +1744,7 @@ Copy/Paste SENSOR/RENDER settings:
 
     When you click one of those icons, only the SENSOR or the RENDER settings will be copied into the OUT render properties.
 
-    Under the RENDER settings in the COLOR CORRECTION section:
+    _Under the RENDER settings in the COLOR CORRECTION section_:
     - Only the curves different from their default values will be listed.
     
 
@@ -1867,8 +1865,10 @@ Save Flame:
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
-    - _If the selected file does not exist, it will be created_.
-    - _If the selected file is not a valid Flame file type, nothing will happen_.
+    _Additionally_:
+
+    - If the selected file does not exist, it will be created.
+    - If the selected file is not a valid Flame file type, nothing will happen.
     
     TIP:
         #display: orange
@@ -1987,18 +1987,16 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     When saving an iterator out into a Flame file whitch uses the Rotation angle paramter, FLAM3H will transform the affine values by it before saving them out so that it is possible to load the saved Flame inside other applications.
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
     _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
-
-    _*F3H affine style*_
 
     *X*: *`1`*, *`0`* <br />
     *Y*: *`0`*, *`1`* <br />
     *O*: *`0`*, *`0`* <br />
     *Rot*: *`45`* 
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *standard affine style*<br />
     _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
-
-    _*standard affine style*_
 
     *X*: *`0.707107`*, *`-0.707107`* <br />
     *Y*: *`0.707107`*, *`0.707107`* <br />
