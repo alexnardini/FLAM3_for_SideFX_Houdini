@@ -646,7 +646,7 @@ W [Icon:TOP/xmlinput]:
 xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     
-    _From Fractorium help page._
+    *From Fractorium help page* [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
     
     *What is Xaos ?*
     
@@ -755,7 +755,7 @@ Opacity [Icon:TOP/xmlinput]:
     :box:
         #display: rounded gray
 
-        _From Fractorium help page._
+        *From Fractorium help page* [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
 
         While traditional iterated function systems used only linear affine transforms for each xform application, flam3 extended this design by adding the ability to use almost any mathematical calculation as well. Flam3 dubbed these new math functions as “variations” which is a catch-all name for an arbitrary math function.
 
@@ -772,7 +772,7 @@ Opacity [Icon:TOP/xmlinput]:
     :box:
         #display: rounded gray
         
-        _Variations bookmark icons._
+        *Variations bookmark icons* [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
 
         When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
@@ -1064,6 +1064,8 @@ FF: copy/paste:
     
     :box:
         #display: rounded gray
+
+        *Variations bookmark icons* [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
         
         When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
