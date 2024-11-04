@@ -163,7 +163,8 @@ PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
 PALETTE_COUNT_512 = '512' # not used
 PALETTE_COUNT_1024 = '1024'
-PALETTE_OUT_MENU_OPTIONS: tuple = (256, 512, 1024)
+PALETTE_OUT_MENU_OPTIONS_ALL: tuple = (16, 32, 64, 128, 256, 512, 1024)
+PALETTE_OUT_MENU_OPTIONS_PLUS: tuple = (256, 512, 1024)
 PALETTE_PLUS_MSG = '[256+]'
 # The following will always be used for now
 # even tho we check for the XML palette format on load.
@@ -9102,7 +9103,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         
         
     # custom to FLAM3H only
-    def __get_cp_flam3h_samples(self, idx: int) -> Union[int, bool]:
+    def __get_cp_flam3h_samples(self, idx: int, palette: Union[tuple[hou.Ramp, int, str], None]) -> Union[int, bool]:
         """
         Args:
             self:
@@ -9115,14 +9116,20 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
             cp_samples_key = self.flam3h_cp_samples[idx]
             if cp_samples_key:
                 samples = int(cp_samples_key)
-                if samples in (16, 32, 64, 128, 256, 512, 1024): # just make sure the lookup samples count is one of the valid options.
+                if samples in PALETTE_OUT_MENU_OPTIONS_ALL: # just make sure the lookup samples count is one of the valid options.
                     return samples
                 else:
                     # else return the default value
                     return 256
             else:
-                # else return the default value
-                return 256
+                if palette is not None:
+                    keys: int = len(palette[0].keys())
+                    if keys > 0: return int(flam3h_palette_utils.find_nearest_idx(PALETTE_OUT_MENU_OPTIONS_ALL, keys))
+                    # else return the default value
+                    else: return 256
+                else:
+                    # else return the default value
+                    return 256
         else:
             return False
         
@@ -9209,7 +9216,7 @@ class in_flame_iter_data(in_flame):
         self._mb_flam3h_mb_fps = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._mb_flam3h_mb_samples= self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._cp_flam3h_cp_samples = self._in_flame__get_cp_flam3h_samples(self._idx) # type: ignore
+        self._cp_flam3h_cp_samples = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
         self._prefs_flam3h_f3c = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
 
@@ -13934,7 +13941,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         # For a palette
                         return flam3h_palette_utils.get_ramp_keys_count(self.palette)
                 else:
-                    return str(flam3h_palette_utils.find_nearest_idx(PALETTE_OUT_MENU_OPTIONS, keys))
+                    return str(flam3h_palette_utils.find_nearest_idx(PALETTE_OUT_MENU_OPTIONS_PLUS, keys))
             else:
                 # Otherwise clamp to 1024 color keys
                 if _MSG:
