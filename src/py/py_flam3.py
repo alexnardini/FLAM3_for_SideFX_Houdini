@@ -9124,8 +9124,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     return 256
             else:
                 if palette is not None:
-                    keys: int = len(palette[0].keys())
-                    if keys > 0: return int(flam3h_palette_utils.find_nearest_idx(PALETTE_OUT_MENU_OPTIONS_ALL, keys))
+                    count: int = palette[1]
+                    if count > 0: return int(flam3h_palette_utils.find_nearest_idx(PALETTE_OUT_MENU_OPTIONS_ALL, count))
                     # else return the default value
                     else: return 256
                 else:
