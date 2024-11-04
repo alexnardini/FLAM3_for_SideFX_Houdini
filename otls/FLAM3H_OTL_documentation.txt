@@ -2217,7 +2217,9 @@ Reset curves:
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
     
-    They can not be edited and when you load a Flame preset in from a file, the render properties won't be loaded just yet, but you will have to manually click the copy render properties button [Icon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset, but if you desire to do so you can toggle ON the IN Tab option: *copy render properties on Load*.<br />
+    These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H so to keep and preserve the original color correction data intact.
+
+    When you load a Flame preset in from a file, the render properties won't be loaded just yet, but you will have to manually click the copy render properties button [Icon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset, but if you desire to do so you can toggle ON the IN Tab option: *copy render properties on Load*.<br />
     ( You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR] ).
     
     - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
