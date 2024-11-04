@@ -9103,7 +9103,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         
         
     # custom to FLAM3H only
-    def __get_cp_flam3h_samples(self, idx: int, palette: Union[tuple[hou.Ramp, int, str], None]) -> Union[int, bool]:
+    def __get_cp_flam3h_samples(self, idx: int, palette: Union[tuple[hou.Ramp, int, str], None]=None) -> Union[int, bool]:
         """
         Args:
             self:
