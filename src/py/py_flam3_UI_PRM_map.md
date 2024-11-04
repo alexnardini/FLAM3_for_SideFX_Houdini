@@ -835,6 +835,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs['node'])
 ```
 # OUT Tab
+# parameter name:    `icon_f3h_cc_defaults_reset`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node'])
+```
+# OUT Tab
 # parameter name:    `icon_f3h_cc_modified_reset`
 ### Callback Script
 ```python
