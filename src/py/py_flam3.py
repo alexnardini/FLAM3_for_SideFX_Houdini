@@ -2747,6 +2747,8 @@ destroy_all_menus_data(self, node: hou.SopNode) -> None:
 
 refresh_iterator_vars_menu(self) -> None:
 
+destroy_data_note(self) -> None:
+
 menu_T_get_var_data(self) -> tuple[int, float]:
 
 menu_T_FF_get_var_data(self) -> tuple[int, float]:
@@ -3626,6 +3628,21 @@ iterator_vactive_and_update(self) -> None:
             
         # Change focus back to the FLAME's Tab
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+        
+        
+    def destroy_data_note(self) -> None:
+        """Update mini-menu iterator selection when we modify this parameter.
+        and profide a default name if no string in the note is left.
+
+        Returns:
+            (None):
+        """  
+        node = self.node
+        self.destroy_data(node, 'iter_sel')
+        prm_name = self.kwargs['parm'].name()
+        idx = self.kwargs['script_multiparm_index']
+        if not node.parm(prm_name).eval():
+            node.setParms({prm_name: f"iterator_{idx}"})
         
         
     def menu_T_get_var_data(self) -> tuple[int, float]:

@@ -333,7 +333,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 # parameter name:    `note_#`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_data(kwargs['node'], 'iter_sel')
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note()
 ```
 # FLAME Tab
 # parameter name:    `doiter_disabled_#`
