@@ -10109,8 +10109,7 @@ reset_IN(self, mode: int=0) -> None:
         """   
         
         iter_type = f"Iterator.{mp_idx+1}"
-        if mode:
-            iter_type = 'FF'
+        if mode: iter_type = 'FF'
 
         VAR: list = []
         for names in apo_prm[1:-1]:
@@ -11268,10 +11267,8 @@ reset_IN(self, mode: int=0) -> None:
             
             # Collect iterator or FF vars in excess  
             if len(vars_keys[mp_idx]) > _MAX_VARS_MODE:
-                if mode:
-                    FF_vars_skipped.append(f"\n\t\tFF VAR -> {', '.join(vars_keys[mp_idx][_MAX_VARS_MODE:])}")
-                else:
-                    iterator_vars_skipped.append(f"\n\t\tVAR -> {', '.join(vars_keys[mp_idx][_MAX_VARS_MODE:])}")
+                if mode: FF_vars_skipped.append(f"\n\t\tFF VAR -> {', '.join(vars_keys[mp_idx][_MAX_VARS_MODE:])}")
+                else: iterator_vars_skipped.append(f"\n\t\tVAR -> {', '.join(vars_keys[mp_idx][_MAX_VARS_MODE:])}")
             
             # in case of an iterator only the first 4. In case of an FF only the first 2
             for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
@@ -11306,10 +11303,8 @@ reset_IN(self, mode: int=0) -> None:
                     
                 # Collect FF PRE vars in excess  
                 if len(vars_keys_pre[mp_idx]) > MAX_FF_VARS_PRE:
-                    if FF_vars_skipped:
-                        FF_vars_skipped.insert(0, f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][MAX_FF_VARS_PRE:])}")
-                    else:
-                        FF_vars_skipped.append(f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][MAX_FF_VARS_PRE:])}")
+                    if FF_vars_skipped: FF_vars_skipped.insert(0, f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][MAX_FF_VARS_PRE:])}")
+                    else: FF_vars_skipped.append(f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][MAX_FF_VARS_PRE:])}")
                     
                 # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
