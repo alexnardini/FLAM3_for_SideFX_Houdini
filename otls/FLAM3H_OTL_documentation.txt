@@ -60,19 +60,25 @@ _A huge special thanks and lots of gratitude toward my family who kept up with m
 
 [Largeicon:opdef:.?iconSVG.svg]
 
-_Individuals and fractal Flames are alike. Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._
-_Consider the various formulas that make up fractal Flames as different brushes or life event brushes._
-_Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._
-_This is akin to a person's genome, or DNA._
-_Together, all of these variables contribute to the interesting nature of the fractal Flame discipline, with its seemingly endless possibilities, effects, and patterns._
+_Individuals and fractal Flames are alike_.<br />
+_Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._<br /><br />
+_Consider the various formulas that make up fractal Flames as different brushes or life event brushes._<br />
+_Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
+_This is akin to a person's genome, or DNA._<br />
+_Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
+_with its seemingly endless possibilities, effects, and patterns._
 
-FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini. There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
+FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
+There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
-Fractal art is not easy at all. For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow design, but it has been biased in its underlying code toward Fractorium.
+Fractal art is not easy at all.<br />
+For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow design, but it has been biased in its underlying code toward Fractorium.
 
 There is a very large, kind, and talented community out there that you can tap into and gather lots of information from to learn how to do fractal art.
 
-Generally speaking, and based on my own learning experiences, FLAM3H can complete every tutorial you can find for any of the existing fractal Flame editors out there. The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a graphical user interface. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
+Generally speaking and based on my own learning experiences,<br />
+FLAM3H can complete every tutorial you can find for any of the existing fractal Flame editors out there.<br />
+The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a graphical user interface. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
 
 _Here a few at hand_:
 
@@ -87,9 +93,11 @@ _*[DevianArt - Apophysis tutorial: Double wedge|https://www.deviantart.com/teund
 _*[DevianArt - Apophysis tutorial: Hemispherical|https://www.deviantart.com/c-91/art/Hemispherical-Apophysis-Tutorial-663954258]*_
 
 
-A considerable amount of effort has been allocated to ensure that, assuming that the same variations are utilized within FLAM3H and that they remain within its limitations, a one-to-one match result is consistently obtained.
+A considerable amount of effort has been allocated to ensure that,<br />
+assuming that the same variations are utilized within FLAM3H and that they remain within its limitations, a one-to-one match result is consistently obtained.
 
-Being inside Houdini has its advantages, just think of the possibilities of utilizing his procedural paradigm and tool sets to animate your fractal Flames. It also makes it very easy to build a pipeline around this tool using Houdini’s Python HOM libraries.
+Being inside Houdini has its advantages,<br />
+just think of the possibilities of utilizing his procedural paradigm and tool sets to animate your fractal Flames. It also makes it very easy to build a pipeline around this tool using Houdini’s Python HOM libraries.
 
 
 
