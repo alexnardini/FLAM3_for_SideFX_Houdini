@@ -6906,7 +6906,7 @@ reset_CP_palette_action(self) -> None:
                 [prm.set(pidx) for prm in (node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF), node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF))]
                 
                 # Force this data to be rebuilt
-                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
                 
@@ -13287,7 +13287,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     # not used
     @staticmethod
     def out_util_iterators_vars_duplicate(vars: list) -> list:
-        """NOT USED ANYMORE.
+        """ NOT USED ANYMORE
         Collect duplicate variation's names per each iterator.
 
         Args:
