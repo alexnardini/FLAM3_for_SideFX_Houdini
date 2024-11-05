@@ -1301,7 +1301,7 @@ flam3h_on_deleted(self) -> None:
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
-            # init RIP: Remove Invalid Points
+            # init RIP: Remove Invalid Points: ALL
             flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
             
             # Clear menu caches
