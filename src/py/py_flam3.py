@@ -12728,6 +12728,8 @@ out_render_curves_retrive_data(node: hou.SopNode) -> None:
 
 out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
 
+out_render_curves_compare(node: hou.SopNode, mode: bool=False) -> bool:
+
 out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
 
 out_render_curves_set_defaults_on_load(node: hou.SopNode):
@@ -12960,6 +12962,35 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
 
         
+    @staticmethod
+    def out_render_curves_compare(node: hou.SopNode, mode: bool=False) -> bool:
+        """Compare the current UI CC curves with the CC CURVES DATA.
+        Two modes:  (mode: False) will compare if they are default values(return: True) or not(return: False)
+                    (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
+
+        Args:
+            node (hou.SopNode): this FLAM3H node
+            mode (bool): Default to False.  (mode: False) will compare if they are default values( return: True) or not(return: False)
+                                            (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
+
+        Returns:
+            (bool): True or Flase
+        """
+        cc_o: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()).strip() # type: ignore
+        cc_r: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()).strip() # type: ignore
+        cc_g: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()).strip() # type: ignore
+        cc_b: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()).strip() # type: ignore
+        if not mode:
+            if cc_o == cc_r == cc_g == cc_b == OUT_XML_FLAME_RENDER_CURVE_DEFAULT: return True
+            else: return False
+        else:
+            cc_o_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL).eval()).strip() # type: ignore
+            cc_r_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_RED).eval()).strip() # type: ignore
+            cc_g_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN).eval()).strip() # type: ignore
+            cc_b_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE).eval()).strip() # type: ignore
+            if cc_o != cc_o_ui or cc_r != cc_r_ui or cc_g != cc_g_ui or cc_b != cc_b_ui: return False
+            else: return True
+        
         
     @staticmethod
     def out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
@@ -12972,11 +13003,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             (None):
         """
-        cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
-        cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
-        cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
-        cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
-        if cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT:
+        if out_flame_utils.out_render_curves_compare(node):
             node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
             node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
         else:
