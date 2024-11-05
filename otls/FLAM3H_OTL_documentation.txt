@@ -68,6 +68,8 @@ _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
 
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H, what is it ?*
+
 FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
@@ -989,8 +991,8 @@ TIP:
     #display: orange
     _What parameter you will control is indicated by the name of the parametric parameter;_
     
-    _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
-    _A tooltip containing the names of the appropriate parameters will appear when the mouse is hovered over the name._
+    _Nevertheless, some parameters only include the initial letters of the parameter they relate to in their names since they encapsulate more than one parametric parameter._
+    _A tooltip containing the full names of the appropriate parameters will appear when the mouse is hovered over the parameter's label._
         
 VARS Tab [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1974,7 +1976,7 @@ palette 256+ (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         - When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
 
     :warning:
-        *Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.*
+        Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.
         
         
 palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -2651,11 +2653,8 @@ _Dependent variation's affine coefficients:_
 
 _A list of all parametric variations and their parametric parameter's names._
 
-TIP:
-    #display: orange
-
-    _Repeated variations names indicate distinct Houdini parameters._
-    _For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._
+_Repeated variations names indicate distinct Houdini parameters._<br />
+_For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._
 
 :box:
     #display: rounded gray
@@ -2844,15 +2843,18 @@ TIP:
 
     *FLAM3H Cvex*: _How to Compile and update_.
     
-    In this section, you will find information on how to compile and then update FLAM3H Cvex code in case you'd like to modify/extend its core functionalities.
-    For example, you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 implemented ).
-    
-    Extending the Cvex code base, most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
-    
-NOTE:
-    _In order to improve speed, the Cvex code base has been scaled down to its bare minimum; this results in the least amount of code required to implement the entire algorithm._
+    In this section,<br /> 
+    you will find information on how to compile and then update FLAM3H Cvex code in case you'd like to modify/extend its core functionalities.
 
-    _Be as conservative as you can if you want to add anything._
+    For example,<br />
+    you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 implemented ).
+    
+    Extending the Cvex code base,<br /> 
+    most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
+
+    In order to improve speed, the Cvex code base has been scaled down to its bare minimum;<br />
+    this results in the least amount of code required to implement the entire algorithm.<br /> 
+    Be as conservative as you can if you want to add anything.
 
 
 == Cvex: How to compile == (COMPILE)
