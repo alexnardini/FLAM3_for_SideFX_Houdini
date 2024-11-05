@@ -1473,8 +1473,8 @@ reset_PREFS(self, mode: int=0) -> None:
             int: major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
         """  
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
-            for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: # type: ignore
-                ne.flashMessage(img, msg, timer)
+            [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
+        
 
 
     @staticmethod
