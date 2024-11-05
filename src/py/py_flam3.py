@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.60'
+FLAM3H_VERSION = '1.5.61'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1308,6 +1308,9 @@ flam3h_on_deleted(self) -> None:
             # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+            # Force updated of the mini-menu iterator selection
+            flam3h_iterator_utils.destroy_data(node, 'iter_sel')
+            
             # Clear any comment and user data from the node
             if flam3h_iterator_utils.exist_user_data(node):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(node)

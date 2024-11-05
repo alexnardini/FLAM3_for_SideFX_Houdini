@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.60 - Gold
+#version: 1.5.61 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -16,7 +16,7 @@
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H ==
 ( _H19.x and H20.x only_ )
 
-_*A bit of history* ( from wikipedia )_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  _*A bit of history* ( from wikipedia )_:
 
 [Scott Draves|Wp:Scott_Draves]
 [The Fractal Flame Algorithm|Wp:Fractal_Flame]
@@ -26,14 +26,14 @@ _*A bit of history* ( from wikipedia )_:
 [Apophysis|Wp:Apophysis_(software)]
 
 
-_*Main source code references*_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  _*Main source code references*_:
 
 _Github of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
 
 _Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
 
 
-_*Preface*_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  _*Preface*_:
 
 The inception of this implementation dates back to 2020, during COVID-19. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
@@ -68,7 +68,7 @@ _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H, what is it ?*
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] _*FLAM3H, what is it ?*_
 
 FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
@@ -1782,7 +1782,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.61" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2035,7 +2035,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.60" ... >
+          <flame version="FLAM3H-WIN-1.5.61" ... >
               ...
         }}}
         
@@ -2044,7 +2044,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.60" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.61" ... >
               ...
         }}}
         
