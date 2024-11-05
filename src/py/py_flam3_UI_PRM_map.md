@@ -330,6 +330,12 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 ```
 # FLAME Tab
+# parameter name:    `note_#`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_data(kwargs['node'], 'iter_sel')
+```
+# FLAME Tab
 # parameter name:    `doiter_disabled_#`
 ### Callback Script
 ```python
