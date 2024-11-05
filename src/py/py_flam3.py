@@ -3384,10 +3384,12 @@ iterator_vactive_and_update(self) -> None:
             node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
             f3h_all (bool): Perform this check and correct if needed for all FLAM3H nodes in the scene.
         """  
+        
+        lambda_check = lambda node: min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-        if f3h_all: [f3h.setParms({SYS_RIP: 1}) if min([f3h.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]) == 0 else ... for f3h in node.type().instances()]
+        if f3h_all: [f3h.setParms({SYS_RIP: 1}) if lambda_check(node) == 0 else ... for f3h in node.type().instances()]
         else:
-            if min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]) == 0: node.setParms({SYS_RIP: 1}) # type: ignore
+            if lambda_check(node) == 0: node.setParms({SYS_RIP: 1}) # type: ignore
 
 
 
