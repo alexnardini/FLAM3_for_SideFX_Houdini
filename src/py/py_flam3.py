@@ -1299,9 +1299,10 @@ flam3h_on_deleted(self) -> None:
                 
             # INIT XAOS - this probably is not needed but I leave it for now
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
-            
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
+            # init RIP: Remove Invalid Points
+            flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
             
             # Clear menu caches
             # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
@@ -3376,16 +3377,18 @@ iterator_vactive_and_update(self) -> None:
             
             
     @staticmethod
-    def flam3h_on_load_opacity_zero(node: hou.SopNode) -> None:
+    def flam3h_on_load_opacity_zero(node: hou.SopNode, f3h_all: bool=False) -> None:
         """Check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP)
 
         Args:
             node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
+            f3h_all (bool): Perform this check and correct if needed for all FLAM3H nodes in the scene.
         """  
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-        if min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]) == 0: node.setParms({SYS_RIP: 1}) # type: ignore
+        if f3h_all: [f3h.setParms({SYS_RIP: 1}) if min([f3h.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]) == 0 else ... for f3h in node.type().instances()]
+        else:
+            if min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)]) == 0: node.setParms({SYS_RIP: 1}) # type: ignore
 
-            
 
 
     @staticmethod
@@ -11044,7 +11047,7 @@ reset_IN(self, mode: int=0) -> None:
                 node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
                 node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
                 _MSG = f"IN CC Curves:"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. Copy SKIPPED", 'IMP')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. COPY SKIPPED", 'IMP')
                 flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
             else:
                 # OUT render curves ui parm set
@@ -13010,7 +13013,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         # Set the prm data defaults first
         prm_curves_ui.lock(False)
-        if len(prm_curves_data.eval())<2:
+        if len(prm_curves_data.eval())==1:
             prm_curves_ui.set(OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
             # Update CC label and toggle to their defaults
             node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
