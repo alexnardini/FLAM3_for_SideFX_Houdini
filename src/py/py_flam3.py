@@ -12960,8 +12960,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         out_flame_utils.out_render_curves_retrive_data(node)
         node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
         node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
-
-        
+    
+    
     @staticmethod
     def out_render_curves_compare(node: hou.SopNode, mode: bool=False) -> bool:
         """Compare the current UI CC curves with the CC CURVES DATA.
@@ -12990,8 +12990,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             cc_b_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE).eval()).strip() # type: ignore
             if cc_o != cc_o_ui or cc_r != cc_r_ui or cc_g != cc_g_ui or cc_b != cc_b_ui: return False
             else: return True
-        
-        
+    
+    
     @staticmethod
     def out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
         """Check if the color correction curves data parameters are at their default values
@@ -13009,9 +13009,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         else:
             node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset'}) # type: ignore
             node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 1}) # type: ignore
-            
-            
-            
+    
+    
+    
     @staticmethod
     def out_render_curves_set_defaults_on_load(node: hou.SopNode):
         """This is for backward compatibility when loading hip files with older version of FLAM3H nodes.
@@ -13053,8 +13053,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         [prm.lock(False) for prm in prm_ui.values()]
         [prm_ui.get(key).set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT) if len(prm_data.get(key).eval())==1 else ... for key in prm_data.keys()] # type: ignore
         [prm.lock(True) for prm in prm_ui.values()]
-            
-            
+    
+    
     
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
