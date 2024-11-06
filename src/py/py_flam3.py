@@ -4559,7 +4559,7 @@ iterator_vactive_and_update(self) -> None:
         else:
             if isDELETED:
                 _MSG_DEL = "Marked iterator's node has been deleted"
-                _MSG = f"{node.name()}: {_MSG_DEL} -> Mark a new iterator first."
+                _MSG = f"{node.name()}: {_MSG_DEL}. Mark a new iterator first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, _MSG_DEL)
                 
