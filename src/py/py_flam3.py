@@ -11100,7 +11100,7 @@ reset_IN(self, mode: int=0) -> None:
             cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
             cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
             cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
-            if (cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT) or (cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B) or (cc_o.strip() == cc_r.strip() == cc_g.strip() == cc_b.strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C):
+            if cc_o.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
                 node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
                 node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
                 _MSG = f"IN CC Curves:"
@@ -11550,7 +11550,7 @@ reset_IN(self, mode: int=0) -> None:
         xaos = f"Xaos: {xaos_bool_msg}"
         
         # CC (Color correction curves)
-        if (str(apo_data.out_curve_overall[preset_id]).strip() == str(apo_data.out_curve_red[preset_id]).strip() == str(apo_data.out_curve_green[preset_id]).strip() == str(apo_data.out_curve_blue[preset_id]).strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT) or (str(apo_data.out_curve_overall[preset_id]).strip() == str(apo_data.out_curve_red[preset_id]).strip() == str(apo_data.out_curve_green[preset_id]).strip() == str(apo_data.out_curve_blue[preset_id]).strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B) or (str(apo_data.out_curve_overall[preset_id]).strip() == str(apo_data.out_curve_red[preset_id]).strip() == str(apo_data.out_curve_green[preset_id]).strip() == str(apo_data.out_curve_blue[preset_id]).strip() == OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C): cc = ''
+        if str(apo_data.out_curve_overall[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_red[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_green[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_blue[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc = ''
         else: cc = 'CC'
         
         # MB (Motion blur)
