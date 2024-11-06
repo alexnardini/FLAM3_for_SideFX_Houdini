@@ -10804,6 +10804,50 @@ reset_IN(self, mode: int=0) -> None:
     
     
     @staticmethod
+    def in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
+        """Copy the loaded IN Flame color correction XML data into the FLAM3H color correction data.
+        It will check if each is one of the defaults settings first. 
+
+        Args:
+            node (hou.SopNode): FLAM3H node.
+            f3r (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            preset_id (int): the preset index we are loading 
+        """     
+        # render curves
+        if f3r.out_curves[preset_id] in OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL:
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
+        else:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
+            except:
+                pass
+        if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        else:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
+            except:
+                pass
+        if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        else:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
+            except:
+                pass
+        if f3r.out_curve_green[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        else:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
+            except:
+                pass
+        if f3r.out_curve_blue[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+        else:
+            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
+            except:
+                pass
+    
+    
+    
+    @staticmethod
     def in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
 
@@ -10860,37 +10904,9 @@ reset_IN(self, mode: int=0) -> None:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
             except:
                 pass
+            
             # render curves
-            if f3r.out_curves[preset_id] in OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_green[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_blue[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
-                except:
-                    pass
+            in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
             
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
@@ -11003,38 +11019,10 @@ reset_IN(self, mode: int=0) -> None:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
             except:
                 pass
-            # render curves
-            if f3r.out_curves[preset_id] in OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_green[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_blue[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
-                except:
-                    pass
             
+            # render curves
+            in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
             # Check if the CC curves are at their default values or not and set the toggle
@@ -11080,36 +11068,7 @@ reset_IN(self, mode: int=0) -> None:
             f3r = in_flame_iter_data(node, xml, preset_id)
                 
             # render curves
-            if f3r.out_curves[preset_id] in OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_green[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
-                except:
-                    pass
-            if f3r.out_curve_blue[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT})
-            else:
-                try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
-                except:
-                    pass
+            in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
             
             cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
             cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
