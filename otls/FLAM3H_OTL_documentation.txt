@@ -443,7 +443,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     
     _The selected menu entrie posses a bookmark icon based on its state_:
     
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file or an invalid file has been loaded.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?iconWhiteSVG_disabled.svg] when the selected preset name is not loaded.
     - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
@@ -2507,12 +2507,10 @@ Web links:
 
 _A list of all variations included with FLAM3H:_
 
-- _Note that all the following are also available as PRE_ _and/or POST_ _variations._
-
 :box:
     #display: rounded gray
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Info*_<br /> 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /> 
     _Note that all the following are also available as PRE_ _and/or POST_ _variations._<br /><br />
 
     *Arch*, 
@@ -2636,7 +2634,7 @@ _Dependent variation's affine coefficients:_
 :box:
     #display: rounded gray
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Info*_<br />  
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br />  
     _A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters._
     _The dependent variations and the affine coefficients they employ are listed below_:<br /><br />
     
@@ -2660,7 +2658,7 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: rounded gray
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Info*_<br /> 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /> 
     _Repeated variations names indicate distinct Houdini parameters._<br />
     _For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._<br /><br />
     
@@ -2955,9 +2953,9 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
         #id: Limitations
     
-    Every iterator is capable of 3 PRE variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
+    Every iterator is capable of 3(three) PRE variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
     
-    It is really *`pre_blur`* + 2 variations of your choice.
+    It is really *`pre_blur`* + 2(two) variations of your choice.
     
     NOTE:
         _*The weight of the PRE variations can not be negative* in FLAM3H._
@@ -2968,7 +2966,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] VAR variations:
         #id: Limitations
     
-    Every iterator is capable of 4 variations.
+    Every iterator is capable of 4(four) variations.
     
 :box:
     #display: rounded gray
@@ -2976,7 +2974,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] POST variations:
         #id: Limitations
     
-    Every iterator is capable of 1 POST variation.
+    Every iterator is capable of 1(one) POST variation.
     
     NOTE:
         _*The weight of the POST variation can not be negative* in FLAM3H._
@@ -2988,7 +2986,7 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: Limitations
     
     Each iterator has only one set of parametric variation parameters shared within the PRE, VAR and POST variations.
-    This means if you use 2 PRE_Mobius, 4 Mobius and 1 POST_Mobius, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    This means if you use 2(two) *`PRE Mobius`*, 4(four) *`Mobius`* and 1(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     
     
@@ -3001,7 +2999,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF PRE variations:
         #id: Limitations
     
-    FF iterator is capable of 1 PRE variation.
+    FF iterator is capable of 1(one) PRE variation.
     
     NOTE:
         _*The weight of the FF PRE variations can not be negative* in FLAM3H._
@@ -3013,7 +3011,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF VAR variations:
         #id: Limitations
     
-    FF iterator is capable of 2 variations.
+    FF iterator is capable of 2(two) variations.
     
     
 :box:
@@ -3022,7 +3020,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF POST variations:
         #id: Limitations
     
-    FF iterator is capable of 2 POST variations.
+    FF iterator is capable of 2(two) POST variations.
     
     NOTE:
         _*The weight of the FF POST variation can not be negative* in FLAM3H._
@@ -3037,8 +3035,8 @@ _A list of all parametric variations and their parametric parameter's names._
     One is shared with VAR variations.
     The second is shared within the PRE- and POST-variations.
     
-    # If you use 2 Mobius in the FF VAR section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
-    # If you use 1 PRE_Mobius and 2 POST_Mobius they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
+    # If you use 2(two) *`Mobius`* in the FF VAR section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
+    # If you use 1(one) *`PRE Mobius`* and 2(two) *`POST_Mobius`* they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
     
 == Limitations: FF Shader ==
 
