@@ -4536,7 +4536,7 @@ iterator_vactive_and_update(self) -> None:
             assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
-                _MSG = f"{node.name()}: iterator UNMARKED -> {str(mp_id_from)}" # type: ignore
+                _MSG = f"{node.name()}: iterator UNMARKED: {str(mp_id_from)}" # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
