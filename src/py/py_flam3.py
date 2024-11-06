@@ -5029,9 +5029,9 @@ iterator_vactive_and_update(self) -> None:
 
         # Get preference xaos mode and print to Houdini's status bar
         if f3d.xm:
-            _MSG = f"{node.name()}: XAOS Mode -> FROM"
+            _MSG = f"{node.name()}: XAOS Mode: FROM"
         else:
-            _MSG = f"{node.name()}: XAOS Mode -> TO"
+            _MSG = f"{node.name()}: XAOS Mode: TO"
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
@@ -5359,7 +5359,7 @@ iterator_vactive_and_update(self) -> None:
         """
         
         node = self.node
-        _MSG = f"{node.name()} FF POST variations -> SWAP"
+        _MSG = f"{node.name()}: FF POST variations -> SWAP"
         
         # Get prm names
         pvT = flam3h_iterator_FF.sec_postvarsT_FF
