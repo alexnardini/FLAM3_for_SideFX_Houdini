@@ -12913,7 +12913,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     @staticmethod
-    def out_render_curves_set_defaults(node: hou.SopNode) -> None:
+    def out_render_curves_set_data_defaults(node: hou.SopNode) -> None:
         """Set the defaults values into the color correction curves data parameters.
 
         Args:
@@ -12976,7 +12976,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             (None):
         """
-        out_flame_utils.out_render_curves_set_defaults(node)
+        out_flame_utils.out_render_curves_set_data_defaults(node)
         out_flame_utils.out_render_curves_retrive_data(node)
         node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
         node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
@@ -13642,7 +13642,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         val.append([float(x.strip()) for x in build_strip])
                     except:
                         # ( Assuming the "xaos:" keyword is present )
-                        # if we enterd an invalid string,
+                        # if we entered an invalid string,
                         # retrive from the history instead ( Undo )
                         if val_prev is not None:
                             val.append(val_prev[iter])
@@ -13779,8 +13779,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         W_tuple = prm_sections_W.get(var_section)
         
         if T_tuple is not None and W_tuple is not None:
-            assert T_tuple is not None
-            assert W_tuple is not None
             names = []
             for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
                 _MP_IDX = str(int(iter + 1))
