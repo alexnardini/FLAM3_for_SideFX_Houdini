@@ -859,7 +859,7 @@ menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     *`POST`* Variation for the selected iterator.
     
-    For speed purpose only 1(one) post variation is allowed at the moment.
+    For speed purpose only 1(one) *`POST`* variation is allowed at the moment.
 
     This is applyed after the variations. It is the very last transformation.
 
@@ -1660,7 +1660,7 @@ Remap pre_gaussian_blur [Icon:DATATYPES/boolean]:
     ON by default since also the chaos game in this implementation has the *`pre_blur`* variation hard coded to be as quick as possible.
 
     However, depending of the orther of the *`PRE`* variations in the Flame you are trying to load, you sometime want to retain it.
-    If you'd rather want to use *`pre_gaussian_blur`* and have it behave as a pre variation (not cumulative/additive), turn it OFF.
+    If you'd rather want to use *`pre_gaussian_blur`* and have it behave as a *`PRE`* variation (not cumulative/additive), turn it OFF.
     
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
