@@ -10782,10 +10782,10 @@ reset_IN(self, mode: int=0) -> None:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
             
         cc_curves = []
-        if apo_data.out_curve_overall[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT and apo_data.out_curve_overall[preset_id] != OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B and apo_data.out_curve_overall[preset_id] != OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C: cc_curves.append('Overall')
-        if apo_data.out_curve_red[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT and apo_data.out_curve_red[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B and apo_data.out_curve_red[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C: cc_curves.append('Red')
-        if apo_data.out_curve_green[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT and apo_data.out_curve_green[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B and apo_data.out_curve_green[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C: cc_curves.append('Green')
-        if apo_data.out_curve_blue[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT and apo_data.out_curve_blue[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B and apo_data.out_curve_blue[preset_id]!=OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C: cc_curves.append('Blue')
+        if apo_data.out_curve_overall[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Overall')
+        if apo_data.out_curve_red[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Red')
+        if apo_data.out_curve_green[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Green')
+        if apo_data.out_curve_blue[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Blue')
         if not cc_curves: cc = f"COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
         else: cc = f"COLOR CORRECTION:\n{', '.join(cc_curves)}"
         
@@ -13037,7 +13037,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         cc_g: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()).strip() # type: ignore
         cc_b: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()).strip() # type: ignore
         if not mode:
-            if (cc_o == cc_r == cc_g == cc_b == OUT_XML_FLAME_RENDER_CURVE_DEFAULT) or (cc_o == cc_r == cc_g == cc_b == OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B) or (cc_o == cc_r == cc_g == cc_b == OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C): return True
+            if cc_o in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: return True
             else: return False
         else:
             cc_o_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL).eval()).strip() # type: ignore
