@@ -16,7 +16,7 @@
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H ==
 ( _H19.x and H20.x only_ )
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg]  _*A bit of history* ( from wikipedia )_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  *A bit of history* _( from wikipedia )_:
 
 [Scott Draves|Wp:Scott_Draves]
 [The Fractal Flame Algorithm|Wp:Fractal_Flame]
@@ -26,14 +26,14 @@
 [Apophysis|Wp:Apophysis_(software)]
 
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg]  _*Main source code references*_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Main source code references*:
 
 _Github of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
 
 _Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
 
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg]  _*Preface*_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Preface*:
 
 The inception of this implementation dates back to 2020, during COVID-19. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
@@ -68,7 +68,7 @@ _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg] _*FLAM3H, what is it ?*_
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H, what is it ?*
 
 FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
@@ -332,10 +332,10 @@ TAG [Icon:DATATYPES/boolean]:
     * [Iterator variations|#FLAMEITERVARS] are lowercase.
     * [FF variations|#FFVARS] are UPPER CASE.
     * *`pre_blur`* will be indicated witn an asterisk * at the beginning of each iterator and before all variations.
-    * PRE variations will be inside square brackets at the beginning of each iterator, or FF.
-    * POST variations will be inside square brackets at the end of each iterator, or FF
+    * *`PRE`* variations will be inside square brackets at the beginning of each iterator, or FF.
+    * *`POST`* variations will be inside square brackets at the end of each iterator, or FF
     * The [iterator's weight|#FLAMEITER] value will be the last in each iterator.
-    * The colons *:* indicate how many variation slots are still available ( 4 in case of an iterator VAR section, plus a last colon *:* as a separator from the iterator's weight).
+    * The colons *:* indicate how many variation slots are still available ( 4(four) in case of an iterator *`VAR`* section, plus a last colon *:* as a separator from the iterator's weight).
     * If an iterator is disabled, it will be displayed as: " *::::::::::* "
     
     TIP:
@@ -367,7 +367,7 @@ loaddef:
     
     Load/reset to default Sierpiński triangle preset.
 
-    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (SENSOR, RENDER and CURVES settings).
+    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (SENSOR, RENDER and CC CURVES settings).
 
 :box:
     #display: rounded white
@@ -475,7 +475,7 @@ IN Preset reload:
     _Additionally_:
 
     - When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
-    - If a Flame preset contain more variations than the allowed number in any of the available types (PRE, VAR, POST) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (*`PRE`*, *`VAR`*, *`POST`*) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
 
     TIP:
         #display: orange
@@ -559,7 +559,7 @@ number of iterators [Icon:TOP/xmlinput]:
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
 
-    When the number of iterators is set to *`0`*(Zero), it will also reset the FLAM3H UI to its defaults including the OUT render properties (SENSOR, RENDER and CURVES settings).
+    When the number of iterators is set to *`0`*(Zero), it will also reset the FLAM3H UI to its defaults including the OUT render properties (SENSOR, RENDER and CC CURVES settings).
 
     _The following control icons are provided_:
 
@@ -795,12 +795,12 @@ Opacity [Icon:TOP/xmlinput]:
     TIP:
         #display: orange
 
-        _Each iterator allows up to 8 variations ( *`pre blur`,* *`2 PRE`,* *`4 VAR`*  and *`1 POST`* ) to be used._
+        _Each iterator allows up to 8(eight) variations ( *`pre blur`,* 2(two) *`PRE`,* 4(four) *`VAR`*  and 1(one) *`POST`* ) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
         _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
-        _This means that if you use *`2 PRE Mobius`,* *`4 VAR Mobius`* and *`1 POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
+        _This means that if you use 2(two) *`PRE Mobius`,* 4(four) *`VAR Mobius`* and 1(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
 menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
@@ -818,11 +818,11 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
 menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
-    PRE variations for the selected iterator.
+    *`PRE`* variations for the selected iterator.
 
-    These are applyed before the VAR variations. It is the very first transformation when used.
+    These are applyed before the *`VAR`* variations. It is the very first transformation when used.
 
-    There are 2 PRE variations available. The order to whitch you apply them matter.
+    There are 2(two) *`PRE`* variations available. The order to whitch you apply them matter.
     
     For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
 
@@ -835,7 +835,7 @@ swap PRE vars:
 
     _Usage_:
     
-    - ((LMB)) swap the order of the PRE Variations and their weights. 
+    - ((LMB)) swap the order of the *`PRE`* Variations and their weights. 
     - ((CTRL)) + ((LMB)) swap only the variation names.
     
     
@@ -843,7 +843,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     Variations for the selected iterator.
 
-    There are 4 VAR variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+    There are 4(four) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
     - If you have a *`Linear`* variation in slot *1*, and you add a *`Spherical`* variation in slot *2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in slot *1*, and so on for the other available slots.<br />
     - If you do the opposite, a *`Spherical`* variation in slot *1* and a *`Linear`* in slot *2*, the result will be identical assuming both retain the same weight values.
@@ -857,9 +857,9 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
 menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
-    POST Variation for the selected iterator.
+    *`POST`* Variation for the selected iterator.
     
-    For speed purpose only one post variation is allowed at the moment.
+    For speed purpose only 1(one) post variation is allowed at the moment.
 
     This is applyed after the variations. It is the very last transformation.
 
@@ -1092,15 +1092,15 @@ FF: copy/paste:
     TIP:
         #display: orange
         
-        _FF iterator allow up to 5 variations ( *`1 PRE`,* *`2 VAR`*  and *`2 POST`* ) to be used._
+        _FF iterator allow up to 5(five) variations ( 1(one) *`PRE`,* 2(two) *`VAR`* and 2(two) *`POST`* ) to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
 menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
-    PRE variation for the FF iterator.
+    *`PRE`* variation for the FF iterator.
     
-    This is applyed before the VAR variations. It is the very first transformation when used.
+    This is applyed before the *`VAR`* variations. It is the very first transformation when used.
     
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
     
@@ -1109,7 +1109,7 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
     Variations for the FF iterator.
 
-    There are 2 VAR variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+    There are 2(two) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
     - If you have a *`Linear`* variation in slot *1*, and you add a *`Spherical`* variation in slot *2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in slot *1*, and so on for the other available slots.<br />
     - If you do the opposite, a *`Spherical`* variation in slot *1* and a *`Linear`* in slot *2*, the result will be identical assuming both retain the same weight values.
@@ -1118,13 +1118,13 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
 menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
-    POST Variations for the FF iterator.
+    *`POST`* Variations for the FF iterator.
 
-    There are 2 POST variations available. The order to whitch you apply them matter.
+    There are 2(two) *`POST`* variations available. The order to whitch you apply them matter.
 
     For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
     
-    These are applyed after the VAR variations. They are the very last transformation.
+    These are applyed after the *`VAR`* variations. They are the very last transformation.
 
     * When using parametric variations, their parameters will populate the *FF: PP VARS* Tab.
     
@@ -1135,7 +1135,7 @@ swap FF POST vars:
 
     _Usage_:
     
-    - ((LMB)) swap the order of the POST Variations and their weights. 
+    - ((LMB)) swap the order of the *`POST`* Variations and their weights. 
     - ((CTRL)) + ((LMB)) swap only the variation names.
 
     
@@ -1181,13 +1181,14 @@ FF: post affine [Icon:TOP/xmlinput]:
         _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
         _A tooltip containing the names of the appropriate parameters will appear when the mouse is hovered over the name._
     
+
 FF: VARS Tab [Icon:TOP/xmlinput]:
     #id: FF
     If a parametric variation is selected, its parameters will populate this Tab.
     
 FF: PP VARS Tab [Icon:TOP/xmlinput]:
     #id: FF
-    If a *PRE* or *POST* parametric variation is selected, its parameters will populate this Tab.
+    If a *`PRE`* or *`POST`* parametric variation is selected, its parameters will populate this Tab.
     
 
 
@@ -1515,9 +1516,9 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     _The only restrictions are_:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H. 
-    - A maximum of 3 PRE ( *`pre_blur`* plus 2 of your choise ), 4 VAR and 1 POST variations for each iterator are allowed. 
-    ( for a total of 8 vars per iterator ). If it finds more on load, it will just discard the extra one.
-    - For FF ( FinalXForm ) you have 1 PRE, 2 VAR and 2 POST available. If it finds more on load, it will just discard the extra one.
+    - A maximum of 3(three) *`PRE`* ( *`pre_blur`* plus 2(two) of your choise ), 4(four) *`VAR`* and 1(one) *`POST`* variations for each iterator are allowed. 
+    ( for a total of 8(eight) vars per iterator ). If it finds more on load, it will just discard the extra one.
+    - For FF ( FinalXForm ) you have 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* available. If it finds more on load, it will just discard the extra one.
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
@@ -1553,7 +1554,7 @@ Reload:
     _Additionally_:
 
     - When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
-    - If a Flame preset contain more variations than the allowed number in any of the available types (PRE, VAR, POST) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (*`PRE*`, *`VAR*`, *`POST*`) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
     
     TIP:
         #display: orange
@@ -1652,13 +1653,13 @@ Remap pre_gaussian_blur [Icon:DATATYPES/boolean]:
     This option is specific while working back and forth with Fractorium.
 
     Fractorium always remap *`pre_blur`* to *`pre_gaussian_blur`* when you load a Flame in.
-    This mean that every time you save the Flame again from Fractorium and load it back into FLAM3H you loose a PRE variation's slot.
+    This mean that every time you save the Flame again from Fractorium and load it back into FLAM3H you loose a *`PRE`* variation's slot.
 
     When this toggle is ON, the *`pre_gaussian_blur`* variation will be remapped to the *`pre_blur`* variation on Flame load.
     
     ON by default since also the chaos game in this implementation has the *`pre_blur`* variation hard coded to be as quick as possible.
 
-    However, depending of the orther of the PRE variations in the Flame you are trying to load, you sometime want to retain it.
+    However, depending of the orther of the *`PRE`* variations in the Flame you are trying to load, you sometime want to retain it.
     If you'd rather want to use *`pre_gaussian_blur`* and have it behave as a pre variation (not cumulative/additive), turn it OFF.
     
     NOTE:
@@ -1681,7 +1682,7 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
     OFF by default.
     
-    When ON, It will automatically copy all the render properties (SENSOR, RENDER and CURVES) into the OUT render properties every time you load a Flame preset in.
+    When ON, It will automatically copy all the render properties (SENSOR, RENDER and CC CURVES) into the OUT render properties every time you load a Flame preset in.
 
     All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
     
@@ -1741,7 +1742,7 @@ Copy/Paste preset properties:
     #id: IN
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg]
     
-    When you click this icon, all those render properties (SENSOR, RENDER and CURVES settings) will be copied and pasted into the render properties of the OUT tab.
+    When you click this icon, all those render properties (SENSOR, RENDER and CC CURVES settings) will be copied and pasted into the render properties of the OUT tab.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
@@ -1832,10 +1833,10 @@ TIP:
     
     _You must abide by some rules imposed by the original Flame file format._
     
-    _Not using multiple instances of the same variation in any of the accessible sections (PRE, VAR, or POST) is the most crucial thing to keep in mind._
+    _Not using multiple instances of the same variation in any of the accessible sections (*`PRE`*, *`VAR`*, or *`POST`*) is the most crucial thing to keep in mind._
     
-    _For instance, you cannot utilize two Mobius variations inside an iterator's PRE or VAR sections._
-    _But you can use 1 Mobius in the PRE vars, 1 Mobius in the VAR, and 1 Mobius in the POST._
+    _For instance, you cannot utilize two Mobius variations inside an iterator's *`PRE`* or *`VAR`* sections._
+    _But you can use 1(one) *`Mobius`* in the *`PRE`* vars, 1(one) *`Mobius`* in the *`VAR`*, and 1(one) *`Mobius`* in the *`POST`*._
     
     _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
     _you to bend this rule, enabling the use of the same variation multiple times within the same section ( Chaotica style ), but you won't be able to save out_
@@ -1895,7 +1896,7 @@ Save Flame:
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
 
-        While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( types: PRE, VAR, POST )
+        While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( types: *`PRE`*, *`VAR`*, *`POST`* )
         or you won't be able to save the same result.
 
         Save the hip file instead.
@@ -2093,7 +2094,7 @@ Render properties utils:
 
     _Additionally_:
 
-    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (SENSOR, RENDER and CURVES setttings). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (SENSOR, RENDER and CC CURVES setttings). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
     
     
 :box:
@@ -2147,7 +2148,7 @@ Copy/Paste render properties:
     
     When you load a Flame file in the IN tab, this icon will become available.
     
-    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (SENSOR, RENDER and CURVES settings).
+    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (SENSOR, RENDER and CC CURVES settings).
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
@@ -2953,12 +2954,12 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
         #id: Limitations
     
-    Every iterator is capable of 3(three) PRE variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
+    Every iterator is capable of 3(three) *`PRE`* variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
     
     It is really *`pre_blur`* + 2(two) variations of your choice.
     
     NOTE:
-        _*The weight of the PRE variations can not be negative* in FLAM3H._
+        The weight of the *`PRE`* variations can not be negative in FLAM3H.
 
 :box:
     #display: rounded gray
@@ -2974,10 +2975,10 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] POST variations:
         #id: Limitations
     
-    Every iterator is capable of 1(one) POST variation.
+    Every iterator is capable of 1(one) *`POST`* variation.
     
     NOTE:
-        _*The weight of the POST variation can not be negative* in FLAM3H._
+        The weight of the *`POST`* variation can not be negative in FLAM3H.
     
 :box:
     #display: rounded gray
@@ -2985,7 +2986,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Parametric variation parameters:
         #id: Limitations
     
-    Each iterator has only one set of parametric variation parameters shared within the PRE, VAR and POST variations.
+    Each iterator has only one set of parametric variation parameters shared within the *`PRE`*, *`VAR`* and *`POST`* variations.
     This means if you use 2(two) *`PRE Mobius`*, 4(four) *`Mobius`* and 1(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     
@@ -2999,10 +3000,10 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF PRE variations:
         #id: Limitations
     
-    FF iterator is capable of 1(one) PRE variation.
+    FF iterator is capable of 1(one) *`PRE`* variation.
     
     NOTE:
-        _*The weight of the FF PRE variations can not be negative* in FLAM3H._
+        The weight of the FF *`PRE`* variations can not be negative in FLAM3H.
 
     
 :box:
@@ -3011,7 +3012,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF VAR variations:
         #id: Limitations
     
-    FF iterator is capable of 2(two) variations.
+    FF iterator is capable of 2(two) *`VAR`* variations.
     
     
 :box:
@@ -3020,10 +3021,10 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF POST variations:
         #id: Limitations
     
-    FF iterator is capable of 2(two) POST variations.
+    FF iterator is capable of 2(two) *`POST`* variations.
     
     NOTE:
-        _*The weight of the FF POST variation can not be negative* in FLAM3H._
+        The weight of the FF *`POST`* variation can not be negative in FLAM3H.
        
 :box:
     #display: rounded gray
@@ -3032,10 +3033,10 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: Limitations
     
     FF iterator has two sets of parametric variation parameters.
-    One is shared with VAR variations.
-    The second is shared within the PRE- and POST-variations.
+    One is shared with *`VAR*` variations.
+    The second is shared within the *`PRE`* and *`POST`* variations.
     
-    # If you use 2(two) *`Mobius`* in the FF VAR section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
+    # If you use 2(two) *`Mobius`* in the FF *`VAR`* section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
     # If you use 1(one) *`PRE Mobius`* and 2(two) *`POST_Mobius`* they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
     
 == Limitations: FF Shader ==
