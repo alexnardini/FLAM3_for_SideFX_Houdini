@@ -7797,7 +7797,7 @@ OUT_XML_FLAME_RENDER_CURVE_GREEN = 'green_curve'
 OUT_XML_FLAME_RENDER_CURVE_BLUE = 'blue_curve'
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1"
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B = '0 0 0.25 0.25 0.75 0.75 1 1'
-OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C = '0 0 0.25 0.25 1 1 0.75 0.75'
+OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C = '0 0 0.25 0.25 1 1 0.75 0.75' # This order is odd but I have some flames coming in with this so...
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: tuple = (OUT_XML_FLAME_RENDER_CURVE_DEFAULT, OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B, OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C) # I'll do a better solution another day for this
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
