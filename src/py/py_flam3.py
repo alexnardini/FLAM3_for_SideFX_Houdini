@@ -10911,6 +10911,8 @@ reset_IN(self, mode: int=0) -> None:
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
             # Check if the CC curves are at their default values or not and set the toggle
+            # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+            # but since this one is run also from a callback script, i'm doing the checks twice anyway
             out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
             
@@ -11026,6 +11028,8 @@ reset_IN(self, mode: int=0) -> None:
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
             # Check if the CC curves are at their default values or not and set the toggle
+            # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+            # but since this one is run also from a callback script, i'm doing the checks twice anyway
             out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
@@ -11084,6 +11088,8 @@ reset_IN(self, mode: int=0) -> None:
                 # OUT render curves ui parm set
                 out_flame_utils.out_render_curves_retrive_data(node)
                 # Check if the CC curves are at their default values or not and set the toggle
+                # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+                # but since this one is run also from a callback script, i'm doing the checks twice anyway
                 out_flame_utils.out_render_curves_compare_and_set_toggle(node)
                     
                     
