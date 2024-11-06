@@ -170,7 +170,7 @@ Reset density:
     #id: Global
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
-    Reset density to its default: 500k
+    Reset density to its default: *`500k`*
         
     
 iterations [Icon:TOP/xmlinput]:
@@ -185,11 +185,11 @@ iterations [Icon:TOP/xmlinput]:
     
     But generally speaking, for many fratcal Flames shapes:
     
-    - You do not need many iterations to get some good fractal Flames going, between 10 and 24 is usually more than you need while keeping execution speed acceptable.
-    - If you increase the iterator weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
+    - You do not need many iterations to get some good fractal Flames going, between *`10`* and *`24`* is usually more than you need while keeping execution speed acceptable.
+    - If you increase the iterator Weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
     
     Almost all the fractal Flames showcased inside FLAM3H's Instagram account
-    use a maximum of 64 iterations, with a few exceptions reaching 96 and, in rare cases, 128/256 and more.
+    use a maximum of *`64`* iterations, with a few exceptions reaching *`96`* and, in rare cases, *`128`*/*`256`* and more.
     
     Some flames require a truly high number of iterations to resolve properly.
     
@@ -248,11 +248,11 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF/Disabled.
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when an iterator is OFF/Disabled and Marked.
 
-    When an iterator shader's opacity is set to 0(Zero),<br />
+    When an iterator shader's opacity is set to *`0`*(Zero),<br />
     its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
     This is handy also when you load or build a Flame that uses containers so to easily spot the intermediary iterators used in the construction.
 
-    _Additionally, when there are 0(Zero) iterators, an info message is displayed instead_:
+    _Additionally, when there are *`0`*(Zero) iterators, an info message is displayed instead_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
 
@@ -324,19 +324,19 @@ TAG [Icon:DATATYPES/boolean]:
     
     * The iteration number will be the very first number inside square brackets.
     * [Xaos|#FLAMEITERXAOS] (_when active_) will be next inside square brackets. Read the xaos documentation to know more about it.
-    * Xaos TO will be: *Xt*
-    * Xaos FROM wil be: *fX*
-    * RIP when the SYS option "Remove Invalid Points" is ON.
-    * [F3C|#PREFSGENERAL] when the preference's option "flam3 compatibility" is ON.
+    * Xaos TO will be: *`Xt`*
+    * Xaos FROM wil be: *`fX`*
+    * *`RIP`* (_remove invalid points_) when the SYS option "Remove Invalid Points" is ON.
+    * *`F3C`* (_flam3 compatibility_) when the preference's option "flam3 compatibility" is ON.
     * [Motion blur|#MB] (_when active_) will be next inside square brackets.
     * [Iterator variations|#FLAMEITERVARS] are lowercase.
     * [FF variations|#FFVARS] are UPPER CASE.
-    * *`pre_blur`* will be indicated witn an asterisk * at the beginning of each iterator and before all variations.
+    * *`pre_blur`* will be indicated witn an asterisk "*`*`*" at the beginning of each iterator and before all variations.
     * *`PRE`* variations will be inside square brackets at the beginning of each iterator, or FF.
     * *`POST`* variations will be inside square brackets at the end of each iterator, or FF
     * The [iterator's weight|#FLAMEITER] value will be the last in each iterator.
-    * The colons *:* indicate how many variation slots are still available ( 4(four) in case of an iterator *`VAR`* section, plus a last colon *:* as a separator from the iterator's weight).
-    * If an iterator is disabled, it will be displayed as: " *::::::::::* "
+    * The colons "*`:`*" indicate how many variation slots are still available; 4(four) in case of an iterator *`VAR`* section, plus a last colon "*`:`*" as a separator from the iterator's weight.
+    * If an iterator is disabled, it will be displayed as: " *`::::::::::`* "
     
     TIP:
         #display: orange
@@ -479,7 +479,7 @@ IN Preset reload:
 
     TIP:
         #display: orange
-        - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
+        - Loading a Flame from the clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
     
 :box:
@@ -564,7 +564,7 @@ number of iterators [Icon:TOP/xmlinput]:
     _The following control icons are provided_:
 
     - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
-    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by 1. It will remove one from the end.
+    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*. It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
     _Additionaly, each iterator posses the following control icons_:
@@ -646,7 +646,8 @@ A tip [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME
-    The Weight of this iterator. Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator weight is higher than the others.
+    The Weight of this iterator.<br />
+    Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator weight is higher than the others.
     
 :box:
     #display: rounded white
@@ -663,8 +664,8 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     Xaos provides more fine-grained control over the selection of xforms on each iteration.
     It is expressed as a probability modifier for each xform in relation to every other xform.
 
-    The default state is for all elements to have a value of 1, which means that xaos is not used.
-    When any element is changed to something other than 1, xaos is in effect.
+    The default state is for all elements to have a value of *`1`*, which means that xaos is not used.
+    When any element is changed to something other than *`1`*, xaos is in effect.
 
     Xaos specifies how likely a xform is to be chosen based on the previous xform that was chosen.
     Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
@@ -688,8 +689,8 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         
     - To set XAOS for a Flame with 4 iterators, use the "*`xaos:`*" keyword followed by each iterator's weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is ON ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
-    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are 1.0, the equivalent of: *`xaos:`* *1:1:1:1*
-    - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of 1.0. *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
+    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1.0`*, the equivalent of: *`xaos:`* *1:1:1:1*
+    - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of *`1.0`.* As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
     - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
@@ -742,11 +743,13 @@ Location [Icon:TOP/xmlinput]:
     
 Speed [Icon:TOP/xmlinput]:
     #id: FLAME
-    Speed of color blending between iterations. Values above 0 attract the selected color while values below 0 will repel it.
+    Speed of color blending between iterations.<br />
+    Values above 0 attract the selected color while values below 0 will repel it.
     
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
-    This iterator's opacity. It will be fully opaque at opacity 1 and completely transparent at opacity 0. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's weight.
+    This iterator's opacity.<br />
+    It will be fully opaque at opacity *`1`* and completely transparent at opacity *`0`*. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's weight.
     
     TIP:
         #display: orange
@@ -762,9 +765,9 @@ Opacity [Icon:TOP/xmlinput]:
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-        While traditional iterated function systems used only linear affine transforms for each xform application, flam3 extended this design by adding the ability to use almost any mathematical calculation as well. Flam3 dubbed these new math functions as “variations” which is a catch-all name for an arbitrary math function.
+        While traditional iterated function systems used only linear affine transforms for each iterator/xform application, flam3 extended this design by adding the ability to use almost any mathematical calculation as well. Flam3 dubbed these new math functions as “variations” which is a catch-all name for an arbitrary math function.
 
-        Variations have a great affect on performance so it’s important to use them sparingly. The reason is that when an xform is selected to be applied, every variation within it must be applied as well. Do not add numerous variations that have little to no affect on the final output image. Instead, only use ones which you can verify have an effect you desire.
+        Variations have a great affect on performance so it’s important to use them sparingly. The reason is that when an iterator/xform is selected to be applied, every variation within it must be applied as well. Do not add numerous variations that have little to no affect on the final output image. Instead, only use ones which you can verify have an effect you desire.
 
         Since variations can be just about anything, they behave in many different ways.
 
@@ -781,16 +784,16 @@ Opacity [Icon:TOP/xmlinput]:
 
         When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
-        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
-        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
-        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
+        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
+        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above *`1`*.
+        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below *`0`*.
         
         _PRE and POST bookmark icons:_
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above 0 and less or equal to 1.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above 1.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
+        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
+        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*.
     
     TIP:
         #display: orange
@@ -867,8 +870,8 @@ menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
         
 w [Icon:TOP/xmlinput]:
     #id: FLAME
-    The weight of the selected variation. Zero will be inactive, and 1 will be 100%.
-    Can be set higher than 1 and negative too.
+    The weight of the selected variation. *`0`* will be inactive, and *`1`* will be 100%.
+    Can be set higher than *`1`* and negative too.
     * If more than one variation is active, remember that, as a general rule, it is suggested ( not mandatory ) to have the sum of all weights equal to 1.
     
     TIP:
@@ -1078,21 +1081,21 @@ FF: copy/paste:
         
         When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
-        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above 0 and less or equal to 1.
-        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above 1.
-        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below 0.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
+        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
+        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above *`1`*.
+        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below *`0`*.
 
         Pre and Post types:
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is 0.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above 0 and less or equal to 1.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above 1.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
+        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
+        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*.
     
     TIP:
         #display: orange
         
-        _FF iterator allow up to 5(five) variations ( 1(one) *`PRE`,* 2(two) *`VAR`* and 2(two) *`POST`* ) to be used._
+        _FF iterator allow up to 5(five) variations: 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
@@ -1141,9 +1144,9 @@ swap FF POST vars:
     
 FF: w [Icon:TOP/xmlinput]:
     #id: FF
-    The weight of the selected variation. ZERO will be inactive, 1 will be 100%.
+    The weight of the selected variation. *`0`* will be inactive, *`1`* will be 100%.
 
-    Can be set higher than 1 and negative too.
+    Can be set higher than *`1`* and negative too.
     
     TIP:
         #display: orange
@@ -1258,16 +1261,16 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
     
-    The amount of linearly spaced color keys in a typical fractal Flame is equivalent to 256, which is the default.
+    The amount of linearly spaced color keys in a typical fractal Flame is equivalent to *`256`*, which is the default.
     
-    However, if you create a palette with more than 256 color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
+    However, if you create a palette with more than *`256`* color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
     
-    In general, 256 lookup samples will always be good.
+    In general, *`256`* lookup samples will always be good.
     
     NOTE:
         - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
-        - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of 256 will be used instead.
-        - Saving a Flame out will always save the palette with 256 color's keys. If you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*.
+        - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
+        - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
 palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
@@ -1290,7 +1293,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 
     TIP:
         #display: orange
-        When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
+        When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
 :box:
     #display: rounded white
@@ -1331,21 +1334,19 @@ Save Palette:
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
 
-    - _If the selected file is not a valid Palette JSON file type, nothing will happen._
+    - If the selected file is not a valid Palette JSON file type, nothing will happen.
     
-    TIP:
-        #display: orange
-        *Once you click save*:
-        
-        - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
-        - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
-        - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
-        - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Once you click save*:
+    
+    - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
+    - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
+    - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
+    - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
 
     NOTE:
-        - The maximun color a palette can have when saving it is 256. If your palette ramp has more than 256 color's keys in it, turn ON the *CP options* tab toggle -> *`palette 256+`*.
-        - When saving out a palette file, it will try to downsample the usual 256 color count standard.
-        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a 256-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`palette 256+`*.
+        - The maximun color a palette can have when saving it is *`256`*. If your palette ramp has more than *`256`* color's keys in it, turn ON the *CP options* tab toggle -> *`palette 256+`*.
+        - When saving out a palette file, it will try to downsample the usual *`256`* color count standard.
+        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a *`256`*-color palette standard, unless you turn ON the *OUT options* tab toggle -> *`palette 256+`*.
     
 Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
@@ -1395,18 +1396,18 @@ palette 256+ (CP) [Icon:DATATYPES/boolean]:
     #id: PALETTE
     ON by default.
 
-    Allow the palette to be saved with more than the standard 256 colors assuming you created a palette with those many colors.
+    Allow the palette to be saved with more than the standard *`256`* colors assuming you created a palette with those many colors.
 
     _It will use a banding system to determine how many colors/samples to use_:
 
-    - Anything below 256, it will try to downsample based on internally defined rules.
-    - Anything above 256 and below/equal 512, it will use 512 colors/samples on save.
-    - Anything above 512 and below/equal 1024, it will use 1024 colors/samples on save.
-    - Anything above 1024 it will be clamped at 1024 colors.
+    - Anything below *`256`*, it will try to downsample based on internally defined rules.
+    - Anything above *`256`* and below/equal *`512`*, it will use *`512`* colors/samples on save.
+    - Anything above *`512`* and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
+    - Anything above *`1024`* it will be clamped at *`1024`* colors.
 
     TIP:
         #display: orange
-        When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
+        When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
 palette HSV (CP) [Icon:DATATYPES/boolean]:
     #id: PALETTE
@@ -1416,7 +1417,7 @@ palette HSV (CP) [Icon:DATATYPES/boolean]:
     
     Check this option to save the the color-corrected HSV ramp instead. 
     
-    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
+    This option will clamp the palette colors on save to *`0`*-*`255`* and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
 
 
@@ -1554,11 +1555,11 @@ Reload:
     _Additionally_:
 
     - When loading a Flame preset from the clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
-    - If a Flame preset contain more variations than the allowed number in any of the available types (*`PRE*`, *`VAR*`, *`POST*`) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (*`PRE`*, *`VAR`*, *`POST`*) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
     
     TIP:
         #display: orange
-        - Loading a Flame from the clipboard is useful when going back and forth with a third-part application like for example: Fractorium.
+        - Loading a Flame from the clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
 
 :box:
@@ -1577,10 +1578,10 @@ Iterations on Load:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
-        For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
+        For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with *`64`* iterations by default.
 
         However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*".
-        and load it with an iteration count of 16.
+        and load it with an iteration count of *`16`*.
         
         Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
         
@@ -1588,7 +1589,7 @@ Iterations on Load:
     
 Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
-    When *.flame files are loaded, FLAM3H immediately sets the iteration number to 64, which seems like a reasonable count to resolve the majority of them rather effectively.
+    When flame files are loaded, FLAM3H immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
     However, if you need to act quickly, you can use this number to override the iterations set on load.
 
     If the iterations number is baked into the Flame preset name, it will override this setting.
@@ -1842,7 +1843,7 @@ TIP:
     _you to bend this rule, enabling the use of the same variation multiple times within the same section ( Chaotica style ), but you won't be able to save out_
     _the result in the standard Flame file format._
 
-    _*Save the hip file instead in those cases*._
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Save the hip file instead in those cases*._
 
 :box:
     #display: rounded white
@@ -1891,7 +1892,7 @@ Save Flame:
         
         *Also*:
     
-        - When saving out Flame files, if you created a palette with more than 256 colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with 1024 color keys and sample it with 1024 samples to take into account all the subtle color changes, turn ON the *OUT options* tab toggle -> *`palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
@@ -1930,7 +1931,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     It will always be set to the last Flame’s name you saved.
 
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
-    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file.<br />Each Flame preset in the file will be marked with this icon.
+    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file. Each Flame preset in the file will be marked with this icon.
 
     _Additionally_:
     
@@ -1962,22 +1963,22 @@ palette 256+ (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     When switched ON,
 
-    will allow the Flame to be saved with more than the standard 256 colors assuming you created a palette with those many colors.
+    will allow the Flame to be saved with more than the standard *`256`* colors assuming you created a palette with those many colors.
 
     It will use a banding system to determine how many colors/samples to use:
     
-    - Anything below 256, it will always sample and save the Flame using a palette with 256 colors.
-    - Anything above 256 and below/equal 512, it will use 512 colors/samples on save.
-    - Anything above 512 and below/equal 1024, it will use 1024 colors/samples on save.
-    - Anything above 1024 it will be clamped at 1024 colors.
+    - Anything below *`256`*, it will always sample and save the Flame using a palette with *`256`* colors.
+    - Anything above *`256`* and below/equal *`512`*, it will use *`512`* colors/samples on save.
+    - Anything above *`512`* and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
+    - Anything above *`1024`* it will be clamped at *`1024`* colors.
 
     TIP:
         #display: orange
-        - Fractorium will work properly when loading a Flame with more than 256 colors.
-        - When you are adding more than 256 colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
+        - Fractorium will work properly when loading a Flame with more than *`256`* colors.
+        - When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
 
     :warning:
-        Apophysis v7.x will error out if you try to load a Flame with more than 256 colors.
+        Apophysis v7.x will error out if you try to load a Flame with more than *`256`* colors.
         
         
 palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -1988,7 +1989,7 @@ palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     It is helpful if you want to maintain the color-corrected palette when you load the saved Flame into a different program, such as Fractorium or Apophysis.
 
-    This option will clamp the palette colors on save to 0-255 and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
+    This option will clamp the palette colors on save to *`0`*-*`255`* and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
 F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
@@ -2330,7 +2331,7 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     
     This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
     
-    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (500k points) as a way to reduce the waiting time.
+    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (*`500k`* points) as a way to reduce the waiting time.
 
 :box:
     #display: round white
@@ -2339,12 +2340,12 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
 
 cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
     #id: prefs
-    Switch between the default Single Precision ( 32-bit ) or Double Precision ( 64-bit ).
+    Switch between the default Single Precision ( *`32-bit`* ) or Double Precision ( *`64-bit`* ).
     
     :warning:
-        Double precision 64 bits will be really slow. I'm saying it again: "really slow".
+        Double precision *`64-bits`* will be really slow. I'm saying it again: "really slow".
 
-        Unless you notice some significant artifacts and you genuinely adore the fractal Flame you are working on, always use 32-bit which is the default.
+        Unless you notice some significant artifacts and you genuinely adore the fractal Flame you are working on, always use *`32-bit`* which is the default.
 
 :box:
     #display: rounded white
@@ -2371,7 +2372,7 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
             
 camera handle [Icon:DATATYPES/boolean]:
     #id: prefs
-    Display the viewport camera handle to help frame/center your fractal Flame.
+    Display the viewport camera handle to help frame/center your fractal Flame.<br />
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     
     NOTE:
@@ -2789,9 +2790,9 @@ _A list of all parametric variations and their parametric parameter's names._
 
     When using Karma renderer:
 
-    - With 64gb of physical memory you will be able to render 500M points without weight much on virtual memory.
+    - With *`64gb`* of physical memory you will be able to render *`500M points`* without weight much on virtual memory.
     
-    - With 128gb of physical memory you will be able to render 1 billion points without weight much on virtual memory.
+    - With *`128gb`* of physical memory you will be able to render *`1 billion points`* without weight much on virtual memory.
     
     TIP:
         #display: orange
@@ -2814,9 +2815,7 @@ _A list of all parametric variations and their parametric parameter's names._
     Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
     It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     
-    TIP:
-        #display: orange
-        As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
+    As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
 
 
 == Rendering: Helpful settings == (REND)
@@ -2832,7 +2831,7 @@ _A list of all parametric variations and their parametric parameter's names._
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (Saturation) and, most crucially, the "*V*" (Value).
-    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of 1.0, bringing the appearance of the Flame closer to that of a typical fractal Flame.
+    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1.0`*, bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
 
 
@@ -2851,7 +2850,7 @@ _A list of all parametric variations and their parametric parameter's names._
     you will find information on how to compile and then update FLAM3H Cvex code in case you'd like to modify/extend its core functionalities.
 
     For example,<br />
-    you may want to add more variations to its current arsenal of already implemented variations ( currently there are 106 implemented ).
+    you may want to add more variations to its current arsenal of already implemented variations ( currently there are *106* implemented ).
     
     Extending the Cvex code base,<br /> 
     most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
@@ -2942,7 +2941,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Iterator's count:
         #id: Limitations
     
-    FLAM3H allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of 20 iterators.
+    FLAM3H allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of *`20`* iterators.
     
     _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
@@ -3051,9 +3050,9 @@ _A list of all parametric variations and their parametric parameter's names._
 
     NOTE:
         _When saving a Flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
-        - Color -> 0.0
-        - Color Speed -> 0.0 ( _this is the most important_ )
-        - Direct Color -> 1.0
+        - Color -> *`0.0`*
+        - Color Speed -> *`0.0`* ( _this is the most important_ )
+        - Direct Color -> *`1.0`*
         
         _This way, you won't add a color to the Flame that FLAM3H won't be able to match._
 
@@ -3070,7 +3069,7 @@ _A list of all parametric variations and their parametric parameter's names._
     
 :box:
     #display: rounded gray
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Mini bio*<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Mini bio*<br /><br />
     _Alessandro Nardini is an Italian artist and developer who's spent most of his career serving the entertainment industry._
     _He served many different branches of the entertainment industry's post-production,_
     _spanning feature films, games, TV/commercials, episodic series and streaming._
