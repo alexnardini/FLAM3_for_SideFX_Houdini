@@ -4609,7 +4609,7 @@ iterator_vactive_and_update(self) -> None:
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
                 
-                _MSG = f"{self.node.name()} -> This iterator is already Marked." # type: ignore
+                _MSG = f"{self.node.name()}: This iterator is already Marked." # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
         else:
@@ -4683,7 +4683,7 @@ iterator_vactive_and_update(self) -> None:
         if from_FLAM3H_NODE_FF_CHECK is not None:
             
             if node == from_FLAM3H_NODE:
-                _MSG = f"{node.name()}: This FF is marked -> Select a different FLAM3H node's FF to paste its values."
+                _MSG = f"{node.name()}: This FF is marked. Select a different FLAM3H node's FF to paste its values."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Select a different FLAM3H node's FF")
             else:
@@ -4726,11 +4726,11 @@ iterator_vactive_and_update(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"FF UNMARKED")
             else:
-                _MSG = f"{node.name()}: This FF is Unmarked already -> The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
+                _MSG = f"{node.name()}: This FF is Unmarked already. The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             if isDELETED:
-                _MSG = f"{node.name()} -> Marked FF's node has been deleted -> Mark a new FF first."
+                _MSG = f"{node.name()} -> Marked FF's node has been deleted. Mark a new FF first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
                 _MSG = f"{node.name()}: This FF is Unmarked already"
@@ -4752,7 +4752,7 @@ iterator_vactive_and_update(self) -> None:
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
             
         if from_FLAM3H_NODE_FF_CHECK and node == from_FLAM3H_NODE:
-            _MSG = f"{self.node.name()} -> This FF is already Marked." # type: ignore
+            _MSG = f"{self.node.name()}: This FF is already Marked." # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         else:
