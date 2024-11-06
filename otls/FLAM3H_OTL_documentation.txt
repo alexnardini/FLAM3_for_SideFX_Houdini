@@ -3033,7 +3033,7 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: Limitations
     
     FF iterator has two sets of parametric variation parameters.
-    One is shared with *`VAR*` variations.
+    One is shared with *`VAR`* variations.
     The second is shared within the *`PRE`* and *`POST`* variations.
     
     # If you use 2(two) *`Mobius`* in the FF *`VAR`* section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
