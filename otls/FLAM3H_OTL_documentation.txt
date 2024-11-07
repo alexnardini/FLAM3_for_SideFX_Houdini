@@ -242,8 +242,8 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     _The bookmark icon will display the status of each iterator_:
 
     - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is ACTIVE.
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is ACTIVE and 0(Zero) Weight.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when an iterator is ACTIVE, 0(Zero) Weight and Marked.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is ACTIVE and *`0`*(Zero) Weight.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when an iterator is ACTIVE, *`0`*(Zero) Weight and Marked.
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and Marked.
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF/Disabled.
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when an iterator is OFF/Disabled and Marked.
@@ -282,12 +282,12 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this ON to get rid of those points.
-    - When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
+    - When an iterator's opacity is *`0`* (Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned ON.
 
     TIP:
         #display: orange
-        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0.0`* ( *ZERO* ) and if so, it will switch this toggle ON.<br />
+        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0.0`* (Zero) and if so, it will switch this toggle ON.<br />
 
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -609,7 +609,7 @@ copy/paste:
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or Zero Weight.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or *`0.0`*(Zero) Weight.
 
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -753,7 +753,7 @@ Opacity [Icon:TOP/xmlinput]:
     
     TIP:
         #display: orange
-        When an iterator's opacity is *`0.0`* ( *ZERO* ), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
+        When an iterator's opacity is *`0`* (Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
 :box:
     #display: rounded white
 
@@ -1836,7 +1836,7 @@ TIP:
     
     _Not using multiple instances of the same variation in any of the accessible sections (*`PRE`*, *`VAR`*, or *`POST`*) is the most crucial thing to keep in mind._
     
-    _For instance, you cannot utilize two Mobius variations inside an iterator's *`PRE`* or *`VAR`* sections._
+    _For instance, you cannot utilize 2(two) Mobius variations inside an iterator's *`PRE`* or *`VAR`* sections._
     _But you can use 1(one) *`Mobius`* in the *`PRE`* vars, 1(one) *`Mobius`* in the *`VAR`*, and 1(one) *`Mobius`* in the *`POST`*._
     
     _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
@@ -2273,7 +2273,7 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
         - [Icon:TOP/xmlinput] *`flam3h_cp_samples`* -> _Palette lookup samples_
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*xforms*_<br /> 
-        _only exported when the Rotation angle parameter is different from Zero and the OUT tab option: "F3H affine style" toggle is ON_:
+        _only exported when the Rotation angle parameter is different from *`0`*(Zero) and the OUT tab option: "F3H affine style" toggle is ON_:
 
         - [Icon:TOP/xmlinput] *`f3h_coefs`* -> _F3H pre affine style values_
         - [Icon:TOP/xmlinput] *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
