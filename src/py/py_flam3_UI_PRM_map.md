@@ -57,7 +57,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\nFLAM3H version: {FLAM3H_VERSION}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1 minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\nFLAM3H version: {FLAM3H_VERSION}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
