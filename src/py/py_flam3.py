@@ -9588,6 +9588,12 @@ in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
 
 in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
 
+in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
+
+in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
+
+in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
+
 in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
 
 in_copy_sensor_stats_msg(kwargs: dict) -> None:
@@ -10802,10 +10808,64 @@ reset_IN(self, mode: int=0) -> None:
         return build_render_stats_msg
     
     
+    @staticmethod
+    def in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
+        """Copy the loaded IN Flame preset sensor XML data into the FLAM3H OUT sensor data.
+
+        Args:
+            node (hou.SopNode): FLAM3H node.
+            f3r (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            preset_id (int): the preset index we are loading 
+        """  
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
+        except:
+            pass
+    
+    
+    
+    
+    @staticmethod
+    def in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
+        """Copy the loaded IN Flame preset render XML data into the FLAM3H OUT render data.
+
+        Args:
+            node (hou.SopNode): FLAM3H node.
+            f3r (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            preset_id (int): the preset index we are loading 
+        """  
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
+        except:
+            pass
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
+        except:
+            pass
+    
+    
     
     @staticmethod
     def in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-        """Copy the loaded IN Flame color correction XML data into the FLAM3H color correction data.
+        """Copy the loaded IN Flame preset color correction XML data into the FLAM3H render color correction curves data.
         It will check if each is one of the defaults settings first. 
 
         Args:
@@ -10874,38 +10934,12 @@ reset_IN(self, mode: int=0) -> None:
             
         assert f3r is not None
         if f3r.isvalidtree:
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
-            except:
-                pass
             
-            # render curves
+            # sensor data
+            in_flame_utils.in_copy_sensor(node, f3r, preset_id)
+            # render data
+            in_flame_utils.in_copy_render(node, f3r, preset_id)
+            # render curves data
             in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
             
             # OUT render curves ui parm set
@@ -10952,18 +10986,8 @@ reset_IN(self, mode: int=0) -> None:
             xml = node.parm(IN_PATH).eval()
             f3r = in_flame_iter_data(node, xml, preset_id)
             
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
-            except:
-                pass
+            # sensor data
+            in_flame_utils.in_copy_sensor(node, f3r, preset_id)
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
@@ -11003,25 +11027,8 @@ reset_IN(self, mode: int=0) -> None:
             xml = node.parm(IN_PATH).eval()
             f3r = in_flame_iter_data(node, xml, preset_id)
                 
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
-            except:
-                pass
-            try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
-            except:
-                pass
-            
+            # sensor data
+            in_flame_utils.in_copy_render(node, f3r, preset_id)
             # render curves
             in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
 
