@@ -52,6 +52,9 @@ import nodesearch
 #               
 #               Everything is then glued together inside Houdini.
 #
+#               From v1.4.94 the undos are not working anymore, again.
+#               Last version with working undos is: v1.4.88
+#
 #               _NOTE:
 #                   Some definitions run directly from inside the FLAM3H parameters.
 #                   Please check the file: ../py_flam3_UI_PRM_map.py
