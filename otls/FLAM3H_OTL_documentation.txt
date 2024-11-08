@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.64 - Gold
+#version: 1.5.66 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -527,6 +527,15 @@ OUT Save:
     - _If the selected file does not exist, it will be created_.
     - _If the selected file is not a valid Flame file type, nothing will happen_.
     
+:box:
+    #display: rounded white
+    
+    == SYS: PREFS Palette 256+ == (SYS256+)
+
+palette 256+ ON [Icon:TOP/xmlinput]:
+    #id: SYS
+    [Largeicon:opdef:.?icon_palettePlusSVG.svg]<br /><br />
+    when the preferences option *`palette 256+`* toggle is ON, this SYS tab icon will signal it and when OFF it will disappear.
 
 
 :box:
@@ -1386,40 +1395,6 @@ Reload preset:
     - ((LMB)) Reload the selected CP palette preset.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
-    
-:box:
-    #display: rounded white
-
-    == CP: Options == (CPOPTIONS)
-
-palette 256+ (CP) [Icon:DATATYPES/boolean]:
-    #id: PALETTE
-    ON by default.
-
-    Allow the palette to be saved with more than the standard *`256`* colors assuming you created a palette with those many colors.
-
-    _It will use a banding system to determine how many colors/samples to use_:
-
-    - Anything below *`256`*, it will try to downsample based on internally defined rules.
-    - Anything above *`256`* and below/equal *`512`*, it will use *`512`* colors/samples on save.
-    - Anything above *`512`* and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
-    - Anything above *`1024`* it will be clamped at *`1024`* colors.
-
-    TIP:
-        #display: orange
-        When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
-    
-palette HSV (CP) [Icon:DATATYPES/boolean]:
-    #id: PALETTE
-    OFF by default.
-    
-    When saving out a palette, FLAM3H use the non-color-corrected ramp by default and save the HSV values along with it if used ( different from default values ).
-    
-    Check this option to save the the color-corrected HSV ramp instead. 
-    
-    This option will clamp the palette colors on save to *`0`*-*`255`* and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
-    
-
 
 
 :box:
@@ -1784,7 +1759,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.64" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.66" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1956,31 +1931,7 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
     #display: rounded white
 
     == OUT: options == (OUTOPTIONS)
-
-palette 256+ (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
-    #id: PALETOUTTE
-    OFF by default.
-
-    When switched ON,
-
-    will allow the Flame to be saved with more than the standard *`256`* colors assuming you created a palette with those many colors.
-
-    It will use a banding system to determine how many colors/samples to use:
-    
-    - Anything below *`256`*, it will always sample and save the Flame using a palette with *`256`* colors.
-    - Anything above *`256`* and below/equal *`512`*, it will use *`512`* colors/samples on save.
-    - Anything above *`512`* and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
-    - Anything above *`1024`* it will be clamped at *`1024`* colors.
-
-    TIP:
-        #display: orange
-        - Fractorium will work properly when loading a Flame with more than *`256`* colors.
-        - When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
-
-    :warning:
-        Apophysis v7.x will error out if you try to load a Flame with more than *`256`* colors.
-        
-        
+      
 palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
@@ -2037,7 +1988,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.64" ... >
+          <flame version="FLAM3H-WIN-1.5.66" ... >
               ...
         }}}
         
@@ -2046,7 +1997,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.64" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.66" ... >
               ...
         }}}
         
@@ -2300,6 +2251,34 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
     #display: rounded white
 
     == Prefs: General == (PREFSGENERAL)
+
+
+palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: PALETOUTTE
+    ON by default.
+
+    [Largeicon:opdef:.?icon_palettePlusSVG.svg]<br /><br />
+    _when this preferences option toggle is ON, this SYS tab icon will signal it and when OFF it will disappear_. 
+    
+    It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using 256 color keys.
+    
+    If the palette color keys are less than *`256`*, it will always sample the palette at *`256`* when saving out the Flame preset.<br />
+    The maximun Palette color keys you can use are *`1024`*, if you create a Palette with more, it will be clamped and sampled at *`1024`*.
+
+    It will use a banding system to determine how many colors/samples to use:
+    
+    - Anything below *`256`* color keys, it will always sample and save the Flame using a palette with *`256`* colors.
+    - Anything above *`256`* color keys and below/equal *`512`*, it will use *`512`* colors/samples on save.
+    - Anything above *`512`* color keys and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
+    - Anything above *`1024`* color keys they will be clamped at *`1024`* colors.
+
+    TIP:
+        #display: orange
+        - Fractorium will work properly when loading a Flame with more than *`256`* colors.
+        - When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
+
+    :warning:
+        Apophysis v7.x will error out if you try to load a Flame with more than *`256`* colors.
 
 flash messages (network editor) [Icon:DATATYPES/boolean]:
     #id: prefs

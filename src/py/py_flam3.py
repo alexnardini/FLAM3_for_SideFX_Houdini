@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.64'
+FLAM3H_VERSION = '1.5.66'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -197,7 +197,7 @@ CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
 CP_RAMP_HSV_NAME = 'palettehsv'
-CP_RAMP_SAVE_256_PLUS = 'cppaletteplus'
+CP_PALETTE_PLUS = 'cppaletteplus'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
@@ -228,7 +228,6 @@ OUT_SYS_PRESETS = 'sys_outpresets'
 OUT_FLAME_PRESET_NAME = 'outname'
 OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_UPDATE_SENSOR = 'outsensorupdate'
-OUT_PALETTE_256_PLUS = 'outpaletteplus'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_FLAM3H_AFFINE_STYLE = 'out_f3h_affine'
 OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
@@ -253,6 +252,7 @@ OUT_RENDER_PROPERTIES_CURVE_BLUE = 'outcurveblueval'
 OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
 OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 
+PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
 PREFS_F3C = 'f3c'
 PREFS_ITERATOR_BOOKMARK_ICONS = 'itericons'
@@ -6038,7 +6038,7 @@ reset_CP_palette_action(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._palette_plus_do = self._node.parm(CP_RAMP_SAVE_256_PLUS).eval()
+        self._palette_plus_do = self._node.parm(CP_PALETTE_PLUS).eval()
         
         
     @staticmethod
@@ -6276,7 +6276,7 @@ reset_CP_palette_action(self) -> None:
             else:
                 node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"}) # type: ignore
                 
-                if palette_plus_msg and node.parm(OUT_PALETTE_256_PLUS).eval():
+                if palette_plus_msg and node.parm(PREFS_PALETTE_256_PLUS).eval():
                     _MSG = f"OUT Palette 256+: ON"
                     flam3h_general_utils.flash_message(node, _MSG)
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
@@ -6284,7 +6284,7 @@ reset_CP_palette_action(self) -> None:
             if PALETTE_PLUS_MSG in palette_msg:
                 node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
                 
-                if palette_plus_msg and node.parm(OUT_PALETTE_256_PLUS).eval():
+                if palette_plus_msg and node.parm(PREFS_PALETTE_256_PLUS).eval():
                     _MSG = f"OUT Palette 256+: OFF"
                     flam3h_general_utils.flash_message(node, _MSG)
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -7191,7 +7191,6 @@ reset_CP_palette_action(self) -> None:
         """
         node = self.node
         node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
-        node.setParms({CP_RAMP_SAVE_256_PLUS: 1})
         node.setParms({CP_RAMP_SAVE_HSV: 0})
         self.reset_CP_LOCK_MSG()
 
@@ -12920,7 +12919,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).eval()
         self._palette: hou.Ramp = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
-        self._palette_plus_do = self._node.parm(OUT_PALETTE_256_PLUS).eval()
+        self._palette_plus_do = self._node.parm(PREFS_PALETTE_256_PLUS).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
             flam3h_palette_utils(self.kwargs).palette_cp()
@@ -13979,8 +13978,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         rmp_src = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         if prm_prefs_256_plus.eval():
             if len(rmp_src.keys()) <= 256:
-                _MSG = f"OUT: CP palette do not have more than 256 color keys"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The Flame will be saved with a Palette sampled at 256 color keys, which is the standard for fractal flames.", 'IMP')
+                _MSG = f"PALETTE 256+ ACTIVE but the CP palette do not have more than 256 color keys."
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The Flame will be saved with a Palette sampled at 256 color keys, which is the standard for fractal flames.", 'IMP')
             else:
                 _MSG = f"OUT palette 256+: ON"
                 flam3h_general_utils.flash_message(node, _MSG)
@@ -14224,7 +14223,6 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Reset the OUT save options tab parameters.
         """
         node = self.node
-        node.setParms({OUT_PALETTE_256_PLUS: 0})
         node.setParms({OUT_HSV_PALETTE_DO: 0})
         node.setParms({OUT_AUTO_ADD_ITER_NUM: 1})
         node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 1})

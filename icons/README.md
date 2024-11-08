@@ -210,6 +210,12 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_palettePlusSVG.svg" /></p>
+<p align="center">icon_optionStarYellowSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_TagOBlueSVG_disabled.svg" /></p>
 <p align="center">icon_TagOBlueSVG_disabled.svg</p>
 <p align="center">.</p>

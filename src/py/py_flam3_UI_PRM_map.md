@@ -33,7 +33,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.5.64 - Gold'
+FLAM3H_VERSION = '1.5.66 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -893,6 +893,12 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 <br>
 
 
+# prefs Tab
+# parameter name:    `prefspaletteplus`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
+```
 # prefs Tab
 # parameter name:    `enumeratemenu`
 ### Callback Script
