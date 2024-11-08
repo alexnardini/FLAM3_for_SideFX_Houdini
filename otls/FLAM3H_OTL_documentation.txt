@@ -534,8 +534,8 @@ OUT Save:
 
 palette 256+ ON [Icon:TOP/xmlinput]:
     #id: SYS
-    [Largeicon:opdef:.?icon_palettePlusSVG.svg]<br /><br />
-    when the preferences option *`palette 256+`* toggle is ON, this SYS tab icon will signal it and when OFF it will disappear.
+    *`[256+]`*<br /><br />
+    when the preferences option *`palette 256+`* toggle is ON, this text in the SYS tab will signal it and when OFF it will disappear.
 
 
 :box:
@@ -2257,8 +2257,8 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: PALETOUTTE
     ON by default.
 
-    [Largeicon:opdef:.?icon_palettePlusSVG.svg]<br /><br />
-    _when this preferences option toggle is ON, this SYS tab icon will signal it and when OFF it will disappear_. 
+    *`[256+]`*<br />
+    when thi preferences option toggle is ON, this text in the SYS tab will signal it and when OFF it will disappear.
     
     It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using 256 color keys.
     
