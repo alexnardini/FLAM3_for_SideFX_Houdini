@@ -3873,63 +3873,65 @@ iterator_vactive_and_update(self) -> None:
         Returns:
             list: [return menu list]
         """
-        node = self.node
-        menu = []
+        with hou.undos.disabler(): # type: ignore
+            
+            node = self.node
+            menu = []
 
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-        if iter_count:
-            
-            note = [node.parm(f'note_{idx+1}').eval() for idx in range(iter_count)]
-            
-            active: list = [node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)]
-            weight: list = [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)]
-            shader_opacity: list = [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]
-            node.setCachedUserData('iter_sel_a', active)
-            node.setCachedUserData('iter_sel_w', weight)
-            node.setCachedUserData('iter_sel_o', shader_opacity)
-            
-            # This definition probably can be made more light-weight for this particular case
-            from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
-            # Store the most updated version of this data
-            node.setCachedUserData('iter_sel_id', mp_id_from)
-            
-            # append an empty line to reset to after selection (Null value).
-            menu.append(0)
-            menu.append("")
-            
-            for i in range(iter_count):
+            iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+            if iter_count:
                 
-                idx = i+1
-                menu.append(idx)
+                note = [node.parm(f'note_{idx+1}').eval() for idx in range(iter_count)]
+                
+                active: list = [node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)]
+                weight: list = [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)]
+                shader_opacity: list = [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]
+                node.setCachedUserData('iter_sel_a', active)
+                node.setCachedUserData('iter_sel_w', weight)
+                node.setCachedUserData('iter_sel_o', shader_opacity)
+                
+                # This definition probably can be made more light-weight for this particular case
+                from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+                # Store the most updated version of this data
+                node.setCachedUserData('iter_sel_id', mp_id_from)
+                
+                # append an empty line to reset to after selection (Null value).
+                menu.append(0)
+                menu.append("")
+                
+                for i in range(iter_count):
+                    
+                    idx = i+1
+                    menu.append(idx)
 
-                _OPACITY_MSG = ""
-                if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
-                
-                if active[i] and weight[i] > 0:
-                    # check if it is marked for being copied
-                    if node == from_FLAM3H_NODE and mp_id_from == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                    _OPACITY_MSG = ""
+                    if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
+                    
+                    if active[i] and weight[i] > 0:
+                        # check if it is marked for being copied
+                        if node == from_FLAM3H_NODE and mp_id_from == idx:
+                            menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        else:
+                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                            
+                    elif active[i] and weight[i] == 0:
+                        # check if it is marked for being copied
+                        if node == from_FLAM3H_NODE and mp_id_from == idx:
+                            menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        else:
+                            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  {idx}:  {_OPACITY_MSG}{note[i]}")
                     else:
-                        menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                        
-                elif active[i] and weight[i] == 0:
-                    # check if it is marked for being copied
-                    if node == from_FLAM3H_NODE and mp_id_from == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                    else:
-                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                else:
-                    # check if it is marked for being copied
-                    if node == from_FLAM3H_NODE and mp_id_from == idx:
-                        menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                    else:
-                        menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                        
-        else:
-            menu = [0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create at least one iterator or load an IN flame file first.", 1, ""]
-                
-        node.setCachedUserData('iter_sel', menu)
-        return menu
+                        # check if it is marked for being copied
+                        if node == from_FLAM3H_NODE and mp_id_from == idx:
+                            menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        else:
+                            menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                            
+            else:
+                menu = [0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  ZERO ITERATORS.\n-> Please, create at least one iterator or load an IN flame file first.", 1, ""]
+                    
+            node.setCachedUserData('iter_sel', menu)
+            return menu
     
     
     
@@ -3939,23 +3941,25 @@ iterator_vactive_and_update(self) -> None:
         Returns:
             list: [return menu list]
         """
-        node = self.node
-        
-        mem_id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
-        if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
-            self.destroy_data(node, 'iter_sel')
+        with hou.undos.disabler(): # type: ignore
+            
+            node = self.node
+            
+            mem_id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+            if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
+                self.destroy_data(node, 'iter_sel')
 
-        # For undos: compare old data_* against current data_*
-        # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-        data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
-        [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
-        
-        menu: Union[list, None] = node.cachedUserData('iter_sel')
-        if menu is not None:
-            return menu
-        else:
-            return self.menu_select_iterator_data()
+            # For undos: compare old data_* against current data_*
+            # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
+            iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+            data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
+            [self.destroy_data(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
+            
+            menu: Union[list, None] = node.cachedUserData('iter_sel')
+            if menu is not None:
+                return menu
+            else:
+                return self.menu_select_iterator_data()
         
     
     
