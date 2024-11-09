@@ -3873,6 +3873,7 @@ iterator_vactive_and_update(self) -> None:
         Returns:
             list: [return menu list]
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -3941,6 +3942,7 @@ iterator_vactive_and_update(self) -> None:
         Returns:
             list: [return menu list]
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -4185,7 +4187,7 @@ iterator_vactive_and_update(self) -> None:
         # Updated data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
-        # This undo's disabler is needed to make the undo work in H20.5 ater copy/paste an iterator's section from the mini-menu.
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             if mp_id_from is not None:
@@ -4266,7 +4268,7 @@ iterator_vactive_and_update(self) -> None:
 
             flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
-            # This undo's disabler is needed to make the undo work in H20.5 after copy/paste an FF's section from the mini-menu.
+            # This undo's disabler is needed to make the undo work. They work best in H20.5
             with hou.undos.disabler(): # type: ignore
             
                 if node == flam3node_FF:
@@ -4311,7 +4313,7 @@ iterator_vactive_and_update(self) -> None:
             
             isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """        
-        
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             isDELETED = False
@@ -4421,7 +4423,7 @@ iterator_vactive_and_update(self) -> None:
             
             isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """     
-        
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
@@ -6346,6 +6348,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i))
@@ -6372,7 +6375,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             (None):
         """  
-        
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i))
@@ -6399,6 +6402,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(i)
@@ -6425,6 +6429,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(i)
@@ -6464,6 +6469,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             list: _description_
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -6504,6 +6510,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             list: Return a menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -6539,6 +6546,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             list: _description_
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -6579,6 +6587,7 @@ reset_CP_palette_action(self) -> None:
         Returns:
             list: Return a menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -11154,6 +11163,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(i)
@@ -11188,6 +11198,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(i)
@@ -11222,6 +11233,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(i)
@@ -11251,6 +11263,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(i)
@@ -11688,6 +11701,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             list: the actual menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -11724,6 +11738,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             list: Return a menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -11763,6 +11778,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             list: the actual menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -11804,6 +11820,7 @@ reset_IN(self, mode: int=0) -> None:
         Returns:
             list: Return a menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -13793,6 +13810,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i))
@@ -13812,6 +13830,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             (None):
         """  
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i))
@@ -14337,6 +14356,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             list: _description_
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
@@ -14379,6 +14399,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             list: Return a menu
         """
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
