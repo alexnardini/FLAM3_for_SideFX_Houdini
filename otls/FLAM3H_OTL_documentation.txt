@@ -598,6 +598,8 @@ number of iterators [Icon:TOP/xmlinput]:
 note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     A name for this iterator.
+
+    _If no name is provided (ex: empty string) a default one will be automatically set_.
     
     NOTE:
         The text you write here will be stored with the Flame file and also shown inside Apophysis and Fractorium as the iterator's name.
@@ -1044,6 +1046,8 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
     A name for this FF iterator.
+
+    _If no name is provided (ex: empty string) a default one will be automatically set_.
     
     NOTE:
         The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalxform iterator.
