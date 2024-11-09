@@ -1723,6 +1723,12 @@ reset_PREFS(self, mode: int=0) -> None:
     def menus_refresh_enum_prefs(self) -> None:
         """Refresh and force presets menus names to update
         after the preference's option "enumerate presets menu" has been toggled ON or OFF
+        and also from inside other places, following a list:
+                                                            def util_set_front_viewer(self, update: bool=True) -> bool:
+                                                            def util_viewport_bbox_frame(self) -> None:
+                                                            def flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+                                                            def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
+                                            
         """ 
         node = self.node
         # Clear menu caches
