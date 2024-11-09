@@ -382,6 +382,9 @@ frame viewport:
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
 
+    _This has the important property to update and refresh all the Presets menus data (CP, IN and OUT presets menus)_.
+
+
     NOTE:
         When in camera sensor mode, the re-frame will be based on the Camera sensor bounding box instead.
         
