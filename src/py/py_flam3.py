@@ -2032,7 +2032,7 @@ reset_PREFS(self, mode: int=0) -> None:
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                         _MSG = f"Viewport REFRAMED"
                         self.flash_message(node, _MSG)
-                        self.set_status_msg(f"{node.name()}: {_MSG} and Presets menus inside the CP, IN and OUT tabs updated and refreshed.", 'MSG')
+                        self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             else:
                 _MSG = f"No viewports in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the reframe to work.", 'IMP')
