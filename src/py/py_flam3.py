@@ -5822,6 +5822,8 @@ iterator_vactive_and_update(self) -> None:
             
             # set xaos every time an iterator is added or removed
             self.auto_set_xaos()
+            # Updated menus just in case
+            self.destroy_all_menus_data(node)
             
             # Clear status bar msg if needed
             if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
