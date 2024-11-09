@@ -2078,6 +2078,9 @@ reset_PREFS(self, mode: int=0) -> None:
         node = self.node
         toggle = node.parm(prm).eval()
         
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
         if toggle:
             node.setParms({prm: 0})
             # Restore the viewport prior to entering the Camera sensor mode
