@@ -1728,31 +1728,20 @@ reset_PREFS(self, mode: int=0) -> None:
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
-        # CP PRESETS menus
-        prm_CP_PALETTE_PRESETS = node.parm(CP_PALETTE_PRESETS)
-        prm_CP_PALETTE_PRESETS.set(prm_CP_PALETTE_PRESETS.eval())
-        prm_CP_PALETTE_PRESETS_OFF = node.parm(CP_PALETTE_PRESETS_OFF)
-        prm_CP_PALETTE_PRESETS_OFF.set(prm_CP_PALETTE_PRESETS_OFF.eval())
-        prm_CP_SYS_PALETTE_PRESETS = node.parm(CP_SYS_PALETTE_PRESETS)
-        prm_CP_SYS_PALETTE_PRESETS.set(prm_CP_SYS_PALETTE_PRESETS.eval())
-        prm_CP_SYS_PALETTE_PRESETS_OFF = node.parm(CP_SYS_PALETTE_PRESETS_OFF)
-        prm_CP_SYS_PALETTE_PRESETS_OFF.set(prm_CP_SYS_PALETTE_PRESETS_OFF.eval())
+        prm_menus: dict = { 'prm_CP_PRESETS': node.parm(CP_PALETTE_PRESETS),
+                            'prm_CP_PRESETS_OFF': node.parm(CP_PALETTE_PRESETS_OFF),
+                            'prm_CP_SYS_PRESETS': node.parm(CP_SYS_PALETTE_PRESETS),
+                            'prm_CP_SYS_PRESETS_OFF': node.parm(CP_SYS_PALETTE_PRESETS_OFF),
+                            'prm_IN_PRESETS': node.parm(IN_PRESETS),
+                            'prm_IN_PRESETS_OFF': node.parm(IN_PRESETS_OFF),
+                            'prm_IN_SYS_PRESETS': node.parm(IN_SYS_PRESETS),
+                            'prm_IN_SYS_PRESETS_OFF': node.parm(IN_SYS_PRESETS_OFF),
+                            'prm_OUT_PRESETS': node.parm(OUT_PRESETS),
+                            'prm_OUT_SYS_PRESETS': node.parm(OUT_SYS_PRESETS)
+                        }
         
-        # IN PRESETS menus
-        prm_IN_PRESETS = node.parm(IN_PRESETS)
-        prm_IN_PRESETS.set(prm_IN_PRESETS.eval())
-        prm_IN_PRESETS_OFF = node.parm(IN_PRESETS_OFF)
-        prm_IN_PRESETS_OFF.set(prm_IN_PRESETS_OFF.eval())
-        prm_IN_SYS_PRESETS = node.parm(IN_SYS_PRESETS)
-        prm_IN_SYS_PRESETS.set(prm_IN_SYS_PRESETS.eval())
-        prm_IN_SYS_PRESETS_OFF = node.parm(IN_SYS_PRESETS_OFF)
-        prm_IN_SYS_PRESETS_OFF.set(prm_IN_SYS_PRESETS_OFF.eval())
-        
-        # OUT PRESETS menus
-        prm_OUT_PRESETS = node.parm(OUT_PRESETS)
-        prm_OUT_PRESETS.set(prm_OUT_PRESETS.eval())
-        prm_OUT_SYS_PRESETS = node.parm(OUT_SYS_PRESETS)
-        prm_OUT_SYS_PRESETS.set(prm_OUT_SYS_PRESETS.eval())
+        [prm.set(prm.eval()) for prm in prm_menus.values()]
+
 
 
     def get_bbox_node_path(self, node_name: str) -> Union[str, None]:
