@@ -1862,6 +1862,8 @@ reset_PREFS(self, mode: int=0) -> None:
             try:
                 if self.kwargs['parm'].name() == SYS_FRAME_VIEW_SENSOR:
                     _SYS_FRAME_VIEW_SENSOR_prm =True
+                    # Refresh menu caches
+                    self.menus_refresh_enum_prefs()
             except: pass
             
             # If the viewport is: viewport.isCurrentTab()
