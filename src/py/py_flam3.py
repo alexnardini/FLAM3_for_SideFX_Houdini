@@ -1864,6 +1864,9 @@ reset_PREFS(self, mode: int=0) -> None:
                     _SYS_FRAME_VIEW_SENSOR_prm =True
             except: pass
             
+            # Refresh menu caches
+            self.menus_refresh_enum_prefs()
+            
             # If the viewport is: viewport.isCurrentTab()
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
@@ -2020,6 +2023,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Re-frame the current viewport based on camera sensor node's bounding box.
         """  
         node = self.node
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval() and not node.parm(OUT_UPDATE_SENSOR).eval():
             # This condition probably will never evaluate to True as when in Sensor Viz mode
             # a new reframe icon will be displayed with the proper definition, but its good to make this icon multipurpose anyway.
