@@ -2121,6 +2121,9 @@ reset_PREFS(self, mode: int=0) -> None:
         node = self.node
         toggle = node.parm(prm).eval()
         
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
         if toggle:
             node.setParms({prm: 0})
             _MSG = f"{node.name()}: {prm.upper()}: OFF"
