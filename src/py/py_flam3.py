@@ -11069,9 +11069,9 @@ reset_IN(self, mode: int=0) -> None:
             xml = node.parm(IN_PATH).eval()
             f3r = in_flame_iter_data(node, xml, preset_id)
                 
-            # sensor data
+            # render data
             in_flame_utils.in_copy_render(node, f3r, preset_id)
-            # render curves
+            # render curves data
             in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
 
             # OUT render curves ui parm set
@@ -11120,7 +11120,7 @@ reset_IN(self, mode: int=0) -> None:
             xml = node.parm(IN_PATH).eval()
             f3r = in_flame_iter_data(node, xml, preset_id)
                 
-            # render curves
+            # render curves data
             in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
             
             cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
