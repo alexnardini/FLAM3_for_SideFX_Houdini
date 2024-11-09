@@ -1728,19 +1728,19 @@ reset_PREFS(self, mode: int=0) -> None:
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
-        prm_menus: dict = { 'prm_CP_PRESETS': node.parm(CP_PALETTE_PRESETS),
-                            'prm_CP_PRESETS_OFF': node.parm(CP_PALETTE_PRESETS_OFF),
-                            'prm_CP_SYS_PRESETS': node.parm(CP_SYS_PALETTE_PRESETS),
-                            'prm_CP_SYS_PRESETS_OFF': node.parm(CP_SYS_PALETTE_PRESETS_OFF),
-                            'prm_IN_PRESETS': node.parm(IN_PRESETS),
-                            'prm_IN_PRESETS_OFF': node.parm(IN_PRESETS_OFF),
-                            'prm_IN_SYS_PRESETS': node.parm(IN_SYS_PRESETS),
-                            'prm_IN_SYS_PRESETS_OFF': node.parm(IN_SYS_PRESETS_OFF),
-                            'prm_OUT_PRESETS': node.parm(OUT_PRESETS),
-                            'prm_OUT_SYS_PRESETS': node.parm(OUT_SYS_PRESETS)
-                        }
+        prm_menus: tuple = (node.parm(CP_PALETTE_PRESETS),
+                            node.parm(CP_PALETTE_PRESETS_OFF),
+                            node.parm(CP_SYS_PALETTE_PRESETS),
+                            node.parm(CP_SYS_PALETTE_PRESETS_OFF),
+                            node.parm(IN_PRESETS),
+                            node.parm(IN_PRESETS_OFF),
+                            node.parm(IN_SYS_PRESETS),
+                            node.parm(IN_SYS_PRESETS_OFF),
+                            node.parm(OUT_PRESETS),
+                            node.parm(OUT_SYS_PRESETS)
+                        )
         
-        [prm.set(prm.eval()) for prm in prm_menus.values()]
+        [prm.set(prm.eval()) for prm in prm_menus]
 
 
 
