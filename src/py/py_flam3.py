@@ -2761,6 +2761,8 @@ refresh_iterator_vars_menu(self) -> None:
 
 destroy_data_note(self) -> None:
 
+note_FF(self) -> None:
+
 menu_T_get_var_data(self) -> tuple[int, float]:
 
 menu_T_FF_get_var_data(self) -> tuple[int, float]:
@@ -3644,18 +3646,29 @@ iterator_vactive_and_update(self) -> None:
         
     def destroy_data_note(self) -> None:
         """Update mini-menu iterator selection when we modify this parameter.
-        and profide a default name if no string in the note is left.
+        and provide a default name if no string in a FLAME tab iterator note parameter is left.
 
         Returns:
             (None):
         """  
         node = self.node
         self.destroy_data(node, 'iter_sel')
-        prm_name = self.kwargs['parm'].name()
+        prm = self.kwargs['parm']
         idx = self.kwargs['script_multiparm_index']
-        if not node.parm(prm_name).eval():
-            node.setParms({prm_name: f"iterator_{idx}"})
-        
+        if not prm.eval():
+            prm.set(f"iterator_{idx}")
+            
+            
+    def note_FF(self) -> None:
+        """Provide a default name if no string in the FF tab note parameter is left.
+
+        Returns:
+            (None):
+        """  
+        prm = self.kwargs['parm']
+        if not prm.eval():
+            prm.set(f"iterator_FF")
+            
         
     def menu_T_get_var_data(self) -> tuple[int, float]:
         """Get this menu variation type idx and its weight value.

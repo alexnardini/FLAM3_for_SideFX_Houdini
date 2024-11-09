@@ -455,6 +455,12 @@ _Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
 It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
 
 # FF Tab
+# parameter name:    `ffnote`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF()
+```
+# FF Tab
 # parameter name:    `ffprmpastesel`
 ### Callback Script
 ```python
