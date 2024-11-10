@@ -4254,9 +4254,7 @@ iterator_vactive_and_update(self) -> None:
                 return menu
             
             else:
-                if isDELETED:
-                    return [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
-                
+                if isDELETED: return [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
                 else:
                     if from_FLAM3H_NODE is not None:
                         assert from_FLAM3H_NODE is not None
@@ -4271,8 +4269,7 @@ iterator_vactive_and_update(self) -> None:
                             menu = MENU_ITER_COPY_PASTE_EMPTY
                         return menu
                     
-                    else:
-                        return MENU_ITER_COPY_PASTE_EMPTY
+                    else: return MENU_ITER_COPY_PASTE_EMPTY
 
     
     
@@ -4305,9 +4302,7 @@ iterator_vactive_and_update(self) -> None:
             # This undo's disabler is needed to make the undo work. They work best in H20.5
             with hou.undos.disabler(): # type: ignore
             
-                if node == flam3node_FF:
-                    return MENU_FF_COPY_PASTE_SELECT
-
+                if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
                 else:
                     # Menu entrie sections bookmark icon
                     active = flam3node_FF.parm(SYS_DO_FF).eval()
@@ -4395,8 +4390,8 @@ iterator_vactive_and_update(self) -> None:
                             self.destroy_data(node, 'iter_sel')
                             
             except:
-                # This is for an edge case
-                # If we really deleted a node with a marked iterator
+                # This is for an edge case:
+                # If we really deleted a node with a marked iterator, otherwise leave things as they are
                 if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
                     isDELETED = True
                 mp_id_from = None
