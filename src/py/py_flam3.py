@@ -4384,7 +4384,7 @@ iterator_vactive_and_update(self) -> None:
                             self.destroy_data(node, 'iter_sel')
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
-                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                            if _FLAM3H_DATA_PRM_MPIDX == 0:
                                 self.destroy_data(node, 'iter_sel')
                     else:
 
