@@ -14486,11 +14486,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             flam3h_general_utils.flash_message(node, f"{flame_name_new}")
 
 
-    def out_flame_properties_build(self) -> dict:
+    def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
         """Return a dictionary with all the flame properties to written out.
 
         Args:
-            kwargs (dict): _description_
+            f3r (out_flame_render_properties): Flame render properties class
 
         Returns:
             dict: _description_
@@ -14499,31 +14499,30 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
         if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
         else: _XML_APP_NAME = XML_APP_NAME_FLAM3H
-             
-        f3p = out_flame_render_properties(self.kwargs)
+        
         return {OUT_XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{FLAM3H_VERSION}',
-                XML_XF_NAME: f3p.flame_name,
-                OUT_XML_FLAM3H_SYS_RIP: f3p.flam3h_sys_rip, # custom to FLAM3H only
-                OUT_XML_FLAM3H_HSV: f3p.flam3h_cp_hsv, # custom to FLAM3H only
-                OUT_XML_FLMA3H_MB_FPS: f3p.flam3h_mb_fps, # custom to FLAM3H only
-                OUT_XML_FLMA3H_MB_SAMPLES: f3p.flam3h_mb_samples, # custom to FLAM3H only
-                OUT_XML_FLMA3H_MB_SHUTTER: f3p.flam3h_mb_shutter, # custom to FLAM3H only
-                OUT_XML_FLAM3H_CP_SAMPLES: f3p.flam3h_cp_samples, # custom to FLAM3H only
-                OUT_XML_FLAM3H_PREFS_F3C: f3p.flam3h_prefs_f3c, # custom to FLAM3H only
-                OUT_XML_FLAME_SIZE: f3p.flame_size, 
-                OUT_XML_FLAME_CENTER: f3p.flame_center,
-                OUT_XML_FLAME_SCALE: f3p.flame_scale,
-                OUT_XML_FLAME_ROTATE: f3p.flame_rotate,
+                XML_XF_NAME: f3r.flame_name,
+                OUT_XML_FLAM3H_SYS_RIP: f3r.flam3h_sys_rip, # custom to FLAM3H only
+                OUT_XML_FLAM3H_HSV: f3r.flam3h_cp_hsv, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_FPS: f3r.flam3h_mb_fps, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_SAMPLES: f3r.flam3h_mb_samples, # custom to FLAM3H only
+                OUT_XML_FLMA3H_MB_SHUTTER: f3r.flam3h_mb_shutter, # custom to FLAM3H only
+                OUT_XML_FLAM3H_CP_SAMPLES: f3r.flam3h_cp_samples, # custom to FLAM3H only
+                OUT_XML_FLAM3H_PREFS_F3C: f3r.flam3h_prefs_f3c, # custom to FLAM3H only
+                OUT_XML_FLAME_SIZE: f3r.flame_size, 
+                OUT_XML_FLAME_CENTER: f3r.flame_center,
+                OUT_XML_FLAME_SCALE: f3r.flame_scale,
+                OUT_XML_FLAME_ROTATE: f3r.flame_rotate,
                 OUT_XML_FLAME_BG: '0 0 0',
                 OUT_XML_FLAME_SUPERSAMPLE: '2',
                 OUT_XML_FLAME_FILTER: '0.5',
-                OUT_XML_FLAME_QUALITY: f3p.flame_quality,
-                OUT_XML_FLAME_BRIGHTNESS: f3p.flame_brightness,
-                OUT_XML_FLAME_GAMMA: f3p.flame_gamma,
+                OUT_XML_FLAME_QUALITY: f3r.flame_quality,
+                OUT_XML_FLAME_BRIGHTNESS: f3r.flame_brightness,
+                OUT_XML_FLAME_GAMMA: f3r.flame_gamma,
                 OUT_XML_FLAME_GAMMA_THRESHOLD: '0.0423093658828749',
-                OUT_XML_FLAME_K2: f3p.flame_k2,
-                OUT_XML_FLAME_VIBRANCY: f3p.flame_vibrancy,
-                OUT_XML_FLAME_POWER: f3p.flame_highlight,
+                OUT_XML_FLAME_K2: f3r.flame_k2,
+                OUT_XML_FLAME_VIBRANCY: f3r.flame_vibrancy,
+                OUT_XML_FLAME_POWER: f3r.flame_highlight,
                 OUT_XML_FLAME_RADIUS: '9',
                 OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
                 OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
@@ -14717,16 +14716,19 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Returns:
             bool: return True if the Flame is a compatible FLAM3 flame or False if not.
         """        
-        # Build Flame properties
-        [flame.set(key, value) for key, value in self.out_flame_properties_build().items() if value is not False]
+        # Build Flame data and render properties
+        f3d = out_flame_xforms_data(self.kwargs)
+        f3r = out_flame_render_properties(self.kwargs)
+        
+        # Set Flame render properties
+        [flame.set(key, value) for key, value in self.out_flame_properties_build(f3r).items() if value is not False]
 
-        # Build xforms
         name_PRE_BLUR = ""
         names_VARS = []
         names_VARS_PRE = []
         names_VARS_POST = []
-        f3d = out_flame_xforms_data(self.kwargs)
-        f3r = out_flame_render_properties(self.kwargs)
+
+        # Set xforms
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
@@ -14755,7 +14757,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
                 names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
                 names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
-        # Build finalxform
+        # Set finalxform (FF)
         names_VARS_FF = []
         names_VARS_PRE_FF = []
         names_VARS_POST_FF = []
@@ -14779,7 +14781,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
             names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
-        # Build palette
+        # Set palette
         palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
         palette.tag = XML_PALETTE
         palette.set(XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
@@ -14800,6 +14802,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     OUT_XML_FLAME_RENDER_CURVE_RED: f3r.flame_red_curve,
                     OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
                     OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve}
+        # Set CC Curves
         [flame.set(key, value) for key, value in cc.items()]
         
         # return if this flame is a valid 'flam3'
