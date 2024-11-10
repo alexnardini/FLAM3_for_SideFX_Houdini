@@ -4421,7 +4421,7 @@ iterator_vactive_and_update(self) -> None:
                             try:
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                                 self.destroy_data(node, 'iter_sel')
-                                # This so we dnt fall back into this case again
+                                # This so we dnt fall back into this case again and again.
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
                             except:
                                 pass
