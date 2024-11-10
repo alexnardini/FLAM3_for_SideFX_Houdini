@@ -1307,7 +1307,7 @@ flam3h_on_deleted(self) -> None:
             # Clear menu caches
             # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
-            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_data(node, 'iter_sel')
             
@@ -2755,7 +2755,7 @@ iterator_FF_affine_scale(self) -> None:
 
 iterator_FF_post_affine_scale(self) -> None:
 
-destroy_all_menus_data(self, node: hou.SopNode) -> None:
+destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False) -> None:
 
 refresh_iterator_vars_menu(self) -> None:
 
@@ -3580,20 +3580,31 @@ iterator_vactive_and_update(self) -> None:
 
         
         
-    def destroy_all_menus_data(self, node: hou.SopNode) -> None:
+    def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False) -> None:
         """Force all presets menus to update.
         This is being added so we can force the presets menus to be rebuilt
         everywhere we need to help keep them up to date in case the user
         make any hand made modifications to the loaded files.
 
+        Args:
+            node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
+            f3h_all (bool): Perform this for all FLAM3H nodes in the scene.
+            
         Returns:
             (None):
         """  
-        self.destroy_data(node, 'cp_presets_menu')
-        self.destroy_data(node, 'cp_presets_menu_off')
-        self.destroy_data(node, 'in_presets_menu')
-        self.destroy_data(node, 'in_presets_menu_off')
-        self.destroy_data(node, 'out_presets_menu')
+        if f3h_all:
+            [self.destroy_data(f3h, 'cp_presets_menu') for f3h in node.type().instances()]
+            [self.destroy_data(f3h, 'cp_presets_menu_off') for f3h in node.type().instances()]
+            [self.destroy_data(f3h, 'in_presets_menu') for f3h in node.type().instances()]
+            [self.destroy_data(f3h, 'in_presets_menu_off') for f3h in node.type().instances()]
+            [self.destroy_data(f3h, 'out_presets_menu') for f3h in node.type().instances()]
+        else:
+            self.destroy_data(node, 'cp_presets_menu')
+            self.destroy_data(node, 'cp_presets_menu_off')
+            self.destroy_data(node, 'in_presets_menu')
+            self.destroy_data(node, 'in_presets_menu_off')
+            self.destroy_data(node, 'out_presets_menu')
 
 
     
