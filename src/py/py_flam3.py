@@ -4469,7 +4469,6 @@ iterator_vactive_and_update(self) -> None:
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
             
-            
             isDELETED = False
             try: from_FLAM3H_NODE.type()
             except:
@@ -4497,7 +4496,6 @@ iterator_vactive_and_update(self) -> None:
             elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
                 if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                     from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
-
 
             if isDELETED is False:
                 if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
@@ -4642,7 +4640,6 @@ iterator_vactive_and_update(self) -> None:
         if self.exist_user_data(node):
             if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-
 
         if node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
             
