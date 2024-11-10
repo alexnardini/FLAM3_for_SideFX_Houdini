@@ -4408,10 +4408,10 @@ iterator_vactive_and_update(self) -> None:
                             self.destroy_data(node, 'iter_sel')
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
-                            # This has the cost of being run until we unmark the iterator from the other FLAM3H node.
-                            # Not a big deal but need to figure out a way to make this case stop being repeated.
-                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                            data = node.cachedUserData('edge_case_01')
+                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and data is None: # type: ignore
                                 self.destroy_data(node, 'iter_sel')
+                                node.setCachedUserData('edge_case_01', True)
                     else:
                         if __FLAM3H_DATA_PRM_MPIDX == -1:
                             mp_id_from = None
@@ -4737,6 +4737,10 @@ iterator_vactive_and_update(self) -> None:
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {idx}"): # type: ignore
+                for f3h in node.type().instances():
+                    assert isinstance(f3h, hou.SopNode)
+                    data = f3h.cachedUserData('edge_case_01')
+                    if data is not None: self.destroy_data(node, 'edge_case_01')
                 self.prm_paste_SHIFT(id)
                 
         # Adding ability to reset the current iterator to its default values.      
@@ -4749,9 +4753,17 @@ iterator_vactive_and_update(self) -> None:
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark iterator CLICK {idx}"): # type: ignore
+                    for f3h in node.type().instances():
+                        assert isinstance(f3h, hou.SopNode)
+                        data = f3h.cachedUserData('edge_case_01')
+                        if data is not None: self.destroy_data(node, 'edge_case_01')
                     self.prm_paste_SHIFT(id)
             else:
                 with hou.undos.group(f"FLAM3H mark iterator CLICK {idx}"): # type: ignore
+                    for f3h in node.type().instances():
+                        assert isinstance(f3h, hou.SopNode)
+                        data = f3h.cachedUserData('edge_case_01')
+                        if data is not None: self.destroy_data(node, 'edge_case_01')
                     self.prm_paste_CLICK(id)
     
     
