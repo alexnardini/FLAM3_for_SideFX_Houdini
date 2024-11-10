@@ -4747,17 +4747,16 @@ iterator_vactive_and_update(self) -> None:
         self.destroy_data(node, 'iter_sel')
         
         id = self.kwargs['script_multiparm_index']
-        idx = str(id)
         
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H paste iterator data CTRL {idx}"): # type: ignore
+            with hou.undos.group(f"FLAM3H paste iterator data CTRL {id}"): # type: ignore
                 self.prm_paste_CTRL(id)
                 
         elif self.kwargs["shift"]:
-            with hou.undos.group(f"FLAM3H unmark iterator SHIFT {idx}"): # type: ignore
+            with hou.undos.group(f"FLAM3H unmark iterator SHIFT {id}"): # type: ignore
                 flam3h_iterator_utils.destroy_data_edge_case_01(node)
                 self.prm_paste_SHIFT(id)
                 
@@ -4765,16 +4764,16 @@ iterator_vactive_and_update(self) -> None:
         elif self.kwargs["alt"]:
             with hou.undos.group(f"FLAM3H reset iterator {idx}"): # type: ignore
                 self.flam3h_reset_iterator()
-                _MSG = f"{node.name()}: Iterator {idx} -> RESET"
+                _MSG = f"{node.name()}: Iterator {id} -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H unmark iterator CLICK {idx}"): # type: ignore
+                with hou.undos.group(f"FLAM3H unmark iterator CLICK {id}"): # type: ignore
                     flam3h_iterator_utils.destroy_data_edge_case_01(node)
                     self.prm_paste_SHIFT(id)
             else:
-                with hou.undos.group(f"FLAM3H mark iterator CLICK {idx}"): # type: ignore
+                with hou.undos.group(f"FLAM3H mark iterator CLICK {id}"): # type: ignore
                     flam3h_iterator_utils.destroy_data_edge_case_01(node)
                     self.prm_paste_CLICK(id)
     
