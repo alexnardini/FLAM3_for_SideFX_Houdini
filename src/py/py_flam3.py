@@ -4395,8 +4395,9 @@ iterator_vactive_and_update(self) -> None:
                         elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
                             try:
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                                hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
                                 self.destroy_data(node, 'iter_sel')
+                                # This so we dnt fall back into this case again
+                                hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
                             except:
                                 pass
                             
