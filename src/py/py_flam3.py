@@ -1195,6 +1195,11 @@ flam3h_on_deleted(self) -> None:
         
         # OUT render curves reset and set
         out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
+        
+        # Clear menu caches
+        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+        # (ex. the user perform hand made modifications like renaming a Preset and such).
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
 
 
 
