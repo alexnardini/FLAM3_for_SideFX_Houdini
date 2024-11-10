@@ -1278,18 +1278,11 @@ flam3h_on_deleted(self) -> None:
             node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
             
             # init/clear copy/paste iterator's data and prm
-            # This is being run also from inside: def flam3h_default() - so probably not needed but its not bad to have either.
-            #
             # This was causing some issues and got updated.
-            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
-            # Finally reset the hou.session data 
-            # ( This probaly not needed but just incase the preview flam3h_paste_reset_hou_session_data() isnt clearing everything properly )
-            in_flame_utils(self.kwargs).in_to_flam3h_reset_user_data()
-            
-            # hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is already set to None
-            # lets set those to ourself to avoid a deleted marked node message on load
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data(True)
+            # If in the loaded hip file there are data stored into the nodes, lets set the copy/paste data from them.
+            # This will allow to re-load an hip file with marked iterator or FF and pick up from there, which is nice.
+            flam3h_iterator_utils.flam3h_init_hou_session_restore_from_user_data(node)
             
         else:
             # CAMERA SENSOR
@@ -2720,6 +2713,8 @@ flam3h_init_hou_session_iterator_data(node: hou.SopNode) -> None:
 
 flam3h_init_hou_session_ff_data(node: hou.SopNode) -> None:
 
+flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
+
 iterator_mpidx_mem_set(node, data: int) -> None:
 
 paste_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prm_list: tuple, id: str, id_from: str) -> None:
@@ -3111,6 +3106,26 @@ iterator_vactive_and_update(self) -> None:
         except: hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
         try: hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
         except: hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+        
+        
+    @staticmethod
+    def flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
+        """If in the loaded hip file there are data stored into the nodes, lets set the copy/paste data to those.
+        This will allow to re-load an hip file with marked iterator or FF and pick up from there, which is nice
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+        """   
+        if flam3h_iterator_utils.exist_user_data(node):
+            hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_iterator_utils.get_user_data(node) # type: ignore
+            flam3h_iterator_utils.iterator_mpidx_mem_set(node, hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX) # type: ignore
+        else: hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+        if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
+            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+            hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
+        else: hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+
 
 
     @staticmethod
@@ -4098,8 +4113,11 @@ iterator_vactive_and_update(self) -> None:
     
     
     
-    def flam3h_paste_reset_hou_session_data(self) -> None:
+    def flam3h_paste_reset_hou_session_data(self, hipLoad: bool=False) -> None:
         """init/clear copy/paste iterator's data and prm
+        
+        Args:
+            hipLoad (bool): To use when loading a hip file. Default to: False
         """        
         node = self.node
         
@@ -4111,16 +4129,23 @@ iterator_vactive_and_update(self) -> None:
         
         if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
-            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-            hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
             # Reset internal mpidx memory to a None value
             if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
                 self.iterator_mpidx_mem_set(node, 0)
-                    
+            if hipLoad:
+                # This is needed on hip file load to allow: def flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
+                # to rewire the FF copy/paste data properly on load, if any is present in the loaded FLAM3H nodes.
+                if not self.exist_user_data(node, FLAM3H_USER_DATA_FF):
+                    hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+            else:
+                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
             # Remove any comment and user data from the node
             self.del_comment_and_user_data_iterator(node)
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
-    
+            
+            
 
     def __menu_global_density(self) -> list:
         """ NOT USED ANYMORE
