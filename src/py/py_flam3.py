@@ -6794,10 +6794,7 @@ reset_CP_palette_action(self) -> None:
                                 data = json.load(f)
                                 preset_last_idx = str(len(data.keys())-1)
                                 # Set all CP preset menus parameter index
-                                node.setParms({CP_PALETTE_PRESETS: preset_last_idx })
-                                node.setParms({CP_PALETTE_PRESETS_OFF: preset_last_idx })
-                                node.setParms({CP_SYS_PALETTE_PRESETS: preset_last_idx })
-                                node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_last_idx })
+                                [prm.set(preset_last_idx) for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF))]
                                 # Clearup the Palette name if any were given
                                 node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
                                 # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
@@ -12469,10 +12466,11 @@ reset_IN(self, mode: int=0) -> None:
                 flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
                 
                 # Set menu parameters index to the first entry
-                node.setParms({IN_PRESETS: "0"}) # type: ignore
-                node.setParms({IN_PRESETS_OFF: "0"}) # type: ignore
-                node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
-                node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
+                [prm.set('0') for prm in (node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF), node.parm(IN_SYS_PRESETS), node.parm(IN_SYS_PRESETS_OFF))]
+                # node.setParms({IN_PRESETS: "0"}) # type: ignore
+                # node.setParms({IN_PRESETS_OFF: "0"}) # type: ignore
+                # node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
+                # node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
                 
                 return flameFile_expandvars, False, 0, '', False, False
             
@@ -12639,15 +12637,11 @@ reset_IN(self, mode: int=0) -> None:
             if node.parm(IN_ISVALID_PRESET).eval():
                 preset_id = node.parm(IN_SYS_PRESETS).eval()
                 # Updated other PRESETS menu parameters
-                node.setParms({IN_SYS_PRESETS_OFF: preset_id})
-                node.setParms({IN_PRESETS: preset_id})
-                node.setParms({IN_PRESETS_OFF: preset_id})
+                [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS_OFF), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
             else:
                 preset_id = node.parm(IN_SYS_PRESETS_OFF).eval()
                 # Updated other PRESETS menu parameters
-                node.setParms({IN_SYS_PRESETS: preset_id})
-                node.setParms({IN_PRESETS: preset_id})
-                node.setParms({IN_PRESETS_OFF: preset_id})
+                [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
         
             self.in_to_flam3h()
 
