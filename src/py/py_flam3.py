@@ -1282,7 +1282,6 @@ flam3h_on_deleted(self) -> None:
             #
             # This was causing some issues and got updated.
             flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data()
-            
             # Finally reset the hou.session data 
             # ( This probaly not needed but just incase the preview flam3h_paste_reset_hou_session_data() isnt clearing everything properly )
             in_flame_utils(self.kwargs).in_to_flam3h_reset_user_data()
@@ -4384,20 +4383,27 @@ iterator_vactive_and_update(self) -> None:
                             self.destroy_data(node, 'iter_sel')
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
-                            if _FLAM3H_DATA_PRM_MPIDX == 0:
-                                self.destroy_data(node, 'iter_sel')
+                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                                    self.destroy_data(node, 'iter_sel')
                     else:
-
                         if __FLAM3H_DATA_PRM_MPIDX == -1:
                             mp_id_from = None
                             assert from_FLAM3H_NODE is not None
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.destroy_data(node, 'iter_sel')
+                        # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
+                        elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
+                            try:
+                                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                                hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+                                self.destroy_data(node, 'iter_sel')
+                            except:
+                                pass
                             
             except:
                 mp_id_from = None
-                self.destroy_data(self.node, 'iter_sel')
-                # This is for an edge case:
+                self.destroy_data(node, 'iter_sel')
+                # This is for an edge case to avoid a wrong copy/paste info message
                 try:
                     # If we really deleted a node with a marked iterator
                     if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
