@@ -4382,7 +4382,12 @@ iterator_vactive_and_update(self) -> None:
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
                             self.destroy_data(node, 'iter_sel')
+                        else:
+                            # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
+                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                                self.destroy_data(node, 'iter_sel')
                     else:
+
                         if __FLAM3H_DATA_PRM_MPIDX == -1:
                             mp_id_from = None
                             assert from_FLAM3H_NODE is not None
