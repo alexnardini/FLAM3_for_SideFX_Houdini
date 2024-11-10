@@ -1197,7 +1197,7 @@ flam3h_on_deleted(self) -> None:
         out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
         
         # Clear menu caches
-        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
         # (ex. the user perform hand made modifications like renaming a Preset and such).
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
 
@@ -1310,7 +1310,7 @@ flam3h_on_deleted(self) -> None:
             flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
             
             # Clear menu caches
-            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
             # Force updated of the mini-menu iterator selection
@@ -1354,7 +1354,7 @@ flam3h_on_deleted(self) -> None:
             
         else:
             # Clear menu caches
-            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
             
@@ -12685,7 +12685,7 @@ reset_IN(self, mode: int=0) -> None:
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
                 flam3h_iterator_utils.destroy_data(node, 'iter_sel')
-                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
                 
@@ -14916,7 +14916,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """        
         node = self.node
         # Force this data to be rebuilt
-        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
         # (ex. the user perform hand made modifications like renaming a Preset and such).
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
