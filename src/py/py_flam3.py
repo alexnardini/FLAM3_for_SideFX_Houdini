@@ -14720,15 +14720,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         f3d = out_flame_xforms_data(self.kwargs)
         f3r = out_flame_render_properties(self.kwargs)
         
-        # Set Flame render properties
+        # SET Flame render properties
         [flame.set(key, value) for key, value in self.out_flame_properties_build(f3r).items() if value is not False]
 
+        # SET xforms
         name_PRE_BLUR = ""
         names_VARS = []
         names_VARS_PRE = []
         names_VARS_POST = []
-
-        # Set xforms
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
@@ -14757,7 +14756,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
                 names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
                 names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
-        # Set finalxform (FF)
+        
+        # SET finalxform (FF)
         names_VARS_FF = []
         names_VARS_PRE_FF = []
         names_VARS_POST_FF = []
@@ -14781,28 +14781,27 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
             names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
-        # Set palette
+        
+        # SET palette
         palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
         palette.tag = XML_PALETTE
         palette.set(XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
         palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
         palette.text = f3d.palette_hex
 
-        # Get unique plugins used
+        # SET unique used 'plugins' and 'new linear'
         names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
         names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
         names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
-        # Set unique used 'plugins' and 'new linear'
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
-        # OUT render curves as last
+        # SET CC Curves
         cc: dict = {OUT_XML_FLAME_RENDER_CURVES: f3r.flame_render_curves,
                     OUT_XML_FLAME_RENDER_CURVE_OVERALL: f3r.flame_overall_curve,
                     OUT_XML_FLAME_RENDER_CURVE_RED: f3r.flame_red_curve,
                     OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
                     OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve}
-        # Set CC Curves
         [flame.set(key, value) for key, value in cc.items()]
         
         # return if this flame is a valid 'flam3'
