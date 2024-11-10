@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.72 - Gold
+#version: 1.5.74 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -154,7 +154,9 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 density:
     #id: GLOBAL
-    Number of points to use. For high-quality fractals, start from 20M up to 500M and more, depending on the type of fractal Flame you end up with. As a general rule, the more, the better.
+    Number of points to use.<br /><br />
+    For high-quality fractals, start from *`20M`*(millions) up to *`500M`*(millions) and more, depending on the type of fractal Flame you end up with.<br />
+    As a general rule, the more, the better.
     * Must strike a balance between processing speed and quality.
 
     
@@ -183,7 +185,7 @@ iterations [Icon:TOP/xmlinput]:
     It is advised that occasionally you bump up this number a little to see if there is anything you are overlooking.
     For instance, certain Flames can seem completely different with higher number of iterations.
     
-    But generally speaking, for many fratcal Flames shapes:
+    _Generally speaking, for many fratcal Flames shapes_:
     
     - You do not need many iterations to get some good fractal Flames going, between *`10`* and *`24`* is usually more than you need while keeping execution speed acceptable.
     - If you increase the iterator Weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
@@ -320,7 +322,7 @@ TAG [Icon:DATATYPES/boolean]:
     
     Enable/disable vieport TAG infos.
     
-    _Since it is helpful to review the fractal Flame being worked on, this should always be turned on. For every iterator, the weight is also shown._
+    _Since it is helpful to review the fractal Flame being worked on, this should always be turned on. For every iterator, the Weight is also shown._
     
     * The iteration number will be the very first number inside square brackets.
     * [Xaos|#FLAMEITERXAOS] (_when active_) will be next inside square brackets. Read the xaos documentation to know more about it.
@@ -334,8 +336,8 @@ TAG [Icon:DATATYPES/boolean]:
     * *`pre_blur`* will be indicated witn an asterisk "*`*`*" at the beginning of each iterator and before all variations.
     * *`PRE`* variations will be inside square brackets at the beginning of each iterator, or FF.
     * *`POST`* variations will be inside square brackets at the end of each iterator, or FF
-    * The [iterator's weight|#FLAMEITER] value will be the last in each iterator.
-    * The colons "*`:`*" indicate how many variation slots are still available; 4(four) in case of an iterator *`VAR`* section, plus a last colon "*`:`*" as a separator from the iterator's weight.
+    * The [iterator's Weight|#FLAMEITER] value will be the last in each iterator.
+    * The colons "*`:`*" indicate how many variation slots are still available; 4(four) in case of an iterator *`VAR`* section, plus a last colon "*`:`*" as a separator from the iterator's Weight.
     * If an iterator is disabled, it will be displayed as: " *`::::::::::`* "
     
     TIP:
@@ -658,7 +660,7 @@ A tip [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
 W [Icon:TOP/xmlinput]:
     #id: FLAME
     The Weight of this iterator.<br />
-    Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator weight is higher than the others.
+    Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
     
 :box:
     #display: rounded white
@@ -698,7 +700,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
         
-    - To set XAOS for a Flame with 4 iterators, use the "*`xaos:`*" keyword followed by each iterator's weight values separated by a colon: *`xaos:`* *1:2:3:4*.
+    - To set XAOS for a Flame with 4 iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is ON ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
     - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1.0`*, the equivalent of: *`xaos:`* *1:1:1:1*
     - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of *`1.0`.* As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
@@ -760,7 +762,7 @@ Speed [Icon:TOP/xmlinput]:
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
     This iterator's opacity.<br />
-    It will be fully opaque at opacity *`1`* and completely transparent at opacity *`0`*. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's weight.
+    It will be fully opaque at opacity *`1`* and completely transparent at opacity *`0`*. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's Weight.
     
     TIP:
         #display: orange
@@ -1763,7 +1765,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.72" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.74" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1992,7 +1994,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.72" ... >
+          <flame version="FLAM3H-WIN-1.5.74" ... >
               ...
         }}}
         
@@ -2001,7 +2003,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.72" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.74" ... >
               ...
         }}}
         

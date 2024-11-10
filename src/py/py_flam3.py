@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.72'
+FLAM3H_VERSION = '1.5.74'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1738,6 +1738,7 @@ reset_PREFS(self, mode: int=0) -> None:
                                                             def util_viewport_bbox_frame(self) -> None:
                                                             def flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
                                                             def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
+                                                            def flam3h_toggle_off(self, prm: str) -> None:
                                             
         """ 
         node = self.node
@@ -1755,7 +1756,8 @@ reset_PREFS(self, mode: int=0) -> None:
                             node.parm(OUT_PRESETS),
                             node.parm(OUT_SYS_PRESETS)
                         )
-        
+        # This is probably light weight enough to be run all together
+        # However in the future will be better to split this to run per type with checks (CP, IN and OUT)
         [prm.set(prm.eval()) for prm in prm_menus]
 
 
@@ -2151,6 +2153,9 @@ reset_PREFS(self, mode: int=0) -> None:
         """        
         toggle = self.node.parm(prm).eval()
         
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
         if toggle:
             self.node.setParms({prm: 0})
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
@@ -2188,14 +2193,8 @@ reset_PREFS(self, mode: int=0) -> None:
                     self.remove_locked_from_flame_stats(node)
                     node.setParms({IN_ISVALID_FILE: 0})
                 else:
-                    node.setParms({IN_ISVALID_FILE: 0})
-                    node.setParms({IN_ISVALID_PRESET: 0})
-                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-                    
-                    node.setParms({MSG_FLAMESTATS: ""})
-                    node.setParms({MSG_FLAMERENDER: ""})
-                    node.setParms({MSG_FLAMESENSOR: ""})
-                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                    [prm.set(0) for prm in (node.parm(IN_ISVALID_FILE), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE))]
+                    [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
                         
                 # If it is not a chaotica xml file do print out from here,
                 # other wise we are printing out from:
@@ -2215,14 +2214,9 @@ reset_PREFS(self, mode: int=0) -> None:
         else:
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
-                node.setParms({IN_ISVALID_FILE: 0})
-                node.setParms({IN_ISVALID_PRESET: 0})
-                node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                [prm.set(0) for prm in (node.parm(IN_ISVALID_FILE), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE))]
+                [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
                 
-                node.setParms({MSG_FLAMESTATS: ""})
-                node.setParms({MSG_FLAMERENDER: ""})
-                node.setParms({MSG_FLAMESENSOR: ""})
-                node.setParms({MSG_DESCRIPTIVE_PRM: ""})
                 # We do not want to print if the file path parameter is empty
                 # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
                 # if xml:
@@ -5510,9 +5504,8 @@ iterator_vactive_and_update(self) -> None:
         flam3h_general_utils(self.kwargs).reset_PREFS()
         
         # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-        node.setParms({MSG_FLAMESTATS: ""})
-        node.setParms({MSG_FLAMERENDER: ""})
-        node.setParms({MSG_FLAMESENSOR: ""})
+        [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR))]
+
         # node.setParms({MSG_PALETTE: ''})
         # node.setParms({MSG_OUT: ''})
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
@@ -5830,19 +5823,12 @@ iterator_vactive_and_update(self) -> None:
             # GLOBAL
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
-            # SYS
-            node.setParms({SYS_DO_FF: 0}) # type: ignore
-            node.setParms({SYS_RIP: 0}) # type: ignore
             # FF vars
             self.reset_FF()
             # MB
             flam3h_general_utils(self.kwargs).reset_MB()
-            # IN
-            node.setParms({IN_ISVALID_PRESET: 0})
-            node.setParms({IN_CLIPBOARD_TOGGLE: 0})
-            # prefs
-            node.setParms({PREFS_CAMERA_HANDLE: 0}) # type: ignore
-            node.setParms({PREFS_CAMERA_CULL: 0}) # type: ignore
+            # SYS, IN and PREFS
+            [prm.set(0) for prm in (node.parm(SYS_DO_FF), node.parm(SYS_RIP), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE), node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL))]
 
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
@@ -6792,8 +6778,8 @@ reset_CP_palette_action(self) -> None:
                             # Set some parameters
                             with open(out_path_checked) as f:
                                 data = json.load(f)
-                                preset_last_idx = str(len(data.keys())-1)
                                 # Set all CP preset menus parameter index
+                                preset_last_idx = str(len(data.keys())-1)
                                 [prm.set(preset_last_idx) for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF))]
                                 # Clearup the Palette name if any were given
                                 node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
@@ -12730,13 +12716,9 @@ reset_IN(self, mode: int=0) -> None:
                      
                 # Anything else   
                 else:
-                    node.setParms({IN_ISVALID_FILE: 0})
-                    node.setParms({IN_ISVALID_PRESET: 0})
-                    node.setParms({IN_CLIPBOARD_TOGGLE: 0})
+                    [prm.set(0) for prm in (node.parm(IN_ISVALID_FILE), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE))]
                     # clear info msgs
-                    node.setParms({MSG_FLAMESTATS: ""})
-                    node.setParms({MSG_FLAMERENDER: ""})
-                    node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+                    [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_DESCRIPTIVE_PRM))]
                     # If iterator's count is 0(Zero), change focus back to the IN's Tab
                     # And let the user know it should load a flame file first
                     if node.parm(FLAME_ITERATORS_COUNT).eval() == 0:
@@ -14347,8 +14329,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         if mode == 2:
             node.setParms({OUT_PATH: ""})
             node.setParms({OUT_HSV_PALETTE_DO: 0})
-            node.setParms({OUT_PRESETS: "-1"})
-            node.setParms({OUT_SYS_PRESETS: "-1"})
+            node.setParms({OUT_PRESETS: str(-1)})
+            node.setParms({OUT_SYS_PRESETS: str(-1)})
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
@@ -14736,9 +14718,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             bool: return True if the Flame is a compatible FLAM3 flame or False if not.
         """        
         # Build Flame properties
-        for key, value in self.out_flame_properties_build().items():
-            if value is not False: # this is important for custom flam3h xml values. Every class def that collect those must return False in case we do not need them.
-                flame.set(key, value)
+        [flame.set(key, value) for key, value in self.out_flame_properties_build().items() if value is not False]
+
         # Build xforms
         name_PRE_BLUR = ""
         names_VARS = []
@@ -14814,11 +14795,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
         # OUT render curves as last
-        flame.set(OUT_XML_FLAME_RENDER_CURVES, f3r.flame_render_curves)
-        flame.set(OUT_XML_FLAME_RENDER_CURVE_OVERALL, f3r.flame_overall_curve)
-        flame.set(OUT_XML_FLAME_RENDER_CURVE_RED, f3r.flame_red_curve)
-        flame.set(OUT_XML_FLAME_RENDER_CURVE_GREEN, f3r.flame_green_curve)
-        flame.set(OUT_XML_FLAME_RENDER_CURVE_BLUE, f3r.flame_blue_curve)
+        cc: dict = {OUT_XML_FLAME_RENDER_CURVES: f3r.flame_render_curves,
+                    OUT_XML_FLAME_RENDER_CURVE_OVERALL: f3r.flame_overall_curve,
+                    OUT_XML_FLAME_RENDER_CURVE_RED: f3r.flame_red_curve,
+                    OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
+                    OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve}
+        [flame.set(key, value) for key, value in cc.items()]
         
         # return if this flame is a valid 'flam3'
         return self.out_flam3_compatibility_check_and_msg()
@@ -15054,10 +15036,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
 
     def __out_xf_xaos(self) -> tuple:
-        if self.xm:
-            return self.out_xf_xaos_from(1)
-        else:
-            return self.out_xf_xaos_to()
+        if self.xm: return self.out_xf_xaos_from(1)
+        else: return self.out_xf_xaos_to()
 
 
     def __out_xf_preaffine(self) -> tuple[tuple, tuple, tuple]:
