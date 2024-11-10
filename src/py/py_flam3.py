@@ -5551,6 +5551,7 @@ iterator_vactive_and_update(self) -> None:
         node = self.node
         # Clear menu cache
         self.destroy_data(node, 'iter_sel')
+        self.destroy_data(node, 'edge_case_01')
         self.destroy_all_menus_data(node)
         
         # Iterators reset
@@ -5881,6 +5882,8 @@ iterator_vactive_and_update(self) -> None:
         iterators_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         if not iterators_count:
+            
+            self.destroy_data(node, 'edge_case_01')
             
             # delete channel references
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
@@ -12727,6 +12730,7 @@ reset_IN(self, mode: int=0) -> None:
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
                 flam3h_iterator_utils.destroy_data(node, 'iter_sel')
+                flam3h_iterator_utils.destroy_data(node, 'edge_case_01')
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
