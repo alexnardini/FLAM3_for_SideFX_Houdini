@@ -4369,7 +4369,7 @@ iterator_vactive_and_update(self) -> None:
                     if _FLAM3H_DATA_PRM_MPIDX > 0:
                         if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                             mp_id_from = _FLAM3H_DATA_PRM_MPIDX
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from  # type: ignore
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from # type: ignore
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(mp_id_from))
                             self.destroy_data(node, 'iter_sel')
@@ -4382,7 +4382,7 @@ iterator_vactive_and_update(self) -> None:
                     if __FLAM3H_DATA_PRM_MPIDX > 0:
                         if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
                             mp_id_from = __FLAM3H_DATA_PRM_MPIDX
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from  # type: ignore
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from # type: ignore
                             assert from_FLAM3H_NODE is not None
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
@@ -4395,8 +4395,15 @@ iterator_vactive_and_update(self) -> None:
                             self.destroy_data(node, 'iter_sel')
                             
             except:
+                # This is for an edge case
+                try:
+                    # If we really deleted a node with a marked iterator
+                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                        isDELETED = True
+                except:
+                    # Otherwise just leave things as they are
+                    pass
                 mp_id_from = None
-                isDELETED = True
                 self.destroy_data(self.node, 'iter_sel')
                 
             # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
