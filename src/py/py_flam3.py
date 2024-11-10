@@ -1353,6 +1353,11 @@ flam3h_on_deleted(self) -> None:
             flam3h_general_utils.util_clear_stashed_cam_data()
             
         else:
+            # Clear menu caches
+            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the laoded files
+            # (ex. the user perform hand made modifications like renaming a Preset and such).
+            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+            
             # If we are deleting a FLAM3H node in camera Sensor Viz mode,
             # restore the viewers to their preview states and clear all the stashed cams data
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
