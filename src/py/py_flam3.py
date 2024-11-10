@@ -4396,16 +4396,12 @@ iterator_vactive_and_update(self) -> None:
                             
             except:
                 # This is for an edge case
-                try:
-                    # If we really deleted a node with a marked iterator
-                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
-                        isDELETED = True
-                except:
-                    # Otherwise just leave things as they are
-                    pass
+                # If we really deleted a node with a marked iterator
+                if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                    isDELETED = True
                 mp_id_from = None
                 self.destroy_data(self.node, 'iter_sel')
-                
+            
             # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
             # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
             #
