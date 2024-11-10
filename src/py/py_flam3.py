@@ -4408,8 +4408,10 @@ iterator_vactive_and_update(self) -> None:
                             self.destroy_data(node, 'iter_sel')
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
+                            # This has the cost of being run until we unmark the iterator from the other FLAM3H node.
+                            # Not a big deal but need to figure out a way to make this case stop being repeated.
                             if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
-                                    self.destroy_data(node, 'iter_sel')
+                                self.destroy_data(node, 'iter_sel')
                     else:
                         if __FLAM3H_DATA_PRM_MPIDX == -1:
                             mp_id_from = None
@@ -4429,7 +4431,7 @@ iterator_vactive_and_update(self) -> None:
             except:
                 mp_id_from = None
                 self.destroy_data(node, 'iter_sel')
-                # This is for an edge case to avoid a wrong copy/paste info message
+                # This to avoid a wrong copy/paste info message
                 try:
                     # If we really deleted a node with a marked iterator
                     if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
