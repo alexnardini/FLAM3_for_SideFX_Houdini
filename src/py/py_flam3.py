@@ -3632,11 +3632,12 @@ iterator_vactive_and_update(self) -> None:
             (None):
         """  
         if f3h_all:
-            [self.destroy_data(f3h, 'cp_presets_menu') for f3h in node.type().instances()]
-            [self.destroy_data(f3h, 'cp_presets_menu_off') for f3h in node.type().instances()]
-            [self.destroy_data(f3h, 'in_presets_menu') for f3h in node.type().instances()]
-            [self.destroy_data(f3h, 'in_presets_menu_off') for f3h in node.type().instances()]
-            [self.destroy_data(f3h, 'out_presets_menu') for f3h in node.type().instances()]
+            f3h_instances = node.type().instances()
+            [self.destroy_data(f3h, 'cp_presets_menu') for f3h in f3h_instances]
+            [self.destroy_data(f3h, 'cp_presets_menu_off') for f3h in f3h_instances]
+            [self.destroy_data(f3h, 'in_presets_menu') for f3h in f3h_instances]
+            [self.destroy_data(f3h, 'in_presets_menu_off') for f3h in f3h_instances]
+            [self.destroy_data(f3h, 'out_presets_menu') for f3h in f3h_instances]
         else:
             self.destroy_data(node, 'cp_presets_menu')
             self.destroy_data(node, 'cp_presets_menu_off')
