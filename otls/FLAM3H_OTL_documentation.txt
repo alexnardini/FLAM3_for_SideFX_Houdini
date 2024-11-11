@@ -239,7 +239,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number.
 
-    This is handy when many iterators are created for the fractal flame you are working on.
+    This is handy when many iterators are created for the fractal Flame you are working on.
 
     _The bookmark icon will display the status of each iterator_:
 
@@ -398,7 +398,7 @@ frame viewport:
     
 mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
-    Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.
+    Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.<br /><br />
     This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
     
     _The selected menu entrie posses a bookmark icon based on its state_:
@@ -440,7 +440,7 @@ CP Preset reload:
     
 mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
-    Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.
+    Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.<br /><br />
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
     
     _The selected menu entrie posses a bookmark icon based on its state_:
@@ -565,7 +565,7 @@ palette 256+ ON [Icon:TOP/xmlinput]:
 number of iterators [Icon:TOP/xmlinput]:
     #id: FLAME
     
-    Number of iterators to use.
+    Number of iterators to use.<br /><br />
     This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
@@ -756,12 +756,12 @@ Location [Icon:TOP/xmlinput]:
     
 Speed [Icon:TOP/xmlinput]:
     #id: FLAME
-    Speed of color blending between iterations.<br />
+    Speed of color blending between iterations.<br /><br />
     Values above 0 attract the selected color while values below 0 will repel it.
     
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
-    This iterator's opacity.<br />
+    This iterator's opacity.<br /><br />
     It will be fully opaque at opacity *`1`* and completely transparent at opacity *`0`*. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's Weight.
     
     TIP:
@@ -1504,7 +1504,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
-    Every *.flame file can contain multiple Flames.
+    Every *.flame file can contain multiple Flames.<br />
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
     Each entry will display the Flame's name.
     
@@ -1887,7 +1887,7 @@ Save Flame:
     
 Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: OUT
-    Write a name to give to the selected Flame when saving it out.
+    Write a name to give to the selected Flame when saving it out.<br /><br />
     If no name is provided, an automated name composed of today's date and current time will be used instead.
     
     TIP:
@@ -1906,7 +1906,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
 menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     #id: OUT
-    This menu is simply provided as information.
+    This menu is simply provided as information.<br /><br />
     If there are any Flames in the chosen output file, they will be displayed.
     This menu will refresh once you add a new Flame to it.
     It will always be set to the last Flame’s name you saved.
@@ -1979,7 +1979,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
 
-    ON by default.<br />
+    ON by default.<br /><br />
     To export the parameter names for parametric variations to the one that Fractorium uses.
 
     *_This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
@@ -2137,7 +2137,8 @@ update camera sensor [Icon:DATATYPES/boolean]:
     
 Quality [Icon:TOP/xmlinput]:
     #id: OUT
-    The render quality. Think of this as how many points are used inside Fractorium to render the final image.
+    The render quality.<br /><br />
+    Think of this as how many points are used inside Fractorium to render the final image.
     
 Brightness [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2305,8 +2306,8 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
 
 Enumerate presets menus [Icon:DATATYPES/boolean]:
     #id: prefs
-    ON by default. Causes the presets menus inside the CP, IN and OUT tab to be enumerated.
-    
+    ON by default.<br /><br />
+    Causes the presets menus inside the CP, IN and OUT tab to be enumerated.<br />
     This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.
     
     Turn this OFF to only display the raw preset names.
@@ -2361,7 +2362,7 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
             
 camera handle [Icon:DATATYPES/boolean]:
     #id: prefs
-    Display the viewport camera handle to help frame/center your fractal Flame.<br />
+    Display the viewport camera handle to help frame/center your fractal Flame.<br /><br />
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     
     NOTE:
@@ -2391,10 +2392,8 @@ amount:
     
 Dark [Icon:DATATYPES/boolean]:
     #id: prefs
-    If it isn't already, change the viewport's color scheme to dark.
-
-    If unchecked, it will remember the color scheme for every viewport and fall back on it.
-    
+    If it isn't already, change the viewport's color scheme to dark.<br /><br />
+    If unchecked, it will remember the color scheme for every viewport and fall back on it.<br />
     Checking this box has no effect if the color scheme in a viewport is already dark.
     
 menu type [Icon:BUTTONS/pane_menu]:
@@ -2429,7 +2428,8 @@ Size:
 
 About:
     #id: about
-    Display informations about FLAM3H. Author, code languages used, version number, code references and much more can be found inside here.
+    Display informations about FLAM3H.<br /><br />
+    Author, code languages used, version number, code references and much more can be found inside here.
 
 Plugins:
     #id: about
