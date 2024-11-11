@@ -2744,7 +2744,7 @@ flam3h_on_load_opacity_zero(node: hou.SopNode) -> None:
 
 destroy_data(node, data: str, must_exist: bool=False) -> None:
 
-destroy_data_edge_case_01(node) -> None:
+destroy_data_all_f3h(node, data_name: str) -> None:
 
 menu_T_get_type_icon(w: float) -> str:
 
@@ -3461,16 +3461,17 @@ iterator_vactive_and_update(self) -> None:
         
     
     @staticmethod
-    def destroy_data_edge_case_01(node) -> None:
+    def destroy_data_all_f3h(node, data_name: str) -> None:
         """This is a one off just for this data and scope
 
         Args:
             node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
+            data_name (str): The name of the data to destroy.
         """  
         for f3h in node.type().instances():
             assert isinstance(f3h, hou.SopNode)
-            data = f3h.cachedUserData('edge_case_01')
-            if data is not None: flam3h_iterator_utils.destroy_data(f3h, 'edge_case_01')
+            data = f3h.cachedUserData(data_name)
+            if data is not None: flam3h_iterator_utils.destroy_data(f3h, data_name)
             
 
     @staticmethod
@@ -4758,7 +4759,7 @@ iterator_vactive_and_update(self) -> None:
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {id}"): # type: ignore
-                flam3h_iterator_utils.destroy_data_edge_case_01(node)
+                flam3h_iterator_utils.destroy_data_all_f3h(node, 'edge_case_01')
                 self.prm_paste_SHIFT(id)
                 
         # Adding ability to reset the current iterator to its default values.      
@@ -4771,11 +4772,11 @@ iterator_vactive_and_update(self) -> None:
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark iterator CLICK {id}"): # type: ignore
-                    flam3h_iterator_utils.destroy_data_edge_case_01(node)
+                    flam3h_iterator_utils.destroy_data_all_f3h(node, 'edge_case_01')
                     self.prm_paste_SHIFT(id)
             else:
                 with hou.undos.group(f"FLAM3H mark iterator CLICK {id}"): # type: ignore
-                    flam3h_iterator_utils.destroy_data_edge_case_01(node)
+                    flam3h_iterator_utils.destroy_data_all_f3h(node, 'edge_case_01')
                     self.prm_paste_CLICK(id)
     
     
