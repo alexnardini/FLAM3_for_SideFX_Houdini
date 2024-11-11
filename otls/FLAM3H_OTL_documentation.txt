@@ -284,12 +284,12 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this ON to get rid of those points.
-    - When an iterator's opacity is *`0`* (Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
+    - When an iterator's opacity is *`0`*(Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned ON.
 
     TIP:
         #display: orange
-        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0`* (Zero) and if so, it will switch this toggle ON.<br />
+        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle ON.<br />
 
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -575,7 +575,7 @@ number of iterators [Icon:TOP/xmlinput]:
     _The following control icons are provided_:
 
     - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
-    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*. It will remove one from the end.
+    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
     _Additionaly, each iterator posses the following control icons_:
@@ -677,8 +677,8 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     Xaos provides more fine-grained control over the selection of xforms on each iteration.
     It is expressed as a probability modifier for each xform in relation to every other xform.
 
-    The default state is for all elements to have a value of *`1`*, which means that xaos is not used.
-    When any element is changed to something other than *`1`*, xaos is in effect.
+    The default state is for all elements to have a value of *`1`*(one), which means that xaos is not used.
+    When any element is changed to something other than *`1`*(one), xaos is in effect.
 
     Xaos specifies how likely a xform is to be chosen based on the previous xform that was chosen.
     Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
@@ -700,25 +700,25 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
         
-    - To set XAOS for a Flame with 4 iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
+    - To set XAOS for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is ON ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
-    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1`*, the equivalent of: *`xaos:`* *1:1:1:1*
-    - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of *`1`.* As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
+    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
+    - If you set only *iterator 1* and *iterator 2*, FLAM3H will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
     - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
     
     - If you type a non-numeric character in any of the xaos's weights, FLAM3H will undo to what you had before.
-    - If you dnt use the "*`xaos:`*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*
+    - If you dnt use the "*`xaos:`*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*(one)
     - If you just type a number, the entire xaos string will be reset to all weights set to that number.
-    - If you just type a floating point number, the entire xaos string will be reset to all weights set to the integer part of that number. ( _ex: 123.876 will become -> 123_ )
-    - If you type a negative number, it will be reset to a value of:  *`1`*
+    - If you just type a floating point number, the entire xaos string will be reset to all weights set to the integer part of that number. ( _ex: *`123.876`* will become -> *`123`*_ )
+    - If you type a negative number, it will be reset to a value of:  *`1`*(one)
 
     TIP:
         #display: orange
     
         XAOS is off by default, and FLAM3H will activate it automatically
-        only when needed. (ex: when one of its weights is set to a value different from: *`1`* ).
+        only when needed. ex: when one of its weights is set to a value different from: *`1`*(one).
         
     NOTE:
         When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
@@ -757,16 +757,16 @@ Location [Icon:TOP/xmlinput]:
 Speed [Icon:TOP/xmlinput]:
     #id: FLAME
     Speed of color blending between iterations.<br /><br />
-    Values above *`0`* attract the selected color while values below *`0`* will repel it.
+    Values above *`0`*(Zero) attract the selected color while values below *`0`*(Zero) will repel it.
     
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
     This iterator's opacity.<br /><br />
-    It will be fully opaque at opacity *`1`* and completely transparent at opacity *`0`*. It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's Weight.
+    It will be fully opaque at opacity *`1`*(one) and completely transparent at opacity *`0`*(Zero). It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's Weight.
     
     TIP:
         #display: orange
-        When an iterator's opacity is *`0`* (Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
+        When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
 :box:
     #display: rounded white
 
@@ -797,16 +797,16 @@ Opacity [Icon:TOP/xmlinput]:
 
         When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
-        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
-        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above *`1`*.
-        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below *`0`*.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above *`1`*(one).
+        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below *`0`*(Zero).
         
         _PRE and POST bookmark icons:_
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*(one).
     
     TIP:
         #display: orange
@@ -861,8 +861,8 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     There are 4(four) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
-    - If you have a *`Linear`* variation in slot *1*, and you add a *`Spherical`* variation in slot *2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in slot *1*, and so on for the other available slots.<br />
-    - If you do the opposite, a *`Spherical`* variation in slot *1* and a *`Linear`* in slot *2*, the result will be identical assuming both retain the same weight values.
+    - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
     * When using parametric variations, their parameters will populate the *VARS* Tab.
 
     TIP:
@@ -883,9 +883,9 @@ menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
         
 w [Icon:TOP/xmlinput]:
     #id: FLAME
-    The weight of the selected variation. *`0`* will be inactive, and *`1`* will be 100%.
-    Can be set higher than *`1`* and negative too.
-    * If more than one variation is active, remember that, as a general rule, it is suggested ( not mandatory ) to have the sum of all weights equal to 1.
+    The weight of the selected variation. *`0`*(Zero) will be inactive, and *`1`*(one) will be 100%.
+    Can be set higher than *`1`*(one) and negative too.
+    * If more than one variation is active, remember that, as a general rule, it is suggested ( not mandatory ) to have the sum of all weights equal to *`1`*(one).
     
     TIP:
         #display: orange
@@ -1096,16 +1096,16 @@ FF: copy/paste:
         
         When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
-        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
-        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above *`1`*.
-        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below *`0`*.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?iconStarSwapRedSVG.svg] when its weight is above *`1`*(one).
+        - [Largeicon:opdef:.?iconStarSwapCyanSVG.svg] when its weight is below *`0`*(Zero).
 
         Pre and Post types:
         
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`* and less or equal to *`1`*.
-        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*.
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*(one).
     
     TIP:
         #display: orange
@@ -1129,8 +1129,8 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     There are 2(two) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
-    - If you have a *`Linear`* variation in slot *1*, and you add a *`Spherical`* variation in slot *2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in slot *1*, and so on for the other available slots.<br />
-    - If you do the opposite, a *`Spherical`* variation in slot *1* and a *`Linear`* in slot *2*, the result will be identical assuming both retain the same weight values.
+    - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
     
     * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
 
@@ -1159,9 +1159,9 @@ swap FF POST vars:
     
 FF: w [Icon:TOP/xmlinput]:
     #id: FF
-    The weight of the selected variation. *`0`* will be inactive, *`1`* will be 100%.
+    The weight of the selected variation. *`0`*(Zero) will be inactive, *`1`*(one) will be 100%.
 
-    Can be set higher than *`1`* and negative too.
+    Can be set higher than *`1`*(one) and negative too.
     
     TIP:
         #display: orange
@@ -2820,7 +2820,7 @@ _A list of all parametric variations and their parametric parameter's names._
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (Saturation) and, most crucially, the "*V*" (Value).
-    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*, bringing the appearance of the Flame closer to that of a typical fractal Flame.
+    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*(one), bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
 
 :box:
@@ -3037,9 +3037,9 @@ _A list of all parametric variations and their parametric parameter's names._
 
     NOTE:
         _When saving a Flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
-        - Color -> *`0`*
-        - Color Speed -> *`0`* ( _this is the most important_ )
-        - Direct Color -> *`1`*
+        - Color -> *`0`*(Zero)
+        - Color Speed -> *`0`*(Zero) ( _this is the most important_ )
+        - Direct Color -> *`1`*(one)
         
         _This way, you won't add a color to the Flame that FLAM3H won't be able to match._
 
