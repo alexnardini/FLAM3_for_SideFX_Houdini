@@ -6574,15 +6574,8 @@ reset_CP_palette_action(self) -> None:
                     
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
-
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    [self.menu_cp_presets_loop_enum(node, menu, i, item) for i, item in enumerate(menuitems)]
-
-                else:
-                    
-                    [self.menu_cp_presets_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
-                            
+                [self.menu_cp_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
             
@@ -6651,15 +6644,8 @@ reset_CP_palette_action(self) -> None:
                     
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
-
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    [self.menu_cp_presets_empty_loop_enum(node, menu, i, item) for i, item in enumerate(menuitems)]
-                            
-                else:
-                    
-                    [self.menu_cp_presets_empty_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
-                
+                [self.menu_cp_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_empty_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
                 
@@ -11801,15 +11787,8 @@ reset_IN(self, mode: int=0) -> None:
 
             if _xml_tree(xml).isvalidtree and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
                 
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
-                    
-                    [self.menu_in_presets_loop_enum(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
-                            
-                else:
-                    
-                    [self.menu_in_presets_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
-                            
-                node.setCachedUserData('in_presets_menu', menu)   
+                [self.menu_in_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
+                node.setCachedUserData('in_presets_menu', menu)
                 return menu
             
             flam3h_iterator_utils.destroy_data(node, 'in_presets_menu')
@@ -11878,15 +11857,8 @@ reset_IN(self, mode: int=0) -> None:
 
             if _xml_tree(xml).isvalidtree and node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
                     
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
-                    
-                    [self.menu_in_presets_empty_loop_enum(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
-
-                else:
-                    
-                    [self.menu_in_presets_empty_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
-                            
-                node.setCachedUserData('in_presets_menu_off', menu)            
+                [self.menu_in_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_empty_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
+                node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
                 
             else:
@@ -14452,15 +14424,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             apo = _xml_tree(xml)
             
             if apo.isvalidtree:
-                
-                if node.parm(PREFS_ENUMERATE_MENU).eval():
                     
-                    [self.menu_out_presets_loop_enum(menu, i, item) for i, item in enumerate(apo.name)]
-
-                else:
-                    
-                    [self.menu_out_presets_loop(menu, i, item) for i, item in enumerate(apo.name)]
-                        
+                [self.menu_out_presets_loop_enum(menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_out_presets_loop(menu, i, item) for i, item in enumerate(apo.name)]
                 node.setCachedUserData('out_presets_menu', menu)
                 return menu
             
