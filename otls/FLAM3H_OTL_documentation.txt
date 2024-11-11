@@ -289,7 +289,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
-        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0.0`* (Zero) and if so, it will switch this toggle ON.<br />
+        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0`* (Zero) and if so, it will switch this toggle ON.<br />
 
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -622,7 +622,7 @@ copy/paste:
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or *`0.0`*(Zero) Weight.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is OFF/Disabled and/or *`0`*(Zero) Weight.
 
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((CTRL)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -702,8 +702,8 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         
     - To set XAOS for a Flame with 4 iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is ON ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
-    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1.0`*, the equivalent of: *`xaos:`* *1:1:1:1*
-    - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of *`1.0`.* As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
+    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1`*, the equivalent of: *`xaos:`* *1:1:1:1*
+    - If you set only iterator 1 and iterator 2, FLAM3H will always fill in the rest with a value of *`1`.* As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
     - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
@@ -757,7 +757,7 @@ Location [Icon:TOP/xmlinput]:
 Speed [Icon:TOP/xmlinput]:
     #id: FLAME
     Speed of color blending between iterations.<br /><br />
-    Values above 0 attract the selected color while values below 0 will repel it.
+    Values above *`0`* attract the selected color while values below *`0`* will repel it.
     
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -2820,9 +2820,7 @@ _A list of all parametric variations and their parametric parameter's names._
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (Saturation) and, most crucially, the "*V*" (Value).
-    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1.0`*, bringing the appearance of the Flame closer to that of a typical fractal Flame.
-
-
+    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*, bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
 
 :box:
@@ -3039,9 +3037,9 @@ _A list of all parametric variations and their parametric parameter's names._
 
     NOTE:
         _When saving a Flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
-        - Color -> *`0.0`*
-        - Color Speed -> *`0.0`* ( _this is the most important_ )
-        - Direct Color -> *`1.0`*
+        - Color -> *`0`*
+        - Color Speed -> *`0`* ( _this is the most important_ )
+        - Direct Color -> *`1`*
         
         _This way, you won't add a color to the Flame that FLAM3H won't be able to match._
 
