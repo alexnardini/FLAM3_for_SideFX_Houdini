@@ -12494,10 +12494,6 @@ reset_IN(self, mode: int=0) -> None:
                 
                 # Set menu parameters index to the first entry
                 [prm.set('0') for prm in (node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF), node.parm(IN_SYS_PRESETS), node.parm(IN_SYS_PRESETS_OFF))]
-                # node.setParms({IN_PRESETS: "0"}) # type: ignore
-                # node.setParms({IN_PRESETS_OFF: "0"}) # type: ignore
-                # node.setParms({IN_SYS_PRESETS: "0"}) # type: ignore
-                # node.setParms({IN_SYS_PRESETS_OFF: "0"}) # type: ignore
                 
                 return flameFile_expandvars, False, 0, '', False, False
             
