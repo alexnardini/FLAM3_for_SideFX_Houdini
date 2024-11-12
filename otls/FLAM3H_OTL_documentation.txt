@@ -369,7 +369,7 @@ loaddef:
     
     Load/reset to default Sierpiński triangle preset.
 
-    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (SENSOR, RENDER and CC CURVES settings).
+    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
 
 :box:
     #display: rounded white
@@ -570,7 +570,7 @@ number of iterators [Icon:TOP/xmlinput]:
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
 
-    When the number of iterators is set to *`0`*(Zero), it will also reset the FLAM3H UI to its defaults including the OUT render properties (SENSOR, RENDER and CC CURVES settings).
+    When the number of iterators is set to *`0`*(Zero), it will also reset the FLAM3H UI to its defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
 
     _The following control icons are provided_:
 
@@ -696,7 +696,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     _Looking from an iterator's point of view_:
     - When in *`xaos TO`* mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
     - When in *`xaos FROM`* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
-    - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? ( like the yellow iterator with the *`Curl`* variation in the above diagram/image. )
+    - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? (_like the yellow iterator with the_ *`Curl`* _variation in the above diagram/image._)
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
         
@@ -731,7 +731,7 @@ auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlu
 
     _Usage_:
     
-    - ((LMB)) will space the xaos weights for easy read and count ( ON/OFF )
+    - ((LMB)) will space the xaos weights for easy read and count (_ON/OFF_)
     
     - ((CTRL)) + ((LMB)) to show Xaos information and tips.
     
@@ -766,7 +766,7 @@ Opacity [Icon:TOP/xmlinput]:
     
     TIP:
         #display: orange
-        When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( since *opacity* == *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
+        When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
 :box:
     #display: rounded white
 
@@ -885,7 +885,7 @@ w [Icon:TOP/xmlinput]:
     #id: FLAME
     The weight of the selected variation. *`0`*(Zero) will be inactive, and *`1`*(one) will be 100%.
     Can be set higher than *`1`*(one) and negative too.
-    * If more than one variation is active, remember that, as a general rule, it is suggested ( not mandatory ) to have the sum of all weights equal to *`1`*(one).
+    * If more than one variation is active, remember that, as a general rule, it is suggested (_not mandatory_) to have the sum of all weights equal to *`1`*(one).
     
     TIP:
         #display: orange
@@ -906,7 +906,7 @@ post [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 affine Scale:
     #id: FLAME
 
-    Scale the affine values (*`X`* and *`Y`*) by an amount, with a value of *`1`* (100% -> no scale) being the default.
+    Scale the affine values (*`X`* _and_ *`Y`*) by an amount, with a value of *`1`* (_100%_ -> _no scale_) being the default.
 
     _The are two ways to use this parameter_.
     # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
@@ -934,7 +934,7 @@ copy post affine values:
 affine [Icon:TOP/xmlinput]:
     #id: FLAME
 
-    Affine transformation's coefficients for the current iterator ( xform ).
+    Affine transformation's coefficients for the current iterator (_xform_).
     
     NOTE:
         A linear transformation cannot be used to translate a set of points. 
@@ -949,17 +949,17 @@ affine [Icon:TOP/xmlinput]:
         By applying an _affine transformation_ to an image on the screen, we can do everything a linear transformation can do, 
         and also have the ability to move the image up or down and left or right.
 
-    Each iterator( xform ) has an affine transform that is always applied on every iteration.
+    Each iterator(_xform_) has an affine transform that is always applied on every iteration.
     This is known as the pre affine becasue it is applied before the variations. There is also an optional affine applied after the variations known as the post affine.
 
     For speed purpose, only the very basic parameters of the affine are provided, plus a rotation parameter to make life a little easier. Below a basic guideline on how to use the affine parameters:
 
     - With *`X`*._`xy`_ and *`Y`*._`xy`_ you will apply rotation and scale/shear while with *`O`*._`xy`_ you will apply translation/offset.
     - They compose a 2x3 matrix ( *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ ).
-    - The rotation parameter will take the values of *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ and rotate them ( *`O`*._`xy`_ being the pivot).
+    - The rotation parameter will take the values of *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ and rotate them ( *`O`*._`xy`_ _being the pivot_).
     
     There are two ways you can use the affine:
-    # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything ( translation, rotation and scale/shear ).
+    # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything (_translation, rotation and scale/shear_).
     
     # Use the rotation parameter in combination with: *`X`*._`x`_ and *`Y`*._`y`_ for scale, *`X`*._`y`_ and *`Y`*._`x`_ for share and *`O`*._`xy`_ for translation.
     
@@ -1274,7 +1274,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
     
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
-    nevertheless, the palette will be internally sampled (linearly spaced) from ZERO (start) to ONE (end) using this amount of samples.
+    nevertheless, the palette will be internally sampled (_linearly spaced_) from *`0`*(Zero: _start_) to *`1`*(one: _end_) using this amount of samples.
     
     The amount of linearly spaced color keys in a typical fractal Flame is equivalent to *`256`*, which is the default.
     
@@ -1355,7 +1355,7 @@ Save Palette:
     
     - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
     - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
-    - If nothing is selected (ex: JSON file empty or invalid ), nothing will happen.
+    - If nothing is selected (_ex: JSON file empty or invalid_), nothing will happen.
     - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
 
     NOTE:
@@ -1458,7 +1458,8 @@ shutter offset [Icon:TOP/xmlinput]:
     
 viz mb [Icon:DATATYPES/boolean]:
     #id: MB
-    Visualize motion blur using color. (Set the viewport background to black for better viewing )
+    Visualize motion blur using color.<br />
+    (_Set the viewport background to black for better viewing_)
     
     NOTE:
         When rendering, keep in mind to turn this off to avoid superimposing a darker color.
@@ -1609,7 +1610,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
-    When this option is ON (it is ON by default) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when OFF it will use the standard version.
+    When this option is ON (_it is ON by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when OFF it will use the standard version.
 
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
@@ -1664,7 +1665,7 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
     OFF by default.
     
-    When ON, It will automatically copy all the render properties (SENSOR, RENDER and CC CURVES) into the OUT render properties every time you load a Flame preset in.
+    When ON, It will automatically copy all the render properties (_SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
 
     All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
     
@@ -1705,7 +1706,7 @@ _Below some infos about some of the data included based on the loaded Flame pres
     - Next and at the end of the *`Software`* info line, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
     - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
     - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
-    - Below the *`Palette count`* info line (and next to the *`CC`* if present), the text *`MB`* will appear if the loaded Flame preset use motion blur.
+    - Below the *`Palette count`* info line (_and next to the *`CC`* if present_), the text *`MB`* will appear if the loaded Flame preset use motion blur.
     
 :box:
     #display: rounded white
@@ -1724,7 +1725,7 @@ Copy/Paste preset properties:
     #id: IN
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg]
     
-    When you click this icon, all those render properties (SENSOR, RENDER and CC CURVES settings) will be copied and pasted into the render properties of the OUT tab.
+    When you click this icon, all those render properties (_SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the render properties of the OUT tab.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
@@ -1753,7 +1754,7 @@ Copy/Paste SENSOR/RENDER settings:
 
     *OUT: Save* _*.flame file type to be loaded back inside Apophysis, Fractorium and others._
  
-    Inside here, you can export your fractal Flame into an XML format. ( standard *.flame file format )
+    Inside here, you can export your fractal Flame into an XML format. (_standard *.flame file format_)
     and reload it inside FLAM3H or inside Apophysis, Fractorium and others.
     
     The Flame file format does not support animations, but only static frames, so to speak.
@@ -1821,7 +1822,7 @@ TIP:
     _But you can use 1(one) *`Mobius`* in the *`PRE`* vars, 1(one) *`Mobius`* in the *`VAR`*, and 1(one) *`Mobius`* in the *`POST`*._
     
     _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
-    _you to bend this rule, enabling the use of the same variation multiple times within the same section ( Chaotica style ), but you won't be able to save out_
+    _you to bend this rule, enabling the use of the same variation multiple times within the same section (Chaotica style), but you won't be able to save out_
     _the result in the standard Flame file format._
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Save the hip file instead in those cases*._
@@ -1869,7 +1870,7 @@ Save Flame:
         
         - If you select a location and a filename without an extension, it will automatically add the _*.flame*_ extension to them.
         - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
-        - If nothing is selected (ex: OUT file empty or invalid ), nothing will happen.
+        - If nothing is selected (_ex: OUT file empty or invalid_), nothing will happen.
         
         *Also*:
     
@@ -1878,7 +1879,7 @@ Save Flame:
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
 
-        While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( types: *`PRE`*, *`VAR`*, *`POST`* )
+        While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( _types:_ *`PRE`*, *`VAR`*, *`POST`* )
         or you won't be able to save the same result.
 
         Save the hip file instead.
@@ -1971,7 +1972,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
-    When this option is ON (it is ON by default), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
+    When this option is ON (_it is ON by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
 
     NOTE:
         There are no reasons to turn this toggle OFF as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this OFF.
@@ -2052,7 +2053,7 @@ Render properties utils:
 
     _Additionally_:
 
-    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (SENSOR, RENDER and CC CURVES setttings). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (_SENSOR, RENDER and CC CURVES setttings_). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
     
     
 :box:
@@ -2106,7 +2107,7 @@ Copy/Paste render properties:
     
     When you load a Flame file in the IN tab, this icon will become available.
     
-    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (SENSOR, RENDER and CC CURVES settings).
+    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (_SENSOR, RENDER and CC CURVES settings_).
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
@@ -2173,8 +2174,8 @@ Reset curves:
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is OFF (Default values).
     - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
     
-    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is ON (Active).
-    - ((LMB)) to Reset all the render color correction curves data to their defaults (no color correction).
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is ON (_Active_).
+    - ((LMB)) to Reset all the render color correction curves data to their defaults (_no color correction_).
 
 
 :box:
@@ -2265,7 +2266,7 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     ON by default.
 
     *`[256+]`*<br />
-    when this preferences option toggle is ON (it is ON by default), this text in the SYS tab will signal it and when OFF it will disappear.
+    when this preferences option toggle is ON (_it is ON by default_), this text in the SYS tab will signal it and when OFF it will disappear.
     
     It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using *`256`* color keys.
     
@@ -2317,11 +2318,11 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     #id: prefs
     OFF by default to speedup the UI as it is now using a pre built menu data.
     
-    When you turn this toggle ON causes the variation menus inside each iterator to have a bookmark icon (FLAME and FF tab)
+    When you turn this toggle ON causes the variation menus inside each iterator to have a bookmark icon (_FLAME and FF tabs_)
     
     This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
     
-    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (*`500k`* points) as a way to reduce the waiting time.
+    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (*`500k`* _points_) as a way to reduce the waiting time.
 
 :box:
     #display: round white
@@ -2775,7 +2776,7 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: rendering
     
     You can keep the FLAM3H node live without the need to bake the processed point cloud while rendering
-    and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( in Solaris: *`@widths`* ) accordingly.
+    and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( _in Solaris:_ *`@widths`* ) accordingly.
 
     When using Karma renderer:
 
@@ -2819,7 +2820,7 @@ _A list of all parametric variations and their parametric parameter's names._
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
-    It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (Saturation) and, most crucially, the "*V*" (Value).
+    It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
     The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*(one), bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
 
@@ -2837,7 +2838,7 @@ _A list of all parametric variations and their parametric parameter's names._
     you will find information on how to compile and then update FLAM3H Cvex code in case you'd like to modify/extend its core functionalities.
 
     For example,<br />
-    you may want to add more variations to its current arsenal of already implemented variations ( currently there are *106* implemented ).
+    you may want to add more variations to its current arsenal of already implemented variations ( _currently there are *106* implemented_ ).
     
     Extending the Cvex code base,<br /> 
     most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
@@ -2868,11 +2869,12 @@ _A list of all parametric variations and their parametric parameter's names._
     
     - *vcc* is the name of the Houdini's cvex/vex compiler
     - *-c* to specify a Houdini context, in this case the context is: *cvex*
-    - *-o* to specify an output filename ( *.vex* extension )
+    - *-o* to specify an output filename ( *.vex* _extension_ )
     
     The FLAM3H source files are already named as expected.
     
-    - For FLAM3H, the output file name must be the same as the input source file name ( only the file extension will be different, of course ).
+    - For FLAM3H, the output file name must be the same as the input source file name<br />
+    ( _only the file extension will be different, of course_ ).
     
         - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
     
@@ -2940,7 +2942,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
         #id: Limitations
     
-    Every iterator is capable of 3(three) *`PRE`* variations, with one ( the first one to always be executed ) being: *`pre_blur`*, followed by the other two.
+    Every iterator is capable of 3(three) *`PRE`* variations, with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
     
     It is really *`pre_blur`* + 2(two) variations of your choice.
     
@@ -3033,7 +3035,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Shader:
         #id: Limitations
     
-    This finalxform ( FF ) does not possess any color parameters in this implementation ( Chaotica style ).
+    This finalxform ( FF ) does not possess any color parameters in this implementation ( _Chaotica style_ ).
 
     NOTE:
         _When saving a Flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
