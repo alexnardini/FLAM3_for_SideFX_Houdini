@@ -4840,7 +4840,7 @@ iterator_vactive_and_update(self) -> None:
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
             if isDELETED:
-                _MSG = f"{node.name()} -> Marked FF's node has been deleted. Mark a new FF first."
+                _MSG = f"{node.name()}: Marked FF's node has been deleted. Mark a new FF first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
                 _MSG = f"{node.name()}: This FF is Unmarked already"
