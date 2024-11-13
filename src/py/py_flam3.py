@@ -4058,6 +4058,8 @@ iterator_vactive_and_update(self) -> None:
             try:
                 # We first try to set them all with this
                 hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
+                # Force menu update
+                self.destroy_data(node, 'iter_sel')
                 _CHECK = True
             except:
                 _CHECK = False
@@ -4091,6 +4093,8 @@ iterator_vactive_and_update(self) -> None:
                     if paneTab_uc.type() == hou.paneTabType.Parm: # type: ignore
                         
                         paneTab_uc.setMultiParmTab(prm.name(), preset_id-1)
+                        # Force menu update
+                        self.destroy_data(node, 'iter_sel')
                         
                         # Change focus back to the FLAME's Tab
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
