@@ -4058,8 +4058,6 @@ iterator_vactive_and_update(self) -> None:
             try:
                 # We first try to set them all with this
                 hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
-                # Force menu update
-                self.destroy_data(node, 'iter_sel')
                 _CHECK = True
             except:
                 _CHECK = False
@@ -4093,8 +4091,6 @@ iterator_vactive_and_update(self) -> None:
                     if paneTab_uc.type() == hou.paneTabType.Parm: # type: ignore
                         
                         paneTab_uc.setMultiParmTab(prm.name(), preset_id-1)
-                        # Force menu update
-                        self.destroy_data(node, 'iter_sel')
                         
                         # Change focus back to the FLAME's Tab
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
@@ -4136,6 +4132,14 @@ iterator_vactive_and_update(self) -> None:
         
         # reset selection to null value
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
+        
+        try:
+            # Force menu update in case an iterator is marked on this FLAM3H node
+            if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.FLAM3H_MARKED_ITERATOR_NODE == node: # type: ignore
+                self.destroy_data(node, 'iter_sel')
+                self.destroy_data_all_f3h(node, 'edge_case_01')
+        except:
+            pass
     
     
     
