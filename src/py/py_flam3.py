@@ -7822,7 +7822,7 @@ and change the flame → “name” key afterwards.
 it wont be included when saving the Flame out into a flame file.
 
 In case you still want to include the inactive iterator into the file,
-set its Weight to Zero instead."""
+set its Weight to 0(Zero) instead."""
         if hou.isUIAvailable():
             hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
