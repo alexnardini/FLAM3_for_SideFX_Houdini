@@ -4995,6 +4995,14 @@ iterator_vactive_and_update(self) -> None:
             node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
             node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
             
+            try:
+                # Force select-iterator menu update in case an iterator is marked on this FLAM3H node
+                if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.FLAM3H_MARKED_ITERATOR_NODE == node: # type: ignore
+                    self.destroy_data(node, 'iter_sel')
+                    self.destroy_data_all_f3h(node, 'edge_case_01')
+            except:
+                pass
+            
         else:
             _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
