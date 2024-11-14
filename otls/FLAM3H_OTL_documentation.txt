@@ -284,7 +284,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this ON to get rid of those points.
-    - When an iterator's opacity is *`0`*(Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( since *opacity* = *`@pscale`* (*`@widths`* in Solaris ) you do not need them anymore).
+    - When an iterator's opacity is *`0`*(Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( _since_ *opacity* = *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned ON.
 
     TIP:
@@ -1866,13 +1866,13 @@ Save Flame:
     
     TIP:
         #display: orange
-        *Once you click save*:
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Once you click save*:
         
         - If you select a location and a filename without an extension, it will automatically add the _*.flame*_ extension to them.
         - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
         - If nothing is selected (_ex: OUT file empty or invalid_), nothing will happen.
         
-        *Also*:
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Also*:
     
         - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn ON the *PREFS options* tab toggle -> *`palette 256+`*. 
         
