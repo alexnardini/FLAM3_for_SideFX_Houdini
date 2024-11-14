@@ -3829,8 +3829,7 @@ iterator_vactive_and_update(self) -> None:
             list: [return menu list]
         """
         menu = copy(MENU_VARS_ALL_SIMPLE)
-        if not FF: _TYPE, _ICON = self.menu_T_data()
-        else: _TYPE, _ICON = self.menu_T_FF_data()
+        _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
@@ -3852,8 +3851,7 @@ iterator_vactive_and_update(self) -> None:
             list: [return menu list]
         """
         menu = copy(MENU_VARS_ALL_SIMPLE)
-        if not FF: _TYPE, _ICON = self.menu_T_PP_data()
-        else: _TYPE, _ICON = self.menu_T_PP_FF_data()
+        _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
