@@ -3367,7 +3367,11 @@ iterator_vactive_and_update(self) -> None:
     @staticmethod
     def auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: Union[list, tuple]) -> None:
         """Set the data_name data into FLAM3H data parameters.
-    Note that all the data will be of type: string.
+        Note that all the data will be of type: string.
+
+        _NOTE:
+            This parameter has been swapped for a label message parameter so the lock/unlock is not necessary anymore.
+            However, is not causing any problem so I leave it here for now.
 
         Args:
             self (hou.SopNode): FLAM3H node
