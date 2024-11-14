@@ -3441,6 +3441,7 @@ iterator_vactive_and_update(self) -> None:
         So far the data names being used are:
         
             - iter_sel
+            - edge_case_01
             - cp_presets_menu
             - cp_presets_menu_idx
             - cp_presets_menu_off
