@@ -13813,8 +13813,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         v = [str(int((float(str(iter_xaos.lower()).strip())))) if float(iter_xaos.lower().strip()) >= 0 else '1' for x in range(iter_count)]
                         val.append(v)
                     else:
-                        # Otherwise reset to all values of 1
-                        val.append([])
+                        # if we entered an invalid string,
+                        # retrive from the history instead ( Undo )
+                        if val_prev is not None:
+                            val.append(val_prev[iter])
+                        else:
+                            # Otherwise reset to all values of 1
+                            val.append([])
+                            
             else:
                 # Otherwise reset to all values of 1
                 val.append([])
