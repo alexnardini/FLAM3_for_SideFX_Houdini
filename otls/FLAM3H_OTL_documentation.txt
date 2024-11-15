@@ -1983,7 +1983,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     ON by default.<br /><br />
     To export the parameter names for parametric variations to the one that Fractorium uses.
 
-    *_This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *_This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses diferent paramtric paramter's names for these_*.
 
     Check this toggle OFF when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations.
 
