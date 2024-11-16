@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.80'
+FLAM3H_VERSION = '1.5.81'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -2828,6 +2828,8 @@ prm_paste_FF_CLICK(self) -> None:
 
 prm_paste_FF(self) -> None:
 
+prm_paste_sel_iter_sel_force_update(self, node: hou.SopNode) -> None:
+
 prm_paste_sel(self) -> None:
 
 prm_paste_sel_pre_affine(self) -> None:
@@ -3473,6 +3475,7 @@ iterator_vactive_and_update(self) -> None:
             assert isinstance(f3h, hou.SopNode)
             data = f3h.cachedUserData(data_name)
             if data is not None: flam3h_iterator_utils.destroy_data(f3h, data_name)
+            
             
 
     @staticmethod
@@ -4132,13 +4135,8 @@ iterator_vactive_and_update(self) -> None:
         # reset selection to null value
         node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
         
-        try:
-            # Force menu update in case an iterator is marked on this FLAM3H node
-            if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.FLAM3H_MARKED_ITERATOR_NODE == node: # type: ignore
-                self.destroy_data(node, 'iter_sel')
-                self.destroy_data_all_f3h(node, 'edge_case_01')
-        except:
-            pass
+        # Force select-iterator menu update in case an iterator is marked on this FLAM3H node
+        self.prm_paste_sel_iter_sel_force_update(node)
     
     
     
@@ -4925,6 +4923,21 @@ iterator_vactive_and_update(self) -> None:
 
 
 
+    def prm_paste_sel_iter_sel_force_update(self, node: hou.SopNode) -> None:
+        """Force select-iterator menu update in case an iterator is marked on this FLAM3H node
+        
+        Args:
+            node (hou.SopNode): This FLAM3H node
+        """   
+        try:
+            if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.FLAM3H_MARKED_ITERATOR_NODE == node: # type: ignore
+                self.destroy_data(node, 'iter_sel')
+                self.destroy_data_all_f3h(node, 'edge_case_01')
+        except:
+            pass
+
+
+
     def prm_paste_sel(self) -> None:
         """Paste only sections of an iterator.
         
@@ -4994,13 +5007,8 @@ iterator_vactive_and_update(self) -> None:
             node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
             node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
             
-            try:
-                # Force select-iterator menu update in case an iterator is marked on this FLAM3H node
-                if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.FLAM3H_MARKED_ITERATOR_NODE == node: # type: ignore
-                    self.destroy_data(node, 'iter_sel')
-                    self.destroy_data_all_f3h(node, 'edge_case_01')
-            except:
-                pass
+            # Force select-iterator menu update in case an iterator is marked on this FLAM3H node
+            self.prm_paste_sel_iter_sel_force_update(node)
             
         else:
             _MSG = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
