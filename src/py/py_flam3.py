@@ -197,7 +197,7 @@ CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
 CP_RAMP_HSV_NAME = 'palettehsv'
-CP_PALETTE_PLUS = 'cppaletteplus'
+CP_PALETTE_256_PLUS = 'cppaletteplus'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
@@ -6165,7 +6165,7 @@ reset_CP_palette_action(self) -> None:
     def __init__(self, kwargs: dict) -> None:
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._palette_plus_do = self._node.parm(CP_PALETTE_PLUS).eval()
+        self._palette_plus_do = self._node.parm(CP_PALETTE_256_PLUS).eval()
         
         
     @staticmethod
