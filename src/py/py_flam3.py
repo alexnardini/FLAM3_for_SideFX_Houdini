@@ -4924,7 +4924,8 @@ iterator_vactive_and_update(self) -> None:
 
 
     def prm_paste_sel_iter_sel_force_update(self, node: hou.SopNode) -> None:
-        """Force select-iterator menu update in case an iterator is marked on this FLAM3H node
+        """Force select-iterator menu update in case an iterator is marked on this FLAM3H node.
+        This is being added to deal with a mismatch during undos.
         
         Args:
             node (hou.SopNode): This FLAM3H node
