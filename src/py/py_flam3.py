@@ -4764,7 +4764,7 @@ iterator_vactive_and_update(self) -> None:
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {id}"): # type: ignore
-                flam3h_iterator_utils.destroy_data_all_f3h(node, 'edge_case_01')
+                self.destroy_data_all_f3h(node, 'edge_case_01')
                 self.prm_paste_SHIFT(id)
                 
         # Adding ability to reset the current iterator to its default values.      
@@ -4777,11 +4777,11 @@ iterator_vactive_and_update(self) -> None:
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark iterator CLICK {id}"): # type: ignore
-                    flam3h_iterator_utils.destroy_data_all_f3h(node, 'edge_case_01')
+                    self.destroy_data_all_f3h(node, 'edge_case_01')
                     self.prm_paste_SHIFT(id)
             else:
                 with hou.undos.group(f"FLAM3H mark iterator CLICK {id}"): # type: ignore
-                    flam3h_iterator_utils.destroy_data_all_f3h(node, 'edge_case_01')
+                    self.destroy_data_all_f3h(node, 'edge_case_01')
                     self.prm_paste_CLICK(id)
     
     
