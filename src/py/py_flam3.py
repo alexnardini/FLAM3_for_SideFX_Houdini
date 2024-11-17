@@ -4769,7 +4769,7 @@ iterator_vactive_and_update(self) -> None:
                 
         # Adding ability to reset the current iterator to its default values.      
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H reset iterator {idx}"): # type: ignore
+            with hou.undos.group(f"FLAM3H reset iterator {id}"): # type: ignore
                 self.flam3h_reset_iterator()
                 _MSG = f"{node.name()}: Iterator {id} -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -5548,10 +5548,7 @@ iterator_vactive_and_update(self) -> None:
         node.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1}) # type: ignore
         node.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0}) # type: ignore
         # FF post
-        node.setParms({f"{PRX_FF_PRM}{n.postvar_type_1}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postvar_type_2}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postvar_weight_1}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postvar_weight_2}": 0}) # type: ignore
+        [prm.set(0) for prm in (node.parm(f"{PRX_FF_PRM}{n.postvar_type_1}"), node.parm(f"{PRX_FF_PRM}{n.postvar_type_2}"), node.parm(f"{PRX_FF_PRM}{n.postvar_weight_1}"), node.parm(f"{PRX_FF_PRM}{n.postvar_weight_2}"))]
         # FF affine
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
