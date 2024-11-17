@@ -2016,7 +2016,9 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
 Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    ON by default. It will automatically append the iteration number to the Flame name you enter.
+    ON by default.<br />
+    
+    It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
     
     TIP:
@@ -2129,7 +2131,9 @@ Scale(lens) [Icon:TOP/xmlinput]:
     
 update camera sensor [Icon:DATATYPES/boolean]:
     #id: OUT
-    ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
+    ON by default.<br />
+    
+    Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
     
     
 :box:
@@ -2296,7 +2300,8 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
 flash messages (network editor) [Icon:DATATYPES/boolean]:
     #id: prefs
-    
+    ON by default.<br />
+
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
