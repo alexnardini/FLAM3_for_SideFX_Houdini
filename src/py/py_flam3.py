@@ -36,7 +36,7 @@ import nodesearch
 #
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised October 2024
+#   date:       January 2023, Last revised November 2024
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
@@ -70,7 +70,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.5.82'
+FLAM3H_VERSION = '1.5.84'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -158,7 +158,7 @@ SEC_POSTAFFINE = '.post affine'
 # Saving flames out will always use the standard PALETTE_COUNT_256
 # but saving palette out will downsample if possible to save some data but with an allowed MAX of 256...for now.
 # def get_ramp_keys_count(ramp: hou.Ramp) -> str: -> need to be reworked to allow more than 256. Same goes to the OUT flame palette.
-PALETTE_COUNT_64 = '64'
+PALETTE_COUNT_64 = '64' # not used
 PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
 PALETTE_COUNT_512 = '512' # not used

@@ -3,7 +3,7 @@
 ```python
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini
-#   date:       April 2023, Last revised October 2024
+#   date:       April 2023, Last revised November 2024
 #
 #   Name:       PY_FLAM3_UI_PRM_MAP
 #
@@ -33,7 +33,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.5.82 - Gold'
+FLAM3H_VERSION = '1.5.84 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
