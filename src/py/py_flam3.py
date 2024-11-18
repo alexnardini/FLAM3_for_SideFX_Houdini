@@ -9118,10 +9118,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                         continue
                     
                 else:
-                    # Fractorium always remap "pre_blur" to "pre_gaussian_blur" when you load a flame in.
-                    # This mean that every time you save the Flame again from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
+                    # Fractorium used to remap "pre_blur" to "pre_gaussian_blur" when you loaded a Flame in and it seem to be fixed in the latest version.
+                    # However, if a Flame xform uses a "pre_gaussian_blur" as the first in the list 
+                    # mean that every time you save the Flame from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
                     #
-                    # Lets do the same but we will remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H if it is the first one in the list.
+                    # Lets remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H if it is the first one in the list.
                     pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))
                     pgb_val = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
