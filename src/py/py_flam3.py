@@ -163,7 +163,7 @@ PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
 PALETTE_COUNT_512 = '512' # not used
 PALETTE_COUNT_1024 = '1024'
-PALETTE_OUT_MENU_OPTIONS_ALL: tuple = (16, 32, 64, 128, 256, 512, 1024) # not used anymore
+PALETTE_OUT_MENU_OPTIONS_ALL: tuple = (16, 32, 64, 128, 256, 512, 1024) # not used
 PALETTE_OUT_MENU_OPTIONS_PLUS: tuple = (256, 512, 1024)
 PALETTE_PLUS_MSG = '[256+]'
 # The following will always be used for now
@@ -219,7 +219,6 @@ IN_USE_ITER_ON_LOAD = 'useiteronload'
 IN_OVERRIDE_ITER_FLAME_NAME = 'oritername'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_FLAM3H_AFFINE_STYLE = 'in_f3h_affine'
-IN_REMAP_PRE_GAUSSIAN_BLUR = 'remappgb'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 OUT_ISVALID_FILE = 'outisvalidfile'
 OUT_PATH = 'outpath'
@@ -7956,9 +7955,6 @@ XML_VALID_CHAOS_ROOT_TAG = 'ifs'
 
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
 XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
-# Note that "pre_gaussian_blur" has been added to the below tuple as we force it to be remapped to "pre_blur" on load inside FLAM3H if "remap "pre_gaussian_blur" IN load option is checked (ON by default)
-# note: for FF I swap back to the above  XML_XF_KEY_EXCLUDE to make possible to load pre_gaussian_blur since FF do not posses an hard coded pre_blur.
-XML_XF_KEY_EXCLUDE_PGB = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "pre_gaussian_blur", "coefs", "post", "chaos", "opacity")
 
 # This has been fixed and now radial_blur variation matches all the other apps
 # but I leave it here just in case other variation will need it.
@@ -9103,11 +9099,14 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """        
         if self.isvalidtree and xforms is not None:
             
+            vars_keys_pre: Union[list, None] = None
+            if key == XML_XF_PB: vars_keys_pre = in_flame_utils.in_get_xforms_var_keys(xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            
             keyvalues = []
-            for xform in xforms:
+            for idx, xform in enumerate(xforms):
                 
                 if xform.get(key) is not None:
-                    
+
                     if key in XML_XF_NAME:
                         keyvalues.append(xform.get(key))
                         continue
@@ -9122,18 +9121,16 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     # Fractorium always remap "pre_blur" to "pre_gaussian_blur" when you load a flame in.
                     # This mean that every time you save the Flame again from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
                     #
-                    # Lets do the same but we will remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H.
-                    # An IN Tab load option is provided to change this behavior and load/use the "pre_gaussian_blur" variation instead on load.
-                    pre_gaussian_blur = xform.get(in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33)))
-                    if pre_gaussian_blur is not None:
-                        
-                        if self.node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-                            keyvalues.append(float(self.xf_val_cleanup_str(pre_gaussian_blur)))
-                            continue
-                        
+                    # Lets do the same but we will remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H if it is the first one in the list.
+                    pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))
+                    pgb_val = xform.get(pgb_name)
+                    if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
+                        if pgb_name in vars_keys_pre[idx][0]:
+                            keyvalues.append(float(self.xf_val_cleanup_str(pgb_val)))
                         else:
-                            keyvalues.append(float(0))
-                            continue
+                            keyvalues.append([])
+
+                        continue
                         
                     # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                     # seem not to include those keys if not used or left at default values.
@@ -9558,6 +9555,8 @@ in_get_xforms_var_keys( xforms: Union[tuple, None],
                         vars: Union[str, list[str], tuple[str], dict[str, int], dict[str, tuple], KeysView, None], 
                         exclude_keys: tuple
                         ) -> Union[list[str], None]:
+                        
+in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str='pre_gaussian_blur') -> Union[list, None]:
                             
 in_util_removeprefix(var_name: str, prefix: str) -> str:
 
@@ -9768,8 +9767,6 @@ use_iter_on_load_callback(self) -> None:
 
 in_to_flam3h_toggle(self, prm: str) -> None:
 
-in_to_flam3h_toggle_pgb(self) -> None:
-
 in_to_flam3h_toggle_f3h_affine(self) -> None:
 
 in_to_flam3h_reset_user_data(self) -> None:
@@ -9972,7 +9969,6 @@ reset_IN(self, mode: int=0) -> None:
 
 
 
-    
     @staticmethod
     def in_get_xforms_var_keys( xforms: Union[tuple, None], 
                                 vars: Union[str, list[str], tuple[str], dict[str, int], dict[str, tuple], KeysView, None], 
@@ -9998,11 +9994,30 @@ reset_IN(self, mode: int=0) -> None:
             return None
         
         
+        
+    @staticmethod
+    def in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str='pre_gaussian_blur') -> Union[list, None]:
+        """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.
+        Args:
+            vars (list, None): per iterator list of variations used, ideally always the PRE variations are passed here
+            pgb_name (str): Default to: "pre_gaussian_blur". The name of the "pre_gaussian_blur" variation to check against.
+
+        Returns:
+            (list, None): A new list containing all iterator list of used variations without the "pre_gaussian_blur" if it was the first one in the list. 
+        """
+        if vars is not None:
+            [vars[idx].pop(0) for idx, iter in enumerate(vars) if iter and iter[0] == pgb_name]
+            return vars
+        else:
+            return None
+    
+        
+        
     @staticmethod
     def in_util_removeprefix(var_name: str, prefix: str) -> str:
         """Remove any prefix, if a prefix is present, from a variation name.
-    ex: from: pre_linear to: linear
-    ex: from post_mobius to: mobius
+        ex: from: pre_linear to: linear
+        ex: from post_mobius to: mobius
     
         Args:
             var_name (str): the variation name to remove the prefix from
@@ -11432,7 +11447,8 @@ reset_IN(self, mode: int=0) -> None:
         
         vars_keys = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
         assert vars_keys is not None
-        vars_keys_pre = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_pre_pgb = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_pre = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb)
         assert vars_keys_pre is not None
         vars_keys_post = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
         assert vars_keys_post is not None
@@ -11551,6 +11567,7 @@ reset_IN(self, mode: int=0) -> None:
                 # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
+                        
                         v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
@@ -11640,7 +11657,6 @@ reset_IN(self, mode: int=0) -> None:
         
         # checks
         pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
-        
         for item in apo_data.pre_blur:
             if item:
                 pb_bool = True
@@ -11692,33 +11708,26 @@ reset_IN(self, mode: int=0) -> None:
         else: palette_count_format = f"Palette not found."
         
         # ITERATOR COLLECT
-        exclude_keys = XML_XF_KEY_EXCLUDE
-        # ITERATOR posses an hard coded pre_blur, if the user toggle this option, lets exclude pre_gaussian_blur's key so we force pre_blur instead.
-        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-            
-        vars_keys = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys) 
-        vars_keys_PRE = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        vars_keys_POST = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE) 
+        vars_keys_PRE_pgb = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+        vars_keys_PRE = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb)
+        vars_keys_POST = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
 
         # FF COLLECT
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
         if ff_bool:
-            # FF do not posses an hard coded pre_blur so lets restore the standard XML_XF_KEY_EXCLUDE so we can have pre_gaussian_blur included if present.
             vars_keys_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
             vars_keys_PRE_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             vars_keys_POST_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
-        
-        if pb_bool: vars_all += [["pre_blur"]] # + vars_keys_PRE + vars_keys_POST
-            
+        if pb_bool: vars_all += [["pre_blur"]]
         result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
         n = 5
-        var_used_heading = "Variations used:"
+        vars_used_heading = "Variations used:"
         result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
-        vars_used_msg = f"{var_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
+        vars_used_msg = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
         if clipboard: preset_name = apo_data.name[0]
@@ -11730,15 +11739,16 @@ reset_IN(self, mode: int=0) -> None:
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
         # Build MISSING
-        vars_keys_from_fractorium = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, exclude_keys)
-        vars_keys_from_fractorium_pre = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
-        vars_keys_from_fractorium_post = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+        vars_keys_from_fractorium = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium_pre_pgb = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium_pre = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb)
+        vars_keys_from_fractorium_post = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
         
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
         if ff_bool:
-            vars_keys_from_fractorium_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, exclude_keys)
-            vars_keys_from_fractorium_pre_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, exclude_keys)
-            vars_keys_from_fractorium_post_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, exclude_keys)
+            vars_keys_from_fractorium_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_pre_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_post_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
         
         vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
         result_sorted_fractorium = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
@@ -11749,20 +11759,17 @@ reset_IN(self, mode: int=0) -> None:
         vars_missing_msg = ""
         if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
-        
         # Build UNKNOWN
         vars_unknown = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        vars_unknown_msg = ""
-        if vars_unknown:
-            unknown_grp_fractorium = [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] 
-            vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp(unknown_grp_fractorium)}"
+        if vars_unknown: vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] )}"
+        else: vars_unknown_msg = ''
         
         # Check if the loaded Flame file is locked.
-        in_path = node.parm(IN_PATH).eval()
+        in_path = os.path.expandvars(node.parm(IN_PATH).eval())
         in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
-        
-        flame_lib_locked = ""
         if flam3h_general_utils.isLOCK(in_path_checked): flame_lib_locked = MSG_FLAMESTATS_LOCK
+        else: flame_lib_locked = ''
+        
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette is not None and apo_data.palette[1] > 256:
             palette_msg: str = node.parm(MSG_PALETTE).eval()
@@ -11981,52 +11988,6 @@ reset_IN(self, mode: int=0) -> None:
         else:
             _MSG = f"{self.node.name()}: {prm.upper()}: No valid flame file to load the flame from, load a valid flame file first."
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-
-
-    def in_to_flam3h_toggle_pgb(self) -> None:
-        """When loading a flame preset that use a pre_gaussian_blur variation, this function will reload it
-        and switch the "remap pre_gaussian_blur" toggle ON/OFF on the fly.
-        
-        If no pre_gaussian_blur variation is present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
-        """ 
-        node = self.node
-        xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
-        
-        # Here we are forced to use the class: _xml_tree(...) becasue a Flame can come from the clipboard
-        # and we need to carefully validate it before proceding.
-        if xml is not None and _xml_tree(xml).isvalidtree:
-            
-            apo_data = in_flame_iter_data(node, xml, preset_id)
-            pgb_var_name = self.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))
-            vars_key_PRE = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-            vars_key_PRE_unique = self.in_util_vars_flatten_unique_sorted(vars_key_PRE, self.in_util_make_NULL) # type: ignore
-
-            if vars_key_PRE is not None and vars_key_PRE and pgb_var_name in vars_key_PRE_unique:
-                flam3h_general_utils(self.kwargs).flam3h_toggle(IN_REMAP_PRE_GAUSSIAN_BLUR)
-                self.in_to_flam3h()
-                
-            else:
-                if clipboard:
-                    _MSG = f"{node.name()}: Reload of preset: {flame_name_clipboard} from Clipboard -> SKIPPED. The flame preset stored into the Clipboard do not have a \"pre_gaussian_blur\" variation in it."
-                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                else:
-                    # Get the correct menu parameter's preset menu label
-                    preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
-                        
-                    _MSG = f"{node.name()}: Reload of preset: {preset_name} -> SKIPPED. The currently selected flame preset do not have a \"pre_gaussian_blur\" variation in it."
-                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                
-        else:
-            if load_from_clipboard:
-                _MSG = f"{node.name()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
-            else:
-                if chaos:
-                    _MSG = f"Flame IN -> Chaotica XML not supported"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-                    flam3h_general_utils.flash_message(node, _MSG)
-                else:
-                    _MSG = f"{node.name()}: No valid flame file to load the flame from, load a valid flame file first."
-            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
 
@@ -12191,11 +12152,6 @@ reset_IN(self, mode: int=0) -> None:
         """
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
-        # get keys to exclude to be used inside: self.in_flam3h_set_iterators(...) definition
-        exclude_keys = XML_XF_KEY_EXCLUDE
-        if node.parm(IN_REMAP_PRE_GAUSSIAN_BLUR).eval():
-            exclude_keys = XML_XF_KEY_EXCLUDE_PGB
-        
         # ITERATOR
         ####################################################
         # prepare iterators
@@ -12210,18 +12166,15 @@ reset_IN(self, mode: int=0) -> None:
                 node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
 
         # Set iterators
-        self.in_flam3h_set_iterators(0, node, apo_data, preset_id, exclude_keys)
+        self.in_flam3h_set_iterators(0, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
         
         # FF
         ####################################################
         if apo_data.finalxform is not None:
-            # get keys to exclude
-            # FF do not posses an hard coded pre_blur so lets restore the standard exclude_keys so we can have pre_gaussian_blur included.
-            exclude_keys = XML_XF_KEY_EXCLUDE
             flam3h_iterator_utils(self.kwargs).reset_FF()
             node.setParms({SYS_DO_FF: 1}) # type: ignore
             # Set FF
-            self.in_flam3h_set_iterators(1, node, apo_data, preset_id, exclude_keys)
+            self.in_flam3h_set_iterators(1, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
         else:
             flam3h_iterator_utils(self.kwargs).reset_FF()
             node.setParms({SYS_DO_FF: 0}) # type: ignore
