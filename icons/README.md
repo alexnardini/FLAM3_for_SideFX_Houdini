@@ -221,6 +221,24 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_TagOBlueMenuBigSVG.svg" /></p>
+<p align="center">icon_TagOBlueMenuBigSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_TagOBlueMenuMidSVG.svg" /></p>
+<p align="center">icon_TagOBlueMenuMidSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_TagOBlueMenuSmallSVG.svg" /></p>
+<p align="center">icon_TagOBlueMenuSmallSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_TagOBlueSVG_disabled.svg" /></p>
 <p align="center">icon_TagOBlueSVG_disabled.svg</p>
 <p align="center">.</p>
@@ -290,6 +308,13 @@ It is an ongoing effort and they have been regularly updated and improved even t
   <img width="160" height="160" src="./iconStarSwapCyanSVG.svg" /></p>
 <p align="center">iconStarSwapCyanSVG.svg</p>
 <p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./iconStarSwapCyanMidSVG.svg" /></p>
+<p align="center">iconStarSwapCyanMidSVG.svg (unused)</p>
+<p align="center">.</p>
+
 
 <p align="center">
   <img width="160" height="160" src="./iconStarSwapCyanSmallSVG.svg" /></p>

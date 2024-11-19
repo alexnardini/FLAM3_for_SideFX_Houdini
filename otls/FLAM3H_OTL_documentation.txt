@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.85 - Gold
+#version: 1.5.88 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -349,11 +349,11 @@ TAG [Icon:DATATYPES/boolean]:
         #display: orange
         The Tag icon will change when:
         
-        - [Largeicon:opdef:.?icon_TagOBlueSVG.svg]: when the Tag is ON ( _default_ ).
-        - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg]: when the Tag is OFF.
-        - [Largeicon:opdef:.?icon_TagORedSVG.svg]: when the OUT Camera sensor viz mode is ON and update sensor option is ON.
-        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg]: when the OUT Camera sensor viz mode is ON and update sensor option is OFF.
-        - [Largeicon:opdef:.?icon_TagOSVG.svg]: when iterator's count is zero and when Xaos is active but you cross the 20 iterators limit. ( _only in the viewport Tag_ )
+        - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when the Tag is ON ( _default_ ).
+        - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when the Tag is OFF.
+        - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is ON and update sensor option is ON.
+        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is ON and update sensor option is OFF.
+        - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is zero and when Xaos is active but you cross the 20 iterators limit. ( _only in the viewport Tag_ )
         
         When in OUT Camera sensor mode, the Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon.
@@ -361,6 +361,12 @@ TAG [Icon:DATATYPES/boolean]:
 mini-menu TAG size [Icon:BUTTONS/pane_menu]:
     #id: SYS
     Set different viewport TAG sizes.
+
+    _The menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg] for a small tag size.
+    - [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg] for a Medium tag size.
+    - [Largeicon:opdef:.?icon_TagOBlueMenuBigSVG.svg] for a BIG tag size.
     
     
 :box:
@@ -1740,7 +1746,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.85" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.88" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1846,9 +1852,9 @@ Save Flame:
         - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
         - If nothing is selected (_ex: OUT file empty or invalid_), nothing will happen.
         
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Also*:
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*:
     
-        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn ON the *PREFS options* tab toggle -> *`palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn ON the Preferences tab option -> *`palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
@@ -1971,7 +1977,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.85" ... >
+          <flame version="FLAM3H-WIN-1.5.88" ... >
               ...
         }}}
         
@@ -1980,7 +1986,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.85" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.88" ... >
               ...
         }}}
         
@@ -2328,7 +2334,8 @@ Density :
     #id: prefs
     Set a custom density value for the fractal Flame.<br />
     
-    If the global tab's density menu entries do not have whant you need, you can set a custom density value using this parameter.
+    If the global tab's density menu entries do not have what you need<br />
+    you can set a custom density value using this parameter.
 
     If the choosen value is not present in the global density menu entries,<br />
     the global density menu label will become empty to signal the use of a custom density value here.
