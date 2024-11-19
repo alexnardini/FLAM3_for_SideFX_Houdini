@@ -99,6 +99,12 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 _Parameters to define the quality of the fractal Flame algorithm solution._
 
 # GLOBAL Tab
+# parameter name:    `iter`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
+```
+# GLOBAL Tab
 # parameter name:    `ptcount_presets`
 ### Callback script
 ```python
@@ -114,11 +120,12 @@ return menu
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set_default()
 ```
 # GLOBAL Tab
-# parameter name:    `iter`
-### Callback Script
+# parameter name:    `ptcount_presets_off`
+### Action Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
+n = None
 ```
+
 
 <br>
 <br>
@@ -898,6 +905,12 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
+```
+# prefs Tab
+# parameter name:    `ptcount`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
 ```
 # prefs Tab
 # parameter name:    `enumeratemenu`

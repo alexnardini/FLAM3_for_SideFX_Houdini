@@ -1165,7 +1165,7 @@ flam3h_on_deleted(self) -> None:
                 type = settings.particleDisplayType()
                 if type == Pixels:
                     node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
-
+        
 
  
     def flam3h_on_create(self) -> None:
@@ -1202,11 +1202,32 @@ flam3h_on_deleted(self) -> None:
 
 
 
+    # def flam3h_on_loaded_set_density_menu(self) -> None:
+    #     """This is for backward compatibility when the point count parameter was still exposed.
+    #     It will set the density presets menu to the closest point count value
+        
+    #     The density values dictionary entries match whats inside: def menu_global_density_set(self) -> None:
+    #     and also the entries inside the global menu: MENU_DENSITY
+        
+    #     Any changes to the entries on one of those need to be made also on the others.
+        
+    #     Returns:
+    #         (None):
+    #     """
+    #     node = self.node
+    #     density = node.parm(GLB_DENSITY).eval()
+    #     density_values: dict = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
+    #     density_new = min(density_values.keys(), key=lambda x:abs(x-density))
+    #     node.setParms({GLB_DENSITY_PRESETS: density_values.get(density_new)})
+    #     node.setParms({GLB_DENSITY: density_new})
+
+
+
     def flam3h_on_loaded(self) -> None:
         """Initialize FLAM3H node on hip file load and all the data it need to run.
         
-        Args:
-            kwargs (dict): [kwargs[] dictionary]
+        Returns:
+            (None):
         """
         node = self.node
         # Force updated of the mini-menu iterator selection
@@ -1214,6 +1235,9 @@ flam3h_on_deleted(self) -> None:
         flam3h_iterator_utils.destroy_data(node, 'edge_case_01')
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
+            
+            # set density menu
+            flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
             
             # This is important so loading a hip file with a FLAM3H node inside
             # it wont block the houdini session until user input.
@@ -2497,7 +2521,7 @@ reset_PREFS(self, mode: int=0) -> None:
         """    
         node = self.node
         node.setParms({GLB_DENSITY: density})
-        node.setParms({GLB_DENSITY_PRESETS: 0})
+        node.setParms({GLB_DENSITY_PRESETS: 1})
         node.setParms({GLB_ITERATIONS: iter})
         if mode:
             node.setParms({SYS_DO_FF: 0})
@@ -2577,7 +2601,8 @@ FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRe
 MENU_ZERO_ITERATORS = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
 MENU_VARS_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian_blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (105, 'Pt_symmetry...'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
 MENU_VARS_ALL_SIMPLE: list = [0, 'Linear          ', 39, 'Arch          ', 94, 'Auger...          ', 14, 'Bent          ', 52, 'Bent2...          ', 53, 'Bipolar...          ', 43, 'Blade          ', 30, 'Blob...          ', 26, 'Blur          ', 54, 'Boarders          ', 23, 'Bubble          ', 55, 'Butterfly          ', 99, 'Bwraps...          ', 56, 'Cell...          ', 50, 'Conic...          ', 83, 'Cos          ', 89, 'Cosh          ', 20, 'Cosine          ', 87, 'Cot          ', 93, 'Coth          ', 57, 'Cpow...          ', 102, 'Crop...          ', 46, 'Cross          ', 86, 'Csc          ', 92, 'Csch          ', 27, 'Curl...          ', 97, 'Curve...          ', 24, 'Cylinder          ', 11, 'Diamond          ', 8, 'Disc          ', 47, 'Disc2...          ', 58, 'Edisc          ', 59, 'Elliptic          ', 61, 'Escher...          ', 12, 'Ex          ', 80, 'Exp          ', 18, 'Exponential          ', 25, 'Eyefish          ', 22, 'Fan*          ', 34, 'Fan2...          ', 16, 'Fisheye          ', 49, 'Flower...          ', 95, 'Flux...          ', 62, 'Foci          ', 33, 'Gaussian_blur          ', 104, 'Glynnia          ', 6, 'Handkerchief          ', 7, 'Heart          ', 100, 'Hemisphere          ', 4, 'Horseshoe          ', 10, 'Hyperbolic          ', 13, 'Julia          ', 31, 'JuliaN...          ', 32, 'Juliascope...          ', 63, 'Lazysusan...          ', 81, 'Log          ', 64, 'Loonie          ', 96, 'Mobius...          ', 66, 'Modulus...          ', 28, 'Ngon...          ', 60, 'Noise          ', 67, 'Oscope...          ', 51, 'Parabola...          ', 29, 'Pdj...          ', 98, 'Perspective...          ', 38, 'Pie...          ', 5, 'Polar          ', 68, 'Polar2          ', 101, 'Polynomial...          ', 17, 'Popcorn*          ', 69, 'Popcorn2...          ', 19, 'Power          ', 105, 'Pt_symmetry...          ', 37, 'Radialblur...          ', 42, 'Rays          ', 36, 'Rectangles...          ', 21, 'Rings*          ', 35, 'Rings2...          ', 70, 'Scry          ', 85, 'Sec          ', 44, 'Secant2          ', 91, 'Sech          ', 71, 'Separation...          ', 82, 'Sin          ', 88, 'Sinh          ', 1, 'Sinusoidal          ', 2, 'Spherical          ', 9, 'Spiral          ', 72, 'Split...          ', 73, 'Splits...          ', 41, 'Square          ', 74, 'Stripes...          ', 48, 'Supershape...          ', 3, 'Swirl          ', 84, 'Tan          ', 40, 'Tangent          ', 90, 'Tanh          ', 45, 'Twintrian          ', 103, 'Unpolar          ', 15, 'Waves*          ', 79, 'Waves2...          ', 75, 'Wedge...          ', 76, 'Wedgejulia...          ', 77, 'Wedgesph...          ', 78, 'Whorl...          ']
-MENU_DENSITY: list = [0, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]1M', 2, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]2M', 3, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]5M', 4, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]15M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]25M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]50M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]100M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]150M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]250M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 13, '']
+MENU_DENSITY: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]500k', 2, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSmallSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_OFF: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]500k', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]1 Billion']
 MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
@@ -2700,6 +2725,8 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 STATIC METHODS:
+
+flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 
 sierpinski_settings(node: hou.SopNode) -> None:
 
@@ -2881,11 +2908,39 @@ iterator_vactive_and_update(self) -> None:
         self._node = kwargs['node']
 
 
+
+    @staticmethod
+    def flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
+        """This is for backward compatibility when the point count parameter was still exposed.
+        It will set the density presets menu based on the currently set density value.
+        
+        The density values dictionary entries match whats inside: def menu_global_density_set(self) -> None:
+        and also the entries inside the global menu: MENU_DENSITY
+        
+        Any changes to the entries on one of those need to be made also on the others.
+        
+        Args:
+            node (hou.SopNode): [current hou.SopNode to set]
+        
+        Returns:
+            (None):
+        """
+        density = node.parm(GLB_DENSITY).eval()
+        density_values: dict = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
+        density_idx = density_values.get(density)
+        if density_idx is not None:
+            node.setParms({GLB_DENSITY_PRESETS: density_idx}) #type: ignore
+        else:
+             node.setParms({GLB_DENSITY_PRESETS: -1}) #type: ignore
+
+
+
     @staticmethod
     def sierpinski_settings(node: hou.SopNode) -> None:
         """Set all the parameter to build a sierpinski triangle.
 
         Args:
+            node (hou.SopNode): [current hou.SopNode to set]
             
         Returns:
             None
@@ -3661,8 +3716,11 @@ iterator_vactive_and_update(self) -> None:
             (None):
         """  
         node = self.node
+        
+        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+        node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
+        
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
-            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
             
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
@@ -4203,9 +4261,6 @@ iterator_vactive_and_update(self) -> None:
     
     def menu_global_density(self) -> list:
         """Return a pre built static menu data.
-        
-        Args:
-            NONE (None): [description.]
 
         Returns:
             list: [return menu list]
@@ -4213,24 +4268,26 @@ iterator_vactive_and_update(self) -> None:
         return MENU_DENSITY
     
     
+    
     def menu_global_density_set(self) -> None:
         """Set density menu parameter based on user choice.
         
-        """        
+        """       
         node = self.node
         ptcount = node.parm(GLB_DENSITY).eval()
         sel = self.kwargs['parm'].evalAsInt()
-        vals = { 0: 500000, 1: 1000000, 2: 2000000, 3: 5000000, 4: 15000000, 5: 25000000, 6: 50000000, 7: 100000000, 8: 150000000, 9: 250000000, 10: 500000000, 11: 750000000, 12: 1000000000}
-        vals_name = { 0: "Default: 500K points", 1: "1 Millions points", 2: "2 Millions points", 3: "5 Millions points", 4: "15 Millions points", 5: "25 Millions points", 6: "50 Millions points", 7: "100 Millions points", 8: "150 Millions points", 9: "250 Millions points", 10: "500 Millions points", 11: "750 Millions points", 12: "1 Billions points"}
+        vals = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
+        vals_name = { 1: "Default: 500K points", 2: "1 Millions points", 3: "2 Millions points", 4: "5 Millions points", 5: "15 Millions points", 6: "25 Millions points", 7: "50 Millions points", 8: "100 Millions points", 9: "150 Millions points", 10: "250 Millions points", 11: "500 Millions points", 12: "750 Millions points", 13: "1 Billions points"}
         
-        if ptcount != vals[sel]:
+        val_get = vals.get(sel)
+        if val_get is not None and ptcount != val_get:
+            
             node.parm(GLB_DENSITY).deleteAllKeyframes()
-            node.setParms({GLB_DENSITY: vals.get(sel)}) # type: ignore
+            node.setParms({GLB_DENSITY: val_get}) # type: ignore 
+            
             _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name.get(sel)} \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-  
-        # reset to null value so we can set the same preset again
-        node.setParms({GLB_DENSITY_PRESETS: 0}) # type: ignore
+
 
 
     # Set menu_density() Menu
@@ -4238,10 +4295,12 @@ iterator_vactive_and_update(self) -> None:
         """Revert density parameter to its default value.
         """        
         node = self.node
+        node.setParms({GLB_DENSITY_PRESETS: 1}) # set this to update here anyway
+        
         ptcount = node.parm(GLB_DENSITY).eval()
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
             node.parm(GLB_DENSITY).deleteAllKeyframes()
-            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
             _MSG = f"{node.name()} -> DENSITY preset: \" Default: 500K points \" -> SET"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
@@ -5596,6 +5655,7 @@ iterator_vactive_and_update(self) -> None:
         # node.setParms({MSG_PALETTE: ''})
         # node.setParms({MSG_OUT: ''})
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+        node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
         
         # Sierpiński triangle settings
         self.sierpinski_settings(node)
@@ -5911,6 +5971,7 @@ iterator_vactive_and_update(self) -> None:
                 
             # GLOBAL
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+            node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
             node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
             # FF vars
             self.reset_FF()
@@ -8746,12 +8807,16 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         new = []
         knots = val.strip().split(' ')
         for k in knots:
-            clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-            new_val = ''.join(clean)
             try:
-                float(new_val)
-                new.append(new_val)
-            except: new.append(default_val)
+                float(k)
+                new.append(k)
+            except ValueError:
+                clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                new_val = ''.join(clean)
+                try:
+                    float(new_val)
+                    new.append(new_val)
+                except ValueError: new.append(default_val)
         return ' '.join(new)
 
 
@@ -8765,12 +8830,16 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         Returns:
             str: [value cleaned up from invalid characters]
         """  
-        clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-        new_val = ''.join(clean)
         try:
-            float(new_val)
-            return new_val
-        except: return default_val
+            float(val)
+            return val
+        except ValueError:
+            clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            new_val = ''.join(clean)
+            try:
+                float(new_val)
+                return new_val
+            except ValueError: return default_val
 
 
     @staticmethod
@@ -8785,12 +8854,16 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """  
         new = []
         for val in affine:
-            clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-            new_val = ''.join(clean)
             try:
-                float(new_val)
-                new.append(new_val)
-            except: new.append(default_val)
+                float(val)
+                new.append(val)
+            except ValueError:
+                clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                new_val = ''.join(clean)
+                try:
+                    float(new_val)
+                    new.append(new_val)
+                except ValueError: new.append(default_val)
         return new
     
     
@@ -8806,12 +8879,16 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """  
         new = []
         for val in affine:
-            clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-            new_val = ''.join(clean)
             try:
-                float(new_val)
-                new.append(new_val)
-            except: new.append(default_val)
+                float(val)
+                new.append(val)
+            except ValueError:
+                clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                new_val = ''.join(clean)
+                try:
+                    float(new_val)
+                    new.append(new_val)
+                except ValueError: new.append(default_val)
         return ' '.join(new)
 
 
@@ -9123,7 +9200,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     # mean that every time you save the Flame from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
                     #
                     # Lets remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H if it is the first one in the list.
-                    pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, 33))
+                    pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
                     pgb_val = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
                         if pgb_name in vars_keys_pre[idx][0]:
@@ -9591,7 +9668,7 @@ in_set_data(mode: int,
 
 in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
-def in_get_var_name_from_dict(mydict: dict, idx: int) -> str:
+def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 
 in_v_parametric_var_collect(node: hou.SopNode, 
                             mode: int, 
@@ -10247,8 +10324,9 @@ reset_IN(self, mode: int=0) -> None:
         
         
     @staticmethod
-    def in_get_var_name_from_dict(mydict: dict, idx: int) -> str:
-        """Get the current variation string name from its index.
+    def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
+        """Get the dictionary key from the dictionary value.
+        Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX
 
         Args:
             mydict (dict): The dictionary for lookup
@@ -10304,7 +10382,7 @@ reset_IN(self, mode: int=0) -> None:
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
-                        print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type}: variation: \"{func(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+                        print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type}: variation: \"{func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
                         
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
 
@@ -12689,6 +12767,7 @@ reset_IN(self, mode: int=0) -> None:
                 if apo_data.prefs_flam3h_f3c is not None: node.setParms({PREFS_F3C: apo_data.prefs_flam3h_f3c}) # type: ignore
                 # Set density back to default on load
                 node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+                node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
                 
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
@@ -13904,7 +13983,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     prm_w = node.parm(f"{prm[0]}{_MP_IDX}").eval()
                     if prm_w != 0:
                         v_type = node.parm(f"{T_tuple[idx]}{_MP_IDX}").eval()
-                        names.append(in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type))
+                        names.append(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))
                     
             return names
         else:
@@ -13956,7 +14035,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         prm_w = node.parm(f"{prm[0]}").eval()
                         if prm_w != 0:
                             v_type = node.parm(f"{T_tuple[idx]}").eval()
-                            var_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                            var_name = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                             names_collect_values.append(var_name)
                         
                     if names_collect_values:   
@@ -13976,7 +14055,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                         prm_w = node.parm(f"{prm[0]}{_MP_IDX}").eval()
                         if prm_w != 0:
                             v_type = node.parm(f"{T_tuple[idx]}{_MP_IDX}").eval()
-                            var_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                            var_name = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                             names_collect_values.append(var_name)
                         
                     if names_collect_values:   
@@ -14696,7 +14775,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
             if prm_w != 0:
                 v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-                v_name = in_flame_utils.in_get_var_name_from_dict(VARS_FLAM3_DICT_IDX, v_type)
+                v_name = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
                 XFORM.set(FUNC(v_name), self.out_util_round_float(prm_w))
                 vars_prm = varsPRM[v_type]

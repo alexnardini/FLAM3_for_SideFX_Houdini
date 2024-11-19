@@ -152,31 +152,6 @@ _The following platforms should function flawlessly, though I didn't get a chanc
     *GLOBAL*
     Here, you will define the quality of the fractal Flame algorithm solution.
 
-density:
-    #id: GLOBAL
-    Number of points to use.<br /><br />
-    For high-quality fractals, start from *`20M`*(_millions_) up to *`500M`*(_millions_) and more, depending on the type of fractal Flame you end up with.<br />
-    As a general rule, the more, the better.
-    * Must strike a balance between processing speed and quality.
-
-    
-mini-menu density presets [Icon:BUTTONS/pane_menu]:
-    #id: GLOBAL
-    Will allow you to select a density value quickly from some presets.
-
-    _The menu labels posses a bookmark icon_:
-
-    - [Largeicon:opdef:.?iconStarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
-    - [Largeicon:opdef:.?icon_optionEnabledSmallSVG.svg] presets from *`25`* to *`250`* millions.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1`* Billions.
-    
-Reset density:
-    #id: Global
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
-    
-    Reset density to its default: *`500k`*(_thousands_)
-        
-    
 iterations [Icon:TOP/xmlinput]:
     #id: GLOBAL
     Number of iterations to use.
@@ -207,6 +182,34 @@ iterations [Icon:TOP/xmlinput]:
         #display: orange
         When: *add iterations to Flame name* toggle is ON inside the OUT Tab,
         changing the iteration's parameter will update the Flame name, if any have been typed.
+
+    
+mini-menu density presets [Icon:BUTTONS/pane_menu]:
+    #id: GLOBAL
+    Will allow you to select a density value quickly from some presets.
+
+    Density here stand for: _*number of points to use*_.<br />
+    For high-quality fractals, start from *`20M`*(_millions_) up to *`500M`*(_millions_) and more, depending on the type of fractal Flame you end up with.<br />
+
+    As a general rule, the more, the better.<br />
+    Must strike a balance between processing speed and quality.
+
+    _The menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_).
+    - [Largeicon:opdef:.?iconStarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
+    - [Largeicon:opdef:.?icon_optionEnabledSmallSVG.svg] presets from *`25`* to *`250`* millions.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1`* Billion.
+
+    When using a custom density value from inside the preferences density tab,<br />
+    if the choosen value is not present in this global menu entries, this menu label will become empty to signal the use of a custom density value.
+
+    
+Reset density:
+    #id: Global
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    Reset density to its default: *`500k`*(_thousands_)
         
         
 
@@ -2315,6 +2318,21 @@ cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
         Double precision *`64-bits`* will be really slow. I'm saying it again: "really slow".
 
         Unless you notice some significant artifacts and you genuinely adore the fractal Flame you are working on, always use *`32-bit`* which is the default.
+
+:box:
+    #display: rounded white
+
+    == Prefs: density == (PREFSDENSITY)
+
+Density :
+    #id: prefs
+    Set a custom density value for the fractal Flame.<br />
+    
+    If the global tab's density menu entries do not have whant you need, you can set a custom density value using this parameter.
+
+    If the choosen value is not present in the global density menu entries,<br />
+    the global density menu label will become empty to signal the use of a custom density value here.
+
 
 :box:
     #display: rounded white
