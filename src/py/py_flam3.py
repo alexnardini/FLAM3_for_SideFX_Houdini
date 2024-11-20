@@ -9196,6 +9196,8 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     # mean that every time you save the Flame from Fractorium and load it back in FLAM3H you loose a PRE variation's slot.
                     #
                     # Lets remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H if it is the first one in the list.
+                    
+                    # I could hard write the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
                     pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
                     pgb_val = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
@@ -10070,11 +10072,11 @@ reset_IN(self, mode: int=0) -> None:
         
         
     @staticmethod
-    def in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str='pre_gaussian_blur') -> Union[list, None]:
+    def in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str) -> Union[list, None]:
         """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.
         Args:
             vars (list, None): per iterator list of variations used, ideally always the PRE variations are passed here
-            pgb_name (str): Default to: "pre_gaussian_blur". The name of the "pre_gaussian_blur" variation to check against.
+            pgb_name (str): The name of the "pre_gaussian_blur" variation to check against.
 
         Returns:
             (list, None): A new list containing all iterator list of used variations without the "pre_gaussian_blur" if it was the first one in the list. 
@@ -11518,12 +11520,16 @@ reset_IN(self, mode: int=0) -> None:
         
         # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
         
+        # I could hard write the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
+        pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
+        assert isinstance(pgb_name, str)
+        
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
         vars_keys = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
         assert vars_keys is not None
         vars_keys_pre_pgb = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        vars_keys_pre = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb)
+        vars_keys_pre = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
         assert vars_keys_pre is not None
         vars_keys_post = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
         assert vars_keys_post is not None
@@ -11730,6 +11736,10 @@ reset_IN(self, mode: int=0) -> None:
         nl = "\n"
         nnl = "\n\n"
         
+        # I could hard write the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
+        pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
+        assert isinstance(pgb_name, str)
+        
         # checks
         pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
         for item in apo_data.pre_blur:
@@ -11785,7 +11795,7 @@ reset_IN(self, mode: int=0) -> None:
         # ITERATOR COLLECT
         vars_keys = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE) 
         vars_keys_PRE_pgb = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-        vars_keys_PRE = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb)
+        vars_keys_PRE = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
         vars_keys_POST = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
 
         # FF COLLECT
@@ -11816,7 +11826,7 @@ reset_IN(self, mode: int=0) -> None:
         # Build MISSING
         vars_keys_from_fractorium = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
         vars_keys_from_fractorium_pre_pgb = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium_pre = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb)
+        vars_keys_from_fractorium_pre = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
         vars_keys_from_fractorium_post = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
         
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
