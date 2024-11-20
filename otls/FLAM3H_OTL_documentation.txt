@@ -184,7 +184,7 @@ iterations [Icon:TOP/xmlinput]:
         changing the iteration's parameter will update the Flame name, if any have been typed.
 
     
-mini-menu density presets [Icon:BUTTONS/pane_menu]:
+menu density presets [Icon:BUTTONS/pane_menu]:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
 
