@@ -4285,7 +4285,7 @@ iterator_vactive_and_update(self) -> None:
             node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: val_get}) # type: ignore 
             
-            _MSG = f"{node.name()} -> DENSITY preset: \" {vals_name.get(sel)} \" -> SET"
+            _MSG = f"{node.name()} -> SET density preset: \" {vals_name.get(sel)} \""
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
@@ -4301,10 +4301,10 @@ iterator_vactive_and_update(self) -> None:
         if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
             node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
-            _MSG = f"{node.name()} -> DENSITY preset: \" Default: 500K points \" -> SET"
+            _MSG = f"{node.name()} -> SET default density preset: \" 500K points \""
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         else:
-            _MSG = f"{node.name()}: DENSITY -> already at its default value."
+            _MSG = f"{node.name()}: Density already at its default value."
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
     
     
