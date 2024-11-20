@@ -9197,7 +9197,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     #
                     # Lets remap "pre_gaussian_blur" back to "pre_blur" when we load a flame back in FLAM3H if it is the first one in the list.
                     
-                    # I could hard write the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
+                    # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
                     pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
                     pgb_val = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
@@ -11520,7 +11520,7 @@ reset_IN(self, mode: int=0) -> None:
         
         # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
         
-        # I could hard write the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
+        # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
         pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
         
@@ -11736,7 +11736,7 @@ reset_IN(self, mode: int=0) -> None:
         nl = "\n"
         nnl = "\n\n"
         
-        # I could hard write the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
+        # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
         pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
         
