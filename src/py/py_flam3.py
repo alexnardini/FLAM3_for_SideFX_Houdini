@@ -8492,7 +8492,7 @@ __get_flame_count(self, flames: list) -> int:
         However, when you save a flame into the clipboard ( from FLAM3H but also from Apophysis, Fractorium and other)
         the saved Flame wont be grouped under a root, but it will be rootless.
         
-        This definition will check if the loaded preset (from a file or from the Clipboard) leaves under a root or not
+        This definition will check if the loaded preset (from a file or from the Clipboard) lives under a root or not
         and perform the necessary operation to be loaded inside FLAM3H either ways.
 
         Args:
