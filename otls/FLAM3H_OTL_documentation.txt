@@ -198,7 +198,7 @@ mini-menu density presets [Icon:BUTTONS/pane_menu]:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_).
     - [Largeicon:opdef:.?iconStarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
-    - [Largeicon:opdef:.?icon_optionEnabledSmallSVG.svg] presets from *`25`* to *`250`* millions.
+    - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`25`* to *`250`* millions.
     - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1`* Billion.
 
     When using a custom density value from inside the preferences density tab,<br />
