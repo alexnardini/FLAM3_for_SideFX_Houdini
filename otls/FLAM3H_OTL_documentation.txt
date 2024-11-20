@@ -199,7 +199,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_). This is what should be used while editing fractal Flames most of the time.
     - [Largeicon:opdef:.?iconStarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
     - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`25`* to *`250`* millions.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1`* Billion.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1 Billion`*.
 
     When using a custom density value from inside the preferences density tab,<br />
     if the choosen value is not present in this global menu entries, this menu label will become empty to signal the use of a custom density value.
@@ -577,7 +577,7 @@ palette 256+ ON [Icon:TOP/xmlinput]:
 number of iterators [Icon:TOP/xmlinput]:
     #id: FLAME
     
-    Number of iterators to use.<br /><br />
+    Number of xforms/iterators to use.<br /><br />
     This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
@@ -1671,11 +1671,12 @@ IN infos [Icon:DATATYPES/string]:
 
     Those infos include all the Missing variations if any are found in the currently loaded Flame preset.
 
-    All of the variations that Fractorium has but FLAM3H does not are known as: Missing variations.
+    All of the variations that Fractorium has but FLAM3H does not are known as: *`Missing variations`*.
 
     FLAM3H was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
 
-    All of the variations that Fractorium lacks will be classified as: Unknown variations.
+    All of the variations that Fractorium lacks will be classified as: *`Unknown variations`*<br />
+    and they will be searched inside the XML key: *`plugins`* of the loaded Flame preset (_from file or from clipboard_).
 
 _Below some infos about some of the data included based on the loaded Flame preset settings_:
 
@@ -2158,7 +2159,7 @@ Vibrancy [Icon:TOP/xmlinput]:
 
 Reset curves:
     #id: OUT
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is OFF (Default values).
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is OFF (_Default values_).
     - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
     
     [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is ON (_Active_).
@@ -2175,10 +2176,10 @@ Reset curves:
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
 
     When you load a Flame preset in from a file, the render properties won't be loaded just yet, but you will have to manually click the copy render properties button [Icon:opdef:.?iconStarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset, but if you desire to do so you can toggle ON the IN Tab option: *copy render properties on Load*.<br />
-    ( You can read more here: [IN Tab: Copy/Paste preset properties|#INPRESETRND] and here: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR] ).
+    ( _You can read more here_: [IN Tab: Copy/Paste preset properties|#INPRESETRND] _and here_: [OUT Tab: Copy/Paste render properties|#OUTEDITCAMSENSOR] ).
     
     - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
-    - If a Flame preset do not posses any color correction curves data, default values (no color correction) will be used instead.
+    - If a Flame preset do not posses any color correction curves data, default values (_no color correction_) will be used instead.
 
 _Below a list of Fractorium  color correction curves XML keys being used:_
 
@@ -2310,7 +2311,7 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     
     This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
     
-    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default (*`500k`* _points_) as a way to reduce the waiting time.
+    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
 
 :box:
     #display: round white
