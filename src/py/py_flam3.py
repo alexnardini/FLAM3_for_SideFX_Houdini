@@ -9666,7 +9666,7 @@ in_set_data(mode: int,
 
 in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 
-def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
+in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 
 in_v_parametric_var_collect(node: hou.SopNode, 
                             mode: int, 
