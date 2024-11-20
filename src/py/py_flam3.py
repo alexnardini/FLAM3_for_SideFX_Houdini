@@ -6149,6 +6149,8 @@ delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
 
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
+cp_preset_name_check(node: hou.SopNode) -> None:
+
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
 
 isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool=True, parm_path_name: str=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
@@ -6305,6 +6307,72 @@ reset_CP_palette_action(self) -> None:
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             print(_MSG)
             return PALETTE_COUNT_256
+        
+        
+        
+    @staticmethod
+    def cp_preset_name_check(node: hou.SopNode) -> None:
+        """It will check the passed Palette name and correct it.
+        This is a recycled: def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+
+        Args:
+            name (str): The Palette name to check (the one the user just entered)
+
+        Returns:
+            (None): Set new Palette name.
+        """
+        name = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
+
+        if name:
+            
+            splt = ':'
+            name_new = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
+            
+            rp = name.split(splt)
+            rp[:] = [item for item in rp if item]
+            # Lets make some name checks first
+            #
+            # if it start with a special character
+            if not name[0].isalnum():
+                rp = name_new.split(splt)
+                rp[:] = [item for item in rp if item]
+            # if it end with special character
+            elif not name[-1].isalnum():
+                rp = name.split(splt)
+                if len(rp)==1 and len(rp[0]):
+                    item_cleaned = ''.join(letter for letter in rp[0].strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
+                    rp = [item_cleaned]
+                elif len(rp)>1:
+                    name_new = ' '.join(rp[:-1])
+                    rp = name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+                else:
+                    rp = name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+            
+            is_int = True
+            try:
+                # if the name is a number, I want to still add the iteration num to it
+                # and not evaluate this as integer, even if it is an integer.
+                if rp[-1] != name:
+                    int(rp[-1].strip())
+                else:
+                    is_int = False
+            except: is_int = False
+                
+            if is_int is False:
+                rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
+                name_new = ' '.join(rp_clean)
+                node.setParms({CP_PALETTE_OUT_PRESET_NAME: name_new.strip()}) #type: ignore
+            else:
+                splt = name.split(":")
+                if len(splt)>1:
+                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''.join([item.strip() for item in splt[:-1]])}) #type: ignore
+                else:
+                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: name}) #type: ignore
+        else:
+            node.setParms({CP_PALETTE_OUT_PRESET_NAME: name}) #type: ignore 
+        
         
         
     @staticmethod
@@ -12350,7 +12418,7 @@ reset_IN(self, mode: int=0) -> None:
             
 
     def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], copy_only: bool=False) -> None:
-        """Set all the loaded Flame preset stats/infos and copy its render properties if needed ionto the OUT tab.
+        """Set all the loaded Flame preset stats/infos and copy its render properties if needed into the OUT tab.
         
         Args:
             node (hou.SopNode): FLAM3H node to load the flame file/preset into.
