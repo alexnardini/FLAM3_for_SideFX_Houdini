@@ -9199,7 +9199,7 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
                     pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
                     pgb_val = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
-                        if pgb_name in vars_keys_pre[idx][0]:
+                        if vars_keys_pre[idx] and pgb_name in vars_keys_pre[idx][0]:
                             keyvalues.append(float(self.xf_val_cleanup_str(pgb_val)))
                         else:
                             keyvalues.append([])
