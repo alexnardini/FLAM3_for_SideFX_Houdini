@@ -577,6 +577,12 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS()
 ```
+# CP Tab
+# parameter name:    `palettename`
+### Callbac Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set()
+```
 ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()

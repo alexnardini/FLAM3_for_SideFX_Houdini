@@ -2302,8 +2302,8 @@ reset_PREFS(self, mode: int=0) -> None:
         """Initialize parameter's menu presets for the CP tab.
         
         _NOTE:
-            This definition is very old and I keep adding here and there but in reality,
-            it need a rewrite ;)  One day I'll get back to this, good for now until it keep holding up.
+            This definition differ from the IN and OUT file init presets definitions,
+            because it deal with the Loading and Saving data initializations in one place.
         
         Args:
             mode (int): To be used to prevent to load a left over preset when loading back a hip file.
@@ -2312,27 +2312,42 @@ reset_PREFS(self, mode: int=0) -> None:
             f3h_json_file (Union[bool, None]): Default to None. Is it a F3H json file ?
         """    
         node = self.node
+        # Clear menu cache
+        if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        # Retrieve the filepath from the hsitory (preview file path used)
+        cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
         
         prm = node.parm(CP_PALETTE_PRESETS)
         prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
-        prm.set('-1')
-        prm_off.set('-1')
-        
-        # Clear menu cache
-        if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
 
         if json_path_checked is None:
-            json_path = node.parm(CP_PALETTE_LIB_PATH).eval()
+            json_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
+        
+        if cp_presets_filepath_history is not None:
+            if os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
+                if node.parm(CP_ISVALID_FILE).eval(): pass
+            else:
+                prm.set('-1')
+                prm_off.set('-1')
+        else:
+            prm.set('-1')
+            prm_off.set('-1')
 
         if json_path_checked is not False:
+            
+            # Set the CP filepath parameter to this checked filepath
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             
+            # Here we are checking the file path in the file path parameter field if asked to do so(args: "json_file" and "f3h_json_file" are None)
             if json_file is None and f3h_json_file is None: json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
             if json_file and f3h_json_file:
                 
                 # CP is valid file
                 node.setParms({CP_ISVALID_FILE: 1})
+                # We store the file path only when we know it is a valid F3H json file path
+                node.setCachedUserData('cp_presets_filepath', json_path_checked)
+                
                 # Only set when NOT on an: onLoaded python script
                 if mode:
                     prm.set('0')
@@ -2349,13 +2364,41 @@ reset_PREFS(self, mode: int=0) -> None:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
                 
             else:
-                prm.set('-1')
-                prm_off.set('-1')
-                # CP not a valid file
-                node.setParms({CP_ISVALID_FILE: 0})
-                flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
-                # Mark this as not a loaded preset
-                node.setParms({CP_ISVALID_PRESET: 0})
+                # Here we are checking the corrected file path
+                json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path_checked)
+                if json_file and f3h_json_file:
+                    
+                    # Only set when NOT on an: onLoaded python script
+                    if mode and json_path_checked != cp_presets_filepath_history:
+                        
+                        # CP is valid file
+                        node.setParms({CP_ISVALID_FILE: 1})
+                        # We store the file path only when we know it is a valid F3H json file path
+                        node.setCachedUserData('cp_presets_filepath', json_path_checked)
+                        
+                        prm.set('0')
+                        prm_off.set('0')
+                        # Mark this as not a loaded preset
+                        node.setParms({CP_ISVALID_PRESET: 0})
+                        # check if the selected palette file is locked
+                        if self.isLOCK(json_path_checked):
+                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
+                            # Lets print to the status bar as well
+                            _MSG = f"Palette: {MSG_PALETTE_MSG}"
+                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
+                        else:
+                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
+                            
+                else:
+                    prm.set('-1')
+                    prm_off.set('-1')
+                    # CP not a valid file
+                    node.setParms({CP_ISVALID_FILE: 0})
+                    flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
+                    # Mark this as not a loaded preset
+                    node.setParms({CP_ISVALID_PRESET: 0})
+                    # Clear cached data
+                    flam3h_iterator_utils.destroy_data(node, 'cp_presets_filepath')
 
         else:
             # CP not a valid file
@@ -2363,6 +2406,8 @@ reset_PREFS(self, mode: int=0) -> None:
             flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
             # Mark this as not a loaded preset
             node.setParms({CP_ISVALID_PRESET: 0})
+            # Clear cached data
+            flam3h_iterator_utils.destroy_data(node, 'cp_presets_filepath')
             
             # We do not want to print if the file path parameter is empty
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
@@ -6177,6 +6222,8 @@ menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str
 
 METHODS:
 
+cp_preset_name_set(self) -> None:
+
 menu_cp_presets_data(self) -> list:
 
 menu_cp_presets(self) -> list:
@@ -6311,15 +6358,15 @@ reset_CP_palette_action(self) -> None:
         
         
     @staticmethod
-    def cp_preset_name_check(node: hou.SopNode) -> None:
+    def cp_preset_name_check(node: hou.SopNode) -> str:
         """It will check the passed Palette name and correct it.
         This is a recycled: def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
         Args:
-            name (str): The Palette name to check (the one the user just entered)
-
+            node (hou.SopNode): This FLAM3H node
+            
         Returns:
-            (None): Set new Palette name.
+            (str): New and corrected Palette name.
         """
         name = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
 
@@ -6363,15 +6410,15 @@ reset_CP_palette_action(self) -> None:
             if is_int is False:
                 rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
                 name_new = ' '.join(rp_clean)
-                node.setParms({CP_PALETTE_OUT_PRESET_NAME: name_new.strip()}) #type: ignore
+                return name_new.strip() #type: ignore
             else:
                 splt = name.split(":")
                 if len(splt)>1:
-                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''.join([item.strip() for item in splt[:-1]])}) #type: ignore
+                    return ''.join([item.strip() for item in splt[:-1]]) #type: ignore
                 else:
-                    node.setParms({CP_PALETTE_OUT_PRESET_NAME: name}) #type: ignore
+                    return name #type: ignore
         else:
-            node.setParms({CP_PALETTE_OUT_PRESET_NAME: name}) #type: ignore 
+            return name #type: ignore 
         
         
         
@@ -6702,6 +6749,19 @@ reset_CP_palette_action(self) -> None:
     @property
     def palette_plus_do(self):
         return self._palette_plus_do
+    
+    
+    def cp_preset_name_set(self) -> None:
+        """Set the CP Palette preset name parameter after its string is being checked and corrected
+
+        Args:
+
+        Returns:
+            (None):
+        """
+        node = self.node
+        preset_name = self.cp_preset_name_check(node)
+        node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name})
 
 
     def menu_cp_presets_data(self) -> list:
