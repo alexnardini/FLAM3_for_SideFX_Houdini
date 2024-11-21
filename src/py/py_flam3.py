@@ -1459,11 +1459,11 @@ flam3h_toggle(self, prm: str=SYS_TAG) -> None:
 
 flam3h_toggle_off(self, prm: str) -> None:
 
+flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
+
 flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
 
 flam3h_init_presets_OUT_PRESETS(self) -> None:
-
-flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
 
 flam3h_display_help(self) -> None:
 
@@ -2179,6 +2179,120 @@ reset_PREFS(self, mode: int=0) -> None:
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 self.util_set_stashed_cam()
                 self.util_clear_stashed_cam_data()
+                
+                
+                
+    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
+        """Initialize parameter's menu presets for the CP tab.
+        
+        _NOTE:
+            This definition differ from the IN and OUT file init presets definitions,
+            because it deal with the Loading and Saving data initializations in one place.
+        
+        Args:
+            mode (int): To be used to prevent to load a left over preset when loading back a hip file.
+            destroy (bool): Destroy menu presets cached data. True or False.
+            json_file (Union[bool, None]): Default to None. Is it a json file ?
+            f3h_json_file (Union[bool, None]): Default to None. Is it a F3H json file ?
+        """    
+        node = self.node
+        # Clear menu cache
+        if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        # Retrieve the filepath from the hsitory (preview valid F3H jsone file path used)
+        cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
+        
+        prm = node.parm(CP_PALETTE_PRESETS)
+        prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
+
+        if json_path_checked is None:
+            json_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
+        
+        if cp_presets_filepath_history is not None and node.parm(CP_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
+            pass
+        else:
+            prm.set('-1')
+            prm_off.set('-1')
+
+        if json_path_checked is not False:
+            
+            # Set the CP filepath parameter to this checked and corrected filepath
+            node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
+            
+            # Here we are checking the file path in the file path parameter field if asked to do so(args: "json_file" and "f3h_json_file" are None)
+            if json_file is None and f3h_json_file is None: json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
+            if json_file and f3h_json_file:
+                
+                # CP is valid file
+                node.setParms({CP_ISVALID_FILE: 1})
+                # We store the file path only when we know it is a valid F3H json file path
+                node.setCachedUserData('cp_presets_filepath', json_path_checked)
+                
+                # Only set when NOT on an: onLoaded python script
+                if mode:
+                    prm.set('0')
+                    prm_off.set('0')
+                    # Mark this as not a loaded preset
+                    node.setParms({CP_ISVALID_PRESET: 0})
+                    # check if the selected palette file is locked
+                    if self.isLOCK(json_path_checked):
+                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
+                        # Lets print to the status bar as well
+                        _MSG = f"Palette: {MSG_PALETTE_MSG}"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
+                    else:
+                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
+                
+            else:
+                # Here we are checking the corrected file path
+                json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path_checked)
+                if json_file and f3h_json_file:
+                    
+                    # Only set when NOT on an: onLoaded python script
+                    if mode and json_path_checked != cp_presets_filepath_history:
+                        
+                        # CP is valid file
+                        node.setParms({CP_ISVALID_FILE: 1})
+                        # We store the file path only when we know it is a valid F3H json file path
+                        node.setCachedUserData('cp_presets_filepath', json_path_checked)
+                        
+                        prm.set('0')
+                        prm_off.set('0')
+                        # Mark this as not a loaded preset
+                        node.setParms({CP_ISVALID_PRESET: 0})
+                        # check if the selected palette file is locked
+                        if self.isLOCK(json_path_checked):
+                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
+                            # Lets print to the status bar as well
+                            _MSG = f"Palette: {MSG_PALETTE_MSG}"
+                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
+                        else:
+                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
+                            
+                else:
+                    prm.set('-1')
+                    prm_off.set('-1')
+                    # CP not a valid file
+                    node.setParms({CP_ISVALID_FILE: 0})
+                    flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
+                    # Mark this as not a loaded preset
+                    node.setParms({CP_ISVALID_PRESET: 0})
+                    # Clear cached data
+                    flam3h_iterator_utils.destroy_data(node, 'cp_presets_filepath')
+
+        else:
+            # CP not a valid file
+            node.setParms({CP_ISVALID_FILE: 0})
+            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
+            # Mark this as not a loaded preset
+            node.setParms({CP_ISVALID_PRESET: 0})
+            # Clear cached data
+            flam3h_iterator_utils.destroy_data(node, 'cp_presets_filepath')
+            
+            # We do not want to print if the file path parameter is empty
+            # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
+            if not json_path:
+                self.set_status_msg('', 'MSG')
 
 
 
@@ -2295,120 +2409,6 @@ reset_PREFS(self, mode: int=0) -> None:
                 
         # Force preset menu to updated
         prm.eval()
-
-
-
-    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
-        """Initialize parameter's menu presets for the CP tab.
-        
-        _NOTE:
-            This definition differ from the IN and OUT file init presets definitions,
-            because it deal with the Loading and Saving data initializations in one place.
-        
-        Args:
-            mode (int): To be used to prevent to load a left over preset when loading back a hip file.
-            destroy (bool): Destroy menu presets cached data. True or False.
-            json_file (Union[bool, None]): Default to None. Is it a json file ?
-            f3h_json_file (Union[bool, None]): Default to None. Is it a F3H json file ?
-        """    
-        node = self.node
-        # Clear menu cache
-        if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        # Retrieve the filepath from the hsitory (preview file path used)
-        cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
-        
-        prm = node.parm(CP_PALETTE_PRESETS)
-        prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
-
-        if json_path_checked is None:
-            json_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
-            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
-        
-        if cp_presets_filepath_history is not None and node.parm(CP_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
-            pass
-        else:
-            prm.set('-1')
-            prm_off.set('-1')
-
-        if json_path_checked is not False:
-            
-            # Set the CP filepath parameter to this checked and corrected filepath
-            node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
-            
-            # Here we are checking the file path in the file path parameter field if asked to do so(args: "json_file" and "f3h_json_file" are None)
-            if json_file is None and f3h_json_file is None: json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
-            if json_file and f3h_json_file:
-                
-                # CP is valid file
-                node.setParms({CP_ISVALID_FILE: 1})
-                # We store the file path only when we know it is a valid F3H json file path
-                node.setCachedUserData('cp_presets_filepath', json_path_checked)
-                
-                # Only set when NOT on an: onLoaded python script
-                if mode:
-                    prm.set('0')
-                    prm_off.set('0')
-                    # Mark this as not a loaded preset
-                    node.setParms({CP_ISVALID_PRESET: 0})
-                    # check if the selected palette file is locked
-                    if self.isLOCK(json_path_checked):
-                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
-                        # Lets print to the status bar as well
-                        _MSG = f"Palette: {MSG_PALETTE_MSG}"
-                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
-                    else:
-                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
-                
-            else:
-                # Here we are checking the corrected file path
-                json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path_checked)
-                if json_file and f3h_json_file:
-                    
-                    # Only set when NOT on an: onLoaded python script
-                    if mode and json_path_checked != cp_presets_filepath_history:
-                        
-                        # CP is valid file
-                        node.setParms({CP_ISVALID_FILE: 1})
-                        # We store the file path only when we know it is a valid F3H json file path
-                        node.setCachedUserData('cp_presets_filepath', json_path_checked)
-                        
-                        prm.set('0')
-                        prm_off.set('0')
-                        # Mark this as not a loaded preset
-                        node.setParms({CP_ISVALID_PRESET: 0})
-                        # check if the selected palette file is locked
-                        if self.isLOCK(json_path_checked):
-                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
-                            # Lets print to the status bar as well
-                            _MSG = f"Palette: {MSG_PALETTE_MSG}"
-                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
-                        else:
-                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
-                            
-                else:
-                    prm.set('-1')
-                    prm_off.set('-1')
-                    # CP not a valid file
-                    node.setParms({CP_ISVALID_FILE: 0})
-                    flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
-                    # Mark this as not a loaded preset
-                    node.setParms({CP_ISVALID_PRESET: 0})
-                    # Clear cached data
-                    flam3h_iterator_utils.destroy_data(node, 'cp_presets_filepath')
-
-        else:
-            # CP not a valid file
-            node.setParms({CP_ISVALID_FILE: 0})
-            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
-            # Mark this as not a loaded preset
-            node.setParms({CP_ISVALID_PRESET: 0})
-            # Clear cached data
-            flam3h_iterator_utils.destroy_data(node, 'cp_presets_filepath')
-            
-            # We do not want to print if the file path parameter is empty
-            # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
-            if not json_path:
-                self.set_status_msg('', 'MSG')
 
 
 
