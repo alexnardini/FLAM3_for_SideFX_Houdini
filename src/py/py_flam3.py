@@ -831,6 +831,8 @@ flam3h_on_create_set_houdini_session_data(self) -> None:
 
 flam3h_on_create_set_prefs_viewport(self) -> None:
 
+flam3h_presets_cache_filepath_on_load(self) -> None:
+
 flam3h_on_create(self) -> None:
 
 flam3h_on_loaded(self) -> None:
@@ -1168,7 +1170,7 @@ flam3h_on_deleted(self) -> None:
         
     
     
-    def flam3h_set_presets_cached_filepath_on_load(self) -> None:
+    def flam3h_presets_cache_filepath_on_load(self) -> None:
         """Initialize presets cached data to be up to date.
         
         Args:
@@ -1257,7 +1259,7 @@ flam3h_on_deleted(self) -> None:
         flam3h_iterator_utils.destroy_data(node, 'edge_case_01')
         
         # CP and IN PRESETS filepaths (cache data)
-        self.flam3h_set_presets_cached_filepath_on_load()
+        self.flam3h_presets_cache_filepath_on_load()
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
             
@@ -2422,6 +2424,9 @@ reset_PREFS(self, mode: int=0) -> None:
 
     def flam3h_init_presets_OUT_PRESETS(self) -> None:
         """Initialize parameter's menu presets for the OUT tab.
+        
+        _NOTE:
+            This need a little update at some point.
         
         Args:
         """    
@@ -13802,121 +13807,126 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         file = os.path.expandvars(infile)
         
-        if prx == AUTO_NAME_CP and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]: _CHK = True
-        elif prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree: _CHK = True
-        else: _CHK = False
+        # If the input file is valid, just use it as it is
+        if prx == AUTO_NAME_CP and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]: return file
+        elif prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree: return file
+
+        # Otherwise lets be sure to build a proper output path and file name.
+        # This will need some more work to make it more sophisticated and remove the unnecessary eventually.
+        file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
         
-        # If the input file is a valid one lets use it.
-        if _CHK: return file
-        else:
-            # Otherwise lets be sure to build a proper output path and file name.
-            # This will need some more work to make it more sophisticated and remove the unnecessary eventually.
-            file_s = [''.join(x.split(' ')) for x in os.path.split(file)]
+        # This toggle should be removed from FLAM3H at some point
+        autopath = node.parm(PREFS_AUTO_PATH_CORRECTION).eval()
+        if autopath:
             
-            autopath = node.parm(PREFS_AUTO_PATH_CORRECTION).eval()
-            if autopath:
+            # Just in case lets check is a valid location
+            if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
                 
-                # Just in case lets check is a valid location
-                if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
+                file_new = ''
+                
+                if auto_name: new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+                else: new_name = ''
+                
+                filename_s = os.path.splitext(file_s[-1].strip())
+                
+                if filename_s[-1] == file_ext:
+                    # This code is very old and need some revision ;D
+                    build_f_s = file.split("/")
+                    build_f_s[:] = [item for item in build_f_s if item]
+                    build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
+                    file_new = "/".join(build_f_s)
+                
+                elif not filename_s[-1] and filename_s[0]:
                     
-                    file_new = ''
-                    if auto_name: new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
-                    else: new_name = ''
-                    filename_s = os.path.splitext(file_s[-1].strip())
-                    
-                    if filename_s[-1] == file_ext:
-                        # This code is very old and need some revision ;D
-                        build_f_s = file.split("/")
-                        build_f_s[:] = [item for item in build_f_s if item]
-                        build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
-                        file_new = "/".join(build_f_s)
-                    
-                    elif not filename_s[-1] and filename_s[0]:
-                        # this is done in case only the extension is left in the prm field
-                        if file_s[-1] in file_ext and file_s[-1][0] == ".":
-                            if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
-                            else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
-                        else:
-                            if not file_s[-1][0].isalnum():
-                                if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
-                                else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
-                            else:
-                                file_new = out_flame_utils.out_check_build_file(file_s, file_s[-1], file_ext)
-                        # Print out proper msg based on file extension
-                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
-                        
-                    elif not filename_s[-1] and not filename_s[0]:
+                    # this is done in case only the extension is left in the prm field
+                    if file_s[-1] in file_ext and file_s[-1][0] == ".":
                         if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
                         else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
-                    
-                    # this as last for now
-                    #
-                    # If there is a file extension and it match part or all of the file_ext string.
-                    #
-                    # This will execute only if the string match at the beginning of the file extension
-                    # otherwise the above if/elif statements would have executed already.
-                    elif len(filename_s) > 1 and filename_s[-1] in file_ext:
-                        file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
-
-                    else:
-                        if not os.path.exists(file):
-                            file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
-                    
-                    if file_new:
-                        # This is really a patch instead of rewriting this entire definition...
-                        # Will allow network paths to work as well.
-                        file_dir_out = os.path.split(file)[0]
-                        # Lets check if the original output path is a valid location
-                        if os.path.isdir(file_dir_out):
-                            if f"{file_dir_out}"[-1] == '/': out_file = f"{file_dir_out}{os.path.split(file_new)[-1]}"
-                            else: out_file = f"{file_dir_out}/{os.path.split(file_new)[-1]}"
-                        # Otherwise lets check if the generated output path is a valid location
-                        elif os.path.isdir(os.path.split(file_new)[0]): out_file = file_new
-                        # Otherwise get the expanded and corrected infile location and append the new filename to it
-                        else:
-                            if f"{file_s[0]}"[-1] == '/': out_file = f"{file_s[0]}{os.path.split(file_new)[-1]}"
-                            else: out_file = f"{file_s[0]}/{os.path.split(file_new)[-1]}"
                         
-                        out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
-                        return out_file
+                    else:
+                        
+                        if not file_s[-1][0].isalnum():
+                            if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                            else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
                             
-                    else: return False
+                        else:
+                            file_new = out_flame_utils.out_check_build_file(file_s, file_s[-1], file_ext)
+                            
+                    # Print out proper msg based on file extension
+                    out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
+                    
+                elif not filename_s[-1] and not filename_s[0]:
+                    if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                    else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
+                
+                # this as last for now
+                #
+                # If there is a file extension and it match part or all of the file_ext string.
+                #
+                # This will execute only if the string match at the beginning of the file extension
+                # otherwise the above if/elif statements would have executed already.
+                elif len(filename_s) > 1 and filename_s[-1] in file_ext:
+                    file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
 
                 else:
-                    if file:
-                        if OUT_FLAM3_FILE_EXT == file_ext:
-                            _MSG = f"OUT: Select a valid OUT directory location."
-                            print(f"{node.name()}.{_MSG}")
-                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
-                        elif OUT_PALETTE_FILE_EXT == file_ext:
-                            _MSG = f"Palette: Select a valid OUT directory location."
-                            print(f"{node.name()}.{_MSG}")
-                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
-                    else:
-                        # If the path string is empty we do not want to print out
-                        flam3h_general_utils.set_status_msg('', 'MSG')
-                    return False
+                    if not os.path.exists(file):
+                        file_new = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
                 
-            # The following else statement is not really needed anymore
-            # but until I do not remove the hidden toggle I leave it here.
-            else:
-                # just check if the user input is a valid location
-                if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
-                    return infile
-                else:
-                    if file:
-                        if OUT_FLAM3_FILE_EXT == file_ext:
-                            _MSG = f"OUT: Select a valid OUT directory location."
-                            print(f"{node.name()}.{_MSG}")
-                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
-                        elif OUT_PALETTE_FILE_EXT == file_ext:
-                            _MSG = f"Palette: Select a valid OUT directory location."
-                            print(f"{node.name()}.{_MSG}")
-                            flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                if file_new:
+                    # This is really a patch instead of rewriting this entire definition...
+                    # Will allow network paths to work as well.
+                    file_dir_out = os.path.split(file)[0]
+                    # Lets check if the original output path is a valid location
+                    if os.path.isdir(file_dir_out):
+                        if f"{file_dir_out}"[-1] == '/': out_file = f"{file_dir_out}{os.path.split(file_new)[-1]}"
+                        else: out_file = f"{file_dir_out}/{os.path.split(file_new)[-1]}"
+                    # Otherwise lets check if the generated output path is a valid location
+                    elif os.path.isdir(os.path.split(file_new)[0]): out_file = file_new
+                    # Otherwise get the expanded and corrected infile location and append the new filename to it
                     else:
-                        # If the path string is empty we do not want to print out
-                        flam3h_general_utils.set_status_msg('', 'MSG')
-                    return False
+                        if f"{file_s[0]}"[-1] == '/': out_file = f"{file_s[0]}{os.path.split(file_new)[-1]}"
+                        else: out_file = f"{file_s[0]}/{os.path.split(file_new)[-1]}"
+                    
+                    out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
+                    return out_file
+                        
+                else: return False
+
+            else:
+                if file:
+                    if OUT_FLAM3_FILE_EXT == file_ext:
+                        _MSG = f"OUT: Select a valid OUT directory location."
+                        print(f"{node.name()}.{_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                    elif OUT_PALETTE_FILE_EXT == file_ext:
+                        _MSG = f"Palette: Select a valid OUT directory location."
+                        print(f"{node.name()}.{_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                else:
+                    # If the path string is empty we do not want to print out
+                    flam3h_general_utils.set_status_msg('', 'MSG')
+                return False
+            
+        # The following else statement is not really needed anymore
+        # but until I do not remove the hidden toggle I leave it here.
+        else:
+            # just check if the user input is a valid location
+            if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
+                return infile
+            else:
+                if file:
+                    if OUT_FLAM3_FILE_EXT == file_ext:
+                        _MSG = f"OUT: Select a valid OUT directory location."
+                        print(f"{node.name()}.{_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                    elif OUT_PALETTE_FILE_EXT == file_ext:
+                        _MSG = f"Palette: Select a valid OUT directory location."
+                        print(f"{node.name()}.{_MSG}")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                else:
+                    # If the path string is empty we do not want to print out
+                    flam3h_general_utils.set_status_msg('', 'MSG')
+                return False
             
  
     @staticmethod
