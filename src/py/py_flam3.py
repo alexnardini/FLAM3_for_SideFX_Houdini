@@ -3609,10 +3609,12 @@ iterator_vactive_and_update(self) -> None:
             - cp_presets_menu_idx
             - cp_presets_menu_off
             - cp_presets_menu_off_idx
+            - cp_presets_filepath
             - in_presets_menu
             - in_presets_menu_idx
             - in_presets_menu_off
             - in_presets_menu_off_idx
+            - in_presets_filepath
             - out_presets_menu
             - vars_menu_all_simple
 
