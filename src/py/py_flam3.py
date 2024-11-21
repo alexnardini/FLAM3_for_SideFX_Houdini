@@ -2198,7 +2198,7 @@ reset_PREFS(self, mode: int=0) -> None:
         node = self.node
         # Clear menu cache
         if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        # Retrieve the filepath from the hsitory (preview valid F3H jsone file path used)
+        # Retrieve the filepath from the history (preview valid F3H jsone file path used)
         cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
         
         prm = node.parm(CP_PALETTE_PRESETS)
