@@ -2324,19 +2324,15 @@ reset_PREFS(self, mode: int=0) -> None:
             json_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
         
-        if cp_presets_filepath_history is not None:
-            if os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
-                if node.parm(CP_ISVALID_FILE).eval(): pass
-            else:
-                prm.set('-1')
-                prm_off.set('-1')
+        if cp_presets_filepath_history is not None and node.parm(CP_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
+            pass
         else:
             prm.set('-1')
             prm_off.set('-1')
 
         if json_path_checked is not False:
             
-            # Set the CP filepath parameter to this checked filepath
+            # Set the CP filepath parameter to this checked and corrected filepath
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
             
             # Here we are checking the file path in the file path parameter field if asked to do so(args: "json_file" and "f3h_json_file" are None)
