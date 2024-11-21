@@ -2382,7 +2382,7 @@ reset_PREFS(self, mode: int=0) -> None:
                     
                     # IN is valid file
                     node.setParms({IN_ISVALID_FILE: 1})
-                    # We store the file path only when we know it is a valid F3H json file path
+                    # We store the file path only when we know it is a valid Flame file path
                     node.setCachedUserData('in_presets_filepath', xml_checked)
                     
                     prm.set('0')
@@ -2396,7 +2396,7 @@ reset_PREFS(self, mode: int=0) -> None:
                         
                     # IN is valid file
                     node.setParms({IN_ISVALID_FILE: 1})
-                    # We store the file path only when we know it is a valid F3H json file path
+                    # We store the file path only when we know it is a valid Flame file path
                     node.setCachedUserData('in_presets_filepath', xml_checked)
                     
                     prm.set('0')
