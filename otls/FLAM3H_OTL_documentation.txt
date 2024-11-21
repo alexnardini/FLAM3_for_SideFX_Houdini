@@ -1327,7 +1327,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     
     == CP: Load/Save file == (CPLOAD)
     
-JSON file [Icon:DATATYPES/string]:
+JSON file. [Icon:DATATYPES/string]:
     #id: PALETTE
     
     [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
