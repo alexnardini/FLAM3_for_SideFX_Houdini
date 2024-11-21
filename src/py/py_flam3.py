@@ -1166,13 +1166,35 @@ flam3h_on_deleted(self) -> None:
                 if type == Pixels:
                     node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
         
+    
+    
+    def flam3h_set_presets_cached_filepath_on_load(self) -> None:
+        """Initialize presets cached data to be up to date.
+        
+        Args:
+            (None):
+        """
+        node = self.node
+        cp_is_valid = node.parm(CP_ISVALID_FILE).eval()
+        in_is_valid = node.parm(IN_ISVALID_FILE).eval()
+        
+        if cp_is_valid:
+            cp_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            cp_path_checked = out_flame_utils.out_check_outpath(node,  cp_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
+            if cp_path_checked is not False and os.path.isfile(cp_path_checked): node.setCachedUserData('cp_presets_filepath', cp_path_checked)
+                
+        if in_is_valid:
+            xml = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False)
+            if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('in_presets_filepath', xml_checked)
+            
 
  
     def flam3h_on_create(self) -> None:
         """Initialize FLAM3H node on creation and all the data it need to run.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
+            (None):
         """
         node = self.node
         node.setColor(hou.Color((0.9,0.9,0.9)))
@@ -1233,6 +1255,9 @@ flam3h_on_deleted(self) -> None:
         # Force updated of the mini-menu iterator selection
         flam3h_iterator_utils.destroy_data(node, 'iter_sel')
         flam3h_iterator_utils.destroy_data(node, 'edge_case_01')
+        
+        # CP and IN PRESETS filepaths (cache data)
+        self.flam3h_set_presets_cached_filepath_on_load()
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
             
@@ -2215,6 +2240,7 @@ reset_PREFS(self, mode: int=0) -> None:
             prm_off.set('-1')
 
         if json_path_checked is not False:
+            assert isinstance(json_path_checked, str)
             
             # Set the CP filepath parameter to this checked and corrected filepath
             node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
@@ -2305,23 +2331,38 @@ reset_PREFS(self, mode: int=0) -> None:
         node = self.node
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        # Retrieve the filepath from the history (preview valid F3H json file path used)
+        in_presets_filepath_history = node.cachedUserData('in_presets_filepath')
         
+        is_valid = node.parm(IN_ISVALID_FILE).eval()
         clipboard = node.parm(IN_CLIPBOARD_TOGGLE).eval()
-        
         prm = node.parm(IN_PRESETS)
         prm_off = node.parm(IN_PRESETS_OFF)
-        prm.set('-1')
-        prm_off.set('-1')
         
         xml = os.path.expandvars(node.parm(IN_PATH).eval())
-        if os.path.isfile(xml):
+        xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False)
+        
+        if in_presets_filepath_history is not None and is_valid and os.path.isfile(in_presets_filepath_history) and in_presets_filepath_history == xml_checked:
+            pass
+        else:
+            prm.set('-1')
+            prm_off.set('-1')
+        
+        if xml_checked is not False:
+            assert isinstance(xml_checked, str)
+            
+            # Set the CP filepath parameter to this checked and corrected filepath
+            node.setParms({IN_PATH: xml_checked})
+            
             # We are using the class: _xml_tree becasue we really need to carefully validate the loaded flame file.
             # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
             # apo = _xml_tree(xml)
-            if not _xml_tree(xml).isvalidtree:
+            if not _xml_tree(xml_checked).isvalidtree:
+                
                 if clipboard:
                     self.remove_locked_from_flame_stats(node)
                     node.setParms({IN_ISVALID_FILE: 0})
+                    
                 else:
                     [prm.set(0) for prm in (node.parm(IN_ISVALID_FILE), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE))]
                     [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
@@ -2335,12 +2376,33 @@ reset_PREFS(self, mode: int=0) -> None:
                     flam3h_general_utils.flash_message(node, _MSG)
             else:
                 # Only set when NOT on an: onLoaded python script
-                if mode:
+                if mode and xml_checked != in_presets_filepath_history:
+                    
+                    # IN is valid file
+                    node.setParms({IN_ISVALID_FILE: 1})
+                    # We store the file path only when we know it is a valid F3H json file path
+                    node.setCachedUserData('in_presets_filepath', xml_checked)
+                    
                     prm.set('0')
                     prm_off.set('0')
-                    node.setParms({IN_ISVALID_FILE: 1})
+                    
                     # the IN_ISVALID_PRESET is set inside the following: in_flame_utils(self.kwargs).in_to_flam3h()
                     in_flame_utils(self.kwargs).in_to_flam3h()
+                    
+                # Only set when NOT on an: onLoaded python script
+                elif mode and not is_valid:
+                        
+                    # IN is valid file
+                    node.setParms({IN_ISVALID_FILE: 1})
+                    # We store the file path only when we know it is a valid F3H json file path
+                    node.setCachedUserData('in_presets_filepath', xml_checked)
+                    
+                    prm.set('0')
+                    prm_off.set('0')
+                    
+                    # the IN_ISVALID_PRESET is set inside the following: in_flame_utils(self.kwargs).in_to_flam3h()
+                    in_flame_utils(self.kwargs).in_to_flam3h()
+                    
         else:
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
@@ -2355,9 +2417,6 @@ reset_PREFS(self, mode: int=0) -> None:
                 self.remove_locked_from_flame_stats(node)
                 # Otherwise just mark the absence of a valid file and leave everything else untouched
                 node.setParms({IN_ISVALID_FILE: 0})
-                
-        # Force preset menu to updated
-        prm.eval()
 
 
 
@@ -13093,7 +13152,7 @@ out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: s
 
 out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
 
-out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, auto_name: bool=True) -> Union[str, bool]:
 
 out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
 
@@ -13724,18 +13783,19 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     @staticmethod
-    def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str) -> Union[str, bool]:
+    def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, auto_name: bool=True) -> Union[str, bool]:
         """Check for the validity of the provided output file path.
         
         _NOTE:
-            This definition was very old and I am improving it, really need work to clearup some mess...
+            This definition was very old and I am improving it.
 
         Args:
             node (hou.SopNode): Current FLAM3H node.
             infile (str): THe file path to check.
             file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file. 
             prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
-
+            auto_name (bool): Default to: True. When checking the output path you some time do not want to generate a filename and extension, like for example inside the IN file string parameter.
+        
         Returns:
             Union[str, bool]: Either a corrected/valid file path or False if not valid.
         """        
@@ -13760,7 +13820,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                 if os.path.isdir(file_s[0]) or os.path.isdir(os.path.split(file)[0]):
                     
                     file_new = ''
-                    new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+                    if auto_name: new_name = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
+                    else: new_name = ''
                     filename_s = os.path.splitext(file_s[-1].strip())
                     
                     if filename_s[-1] == file_ext:
@@ -13773,17 +13834,20 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     elif not filename_s[-1] and filename_s[0]:
                         # this is done in case only the extension is left in the prm field
                         if file_s[-1] in file_ext and file_s[-1][0] == ".":
-                            file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                            if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                            else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
                         else:
                             if not file_s[-1][0].isalnum():
-                                file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                                if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                                else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
                             else:
                                 file_new = out_flame_utils.out_check_build_file(file_s, file_s[-1], file_ext)
                         # Print out proper msg based on file extension
                         out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
                         
                     elif not filename_s[-1] and not filename_s[0]:
-                        file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                        if auto_name: file_new = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                        else: file_new = out_flame_utils.out_check_build_file(file_s, new_name, '')
                     
                     # this as last for now
                     #
