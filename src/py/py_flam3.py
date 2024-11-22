@@ -2717,7 +2717,7 @@ MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opt
 MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
 MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
-MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED.\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
+MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
 MENU_VARS_INDEXES: dict = { 0: 1, 
                             39: 3, 
@@ -4460,7 +4460,7 @@ iterator_vactive_and_update(self) -> None:
                 
                 # Build menu
                 if node == from_FLAM3H_NODE and id==mp_id_from:
-                    menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED.\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
+                    menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
                 elif node == from_FLAM3H_NODE:
                     menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{_ICON}  {idx_from}", 3, f"{_ICON}  {idx_from}:  xaos:", 4, f"{_ICON}  {idx_from}:  shader", 5, f"{_ICON}  {idx_from}:  PRE", 6, f"{_ICON}  {idx_from}:  VAR", 7, f"{_ICON}  {idx_from}:  POST", 8, f"{_ICON}  {idx_from}:  pre affine", 9, f"{_ICON}  {idx_from}:  post affine", 10, "" ]
                 else:
