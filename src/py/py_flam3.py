@@ -69,7 +69,7 @@ import nodesearch
 #                   and the current implementation of the UX is far more than enough to enjoy the fractal art workflow.
 #
 #               DOC-STRINGS
-#                   To distinguish class @staticmethods from the class methods, the class methods doc-string Args list alway start with the argument: (self):
+#                   To distinguish class @staticmethods from the class @methods, the class methods doc-string Args list alway start with the argument: (self):
 #                   This make it easier to distinguish them when typing their name while checking their infos.
 #
 
