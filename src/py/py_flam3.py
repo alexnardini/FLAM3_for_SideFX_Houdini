@@ -2358,7 +2358,7 @@ reset_PREFS(self, mode: int=0) -> None:
             mode(int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
             destroy(bool): Default to True. Destroy menu presets cached data. True or False.
             json_file(Union[bool, None]): Default to None. Is it a json file ?
-            f3h_json_file(Union[bool, None]): Default to None. Is it a F3H json file ?
+            f3h_json_file(Union[bool, None]): Default to None. Is it a F3H palette json file ?
             
         Returns:
             (None):
@@ -6751,8 +6751,6 @@ delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
 
 get_ramp_keys_count(ramp: hou.Ramp) -> str:
 
-cp_preset_name_check(node: hou.SopNode) -> None:
-
 isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
 
 isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool=True, parm_path_name: str=CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
@@ -6921,71 +6919,6 @@ reset_CP_palette_action(self) -> None:
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             print(_MSG)
             return PALETTE_COUNT_256
-        
-        
-        
-    @staticmethod
-    def cp_preset_name_check(node: hou.SopNode) -> str:
-        """It will check the passed Palette name and correct it.
-        This is a recycled: def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-
-        Args:
-            node(hou.SopNode): This FLAM3H node
-            
-        Returns:
-            (str): New and corrected Palette name.
-        """
-        name = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
-
-        if name:
-            
-            splt = ':'
-            name_new = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
-            
-            rp = name.split(splt)
-            rp[:] = [item for item in rp if item]
-            # Lets make some name checks first
-            #
-            # if it start with a special character
-            if not name[0].isalnum():
-                rp = name_new.split(splt)
-                rp[:] = [item for item in rp if item]
-            # if it end with special character
-            elif not name[-1].isalnum():
-                rp = name.split(splt)
-                if len(rp)==1 and len(rp[0]):
-                    item_cleaned = ''.join(letter for letter in rp[0].strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
-                    rp = [item_cleaned]
-                elif len(rp)>1:
-                    name_new = ' '.join(rp[:-1])
-                    rp = name_new.split(splt)
-                    rp[:] = [item for item in rp if item]
-                else:
-                    rp = name_new.split(splt)
-                    rp[:] = [item for item in rp if item]
-            
-            is_int = True
-            try:
-                # if the name is a number, I want to still add the iteration num to it
-                # and not evaluate this as integer, even if it is an integer.
-                if rp[-1] != name:
-                    int(rp[-1].strip())
-                else:
-                    is_int = False
-            except: is_int = False
-                
-            if is_int is False:
-                rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
-                name_new = ' '.join(rp_clean)
-                return name_new.strip() #type: ignore
-            else:
-                splt = name.split(":")
-                if len(splt)>1:
-                    return ''.join([item.strip() for item in splt[:-1]]) #type: ignore
-                else:
-                    return name #type: ignore
-        else:
-            return name #type: ignore 
         
         
         
@@ -7329,8 +7262,9 @@ reset_CP_palette_action(self) -> None:
             (None):
         """
         node = self.node
-        preset_name = self.cp_preset_name_check(node)
-        node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name})
+        preset_name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
+        preset_name_checked = out_flame_utils.out_auto_add_iter_num(0, preset_name, 1, False)
+        node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name_checked})
 
 
     def menu_cp_presets_data(self) -> list:
@@ -13969,7 +13903,7 @@ out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
 
 out_render_curves_set_defaults_on_load(node: hou.SopNode):
 
-out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool=True) -> str:
 
 out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
 
@@ -14292,53 +14226,55 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     @staticmethod
-    def out_auto_add_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-        """It will check the passed Flame name 
-        and add the iteration number to it if needed.
+    def out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool=True) -> str:
+        """It will check and correct the passed Flame name and add the iteration number to it if needed.
+        Additionally, when the "flame" arg is set to False, it will just autocorrect the passed name, to be used for example for the Palette name.
 
         Args:
             iter_num(int): the current iteration's number
-            flame_name(str): The Flame name to check
-            autoadd(int): Auto add iter num toggle value
+            flame_name(str): The Flame name to check and correct
+            autoadd(int): Auto add iter num toggle value (This toggle will eventually be removed from FLAM3H at some point)
+            flame(bool): Default to True(Flame). Use False for Palette
 
         Returns:
-            (str): A new Flame name with the iter num added if needed.
+            (str): A new name with either the iterations number added to it if needed or corrected or both.
         """
         if autoadd:
             
-            flame_name = flame_name.strip()
-            if flame_name:
+            name = name.strip()
+            if name:
                 
                 splt = ':'
-                flame_name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
+                if flame: name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
+                else: name_new = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
                 
-                rp = flame_name.split(splt)
+                rp = name.split(splt)
                 rp[:] = [item for item in rp if item]
                 # Lets make some name checks first
                 #
                 # if it start with a special character
-                if not flame_name[0].isalnum():
-                    rp = flame_name_new.split(splt)
+                if not name[0].isalnum():
+                    rp = name_new.split(splt)
                     rp[:] = [item for item in rp if item]
                 # if it end with special character
-                elif not flame_name[-1].isalnum():
-                    rp = flame_name.split(splt)
+                elif not name[-1].isalnum():
+                    rp = name.split(splt)
                     if len(rp)==1 and len(rp[0]):
                         item_cleaned =''.join(letter for letter in rp[0].strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
                         rp = [item_cleaned]
                     elif len(rp)>1:
-                        flame_name_new = ' '.join(rp[:-1])
-                        rp = flame_name_new.split(splt)
+                        name_new = ' '.join(rp[:-1])
+                        rp = name_new.split(splt)
                         rp[:] = [item for item in rp if item]
                     else:
-                        rp = flame_name_new.split(splt)
+                        rp = name_new.split(splt)
                         rp[:] = [item for item in rp if item]
                 
                 is_int = True
                 try:
                     # if the name is a number, I want to still add the iteration num to it
                     # and not evaluate this as integer, even if it is an integer.
-                    if rp[-1] != flame_name:
+                    if rp[-1] != name:
                         int(rp[-1].strip())
                     else:
                         is_int = False
@@ -14346,18 +14282,20 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     
                 if is_int is False:
                     rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
-                    flame_name_new = ' '.join(rp_clean) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
-                    return flame_name_new.strip()
+                    if flame: name_new = ' '.join(rp_clean) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                    else: name_new = ' '.join(rp_clean)
+                    return name_new.strip()
                 else:
-                    splt = flame_name.split(":")
+                    splt = name.split(":")
                     if len(splt)>1:
-                        return ''.join([item.strip() for item in splt[:-1]]) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                        if flame: return ''.join([item.strip() for item in splt[:-1]]) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                        else: return ''.join([item.strip() for item in splt[:-1]])
                     else:
-                        return flame_name
+                        return name
             else:
-                return flame_name
+                return name
         else:
-            return flame_name
+            return name
     
     
     @staticmethod 
