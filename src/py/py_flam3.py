@@ -534,10 +534,13 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_indexes(self) -> dict[int, int]:
         
         Args:
-            item (str): [The current loop iteration item]
-            id (int): [The current loop iteration index]
-            keys (str): [the keys empty list to populate]
-            values (str): [the values empty list to populate]
+            keys(str): the keys empty list to populate
+            values(str): the values empty list to populate
+            item(str): The current loop iteration item
+            id(int): The current loop iteration index
+            
+        Returns:
+            (None):
         """
         try:
             int(item)
@@ -551,10 +554,13 @@ build_menu_vars_indexes(self) -> dict[int, int]:
         Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self) -> list:
         
         Args:
-            linear (list): [the empty list to populate]
-            item (str): [The current loop iteration item]
-            id (int): [The current loop iteration index]
-            spacer (bool): [Default to: True. Add a spacer to the ent of the item to conform with the desired menu label length]
+            linear(list): the empty list to populate
+            item(str): The current loop iteration item
+            id(int): The current loop iteration index
+            spacer(bool): Default to: True. Add a spacer to the ent of the item to conform with the desired menu label length
+            
+        Returns:
+            (None):
         """
         linear.append(id)
         if spacer: linear.append(f"{item}          ") # 10 times \s
@@ -562,9 +568,13 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     
     def vars_all(self) -> list:
-        """
+        """Build a list of all the variation names properly ordered as per flame*.h files
+        
+        Args:
+            (self):
+            
         Returns:
-            list: [return a list of all the variation names properly ordered as per flame*.h files]
+            (list): return a list of all the variation names properly ordered as per flame*.h files
         """
 
         return list(map(lambda x: x[0], self.varsPRM))
@@ -572,8 +582,12 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     def menu_vars_all(self) -> list:
         """This is used to generate the following list: MENU_VARS_ALL
+        
+        Args:
+            (self):
+            
         Returns:
-            list: [return an enumerated variations menu list with "linear" being the first one for convenience]
+            (list): return an enumerated variations menu list with "linear" being the first one for convenience
         """        
 
         vars_no_lin = list(enumerate(self.vars_all()))[1:]
@@ -583,17 +597,25 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     
     def menu_vars_no_PRM(self) -> list:
-        """
+        """Build a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
+        
+        Args:
+            (self):
+            
         Returns:
-            list: [return an enumerated variations menu list with "linear" being the first one for convenience and without parametrics]
+            (list): return a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
         """   
         return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
     
     
     def build_menu_vars_all_linear(self) -> list:
         """This is used to generate the following list: MENU_VARS_ALL_SIMPLE
+        
+        Args:
+            (self):
+            
         Returns:
-            list: [return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data]
+            (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
         linear = []
         [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all()]
@@ -602,8 +624,12 @@ build_menu_vars_indexes(self) -> dict[int, int]:
     
     def build_menu_vars_indexes(self) -> dict[int, int]:
         """This is used to generate the following dict: MENU_VARS_INDEXES
+        
+        Args:
+            (self):
+            
         Returns:
-            dict: [a dictionary for the variation indexes used by the menu_T_ICONS definitions]
+            (dict): a dictionary for the variation indexes used by the menu_T_ICONS definitions
         """   
         keys = []
         values = []
@@ -852,7 +878,10 @@ flam3h_on_deleted(self) -> None:
         """Set the hou.session variable to hold the cvex precision being used on first instance node creation time.
 
         Args:
-            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            
+        Returns:
+            (None):
         """  
         if cvex_precision == 32:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
@@ -870,10 +899,13 @@ flam3h_on_deleted(self) -> None:
         if its display flag is True.
 
         Args:
-            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
-            _MSG_INFO (str): The message to print in the status bar
-            _MSG_DONE (str): The message to print in the hou window 
-            sys_updated_mode (hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
+            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            _MSG_INFO(str): The message to print in the status bar
+            _MSG_DONE(str): The message to print in the hou window 
+            sys_updated_mode(hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
+            
+        Returns:
+            (None):
         """        
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
@@ -899,11 +931,14 @@ flam3h_on_deleted(self) -> None:
         if its display flag is False.
 
         Args:
-            node (hou.SopNode): This FLAM3H node
-            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
-            _MSG_INFO (str): The message to print in the status bar
-            _MSG_DONE (str): The message to print in the hou window 
-            sys_updated_mode (hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
+            node(hou.SopNode): This FLAM3H node
+            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            _MSG_INFO(str): The message to print in the status bar
+            _MSG_DONE(str): The message to print in the hou window 
+            sys_updated_mode(hou.EnumValue): houdini updated mode before dropping a FLAM3H node for the first time ( stored from the preFirstCreate script )
+            
+        Returns:
+            (None):
         """        
         # m = nodesearch.State("Display", True)
         # _display_node = m.nodes(node.parent(), recursive=False)[0]
@@ -921,11 +956,12 @@ flam3h_on_deleted(self) -> None:
         """Set the hou.session variable to hold the cvex precision being used during the Houdini session.
 
         Args:
-            cvex_precision (int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            first_instance_32bit(bool): 32bit or 64bit - Was this FLAM3H node instance created with this cvex precision ?
+            first_instance_64bit(bool): 32bit or 64bit - Was this FLAM3H node instance created with this cvex precision ?
             
-            first_instance_32bit (bool): 32bit or 64bit - Was this FLAM3H node instance created with this cvex precision ?
-            
-            first_instance_64bit (bool): 32bit or 64bit - Was this FLAM3H node instance created with this cvex precision ?
+        Returns:
+            (None):
         """  
         if cvex_precision == 32 and first_instance_32bit is True:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
@@ -959,8 +995,11 @@ flam3h_on_deleted(self) -> None:
         It will also restore the houdini session update mode if not set already on AutoUpdate.
 
         Args:
-            node (hou.SopNode): FLAM3H node
-            FIRST_TIME_MSG (int): False for onLoaded and True for onCreated
+            (self):
+            FIRST_TIME_MSG(int): False for onLoaded and True for onCreated
+            
+        Returns:
+            (None):
         """        
         
         try:
@@ -1018,8 +1057,10 @@ flam3h_on_deleted(self) -> None:
         this definition will let the user node of the compilie time if a mode is selected for the first time in the current houdini's session.
 
         Args:
-            node (hou.SopNode): FLAM3H node
-            FIRST_TIME_MSG (int): False for onLoaded and True for onCreated
+            (self):
+            
+        Returns:
+            (None):
         """        
         
         try:
@@ -1081,6 +1122,12 @@ flam3h_on_deleted(self) -> None:
 
     def flam3h_on_create_set_houdini_session_data(self) -> None:
         """Initialize the necessary data for the copy/paste iterator and FF methods on creation.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         
         node = self.node
@@ -1120,8 +1167,13 @@ flam3h_on_deleted(self) -> None:
 
     def flam3h_on_create_set_prefs_viewport(self) -> None:
         """Initialize the necessary data for the viewport display preference's option on creation.
-        
         This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         
         node = self.node
@@ -1178,6 +1230,9 @@ flam3h_on_deleted(self) -> None:
         so this way we make sure to always be up to date.
         
         Args:
+            (self):
+            
+        Returns:
             (None):
         """
         node = self.node
@@ -1200,6 +1255,9 @@ flam3h_on_deleted(self) -> None:
         """Initialize FLAM3H node on creation and all the data it need to run.
         
         Args:
+            (self):
+            
+        Returns:
             (None):
         """
         node = self.node
@@ -1254,6 +1312,9 @@ flam3h_on_deleted(self) -> None:
     def flam3h_on_loaded(self) -> None:
         """Initialize FLAM3H node on hip file load and all the data it need to run.
         
+        Args:
+            (self):
+            
         Returns:
             (None):
         """
@@ -1373,6 +1434,12 @@ flam3h_on_deleted(self) -> None:
     # Wip
     def flam3h_on_deleted(self) -> None:
         """Cleanup the data on deletion.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         node = self.node
         node_instances = node.type().instances()
@@ -1524,13 +1591,13 @@ reset_PREFS(self, mode: int=0) -> None:
         """Cause a message to appear on the top left of the network editor.
 
         Args:
-            node (hou.SopNode): the current FLAM3H node.
-            msg (Union[str, None]): The string message to print or None.
-            timer (float): How long the printed message stay before it fade away.
-            img (str): specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            node(hou.SopNode): the current FLAM3H node.
+            msg(Union[str, None]): The string message to print or None.
+            timer(float): How long the printed message stay before it fade away. Default ot: FLAM3H_FLASH_MESSAGE_TIMER
+            img(str): specifies an icon or image file that should be displayed along with the text specified in the msg argument.
 
         Returns:
-            int: major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+            (None):
         """  
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
@@ -1545,6 +1612,7 @@ reset_PREFS(self, mode: int=0) -> None:
 
         Args:
             node (hou.SopNode): This FLAM3H node
+            
         Returns:
             (None):
         """  
@@ -1560,9 +1628,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Retrieve the major Houdini version number currently in use.
 
         Args:
+            (None):
 
         Returns:
-            int: major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+            (int): major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
         """  
         return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
 
@@ -1584,12 +1653,15 @@ reset_PREFS(self, mode: int=0) -> None:
     def my_system() -> str:
         """Return the OS we are on.
 
+        Args:
+            (None):
+            
         Returns:
-            str: Possible outcomes are: WIN (windows)
-                                        LNX (linux)
-                                        MAC
-                                        JAVA
-                                        UNKNW
+            (str): Possible outcomes are: WIN (windows)
+                                          LNX (linux)
+                                          MAC
+                                          JAVA
+                                          UNKNW
         """        
         sys = platform_system()
         sys_options = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
@@ -1603,8 +1675,11 @@ reset_PREFS(self, mode: int=0) -> None:
         """Print a message to the Houdini's status bar if the UI is available.
 
         Args:
-            msg (str): The message string to print
-            type (str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
+            msg(str): The message string to print
+            type(str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
+            
+        Returns:
+            (None):
         """
 
         if hou.isUIAvailable():
@@ -1617,11 +1692,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Check if the loaded lib file ( Palette or flame XML ) is locked.
 
         Args:
-            filepath (Union[str, bool]): the full lib file path.
-            prx (_type_, optional): The lock prefix in the file name. Defaults to gobal FLAM3H_LIB_LOCK.
+            filepath(Union[str, bool]): the full lib file path.
 
         Returns:
-            bool: True if locked. False if not.
+            (bool): True if locked. False if not.
         """        
         if filepath is not False:
             if os.path.exists(filepath) and os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
@@ -1637,10 +1711,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Open the file explorer to the currently loaded file location.
 
         Args:
-            filepath_name (_type_): The currently loaded file name full path.
+            filepath_name(str): The currently loaded file name full path.
             
         Returns:
-            None
+            (None):
         """
         # If it is an exisiting valid file path
         if os.path.isfile(filepath_name):
@@ -1656,9 +1730,13 @@ reset_PREFS(self, mode: int=0) -> None:
 
     @staticmethod
     def util_getSceneViewers() -> list:
-        """
+        """Return a list of viewer currently open in this Houdini session.
+        
+        Args:
+            (None):
+            
         Returns:
-            list: [return a list of open scene viewers]
+            (list): [return a list of open scene viewers]
         """    
         views = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
@@ -1669,9 +1747,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Clear the stored stashed cam/cams data.
 
         Args:
+            (None):
             
         Returns:
-            None
+            (None):
         """
         try: del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
         except: pass
@@ -1692,9 +1771,10 @@ reset_PREFS(self, mode: int=0) -> None:
         It will also restore multiple stashed cameras if multiple viewers were open when entering the Sensor Viz mode.
 
         Args:
+            (None):
             
         Returns:
-            None
+            (None):
         """        
         try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except: _CAMS: Union[int, None]  = None
@@ -1786,7 +1866,12 @@ reset_PREFS(self, mode: int=0) -> None:
                                                             def flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
                                                             def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
                                                             def flam3h_toggle_off(self, prm: str) -> None:
-                                            
+                                                            
+        Args:
+            (self):
+            
+        Returns:
+            (None):                            
         """ 
         node = self.node
         # Clear menu caches
@@ -1818,8 +1903,12 @@ reset_PREFS(self, mode: int=0) -> None:
         OUT_BBOX_NODE_NAME_SENSOR
         OUT_BBOX_NODE_NAME_REFRAME
 
+        Args:
+            (self):
+            node_name(str): The node name to search for
+            
         Returns:
-            Union[str, None]: The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
+           ( Union[str, None]): The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
         """     
         matcher = nodesearch.Name(node_name, exact=True)
         search = matcher.nodes(self.kwargs['node'], recursive=True)
@@ -1834,6 +1923,12 @@ reset_PREFS(self, mode: int=0) -> None:
 
     def util_set_clipping_viewers(self) -> None:
         """Set current viewport camera clipping near/far planes
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
         """        
         for view in self.util_getSceneViewers():
             curView = view.curViewport()
@@ -1847,6 +1942,12 @@ reset_PREFS(self, mode: int=0) -> None:
 
     def util_store_all_viewers(self) -> None:
         """Store dictionaries of viewers cameras and their types
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
         """  
         # Do this only once; when we enter the sensor viz
         try: parm = self.kwargs['parm']
@@ -1897,7 +1998,8 @@ reset_PREFS(self, mode: int=0) -> None:
                     def flam3h_on_loaded(self) -> None:
 
         Args:
-            update (bool, optional): _description_. Defaults to True.
+            (self):
+            update(bool): Defaults to True. Updated the viewport camera sensor or not(False)
             
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
@@ -2004,6 +2106,7 @@ reset_PREFS(self, mode: int=0) -> None:
         It will activate the Sensor Viz in all available viewports with the ability of storing and restoring a stashed camera for each.
 
         Args:
+            (self):
             node(hou.SopNode): FLAM3H node
             update_sensor(bool): Is the force sensor update toggle ON or OFF ?
             _SYS_FRAME_VIEW_SENSOR_prm(bool): Is this being run from the SYS tab reframe viewport icon ?
@@ -2074,6 +2177,12 @@ reset_PREFS(self, mode: int=0) -> None:
 
     def util_viewport_bbox_frame(self) -> None:
         """Re-frame the current viewport based on camera sensor node's bounding box.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
         """  
         node = self.node
         
@@ -2110,7 +2219,11 @@ reset_PREFS(self, mode: int=0) -> None:
         and turn it Off if so. this way we guarantee there can be only one FLAM3H node in Camera sensor viz mode at any given time.
 
         Args:
-            node (hou.SopNode): This FLAM3H node
+            (self):
+            node(hou.SopNode): This FLAM3H node
+
+        Returns:
+            (None):
         """
         all_f3h = node.type().instances()
         if len(all_f3h) > 1:
@@ -2128,7 +2241,11 @@ reset_PREFS(self, mode: int=0) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
         Args:
-            prm (_type_, optional): _description_. Defaults to SYS_TAG. Toggle parameter name to use.
+            (self):
+            prm(str): Defaults to OUT_RENDER_PROPERTIES_SENSOR. Toggle parameter name to use.
+            
+        Returns:
+            (None):
         """        
         
         node = self.node
@@ -2172,7 +2289,11 @@ reset_PREFS(self, mode: int=0) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
         Args:
-            prm (_type_, optional): _description_. Defaults to SYS_TAG. Toggle parameter name to use.
+            (self):
+            prm(str): Defaults to SYS_TAG. Toggle parameter name to use.
+
+        Returns:
+            (None):  
         """        
         node = self.node
         toggle = node.parm(prm).eval()
@@ -2196,7 +2317,11 @@ reset_PREFS(self, mode: int=0) -> None:
         """If a toggle is ON it will switch it OFF.
 
         Args:
-            prm (str): Toggle parameter name to use
+            (self):
+            prm(str): Toggle parameter name to use
+
+        Returns:
+            (None):  
         """        
         toggle = self.node.parm(prm).eval()
         
@@ -2225,10 +2350,14 @@ reset_PREFS(self, mode: int=0) -> None:
             because it deal with the Loading and Saving data initializations in one place.
         
         Args:
-            mode (int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
-            destroy (bool): Destroy menu presets cached data. True or False.
-            json_file (Union[bool, None]): Default to None. Is it a json file ?
-            f3h_json_file (Union[bool, None]): Default to None. Is it a F3H json file ?
+            (self):
+            mode(int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
+            destroy(bool): Default to True. Destroy menu presets cached data. True or False.
+            json_file(Union[bool, None]): Default to None. Is it a json file ?
+            f3h_json_file(Union[bool, None]): Default to None. Is it a F3H json file ?
+            
+        Returns:
+            (None):
         """    
         node = self.node
         # Clear menu cache
@@ -2340,7 +2469,11 @@ reset_PREFS(self, mode: int=0) -> None:
         so this way we make sure to always be up to date.
         
         Args:
-            mode (int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
+            (self):
+            mode(int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
+            
+        Returns:
+            (None):
         """    
         node = self.node
         # Clear menu caches
@@ -2441,6 +2574,9 @@ reset_PREFS(self, mode: int=0) -> None:
             This need a little update at some point.
         
         Args:
+            (self):
+            
+        Returns:
             (None):
         """    
         node = self.node
@@ -2493,7 +2629,7 @@ reset_PREFS(self, mode: int=0) -> None:
         """Open the Houdini help browser to display the FLAM3H node documentation.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -2506,6 +2642,13 @@ reset_PREFS(self, mode: int=0) -> None:
         """Change viewport color scheme to dark
         and remember the current color scheme so to switch back to it when unchecked.
         If the viewport color scheme is already dark, checking this option will do nothing. 
+        
+        Args:
+            (self):
+            update_others(bool): Default to True. Update also the other FLAM3H nodes in the scene if any
+            
+        Returns:
+            (None):
         """
         node = self.node
         
@@ -2580,7 +2723,7 @@ reset_PREFS(self, mode: int=0) -> None:
         between Pixel and Points.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -2611,6 +2754,7 @@ reset_PREFS(self, mode: int=0) -> None:
         this will change their viewport size.
         
         Args:
+            (self):
             reset_val (Union[float, None]): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
             
         Returns:
@@ -2643,9 +2787,10 @@ reset_PREFS(self, mode: int=0) -> None:
         """Reset the FLAM3H SYS Tab parameters.
         
         Args:
-            density (int): Numper of points to use
-            iter (int): Number of iterations
-            mode (int): 0: skip "doff" 1: reset "doff"
+            (self):
+            density(int): Numper of points to use
+            iter(int): Number of iterations
+            mode(int): 0: skip "doff" 1: reset "doff"
             
         Returns:
             (None):
@@ -2665,7 +2810,7 @@ reset_PREFS(self, mode: int=0) -> None:
         """Reset the FLAM3H MB Tab parameters.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -2681,7 +2826,8 @@ reset_PREFS(self, mode: int=0) -> None:
         """Reset the FLAM3H PREFS Tab parameters.
 
         Args:
-            mode (int, optional): _description_. Defaults to 0.
+            (self):
+            mode(int): Defaults to 0. If set to 1, it will activate the flam3 compatibility option.
             
         Returns:
             (None):
@@ -3062,7 +3208,7 @@ iterator_vactive_and_update(self) -> None:
         Any changes to the entries on one of those need to be made also on the others.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
+            node(hou.SopNode): current hou.SopNode to set
         
         Returns:
             (None):
@@ -3082,7 +3228,7 @@ iterator_vactive_and_update(self) -> None:
         """Set all the parameter to build a sierpinski triangle.
 
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
+            node(hou.SopNode): current hou.SopNode to set
             
         Returns:
             (None):
@@ -3150,8 +3296,8 @@ iterator_vactive_and_update(self) -> None:
         """Get the node user data associated to the copy/paste data.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to get. 
+            node(hou.SopNode): [current hou.SopNode to set]
+            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to get. 
             
         Returns:
             (Union[int, bool]): Return the requested user data or False if it does not exist.
@@ -3170,8 +3316,8 @@ iterator_vactive_and_update(self) -> None:
         """Confirm the node user data associated to the copy/paste data Exist.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to get. For FF it wil be: " FLAM3H_USER_DATA_FF "
+            node(hou.SopNode): [current hou.SopNode to set]
+            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to get. For FF it wil be: " FLAM3H_USER_DATA_FF "
             
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
@@ -3188,8 +3334,8 @@ iterator_vactive_and_update(self) -> None:
         """Set the node comment associated to the copy/paste data. It can be for an iterator number or for the FF.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to set the comment for. 
+            node(hou.SopNode): FLAM3H node to set
+            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to set the comment for. 
 
         Returns:
             (None):
@@ -3237,8 +3383,8 @@ iterator_vactive_and_update(self) -> None:
         """Delete the node comment associated to the copy/paste data. It can be for an iterator number or for the FF.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            data (str): Default to: " FLAM3H_USER_DATA_ITER ". The name of the data we want to delete the comment for. 
+            node(hou.SopNode): FLAM3H node to set
+            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to delete the comment for. 
             
         Returns:
             (None):
@@ -3290,7 +3436,7 @@ iterator_vactive_and_update(self) -> None:
         """Initialize the copy/paste data need by FLAM3H iterators and stored into the current hou.session.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
+            node(hou.SopNode): FLAM3H node to set
             
         Returns:
             (None):
@@ -3312,7 +3458,7 @@ iterator_vactive_and_update(self) -> None:
         """Initialize the copy/paste data need by FLAM3H FF and stored into the current hou.session.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
+            node(hou.SopNode): FLAM3H node to set
             
         Returns:
             (None):
@@ -3335,7 +3481,7 @@ iterator_vactive_and_update(self) -> None:
         This will allow to re-load an hip file with marked iterator or FF and pick up from there, which is nice
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
+            node(hou.SopNode): FLAM3H node to set
             
         Returns:
             (None):
@@ -3357,8 +3503,8 @@ iterator_vactive_and_update(self) -> None:
         """Work as an history space to store the marked iterator info in it.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            data (int): Marked iterator number and info. The possible option are from 1 to n for the number of the marked iterator. 0 to signal no iterator has been marked. -1 if a marked iterator has been deleted.
+            node(hou.SopNode): FLAM3H node to set
+            data(int): Marked iterator number and info. The possible option are from 1 to n for the number of the marked iterator. 0 to signal no iterator has been marked. -1 if a marked iterator has been deleted.
             
         Returns:
             (None):
@@ -3378,11 +3524,11 @@ iterator_vactive_and_update(self) -> None:
         between different multiparameter indexes.
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            flam3node (hou.SopNode): [hou.SopNode to copy values from]
-            prm_list (tuple): [parameters list to query and set]
-            id (str): [current multiparamter index]
-            id_from (str): [multiparameter index to copy from]
+            node(hou.SopNode): FLAM3H node to set
+            flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
+            prm_list(tuple): parameters list to query and set
+            id(str): current multiparamter index
+            id_from(str): multiparameter index to copy from
             
         Returns:
             (None):
@@ -3420,10 +3566,10 @@ iterator_vactive_and_update(self) -> None:
         """Paste value from the post affine into the pre affine and viceversa ( just swap  )
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            prm_list_affine_to (tuple): [parameters list to query and set for the either the PRE or POST affine]
-            prm_list_affine_from (tuple): [parameters list to query and set for the either the PRE or POST affine]
-            id (str): [current multiparamter index]
+            node(hou.SopNode): FLAM3H node to set
+            prm_list_affine_to(tuple): parameters list to query and set for the either the PRE or POST affine
+            prm_list_affine_from(tuple): parameters list to query and set for the either the PRE or POST affine
+            id(str): current multiparamter index
             
         Returns:
             (None):
@@ -3460,12 +3606,12 @@ iterator_vactive_and_update(self) -> None:
         flam3h_iterator_utils.paste_from_list() definition.
          
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            flam3node (hou.SopNode): [hou.SopNode to copy values from]
-            prmT_list (tuple): [variations list - types]
-            varsPRM (tuple): [variation's parmaters list]
-            id (str): [current multiparamter index]
-            id_from (str): [multiparameter index to copy from]
+            node(hou.SopNode): FLAM3H node to set
+            flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
+            prmT_list(tuple): variations list - types
+            varsPRM(tuple): variation's parmaters list
+            id(str): current multiparamter index
+            id_from(str): multiparameter index to copy from
             
         Returns:
             (None):
@@ -3486,7 +3632,7 @@ iterator_vactive_and_update(self) -> None:
         this will save the current note and place it into parenthesis as a form of backup.
         
         Args:
-            _note (str): current note in the parameter
+            _note(str): current note in the parameter
 
         Returns:
             (str): simple new note append
@@ -3513,12 +3659,12 @@ iterator_vactive_and_update(self) -> None:
         """After a copy/paste, it will set the note parameter with a string indicating what has been pasted ( when copy/paste iterator's sections )
         
         Args:
-            node (hou.SopNode): [current hou.SopNode to set]
-            flam3node (hou.SopNode): [[hou.SopNode to copy values from]
-            int_mode (int): [int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes]
-            str_section (str): [section name string to be copied, this is only for msg print info]
-            id (str): [current multiparamter index]
-            id_from (str): [multiparameter index to copy from]
+            node (hou.SopNode): FLAM3H node to set
+            flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
+            int_mode(int): int(0) copy/paste iterator into the same node. int(1) copy/paste FF between different nodes. int(2) copy/paste FF sections between different nodes
+            str_section(str): section name string to be copied, this is only for msg print info
+            id(str): current multiparamter index
+            id_from(str): multiparameter index to copy from
             
         Returns:
             (None):
@@ -3569,7 +3715,7 @@ iterator_vactive_and_update(self) -> None:
     and reconvert it back to usable types.
 
         Args:
-            node (hou.SopNode): FLAM3H node
+            node(hou.SopNode): FLAM3H node 
 
         Returns:
             (Union[list, None]): A valid data type of the same data retrieved to be used inside: auto_set_xaos()
@@ -3587,7 +3733,7 @@ iterator_vactive_and_update(self) -> None:
     and reconvert it back to usable types.
 
         Args:
-            node (hou.SopNode): FLAM3H node
+            node(hou.SopNode): FLAM3H node
 
         Returns:
             (Union[list, None]): A valid data type of the same data retrieved to be used inside: auto_set_xaos()
@@ -3611,7 +3757,7 @@ iterator_vactive_and_update(self) -> None:
 
         Args:
             self (hou.SopNode): FLAM3H node
-            data (list): The actual data to set.
+            data (Union[list, tuple]): The actual data to set.
 
         Returns:
             (None):
@@ -3633,7 +3779,7 @@ iterator_vactive_and_update(self) -> None:
 
         Args:
             self (hou.SopNode): FLAM3H node
-            data (list): The actual data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
+            data (Union[list, tuple]): The actual data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
 
         Returns:
             (None):
@@ -3664,8 +3810,8 @@ iterator_vactive_and_update(self) -> None:
         """Check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP)
 
         Args:
-            node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
-            f3h_all (bool): Perform this check and correct if needed for all FLAM3H nodes in the scene.
+            node(hou.SopNode): The current FLAM3H node being loaded in the hip file.
+            f3h_all(bool): Default to False. Perform this check and correct if needed for all FLAM3H nodes in the scene.
 
         Returns:
             (None):
@@ -3700,8 +3846,14 @@ iterator_vactive_and_update(self) -> None:
             - in_presets_filepath
             - out_presets_menu
             - vars_menu_all_simple
+            
+        Args:
+            node(hou.SopNode): FLAM3H node
+            data(str): the name of the data to destroy
+            must_exist(bool): Default to False. Destroy data will run silently if the data name do not exist. Set it to True to get an error.
 
         Returns:
+            (None):
         """
         if not must_exist:
             try: node.destroyCachedUserData(data)
@@ -3715,8 +3867,8 @@ iterator_vactive_and_update(self) -> None:
         """This is a one off just for this data and scope
 
         Args:
-            node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
-            data_name (str): The name of the data to destroy.
+            node(hou.SopNode): The current FLAM3H node being loaded in the hip file.
+            data_name(str): The name of the data to destroy.
 
         Returns:
             (None):
@@ -3759,10 +3911,10 @@ iterator_vactive_and_update(self) -> None:
         This is to be used for the VAR section in the iterator (FLAME and FF tabs) 
 
         Args:
-            (None):
+            w(float): the variation weight to derive the proper bookmark icon to use.
             
         Returns:
-            w (float): The selected variation type weight parameter's value.
+            (str): The full path of the bookmark icon to use in the menu based on this variation weight value.
         """
         if w > 0:
             if w > 1:
@@ -3781,10 +3933,10 @@ iterator_vactive_and_update(self) -> None:
         This is to be used for the PRE and POST sections in the iterator (FLAME and FF tabs) 
 
         Args:
-            w(floar): The selected variation type weight parameter's value
-
+            w(float): the variation weight to derive the proper bookmark icon to use.
+            
         Returns:
-            (str): The full path of the bookmark icon to use
+            (str): The full path of the bookmark icon to use in the menu based on this variation weight value.
         """
         if w > 0:
             if w > 1:
@@ -3817,7 +3969,7 @@ iterator_vactive_and_update(self) -> None:
         It is an initial test, and it may or may not change/improve with time.
 
         Args:
-            (None):
+            (self):
 
         Returns:
             (None):
@@ -3846,7 +3998,7 @@ iterator_vactive_and_update(self) -> None:
         It is an initial test, and it may or may not change/improve with time.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -3872,7 +4024,7 @@ iterator_vactive_and_update(self) -> None:
         It is an initial test, and it may or may not change/improve with time.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -3897,7 +4049,7 @@ iterator_vactive_and_update(self) -> None:
         It is an initial test, and it may or may not change/improve with time.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -3922,11 +4074,9 @@ iterator_vactive_and_update(self) -> None:
         make any hand made modifications to the loaded files.
 
         Args:
-            node (hou.SopNode): The current FLAM3H node being loaded in the hip file.
-            f3h_all (bool): Perform this for all FLAM3H nodes in the scene.
-            
-        Args:
-            (None):
+            (self):
+            node(hou.SopNode): The FLAM3H node.
+            f3h_all(bool): Perform this for all FLAM3H nodes in the scene.
             
         Returns:
             (None):
@@ -3952,7 +4102,7 @@ iterator_vactive_and_update(self) -> None:
         to update to the new menu style mode.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -4005,7 +4155,7 @@ iterator_vactive_and_update(self) -> None:
         and provide a default name if no string in a FLAME tab iterator note parameter is left.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -4022,7 +4172,7 @@ iterator_vactive_and_update(self) -> None:
         """Provide a default name if no string in the FF tab note parameter is left.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -4036,7 +4186,7 @@ iterator_vactive_and_update(self) -> None:
         """Get this menu variation type idx and its weight value.
         
         Args:
-            (None):
+            (self):
 
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
@@ -4050,9 +4200,12 @@ iterator_vactive_and_update(self) -> None:
     
     def menu_T_FF_get_var_data(self) -> tuple[int, float]:
         """Get this FF menu variation type idx and its weight value.
+        
+        Args:
+            (self):
 
         Returns:
-            tuple[int, float]: int: variation idx.    float: weight value
+            (tuple[int, float]): int: variation idx.    float: weight value
         """  
         _TYPE = self.kwargs['parm'].eval()
         prm_weight_name = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
@@ -4065,10 +4218,10 @@ iterator_vactive_and_update(self) -> None:
         based on its weight value.
         
         Args:
-            (None):
+            (self):
             
         Returns:
-            tuple[int, str]: int: variation idx.    str: icon
+            (tuple[int, str]): int: variation idx.    str: icon
         """        
         _TYPE, w = self.menu_T_get_var_data()
         return _TYPE, self.menu_T_get_type_icon(w)
@@ -4080,10 +4233,10 @@ iterator_vactive_and_update(self) -> None:
         based on its weight value.
         
         Args:
-            (None):
+            (self):
 
         Returns:
-            tuple[int, str]: int: variation idx.    str: icon
+            (tuple[int, str]): int: variation idx.    str: icon
         """        
         _TYPE, w = self.menu_T_get_var_data()
         return _TYPE, self.menu_T_PP_get_type_icon(w)
@@ -4095,10 +4248,10 @@ iterator_vactive_and_update(self) -> None:
         based on its weight value.
         
         Args:
-            (None):
+            (self):
 
         Returns:
-            tuple[int, str]: int: variation idx.    str: icon
+            (tuple[int, str]): int: variation idx.    str: icon
         """        
         _TYPE, w = self.menu_T_FF_get_var_data()
         return _TYPE, self.menu_T_get_type_icon(w)
@@ -4110,10 +4263,10 @@ iterator_vactive_and_update(self) -> None:
         based on its weight value.
         
         Args:
-            (None):
+            (self):
 
         Returns:
-            tuple[int, str]: int: variation idx.    str: icon
+            (tuple[int, str]): int: variation idx.    str: icon
         """        
         _TYPE, w = self.menu_T_FF_get_var_data()
         return _TYPE, self.menu_T_PP_get_type_icon(w)
@@ -4125,10 +4278,10 @@ iterator_vactive_and_update(self) -> None:
         based on its weight value.
         
         Args:
-            (None):
+            (self):
 
         Returns:
-            tuple[int, str]: int: variation idx.    str: icon
+            (tuple[int, str]): int: variation idx.    str: icon
         """        
         idx = self.kwargs['script_multiparm_index']
         prm_weight_name = f"{flam3h_iterator_prm_names.prevar_weight_blur}_{str(idx)}"
@@ -4155,7 +4308,7 @@ iterator_vactive_and_update(self) -> None:
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4180,7 +4333,7 @@ iterator_vactive_and_update(self) -> None:
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4199,6 +4352,7 @@ iterator_vactive_and_update(self) -> None:
         """Populate variation names parameter menu list.
         
         Args:
+            (self):
             FF(bool): Default to False. If true it will signal we are looking to deal with data for the FF. In this specific definition the arg: FF is present only for consistency.
             
         Returns:
@@ -4218,6 +4372,7 @@ iterator_vactive_and_update(self) -> None:
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
 
         Args:
+            (self):
             FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF.
             
         Returns:
@@ -4246,6 +4401,7 @@ iterator_vactive_and_update(self) -> None:
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
+            (self):
             FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF.
 
         Returns:
@@ -4272,7 +4428,7 @@ iterator_vactive_and_update(self) -> None:
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4286,7 +4442,7 @@ iterator_vactive_and_update(self) -> None:
         """Build a menu of iterators using their states as bookmark icon
 
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4358,7 +4514,7 @@ iterator_vactive_and_update(self) -> None:
         """Cache or rebuild the menu on demand.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (list): return menu list
@@ -4394,7 +4550,7 @@ iterator_vactive_and_update(self) -> None:
             For now, it will just do nothing and let the user know.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -4497,7 +4653,8 @@ iterator_vactive_and_update(self) -> None:
         """init/clear copy/paste iterator's data and prm
         
         Args:
-            hipLoad(bool): To use when loading a hip file. Default to: False
+            (self):
+            hipLoad(bool): Default to False. To use when loading a hip file. Default to: False
             
         Returns:
             (None):
@@ -4537,7 +4694,7 @@ iterator_vactive_and_update(self) -> None:
         This is obsolete now and replaced with: def menu_global_density(self) -> None
         
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4561,7 +4718,7 @@ iterator_vactive_and_update(self) -> None:
         """Return a pre built static menu data.
 
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4574,7 +4731,7 @@ iterator_vactive_and_update(self) -> None:
         """Set density menu parameter based on user choice.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -4601,7 +4758,7 @@ iterator_vactive_and_update(self) -> None:
         """Revert density parameter to its default value.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -4628,7 +4785,7 @@ iterator_vactive_and_update(self) -> None:
         They are our sentinels and always vigilant.
         
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4705,7 +4862,7 @@ iterator_vactive_and_update(self) -> None:
         They are our sentinels and always vigilant.
         
         Args:
-            (None):
+            (self):
 
         Returns:
             (list): return menu list
@@ -4754,7 +4911,8 @@ iterator_vactive_and_update(self) -> None:
         It is for: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
-            node (hou.SopNode): the current FLAM3H node
+            (self):
+            node(hou.SopNode): the current FLAM3H node
 
         Returns:
             (tuple[Union[hou.SopNode, None], Union[int, None], bool]): 
@@ -4887,6 +5045,7 @@ iterator_vactive_and_update(self) -> None:
         It is for: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
+            (self):
             node(hou.SopNode): the current FLAM3H node
 
         Returns:
@@ -4945,8 +5104,8 @@ iterator_vactive_and_update(self) -> None:
         """Everything about paste iterator's data.
 
         Args:
+            (self):
             id(int): current multi parameter index
-            node(hou.SopNode): this FLAM3H node
 
         Returns:
             (None):
@@ -5012,8 +5171,8 @@ iterator_vactive_and_update(self) -> None:
         """Everything about unmarking iterators from being copied.
 
         Args:
+            (self):
             id(int): current multi parameter index
-            node(hou.SopNode): this FLAM3H node
 
         Returns:
             (None):
@@ -5071,8 +5230,8 @@ iterator_vactive_and_update(self) -> None:
         """Everything about marking iterators for being copied.
 
         Args:
+            (self):
             id(int): current multi parameter index
-            node(hou.SopNode): this FLAM3H node
 
         Returns:
             (None):
@@ -5127,7 +5286,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste the entire iterator's data.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5173,7 +5332,7 @@ iterator_vactive_and_update(self) -> None:
         """Everything about paste FF's data.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5210,7 +5369,7 @@ iterator_vactive_and_update(self) -> None:
         """Everything about unmarking FF from being copied.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5246,7 +5405,7 @@ iterator_vactive_and_update(self) -> None:
         """Everything about marking FF for being copied.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5284,7 +5443,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste the entire FF data.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5324,6 +5483,7 @@ iterator_vactive_and_update(self) -> None:
         This is being added to deal with a mismatch during undos.
         
         Args:
+            (self):
             node(hou.SopNode): This FLAM3H node
 
         Returns:
@@ -5342,7 +5502,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste only sections of an iterator.
         
         Args:
-            kwargs (dict): [kwargs[] dictionary]
+            (self):
 
         Returns:
             (None):
@@ -5423,7 +5583,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste only either the POST affine.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5442,7 +5602,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste only either the PRE affine.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5461,7 +5621,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste only either the FF POST affine.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5477,7 +5637,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste only either the FF PRE affine.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5493,7 +5653,7 @@ iterator_vactive_and_update(self) -> None:
         """Paste only sections of a FF.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5554,7 +5714,7 @@ iterator_vactive_and_update(self) -> None:
         The class function: out_flame_utils.out_xf_xaos_from(0) convert xaos from TO to FROM and back in one call.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5597,7 +5757,7 @@ iterator_vactive_and_update(self) -> None:
         """Reset an iterator pre affine values to their defaults.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5670,7 +5830,7 @@ iterator_vactive_and_update(self) -> None:
         """Reset an iterator post affine values to their defaults.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5745,7 +5905,7 @@ iterator_vactive_and_update(self) -> None:
         """Reset FF pre affine values to their defaults.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5815,7 +5975,7 @@ iterator_vactive_and_update(self) -> None:
         """Reset FF post affine values to their defaults.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5888,7 +6048,7 @@ iterator_vactive_and_update(self) -> None:
         """Swap the selected iterator PRE vars order or swap only their names.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5939,7 +6099,7 @@ iterator_vactive_and_update(self) -> None:
         """Swap the FF iterator POST vars order or swap only their names.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -5988,7 +6148,7 @@ iterator_vactive_and_update(self) -> None:
         """Reset the FLAM3H FF Tab parameters.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6026,7 +6186,7 @@ iterator_vactive_and_update(self) -> None:
         This is used to reset back FLAM3H node entire parameter template.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6082,7 +6242,7 @@ iterator_vactive_and_update(self) -> None:
         """Reset selected iterator to its default parameter's values.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6138,7 +6298,7 @@ iterator_vactive_and_update(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6362,7 +6522,7 @@ iterator_vactive_and_update(self) -> None:
         this will run and execute based on iterator's number: Zero or more then Zero.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6438,7 +6598,7 @@ iterator_vactive_and_update(self) -> None:
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6481,7 +6641,7 @@ iterator_vactive_and_update(self) -> None:
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6506,7 +6666,7 @@ iterator_vactive_and_update(self) -> None:
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -6539,7 +6699,7 @@ iterator_vactive_and_update(self) -> None:
         """Force menu updates and toggle ON/OFF if the correct parameter is being used.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7159,6 +7319,7 @@ reset_CP_palette_action(self) -> None:
         """Set the CP Palette preset name parameter after its string is being checked and corrected
 
         Args:
+            (self):
 
         Returns:
             (None):
@@ -7173,7 +7334,7 @@ reset_CP_palette_action(self) -> None:
         When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (list): return menu
@@ -7208,7 +7369,7 @@ reset_CP_palette_action(self) -> None:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (list): return menu
@@ -7247,7 +7408,7 @@ reset_CP_palette_action(self) -> None:
         Houdini will not update them until I dnt execute a "next" selection in the menu parameter.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (list): return menu
@@ -7282,7 +7443,7 @@ reset_CP_palette_action(self) -> None:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (list): return menu
@@ -7318,7 +7479,7 @@ reset_CP_palette_action(self) -> None:
         """Build palette data to save out into a *.json file
 
         Args:
-            (None):
+            (self):
 
         Returns:
             (tuple[dict, str]): (dict): Raw json data dictionary. (str): indented json data as string
@@ -7363,7 +7524,7 @@ reset_CP_palette_action(self) -> None:
         as when saving the HSV palette, its colors will be clamped. [0-255]
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7521,6 +7682,7 @@ reset_CP_palette_action(self) -> None:
         If not valid, or only one coclor is included, it will output one RED color and mark this palette as an Error.
 
         Args:
+            (self):
             rgb_from_XML_PALETTE(list): a list of colors collected from the palette json file preset (from file or from Clipboard)
             
         Returns:
@@ -7551,6 +7713,7 @@ reset_CP_palette_action(self) -> None:
         """Set the HSV values to either the one comeing from the loaded palette preset or to default values.
 
         Args:
+            (self):
             node(hou.SopNode): The current FLAM3H node.
             hsv_check(bool): True if the loaded palette preset posses its own HSV values or False if not.
             hsv_vals(list): If hsv_check is True, this will hold the values to be used to set the HSV parameter's values.
@@ -7572,7 +7735,7 @@ reset_CP_palette_action(self) -> None:
         """From the loaded palette preset data finally set the palette.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7676,6 +7839,7 @@ reset_CP_palette_action(self) -> None:
         using the SYS load palette button.
 
         Args:
+            (self):
             use_kwargs(bool): Default to: True. Use the houdini kwargs arguments or not. Defaults to True. This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
         """
         
@@ -7700,7 +7864,8 @@ reset_CP_palette_action(self) -> None:
         """Load the selected palette preset from the provided json file
         
         Args:
-            use_kwargs(bool): Default to: True. Use the houdini kwargs arguments or not. Defaults to True. This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
+            (self):
+            use_kwargs(bool): Default to True. Use the houdini kwargs arguments or not. Defaults to True. This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
 
         Returns:
             (None):
@@ -7828,7 +7993,8 @@ reset_CP_palette_action(self) -> None:
         """Force the HSV palette colors/keys to match the source palette colors/keys.
         
         Args:
-            palette_plus_msg(bool): Default to: False. Coordinate messages about palette 256+ when the preferences option: "palette 256+" is ON
+            (self):
+            palette_plus_msg(bool): Default to False. Coordinate messages about palette 256+ when the preferences option: "palette 256+" is ON
             
         Returns:
             (None):
@@ -7862,7 +8028,7 @@ reset_CP_palette_action(self) -> None:
         This is used when loading a palette preset to check if the user made modifications to the loaded palette.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7878,7 +8044,7 @@ reset_CP_palette_action(self) -> None:
         """Apply a HSV to the paltte colors/keys.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7902,7 +8068,7 @@ reset_CP_palette_action(self) -> None:
         This is also used to updated the palette HSV to keep it up to date with the source palette.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7922,7 +8088,7 @@ reset_CP_palette_action(self) -> None:
         this definition will probably need an updated. Will come back to investigate on this...
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7941,7 +8107,7 @@ reset_CP_palette_action(self) -> None:
         """Reset the TEMP palette to its defaults.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7958,7 +8124,7 @@ reset_CP_palette_action(self) -> None:
         """Reset the CP tab options toggles to their defaults.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -7973,7 +8139,7 @@ reset_CP_palette_action(self) -> None:
         """Reset the CP tab to its defaults.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8001,7 +8167,7 @@ reset_CP_palette_action(self) -> None:
         """Delete all ramps keyframes (Palette and HSV Palette)
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8024,7 +8190,7 @@ reset_CP_palette_action(self) -> None:
         """Reset the CP tab HSV values to their defaults.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8057,7 +8223,7 @@ reset_CP_palette_action(self) -> None:
         """Reset the CP tab Palette ramp to its defaults ( and the HSV palette too ).
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8086,6 +8252,7 @@ reset_CP_palette_action(self) -> None:
         """Run the desired reset_CP(...) definition.
 
         Args:
+            (self):
             mode(int): definition idx to run
 
         Returns:
@@ -8101,7 +8268,7 @@ reset_CP_palette_action(self) -> None:
         """Run the desired reset_CP(...) from the Palette action button.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8176,7 +8343,7 @@ flam3h_web_run(self, key: str) -> None:
         """Build and set the FLAM3H about message.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8238,7 +8405,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Build and set the FLAM3H about plugins message.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8255,7 +8422,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Build and set the FLAM3H about web heading's msgs.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8284,7 +8451,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the FLAM3H homepage.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8297,7 +8464,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the FLAM3H github repository.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8310,7 +8477,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the FLAM3H instagram account.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8322,7 +8489,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the FLAM3H youtube video tutorials.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8335,7 +8502,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the original "the fractal flame algorithm" publication/paper pdf.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8348,7 +8515,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the original FLAM3 github repository.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8361,7 +8528,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Open a web browser to the Fractorium Bitbucket repository.
         
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8374,6 +8541,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """Select the appropriate web open definition to run.
 
         Args:
+            (self):
             key(str): The key value that define whitch web definition to run.
 
         Returns:
@@ -8447,7 +8615,7 @@ ui_active_iterator_infos(self) -> None:
         """Open a message window with informations/tips about setting Xaos.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8521,7 +8689,7 @@ If you type a negative number, it will be reset to a value of: 1"""
         """Open a message window with informations/tips about setting Flame names in the OUT tab.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -8555,7 +8723,7 @@ and change the flame → “name” key afterwards.
         """Open a message window with informations/tips turning iterators ON or OFF and their consequences.
 
         Args:
-            (None):
+            (self):
             
         Returns:
             (None):
@@ -9083,6 +9251,7 @@ get_name(self, key=XML_XF_NAME) -> tuple
         Read this class __init__ doc string to know more.
 
         Args:
+            (self):
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
 
         Returns:
@@ -9140,6 +9309,7 @@ __get_flame_count(self, flames: list) -> int:
     def __init__(self, xmlfile: str) -> None:
         """
         Args:
+            (self):
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """        
         self._xmlfile = xmlfile
@@ -9175,7 +9345,7 @@ __get_flame_count(self, flames: list) -> int:
 
         Args:
             xmlfile(Union[str, None]): The flame file full path string we are trying to load.
-            clipboard(bool): True if the flame preset is being loaded from the clipboard and False if not.
+            clipboard(bool): Default to False. True if the flame preset is being loaded from the clipboard and False if not.
             
         Returns:
             (Union[str, None]): A new flame preset data valid to be loaded in.
@@ -9281,6 +9451,7 @@ __get_flame_count(self, flames: list) -> int:
         """Collect all Flame presets name from the XML Flame file.
 
         Args:
+            (self):
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
 
         Returns:
@@ -9299,6 +9470,7 @@ __get_flame_count(self, flames: list) -> int:
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
 
         Args:
+            (self):
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
             _DEFAULT(Union[str, list]): If something goes wrong, use this default value instead.
 
@@ -9317,6 +9489,7 @@ __get_flame_count(self, flames: list) -> int:
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
 
         Args:
+            (self):
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
             _DEFAULT(Union[str, list]): If something goes wrong, use this default value instead.
 
@@ -9335,6 +9508,7 @@ __get_flame_count(self, flames: list) -> int:
         Some examples of values to use this definition with are: size, center, scale (all key name that hold multiple string values in it)
 
         Args:
+            (self):
             key(str): The XML Flame's key name.
 
         Returns:
@@ -9351,6 +9525,7 @@ __get_flame_count(self, flames: list) -> int:
         """Collect the actual Flame presets object data from the XML file.
 
         Args:
+            (self):
             key (str): Defaults to XML_FLAME_NAME. The XML Flame's flame key.
 
         Returns:
@@ -9367,6 +9542,7 @@ __get_flame_count(self, flames: list) -> int:
         """Get the number of Flame presets inside the XML file.
 
         Args:
+            (self):
             flames(list): Flames objects data.
 
         Returns:
@@ -10631,7 +10807,7 @@ reset_IN(self, mode: int=0) -> None:
         """Convert a variation name into a variation PRE variation name.
 
         Args:
-            name(Union[str, list[str], tuple[str]]): name or names to convert.
+            name(Union[str, Union[list[str], KeysView], tuple[str]]): name or names to convert.
 
         Returns:
             (Union[str, list[str], None]): A converted str, list[str], tuple[str] of variation's names.
@@ -10650,10 +10826,10 @@ reset_IN(self, mode: int=0) -> None:
         """Convert a variation name into a variation POST variation name.
 
         Args:
-            name(Union[str, list[str], tuple[str]]): name or names to convert.
+            name(Union[str, Union[list[str], KeysView], tuple[str]]): name or names to convert.
 
         Returns:
-            (Union[Union[str, list[str]], None]): A converted str, list[str], tuple[str] of variation's names.
+            (Union[str, list[str], None]): A converted str, list[str], tuple[str] of variation's names.
         """  
         if type(name) is str:
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
@@ -10670,11 +10846,11 @@ reset_IN(self, mode: int=0) -> None:
         Those variations will be classified as: Unknown
 
         Args:
-            preset_id (int): The loaded flame preset idx
-            apo_data (in_flame_iter_data): The loaded flame preset data from the xml
+            preset_id(int): The loaded flame preset idx
+            apo_data(in_flame_iter_data): The loaded flame preset data from the xml
 
         Returns:
-            list: List of sorted uinknown variations if any
+            (list): List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
             plugins = [p.strip() for p in str(apo_data.plugins[preset_id]).split(" ") if p]
@@ -10704,10 +10880,10 @@ reset_IN(self, mode: int=0) -> None:
         """Load a flame preset from a file and tell us if it is a Chaotica flame preset or not.
 
         Args:
-            xml (str): the xml file to load from.
+            xml(str): the xml file to load from.
 
         Returns:
-            bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
+            (bool): attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """ 
         try: tree = lxmlET.parse(xml) # type: ignore
         except: tree = None
@@ -10725,8 +10901,11 @@ reset_IN(self, mode: int=0) -> None:
     def in_to_flam3h_clipboard_is_CHAOS() -> bool:
         """Load a flame preset from the clipboard and tell us if it is a Chaotica flame preset or not.
 
+        Args:
+            (None):
+            
         Returns:
-            bool: attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
+            (bool): attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """     
         xml = hou.ui.getTextFromClipboard() # type: ignore
         try: tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
@@ -10753,10 +10932,12 @@ reset_IN(self, mode: int=0) -> None:
         Use this with everything but not PRE and POST dictionary lookup, use def in_get_xforms_var_keys_PP() instead
         
         Args:
-            xforms (tuple): [list of all xforms contained inside this flame. This can be iterator's xforms or FF xform]
+            xforms(tuple): list of all xforms contained inside this flame. This can be iterator's xforms or FF xform
+            vars(Union[str, list[str], tuple[str], dict[str, int], dict[str, tuple], KeysView, None]): list of variations to look for inside each xfomrs, usually: VARS_FLAM3_DICT_IDX.keys()
+            exclude_keys(tuple): keys to exclude from teh search to speedup a little
 
         Returns:
-            Union[tuple[list, list], tuple[None, None]]: [return a list of variation's names in each xform,  or None]
+            (Union[list, None]): return a list of variation's names in each xform,  or None
         """    
         if xforms is not None:
             if type(vars) is dict:
@@ -10772,11 +10953,11 @@ reset_IN(self, mode: int=0) -> None:
     def in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str) -> Union[list, None]:
         """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.
         Args:
-            vars (list, None): per iterator list of variations used, ideally always the PRE variations are passed here
-            pgb_name (str): The name of the "pre_gaussian_blur" variation to check against.
+            vars(Union[list, None]): per iterator list of variations used, ideally always the PRE variations are passed here
+            pgb_name(str): The name of the "pre_gaussian_blur" variation to check against.
 
         Returns:
-            (list, None): A new list containing all iterator list of used variations without the "pre_gaussian_blur" if it was the first one in the list. 
+            (Union[list, None]): A new list containing all iterator list of used variations without the "pre_gaussian_blur" if it was the first one in the list. 
         """
         if vars is not None:
             [vars[idx].pop(0) for idx, iter in enumerate(vars) if iter and iter[0] == pgb_name]
@@ -10793,11 +10974,11 @@ reset_IN(self, mode: int=0) -> None:
         ex: from post_mobius to: mobius
     
         Args:
-            var_name (str): the variation name to remove the prefix from
-            prefix (str): the prefix to check
+            var_name(str): the variation name to remove the prefix from
+            prefix(str): the prefix to check
 
         Returns:
-            str: a variation name without the prefix, or the original variation name if it did not have any prefix. 
+            (str): a variation name without the prefix, or the original variation name if it did not have any prefix. 
         """
         if var_name.startswith(prefix):
             return var_name[len(prefix):]
@@ -10814,13 +10995,13 @@ reset_IN(self, mode: int=0) -> None:
         """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.
 
         Args:
-            xforms (Union[tuple, None]): All the xforms of this flame. This can be iterator's xforms or FF xform.
-            vars (dict): the variations we are searching for
-            prx (str): the current type of the variation expressed as a prefix: "pre" or "post"
-            exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+            xforms(Union[tuple, None]): All the xforms of this flame. This can be iterator's xforms or FF xform.
+            vars(dict): the variations we are searching for
+            prx(str): the current type of the variation expressed as a prefix: "pre" or "post"
+            exclude_keys(tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
 
         Returns:
-            Union[list[str], None]: return the a list of variations found using the prefix criteria
+            (Union[list, None]): return a list of variations found using the prefix criteria
         """  
         if xforms is not None:
             return [list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
@@ -10833,10 +11014,10 @@ reset_IN(self, mode: int=0) -> None:
         """Based on how many element in the passed list return the proper type of data.
         
         Args:
-            data (list): [a list of floats containinig the current parameter values to be converted into hou types]
+            data(list): [a list of floats containinig the current parameter values to be converted into hou types]
 
         Returns:
-            Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]: [Based on how many element in the passed list return the proper type of data]
+            (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]): Based on how many element in the passed list return the proper type of data
         """
         len_data = len(data)
         if len_data == 1:
@@ -10856,10 +11037,10 @@ reset_IN(self, mode: int=0) -> None:
         """Return the variation idx based on its name from the variation's dictionary.
         
         Args:
-            key (str): [variation name we are processing]
+            key(str): variation name we are processing
 
         Returns:
-            Union[int, None]: [return variation idx from the tuple look up table]
+            (Union[int, None]): return variation idx from the tuple look up table
         """
         try: idx = VARS_FLAM3_DICT_IDX.get(key)
         except: return None
@@ -10870,10 +11051,10 @@ reset_IN(self, mode: int=0) -> None:
     def in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
         """Set a prefix based on modes ( iterator, FF, FF PRE/POST )
         Args:
-            mode (int): [0 for iterator and 1 for FF]
+            mode(int): 0 for iterator and 1 for FF
 
         Returns:
-            tuple[str, str]: [return parameter prefix based on mode: Iterator, FF, FF POST]
+            (tuple[str, str]): return parameter prefix based on mode: Iterator, FF, FF POST
         """
         prx = ""
         prx_prm = ""
@@ -10898,12 +11079,12 @@ reset_IN(self, mode: int=0) -> None:
         Added the ability to set parameters based also on the F3H affine style format if included in the loaded Flame preset.
         
         Args:
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            prx (str): [parameter name prefix]
-            apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
-            n (flam3h_iterator_prm_names): [FLAM3H node iterator parameter's names from: class[in_flame_iter_data]]
-            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            prx(str): parameter name prefix
+            apo_data(in_flame_iter_data): Apophysis XML data collection from: class[in_flame_iter_data]
+            flam3h_prm_names(flam3h_iterator_prm_names): Class of FLAM3H iterator parameter's names
+            mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         """
         idx = str(mp_idx+1)
         pre_affine = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
@@ -10976,12 +11157,15 @@ reset_IN(self, mode: int=0) -> None:
         ...
         
         Args:
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            prx (str): [parameter name prefix]
-            apo_data (in_flame_iter_data): [Apophysis XML data collection from: class[in_flame_iter_data]]
-            prm_name (str): [parameter name for the current data we want to set]
-            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            prx(str): parameter name prefix
+            apo_data(in_flame_iter_data): Apophysis XML data collection from: class[in_flame_iter_data
+            prm_name(str): parameter name for the current data we want to set
+            mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+        
+        Returns:
+            (None):
         """
         if mode: pass
         else:
@@ -11001,12 +11185,12 @@ reset_IN(self, mode: int=0) -> None:
         It will swap the current variation dictionary item with the one the posses the corret names.
 
         Args:
-            v_type (int): The current variation we are processing
-            app (str): The software used to generate the loaded flame preset.
-            apo_prm (tuple): If no exception is found, return the original variation and parameter's names.
+            v_type(int): The current variation we are processing
+            app(str): The software used to generate the loaded flame preset.
+            apo_prm(tuple): If no exception is found, return the original variation and parameter's names.
 
         Returns:
-            tuple: _description_
+            (tuple): If an exception is confirmed, return the parameter expected parameter's name.
         """        
         if app.startswith(XML_APP_NAME_FRACTORIUM):
             check = flam3h_varsPRM_APO.varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
@@ -11024,11 +11208,11 @@ reset_IN(self, mode: int=0) -> None:
         Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX
 
         Args:
-            mydict (dict): The dictionary for lookup
-            idx (int): The variation index to retrieve its string name from.
+            mydict(dict): The dictionary for lookup
+            idx(int): The variation index to retrieve its string name from.
 
         Returns:
-            str: The variation string name.
+            (str): The variation string name.
         """       
         var_name = list(mydict.keys())[list(mydict.values()).index(idx)] 
         return var_name
@@ -11050,16 +11234,16 @@ reset_IN(self, mode: int=0) -> None:
         especially considering having many iterators each with parametric variations at the same time.
         
         Args:
-            node (hou.SopNode): [Current FLAM3H node]
-            mode (int): [0 for iterator. 1 for FF]
-            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
-            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            v_type (int): [the current variation type index]
-            func (Callable): [function to change variation name between var, pre_var and post_var]
+            node(hou.SopNode): Current FLAM3H node
+            mode(int): 0 for iterator. 1 for FF
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            xform(dict): current xform we are processing to the relative key names and values for the iterator
+            mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            v_type(int): the current variation type index
+            func(Callable): function to change variation name between var, pre_var and post_var
         
         Returns:
-            tuple: Expected data type of the collected parametric variation's parameters values.
+            (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]): Expected data type of the collected parametric variation's parameters values.
         """   
         
         iter_type = f"Iterator.{mp_idx+1}"
@@ -11100,16 +11284,19 @@ reset_IN(self, mode: int=0) -> None:
         This include setting the variation type, its weight and its parametric parameters for an iterator or the FF.
         
         Args:
-            app (str): [What software were used to generate this flame preset]
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW]
-            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-            v_type (int): [the current variation type index]
-            weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
-            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
+            app(str): What software were used to generate this flame preset
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW
+            xform(dict): current xform we are processing to the relative key names and values for the iterator
+            v_type(int): the current variation type index
+            v_weight(float): the current variation weight
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            
+        Returns:
+            (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         
@@ -11150,16 +11337,19 @@ reset_IN(self, mode: int=0) -> None:
         This include setting the variation type, its weight and its parametric parameters.
         
         Args:
-            app (str): [What software were used to generate this flame preset]
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
-            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-            v_type (int): [the current variation type index]
-            weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
-            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
+            app(str): What software were used to generate this flame preset
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            xform(dict): current xform we are processing to the relative key names and values for the iterator
+            v_type(int): the current variation type index
+            v_weight(float): the current variation weight
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            
+        Returns:
+            (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         
@@ -11197,16 +11387,19 @@ reset_IN(self, mode: int=0) -> None:
         This include setting the variation type, its weight and its parametric parameters.
         
         Args:
-            app (str): [What software were used to generate this flame preset]
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW]
-            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-            v_type (int): [the current variation type index]
-            weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
-            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
+            app(str): What software were used to generate this flame preset
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW
+            xform(dict): current xform we are processing to the relative key names and values for the iterator
+            v_type(int): the current variation type index
+            v_weight(float): the current variation weight
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            
+        Returns:
+            (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         
@@ -11242,14 +11435,17 @@ reset_IN(self, mode: int=0) -> None:
         This include setting the variation type, its weight and its parametric parameters.
         
         Args:
-            app (str): [What software were used to generate this flame preset]
-            node (hou.SopNode): [Current FLAM3H houdini node]
-            t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_prevarsT_FF, flam3h_iterator.sec_prevarsW_FF]
-            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-            v_type (int): [the current variation type index]
-            weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
-            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
+            app(str): What software were used to generate this flame preset
+            node(hou.SopNode): Current FLAM3H houdini node
+            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_prevarsT_FF, flam3h_iterator.sec_prevarsW_FF
+            xform(dict): current xform we are processing to the relative key names and values for the iterator
+            v_type(int): the current variation type index
+            v_weight(float): the current variation weight
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            
+        Returns:
+            (None):
         """
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
@@ -11282,14 +11478,17 @@ reset_IN(self, mode: int=0) -> None:
         This include setting the variation type, its weight and its parametric parameters.
         
         Args:
-            app (str): [What software were used to generate this flame preset]
-            node (hou.SopNode): [Current FLAM3H node]
-            t_idx (int): [current variation number idx to use with: flam3h_iterator.sec_postvarsT_FF, flam3h_iterator.sec_postvarsW_FF]
-            xform (dict): [current xform we are processing to the relative key names and values for the iterator]
-            v_type (int): [the current variation type index]
-            weight (float): [the current variation weight]
-            var_prm (tuple): [tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]]
-            apo_prm (tuple): [tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]]
+            app(str): What software were used to generate this flame preset
+            node(hou.SopNode): Current FLAM3H node
+            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_postvarsT_FF, flam3h_iterator.sec_postvarsW_FF
+            xform(dict): current xform we are processing to the relative key names and values for the iterator
+            v_type(int): the current variation type index
+            v_weight(float): the current variation weight
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            
+        Returns:
+            (None):
         """
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
@@ -11319,12 +11518,15 @@ reset_IN(self, mode: int=0) -> None:
         """Set a FLAM3H variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
-            v_type (int): [Current variation type index]
-            weight (float): [Current variation weight]
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            v_type(int): Current variation type index
+            v_weight(float): Current variation weight
+            
+        Returns:
+            (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
 
@@ -11348,12 +11550,15 @@ reset_IN(self, mode: int=0) -> None:
         """Set a FLAM3H PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
-            v_type (int): [Current variation type index]
-            weight (float): [Current variation weight]
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            v_type(int): Current variation type index
+            v_weight(float): Current variation weight
+            
+        Returns:
+            (None):
         """
         idx = str(mp_idx+1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
@@ -11372,12 +11577,15 @@ reset_IN(self, mode: int=0) -> None:
         """Set a FLAM3H POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
-            v_type (int): [Current variation type index]
-            weight (float): [Current variation weight]
+            mode(int): [0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            v_type(int): Current variation type index
+            v_weight(float): Current variation weight
+            
+        Returns:
+            (None):
         """
         idx = str(mp_idx+1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
@@ -11394,10 +11602,13 @@ reset_IN(self, mode: int=0) -> None:
         """Set a FLAM3H FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            node (hou.SopNode): [Current FLAM3H node]
-            t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
-            v_type (int): [Current variation type index]
-            weight (float): [Current variation weight]
+            node(hou.SopNode): Current FLAM3H node
+            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            v_type(int): Current variation type index
+            v_weight(float): Current variation weight
+            
+        Returns:
+            (None):
         """
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
@@ -11412,10 +11623,13 @@ reset_IN(self, mode: int=0) -> None:
         """Set a FLAM3H FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            node (hou.SopNode): [Current FLAM3H node]
-            t_idx (int): [Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW]
-            v_type (int): [Current variation type index]
-            weight (float): [Current variation weight]
+            node(hou.SopNode): Current FLAM3H node
+            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            v_type(int): Current variation type index
+            v_weight(float): Current variation weight
+            
+        Returns:
+            (None):
         """
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
         node.setParms({f"{flam3h_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
@@ -11430,10 +11644,13 @@ reset_IN(self, mode: int=0) -> None:
         """Set a FLAM3H pre_blur variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
         
         Args:
-            mode (int): [0 for iterator. 1 for FF]
-            node (hou.SopNode): [Current FLAM3H node]
-            mp_idx (int): [Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)]
-            pb_weights (tuple): [all iterators pre_blur weight values]
+            mode(int): 0 for iterator. 1 for FF
+            node(hou.SopNode): Current FLAM3H node
+            mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            pb_weights(tuple): all iterators pre_blur weight values
+        
+        Returns:
+            (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         if mode: pass
@@ -11448,12 +11665,12 @@ reset_IN(self, mode: int=0) -> None:
         This function will turn a negative weight into its absoulute value instead.
 
         Args:
-            node (hou.SopNode): FLAM3H node
-            w (float): The variation weight to check.
-            v_type_name (str): The name of the variation to print out if it turn out to have its weight with a negative value.
+            node(hou.SopNode): FLAM3H node
+            w(float): The variation weight to check.
+            v_type_name(str): The name of the variation to print out if it turn out to have its weight with a negative value.
 
         Returns:
-            float: _description_
+            (float): If the passed in weight value is negative, return its absolute value. Only for PRE and POST variations.
         """        
         if w < 0:
             print(f"{node.name()} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
@@ -11467,11 +11684,11 @@ reset_IN(self, mode: int=0) -> None:
         and get all the allowed variations to be used based on mode ( iterator or FF ).
 
         Args:
-            mode (int): iterator or FF
-            apo_data (in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
+            mode(int): iterator or FF
+            apo_data(in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
 
         Returns:
-            tuple[tuple, int]: _description_
+            (tuple[tuple, int]): Return a tuple containing either the iterator's xforms or the FF xform and max variation limit allowed.
         """        
         xf = ()
         _MAX_VARS = 0
@@ -11489,10 +11706,10 @@ reset_IN(self, mode: int=0) -> None:
         """Get the iteration number from the loaded Flame preset if any.
 
         Args:
-            preset_name (str): The Flame preset name.
+            preset_name(str): The Flame preset name.
 
         Returns:
-            Union[int, None]: The iteration number or none.
+            (Union[int, None]): The iteration number or none.
         """        
         splt = list(menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV))
         if len([item for item in splt if item]) > 1:
@@ -11508,10 +11725,10 @@ reset_IN(self, mode: int=0) -> None:
         This function will avoid to have an extra empty line at the very end.
 
         Args:
-            groups (list): The groups to join
+            groups(list): The groups to join
 
         Returns:
-            str: The final message without the extra empty line at the end.
+            (str): The final message without the extra empty line at the end.
         """     
         vars = [", ".join(grp) + "\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
         return ''.join(vars)
@@ -11522,12 +11739,12 @@ reset_IN(self, mode: int=0) -> None:
         """Return a flattened list of unique and sorted items without duplicates.
 
         Args:
-            VARS_list (Union[list[str], list[list[str]]]): The data to flatten, remove duplicates and sort.
-            func (Callable): Function to turn variation names from VAR to PRE or POST or none based on the function provided.
-            capitalize (bool): (default to: False) capitalize the variation's names if any are found.
+            VARS_list(Union[list[str], list[list[str]]]): The data to flatten, remove duplicates and sort.
+            func(Callable): Function to turn variation names from VAR to PRE or POST or none based on the function provided.
+            capitalize(bool): (default to: False) capitalize the variation's names if any are found.
 
         Returns:
-            list[str]: Return a flattened list of unique and sorted items without duplicates.
+            (list[str]): Return a flattened list of unique and sorted items without duplicates.
         """        
         flatten = [item for sublist in VARS_list for item in sublist]
         result = []
@@ -11546,11 +11763,11 @@ reset_IN(self, mode: int=0) -> None:
         Those need to be queried separately, this definition will query the currently visible one and account for the clipboard case as well.
 
         Args:
-            node (hou.SopNode): This FLAM3H node
-            preset_id (int): the menu preset selction index to use to retrive its menu label string
+            node(hou.SopNode): This FLAM3H node
+            preset_id(int): the menu preset selction index to use to retrive its menu label string
 
         Returns:
-            str: The selected menu preset menu label string
+            (str): The selected menu preset menu label string
         """
 
         toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
@@ -11589,11 +11806,13 @@ reset_IN(self, mode: int=0) -> None:
         to the value backed into the Flame preset name we just loaded.
 
         Args:
-            node (hou.SopNode): FLAM3H houdini node
-            preset_id (int): The Flame preset we loaded
+            node(hou.SopNode): FLAM3H houdini node
+            preset_id(int): The Flame preset we loaded
+            clipboard(bool): Are we loading from a file or from the clipboard ? This data is computed inside: def in_flame_utils.in_to_flam3h_init_data(self, node: hou.SopNode)
+            flame_name_clipboard(str): If we are laoding from the clipboard, use this preset name instead
 
         Returns:
-            int: The iteration number to set. If none is found, use the default value of 64 to load this Flame preset.
+            (int): The iteration number to set. If none is found, use the default value of 64 to load this Flame preset.
         """        
         iter_on_load = node.parm(IN_ITER_NUM_ON_LOAD).eval()
         use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
@@ -11625,11 +11844,11 @@ reset_IN(self, mode: int=0) -> None:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
 
         Args:
-            preset_id (int): The loaded XML Flame preset id to gather the data from.
-            apo_data (in_flame_iter_data): The XML Flame file data
+            preset_id(int): The loaded XML Flame preset id to gather the data from.
+            apo_data(in_flame_iter_data): The XML Flame file data
 
         Returns:
-            str: A string to be used to set the IN Render properties data parameter message.
+            (str): A string to be used to set the IN Render properties data parameter message.
         """        
         # spacers
         nl = "\n"
@@ -11670,11 +11889,11 @@ reset_IN(self, mode: int=0) -> None:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
 
         Args:
-            preset_id (int): The loaded XML Flame preset id to gather the data from.
-            apo_data (in_flame_iter_data): The XML Flame file data
+            preset_id(int): The loaded XML Flame preset id to gather the data from.
+            apo_data(in_flame_iter_data): The XML Flame file data
 
         Returns:
-            str: A string to be used to set the IN Render properties data parameter message.
+            (str): A string to be used to set the IN Render properties data parameter message.
         """        
         # spacers
         nl = "\n"
@@ -11731,9 +11950,12 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset sensor XML data into the FLAM3H OUT sensor data.
 
         Args:
-            node (hou.SopNode): FLAM3H node.
-            f3r (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
-            preset_id (int): the preset index we are loading 
+            node(hou.SopNode): FLAM3H node.
+            f3r(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            preset_id(int): the preset index we are loading 
+            
+        Returns:
+            (None):
         """  
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
         except:
@@ -11756,9 +11978,12 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset render XML data into the FLAM3H OUT render data.
 
         Args:
-            node (hou.SopNode): FLAM3H node.
-            f3r (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
-            preset_id (int): the preset index we are loading 
+            node(hou.SopNode): FLAM3H node.
+            f3r(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            preset_id(int): the preset index we are loading 
+            
+        Returns:
+            (None):
         """  
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
         except:
@@ -11787,9 +12012,12 @@ reset_IN(self, mode: int=0) -> None:
         It will check if each is one of the defaults settings first. 
 
         Args:
-            node (hou.SopNode): FLAM3H node.
-            f3r (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
-            preset_id (int): the preset index we are loading 
+            node(hou.SopNode): FLAM3H node.
+            f3r(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            preset_id(int): the preset index we are loading 
+            
+        Returns:
+            (None):
         """     
         # render curves
         if f3r.out_curves[preset_id] in OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL:
@@ -11830,9 +12058,12 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
 
         Args:
-            kwargs (hou.SopNode): houdini kwargs.
-            clipboard (bool): True: load from clipboard. False: load from disk file.
-            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            kwargs(hou.SopNode): houdini kwargs.
+            clipboard(bool): True: load from clipboard. False: load from disk file.
+            apo_data(Union[in_flame_iter_data, None]): The XML Flame file data to get the loaded preset data from.
+            
+        Returns:
+            (None):
         """       
         node = kwargs['node']
 
@@ -11888,7 +12119,10 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
 
         Args:
-            kwargs (hou.SopNode): houdini kwargs.
+            kwargs (dict): this FLAM3H node houdini kwargs.
+            
+        Returns:
+            (None):
         """        
         node = kwargs['node']
         
@@ -11929,7 +12163,10 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
 
         Args:
-            kwargs (hou.SopNode): houdini kwargs.
+            kwargs (dict): this FLAM3H node houdini kwargs.
+            
+        Returns:
+            (None):
         """        
         node = kwargs['node']
         
@@ -11980,7 +12217,10 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset CC CURVES data into the OUT Flame render color correction curves properties to be written out. 
 
         Args:
-            kwargs (hou.SopNode): houdini kwargs.
+            kwargs (dict): this FLAM3H node houdini kwargs.
+            
+        Returns:
+            (None):
         """        
         node = kwargs['node']
 
@@ -12032,6 +12272,16 @@ reset_IN(self, mode: int=0) -> None:
         
     @staticmethod
     def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
+        """Convert a dictionary of variation names into either PRE, VAR or POST variations names in one go.
+        This is used mainly with this dictionary: VARS_FRACTORIUM_DICT 
+
+        Args:
+            vars_dict(dict): The dictionary to convert.
+            func(Callable):  The function to conert the variation name. Can be any of: in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_VAR, in_flame_utils.in_util_make_POST, in_flame_utils.in_util_make_NULL
+            
+        Returns:
+            (dict): A new dictionary equal to the one passed in but with all variation names converted based on the passed Callable func.
+        """   
         return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 
 
@@ -12185,6 +12435,7 @@ reset_IN(self, mode: int=0) -> None:
         into the OUT tab properties.
 
         Args:
+            (self):
             
         Returns:
             (None):
@@ -12208,11 +12459,15 @@ reset_IN(self, mode: int=0) -> None:
     The collection of XML data happen inside: class: in_flame_iter_data()
 
         Args:
-            mode (int): iterator or FF
-            node (hou.SopNode): FLAM3H node
-            apo_data (in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
-            preset_id (int): the flame preset we are loading out of all the presets included in the flame file
-            exclude_keys (tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+            (self):
+            mode(int): iterator or FF
+            node(hou.SopNode): FLAM3H node
+            apo_data(in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
+            preset_id(int): the flame preset we are loading out of all the presets included in the flame file
+            exclude_keys(tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
+            
+        Returns:
+            (None):
         """ 
         
         # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
@@ -12420,12 +12675,13 @@ reset_IN(self, mode: int=0) -> None:
         """Build a message with all the informations about the Flame preset we just loaded.
 
         Args:
-            node (hou.SopNode): The current FLAM3H houdini node.
-            preset_id (int): The loaded XML Flame preset
-            apo_data (in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            (self):
+            node(hou.SopNode): The current FLAM3H houdini node.
+            preset_id(int): The loaded XML Flame preset
+            apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
 
         Returns:
-            str: A string to be used to set the IN Flame info data parameter message.
+            (str): A string to be used to set the IN Flame info data parameter message.
         """     
          
         node = self.node  
@@ -12580,12 +12836,15 @@ reset_IN(self, mode: int=0) -> None:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
-        Note:
-        If you change the icon gobal variable name inside here,
-        remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
+        _NOTE:
+            If you change the icon gobal variable name inside here,
+            remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
+
+        Args:
+            (self):
 
         Returns:
-            list: the actual menu
+            (list): the actual menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -12613,9 +12872,10 @@ reset_IN(self, mode: int=0) -> None:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
-
+            (self):
+            
         Returns:
-            list: Return a menu
+            (list): Return a menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -12650,12 +12910,15 @@ reset_IN(self, mode: int=0) -> None:
         This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
         Houdini will mix them up sometime, giving inconsistent results until I perform a new selection from the menu labels list.
 
-        Note:
-        If you change the icon gobal variable name inside here,
-        remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
+        _NOTE:
+            If you change the icon gobal variable name inside here,
+            remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
+
+        Args:
+            (self):
 
         Returns:
-            list: the actual menu
+            (list): the actual menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -12694,9 +12957,10 @@ reset_IN(self, mode: int=0) -> None:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
-
+            (self):
+            
         Returns:
-            list: Return a menu
+            (list): Return a menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -12726,6 +12990,12 @@ reset_IN(self, mode: int=0) -> None:
         
     def set_iter_on_load_callback(self) -> None:
         """Set the iteration number based on the "iteration on load" number.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
@@ -12735,6 +13005,12 @@ reset_IN(self, mode: int=0) -> None:
         
     def use_iter_on_load_callback(self) -> None:
         """When the IN tab "force iterations on Load" option is turned ON it will set the initial iteration number wisely.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         node = self.node
         useiteronload = node.parm(IN_USE_ITER_ON_LOAD).eval()
@@ -12756,7 +13032,7 @@ reset_IN(self, mode: int=0) -> None:
         """Given a FLAM3H parameter name, toggle it ON or OFF and reload the currently selected flame preset right after.
 
         Args:
-            prm (str): The strin parameter name (toggle parameter) we desire to switch either ON or OFF before reloading the selected flame preset.
+            prm(str): The strin parameter name (toggle parameter) we desire to switch either ON or OFF before reloading the selected flame preset.
             
         Returns:
             (None)
@@ -12778,6 +13054,12 @@ reset_IN(self, mode: int=0) -> None:
         and switch the "F3H affine style" toggle ON/OFF on the fly.
         
         If no F3H affine style are present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """ 
         node = self.node
         xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
@@ -12821,9 +13103,10 @@ reset_IN(self, mode: int=0) -> None:
         so not to clash or cause conflict with the new data generated by the new loaded flame preset.
 
         Args:
+            (self):
             
         Returns:
-            (None)
+            (None):
         """
         node = self.node
         
@@ -12856,8 +13139,12 @@ reset_IN(self, mode: int=0) -> None:
         It was not the fastest solution and this is actually making it more performant overall.
 
         Args:
-            node (hou.SopNode): This FLAM3H node
-            in_flame_iter_count (int): IN flame iterator's count ( number of xforms )
+            (self):
+            node(hou.SopNode): This FLAM3H node
+            in_flame_iter_count(int): IN flame iterator's count ( number of xforms )
+
+        Returns:
+            (None):
         """        
         # iterators
         flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
@@ -12882,8 +13169,9 @@ reset_IN(self, mode: int=0) -> None:
         """Reset the FLAM3H UI parameters to welcome the new one from the XML Flame preset we are loading.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
-            _FLAM3H_INIT_DATA (tuple[Union[str, None], bool, int, str, bool, bool]): tuple( xml, 
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            _FLAM3H_INIT_DATA(tuple[Union[str, None], bool, int, str, bool, bool]): tuple(  xml, 
                                                                                             clipboard, 
                                                                                             preset_id, 
                                                                                             clipboard_flame_name, 
@@ -12907,9 +13195,10 @@ reset_IN(self, mode: int=0) -> None:
         """Set the iterators data (FLAME or FF tab) into FLAM3H from the loaded XML Flame preset.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
-            apo_data (in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA (tuple[Union[str, None], bool, int, str, bool, bool]): tuple( xml, 
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
+            _FLAM3H_INIT_DATA(tuple[Union[str, None], bool, int, str, bool, bool]): tuple(  xml, 
                                                                                             clipboard, 
                                                                                             preset_id, 
                                                                                             clipboard_flame_name, 
@@ -12967,8 +13256,9 @@ reset_IN(self, mode: int=0) -> None:
         """Set the Motion Blur data into FLAM3H from the loaded XML Flame preset.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
-            apo_data (in_flame_iter_data): All the XML data from the loaded Flame preset.
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
 
         Returns:
             (None):
@@ -12987,9 +13277,10 @@ reset_IN(self, mode: int=0) -> None:
         """Set the Palette data into FLAM3H from the loaded XML Flame preset.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
-            apo_data (in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA (tuple[Union[str, None], bool, int, str, bool, bool]): tuple( xml, 
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
+            _FLAM3H_INIT_DATA(tuple[Union[str, None], bool, int, str, bool, bool]): tuple(  xml, 
                                                                                             clipboard, 
                                                                                             preset_id, 
                                                                                             clipboard_flame_name, 
@@ -13050,9 +13341,10 @@ reset_IN(self, mode: int=0) -> None:
         """Set all the loaded Flame preset stats/infos and copy its render properties if needed into the OUT tab.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
-            apo_data (in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA (tuple[Union[str, None], bool, int, str, bool, bool]): tuple( xml, 
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
+            _FLAM3H_INIT_DATA(tuple[Union[str, None], bool, int, str, bool, bool]): tuple(  xml, 
                                                                                             clipboard, 
                                                                                             preset_id, 
                                                                                             clipboard_flame_name, 
@@ -13110,9 +13402,10 @@ reset_IN(self, mode: int=0) -> None:
         """Set all the toggles about file and preset validity.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
-            apo_data (in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA (tuple[Union[str, None], bool, int, str, bool, bool]): tuple( xml, 
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
+            _FLAM3H_INIT_DATA(tuple[Union[str, None], bool, int, str, bool, bool]): tuple(  xml, 
                                                                                             clipboard, 
                                                                                             preset_id, 
                                                                                             clipboard_flame_name, 
@@ -13168,10 +13461,10 @@ reset_IN(self, mode: int=0) -> None:
         It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame preset into.
+            (self):
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+            (tuple[Union[str, None], bool, int, str, bool, bool]:): tuple(  xml, 
                                                                     clipboard, 
                                                                     preset_id, 
                                                                     clipboard_flame_name, 
@@ -13216,10 +13509,11 @@ reset_IN(self, mode: int=0) -> None:
         It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+            (tuple[Union[str, None], bool, int, str, bool, bool]):  tuple(  xml, 
                                                                     clipboard, 
                                                                     preset_id, 
                                                                     clipboard_flame_name, 
@@ -13276,6 +13570,9 @@ reset_IN(self, mode: int=0) -> None:
         
         It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
+        Args:
+            (self):
+
         Returns:
             tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
                                                                     clipboard, 
@@ -13308,10 +13605,11 @@ reset_IN(self, mode: int=0) -> None:
         It will also output some data to be used inside: def in_to_flam3h(self) -> None:
 
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+            (tuple[Union[str, None], bool, int, str, bool, bool]):  tuple(  xml, 
                                                                     clipboard, 
                                                                     preset_id, 
                                                                     clipboard_flame_name, 
@@ -13352,10 +13650,11 @@ reset_IN(self, mode: int=0) -> None:
         and provide some output data to work with if any of those cases is true.
         
         Args:
-            node (hou.SopNode): FLAM3H node to load the flame file/preset into.
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            tuple[Union[str, None], bool, int, str, bool]:  tuple(  xml, 
+            (tuple[Union[str, None], bool, int, str, bool, bool]):  tuple(  xml, 
                                                                     clipboard, 
                                                                     preset_id, 
                                                                     clipboard_flame_name, 
@@ -13414,6 +13713,12 @@ reset_IN(self, mode: int=0) -> None:
     def in_to_flam3h_sys(self) -> None:
         """Load a Flame preset into FLAM3H from the SYS Tab Flame load icon.
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         node = self.node
         xml = node.parm(IN_PATH).eval()
@@ -13436,6 +13741,12 @@ reset_IN(self, mode: int=0) -> None:
     def in_to_flam3h(self) -> None:
         """Load a Flame preset into FLAM3H.
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         node = self.node
         
@@ -13535,6 +13846,12 @@ reset_IN(self, mode: int=0) -> None:
     def in_to_flam3h_render_properties_only(self) -> None:
         """Load a Flame preset render properties into FLAM3H.
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         node = self.node
         
@@ -13569,7 +13886,11 @@ reset_IN(self, mode: int=0) -> None:
         """Reset the FLAM3H IN Tab parameters.
 
         Args:
-            mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
+            (self):
+            mode(int): Defaults to 0. 1 will reset the remainder of the parameters.
+            
+        Returns:
+            (None):
         """        
         node = self.node
 
@@ -13682,7 +14003,7 @@ menu_out_presets_loop(menu: list, i: int, item: str) -> None:
 
 menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
 
-out_collect_var_section_names(node: hou.SopNode, var_section="VAR") -> Union[list[str], None]:
+out_collect_var_section_names(node: hou.SopNode, var_section: str="VAR") -> Union[list[str], None]:
 
 out_collect_var_section_names_dict(node: hou.SopNode, mode: int=False, var_section="VAR") -> Union[dict[str, list[str]], bool]:
 
@@ -13807,7 +14128,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Set the defaults values into the color correction curves data parameters.
 
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H node
 
         Returns:
             (None):
@@ -13827,7 +14148,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         and copy it into the correcsponding color correction curves UI parameters.
 
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H node
 
         Returns:
             (None):
@@ -13861,7 +14182,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         and copy it into the correcsponding color correction curves UI parameters.
 
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H node
 
         Returns:
             (None):
@@ -13879,8 +14200,8 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
                     (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
 
         Args:
-            node (hou.SopNode): this FLAM3H node
-            mode (bool): Default to False.  (mode: False) will compare if they are default values( return: True) or not(return: False)
+            node(hou.SopNode): this FLAM3H node
+            mode(bool): Default to False.   (mode: False) will compare if they are default values( return: True) or not(return: False)
                                             (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
 
         Returns:
@@ -13908,7 +14229,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         and set the UI heading label parameter accordingly.
 
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H node
 
         Returns:
             (None):
@@ -13928,7 +14249,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         it will set proper color correction curves default values if needed.
 
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H node
 
         Returns:
             (None):
@@ -13972,12 +14293,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         and add the iteration number to it if needed.
 
         Args:
-            iter_num (int): the current iteration's number
-            flame_name (str): The Flame name to check
-            autoadd (int): Auto add iter num toggle value
+            iter_num(int): the current iteration's number
+            flame_name(str): The Flame name to check
+            autoadd(int): Auto add iter num toggle value
 
         Returns:
-            str: A new Flame name with the iter num added if needed.
+            (str): A new Flame name with the iter num added if needed.
         """
         if autoadd:
             
@@ -14043,12 +14364,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         it will add it to the end of the Flame name.
 
         Args:
-            iter_num (int): the current iteration's number
-            flame_name (str): The Flame name to check
-            autoadd (int): Auto add iter num toggle value
+            iter_num(int): the current iteration's number
+            flame_name(str): The Flame name to check
+            autoadd(int): Auto add iter num toggle value
 
         Returns:
-            str: A new Flame name with the iter num updated/added if needed.
+            (str): A new Flame name with the iter num updated/added if needed.
         """
         if autoadd:
             
@@ -14083,10 +14404,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Remove the iterations number from the Flame name if any
 
         Args:
-            flame_name (str): The Flame name to check
+            flame_name(str): The Flame name to check
 
         Returns:
-            str: A new Flame name without the iter num if any.
+            (str): A new Flame name without the iter num if any.
         """
             
         flame_name = flame_name.strip()
@@ -14117,11 +14438,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Create a default name to be used for the output Flame file path.
 
         Args:
-            node (hou.SopNode): Current FLAM3H houdini node
-            autoadd (int): Autoadd ON/OFF value. If ON, it will auto add the iteration number to the filename, otherwise not.
+            node(hou.SopNode): Current FLAM3H houdini node
+            autoadd(int): Autoadd ON/OFF value. If ON, it will auto add the iteration number to the filename, otherwise not.
 
         Returns:
-            str: _description_
+            (str): Return a default name composed of today's date and time.
         """        
         flame_name = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
         iter_num = node.parm(GLB_ITERATIONS).eval()
@@ -14129,14 +14450,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     @staticmethod
-    def out_util_round_float(val) -> str:
+    def out_util_round_float(val: float) -> str:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
-            VAL (_type_): The value to remove the floating zeros from
+            VAL(float): The value to remove the floating zeros from
 
         Returns:
-            str: A value without the floating zeros
+            (str): A value without the floating zeros
         """        
         if float(val).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
             return str(int(float(val)))
@@ -14149,10 +14470,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
-            VAL_LIST (list[list[str]]): A list of list[str] of values to rounds
+            VAL_LIST(Union[list[list[str]], tuple[list]]): A collection of values to rounds
 
         Returns:
-            list[list[str]]: A list of list[str] with the rounded values if any
+            (Union[list[str], list[list[str]], tuple[str]]): A list/tuple of list[str]/tuple[str] with the rounded values if any
         """    
         return [[str(int(float(i))) if float(i).is_integer() else str(round(float(i), ROUND_DECIMAL_COUNT)) for i in item] for item in val_list]
         
@@ -14162,10 +14483,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Check if any of the iterator sections (PRE, VAR or POST, same for FF) is using a variation multiple times.
 
         Args:
-            vars (list): a section list of used variations
+            vars(list): a section list of used variations
 
         Returns:
-            bool: True if there are duplicates and False if not.
+            (bool): True if there are duplicates and False if not.
         """        
         result = []
         [result.append(x) for x in vars if x not in result]
@@ -14181,10 +14502,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         Collect duplicate variation's names per each iterator.
 
         Args:
-            VARS (list): List of all variation's list names
+            vars(list): List of all variation's list names
 
         Returns:
-            list: duplicate variation's names per each iterator
+            (list): duplicate variation's names per each iterator
         """
         duplicate = []
         for iterator in vars:
@@ -14207,10 +14528,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Collect duplicate variation's names in an iterator.
 
         Args:
-            VARS (list): List of all variation's list names
+            vars(list): List of all variation's list names
 
         Returns:
-            list: duplicate variation's names per each iterator
+            (list): duplicate variation's names per each iterator
         """
         v = []
         d = []
@@ -14231,12 +14552,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         help to make spelling auto corrections to the provided output file path.
 
         Args:
-            file_split (tuple[str, str]): Returns tuple "(head, tail)" where "tail" is everything after the final slash. Either part may be empty
-            file_name (str): The input filename to be checked
-            file_ext (str): the desired filename extension
+            file_split(Union[tuple[str, str], list[str]]): Returns tuple "(head, tail)" where "tail" is everything after the final slash. Either part may be empty
+            file_name(str): The input filename to be checked
+            file_ext(str): the desired filename extension
 
         Returns:
-            str: A corrected file path
+            (str): A corrected file path
         """    
         # This code is very old and need some revision ;D
         build_f = "/".join(file_split) + file_ext
@@ -14256,11 +14577,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Print out some messages in the console and in the status bar.
 
         Args:
-            node (hou.SopNode): This FLAM3H node.
-            infile (str): THe file path to check.
-            file_new (str): The new generated file full path
-            file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file. 
-            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
+            node(hou.SopNode): This FLAM3H node.
+            infile(str): THe file path to check.
+            file_new(str): The new generated file full path
+            file_ext(str): Provide an extension to tell this function if it is a Flame file or a palette file. 
+            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
 
         Returns:
             (None):
@@ -14298,17 +14619,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     @staticmethod
     def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, auto_name: bool=True) -> Union[str, bool]:
-        """Check for the validity of the provided output file path.
+        """Check for the validity of the provided output file path and correct it if needed.
         
         _NOTE:
             This definition was very old and I am improving it.
 
         Args:
-            node (hou.SopNode): Current FLAM3H node.
-            infile (str): THe file path to check.
-            file_ext (str): Provide an extension to tell this function if it is a Flame file or a palette file. 
-            prx (str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
-            auto_name (bool): Default to: True. When checking the output path you some time do not want to generate a filename and extension, like for example inside the IN file string parameter.
+            node(hou.SopNode): Current FLAM3H node.
+            infile(str): THe file path to check.
+            file_ext(str): Provide an extension to tell this function if it is a Flame file or a palette file. 
+            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
+            auto_name(bool): Default to: True. When checking the output path you some time do not want to generate a filename and extension, like for example inside the IN file string parameter.
         
         Returns:
             Union[str, bool]: Either a corrected/valid file path or False if not valid.
@@ -14445,11 +14766,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         and export the resulting values out so we can get the same result once we load it back.
 
         Args:
-            affine (list[tuple]): X, Y, O afffine component
-            angleDeg (float): a float value that represent the angle in degrees ( The iterator.affine's angle parameter )
+            affine( list[Union[tuple[str], list[str]]]): X, Y, O afffine component
+            angleDeg(float): a float value that represent the angle in degrees ( The iterator.affine's angle parameter )
 
         Returns:
-            list[tuple]: A new affine list of tuples ( (X), (Y), (O) ) rotated by the angle amount.
+            (list[Union[list[str], tuple[str]]]): A new affine list of tuples ( (X), (Y), (O) ) rotated by the angle amount.
         """
         if angleDeg != 0.0:      
             angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
@@ -14469,7 +14790,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             xaos (Union[list[str], list[list[str]], tuple[str]]): All iterators xaos values.
 
         Returns:
-            list[list[str]]: _description_
+           (list[list[str]]): an iterator Xaos cleaned up from the inactive iterator's values
         """        
         xaos_cleaned = []
         for x in xaos:
@@ -14508,12 +14829,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             If you type a negative number, it will be reset to a value of: 1
 
         Args:
-            node (hou.SopNode): FLAM3H node
-            iter_count (int): Iterator's count
-            prm (str): xaos varnote parameter
+            node(hou.SopNode): FLAM3H node
+            iter_count(int): Iterator's count
+            prm(str): xaos varnote parameter
 
         Returns:
-            list[list[str]]: A list of xaos list[str] of values
+            (list[list[str]]): A list of xaos list[str] of values
         """   
 
         val = []
@@ -14591,12 +14912,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Check for any NO-active iterators and account for those.
 
         Args:
-            node (hou.SopNode): FLAM3H node
-            fill (list[np.array]): List of [np.array] representing all xaos weights.
-            prm (str): iterator vactive parameter.
+            node(hou.SopNode): FLAM3H node
+            fill(list[np.array]): List of [np.array] representing all xaos weights.
+            prm(str): iterator vactive parameter.
 
         Returns:
-            list[list[str]]: return a list of list[str] with the NO-active iterators taken into consideration.
+            (list[list[str]]): return a list of list[str] with the NO-active iterators taken into consideration.
         """    
         xaos_no_vactive = []
         for x in fill:
@@ -14613,10 +14934,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Reformat the XML data in a pretty way.
 
         Args:
-            current (_type_): The Flame XML root we want to reformat.
-            parent (_type_, optional): _description_. Defaults to None.
-            index (int, optional): _description_. Defaults to -1.
-            depth (int, optional): _description_. Defaults to 0.
+            current(_type_): The Flame XML root we want to reformat.
+            parent(_type_, optional): _description_. Defaults to None.
+            index(int): _description_. Defaults to -1.
+            depth(int): _description_. Defaults to 0.
         """        
         [out_flame_utils._out_pretty_print(node, current, i, depth + 1) for i, node in enumerate(current)]
         if parent is not None:
@@ -14634,9 +14955,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
-            menu (list): the menu list to populate.
-            i (int): The outer loop index/iteration.
-            item (str): The outer loop item at index/iteration.
+            menu(list): the menu list to populate.
+            i(int): The outer loop index/iteration.
+            item(str): The outer loop item at index/iteration.
 
         Returns:
             (None):
@@ -14654,9 +14975,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
-            menu (list): the menu list to populate.
-            i (int): The outer loop index/iteration.
-            item (str): The outer loop item at index/iteration.
+            menu(list): the menu list to populate.
+            i(int): The outer loop index/iteration.
+            item(str): The outer loop item at index/iteration.
 
         Returns:
             (None):
@@ -14668,17 +14989,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
         
     
-    # Not used yet
+
     @staticmethod
-    def out_collect_var_section_names(node: hou.SopNode, var_section="VAR") -> Union[list[str], None]:
+    def out_collect_var_section_names(node: hou.SopNode, var_section: str="VAR") -> Union[list[str], None]:
         """Collect all the variation's names inside any of the available iterator's sections (PRE, VAR, POST)
         
         Args:
-            node (hou.SopNode): FLAM3H node
-            section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
+            node(hou.SopNode): This FLAM3H node
+            var_section(str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
-            list[str]: List of used variations in this iterator/xform section
+            (Union[list[str], None]): List of used variations in this iterator/xform section
         """
         # Build var parameter's sections
         prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
@@ -14712,12 +15033,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         
         Args:
-            node (hou.SopNode): FLAM3H node
-            mode (bool): Default to: 'False'. False for iterators and True for FF.
-            var_section (str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
+            node(hou.SopNode): FLAM3H node
+            mode(bool): Default to: 'False'. False for iterators and True for FF.
+            var_section(str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
-            Union[dict[str, list[str]], bool]: A dictionary of used variations in this iterator/xform/FF or False if none in the desired section (VAR, PRE, POST)
+            (Union[dict[str, list[str]], bool]): A dictionary of used variations in this iterator/xform/FF or False if none in the desired section (VAR, PRE, POST)
         """
         # Build var parameter's sections
         if not mode:
@@ -14858,6 +15179,9 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """When activating the OUT option: palette 256+ toggle,
         let the user knows if the current palette posses enough colors and give some infos
 
+        Args:
+            (self):
+
         Returns:
             (None):
         """
@@ -14882,8 +15206,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def out_presets_get_selected_menu_label(self) -> Union[str, None]:
         """Get the currently selected OUT preset menu label string.
 
+        Args:
+            (self):
+
         Returns:
-            str: The selected menu preset menu label string if any or None
+            (Union[str, None]): The selected menu preset menu label string if any or None
         """
         node = self.node
 
@@ -14907,7 +15234,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     def out_presets_copy_menu_label_callback(self) -> None:
         """Get the currently selected OUT preset menu label string and copy it into the OUT Flame name string field.
-
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         
         node = self.node
@@ -14946,13 +15278,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         The minimum will always be clamped at: 256
 
         Args:
-            palette_plus (bool): "save palette 256+" toggle parameter value.
-            keys (int): number of color keys in the palette.
-            type (int): 0 for a Flame and 1 for a Palette.
-            _MSG: (bool): Print a warning message or not. Default to: True
+            (self):
+            palette_plus(bool): "save palette 256+" toggle parameter value.
+            keys(int): number of color keys in the palette.
+            type(int): 0 for a Flame and 1 for a Palette.
+            _MSG:(bool): Print a warning message or not. Default to: True
 
         Returns:
-            str: number of color to export
+            (str): number of color to export
         """  
 
         if palette_plus:
@@ -14984,6 +15317,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         Build sensor resolution menu parameter with a list of options.
         
+        Args:
+            (self):
+            
+        Returns:
+            (list): Return a menu
         """
 
         outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).eval()
@@ -15009,12 +15347,24 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         Output sensor resolution menu parameter with a list of options.
         
+        Args:
+            (self):
+            
+        Returns:
+            (list): Return a menu
         """
         return MENU_OUT_SENSOR_RESOLUTIONS
 
 
-    def menu_sensor_resolution_set(self, update=True) -> None:
+    def menu_sensor_resolution_set(self, update: bool=True) -> None:
         """Set sensor resolution parameter based on user choice.
+        
+        Args:
+            (self):
+            update(bool): True or False if we want to update the OUT Sensor front viewer
+            
+        Returns:
+            (None):
         """        
         node = self.node
         sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
@@ -15041,6 +15391,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
     def reset_OUT_sensor(self) -> None:
         """Reset the OUT Camera sensor settings parameters tab.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         
         node = self.node
@@ -15058,6 +15414,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
     def reset_OUT_render(self) -> None:
         """Reset the OUT Render settings parameters tab.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         node = self.node
         
@@ -15077,6 +15439,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def reset_OUT_kwargs(self) -> None:
         """Build a multifunctional reset OUT render properties method.
         IT will allow to reset the entire tab or either only the Sensor or Render settings tab.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         
         kwargs = self.kwargs
@@ -15109,6 +15477,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
     def reset_OUT_options(self) -> None:
         """Reset the OUT save options tab parameters.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """
         node = self.node
         node.setParms({OUT_HSV_PALETTE_DO: 0})
@@ -15117,11 +15491,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
 
 
-    def reset_OUT(self, mode=0) -> None:
+    def reset_OUT(self, mode: int=0) -> None:
         """Reset the OUT flame render properties to their default.
 
         Args:
-            mode (int, optional): _description_. Defaults to 0. 1 will reset the remainder of the parameters.
+            mode(int): Defaults to 0. 1 will reset the remainder of the parameters.
+
+        Returns:
+            (None):
         """        
         node = self.node
 
@@ -15154,8 +15531,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
     def out_xf_xaos_to(self) -> tuple:
         """Export in a tuple[str] the xaos TO values to write out
+        
+        Args:
+            (self):
+
         Returns:
-            tuple[str]: the xaos TO values to write out.
+            (tuple): the xaos TO values to write out.
         """
         val = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
@@ -15164,12 +15545,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
 
 
-    def out_xf_xaos_from(self, mode=0) -> tuple:
+    def out_xf_xaos_from(self, mode: int=0) -> tuple:
         """Export in a tuple[str] the xaos FROM values to write out
+        
         Args:
-            mode (int, optional): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
+            mode(int): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
+            
         Returns:
-            tuple[str]: the xaos FROM values transposed into xaos TO values to write out.
+            (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
         val = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
@@ -15183,9 +15566,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
     def menu_out_contents_presets_data(self) -> list:
         """Populate OUT parameter menu items for the SYS and OUT tab.
+        
+        Args:
+            (self):
 
         Returns:
-            list: _description_
+            (list): Return a menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -15219,6 +15605,7 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
+            (self):
 
         Returns:
             list: Return a menu
@@ -15253,9 +15640,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         def out_auto_add_iter_num_to_prm()
         
         def out_auto_change_iter_num_to_prm()
+        
+        Args:
+            (self):
 
         Returns:
-            tuple[int, str, int]: A tuple with the needed data
+            (tuple[int, str, int]): A tuple with the needed data
         """        
         node = self.node
         iter_num = node.parm(GLB_ITERATIONS).eval()
@@ -15267,6 +15657,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     # Callback script
     def out_auto_add_iter_num_to_prm(self) -> None:
         """Add the iteration number string to the OUT Flame name after you type one name string in.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
@@ -15277,6 +15673,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     # Callback script
     def out_auto_change_iter_num_to_prm(self) -> None:
         """Change the iteration number string to the OUT Flame name when you change FLAM3H iterations.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """      
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
@@ -15300,10 +15702,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Return a dictionary with all the flame properties to written out.
 
         Args:
-            f3r (out_flame_render_properties): Flame render properties class
+            (self):
+            f3r(out_flame_render_properties): Flame render properties class
 
         Returns:
-            dict: _description_
+            (dict): a dictionary with all the flame properties to written out
         """   
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
@@ -15347,10 +15750,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         If not, print out details to let us know what is wrong with it.
 
         Args:
-            (None):
+            (self):
             
         Returns:
-            bool: Return True if the Flame is valid or False if not.
+            (bool): Return True if the Flame is valid or False if not.
         """        
         node = self.node
         
@@ -15472,15 +15875,15 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         It will also return a list of used variations in the provided iterator/xform.
         
         Args:
-            varsPRM (tuple): FLAM3H variation's types and their parametric parameters names.
-            TYPES_tuple (tuple): FLAM3H variation's types parameters names.
-            WEIGHTS_tuple (tuple): FLAM3H variation's weights parameters names.
-            XFORM (lxmlET.Element): The current xform (lxmlET.Element) to populate.
-            MP_IDX (str): Current multiparameter index
-            FUNC (Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
+            varsPRM(tuple): FLAM3H variation's types and their parametric parameters names.
+            TYPES_tuple(tuple): FLAM3H variation's types parameters names.
+            WEIGHTS_tuple(tuple): FLAM3H variation's weights parameters names.
+            XFORM(lxmlET.Element): The current xform (lxmlET.Element) to populate.
+            MP_IDX(str): Current multiparameter index
+            FUNC(Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
 
         Returns:
-            list[str]: List of used variation in this iterator/xform
+            (list[str]): List of used variation in this iterator/xform
         """
         node = self.node
         names = []
@@ -15520,11 +15923,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Build the XML Flame data to be then written out.
 
         Args:
-            kwargs (dict): _description_
-            root (lxmlET.Element): The root of either the flame to be written out or the flame file to append the new flame to.
+            (self):
+            flame(lxmlET.Element): The root of either the flame to be written out or the flame file to append the new flame to.
 
         Returns:
-            bool: return True if the Flame is a compatible FLAM3 flame or False if not.
+            (bool): return True if the Flame is a compatible FLAM3 flame or False if not.
         """        
         # Build Flame data and render properties
         f3d = out_flame_xforms_data(self.kwargs)
@@ -15623,8 +16026,11 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Write out a new XML flame file with only the current FLAM3H flame preset.
 
         Args:
-            kwargs (dict): _description_
-            outpath (str): Current OUT flame full file path.
+           (self):
+            outpath(str): Current OUT flame full file path.
+            
+        Returns:
+            (none):
         """   
         node = self.node
            
@@ -15648,6 +16054,10 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Write out a new XML flame file with only the current FLAM3H flame preset into the clipboard.
 
         Args:
+            (self):
+            
+        Returns:
+            (None):
         """ 
         node = self.node
         
@@ -15669,9 +16079,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         """Append a XML flame file to the current OUT flame lib file.
 
         Args:
-            kwargs (dict): _description_
-            apo_data (in_flame): Current OUT flame lib file data for all its flame presets.
-            out_path (str): Current OUT flame full file path.
+            (self):
+            apo_data(in_flame): Current OUT flame lib file data for all its flame presets.
+            out_path(str): Current OUT flame full file path.
+
+        Returns:
+            (None):
         """                
         node = self.node
         
@@ -15698,6 +16111,12 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     def out_XML(self) -> None:
         """Write out the XML Flame file.
         It allow for writing out a new file or append to the current XML flame file.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
         """        
         node = self.node
         # Force this data to be rebuilt
