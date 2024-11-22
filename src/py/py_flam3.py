@@ -9482,10 +9482,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         In the end it will re-join everything for output.
         
         Args:
-            val (str): [value from the xml]
+            val(str): value from the xml
+            default_val(str): If something goesw wrong use this as the returned value.
 
         Returns:
-            str: [value cleaned up from invalid characters]
+            (str): value cleaned up from invalid characters
         """  
         new = []
         knots = val.strip().split(' ')
@@ -9508,10 +9509,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """ Attempt to remove invalid characters from the passed value.
         
         Args:
-            val (str): [value from the xml]
+            val(str): value from the xml
+            default_val(str): If something goes wrong use this as the returned value.
 
         Returns:
-            str: [value cleaned up from invalid characters]
+            (str): value cleaned up from invalid characters
         """  
         try:
             float(val)
@@ -9527,13 +9529,14 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
     @staticmethod
     def xf_list_cleanup(affine: list, default_val: str='0') -> list:
-        """ Attempt to remove invalid characters from the list values and return a list.
+        """Attempt to remove invalid characters from the list values and return a list.
         
         Args:
-            affine (list): [affine values from the xml]
+            affine(list): affine values from the xml
+            default_val(str): If something goes wrong use this as the returned value.
 
         Returns:
-            list: [a list of affine values cleaned up from invalid characters]
+            (list): a list of affine values cleaned up from invalid characters
         """  
         new = []
         for val in affine:
@@ -9555,10 +9558,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
         
         Args:
-            affine (list): [affine values from the xml]
+            affine(list): affine values from the xml
+            default_val(str): If something goesw wrong use this as the returned value.
 
         Returns:
-            str: [a string of spaced joined affine values cleaned up from invalid characters]
+            (str): a string of spaced joined affine values cleaned up from invalid characters
         """  
         new = []
         for val in affine:
@@ -9581,12 +9585,13 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         It will also check the affine passed in and provide an alternative defaults affine values if not correct and print out messages to inform the user about different cases.
         
         Args:
-            affine (list): [affine values from the xml]
-            key (str, default to: ''): [The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE]
-            mp_idx (int, default to: None): [multi parameter index, for messaging purpose only]
+            affine(list): affine values from the xml
+            key(str): The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
+            mp_idx(Union[int, None]=None): [multi parameter index, for messaging purpose only]
+            type(int): Is it an iterator or an FF ?
 
         Returns:
-            list: [a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms, or an empty list if something is wrong]
+            (list): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms, or an empty list if something is wrong
         """      
         affine_count = len(affine)
         if affine_count == 6:
@@ -9633,12 +9638,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """If all iterators have their weights set to: 0.0(ZERO), let the user know.
         
         Args:
-            self:
-            node (hou.SopNode): Current FLAM3H node we are loading a Flame preset from.
-            kevalues (list): list of all iterators key values, in this case all iterator;s weights values.
+            node(hou.SopNode): Current FLAM3H node we are loading a Flame preset from.
+            kevalues(list): list of all iterators key values, in this case all iterator's weights values.
 
         Returns:
-           None
+           (None):
         """   
         if min(keyvalues) == max(keyvalues) == 0:
             # Since this case is now being addressed directly in the CVEX code,
@@ -9764,10 +9768,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """Make sure the fractal flame's idx passed in will always be valid and never out of range.
 
         Args:
-            idx (int): [flame idx out of all flames included in the loaded flame file]
+            (self):
+            idx(int): flame idx out of all flames included in the loaded flame file
 
         Returns:
-            int: [clamped idx value just in case the user pass an invalid idx to this function]
+            (int): clamped idx value just in case the user pass an invalid idx to this function
         """     
         return 0 if idx < 0 else 0 if self.flame_count == 1 else self.flame_count-1 if idx > self.flame_count-1 else idx
 
@@ -9777,12 +9782,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         every xform in xforms is a dict coming directly from the parsed XML file.
 
         Args:
-            self:
-            idx (int): [flame idx out of all flames included in the loaded flame file]
-            key (str): [use "xform" for transforms and "finalxform" for final flame transform]
+            (self):
+            idx(int): flame idx out of all flames included in the loaded flame file
+            key(str): use "xform" for transforms and "finalxform" for final flame transform
 
         Returns:
-            tuple: [a tuple of all xforms inside the selected flame or None]
+            (tuple): a tuple of all xforms inside the selected flame or None
         """
         if  self.isvalidtree:
             xforms = [xf.attrib for xf in self.flame[idx].iter(key)]
@@ -9806,12 +9811,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def __get_xaos(self, xforms: Union[tuple, None], key: str=XML_XF_XAOS) -> Union[tuple, None]:
         """
         Args:
-            self:
-            xforms (list): [list of all xforms contained inside this flame]
-            key (str): the flame XML xaos tag name.
+            (self):
+            xforms(list): list of all xforms contained inside this flame
+            key(str): the flame XML xaos tag name.
 
         Returns:
-            Union[tuple, None]: [either a list of xaos strings or None]
+            (Union[tuple, None]): either a list of xaos strings or None
         """        
         if  self.isvalidtree and xforms is not None:
 
@@ -9826,13 +9831,13 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def __get_affine(self, xforms: Union[tuple, None], key: str, type: int=0) -> Union[tuple, None]:
         """
         Args:
-            self:
-            xforms (list): [list of all xforms contained inside this flame]
-            key (str): [affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine]
-            type (int): [Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1]
+            (self):
+            xforms(list): list of all xforms contained inside this flame
+            key(str): affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine
+            type(int): Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1
 
         Returns:
-            Union[tuple, None]: [Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None]
+            (Union[tuple, None]): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None
         """           
         if  self.isvalidtree and xforms is not None:
             coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split())], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
@@ -9846,12 +9851,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def __get_keyvalue(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
         """
         Args:
-            self:
-            xforms (list): [list of all xforms contained inside this flame]
-            key (str): [xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity']
+            (self):
+            xforms(Union[tuple, None]): list of all xforms contained inside this Flame or None if something went wrong.
+            key(str): xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity'
 
         Returns:
-            Union[tuple, None]: [description]
+            (Union[tuple, None]): description
         """        
         if self.isvalidtree and xforms is not None:
             
@@ -9920,12 +9925,12 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def __get_palette(self, idx: int, key: str=XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
         """
         Args:
-            self:
-            idx (int): [flame idx out of all flames included in the loaded flame file]
-            key (str): the flame XML palette tag name.
+            (self):
+            idx(int): flame idx out of all flames included in the loaded flame file
+            key(str): the flame XML palette tag name. Default to: XML_PALETTE
 
         Returns:
-            hou.Ramp: [return an already made hou.Ramp with values from the flame xml palette]
+            (Union[tuple[hou.Ramp, int, str], None]): return a tu-ple with an already made hou.Ramp, number of keys, format or None if something went wrong.
         """     
            
         if  self.isvalidtree:
@@ -9966,10 +9971,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def __get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
         """
         Args:
-            idx (int): [flame idx out of all flames included in the loaded flame file]
+            (self):
+            idx(int): flame idx out of all flames included in the loaded flame file
 
         Returns:
-            hou.Vector3 or False: [a hou.Vector3 of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
+            (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]): [a hou.Vector type of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
         """   
         if self.isvalidtree:
             palette_hsv_xml_list = self.flam3h_hsv[idx]
@@ -9987,16 +9993,16 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
     def __get_mb_flam3h_mb(self, idx: int, key: str='') -> Union[int, float, bool, None]:
         """
         Args:
-            self:
-            idx (int): [flame idx out of all flames included in the loaded flame file]
-            key (str): the flame XML motion blur tag name you are interested to get:
+            (self):
+            idx(int): flame idx out of all flames included in the loaded flame file
+            key(str): the flame XML motion blur tag name you are interested to get:
             
             OUT_XML_FLMA3H_MB_FPS -> flam3h_mb_fps
             OUT_XML_FLMA3H_MB_SAMPLES -> flam3h_mb_samples
             OUT_XML_FLMA3H_MB_SHUTTER -> flam3h_mb_shutter
 
         Returns:
-            Union[int, float, bool, None]: [FLAM3H motion blur parameter's values.]
+            (Union[int, float, bool, None]): FLAM3H motion blur parameter's values.
         """   
         if self.isvalidtree:
             mb_do = self.flam3h_mb[idx]
@@ -10022,11 +10028,11 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """
         Args:
             self:
-            idx (int): [flame idx out of all flames included in the loaded flame file]
-                        palette: (Union[tuple[hou.Ramp, int, str]): The loaded Flame palette data if any[palette hou ramp parm, colors count, format], otherwise: None
+            idx(int): flame idx out of all flames included in the loaded flame file
+                      palette(Union[tuple[hou.Ramp, int, str]): The loaded Flame palette data if any[palette hou ramp parm, colors count, format], otherwise: None
 
         Returns:
-            Union[int, bool]: [FLAM3H palette lookup samples parameter values.]
+            (Union[int, bool]): FLAM3H palette lookup samples parameter values.
         """   
         if self.isvalidtree:
             cp_samples_key = self.flam3h_cp_samples[idx]
@@ -10055,10 +10061,10 @@ __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """Get FLAM3H toggle parameter value: ON or OFF ( 1 or 0 )
 
         Args:
-            toggle (bool): _description_
+            toggle(bool): Get value from a toggle (Either ON or OFF - 1 or 0)
 
         Returns:
-            Union[int, None]: This flame toggle
+            (Union[int, None]): This flame toggle or None if not found
         """        
 
         if self.isvalidtree:
