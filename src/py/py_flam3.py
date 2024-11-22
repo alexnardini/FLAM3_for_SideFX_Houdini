@@ -10573,6 +10573,14 @@ reset_IN(self, mode: int=0) -> None:
         
     @staticmethod
     def in_util_key_name_isalnum(key_name: str) -> str:
+        """Check and correct the passed in string for invalid characters.
+
+        Args:
+            name(str): The string to check and correct.
+
+        Returns:
+            (str): the corrected string.
+        """  
         return ''.join(letter for letter in key_name.strip() if letter.isalnum())
     
     
@@ -10581,10 +10589,10 @@ reset_IN(self, mode: int=0) -> None:
         """This definition is used as a place holder.
 
         Args:
-            name (Union[str, list[str], tuple[str]]): name or names to convert.
+            name(Union[str, list[str], tuple[str]]): name or names to convert.
 
         Returns:
-            Union[Union[str, list[str]], None]: The untouched name's value passed in as argument.
+            (Union[str, list[str], tuple[str]]): The untouched name's value passed in as argument.
         """       
         return name
 
@@ -10594,10 +10602,10 @@ reset_IN(self, mode: int=0) -> None:
         """Convert a PRE or POST variation name into a variation name.
 
         Args:
-            name (Union[str, list[str], tuple[str]]): name or names to convert.
+            name(Union[str, list[str], tuple[str]]): name or names to convert.
 
         Returns:
-            Union[Union[str, list[str]], None]: A converted str, list[str], tuple[str] of variation's names.
+            (Union[Union[str, list[str]], None]): A converted str, list[str], tuple[str] of variation's names.
         """        
         if type(name) is str:
             if name.startswith(V_PRX_PRE):
@@ -10623,10 +10631,10 @@ reset_IN(self, mode: int=0) -> None:
         """Convert a variation name into a variation PRE variation name.
 
         Args:
-            name (Union[str, list[str], tuple[str]]): name or names to convert.
+            name(Union[str, list[str], tuple[str]]): name or names to convert.
 
         Returns:
-            Union[Union[str, list[str]], None]: A converted str, list[str], tuple[str] of variation's names.
+            (Union[str, list[str], None]): A converted str, list[str], tuple[str] of variation's names.
         """  
         if type(name) is str:
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
@@ -10642,10 +10650,10 @@ reset_IN(self, mode: int=0) -> None:
         """Convert a variation name into a variation POST variation name.
 
         Args:
-            name (Union[str, list[str], tuple[str]]): name or names to convert.
+            name(Union[str, list[str], tuple[str]]): name or names to convert.
 
         Returns:
-            Union[Union[str, list[str]], None]: A converted str, list[str], tuple[str] of variation's names.
+            (Union[Union[str, list[str]], None]): A converted str, list[str], tuple[str] of variation's names.
         """  
         if type(name) is str:
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
