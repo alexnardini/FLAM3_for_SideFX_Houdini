@@ -68,6 +68,10 @@ import nodesearch
 #                   It is something nice to try to implement at some point but as of now, it is not a deal breaker at all
 #                   and the current implementation of the UX is far more than enough to enjoy the fractal art workflow.
 #
+#               DOC-STRINGS
+#                   To distinguis @staticmethods from the class methods, the class methods doc-string Args alway start with the argument: (self):
+#                   This make it easier to distinguish them when typing their name while checking their infos.
+#
 
 
 FLAM3H_VERSION = '1.5.93'
