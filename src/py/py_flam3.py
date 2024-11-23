@@ -7825,6 +7825,33 @@ reset_CP_palette_action(self) -> None:
                     # The following definition use the default arg's value so it can set the proper ramp message if needed.
                     flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
                 
+            # CTRL - If we are just copying the preset name into the Palette name parameter
+            elif self.kwargs['ctrl']:
+                
+                filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+                if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
+                    
+                    # get current preset name
+                    if node.parm(CP_ISVALID_PRESET).eval():
+                        preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+                        menu_label: str = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
+                    else:
+                        preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
+                        menu_label: str = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
+                    
+                    # Remove the enumeration menu index string from the preset name.
+                    #
+                    # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
+                    # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+                    if node.parm(PREFS_ENUMERATE_MENU).eval(): preset = ':'.join(menu_label.split(':')[1:]).lstrip()
+                    else: preset = menu_label
+                    
+                    # SET the Palette name to the preset name
+                    if preset:
+                        node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset})
+                        flam3h_general_utils.flash_message(node, preset)
+                        
+                
             # ALT - If we are loading a palette from the clipboard
             elif self.kwargs['alt']:
                 

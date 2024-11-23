@@ -1357,9 +1357,9 @@ Save Palette:
     - ((LMB)) to save the current palette into the selected OUT file.
         - _If the selected file does not exist, it will be created_.
         - _If the selected file already contains some palettes, it will append the current one_.
-    - ((ALT)) + ((LMB)) to save the current palette into the clipboard.
-    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
+    - ((ALT)) + ((LMB)) to save the current palette into the clipboard.
 
     - If the selected file is not a valid Palette JSON file type, nothing will happen.
     
@@ -1411,8 +1411,9 @@ Reload preset:
     _Usage_:
     
     - ((LMB)) Reload the selected CP palette preset.
-    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* parameter.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
 
 
 :box:
