@@ -14005,9 +14005,9 @@ out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
 
 out_XML(self) -> None:
 
-__out_flame_data(self, prm_name='') -> str:
+__out_flame_data(self, prm_name: str='') -> str:
 
-__out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
+__out_flame_name(self, prm_name: Union[str, None]=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
 
 __out_xf_data(self, prm_name: str) -> tuple:
 
@@ -14031,9 +14031,11 @@ __out_palette_hex(self) -> str:
 
 __out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool]:
 
-__out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool]:
+__out_flame_data_flam3h_mb_val(self, prm_name: str='') -> Union[str, bool]:
 
 __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
+
+__out_flame_palette_lookup_samples(self) -> Union[str, bool]:
     """
 
     def __init__(self, kwargs: dict) -> None:
@@ -16157,7 +16159,17 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     This way they can be called elsewere anytime so to have this data always at hand.
     '''
     
-    def __out_flame_data(self, prm_name='') -> str:
+    def __out_flame_data(self, prm_name: str='') -> str:
+        """Prepare the OUT render data FLAM3H parameters into proper strings to be written out.
+        This will deal with tuple value (flame_size, flame_center, etc) as well with float values (flame_qiality, flame_rotate, etc).
+
+        Args:
+            (self):
+            prm_name(str): The name of the FLAM3H parameter to be prep into a string for writing out.
+
+        Returns:
+            (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
+        """    
         if prm_name:
             prm_type = False
             try:
@@ -16176,7 +16188,18 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
             return ''
 
 
-    def __out_flame_name(self, prm_name=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
+    def __out_flame_name(self, prm_name: Union[str, None]=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
+        """Prepare the Flame name string for the XML Flame name key
+        It will either use an automated one if no Flame name is provided or use the one provided by the user.
+        It will also auto add the iterations number to the string name if requested ("add iterations to Flame name" toggle ON)
+
+        Args:
+            (self):
+            prm_name(Union[str, None]=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME). The FLAM3H "Flame name" parameter name.
+
+        Returns:
+            (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
+        """    
         flame_name = self.node.parm(prm_name).eval()
         autoadd = self.node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
         
@@ -16189,31 +16212,81 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         
     def __out_xf_data(self, prm_name: str) -> tuple:
+        """Prepare the xform/iterator single value parameters into a proper string to be written out.
+
+        Args:
+            (self):
+            prm_name(str): The name of the FLAM3H parameter to be prep into a string for writing out.
+
+        Returns:
+            (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
+        """    
         val = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter+1}").eval())) for iter in range(self.iter_count)]
         return tuple(val)
 
 
     def __out_xf_name(self) -> tuple:
+        """Prepare each xform/iterator names/notes parameters for writing out.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple): tuple of all the FLAM3H names/notes prepped into strings for writing out into the Flame preset file.
+        """    
         val = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter+1}").eval() for iter in range(self._iter_count)]
         return tuple(val)
     
     
     def __out_finalxf_name(self) -> str:
+        """Prepare the FF xform/iterator name/note parameter for writing out.
+
+        Args:
+            (self):
+
+        Returns:
+            (str): The FLAM3H FF name/note prepped into strings for writing out into the Flame preset file.
+        """    
         FF_name = self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.main_note}").eval()
         return FF_name
 
     
     def __out_xf_pre_blur(self) -> tuple:
+        """Prepare each xform/iterator pre_blur parameters for writing out.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple): tuple of all the FLAM3H xforms/iterators pre_blur parameters prepped into strings for writing out into the Flame preset file.
+        """   
         val = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() > 0 else '' for iter in range(self.iter_count)]
         return tuple(val)
 
 
     def __out_xf_xaos(self) -> tuple:
+        """Prepare each xform/iterator xaos parameters for writing out.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple): tuple of all the FLAM3H xforms/iterators xaos parameters prepped into strings for writing out into the Flame preset file.
+        """   
         if self.xm: return self.out_xf_xaos_from(1)
         else: return self.out_xf_xaos_to()
 
 
     def __out_xf_preaffine(self) -> tuple[tuple, tuple, tuple]:
+        """Prepare each xform/iterator pre_affine parameters for writing out.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple[tuple, tuple, tuple]): tuple[tuple[flam3_affine], tuple[F3H_affine], tuple[F3H Rotation angle]]. tuple of all the FLAM3H xforms/iterators pre_affine parameters prepped into strings for writing out into the Flame preset file.
+        """   
         val = []
         f3h_val = []
         f3h_angleDeg = []
@@ -16229,6 +16302,15 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     def __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
+        """Prepare each xform/iterator post_affine parameters for writing out.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple[tuple, tuple, tuple]): tuple[tuple[str: flam3_affine], tuple[str: F3H_affine], tuple[str: F3H Rotation angle]]. tuple of all the FLAM3H xforms/iterators post_affine parameters prepped into strings for writing out into the Flame preset file.
+        """   
         val = []
         f3h_val = []
         f3h_angleDeg = []
@@ -16254,6 +16336,15 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 
 
     def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
+        """Prepare each FF/finalXform pre_affine parameters for writing out.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
+        """   
         collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg = str(angleDeg)
@@ -16268,6 +16359,15 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     def __out_finalxf_postaffine(self) -> tuple[str, str, str]:
+        """Prepare each FF/finalXform post_affine parameters for writing out.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+
+        Args:
+            (self):
+
+        Returns:
+            (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H FF/finalXform post_affine parameters prepped into strings for writing out into the Flame preset file.
+        """  
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
             collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
             angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
@@ -16288,7 +16388,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     
     def __out_palette_hex(self) -> str:
+        """Prepare the FLAM3H palette ramp parameter to be written out into the Flame preset file.
 
+        Args:
+            (self):
+
+        Returns:
+            (str): The FLAM3H palette prepped into a string and converted into hex values.
+        """  
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
         POSs = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
@@ -16300,7 +16407,14 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
     
     # custom to FLAM3H only
     def __out_flame_data_flam3h_hsv(self, prm_name=CP_RAMP_HSV_VAL_NAME) -> Union[str, bool]:
+        """Prepare the FLAM3H palette HSV parameter to be written out into the Flame preset file.
 
+        Args:
+            (self):
+
+        Returns:
+            (str): The FLAM3H palette HSV parameter prepped into a string.
+        """  
         if prm_name == CP_RAMP_HSV_VAL_NAME:
             # This is only for OUT ramp HSV vals.
             # If we are saving out a flame with the HSV ramp, 
@@ -16322,8 +16436,16 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
         
     # custom to FLAM3H only
-    def __out_flame_data_flam3h_mb_val(self, prm_name='') -> Union[str, bool]:
+    def __out_flame_data_flam3h_mb_val(self, prm_name: str='') -> Union[str, bool]:
+        """Prepare the FLAM3H motion blur single val parameter to be written out into the Flame preset file.
 
+        Args:
+            (self):
+            prm_name(str): The name of the FLAM3H motion blur parameter to be prep into a string for writing out.
+
+        Returns:
+            (str): The FLAM3H motion blur single val parameter prepped into a string.
+        """  
         if self.flam3h_mb_do:
             try: return self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
@@ -16335,11 +16457,30 @@ __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
         
     # custom to FLAM3H only
     def __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
+        """Prepare a FLAM3H toggle value to be written out into the Flame preset file.
+
+        Args:
+            (self):
+            toggle(bool): This data to be passed in is collected ahead of time inside class "out_flame_utils".
+
+        Returns:
+            (str): The FLAM3H toggle prepped into a string.
+        """  
         return str(toggle)
     
     
     # custom to FLAM3H only
     def __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
+        """Prepare the FLAM3H lookup samples to be written out into the Flame preset file.
+        It will check if palette 256+ is active and if so if the number of palette color keys are enough to use higher samples or not.
+        IF plaette 256+ toggle is off, it will check if the user is using a lookup sample value different from default and store it if so.
+        
+        Args:
+            (self):
+
+        Returns:
+            (str): The FLAM3H lookup samples for this Flame prepped into a string.
+        """  
         if self.palette_plus_do:
             keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
             if self.flam3h_cp_lookup_samples > int(keys): keys = str(self.flam3h_cp_lookup_samples)
