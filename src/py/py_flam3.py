@@ -15730,7 +15730,6 @@ __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         iter_VAR_dup = {}
         if iter_VAR is not False:
             assert isinstance(iter_VAR, dict)
-            
             for iter in range(iter_count):
                 key = str(iter+1)
                 vars = iter_VAR.get(key)
