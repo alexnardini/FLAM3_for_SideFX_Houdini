@@ -11750,26 +11750,20 @@ reset_IN(self, mode: int=0) -> None:
                 menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                if toggle_PREFS_ENUMERATE_MENU:
-                    return ':'.join(str(menu_label).split(':')[1:]).lstrip()
-                else:
-                    return menu_label
+                if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                else: return menu_label
             else:
                 menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                if toggle_PREFS_ENUMERATE_MENU:
-                    return ':'.join(str(menu_label).split(':')[1:]).lstrip()
-                else:
-                    return menu_label
+                if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                else: return menu_label
         else:
             menu_label = str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
             # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
             # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-            if toggle_PREFS_ENUMERATE_MENU:
-                return ':'.join(str(menu_label).split(':')[1:]).lstrip()
-            else:
-                return menu_label
+            if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
+            else: return menu_label
     
     
     @staticmethod
