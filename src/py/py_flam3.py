@@ -69,7 +69,7 @@ import nodesearch
 #                   and the current implementation of the UX is far more than enough to enjoy the fractal art workflow.
 #
 #               DOC-STRINGS
-#                   To distinguish class @staticmethods from the class @methods, the class methods doc-string Args list alway start with the argument: (self):
+#                   To distinguish class @staticmethods from the class @methods, the class methods doc-string Args list always start with the argument: (self):
 #                   This make it easier to distinguish them when typing their name while checking their infos.
 #
 
@@ -855,7 +855,7 @@ flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: 
 
 METHODS:
 
-flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG=True) -> None:
+flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 
 flam3h_on_create_set_houdini_session_data(self) -> None:
 
@@ -3054,7 +3054,7 @@ auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: Union[list, tuple]) -> No
 
 auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) -> None:
 
-flam3h_on_load_opacity_zero(node: hou.SopNode) -> None:
+flam3h_on_load_opacity_zero(node: hou.SopNode, f3h_all: bool=False) -> None:
 
 destroy_cachedUserData(node, data: str, must_exist: bool=False) -> None:
 
@@ -3114,7 +3114,7 @@ menu_select_iterator(self) -> list:
 
 prm_select_iterator(self) -> None:
 
-flam3h_paste_reset_hou_session_data(self) -> None:
+flam3h_paste_reset_hou_session_data(self, hipLoad: bool=False) -> None:
 
 __menu_global_density(self) -> list:
 
@@ -9226,11 +9226,11 @@ class _xml_tree
 
 STATIC METHODS:
 
-xmlfile_root_chk(xmlfile: Union[str, None], clipboard=False) -> Union[str, None]:
+xmlfile_root_chk(xmlfile: Union[str, None], clipboard: bool=False) -> Union[str, None]:
 
 METHODS:
 
-get_name(self, key=XML_XF_NAME) -> tuple:
+get_name(self, key: str=XML_XF_NAME) -> tuple:
 
 __get_name_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
 
@@ -9238,7 +9238,7 @@ __get_name_curve_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple
 
 __get_name_list_str(self, key: str) -> tuple:
 
-__get_flame(self, key=XML_FLAME_NAME) -> Union[tuple, None]:
+__get_flame(self, key: str=XML_FLAME_NAME) -> Union[tuple, None]:
 
 __get_flame_count(self, flames: list) -> int:
 
@@ -10435,7 +10435,7 @@ in_get_xforms_var_keys( xforms: Union[tuple, None],
                         exclude_keys: tuple
                         ) -> Union[list[str], None]:
                         
-in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str='pre_gaussian_blur') -> Union[list, None]:
+in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str) -> Union[list, None]:
                             
 in_util_removeprefix(var_name: str, prefix: str) -> str:
 
@@ -13891,7 +13891,7 @@ class out_flame_utils
 
 STATIC METHODS:
 
-out_render_curves_set_defaults(node: hou.SopNode) -> None:
+out_render_curves_set_data_defaults(node: hou.SopNode) -> None:
 
 out_render_curves_retrive_data(node: hou.SopNode) -> None:
 
@@ -13911,7 +13911,7 @@ out_remove_iter_num(flame_name: str) -> str:
 
 out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 
-out_util_round_float(val) -> str:
+out_util_round_float(val: float) -> str:
 
 out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
 
@@ -13983,7 +13983,7 @@ out_auto_add_iter_num_to_prm(self) -> None:
 
 out_auto_change_iter_num_to_prm(self) -> None:
 
-out_flame_properties_build(self) -> dict:
+out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
 
 out_flam3_compatibility_check_and_msg(self) -> bool:
                                       
