@@ -14247,6 +14247,7 @@ __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         if name:
             
             splt = ':'
+            # Prep an automate Flame/Palette name if no name is provided
             if flame: name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
             else: name_new = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
             
