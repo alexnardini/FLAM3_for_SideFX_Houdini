@@ -3760,7 +3760,6 @@ iterator_vactive_and_update(self) -> None:
             However, is not causing any problem and I leave it here for now.
 
         Args:
-            self (hou.SopNode): FLAM3H node
             data (Union[list, tuple]): The actual data to set.
 
         Returns:
@@ -3782,7 +3781,6 @@ iterator_vactive_and_update(self) -> None:
     Note that all the data will be of type: string.
 
         Args:
-            self (hou.SopNode): FLAM3H node
             data (Union[list, tuple]): The actual data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
 
         Returns:
